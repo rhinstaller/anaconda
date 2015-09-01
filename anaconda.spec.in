@@ -305,6 +305,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 31 2015 Brian C. Lane <bcl@redhat.com> - 24.1-1
+- Add a test for the user and group creation functions. (dshea)
+- Get rid of libuser. (#1255066) (dshea)
+- s/$releasever/rawhide/ (clumens)
+- LVM on RAID kickstart test (vpodzime)
+- unbuffered read in python3 only works for binary (bcl)
+- don't crash if no environment set in interactive (#1257036) (awilliam)
+- network: compare with ssid bytes, not str (rvykydal)
+- Add dependencies for running the tests/gui tests (atodorov)
+- Fix first run environment setup in software spoke (#1257036) (jkonecny)
+- Stop pretending liveinst+rescue is supported (#1256061). (clumens)
+- Defer to Fedora distro-wide settings for password strength (#1250746) (dshea)
+- New Anaconda documentation - 24.0 (bcl)
+- Do a better job reporting failures from kickstart_tests. (clumens)
+- Preserve coverage results from running the kickstart_tests. (clumens)
+
 * Mon Aug 24 2015 Brian C. Lane <bcl@redhat.com> - 24.0-1
 - Remove from the docs repo=hd installation with installable tree (jkonecny)
 - Fix a race between a window continuing and the next starting (#1004477)
