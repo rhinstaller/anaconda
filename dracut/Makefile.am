@@ -43,9 +43,10 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      anaconda-pre-shutdown.sh \
 		      parse-anaconda-dd.sh \
 		      fetch-driver-net.sh \
-		      driver-updates@.service \
 		      driver-updates-genrules.sh \
 		      anaconda-depmod.sh \
 		      driver_updates.py
+
+dist_dracut_DATA = driver-updates@.service
 
 MAINTAINERCLEANFILES = Makefile.in
