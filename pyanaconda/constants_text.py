@@ -24,5 +24,6 @@ from pyanaconda.constants import *
 INPUT_PROCESSED = None
 INPUT_DISCARDED = False
 
-# default screen height in number of lines (24 lines is the default for serial consoles)
-DEFAULT_SCREEN_HEIGHT = 24
+# default screen height in number of lines (24 lines is the default for serial
+# consoles + 1 line for the tmux bar)
+DEFAULT_SCREEN_HEIGHT = 23
