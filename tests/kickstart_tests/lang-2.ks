@@ -1,0 +1,43 @@
+#version=DEVEL
+url --mirror=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-rawhide&arch=$basearch
+install
+network --bootproto=dhcp
+
+bootloader --timeout=1
+zerombr
+clearpart --all --initlabel
+autopart
+
+keyboard ara
+lang ar_EG.UTF-8
+timezone America/New_York --utc
+rootpw testcase
+shutdown
+
+%packages
+@^xfce-desktop-environment
+%end
+
+%post
+count=$(rpm -qa kacst\* | wc -l)
+if [[ $count -lt 5 ]]; then
+    echo '*** kacst packages were not installed' >> /root/RESULT
+    exit 1
+fi
+
+LANG="ar_EG.UTF-8"
+
+INSTLANG=`cat /etc/locale.conf | awk -F\" '{ print $2 }'`
+
+if [[ "$INSTLANG" != "$LANG" ]]; then
+    echo '*** specified language was not set' >> /root/RESULT
+fi
+
+if ! grep -q "langpack_locales=$LANG" /etc/dnf/plugins/langpacks.conf; then
+    echo '*** /etc/dnf/plugins/langpacks.conf was not set up' >> /root/RESULT
+fi
+
+if [[ ! -e /root/RESULT ]]; then
+    echo SUCCESS > /root/RESULT
+fi
+%end
