@@ -23,6 +23,9 @@ group --name=kosygroup --gid=5001
 # Create specific user
 user --name=kosieh --gecos="Kosieh Barter" --homedir=/home/kbarter --password="$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/" --iscrypted --shell=/bin/bash --uid=4001 --gid=5001
 
+# Give that user a (bogus) ssh key.
+sshkey --username=kosieh "this is a bogus ssh key"
+
 shutdown
 
 %packages
@@ -83,6 +86,25 @@ fi
 cat /etc/passwd | grep kosieh | grep /home/kbarter
 if [[ $? -ne 0 ]]; then
     echo "*** Home directory not in passwd file" >> /root/RESULT
+fi
+
+# Check that an ssh key was added.
+if [[ ! -f /home/kbarter/.ssh/authorized_keys ]]; then
+    echo "*** .authorized_keys not created" >> /root/RESULT
+fi
+
+perms="$(stat --format='%u %g %a' /home/kbarter/.ssh)"
+if [[ "${perms}" != "4001 5001 700" ]]; then
+    echo "*** /home/kbarter/.ssh does not have the right permissions; got " ${perms} >> /root/RESULT
+fi
+
+perms="$(stat --format='%u %g %a' /home/kbarter/.ssh/authorized_keys)"
+if [[ "${perms}" != "4001 5001 600" ]]; then
+    echo "*** /home/kbarter/.ssh/authorized_keys does not have the right permissions; got " ${perms} >> /root/RESULT
+fi
+
+if [[ "$(cat /home/kbarter/.ssh/authorized_keys)" != "this is a bogus ssh key" ]]; then
+    echo "*** .authorized_keys doesn't have the right contents" >> /root/RESULT
 fi
 
 # Final check
