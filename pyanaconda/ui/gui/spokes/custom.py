@@ -2585,6 +2585,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                "<a href=\"\">Click for details.</a>"))
             return
 
+        # set the passphrase also to the originalFormat of the device (a
+        # different object than '.format', but the same contents)
+        device.originalFormat.passphrase = passphrase
         log.info("unlocked %s, now going to populate devicetree...", device.name)
         with ui_storage_logger():
             luks_dev = LUKSDevice(device.format.mapName,
