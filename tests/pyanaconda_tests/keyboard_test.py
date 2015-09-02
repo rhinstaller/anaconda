@@ -39,6 +39,11 @@ class ParsingAndJoiningTests(unittest.TestCase):
         self.assertEqual(layout, "cz")
         self.assertEqual(variant, "")
 
+        # a valid layout variant spec containing a slash
+        layout, variant = keyboard.parse_layout_variant("nec_vndr/jp")
+        self.assertEqual(layout, "nec_vndr/jp")
+        self.assertEqual(variant, "")
+
         # an invalid layout variant spec (missing layout)
         with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
             layout, variant = keyboard.parse_layout_variant("")
