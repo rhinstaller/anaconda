@@ -35,55 +35,54 @@ shutdown
 
 ## TEST CREATE USER CHECK
 # Check group
-cat /etc/group | grep 5001
+grep 5001 /etc/group
 if [[ $? -ne 0 ]]; then
     echo "*** Group failed to create." >> /root/RESULT
 fi
 
 # Check group name
-cat /etc/group | grep kosygroup
+grep kosygroup /etc/group
 if [[ $? -ne 0 ]]; then
     echo "*** Group name not present." >> /root/RESULT
 fi
 
 # Check find username
-cat /etc/passwd | grep kosieh
+grep kosieh /etc/passwd
 if [[ $? -ne 0 ]]; then
     echo "*** User is not present in system." >> /root/RESULT
 fi
 
 # Check GEDOS: real name
-cat /etc/passwd | grep kosieh | grep "Kosieh Barter"
+grep kosieh /etc/passwd | grep "Kosieh Barter"
 if [[ $? -ne 0 ]]; then
     echo "*** User is present, but not all details: REAL NAME (GEDOS)" >> /root/RESULT
 fi
 
 # Check if the user has his/her bash
-cat /etc/passwd | grep kosieh | grep "/bin/bash"
+grep kosieh /etc/passwd | grep "/bin/bash"
 if [[ $? -ne 0 ]]; then
     echo "*** User is present, but /bin/bash is not set" >> /root/RESULT
 fi
 
 # Check if the user has encrypted password
-cat /etc/shadow | grep kosieh | grep "$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/"
+grep kosieh /etc/shadow | grep "$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/"
 if [[ $? -ne 0 ]]; then
     echo "*** User is present, passwords DO NOT match" >> /root/RESULT
 fi
 
 # Check if the user is in correct group
-cat /etc/passwd | grep kosieh |  grep 5001
+grep kosieh /etc/passwd | grep 5001
 if [[ $? -ne 0 ]]; then
     echo "*** User is present, group assignment" >> /root/RESULT
 fi
 
 # Check if the user has PHYSICAL home dir
-ls /home/ | grep kbarter
-if [[ $? -ne 0 ]]; then
+if [[ ! -d /home/kbarter ]]; then
     echo "*** Home directory not found" >> /root/RESULT
 fi
 
 # Check for home dir in /etc/passwd
-cat /etc/passwd | grep kosieh | grep /home/kbarter
+grep /home/kbarter /etc/passwd
 if [[ $? -ne 0 ]]; then
     echo "*** Home directory not in passwd file" >> /root/RESULT
 fi
