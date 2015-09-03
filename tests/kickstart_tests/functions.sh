@@ -58,3 +58,7 @@ validate() {
 
     return ${status}
 }
+
+cleanup() {
+    tmpdir=$1
+}

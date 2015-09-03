@@ -33,7 +33,7 @@
 IMAGE=
 KEEPIT=0
 
-cleanup() {
+cleanup_tmp() {
     d=$1
 
     # Always remove the copy of the boot.iso.
@@ -74,6 +74,7 @@ runone() {
     if [[ $? != 0 ]]; then
         echo RESULT:${name}:FAILED:Test prep failed: ${ksfile}
         cleanup ${tmpdir}
+        cleanup_tmp ${tmpdir}
         return 1
     fi
 
@@ -98,11 +99,13 @@ runone() {
     if [[ -f ${tmpdir}/virt-install.log && "$(grep CRIT ${tmpdir}/virt-install.log)" != "" ]]; then
         echo RESULT:${name}:FAILED:$(grep CRIT ${tmpdir}/virt-install.log)
         cleanup ${tmpdir}
+        cleanup_tmp ${tmpdir}
         return 1
     elif [[ -f ${tmpdir}/livemedia.log ]]; then
         if [[ "$(grep 'due to timeout' ${tmpdir}/livemedia.log)" != "" ]]; then
             echo RESULT:${name}:FAILED:Test timed out.
             cleanup ${tmpdir}
+            cleanup_tmp ${tmpdir}
             return 2
         fi
 
@@ -110,12 +113,14 @@ runone() {
         if [[ $? != 0 ]]; then
             echo RESULT:${name}:FAILED:"${result}"
             cleanup ${tmpdir}
+            cleanup_tmp ${tmpdir}
             return 1
         fi
     fi
 
     echo RESULT:${name}:SUCCESS
     cleanup ${tmpdir}
+    cleanup_tmp ${tmpdir}
     return 0
 }
 
