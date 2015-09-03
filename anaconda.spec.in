@@ -305,6 +305,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 03 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 23.19.2-1
+- Verify Initial Setup services are present before turning them ON/OFF
+  (#1252444) (mkolman)
+- Don't crash if the Japanese PC-98 keyboard is selected (#1190589) (mkolman)
+- Fix the single-spoke TUI message for Python 3. (dshea)
+- Fix a bash error in kickstart-genrules.sh (#1057271) (sbueno+anaconda)
+- Run nm-connection-editor with the --keep-above flag (#1231856) (mkolman)
+- Add a test for the user and group creation functions. (dshea)
+- Get rid of libuser. (#1255066) (dshea)
+- unbuffered read in python3 only works for binary (bcl)
+- don't crash if no environment set in interactive (#1257036) (awilliam)
+- Fix first run environment setup in software spoke (#1257036) (jkonecny)
+- Defer to Fedora distro-wide settings for password strength (#1250746) (dshea)
+- Remove from the docs repo=hd installation with installable tree (jkonecny)
+- Fix a race between a window continuing and the next starting (#1004477)
+  (dshea)
+- Start hubs with the buttons insensitive. (dshea)
+- Do not replace the standard streams if not necessary. (dshea)
+- Fix inst.repo=hd: is not working (#1252902) (jkonecny)
+- Don't crash if incorrect environment is set in kickstart (#1234890) (mkolman)
+- Fix I/O issues when anaconda is started without a locale. (dshea)
+- Move locale environment logic into localization.py (dshea)
+
 * Thu Aug 20 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 23.19.1-1
 - Destroy the keyboard layout dialog when finished (#1254150) (dshea)
 - Do not encode the geoloc timezone to bytes (#1240812) (dshea)
