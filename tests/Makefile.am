@@ -53,8 +53,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     install/run_install_test.sh \
 		     $(srcdir)/kickstart_tests/*.ks \
 		     $(srcdir)/kickstart_tests/*.sh \
-		     $(srcdir)/kickstart_tests/*.py \
-		     $(srcdir)/kickstart_tests/kstest-runner \
+		     $(srcdir)/kickstart_tests/scripts/* \
 		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
 		     $(srcdir)/gui/inside/*.py \
@@ -72,7 +71,7 @@ TESTS = nosetests.sh \
 	gettext/contexts.py \
 	storage/run_storage_tests.py \
 	glade/run_glade_tests.sh \
-	kickstart_tests/run_kickstart_tests.sh
+	kickstart_tests/scripts/run_kickstart_tests.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d
