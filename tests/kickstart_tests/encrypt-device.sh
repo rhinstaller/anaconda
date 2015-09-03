@@ -25,6 +25,10 @@ validate() {
     disksdir=$1
     args=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
 
+    # Grab the coverage results out of the installed system while it still
+    # exists.
+    virt-copy-out ${args} /root/anaconda.coverage ${disksdir}
+
     # There should be a /home/RESULT (because / is encrypted) file with results
     # in it.  Check its contents and decide whether the test finally succeeded
     # or not.
