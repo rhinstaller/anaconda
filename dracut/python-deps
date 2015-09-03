@@ -26,7 +26,9 @@ from distutils.sysconfig import get_python_lib, get_config_var, get_makefile_fil
 sitedir = get_python_lib()
 libdir = get_config_var('LIBDEST')
 
-alsoNeeded = dict()
+# stringprep is needed by the idna encoding, and idna is needed by requests.
+# The encoding import is implicit so ModuleFinder doesn't find it right.
+alsoNeeded = {sitedir+"/requests/__init__.py": libdir+"/stringprep.py"}
 
 # A couple helper functions...
 def moduledir(pyfile):
