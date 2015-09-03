@@ -30,11 +30,6 @@ prepare() {
         return 1
     fi
 
-    if [[ "${KSTEST_ADDON_HTTP_REPO}" == "" ]]; then
-        echo \$KSTEST_ADDON_HTTP_REPO is not set.
-        return 1
-    fi
-
     if [[ "${KSTEST_NFS_SERVER}" == "" ]]; then
         echo \$KSTEST_NFS_SERVER is not set
         return 1
@@ -45,9 +40,25 @@ prepare() {
         return 1
     fi
 
+    scriptdir=$(pwd)/kickstart_tests/scripts
+
+    # Create the test repo
+    PYTHONPATH=$(pwd)/lib:$PYTHONPATH ${scriptdir}/make-addon-pkgs.py $tmpdir
+
+    # Start a http server to serve the test repo
+    start_httpd ${tmpdir}/http ${tmpdir}
+
     sed -e "s|NFS-SERVER|${KSTEST_NFS_SERVER}|" \
         -e "s|NFS-PATH|${KSTEST_NFS_PATH}|" \
         -e "s|NFS-ADDON-REPO|${KSTEST_ADDON_NFS_REPO}|" \
-        -e "s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
+        -e "s|HTTP-ADDON-REPO|${httpd_url}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
+}
+
+cleanup() {
+    tmpdir=$1
+
+    if [ -f ${tmpdir}/httpd-pid ]; then
+        kill $(cat ${tmpdir}/httpd-pid)
+    fi
 }
