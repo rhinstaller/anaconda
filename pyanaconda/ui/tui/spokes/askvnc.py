@@ -105,7 +105,11 @@ class AskVNCSpoke(NormalTUISpoke):
             d = YesNoDialog(self.app, _(self.app.quit_message))
             self.app.switch_screen_modal(d)
             if d.answer:
-                execWithRedirect("systemctl", ["--no-wall", "reboot"])
+                from pyanaconda.flags import can_touch_runtime_system
+                if can_touch_runtime_system("reboot"):
+                    execWithRedirect("systemctl", ["--no-wall", "reboot"])
+                else:
+                    sys.exit(1)
         else:
             return key
 
