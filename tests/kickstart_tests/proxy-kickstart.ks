@@ -19,7 +19,7 @@ shutdown
 %end
 
 # Start the proxy server
-%include proxy-common.ks
+%include scripts/proxy-common.ks
 
 %post --nochroot
 # Look for the following as evidence that a proxy was used:

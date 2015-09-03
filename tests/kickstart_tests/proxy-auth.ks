@@ -19,7 +19,7 @@ shutdown
 %end
 
 # Start the proxy server
-%include proxy-common.ks
+%include scripts/proxy-common.ks
 
 # Set a password on the proxy server
 %pre
