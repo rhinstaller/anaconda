@@ -61,7 +61,7 @@ for gf in git_iter:
     # If the file is being renamed, the target filename (which we want) is on
     # the current line, and the next line is the source, which we want to skip
     if gf[0] == 'R':
-        git_iter.next()
+        next(git_iter)
 
     if is_python(gf[3:]):
         pylint_names.append(gf[3:])
