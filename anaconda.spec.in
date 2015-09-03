@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 02 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.41-1
+- Enforce sane disk selections. (dlehman)
+  Resolves: rhbz#1254548
+
 * Tue Sep 01 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.40-1
 - Skip OEMDRV if interactive DD is requested (bcl)
   Related: rhbz#1254270
