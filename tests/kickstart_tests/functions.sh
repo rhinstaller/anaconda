@@ -1,8 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2015  Red Hat, Inc.
-#
-# This copyrighted material is made available to anyone wishing to use,
+# # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
 # the GNU General Public License v.2, or (at your option) any later version.
 # This program is distributed in the hope that it will be useful, but WITHOUT
@@ -11,8 +10,7 @@
 # Public License for more details.  You should have received a copy of the
 # GNU General Public License along with this program; if not, write to the
 # Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
-# source code or documentation are not subject to the GNU General Public
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
@@ -61,4 +59,26 @@ validate() {
 
 cleanup() {
     tmpdir=$1
+}
+
+start_httpd() {
+    local httpd_root=$1
+    local tmpdir=$2
+
+    # Starts a http server rooted in $httpd_root. The PID of the server will be
+    # written to $tmpdir/httpd-pid, and the URL for the server will be set in
+    # $httpd_url
+
+    local scriptdir=${PWD}/kickstart_tests/scripts
+    local httpd_info="$(${scriptdir}/httpd.py "${httpd_root}")"
+
+    # Parse out the port and PID
+    local httpd_port="$(echo "$httpd_info" | cut -d ' ' -f 1)"
+    local httpd_pid="$(echo "$httpd_info" | cut -d ' ' -f 2)"
+
+    # Save the PID
+    echo "${httpd_pid}" > ${tmpdir}/httpd-pid
+
+    # Construct a URL
+    httpd_url="http://$(${scriptdir}/find-ip):${httpd_port}/"
 }
