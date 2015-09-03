@@ -25,14 +25,25 @@ prepare() {
     ks=$1
     tmpdir=$2
 
-    if [[ "${KSTEST_ADDON_HTTP_REPO}" == "" ]]; then
-        echo \$KSTEST_ADDON_HTTP_REPO is not set.
-        return 1.
-    fi
+    scriptdir=$PWD/kickstart_tests/scripts
+
+    # Create the test repo
+    PYTHONPATH=$PWD/lib:$PYTHONPATH ${scriptdir}/make-addon-pkgs.py $tmpdir
+
+    # Start a http server to serve the test repo
+    start_httpd ${tmpdir}/http $tmpdir
 
     # Flatten the kickstart to include the proxy %pre script
     ( cd "$(dirname ${ks})" && ksflatten -o ${tmpdir}/kickstart.ks -c "$(basename $ks)" )
 
-    sed -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${tmpdir}/kickstart.ks > ${tmpdir}/kickstart-repo.ks
+    sed -e "/^repo/ s|HTTP-ADDON-REPO|${httpd_url}|" ${tmpdir}/kickstart.ks > ${tmpdir}/kickstart-repo.ks
     echo ${tmpdir}/kickstart-repo.ks
+}
+
+cleanup() {
+    tmpdir=$1
+
+    if [ -f ${tmpdir}/httpd-pid ]; then
+        kill $(cat ${tmpdir}/httpd-pid)
+    fi
 }
