@@ -314,6 +314,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 03 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.42-1
+- Remove a call to execute in storage thread to avoid a threading disaster.
+  (sbueno+anaconda)
+  Resolves: rhbz#1245268
+- Remove a rogue reference to self.back_clicked. (clumens)
+  Related: rhbz#1254548
+- Fix a typo in service enablement in kickstart.py. (clumens)
+  Related: rhbz#1252444
+- Verify Initial Setup services are present before turning them ON/OFF
+  (mkolman)
+  Resolves: rhbz#1252444
+- Set both .format's and .originalFormat's passphrase on unlock (vpodzime)
+  Resolves: rhbz#1255679
+- Make the Encrypt checkbox insensitive for encrypted non-BTRFS devices
+  (vpodzime)
+  Related: rhbz#1255679
+- Make the default screen height yet one line shorter (vpodzime)
+  Resolves: rhbz#1184378
+- Don't crash if the Japanese PC-98 keyboard is selected (mkolman)
+  Resolves: rhbz#1190589
+
 * Wed Sep 02 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.41-1
 - Enforce sane disk selections. (dlehman)
   Resolves: rhbz#1254548
