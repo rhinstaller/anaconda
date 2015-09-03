@@ -34,6 +34,7 @@ from gi.repository import Gtk
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.i18n import _, N_, C_, CN_
 from pyanaconda.flags import flags as anaconda_flags
+from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
@@ -1398,6 +1399,18 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     icon = "network-transmit-receive-symbolic"
 
     category = SystemCategory
+
+    @classmethod
+    def should_run(cls, environment, data):
+        # the network spoke should run always in the anaconda and also
+        # always in Initial Setup due to Subscription Manager addon
+        # needing a means of (re)configuring network connectivity
+        if environment == ANACONDA_ENVIRON:
+            return True
+        elif environment == FIRSTBOOT_ENVIRON:
+            return True
+        else:
+            return False
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
