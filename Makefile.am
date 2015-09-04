@@ -229,6 +229,9 @@ bare-ci:
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh \
 		PYTHONUSERBASE=$(USER_SITE_BASE) check
+	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=storage/run_storage_tests.py \
+		PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@mkdir -p repo
 	@mv $(RPM_BUILD_DIR)/*rpm repo
 	@createrepo_c -p repo
