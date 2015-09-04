@@ -17,7 +17,8 @@
 
 __all__ = ["PartitionReuse_TestCase", "LVMReuse_TestCase", "BTRFSReuse_TestCase", "ThinpReuse_TestCase"]
 
-from . import TestCase, ReusableTestCaseComponent, ReusingTestCaseComponent
+from . import TestCase, ReusableTestCaseComponent, ReusingTestCaseComponent, \
+    LVMReusableTestCaseComponent, LVMReusingTestCaseComponent
 from blivet.size import Size
 
 class FirstPartitionAutopartComponent(ReusableTestCaseComponent):
@@ -61,7 +62,7 @@ result of a previous installation with partition-based autopart works.
 
         self.components = [first, second]
 
-class FirstLVMAutopartComponent(ReusableTestCaseComponent):
+class FirstLVMAutopartComponent(LVMReusableTestCaseComponent):
     name = "FirstLVMAutopart"
 
     def __init__(self, *args, **kwargs):
@@ -77,7 +78,7 @@ clearpart --all --initlabel
 autopart --type=lvm
 """
 
-class SecondLVMAutopartComponent(ReusingTestCaseComponent):
+class SecondLVMAutopartComponent(LVMReusingTestCaseComponent):
     name = "SecondLVMAutopart"
 
     @property
@@ -143,7 +144,7 @@ result of a previous installation with BTRFS-based autopart works.
 
         self.components = [first, second]
 
-class FirstThinpAutopartComponent(ReusableTestCaseComponent):
+class FirstThinpAutopartComponent(LVMReusableTestCaseComponent):
     name = "FirstThinpAutopart"
 
     def __init__(self, *args, **kwargs):
@@ -159,7 +160,7 @@ clearpart --all --initlabel
 autopart --type=thinp
 """
 
-class SecondThinpAutopartComponent(ReusingTestCaseComponent):
+class SecondThinpAutopartComponent(LVMReusingTestCaseComponent):
     name = "SecondThinpAutopart"
 
     @property

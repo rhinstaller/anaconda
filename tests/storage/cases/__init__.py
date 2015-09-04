@@ -31,6 +31,7 @@ from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.installclass import factory
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
 from pykickstart.errors import KickstartError
+from gi.repository import BlockDev as blockdev
 
 class FailedTest(Exception):
     def __init__(self, got, expected):
@@ -245,6 +246,12 @@ class ReusableTestCaseComponent(TestCaseComponent):
         # use them.
         self._storage.devicetree.teardown_disk_images()
 
+class LVMReusableTestCaseComponent(ReusableTestCaseComponent):
+    def tearDownDisks(self):
+        # first deactivate VGs before destroying the disks
+        blockdev.lvm.vgdeactivate("blivet")
+        ReusableTestCaseComponent.tearDownDisks(self)
+
 class ReusingTestCaseComponent(TestCaseComponent):
     """A version of TestCaseComponent that reuses existing disk images
        rather than create its own.  It will, however, delete these disk images
@@ -307,3 +314,9 @@ class ReusingTestCaseComponent(TestCaseComponent):
             self._storage.disk_images[name] = image
 
         self._storage.reset()
+
+class LVMReusingTestCaseComponent(ReusingTestCaseComponent):
+    def tearDownDisks(self):
+        # first deactivate VGs before destroying the disks
+        blockdev.lvm.vgdeactivate("blivet")
+        ReusingTestCaseComponent.tearDownDisks(self)
