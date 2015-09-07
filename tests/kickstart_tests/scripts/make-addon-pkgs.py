@@ -20,22 +20,35 @@
 
 # This script creates all the packages used by nfs-repo-and-addon.ks.
 # The packages are created in two directories, http and nfs. After all the rpms
-# are made just copy everything to the locations set in $KSTEST_ADDON_HTTP_REPO
-# and $KSTEST_ADDON_NFS_REPO.
+# are made just copy everything to the location set in $KSTEST_ADDON_NFS_REPO
+# and the root of the http addon repo server.
+#
+# If a directory argument is given on the command line, the script will change
+# to that directory and create the repos there.
 #
 # This script imports things from tests/lib/mkdud.py, so tests/lib needs to be
 # in $PYTHONPATH.
 
 # Ignore interuptible calls
-# pylint: disable=interruptible-system-call
+# pylint: disable=interruptible-system-call, ignorable-system-call
 
 import os
 from subprocess import check_call
 from mkdud import make_rpm
 import rpmfluff
+import sys
+
+if len(sys.argv) > 1:
+    os.chdir(sys.argv[1])
 
 # Start with http
 os.mkdir('http')
+
+# Everything in this script is super-noisy, which is bad for callers trying
+# to keep a sensible stdout. dup stdout to /dev/null to shut up the parts
+# that break kickstart test prepare(), and leave stderr so we can maybe see
+# what went wrong if something goes wrong
+os.dup2(os.open(os.devnull, os.O_WRONLY), 1)
 
 # Empty package to be added to @core
 pkg = rpmfluff.SimpleRpmBuild('testpkg-http-core', '1.0', '1')

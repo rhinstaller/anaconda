@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Copyright (C) 2015  Red Hat, Inc.
 #
@@ -17,33 +18,9 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
-TESTTYPE="method proxy"
+# Print something that looks like an externally accessible IPv4 address.
 
-. ${KSTESTDIR}/functions.sh
-
-prepare() {
-    ks=$1
-    tmpdir=$2
-
-    scriptdir=$(pwd)/kickstart_tests/scripts
-
-    # Create the test repo
-    PYTHONPATH=$(pwd)/lib:$PYTHONPATH ${scriptdir}/make-addon-pkgs.py $tmpdir
-
-    # Start a http server to serve the test repo
-    start_httpd ${tmpdir}/http ${tmpdir}
-
-    # Flatten the kickstart to include the proxy %pre script
-    ( cd "$(dirname ${ks})" && ksflatten -o ${tmpdir}/kickstart.ks -c "$(basename $ks)" )
-
-    sed -e "/^repo/ s|HTTP-ADDON-REPO|${httpd_url}|" ${tmpdir}/kickstart.ks > ${tmpdir}/kickstart-repo.ks
-    echo ${tmpdir}/kickstart-repo.ks
-}
-
-cleanup() {
-    tmpdir=$1
-
-    if [ -f ${tmpdir}/httpd-pid ]; then
-        kill $(cat ${tmpdir}/httpd-pid)
-    fi
-}
+ip addr list | \
+    grep '^[[:space:]]*inet\>.*scope global' | \
+    head -1 | \
+    sed 's/^[[:space:]]*inet \([[:digit:].]*\).*/\1/'
