@@ -14,8 +14,15 @@ else
     DD_OEMDRV="LABEL=OEMDRV"
 fi
 
+DD_DISK=""
+if [ -f /tmp/dd_disk ]; then
+    DD_DISK=$(cat /tmp/dd_disk)
+else
+    debug_msg "/tmp/dd_disk file was not created"
+fi
+
 # Run driver-updates for LABEL=OEMDRV and any other requested disk
-for dd in $DD_OEMDRV $(cat /tmp/dd_disk); do
+for dd in $DD_OEMDRV $DD_DISK; do
     when_diskdev_appears "$(disk_to_dev_path $dd)" \
         driver-updates --disk $dd \$devnode
 done
