@@ -48,6 +48,18 @@ if [ -z "$root_lv_entry" -a -z "$root_uuid_entry" ] ; then
     echo "*** root LV is not the root entry in /etc/fstab" >> /root/RESULT
 fi
 
+# verify size of root lv
+root_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/root | sed -r 's/\s*([0-9]+)\..*/\1/')
+if [ $root_lv_size -le 4000 ]; then
+    echo "*** root lv has incorrect size" >> /root/RESULT
+fi
+
+# verify size of home lv
+home_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/home | sed -r 's/\s*([0-9]+)\..*/\1/')
+if [ $home_lv_size -le 1000 ]; then
+    echo "*** home lv has incorrect size" >> /result/RESULT
+fi
+
 # verify swap on lvm is active
 swap_lv="/dev/mapper/fedora-swap"
 swap_uuid="UUID=$(blkid -o value -s UUID "$swap_lv")"
@@ -64,11 +76,16 @@ if [ -z "$swap_lv_entry" -a -z "$swap_uuid_entry" ] ; then
 fi
 
 # verify size of swap lv
-# FIXME: this is not true now!
-# swap_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/swap)
-# if [ "$swap_lv_size" != "500.00" ]; then
-#     echo "*** swap lv has incorrect size" >> /root/RESULT
-# fi
+swap_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/swap | sed -r 's/\s*([0-9]+)\..*/\1/')
+if [ "$swap_lv_size" != "500" ]; then
+    echo "*** swap lv has incorrect size" >> /root/RESULT
+fi
+
+# verify that not too much space was left free in the VG
+vg_free="$(vgs -o vg_free_count --noheadings fedora)"
+if [ $vg_free -gt 2 ]; then
+    echo "*** too much free space left in the fedora vg" >> /root/RESULT
+fi
 
 # we don't need to check sizes of grown LVs, the fact that the installation
 # reached this point means everything fit into the VG somehow
