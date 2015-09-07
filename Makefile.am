@@ -49,7 +49,8 @@ RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
 COVERAGE ?= coverage3
-USER_SITE_PACKAGES ?= $(shell $(PYTHON) $(srcdir)/utils/user-site-packages)
+USER_SITE_PACKAGES ?= $(shell $(PYTHON) -m site --user-site)
+ROOT_SITE_PACKAGES ?= $(shell sudo $(PYTHON) -m site --user-site)
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
@@ -167,6 +168,8 @@ runglade:
 ci: rc-release
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
+	@sudo mkdir -p $(ROOT_SITE_PACKAGES)
+	@sudo cp $(abs_builddir)/tests/usercustomize.py $(ROOT_SITE_PACKAGES)
 	$(MAKE) -C utils/dd
 	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
@@ -176,6 +179,7 @@ ci: rc-release
 	@createrepo -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
 	@rm -f $(USER_SITE_PACKAGES)/usercustomize.py
+	@sudo rm -f $(ROOT_SITE_PACKAGES)/usercustomize.py
 	$(MAKE) coverage-report
 
 coverage-report:
