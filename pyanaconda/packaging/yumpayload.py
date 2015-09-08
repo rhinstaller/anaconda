@@ -1406,7 +1406,8 @@ reposdir=%s
         super(YumPayload, self).preInstall(packages, groups)
         progressQ.send_message(_("Starting package installation process"))
 
-        self.requiredPackages = packages
+        if packages:
+            self.requiredPackages += packages
         self.requiredGroups = groups
 
         if self.install_device:
