@@ -314,6 +314,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 08 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.43-1
+- Quit in askvnc should not reboot image and dirinstall (bcl)
+  Resolves: rhbz#1255069
+- network: assume --device=link as default also for ks on hd (rvykydal)
+  Related: rhbz#1085310
+- Don't try to concatenate a list with a string (mkolman)
+  Related: rhbz#1252444
+- Always show the Network spoke in Initial Setup (mkolman)
+  Resolves: rhbz#1259801
+- Fix hiding curl 404 errors outside debug mode (vtrefny)
+  Resolves: rhbz#1182776
+
 * Thu Sep 03 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.42-1
 - Remove a call to execute in storage thread to avoid a threading disaster.
   (sbueno+anaconda)
