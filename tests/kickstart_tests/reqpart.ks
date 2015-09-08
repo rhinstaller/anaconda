@@ -7,7 +7,7 @@ bootloader --timeout=1
 zerombr
 clearpart --all --initlabel
 
-reqpart
+reqpart --add-boot
 part pv.1 --fstype=lvmpv --size=4504
 volgroup fedora pv.1
 logvol swap --name=swap --vgname=fedora --size=500 --fstype=swap
