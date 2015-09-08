@@ -281,3 +281,30 @@ class UserCreateTest(unittest.TestCase):
             output_keydata = f.read()
 
         self.assertEqual(keydata, output_keydata.strip())
+
+    def set_root_password_test(self):
+        password = "password1"
+
+        # Initialize a root user with an empty password, like the setup package would have
+        with open(self.tmpdir + "/etc/passwd", "w") as f:
+            f.write("root:x:0:0:root:/root:/bin/bash\n")
+
+        with open(self.tmpdir + "/etc/shadow", "w") as f:
+            f.write("root:*:16489:0:99999:7:::\n")
+
+        self.users.setRootPassword(password, root=self.tmpdir)
+        shadow_fields = self._readFields("/etc/shadow", "root")
+        self.assertEqual(crypt.crypt(password, shadow_fields[1]), shadow_fields[1])
+
+        # Try a different password with isLocked=True
+        password = "password2"
+        self.users.setRootPassword(password, isLocked=True, root=self.tmpdir)
+        shadow_fields = self._readFields("/etc/shadow", "root")
+        self.assertTrue(shadow_fields[1].startswith("!"))
+        self.assertEqual(crypt.crypt(password, shadow_fields[1][1:]), shadow_fields[1][1:])
+
+        # Try an encrypted password
+        password = "$1$asdf$password"
+        self.users.setRootPassword(password, isCrypted=True, root=self.tmpdir)
+        shadow_fields = self._readFields("/etc/shadow", "root")
+        self.assertEqual(password, shadow_fields[1])
