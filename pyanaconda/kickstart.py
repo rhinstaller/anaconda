@@ -716,9 +716,9 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         if self.firstboot == FIRSTBOOT_SKIP:
             action = "disable"
 
+        # enable/disable all installed Initial Setup services
         for service in services:
-            # enable/disable all installed Initial Setup services
-            iutil.execInSysroot("systemctl", [action] + services)
+            iutil.execInSysroot("systemctl", [action, service])
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
