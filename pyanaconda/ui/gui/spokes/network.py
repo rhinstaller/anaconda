@@ -666,7 +666,8 @@ class NetworkControlBox(GObject.GObject):
             return None
         dev_cfg = model[itr][DEVICES_COLUMN_OBJECT]
         model.remove(itr)
-        dev_cfg.con and dev_cfg.con.delete()
+        if dev_cfg.con:
+            dev_cfg.con.delete()
 
     def add_device(self, ty):
         log.info("network: adding device of type %s", ty)
