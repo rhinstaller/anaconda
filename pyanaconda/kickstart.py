@@ -1615,7 +1615,7 @@ class RootPw(commands.rootpw.F18_RootPw):
             self.lock = True
 
         algo = getPassAlgo(ksdata.authconfig.authconfig)
-        users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
+        users.setRootPassword(self.password, self.isCrypted, self.lock, algo, iutil.getSysroot())
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self, *args):
