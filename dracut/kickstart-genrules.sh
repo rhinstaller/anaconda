@@ -31,7 +31,7 @@ case "${kickstart%%:*}" in
         warn "inst.ks: can't get kickstart - biospart (bd:) isn't supported yet"
     ;;
     "")
-        if [ -z "$kickstart" -a -n "$(getarg ks= inst.ks=)" ]; then
+        if [ -z "$kickstart" -a -z "$(getarg ks= inst.ks=)" ]; then
             when_diskdev_appears $(disk_to_dev_path LABEL=OEMDRV) \
                 fetch-kickstart-disk \$env{DEVNAME} "/ks.cfg"
         fi
