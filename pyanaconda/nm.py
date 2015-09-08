@@ -263,7 +263,12 @@ def nm_device_property(name, prop):
             raise UnknownDeviceError(name, e)
         raise
 
-    retval = _get_property(device, prop, ".Device")
+    retval = None
+    try:
+        retval = _get_property(device, prop, ".Device")
+    except GLib.GError as e:
+        if "org.freedesktop.DBus.Error.InvalidArgs" not in e.message:
+            raise
     if not retval:
         # Look in device type based interface
         interface = _device_type_specific_interface(device)
