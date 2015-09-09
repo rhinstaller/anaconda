@@ -23,6 +23,7 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait
+from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda import nm
 
 __all__ = ["FCoEDialog"]
@@ -68,7 +69,7 @@ class FCoEDialog(GUIObject):
         rc = self.window.run()
         self.window.destroy()
         if self._update_devicetree:
-            self.storage.devicetree.populate()
+            try_populate_devicetree(self.storage.devicetree)
         return rc
 
     @property

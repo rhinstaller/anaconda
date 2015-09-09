@@ -30,6 +30,7 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.i18n import _
 from pyanaconda import nm
 from pyanaconda.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
@@ -180,7 +181,7 @@ class ISCSIDialog(GUIObject):
         # We need to call this to get the device nodes to show up
         # in our devicetree.
         if self._update_devicetree:
-            self.storage.devicetree.populate()
+            try_populate_devicetree(self.storage.devicetree)
         return rc
 
     ##

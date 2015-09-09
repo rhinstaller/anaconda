@@ -26,6 +26,7 @@ from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
+from pyanaconda.storage_utils import try_populate_devicetree
 
 __all__ = ["DASDDialog"]
 
@@ -73,7 +74,7 @@ class DASDDialog(GUIObject):
         # We need to call this to get the device nodes to show up
         # in our devicetree.
         if self._update_devicetree:
-            self.storage.devicetree.populate()
+            try_populate_devicetree(self.storage.devicetree)
         return rc
 
     def on_start_clicked(self, *args):
