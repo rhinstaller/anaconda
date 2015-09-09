@@ -281,3 +281,19 @@ class UserCreateTest(unittest.TestCase):
             output_keydata = f.read()
 
         self.assertEqual(keydata, output_keydata.strip())
+
+    def create_user_reuse_home_test(self):
+        # Create a user, reusing an old home directory
+
+        os.makedirs(self.tmpdir + "/home/test_user")
+        os.chown(self.tmpdir + "/home/test_user", 500, 500)
+
+        self.users.createUser("test_user", homedir="/home/test_user", uid=1000, gid=1000, root=self.tmpdir)
+        passwd_fields = self._readFields("/etc/passwd", "test_user")
+        self.assertIsNotNone(passwd_fields)
+        self.assertEqual(passwd_fields[2], "1000")
+        self.assertEqual(passwd_fields[3], "1000")
+
+        stat_fields = os.stat(self.tmpdir + "/home/test_user")
+        self.assertEqual(stat_fields.st_uid, 1000)
+        self.assertEqual(stat_fields.st_gid, 1000)
