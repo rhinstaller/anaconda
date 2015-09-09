@@ -331,7 +331,7 @@ class Users(object):
                          "fixing the owner and SELinux context.", user_name)
                 # home directory already existed, change owner of it properly
                 iutil.chown_dir_tree(root + homedir,
-                                     pwent[2], pwent[3],
+                                     int(pwent[2]), int(pwent[3]),
                                      orig_uid, orig_gid)
                 iutil.execWithRedirect("restorecon", ["-r", root + homedir])
             except OSError as e:
