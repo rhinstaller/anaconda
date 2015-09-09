@@ -776,7 +776,12 @@ reposdir=%s
             if not c.has_section(addonSection) or c.get(addonSection, "type") != "addon" or not c.has_option(addonSection, "repository"):
                 continue
 
-            url = "%s/%s" % (baseurl, c.get(addonSection, "repository"))
+            repo_location = c.get(addonSection, "repository")
+            if repo_location.startswith(('https://', 'http://', 'ftp://')):
+                log.debug("Addon %s uses full url: %s", addon, repo_location)
+                url = repo_location
+            else:
+                url = "%s/%s" % (baseurl, repo_location)
             retval.append((addon, c.get(addonSection, "name"), url))
 
         return retval
