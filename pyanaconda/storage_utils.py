@@ -28,6 +28,7 @@ from contextlib import contextmanager
 from blivet import arch
 from blivet import util
 from blivet.size import Size
+from blivet.errors import StorageError
 from blivet.platform import platform as _platform
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
@@ -39,6 +40,7 @@ from blivet.devicefactory import DEVICE_TYPE_DISK
 from pyanaconda.i18n import _, N_
 from pyanaconda import isys
 from pyanaconda.constants import productName
+from pyanaconda.errors import errorHandler, ERROR_RAISE
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -335,6 +337,30 @@ def verify_LUKS_devices_have_key(storage):
        not d.format.exists and \
        not d.format.hasKey):
         yield LUKSDeviceWithoutKeyError(_("LUKS device %s has no encryption key") % (dev.name,))
+
+def try_populate_devicetree(devicetree):
+    """
+    Try to populate the given devicetree while catching errors and dealing with
+    some special ones in a nice way (giving user chance to do something about
+    them).
+
+    :param devicetree: devicetree to try to populate
+    :type decicetree: :class:`blivet.devicetree.DeviceTree`
+
+    """
+
+    while True:
+        try:
+            devicetree.populate()
+        except StorageError as e:
+            if errorHandler.cb(e) == ERROR_RAISE:
+                raise
+            else:
+                continue
+        else:
+            break
+
+    return
 
 class StorageSnapshot(object):
     """R/W snapshot of storage (i.e. a :class:`blivet.Blivet` instance)"""

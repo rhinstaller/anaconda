@@ -30,6 +30,7 @@ from blivet.fcoe import has_fcoe
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
+from pyanaconda.storage_utils import try_populate_devicetree
 
 from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.ui.gui.utils import timed_action
@@ -641,7 +642,7 @@ class FilterSpoke(NormalSpoke):
 
     @timed_action(delay=50, threshold=100)
     def on_refresh_clicked(self, widget, *args):
-        self.storage.devicetree.populate()
+        try_populate_devicetree(self.storage.devicetree)
         self.refresh()
 
     def on_add_iscsi_clicked(self, widget, *args):

@@ -31,6 +31,7 @@ from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
+from pyanaconda.storage_utils import try_populate_devicetree
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
@@ -248,7 +249,7 @@ class RescueMode(NormalTUISpoke):
                                               parents=[device],
                                               exists=True)
                         self.storage.devicetree._addDevice(luks_dev)
-                        self.storage.devicetree.populate()
+                        try_populate_devicetree(self.storage.devicetree)
                         unlocked = True
                         # try to use the same passhprase for other devices
                         try_passphrase = passphrase

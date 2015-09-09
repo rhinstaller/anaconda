@@ -66,6 +66,7 @@ from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEV
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
 from pyanaconda.storage_utils import SanityError, SanityWarning, LUKSDeviceWithoutKeyError
+from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
@@ -2597,7 +2598,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # save the passphrase for possible reset and to try for other devs
             self._storage_playground.savePassphrase(device)
             # XXX What if the user has changed things using the shell?
-            self._storage_playground.devicetree.populate()
+            try_populate_devicetree(self._storage_playground.devicetree)
             # look for new roots
             self._storage_playground.roots = findExistingInstallations(self._storage_playground.devicetree)
 
