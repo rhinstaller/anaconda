@@ -394,7 +394,7 @@ class BootLoader(object):
             ret = False
 
         if member_types:
-            for member in device.devices:
+            for member in device.members:
                 if not self._device_type_match(member, member_types):
                     self.errors.append(_("RAID sets that contain '%(desc)s' must "
                                          "have one of the following device "
