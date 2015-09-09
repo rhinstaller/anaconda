@@ -122,7 +122,8 @@ def _get_property(object_path, prop, interface_name_suffix=""):
     try:
         prop = proxy.Get('(ss)', interface_name, prop)
     except GLib.GError as e:
-        if "org.freedesktop.DBus.Error.AccessDenied" in e.message:
+        if ("org.freedesktop.DBus.Error.AccessDenied" in e.message or
+            "org.freedesktop.DBus.Error.InvalidArgs" in e.message):
             return None
         elif "org.freedesktop.DBus.Error.UnknownMethod" in e.message:
             raise UnknownMethodGetError
