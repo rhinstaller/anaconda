@@ -224,9 +224,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             # cannot decide, stay in the game and let another call with data
             # available (will come) decide
             return True
-        elif environment == FIRSTBOOT_ENVIRON and data and \
-                (data.firstboot.firstboot == FIRSTBOOT_RECONFIG or \
-                     len(data.user.userList) == 0):
+        elif environment == FIRSTBOOT_ENVIRON and data and len(data.user.userList) == 0:
             return True
         else:
             return False
