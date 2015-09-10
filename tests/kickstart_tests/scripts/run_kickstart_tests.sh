@@ -93,6 +93,18 @@ fi
 
 shift $((OPTIND - 1))
 
+# Get default settings from a couple different places - under the source
+# directory for settings that are potentially useful to everyone, and then
+# in the user's home directory for settings that are site-specific and thus
+# can't be put into source control.
+if [[ -e kickstart_tests/scripts/defaults.sh ]]; then
+    . kickstart_tests/scripts/defaults.sh
+fi
+
+if [[ -e $HOME/.kstests.defaults.sh ]]; then
+    . $HOME/.kstests.defaults.sh
+fi
+
 # Build up a list of substitutions to perform on kickstart files.
 sed_args=$(printenv | while read line; do
     key="$(echo $line | cut -d'=' -f1)"
