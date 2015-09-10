@@ -20,23 +20,3 @@
 TESTTYPE="method"
 
 . ${KSTESTDIR}/functions.sh
-
-prepare() {
-    ks=$1
-    tmpdir=$2
-
-    if [[ "${KSTEST_LIVEIMG_URL}" == "" ]]; then
-        echo \$KSTEST_LIVEIMG_URL is not set.
-        return 1
-    fi
-
-    if [[ "${KSTEST_LIVEIMG_CHECKSUM}" == "" ]]; then
-        echo \$KSTEST_LIVEIMG_CHECKSUM is not set.
-        return 1
-    fi
-
-    sed -e "/^liveimg / s|LIVEIMG_URL|${KSTEST_LIVEIMG_URL}|" \
-        -e "/^liveimg / s|LIVEIMG_CHECKSUM|${KSTEST_LIVEIMG_CHECKSUM}|" \
-        ${ks} > ${tmpdir}/kickstart.ks
-    echo ${tmpdir}/kickstart.ks
-}

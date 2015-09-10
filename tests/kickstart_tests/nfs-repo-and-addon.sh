@@ -25,21 +25,6 @@ prepare() {
     ks=$1
     tmpdir=$2
 
-    if [[ "${KSTEST_ADDON_NFS_REPO}" == "" ]]; then
-        echo \$KSTEST_ADDON_NFS_REPO is not set.
-        return 1
-    fi
-
-    if [[ "${KSTEST_NFS_SERVER}" == "" ]]; then
-        echo \$KSTEST_NFS_SERVER is not set
-        return 1
-    fi
-
-    if [[ "${KSTEST_NFS_PATH}" == "" ]]; then
-        echo \$KSTEST_NFS_PATH is not set
-        return 1
-    fi
-
     scriptdir=$PWD/kickstart_tests/scripts
 
     # Create the test repo
@@ -48,11 +33,7 @@ prepare() {
     # Start a http server to serve the test repo
     start_httpd ${tmpdir}/http ${tmpdir}
 
-    sed -e "s|NFS-SERVER|${KSTEST_NFS_SERVER}|" \
-        -e "s|NFS-PATH|${KSTEST_NFS_PATH}|" \
-        -e "s|NFS-ADDON-REPO|${KSTEST_ADDON_NFS_REPO}|" \
-        -e "s|HTTP-ADDON-REPO|${httpd_url}|" ${ks} > ${tmpdir}/kickstart.ks
-    echo ${tmpdir}/kickstart.ks
+    echo ${ks}
 }
 
 cleanup() {

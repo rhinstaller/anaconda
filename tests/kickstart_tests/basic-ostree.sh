@@ -21,16 +21,3 @@
 TESTTYPE="method"
 
 . ${KSTESTDIR}/functions.sh
-
-prepare() {
-    ks=$1
-    tmpdir=$2
-
-    if [[ "${KSTEST_OSTREE_REPO}" == "" ]]; then
-        echo \$KSTEST_OSTREE_REPO is not set.
-        return 1
-    fi
-
-    sed -e "/ostreesetup/ s|REPO|${KSTEST_OSTREE_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
-    echo ${tmpdir}/kickstart.ks
-}

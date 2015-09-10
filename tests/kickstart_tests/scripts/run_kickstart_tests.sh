@@ -93,15 +93,12 @@ fi
 
 shift $((OPTIND - 1))
 
-# This is for environment variables that parallel needs to pass to
-# remote systems.
-#
-# NOTE:  You will also need to add these to the list in /etc/sudoers
-# if you are using env_reset there, or they will not get passed from
-# this script to parallel.
-env_args=$(printenv | while read line; do
-    v="$(echo $line | cut -d'=' -f1)"
-    [[ "${v}" =~ ^KSTEST_ ]] && echo "--env ${v}"
+# Build up a list of substitutions to perform on kickstart files.
+sed_args=$(printenv | while read line; do
+    key="$(echo $line | cut -d'=' -f1)"
+    val="$(echo $line | cut -d'=' -f2-)"
+
+    [[ "${key}" =~ ^KSTEST_ ]] && echo -n " -e s#@${key}@#${val}#"
  done)
 
 # We get the list of tests from one of two places:
@@ -131,6 +128,18 @@ if [[ "${tests}" == "" ]]; then
     exit 77
 fi
 
+if [[ -z "${sed_args}" ]]; then
+    echo "No substitutions provided, tests will fail; skipping."
+    exit 77
+fi
+
+# Now do all the substitutions on the kickstart files matching up with one of
+# the test cases we are going to run.
+for t in ${tests}; do
+    ks=${t/.sh/.ks.in}
+    sed ${sed_args} ${ks} > ${t/.sh/.ks}
+done
+
 if [[ "$TEST_REMOTES" != "" ]]; then
     _IMAGE=kickstart_tests/$(basename ${IMAGE})
 
@@ -155,8 +164,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
         remote_args="${remote_args} --sshlogin kstest@${remote}"
     done
 
-    parallel --no-notice ${remote_args} \
-             ${env_args} --jobs ${TEST_JOBS:-2} \
+    parallel --no-notice ${remote_args} --jobs ${TEST_JOBS:-2} \
              sudo PYTHONPATH=$PYTHONPATH kickstart_tests/scripts/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {} ::: ${tests}
     rc=$?
 
@@ -183,7 +191,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     # code will be caught outside and converted into the overall exit code.
     exit ${rc}
 else
-    parallel --no-notice ${env_args} --jobs ${TEST_JOBS:-2} \
+    parallel --no-notice --jobs ${TEST_JOBS:-2} \
         sudo PYTHONPATH=$PYTHONPATH kickstart_tests/scripts/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {} ::: ${tests}
 
     # For future expansion - any cleanup code can go in between the variable

@@ -1,4 +1,4 @@
-nfs --server=NFS-SERVER --dir=NFS-PATH
+nfs --server=@KSTEST_NFS_SERVER@ --dir=@KSTEST_NFS_PATH@
 
 # The addon repos are setup with the following packages:
 # NFS:
@@ -13,8 +13,8 @@ nfs --server=NFS-SERVER --dir=NFS-PATH
 #   - testpkg-share1, contains a file /usr/share/testpkg-1/http. To be excluded via excludepkgs.
 #   - testpkg-share2, contains a file /usr/share/testpkg-2/http. To be included because the cost
 #                     is lower.
-repo --name=kstest-nfs --baseurl=NFS-ADDON-REPO --cost=50
-repo --name=kstest-http --baseurl=HTTP-ADDON-REPO --cost=25 --excludepkgs=testpkg-share1 --install
+repo --name=kstest-nfs --baseurl=@KSTEST_NFS_ADDON_REPO@ --cost=50
+repo --name=kstest-http --baseurl=@KSTEST_HTTP_ADDON_REPO@ --cost=25 --excludepkgs=testpkg-share1 --install
 
 install
 network --bootproto=dhcp
@@ -80,7 +80,7 @@ if [[ "${status}" -eq 0 ]]; then
         echo "*** kstest-http.repo was not installed" >> /root/RESULT
         status=1
     # Check that it has all the options
-    elif ! grep -q '^baseurl=HTTP-ADDON-REPO$' $repofile ; then
+    elif ! grep -q '^baseurl=@KSTEST_HTTP_ADDON_REPO@$' $repofile ; then
         echo "*** kstest-http.repo is missing the baseurl" >> /root/RESULT
         status=1
     elif ! grep -q '^cost=25$' $repofile; then

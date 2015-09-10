@@ -1,5 +1,5 @@
 #version=DEVEL
-url --mirror=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-rawhide&arch=$basearch
+url @KSTEST_URL@
 install
 network --bootproto=dhcp
 
