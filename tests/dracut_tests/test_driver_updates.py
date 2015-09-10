@@ -488,6 +488,32 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
         self.assertFalse(self.mocks['grab_driver_files'].called)
         self.assertFalse(self.mocks['load_drivers'].called)
 
+from driver_updates import process_driver_rpm
+class ProcessDriverRPMTestCase(unittest.TestCase):
+    def setUp(self):
+        self.frepo = {
+            '/tmp/fake': ['/mnt/DD-1'],
+        }
+        self.modlist = []
+        # set up our patches
+        patches = (
+            mock.patch("driver_updates.find_repos", side_effect=self.frepo.get),
+            mock.patch("driver_updates.extract_drivers", return_value=True),
+            mock.patch("driver_updates.load_drivers"),
+            mock.patch('driver_updates.grab_driver_files',
+                                side_effect=lambda: self.modlist),
+        )
+        self.mocks = {p.attribute:p.start() for p in patches}
+        for p in patches: self.addCleanup(p.stop)
+
+    def test_basic(self):
+        """process_driver_rpm: extract RPM, grab + load driver"""
+        rpm = '/tmp/fake/driver.rpm'
+        process_driver_rpm(rpm)
+        self.mocks['extract_drivers'].assert_called_once_with(repos=["/tmp/fake"])
+        self.mocks['grab_driver_files'].assert_called_once_with()
+        self.mocks['load_drivers'].assert_called_once_with(self.modlist)
+
 from driver_updates import finish, mark_finished, all_finished
 
 class FinishedTestCase(FileTestCaseBase):
