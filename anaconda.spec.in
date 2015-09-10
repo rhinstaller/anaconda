@@ -314,6 +314,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 09 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.44-1
+- Fix another bash syntax problem in kickstart-genrules.sh (sbueno+anaconda)
+  Resolves: rhbz#1057271
+- Install all required packages. (dshea)
+  Resolves: rhbz#1260624
+
 * Tue Sep 08 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.43-1
 - Quit in askvnc should not reboot image and dirinstall (bcl)
   Resolves: rhbz#1255069
