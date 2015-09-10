@@ -180,6 +180,7 @@ ci: rc-release
 	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
 	@rm -f $(USER_SITE_PACKAGES)/usercustomize.py
 	@sudo rm -f $(ROOT_SITE_PACKAGES)/usercustomize.py
+	$(MAKE) coverage-report
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
