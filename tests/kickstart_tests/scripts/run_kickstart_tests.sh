@@ -109,7 +109,7 @@ sed_args=$(printenv | while read line; do
 if [[ $# != 0 ]]; then
     tests="$*"
 else
-    tests=$(find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_*.sh')
+    tests=$(find kickstart_tests -maxdepth 1 -name '*sh' -a -perm -o+x)
 
     newtests=""
     if [[ "$TESTTYPE" != "" ]]; then
