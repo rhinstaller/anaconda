@@ -343,6 +343,23 @@ def _process_driver_disk(dev, interactive=False):
         else:
             print("=== No driver disks found in %s! ===\n" % dev)
 
+def process_driver_rpm(rpm):
+    try:
+        _process_driver_rpm(rpm)
+    except (subprocess.CalledProcessError, IOError) as e:
+        log.error("ERROR: %s", e)
+
+def _process_driver_rpm(rpm):
+    """
+    Process a single driver rpm. Extract it, install it, and copy the
+    rpm for Anaconda to install on the target system.
+    """
+    log.info("Examining %s", rpm)
+    new_modules = extract_drivers(repos=[os.path.dirname(rpm)])
+    if new_modules:
+        modules = grab_driver_files()
+        load_drivers(modules)
+
 def mark_finished(user_request, topdir="/tmp"):
     log.debug("marking %s complete in %s", user_request, topdir)
     append_line(topdir+"/dd_finished", user_request)
@@ -582,7 +599,10 @@ def main(args):
 
     if mode in ('--disk', '--net'):
         request, dev = args
-        process_driver_disk(dev)
+        if dev.endswith(".rpm"):
+            process_driver_rpm(dev)
+        else:
+            process_driver_disk(dev)
 
     elif mode == '--interactive':
         log.info("starting interactive mode")
