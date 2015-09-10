@@ -51,7 +51,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     gettext/contexts.py \
 		     storage/run_storage_tests.py \
 		     install/run_install_test.sh \
-		     $(srcdir)/kickstart_tests/*.ks \
+		     $(srcdir)/kickstart_tests/*.ks.in \
 		     $(srcdir)/kickstart_tests/*.sh \
 		     $(srcdir)/kickstart_tests/scripts/* \
 		     $(srcdir)/gui/*.ks \
