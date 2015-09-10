@@ -990,6 +990,12 @@ if __name__ == "__main__":
         flags.automatedInstall = True
         flags.eject = False
         ksFiles = [opts.ksfile]
+    elif os.path.exists("/run/install/ks.cfg") and not opts.liveinst:
+        # this is to handle such cases where a user has pre-loaded a
+        # ks.cfg onto an OEMDRV labeled device
+        flags.automatedInstall = True
+        flags.eject = False
+        ksFiles = ["/run/install/ks.cfg"]
     else:
         ksFiles = ["/tmp/updates/interactive-defaults.ks",
                    "/usr/share/anaconda/interactive-defaults.ks"]
