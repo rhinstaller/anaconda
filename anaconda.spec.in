@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 10 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.45-1
+- Fix 'cat: /tmp/dd_disk: No such file or directory' (jkonecny)
+  Resolves: rhbz#1251394
+
 * Wed Sep 09 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.44-1
 - Fix another bash syntax problem in kickstart-genrules.sh (sbueno+anaconda)
   Resolves: rhbz#1057271
