@@ -25,6 +25,7 @@ from gi.repository import Gtk
 from pyanaconda.i18n import C_, P_
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.ui.lib.disks import getDiskDescription
 from blivet.size import Size
 
 __all__ = ["SelectedDisksDialog"]
@@ -58,7 +59,7 @@ class SelectedDisksDialog(GUIObject):
 
         for disk in disks:
             self._store.append([False,
-                                "%s (%s)" % (disk.description, disk.serial),
+                                "%s (%s)" % (getDiskDescription(disk), disk.serial),
                                 str(disk.size),
                                 str(free[disk.name][0]),
                                 disk.name,

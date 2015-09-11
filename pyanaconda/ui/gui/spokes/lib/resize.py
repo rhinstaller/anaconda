@@ -27,6 +27,7 @@ from gi.repository import Gdk, Gtk
 from pyanaconda.i18n import _, C_, N_, P_
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup, timed_action
+from pyanaconda.ui.lib.disks import getDiskDescription
 from blivet.size import Size
 
 __all__ = ["ResizeDialog"]
@@ -138,7 +139,8 @@ class ResizeDialog(GUIObject):
                 diskReclaimableSpace = disk.size
 
             itr = self._diskStore.append(None, [disk.id,
-                                                "%s %s" % (disk.size.humanReadable(max_places=1), disk.description),
+                                                "%s %s" % (disk.size.humanReadable(max_places=1),
+                                                           getDiskDescription(disk)),
                                                 fstype,
                                                 "<span foreground='grey' style='italic'>%s total</span>",
                                                 _(PRESERVE),
