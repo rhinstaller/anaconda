@@ -81,6 +81,7 @@ from pyanaconda import storage_utils
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.helpers import StorageChecker
+from pyanaconda.ui.lib.disks import getDiskDescription
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import updateSelectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
@@ -1460,7 +1461,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not device_disks:
             devices_desc = _("No disks assigned")
         else:
-            devices_desc = "%s (%s)" % (device_disks[0].description, device_disks[0].name)
+            devices_desc = "%s (%s)" % (getDiskDescription(device_disks[0]), device_disks[0].name)
             num_disks = len(device_disks)
             if num_disks > 1:
                 devices_desc += CP_("GUI|Custom Partitioning|Devices",

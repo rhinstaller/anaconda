@@ -41,6 +41,7 @@ from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
+from pyanaconda.ui.lib.disks import getDiskDescription
 from pyanaconda.i18n import _, N_, C_, CN_
 
 from blivet.size import Size
@@ -417,7 +418,7 @@ class DisksDialog(GUIObject):
         self._store = self.builder.get_object("disk_store")
         # populate the store
         for disk in self._disks:
-            self._store.append(["%s (%s)" % (disk.description, disk.serial),
+            self._store.append(["%s (%s)" % (getDiskDescription(disk), disk.serial),
                                 str(disk.size),
                                 str(free[disk.name][0]),
                                 disk.name,
@@ -505,7 +506,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # populate the store
         for disk in self._disks:
-            self._store.append([disk.description,
+            self._store.append([getDiskDescription(disk),
                                 str(disk.size),
                                 str(free[disk.name][0]),
                                 disk.serial,
