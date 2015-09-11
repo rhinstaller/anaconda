@@ -24,7 +24,7 @@ shutdown
 
 %post
 # FIXME: This will need to test for other things one day when we support tests on other arches
-boot_mount="$(grep /mnt/sysimage/boot /proc/mounts)"
+boot_mount="$(grep boot /proc/mounts)"
 if [ -z "${boot_mount}" ]; then
     echo "*** no /boot mount point was created by reqpart" >> /root/RESULT
 fi
