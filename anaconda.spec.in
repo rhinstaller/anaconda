@@ -314,6 +314,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 11 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.46-1
+- Handle driver rpms retrieved via network (bcl)
+  Resolves: rhbz#1257916
+- Use getDiskDescription for disk description strings (bcl)
+  Resolves: rhbz#1247861
+- Add getDiskDescription helper function (bcl)
+  Related: rhbz#1247861
+- Make sure anaconda reads in ks file from OEMDRV device. (sbueno+anaconda)
+  Resolves: rhbz#1057271
+- Try to deal with expected errors from devicetree.populate (vpodzime)
+  Resolves: rhbz#1257648
+
 * Thu Sep 10 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.45-1
 - Fix 'cat: /tmp/dd_disk: No such file or directory' (jkonecny)
   Resolves: rhbz#1251394
