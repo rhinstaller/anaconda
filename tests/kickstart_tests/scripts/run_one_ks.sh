@@ -21,8 +21,7 @@
 # This script runs a single kickstart test on a single system.  It takes
 # command line arguments instead of environment variables because it is
 # designed to be driven by run_kickstart_tests.sh via parallel.  It is
-# not for direct use, though as long as you pass the right arguments there's
-# no reason it couldn't work.
+# not for direct use.
 
 # Possible return values:
 # 0  - Everything worked
@@ -75,8 +74,20 @@ runone() {
         echo RESULT:${name}:FAILED:Test prep failed: ${ksfile}
         cleanup ${tmpdir}
         cleanup_tmp ${tmpdir}
-        return 1
+        return 99
     fi
+
+    # Check that the prepared kickstart is free of substitution markers. Normally
+    # the substitutions are run by run_kickstart_tests.sh, but prepare has a chance
+    # to run them too. If both of those left any @STUFF@ strings behind, fail.
+    unmatched="$(grep -o '@[^[:space:]]\+@' ${ks} | head -1)"
+    if [ -n "$unmatched" ]; then
+        echo "RESULT:${name}:FAILED:Unsubstituted pattern ${unmatched}"
+        cleanup ${tmpdir}
+        cleanup_tmp ${tmpdir}
+        return 99
+    fi
+
 
     kargs=$(kernel_args)
     if [[ "${kargs}" != "" ]]; then
