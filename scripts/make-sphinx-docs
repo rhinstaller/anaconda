@@ -29,6 +29,8 @@ fi
 # Pass the script anything to skip re-initializing the chroot
 [ -z "$1" ] && mock -r $MOCKCFG --init
 mock -r $MOCKCFG -i anaconda-gui -i python3-sphinx -i python3-sphinx_rtd_theme -i ostree -i graphviz
+# modules needed to document tests
+mock -r $MOCKCFG -i python3-mock -i python3-rpmfluff -i python3-lxml -i python3-polib -i python3-pocketlint
 mock -r $MOCKCFG --copyin $PWD /builddir/anaconda/
 # Note that DISPLAY is needed to make GTK happy, so this needs to be run from a system with a GUI
 mock -r $MOCKCFG --chroot "cd /builddir/anaconda/docs/; DISPLAY=$DISPLAY make -f Makefile.am html"
