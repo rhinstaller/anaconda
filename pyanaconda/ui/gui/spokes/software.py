@@ -278,8 +278,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 # environment is set to an invalid value
                 elif not self.environment_valid:
                     return _("Invalid environment specified in kickstart")
-            # we have no packages section in the kickstart
-            else:
+            # we have no packages section in the kickstart and no environment is selected
+            elif not self.environment:
                 return _("Nothing selected")
         else:
             if not self.environment_valid:
