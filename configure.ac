@@ -70,7 +70,7 @@ AC_SUBST(INTLTOOL_DESKTOP_RULE)
 
 AM_GNU_GETTEXT([external])
 # Also update in gettextver in anaconda.spec.in
-AM_GNU_GETTEXT_VERSION([0.18.3])
+AM_GNU_GETTEXT_VERSION([0.19.1])
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/time.h unistd.h],
