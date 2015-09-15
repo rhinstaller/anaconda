@@ -392,22 +392,22 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # radio buttons
             radio = Gtk.RadioButton(group=self._fakeRadio)
 
-            # automatically select an environment if this is an interactive install
-            if flags.automatedInstall:  # kickstart installation
-                # tick the radio button if the environment from kickstart is both valid
-                # and equal to the environment corresponding to the current row
-                radio.set_active(self.environment_valid and self.environmentid == environmentid)
-            elif firstEnvironment:  # manual installation
-                # for manual installs that don't have a default provided by the install class
-                # just tick the first radio button and select the first environment
+            # automatically select the first environment if we are on
+            # manual install and the install class does not specify one
+            if firstEnvironment and not flags.automatedInstall:  # manual installation
                 #
+                # Note about self.environment being None:
+                # =======================================
                 # None indicates that an environment has not been set, which is a valid
                 # value of the environment variable.
-                # Only non existing environments are evaluate as invalid
+                # Only non existing environments are evaluated as invalid
                 if not self.environment_valid or self.environment is None:
-                    radio.set_active(True)
                     self.environment = environmentid
                 firstEnvironment = False
+
+            # check if the selected environment (if any) does match the current row
+            # and tick the radio button if it does
+            radio.set_active(self.environment_valid and self.environmentid == environmentid)
 
             self._add_row(self._environmentListBox, name, desc, radio, self.on_radio_button_toggled)
 
