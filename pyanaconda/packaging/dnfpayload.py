@@ -546,7 +546,6 @@ class DNFPayload(packaging.PackagePayload):
         size = self._spaceRequired()
         download_size = self._download_space
         valid_points = _df_map()
-        future_mpoints = dict()
         root_mpoint = pyanaconda.iutil.getSysroot()
         for (key, val) in self.storage.mountpoints.items():
             new_key = key
