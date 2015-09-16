@@ -21,7 +21,7 @@ rootpw qweqwe
 group --name=kosygroup --gid=5001
 
 # Create specific user
-user --name=kosieh --gecos="Kosieh Barter" --homedir=/home/kbarter --password="$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/" --iscrypted --shell=/bin/bash --uid=4001 --gid=5001
+user --name=kosieh --gecos="Kosieh Barter" --homedir=/home/kbarter --password="$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/" --iscrypted --shell=/bin/bash --uid=4001 --gid=5001 --groups=wheel,users
 
 # Give that user a (bogus) ssh key.
 sshkey --username=kosieh "this is a bogus ssh key"
