@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.45\n"
+"Project-Id-Version: anaconda 21.48.22.46\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-11 17:45-0700\n"
+"POT-Creation-Date: 2015-09-15 17:05-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2049,7 +2049,7 @@ msgstr ""
 msgid "User creation"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:121 pyanaconda/ui/gui/spokes/user.py:350
+#: pyanaconda/ui/tui/spokes/user.py:121 pyanaconda/ui/gui/spokes/user.py:347
 msgid "No user will be created"
 msgstr ""
 
@@ -2057,12 +2057,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:125 pyanaconda/ui/gui/spokes/user.py:352
+#: pyanaconda/ui/tui/spokes/user.py:125 pyanaconda/ui/gui/spokes/user.py:349
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:127 pyanaconda/ui/gui/spokes/user.py:354
+#: pyanaconda/ui/tui/spokes/user.py:127 pyanaconda/ui/gui/spokes/user.py:351
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -2700,29 +2700,29 @@ msgstr ""
 msgid "Selected environment is not valid"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:434
+#: pyanaconda/ui/gui/spokes/software.py:439
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:532
+#: pyanaconda/ui/gui/spokes/software.py:537
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:537
+#: pyanaconda/ui/gui/spokes/software.py:542
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:538
+#: pyanaconda/ui/gui/spokes/software.py:543
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:539
+#: pyanaconda/ui/gui/spokes/software.py:544
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
@@ -2969,25 +2969,25 @@ msgstr ""
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:72
+#: pyanaconda/ui/gui/spokes/user.py:71
 #, python-format
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:215
+#: pyanaconda/ui/gui/spokes/user.py:214
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:288 pyanaconda/ui/gui/spokes/user.py:289
+#: pyanaconda/ui/gui/spokes/user.py:285 pyanaconda/ui/gui/spokes/user.py:286
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:317
+#: pyanaconda/ui/gui/spokes/user.py:314
 msgid "Invalid user name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:319
+#: pyanaconda/ui/gui/spokes/user.py:316
 msgid "Full name cannot contain colon characters"
 msgstr ""
 

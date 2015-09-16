@@ -314,6 +314,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 15 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.47-1
+- Show correct status for no %%packages with selected environment (mkolman)
+  Related: rhbz#1261393
+- Keep environment selection when reentering the software spoke (mkolman)
+  Resolves: rhbz#1261393
+- Remove an unused import. (clumens)
+  Related: rhbz#1253672
+- Only show the user spoke if no users are specified in kickstart (mkolman)
+  Resolves: rhbz#1253672
+
 * Fri Sep 11 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.46-1
 - Handle driver rpms retrieved via network (bcl)
   Resolves: rhbz#1257916
