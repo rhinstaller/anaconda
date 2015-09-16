@@ -80,7 +80,7 @@ runone() {
     # Check that the prepared kickstart is free of substitution markers. Normally
     # the substitutions are run by run_kickstart_tests.sh, but prepare has a chance
     # to run them too. If both of those left any @STUFF@ strings behind, fail.
-    unmatched="$(grep -o '@[^[:space:]]\+@' ${ks} | head -1)"
+    unmatched="$(grep -o '@[^[:space:]]\+@' ${ksfile} | head -1)"
     if [ -n "$unmatched" ]; then
         echo "RESULT:${name}:FAILED:Unsubstituted pattern ${unmatched}"
         cleanup ${tmpdir}
