@@ -33,7 +33,8 @@ prepare() {
     # Start a http server to serve the test repo
     start_httpd ${tmpdir}/http ${tmpdir}
 
-    echo ${ks}
+    sed -e "s|@KSTEST_HTTP_ADDON_REPO@|${httpd_url}|" ${ks} > ${tmpdir}/kickstart.ks
+    echo ${tmpdir}/kickstart.ks
 }
 
 cleanup() {
