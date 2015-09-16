@@ -208,7 +208,8 @@ class Users(object):
         root = kwargs.get("root", iutil.getSysroot())
 
         if self._groupExists(group_name, root):
-            raise ValueError("Group %s already exists" % group_name)
+            # If the group already exists, skip it
+            return
 
         args = ["-R", root]
         if kwargs.get("gid") is not None:
