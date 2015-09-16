@@ -43,12 +43,8 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
-		     $(srcdir)/gettext/*.py \
-		     gettext/click.py \
-		     gettext/gettext_warnings.sh \
-		     gettext/gettext_potfiles.py \
-		     gettext/style_guide.py \
-		     gettext/contexts.py \
+		     $(srcdir)/gettext_tests/*.py \
+		     gettext_tests/gettext_warnings.sh \
 		     storage/run_storage_tests.py \
 		     install/run_install_test.sh \
 		     $(srcdir)/kickstart_tests/*.ks.in \
@@ -64,11 +60,11 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 TESTS = nosetests.sh \
 	pylint/runpylint.py \
 	cppcheck/runcppcheck.sh \
-	gettext/click.py \
-	gettext/gettext_warnings.sh \
-	gettext/gettext_potfiles.py \
-	gettext/style_guide.py \
-	gettext/contexts.py \
+	gettext_tests/click.py \
+	gettext_tests/gettext_warnings.sh \
+	gettext_tests/gettext_potfiles.py \
+	gettext_tests/style_guide.py \
+	gettext_tests/contexts.py \
 	storage/run_storage_tests.py \
 	glade/run_glade_tests.sh \
 	kickstart_tests/scripts/run_kickstart_tests.sh
