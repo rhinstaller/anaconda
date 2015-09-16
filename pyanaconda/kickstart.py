@@ -868,6 +868,13 @@ class LogVolData(commands.logvol.F23_LogVolData):
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("No volume group exists with the name \"%s\".  Specify volume groups before logical volumes.") % self.vgname))
 
+        # If cache PVs specified, check that they belong to the same VG this LV is a member of
+        if self.cache_pvs:
+            pv_devices = (lookupAlias(devicetree, pv) for pv in self.cache_pvs)
+            if not all(pv in vg.pvs for pv in pv_devices):
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("Cache PVs must belong to the same VG as the cached LV")))
+
         pool = None
         if self.thin_volume:
             pool = devicetree.getDeviceByName("%s-%s" % (vg.name, self.pool_name))
