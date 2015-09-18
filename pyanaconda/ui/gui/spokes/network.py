@@ -636,7 +636,7 @@ class NetworkControlBox(GObject.GObject):
             else:
                 try:
                     nm.nm_disconnect_device(dev_cfg.get_iface())
-                except (nm.UnmanagedDeviceError, nm.DeviceNotActiveError) as e:
+                except (nm.UnmanagedDeviceError, nm.DeviceNotActiveError, nm.UnknownDeviceError) as e:
                     log.debug("network: on_device_off_toggled: %s", e)
 
     def on_add_device_clicked(self, *args):
@@ -699,7 +699,7 @@ class NetworkControlBox(GObject.GObject):
                 return
             con_uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
             dev_cfg = self.dev_cfg(uuid=con_uuid)
-        except nm.UnknownDeviceError as e:
+        except (nm.UnknownDeviceError, nm.UnknownMethodGetError) as e:
             log.error(e)
             return
         except nm.SettingsNotFoundError:
