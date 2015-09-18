@@ -86,7 +86,7 @@ anaconda_live_root_dir() {
         iso=${isodir}/${iso#$mnt}
         mount -o loop,ro $iso $repodir
         img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
-        anaconda_auto_updates $isodir/$path/images
+        anaconda_auto_updates $repodir/images
     fi
     # FIXME: make rd.live.ram clever enough to do this for us
     if [ "$1" = "--copy-to-ram" ]; then
