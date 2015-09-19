@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 18 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.48-1
+- Skip setting up env and groups in software spoke for ks (bcl)
+  Resolves: rhbz#1263493
+
 * Tue Sep 15 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.47-1
 - Show correct status for no %%packages with selected environment (mkolman)
   Related: rhbz#1261393

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.46\n"
+"Project-Id-Version: anaconda 21.48.22.47\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-15 17:05-0700\n"
+"POT-Creation-Date: 2015-09-18 17:27-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1952,8 +1952,8 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:119
 #: pyanaconda/ui/tui/spokes/software.py:87
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:529
-#: pyanaconda/ui/gui/spokes/software.py:283
-#: pyanaconda/ui/gui/spokes/software.py:291
+#: pyanaconda/ui/gui/spokes/software.py:284
+#: pyanaconda/ui/gui/spokes/software.py:292
 #: pyanaconda/ui/gui/spokes/source.py:552
 msgid "Nothing selected"
 msgstr ""
@@ -2017,22 +2017,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:65
-#: pyanaconda/ui/gui/spokes/software.py:264
+#: pyanaconda/ui/gui/spokes/software.py:265
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:69
-#: pyanaconda/ui/gui/spokes/software.py:267
+#: pyanaconda/ui/gui/spokes/software.py:268
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:71
-#: pyanaconda/ui/gui/spokes/software.py:270
+#: pyanaconda/ui/gui/spokes/software.py:271
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:86
-#: pyanaconda/ui/gui/spokes/software.py:277
+#: pyanaconda/ui/gui/spokes/software.py:278
 msgid "Custom software selected"
 msgstr ""
 
@@ -2682,47 +2682,47 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:190
+#: pyanaconda/ui/gui/spokes/software.py:191
 #: pyanaconda/ui/gui/spokes/source.py:532
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:195
+#: pyanaconda/ui/gui/spokes/software.py:196
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:280
+#: pyanaconda/ui/gui/spokes/software.py:281
 msgid "Invalid environment specified in kickstart"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:289
-#: pyanaconda/ui/gui/spokes/software.py:296
+#: pyanaconda/ui/gui/spokes/software.py:290
+#: pyanaconda/ui/gui/spokes/software.py:297
 msgid "Selected environment is not valid"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:439
+#: pyanaconda/ui/gui/spokes/software.py:440
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:537
+#: pyanaconda/ui/gui/spokes/software.py:538
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:542
+#: pyanaconda/ui/gui/spokes/software.py:543
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:543
+#: pyanaconda/ui/gui/spokes/software.py:544
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:544
+#: pyanaconda/ui/gui/spokes/software.py:545
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
