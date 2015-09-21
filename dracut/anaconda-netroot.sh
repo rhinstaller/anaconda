@@ -3,6 +3,7 @@
 # runs in the "online" hook, every time an interface comes online.
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
+. /lib/anaconda-lib.sh
 
 # initqueue/online hook passes interface name as $1
 netif="$1"
@@ -65,17 +66,20 @@ case $repo in
     http*|ftp*)
         . /lib/url-lib.sh
         info "anaconda fetching installer from $repo"
-        treeinfo=$(fetch_url $repo/.treeinfo) && \
+        treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
           stage2=$(config_get stage2 mainimage < $treeinfo)
+        [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
         if [ -z "$treeinfo" -o -z "$stage2" ]; then
             warn "can't find installer mainimage path in .treeinfo"
             stage2="images/install.img"
         fi
         if runtime=$(fetch_url $repo/$stage2) || runtime=$(fetch_url $repo/LiveOS/squashfs.img); then
             # NOTE: Should be the same as anaconda_auto_updates()
-            updates=$(fetch_url $repo/images/updates.img)
+            updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
+            [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
             [ -n "$updates" ] && unpack_updates_img $updates /updates
-            product=$(fetch_url $repo/images/product.img)
+            product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
+            [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
             [ -n "$product" ] && unpack_updates_img $product /updates
             anaconda_mount_sysroot $runtime
         else
