@@ -214,13 +214,13 @@ class RPMOSTreePayload(ArchivePayload):
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        binds = [(iutil.getTargetPhysicalRoot(),
+        self._binds = [(iutil.getTargetPhysicalRoot(),
                   iutil.getSysroot() + '/sysroot'),
                  (varroot,
                   iutil.getSysroot() + '/var'),
                  (iutil.getSysroot() + '/usr', None)]
 
-        for (src, dest) in binds:
+        for (src, dest) in self._binds:
             self._safeExecWithRedirect("mount",
                                        ["--bind", src, dest if dest else src])
             if dest is None:
@@ -287,3 +287,13 @@ class RPMOSTreePayload(ArchivePayload):
         set_kargs_args.extend(self.storage.bootloader.boot_args)
         set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
         self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
+
+    def preShutdown(self):
+        # A crude hack for 7.2; forcibly recursively unmount
+        # everything we put in the sysroot.  There is something going
+        # on inside either blivet (or systemd?) that's causing mounts inside
+        # /mnt/sysimage/ostree/deploy/$x/sysroot/ostree/deploy
+        # which is not what we want.
+        for (src, dest) in reversed(self._binds):
+            # Also intentionally ignore errors here
+            iutil.execWithRedirect("umount", ['-R', dest if dest else src])

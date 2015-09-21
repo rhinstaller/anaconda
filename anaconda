@@ -46,7 +46,7 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
 
 import atexit, sys, os, time, signal
 
-def exitHandler(rebootData, storage, exitCode=None):
+def exitHandler(rebootData, storage, payload, exitCode=None):
     # Clear the list of watched PIDs.
     iutil.unwatchAllProcesses()
 
@@ -68,6 +68,8 @@ def exitHandler(rebootData, storage, exitCode=None):
         print("The system will be rebooted when you press Ctrl-Alt-Delete.")
         while True:
             time.sleep(10000)
+
+    payload.preShutdown()
 
     if image_count or flags.dirInstall:
         anaconda.storage.umountFilesystems(swapoff=False)
@@ -1218,7 +1220,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGUSR1, lambda signum, frame:
                   exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-    atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
+    atexit.register(exitHandler, ksdata.reboot, anaconda.storage, anaconda.payload)
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
