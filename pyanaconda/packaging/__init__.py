@@ -165,6 +165,12 @@ class Payload(object):
         """
         pass
 
+    def preShutdown(self):
+        """Called when the system is exiting (either due to success or failure).
+        An example use is to unmount any mountpoints in the installation root.
+        """
+        pass
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
