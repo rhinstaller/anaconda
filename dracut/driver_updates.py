@@ -407,10 +407,13 @@ class DeviceInfo(object):
         return dev
 
 def blkid():
-    out = subprocess.check_output("blkid -o export -s UUID -s TYPE".split())
-    out = out.decode('ascii')
-    return [dict(kv.split('=',1) for kv in block.splitlines())
-                                 for block in out.split('\n\n')]
+    try:
+        out = subprocess.check_output("blkid -o export -s UUID -s TYPE".split())
+        out = out.decode('ascii')
+        return [dict(kv.split('=',1) for kv in block.splitlines())
+                                     for block in out.split('\n\n')]
+    except subprocess.CalledProcessError:
+        return []
 
 # We use this to get disk labels because blkid's encoding of non-printable and
 # non-ascii characters is weird and doesn't match what you'd expect to see.
