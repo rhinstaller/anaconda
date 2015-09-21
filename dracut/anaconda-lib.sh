@@ -1,6 +1,7 @@
 #!/bin/bash
 
 command -v unpack_img >/dev/null || . /lib/img-lib.sh
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
 # config_get SECTION KEY < FILE
 # read an .ini-style config file, find the KEY in the given SECTION, and return
@@ -189,6 +190,13 @@ tell_user() {
     else
         echo "$*" >&2 # this goes to journal+console
     fi
+}
+
+# print something only in if debug/inst.debug/rd.debug
+debug_msg() {
+   if getargbool 0 rd.debug || getargbool 0 debug || getargbool 0 inst.debug; then
+     echo $* >&2
+  fi
 }
 
 dev_is_cdrom() {
