@@ -27,6 +27,7 @@ from pyanaconda import constants
 from pyanaconda.i18n import _
 import threading
 
+from blivet import storageInitialize
 from blivet.devicelibs.dasd import format_dasd
 from blivet.errors import DasdFormatError
 
@@ -111,6 +112,10 @@ class DasdFormatDialog(GUIObject):
         # Loop through all of our unformatted DASDs and format them
         threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
                                 target=self.run_dasdfmt, args=(self._epoch,)))
+
+        # Need to make devicetree aware of storage change
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
+                                     args=(self.storage, self.data, self.storage.devicetree.protectedDevNames)))
 
     @gtk_action_wait
     def update_dialog(self, epoch_started):

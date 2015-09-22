@@ -29,7 +29,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.storage_utils import AUTOPART_CHOICES, sanity_check, SanityError, SanityWarning
 
-from blivet import arch
+from blivet import arch, storageInitialize
 from blivet.size import Size
 from blivet.errors import StorageError, DasdFormatError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
@@ -339,6 +339,11 @@ class StorageSpoke(NormalTUISpoke):
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))
                 continue
+
+        # need to make devicetree aware of disk changes
+        threadMgr.add(AnacondaThread(name=THREAD_STORAGE, target=storageInitialize,
+                                     args=(self.storage, self.data, self.storage.devicetree.protectedDevNames)))
+        self._initialize()
 
     def apply(self):
         self.autopart = self.data.autopart.autopart
