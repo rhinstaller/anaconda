@@ -314,6 +314,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 22 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.49-1
+- Use correct installclass for RHEL Atomic Host (rvykydal)
+  Resolves: rhbz#1265213
+- Catch blkid failure in driver-updates (bcl)
+  Resolves: rhbz#1262963
+- Maximize anaconda instead of running fullscreen (dshea)
+  Related: rhbz#1231856
+- Do not display markup in showDetailedError. (dshea)
+  Resolves: rhbz#1263963
+
 * Fri Sep 18 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.48-1
 - Skip setting up env and groups in software spoke for ks (bcl)
   Resolves: rhbz#1263493

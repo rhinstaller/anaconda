@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.47\n"
+"Project-Id-Version: anaconda 21.48.22.48\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-18 17:27-0700\n"
+"POT-Creation-Date: 2015-09-22 16:47-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/errors.py:121
+#: pyanaconda/errors.py:104
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -200,16 +200,15 @@ msgid ""
 "The installation will now terminate."
 msgstr ""
 
-#: pyanaconda/errors.py:127
+#: pyanaconda/errors.py:110
 #, python-format
 msgid "An error occurred while resizing the device %s."
 msgstr ""
 
-#: pyanaconda/errors.py:136
+#: pyanaconda/errors.py:119
 #, python-format
 msgid ""
-"There is a problem with your existing storage configuration: <b>"
-"%(errortxt)s</b>\n"
+"There is a problem with your existing storage configuration: %(errortxt)s\n"
 "\n"
 "You must resolve this matter before the installation can proceed. There is a "
 "shell available for use which you can access by pressing ctrl-alt-f1 and "
@@ -219,21 +218,21 @@ msgid ""
 "not fix it you will have to exit the installer."
 msgstr ""
 
-#: pyanaconda/errors.py:145 pyanaconda/ui/gui/main.glade.h:1
+#: pyanaconda/errors.py:128 pyanaconda/ui/gui/main.glade.h:1
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/errors.py:145
+#: pyanaconda/errors.py:128
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/errors.py:152
+#: pyanaconda/errors.py:135
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/errors.py:159
+#: pyanaconda/errors.py:142
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -241,14 +240,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/errors.py:170
+#: pyanaconda/errors.py:153
 msgid ""
 "There is an entry in your /etc/fstab file that contains an invalid or "
 "incorrect file system type:\n"
 "\n"
 msgstr ""
 
-#: pyanaconda/errors.py:176
+#: pyanaconda/errors.py:159
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
@@ -259,7 +258,7 @@ msgid ""
 "using this image?"
 msgstr ""
 
-#: pyanaconda/errors.py:190
+#: pyanaconda/errors.py:173
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it "
 "on the hard drive.\n"
@@ -267,26 +266,26 @@ msgid ""
 "Should I try again to locate the image?"
 msgstr ""
 
-#: pyanaconda/errors.py:200
+#: pyanaconda/errors.py:183
 #, python-format
 msgid "An error occurred mounting the source device %s. Retry?"
 msgstr ""
 
-#: pyanaconda/errors.py:208
+#: pyanaconda/errors.py:191
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: pyanaconda/errors.py:216
+#: pyanaconda/errors.py:199
 #, python-format
 msgid ""
 "The group '%s' is required for this installation. This group does not exist. "
 "This is a fatal error and installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:222
+#: pyanaconda/errors.py:205
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -294,7 +293,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:227
+#: pyanaconda/errors.py:210
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be excluded from "
@@ -302,14 +301,14 @@ msgid ""
 "group and continue with installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:239
+#: pyanaconda/errors.py:222
 #, python-format
 msgid ""
 "The package '%s' is required for this installation. This package does not "
 "exist. This is a fatal error and installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:246
+#: pyanaconda/errors.py:229
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -317,7 +316,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:257
+#: pyanaconda/errors.py:240
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  This is "
@@ -327,27 +326,27 @@ msgid ""
 "%(details)s"
 msgstr ""
 
-#: pyanaconda/errors.py:265
+#: pyanaconda/errors.py:248
 msgid ""
 "The following error occurred while installing.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:273
+#: pyanaconda/errors.py:256
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
 "your installation source."
 msgstr ""
 
-#: pyanaconda/errors.py:281
+#: pyanaconda/errors.py:264
 msgid ""
 "The following error occurred while installing the boot loader. The system "
 "will not be bootable. Would you like to ignore this and continue with "
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:294
+#: pyanaconda/errors.py:277
 #, python-format
 msgid ""
 "Installation was stopped due to an error installing the boot loader. The "
@@ -2159,19 +2158,19 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:419 widgets/src/BaseWindow.c:113
+#: pyanaconda/ui/gui/__init__.py:427 widgets/src/BaseWindow.c:113
 msgid "Help!"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:867 widgets/src/StandaloneWindow.c:49
+#: pyanaconda/ui/gui/__init__.py:863 widgets/src/StandaloneWindow.c:49
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:883
+#: pyanaconda/ui/gui/__init__.py:879
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:883
+#: pyanaconda/ui/gui/__init__.py:879
 msgid "_Yes"
 msgstr ""
 
