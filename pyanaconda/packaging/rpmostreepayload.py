@@ -44,6 +44,7 @@ class RPMOSTreePayload(ArchivePayload):
         super(RPMOSTreePayload, self).__init__(data)
 
         self._base_remote_args = None
+        self._binds = []
         self._sysroot_path = None
 
     @property
