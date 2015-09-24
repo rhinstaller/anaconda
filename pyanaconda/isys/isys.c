@@ -20,12 +20,16 @@
 #include "config.h"
 #include <Python.h>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <execinfo.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 static PyObject * doSignalHandlers(PyObject *s, PyObject *args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
@@ -53,17 +57,91 @@ PyInit__isys(void) {
 static void sync_signal_handler(int signum) {
     void *array[20];
     size_t size;
-    char **strings;
-    size_t i;
 
+    sigset_t sigset;
+
+    pid_t child_pid;
+    char *pid_str;
+    int pid_size;
+    int exit_status;
+
+    /* Doing stuff in signal handlers is tricky. The program has been
+     * interupted, probably in the middle of something going wrong with
+     * memory access, so we're in a weird state to begin with, and errors
+     * that happen during the signal handler can cause some gnarly things
+     * to happen.
+     *
+     * POSIX defines a set of functions (listed in man 7 signal) that are
+     * safe to call from within a signal handler, and glibc adds a few more.
+     * Do the safe things first, then reset the signal handler so that further
+     * receipts of the signal (probably SIGSEGV) will just crash the program
+     * instead of getting stuck in a loop, and then enter the danger zone.
+     */
+
+    /* First say that something went wrong. That's easy! (but we can't use printf or strlen) */
+    const char err_prefix[] = "Anaconda received signal ";
+    char sigstr[2];
+    write(STDOUT_FILENO, err_prefix, sizeof(err_prefix) - 1);
+
+    /* Convert signum to ascii without using anything that allocates memory */
+    /* Assume the signal is <= 99 */
+    sigstr[0] = (signum / 10 % 10) + '0';
+    sigstr[1] = (signum % 10) + '0';
+    write(STDOUT_FILENO, sigstr, sizeof(sigstr));
+    write(STDOUT_FILENO, "!.\n", 3);
+
+    /* And that's about all the safe things we can do. Time to reset the handler,
+     * unblock the signal and go wild */
+    signal(signum, SIG_DFL);
+    sigemptyset(&sigset);
+    sigaddset(&sigset, signum);
+    pthread_sigmask(SIG_UNBLOCK, &sigset, NULL);
+
+    /* Print the backtrace */
+    /* backtrace_symbols_fd is signal-safe, but backtrace is not. */
     size = backtrace (array, 20);
-    strings = backtrace_symbols (array, size);
-    
-    printf ("Anaconda received signal %d!.  Backtrace:\n", signum);
-    for (i = 0; i < size; i++)
-        printf ("%s\n", strings[i]);
-     
-    free (strings);
+    backtrace_symbols_fd(array, size, STDOUT_FILENO);
+
+    /* Try call gcore on ourself to write out a core file */
+    pid_size = snprintf(NULL, 0, "%d", getpid());
+    if (pid_size <= 0) {
+        perror("Unable to current PID");
+        exit(1);
+    }
+    pid_size++;
+    pid_str = malloc(pid_size);
+    snprintf(pid_str, pid_size, "%d", getpid());
+
+    child_pid = fork();
+    if (0 == child_pid) {
+        /* Disable stderr to suppress all the garbage about debuginfo packages */
+        int fd;
+        fd = open("/dev/null", O_WRONLY);
+        if (fd < 0) {
+            perror("Unable to open /dev/null");
+            exit(1);
+        }
+        dup2(fd, STDERR_FILENO);
+
+        execlp("gcore", "gcore", "-o", "/tmp/anaconda.core", pid_str, NULL);
+        perror("Unable to exec gcore");
+        exit(1);
+    }
+    else if (child_pid < 0) {
+        perror("Unable to fork");
+        exit(1);
+    }
+
+    if (waitpid(child_pid, &exit_status, 0) < 0) {
+        perror("Error waiting on gcore");
+        exit(1);
+    }
+
+    if (!WIFEXITED(exit_status) || WEXITSTATUS(exit_status) != 0) {
+        printf("gcore exited with status %d\n", exit_status);
+        exit(1);
+    }
+
     exit(1);
 }
 
@@ -73,20 +151,6 @@ static PyObject * doSignalHandlers(PyObject *s, PyObject *args) {
 
     memset(&sa, 0, sizeof(struct sigaction));
     sa.sa_handler = sync_signal_handler;
-
-    /* Use these flags to ensure that a crash within the signal handler will
-     * just crash anaconda and not get stuck in a loop. RESETHAND resets the
-     * handler to SIG_DFL when the handler is entered, so that further signals
-     * will exit the program, and NODEFER ensures that the signal is not blocked
-     * during the signal handler, so a SIGSEGV triggered by handling a SIGSEGV will
-     * be processed and will use the default handler. The Linux kernel forces
-     * both of these things during a signal handler crash, but this makes it
-     * explicit.
-     *
-     * These flags also mean that a SIGSEGV from a second thread could abort
-     * the processing of a SIGSEGV from a first, but too bad.
-     */
-    sa.sa_flags = SA_RESETHAND | SA_NODEFER;
 
     if (sigaction(SIGILL, &sa, NULL) != 0) {
         return PyErr_SetFromErrno(PyExc_SystemError);
