@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.19.3\n"
+"Project-Id-Version: anaconda 23.19.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-14 12:57-0400\n"
+"POT-Creation-Date: 2015-09-24 15:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,7 +462,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:242 pyanaconda/packaging/livepayload.py:180
-#: pyanaconda/packaging/dnfpayload.py:696
+#: pyanaconda/packaging/dnfpayload.py:721
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1281,26 +1281,26 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:153
+#: pyanaconda/packaging/dnfpayload.py:158
 #, python-format
 msgid ""
 "Downloading %(total_files)s RPMs, %(downloaded)s / %(total_size)s "
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:650
+#: pyanaconda/packaging/dnfpayload.py:675
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:667
+#: pyanaconda/packaging/dnfpayload.py:692
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:679
+#: pyanaconda/packaging/dnfpayload.py:704
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:689
+#: pyanaconda/packaging/dnfpayload.py:714
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -2998,38 +2998,38 @@ msgid ""
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:908
+#: pyanaconda/ui/gui/spokes/storage.py:909
 msgid "There was a problem with your disk selection. Click here for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1001
+#: pyanaconda/ui/gui/spokes/storage.py:1002
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1017
+#: pyanaconda/ui/gui/spokes/storage.py:1018
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1022
+#: pyanaconda/ui/gui/spokes/storage.py:1023
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1023
+#: pyanaconda/ui/gui/spokes/storage.py:1024
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1037
+#: pyanaconda/ui/gui/spokes/storage.py:1038
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1042
+#: pyanaconda/ui/gui/spokes/storage.py:1043
 msgctxt "GUI|Storage|Warning Dialog"
 msgid "_OK"
 msgstr ""
