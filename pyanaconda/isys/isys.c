@@ -30,6 +30,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <syslog.h>
 
 static PyObject * doSignalHandlers(PyObject *s, PyObject *args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
@@ -101,6 +102,13 @@ static void sync_signal_handler(int signum) {
     /* backtrace_symbols_fd is signal-safe, but backtrace is not. */
     size = backtrace (array, 20);
     backtrace_symbols_fd(array, size, STDOUT_FILENO);
+
+    /* Log the crash. Hopefully this is happening after logging has started
+     * and livemedia-creator will get the message. */
+    openlog("anaconda", 0, LOG_USER);
+    syslog(LOG_CRIT, "Anaconda crashed on signal %d", signum);
+    closelog();
+
 
     /* Try call gcore on ourself to write out a core file */
     pid_size = snprintf(NULL, 0, "%d", getpid());
