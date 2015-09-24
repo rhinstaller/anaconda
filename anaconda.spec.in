@@ -314,6 +314,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 23 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.50-1
+- Fix a pylint problem with the ostree patch. (clumens)
+  Related: rhbz#1253527
+- Update storage config after running dasdfmt. (sbueno+anaconda)
+  Resolves: rhbz#1264411
+- rpmostreepayload: Forcibly unmount everything in sysroot (walters)
+  Resolves: rhbz#1253527
+
 * Tue Sep 22 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.49-1
 - Use correct installclass for RHEL Atomic Host (rvykydal)
   Resolves: rhbz#1265213
