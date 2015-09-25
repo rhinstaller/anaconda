@@ -47,6 +47,15 @@ if str_starts "$kickstart" "cdrom" && [ ! -e /tmp/ks.cfg.done ]; then
     fi
 fi
 
+# If interactive dd has been requested and this is a cdrom, wait to mount it
+# later. The user may want to swap in a driver update cdrom first.
+if [ -e /tmp/dd_interactive -a ! -e /tmp/dd.done ]; then
+    if dev_is_cdrom "$dev"; then
+        > /tmp/anaconda-dd-on-cdrom
+        exit 0
+    fi
+fi
+
 info "anaconda using disk root at $dev"
 mount $dev $repodir || warn "Couldn't mount $dev"
 anaconda_live_root_dir $repodir $path

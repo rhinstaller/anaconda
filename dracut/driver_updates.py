@@ -625,6 +625,13 @@ def main(args):
 
     finish(request)
 
+    # When using inst.dd and a cdrom stage2 it isn't mounted before running driver-updates
+    # In order to get the stage2 cdrom mounted it either needs to be swapped back in
+    # or we need to re-trigger the block rules.
+    if os.path.exists("/tmp/anaconda-dd-on-cdrom") and not os.path.exists("/dev/root"):
+        cmd = ["udevadm", "trigger", "--action=change", "--subsystem-match=block"]
+        subprocess.check_call(cmd)
+
 if __name__ == '__main__':
     setup_log()
     try:
