@@ -269,6 +269,10 @@ class DNFPayload(packaging.PackagePayload):
         if ksrepo.excludepkgs:
             repo.exclude = ksrepo.excludepkgs
 
+        if ksrepo.gpgkey:
+            repo.gpgkey = ksrepo.gpgkey
+            repo.gpgcheck = True
+
         # If this repo is already known, it's one of two things:
         # (1) The user is trying to do "repo --name=updates" in a kickstart file
         #     and we should just know to enable the already existing on-disk

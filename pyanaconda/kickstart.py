@@ -1575,7 +1575,7 @@ class RaidData(commands.raid.F23_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class RepoData(commands.repo.F21_RepoData):
+class RepoData(commands.repo.F24_RepoData):
     def __init__(self, *args, **kwargs):
         """ Add enabled kwarg
 
@@ -1585,7 +1585,7 @@ class RepoData(commands.repo.F21_RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
 
-        commands.repo.F21_RepoData.__init__(self, *args, **kwargs)
+        commands.repo.F24_RepoData.__init__(self, *args, **kwargs)
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
