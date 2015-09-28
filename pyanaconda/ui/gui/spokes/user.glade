@@ -111,6 +111,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <signal name="changed" handler="username_changed" swapped="no"/>
+                        <signal name="changed" handler="on_username_set_by_user" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_username-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">User Name</property>
