@@ -32,6 +32,7 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
+from pyanaconda.ui.gui.utils import blockedHandler
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
@@ -248,9 +249,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._waiveStrengthClicks = 0
         self._waiveASCIIClicks = 0
 
-        self.guesser = {
-            self.username: True
-            }
+        self.guesser = True
 
         # Updated during the password changed event and used by the password
         # field validity checker
@@ -442,35 +441,41 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # Update the password/confirm match check on changes to the main password field
         self._confirm_check.update_check_status()
 
-    def username_changed(self, editable=None, data=None):
-        """Called by Gtk callback when the username or hostname
-        entry changes. It disables the guess algorithm if the
-        user added his own text there and reenable it when the
-        user deletes the whole text."""
+    def on_username_set_by_user(self, editable, data=None):
+        """Called by Gtk on user-driven changes to the username field.
 
-        if editable.get_text() == "":
-            self.guesser[editable] = True
-            self.b_advanced.set_sensitive(False)
-        else:
-            self.guesser[editable] = False
-            self.b_advanced.set_sensitive(True)
-
-            # Re-run the password checks against the new username
-            self.pw.emit("changed")
-            self.confirm.emit("changed")
-
-    def full_name_changed(self, editable=None, data=None):
-        """Called by Gtk callback when the full name field changes.
-        It guesses the username and hostname, strips diacritics
-        and make those lowercase.
+           This handler is blocked during changes from the username guesser.
         """
 
-        # after the text is updated in guesser, the guess has to be reenabled
-        if self.guesser[self.username]:
+        # If the user set a user name, turn off the username guesser.
+        # If the user cleared the username, turn it back on.
+        if editable.get_text():
+            self.guesser = False
+        else:
+            self.guesser = True
+
+    def username_changed(self, editable, data=None):
+        """Called by Gtk on all username changes."""
+
+        # Disable the advanced user dialog button when no username is set
+        if editable.get_text():
+            self.b_advanced.set_sensitive(True)
+        else:
+            self.b_advanced.set_sensitive(False)
+
+        # Re-run the password checks against the new username
+        self.pw.emit("changed")
+        self.confirm.emit("changed")
+
+    def full_name_changed(self, editable=None, data=None):
+        """Called by Gtk callback when the full name field changes."""
+
+        if self.guesser:
             fullname = self.fullname.get_text()
             username = guess_username(fullname)
-            self.username.set_text(username)
-            self.guesser[self.username] = True
+
+            with blockedHandler(self.username, self.on_username_set_by_user):
+                self.username.set_text(username)
 
     def on_admin_toggled(self, togglebutton, data=None):
         # Add or remove "wheel" from the grouplist on changes to the admin checkbox
