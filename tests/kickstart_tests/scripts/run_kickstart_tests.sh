@@ -145,12 +145,32 @@ if [[ -z "${sed_args}" ]]; then
     exit 77
 fi
 
+export KSTESTDIR=${PWD}/kickstart_tests
+
 # Now do all the substitutions on the kickstart files matching up with one of
 # the test cases we are going to run.
 for t in ${tests}; do
     ks=${t/.sh/.ks.in}
     sed ${sed_args} ${ks} > ${t/.sh/.ks}
 done
+
+# collect the prerequisite list for the requested tests. If there is
+# anything in the list, build it.
+
+# Run the prereq functions in a subshell so nothing weird gets into the
+# environment just yet. Print each item one per line and remove duplicates.
+prereq_list=$(
+for t in ${tests} ; do
+    . ${t}
+    for p in $(prereqs) ; do
+        echo $p
+    done
+done | sort | uniq)
+
+if [ -n "$prereq_list" ] ; then
+    make IMAGE="${IMAGE}" KSTESTDIR="${KSTESTDIR}" \
+        -C kickstart_tests/scripts -f Makefile.prereqs $prereq_list
+fi
 
 if [[ "$TEST_REMOTES" != "" ]]; then
     _IMAGE=kickstart_tests/$(basename ${IMAGE})
