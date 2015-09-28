@@ -16,6 +16,11 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+prereqs() {
+    # No prereqs by default
+    echo
+}
+
 kernel_args() {
     echo vnc debug=1 inst.debug
 }
