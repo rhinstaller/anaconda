@@ -75,6 +75,9 @@ class LiveImagePayload(ImagePayload):
 
         # Mount the live device and copy from it instead of the overlay at /
         osimg = storage.devicetree.getDeviceByPath(self.data.method.partition)
+        if not osimg:
+            raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
+
         if not stat.S_ISBLK(os.stat(osimg.path)[stat.ST_MODE]):
             exn = PayloadSetupError("%s is not a valid block device" % (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
