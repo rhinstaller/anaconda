@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.53-1
+- Use otps.display_mode during early startup (mkolman)
+  Resolves: rhbz#1267140
+
 * Mon Sep 28 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.52-1
 - Mount stage2 cdrom after running driver-updates (bcl)
   Resolves: rhbz#1266478
