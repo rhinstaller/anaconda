@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 28 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.52-1
+- Mount stage2 cdrom after running driver-updates (bcl)
+  Resolves: rhbz#1266478
+
 * Fri Sep 25 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.51-1
 - Pull in new translations
   Related: rhbz#1047457
