@@ -99,17 +99,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # Validate the group input box
         self.add_check(self._tGroups, self._validateGroups)
 
-    def _apply_checkboxes(self, _editable=None, data=None):
-        """Update the state of this screen according to the
-        checkbox states on the screen. It is called from
-        the toggled Gtk event.
-        """
-        c_uid = self._cUid.get_active()
-        c_gid = self._cGid.get_active()
-
-        self._spinUid.set_sensitive(c_uid)
-        self._spinGid.set_sensitive(c_gid)
-
     def refresh(self):
         if self._user.homedir:
             homedir = self._user.homedir
@@ -121,7 +110,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self._cUid.set_active(bool(self._user.uid))
         self._cGid.set_active(bool(self._user.gid))
-        self._apply_checkboxes()
 
         self._spinUid.update()
         self._spinGid.update()
@@ -169,6 +157,14 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self.window.hide()
         return rc
+
+    def on_uid_checkbox_toggled(self, togglebutton, data=None):
+        # Set the UID spinner sensitivity based on the UID checkbox
+        self._spinUid.set_sensitive(togglebutton.get_active())
+
+    def on_gid_checkbox_toggled(self, togglebutton, data=None):
+        # Same as above, for GID
+        self._spinGid.set_sensitive(togglebutton.get_active())
 
     def on_uid_mnemonic_activate(self, widget, group_cycling, user_data=None):
         # If this is the only widget with the mnemonic (group_cycling is False),
@@ -427,8 +423,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """Called by Gtk callback when the "Use password" check
         button is toggled. It will make password entries in/sensitive."""
 
-        self.pw.set_sensitive(self.usepassword.get_active())
-        self.confirm.set_sensitive(self.usepassword.get_active())
+        self.pw.set_sensitive(togglebutton.get_active())
+        self.confirm.set_sensitive(togglebutton.get_active())
 
         # Re-check the password
         self.pw.emit("changed")
@@ -467,11 +463,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.pw.emit("changed")
         self.confirm.emit("changed")
 
-    def full_name_changed(self, editable=None, data=None):
+    def full_name_changed(self, editable, data=None):
         """Called by Gtk callback when the full name field changes."""
 
         if self.guesser:
-            fullname = self.fullname.get_text()
+            fullname = editable.get_text()
             username = guess_username(fullname)
 
             with blockedHandler(self.username, self.on_username_set_by_user):
