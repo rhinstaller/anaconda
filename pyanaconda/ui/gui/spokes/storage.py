@@ -268,6 +268,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._last_selected_disks = None
         self._back_clicked = False
         self.autopart_missing_passphrase = False
+        self.disks_errors = []
 
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so
@@ -903,8 +904,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # make sure no containers were split up by the user's disk selection
         self.clear_info()
-        self.errors = checkDiskSelection(self.storage, self.selected_disks)
-        if self.errors:
+
+        # if there are some disk selection errors we don't let user to leave the
+        # spoke, so these errors don't have to go to self.errors
+        self.disks_errors = checkDiskSelection(self.storage, self.selected_disks)
+        if self.disks_errors:
             # The disk selection has to make sense before we can proceed.
             self.set_error(_("There was a problem with your disk selection. "
                              "Click here for details."))
@@ -1014,7 +1018,28 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_info_bar_clicked(self, *args):
-        if self.errors:
+        if self.disks_errors:
+            label = _("The following errors were encountered when checking your disk "
+                      "selection. You can modify your selection or quit the "
+                      "installer.")
+
+            dialog = DetailedErrorDialog(self.data, buttons=[
+                    C_("GUI|Storage|Error Dialog", "_Quit"),
+                    C_("GUI|Storage|Error Dialog", "_Modify Disk Selection")],
+                label=label)
+            with self.main_window.enlightbox(dialog.window):
+                errors = "\n".join(self.disks_errors)
+                dialog.refresh(errors)
+                rc = dialog.run()
+
+            dialog.window.destroy()
+
+            if rc == 0:
+                # Quit.
+                iutil.ipmi_report(constants.IPMI_ABORTED)
+                sys.exit(0)
+
+        elif self.errors:
             label = _("The following errors were encountered when checking your storage "
                       "configuration.  You can modify your storage layout or quit the "
                       "installer.")
