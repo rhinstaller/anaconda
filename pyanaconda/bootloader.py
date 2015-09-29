@@ -1282,12 +1282,12 @@ class GRUB(BootLoader):
 
         # Look for both mdraid and btrfs raid
         if self.stage2_device.type == "mdarray" and \
-           self.stage2_device.level == raid.RAID1:
+           self.stage2_device.level in self.stage2_raid_levels:
             stage2_raid = True
             # Set parents to the list of partitions in the RAID
             stage2_parents = self.stage2_device.parents
         elif self.stage2_device.type == "btrfs subvolume" and \
-           self.stage2_device.parents[0].dataLevel == raid.RAID1:
+           self.stage2_device.parents[0].dataLevel in self.stage2_raid_levels:
             stage2_raid = True
             # Set parents to the list of partitions in the parent volume
             stage2_parents = self.stage2_device.parents[0].parents
@@ -1359,7 +1359,7 @@ class GRUB(BootLoader):
         # to every disk in the array by install_targets).
         if self.stage1_device and self.stage2_device and \
                 self.stage2_device.type == "mdarray" and \
-                self.stage2_device.level == raid.RAID1 and \
+                self.stage2_device.level in self.stage2_raid_levels and \
                 self.stage1_device.type != "mdarray":
             if not self.stage1_device.isDisk:
                 msg = _("boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot loader stage1 device %(stage1dev)s is not. " \
