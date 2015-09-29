@@ -675,6 +675,30 @@ class DNFPayload(packaging.PackagePayload):
         self._base.read_comps()
         self._refreshEnvironmentAddons()
 
+    def gpgsigcheck(self, pkgs):
+        """Perform GPG signature verification on the given packages,
+        installing keys if possible.
+
+        :param pkgs: a list of package objects to verify the GPG
+           signatures of
+        :return: None
+        :raises: Will raise :class:`Error` if there's a problem
+        """
+        for po in pkgs:
+            result, errmsg = self._base.sigCheckPkg(po)
+
+            if result == 0:
+                # Verified ok, or verify not req'd
+                continue
+            elif result == 1:
+                # the callback here expects to be able to take options, which
+                # we don't need; it is used for key import confirmation
+                fn = lambda x, y, z: True
+                self._base.getKeyForPackage(po, fn)
+            else:
+                # Fatal error
+                raise dnf.exceptions.Error(errmsg)
+
     def install(self):
         progress_message(N_('Starting package installation process'))
 
@@ -702,6 +726,9 @@ class DNFPayload(packaging.PackagePayload):
             exc = packaging.PayloadInstallError(msg)
             if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                 _failure_limbo()
+
+        # Verify GPG signatures
+        self.gpgsigcheck(pkgs_to_download)
 
         log.info('Downloading packages finished.')
 
