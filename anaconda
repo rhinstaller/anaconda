@@ -1195,10 +1195,10 @@ if __name__ == "__main__":
         locale_option = ksdata.lang.lang
     else:
         locale_option = None
-    localization.setup_locale_environment(locale_option, anaconda.displayMode != "g")
+    localization.setup_locale_environment(locale_option, opts.display_mode != "g")
 
     # Now that LANG is set, do something with it
-    localization.setup_locale(os.environ["LANG"], ksdata.lang, anaconda.displayMode != "g")
+    localization.setup_locale(os.environ["LANG"], ksdata.lang, opts.display_mode != "g")
 
     import blivet
     blivet.enable_installer_mode()
