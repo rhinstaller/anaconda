@@ -167,21 +167,31 @@ class UserCreateTest(unittest.TestCase):
 
     def create_user_groups_test(self):
         """Create a user with a list of groups."""
-        # First create some groups
-        self.users.createGroup("test1", root=self.tmpdir)
-        self.users.createGroup("test2", root=self.tmpdir)
+        # Create one of the groups
         self.users.createGroup("test3", root=self.tmpdir)
 
-        self.users.createUser("test_user", groups=["test1", "test2", "test3"], root=self.tmpdir)
+        # Create a user and add it three groups, two of which do not exist,
+        # and one which specifies a GID.
+        self.users.createUser("test_user", groups=["test1", "test2(5001)", "test3"], root=self.tmpdir)
 
         grp_fields1 = self._readFields("/etc/group", "test1")
         self.assertEqual(grp_fields1[3], "test_user")
 
         grp_fields2 = self._readFields("/etc/group", "test2")
         self.assertEqual(grp_fields2[3], "test_user")
+        self.assertEqual(grp_fields2[2], "5001")
 
         grp_fields3 = self._readFields("/etc/group", "test3")
         self.assertEqual(grp_fields3[3], "test_user")
+
+    def create_user_groups_gid_conflict_test(self):
+        """Create a user with a bad list of groups."""
+        # Create one of the groups
+        self.users.createGroup("test3", gid=5000, root=self.tmpdir)
+
+        # Add test3 to the group list with a different GID.
+        self.assertRaises(ValueError, self.users.createUser,
+                "test_user", groups=["test3(5002)"], root=self.tmpdir)
 
     def create_user_password_test(self):
         """Create a user with a password."""
