@@ -181,6 +181,22 @@ class Users(object):
 
         return None
 
+    def _getgrgid(self, gid, root):
+        """Like grp.getgrgid, but able to use a different root.
+
+           Just returns the fields as a list of strings.
+        """
+        # Conver the probably-int GID to a string
+        gid = str(gid)
+
+        with open(root + "/etc/group", "r") as f:
+            for line in f:
+                fields = line.split(":")
+                if fields[2] == gid:
+                    return fields
+
+        return None
+
     @contextmanager
     def _ensureLoginDefs(self, root):
         """Runs a command after creating /etc/login.defs, if necessary.
@@ -269,10 +285,12 @@ class Users(object):
 
         args = ["-R", root]
 
-        # If a specific gid is requested, create the user group with that GID.
-        # Otherwise let useradd do it automatically.
+        # If a specific gid is requested, and that gid does not exist,
+        # create the user group with that GID.
         if kwargs.get("gid", None):
-            self.createGroup(user_name, gid=kwargs['gid'], root=root)
+            if not self._getgrgid(kwargs['gid'], root):
+                self.createGroup(user_name, gid=kwargs['gid'], root=root)
+
             args.extend(['-g', str(kwargs['gid'])])
         else:
             args.append('-U')
