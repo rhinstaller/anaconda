@@ -279,6 +279,15 @@ class UserCreateTest(unittest.TestCase):
 
         self.assertRaises(ValueError, self.users.createUser, "test_user", uid=1000, root=self.tmpdir)
 
+    def create_user_gid_exists_test(self):
+        """Create a user with a GID of an existing group."""
+        self.users.createGroup("test_group", gid=5000, root=self.tmpdir)
+        self.users.createUser("test_user", gid=5000, root=self.tmpdir)
+
+        passwd_fields = self._readFields("/etc/passwd", "test_user")
+        self.assertIsNotNone(passwd_fields)
+        self.assertEqual(passwd_fields[3], "5000")
+
     def set_user_ssh_key_test(self):
         keydata = "THIS IS TOTALLY A SSH KEY"
 
