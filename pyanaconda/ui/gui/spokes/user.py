@@ -66,14 +66,13 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         return InputCheck.CHECK_OK
 
-    def __init__(self, user, groupDict, data):
+    def __init__(self, user, data):
         GUIObject.__init__(self, data)
 
         self._saveButton = self.builder.get_object("save_button")
         GUIDialogInputCheckHandler.__init__(self, self._saveButton)
 
         self._user = user
-        self._groupDict = groupDict
 
         # Track whether the user has requested a home directory other
         # than the default.
@@ -110,23 +109,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._spinUid.set_sensitive(c_uid)
         self._spinGid.set_sensitive(c_gid)
 
-    def _parse_groups(self):
-        group_strings = self._tGroups.get_text().split(",")
-        group_objects = []
-
-        for group in group_strings:
-            # Skip empty strings
-            if not group:
-                continue
-
-            (group_name, group_id) = GROUPLIST_FANCY_PARSE.match(group).groups()
-            if group_id:
-                group_id = int(group_id)
-
-            group_objects.append(self.data.GroupData(name=group_name, gid=group_id))
-
-        return group_objects
-
     def refresh(self):
         if self._user.homedir:
             homedir = self._user.homedir
@@ -143,18 +125,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._spinUid.update()
         self._spinGid.update()
 
-        groups = []
-        for group_name in self._user.groups:
-            group = self._groupDict[group_name]
-
-            if group.name and group.gid is not None:
-                groups.append("%s (%d)" % (group.name, group.gid))
-            elif group.name:
-                groups.append(group.name)
-            elif group.gid is not None:
-                groups.append("(%d)" % (group.gid,))
-
-        self._tGroups.set_text(", ".join(groups))
+        self._tGroups.set_text(", ".join(self._user.groups))
 
     def run(self):
         self.window.show()
@@ -185,12 +156,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
                     else:
                         self._user.gid = None
 
-                    groups = self._parse_groups()
-                    self._user.groups = []
-                    self._groupDict.clear()
-                    for group in groups:
-                        self._groupDict[group.name] = group
-                        self._user.groups.append(group.name)
+                    self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",")]
                     break
                 # Input checks fail, try again
                 else:
@@ -268,8 +234,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self._user = self.data.user.userList[0]
         else:
             self._user = self.data.UserData()
-        self._wheel = self.data.GroupData(name="wheel")
-        self._groupDict = {"wheel": self._wheel}
 
         # placeholders for the text boxes
         self.fullname = self.builder.get_object("t_fullname")
@@ -351,8 +315,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         self.add_re_check(self.fullname, GECOS_VALID, _("Full name cannot contain colon characters"))
 
-        self._advanced = AdvancedUserDialog(self._user, self._groupDict,
-                                            self.data)
+        self._advanced = AdvancedUserDialog(self._user, self.data)
         self._advanced.initialize()
 
     def refresh(self):
@@ -362,7 +325,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         self.username.set_text(self._user.name)
         self.fullname.set_text(self._user.gecos)
-        self.admin.set_active(self._wheel.name in self._user.groups)
+        self.admin.set_active("wheel" in self._user.groups)
 
         self.pw.emit("changed")
         self.confirm.emit("changed")
@@ -381,7 +344,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def status(self):
         if len(self.data.user.userList) == 0:
             return _("No user will be created")
-        elif self._wheel.name in self.data.user.userList[0].groups:
+        elif "wheel" in self.data.user.userList[0].groups:
             return _("Administrator %s will be created") % self.data.user.userList[0].name
         else:
             return _("User %s will be created") % self.data.user.userList[0].name
@@ -415,28 +378,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._user.name = self.username.get_text()
         self._user.gecos = self.fullname.get_text()
 
-        # Remove any groups that were created in a previous visit to this spoke
-        self.data.group.groupList = [g for g in self.data.group.groupList \
-                if not hasattr(g, 'anaconda_group')]
-
         # the user will be created only if the username is set
         if self._user.name:
-            if self.admin.get_active() and \
-               self._wheel.name not in self._user.groups:
-                self._user.groups.append(self._wheel.name)
-            elif not self.admin.get_active() and \
-                 self._wheel.name in self._user.groups:
-                self._user.groups.remove(self._wheel.name)
-
-            anaconda_groups = [self._groupDict[g] for g in self._user.groups
-                                if g != self._wheel.name]
-
-            self.data.group.groupList += anaconda_groups
-
-            # Flag the groups as being created in this spoke
-            for g in anaconda_groups:
-                g.anaconda_group = True
-
             if self._user not in self.data.user.userList:
                 self.data.user.userList.append(self._user)
 
@@ -529,6 +472,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             username = guess_username(fullname)
             self.username.set_text(username)
             self.guesser[self.username] = True
+
+    def on_admin_toggled(self, togglebutton, data=None):
+        # Add or remove "wheel" from the grouplist on changes to the admin checkbox
+        if togglebutton.get_active():
+            if "wheel" not in self._user.groups:
+                self._user.groups.append("wheel")
+        elif "wheel" in self._user.groups:
+            self._user.groups.delete("wheel")
 
     def _checkPasswordEmpty(self, inputcheck):
         """Check whether a password has been specified at all.
@@ -637,18 +588,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         self._user.name = self.username.get_text()
 
-        if self.admin.get_active() and \
-           self._wheel.name not in self._user.groups:
-            self._user.groups.append(self._wheel.name)
-        elif not self.admin.get_active() and \
-             self._wheel.name in self._user.groups:
-            self._user.groups.remove(self._wheel.name)
-
         self._advanced.refresh()
         with self.main_window.enlightbox(self._advanced.window):
             self._advanced.run()
 
-        self.admin.set_active(self._wheel.name in self._user.groups)
+        self.admin.set_active("wheel" in self._user.groups)
 
     def on_back_clicked(self, button):
         # If the failed check is for non-ASCII characters,
