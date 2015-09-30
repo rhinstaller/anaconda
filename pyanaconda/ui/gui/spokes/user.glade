@@ -274,6 +274,7 @@
                         <property name="use_underline">True</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="on_admin_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

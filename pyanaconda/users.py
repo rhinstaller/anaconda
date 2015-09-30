@@ -33,6 +33,7 @@ from pyanaconda.iutil import strip_accents
 from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
+from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
 
 import logging
 log = logging.getLogger("anaconda")
@@ -167,14 +168,18 @@ class Users(object):
 
         return None
 
-    def _groupExists(self, group_name, root):
-        """Returns whether a group with the given name already exists."""
+    def _getgrnam(self, group_name, root):
+        """Like grp.getgrnam, but able to use a different root.
+
+            Just returns the grp structure as a list, same reason as above.
+        """
         with open(root + "/etc/group", "r") as f:
             for line in f:
-                if line.split(":")[0] == group_name:
-                    return True
+                fields = line.split(":")
+                if fields[0] == group_name:
+                    return fields
 
-        return False
+        return None
 
     @contextmanager
     def _ensureLoginDefs(self, root):
@@ -207,7 +212,7 @@ class Users(object):
         """
         root = kwargs.get("root", iutil.getSysroot())
 
-        if self._groupExists(group_name, root):
+        if self._getgrnam(group_name, root):
             raise ValueError("Group %s already exists" % group_name)
 
         args = ["-R", root]
@@ -232,8 +237,9 @@ class Users(object):
                               If none is given, the cryptPassword default is used.
            :keyword str gecos: The GECOS information (full name, office, phone, etc.).
                                Defaults to "".
-           :keyword groups: A list of existing group names the user should be
-                            added to.  Defaults to [].
+           :keyword groups: A list of group names the user should be added to.
+                            Each group name can contain an optional GID in parenthesis,
+                            such as "groupName(5000)". Defaults to [].
            :type groups: list of str
            :keyword str homedir: The home directory for the new user.  Defaults to
                                  /home/<name>.
@@ -271,8 +277,23 @@ class Users(object):
         else:
             args.append('-U')
 
-        if kwargs.get("groups"):
-            args.extend(['-G', ",".join(kwargs["groups"])])
+        # If any requested groups do not exist, create them.
+        group_list = []
+        for group in kwargs.get("groups", []):
+            group_name, gid = GROUPLIST_FANCY_PARSE.match(group).groups()
+            existing_group = self._getgrnam(group_name, root)
+
+            # Check for a bad GID request
+            if gid and existing_group and gid != existing_group[2]:
+                raise ValueError("Group %s already exists with GID %s" % (group_name, gid))
+
+            # Otherwise, create the group if it does not already exist
+            if not existing_group:
+                self.createGroup(group_name, gid=gid, root=root)
+            group_list.append(group_name)
+
+        if group_list:
+            args.extend(['-G', ",".join(group_list)])
 
         if kwargs.get("homedir"):
             homedir = kwargs["homedir"]
