@@ -62,7 +62,7 @@ fi
 # Check that only the requested locales were installed
 # Use grep -a to force text mode, since sometimes a character will end up in the
 # output that makes grep think it's binary
-other_locales="$(localedef --list-archive | grep -a -v '^fr_' | grep -a -v '^es_' | grep -a -v '^it_')"
+other_locales="$(localedef --list-archive | grep -a -v -E '^(fr_|es_|it_|french|italian|spanish)')"
 if [ -n "$other_locales" ]; then
     echo "*** unrequested locales were installed" >> /root/RESULT
 fi
