@@ -460,7 +460,7 @@ def check_memory(anaconda, options, display_mode=None):
         display_mode = anaconda.displayMode
 
     reason = reason_strict
-    total_ram = int(isys.total_memory())
+    total_ram = int(isys.total_memory() / 1024)
     needed_ram = int(isys.MIN_RAM)
     graphical_ram = int(isys.MIN_GUI_RAM)
 
