@@ -26,7 +26,7 @@ from pyanaconda import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -293,8 +293,11 @@ class RootSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
-        return _("Please make your selection from the above list.\nPress 'c' "
-                 "to continue after you have made your selection.  ")
+        return _("Please make your selection from the above list.\nPress '%(continue)s' "
+                 "to continue after you have made your selection.  ") % {
+                     # TRANSLATORS:'c' to continue
+                     'continue': C_('TUI|Root Selection', 'c'),
+                 }
 
     def input(self, args, key):
         """Move along home."""
