@@ -728,7 +728,13 @@ class DNFPayload(packaging.PackagePayload):
                 _failure_limbo()
 
         # Verify GPG signatures
-        self.gpgsigcheck(pkgs_to_download)
+        try:
+            self.gpgsigcheck(pkgs_to_download)
+        except dnf.exceptions.Error as e:
+            msg = 'Signature verification failed: %s' % str(e)
+            exc = packaging.PayloadInstallError(msg)
+            if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
+                _failure_limbo()
 
         log.info('Downloading packages finished.')
 
