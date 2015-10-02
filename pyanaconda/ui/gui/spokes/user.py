@@ -324,16 +324,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.pw.emit("changed")
         self.confirm.emit("changed")
 
-        if self.username.get_text() and self.usepassword.get_active() and \
-           self._user.password == "":
-            self.pw.grab_focus()
-        elif self.fullname.get_text():
-            self.username.grab_focus()
-        else:
-            self.fullname.grab_focus()
-
-        self.b_advanced.set_sensitive(bool(self._user.name))
-
     @property
     def status(self):
         if len(self.data.user.userList) == 0:
