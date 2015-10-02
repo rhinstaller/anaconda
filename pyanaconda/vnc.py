@@ -114,7 +114,7 @@ class VncServer:
             ipstr = self.ip
 
         try:
-            hinfo = socket.gethostbyaddr(ipstr)
+            hinfo = socket.gethostbyaddr(self.ip)
             if len(hinfo) == 3:
                 # Consider as coming from a valid DNS record only if single IP is returned
                 if len(hinfo[2]) == 1:
