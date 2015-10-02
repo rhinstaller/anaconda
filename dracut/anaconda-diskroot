@@ -13,7 +13,7 @@ run_checkisomd5() {
         if [ "$fs" = "iso9660" -o "$fs" = "udf" ]; then
             [ -x /bin/plymouth ] && /bin/plymouth --hide-splash
             if [ -n "$DRACUT_SYSTEMD" ]; then
-                p=$(str_replace "$livedev" "-" '\x2d')
+                p=$(dev_unit_name "$livedev")
                 systemctl start checkisomd5@${p}.service
                 retcode=$(systemctl -p ExecMainStatus show checkisomd5@${p}.service)
                 status=$(systemctl -p ActiveState show checkisomd5@${p}.service)
