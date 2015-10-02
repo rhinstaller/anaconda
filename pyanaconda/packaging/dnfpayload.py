@@ -409,6 +409,9 @@ class DNFPayload(packaging.PackagePayload):
                 if proxy.password:
                     conf.proxy_password = proxy.password
                 log.info("Using %s as proxy", self.data.method.proxy)
+
+                # Prevent parallel downloads from swamping the proxy
+                conf.max_parallel_downloads = 1
             except ProxyStringError as e:
                 log.error("Failed to parse proxy for dnf configure %s: %s",
                           self.data.method.proxy, e)
