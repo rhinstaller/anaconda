@@ -247,11 +247,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         self.guesser = True
 
-        # Updated during the password changed event and used by the password
-        # field validity checker
-        self._pwq_error = None
-        self._pwq_valid = True
-
         self.pw_bar = self.builder.get_object("password_bar")
         self.pw_label = self.builder.get_object("password_label")
 
@@ -381,20 +376,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def completed(self):
         return len(self.data.user.userList) > 0
 
-    def _updatePwQuality(self):
+    def _updatePwQuality(self, empty, strength):
         """This method updates the password indicators according
         to the password entered by the user.
         """
-        pwtext = self.pw.get_text()
-        username = self.username.get_text()
-
-        # Reset the counters used for the "press Done twice" logic
-        self._waiveStrengthClicks = 0
-        self._waiveASCIIClicks = 0
-
-        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, username)
-
-        if not pwtext:
+        # If the password is empty, clear the strength bar
+        if empty:
             val = 0
         elif strength < 50:
             val = 1
@@ -404,6 +391,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             val = 3
         else:
             val = 4
+
         text = _(PASSWORD_STRENGTH_DESC[val])
 
         self.pw_bar.set_value(val)
@@ -422,7 +410,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     def password_changed(self, editable=None, data=None):
         """Update the password strength level bar"""
-        self._updatePwQuality()
+        # Reset the counters used for the "press Done twice" logic
+        self._waiveStrengthClicks = 0
+        self._waiveASCIIClicks = 0
 
         # Update the password/confirm match check on changes to the main password field
         self._confirm_check.update_check_status()
@@ -508,36 +498,39 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def _checkPasswordStrength(self, inputcheck):
         """Update the error message based on password strength.
 
-           The password strength has already been checked in _updatePwQuality, called
-           previously in the signal chain. This method converts the data set from there
-           into an error message.
-
            The password strength check can be waived by pressing "Done" twice. This
            is controlled through the self._waiveStrengthClicks counter. The counter
            is set in on_back_clicked, which also re-runs this check manually.
          """
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or \
-                ((not self.pw.get_text()) and (self._user.password_kickstarted)):
+        if not self.usepassword.get_active or self._user.password_kickstarted:
             return InputCheck.CHECK_OK
 
-        # If the password failed the validity check, fail this check
-        if (not self._pwq_valid) and (self._pwq_error):
-            return self._pwq_error
-
-        # use strength from policy, not bars
+        # If the password is empty, clear the strength bar and skip this check
         pw = self.pw.get_text()
+        if not pw:
+            self._updatePwQuality(True, 0)
+            return InputCheck.CHECK_OK
+
+        # determine the password strength
         username = self.username.get_text()
-        _valid, pwstrength, _error = validatePassword(pw, username, minlen=self.policy.minlen)
+        valid, pwstrength, error = validatePassword(pw, username, minlen=self.policy.minlen)
+
+        # set the strength bar
+        self._updatePwQuality(False, pwstrength)
+
+        # If the password failed the validity check, fail this check
+        if not valid and error:
+            return error
 
         if pwstrength < self.policy.minquality:
             # If Done has been clicked twice, waive the check
             if self._waiveStrengthClicks > 1:
                 return InputCheck.CHECK_OK
             elif self._waiveStrengthClicks == 1:
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
+                if error:
+                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % error
                 else:
                     return _(PASSWORD_WEAK_CONFIRM)
             else:
@@ -547,8 +540,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 else:
                     done_msg = _(PASSWORD_DONE_TWICE)
 
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error + " " + done_msg
+                if error:
+                    return _(PASSWORD_WEAK_WITH_ERROR) % error + " " + done_msg
                 else:
                     return _(PASSWORD_WEAK) % done_msg
         else:
