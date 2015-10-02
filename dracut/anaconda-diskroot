@@ -15,13 +15,20 @@ run_checkisomd5() {
             if [ -n "$DRACUT_SYSTEMD" ]; then
                 p=$(str_replace "$livedev" "-" '\x2d')
                 systemctl start checkisomd5@${p}.service
-                status=$(systemctl -p ExecMainStatus show checkisomd5@${p}.service)
-                splitsep "=" "$status" ignore rc
+                retcode=$(systemctl -p ExecMainStatus show checkisomd5@${p}.service)
+                status=$(systemctl -p ActiveState show checkisomd5@${p}.service)
+                splitsep "=" "$retcode" ignore rc
+                splitsep "=" "$status" ignore state
             else
                 checkisomd5 --verbose $livedev
                 rc=$?
+                state="inactive"
             fi
             if [ "$rc" == "1" ]; then
+                die "CD check failed!"
+                exit 1
+            fi
+            if [ "$state" = "failed" ]; then
                 die "CD check failed!"
                 exit 1
             fi
