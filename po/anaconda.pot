@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 24.1\n"
+"Project-Id-Version: anaconda 24.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-11 17:56-0700\n"
+"POT-Creation-Date: 2015-10-02 17:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/errors.py:129
+#: pyanaconda/errors.py:109
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -213,16 +213,15 @@ msgid ""
 "The installation will now terminate."
 msgstr ""
 
-#: pyanaconda/errors.py:135
+#: pyanaconda/errors.py:115
 #, python-format
 msgid "An error occurred while resizing the device %s."
 msgstr ""
 
-#: pyanaconda/errors.py:144
+#: pyanaconda/errors.py:124
 #, python-format
 msgid ""
-"There is a problem with your existing storage configuration: <b>"
-"%(errortxt)s</b>\n"
+"There is a problem with your existing storage configuration: %(errortxt)s\n"
 "\n"
 "You must resolve this matter before the installation can proceed. There is a "
 "shell available for use which you can access by pressing ctrl-alt-f1 and "
@@ -232,30 +231,30 @@ msgid ""
 "not fix it you will have to exit the installer."
 msgstr ""
 
-#: pyanaconda/errors.py:153
+#: pyanaconda/errors.py:133
 msgctxt "GUI|Storage Detailed Error Dialog"
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/errors.py:154
+#: pyanaconda/errors.py:134
 msgctxt "GUI|Storage Detailed Error Dialog"
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/errors.py:161
+#: pyanaconda/errors.py:141
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/errors.py:170
+#: pyanaconda/errors.py:150
 msgid ""
 "There is an entry in your /etc/fstab file that contains an invalid or "
 "incorrect file system type:\n"
 "\n"
 msgstr ""
 
-#: pyanaconda/errors.py:176
+#: pyanaconda/errors.py:156
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
@@ -266,7 +265,7 @@ msgid ""
 "using this image?"
 msgstr ""
 
-#: pyanaconda/errors.py:190
+#: pyanaconda/errors.py:170
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it "
 "on the hard drive.\n"
@@ -274,26 +273,26 @@ msgid ""
 "Should I try again to locate the image?"
 msgstr ""
 
-#: pyanaconda/errors.py:200
+#: pyanaconda/errors.py:180
 #, python-format
 msgid "An error occurred mounting the source device %s. Retry?"
 msgstr ""
 
-#: pyanaconda/errors.py:208
+#: pyanaconda/errors.py:188
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: pyanaconda/errors.py:216
+#: pyanaconda/errors.py:196
 #, python-format
 msgid ""
 "The group '%s' is required for this installation. This group does not exist. "
 "This is a fatal error and installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:222
+#: pyanaconda/errors.py:202
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -301,7 +300,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:227
+#: pyanaconda/errors.py:207
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be excluded from "
@@ -309,14 +308,14 @@ msgid ""
 "group and continue with installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:239
+#: pyanaconda/errors.py:219
 #, python-format
 msgid ""
 "The package '%s' is required for this installation. This package does not "
 "exist. This is a fatal error and installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:246
+#: pyanaconda/errors.py:226
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -324,7 +323,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:257
+#: pyanaconda/errors.py:237
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  This is "
@@ -334,32 +333,32 @@ msgid ""
 "%(details)s"
 msgstr ""
 
-#: pyanaconda/errors.py:265
+#: pyanaconda/errors.py:245
 msgid ""
 "The following error occurred while installing.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:273
+#: pyanaconda/errors.py:253
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
 "your installation source."
 msgstr ""
 
-#: pyanaconda/errors.py:281
+#: pyanaconda/errors.py:261
 msgid ""
 "The following error occurred while installing the boot loader. The system "
 "will not be bootable. Would you like to ignore this and continue with "
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:293
+#: pyanaconda/errors.py:273
 #, python-format
 msgid "Unable to encrypt password: unsupported algorithm %s"
 msgstr ""
 
-#: pyanaconda/errors.py:300
+#: pyanaconda/errors.py:280
 #, python-format
 msgid ""
 "Installation was stopped due to an error installing the boot loader. The "
@@ -461,8 +460,8 @@ msgstr ""
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:242 pyanaconda/packaging/livepayload.py:180
-#: pyanaconda/packaging/dnfpayload.py:696
+#: pyanaconda/install.py:242 pyanaconda/packaging/livepayload.py:183
+#: pyanaconda/packaging/dnfpayload.py:721
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -939,16 +938,23 @@ msgid "The following installations were discovered on your system.\n"
 msgstr ""
 
 #: pyanaconda/rescue.py:296
+#, python-format
 msgid ""
 "Please make your selection from the above list.\n"
-"Press 'c' to continue after you have made your selection.  "
+"Press '%(continue)s' to continue after you have made your selection.  "
 msgstr ""
 
-#: pyanaconda/rescue.py:326
+#. TRANSLATORS:'c' to continue
+#: pyanaconda/rescue.py:299
+msgctxt "TUI|Root Selection"
+msgid "c"
+msgstr ""
+
+#: pyanaconda/rescue.py:329
 msgid "Rescue Mount"
 msgstr ""
 
-#: pyanaconda/rescue.py:345
+#: pyanaconda/rescue.py:348
 #, python-format
 msgid ""
 "Your system has been mounted under %(mountpoint)s.\n"
@@ -959,12 +965,12 @@ msgid ""
 "\tchroot %(mountpoint)s\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:384
+#: pyanaconda/rescue.py:387
 #, python-format
 msgid "Run %s to unmount the system when you are finished.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:386
+#: pyanaconda/rescue.py:389
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system.  Some of it "
@@ -972,25 +978,25 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:393
+#: pyanaconda/rescue.py:396
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:400
+#: pyanaconda/rescue.py:403
 msgid "The system will reboot automatically when you exit from the shell.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:404
+#: pyanaconda/rescue.py:407
 #, python-format
 msgid "You don't have any Linux partitions. %s\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:414
+#: pyanaconda/rescue.py:417
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
 
-#: pyanaconda/rescue.py:435
+#: pyanaconda/rescue.py:438
 msgid "Please press <return> to get a shell. "
 msgstr ""
 
@@ -1254,53 +1260,53 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1169
+#: pyanaconda/packaging/__init__.py:1162
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1170
+#: pyanaconda/packaging/__init__.py:1163
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1171
+#: pyanaconda/packaging/__init__.py:1164
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:104
-#: pyanaconda/packaging/livepayload.py:125
+#: pyanaconda/packaging/livepayload.py:107
+#: pyanaconda/packaging/livepayload.py:128
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:235
-#: pyanaconda/packaging/livepayload.py:244
+#: pyanaconda/packaging/livepayload.py:238
+#: pyanaconda/packaging/livepayload.py:247
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:388
+#: pyanaconda/packaging/livepayload.py:391
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:153
+#: pyanaconda/packaging/dnfpayload.py:158
 #, python-format
 msgid ""
 "Downloading %(total_files)s RPMs, %(downloaded)s / %(total_size)s "
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:650
+#: pyanaconda/packaging/dnfpayload.py:675
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:667
+#: pyanaconda/packaging/dnfpayload.py:692
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:679
+#: pyanaconda/packaging/dnfpayload.py:704
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:689
+#: pyanaconda/packaging/dnfpayload.py:714
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -2080,7 +2086,7 @@ msgid ""
 "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:129 pyanaconda/ui/gui/spokes/user.py:386
+#: pyanaconda/ui/tui/spokes/user.py:129 pyanaconda/ui/gui/spokes/user.py:346
 msgid "No user will be created"
 msgstr ""
 
@@ -2088,12 +2094,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:133 pyanaconda/ui/gui/spokes/user.py:388
+#: pyanaconda/ui/tui/spokes/user.py:133 pyanaconda/ui/gui/spokes/user.py:348
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:135 pyanaconda/ui/gui/spokes/user.py:390
+#: pyanaconda/ui/tui/spokes/user.py:135 pyanaconda/ui/gui/spokes/user.py:350
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -2998,61 +3004,61 @@ msgid ""
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:908
+#: pyanaconda/ui/gui/spokes/storage.py:909
 msgid "There was a problem with your disk selection. Click here for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1001
+#: pyanaconda/ui/gui/spokes/storage.py:1002
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1017
+#: pyanaconda/ui/gui/spokes/storage.py:1018
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1022
+#: pyanaconda/ui/gui/spokes/storage.py:1023
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1023
+#: pyanaconda/ui/gui/spokes/storage.py:1024
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1037
+#: pyanaconda/ui/gui/spokes/storage.py:1038
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1042
+#: pyanaconda/ui/gui/spokes/storage.py:1043
 msgctxt "GUI|Storage|Warning Dialog"
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:66
+#: pyanaconda/ui/gui/spokes/user.py:65
 #, python-format
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:243
+#: pyanaconda/ui/gui/spokes/user.py:208
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:321 pyanaconda/ui/gui/spokes/user.py:322
+#: pyanaconda/ui/gui/spokes/user.py:282 pyanaconda/ui/gui/spokes/user.py:283
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:353
+#: pyanaconda/ui/gui/spokes/user.py:314
 msgid "Invalid user name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:355
+#: pyanaconda/ui/gui/spokes/user.py:316
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
@@ -4662,7 +4668,7 @@ msgid "Unsupported Hardware"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/user.glade:10
-#: pyanaconda/ui/gui/spokes/user.glade:346
+#: pyanaconda/ui/gui/spokes/user.glade:347
 msgid "CREATE USER"
 msgstr ""
 
@@ -4706,7 +4712,7 @@ msgctxt "GUI|User"
 msgid "_Make this user administrator"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:289
+#: pyanaconda/ui/gui/spokes/user.glade:290
 msgctxt "GUI|User"
 msgid "_Advanced..."
 msgstr ""
