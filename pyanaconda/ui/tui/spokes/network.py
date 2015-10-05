@@ -192,6 +192,21 @@ class NetworkSpoke(EditTUISpoke):
             # configure device
             devname = self.supported_devices[num-2]
             ndata = network.ksdata_from_ifcfg(devname)
+            if not ndata:
+                try:
+                    nm.nm_device_setting_value(devname, "connection", "uuid")
+                except nm.SettingsNotFoundError:
+                    pass
+                else:
+                    log.debug("network: dumping ifcfg file for in-memory connection %s", devname)
+                    nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
+                    ndata = network.ksdata_from_ifcfg(devname)
+
+            if not ndata:
+                log.debug("network: can't find any connection for %s", devname)
+                #self.errors.append(_("Configuration of device not found"))
+                return INPUT_PROCESSED
+
             newspoke = ConfigureNetworkSpoke(self.app, self.data, self.storage,
                                     self.payload, self.instclass, ndata)
             self.app.switch_screen_modal(newspoke)
