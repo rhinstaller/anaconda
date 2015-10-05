@@ -44,7 +44,7 @@ import os
 import os.path
 import tempfile
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, SYSTEMD_UNITS
 import shlex
 import requests
 import sys
@@ -1641,13 +1641,13 @@ class SELinux(commands.selinux.FC3_SELinux):
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
         for svc in self.disabled:
-            if not svc.endswith(".service"):
+            if "." not in svc or svc.rsplit(".", 1)[-1] not in SYSTEMD_UNITS:
                 svc += ".service"
 
             iutil.execInSysroot("systemctl", ["disable", svc])
 
         for svc in self.enabled:
-            if not svc.endswith(".service"):
+            if "." not in svc or svc.rsplit(".", 1)[-1] not in SYSTEMD_UNITS:
                 svc += ".service"
 
             iutil.execInSysroot("systemctl", ["enable", svc])

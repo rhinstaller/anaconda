@@ -189,3 +189,7 @@ X_DISPLAY_NUMBER = 1
 PAYLOAD_STATUS_PROBING_STORAGE = N_("Probing storage...")
 PAYLOAD_STATUS_PACKAGE_MD = N_("Downloading package metadata...")
 PAYLOAD_STATUS_GROUP_MD = N_("Downloading group metadata...")
+
+# systemd unit suffixes from http://www.freedesktop.org/software/systemd/man/systemd.unit.html
+SYSTEMD_UNITS = ("service", "socket", "device", "mount", "automount", "swap",
+                 "target", "path", "timer", "snapshot", "slice", "scope")
