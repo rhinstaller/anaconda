@@ -1641,15 +1641,9 @@ class SELinux(commands.selinux.FC3_SELinux):
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
         for svc in self.disabled:
-            if not svc.endswith(".service"):
-                svc += ".service"
-
             iutil.execInSysroot("systemctl", ["disable", svc])
 
         for svc in self.enabled:
-            if not svc.endswith(".service"):
-                svc += ".service"
-
             iutil.execInSysroot("systemctl", ["enable", svc])
 
 class SshKey(commands.sshkey.F22_SshKey):
