@@ -308,22 +308,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         # indicate when the password was set by kickstart
         self._user.password_kickstarted = self.data.user.seen
-        if self._user.password_kickstarted:
-            self.usepassword.set_active(self._user.password != "")
-            if not self._user.isCrypted:
-                self.pw.set_text(self._user.password)
-                self.confirm.set_text(self._user.password)
-            else:
-                self.usepassword.set_active(True)
-                self.pw.set_placeholder_text(_("The password was set by kickstart."))
-                self.confirm.set_placeholder_text(_("The password was set by kickstart."))
-        elif not self.policy.emptyok:
-            # Policy is that a non-empty password is required
-            self.usepassword.set_active(True)
-
-        if not self.policy.emptyok:
-            # User isn't allowed to change whether password is required or not
-            self.usepassword.set_sensitive(False)
 
         # Password checks, in order of importance:
         # - if a password is required, is one specified?
@@ -350,6 +334,26 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 _("Invalid user name"))
 
         self.add_re_check(self.fullname, GECOS_VALID, _("Full name cannot contain colon characters"))
+
+        # Modify the GUI based on the kickstart and policy information
+        # This needs to happen after the input checks have been created, since
+        # the Gtk signal handlers use the input check variables.
+        if self._user.password_kickstarted:
+            self.usepassword.set_active(self._user.password != "")
+            if not self._user.isCrypted:
+                self.pw.set_text(self._user.password)
+                self.confirm.set_text(self._user.password)
+            else:
+                self.usepassword.set_active(True)
+                self.pw.set_placeholder_text(_("The password was set by kickstart."))
+                self.confirm.set_placeholder_text(_("The password was set by kickstart."))
+        elif not self.policy.emptyok:
+            # Policy is that a non-empty password is required
+            self.usepassword.set_active(True)
+
+        if not self.policy.emptyok:
+            # User isn't allowed to change whether password is required or not
+            self.usepassword.set_sensitive(False)
 
         self._advanced = AdvancedUserDialog(self._user, self._groupDict,
                                             self.data)
