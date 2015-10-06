@@ -21,10 +21,18 @@ else
     debug_msg "/tmp/dd_disk file was not created"
 fi
 
-# Run driver-updates for LABEL=OEMDRV and any other requested disk
+# Run driver-updates for LABEL=OEMDRV and any other requested disk/image
 for dd in $DD_OEMDRV $DD_DISK; do
-    when_diskdev_appears "$(disk_to_dev_path $dd)" \
-        driver-updates --disk $dd \$devnode
+    # ..is this actually a disk image that already exists inside initramfs?
+    if [ -f $dd ]; then
+        # if so, no need to wait for udev - add it to initqueue now
+        initqueue --onetime --unique --name dd_initrd \
+            driver-updates --disk $dd $dd
+    else
+        # otherwise, tell udev to do driver-updates when the device appears
+        when_diskdev_appears "$(disk_to_dev_path $dd)" \
+            driver-updates --disk $dd \$devnode
+    fi
 done
 
 # force us to wait at least until we've settled at least once
