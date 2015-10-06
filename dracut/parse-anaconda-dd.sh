@@ -19,8 +19,10 @@ for dd in $(getargs dd= inst.dd=); do
         http:*|https:*|ftp:*|nfs:*|nfs4:*) echo $dd >> /tmp/dd_net ;;
         # disks: strip "cdrom:" or "hd:" and add to dd_disk
         cdrom:*|hd:*) echo ${dd#*:} >> /tmp/dd_disk ;;
-        # anything else is assumed to be a disk
-        *) echo $dd >> /tmp/dd_disk
+        # images crammed into initrd: strip "file:" or "path:"
+        file:*|path:*) echo ${dd#*:} >> /tmp/dd_disk ;;
+        # anything else is assumed to be a disk (or disk image)
+        *) echo $dd >> /tmp/dd_disk ;;
     esac
 done
 

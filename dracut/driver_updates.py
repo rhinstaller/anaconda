@@ -30,7 +30,10 @@ Usage is one of:
     driver-updates --disk DISKSTR DEVNODE
 
         DISKSTR is the string passed by the user ('/dev/sda3', 'LABEL=DD', etc.)
-        DEVNODE is the actual device node (/dev/sda3, /dev/sr0, etc.)
+        DEVNODE is the actual device node or image (/dev/sda3, /dev/sr0, etc.)
+
+        DEVNODE must be mountable, but need not actually be a block device
+        (e.g. /dd.iso is valid if the user has inserted /dd.iso into initrd)
 
     driver-updates --net URL LOCALFILE
 
