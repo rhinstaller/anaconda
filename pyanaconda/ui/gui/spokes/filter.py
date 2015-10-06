@@ -32,7 +32,7 @@ from blivet.fcoe import has_fcoe
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
-from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.storage_utils import try_populate_devicetree, on_disk_storage
 
 from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.ui.gui.utils import timed_action
@@ -514,6 +514,12 @@ class FilterSpoke(NormalSpoke):
 
         self.data.ignoredisk.onlyuse = onlyuse
         self.data.clearpart.drives = self.selected_disks[:]
+
+        # some disks may have been added in this spoke, we need to recreate the
+        # snapshot of on-disk storage
+        if on_disk_storage.created:
+            on_disk_storage.dispose_snapshot()
+        on_disk_storage.create_snapshot(self.storage)
 
     def initialize(self):
         NormalSpoke.initialize(self)

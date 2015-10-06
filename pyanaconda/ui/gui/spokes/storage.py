@@ -1006,6 +1006,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self._reclaim.set_tooltip_text(_("You'll be able to make space available during custom partitioning."))
 
     def on_specialized_clicked(self, button):
+        # there will be changes in disk selection, revert storage to an early snapshot (if it exists)
+        if on_disk_storage.created:
+            on_disk_storage.reset_to_snapshot(self.storage)
+
         # Don't want to run apply or execute in this case, since we have to
         # collect some more disks first.  The user will be back to this spoke.
         self.applyOnSkip = False
