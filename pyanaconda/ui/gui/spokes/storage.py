@@ -784,7 +784,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _check_dasd_formats(self):
         rc = DASD_FORMAT_NO_CHANGE
-        dasds = self.storage.devicetree.make_unformatted_dasd_list(self.selected_disks)
+        dasds = self.storage.devicetree.make_unformatted_dasd_list(self.storage.devicetree.dasd)
         if len(dasds) > 0:
             # We want to apply current selection before running dasdfmt to
             # prevent this information from being lost afterward
