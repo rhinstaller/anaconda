@@ -949,8 +949,14 @@ def get_team_slaves(master_specs):
 def ibftIface():
     iface = ""
     ipopt = flags.cmdline.get('ip')
-    if ipopt and ipopt.startswith('ibft'):
-        iface = ipopt.split(":")[0]
+    # Examples (dhcp, static):
+    # ibft0:dhcp
+    # 10.34.102.244::10.34.102.54:255.255.255.0::ibft0:none
+    if ipopt:
+        for item in ipopt.split(":"):
+            if item.startswith('ibft'):
+                iface = item
+                break
     return iface
 
 def ifaceForHostIP(host):
