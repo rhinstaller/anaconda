@@ -304,13 +304,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # the Gtk signal handlers use the input check variables.
         if self._user.password_kickstarted:
             self.usepassword.set_active(self._user.password != "")
-            if not self._user.isCrypted:
-                self.pw.set_text(self._user.password)
-                self.confirm.set_text(self._user.password)
-            else:
-                self.usepassword.set_active(True)
-                self.pw.set_placeholder_text(_("The password was set by kickstart."))
-                self.confirm.set_placeholder_text(_("The password was set by kickstart."))
+            self.pw.set_placeholder_text(_("The password was set by kickstart."))
+            self.confirm.set_placeholder_text(_("The password was set by kickstart."))
         elif not self.policy.emptyok:
             # Policy is that a non-empty password is required
             self.usepassword.set_active(True)
