@@ -314,6 +314,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.54-1
+- ibft: fix setting dracut boot args for static ibft nic configuration
+  (rvykydal)
+  Resolves: rhbz#1267526
+- dracut: accept inst.dd=[file:]/dd.iso (wwoods)
+  Resolves: rhbz#1268792
+- Fix issues with the date&time not being updated on timezone changes
+  (vpodzime)
+  Resolves: rhbz#1267450
+
 * Tue Sep 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.53-1
 - Use otps.display_mode during early startup (mkolman)
   Resolves: rhbz#1267140

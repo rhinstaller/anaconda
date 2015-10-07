@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.52\n"
+"Project-Id-Version: anaconda 21.48.22.53\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-29 16:48-0700\n"
+"POT-Creation-Date: 2015-10-07 07:23-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -797,60 +797,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1388 pyanaconda/ui/gui/spokes/custom.py:537
+#: pyanaconda/network.py:1394 pyanaconda/ui/gui/spokes/custom.py:537
 #: pyanaconda/ui/gui/spokes/network.py:301
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1392
+#: pyanaconda/network.py:1398
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1394
+#: pyanaconda/network.py:1400
 msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/network.py:1414
-#, python-format
-msgid "Wired (%(interface_name)s) connected"
-msgstr ""
-
-#: pyanaconda/network.py:1417
-#, python-format
-msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
 #: pyanaconda/network.py:1420
 #, python-format
+msgid "Wired (%(interface_name)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1423
+#, python-format
+msgid "Wireless connected to %(access_point)s"
+msgstr ""
+
+#: pyanaconda/network.py:1426
+#, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1424
+#: pyanaconda/network.py:1430
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1428
+#: pyanaconda/network.py:1434
 #, python-format
 msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1434
+#: pyanaconda/network.py:1440
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1451
+#: pyanaconda/network.py:1457
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1454
+#: pyanaconda/network.py:1460
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1457 pyanaconda/ui/gui/spokes/network.glade.h:46
+#: pyanaconda/network.py:1463 pyanaconda/ui/gui/spokes/network.glade.h:46
 msgid "No network devices available"
 msgstr ""
 
