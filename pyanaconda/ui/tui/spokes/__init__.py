@@ -190,7 +190,7 @@ class EditTUIDialog(NormalTUISpoke):
             self.value = cryptPassword(pw)
             return None
         else:
-            return _("Enter new value for '%s' and press enter\n") % entry.title
+            return _("Enter a new value for '%s' and press <Enter>\n") % entry.title
 
     def input(self, entry, key):
         if entry.aux.match(key):

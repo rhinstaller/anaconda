@@ -140,7 +140,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         return True
 
     def prompt(self, args=None):
-        return(_("\tInstallation complete.  Press return to quit"))
+        return(_("\tInstallation complete.  Press Enter to quit"))
 
     def input(self, args, key):
         # There is nothing to do here, just raise to exit the spoke
