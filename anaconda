@@ -464,7 +464,7 @@ def check_memory(anaconda, options, display_mode=None):
                          "MB of memory, but you only have %(total_ram)s MB\n.")
 
     reboot_extra = _('\n'
-                     'Press <return> to reboot your system.\n')
+                     'Press <Enter> to reboot your system.\n')
     livecd_title = _("Not enough RAM")
     livecd_extra = _(" Try the text mode installer by running:\n\n"
                      "'/usr/bin/liveinst -T'\n\n from a root "

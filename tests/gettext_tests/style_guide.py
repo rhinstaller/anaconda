@@ -32,7 +32,14 @@ bad_strings = {'(?i)bootloader': 'boot loader',
                'btrfs':          'Btrfs',
                '[Cc]an not':     'cannot',
                '(?i)mountpoint': 'mount point',
-               'Ok':             'OK'}
+               'Ok':             'OK',
+               # Find instances of "return" that are referring to a keyboard key
+               '(?i)<return>':   '<Enter>',
+               '(?i)press return': 'press Enter',
+               # Make sure "Enter" is capitalized
+               '<enter>':        '<Enter>',
+               '[Pp]ress enter': 'press Enter'
+               }
 
 # Sometimes we need to use a bad string, or it's just too much of a pain to
 # write a more specific regex. List occurrences here.

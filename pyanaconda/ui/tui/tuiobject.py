@@ -48,7 +48,7 @@ class ErrorDialog(tui.UIScreen):
         return True
 
     def prompt(self, args=None):
-        return _("Press enter to exit.")
+        return _("Press Enter to exit.")
 
     def input(self, args, key):
         """This dialog is closed by any input."""
