@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.gui.spokes.lib package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui.gui.spokes.lib package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.gui.spokes package" href="pyanaconda.ui.gui.spokes.html"/>
         <link rel="next" title="pyanaconda.ui.lib package" href="pyanaconda.ui.lib.html"/>
         <link rel="prev" title="pyanaconda.ui.gui.spokes.advstorage package" href="pyanaconda.ui.gui.spokes.advstorage.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -529,7 +552,7 @@ assign a label the empty string represents itself.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The label</li>
+<li><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; The label</li>
 <li><strong>fmt</strong> (<em>DeviceFormat</em>) &#8211; The device format to label</li>
 </ul>
 </td>
@@ -590,7 +613,7 @@ assign a label the empty string represents itself.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; an int representing the device_type</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; an int representing the device_type</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the default RAID level for this device type or None</td>
 </tr>
@@ -614,7 +637,7 @@ assign a label the empty string represents itself.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; an int representing the device_type</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; an int representing the device_type</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the default RAID level for this device type&#8217;s container or None</td>
 </tr>
@@ -634,7 +657,7 @@ device_type.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; one of an enumeration of device types</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; one of an enumeration of device types</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a set of supported raid levels</td>
 </tr>
@@ -659,7 +682,7 @@ is not clear what RAID levels should be offered for other device types.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; one of an enumeration of device types</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; one of an enumeration of device types</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a set of supported raid levels</td>
 </tr>
@@ -964,7 +987,7 @@ locales configuration.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_entry_changed">
-<tt class="descname">on_entry_changed</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7fb4b260b828&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_entry_changed" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">on_entry_changed</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7f188ea5b860&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_entry_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1111,7 +1134,7 @@ locales configuration.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_value_changed">
-<tt class="descname">on_resize_value_changed</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7fb4b12a3c88&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_value_changed" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">on_resize_value_changed</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7f188d16e2e8&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_value_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1240,7 +1263,7 @@ locales configuration.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda package" href="pyanaconda.html"/>
         <link rel="next" title="pyanaconda.ui.categories package" href="pyanaconda.ui.categories.html"/>
         <link rel="prev" title="pyanaconda.packaging package" href="pyanaconda.packaging.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -369,7 +392,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.filter">pyanaconda.ui.gui.spokes.filter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.keyboard">pyanaconda.ui.gui.spokes.keyboard module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.langsupport">pyanaconda.ui.gui.spokes.langsupport module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.network">pyanaconda.ui.gui.spokes.network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#pyanaconda-ui-gui-spokes-network-module">pyanaconda.ui.gui.spokes.network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.password">pyanaconda.ui.gui.spokes.password module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.software">pyanaconda.ui.gui.spokes.software module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.source">pyanaconda.ui.gui.spokes.source module</a></li>
@@ -920,9 +943,9 @@ this lower-level method.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>module_pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; the full name pattern (pyanaconda.ui.gui.spokes.%s)
+<li><strong>module_pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.5)"><em>string</em></a>) &#8211; the full name pattern (pyanaconda.ui.gui.spokes.%s)
 we want to assign to imported modules</li>
-<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; the directory we are picking up modules from</li>
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.5)"><em>string</em></a>) &#8211; the directory we are picking up modules from</li>
 <li><strong>pred</strong> (<em>function with one argument returning True or False</em>) &#8211; function which marks classes as good to import</li>
 </ul>
 </td>
@@ -1113,7 +1136,7 @@ the error state, or CHECK_OK if the check succeeds.</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>input_obj</strong> (<em>function</em>) &#8211; An object representing the input to check.</li>
 <li><strong>regex</strong> (<em>re.RegexObject</em>) &#8211; The regular expression to check input against.</li>
-<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; A message to return for failed checks</li>
+<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; A message to return for failed checks</li>
 </ul>
 </td>
 </tr>
@@ -1175,7 +1198,7 @@ be set to CHECK_OK and set_status will be called.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>InputCheck</strong> (<em>inputcheck</em>) &#8211; the InputCheck object to remove</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.4)">ValueError</a>:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.5)">ValueError</a>:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">if the inputcheck does not exist for this InputCheckHandler</td>
 </tr>
 </tbody>
@@ -1270,7 +1293,7 @@ and cleanup any previous method set.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.helpers.StorageChecker.log">
-<tt class="descname">log</tt><em class="property"> = &lt;logging.Logger object at 0x7fb4c532e8d0&gt;</em><a class="headerlink" href="#pyanaconda.ui.helpers.StorageChecker.log" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">log</tt><em class="property"> = &lt;logging.Logger object at 0x7f18a29f4630&gt;</em><a class="headerlink" href="#pyanaconda.ui.helpers.StorageChecker.log" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1429,7 +1452,7 @@ class defined search path dictionary.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -338,6 +338,7 @@ def execInSysroot(command, argv, stdin=None):
 def execWithRedirect(command, argv, stdin=None, stdout=None,
                      root='/', env_prune=None, log_output=True, binary_output=False):
     """ Run an external program and redirect the output to a file.
+
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
@@ -359,6 +360,7 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
 
 def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False):
     """ Run an external program and capture standard out and err.
+
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
@@ -379,6 +381,7 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
 def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
     """ Run an external program and capture standard out and err as binary data.
         The binary data output is not logged by default but logging can be enabled.
+
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
@@ -626,6 +629,7 @@ def unwatchAllProcesses():
 
 def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.
+
     :param dir: The name of the directory to find the size of.
     :return: The size of the directory in kilobytes.
     """
@@ -665,9 +669,10 @@ def getDirSize(directory):
 
 ## Create a directory path.  Don't fail if the directory already exists.
 def mkdirChain(directory):
-    """
-    :param dir: The directory path to create
+    """ Make a directory and all of its parents. Don't fail if part or
+        of it already exists.
 
+        :param str directory: The directory path to create
     """
 
     os.makedirs(directory, 0o755, exist_ok=True)
