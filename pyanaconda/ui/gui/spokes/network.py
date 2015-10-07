@@ -232,10 +232,13 @@ class DeviceConfiguration(object):
 
         if not self.con_uuid:
             if self.device_type != NetworkManager.DeviceType.WIFI:
-                uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
-                settings = nm.nm_get_settings(uuid, "connection", "uuid")
-                if settings and 'slave-type' not in settings[0]['connection']:
-                    self.con_uuid = uuid
+                try:
+                    uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
+                    settings = nm.nm_get_settings(uuid, "connection", "uuid")
+                    if settings and 'slave-type' not in settings[0]['connection']:
+                        self.con_uuid = uuid
+                except nm.SettingsNotFoundError:
+                    log.debug("network: can't find connection for device %s", device.get_iface())
 
     def _setting_device_type(self, uuid):
         settings = nm.nm_get_settings(uuid, "connection", "uuid")
@@ -436,17 +439,28 @@ class NetworkControlBox(GObject.GObject):
         if dev_cfg.device_type not in self.supported_device_types:
             log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
             return False
-        # Configs for ethernet has been already added,
-        # this must be some slave
-        if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
-            log.debug("network: GUI, not adding slave connection %s", uuid)
-            return False
+        if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET \
+           and dev_cfg.setting_value("connection", "master"):
+                log.debug("network: GUI, not adding slave connection %s", uuid)
+                return False
         # Wireless settings are handled in scope of its device's dev_cfg
         if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             log.debug("network: GUI, not adding wireless connection %s", uuid)
             return False
-        self.add_dev_cfg(dev_cfg)
-        log.debug("network: GUI, adding connection %s", uuid)
+
+        existing_dev_cfg = self.dev_cfg(iface=dev_cfg.get_iface())
+        if existing_dev_cfg:
+            if existing_dev_cfg.con_uuid:
+                log.debug("network: GUI, not adding connection %s, already have %s for device %s",
+                            uuid, existing_dev_cfg.con_uuid, existing_dev_cfg.device.get_iface())
+                return False
+            else:
+                log.debug("network: GUI, attaching connection %s to device %s",
+                            uuid, existing_dev_cfg.device.get_iface())
+                existing_dev_cfg.con_uuid = uuid
+        else:
+            log.debug("network: GUI, adding connection %s", uuid)
+            self.add_dev_cfg(dev_cfg)
         return True
 
     def initialize(self):
@@ -776,7 +790,7 @@ class NetworkControlBox(GObject.GObject):
                      escape_markup(dev_cfg.device.get_product() or ""))
         return title
 
-    def dev_cfg(self, uuid=None, device=None):
+    def dev_cfg(self, uuid=None, device=None, iface=None):
         for row in self.dev_cfg_store:
             dev_cfg = row[DEVICES_COLUMN_OBJECT]
             if uuid:
@@ -785,6 +799,10 @@ class NetworkControlBox(GObject.GObject):
             if device:
                 if not dev_cfg.device \
                    or dev_cfg.device.get_udi() != device.get_udi():
+                    continue
+            if iface:
+                if not dev_cfg.device \
+                   or dev_cfg.device.get_iface() != iface:
                     continue
             return dev_cfg
         return None
