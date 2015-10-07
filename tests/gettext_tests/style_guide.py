@@ -62,7 +62,7 @@ if "top_srcdir" not in os.environ:
     sys.exit(99)
 
 if "top_builddir" not in os.environ:
-    sys.stderr.write("$top_srcdir must be defined in the test environment\n")
+    sys.stderr.write("$top_builddir must be defined in the test environment\n")
     sys.exit(99)
 
 # Update the .pot file with the latest strings
