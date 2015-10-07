@@ -33,6 +33,9 @@
 AM_TESTS_ENVIRONMENT = top_srcdir="$(top_srcdir)" top_builddir="$(top_builddir)" ; . $(srcdir)/testenv.sh ;
 TEST_EXTENSIONS = .sh
 
+# files necessary for running the tests (make ci) from a tarball
+EXTRA_DIST = README.rst usercustomize.py
+
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     glade/run_glade_tests.sh \

@@ -21,7 +21,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
-EXTRA_DIST = config.rpath COPYING
+EXTRA_DIST = config.rpath COPYING .coveragerc
 
 # Files generated for gettext need to be included in the distribution
 EXTRA_DIST += $(srcdir)/anaconda.po
