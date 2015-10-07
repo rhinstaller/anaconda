@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.tui package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui.tui package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui package" href="pyanaconda.ui.html"/>
         <link rel="next" title="pyanaconda.ui.tui.hubs package" href="pyanaconda.ui.tui.hubs.html"/>
         <link rel="prev" title="pyanaconda.ui.lib package" href="pyanaconda.ui.lib.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -366,7 +389,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>app</strong> (<em>instance of App class</em>) &#8211; the running application reference</li>
-<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the message to show to the user</li>
+<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; the message to show to the user</li>
 </ul>
 </td>
 </tr>
@@ -514,7 +537,7 @@ common pyanaconda.ui.common.UIObject interface</p>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.UserInterface" title="pyanaconda.ui.UserInterface"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.UserInterface</span></tt></a></p>
 <p>This is the main class for Text user interface.</p>
 <p class="graphviz">
-<img src="_images/inheritance-41aea7835e76d9a3eec63fb5d8840cc322172b79.png" alt="Inheritance diagram of TextUserInterface" usemap="#inheritance3174816cbf" class="inheritance"/>
+<img src="_images/inheritance-6b7264ba70efda3efd6984cca9dff64dba8472d0.png" alt="Inheritance diagram of TextUserInterface" usemap="#inheritance3174816cbf" class="inheritance"/>
 <map id="inheritance3174816cbf" name="inheritance3174816cbf">
 <area shape="rect" id="node1" href="pyanaconda.ui.html#pyanaconda.ui.UserInterface" title="This is the base class for all kinds of install UIs. &#160;It primarily" alt="" coords="5,5,187,33"/>
 <area shape="rect" id="node2" href="#pyanaconda.ui.tui.TextUserInterface" title="This is the main class for Text user interface." alt="" coords="21,81,171,109"/>
@@ -530,11 +553,11 @@ the parent class.</p>
 <li><strong>storage</strong> (<em>instance of pyanaconda.Storage</em>) &#8211; storage backend reference</li>
 <li><strong>payload</strong> (<em>instance of payload handler</em>) &#8211; payload (usually dnf) reference</li>
 <li><strong>instclass</strong> (<em>instance of install class</em>) &#8211; install class reference</li>
-<li><strong>productTitle</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the name of the product</li>
-<li><strong>isFinal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; Boolean that marks the release
+<li><strong>productTitle</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; the name of the product</li>
+<li><strong>isFinal</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) &#8211; Boolean that marks the release
 as final (True) or development
 (False) version.</li>
-<li><strong>quitMessage</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The text to be used in quit
+<li><strong>quitMessage</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; The text to be used in quit
 dialog question. It should not
 be translated to allow for change
 of language.</li>
@@ -570,12 +593,12 @@ of language.</li>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.TextUserInterface.pathlist">
-<tt class="descname">pathlist</tt><em class="property"> = {'/usr/lib64/python3.4/site-packages/pyanaconda/ui', '/usr/lib/python3.4/site-packages/pyanaconda/ui', '/usr/lib/site-python/pyanaconda/ui', '/builddir/anaconda/pyanaconda/ui/tui', '/tmp/updates/pyanaconda/ui'}</em><a class="headerlink" href="#pyanaconda.ui.tui.TextUserInterface.pathlist" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pathlist</tt><em class="property"> = {'/builddir/anaconda/pyanaconda/ui/tui', '/usr/lib64/python3.4/site-packages/pyanaconda/ui', '/usr/lib/python3.4/site-packages/pyanaconda/ui', '/usr/lib/site-python/pyanaconda/ui', '/tmp/updates/pyanaconda/ui'}</em><a class="headerlink" href="#pyanaconda.ui.tui.TextUserInterface.pathlist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.TextUserInterface.paths">
-<tt class="descname">paths</tt><em class="property"> = {'hubs': [('pyanaconda.ui.tui.hubs.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/usr/lib/site-python/pyanaconda/ui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/builddir/anaconda/pyanaconda/ui/tui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/tmp/updates/pyanaconda/ui/tui/hubs')], 'spokes': [('pyanaconda.ui.tui.spokes.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/usr/lib/site-python/pyanaconda/ui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/builddir/anaconda/pyanaconda/ui/tui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/tmp/updates/pyanaconda/ui/tui/spokes')], 'categories': [('pyanaconda.ui.categories.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/site-python/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/builddir/anaconda/pyanaconda/ui/tui/categories'), ('pyanaconda.ui.categories.%s', '/tmp/updates/pyanaconda/ui/categories')]}</em><a class="headerlink" href="#pyanaconda.ui.tui.TextUserInterface.paths" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">paths</tt><em class="property"> = {'categories': [('pyanaconda.ui.categories.%s', '/builddir/anaconda/pyanaconda/ui/tui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/site-python/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/tmp/updates/pyanaconda/ui/categories')], 'hubs': [('pyanaconda.ui.tui.hubs.%s', '/builddir/anaconda/pyanaconda/ui/tui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/usr/lib/site-python/pyanaconda/ui/tui/hubs'), ('pyanaconda.ui.tui.hubs.%s', '/tmp/updates/pyanaconda/ui/tui/hubs')], 'spokes': [('pyanaconda.ui.tui.spokes.%s', '/builddir/anaconda/pyanaconda/ui/tui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/usr/lib/site-python/pyanaconda/ui/tui/spokes'), ('pyanaconda.ui.tui.spokes.%s', '/tmp/updates/pyanaconda/ui/tui/spokes')]}</em><a class="headerlink" href="#pyanaconda.ui.tui.TextUserInterface.paths" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -649,7 +672,7 @@ want to overwhelm the user with choices.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>event</strong> (<em>(event_type, message_data)</em>) &#8211; event data</li>
-<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#any" title="(in Python v3.4)"><em>any</em></a>) &#8211; additional data</li>
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#any" title="(in Python v3.5)"><em>any</em></a>) &#8211; additional data</li>
 </ul>
 </td>
 </tr>
@@ -699,7 +722,7 @@ want to overwhelm the user with choices.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

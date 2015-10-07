@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.tui.hubs package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui.tui.hubs package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/>
         <link rel="next" title="pyanaconda.ui.tui.simpleline package" href="pyanaconda.ui.tui.simpleline.html"/>
         <link rel="prev" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -325,7 +348,7 @@
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.hubs.summary.</tt><tt class="descname">SummaryHub</tt><big>(</big><em>app</em>, <em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.hubs.summary.SummaryHub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.tui.hubs.TUIHub" title="pyanaconda.ui.tui.hubs.TUIHub"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.hubs.TUIHub</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-c6e8349cc503998df5e31ec6c8e83028f013f632.png" alt="Inheritance diagram of SummaryHub" usemap="#inheritance945d734cf8" class="inheritance"/>
+<img src="_images/inheritance-701d56a34b45875925623200b0ad07da05536829.png" alt="Inheritance diagram of SummaryHub" usemap="#inheritance945d734cf8" class="inheritance"/>
 <map id="inheritance945d734cf8" name="inheritance945d734cf8">
 <area shape="rect" id="node1" href="#pyanaconda.ui.tui.hubs.summary.SummaryHub" title=".. inheritance&#45;diagram:: SummaryHub" alt="" coords="156,233,340,261"/>
 <area shape="rect" id="node2" href="#pyanaconda.ui.tui.hubs.TUIHub" title="Base Hub class implementing the pyanaconda.ui.common.Hub interface." alt="" coords="193,157,303,185"/>
@@ -375,14 +398,14 @@ all the spokes it finds to have the proper category.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>categories</strong> (<em>list of strings</em>) &#8211; list all the spoke categories to be displayed in this Hub</li>
-<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; title for this Hub</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; title for this Hub</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="graphviz">
-<img src="_images/inheritance-92fb261740114a0a14d95c580c116f114d581fee.png" alt="Inheritance diagram of TUIHub" usemap="#inheritance6406bbe875" class="inheritance"/>
+<img src="_images/inheritance-6be14bfa83817272a671138b73118393ec82ab6f.png" alt="Inheritance diagram of TUIHub" usemap="#inheritance6406bbe875" class="inheritance"/>
 <map id="inheritance6406bbe875" name="inheritance6406bbe875">
 <area shape="rect" id="node1" href="pyanaconda.ui.tui.simpleline.html#pyanaconda.ui.tui.simpleline.base.UIScreen" title="Base class representing one TUI Screen. Shares some API with anaconda&#39;s GUI" alt="" coords="5,5,168,33"/>
 <area shape="rect" id="node3" href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.TUIObject" title="Base class for Anaconda specific TUI screens. Implements the" alt="" coords="101,81,246,109"/>
@@ -485,7 +508,7 @@ we want shown on this screen. Title and Spokes mostly.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

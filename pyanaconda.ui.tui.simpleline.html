@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.tui.simpleline package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui.tui.simpleline package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/>
         <link rel="next" title="pyanaconda.ui.tui.spokes package" href="pyanaconda.ui.tui.spokes.html"/>
         <link rel="prev" title="pyanaconda.ui.tui.hubs package" href="pyanaconda.ui.tui.hubs.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -338,9 +361,9 @@ to caller when dialog or sub-screen closes.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; application title for whenever we need to display app name</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; application title for whenever we need to display app name</li>
 <li><strong>yes_or_no_question</strong> (<em>class UIScreen accepting additional message arg</em>) &#8211; UIScreen object class used for Quit dialog</li>
-<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; screen width for rendering purposes</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; screen width for rendering purposes</li>
 </ul>
 </td>
 </tr>
@@ -392,7 +415,7 @@ Also handles the main quit and close commands.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</li>
-<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the string entered by user</li>
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; the string entered by user</li>
 </ul>
 </td>
 </tr>
@@ -565,7 +588,7 @@ to make it easy for devs to create similar UI with the familiar API.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>app</strong> (<em>instance of class App</em>) &#8211; reference to application main class</li>
-<li><strong>screen_height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; height of the screen (useful for printing long widgets)</li>
+<li><strong>screen_height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; height of the screen (useful for printing long widgets)</li>
 </ul>
 </td>
 </tr>
@@ -598,7 +621,7 @@ to make it easy for devs to create similar UI with the familiar API.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; input string to process</li>
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; input string to process</li>
 <li><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</li>
 </ul>
 </td>
@@ -702,8 +725,8 @@ them on the screen.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>max_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; server as a hint about screen size to write method with default arguments</li>
-<li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; string containing the default content to fill the buffer with</li>
+<li><strong>max_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; server as a hint about screen size to write method with default arguments</li>
+<li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.5)"><em>string</em></a>) &#8211; string containing the default content to fill the buffer with</li>
 </ul>
 </td>
 </tr>
@@ -736,8 +759,8 @@ them on the screen.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>w</strong> (<em>class Widget</em>) &#8211; widget to take content from</li>
-<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; row number to start at (default is at the cursor position)</li>
-<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; column number to start at (default is at the cursor position)</li>
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; row number to start at (default is at the cursor position)</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; column number to start at (default is at the cursor position)</li>
 <li><strong>block</strong> (<em>boolean</em>) &#8211; when printing newline, start at column col (True) or at column 0 (False)</li>
 </ul>
 </td>
@@ -776,7 +799,7 @@ them on the screen.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; the width of buffer requested by the caller</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; the width of buffer requested by the caller</td>
 </tr>
 </tbody>
 </table>
@@ -799,8 +822,8 @@ methods to copy their contents to self._buffer</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; row id, starts with 0 at the top of the screen</li>
-<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; column id, starts with 0 on the left side of the screen</li>
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; row id, starts with 0 at the top of the screen</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; column id, starts with 0 on the left side of the screen</li>
 </ul>
 </td>
 </tr>
@@ -824,10 +847,10 @@ methods to copy their contents to self._buffer</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; text to type</li>
-<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; row number to start at (default is at the cursor position)</li>
-<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; column number to start at (default is at the cursor position)</li>
-<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; wrap at &#8220;col&#8221; + &#8220;width&#8221; column (default is at self._max_width)</li>
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; text to type</li>
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; row number to start at (default is at the cursor position)</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; column number to start at (default is at the cursor position)</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; wrap at &#8220;col&#8221; + &#8220;width&#8221; column (default is at self._max_width)</li>
 <li><strong>block</strong> (<em>boolean</em>) &#8211; when printing newline, start at column col (True) or at column 0 (False)</li>
 </ul>
 </td>
@@ -850,7 +873,7 @@ methods to copy their contents to self._buffer</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; text to format</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; text to format</td>
 </tr>
 </tbody>
 </table>
@@ -863,7 +886,7 @@ methods to copy their contents to self._buffer</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; maximum width allocated to the string</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; maximum width allocated to the string</td>
 </tr>
 </tbody>
 </table>
@@ -883,7 +906,7 @@ methods to copy their contents to self._buffer</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>columns</strong> (<em>[(int, [...]), ...]</em>) &#8211; list containing (column width, [list of widgets to put into this column])</li>
-<li><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; number of spaces to use between columns</li>
+<li><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; number of spaces to use between columns</li>
 </ul>
 </td>
 </tr>
@@ -897,7 +920,7 @@ methods to copy their contents to self._buffer</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; the maximum width the widget can use</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; the maximum width the widget can use</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">nothing</td>
 </tr>
@@ -920,8 +943,8 @@ methods to copy their contents to self._buffer</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>key</strong> (<em>character</em>) &#8211; tick character to be used inside [ ]</li>
-<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the title next to the [ ] box</li>
-<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the description text to be shown on the second row in ()</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; the title next to the [ ] box</li>
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; the description text to be shown on the second row in ()</li>
 <li><strong>completed</strong> (<em>True|False</em>) &#8211; is the checkbox ticked or not?</li>
 </ul>
 </td>
@@ -976,7 +999,7 @@ characters wide.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; maximum width the widget should use</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; maximum width the widget should use</td>
 </tr>
 </tbody>
 </table>
@@ -1029,7 +1052,7 @@ characters wide.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.gui package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui.gui package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui package" href="pyanaconda.ui.html"/>
         <link rel="next" title="pyanaconda.ui.gui.hubs package" href="pyanaconda.ui.gui.hubs.html"/>
         <link rel="prev" title="pyanaconda.ui.categories package" href="pyanaconda.ui.categories.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -359,7 +382,7 @@
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.filter">pyanaconda.ui.gui.spokes.filter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.keyboard">pyanaconda.ui.gui.spokes.keyboard module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.langsupport">pyanaconda.ui.gui.spokes.langsupport module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.network">pyanaconda.ui.gui.spokes.network module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#pyanaconda-ui-gui-spokes-network-module">pyanaconda.ui.gui.spokes.network module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.password">pyanaconda.ui.gui.spokes.password module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.software">pyanaconda.ui.gui.spokes.software module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.ui.gui.spokes.html#module-pyanaconda.ui.gui.spokes.source">pyanaconda.ui.gui.spokes.source module</a></li>
@@ -571,14 +594,14 @@ before the action happens in the main thread.</p>
 <li><strong>action</strong> (<em>(action_item, *args) -&gt; None</em>) &#8211; any action that has to be done on the items in the main
 thread</li>
 <li><strong>items</strong> (<em>iterable</em>) &#8211; an iterable of items that the action should be mapped on</li>
-<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.4)"><em>tuple</em></a>) &#8211; additional arguments passed to the action function</li>
+<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.5)"><em>tuple</em></a>) &#8211; additional arguments passed to the action function</li>
 <li><strong>pre_func</strong> (<em>item -&gt; action_item</em>) &#8211; a function that is mapped on the items before they are
 passed to the action function</li>
 <li><strong>batch_size</strong> &#8211; how many items should be processed in one run in the main loop</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.4)">AssertionError</a>:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.5)">AssertionError</a>:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">if called from the main thread</p>
 </td>
 </tr>
@@ -621,7 +644,7 @@ return the value to which the property should be set.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>column</strong> (<em>GtkTreeViewColumn</em>) &#8211; the column to override</li>
 <li><strong>cell_renderer</strong> (<em>GtkCellRenderer</em>) &#8211; the cell renderer to override</li>
-<li><strong>propname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the property to set on the renderer</li>
+<li><strong>propname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; the property to set on the renderer</li>
 <li><strong>property_func</strong> (<em>function</em>) &#8211; a function that returns the value of the property to set</li>
 <li><strong>data</strong> &#8211; Optional data to pass to property_func</li>
 </ul>
@@ -665,8 +688,8 @@ as that will affect things like TreeViews as well.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>treeview</strong> (<em>GtkTreeView</em>) &#8211; treeview to select and item in</li>
-<li><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; item to be selected</li>
-<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; column to search for the item in</li>
+<li><strong>item</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; item to be selected</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; column to search for the item in</li>
 </ul>
 </td>
 </tr>
@@ -707,11 +730,11 @@ method. Note that the func property will not have self applied.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; number of milliseconds to wait for another invocation of the
+<li><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; number of milliseconds to wait for another invocation of the
 decorated function before it is actually called</li>
-<li><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; upper bound (in milliseconds) to wait for the decorated
+<li><strong>threshold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; upper bound (in milliseconds) to wait for the decorated
 function to be called from the first/last time</li>
-<li><strong>busy_cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether the cursor should be made busy or not in the
+<li><strong>busy_cursor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) &#8211; whether the cursor should be made busy or not in the
 meantime of the decorated function being invocated from
 outside and it actually being called</li>
 </ul>
@@ -817,10 +840,10 @@ method is destroyed.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>layout_variant</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; layout-variant specification (e.g. &#8216;cz (qwerty)&#8217;)</li>
-<li><strong>with_lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to include language of the layout-variant (if defined)
+<li><strong>layout_variant</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; layout-variant specification (e.g. &#8216;cz (qwerty)&#8217;)</li>
+<li><strong>with_lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) &#8211; whether to include language of the layout-variant (if defined)
 in the description or not</li>
-<li><strong>xlated</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whethe to return translated or english version of the description</li>
+<li><strong>xlated</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) &#8211; whethe to return translated or english version of the description</li>
 </ul>
 </td>
 </tr>
@@ -842,7 +865,7 @@ in the description or not</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>switch_opt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; switching option name/ID (e.g. &#8216;grp:alt_shift_toggle&#8217;)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>switch_opt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; switching option name/ID (e.g. &#8216;grp:alt_shift_toggle&#8217;)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">description of the layout switching option (e.g. &#8216;Alt + Shift&#8217;)</td>
 </tr>
@@ -907,7 +930,7 @@ method is destroyed.</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyanaconda.ui.gui" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface">
-<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.</tt><tt class="descname">GraphicalUserInterface</tt><big>(</big><em>storage</em>, <em>payload</em>, <em>instclass</em>, <em>distributionText=&lt;function distributionText at 0x7fb4c51a78c8&gt;</em>, <em>isFinal=False</em>, <em>quitDialog=&lt;class 'pyanaconda.ui.gui.QuitDialog'&gt;</em>, <em>gui_lock=None</em>, <em>fullscreen=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.</tt><tt class="descname">GraphicalUserInterface</tt><big>(</big><em>storage</em>, <em>payload</em>, <em>instclass</em>, <em>distributionText=&lt;function distributionText at 0x7f18a2a1b840&gt;</em>, <em>isFinal=False</em>, <em>quitDialog=&lt;class 'pyanaconda.ui.gui.QuitDialog'&gt;</em>, <em>gui_lock=None</em>, <em>fullscreen=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.UserInterface" title="pyanaconda.ui.UserInterface"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.UserInterface</span></tt></a></p>
 <p>This is the standard GTK+ interface we try to steer everything to using.
 It is suitable for use both directly and via VNC.</p>
@@ -936,17 +959,17 @@ relationships between hubs and standalones.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface.path">
-<tt class="descname">path</tt><em class="property"> = '/builddir/anaconda/pyanaconda/ui/gui'</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.path" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">path</tt><em class="property"> = '/tmp/updates/pyanaconda/ui'</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface.pathlist">
-<tt class="descname">pathlist</tt><em class="property"> = {'/usr/lib64/python3.4/site-packages/pyanaconda/ui', '/usr/lib/python3.4/site-packages/pyanaconda/ui', '/usr/lib/site-python/pyanaconda/ui', '/tmp/updates/pyanaconda/ui', '/builddir/anaconda/pyanaconda/ui/gui'}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.pathlist" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pathlist</tt><em class="property"> = {'/usr/lib64/python3.4/site-packages/pyanaconda/ui', '/usr/lib/python3.4/site-packages/pyanaconda/ui', '/usr/lib/site-python/pyanaconda/ui', '/builddir/anaconda/pyanaconda/ui/gui', '/tmp/updates/pyanaconda/ui'}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.pathlist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface.paths">
-<tt class="descname">paths</tt><em class="property"> = {'hubs': [('pyanaconda.ui.gui.hubs.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/site-python/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/tmp/updates/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/hubs')], 'spokes': [('pyanaconda.ui.gui.spokes.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/site-python/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/tmp/updates/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/spokes')], 'categories': [('pyanaconda.ui.categories.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/site-python/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/tmp/updates/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/builddir/anaconda/pyanaconda/ui/gui/categories')]}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.paths" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">paths</tt><em class="property"> = {'categories': [('pyanaconda.ui.categories.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/site-python/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/builddir/anaconda/pyanaconda/ui/gui/categories'), ('pyanaconda.ui.categories.%s', '/tmp/updates/pyanaconda/ui/categories')], 'hubs': [('pyanaconda.ui.gui.hubs.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/site-python/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/tmp/updates/pyanaconda/ui/gui/hubs')], 'spokes': [('pyanaconda.ui.gui.spokes.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/site-python/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/tmp/updates/pyanaconda/ui/gui/spokes')]}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.paths" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1093,7 +1116,7 @@ itself.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

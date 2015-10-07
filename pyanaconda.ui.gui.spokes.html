@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.gui.spokes package &mdash; Anaconda 24.0 documentation</title>
+  <title>pyanaconda.ui.gui.spokes package &mdash; Anaconda 24.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.gui package" href="pyanaconda.ui.gui.html"/>
         <link rel="next" title="pyanaconda.ui.gui.spokes.advstorage package" href="pyanaconda.ui.gui.spokes.advstorage.html"/>
         <link rel="prev" title="pyanaconda.ui.gui.hubs package" href="pyanaconda.ui.gui.hubs.html"/> 
@@ -261,9 +261,32 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -357,7 +380,7 @@
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.custom.</tt><tt class="descname">CustomPartitioningSpoke</tt><big>(</big><em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a>, <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.helpers.StorageChecker" title="pyanaconda.ui.helpers.StorageChecker"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.helpers.StorageChecker</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-978ba6987dc09980952287ecb895e83ecb1f44f7.png" alt="Inheritance diagram of CustomPartitioningSpoke" usemap="#inheritance28436954cd" class="inheritance"/>
+<img src="_images/inheritance-422ff74987db72c6e7573f50c660e808378bdf30.png" alt="Inheritance diagram of CustomPartitioningSpoke" usemap="#inheritance28436954cd" class="inheritance"/>
 <map id="inheritance28436954cd" name="inheritance28436954cd">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="197,157,357,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke" title=".. inheritance&#45;diagram:: CustomPartitioningSpoke" alt="" coords="55,233,310,261"/>
@@ -522,12 +545,12 @@
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_unlock_clicked">
-<tt class="descname">on_unlock_clicked</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7fb4b18db4a8&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_unlock_clicked" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">on_unlock_clicked</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7f18a9072780&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_unlock_clicked" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_update_settings_clicked">
-<tt class="descname">on_update_settings_clicked</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7fb4b18794e0&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_update_settings_clicked" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">on_update_settings_clicked</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7f18a90836d8&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_update_settings_clicked" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -576,7 +599,7 @@
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.datetime_spoke.</tt><tt class="descname">DatetimeSpoke</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.datetime_spoke.DatetimeSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.common.FirstbootSpokeMixIn" title="pyanaconda.ui.common.FirstbootSpokeMixIn"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.common.FirstbootSpokeMixIn</span></tt></a>, <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-4b86743716b355a920da54ae6958b2cfa2e37470.png" alt="Inheritance diagram of DatetimeSpoke" usemap="#inheritance6786dbeab9" class="inheritance"/>
+<img src="_images/inheritance-baf04ebb79e2792562728e5d6644a1a540f79b4f.png" alt="Inheritance diagram of DatetimeSpoke" usemap="#inheritance6786dbeab9" class="inheritance"/>
 <map id="inheritance6786dbeab9" name="inheritance6786dbeab9">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="232,157,392,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.datetime_spoke.DatetimeSpoke" title=".. inheritance&#45;diagram:: DatetimeSpoke" alt="" coords="86,233,333,261"/>
@@ -805,7 +828,7 @@ edited, self._get_active_city returns None.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.filter.</tt><tt class="descname">FilterSpoke</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.filter.FilterSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-6c9957c29f820ddb6cd5474b97ac7253e349f54b.png" alt="Inheritance diagram of FilterSpoke" usemap="#inheritance74f83ce4b5" class="inheritance"/>
+<img src="_images/inheritance-df51ae45681d8913dacd0e9b347672f80ccffc34.png" alt="Inheritance diagram of FilterSpoke" usemap="#inheritance74f83ce4b5" class="inheritance"/>
 <map id="inheritance74f83ce4b5" name="inheritance74f83ce4b5">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="73,157,233,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.filter.FilterSpoke" title=".. inheritance&#45;diagram:: FilterSpoke" alt="" coords="75,233,230,261"/>
@@ -883,7 +906,7 @@ edited, self._get_active_city returns None.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_filter_changed">
-<tt class="descname">on_filter_changed</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7fb4b04d3ba8&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_filter_changed" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">on_filter_changed</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7f188dd5cf28&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_filter_changed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -903,7 +926,7 @@ edited, self._get_active_city returns None.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_refresh_clicked">
-<tt class="descname">on_refresh_clicked</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7fb4b04d3d68&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_refresh_clicked" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">on_refresh_clicked</tt><em class="property"> = functools.partial(&lt;pyanaconda.ui.gui.utils.timed_action.&lt;locals&gt;.TimedAction object at 0x7f188dd5b128&gt;, None)</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_refresh_clicked" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -956,7 +979,7 @@ edited, self._get_active_city returns None.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.keyboard.</tt><tt class="descname">KeyboardSpoke</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.keyboard.KeyboardSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-d0117b019029fb3ffedc3cdecf85dbda58a2d7f0.png" alt="Inheritance diagram of KeyboardSpoke" usemap="#inheritancea99f168d23" class="inheritance"/>
+<img src="_images/inheritance-80893a187ddf6e3bfda59379c08ce2426d297975.png" alt="Inheritance diagram of KeyboardSpoke" usemap="#inheritancea99f168d23" class="inheritance"/>
 <map id="inheritancea99f168d23" name="inheritancea99f168d23">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="73,157,233,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.keyboard.KeyboardSpoke" title=".. inheritance&#45;diagram:: KeyboardSpoke" alt="" coords="48,233,257,261"/>
@@ -1077,7 +1100,7 @@ edited, self._get_active_city returns None.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.langsupport.</tt><tt class="descname">LangsupportSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.langsupport.LangsupportSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.gui.spokes.lib.html#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler" title="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler</span></tt></a>, <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-a44fca98edf530b35f1047a4c126e17e01b03839.png" alt="Inheritance diagram of LangsupportSpoke" usemap="#inheritance08fe414db7" class="inheritance"/>
+<img src="_images/inheritance-5d754615c723bcc2f074b8e0a4481295c014bc45.png" alt="Inheritance diagram of LangsupportSpoke" usemap="#inheritance08fe414db7" class="inheritance"/>
 <map id="inheritance08fe414db7" name="inheritance08fe414db7">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="290,157,450,185"/>
 <area shape="rect" id="node5" href="#pyanaconda.ui.gui.spokes.langsupport.LangsupportSpoke" title=".. inheritance&#45;diagram:: LangsupportSpoke" alt="" coords="133,233,372,261"/>
@@ -1172,186 +1195,8 @@ edited, self._get_active_city returns None.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyanaconda.ui.gui.spokes.network">
-<span id="pyanaconda-ui-gui-spokes-network-module"></span><h2>pyanaconda.ui.gui.spokes.network module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.network" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke">
-<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.network.</tt><tt class="descname">NetworkSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.common.FirstbootSpokeMixIn" title="pyanaconda.ui.common.FirstbootSpokeMixIn"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.common.FirstbootSpokeMixIn</span></tt></a>, <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a></p>
-<p class="graphviz">
-<img src="_images/inheritance-ce237f46a5cda829f0d515316057c43328450de8.png" alt="Inheritance diagram of NetworkSpoke" usemap="#inheritance2032b5acc8" class="inheritance"/>
-<map id="inheritance2032b5acc8" name="inheritance2032b5acc8">
-<area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="232,157,392,185"/>
-<area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke" title=".. inheritance&#45;diagram:: NetworkSpoke" alt="" coords="111,233,307,261"/>
-<area shape="rect" id="node2" title="This is the base class from which all other GUI classes are derived. &#160;It" alt="" coords="177,81,287,109"/>
-<area shape="rect" id="node3" href="pyanaconda.ui.html#pyanaconda.ui.common.NormalSpoke" title="A NormalSpoke is a Spoke subclass that is displayed when the user" alt="" coords="311,81,473,109"/>
-<area shape="rect" id="node5" href="pyanaconda.ui.html#pyanaconda.ui.common.FirstbootSpokeMixIn" title="This MixIn class marks Spokes as usable for Firstboot" alt="" coords="5,157,208,185"/>
-<area shape="rect" id="node6" href="pyanaconda.ui.html#pyanaconda.ui.common.Spoke" title="A Spoke is a single configuration screen. &#160;There are several different" alt="" coords="333,5,451,33"/>
-<area shape="rect" id="node7" href="pyanaconda.ui.html#pyanaconda.ui.common.UIObject" title="This is the base class from which all other UI classes are derived. &#160;It" alt="" coords="165,5,299,33"/>
-</map>
-</p>
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.apply">
-<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.apply" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.builderObjects">
-<tt class="descname">builderObjects</tt><em class="property"> = ['networkWindow', 'liststore_wireless_network', 'liststore_devices', 'add_device_dialog', 'liststore_add_device']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.builderObjects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.category">
-<tt class="descname">category</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.category" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">SystemCategory</span></tt></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.completed">
-<tt class="descname">completed</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.completed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.execute">
-<tt class="descname">execute</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.helpFile">
-<tt class="descname">helpFile</tt><em class="property"> = 'NetworkSpoke.xml'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.helpFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.icon">
-<tt class="descname">icon</tt><em class="property"> = 'network-transmit-receive-symbolic'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.icon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.initialize">
-<tt class="descname">initialize</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.initialize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.mainWidgetName">
-<tt class="descname">mainWidgetName</tt><em class="property"> = 'networkWindow'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.mainWidgetName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.mandatory">
-<tt class="descname">mandatory</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.mandatory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.on_back_clicked">
-<tt class="descname">on_back_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.on_back_clicked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.on_device_state_changed">
-<tt class="descname">on_device_state_changed</tt><big>(</big><em>source</em>, <em>device</em>, <em>new_state</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.on_device_state_changed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.on_nm_state_changed">
-<tt class="descname">on_nm_state_changed</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.on_nm_state_changed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.refresh">
-<tt class="descname">refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.status">
-<tt class="descname">status</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.status" title="Permalink to this definition">¶</a></dt>
-<dd><p>A short string describing which devices are connected.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.title">
-<tt class="descname">title</tt><em class="property"> = '_NETWORK &amp; HOST NAME'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkSpoke.uiFile">
-<tt class="descname">uiFile</tt><em class="property"> = 'spokes/network.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkSpoke.uiFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke">
-<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.network.</tt><tt class="descname">NetworkStandaloneSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.StandaloneSpoke" title="pyanaconda.ui.gui.spokes.StandaloneSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.StandaloneSpoke</span></tt></a></p>
-<p class="graphviz">
-<img src="_images/inheritance-fe1d7cdae6be6261470c03d4936937f46b53f04f.png" alt="Inheritance diagram of NetworkStandaloneSpoke" usemap="#inheritance78c978bfc5" class="inheritance"/>
-<map id="inheritance78c978bfc5" name="inheritance78c978bfc5">
-<area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.StandaloneSpoke" title=".. inheritance&#45;diagram:: StandaloneSpoke" alt="" coords="67,157,249,185"/>
-<area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke" title=".. inheritance&#45;diagram:: NetworkStandaloneSpoke" alt="" coords="27,233,289,261"/>
-<area shape="rect" id="node2" title="This is the base class from which all other GUI classes are derived. &#160;It" alt="" coords="17,81,128,109"/>
-<area shape="rect" id="node3" href="pyanaconda.ui.html#pyanaconda.ui.common.StandaloneSpoke" title="A StandaloneSpoke is a Spoke subclass that is displayed apart from any" alt="" coords="153,81,337,109"/>
-<area shape="rect" id="node5" href="pyanaconda.ui.html#pyanaconda.ui.common.Spoke" title="A Spoke is a single configuration screen. &#160;There are several different" alt="" coords="185,5,304,33"/>
-<area shape="rect" id="node6" href="pyanaconda.ui.html#pyanaconda.ui.common.UIObject" title="This is the base class from which all other UI classes are derived. &#160;It" alt="" coords="5,5,140,33"/>
-</map>
-</p>
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.apply">
-<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.apply" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.builderObjects">
-<tt class="descname">builderObjects</tt><em class="property"> = ['networkStandaloneWindow', 'networkControlBox_vbox', 'liststore_wireless_network', 'liststore_devices', 'add_device_dialog', 'liststore_add_device']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.builderObjects" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.completed">
-<tt class="descname">completed</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.completed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.execute">
-<tt class="descname">execute</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.initialize">
-<tt class="descname">initialize</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.initialize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.mainWidgetName">
-<tt class="descname">mainWidgetName</tt><em class="property"> = 'networkStandaloneWindow'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.mainWidgetName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.on_nm_state_changed">
-<tt class="descname">on_nm_state_changed</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.on_nm_state_changed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.preForHub">
-<tt class="descname">preForHub</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.preForHub" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">SummaryHub</span></tt></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.priority">
-<tt class="descname">priority</tt><em class="property"> = 10</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.priority" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.refresh">
-<tt class="descname">refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.uiFile">
-<tt class="descname">uiFile</tt><em class="property"> = 'spokes/network.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.uiFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="pyanaconda-ui-gui-spokes-network-module">
+<h2>pyanaconda.ui.gui.spokes.network module<a class="headerlink" href="#pyanaconda-ui-gui-spokes-network-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyanaconda.ui.gui.spokes.password">
 <span id="pyanaconda-ui-gui-spokes-password-module"></span><h2>pyanaconda.ui.gui.spokes.password module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.password" title="Permalink to this headline">¶</a></h2>
@@ -1360,7 +1205,7 @@ edited, self._get_active_city returns None.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.password.</tt><tt class="descname">PasswordSpoke</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.password.PasswordSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.common.FirstbootSpokeMixIn" title="pyanaconda.ui.common.FirstbootSpokeMixIn"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.common.FirstbootSpokeMixIn</span></tt></a>, <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a>, <a class="reference internal" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler" title="pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-ead853d6461d27c6aeb79ee03149bda4ca799ca7.png" alt="Inheritance diagram of PasswordSpoke" usemap="#inheritanceb4619035ea" class="inheritance"/>
+<img src="_images/inheritance-5b50a10a6c16e0ba6e4b7986165f87ac74810d93.png" alt="Inheritance diagram of PasswordSpoke" usemap="#inheritanceb4619035ea" class="inheritance"/>
 <map id="inheritanceb4619035ea" name="inheritanceb4619035ea">
 <area shape="rect" id="node1" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIInputCheckHandler" title="Provide InputCheckHandler functionality for Gtk input screens." alt="" coords="503,81,720,109"/>
 <area shape="rect" id="node3" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler" title="Provide InputCheckHandler functionality for graphical spokes." alt="" coords="484,157,739,185"/>
@@ -1470,7 +1315,7 @@ edited, self._get_active_city returns None.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.software.</tt><tt class="descname">SoftwareSelectionSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-861ecd20f31b0f56cc2a74f93e12f55fd935bc98.png" alt="Inheritance diagram of SoftwareSelectionSpoke" usemap="#inheritance61ce58d7b0" class="inheritance"/>
+<img src="_images/inheritance-9f5c133323133ffc451a6c870cbdabe4d51fa714.png" alt="Inheritance diagram of SoftwareSelectionSpoke" usemap="#inheritance61ce58d7b0" class="inheritance"/>
 <map id="inheritance61ce58d7b0" name="inheritance61ce58d7b0">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="73,157,233,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke" title=".. inheritance&#45;diagram:: SoftwareSelectionSpoke" alt="" coords="24,233,281,261"/>
@@ -1638,7 +1483,7 @@ the &#8220;machine readable&#8221; form.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.source.</tt><tt class="descname">SourceSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.source.SourceSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a>, <a class="reference internal" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler" title="pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-c8e42e3f0444b18688603753eba8d62cb343a820.png" alt="Inheritance diagram of SourceSpoke" usemap="#inheritance4b26f822c5" class="inheritance"/>
+<img src="_images/inheritance-4679dc2f7316aaf4856ef8ac068b8fc331a88de0.png" alt="Inheritance diagram of SourceSpoke" usemap="#inheritance4b26f822c5" class="inheritance"/>
 <map id="inheritance4b26f822c5" name="inheritance4b26f822c5">
 <area shape="rect" id="node1" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIInputCheckHandler" title="Provide InputCheckHandler functionality for Gtk input screens." alt="" coords="347,81,564,109"/>
 <area shape="rect" id="node3" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler" title="Provide InputCheckHandler functionality for graphical spokes." alt="" coords="328,157,583,185"/>
@@ -1926,7 +1771,7 @@ Otherwise, do the usual thing.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.storage.</tt><tt class="descname">StorageSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.storage.StorageSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a>, <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.helpers.StorageChecker" title="pyanaconda.ui.helpers.StorageChecker"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.helpers.StorageChecker</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-985b9a33001c85a0e4a0358c04b2a911f6917c55.png" alt="Inheritance diagram of StorageSpoke" usemap="#inheritance719cbf80e2" class="inheritance"/>
+<img src="_images/inheritance-ac053de7cacef23f1b4a5cd2babf75f3caf6f2fb.png" alt="Inheritance diagram of StorageSpoke" usemap="#inheritance719cbf80e2" class="inheritance"/>
 <map id="inheritance719cbf80e2" name="inheritance719cbf80e2">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="197,157,357,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.storage.StorageSpoke" title=".. inheritance&#45;diagram:: StorageSpoke" alt="" coords="88,233,277,261"/>
@@ -2078,7 +1923,7 @@ really be getting called on ks installations with &#8220;zerombr&#8221;.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.user.</tt><tt class="descname">UserSpoke</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.user.UserSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.common.FirstbootSpokeMixIn" title="pyanaconda.ui.common.FirstbootSpokeMixIn"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.common.FirstbootSpokeMixIn</span></tt></a>, <a class="reference internal" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="pyanaconda.ui.gui.spokes.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.NormalSpoke</span></tt></a>, <a class="reference internal" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler" title="pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-916eba42166abbdd15e3f1e1e05257f9a0d54eef.png" alt="Inheritance diagram of UserSpoke" usemap="#inheritance55c7130382" class="inheritance"/>
+<img src="_images/inheritance-6d19f1182bed040c84c0ba9e3abb817cbcadb14a.png" alt="Inheritance diagram of UserSpoke" usemap="#inheritance55c7130382" class="inheritance"/>
 <map id="inheritance55c7130382" name="inheritance55c7130382">
 <area shape="rect" id="node1" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIInputCheckHandler" title="Provide InputCheckHandler functionality for Gtk input screens." alt="" coords="503,81,720,109"/>
 <area shape="rect" id="node3" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUISpokeInputCheckHandler" title="Provide InputCheckHandler functionality for graphical spokes." alt="" coords="484,157,739,185"/>
@@ -2154,6 +1999,11 @@ eg. not mandatory if the root account was locked in a kickstart</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.user.UserSpoke.on_admin_toggled">
+<tt class="descname">on_admin_toggled</tt><big>(</big><em>togglebutton</em>, <em>data=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.user.UserSpoke.on_admin_toggled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="pyanaconda.ui.gui.spokes.user.UserSpoke.on_advanced_clicked">
 <tt class="descname">on_advanced_clicked</tt><big>(</big><em>_button</em>, <em>data=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.user.UserSpoke.on_advanced_clicked" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handler for the Advanced.. button. It starts the Advanced dialog
@@ -2221,10 +2071,10 @@ user deletes the whole text.</p>
 
 <dl class="class">
 <dt id="pyanaconda.ui.gui.spokes.user.AdvancedUserDialog">
-<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.user.</tt><tt class="descname">AdvancedUserDialog</tt><big>(</big><em>user</em>, <em>groupDict</em>, <em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.user.AdvancedUserDialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.user.</tt><tt class="descname">AdvancedUserDialog</tt><big>(</big><em>user</em>, <em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.user.AdvancedUserDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt>, <a class="reference internal" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler" title="pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-291cd1d002ce5360473e2155567b779950994b7a.png" alt="Inheritance diagram of AdvancedUserDialog" usemap="#inheritance1035e36e81" class="inheritance"/>
+<img src="_images/inheritance-e5cc6e797cccc5c5b32e0a0717d5f2e3464f709b.png" alt="Inheritance diagram of AdvancedUserDialog" usemap="#inheritance1035e36e81" class="inheritance"/>
 <map id="inheritance1035e36e81" name="inheritance1035e36e81">
 <area shape="rect" id="node1" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler" title="Provide InputCheckHandler functionality for Gtk dialogs." alt="" coords="152,157,407,185"/>
 <area shape="rect" id="node4" href="#pyanaconda.ui.gui.spokes.user.AdvancedUserDialog" title=".. inheritance&#45;diagram:: AdvancedUserDialog" alt="" coords="69,233,281,261"/>
@@ -2284,7 +2134,7 @@ user deletes the whole text.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.welcome.</tt><tt class="descname">WelcomeLanguageSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.welcome.WelcomeLanguageSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.gui.spokes.lib.html#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler" title="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler</span></tt></a>, <a class="reference internal" href="#pyanaconda.ui.gui.spokes.StandaloneSpoke" title="pyanaconda.ui.gui.spokes.StandaloneSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.StandaloneSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-5615c1e02dde6e6dad2001b11fd75ce1cbef04a1.png" alt="Inheritance diagram of WelcomeLanguageSpoke" usemap="#inheritancec86ce9e3e6" class="inheritance"/>
+<img src="_images/inheritance-bd0fbd6684dffffd99b046ef4a5a589101f27414.png" alt="Inheritance diagram of WelcomeLanguageSpoke" usemap="#inheritancec86ce9e3e6" class="inheritance"/>
 <map id="inheritancec86ce9e3e6" name="inheritancec86ce9e3e6">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.StandaloneSpoke" title=".. inheritance&#45;diagram:: StandaloneSpoke" alt="" coords="289,157,472,185"/>
 <area shape="rect" id="node5" href="#pyanaconda.ui.gui.spokes.welcome.WelcomeLanguageSpoke" title=".. inheritance&#45;diagram:: WelcomeLanguageSpoke" alt="" coords="126,233,390,261"/>
@@ -2376,7 +2226,7 @@ user deletes the whole text.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.</tt><tt class="descname">StandaloneSpoke</tt><big>(</big><em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.StandaloneSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt>, <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.common.StandaloneSpoke" title="pyanaconda.ui.common.StandaloneSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.common.StandaloneSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-e4c77959a4a1a51cfdb3038fd6104792e12fabdc.png" alt="Inheritance diagram of StandaloneSpoke" usemap="#inheritancedbeee5eaae" class="inheritance"/>
+<img src="_images/inheritance-daa4e23ade95ea2e342041c71992372464f2981e.png" alt="Inheritance diagram of StandaloneSpoke" usemap="#inheritancedbeee5eaae" class="inheritance"/>
 <map id="inheritancedbeee5eaae" name="inheritancedbeee5eaae">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.StandaloneSpoke" title=".. inheritance&#45;diagram:: StandaloneSpoke" alt="" coords="67,157,249,185"/>
 <area shape="rect" id="node2" title="This is the base class from which all other GUI classes are derived. &#160;It" alt="" coords="17,81,128,109"/>
@@ -2397,7 +2247,7 @@ user deletes the whole text.</p>
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.</tt><tt class="descname">NormalSpoke</tt><big>(</big><em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt>, <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.common.NormalSpoke" title="pyanaconda.ui.common.NormalSpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.common.NormalSpoke</span></tt></a></p>
 <p class="graphviz">
-<img src="_images/inheritance-ada63d96257c9cdd56bfbefd36f0b08f9b962e68.png" alt="Inheritance diagram of NormalSpoke" usemap="#inheritance264062bda0" class="inheritance"/>
+<img src="_images/inheritance-78b6bdfab54fdf4185033cc7eaeaff00017ffe89.png" alt="Inheritance diagram of NormalSpoke" usemap="#inheritance264062bda0" class="inheritance"/>
 <map id="inheritance264062bda0" name="inheritance264062bda0">
 <area shape="rect" id="node1" href="#pyanaconda.ui.gui.spokes.NormalSpoke" title=".. inheritance&#45;diagram:: NormalSpoke" alt="" coords="73,157,233,185"/>
 <area shape="rect" id="node2" title="This is the base class from which all other GUI classes are derived. &#160;It" alt="" coords="17,81,128,109"/>
@@ -2455,7 +2305,7 @@ user deletes the whole text.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.0',
+            VERSION:'24.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
