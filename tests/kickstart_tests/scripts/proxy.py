@@ -7,6 +7,8 @@
 # pylint: disable=interruptible-system-call
 
 from http.server import SimpleHTTPRequestHandler
+import socket
+import select
 import socketserver
 from urllib.request import urlopen
 import os
@@ -67,6 +69,49 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         self.send_header('Content-Length', str(len(data)))
         self.end_headers()
         self.wfile.write(data)
+
+    def do_CONNECT(self):
+        if not self.authenticate():
+            return
+
+        # In this case self.path is just a host:port pair instead
+        # of a URL.
+        host, port = self.path.split(':')
+
+        # Open a socket to the requested location
+        target = socket.create_connection((host, port))
+
+        # Report that the connection is established
+        self.send_response(200)
+        self.end_headers()
+
+        # Forward data in either direction as it comes in, until
+        # someone closes the connection
+        host_fd = self.rfile.fileno()
+        target_fd = target.fileno()
+        bufsize = 1024
+        check_fds = [host_fd, target_fd]
+
+        while True:
+            readfds, _writefds, xfds = select.select(check_fds, [], check_fds)
+            if xfds:
+                break
+
+            if host_fd in readfds:
+                buf = os.read(host_fd, bufsize)
+                if not buf:
+                    break
+
+                target.send(buf)
+
+            if target_fd in readfds:
+                buf = os.read(target_fd, bufsize)
+                if not buf:
+                    break
+
+                self.wfile.write(buf)
+
+        target.close()
 
 class ProxyServer(socketserver.TCPServer):
     allow_reuse_address = True
