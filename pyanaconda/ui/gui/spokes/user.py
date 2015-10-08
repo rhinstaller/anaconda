@@ -122,6 +122,41 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self._tGroups.set_text(", ".join(self._user.groups))
 
+    def apply(self):
+        # Copy data from the UI back to the kickstart object
+        homedir = self._tHome.get_text()
+
+        # If the user cleared the home directory, revert back to the
+        # default
+        if not homedir:
+            self._homeSet = False
+            self._user.homedir = None
+        # If the user modified the home directory input, save that the
+        # home directory has been modified and use the value.
+        elif self._origHome != homedir:
+            self._homeSet = True
+
+            if not os.path.isabs(homedir):
+                homedir = "/" + homedir
+            self._user.homedir = homedir
+
+        # Otherwise leave the home directory alone. If the home
+        # directory is currently the default value, the next call
+        # to refresh() will update the input text to reflect
+        # changes in the username.
+
+        if self._cUid.get_active():
+            self._user.uid = int(self._uid.get_value())
+        else:
+            self._user.uid = None
+
+        if self._cGid.get_active():
+            self._user.gid = int(self._gid.get_value())
+        else:
+            self._user.gid = None
+
+        self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",")]
+
     def run(self):
         self.window.show()
         while True:
@@ -131,38 +166,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             if rc == 1:
                 # Input checks pass
                 if self.on_ok_clicked():
-                    homedir = self._tHome.get_text()
-
-                    # If the user cleared the home directory, revert back to the
-                    # default
-                    if not homedir:
-                        self._homeSet = False
-                        self._user.homedir = None
-                    # If the user modified the home directory input, save that the
-                    # home directory has been modified and use the value.
-                    elif self._origHome != homedir:
-                        self._homeSet = True
-
-                        if not os.path.isabs(homedir):
-                            homedir = "/" + homedir
-                        self._user.homedir = homedir
-
-                    # Otherwise leave the home directory alone. If the home
-                    # directory is currently the default value, the next call
-                    # to refresh() will update the input text to reflect
-                    # changes in the username.
-
-                    if self._cUid.get_active():
-                        self._user.uid = int(self._uid.get_value())
-                    else:
-                        self._user.uid = None
-
-                    if self._cGid.get_active():
-                        self._user.gid = int(self._gid.get_value())
-                    else:
-                        self._user.gid = None
-
-                    self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",")]
+                    self.apply()
                     break
                 # Input checks fail, try again
                 else:
