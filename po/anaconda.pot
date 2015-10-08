@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.19.4\n"
+"Project-Id-Version: anaconda 23.19.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-09-24 15:58-0400\n"
+"POT-Creation-Date: 2015-10-08 13:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -461,7 +461,7 @@ msgstr ""
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:242 pyanaconda/packaging/livepayload.py:180
+#: pyanaconda/install.py:242 pyanaconda/packaging/livepayload.py:183
 #: pyanaconda/packaging/dnfpayload.py:721
 msgid "Performing post-installation setup tasks"
 msgstr ""
@@ -1266,18 +1266,18 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:104
-#: pyanaconda/packaging/livepayload.py:125
+#: pyanaconda/packaging/livepayload.py:107
+#: pyanaconda/packaging/livepayload.py:128
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:235
-#: pyanaconda/packaging/livepayload.py:244
+#: pyanaconda/packaging/livepayload.py:238
+#: pyanaconda/packaging/livepayload.py:247
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:390
+#: pyanaconda/packaging/livepayload.py:393
 msgid "Checking image checksum"
 msgstr ""
 
@@ -1789,44 +1789,44 @@ msgid "Installation Destination"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:130
-#: pyanaconda/ui/gui/spokes/storage.py:400
+#: pyanaconda/ui/gui/spokes/storage.py:401
 msgid "No disks selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:133
-#: pyanaconda/ui/gui/spokes/storage.py:403
+#: pyanaconda/ui/gui/spokes/storage.py:404
 msgid "Kickstart insufficient"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:140
-#: pyanaconda/ui/gui/spokes/storage.py:412
+#: pyanaconda/ui/gui/spokes/storage.py:413
 msgid "Error checking storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:142
-#: pyanaconda/ui/gui/spokes/storage.py:414
+#: pyanaconda/ui/gui/spokes/storage.py:415
 msgid "Warning checking storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:145
-#: pyanaconda/ui/gui/spokes/storage.py:416
+#: pyanaconda/ui/gui/spokes/storage.py:417
 msgid "Automatic partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:147
-#: pyanaconda/ui/gui/spokes/storage.py:418
+#: pyanaconda/ui/gui/spokes/storage.py:419
 msgid "Custom partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:183
-#: pyanaconda/ui/gui/spokes/storage.py:673
+#: pyanaconda/ui/gui/spokes/storage.py:674
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:185
-#: pyanaconda/ui/gui/spokes/storage.py:675
+#: pyanaconda/ui/gui/spokes/storage.py:676
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
@@ -2080,7 +2080,7 @@ msgid ""
 "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:129 pyanaconda/ui/gui/spokes/user.py:386
+#: pyanaconda/ui/tui/spokes/user.py:129 pyanaconda/ui/gui/spokes/user.py:383
 msgid "No user will be created"
 msgstr ""
 
@@ -2088,12 +2088,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:133 pyanaconda/ui/gui/spokes/user.py:388
+#: pyanaconda/ui/tui/spokes/user.py:133 pyanaconda/ui/gui/spokes/user.py:385
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:135 pyanaconda/ui/gui/spokes/user.py:390
+#: pyanaconda/ui/tui/spokes/user.py:135 pyanaconda/ui/gui/spokes/user.py:387
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -2944,35 +2944,35 @@ msgctxt "GUI|Spoke"
 msgid "INSTALLATION _DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:344
+#: pyanaconda/ui/gui/spokes/storage.py:345
 msgid "Saving storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:347
+#: pyanaconda/ui/gui/spokes/storage.py:348
 msgid "Passphrase for autopart encryption not specified."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:356
-#: pyanaconda/ui/gui/spokes/storage.py:368
+#: pyanaconda/ui/gui/spokes/storage.py:357
+#: pyanaconda/ui/gui/spokes/storage.py:369
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:405
-#: pyanaconda/ui/gui/spokes/storage.py:706
+#: pyanaconda/ui/gui/spokes/storage.py:406
+#: pyanaconda/ui/gui/spokes/storage.py:707
 msgid "Formatting DASDs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:555
+#: pyanaconda/ui/gui/spokes/storage.py:556
 msgid ""
 "Error checking storage configuration.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:557
+#: pyanaconda/ui/gui/spokes/storage.py:558
 msgid ""
 "Warning checking storage configuration.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:598
+#: pyanaconda/ui/gui/spokes/storage.py:599
 #, python-format
 msgid ""
 "FCP device %(hba_id)s\n"
@@ -2980,79 +2980,91 @@ msgid ""
 "LUN %(lun)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:608
+#: pyanaconda/ui/gui/spokes/storage.py:609
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:655
+#: pyanaconda/ui/gui/spokes/storage.py:656
 #, python-format
 msgid "%(count)d disk selected; %(capacity)s capacity; %(free)s free"
 msgid_plural "%(count)d disks selected; %(capacity)s capacity; %(free)s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:739
+#: pyanaconda/ui/gui/spokes/storage.py:740
 msgid ""
 "You have chosen to skip boot loader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:909
+#: pyanaconda/ui/gui/spokes/storage.py:913
 msgid "There was a problem with your disk selection. Click here for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1002
+#: pyanaconda/ui/gui/spokes/storage.py:1006
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1018
+#: pyanaconda/ui/gui/spokes/storage.py:1022
+msgid ""
+"The following errors were encountered when checking your disk selection. You "
+"can modify your selection or quit the installer."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/storage.py:1027
+#: pyanaconda/ui/gui/spokes/storage.py:1048
+msgctxt "GUI|Storage|Error Dialog"
+msgid "_Quit"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/storage.py:1028
+msgctxt "GUI|Storage|Error Dialog"
+msgid "_Modify Disk Selection"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/storage.py:1043
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1023
-msgctxt "GUI|Storage|Error Dialog"
-msgid "_Quit"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/storage.py:1024
+#: pyanaconda/ui/gui/spokes/storage.py:1049
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1038
+#: pyanaconda/ui/gui/spokes/storage.py:1063
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1043
+#: pyanaconda/ui/gui/spokes/storage.py:1068
 msgctxt "GUI|Storage|Warning Dialog"
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:66
+#: pyanaconda/ui/gui/spokes/user.py:65
 #, python-format
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:243
+#: pyanaconda/ui/gui/spokes/user.py:242
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:321 pyanaconda/ui/gui/spokes/user.py:322
+#: pyanaconda/ui/gui/spokes/user.py:318 pyanaconda/ui/gui/spokes/user.py:319
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:353
+#: pyanaconda/ui/gui/spokes/user.py:350
 msgid "Invalid user name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:355
+#: pyanaconda/ui/gui/spokes/user.py:352
 msgid "Full name cannot contain colon characters"
 msgstr ""
 

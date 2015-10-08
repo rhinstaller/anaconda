@@ -305,6 +305,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 08 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 23.19.6-1
+- Do not override StorageChecker.errors in StorageSpoke (#1252596) (vtrefny)
+- Mangle the boot device differently for systemd (#1241704) (dshea)
+- Fail the media check if the systemd service failed to start. (dshea)
+- Raise an error if osimg cannot be found (#1248673) (bcl)
+- Use the bootloader raid levels for bootloader installation (#1266898) (bcl)
+- Use otps.display_mode during early startup (#1267140) (mkolman)
+- Remove an unused import (mkolman)
+- Ignore requests to create existing groups (#1261002) (dshea)
+- Keep environment selection when reentering the software spoke (#1261393)
+  (mkolman)
+- Only show the user spoke if no users are specified in kickstart (#1253672)
+  (mkolman)
+
 * Thu Sep 24 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 23.19.5-1
 - Fix branding when iso is downloaded from nfs or hd (#1252756) (jkonecny)
 - Fix unused import pylint error (jkonecny)
