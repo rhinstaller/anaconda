@@ -22,6 +22,7 @@
 
 import re
 import os
+import copy
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
@@ -248,8 +249,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def initialize(self):
         NormalSpoke.initialize(self)
 
+        # Create a new UserData object to store this spoke's state
+        # as well as the state of the advanced user dialog.
         if self.data.user.userList:
-            self._user = self.data.user.userList[0]
+            self._user = copy.copy(self.data.user.userList[0])
         else:
             self._user = self.data.UserData()
 
@@ -378,13 +381,17 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._user.name = self.username.get_text()
         self._user.gecos = self.fullname.get_text()
 
-        # the user will be created only if the username is set
+        # Copy the spoke data back to kickstart
+        # If the user name is not set, no user will be created.
         if self._user.name:
-            if self._user not in self.data.user.userList:
-                self.data.user.userList.append(self._user)
+            ksuser = copy.copy(self._user)
 
-        elif self._user in self.data.user.userList:
-            self.data.user.userList.remove(self._user)
+            if not self.data.user.userList:
+                self.data.user.userList.append(ksuser)
+            else:
+                self.data.user.userList[0] = ksuser
+        elif self.data.user.userList:
+            self.data.user.userList.pop(0)
 
     @property
     def sensitive(self):
