@@ -52,8 +52,6 @@ class RHELBaseInstallClass(BaseInstallClass):
         self.setDefaultPartitioning(anaconda.storage)
 
     def setNetworkOnbootDefault(self, ksdata):
-        if ksdata.method.method not in ("url", "nfs"):
-            return
         if network.has_some_wired_autoconnect_device():
             return
         # choose the device used during installation
