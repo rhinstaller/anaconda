@@ -38,7 +38,7 @@ import itertools
 import glob
 
 from pyanaconda.simpleconfig import SimpleConfigFile
-from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
+from blivet.devices import FcoeDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
@@ -1092,22 +1092,6 @@ def disableIPV6(rootpath):
             f.write("net.ipv6.conf.all.disable_ipv6=1\n")
             f.write("net.ipv6.conf.default.disable_ipv6=1\n")
 
-def disableNMForStorageDevices(rootpath, storage):
-    for devname in nm.nm_devices():
-        if (usedByFCoE(devname, storage) or
-            usedByRootOnISCSI(devname, storage)):
-            ifcfg_path = find_ifcfg_file_of_device(devname, root_path=rootpath)
-            if not ifcfg_path:
-                log.warning("disableNMForStorageDevices: ifcfg file for %s not found",
-                            devname)
-                continue
-            ifcfg = IfcfgFile(ifcfg_path)
-            ifcfg.read()
-            ifcfg.set(('NM_CONTROLLED', 'no'))
-            ifcfg.write()
-            log.info("network device %s used by storage will not be "
-                     "controlled by NM", devname)
-
 # sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
 def autostartFCoEDevices(rootpath, storage, ksdata):
     for devname in nm.nm_devices():
@@ -1134,23 +1118,6 @@ def usedByFCoE(iface, storage):
             return True
     return False
 
-def usedByRootOnISCSI(iface, storage):
-    rootdev = storage.rootDevice
-    for d in storage.devices:
-        if (isinstance(d, iScsiDiskDevice) and
-            rootdev.dependsOn(d)):
-            if d.nic == "default" or ":" in d.nic:
-                if getattr(d, 'ibft', False):
-                    deviface = ibftIface()
-                else:
-                    deviface = ifaceForHostIP(d.host_address)
-                if iface == deviface:
-                    return True
-            elif d.nic == iface:
-                return True
-
-    return False
-
 def write_sysconfig_network(rootpath, overwrite=False):
 
     cfgfile = os.path.normpath(rootpath + networkConfFile)
@@ -1170,8 +1137,6 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     copyDhclientConfFiles(rootpath)
     copyFileToPath("/etc/resolv.conf", rootpath, overwrite=flags.livecdInstall)
     instClass.setNetworkOnbootDefault(ksdata)
-    # NM_CONTROLLED is not mirrored in ksdata
-    disableNMForStorageDevices(rootpath, storage)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
 def update_hostname_data(ksdata, hostname):
