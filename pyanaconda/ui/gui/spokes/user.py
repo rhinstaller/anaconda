@@ -76,9 +76,15 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._user = user
 
         # Track whether the user has requested a home directory other
-        # than the default.
+        # than the default. This way, if the home directory is left as
+        # the default, the default will change if the username changes.
+        # Otherwise, once the directory is set it stays that way.
         self._origHome = None
-        self._homeSet = False
+
+        if self._user.homedir:
+            self._homeSet = True
+        else:
+            self._homeSet = False
 
     def _grabObjects(self):
         self._cUid = self.builder.get_object("c_uid")
@@ -125,15 +131,26 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             if rc == 1:
                 # Input checks pass
                 if self.on_ok_clicked():
-                    # If the user changed the home directory input, either this time or
-                    # during any earlier run of the dialog, set homedir to the value
-                    # in the input box.
                     homedir = self._tHome.get_text()
-                    if not os.path.isabs(homedir):
-                        homedir = "/" + homedir
-                    if self._homeSet or self._origHome != homedir:
+
+                    # If the user cleared the home directory, revert back to the
+                    # default
+                    if not homedir:
+                        self._homeSet = False
+                        self._user.homedir = None
+                    # If the user modified the home directory input, save that the
+                    # home directory has been modified and use the value.
+                    elif self._origHome != homedir:
                         self._homeSet = True
+
+                        if not os.path.isabs(homedir):
+                            homedir = "/" + homedir
                         self._user.homedir = homedir
+
+                    # Otherwise leave the home directory alone. If the home
+                    # directory is currently the default value, the next call
+                    # to refresh() will update the input text to reflect
+                    # changes in the username.
 
                     if self._cUid.get_active():
                         self._user.uid = int(self._uid.get_value())
