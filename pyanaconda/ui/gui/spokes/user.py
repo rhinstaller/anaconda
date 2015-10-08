@@ -71,8 +71,8 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
     def __init__(self, user, data):
         GUIObject.__init__(self, data)
 
-        self._saveButton = self.builder.get_object("save_button")
-        GUIDialogInputCheckHandler.__init__(self, self._saveButton)
+        saveButton = self.builder.get_object("save_button")
+        GUIDialogInputCheckHandler.__init__(self, saveButton)
 
         self._user = user
 
@@ -244,7 +244,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
-        self._oldweak = None
 
     def initialize(self):
         NormalSpoke.initialize(self)
