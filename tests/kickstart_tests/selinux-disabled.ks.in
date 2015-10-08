@@ -1,5 +1,5 @@
 #version=DEVEL
-url --url="http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/$basearch/os/"
+url @KSTEST_URL@
 install
 network --bootproto=dhcp
 
