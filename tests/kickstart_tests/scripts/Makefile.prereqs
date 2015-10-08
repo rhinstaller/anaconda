@@ -22,3 +22,7 @@ proxy-common.ks: proxy.py
 	echo 'EOF' >> $@
 	echo 'python3 /tmp/proxy-test.py > /dev/null 2>&1 &' >> $@
 	echo '%end' >> $@
+
+install.img: ${IMAGE}
+	@# Extract the install.img from a boot.iso
+	isoinfo -i $${IMAGE} -R -x /images/install.img > $@

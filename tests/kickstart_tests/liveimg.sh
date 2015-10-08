@@ -20,3 +20,36 @@
 TESTTYPE="method"
 
 . ${KSTESTDIR}/functions.sh
+
+prereqs() {
+    echo install.img
+}
+
+prepare() {
+    ks=$1
+    tmpdir=$2
+
+    scriptdir=$PWD/kickstart_tests/scripts
+
+    # Copy the install.img to the tmpdir
+    mkdir ${tmpdir}/liveimg
+    cp ${scriptdir}/install.img ${tmpdir}/liveimg
+
+    # Start a http server to serve the install.img
+    start_httpd ${tmpdir}/liveimg ${tmpdir}
+
+    # Add the image and checksum to the kickstart
+    sed -e "s|@KSTEST_LIVEIMG_URL@|${httpd_url}/install.img|" \
+        -e "s|@KSTEST_LIVEIMG_CHECKSUM@|$(sha256sum ${tmpdir}/liveimg/install.img | awk '{print $1;}')|" \
+        ${ks} > ${tmpdir}/kickstart-liveimg.ks
+
+    echo ${tmpdir}/kickstart-liveimg.ks
+}
+
+cleanup() {
+    tmpdir=$1
+
+    if [ -f ${tmpdir}/httpd-pid ]; then
+        kill $(cat ${tmpdir}/httpd-pid)
+    fi
+}
