@@ -261,7 +261,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.policy = self.data.anaconda.PwPolicyData()
 
         # indicate when the password was set by kickstart
-        self._user.password_kickstarted = self.data.user.seen
+        self._password_kickstarted = self.data.user.seen
 
         # Password checks, in order of importance:
         # - if a password is required, is one specified?
@@ -292,7 +292,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # Modify the GUI based on the kickstart and policy information
         # This needs to happen after the input checks have been created, since
         # the Gtk signal handlers use the input check variables.
-        if self._user.password_kickstarted:
+        if self._password_kickstarted:
             self.usepassword.set_active(True)
             self.pw.set_placeholder_text(_("The password was set by kickstart."))
             self.confirm.set_placeholder_text(_("The password was set by kickstart."))
@@ -340,7 +340,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # this should preserve the kickstart based password
         if self.usepassword.get_active():
             if self.pw.get_text():
-                self._user.password_kickstarted = False
+                self._password_kickstarted = False
                 self._user.password = cryptPassword(self.pw.get_text())
                 self._user.isCrypted = True
                 self.pw.set_placeholder_text("")
@@ -352,7 +352,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.confirm.set_placeholder_text("")
             self._user.password = ""
             self._user.isCrypted = False
-            self._user.password_kickstarted = False
+            self._password_kickstarted = False
 
         self._user.name = self.username.get_text()
         self._user.gecos = self.fullname.get_text()
@@ -468,11 +468,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """
 
         # If the password was set by kickstart, skip the strength check
-        if self._user.password_kickstarted and not self.policy.changesok:
+        if self._password_kickstarted and not self.policy.changesok:
             return InputCheck.CHECK_OK
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+        if (not self.usepassword.get_active()) or self._password_kickstarted:
             return InputCheck.CHECK_OK
         elif not self.get_input(inputcheck.input_obj):
             if inputcheck.input_obj == self.pw:
@@ -486,7 +486,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """If the user has entered confirmation data, check whether it matches the password."""
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+        if (not self.usepassword.get_active()) or self._password_kickstarted:
             result = InputCheck.CHECK_OK
         elif self.confirm.get_text() and (self.pw.get_text() != self.confirm.get_text()):
             result = _(PASSWORD_CONFIRM_ERROR_GUI)
@@ -504,7 +504,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
          """
 
         # Skip the check if no password is required
-        if not self.usepassword.get_active or self._user.password_kickstarted:
+        if not self.usepassword.get_active or self._password_kickstarted:
             return InputCheck.CHECK_OK
 
         # If the password is empty, clear the strength bar and skip this check
