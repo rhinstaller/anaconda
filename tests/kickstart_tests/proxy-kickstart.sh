@@ -21,6 +21,10 @@ TESTTYPE="method proxy"
 
 . ${KSTESTDIR}/functions.sh
 
+prereqs() {
+    echo proxy-common.ks
+}
+
 prepare() {
     ks=$1
     tmpdir=$2

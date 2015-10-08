@@ -21,6 +21,10 @@ TESTTYPE="method proxy"
 
 . ${KSTESTDIR}/functions.sh
 
+prereqs() {
+    echo proxy-common.ks
+}
+
 kernel_args() {
     echo vnc inst.proxy=http://127.0.0.1:8080
 }
