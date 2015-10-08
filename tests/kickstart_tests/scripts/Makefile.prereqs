@@ -11,3 +11,14 @@
 
 # This is a regular Makefile without any automake weirdness, so just keep it
 # friendly.
+
+proxy-common.ks: proxy.py
+	@# Wrap the proxy server in a %pre script that writes the server file to
+	@# to location in the installer environment and runs it in the background
+	@server_py="$$(< proxy.py)"; \
+	echo '%pre --erroronfail' > $@
+	echo 'cat - << "EOF" > /tmp/proxy-test.py' >> $@
+	cat proxy.py >> $@
+	echo 'EOF' >> $@
+	echo 'python3 /tmp/proxy-test.py > /dev/null 2>&1 &' >> $@
+	echo '%end' >> $@

@@ -1,8 +1,11 @@
+#!/usr/bin/python3
+
 # Start a super-simple proxy server on localhost
 # A list of proxied requests will be saved to /tmp/proxy.log
-%pre --erroronfail
-# Write the proxy script to a file in /tmp
-cat - << "EOF" > /tmp/proxy-test.py
+
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 from http.server import SimpleHTTPRequestHandler
 import socketserver
 from urllib.request import urlopen
@@ -72,8 +75,3 @@ class ProxyServer(socketserver.TCPServer):
         socketserver.TCPServer.__init__(self, ('', 8080), ProxyHandler)
 
 ProxyServer().serve_forever()
-EOF
-
-# Run the server in the background and exit
-python3 /tmp/proxy-test.py > /dev/null 2>&1 &
-%end
