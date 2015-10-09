@@ -21,13 +21,6 @@ DISTFILES.common.extra2 = Rules-extract
 	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
 	rm -f tmp/$$(basename $@)
 
-# Remove the $top_srcdir prefix from files so that xgettext can search for the file
-# relative to $top_srcdir and get the path name right in the .po
-%anaconda.po: %anaconda
-	@input_file="$(realpath $<)" && \
-	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \
-		--language=Python -o $@ $${input_file##$(realpath $(top_srcdir))/}
-
 %fedora-welcome.po: %fedora-welcome
 	@input_file="$(realpath $<)" && \
 	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \

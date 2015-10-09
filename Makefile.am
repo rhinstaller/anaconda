@@ -23,11 +23,6 @@ SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
 EXTRA_DIST = config.rpath COPYING .coveragerc
 
-# Files generated for gettext need to be included in the distribution
-EXTRA_DIST += $(srcdir)/anaconda.po
-$(srcdir)/anaconda.po: $(srcdir)/anaconda
-	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)
-
 # Include the xgettext wrapper so pot-update can be run from the source distribution
 # This is needed for make distcheck.
 EXTRA_DIST += $(srcdir)/translation-canary/xgettext_werror.sh
@@ -42,7 +37,10 @@ CLEANFILES = *~
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
-dist_sbin_SCRIPTS     = anaconda
+dist_sbin_SCRIPTS     = anaconda.py
+
+install-exec-hook:
+	cd $(DESTDIR)$(sbindir) && mv anaconda.py anaconda
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
