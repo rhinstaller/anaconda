@@ -555,8 +555,13 @@ class NetworkControlBox(GObject.GObject):
             if not con:
                 log.debug("network: on_edit_connection: connection for device %s not found", device.get_iface())
                 if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
-                    self._add_default_eth_con(device.get_iface(), autoconnect=False)
-                    return
+                    # Create default connection for the device and run nm-c-e on it
+                    default_con = self._default_eth_con(device.get_iface(), autoconnect=False)
+                    persistent = False
+                    log.info("network: creating new connection for %s device", dev_cfg.get_iface())
+                    self.client.add_connection_async(default_con, persistent, None,
+                            self._default_connection_added_cb, activate)
+                return
 
             if device and device.get_state() == NM.DeviceState.ACTIVATED:
                 # Reactivate the connection after configuring it (if it changed)
@@ -566,13 +571,22 @@ class NetworkControlBox(GObject.GObject):
 
         log.info("network: configuring connection %s device %s ssid %s",
                  con.get_uuid(), dev_cfg.get_iface(), ssid)
+        self._run_nmce(con.get_uuid(), activate)
+
+    def _default_connection_added_cb(self, client, result, activate):
+        con = client.add_connection_finish(result)
+        uuid = con.get_setting_connection().get_uuid()
+        log.info("network: configuring new connection %s", uuid)
+        self._run_nmce(uuid, activate)
+
+    def _run_nmce(self, uuid, activate):
         self.kill_nmce(msg="Configure button clicked")
-        proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % con.get_uuid()], reset_lang=False)
+        proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
 
-    def _add_default_eth_con(self, iface, autoconnect):
+    def _default_eth_con(self, iface, autoconnect):
         con = NM.SimpleConnection.new()
         s_con = NM.SettingConnection.new()
         s_con.set_property('uuid', str(uuid4()))
@@ -583,9 +597,7 @@ class NetworkControlBox(GObject.GObject):
         s_wired = NM.SettingWired.new()
         con.add_setting(s_con)
         con.add_setting(s_wired)
-        persistent = False
-        self.client.add_connection_async(con, persistent, None)
-
+        return con
 
     def kill_nmce(self, msg=""):
         if not self._running_nmce:
