@@ -314,6 +314,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 09 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.55-1
+- network: create ifcfg files in tui if needed (rvykydal)
+  Resolves: rhbz#1268155
+- Do not limit ONBOOT default setting to url and nfs installation methods
+  (rvykydal)
+  Resolves: rhbz#1269264
+
 * Wed Oct 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.54-1
 - ibft: fix setting dracut boot args for static ibft nic configuration
   (rvykydal)
