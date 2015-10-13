@@ -364,7 +364,7 @@ class addDriveDialog(object):
         return INSTALL_OK
 
     def addFcoeDriveDialog(self, screen):
-        netdevs = self.anaconda.id.network.available()
+        netdevs = self.anaconda.id.network.netdevices
         devs = netdevs.keys()
         devs.sort()
 
