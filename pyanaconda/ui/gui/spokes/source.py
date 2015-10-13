@@ -351,7 +351,7 @@ class IsoChooser(GUIObject):
 
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
-        if rc == 1:
+        if rc == Gtk.ResponseType.OK:
             f = self._chooser.get_filename()
             if f:
                 retval = f.replace(constants.ISO_DIR, "")
