@@ -197,7 +197,8 @@ def do_transaction(base, queue_instance):
     except BaseException as e:
         log.error('The transaction process has ended abruptly')
         log.info(e)
-        queue_instance.put(('quit', str(e)))
+        import traceback
+        queue_instance.put(('quit', str(e) + traceback.format_exc()))
 
 class DNFPayload(packaging.PackagePayload):
     def __init__(self, data):
@@ -738,7 +739,7 @@ class DNFPayload(packaging.PackagePayload):
             (token, msg) = queue_instance.get()
 
         if token == 'quit':
-            _failure_limbo()
+            raise packaging.PayloadError("DNF error: %s" % msg)
 
         post_msg = (N_("Performing post-installation setup tasks"))
         progress_message(post_msg)
