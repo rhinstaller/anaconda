@@ -800,7 +800,8 @@ class BootLoader(object):
         if usr_device:
             dracut_devices.extend([usr_device])
 
-        netdevs = storage.devicetree.getDevicesByInstance(NetworkStorageDevice)
+        netdevs = [d for d in storage.devices if (getattr(d, "complete", True) and
+            isinstance(d, NetworkStorageDevice))]
         rootdev = storage.rootDevice
         if any(rootdev.dependsOn(netdev) for netdev in netdevs):
             dracut_devices = set(dracut_devices)
