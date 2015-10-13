@@ -390,31 +390,27 @@ class NetworkControlBox(GObject.GObject):
         if dev_cfg.get_device_type() not in self.supported_device_types:
             log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
             return False
-        # Configs for ethernet has been already added,
-        # this must be some slave
         if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
             if con.get_setting_connection().get_master():
                 log.debug("network: GUI, not adding slave connection %s", uuid)
                 return False
-            else:
-                existing_dev_cfg = self.dev_cfg(iface=dev_cfg.get_iface())
-                if existing_dev_cfg:
-                    if existing_dev_cfg.con:
-                        log.debug("network: GUI, not adding connection %s, already have %s for device %s",
-                                  uuid, existing_dev_cfg.get_uuid(), existing_dev_cfg.device.get_iface())
-                        return False
-                    else:
-                        existing_dev_cfg.con = con
-                        log.debug("network: GUI, attaching connection %s to device %s",
-                                  uuid, existing_dev_cfg.device.get_iface())
-                        return True
         # Wireless settings are handled in scope of its device's dev_cfg
         if dev_cfg.get_device_type() == NM.DeviceType.WIFI:
             log.debug("network: GUI, not adding wireless connection %s", uuid)
             return False
-        # Virtual device settings (bond, team, vlan, ...)
-        self.add_dev_cfg(dev_cfg)
-        log.debug("network: GUI, adding connection %s", uuid)
+        existing_dev_cfg = self.dev_cfg(iface=dev_cfg.get_iface())
+        if existing_dev_cfg:
+            if existing_dev_cfg.con:
+                log.debug("network: GUI, not adding connection %s, already have %s for device %s",
+                          uuid, existing_dev_cfg.get_uuid(), existing_dev_cfg.device.get_iface())
+                return False
+            else:
+                log.debug("network: GUI, attaching connection %s to device %s",
+                          uuid, existing_dev_cfg.device.get_iface())
+                existing_dev_cfg.con = con
+        else:
+            log.debug("network: GUI, adding connection %s", uuid)
+            self.add_dev_cfg(dev_cfg)
         return True
 
     def initialize(self):
