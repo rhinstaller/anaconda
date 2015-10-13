@@ -4,3 +4,11 @@
 branch = True
 parallel = True
 source = ..
+
+# used by coverage combine
+# when combining Jenkins and kickstart_tests data
+# doesn't affect combination of pykickstart tests data
+[paths]
+source = .
+        /usr/lib*/python*/site-packages/
+        /usr/sbin/
