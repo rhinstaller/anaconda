@@ -50,6 +50,30 @@ from gi.repository import GLib
 import logging
 log = logging.getLogger("anaconda")
 
+class AnacondaReverseExceptionDump(ReverseExceptionDump):
+
+    @property
+    def desc(self):
+        """
+        When traceback will be part of the exception message split the
+        description from traceback. Description is used in name of the
+        bug in Bugzilla.
+        This is useful when saving exception in exception handler and
+        raising this exception elsewhere (subprocess exception).
+
+        :return: Exception description (bug name)
+        :rtype: str
+        """
+        if self.type and self.value:
+            parsed_exc = traceback.format_exception_only(self.type, self.value)[0].split("\nTraceback")
+            description = parsed_exc[0]
+            # TODO: remove when fixed (#1277422)
+            # Use only first line of description (because of libreport bug - reported)
+            description = description.split("\n")[0]
+            return description.strip()
+        else:
+            return ""
+
 class AnacondaExceptionHandler(ExceptionHandler):
 
     def __init__(self, confObj, intfClass, exnClass, tty_num, gui_lock, interactive):
@@ -273,7 +297,7 @@ def initExceptionHandling(anaconda):
 
     interactive = not anaconda.displayMode == 'c'
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
-                                       ReverseExceptionDump, anaconda.intf.tty_num,
+                                       AnacondaReverseExceptionDump, anaconda.intf.tty_num,
                                        anaconda.gui_initialized, interactive)
     handler.install(anaconda)
 
