@@ -44,7 +44,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action
+from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -328,6 +328,13 @@ class IsoChooser(GUIObject):
     def __init__(self, data):
         GUIObject.__init__(self, data)
         self._chooser = self.builder.get_object("isoChooserDialog")
+
+        # Hide the places sidebar, since it makes no sense in this context
+        # This is discouraged, but the alternative suggested is to reinvent the
+        # wheel. See also https://bugzilla.gnome.org/show_bug.cgi?id=751730
+        places_sidebar = find_first_child(self._chooser, lambda x: isinstance(x, Gtk.PlacesSidebar))
+        if places_sidebar:
+            really_hide(places_sidebar)
 
     # pylint: disable=arguments-differ
     def refresh(self, currentFile=""):

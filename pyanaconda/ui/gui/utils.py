@@ -495,3 +495,28 @@ def override_cell_property(tree_column, cell_renderer, propname, property_func, 
         tree_column.set_cell_data_func(cell_renderer, _cell_data_func)
 
     _override_cell_property_map[(tree_column, cell_renderer)][propname] = (property_func, data)
+
+def find_first_child(parent, match_func):
+    """
+    Find the first child widget of a container matching the given function.
+
+    This method performs a breadth-first search for the widget. match_func
+    takes the widget as a paramter, and the return value will be evaulated as
+    a bool.
+
+    :param GtkContainer parent: the container to search
+    :param function match_func: The function defining the condition to match
+    :return: The first matching widget
+    :rtype: GtkWidget or None
+    """
+    search_list = parent.get_children()
+
+    while search_list:
+        # Pop off the first widget, test it, and add its children to the end
+        widget = search_list.pop()
+        if match_func(widget):
+            return widget
+        if isinstance(widget, Gtk.Container):
+            search_list.extend(widget.get_children())
+
+    return None
