@@ -43,7 +43,7 @@ from uuid import uuid4
 import itertools
 
 from pyanaconda.simpleconfig import SimpleConfigFile
-from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
+from blivet.devices import FcoeDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
