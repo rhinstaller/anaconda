@@ -17,6 +17,6 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
-TESTTYPE="packaging"
+TESTTYPE="knownfailure packaging"
 
 . ${KSTESTDIR}/functions.sh

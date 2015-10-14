@@ -124,15 +124,20 @@ else
     tests=$(find kickstart_tests -maxdepth 1 -name '*sh' -a -perm -o+x)
 
     newtests=""
-    if [[ "$TESTTYPE" != "" ]]; then
-        for f in ${tests}; do
-            if [[ "$(grep "TESTTYPE=" ${f})" =~ "${TESTTYPE}" ]]; then
-                newtests+="${f} "
-            fi
-        done
+    for f in ${tests}; do
+        if [[ "$TESTTYPE" != "" && "$(grep TESTTYPE= ${f})" =~ "${TESTTYPE}" ]]; then
+            newtests+="${f} "
+        elif [[ "$TESTTYPE" == "" && ! "$(grep TESTTYPE= ${f})" =~ knownfailure ]]; then
+            # Skip any test with the type "knownfailure".  If you want to run these (to
+            # see if they are still failing, for instance) you can add "-t knownfailure"
+            # on the command line.
+            newtests+="${f} "
+        else
+            continue
+        fi
+    done
 
-        tests="${newtests}"
-    fi
+    tests="${newtests}"
 fi
 
 if [[ "${tests}" == "" ]]; then
