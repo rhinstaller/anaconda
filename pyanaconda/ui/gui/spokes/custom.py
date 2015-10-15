@@ -1939,9 +1939,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._accordion.is_multiselection:
             if root_name and "_" in root_name:
                 root_name = root_name.replace("_", "__")
-                checkbox_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                                    "Delete _all other file systems in the %s root as well.")
-                                    % root_name)
+                checkbox_text = ((C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                                     "Delete _all other file systems in the %s root as well.") +
+                                  "\n" +
+                                  C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                                     "(This includes those shared with other installed operating systems.)")
+                                 ) % root_name)
         else:
             checkbox_text = C_("GUI|Custom Partitioning|Confirm Delete Dialog",
                                "Do _not show this dialog for other selected file systems.")
