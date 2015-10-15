@@ -2346,7 +2346,7 @@ def writeSysconfigKernel(storage, version, instClass):
         log.error("failed to get package name for default kernel")
         return
 
-    kernel = h.name
+    kernel = h.name.decode()
 
     f = open(iutil.getSysroot() + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
