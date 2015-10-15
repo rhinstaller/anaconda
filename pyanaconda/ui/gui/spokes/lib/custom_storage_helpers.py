@@ -383,9 +383,13 @@ class ConfirmDeleteDialog(GUIObject):
 
         if rootName and "_" in rootName:
             rootName = rootName.replace("_", "__")
+        delete_all_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                               "Delete _all other file systems in the %s root as well.") +
+                           "\n" +
+                           C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                               "(This includes those shared with other installed operating systems.)"))
         self._removeAll.set_label(
-                C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                    "Delete _all other file systems in the %s root as well.")
+                delete_all_text
                 % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 
