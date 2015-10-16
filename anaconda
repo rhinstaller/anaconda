@@ -712,10 +712,7 @@ if __name__ == "__main__":
         iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
     elif opts.dirinstall:
-        if opts.dirinstall is True:
-            root_path = os.environ.get("ANACONDA_ROOT_PATH", "/mnt/sysimage")
-        else:
-            root_path = opts.dirinstall
+        root_path = opts.dirinstall
         iutil.setTargetPhysicalRoot(root_path)
         iutil.setSysroot(root_path)
 
