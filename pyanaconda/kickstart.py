@@ -1070,6 +1070,19 @@ class Logging(commands.logging.FC6_Logging):
             logger.updateRemote(remote_server)
 
 class Network(commands.network.RHEL7_Network):
+    def parse(self, args):
+        nd = commands.network.RHEL7_Network.parse(self, args)
+        setting_only_hostname = nd.hostname and len(args) <= 2
+        if not setting_only_hostname:
+            if not nd.device:
+                ksdevice = flags.cmdline.get('ksdevice')
+                if ksdevice:
+                    log.info('network: setting %s from ksdevice for missing kickstart --device')
+                    nd.device = ksdevice
+                else:
+                    log.info('network: setting "link" for missing --device specification in kickstart')
+                    nd.device = "link"
+        return nd
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
