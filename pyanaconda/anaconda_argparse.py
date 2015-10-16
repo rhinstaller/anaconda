@@ -485,7 +485,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     metavar="UPDATES_URL", help=help_parser.help_text("updates"))
     ap.add_argument("--image", action="append", dest="images", default=[],
                     metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
-    ap.add_argument("--dirinstall", nargs="?", const=True, default=False,
+    ap.add_argument("--dirinstall", nargs="?",
+                    const=os.environ.get("ANACONDA_ROOT_PATH", "/mnt/sysimage"),
                     help=help_parser.help_text("dirinstall"))
     ap.add_argument("--memcheck", action="store_true", default=True,
                     help=help_parser.help_text("memcheck"))
