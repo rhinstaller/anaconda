@@ -30,7 +30,7 @@ import fcntl
 import termios
 import struct
 
-from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace
+from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Action
 
 from pyanaconda.flags import BootArgs
 from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
@@ -451,8 +451,17 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--noselinux", dest="selinux", action="store_const",
                     const=SELINUX_DISABLED, default=SELINUX_DEFAULT,
                     help=help_parser.help_text("noselinux"))
-    ap.add_argument("--selinux", action="store_const",
-                    const=SELINUX_ENFORCING, help=help_parser.help_text("selinux"))
+
+    # Use a custom action to convert --selinux=0 and --selinux=1 into the
+    # appropriate constants
+    class ParseSelinux(Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            if values == "0":
+                setattr(namespace, self.dest, SELINUX_DISABLED)
+            else:
+                setattr(namespace, self.dest, SELINUX_ENFORCING)
+
+    ap.add_argument("--selinux", action=ParseSelinux, nargs="?", help=help_parser.help_text("selinux"))
 
     ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
                     help=help_parser.help_text("nompath"))
