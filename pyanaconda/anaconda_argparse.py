@@ -354,3 +354,150 @@ class HelpTextParser(object):
                 log.error("error reading help text file %s", self._path)
 
         return self._help_text.get(option, "")
+
+def getArgumentParser(version_string, boot_cmdline=None):
+    """Return the anaconda argument parser.
+
+       :param str version_string: The version string, e.g. 23.19.5.
+       :param pyanaconda.flags.BootArgs: The boot command line options
+       :rtype: AnacondaArgumentParser
+    """
+
+    datadir = os.environ.get("ANACONDA_DATADIR", "/usr/share/anaconda")
+
+    # NOTE: for each long option (like '--repo'), AnacondaOptionParser
+    # checks the boot arguments for bootarg_prefix+option ('inst.repo').
+    # If require_prefix is False, it also accepts the option without the
+    # bootarg_prefix ('repo').
+    # See anaconda_optparse.py and BootArgs (in flags.py) for details.
+    ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=False)
+    help_parser = HelpTextParser(os.path.join(datadir, "anaconda_options.txt"))
+
+    # NOTE: store_false options will *not* get negated when the user does
+    # "option=0" on the boot commandline (store_true options do, though).
+    # Basically, don't use store_false unless the option starts with "no".
+
+    # YET ANOTHER NOTE: If you change anything here:
+    # a) document its usage in docs/boot-options.txt
+    # b) be prepared to maintain it for a very long time
+    # If this seems like too much trouble, *don't add a new option*!
+
+    # Version
+    ap.add_argument('--version', action='version', version="%(prog)s " + version_string)
+
+    # Interface
+    ap.add_argument("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
+                    default="g", help=help_parser.help_text("cmdline"))
+    ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const="g",
+                    help=help_parser.help_text("graphical"))
+    ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const="t",
+                    help=help_parser.help_text("text"))
+
+    # Network
+    ap.add_argument("--proxy", metavar='PROXY_URL', help=help_parser.help_text("proxy"))
+
+    # Method of operation
+    ap.add_argument("-d", "--debug", dest="debug", action="store_true",
+                    default=False, help=help_parser.help_text("debug"))
+    ap.add_argument("--ks", dest="ksfile", action="store_const",
+                    metavar="KICKSTART_URL", const="/run/install/ks.cfg",
+                    help=help_parser.help_text("ks"))
+    ap.add_argument("--kickstart", dest="ksfile", metavar="KICKSTART_PATH",
+                    help=help_parser.help_text("kickstart"))
+    ap.add_argument("--rescue", dest="rescue", action="store_true", default=False,
+                    help=help_parser.help_text("rescue"))
+    ap.add_argument("--armplatform", dest="armPlatform", type=str, metavar="PLATFORM_ID",
+                    help=help_parser.help_text("armplatform"))
+    ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False,
+                    help=help_parser.help_text("multilib"))
+
+    ap.add_argument("-m", "--method", dest="method", default=None, metavar="METHOD",
+                    help=help_parser.help_text("method"))
+    ap.add_argument("--askmethod", dest="askmethod", action="store_true", default=False,
+                    help=help_parser.help_text("askmethod"))
+    ap.add_argument("--repo", dest="method", default=None, metavar="REPO_URL",
+                    help=help_parser.help_text("repo"))
+    ap.add_argument("--stage2", dest="stage2", default=None, metavar="STAGE2_URL",
+                    help=help_parser.help_text("stage2"))
+    ap.add_argument("--noverifyssl", action="store_true", default=False,
+                    help=help_parser.help_text("noverifyssl"))
+    ap.add_argument("--liveinst", action="store_true", default=False,
+                    help=help_parser.help_text("liveinst"))
+
+    # Display
+    ap.add_argument("--resolution", dest="runres", default=None, metavar="WIDTHxHEIGHT",
+                    help=help_parser.help_text("resolution"))
+    ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev",
+                    help=help_parser.help_text("usefbx"))
+    ap.add_argument("--vnc", action="store_true", default=False,
+                    help=help_parser.help_text("vnc"))
+    ap.add_argument("--vncconnect", metavar="HOST:PORT", help=help_parser.help_text("vncconnect"))
+    ap.add_argument("--vncpassword", default="", metavar="PASSWORD",
+                    help=help_parser.help_text("vncpassword"))
+    ap.add_argument("--xdriver", dest="xdriver", action="store", type=str,
+                    default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
+
+    # Language
+    ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))
+    ap.add_argument("--lang", metavar="LANG", help=help_parser.help_text("lang"))
+
+    # Obvious
+    ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
+    ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
+    ap.add_argument("--remotelog", metavar="HOST:PORT", help=help_parser.help_text("remotelog"))
+
+    from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
+    from pyanaconda.constants import SELINUX_DEFAULT
+    ap.add_argument("--noselinux", dest="selinux", action="store_const",
+                    const=SELINUX_DISABLED, default=SELINUX_DEFAULT,
+                    help=help_parser.help_text("noselinux"))
+    ap.add_argument("--selinux", action="store_const",
+                    const=SELINUX_ENFORCING, help=help_parser.help_text("selinux"))
+
+    ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
+                    help=help_parser.help_text("nompath"))
+    ap.add_argument("--mpath", action="store_true", help=help_parser.help_text("mpath"))
+
+    ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
+                    help=help_parser.help_text("nodmraid"))
+    ap.add_argument("--dmraid", action="store_true", help=help_parser.help_text("dmraid"))
+
+    ap.add_argument("--noibft", dest="ibft", action="store_false", default=True,
+                    help=help_parser.help_text("noibft"))
+    ap.add_argument("--ibft", action="store_true", help=help_parser.help_text("ibft"))
+
+    # Geolocation
+    ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))
+
+    # Miscellaneous
+    ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False,
+                    help=help_parser.help_text("nomount"))
+    ap.add_argument("--updates", dest="updateSrc", action="store", type=str,
+                    metavar="UPDATES_URL", help=help_parser.help_text("updates"))
+    ap.add_argument("--image", action="append", dest="images", default=[],
+                    metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
+    ap.add_argument("--dirinstall", nargs="?", const=True, default=False,
+                    help=help_parser.help_text("dirinstall"))
+    ap.add_argument("--memcheck", action="store_true", default=True,
+                    help=help_parser.help_text("memcheck"))
+    ap.add_argument("--nomemcheck", action="store_false", dest="memcheck",
+                    help=help_parser.help_text("nomemcheck"))
+    ap.add_argument("--leavebootorder", action="store_true", default=False,
+                    help=help_parser.help_text("leavebootorder"))
+    ap.add_argument("--noeject", action="store_false", dest="eject", default=True,
+                    help=help_parser.help_text("noeject"))
+    ap.add_argument("--extlinux", action="store_true", default=False,
+                    help=help_parser.help_text("extlinux"))
+    ap.add_argument("--nombr", action="store_true", default=False,
+                    help=help_parser.help_text("nombr"))
+    ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
+                    help=help_parser.help_text("mpathfriendlynames"))
+    ap.add_argument("--kexec", action="store_true", default=False,
+                    help=help_parser.help_text("kexec"))
+
+    # some defaults change based on cmdline flags
+    if boot_cmdline is not None:
+        if "console" in boot_cmdline:
+            ap.set_defaults(display_mode="t")
+
+    return ap
