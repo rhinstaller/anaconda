@@ -22,7 +22,9 @@ fi
 
 ANACONDA_INSTALL_CLASSES="${top_srcdir}/pyanaconda/installclasses"
 GI_TYPELIB_PATH="${top_builddir}/widgets/src"
+ANACONDA_DATADIR="${top_srcdir}/data"
 
+export ANACONDA_DATADIR
 export ANACONDA_INSTALL_CLASSES
 export GI_TYPELIB_PATH
 export LD_LIBRARY_PATH
