@@ -305,6 +305,39 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 16 2015 Brian C. Lane <bcl@redhat.com> - 24.4-1
+- Hide the places sidebar in the ISO chooser widget. (dshea)
+- Use GtkResponseType values in the iso chooser dialog (dshea)
+- Do not use deprecated getDevicesByInstance method (vtrefny)
+- By default, skip those kickstart tests we know to be failing. (clumens)
+- Fix pylint unused import (jkonecny)
+- network: handle bridge device appearing before its connection (#1265593)
+  (rvykydal)
+- Use $KSTEST_URL in tests that still had dl.fp.o hardcoded. (dshea)
+- Support CONNECT in the test proxy server. (dshea)
+- Extract the file used by liveimg as a prereq (dshea)
+- Convert the proxy script to a prereq. (dshea)
+- Add a prereqs function to kickstart tests. (dshea)
+- Fix traceback when trying to create list of unformatted DASDs. (#1268764)
+  (sbueno+anaconda)
+- network: handle missing connections of a device configured in GUI better
+  (rvykydal)
+- network: don't set NM_CONTROLLED=no for root on SAN. (rvykydal)
+- Add support for other systemd units to kickstart service command (bcl)
+- Merge pull request #388 from wgwoods/dd-in-initrd-fix (wwoods)
+- Set the password checkbox for empty kickstart passwords. (dshea)
+- Do not set the password input text with unencrypted passwords. (dshea)
+- Install input checks before modifying the user GUI (#1256065) (dshea)
+- Fix a lying error message in style_guide.py (dshea)
+- Use "Enter" instead of "Return" for the keyboard key. (dshea)
+- New Anaconda documentation - 24.3 (bcl)
+- Include missing test files and scripts in Makefile.am/tarball (atodorov)
+- dracut: accept inst.dd=[file:]/dd.iso (#1268792) (wwoods)
+- Do not override StorageChecker.errors in StorageSpoke (#1252596) (vtrefny)
+- Lookup IPv6 address without brackets (#1267872) (bcl)
+- Mangle the boot device differently for systemd (#1241704) (dshea)
+- Fail the media check if the systemd service failed to start. (dshea)
+
 * Fri Oct 02 2015 Brian C. Lane <bcl@redhat.com> - 24.3-1
 - Properly translate c-to-continue on the root selection screen (mkolman)
 - Check minimal memory requirements properly (#1267673) (jstodola)
