@@ -115,6 +115,14 @@ echo "error" >&2
             self.assertEqual(iutil.execWithCapture("/bin/sh", [testscript.name]),
                     "output\nerror\n")
 
+    def exec_with_capture_empty_test(self):
+        """Test execWithCapture with no output"""
+
+        # check that the output is an empty string
+        self.assertEqual(
+                iutil.execWithCapture("/bin/sh", ["-c", "exit 0"]),
+                "")
+
     def exec_readlines_test(self):
         """Test execReadlines."""
 
