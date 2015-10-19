@@ -279,30 +279,29 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
                 env_prune=env_prune)
 
         (output_string, err_string) = proc.communicate()
-        if output_string:
-            if binary_output:
-                output_lines = [output_string]
-            else:
-                output_string = output_string.decode("utf-8")
-                if output_string[-1] != "\n":
-                    output_string = output_string + "\n"
-                output_lines = output_string.splitlines(True)
+        if binary_output:
+            output_lines = [output_string]
+        else:
+            output_string = output_string.decode("utf-8")
+            if output_string and output_string[-1] != "\n":
+                output_string = output_string + "\n"
+            output_lines = output_string.splitlines(True)
 
-            if log_output:
-                with program_log_lock:
-                    if binary_output:
-                        # try to decode as utf-8 and replace all undecodable data by
-                        # "safe" printable representations when logging binary output
-                        decoded_output_lines = output_lines.decode("utf-8", "replace")
-                    else:
-                        # output_lines should already be a Unicode string
-                        decoded_output_lines = output_lines
+        if log_output:
+            with program_log_lock:
+                if binary_output:
+                    # try to decode as utf-8 and replace all undecodable data by
+                    # "safe" printable representations when logging binary output
+                    decoded_output_lines = output_lines.decode("utf-8", "replace")
+                else:
+                    # output_lines should already be a Unicode string
+                    decoded_output_lines = output_lines
 
-                    for line in decoded_output_lines:
-                        program_log.info(line.strip())
+                for line in decoded_output_lines:
+                    program_log.info(line.strip())
 
-            if stdout:
-                stdout.write(output_string)
+        if stdout:
+            stdout.write(output_string)
 
         # If stderr was filtered, log it separately
         if filter_stderr and err_string and log_output:
