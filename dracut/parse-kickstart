@@ -170,7 +170,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
 
         return "\n".join(dd_args)
 
-class Network(commands.network.F22_Network, DracutArgsMixin):
+class Network(commands.network.F24_Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -414,7 +414,8 @@ def ksnet_to_ifcfg(net, filename=None):
     add_s390_settings(dev, ifcfg)
 
     # dhcp etc.
-    ifcfg['BOOTPROTO'] = net.bootProto
+    if net.bootProto != "":
+        ifcfg['BOOTPROTO'] = net.bootProto
     if net.bootProto == 'static':
         ifcfg['IPADDR'] = net.ip
         ifcfg['NETMASK'] = net.netmask
