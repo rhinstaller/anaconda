@@ -79,6 +79,15 @@ class RunProgramTests(unittest.TestCase):
         with self.assertRaises(OSError):
             iutil._run_program(['asdasdadasd'])
 
+    def run_program_binary_test(self):
+        """Test _run_program with binary output."""
+
+        # Echo something that cannot be decoded as utf-8
+        retcode, output = iutil._run_program(['echo', '-en', r'\xa0\xa1\xa2'], binary_output=True)
+
+        self.assertEqual(retcode, 0)
+        self.assertEqual(output, b'\xa0\xa1\xa2')
+
     def exec_with_redirect_test(self):
         """Test execWithRedirect."""
         # correct calling should return rc==0
