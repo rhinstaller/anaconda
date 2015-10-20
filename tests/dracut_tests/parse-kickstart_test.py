@@ -234,6 +234,22 @@ network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopt
             self.assertEqual(bridge_lines[5], "TYPE=Ethernet\n", bridge_lines)
             self.assertTrue(bridge_lines[6].startswith("UUID="), bridge_lines)
 
+    def network_ipv6_only_test(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
+            ks_file.write("""network --noipv4 --hostname=blah.test.com --ipv6=1:2:3:4:5:6:7:8 --device lo --nameserver=1:1:1:1::,2:2:2:2::""")
+            ks_file.flush()
+            lines = self.execParseKickstart(ks_file.name)
+
+            ifcfg_lines = sorted(open(self.tmpdir+"/ifcfg/ifcfg-lo").readlines())
+            self.assertEqual(ifcfg_lines[1], "DEVICE=lo\n", ifcfg_lines)
+            self.assertEqual(ifcfg_lines[2], "DNS1=1:1:1:1::\n", ifcfg_lines)
+            self.assertEqual(ifcfg_lines[3], "DNS2=2:2:2:2::\n", ifcfg_lines)
+            self.assertEqual(ifcfg_lines[4], "IPV6ADDR=1:2:3:4:5:6:7:8\n", ifcfg_lines)
+            self.assertEqual(ifcfg_lines[5], "IPV6INIT=yes\n", ifcfg_lines)
+            self.assertEqual(ifcfg_lines[6], "IPV6_AUTOCONF=no\n", ifcfg_lines)
+            self.assertEqual(ifcfg_lines[7], "ONBOOT=yes\n", ifcfg_lines)
+            self.assertTrue(ifcfg_lines[8].startswith("UUID="), ifcfg_lines)
+
     def network_vlanid_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""network --device=link --bootproto=dhcp --activate
