@@ -405,8 +405,10 @@ class Payload(object):
                 version = "rawhide"
             except configparser.Error:
                 pass
+            log.debug("using treeinfo release version of %s", version)
+        else:
+            log.debug("using default release version of %s", version)
 
-        log.debug("got a release version of %s", version)
         return version
 
     ##
