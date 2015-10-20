@@ -707,7 +707,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
         for disk in to_format:
             try:
-                blockdev.s390.dasd_format(disk)
+                blockdev.s390.dasd_format(disk.name)
             except blockdev.S390Error as err:
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))
