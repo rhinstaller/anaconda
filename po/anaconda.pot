@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.19.6\n"
+"Project-Id-Version: anaconda 23.19.7\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-10-15 12:44-0400\n"
+"POT-Creation-Date: 2015-10-20 14:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3207,25 +3207,30 @@ msgctxt "GUI|Custom Partitioning|Configure|Devices"
 msgid "container"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:388
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:387
 #, python-format
 msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
 msgid "Delete _all other file systems in the %s root as well."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:398
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:390
+msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
+msgid "(This includes those shared with other installed operating systems.)"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:402
 #, python-format
 msgid "Are you sure you want to delete all of the data on %s?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:400
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:404
 #, python-format
 msgid ""
 "Are you sure you want to delete all of the data on %s, including snapshots "
 "and/or subvolumes?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:700
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:704
 msgid "Invalid container name"
 msgstr ""
 
