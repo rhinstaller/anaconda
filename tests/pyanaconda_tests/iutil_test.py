@@ -25,6 +25,7 @@ import os
 import tempfile
 import signal
 import shutil
+import crypt
 from test_constants import ANACONDA_TEST_DIR
 
 from timer import timer
@@ -750,3 +751,12 @@ class MiscTests(unittest.TestCase):
 
         for d, r in dirs:
             self.assertEquals(iutil.parent_dir(d), r)
+
+class EncryptPasswordTests(unittest.TestCase):
+    def encrypt_password_test(self):
+        """ Test the encrypt_password function"""
+        for algo in ["$1$", "$5$", "$6$"]:
+            enc_pw = iutil.encrypt_password("DocBrown", algo, 16)
+            self.assertEqual(algo, enc_pw[:3])
+            self.assertEqual(crypt.crypt("DocBrown", enc_pw), enc_pw)
+            self.assertNotEqual(crypt.crypt("Einstein", enc_pw), enc_pw)

@@ -20,9 +20,6 @@
 #
 
 import libuser
-import string
-import crypt
-import random
 import tempfile
 import os
 import os.path
@@ -100,21 +97,10 @@ def getPassAlgo(authconfigStr):
 #     $6$    SHA512
 def cryptPassword(password, algo=None):
     salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$'}
-    saltlen = 2
-
-    if algo is None:
+    if algo not in salts:
         algo = 'sha512'
 
-    if algo == 'md5' or algo == 'sha256' or algo == 'sha512':
-        saltlen = 16
-
-    saltstr = salts[algo]
-
-    for _i in range(saltlen):
-        saltstr = saltstr + random.choice (string.letters +
-                                           string.digits + './')
-
-    cryptpw = crypt.crypt (password, saltstr)
+    cryptpw = iutil.encrypt_password(password, salts[algo], 16)
     if cryptpw is None:
         exn = PasswordCryptError(algo=algo)
         if errorHandler.cb(exn) == ERROR_RAISE:

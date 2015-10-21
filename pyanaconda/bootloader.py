@@ -1113,16 +1113,8 @@ class GRUB(BootLoader):
         if not self.password:
             raise BootLoaderError("cannot encrypt empty password")
 
-        import string
-        import crypt
-        import random
-        salt = "$6$"
-        salt_len = 16
-        salt_chars = string.letters + string.digits + './'
-
-        rand_gen = random.SystemRandom()
-        salt += "".join(rand_gen.choice(salt_chars) for i in range(salt_len))
-        self.encrypted_password = crypt.crypt(self.password, salt)
+        # Encrypt using sha512 and 16 character salt
+        self.encrypted_password = iutil.encrypt_password(self.password, "$6$", 16)
 
     def write_config_password(self, config):
         """ Write password-related configuration. """
