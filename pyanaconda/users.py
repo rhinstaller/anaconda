@@ -20,9 +20,6 @@
 #
 
 # Used for ascii_letters and digits constants
-import string # pylint: disable=deprecated-module
-import crypt
-import random
 import os
 import os.path
 import subprocess
@@ -34,6 +31,7 @@ from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
+import crypt
 
 import logging
 log = logging.getLogger("anaconda")
@@ -51,28 +49,15 @@ def getPassAlgo(authconfigStr):
     else:
         return None
 
-# These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
-# we use for the different crypt salts:
-#     $1$    MD5
-#     $5$    SHA256
-#     $6$    SHA512
 def cryptPassword(password, algo=None):
-    salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$'}
-    saltlen = 2
+    salts = {'md5': crypt.METHOD_MD5,
+             'sha256': crypt.METHOD_SHA256,
+             'sha512': crypt.METHOD_SHA512}
 
-    if algo is None:
+    if algo not in salts:
         algo = 'sha512'
 
-    if algo == 'md5' or algo == 'sha256' or algo == 'sha512':
-        saltlen = 16
-
-    saltstr = salts[algo]
-
-    for _i in range(saltlen):
-        saltstr = saltstr + random.choice(string.ascii_letters +
-                                          string.digits + './')
-
-    cryptpw = crypt.crypt(password, saltstr)
+    cryptpw = crypt.crypt(password, salts[algo])
     if cryptpw is None:
         exn = PasswordCryptError(algo=algo)
         if errorHandler.cb(exn) == ERROR_RAISE:
