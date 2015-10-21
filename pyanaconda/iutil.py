@@ -35,6 +35,8 @@ from urllib.parse import quote, unquote
 import gettext
 import signal
 import sys
+import crypt
+import random
 
 import requests
 from requests_file import FileAdapter
@@ -47,7 +49,7 @@ from gi.repository import GLib
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
-from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
+from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY, SALT_CHARS
 from pyanaconda.regexes import URL_PARSE
 
 from pyanaconda.i18n import _
@@ -1373,3 +1375,17 @@ def save_screenshots():
 
     except OSError:
         log.exception("saving screenshots to installed system failed")
+
+def encrypt_password(password, algo, salt_len):
+    """ Encrypt a password using the selected algorithm and salt length.
+
+    :param str password: password to encrypt
+    :param str algo: Algorithm to use, from crypt(3) manpage
+    :param int salt_len: Lenth of salt to generate
+
+    This uses the system urandom as the random number generator
+    """
+    salt = algo or ""
+    rand_gen = random.SystemRandom()
+    salt += "".join(rand_gen.choice(SALT_CHARS) for i in range(salt_len))
+    return crypt.crypt(password, salt)
