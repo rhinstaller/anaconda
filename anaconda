@@ -1125,6 +1125,8 @@ if __name__ == "__main__":
     if not flags.dirInstall:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
+
+    if can_touch_runtime_system("initialize time", touch_live=True):
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT, target=time_initialize,
                                      args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
 
