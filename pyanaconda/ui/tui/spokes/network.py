@@ -56,6 +56,7 @@ class NetworkSpoke(EditTUISpoke):
         self.hostname_dialog.value = self.data.network.hostname
         self.supported_devices = []
         self.errors = []
+        self._apply = False
 
     def initialize(self):
         self._load_new_devices()
@@ -233,6 +234,7 @@ class NetworkSpoke(EditTUISpoke):
             network.update_settings_with_ksdata(devname, ndata)
 
             if ndata._apply:
+                self._apply = True
                 uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
                 try:
                     nm.nm_activate_device_connection(devname, uuid)
@@ -247,6 +249,12 @@ class NetworkSpoke(EditTUISpoke):
     def apply(self):
         " Apply all of our settings."""
         self._update_network_data()
+
+        if self._apply:
+            self._apply = False
+            from pyanaconda.packaging import payloadMgr
+            payloadMgr.restartThread(self.storage, self.data, self.payload,
+                                     self.instclass, checkmount=False)
 
     def _update_network_data(self):
         hostname = self.data.network.hostname

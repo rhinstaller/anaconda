@@ -284,6 +284,7 @@ class NetworkControlBox(GObject.GObject):
         self._running_nmce = None
         self.spoke = spoke
         self.client = client
+        self.settings_changed = False
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -618,6 +619,7 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
+            self.settings_changed = True
             network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, con, device):
@@ -640,6 +642,7 @@ class NetworkControlBox(GObject.GObject):
         device = dev_cfg.device
         con = dev_cfg.con
 
+        self.settings_changed = True
         log.info("network: device %s switched %s", dev_cfg.get_iface(), "on" if active else "off")
 
         if dev_cfg.get_device_type() == NM.DeviceType.WIFI:
@@ -808,6 +811,7 @@ class NetworkControlBox(GObject.GObject):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
         log.debug("network: GUI, device removed: %s", device.get_iface())
+        self.settings_changed = True
         dev_cfg = self.dev_cfg(device=device)
         if dev_cfg:
             dev_cfg.device = None
@@ -1417,6 +1421,16 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s", self.data.network)
+
+        if self.network_control_box.settings_changed:
+            log.debug("network spoke (apply) refresh payload")
+            from pyanaconda.packaging import payloadMgr
+            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                                     fallback=not anaconda_flags.automatedInstall)
+            self.network_control_box.settings_changed = False
+        else:
+            log.debug("network spoke (apply), no changes detected")
+
         self.network_control_box.kill_nmce(msg="leaving network spoke")
 
         # if installation media or hdd is not used and settings changed try if source is reachable
