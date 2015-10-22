@@ -22,6 +22,7 @@
 
 import re
 import os
+import copy
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
@@ -32,6 +33,7 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
+from pyanaconda.ui.gui.utils import blockedHandler
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
@@ -69,15 +71,21 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
     def __init__(self, user, data):
         GUIObject.__init__(self, data)
 
-        self._saveButton = self.builder.get_object("save_button")
-        GUIDialogInputCheckHandler.__init__(self, self._saveButton)
+        _saveButton = self.builder.get_object("save_button")
+        GUIDialogInputCheckHandler.__init__(self, _saveButton)
 
         self._user = user
 
         # Track whether the user has requested a home directory other
-        # than the default.
+        # than the default. This way, if the home directory is left as
+        # the default, the default will change if the username changes.
+        # Otherwise, once the directory is set it stays that way.
         self._origHome = None
-        self._homeSet = False
+
+        if self._user.homedir:
+            self._homeSet = True
+        else:
+            self._homeSet = False
 
     def _grabObjects(self):
         self._cUid = self.builder.get_object("c_uid")
@@ -98,17 +106,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # Validate the group input box
         self.add_check(self._tGroups, self._validateGroups)
 
-    def _apply_checkboxes(self, _editable=None, data=None):
-        """Update the state of this screen according to the
-        checkbox states on the screen. It is called from
-        the toggled Gtk event.
-        """
-        c_uid = self._cUid.get_active()
-        c_gid = self._cGid.get_active()
-
-        self._spinUid.set_sensitive(c_uid)
-        self._spinGid.set_sensitive(c_gid)
-
     def refresh(self):
         if self._user.homedir:
             homedir = self._user.homedir
@@ -120,12 +117,46 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self._cUid.set_active(bool(self._user.uid))
         self._cGid.set_active(bool(self._user.gid))
-        self._apply_checkboxes()
 
         self._spinUid.update()
         self._spinGid.update()
 
         self._tGroups.set_text(", ".join(self._user.groups))
+
+    def apply(self):
+        # Copy data from the UI back to the kickstart object
+        homedir = self._tHome.get_text()
+
+        # If the user cleared the home directory, revert back to the
+        # default
+        if not homedir:
+            self._homeSet = False
+            self._user.homedir = None
+        # If the user modified the home directory input, save that the
+        # home directory has been modified and use the value.
+        elif self._origHome != homedir:
+            self._homeSet = True
+
+            if not os.path.isabs(homedir):
+                homedir = "/" + homedir
+            self._user.homedir = homedir
+
+        # Otherwise leave the home directory alone. If the home
+        # directory is currently the default value, the next call
+        # to refresh() will update the input text to reflect
+        # changes in the username.
+
+        if self._cUid.get_active():
+            self._user.uid = int(self._uid.get_value())
+        else:
+            self._user.uid = None
+
+        if self._cGid.get_active():
+            self._user.gid = int(self._gid.get_value())
+        else:
+            self._user.gid = None
+
+        self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",")]
 
     def run(self):
         self.window.show()
@@ -136,27 +167,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             if rc == 1:
                 # Input checks pass
                 if self.on_ok_clicked():
-                    # If the user changed the home directory input, either this time or
-                    # during any earlier run of the dialog, set homedir to the value
-                    # in the input box.
-                    homedir = self._tHome.get_text()
-                    if not os.path.isabs(homedir):
-                        homedir = "/" + homedir
-                    if self._homeSet or self._origHome != homedir:
-                        self._homeSet = True
-                        self._user.homedir = homedir
-
-                    if self._cUid.get_active():
-                        self._user.uid = int(self._uid.get_value())
-                    else:
-                        self._user.uid = None
-
-                    if self._cGid.get_active():
-                        self._user.gid = int(self._gid.get_value())
-                    else:
-                        self._user.gid = None
-
-                    self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",")]
+                    self.apply()
                     break
                 # Input checks fail, try again
                 else:
@@ -168,6 +179,14 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self.window.hide()
         return rc
+
+    def on_uid_checkbox_toggled(self, togglebutton, data=None):
+        # Set the UID spinner sensitivity based on the UID checkbox
+        self._spinUid.set_sensitive(togglebutton.get_active())
+
+    def on_gid_checkbox_toggled(self, togglebutton, data=None):
+        # Same as above, for GID
+        self._spinGid.set_sensitive(togglebutton.get_active())
 
     def on_uid_mnemonic_activate(self, widget, group_cycling, user_data=None):
         # If this is the only widget with the mnemonic (group_cycling is False),
@@ -225,13 +244,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
-        self._oldweak = None
 
     def initialize(self):
         NormalSpoke.initialize(self)
 
+        # Create a new UserData object to store this spoke's state
+        # as well as the state of the advanced user dialog.
         if self.data.user.userList:
-            self._user = self.data.user.userList[0]
+            self._user = copy.copy(self.data.user.userList[0])
         else:
             self._user = self.data.UserData()
 
@@ -248,14 +268,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._waiveStrengthClicks = 0
         self._waiveASCIIClicks = 0
 
-        self.guesser = {
-            self.username: True
-            }
-
-        # Updated during the password changed event and used by the password
-        # field validity checker
-        self._pwq_error = None
-        self._pwq_valid = True
+        self.guesser = True
 
         self.pw_bar = self.builder.get_object("password_bar")
         self.pw_label = self.builder.get_object("password_label")
@@ -271,7 +284,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.policy = self.data.anaconda.PwPolicyData()
 
         # indicate when the password was set by kickstart
-        self._user.password_kickstarted = self.data.user.seen
+        self._password_kickstarted = self.data.user.seen
 
         # Password checks, in order of importance:
         # - if a password is required, is one specified?
@@ -302,7 +315,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # Modify the GUI based on the kickstart and policy information
         # This needs to happen after the input checks have been created, since
         # the Gtk signal handlers use the input check variables.
-        if self._user.password_kickstarted:
+        if self._password_kickstarted:
             self.usepassword.set_active(True)
             self.pw.set_placeholder_text(_("The password was set by kickstart."))
             self.confirm.set_placeholder_text(_("The password was set by kickstart."))
@@ -329,16 +342,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.pw.emit("changed")
         self.confirm.emit("changed")
 
-        if self.username.get_text() and self.usepassword.get_active() and \
-           self._user.password == "":
-            self.pw.grab_focus()
-        elif self.fullname.get_text():
-            self.username.grab_focus()
-        else:
-            self.fullname.grab_focus()
-
-        self.b_advanced.set_sensitive(bool(self._user.name))
-
     @property
     def status(self):
         if len(self.data.user.userList) == 0:
@@ -360,7 +363,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # this should preserve the kickstart based password
         if self.usepassword.get_active():
             if self.pw.get_text():
-                self._user.password_kickstarted = False
+                self._password_kickstarted = False
                 self._user.password = cryptPassword(self.pw.get_text())
                 self._user.isCrypted = True
                 self.pw.set_placeholder_text("")
@@ -372,18 +375,22 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.confirm.set_placeholder_text("")
             self._user.password = ""
             self._user.isCrypted = False
-            self._user.password_kickstarted = False
+            self._password_kickstarted = False
 
         self._user.name = self.username.get_text()
         self._user.gecos = self.fullname.get_text()
 
-        # the user will be created only if the username is set
+        # Copy the spoke data back to kickstart
+        # If the user name is not set, no user will be created.
         if self._user.name:
-            if self._user not in self.data.user.userList:
-                self.data.user.userList.append(self._user)
+            ksuser = copy.copy(self._user)
 
-        elif self._user in self.data.user.userList:
-            self.data.user.userList.remove(self._user)
+            if not self.data.user.userList:
+                self.data.user.userList.append(ksuser)
+            else:
+                self.data.user.userList[0] = ksuser
+        elif self.data.user.userList:
+            self.data.user.userList.pop(0)
 
     @property
     def sensitive(self):
@@ -396,20 +403,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def completed(self):
         return len(self.data.user.userList) > 0
 
-    def _updatePwQuality(self):
+    def _updatePwQuality(self, empty, strength):
         """This method updates the password indicators according
         to the password entered by the user.
         """
-        pwtext = self.pw.get_text()
-        username = self.username.get_text()
-
-        # Reset the counters used for the "press Done twice" logic
-        self._waiveStrengthClicks = 0
-        self._waiveASCIIClicks = 0
-
-        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, username)
-
-        if not pwtext:
+        # If the password is empty, clear the strength bar
+        if empty:
             val = 0
         elif strength < 50:
             val = 1
@@ -419,6 +418,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             val = 3
         else:
             val = 4
+
         text = _(PASSWORD_STRENGTH_DESC[val])
 
         self.pw_bar.set_value(val)
@@ -428,8 +428,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """Called by Gtk callback when the "Use password" check
         button is toggled. It will make password entries in/sensitive."""
 
-        self.pw.set_sensitive(self.usepassword.get_active())
-        self.confirm.set_sensitive(self.usepassword.get_active())
+        self.pw.set_sensitive(togglebutton.get_active())
+        self.confirm.set_sensitive(togglebutton.get_active())
 
         # Re-check the password
         self.pw.emit("changed")
@@ -437,40 +437,48 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     def password_changed(self, editable=None, data=None):
         """Update the password strength level bar"""
-        self._updatePwQuality()
+        # Reset the counters used for the "press Done twice" logic
+        self._waiveStrengthClicks = 0
+        self._waiveASCIIClicks = 0
 
         # Update the password/confirm match check on changes to the main password field
         self._confirm_check.update_check_status()
 
-    def username_changed(self, editable=None, data=None):
-        """Called by Gtk callback when the username or hostname
-        entry changes. It disables the guess algorithm if the
-        user added his own text there and reenable it when the
-        user deletes the whole text."""
+    def on_username_set_by_user(self, editable, data=None):
+        """Called by Gtk on user-driven changes to the username field.
 
-        if editable.get_text() == "":
-            self.guesser[editable] = True
-            self.b_advanced.set_sensitive(False)
-        else:
-            self.guesser[editable] = False
-            self.b_advanced.set_sensitive(True)
-
-            # Re-run the password checks against the new username
-            self.pw.emit("changed")
-            self.confirm.emit("changed")
-
-    def full_name_changed(self, editable=None, data=None):
-        """Called by Gtk callback when the full name field changes.
-        It guesses the username and hostname, strips diacritics
-        and make those lowercase.
+           This handler is blocked during changes from the username guesser.
         """
 
-        # after the text is updated in guesser, the guess has to be reenabled
-        if self.guesser[self.username]:
-            fullname = self.fullname.get_text()
+        # If the user set a user name, turn off the username guesser.
+        # If the user cleared the username, turn it back on.
+        if editable.get_text():
+            self.guesser = False
+        else:
+            self.guesser = True
+
+    def username_changed(self, editable, data=None):
+        """Called by Gtk on all username changes."""
+
+        # Disable the advanced user dialog button when no username is set
+        if editable.get_text():
+            self.b_advanced.set_sensitive(True)
+        else:
+            self.b_advanced.set_sensitive(False)
+
+        # Re-run the password checks against the new username
+        self.pw.emit("changed")
+        self.confirm.emit("changed")
+
+    def full_name_changed(self, editable, data=None):
+        """Called by Gtk callback when the full name field changes."""
+
+        if self.guesser:
+            fullname = editable.get_text()
             username = guess_username(fullname)
-            self.username.set_text(username)
-            self.guesser[self.username] = True
+
+            with blockedHandler(self.username, self.on_username_set_by_user):
+                self.username.set_text(username)
 
     def on_admin_toggled(self, togglebutton, data=None):
         # Add or remove "wheel" from the grouplist on changes to the admin checkbox
@@ -487,11 +495,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """
 
         # If the password was set by kickstart, skip the strength check
-        if self._user.password_kickstarted and not self.policy.changesok:
+        if self._password_kickstarted and not self.policy.changesok:
             return InputCheck.CHECK_OK
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+        if (not self.usepassword.get_active()) or self._password_kickstarted:
             return InputCheck.CHECK_OK
         elif not self.get_input(inputcheck.input_obj):
             if inputcheck.input_obj == self.pw:
@@ -505,7 +513,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """If the user has entered confirmation data, check whether it matches the password."""
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+        if (not self.usepassword.get_active()) or self._password_kickstarted:
             result = InputCheck.CHECK_OK
         elif self.confirm.get_text() and (self.pw.get_text() != self.confirm.get_text()):
             result = _(PASSWORD_CONFIRM_ERROR_GUI)
@@ -517,36 +525,39 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def _checkPasswordStrength(self, inputcheck):
         """Update the error message based on password strength.
 
-           The password strength has already been checked in _updatePwQuality, called
-           previously in the signal chain. This method converts the data set from there
-           into an error message.
-
            The password strength check can be waived by pressing "Done" twice. This
            is controlled through the self._waiveStrengthClicks counter. The counter
            is set in on_back_clicked, which also re-runs this check manually.
          """
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or \
-                ((not self.pw.get_text()) and (self._user.password_kickstarted)):
+        if not self.usepassword.get_active or self._password_kickstarted:
             return InputCheck.CHECK_OK
 
-        # If the password failed the validity check, fail this check
-        if (not self._pwq_valid) and (self._pwq_error):
-            return self._pwq_error
-
-        # use strength from policy, not bars
+        # If the password is empty, clear the strength bar and skip this check
         pw = self.pw.get_text()
+        if not pw:
+            self._updatePwQuality(True, 0)
+            return InputCheck.CHECK_OK
+
+        # determine the password strength
         username = self.username.get_text()
-        _valid, pwstrength, _error = validatePassword(pw, username, minlen=self.policy.minlen)
+        valid, pwstrength, error = validatePassword(pw, username, minlen=self.policy.minlen)
+
+        # set the strength bar
+        self._updatePwQuality(False, pwstrength)
+
+        # If the password failed the validity check, fail this check
+        if not valid and error:
+            return error
 
         if pwstrength < self.policy.minquality:
             # If Done has been clicked twice, waive the check
             if self._waiveStrengthClicks > 1:
                 return InputCheck.CHECK_OK
             elif self._waiveStrengthClicks == 1:
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
+                if error:
+                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % error
                 else:
                     return _(PASSWORD_WEAK_CONFIRM)
             else:
@@ -556,8 +567,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 else:
                     done_msg = _(PASSWORD_DONE_TWICE)
 
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error + " " + done_msg
+                if error:
+                    return _(PASSWORD_WEAK_WITH_ERROR) % error + " " + done_msg
                 else:
                     return _(PASSWORD_WEAK) % done_msg
         else:
