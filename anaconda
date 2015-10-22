@@ -31,6 +31,9 @@
 # This toplevel file is a little messy at the moment... (2001-06-22)
 # ...still messy (2013-07-12)
 
+import os
+import site
+
 coverage = None
 
 # If we get a signal immediately after starting that would be pretty messed up
@@ -38,14 +41,20 @@ proc_cmdline = open("/proc/cmdline", "r").read()    # pylint: disable=interrupti
 proc_cmdline = proc_cmdline.split()
 if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
     import coverage
+    pyanaconda_dir = "pyanaconda"
+    for d in site.getsitepackages():
+        possible_dir = os.path.join(d, "pyanaconda")
+        if os.path.isdir(possible_dir):
+            pyanaconda_dir = possible_dir
+            break
     cov = coverage.coverage(data_file="/mnt/sysimage/root/anaconda.coverage",
                             branch=True,
-                            source=["/usr/sbin/anaconda", "pyanaconda"]
+                            source=["/usr/sbin/anaconda", pyanaconda_dir]
                             )
     cov.start()
 
 
-import atexit, sys, os, time, signal
+import atexit, sys, time, signal
 import pid
 
 def exitHandler(rebootData, storage):
