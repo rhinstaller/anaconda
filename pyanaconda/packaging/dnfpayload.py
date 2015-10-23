@@ -71,6 +71,12 @@ REPO_DIRS = ['/etc/yum.repos.d',
              '/tmp/product/anaconda.repos.d']
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
 
+# Bonus to required free space which depends on block size and rpm database size estimation.
+# Every file could be aligned to fragment size so 4KiB * number_of_files should be a worst
+# case scenario. 2KiB for RPM DB was acquired by testing.
+# 6KiB = 4K(max default fragment size) + 2K(rpm db could be taken for a header file)
+BONUS_SIZE_ON_FILE = Size("6 KiB")
+
 _DNF_INSTALLER_LANGPACK_CONF = DNF_PLUGINCONF_DIR + "/langpacks.conf"
 _DNF_TARGET_LANGPACK_CONF = "/etc/dnf/plugins/langpacks.conf"
 
@@ -115,8 +121,9 @@ def _pick_mpoint(df, download_size, install_size):
                    # for root we need to take in count both download and install size
                    if ((key != root_mpoint and val > requested)
                    or val > requested_root) and reasonable_mpoint(key)}
-    log.debug('Estimated size: download %s & install %s - df: %s', requested,
-              (requested_root - requested), df)
+    log.debug('Input mount points: %s', df)
+    log.debug('Estimated size: download %s & install %s', requested,
+              (requested_root - requested))
     log.info('Sufficient mountpoints found: %s', sufficients)
 
     if not len(sufficients):
@@ -555,11 +562,14 @@ class DNFPayload(packaging.PackagePayload):
             if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
                 valid_points[root_mpoint + new_key] = val.format.freeSpaceEstimate(val.size)
 
-        m_points = _pick_mpoint(valid_points, download_size, size)
-        if not m_points or m_points == root_mpoint:
+        m_point = _pick_mpoint(valid_points, download_size, size)
+        if not m_point or m_point == root_mpoint:
             # download and install to the same mount point
             size = size + download_size
-        log.debug("Instalation space required %s for mpoints %s", size, m_points)
+            log.debug("Install + download space required %s", size)
+        else:
+            log.debug("Download space required %s for mpoint %s (non-chroot)", download_size, m_point)
+            log.debug("Installation space required %s", size)
         return size
 
     def _spaceRequired(self):
@@ -567,11 +577,23 @@ class DNFPayload(packaging.PackagePayload):
         if transaction is None:
             return Size("3000 MB")
 
-        size = sum(tsi.installed.installsize for tsi in transaction)
-        # add 35% to account for the fact that the above method is laughably
-        # inaccurate:
-        size *= 1.35
-        return Size(size)
+        size = 0
+        files_nm = 0
+        for tsi in transaction:
+            # space taken by all files installed by the packages
+            size += tsi.installed.installsize
+            # number of files installed on the system
+            files_nm += len(tsi.installed.files)
+
+        # append bonus size depending on number of files
+        bonus_size = files_nm * BONUS_SIZE_ON_FILE
+        size = Size(size)
+        # add another 10% as safeguard
+        total_space = (size + bonus_size) * 1.1
+        log.debug("Size from DNF: %s", size)
+        log.debug("Bonus size %s by number of files %s", bonus_size, files_nm)
+        log.debug("Total size required %s", total_space)
+        return total_space
 
     def _isGroupVisible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
@@ -688,7 +710,7 @@ class DNFPayload(packaging.PackagePayload):
                 _failure_limbo()
 
         pkgs_to_download = self._base.transaction.install_set
-        log.info('Downloading packages.')
+        log.info('Downloading packages to %s.', self._download_location)
         progressQ.send_message(_('Downloading packages'))
         progress = DownloadProgress()
         try:
