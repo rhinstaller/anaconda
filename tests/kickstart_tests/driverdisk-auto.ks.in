@@ -1,0 +1,39 @@
+#version=DEVEL
+url @KSTEST_URL@
+install
+network --bootproto=dhcp
+
+keyboard us
+lang en_US.UTF-8
+timezone America/New_York --utc
+rootpw testcase
+shutdown
+
+bootloader --timeout=1
+zerombr
+clearpart --all
+autopart
+
+driverdisk /dev/disk/by-label/TESTDD2
+
+%packages
+@core
+%end
+
+%post --nochroot
+SYSROOT=${ANA_INSTALL_PATH:-/mnt/sysimage}
+RESULTFILE=$SYSROOT/root/RESULT
+fail() { echo "*** $*" >> $RESULTFILE; }
+
+# check if OEMDRV got loaded
+[ -f /lib/modules/`uname -r`/updates/fake-dd.ko ] || fail "OEMDRV not loaded"
+[ -f $SYSROOT/root/fake-dd-2.ko ] || fail "OEMDRV not installed"
+
+# check if the second disk got loaded (it contains binaries)
+[ -f /usr/bin/fake-dd-bin ] || fail "TESTDD2 not loaded"
+
+# write successful result if nothing failed
+if [[ ! -e $RESULTFILE ]]; then
+    echo SUCCESS > $RESULTFILE
+fi
+%end
