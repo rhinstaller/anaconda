@@ -42,8 +42,8 @@ proc_cmdline = proc_cmdline.split()
 if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
     import coverage
     pyanaconda_dir = "pyanaconda"
-    for d in site.getsitepackages():
-        possible_dir = os.path.join(d, "pyanaconda")
+    for sitepkg in site.getsitepackages():
+        possible_dir = os.path.join(sitepkg, "pyanaconda")
         if os.path.isdir(possible_dir):
             pyanaconda_dir = possible_dir
             break
