@@ -1,7 +1,7 @@
 # dnfpayload.py
 # DNF/rpm software payload management.
 #
-# Copyright (C) 2013  Red Hat, Inc.
+# Copyright (C) 2013-2015  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Ales Kozumplik <akozumpl@redhat.com>
+#                    Jiri Konecny   <jkonecny@redhat.com>
 #
 import os
 
@@ -594,6 +595,20 @@ class DNFPayload(packaging.PackagePayload):
         log.debug("Bonus size %s by number of files %s", bonus_size, files_nm)
         log.debug("Total size required %s", total_space)
         return total_space
+
+    def requiredDeviceSize(self, format_class):
+        """ We need to provide information how big device is required to have successful
+            installation. ``format_class`` should be filesystem format
+            class for the **root** filesystem this class carry information about
+            metadata size.
+
+            :param format_class: Class of the filesystem format.
+            :type format_class: Class which inherits :class:`blivet.formats.fs.FS`
+            :returns: Size of the device with given filesystem format.
+            :rtype: :class:`blivet.size.Size`
+        """
+        device_size = format_class.getRequiredSize(self.spaceRequired)
+        return device_size.roundToNearest(Size("1 MiB"))
 
     def _isGroupVisible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
