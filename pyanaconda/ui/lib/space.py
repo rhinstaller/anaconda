@@ -77,7 +77,8 @@ class FileSystemSpaceChecker(object):
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free > needed)
         if not self.success:
-            self.deficit = needed - free
+            dev_required_size = self.payload.requiredDeviceSize(self.storage.rootDevice.format)
+            self.deficit = dev_required_size - self.storage.rootDevice.size
             self.error_message = _(self.error_template) % self.deficit
 
         return self.success
@@ -108,7 +109,8 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free > needed)
         if not self.success:
-            self.deficit = needed - free
+            dev_required_size = self.payload.requiredDeviceSize(self.storage.rootDevice.format)
+            self.deficit = dev_required_size - self.storage.rootDevice.size
             self.error_message = _(self.error_template) % self.deficit
 
         return self.success
