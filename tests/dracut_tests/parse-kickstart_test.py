@@ -240,6 +240,8 @@ network --device br0 --activate --bootproto dhcp --bridgeslaves=eth0 --bridgeopt
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
 
+            self.assertRegex(lines[0], r"ip=\[1:2:3:4:5:6:7:8\]:.*")
+
             ifcfg_lines = sorted(open(self.tmpdir+"/ifcfg/ifcfg-lo").readlines())
             self.assertEqual(ifcfg_lines[1], "DEVICE=lo\n", ifcfg_lines)
             self.assertEqual(ifcfg_lines[2], "DNS1=1:1:1:1::\n", ifcfg_lines)
