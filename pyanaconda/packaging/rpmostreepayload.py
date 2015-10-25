@@ -232,9 +232,7 @@ class RPMOSTreePayload(ArchivePayload):
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        binds = [(iutil.getTargetPhysicalRoot(),
-                  iutil.getSysroot() + '/sysroot'),
-                 (varroot,
+        binds = [(varroot,
                   iutil.getSysroot() + '/var'),
                  (iutil.getSysroot() + '/usr', None)]
 
@@ -243,7 +241,15 @@ class RPMOSTreePayload(ArchivePayload):
                                        ["--bind", src, dest if dest else src])
             if dest is None:
                 self._safeExecWithRedirect("mount",
-                                           ["--bind", "-o", "ro", src, src])
+                                           ["--bind", "-o", "remount,ro", src, src])
+
+        # We previously bind mounted /mnt/sysimage to
+        # /mnt/sysimage/.../sysroot, but this caused issues with mount
+        # path canonicalization.  Instead, directly mount the physical
+        # device at two different paths.
+        self._safeExecWithRedirect("mount",
+                                   [storage.rootDevice.format.device,
+                                    iutil.getSysroot() + "/sysroot"])
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
