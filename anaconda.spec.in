@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.56-1
+- Ignore interfaces with invalid VLAN IDs. (dshea)
+  Resolves: rhbz#1274893
+
 * Fri Oct 09 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.55-1
 - network: create ifcfg files in tui if needed (rvykydal)
   Resolves: rhbz#1268155
