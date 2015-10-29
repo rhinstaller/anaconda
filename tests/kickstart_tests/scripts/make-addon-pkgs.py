@@ -20,7 +20,7 @@
 
 # This script creates all the packages used by nfs-repo-and-addon.ks.
 # The packages are created in two directories, http and nfs. After all the rpms
-# are made just copy everything to the location set in $KSTEST_ADDON_NFS_REPO
+# are made just copy everything to the location set in $KSTEST_NFS_ADDON_REPO
 # and the root of the http addon repo server.
 #
 # If a directory argument is given on the command line, the script will change
