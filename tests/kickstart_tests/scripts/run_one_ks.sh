@@ -95,7 +95,7 @@ runone() {
     fi
 
     disks=$(prepare_disks ${tmpdir})
-    disk_args=$(for d in $disks; do echo --disk $d; done)
+    disk_args=$(for d in $disks; do echo --disk $d,cache=unsafe; done)
 
     echo "PYTHONPATH=$PYTHONPATH"
     eval ${KSTESTDIR}/scripts/kstest-runner ${kargs} \
