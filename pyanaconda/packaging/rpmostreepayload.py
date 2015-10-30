@@ -37,6 +37,7 @@ from gi.repository import GLib
 from gi.repository import Gio
 
 from blivet.size import Size
+from blivet.util import umount
 
 import logging
 log = logging.getLogger("anaconda")
@@ -271,7 +272,7 @@ class RPMOSTreePayload(ArchivePayload):
         super(RPMOSTreePayload, self).unsetup()
 
         for mount in reversed(self._internal_mounts):
-            blivet.util.umount(mount)
+            umount(mount)
 
     def recreateInitrds(self):
         # For rpmostree payloads, we're replicating an initramfs from
