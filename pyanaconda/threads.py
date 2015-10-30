@@ -253,9 +253,10 @@ class AnacondaThread(threading.Thread):
             threading.Thread.run(self, *args, **kwargs)
         # pylint: disable=bare-except
         except:
-            threadMgr.set_error(self.name, *sys.exc_info())
             if self._fatal:
                 sys.excepthook(*sys.exc_info())
+            else:
+                threadMgr.set_error(self.name, *sys.exc_info())
         finally:
             threadMgr.remove(self.name)
             log.info("Thread Done: %s (%s)", self.name, self.ident)
