@@ -633,7 +633,7 @@ class GraphicalUserInterface(UserInterface):
         ANACONDA_WINDOW_GROUP.add_window(self.mainWindow)
 
     basemask = "pyanaconda.ui"
-    basepath = os.path.dirname(__file__)
+    basepath = os.path.dirname(os.path.dirname(__file__))
     updatepath = "/tmp/updates/pyanaconda/ui"
     sitepackages = [os.path.join(dir, "pyanaconda", "ui")
                     for dir in site.getsitepackages()]

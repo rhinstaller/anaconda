@@ -104,7 +104,7 @@ class TextUserInterface(ui.UserInterface):
         self.quitMessage = quitMessage
 
     basemask = "pyanaconda.ui"
-    basepath = os.path.dirname(__file__)
+    basepath = os.path.dirname(os.path.dirname(__file__))
     updatepath = "/tmp/updates/pyanaconda/ui"
     sitepackages = [os.path.join(dir, "pyanaconda", "ui")
                     for dir in site.getsitepackages()]
