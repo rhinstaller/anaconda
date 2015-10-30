@@ -377,7 +377,7 @@ class ConfirmDeleteDialog(GUIObject):
         self.window.destroy()
 
     # pylint: disable=arguments-differ
-    def refresh(self, mountpoint, device, rootName, snapshots=False):
+    def refresh(self, mountpoint, device, rootName, snapshots=False, bootpart=False):
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
 
@@ -385,7 +385,7 @@ class ConfirmDeleteDialog(GUIObject):
             rootName = rootName.replace("_", "__")
         self._removeAll.set_label(
                 C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                    "Delete _all other file systems in the %s root as well.")
+                    "Delete _all other file systems which are only used by %s as well.")
                 % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 
@@ -394,7 +394,9 @@ class ConfirmDeleteDialog(GUIObject):
         else:
             txt = device
 
-        if not snapshots:
+        if bootpart:
+            label_text = _("%s may be a system boot partition! Deleting it may break other operating systems. Are you sure you want to delete it?") % txt
+        elif not snapshots:
             label_text = _("Are you sure you want to delete all of the data on %s?") % txt
         else:
             label_text = _("Are you sure you want to delete all of the data on %s, including snapshots and/or subvolumes?") % txt
