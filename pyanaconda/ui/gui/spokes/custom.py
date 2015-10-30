@@ -68,7 +68,7 @@ from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
-from blivet.devices import LUKSDevice
+from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
@@ -2267,18 +2267,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             selectedDeviceLabel = self._incompleteDeviceLabel
             selectedDeviceDescLabel = self._incompleteDeviceDescLabel
 
-            if selector.device.type == "mdarray":
+            if isinstance(selector.device, MDRaidArrayDevice):
                 total = selector.device.memberDevices
                 missing = total - len(selector.device.parents)
                 txt = _("This Software RAID array is missing %(missingMembers)d of %(totalMembers)d member "
                         "partitions. You can remove it or select a different "
                         "device.") % {"missingMembers": missing, "totalMembers": total}
-            else:
+            elif isinstance(selector.device, LVMVolumeGroupDevice):
                 total = selector.device.pvCount
                 missing = total - len(selector.device.parents)
                 txt = _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
                         "volumes. You can remove it or select a different "
                         "device.") % {"missingPVs": missing, "totalPVs": total}
+            else:
+                txt = _("This %(type)s device is missing member devices. You can remove it or"
+                        " select a different device.") % selector.device.type
+
             self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
         elif devicefactory.get_device_type(selector.device) is None:
