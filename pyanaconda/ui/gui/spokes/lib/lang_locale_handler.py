@@ -60,7 +60,7 @@ class LangLocaleHandler(object):
 
     def initialize(self):
         # Render an arrow for the chosen language
-        datadir = os.environ.get("ANACONDA_WIDGETS_DATADIR", "/usr/share/anaconda")
+        datadir = os.environ.get("ANACONDA_WIDGETS_DATA", "/usr/share/anaconda")
         self._right_arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "right-arrow-icon.png"))
         self._left_arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "left-arrow-icon.png"))
         override_cell_property(self._langSelectedColumn, self._langSelectedRenderer,
