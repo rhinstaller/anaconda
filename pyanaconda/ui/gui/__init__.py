@@ -833,8 +833,10 @@ class GraphicalUserInterface(UserInterface):
             settings.set_property("gtk-icon-theme-name", "gnome")
 
             # Apply the application stylesheet
+            css_path = os.environ.get("ANACONDA_DATA", "/usr/share/anaconda")
+            css_path = os.path.join(css_path, "anaconda-gtk.css")
             provider = Gtk.CssProvider()
-            provider.load_from_path("/usr/share/anaconda/anaconda-gtk.css")
+            provider.load_from_path(css_path)
             Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
