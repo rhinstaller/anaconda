@@ -100,8 +100,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">6</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">RECLAIM DISK SPACE</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -117,9 +117,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">6</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Description goes here.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -131,7 +131,6 @@
               <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">never</property>
                 <property name="shadow_type">in</property>
                 <child>
                   <object class="GtkTreeView" id="diskView">
@@ -149,6 +148,7 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="diskColumn">
+                        <property name="resizable">True</property>
                         <property name="title" translatable="yes">Disk</property>
                         <child>
                           <object class="GtkCellRendererText" id="diskRenderer"/>
