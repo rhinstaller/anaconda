@@ -500,6 +500,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("ui: new_devices=%s", [d.name for d in new_devices])
 
         ui_roots = self._storage_playground.roots[:]
+        page_efi = Page(_("UEFI partitions"))
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
@@ -527,6 +528,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             new_root = Root(mounts=mounts, swaps=swaps, name=translated_new_install_name())
             ui_roots.insert(0, new_root)
 
+        # Find out if all efi partitions are shared or not
+        efi_shared = {}
+        for root in ui_roots:
+            for (mountpoint, device) in root.mounts.items():
+                if device.format.type == "efi":
+                    if device.name not in efi_shared:
+                        efi_shared[device.name] = False
+                    else:
+                        efi_shared[device.name] = True
+
         # Add in all the existing (or autopart-created) operating systems.
         for root in ui_roots:
             # Don't make a page if none of the root's devices are left.
@@ -543,6 +554,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                    not device.disks or \
                    (root.name != translated_new_install_name() and not device.format.exists):
                     continue
+                # Skip efi devices shared between existing systems or skip all efi devices if any
+                # unknown device is presented. Move them to the separate section.
+                if device.format.type == "efi":
+                    if efi_shared.get(device.name, False) or self.unusedDevices:
+                        page_efi.addSelector(device, self.on_selector_clicked, mountpoint=root.name)
+                        continue
 
                 selector = page.addSelector(device, self.on_selector_clicked,
                                             mountpoint=mountpoint)
@@ -556,18 +573,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selector = page.addSelector(device, self.on_selector_clicked)
                 selector.root = root
 
-            page.show_all()
-            self._accordion.addPage(page, cb=self.on_page_clicked)
+            # Do not populate empty page
+            if page.members:
+                page.show_all()
+                self._accordion.addPage(page, cb=self.on_page_clicked)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if self.unusedDevices:
             page = UnknownPage(_("Unknown"))
 
             for u in sorted(self.unusedDevices, key=lambda d: d.name):
-                page.addSelector(u, self.on_selector_clicked)
+                if u.format.type == "efi": # move efi to "UEFI category"
+                    page_efi.addSelector(u, self.on_selector_clicked)
+                else:
+                    page.addSelector(u, self.on_selector_clicked)
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
+
+        # Show efi partitions page if not empty
+        if page_efi.members:
+            page_efi.show_all()
+            self._accordion.addPage(page_efi, cb=self.on_page_clicked)
 
     def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
