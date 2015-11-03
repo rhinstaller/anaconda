@@ -2190,6 +2190,21 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                                        "%s will be configured using iBFT values",
                                        devices[i]);
                         }
+                        if (ibft_iface_vlan()) {
+                            logMessage(DEBUGLVL, "vlan id configured in iBFT: %s", ibft_iface_vlan());
+                            int vlanid;
+                            errno = 0;
+                            vlanid = strtol((const char *) ibft_iface_vlan(), NULL, 10);
+                            if (errno == EINVAL || errno == ERANGE) {
+                                logMessage(ERROR, "strtol error %s: %d: %m", __func__, __LINE__);
+                                abort();
+                            }
+                            if (vlanid >= 0 && vlanid < 4096) {
+                                loaderData->vlanid = vlanid;
+                            } else {
+                                logMessage(DEBUGLVL, "vlan id out of range: %d", vlanid);
+                            }
+                        }
 
                         return LOADER_NOOP;
                     }
@@ -2407,10 +2422,14 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
 	}
 
         if (is_iface_activated(devicename)) {
-            logMessage(INFO, "device %s is already activated", devicename);
-            if ((rc = disconnectDevice(devicename)) != 0) {
-                logMessage(ERROR, "device disconnection failed with return code %d", rc);
-                return -1;
+            if (!strcmp(loaderData->ipv4, "ibft")) {
+                logMessage(INFO, "device %s is already activated by NM using iBFT", devicename);
+            } else {
+                logMessage(INFO, "device %s is already activated", devicename);
+                if ((rc = disconnectDevice(devicename)) != 0) {
+                    logMessage(ERROR, "device disconnection failed with return code %d", rc);
+                    return -1;
+                }
             }
         }
 

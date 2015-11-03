@@ -2308,6 +2308,7 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "failed to enable VLAN for NetworkManager");
     }
 
+    setenv("IBFT_DEBUG","1",1);
     /* Start NetworkManager now so it's always available to talk to. */
     if (iface_start_NetworkManager(loaderData.dhcpTimeout))
         logMessage(INFO, "failed to start NetworkManager");

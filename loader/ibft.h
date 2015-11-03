@@ -38,6 +38,7 @@ char* ibft_iface_gw();
 char* ibft_iface_iface();
 char* ibft_iface_dns1();
 char* ibft_iface_dns2();
+char* ibft_iface_vlan();
 
 
 #endif

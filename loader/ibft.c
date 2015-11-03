@@ -103,3 +103,5 @@ ibft_iface_charfunc(iface, iface_name)
 ibft_iface_charfunc(dns1, primary_dns)
 ibft_iface_charfunc(dns2, secondary_dns)
 
+/* Get the iBFT vlan id */
+ibft_iface_charfunc(vlan, vlan)
