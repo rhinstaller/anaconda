@@ -876,8 +876,9 @@ class DNFPayload(packaging.PackagePayload):
             log.debug("repo %s: mirrorlist %s, baseurl %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl)
             # one of these must be set to create new repo
-            if not (ksrepo.mirrorlist or ksrepo.baseurl):
-                raise packaging.PayloadSetupError("Repository %s has no mirror or baseurl set"
+            if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.name in self._base.repos):
+                raise packaging.PayloadSetupError("Repository %s has no mirror or baseurl set "
+                                                  "and is not one of the pre-defined repositories"
                                                   % ksrepo.name)
 
             self._add_repo(ksrepo)
