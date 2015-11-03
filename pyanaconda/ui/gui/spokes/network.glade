@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -357,9 +357,9 @@
                                               <object class="GtkLabel" id="label_wired_device">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Wired</property>
                                                 <property name="ellipsize">end</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                   <attribute name="scale" value="1.2"/>
@@ -375,8 +375,8 @@
                                               <object class="GtkLabel" id="label_wired_status">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Cable unplugged</property>
+                                                <property name="xalign">0</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -414,8 +414,8 @@
                                           <object class="GtkLabel" id="heading_wired_slaves">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Slaves</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -431,15 +431,16 @@
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">1</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_dns">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
+                                            <property name="label" translatable="yes">DNS</property>
                                             <property name="xalign">1</property>
                                             <property name="yalign">0</property>
-                                            <property name="label" translatable="yes">DNS</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -450,22 +451,23 @@
                                           <object class="GtkLabel" id="label_wired_dns">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
-                                            <property name="yalign">0</property>
                                             <property name="label">127.0.0.1</property>
                                             <property name="wrap">True</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">10</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_route">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Default Route</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -476,20 +478,21 @@
                                           <object class="GtkLabel" id="label_wired_route">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">127.0.0.1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">9</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_subnet">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Subnet Mask</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -500,20 +503,21 @@
                                           <object class="GtkLabel" id="label_wired_subnet">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">127.0.0.1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">8</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IPv6 Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -524,20 +528,21 @@
                                           <object class="GtkLabel" id="label_wired_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">::1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">7</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_ipv4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IPv4 Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -548,20 +553,21 @@
                                           <object class="GtkLabel" id="label_wired_ipv4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">127.0.0.1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">6</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_speed">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Speed</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -572,20 +578,21 @@
                                           <object class="GtkLabel" id="label_wired_speed">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">1 Mb/s</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">5</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_mac">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Hardware Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -596,20 +603,21 @@
                                           <object class="GtkLabel" id="label_wired_mac">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">AA:BB:CC:DD:55:66:77:88</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">4</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <object class="GtkLabel" id="heading_wired_parent">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Parent</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -620,8 +628,8 @@
                                           <object class="GtkLabel" id="heading_wired_vlanid">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">VLAN ID</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -637,6 +645,7 @@
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">2</property>
+                                            <property name="width">2</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -648,37 +657,8 @@
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">3</property>
+                                            <property name="width">2</property>
                                           </packing>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
                                         </child>
                                       </object>
                                       <packing>
@@ -776,9 +756,9 @@
                                               <object class="GtkLabel" id="label_wireless_device">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Wireless</property>
                                                 <property name="ellipsize">end</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                   <attribute name="scale" value="1.2"/>
@@ -794,8 +774,8 @@
                                               <object class="GtkLabel" id="label_wireless_status">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Not connected</property>
+                                                <property name="xalign">0</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -813,8 +793,8 @@
                                           <object class="GtkLabel" id="heading_wireless_mac">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Hardware Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -825,8 +805,8 @@
                                           <object class="GtkLabel" id="heading_wireless_speed">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Speed</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -837,8 +817,8 @@
                                           <object class="GtkLabel" id="heading_wireless_ipv4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IPv4 Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -849,8 +829,8 @@
                                           <object class="GtkLabel" id="heading_wireless_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IPv6 Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -861,8 +841,8 @@
                                           <object class="GtkLabel" id="heading_wireless_route">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Default Route</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -873,9 +853,9 @@
                                           <object class="GtkLabel" id="heading_wireless_dns">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
+                                            <property name="label" translatable="yes">DNS</property>
                                             <property name="xalign">1</property>
                                             <property name="yalign">0</property>
-                                            <property name="label" translatable="yes">DNS</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -886,8 +866,8 @@
                                           <object class="GtkLabel" id="label_wireless_mac">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">AA:BB:CC:DD:55:66:77:88</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -899,8 +879,8 @@
                                           <object class="GtkLabel" id="label_wireless_speed">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">1 Mb/s</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -912,8 +892,8 @@
                                           <object class="GtkLabel" id="label_wireless_ipv4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">127.0.0.1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -925,8 +905,8 @@
                                           <object class="GtkLabel" id="label_wireless_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">::1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -938,8 +918,8 @@
                                           <object class="GtkLabel" id="label_wireless_route">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">127.0.0.1</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -951,10 +931,10 @@
                                           <object class="GtkLabel" id="label_wireless_dns">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
-                                            <property name="yalign">0</property>
                                             <property name="label">127.0.0.1</property>
                                             <property name="wrap">True</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -986,8 +966,8 @@
                                           <object class="GtkLabel" id="heading_wireless_security">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Security</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -998,10 +978,10 @@
                                           <object class="GtkLabel" id="heading_wireless_network_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Wireless">_Network Name</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">combobox_wireless_network_name</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1012,8 +992,8 @@
                                           <object class="GtkLabel" id="heading_hotspot_network_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Network Name</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1024,8 +1004,8 @@
                                           <object class="GtkLabel" id="heading_hotspot_security_key">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Security Key</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1036,8 +1016,8 @@
                                           <object class="GtkLabel" id="label_wireless_security">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">WPA</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1068,9 +1048,9 @@
                                           <object class="GtkLabel" id="label_hotspot_network_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">My Hot Spot</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1082,9 +1062,9 @@
                                           <object class="GtkLabel" id="label_hotspot_security_key">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">My Secret</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1223,9 +1203,9 @@
                                               <object class="GtkLabel" id="label_mobilebb_device">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Mobile Broadband</property>
                                                 <property name="ellipsize">end</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                   <attribute name="scale" value="1.2"/>
@@ -1241,8 +1221,8 @@
                                               <object class="GtkLabel" id="label_mobilebb_status">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Not connected</property>
+                                                <property name="xalign">0</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -1260,8 +1240,8 @@
                                           <object class="GtkLabel" id="heading_mobilebb_imei">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IMEI</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1272,8 +1252,8 @@
                                           <object class="GtkLabel" id="heading_mobilebb_speed">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Speed</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1284,8 +1264,8 @@
                                           <object class="GtkLabel" id="heading_mobilebb_provider">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Provider</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1296,9 +1276,9 @@
                                           <object class="GtkLabel" id="label_mobilebb_imei">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">1234567890</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1310,9 +1290,9 @@
                                           <object class="GtkLabel" id="label_mobilebb_speed">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">1 Mb/s</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1324,9 +1304,9 @@
                                           <object class="GtkLabel" id="label_mobilebb_provider">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">SuperTel Supremo	</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1338,9 +1318,9 @@
                                           <object class="GtkLabel" id="label_mobilebb_ipv4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">127.0.0.1</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1352,8 +1332,8 @@
                                           <object class="GtkLabel" id="label_mobilebb_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1365,8 +1345,8 @@
                                           <object class="GtkLabel" id="label_mobilebb_route">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1378,9 +1358,9 @@
                                           <object class="GtkLabel" id="label_mobilebb_dns">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
+                                            <property name="selectable">True</property>
                                             <property name="xalign">0</property>
                                             <property name="yalign">0</property>
-                                            <property name="selectable">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1404,8 +1384,8 @@
                                           <object class="GtkLabel" id="heading_mobilebb_ipv4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IP Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1416,8 +1396,8 @@
                                           <object class="GtkLabel" id="heading_mobilebb_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">IPv6 Address</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1428,8 +1408,8 @@
                                           <object class="GtkLabel" id="heading_mobilebb_route">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Default Route</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1440,9 +1420,9 @@
                                           <object class="GtkLabel" id="heading_mobilebb_dns">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
+                                            <property name="label" translatable="yes">DNS</property>
                                             <property name="xalign">1</property>
                                             <property name="yalign">0</property>
-                                            <property name="label" translatable="yes">DNS</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1540,9 +1520,9 @@
                                               <object class="GtkLabel" id="label_vpn_device">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">VPN</property>
                                                 <property name="ellipsize">end</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                   <attribute name="scale" value="1.2"/>
@@ -1558,8 +1538,8 @@
                                               <object class="GtkLabel" id="label_vpn_status">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Not connected</property>
+                                                <property name="xalign">0</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -1577,8 +1557,8 @@
                                           <object class="GtkLabel" id="heading_vpn_service_type">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">VPN Type</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1589,8 +1569,8 @@
                                           <object class="GtkLabel" id="heading_vpn_gateway">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Gateway</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1601,8 +1581,8 @@
                                           <object class="GtkLabel" id="heading_vpn_group_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Group Name</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1613,8 +1593,8 @@
                                           <object class="GtkLabel" id="heading_vpn_group_password">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Group Password</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1625,8 +1605,8 @@
                                           <object class="GtkLabel" id="heading_vpn_username">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">User Name</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1637,9 +1617,9 @@
                                           <object class="GtkLabel" id="label_vpn_service_type">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">openvpn</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1651,9 +1631,9 @@
                                           <object class="GtkLabel" id="label_vpn_gateway">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">AA:BB:CC:DD:55:66:77:88</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1665,9 +1645,9 @@
                                           <object class="GtkLabel" id="label_vpn_group_name">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">SEKRIT</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1679,9 +1659,9 @@
                                           <object class="GtkLabel" id="label_vpn_group_password">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">**********</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1693,9 +1673,9 @@
                                           <object class="GtkLabel" id="label_vpn_username">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">smithy</property>
                                             <property name="selectable">True</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1806,9 +1786,9 @@
                                               <object class="GtkLabel" id="label_proxy_device">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Proxy</property>
                                                 <property name="ellipsize">end</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                   <attribute name="scale" value="1.2"/>
@@ -1824,8 +1804,8 @@
                                               <object class="GtkLabel" id="label_proxy_status">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label">Not connected</property>
+                                                <property name="xalign">0</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -1855,10 +1835,10 @@
                                           <object class="GtkLabel" id="heading_proxy_method">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Proxy">_Method</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">combobox_proxy_mode</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1880,10 +1860,10 @@
                                           <object class="GtkLabel" id="heading_proxy_url">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Proxy">_Configuration URL</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_url</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1905,10 +1885,10 @@
                                           <object class="GtkLabel" id="heading_proxy_http">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Proxy">HTTP _Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_http</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1919,10 +1899,10 @@
                                           <object class="GtkLabel" id="heading_proxy_https">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Proxy">H_TTPS Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_https</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1933,10 +1913,10 @@
                                           <object class="GtkLabel" id="heading_proxy_ftp">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Proxy">_FTP Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_ftp</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1947,10 +1927,10 @@
                                           <object class="GtkLabel" id="heading_proxy_socks">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Proxy">_Socks Host</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_socks</property>
+                                            <property name="xalign">1</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1961,10 +1941,10 @@
                                           <object class="GtkLabel" id="label_proxy_warning">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0</property>
                                             <property name="label">WPAD warning...</property>
                                             <property name="wrap">True</property>
                                             <property name="width_chars">50</property>
+                                            <property name="xalign">0</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -2462,10 +2442,10 @@ updates available for you.</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="xalign">0</property>
-                    <property name="yalign">0</property>
                     <property name="label" translatable="yes">Passwords or encryption keys are required to access
 the wireless network</property>
+                    <property name="xalign">0</property>
+                    <property name="yalign">0</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
