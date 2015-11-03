@@ -86,11 +86,11 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         override_cell_property(localeNativeColumn, localeNativeNameRenderer,
                 "weight", self._mark_selected_locale_bold)
 
-        for col, rend in [("nativeName", "nativeNameRenderer"),
-                          ("englishName", "englishNameRenderer")]:
-            column = self.builder.get_object(col)
-            renderer = self.builder.get_object(rend)
-            override_cell_property(column, renderer, "weight", self._mark_selected_language_bold)
+        languageNameColumn = self.builder.get_object("nameColumn")
+        nativeNameRenderer = self.builder.get_object("nativeNameRenderer")
+        englishNameRenderer = self.builder.get_object("englishNameRenderer")
+        override_cell_property(languageNameColumn, nativeNameRenderer, "weight", self._mark_selected_language_bold)
+        override_cell_property(languageNameColumn, englishNameRenderer, "weight", self._mark_selected_language_bold)
 
         # If a language has selected locales, highlight every column so that
         # the row appears highlighted

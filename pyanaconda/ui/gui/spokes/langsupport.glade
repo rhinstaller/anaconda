@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -75,8 +75,8 @@
                     <property name="can_focus">False</property>
                     <property name="margin_left">36</property>
                     <property name="margin_right">36</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Select additional language support to be installed:</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 14"/>
                       <attribute name="weight" value="normal"/>
@@ -134,8 +134,8 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkTreeViewColumn" id="nativeName">
-                                <property name="title" translatable="yes">nativeName</property>
+                              <object class="GtkTreeViewColumn" id="nameColumn">
+                                <property name="title" translatable="yes">name</property>
                                 <property name="expand">True</property>
                                 <property name="clickable">True</property>
                                 <property name="sort_column_id">0</property>
@@ -148,17 +148,10 @@
                                     <attribute name="markup">0</attribute>
                                   </attributes>
                                 </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkTreeViewColumn" id="englishName">
-                                <property name="title" translatable="yes">englishName</property>
-                                <property name="expand">True</property>
-                                <property name="clickable">True</property>
-                                <property name="sort_column_id">1</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="englishNameRenderer">
                                     <property name="xalign">0.89999997615814209</property>
+                                    <property name="ellipsize">end</property>
                                     <property name="font">Cantarell Italic 14</property>
                                     <property name="foreground">gray</property>
                                   </object>
@@ -206,7 +199,6 @@
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
-                        <property name="hscrollbar_policy">never</property>
                         <property name="shadow_type">in</property>
                         <child>
                           <object class="GtkTreeView" id="localeView">
@@ -238,6 +230,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="localeNativeName">
+                                <property name="sizing">autosize</property>
                                 <property name="title" translatable="yes">nativeName</property>
                                 <property name="expand">True</property>
                                 <property name="clickable">True</property>
