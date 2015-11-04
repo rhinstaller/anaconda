@@ -270,7 +270,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="nameColumn">
-                                <property name="title" translatable="yes">name</property>
+                                <property name="title">name</property>
                                 <property name="expand">True</property>
                                 <property name="clickable">True</property>
                                 <property name="sort_column_id">0</property>
@@ -298,7 +298,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="langSelectedColumn">
-                                <property name="title" translatable="yes">selected</property>
+                                <property name="title">selected</property>
                                 <child>
                                   <object class="GtkCellRendererPixbuf" id="langSelectedRenderer"/>
                                 </child>
@@ -362,7 +362,7 @@
                             <child>
                               <object class="GtkTreeViewColumn" id="nativeName1">
                                 <property name="sizing">autosize</property>
-                                <property name="title" translatable="yes">nativeName</property>
+                                <property name="title">nativeName</property>
                                 <property name="expand">True</property>
                                 <property name="clickable">True</property>
                                 <property name="sort_column_id">0</property>

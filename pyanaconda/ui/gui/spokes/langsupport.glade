@@ -135,7 +135,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="nameColumn">
-                                <property name="title" translatable="yes">name</property>
+                                <property name="title">name</property>
                                 <property name="expand">True</property>
                                 <property name="clickable">True</property>
                                 <property name="sort_column_id">0</property>
@@ -163,7 +163,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="langSelectedColumn">
-                                <property name="title" translatable="yes">selected</property>
+                                <property name="title">selected</property>
                                 <child>
                                   <object class="GtkCellRendererPixbuf" id="langSelectedRenderer"/>
                                 </child>
@@ -216,7 +216,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="checked">
-                                <property name="title" translatable="yes">checked</property>
+                                <property name="title">checked</property>
                                 <child>
                                   <object class="GtkCellRendererToggle" id="checkedRenderer">
                                     <signal name="toggled" handler="on_locale_toggled" swapped="no"/>
@@ -231,7 +231,7 @@
                             <child>
                               <object class="GtkTreeViewColumn" id="localeNativeName">
                                 <property name="sizing">autosize</property>
-                                <property name="title" translatable="yes">nativeName</property>
+                                <property name="title">nativeName</property>
                                 <property name="expand">True</property>
                                 <property name="clickable">True</property>
                                 <property name="sort_column_id">0</property>
