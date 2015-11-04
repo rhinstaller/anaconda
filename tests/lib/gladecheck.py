@@ -110,7 +110,9 @@ class GladePlugin(nose.plugins.Plugin):
 
         parser.add_option("--glade-file", action="append",
                 help="Glade file(s) to test. If none specified, all files will be tested")
-        parser.add_option("--translate", action="store_true", default=False,
+        parser.add_option("--notranslate", dest="translate", action="store_false", default=True,
+                help="Do not test translations of glade files")
+        parser.add_option("--translate", action="store_true",
                 help="Test glade files with translations")
         parser.add_option("--podir", action="store", type=str,
                 default=os.environ.get('top_srcdir', '.') + "/po",
