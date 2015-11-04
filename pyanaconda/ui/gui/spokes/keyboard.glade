@@ -150,7 +150,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="layoutColumn">
-                                    <property name="title" translatable="yes">name</property>
+                                    <property name="title">name</property>
                                     <property name="expand">True</property>
                                     <property name="clickable">True</property>
                                     <property name="sort_column_id">0</property>
@@ -516,7 +516,7 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="newLayoutColumn">
-                        <property name="title" translatable="yes">Name</property>
+                        <property name="title">Name</property>
                         <property name="expand">True</property>
                         <property name="sort_column_id">0</property>
                         <child>
@@ -701,7 +701,7 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="useColumn">
-                        <property name="title" translatable="yes">use</property>
+                        <property name="title">use</property>
                         <child>
                           <object class="GtkCellRendererToggle" id="useRenderer">
                             <signal name="toggled" handler="on_use_option_toggled" swapped="no"/>
@@ -714,7 +714,7 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="descColumn">
-                        <property name="title" translatable="yes">description</property>
+                        <property name="title">description</property>
                         <property name="expand">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="descRenderer"/>
