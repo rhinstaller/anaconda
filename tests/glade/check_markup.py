@@ -64,11 +64,11 @@ class CheckMarkup(GladeTest):
 
                 # Check if the markup is necessary
                 self.assertTrue(markup_necessary(pango_tree),
-                        msg="Markup could be expressed as attributes at %s%s:%d" %
-                            (label.base, lang_str, label.sourceline))
+                        msg="Markup %s could be expressed as attributes at %s%s:%d" %
+                            (label.text, label.base, lang_str, label.sourceline))
             except etree.XMLSyntaxError:
-                raise AssertionError("Unable to parse pango markup at %s%s:%d" %
-                        (label.base, lang_str, label.sourceline))
+                raise AssertionError("Unable to parse pango markup %s at %s%s:%d" %
+                        (label.text, label.base, lang_str, label.sourceline))
             except PangoElementException as px:
                 raise AssertionError("Invalid pango element %s at %s%s:%d" %
                         (px.element, label.base, lang_str, label.sourceline))
@@ -78,5 +78,5 @@ class CheckMarkup(GladeTest):
             orig_markup = label.get("original_text")
             if orig_markup:
                 self.assertTrue(markup_match(label.text, orig_markup),
-                        msg="Translated markup does not contain the same elements and attributes at %s%s:%d" %
-                                (label.base, lang_str, label.sourceline))
+                        msg="Translated markup %s does not contain the same elements and attributes at %s%s:%d" %
+                                (label.text, label.base, lang_str, label.sourceline))
