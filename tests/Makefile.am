@@ -38,7 +38,6 @@ EXTRA_DIST = README.rst usercustomize.py
 
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
-		     glade/run_glade_tests.sh \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \
 		     nosetests.sh \
@@ -69,7 +68,7 @@ TESTS = nosetests.sh \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	storage/run_storage_tests.py \
-	glade/run_glade_tests.sh \
+	glade/run_glade_tests.py \
 	kickstart_tests/scripts/run_kickstart_tests.sh
 
 clean-local:

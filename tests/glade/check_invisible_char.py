@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 #
 # Copyright (C) 2015  Red Hat, Inc.
 #
@@ -18,65 +17,27 @@
 # Author: David Shea <dshea@redhat.com>
 #
 
-"""
-Check that the invisible_char in glade files is actually a char.
+from gladecheck import GladeTest
 
-The invisible char is often non-ASCII and sometimes that gets clobbered.
-"""
+class CheckInvisibleChar(GladeTest):
+    def checkGlade(self, tree):
+        """
+        Check that the invisible_char in glade files is actually a char.
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
+        The invisible char is often non-ASCII and sometimes that gets clobbered.
+        """
 
-import argparse
-import sys
-
-try:
-    from lxml import etree
-except ImportError:
-    print("You need to install the python-lxml package to use check_pw_visibility.py")
-    sys.exit(1)
-
-def check_glade_file(glade_file_path):
-    succ = True
-
-    with open(glade_file_path, "r") as glade_file:
-        tree = etree.parse(glade_file)
         # Only look for entries with an invisible_char property
         for entry in tree.xpath("//object[@class='GtkEntry' and ./property[@name='invisible_char']]"):
             # Check the contents of the invisible_char property
             invis = entry.xpath("./property[@name='invisible_char']")[0]
-            if len(invis.text) != 1:
-                print("invisible_char at %s:%s not a character" % (glade_file_path, invis.sourceline))
-                succ = False
+            self.assertEqual(len(invis.text), 1,
+                    msg="invisible_char at %s:%s not a character" % (invis.base, invis.sourceline))
 
             # If the char is '?' that's probably also bad
-            if invis.text == '?':
-                print("invisible_char at %s:%s is not what you want" % (glade_file_path, invis.sourceline))
+            self.assertNotEqual(invis.text, "?",
+                    msg="invisible_char at %s:%s is not what you want" % (invis.base, invis.sourceline))
 
             # Check that invisible_char even does anything: visibility should be False
-            if not entry.xpath("./property[@name='visibility' and ./text() = 'False']"):
-                print("Pointless invisible_char found at %s:%s" % (glade_file_path, invis.sourceline))
-                succ = False
-
-    return succ
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser("Check that invisible character properties are set correctly")
-
-    # Ignore translation arguments
-    parser.add_argument("-t", "--translate", action='store_true',
-            help=argparse.SUPPRESS)
-    parser.add_argument("-p", "--podir", action='store', type=str,
-            metavar='PODIR', help=argparse.SUPPRESS, default='./po')
-
-    parser.add_argument("glade_files", nargs="+", metavar="GLADE-FILE",
-            help='The glade file to check')
-    args = parser.parse_args(args=sys.argv[1:])
-
-    success = True
-    for file_path in args.glade_files:
-        if not check_glade_file(file_path):
-            success = False
-
-    sys.exit(0 if success else 1)
+            self.assertTrue(entry.xpath("./property[@name='visibility' and ./text() = 'False']"),
+                    msg="Pointless invisible_char found at %s:%s" % (invis.base, invis.sourceline))
