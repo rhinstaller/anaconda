@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 #
 # Copyright (C) 2014  Red Hat, Inc.
 #
@@ -18,64 +17,26 @@
 # Author: David Shea <dshea@redhat.com>
 #
 
-"""
-Python script to ensure that translatable format strings are not present
-in Glade files.
+from gladecheck import GladeTest
 
-Since format substitution is language-dependent, gettext is unable to check
-the validity of format string translations for strings within glade. Instead,
-the format string constant, the translation substitution, and the format
-substitution should all happen outside of glade. Untranslated placeholder
-strings are allowable within glade.
-"""
+class CheckFormatString(GladeTest):
+    def checkGlade(self, tree):
+        """Reject translatable format string in glade.
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
-import sys
-import argparse
-import re
-
-try:
-    from lxml import etree
-except ImportError:
-    print("You need to install the python-lxml package to use check_format_string.py")
-    sys.exit(1)
-
-def check_glade_file(glade_file_path):
-    global success
-
-    with open(glade_file_path) as glade_file:
-        # Parse the XML
-        glade_tree = etree.parse(glade_file)
-
+           Since format substitution is language-dependent, gettext is unable
+           to check the validity of format string translations for strings
+           within glade. Instead, the format string constant, the translation
+           substitution, and the format substitution should all happen outside
+           of glade. Untranslated placeholder strings are allowable within
+           glade.
+        """
         # Check any property with translatable="yes"
-        for translatable in glade_tree.xpath(".//*[@translatable='yes']"):
+        for translatable in tree.xpath(".//*[@translatable='yes']"):
             # Look for % followed by an open parenthesis (indicating %(name)
             # style substitution), one of the python format conversion flags
             # (#0- +hlL), or one of the python conversion types 
             # (diouxXeEfFgGcrs)
-            if re.search(r'%[-(#0 +hlLdiouxXeEfFgGcrs]', translatable.text):
-                print("Translatable format string found in glade at %s:%d" % \
-                        (glade_file_path, translatable.sourceline))
-                success = False
-
-if __name__ == "__main__":
-    success = True
-    parser = argparse.ArgumentParser("Check that password entries have visibility set to False")
-
-    # Ignore translation arguments
-    parser.add_argument("-t", "--translate", action='store_true',
-            help=argparse.SUPPRESS)
-    parser.add_argument("-p", "--podir", action='store', type=str,
-            metavar='PODIR', help=argparse.SUPPRESS, default='./po')
-
-    parser.add_argument("glade_files", nargs="+", metavar="GLADE-FILE",
-            help='The glade file to check')
-    args = parser.parse_args(args=sys.argv[1:])
-
-    success = True
-    for file_path in args.glade_files:
-        check_glade_file(file_path)
-
-    sys.exit(0 if success else 1)
+            self.assertNotRegex(translatable.text,
+                    r'%[-(#0 +hlLdiouxXeEfFgGcrs]',
+                    msg="Translatable format string found at %s:%d" %
+                        (translatable.base, translatable.sourceline))
