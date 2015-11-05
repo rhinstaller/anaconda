@@ -67,11 +67,15 @@ po-empty:
 		exit 1 ; \
 	done
 
-scratch: po-empty
+# Try to fetch the real .po files, but if that fails use the empty ones
+po-fallback:
+	$(MAKE) po-pull || $(MAKE) po-empty
+
+scratch: po-fallback
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
-scratch-bumpver: po-empty
+scratch-bumpver: po-fallback
 	@opts="-S -n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT) --newrelease $(RC_RELEASE)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
