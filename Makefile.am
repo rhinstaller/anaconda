@@ -67,7 +67,11 @@ po-empty:
 		exit 1 ; \
 	done
 
-scratch: po-empty
+# Try to fetch the real .po files, but if that fails use the empty ones
+po-fallback:
+	$(MAKE) po-pull || $(MAKE) po-empty
+
+scratch: po-fallback
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
