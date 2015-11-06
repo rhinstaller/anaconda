@@ -178,6 +178,7 @@ ci: rc-release
 	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TESTS=nosetests_root.sh check
+	@tail -n 1 tests/gettext_tests/*.log > tests/gettext_tests/gettext_tests.log
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo
