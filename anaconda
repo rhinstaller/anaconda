@@ -180,8 +180,8 @@ def setupPythonUpdates():
     import gi.overrides
 
     if "ANACONDA_WIDGETS_OVERRIDES" in os.environ:
-        for path in os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":"):
-            gi.overrides.__path__.insert(0, os.path.abspath(path))
+        for p in os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":"):
+            gi.overrides.__path__.insert(0, os.path.abspath(p))
 
     # Temporary hack for F18 alpha to symlink updates and product directories
     # into tmpfs.  To be removed after beta in order to directly use content
