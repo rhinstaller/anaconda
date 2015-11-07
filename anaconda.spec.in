@@ -305,6 +305,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 06 2015 Brian C. Lane <bcl@redhat.com> - 24.6-1
+- Fix a pylint error in the previous commits. (clumens)
+- Honor ANACONDA_WIDGETS_OVERRIDES (atodorov)
+- Load anaconda-gtk.css from ANACONDA_DATA if specified (atodorov)
+- Use the correct path for ui categories (atodorov)
+- Typo fix, it's ANACONDA_WIDGETS_DATA not ANACONDA_WIDGETS_DATADIR (atodorov)
+- Allow wired network properties more grid space. (dshea)
+- Improve language selection at low resolutions. (dshea)
+- Make reclaim work with small screens and big labels (dshea)
+- allow repo with only a name if it's a pre-defined one (#1277638) (awilliam)
+- Only raise thread exceptions once (#1276579) (bcl)
+- Use py3.4 crypt and salt (bcl)
+- Be more careful with incomplete device types (#1256582) (dshea)
+- Fix an import error in rpmostreepayload.py. (clumens)
+- Fix Testing docs inclusion in Sphinx (bcl)
+- Ignore interfaces with invalid VLAN IDs. (dshea)
+- Cleaner logging of .treeinfo return conditions in dependant function.
+  (riehecky)
+- Update link to upstream kickstart docs (opensource)
+- rpmostreepayload: Also unmount internal mounts during shutdown (walters)
+- rpmostreepayload: Fix two issues with mounting (walters)
+- Add a README for kickstart tests. (clumens)
+- Make the documentation match the environment variable. (clumens)
+- Check that cache PVs (if any) are in the VG the LV belongs to (#1263258)
+  (vpodzime)
+- Fix the alignment of the "Label" label in custom (dshea)
+- Use unsafe caching during kickstart tests. (clumens)
+
 * Wed Oct 28 2015 Brian C. Lane <bcl@redhat.com> - 24.5-1
 - Improve install space required estimation (#1224048) (jkonecny)
 - Update the on-disk snapshot of storage when adv. disks are added (#1267944)
