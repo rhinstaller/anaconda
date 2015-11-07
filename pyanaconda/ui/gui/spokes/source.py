@@ -521,9 +521,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # If the user moved from an HDISO method to some other, we need to
         # clear the protected bit on that device.
         if old_source.method == "harddrive" and old_source.partition:
-            self._currentIsoFile = None
-            self._isoChooserButton.set_label(self._origIsoChooserButton)
-            self._isoChooserButton.set_use_underline(True)
+            if not self._isoButton.get_active():
+                # Only clear this if iso isn't selected
+                self._currentIsoFile = None
+                self._isoChooserButton.set_label(self._origIsoChooserButton)
+                self._isoChooserButton.set_use_underline(True)
 
             if old_source.partition in self.storage.config.protectedDevSpecs:
                 self.storage.config.protectedDevSpecs.remove(old_source.partition)
