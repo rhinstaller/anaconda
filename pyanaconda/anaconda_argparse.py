@@ -63,21 +63,23 @@ def get_help_width():
     if is_s390:
         return DEFAULT_HELP_WIDTH
 
-    help_width = DEFAULT_HELP_WIDTH
     try:
         data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '1234')
         columns = int(struct.unpack('hh', data)[1])
-        # apply the right padding
-        columns = columns - RIGHT_PADDING
-        if columns > 0:
-            help_width = columns
-    # pylint: disable=broad-except
-    except Exception as e:
-        # detection failed, use the default
-        # NOTE: this could be caused by the COLUMNS string having a value
-        # that can't be converted to an integer
-        print("anaconda argparse: terminal size detection failed, using default width")
-        print(e)
+    except (IOError, ValueError) as e:
+        log.info("Unable to determine terminal width: %s", e)
+        print("terminal size detection failed, using default width")
+        return DEFAULT_HELP_WIDTH
+
+    log.debug("detected window size of %s", columns)
+
+    # apply the right padding
+    columns = columns - RIGHT_PADDING
+    if columns > 0:
+        help_width = columns
+    else:
+        help_width = DEFAULT_HELP_WIDTH
+
     return help_width
 
 class AnacondaArgumentParser(ArgumentParser):
@@ -350,8 +352,8 @@ class HelpTextParser(object):
                 with open(self._path) as lines:
                     for parsed_option, parsed_text in self.read(lines):
                         self._help_text[parsed_option] = parsed_text
-            except Exception:  # pylint: disable=broad-except
-                log.error("error reading help text file %s", self._path)
+            except IOError as e:
+                log.error("error reading help text file %s: %s", self._path, e)
 
         return self._help_text.get(option, "")
 
