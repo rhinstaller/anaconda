@@ -223,8 +223,8 @@ class DASD:
             return
 
         if data == '\n':
-            # each newline we see in this output means one more cylinder done
-            self._completedCylinders += 1.0
+            # each newline we see in this output means 10 more cylinders done
+            self._completedCylinders += 10.0
             callback_data.set(self._completedCylinders / self.totalCylinders)
 
 # Create DASD singleton
