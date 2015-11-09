@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 #
 # Copyright (C) 2013  Red Hat, Inc.
 #
@@ -24,70 +23,29 @@ have the visibility set to False.
 
 """
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
-import argparse
-import sys
-
-try:
-    from lxml import etree
-except ImportError:
-    print("You need to install the python-lxml package to use check_pw_visibility.py")
-    sys.exit(1)
+from gladecheck import GladeTest
 
 PW_ID_INDICATORS = ("pw", "password", "passwd", "passphrase")
 
-def check_glade_file(glade_file_path):
-    def check_entry(entry, fpath):
-        succ = True
+class CheckPwVisibility(GladeTest):
+    def checkGlade(self, tree):
+        """Check that password GtkEntries have the visibility set to False"""
 
-        entry_id = entry.attrib.get("id", "UNKNOWN ID")
-        visibility_props = entry.xpath("./property[@name='visibility']")
-
-        # no entry should have visibility specified multiple times
-        if len(visibility_props) > 1:
-            print("Visibility specified multiple times for the entry %s (%s)" % (entry_id, fpath))
-            succ = False
-
-        # password entry should have visibility set to False
-        if any(ind in entry_id.lower() for ind in PW_ID_INDICATORS):
-            if not visibility_props:
-                print("Visibility not specified for the password entry %s (%s)" % (entry_id, fpath))
-                succ = False
-            elif visibility_props[0].text.strip() != "False":
-                print("Visibility not set properly for the password entry %s (%s)" % (entry_id, fpath))
-                succ = False
-        # only password entries should have the visibility set to False
-        elif visibility_props and visibility_props[0].text.strip() == "False":
-            print("Non-password entry %s (%s) has the visibility set to False (bad id?)" % (entry_id, fpath))
-            succ = False
-
-        return succ
-
-    succ = True
-    with open(glade_file_path, "r") as glade_file:
-        tree = etree.parse(glade_file)
         for entry in tree.xpath("//object[@class='GtkEntry']"):
-            succ = succ and check_entry(entry, glade_file_path)
+            entry_id = entry.attrib.get("id", "UNKNOWN ID")
+            visibility_props = entry.xpath("./property[@name='visibility']")
 
-        return succ
+            # no entry should have visibility specified multiple times
+            self.assertLessEqual(len(visibility_props), 1,
+                    msg="Visibility specified multiple times for the entry %s (%s)" % (entry_id, entry.base))
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser("Check that password entries have visibility set to False")
-
-    # Ignore translation arguments
-    parser.add_argument("-t", "--translate", action='store_true',
-            help=argparse.SUPPRESS)
-    parser.add_argument("-p", "--podir", action='store', type=str,
-            metavar='PODIR', help=argparse.SUPPRESS, default='./po')
-
-    parser.add_argument("glade_files", nargs="+", metavar="GLADE-FILE",
-            help='The glade file to check')
-    args = parser.parse_args(args=sys.argv[1:])
-
-    success = True
-    for file_path in args.glade_files:
-        success = success and check_glade_file(file_path)
-
-    sys.exit(0 if success else 1)
+            # password entry should have visibility set to False
+            if any(ind in entry_id.lower() for ind in PW_ID_INDICATORS):
+                self.assertTrue(visibility_props,
+                        msg="Visibility not specified for the password entry %s (%s)" % (entry_id, entry.base))
+                self.assertEqual(visibility_props[0].text.strip(), "False",
+                        msg="Visibility not set properly for the password entry %s (%s)" % (entry_id, entry.base))
+            # only password entries should have the visibility set to False
+            elif visibility_props and visibility_props[0].text.strip() == "False":
+                raise AssertionError("Non-password entry %s (%s) has the visibility set to False (bad id?)" %
+                        (entry_id, entry.base))

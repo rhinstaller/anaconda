@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 #
 # Copyright (C) 2014  Red Hat, Inc.
 #
@@ -17,59 +16,21 @@
 #
 # Author: David Shea <dshea@redhat.com>
 #
-"""
-Check that all icons referenced from glade files are valid in the gnome icon theme.
-"""
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
-import argparse
-import sys
-
-try:
-    from lxml import etree
-except ImportError:
-    print("You need to install the python-lxml package to use check_pw_visibility.py")
-    sys.exit(1)
-
+from gladecheck import GladeTest
 from iconcheck import icon_exists
 
-def check_glade_file(glade_file_path):
-    glade_success = True
-    with open(glade_file_path) as glade_file:
-        # Parse the XML
-        glade_tree = etree.parse(glade_file)
-
+class CheckIcon(GladeTest):
+    def checkGlade(self, glade_tree):
+        """Check that all icons referenced from glade files are valid in the gnome icon theme."""
         # Stock image names are deprecated
-        for element in glade_tree.xpath("//property[@name='stock' or @name='stock_id']"):
-            glade_success = False
-            print("Deprecated stock icon found at %s:%d" % (glade_file_path, element.sourceline))
+        stock_elements = glade_tree.xpath("//property[@name='stock' or @name='stock_id']")
+        if stock_elements:
+            raise AssertionError("Deprecated stock icon found at %s:%d" %
+                    (stock_elements[0].base, stock_elements[0].sourceline))
 
         # Check whether named icons exist
         for element in glade_tree.xpath("//property[@name='icon_name']"):
-            if not icon_exists(element.text):
-                glade_success = False
-                print("Invalid icon name %s found at %s:%d" % (element.text, glade_file_path, element.sourceline))
-
-    return glade_success
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser("Check that password entries have visibility set to False")
-
-    # Ignore translation arguments
-    parser.add_argument("-t", "--translate", action='store_true',
-            help=argparse.SUPPRESS)
-    parser.add_argument("-p", "--podir", action='store', type=str,
-            metavar='PODIR', help=argparse.SUPPRESS, default='./po')
-
-    parser.add_argument("glade_files", nargs="+", metavar="GLADE-FILE",
-            help='The glade file to check')
-    args = parser.parse_args(args=sys.argv[1:])
-
-    success = True
-    for file_path in args.glade_files:
-        if not check_glade_file(file_path):
-            success = False
-
-    sys.exit(0 if success else 1)
+            self.assertTrue(icon_exists(element.text),
+                    msg="Invalid icon name %s found at %s:%d" %
+                    (element.text, element.base, element.sourceline))

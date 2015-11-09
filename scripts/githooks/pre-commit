@@ -27,7 +27,7 @@ def is_python(filename):
 
     return False
 
-OTHER_MODULES_PATH = ".:../blivet/:../pykickstart/"
+OTHER_MODULES_PATH = ".:./tests/lib:../blivet/:../pykickstart/"
 
 if "NOPYLINT" in os.environ:
     print("Skipping pre-commit pylint run")
