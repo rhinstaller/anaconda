@@ -1096,6 +1096,20 @@ class Network(commands.network.F24_Network):
         commands.network.F24_Network.__init__(self, *args, **kwargs)
         self.packages = []
 
+    def parse(self, args):
+        nd = commands.network.F24_Network.parse(self, args)
+        setting_only_hostname = nd.hostname and len(args) <= 2
+        if not setting_only_hostname:
+            if not nd.device:
+                ksdevice = flags.cmdline.get('ksdevice')
+                if ksdevice:
+                    log.info('network: setting %s from ksdevice for missing kickstart --device', ksdevice)
+                    nd.device = ksdevice
+                else:
+                    log.info('network: setting "link" for missing --device specification in kickstart')
+                    nd.device = "link"
+        return nd
+
     def setup(self):
         if network.is_using_team_device():
             self.packages = ["teamd"]
