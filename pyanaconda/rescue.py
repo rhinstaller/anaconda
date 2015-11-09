@@ -382,7 +382,7 @@ class RescueMountSpoke(NormalTUISpoke):
                     pass
             except (ValueError, LookupError, SyntaxError, NameError):
                 pass
-            except Exception as e: # pylint: disable=broad-except
+            except (OSError, StorageError) as e:
                 if flags.automatedInstall:
                     msg = _("Run %s to unmount the system when you are finished.\n") % ANACONDA_CLEANUP
 
