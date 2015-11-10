@@ -9,4 +9,6 @@ cp /tmp/ks-script*.log $ANA_INSTALL_PATH/var/log/anaconda/
 journalctl -b > $ANA_INSTALL_PATH/var/log/anaconda/journal.log
 chmod 0600 $ANA_INSTALL_PATH/var/log/anaconda/*
 
+[ -e /run/install/ks.cfg ] && cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
+
 %end
