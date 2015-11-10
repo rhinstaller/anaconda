@@ -343,3 +343,18 @@ class UserCreateTest(unittest.TestCase):
         stat_fields = os.stat(self.tmpdir + "/home/test_user")
         self.assertEqual(stat_fields.st_uid, 1000)
         self.assertEqual(stat_fields.st_gid, 1000)
+
+    def create_user_gid_in_group_list_test(self):
+        """Create a user with a GID equal to that of one of the requested groups"""
+
+        self.users.createUser("test_user", gid=1047, groups=["test_group(1047)"], root=self.tmpdir)
+
+        # Ensure that the user's GID is equal to the GID requested
+        pwd_fields = self._readFields("/etc/passwd", "test_user")
+        self.assertIsNotNone(pwd_fields)
+        self.assertEqual(pwd_fields[3], "1047")
+
+        # and that the requested group has the right GID
+        grp_fields = self._readFields("/etc/group", "test_group")
+        self.assertIsNotNone(grp_fields)
+        self.assertEqual(grp_fields[2], "1047")

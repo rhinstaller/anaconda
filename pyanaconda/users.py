@@ -270,10 +270,23 @@ class Users(object):
 
         args = ["-R", root]
 
-        # If a specific gid is requested, and that gid does not exist,
-        # create the user group with that GID.
+        # Split the groups argument into a list of (username, gid or None) tuples
+        # the gid, if any, is a string since that makes things simpler
+        group_gids = [GROUPLIST_FANCY_PARSE.match(group).groups()
+                      for group in kwargs.get("groups", [])]
+
+        # If a specific gid is requested:
+        #   - check if a group already exists with that GID. i.e., the user's
+        #     GID should refer to a system group, such as users. If so, just set
+        #     the GID.
+        #   - check if a new group is requested with that GID. If so, set the GID
+        #     and let the block below create the actual group.
+        #   - if neither of those are true, create a new user group with the requested
+        #     GID
+        # otherwise use -U to create a new user group with the next available GID.
         if kwargs.get("gid", None):
-            if not self._getgrgid(kwargs['gid'], root):
+            if not self._getgrgid(kwargs['gid'], root) and \
+                    not any(filter(lambda x: x[1] == str(kwargs['gid']), group_gids)):
                 self.createGroup(user_name, gid=kwargs['gid'], root=root)
 
             args.extend(['-g', str(kwargs['gid'])])
@@ -282,8 +295,7 @@ class Users(object):
 
         # If any requested groups do not exist, create them.
         group_list = []
-        for group in kwargs.get("groups", []):
-            group_name, gid = GROUPLIST_FANCY_PARSE.match(group).groups()
+        for group_name, gid in group_gids:
             existing_group = self._getgrnam(group_name, root)
 
             # Check for a bad GID request
