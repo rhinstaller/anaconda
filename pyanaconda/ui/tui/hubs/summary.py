@@ -75,12 +75,11 @@ class SummaryHub(TUIHub):
 
         # do a bit of final sanity checking, make sure pkg selection
         # size < available fs space
-        if flags.automatedInstall:
+        if flags.automatedInstall and not incompleteSpokes:
             if self._checker and not self._checker.check():
                 print(self._checker.error_message)
-            if not incompleteSpokes:
-                self.close()
-                return None
+            self.close()
+            return None
 
         if flags.ksprompt:
             for spoke in incompleteSpokes:
