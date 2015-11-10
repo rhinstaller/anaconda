@@ -6,12 +6,12 @@ network --bootproto=dhcp
 bootloader --timeout=1
 clearpart --all --initlabel
 
-part raid.01 --size=500 --ondisk=sda --asprimary
-part raid.02 --size=500 --ondisk=sdb --asprimary
-part raid.11 --size=4000 --ondisk=sda
-part raid.12 --size=4000 --ondisk=sdb
-part raid.21 --size=1024 --ondisk=sda
-part raid.22 --size=1024 --ondisk=sdb
+partition raid.01 --size=500 --ondisk=sda --asprimary
+partition raid.02 --size=500 --ondisk=sdb --asprimary
+partition raid.11 --size=4000 --ondisk=sda
+partition raid.12 --size=4000 --ondisk=sdb
+partition raid.21 --size=1024 --ondisk=sda
+partition raid.22 --size=1024 --ondisk=sdb
 
 # Yes, using 0,1,2 is wrong, but /proc/mounts uses /dev/mdX not /dev/md/X
 raid /boot --level=1 --device=0 --fstype=ext4 raid.01 raid.02
