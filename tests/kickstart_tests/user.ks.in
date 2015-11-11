@@ -21,7 +21,7 @@ rootpw qweqwe
 group --name=kosygroup --gid=5001
 
 # Create specific user
-user --name=kosieh --gecos="Kosieh Barter" --homedir=/home/kbarter --password="$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/" --iscrypted --shell=/bin/bash --uid=4001 --gid=5001 --groups=wheel,users
+user --name=kosieh --gecos="Kosieh Barter ☃" --homedir=/home/kbarter --password="$6$QsJCB9E6geIjWNvn$UZLEtnHYgKmFgrPo0fY1qNBc/aRi9b01f19w9mpdFm9.MPblckUuFYvpRLSzeYeR/6lO/2uY4WtjhbryC0k2L/" --iscrypted --shell=/bin/bash --uid=4001 --gid=5001 --groups=wheel,users
 
 # Give that user a (bogus) ssh key.
 sshkey --username=kosieh "this is a bogus ssh key"
@@ -52,8 +52,12 @@ if [[ $? -ne 0 ]]; then
     echo "*** User is not present in system." >> /root/RESULT
 fi
 
-# Check GEDOS: real name
-grep kosieh /etc/passwd | grep "Kosieh Barter"
+# Check GECOS: real name
+# Also check that the unicode made it through ok. The escape sequences are
+# U+2603 encoded as UTF-8, which is lovingly hand-encoded here instead of
+# just using the character to make sure the character didn't just get mangled
+# the same way twice.
+grep kosieh /etc/passwd | grep "Kosieh Barter $(echo -ne '\xe2\x98\x83')"
 if [[ $? -ne 0 ]]; then
     echo "*** User is present, but not all details: REAL NAME (GEDOS)" >> /root/RESULT
 fi
