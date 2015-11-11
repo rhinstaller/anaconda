@@ -825,7 +825,7 @@ class AnacondaYum(YumSorter):
 
         logger = logging.getLogger("yum")
         logger.propagate = False
-        logger.setLevel(yum.logginglevels.INFO_2)
+        logger.setLevel(yum.logginglevels.DEBUG_4)
         logger.addHandler(file_handler)
         anaconda_log.autoSetLevel(tty3_handler, True)
         tty3_handler.setLevel(anaconda_log.logger.loglevel)
