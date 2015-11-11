@@ -2243,12 +2243,15 @@ class EXTLINUX(BootLoader):
                 args.update(["rootflags=subvol=%s" % image.device.name])
             args.update(self.boot_args)
             log.info("bootloader.py: used boot args: %s ", args)
-            stanza = ("label %(label)s (%(version)s)\n"
+
+            # extlinux labels cannot have spaces
+            label = "%s(%s)" % (self.image_label(image), image.version)
+            label = label.replace(" ", "")
+            stanza = ("label %(label)s\n"
                       "\tkernel %(boot_prefix)s/%(kernel)s\n"
                       "\tinitrd %(boot_prefix)s/%(initrd)s\n"
                       "\tappend %(args)s\n\n"
-                      % {"label": self.image_label(image),
-                         "version": image.version,
+                      % {"label": label,
                          "kernel": image.kernel,
                          "initrd": image.initrd,
                          "args": args,
@@ -2266,7 +2269,7 @@ class EXTLINUX(BootLoader):
                   % {"productName": productName, "timeout": self.timeout *10})
         config.write(header)
         if self.default is not None:
-            config.write("default %(default)s\n\n" % {"default" : self.image_label(self.default)})
+            config.write("default %(default)s\n\n" % {"default" : self.image_label(self.default).replace(" ", "")})
         self.write_config_password(config)
 
     def write_config_password(self, config):
