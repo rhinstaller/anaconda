@@ -27,6 +27,7 @@
 # 0  - Everything worked
 # 1  - Test failed for unspecified reasons
 # 2  - Test failed due to time out
+# 3  - Test failed due to kernel panic
 # 77 - Something needed by the test doesn't exist, so skip
 
 IMAGE=
@@ -118,6 +119,11 @@ runone() {
             cleanup ${tmpdir}
             cleanup_tmp ${tmpdir}
             return 2
+        elif [[ "$(grep 'Call Trace' ${tmpdir}/livemedia.log)" != "" ]]; then
+            echo RESULT:${name}:FAILED:Kernel panic.
+            cleanup ${tmpdir}
+            cleanup_tmp ${tmpdir}
+            return 3
         fi
 
         result=$(validate ${tmpdir})
