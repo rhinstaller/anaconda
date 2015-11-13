@@ -29,6 +29,7 @@ utils.enableA11y()
 
 import glob
 import os
+import time
 import shlex
 import shutil
 import traceback
@@ -36,8 +37,10 @@ import unittest
 
 class UITestSuite(unittest.TestSuite):
     def run(self, *args, **kwargs):
-        utils.run("liveinst %(anacondaArgs)s")
+        utils.run("%(anacondaArgs)s")
+        time.sleep(5)
         unittest.TestSuite.run(self, *args, **kwargs)
+#todo kill anaconda if we aborted prematurely
 
 def suite():
 %(imports)s
@@ -53,28 +56,28 @@ if __name__ == "__main__":
     result = unittest.TextTestRunner(verbosity=2, failfast=True).run(s)
 
     try:
+        NOSE_RESULTS_DIR = os.environ.get("NOSE_RESULTS_DIR", "./")
         if not result.wasSuccessful():
-            with open("/mnt/anactest/result/unittest-failures", "w") as f:
+            with open(NOSE_RESULTS_DIR + "/unittest-failures.log", "w") as f:
                 for (where, what) in result.errors + result.failures:
                     f.write(str(where) + "\n" + str(what) + "\n")
 
                 f.close()
 
         for log in glob.glob("/tmp/*.log"):
-            shutil.copy(log, "/mnt/anactest/result/anaconda/")
+            shutil.copy(log, NOSE_RESULTS_DIR)
 
         if os.path.exists("/tmp/memory.dat"):
-            shutil.copy("/tmp/memory.dat", "/mnt/anactest/result/anaconda/")
+            shutil.copy("/tmp/memory.dat", NOSE_RESULTS_DIR)
+#todo: maybe clean everything in /tmp before running anaconda b/c it looks like
+# logs are appended to, not overwritten
 
         # anaconda writes out traceback files with restricted permissions, so
         # we have to go out of our way to grab them.
         for tb in glob.glob("/tmp/anaconda-tb-*"):
-            os.system("sudo cp " + tb + " /mnt/anactest/result/anaconda/")
+            os.system("sudo cp " + tb + " " + NOSE_RESULTS_DIR)
     except:
-        # If anything went wrong with the above, log it and quit.  We need
-        # this VM to always turn off so we can inspect what happened.
-        with open("/mnt/anactest/result/unittest-failures", "w+") as f:
+        # If anything went wrong with the above, log it and quit
+        with open(NOSE_RESULTS_DIR + "/unittest-failures.log", "w+") as f:
             traceback.print_exc(file=f)
             f.close()
-
-    os.system("poweroff")
