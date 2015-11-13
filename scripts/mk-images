@@ -381,7 +381,7 @@ EOF
         rm -rf $MBD_DIR/firmware/zd1211
 
         # Remove drivers that are not usable during install (#1014719)
-        KDIR="$(ls -1 $MMB_DIR/lib/modules | grep -v "module-info")"
+        KDIR="$version"
         rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/media
         rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/mac80211
         rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/isdn
