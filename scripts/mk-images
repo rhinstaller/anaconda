@@ -521,7 +521,7 @@ EOF
 
     # create the pci.ids, from modules.alias and the X driver aliases
     awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS | \
-        $TRIMPCIIDS $MMB_DIR/lib/modules/*/modules.alias $XDRIVERS/* > ../pci.ids
+        $TRIMPCIIDS $MMB_DIR/lib/modules/$KDIR/modules.alias $XDRIVERS/* > $MMB_DIR/pci.ids
 }
 
 
