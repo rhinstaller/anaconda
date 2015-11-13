@@ -49,9 +49,6 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     gettext_tests/gettext_warnings.sh \
 		     storage/run_storage_tests.py \
 		     install/run_install_test.sh \
-		     $(srcdir)/kickstart_tests/*.ks.in \
-		     $(srcdir)/kickstart_tests/*.sh \
-		     $(srcdir)/kickstart_tests/scripts/* \
 		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
 		     $(srcdir)/gui/inside/*.py \
@@ -68,8 +65,7 @@ TESTS = nosetests.sh \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	storage/run_storage_tests.py \
-	glade/run_glade_tests.py \
-	kickstart_tests/scripts/run_kickstart_tests.sh
+	glade/run_glade_tests.py
 
 clean-local:
 	-rm -rf pylint/.pylint.d

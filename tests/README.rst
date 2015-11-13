@@ -56,9 +56,6 @@ represents a different class of tests. They are
   accessibility module. All tests are executed inside a LiveCD;
 - *install/* - basic RPM sanity test. Checks if anaconda.rpm can be installed in
   a temporary directory without failing dependencies or other RPM issues;
-- *kickstart_tests/* - each test is a kickstart file and a shell script. The
-  test runner provisions a virtual machine using boot.iso and a kickstart file.
-  A shell script then verifies installation was as expected;
 - *lib/* - helper modules used during testing;
 - *pyanaconda_tests/* - unit tests for the :mod:`pyanaconda` module;
 - *pylint/* - checks the validity of Python source code using the *pocketlint*
