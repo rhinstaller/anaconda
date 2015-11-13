@@ -170,19 +170,25 @@ runglade:
 	glade ${GLADE_FILE}
 
 ci: rc-release
+	@rm -f tests/test-suite.log.*
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	@sudo mkdir -p $(ROOT_SITE_PACKAGES)
 	@sudo cp $(abs_builddir)/tests/usercustomize.py $(ROOT_SITE_PACKAGES)
 	$(MAKE) -C utils/dd
-	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
-	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TESTS=nosetests_root.sh check
+	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		TEST_SUITE_LOG=test-suite.log.$$$$ check
 	@tail -n 1 tests/gettext_tests/*.log > tests/gettext_tests/gettext_tests.log
+	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh check
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo
-	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
+	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=install/run_install_test.sh \
+		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ check
+	@cat tests/test-suite.log.* > tests/test-suite.log
+	@rm -f tests/test-suite.log.*
 	@rm -f $(USER_SITE_PACKAGES)/usercustomize.py
 	@sudo rm -f $(ROOT_SITE_PACKAGES)/usercustomize.py
 	$(MAKE) coverage-report
