@@ -51,8 +51,8 @@ class BasicReclaimTestCase(base.DogtailTestCase):
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL)
 
-class CantReclaimTestCase(BasicReclaimTestCase):
-    drives = [("one", Size("2 GiB"))]
+class CantReclaimTestCase(base.DogtailTestCase):
+    drives = [("one", Size("1 GiB"))]
     name = "cantreclaim"
 
     # We don't get to test much here, since the reclaim test shuts down anaconda.

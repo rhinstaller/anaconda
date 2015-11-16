@@ -139,6 +139,23 @@ class UITestCase(unittest.TestCase):
     ###
     ### METHODS FOR CHECKING A SINGLE WIDGET
     ###
+    def wait_for_configuration_to_settle(self, spoke):
+        """ Wait for some of the configuration to settle down
+            before continuing further.
+        """
+        selectors = spoke.findChildren(GenericPredicate(roleName="spoke selector"))
+
+        for wait_for in ["INSTALLATION SOURCE", "SOFTWARE SELECTION", "INSTALLATION DESTINATION"]:
+            retry = 0
+            while retry < 5:
+                for selector in selectors:
+                    if (selector.name == wait_for):
+                        if not selector.sensitive:
+                            retry += 1
+                            doDelay(10)
+                        else:
+                            retry = 5 # break while
+                            break
 
     def check_window_displayed(self, name):
         """Verify that a window (such as a hub or spoke) given by the

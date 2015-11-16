@@ -61,6 +61,16 @@ class BasicStorageTestCase(UITestCase):
         self.assertFalse(button.checked, msg="Encrypt button should not be selected")
 
     def _common_run(self):
+        # we should be on the summary hub
+        w = self.check_window_displayed("INSTALLATION SUMMARY")
+        # network may be slow so wait for it.
+        # until package metadata is downloaded and package selection made
+        # the necessary space requirements are off which will cause anaconda
+        # to ask the user to reclaim space even if there is a new 10 GiB disk
+        # this breaks the _run() method b/c when clicking Done we're not
+        # going to the summary hub, instead the reclaim dialog is shown.
+        self.wait_for_configuration_to_settle(w)
+
         # First, we need to click on the storage spoke selector.
         self.enter_spoke("INSTALLATION DESTINATION")
 

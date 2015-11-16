@@ -23,14 +23,14 @@ from . import progress, rootpassword
 from blivet.size import Size
 
 class SimpleTestSuite(base.DogtailTestCase):
-    drives = [("one", Size("8 GiB"))]
+    drives = [("one", Size("10 GiB"))]
     name = "simple"
     tests = [welcome.BasicWelcomeTestCase,
              summary.SummaryTestCase,
              date_time.LiveCDDateTimeTestCase,
              keyboard.BasicKeyboardTestCase,
-             storage.BasicStorageTestCase,
              network.LiveCDNetworkTestCase,
+             storage.BasicStorageTestCase,
              progress.LiveCDProgressTestCase,
              rootpassword.BasicRootPasswordTestCase,
              progress.LiveCDFinishTestCase]
