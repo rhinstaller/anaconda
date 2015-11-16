@@ -33,6 +33,8 @@ class LiveCDNetworkTestCase(UITestCase):
         entry = self.find("Host Name", "text", node=spoke)
         self.assertIsNotNone(entry , "Hostname entry not found")
         self.assertTrue(entry.showing, msg="Hostname entry should be displayed")
+        entry.grabFocus()
+        entry.text = "localhost"
 
     def _run(self):
         # First, we need to click on the network spoke selector.

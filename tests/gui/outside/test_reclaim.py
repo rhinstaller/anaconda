@@ -33,7 +33,7 @@ class BasicReclaimLiveCDCreator(Creator):
     # This does not test every spoke, as we only need to do enough to satisfy anaconda
     # and get us onto the progress hub.
     tests = [("welcome", "BasicWelcomeTestCase"),
-             ("summary", "LiveCDSummaryTestCase"),
+             ("summary", "SummaryTestCase"),
              ("storage", "BasicReclaimTestCase"),
              ("progress", "LiveCDProgressTestCase"),
              ("rootpassword", "BasicRootPasswordTestCase"),
@@ -64,7 +64,7 @@ class CantReclaimLiveCDCreator(BasicReclaimLiveCDCreator):
 
     # We don't get to test much here, since the reclaim test shuts down anaconda.
     tests = [("welcome", "BasicWelcomeTestCase"),
-             ("summary", "LiveCDSummaryTestCase"),
+             ("summary", "SummaryTestCase"),
              ("storage", "CantReclaimTestCase")]
 
 class CantReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):

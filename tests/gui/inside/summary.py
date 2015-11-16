@@ -19,7 +19,7 @@ from dogtail.utils import doDelay
 
 from . import UITestCase
 
-# This test case handles the livecd case on the summary hub where everything
+# This test case handles the case where everything on the summary hub
 # works as intended.  On this spoke, we are testing the following:
 #
 # * Clicking the Quit button brings up a dialog asking if you're sure, though
@@ -29,7 +29,7 @@ from . import UITestCase
 # * Only the Date & Time, Keyboard, Installation Destination, and Network Config
 #   spoke selectors are visible.
 
-class LiveCDSummaryTestCase(UITestCase):
+class SummaryTestCase(UITestCase):
     def check_quit_button(self, spoke):
         self.click_button("Quit", node=spoke)
         dlg = self.check_dialog_displayed("Quit")
@@ -43,7 +43,10 @@ class LiveCDSummaryTestCase(UITestCase):
 
     def check_shown_spoke_selectors(self, spoke):
         # FIXME:  This forces English.
-        validSelectors = ["TIME & DATE", "KEYBOARD", "INSTALLATION DESTINATION", "NETWORK & HOST NAME"]
+        validSelectors = ["KEYBOARD", "LANGUAGE SUPPORT", "TIME & DATE",
+                            "INSTALLATION SOURCE", "SOFTWARE SELECTION",
+                            "INSTALLATION DESTINATION", "NETWORK & HOST NAME"
+                        ]
         selectors = spoke.findChildren(GenericPredicate(roleName="spoke selector"))
 
         self.assertEqual(len(selectors), len(validSelectors), msg="Incorrect number of spoke selectors shown")
@@ -58,6 +61,8 @@ class LiveCDSummaryTestCase(UITestCase):
                 self.assertEqual(selector.description, "Americas/New York timezone")
             elif selector.name == "KEYBOARD":
                 self.assertEqual(selector.description, "English (US)")
+            elif selector.name == "LANGUAGE SUPPORT":
+                self.assertEqual(selector.description, "English (United States)")
             elif selector.name == "INSTALLATION DESTINATION":
                 # We don't know how many disks are going to be involved - if there's
                 # just one, anaconda selects it by default.  If there's more than
@@ -65,9 +70,16 @@ class LiveCDSummaryTestCase(UITestCase):
                 self.assertIn(selector.description, ["Automatic partitioning selected",
                                                      "No disks selected"])
             elif selector.name == "NETWORK & HOST NAME":
-                self.assertTrue(selector.description.startswith("Connected:"))
+                self.assertTrue(
+                                selector.description.startswith("Connected:") or
+                                selector.description.startswith("Wireless connected to")
+                                )
+            elif selector.name == "INSTALLATION SOURCE":
+                self.assertIn(selector.description, ["Closest mirror", "Downloading group metadata..."])
+            elif selector.name == "SOFTWARE SELECTION":
+                self.assertIn(selector.description, ["Minimal Install", "Downloading group metadata..."])
             else:
-                self.fail("Invalid spoke selector shown on livecd: %s" % selector.name)
+                self.fail("Invalid spoke selector shown: %s" % selector.name)
 
     def _run(self):
         # Before doing anything, verify we are on the right screen.

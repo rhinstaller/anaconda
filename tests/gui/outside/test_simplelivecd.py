@@ -28,7 +28,7 @@ class SimpleLiveCDCreator(Creator):
     drives = [("one", Size("8 GiB"))]
     name = "simplelivecd"
     tests = [("welcome", "BasicWelcomeTestCase"),
-             ("summary", "LiveCDSummaryTestCase"),
+             ("summary", "SummaryTestCase"),
              ("date_time", "LiveCDDateTimeTestCase"),
              ("keyboard", "BasicKeyboardTestCase"),
              ("storage", "BasicStorageTestCase"),
