@@ -67,6 +67,6 @@ class BasicWelcomeTestCase(UITestCase):
         # And now we can check everything else on the screen.
         self.check_help_button(w)
         self.check_keyboard_layout_indicator("us", node=w)
-        self.check_lang_locale_views(w)
+#        self.check_lang_locale_views(w)
         self.check_quit_button(w)
         self.check_continue_button(w)
