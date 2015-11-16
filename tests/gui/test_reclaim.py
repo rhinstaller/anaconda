@@ -17,8 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from base import DogtailTestCase
-from inside import welcome, summary, storage, progress, rootpassword
+from . import DogtailTestCase
+from . import welcome, summary, storage, progress, rootpassword
 import subprocess
 
 from blivet.size import Size

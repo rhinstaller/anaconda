@@ -49,10 +49,8 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     gettext_tests/gettext_warnings.sh \
 		     storage/run_storage_tests.py \
 		     install/run_install_test.sh \
-		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
-		     $(srcdir)/gui/inside/*.py \
-		     $(srcdir)/gui/outside/*.py \
+		     $(srcdir)/gui/*.py \
 		     $(srcdir)/storage/cases/*.py \
 		     $(srcdir)/*_tests/*.py
 

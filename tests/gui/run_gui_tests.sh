@@ -27,19 +27,12 @@ function doit() {
           --processes=1          \
           --tc=resultsdir:$NOSE_RESULTS_DIR"
 
-    # adjust PYTHON PATH so that suite.py can find the inside/ directory
-    if [ -z "PYTHONPATH" ]; then
-        PYTHONPATH=`pwd`
-    else
-        PYTHONPATH="$PYTHONPATH":`pwd`
-    fi
-    export PYTHONPATH
     export LC_ALL=C # translations confuse Dogtail
 
     if [ -z "$1" ]; then
-        nosetests-3.5 ${ARGS} ${GUI_TESTS:-outside/test_*.py}
+        nosetests-3.5 ${ARGS} ${GUI_TESTS:-./test_*.py}
     else
-        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-outside/test_*.py}
+        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-./test_*.py}
     fi
 }
 
@@ -84,9 +77,6 @@ fi
 # Unfortunately, everything is written assuming that's where we will be.  So cd there.
 if [ -d gui ]; then
     ( cd gui && doit "${EXTRA}" )
-elif [ -d outside ]; then
-    doit "${EXTRA}"
 else
-    echo "Could not find test contents"
-    exit 3
+    doit "${EXTRA}"
 fi

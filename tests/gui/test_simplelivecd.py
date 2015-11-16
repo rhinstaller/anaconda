@@ -17,8 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from base import DogtailTestCase
-from inside import welcome, summary, date_time, keyboard, storage, network, progress, rootpassword
+from . import DogtailTestCase
+from . import welcome, summary, date_time, keyboard, storage, network, progress, rootpassword
 
 from blivet.size import Size
 
