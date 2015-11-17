@@ -517,6 +517,7 @@ int iface_start_NetworkManager(int timeout) {
 
         if (execl(NETWORKMANAGER, NETWORKMANAGER,
                   "--pid-file=/var/run/NetworkManager/NetworkManager.pid",
+                  "--log-level=DEBUG",
                   NULL) == -1) {
             exit(3);
         }
