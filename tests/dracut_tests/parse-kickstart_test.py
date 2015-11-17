@@ -24,7 +24,7 @@ import os
 import unittest
 import tempfile
 import shutil
-from pyanaconda import iutil
+import subprocess
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
@@ -52,7 +52,11 @@ class ParseKickstartTestCase(BaseTestCase):
         cls.command = os.path.abspath(os.path.join(os.environ["top_srcdir"], "dracut/parse-kickstart"))
 
     def execParseKickstart(self, ks_file):
-        return list(iutil.execReadlines(self.command, ["--tmpdir", self.tmpdir, ks_file], filter_stderr=True))
+        try:
+            output = subprocess.check_output([self.command, "--tmpdir", self.tmpdir, ks_file], universal_newlines=True)
+        except subprocess.CalledProcessError as e:
+            return str(e).splitlines()
+        return str(output).splitlines()
 
     def cdrom_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
