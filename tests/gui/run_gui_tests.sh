@@ -37,9 +37,9 @@ function doit() {
     export LC_ALL=C # translations confuse Dogtail
 
     if [ -z "$1" ]; then
-        nosetests-3.5 ${ARGS} ${GUI_TESTS:-outside}
+        nosetests-3.5 ${ARGS} ${GUI_TESTS:-outside/test_*.py}
     else
-        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-outside}
+        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-outside/test_*.py}
     fi
 }
 

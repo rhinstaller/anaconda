@@ -17,30 +17,27 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-__all__ = ["BasicReclaimLiveCDCreator", "BasicReclaimLiveCD_OutsideTest",
-           "CantReclaimLiveCDCreator", "CantReclaimLiveCD_OutsideTest"]
-
-from . import Creator, OutsideMixin
+from base import DogtailTestCase
+from inside import welcome, summary, storage, progress, rootpassword
 import subprocess
-import unittest
 
 from blivet.size import Size
 
-class BasicReclaimLiveCDCreator(Creator):
+class BasicReclaimTestCase(DogtailTestCase):
     drives = [("one", Size("8 GiB"))]
-    name = "basicreclaimlivecd"
+    name = "basicreclaim"
 
     # This does not test every spoke, as we only need to do enough to satisfy anaconda
     # and get us onto the progress hub.
-    tests = [("welcome", "BasicWelcomeTestCase"),
-             ("summary", "SummaryTestCase"),
-             ("storage", "BasicReclaimTestCase"),
-             ("progress", "LiveCDProgressTestCase"),
-             ("rootpassword", "BasicRootPasswordTestCase"),
-             ("progress", "LiveCDFinishTestCase")]
+    tests = [welcome.BasicWelcomeTestCase,
+             summary.SummaryTestCase,
+             storage.BasicReclaimTestCase,
+             progress.LiveCDProgressTestCase,
+             rootpassword.BasicRootPasswordTestCase,
+             progress.LiveCDFinishTestCase]
 
     def makeDrives(self):
-        Creator.makeDrives(self)
+        DogtailTestCase.makeDrives(self)
 
         # Put a partition and filesystem across the whole disk, which will
         # force anaconda to display the reclaim dialog.
@@ -55,17 +52,11 @@ class BasicReclaimLiveCDCreator(Creator):
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL)
 
-class BasicReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
-    creatorClass = BasicReclaimLiveCDCreator
-
-class CantReclaimLiveCDCreator(BasicReclaimLiveCDCreator):
+class CantReclaimTestCase(BasicReclaimTestCase):
     drives = [("one", Size("2 GiB"))]
-    name = "cantreclaimlivecd"
+    name = "cantreclaim"
 
     # We don't get to test much here, since the reclaim test shuts down anaconda.
-    tests = [("welcome", "BasicWelcomeTestCase"),
-             ("summary", "SummaryTestCase"),
-             ("storage", "CantReclaimTestCase")]
-
-class CantReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
-    creatorClass = CantReclaimLiveCDCreator
+    tests = [welcome.BasicWelcomeTestCase,
+             summary.SummaryTestCase,
+             storage.CantReclaimTestCase]

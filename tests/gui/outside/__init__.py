@@ -28,11 +28,13 @@ from blivet.size import MiB
 from contextlib import contextmanager
 from nose.plugins.multiprocess import TimedOutException
 import os
+import time
 import shutil
 import subprocess
 import tempfile
+import unittest
 
-class Creator(object):
+class DogtailTestCase(unittest.TestCase):
     """A Creator subclass defines all the parameters for starting a local
        copy of anaconda, inspecting results, and managing temporary data.
 
@@ -55,31 +57,57 @@ class Creator(object):
     """
     drives = []
     environ = {}
-    name = "Creator"
+    name = "DogtailTestCase"
     tests = []
 
-    def __init__(self):
+    def __init__(self, methodName='runTest'):
+        unittest.TestCase.__init__(self, methodName)
         self._drivePaths = {}
         self._proc = None
         self._tempdir = None
 
-        self._reqMemory = 1536
+        # add tests for each spoke
+        self.suite = unittest.TestSuite()
+        for test in self.tests:
+            self.suite.addTest(test())
+        self.test_result = None
 
-    def _call(self, args):
-        subprocess.call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    def setUp(self):
+        # pylint: disable=not-callable
+        self.makeDrives()
 
-    def archive(self):
-        """Copy all log files and other test results to a subdirectory of the
-           given resultsdir.  If logs are no longer available, this method
-           does nothing.  It is up to the caller to make sure logs are available
-           beforehand and clean up afterwards.
-        """
-        from testconfig import config
 
-        if not os.path.isdir(self.tempdir):
-            return
-#todo: fix this, use virsh copy-out to transfer files from the disk images
-        shutil.copytree(self.mountpoint + "/result", config["resultsdir"] + "/" + self.name)
+    def tearDown(self):
+        self.collect_logs()
+        self.die()
+        self.cleanup()
+
+    def collect_logs(self):
+        try:
+            NOSE_RESULTS_DIR = os.environ.get("NOSE_RESULTS_DIR", "./")
+            if self.test_result and (not self.test_result.wasSuccessful()):
+                with open(NOSE_RESULTS_DIR + "/unittest-failures.log", "w") as f:
+                    for (where, what) in result.errors + result.failures:
+                        f.write(str(where) + "\n" + str(what) + "\n")
+                    f.close()
+
+            for log in glob.glob("/tmp/*.log"):
+                shutil.copy(log, NOSE_RESULTS_DIR)
+
+            if os.path.exists("/tmp/memory.dat"):
+                shutil.copy("/tmp/memory.dat", NOSE_RESULTS_DIR)
+#todo: maybe clean everything in /tmp before running anaconda b/c it looks like
+# logs are appended to, not overwritten
+
+            # anaconda writes out traceback files with restricted permissions, so
+            # we have to go out of our way to grab them.
+            for tb in glob.glob("/tmp/anaconda-tb-*"):
+                os.system("sudo cp " + tb + " " + NOSE_RESULTS_DIR)
+        except:
+            # If anything went wrong with the above, log it and quit
+            with open(NOSE_RESULTS_DIR + "/unittest-failures.log", "w+") as f:
+                traceback.print_exc(file=f)
+                f.close()
 
     def cleanup(self):
         """Remove all disk images used during this test case and the temporary
@@ -95,66 +123,41 @@ class Creator(object):
 
     def makeDrives(self):
         """Create all hard drive images associated with this test.  Images
-           must be listed in Creator.drives and will be stored in a temporary
+           must be listed in self.drives and will be stored in a temporary
            directory this method creates.  It is up to the caller to remove
-           everything later by calling Creator.cleanup.
+           everything later by calling self.cleanup().
         """
         for (drive, size) in self.drives:
-            (fd, diskimage) = tempfile.mkstemp(dir=self.tempdir)
+            (fd, diskimage) = tempfile.mkstemp(dir=self.tempdir, prefix="%s_" % drive, suffix=".img")
             os.close(fd)
 
             # For now we are using qemu-img to create these files but specifying
             # sizes in blivet Size objects.  Unfortunately, qemu-img wants sizes
             # as xM or xG, not xMB or xGB.  That's what the conversion here is for.
-            self._call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(MiB)])
+            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(MiB)],
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+                            )
             self._drivePaths[drive] = diskimage
 
-    @property
-    def template(self):
-        with open("outside/template.py", "r") as f:
-            return f.read()
-
-    def makeSuite(self):
-        """The suite is a special suite.py file that actually runs the test
-           and a directory structure for reporting results.
-        """
+    def runTest(self):
         from testconfig import config
 
-        anacondaArgs = "%s/anaconda -G" % os.environ.get("top_srcdir", "")
+        args = ["%s/anaconda" % os.environ.get("top_srcdir", ""), "-G"]
         for drive in self._drivePaths.values():
-            anacondaArgs += " --image %s " % drive
-        anacondaArgs += config.get("anacondaArgs", "").strip('"')
+        args += ["--image", drive]
+        args += config.get("anacondaArgs", "").strip('"')
 
-        with open(self.suitepath, "w") as f:
-            imports = map(lambda path_cls: "    from inside.%s import %s" % (path_cls[0], path_cls[1]), self.tests)
-            addtests = map(lambda path_cls1: "    s.addTest(%s())" % path_cls1[1], self.tests)
+        print("***** args", args, self.__class__)
 
-            f.write(self.template % {"environ": "    os.environ.update(%s)" % self.environ,
-                                     "imports": "\n".join(imports),
-                                     "addtests": "\n".join(addtests),
-                                     "anacondaArgs": anacondaArgs})
-    def run(self):
-        """Given disk images previously created by Creator.makeDrives
-           start anaconda and wait for it to terminate!
-        """
-        from testconfig import config
-
-#        args = ["%s/anaconda" % os.environ.get("top_srcdir", ""), "-G"]
-
-#        for drive in self._drivePaths.values():
-#            args += ["--image", drive]
-
-        # Save a reference to the running qemu process so we can later kill
+        # Save a reference to the running anaconda process so we can later kill
         # it if necessary.  For now, the only reason we'd want to kill it is
         # an expired timer.
-#        self._proc = subprocess.Popen(args) # starts anaconda
-#        time.sleep(5) # wait 5 seconds for anaconda to initialize
-#todo: the test suite needs to kill anaconda if it fails prematurely
-
-        self._proc = subprocess.Popen(["python3", self.suitepath]) # start the test suite
+        self._proc = subprocess.Popen(args) # starts anaconda
+        time.sleep(10) # wait for anaconda to initialize
 
         try:
-            self._proc.wait()
+            self.test_result = unittest.TextTestRunner(verbosity=2, failfast=True).run(self.suite)
+            self._proc.wait() # wait for anaconda
         except TimedOutException:
             self.die()
             self.cleanup()
@@ -165,53 +168,10 @@ class Creator(object):
     @property
     def tempdir(self):
         """The temporary directory used to store disk images and other data
-           this test requires.  This directory will be removed by Creator.cleanup.
+           this test requires.  This directory will be removed by self.cleanup().
            It is up to the caller to call that method, though.
         """
         if not self._tempdir:
             self._tempdir = tempfile.mkdtemp(prefix="%s-" % self.name, dir="/var/tmp")
 
         return self._tempdir
-
-    @property
-    def suitename(self):
-        return self.name + "_suite"
-
-    @property
-    def suitepath(self):
-        return self.tempdir + "/" + "suite.py"
-
-class OutsideMixin(object):
-    """A BaseOutsideTestCase subclass is the interface between the unittest framework
-       and a running VM.  It interfaces with an associated Creator object to create
-       devices and fire up a VM, and also handles actually reporting a result that
-       unittest knows how to process.
-
-       Each subclass will likely only want to define a single attribute:
-
-       creatorClass -- A Creator subclass that goes with this test.
-    """
-    creatorClass = None
-
-    def archive(self):
-        self.creator.archive()
-
-    def runTest(self):
-        self.creator.run()
-
-#todo: fix me
-#        with self.creator.suiteMounted():
-#            self.assertTrue(os.path.exists(self.creator.mountpoint + "/result"),
-#                            msg="results directory does not exist")
-#            self.archive()
-#            self.assertFalse(os.path.exists(self.creator.mountpoint + "/result/unittest-failures"),
-#                             msg="automated UI test %s failed" % self.creator.name)
-
-    def setUp(self):
-        # pylint: disable=not-callable
-        self.creator = self.creatorClass()
-        self.creator.makeDrives()
-        self.creator.makeSuite()
-
-    def tearDown(self):
-        self.creator.cleanup()
