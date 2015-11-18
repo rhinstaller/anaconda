@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import UITestCase
+from .base import UITestCase
 
 class BasicUserTestCase(UITestCase):
     def check_enter_name(self, spoke):

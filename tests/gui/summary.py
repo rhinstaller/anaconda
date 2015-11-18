@@ -17,7 +17,7 @@
 from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
 
-from . import UITestCase
+from .base import UITestCase
 
 # This test case handles the case where everything on the summary hub
 # works as intended.  On this spoke, we are testing the following:

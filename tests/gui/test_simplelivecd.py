@@ -17,12 +17,12 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import DogtailTestCase
-from . import welcome, summary, date_time, keyboard, storage, network, progress, rootpassword
+from . import base, welcome, summary, date_time, keyboard, storage, network
+from . import progress, rootpassword
 
 from blivet.size import Size
 
-class SimpleTestSuite(DogtailTestCase):
+class SimpleTestSuite(base.DogtailTestCase):
     drives = [("one", Size("8 GiB"))]
     name = "simple"
     tests = [welcome.BasicWelcomeTestCase,

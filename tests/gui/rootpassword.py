@@ -17,7 +17,7 @@
 
 from dogtail.utils import doDelay
 
-from . import UITestCase
+from .base import UITestCase
 
 class BasicRootPasswordTestCase(UITestCase):
     def check_enter_password(self, spoke):

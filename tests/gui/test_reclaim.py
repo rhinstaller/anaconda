@@ -17,13 +17,12 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import DogtailTestCase
-from . import welcome, summary, storage, progress, rootpassword
+from . import base, welcome, summary, storage, progress, rootpassword
 import subprocess
 
 from blivet.size import Size
 
-class BasicReclaimTestCase(DogtailTestCase):
+class BasicReclaimTestCase(base.DogtailTestCase):
     drives = [("one", Size("8 GiB"))]
     name = "basicreclaim"
 
@@ -37,7 +36,7 @@ class BasicReclaimTestCase(DogtailTestCase):
              progress.LiveCDFinishTestCase]
 
     def makeDrives(self):
-        DogtailTestCase.makeDrives(self)
+        base.DogtailTestCase.makeDrives(self)
 
         # Put a partition and filesystem across the whole disk, which will
         # force anaconda to display the reclaim dialog.

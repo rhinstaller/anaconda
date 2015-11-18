@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import UITestCase
+from .base import UITestCase
 
 # This test case handles the basic case on the welcome language spoke where
 # everything works as intended.  On this spoke, we are testing the following:

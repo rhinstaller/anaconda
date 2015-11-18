@@ -19,7 +19,7 @@ import signal
 
 from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
-from . import UITestCase
+from .base import UITestCase
 
 class LiveCDProgressTestCase(UITestCase):
     def check_begin_installation_button(self, hub):

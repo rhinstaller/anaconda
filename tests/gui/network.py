@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import UITestCase
+from .base import UITestCase
 
 class LiveCDNetworkTestCase(UITestCase):
     def check_hostname_entry(self, spoke):

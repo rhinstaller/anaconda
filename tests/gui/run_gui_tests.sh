@@ -19,13 +19,12 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 function doit() {
-    export NOSE_RESULTS_DIR=$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX)
     ARGS="-s \
           -v \
           --nologcapture \
           --process-timeout=1200 \
           --processes=1          \
-          --tc=resultsdir:$NOSE_RESULTS_DIR"
+          --tc=resultsdir:$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX)"
 
     export LC_ALL=C # translations confuse Dogtail
 

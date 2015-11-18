@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import UITestCase
+from .base import UITestCase
 
 class LiveCDDateTimeTestCase(UITestCase):
     def check_region_city(self, spoke):
