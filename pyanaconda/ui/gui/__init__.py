@@ -35,7 +35,7 @@ gi.require_version("GObject", "2.0")
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
 
 from pyanaconda.i18n import _, C_
-from pyanaconda.constants import IPMI_ABORTED
+from pyanaconda.constants import IPMI_ABORTED, WINDOW_TITLE_TEXT
 from pyanaconda import product, iutil, constants
 from pyanaconda import threads
 
@@ -394,7 +394,7 @@ class MainWindow(Gtk.Window):
         # a titlebar which contains the __init__.py header text by default.
         # As all Anaconda and Initial Setup usually have a very distinct title text
         # inside the window, the titlebar text is redundant and should be disabled.
-        self.set_title("")
+        self.set_title(_(WINDOW_TITLE_TEXT))
 
         # Set the icon used in the taskbar of window managers that have a taskbar
         # The "anaconda" icon is part of fedora-logos

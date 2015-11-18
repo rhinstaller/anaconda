@@ -38,7 +38,7 @@ from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _, C_
 from pyanaconda.iutil import is_unsupported_hw, ipmi_report
-from pyanaconda.constants import DEFAULT_LANG, DEFAULT_KEYBOARD, IPMI_ABORTED
+from pyanaconda.constants import DEFAULT_LANG, DEFAULT_KEYBOARD, IPMI_ABORTED, WINDOW_TITLE_TEXT
 
 import logging
 log = logging.getLogger("anaconda")
@@ -272,6 +272,16 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # And of course, don't forget the underlying window.
         self.window.set_property("distribution", distributionText().upper())
         self.window.retranslate()
+
+        # Retranslate the window title text
+        # - it looks like that the main window object is not yet
+        #   properly initialized during the first run of the
+        #   retranslate method (it is always triggered at startup)
+        #   so make sure the object is actually what we think it is
+        # - ignoring this run is OK as the initial title is
+        #   already translated to the initial language
+        if hasattr(self.main_window, "set_title"):
+            self.main_window.set_title(_(WINDOW_TITLE_TEXT))
 
     def refresh(self):
         self._select_locale(self.data.lang.lang)
