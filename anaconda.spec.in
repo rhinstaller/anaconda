@@ -305,6 +305,51 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 18 2015 Brian C. Lane <bcl@redhat.com> - 24.7-1
+- Collect test-suite.log from all 'make check' invocations. Closes #452
+  (atodorov)
+- Fix parse-kickstart_test.py. (clumens)
+- Remove mkdud.py. (clumens)
+- Remove the kickstart_tests directory. (clumens)
+- Always quote values in ifcfg- files (#1279131) (bcl)
+- Include original kickstart in /root/original-ks.cfg (#1227939) (bcl)
+- strip spaces from extlinux label and default (#1185624) (bcl)
+- Report kernel failures during kickstart tests. (clumens)
+- Make sure unicode in kickstart works. (dshea)
+- Set the window icon (dshea)
+- Only run space check in TUI if spokes are complete. (#1279413)
+  (sbueno+anaconda)
+- Allow a user's primary group to be created in --groups (#1279041) (dshea)
+- Remove uses of broad-except. (dshea)
+- Add a test for all that container minimization stuff. (clumens)
+- Use the partition command in one of the kickstart_tests. (clumens)
+- Don't clear the _currentIsoFile if another iso was selected (bcl)
+- makeupdates: Include utils/handle-sshpw (bcl)
+- Add --sshkey to kickstart sshpw command (#1274104) (bcl)
+- Split exception description from exception traceback (jkonecny)
+- Show DNF exception instead of silent exit (jkonecny)
+- Combine results from all gettext_tests into one log file (atodorov)
+- Try to run make ci with real translations. (dshea)
+- Untranslate undisplayed TreeView column headers. (dshea)
+- Add a test for hidden translatable strings (dshea)
+- Add the translated string to markup error messages. (dshea)
+- Test glade translations by default (dshea)
+- Change the way glade tests are run. (dshea)
+- Remove the accelerator test. (dshea)
+- Add the test lib directory to $PYTHONPATH in the commit hook (dshea)
+- network: create ifcfg files in tui if needed (#1268155) (rvykydal)
+- Do not limit ONBOOT default setting to url and nfs installation methods
+  (#1269264) (rvykydal)
+- ibft: fix setting dracut boot args for static ibft nic configuration
+  (#1267526) (rvykydal)
+- network: Don't set --device link default for hostname only network cmd
+  (#1272274) (rvykydal)
+- network: assume --device=link as default also for ks on hd (#1085310)
+  (rvykydal)
+- network: use ibftx interface for iSCSI from iBFT in dracut (#1077291)
+  (rvykydal)
+- network: add s390 options to default ifcfg files (#1074570) (rvykydal)
+
 * Fri Nov 06 2015 Brian C. Lane <bcl@redhat.com> - 24.6-1
 - Fix a pylint error in the previous commits. (clumens)
 - Honor ANACONDA_WIDGETS_OVERRIDES (atodorov)
