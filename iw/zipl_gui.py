@@ -105,7 +105,7 @@ class ZiplWindow (InstallWindow):
                 kernelparms = "%s dasd=%s" %(kernelparms, isys.getDasdPorts())
             else:
                 kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
-        self.kernelEntry.set_text(kernelparms)
+        self.kernelEntry.set_text("")
         
         if self.bl.args and self.bl.args.chandevget():
             cdevs = self.bl.args.chandevget()
