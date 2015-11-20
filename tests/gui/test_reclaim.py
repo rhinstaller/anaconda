@@ -31,9 +31,9 @@ class BasicReclaimTestCase(base.DogtailTestCase):
     tests = [welcome.BasicWelcomeTestCase,
              summary.SummaryTestCase,
              storage.BasicReclaimTestCase,
-             progress.LiveCDProgressTestCase,
+             progress.ProgressTestCase,
              rootpassword.BasicRootPasswordTestCase,
-             progress.LiveCDFinishTestCase]
+             progress.FinishTestCase]
 
     def makeDrives(self):
         base.DogtailTestCase.makeDrives(self)

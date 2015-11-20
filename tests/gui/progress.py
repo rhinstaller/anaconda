@@ -21,7 +21,7 @@ from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
 from .base import UITestCase
 
-class LiveCDProgressTestCase(UITestCase):
+class ProgressTestCase(UITestCase):
     def check_begin_installation_button(self, hub):
         button = self.find("Begin Installation", "push button", node=hub)
         self.assertIsNotNone(button, msg="Begin Installation button does not exist")
@@ -94,7 +94,7 @@ class LiveCDProgressTestCase(UITestCase):
         self.assertIsNotNone(button, msg="Finish configuration button not found")
         self.assertFalse(button.sensitive, msg="Finish Configuration button should not be sensitive")
 
-class LiveCDFinishTestCase(UITestCase):
+class FinishTestCase(UITestCase):
     def check_finish_config_button(self, hub):
         # Click the Finish Configuration button.
         self.click_button("Finish configuration", node=hub)

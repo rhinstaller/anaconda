@@ -27,10 +27,10 @@ class SimpleTestSuite(base.DogtailTestCase):
     name = "simple"
     tests = [welcome.BasicWelcomeTestCase,
              summary.SummaryTestCase,
-             date_time.LiveCDDateTimeTestCase,
+             date_time.DateTimeTestCase,
              keyboard.BasicKeyboardTestCase,
-             network.LiveCDNetworkTestCase,
+             network.NetworkTestCase,
              storage.BasicStorageTestCase,
-             progress.LiveCDProgressTestCase,
+             progress.ProgressTestCase,
              rootpassword.BasicRootPasswordTestCase,
-             progress.LiveCDFinishTestCase]
+             progress.FinishTestCase]

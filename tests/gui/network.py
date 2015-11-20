@@ -17,7 +17,7 @@
 
 from .base import UITestCase
 
-class LiveCDNetworkTestCase(UITestCase):
+class NetworkTestCase(UITestCase):
     def check_hostname_entry(self, spoke):
         # Only the live install hint and hostname box should be visible.
         self.assertTrue(self.find("Please use the live desktop environment's tools for customizing your network configuration.  You can set the host name here.", node=spoke).showing)

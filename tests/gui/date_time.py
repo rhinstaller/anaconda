@@ -17,7 +17,7 @@
 
 from .base import UITestCase
 
-class LiveCDDateTimeTestCase(UITestCase):
+class DateTimeTestCase(UITestCase):
     def check_region_city(self, spoke):
         # FIXME:  This encodes default information.
         entry = self.find("Region", "text", node=spoke)
