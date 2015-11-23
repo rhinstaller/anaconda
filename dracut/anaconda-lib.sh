@@ -215,7 +215,7 @@ set_neednet() {
 }
 
 parse_kickstart() {
-    /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
+    PYTHONHASHSEED=42 /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
