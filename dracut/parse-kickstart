@@ -25,7 +25,14 @@
 # Authors:
 #   Will Woods <wwoods@redhat.com>
 
-import sys, os
+## XXX HACK - Monkeypatch os.urandom to use /dev/urandom not getrandom()
+## XXX HACK - which will block until pool is initialized which takes forever
+import os
+def ks_random(num_bytes):
+    return open("/dev/urandom", "rb").read(num_bytes)
+os.urandom = ks_random
+
+import sys
 import logging
 import shutil
 import uuid
