@@ -107,7 +107,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "seems to be a problem with your hardware. "
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
-            self.intf.messageWindow(_("Hardware error occured"), hw_error_msg)
+            self.intf.messageWindow(_("Hardware error occurred"), hw_error_msg)
             sys.exit(0)
         elif isinstance(value, blivet.errors.UnusableConfigurationError):
             sys.exit(0)
