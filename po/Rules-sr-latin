@@ -1,0 +1,10 @@
+# Generate sr@latin.po
+
+# The Serbian language is written in two scripts: Cyrillic and Latin. The
+# Serbian translators provide the translations in Cyrillic, in sr.po, and
+# these strings can automatically be converted into Latin for sr@latin.po.
+
+DISTFILES.common.extra3 = Rules-sr-latin
+
+sr@latin.po-create: sr.po
+	$(MSGFILTER) -i sr.po -o sr@latin.po recode-sr-latin
