@@ -486,7 +486,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             if "wheel" not in self._user.groups:
                 self._user.groups.append("wheel")
         elif "wheel" in self._user.groups:
-            self._user.groups.delete("wheel")
+            self._user.groups.remove("wheel")
 
     def _checkPasswordEmpty(self, inputcheck):
         """Check whether a password has been specified at all.
