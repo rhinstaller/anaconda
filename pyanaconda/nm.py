@@ -397,7 +397,7 @@ def nm_device_perm_hwaddress(name):
 
 def nm_device_valid_hwaddress(name):
     """Return valid hardware address of device depending on type of the device
-       ('PermHwAddress' property or 'HwAddress' property for infiniband)
+       ('PermHwAddress' property for wired and wireless or 'HwAddress' property for others)
 
        :param name: name of device
        :type name: str
@@ -407,10 +407,16 @@ def nm_device_valid_hwaddress(name):
        :raise UnknownDeviceError: if device is not found
        :raise PropertyNotFoundError: if property is not found
     """
-    if nm_device_type_is_infiniband(name):
-        return nm_device_hwaddress(name)
+    if nm_device_type_is_ethernet(name) or nm_device_type_is_wifi(name):
+        try:
+            return nm_device_perm_hwaddress(name)
+        except PropertyNotFoundError:
+            # TODO: Remove this if everything will work well
+            # fallback solution
+            log.warning("Device %s don't have property PermHwAddress", name)
+            return nm_device_hwaddress(name)
     else:
-        return nm_device_perm_hwaddress(name)
+        return nm_device_hwaddress(name)
 
 def nm_device_active_con_uuid(name):
     """Return uuid of device's active connection
