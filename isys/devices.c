@@ -153,6 +153,7 @@ storagedone:
             char path[64];
             int fd, type;
             char buf[64];
+            char dev_type[16];
 
             snprintf(path, 64, "/sys/class/net/%s/type", ent->d_name);
             fd = open(path, O_RDONLY);
@@ -193,17 +194,22 @@ storagedone:
                 close(fd);
             }
 
+            if (type == ARPHRD_INFINIBAND)
+                strcpy(dev_type, "Infiniband");
+            else
+                strcpy(dev_type, "Ethernet");
+
             if (new->priv.hwaddr) {
-                if (asprintf(&new->description, "Ethernet device %s - %s",
-                             new->device, new->priv.hwaddr) == -1) {
+                if (asprintf(&new->description, "%s device %s - %s",
+                             dev_type, new->device, new->priv.hwaddr) == -1) {
                     fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
                             strerror(errno));
                     fflush(stderr);
                     abort();
                 }
             } else {
-                if (asprintf(&new->description, "Ethernet device %s",
-                             new->device) == -1) {
+                if (asprintf(&new->description, "%s device %s",
+                             dev_type, new->device) == -1) {
                     fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
                             strerror(errno));
                     fflush(stderr);
