@@ -54,7 +54,7 @@ REPO="$3"
 # (1) Remove the first two / partitions we inherit.
 # (2) Remove rawhide as a repo because it's already the installation source.
 # (3) Don't remove /boot/initramfs*.  Do what now?
-ksflatten -c anaconda-autogui-testing.ks | sed -e '\|part /.*--size=3.*|,+1 d' \
+ksflatten -c anaconda-autogui-testing.ks | sed -e '\|part /.*--size=4.*|,+1 d' \
                                                -e '/repo --name="rawhide"/ d' \
                                                -e '/^# save a little/,+1 d' > livecd.ks
 
@@ -77,7 +77,7 @@ livemedia-creator --make-iso \
                   --iso "${ISO}" \
                   --title Fedora \
                   --project Fedora \
-                  --releasever 21 \
+                  --releasever 24 \
                   --tmp /var/tmp \
                   --resultdir "${RESULTSDIR}" \
                   --ks livecd.ks \
@@ -86,6 +86,6 @@ livemedia-creator --make-iso \
                   --ram 2048 \
                   --vcpus 2 \
                   --kernel-args nomodeset \
-                  --timeout 90
+                  --timeout 180
 rm livecd.ks
 rm -r ${TEMPLATES}
