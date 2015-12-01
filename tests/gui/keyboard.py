@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from . import UITestCase
+from .base import UITestCase
 
 class BasicKeyboardTestCase(UITestCase):
     def check_options_dialog(self, spoke):
@@ -178,7 +178,8 @@ class BasicKeyboardTestCase(UITestCase):
 
         # Once a layout has been added, we can test the keyboard layout indicator.
         self.check_add_layout_dialog(w)
-        self.check_layout_indicator(w)
+# disabled: in --image installs changing the current layout is not supported
+#        self.check_layout_indicator(w)
 
         # Once a layout has been selected in the view, we can test these other buttons.
         self.check_layout_buttons_after_click(w)

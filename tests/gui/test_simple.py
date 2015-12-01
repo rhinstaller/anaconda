@@ -17,25 +17,20 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-__all__ = ["SimpleLiveCDCreator", "SimpleLiveCD_OutsideTest"]
-
-from . import Creator, OutsideMixin
-import unittest
+from . import base, welcome, summary, date_time, keyboard, storage, network
+from . import progress, rootpassword
 
 from blivet.size import Size
 
-class SimpleLiveCDCreator(Creator):
-    drives = [("one", Size("8 GiB"))]
-    name = "simplelivecd"
-    tests = [("welcome", "BasicWelcomeTestCase"),
-             ("summary", "LiveCDSummaryTestCase"),
-             ("date_time", "LiveCDDateTimeTestCase"),
-             ("keyboard", "BasicKeyboardTestCase"),
-             ("storage", "BasicStorageTestCase"),
-             ("network", "LiveCDNetworkTestCase"),
-             ("progress", "LiveCDProgressTestCase"),
-             ("rootpassword", "BasicRootPasswordTestCase"),
-             ("progress", "LiveCDFinishTestCase")]
-
-class SimpleLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
-    creatorClass = SimpleLiveCDCreator
+class SimpleTestSuite(base.DogtailTestCase):
+    drives = [("one", Size("10 GiB"))]
+    name = "simple"
+    tests = [welcome.BasicWelcomeTestCase,
+             summary.SummaryTestCase,
+             date_time.DateTimeTestCase,
+             keyboard.BasicKeyboardTestCase,
+             network.NetworkTestCase,
+             storage.BasicStorageTestCase,
+             progress.ProgressTestCase,
+             rootpassword.BasicRootPasswordTestCase,
+             progress.FinishTestCase]

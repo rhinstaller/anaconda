@@ -19,9 +19,9 @@ import signal
 
 from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
-from . import UITestCase
+from .base import UITestCase
 
-class LiveCDProgressTestCase(UITestCase):
+class ProgressTestCase(UITestCase):
     def check_begin_installation_button(self, hub):
         button = self.find("Begin Installation", "push button", node=hub)
         self.assertIsNotNone(button, msg="Begin Installation button does not exist")
@@ -53,6 +53,10 @@ class LiveCDProgressTestCase(UITestCase):
     def _run(self):
         # Before doing anything, verify we are still on the summary hub.
         w = self.check_window_displayed("INSTALLATION SUMMARY")
+
+        # network or disk may be slow. wait for them
+        self.wait_for_configuration_to_settle(w)
+
         # All spokes should have been visited and satisfied now.
         self.check_no_warning_bar(w)
         self.check_begin_installation_button(w)
@@ -90,7 +94,7 @@ class LiveCDProgressTestCase(UITestCase):
         self.assertIsNotNone(button, msg="Finish configuration button not found")
         self.assertFalse(button.sensitive, msg="Finish Configuration button should not be sensitive")
 
-class LiveCDFinishTestCase(UITestCase):
+class FinishTestCase(UITestCase):
     def check_finish_config_button(self, hub):
         # Click the Finish Configuration button.
         self.click_button("Finish configuration", node=hub)
@@ -113,11 +117,11 @@ class LiveCDFinishTestCase(UITestCase):
         signal.alarm(5*60)
 
         while True:
-            button = self.find("Quit", "push button", node=w)
+            button = self.find("Reboot", "push button", node=w)
             if button and button.showing:
                 signal.alarm(0)
                 break
 
             doDelay(20)
 
-        self.click_button("Quit", node=w)
+        self.click_button("Reboot", node=w)

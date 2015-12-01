@@ -23,16 +23,24 @@ function doit() {
           -v \
           --nologcapture \
           --process-timeout=1200 \
-          --processes=2 \
-          --tc=resultsdir:$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX) \
-          --tc=liveImage:$1"
+          --processes=1          \
+          --tc=resultsdir:$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX)"
 
-    if [ -z "$2" ]; then
-        nosetests-3.4 ${ARGS} ${GUI_TESTS:-outside}
+    export LC_ALL=C # translations confuse Dogtail
+
+    if [ -z "$1" ]; then
+        nosetests-3.5 ${ARGS} ${GUI_TESTS:-./test_*.py}
     else
-        nosetests-3.4 ${ARGS} "${2}" ${GUI_TESTS:-outside}
+        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-./test_*.py}
     fi
 }
+
+if [ -z "$top_srcdir" ]; then
+    echo "*** top_srcdir must be set"
+    exit 99
+fi
+
+. ${top_srcdir}/tests/testenv.sh
 
 if ! rpm -q python3-nose-testconfig &> /dev/null; then
     echo "test_config plugin is not available; exiting."
@@ -45,22 +53,15 @@ if [ ${EUID} != 0 ]; then
    exit 77
 fi
 
-# The livecd location can come from one of two different places:
-# (1) $TEST_LIVECD, if this script is being called from "make check"
-# (2) The command line, if this script is being called directly.
-if [[ "${TEST_LIVECD}" != "" ]]; then
-    LIVECD=${TEST_LIVECD}
-elif [[ $# != 0 ]]; then
-    LIVECD=$1
-    shift
-else
-    echo "usage: $0 <livecd.iso> [anaconda args...]"
-    exit 1
+if [ -z "${DISPLAY}" ]; then
+   echo "DISPLAY is not set; skipping."
+   exit 77
 fi
 
-if [ ! -e "${LIVECD}" ]; then
-    echo "Required live CD image does not exist."
-    exit 2
+# We need SELinux Permissive or Disabled, see rhbz#1276376
+if [ `getenforce` == "Enforcing" ]; then
+   echo "SELinux is in Enforcing mode; skipping."
+   exit 77
 fi
 
 if [[ "${TEST_ANACONDA_ARGS}" != "" ]]; then
@@ -74,10 +75,7 @@ fi
 # If we're being called from "make check", we will be outside the gui test directory.
 # Unfortunately, everything is written assuming that's where we will be.  So cd there.
 if [ -d gui ]; then
-    ( cd gui && doit ${LIVECD} "${EXTRA}" )
-elif [ -d outside ]; then
-    doit ${LIVECD} "${EXTRA}"
+    ( cd gui && doit "${EXTRA}" )
 else
-    echo "Could not find test contents"
-    exit 3
+    doit "${EXTRA}"
 fi

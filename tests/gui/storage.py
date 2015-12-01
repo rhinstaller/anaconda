@@ -18,7 +18,7 @@
 from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
 
-from . import UITestCase
+from .base import UITestCase
 
 class BasicStorageTestCase(UITestCase):
     def check_select_disks(self, spoke):
@@ -28,30 +28,18 @@ class BasicStorageTestCase(UITestCase):
         def _selected(do):
             return len(do.findChildren(GenericPredicate(name="Hard Disk"))) == 0
 
-        # A real disk is any disk attached to the VM that's not the special 10 MB
-        # one used for communicating in and out of the VM.  Therefore, scan all
-        # children of the DiskOverview looking for one whose name contains that
-        # size.
-        def _real_disk(do):
-            for child in do.findChildren(GenericPredicate()):
-                if child.name == "10 MiB":
-                    return False
-
-            return True
-
         # There should be some disks displayed on the screen.
         overviews = spoke.findChildren(GenericPredicate(roleName="disk overview"))
         self.assertGreater(len(overviews), 0, msg="No disks are displayed")
 
         if len(overviews) == 1:
             # Only one disk was given to this test case, so anaconda selected it
-            # by default.  Verify.  Not sure how this would happen with how
-            # testing is currently done, but it's good to be prepared.
+            # by default.  Verify.
             self.assertTrue(_selected(overviews[0]))
         else:
             # More than one disk was provided, so anaconda did not select any.
             # Let's select all disks and proceed.
-            for overview in filter(_real_disk, overviews):
+            for overview in overviews:
                 self.assertFalse(_selected(overview))
                 overview.click()
                 self.assertTrue(_selected(overview))
@@ -73,6 +61,16 @@ class BasicStorageTestCase(UITestCase):
         self.assertFalse(button.checked, msg="Encrypt button should not be selected")
 
     def _common_run(self):
+        # we should be on the summary hub
+        w = self.check_window_displayed("INSTALLATION SUMMARY")
+        # network may be slow so wait for it.
+        # until package metadata is downloaded and package selection made
+        # the necessary space requirements are off which will cause anaconda
+        # to ask the user to reclaim space even if there is a new 10 GiB disk
+        # this breaks the _run() method b/c when clicking Done we're not
+        # going to the summary hub, instead the reclaim dialog is shown.
+        self.wait_for_configuration_to_settle(w)
+
         # First, we need to click on the storage spoke selector.
         self.enter_spoke("INSTALLATION DESTINATION")
 
@@ -80,12 +78,9 @@ class BasicStorageTestCase(UITestCase):
         w = self.check_window_displayed("INSTALLATION DESTINATION")
         self.check_help_button(w)
 
-        # Given that we attach a second disk to the system (for storing the test
-        # suite and results), anaconda will not select disks by default.  Thus,
-        # the storage options panel should currently be insensitive.
-        area = self.find("Storage Options", node=w)
+        # The the storage options panel should currently be sensitive.
+        area = self.find("Other Storage Options", node=w)
         self.assertIsNotNone(area, "Storage Options not found")
-        self.assertFalse(area.sensitive, msg="Storage options should be insensitive")
 
         # Select disk overviews.  In the basic case, this means uninitialized
         # disks that we're going to do autopart on.
