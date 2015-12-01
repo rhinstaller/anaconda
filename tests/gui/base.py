@@ -29,6 +29,7 @@ import glob
 import shutil
 import subprocess
 import tempfile
+import traceback
 import unittest
 
 import testconfig
@@ -189,15 +190,15 @@ class UITestCase(unittest.TestCase):
 
     def check_help_button(self, node=None):
         return # temporary, see https://bugzilla.redhat.com/show_bug.cgi?id=1282432
-        self.click_button("Help!", node=node)
+        # self.click_button("Help!", node=node)
 
-        try:
-            yelp = root.application("yelp")
-        except SearchError:
-            self.fail("Help view is not displayed.")
+        # try:
+        #     yelp = root.application("yelp")
+        # except SearchError:
+        #     self.fail("Help view is not displayed.")
 
-        doDelay(2)
-        yelp.keyCombo("<Alt>F4")
+        # doDelay(2)
+        # yelp.keyCombo("<Alt>F4")
 
     def check_no_warning_bar(self, node=None):
         """Verify that the warning bar is not currently displayed."""
@@ -290,7 +291,7 @@ class DogtailTestCase(unittest.TestCase):
 
         if self.environ:
             self._orig_environ = copy.deepcopy(os.environ)
-            os.environ.update(self.environ)
+            os.environ.update(self.environ)     # pylint: disable=environment-modify
 
 
     def tearDown(self):
@@ -324,7 +325,7 @@ class DogtailTestCase(unittest.TestCase):
             # we have to go out of our way to grab them.
             for tb in glob.glob("/tmp/anaconda-tb-*"):
                 os.system("sudo cp " + tb + " " + NOSE_RESULTS_DIR)
-        except:
+        except:     # pylint: disable=bare-except
             # If anything went wrong with the above, log it and quit
             with open(NOSE_RESULTS_DIR + "/unittest-failures.log", "w+") as f:
                 traceback.print_exc(file=f)
@@ -344,7 +345,7 @@ class DogtailTestCase(unittest.TestCase):
             for f in glob.glob("/tmp/anaconda-tb-*"):
                 os.remove(f)
             os.remove("/tmp/memory.dat")
-        except:
+        except OSError:
             pass
 
 
@@ -364,7 +365,7 @@ class DogtailTestCase(unittest.TestCase):
             self._proc = None
             try:
                 os.remove('/var/run/anaconda.pid')
-            except:
+            except OSError:
                 pass
 
     def makeDrives(self):
