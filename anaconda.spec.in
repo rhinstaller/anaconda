@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Dec 01 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.240-1
+- Write --cdl clearpart option to /root/anaconda-ks.cfg (jstodola)
+  Resolves: rhbz#1211559
+- Fix dasdfmt progress bar. (sbueno+anaconda)
+  Resolves: rhbz#1210450
+
 * Tue Jun 30 2015 Brian C. Lane <bcl@redhat.com> - 13.21.239-1
 - Align end sector in the appropriate direction for resize. (bcl)
   Resolves: rhbz#1236506
