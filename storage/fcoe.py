@@ -150,7 +150,7 @@ class fcoe(object):
     def writeKS(self, f):
         for nic, dcb, auto_vlan in self.nics:
             if nic in self.ksnics:
-                line = "fcoe --nic %s" % nic
+                line = "fcoe --nic=%s" % nic
                 if dcb:
                     line += " --dcb"
                 if auto_vlan:
