@@ -222,6 +222,7 @@ def getAnacondaVersionString():
 
 
 def parseArguments(argv=None, boot_cmdline=None):
+    from argparse import Action
     from pyanaconda.anaconda_argparse import AnacondaArgumentParser
     from pyanaconda.anaconda_argparse import HelpTextParser
 
@@ -329,6 +330,31 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Geolocation
     ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))
+
+    # Kickstart and log saving
+    # - use a custom action to convert the values of the nosave option into appropriate flags
+    class ParseNosave(Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            options = []
+            if values:
+                options = values.split(",")
+            if "all" in options:
+                flags.nosave_input_ks = True
+                flags.nosave_output_ks = True
+                flags.nosave_logs = True
+            else:
+                if "all_ks" in options:
+                    flags.nosave_input_ks = True
+                    flags.nosave_output_ks = True
+                else:
+                    if "input_ks" in options:
+                        flags.nosave_input_ks = True
+                    if "output_ks" in options:
+                        flags.nosave_output_ks = True
+                if "logs" in options:
+                    flags.nosave_logs = True
+
+    ap.add_argument("--nosave", action=ParseNosave, nargs="?", help=help_parser.help_text("nosave"))
 
     # Miscellaneous
     ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False,
@@ -793,6 +819,16 @@ if __name__ == "__main__":
     if os.geteuid() != 0:
         stdoutLog.error("anaconda must be run as root.")
         sys.exit(1)
+
+    # check if input kickstart should be saved
+    if flags.nosave_input_ks:
+        log.warning("Input kickstart will not be saved to the installed system due to the nosave option.")
+        iutil.touch('/tmp/NOSAVE_INPUT_KS')
+
+    # check if logs should be saved
+    if flags.nosave_logs:
+        log.warning("Installation logs will not be saved to the installed system due to the nosave option.")
+        iutil.touch('/tmp/NOSAVE_LOGS')
 
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
