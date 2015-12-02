@@ -122,7 +122,13 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
-    _writeKS(ksdata)
+    if flags.flags.nosave_output_ks:
+        # don't write the kickstart file to the installed system if this has
+        # been disabled by the nosave option
+        log.warning("Writing of the output kickstart to installed system has been disabled"
+                    " by the copy_kickstarts option.")
+    else:
+        _writeKS(ksdata)
 
     progress_complete()
 

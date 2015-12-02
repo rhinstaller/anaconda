@@ -33,6 +33,7 @@ import struct
 from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Action
 
 from pyanaconda.flags import BootArgs
+from pyanaconda.flags import flags as flags_instance
 
 import logging
 log = logging.getLogger("anaconda")
@@ -478,6 +479,32 @@ def getArgumentParser(version_string, boot_cmdline=None):
 
     # Geolocation
     ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))
+
+
+    # Kickstart and log saving
+    # - use a custom action to convert the values of the nosave option into appropriate flags
+    class ParseNosave(Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            options = []
+            if values:
+                options = values.split(",")
+            if "all" in options:
+                flags_instance.nosave_input_ks = True
+                flags_instance.nosave_output_ks = True
+                flags_instance.nosave_logs = True
+            else:
+                if "all_ks" in options:
+                    flags_instance.nosave_input_ks = True
+                    flags_instance.nosave_output_ks = True
+                else:
+                    if "input_ks" in options:
+                        flags_instance.nosave_input_ks = True
+                    if "output_ks" in options:
+                        flags_instance.nosave_output_ks = True
+                if "logs" in options:
+                    flags_instance.nosave_logs = True
+
+    ap.add_argument("--nosave", action=ParseNosave, nargs="?", help=help_parser.help_text("nosave"))
 
     # Miscellaneous
     ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False,

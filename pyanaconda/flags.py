@@ -71,6 +71,10 @@ class Flags(object):
         self.rescue_mode = False
         self.noefi = False
         self.kexec = False
+        # nosave options
+        self.nosave_input_ks = False
+        self.nosave_output_ks = False
+        self.nosave_logs = False
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!

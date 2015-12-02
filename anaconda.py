@@ -691,6 +691,16 @@ if __name__ == "__main__":
         stdoutLog.error("anaconda must be run as root.")
         sys.exit(1)
 
+    # check if input kickstart should be saved
+    if flags.nosave_input_ks:
+        log.warning("Input kickstart will not be saved to the installed system due to the nosave option.")
+        iutil.touch('/tmp/NOSAVE_INPUT_KS')
+
+    # check if logs should be saved
+    if flags.nosave_logs:
+        log.warning("Installation logs will not be saved to the installed system due to the nosave option.")
+        iutil.touch('/tmp/NOSAVE_LOGS')
+
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
     if uname[4] == 's390x':
