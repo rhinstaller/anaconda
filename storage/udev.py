@@ -620,6 +620,10 @@ def udev_device_get_iscsi_initiator(info):
 # and find whether the host has 'fc_host' and if it the device has a bound
 # Ethernet interface.
 
+# bug #1021067 - due to IFNAMESIZ limit, device name can be trimmed
+def _fcoe_suffix_in_sysfs_path(sysfs_path):
+    return any(fcoe_suffix in sysfs_path for fcoe_suffix in ["-fcoe", "-fco", "-fc", "-f"])
+
 def _detect_broadcom_fcoe(info):
     re_pci_host=re.compile('/(.*)/(host\d+)')
     match = re_pci_host.match(info["sysfs_path"])
@@ -641,7 +645,7 @@ def udev_device_is_fcoe(info):
        path_components[2] == "fc":
         return True
 
-    if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+    if path.startswith("fc-") and _fcoe_suffix_in_sysfs_path(info["sysfs_path"]):
         return True
 
     if _detect_broadcom_fcoe(info) != (None, None):
@@ -657,7 +661,7 @@ def udev_device_get_fcoe_nic(info):
        path_components[2] == "fc":
         return path_components[1]
 
-    if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+    if path.startswith("fc-") and _fcoe_suffix_in_sysfs_path(info["sysfs_path"]):
         return info["sysfs_path"].split("/")[4].split(".")[0]
 
     (sysfs_pci, host) = _detect_broadcom_fcoe(info)
@@ -679,7 +683,7 @@ def udev_device_get_fcoe_identifier(info):
        path_components[2] == "fc":
         return path_components[3]
 
-    if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+    if path.startswith("fc-") and _fcoe_suffix_in_sysfs_path(info["sysfs_path"]):
         return path_components[1]
 
     if udev_device_is_fcoe(info) and len(path_components) >= 4 and \
