@@ -36,6 +36,10 @@ TEST_EXTENSIONS = .sh
 # files necessary for running the tests (make ci) from a tarball
 EXTRA_DIST = README.rst usercustomize.py
 
+# Also add translation-canary for canary_tests.sh
+EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
+	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
+
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/lib/*.py \
@@ -47,6 +51,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     testenv.sh \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/gettext_warnings.sh \
+		     gettext_tests/canary_tests.sh \
 		     storage/run_storage_tests.py \
 		     install/run_install_test.sh \
 		     $(srcdir)/gui/*.sh \
@@ -62,6 +67,7 @@ TESTS = nosetests.sh \
 	gettext_tests/gettext_potfiles.py \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
+	gettext_tests/canary_tests.sh \
 	storage/run_storage_tests.py \
 	glade/run_glade_tests.py
 
