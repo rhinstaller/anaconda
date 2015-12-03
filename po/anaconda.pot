@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the anaconda package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 24.6\n"
+"Project-Id-Version: anaconda 24.7\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-11-18 17:08-0800\n"
+"POT-Creation-Date: 2015-12-02 17:41-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,6 +203,10 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
+#: pyanaconda/constants.py:194
+msgid "Anaconda Installer"
+msgstr ""
+
 #: pyanaconda/errors.py:109
 #, python-format
 msgid ""
@@ -381,7 +385,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/exception.py:110
-msgid "Hardware error occured"
+msgid "Hardware error occurred"
 msgstr ""
 
 #: pyanaconda/exception.py:167
@@ -1449,8 +1453,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/hubs/summary.py:103
-#: pyanaconda/ui/tui/hubs/__init__.py:137
+#: pyanaconda/ui/tui/hubs/summary.py:103 pyanaconda/ui/tui/hubs/__init__.py:137
 #: pyanaconda/ui/tui/simpleline/base.py:462
 #: pyanaconda/ui/tui/simpleline/base.py:624
 #: pyanaconda/ui/tui/spokes/askvnc.py:111
@@ -1468,16 +1471,14 @@ msgstr ""
 #. TRANSLATORS:'r' to refresh
 #. TRANSLATORS: 'r' to refresh
 #. TRANSLATORS:'r' to refresh
-#: pyanaconda/ui/tui/hubs/summary.py:107
-#: pyanaconda/ui/tui/hubs/__init__.py:141
+#: pyanaconda/ui/tui/hubs/summary.py:107 pyanaconda/ui/tui/hubs/__init__.py:141
 #: pyanaconda/ui/tui/simpleline/base.py:450
 #: pyanaconda/ui/tui/simpleline/base.py:628
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:125
-#: pyanaconda/ui/tui/hubs/__init__.py:116
+#: pyanaconda/ui/tui/hubs/summary.py:125 pyanaconda/ui/tui/hubs/__init__.py:116
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
@@ -1486,8 +1487,7 @@ msgstr ""
 #. TRANSLATORS: 'c' to continue
 #. TRANSLATORS:'c' to continue
 #. TRANSLATORS: 'c' to continue
-#: pyanaconda/ui/tui/hubs/summary.py:136
-#: pyanaconda/ui/tui/hubs/__init__.py:113
+#: pyanaconda/ui/tui/hubs/summary.py:136 pyanaconda/ui/tui/hubs/__init__.py:113
 #: pyanaconda/ui/tui/hubs/__init__.py:139
 #: pyanaconda/ui/tui/simpleline/base.py:456
 #: pyanaconda/ui/tui/simpleline/base.py:626
@@ -1959,8 +1959,7 @@ msgstr ""
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:62
-#: pyanaconda/ui/tui/spokes/source.py:111
+#: pyanaconda/ui/tui/spokes/source.py:62 pyanaconda/ui/tui/spokes/source.py:111
 #: pyanaconda/ui/gui/spokes/source.py:596
 #: pyanaconda/ui/gui/spokes/source.glade:758
 msgid "Closest mirror"

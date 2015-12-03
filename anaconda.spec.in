@@ -305,6 +305,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 02 2015 Brian C. Lane <bcl@redhat.com> - 24.8-1
+- Fix pylint problems in the gui testing code. (clumens)
+- Merge 9c5e02392d0401a3bd0adecedea03535595773ef into
+  67b569253c724639c2490f5fab70f7111f699b3f (atodorov)
+- Fix the replacement suggestion for "hostname" (dshea)
+- Automatically generate sr (dshea)
+- Fix PropertyNotFoundError PermHwAddress (#1269298) (jkonecny)
+- Make sure python3.5 code can run in early initrd (bcl)
+- Replace <list>.delete() with <list>.remove() in user.py (sujithpandel)
+- Rename everything that still refers to LiveCD (atodorov)
+- Updates to progress and storage tests (atodorov)
+- Multiple changes to DogtailTestCase (atodorov)
+- Move all Python files into the main gui/ directory (atodorov)
+- Simplify tests by removing OutsideMixin and update Creator (atodorov)
+- Modify existing tests to match latest anaconda behavior and environment
+  (atodorov)
+- Temporary disable test code which doesn't work (atodorov)
+- Make tests/gui/ execute ./anaconda from git (atodorov)
+- Add window title (#1280077) (mkolman)
+- Replace execReadlines with check_output in parse-kickstart_test.py (bcl)
+- Fix a spelling error in the hardware error message (#1284165). (clumens)
+
 * Wed Nov 18 2015 Brian C. Lane <bcl@redhat.com> - 24.7-1
 - Collect test-suite.log from all 'make check' invocations. Closes #452
   (atodorov)
