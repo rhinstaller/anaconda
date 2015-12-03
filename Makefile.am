@@ -56,6 +56,10 @@ COVERAGE ?= coverage3
 USER_SITE_PACKAGES ?= $(shell $(PYTHON) -m site --user-site)
 ROOT_SITE_PACKAGES ?= $(shell sudo $(PYTHON) -m site --user-site)
 
+# Run tests on the translations before tarring them up
+dist-hook:
+	PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated --release $(distdir)
+
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
