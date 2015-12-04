@@ -731,9 +731,6 @@ class Network:
         else:
             f.write("localhost.localdomain\n")
 
-        if self.gateway:
-            f.write("GATEWAY=%s\n" % self.gateway)
-
         if self.ipv6_defaultgw:
             f.write("IPV6_DEFAULTGW=%s\n" % self.ipv6_defaultgw)
 
