@@ -1242,6 +1242,11 @@ class Storage(object):
             return (foundCreateFormat and not foundCreateDevice)
 
         log.warning("Storage.writeKS not completely implemented")
+
+        if self.zeroMbr:
+            f.write("# Clear the Master Boot Record\n"
+                    "#zerombr\n")
+
         f.write("# The following is the partition information you requested\n")
         f.write("# Note that any partitions you deleted are not expressed\n")
         f.write("# here so unless you clear all partitions first, this is\n")
