@@ -241,7 +241,7 @@ class RPMOSTreePayload(ArchivePayload):
         for (src, dest) in binds:
             self._safeExecWithRedirect("mount",
                                        ["--bind", src, dest if dest else src])
-            self._internal_mounts.append(dest)
+            self._internal_mounts.append(dest if dest else src)
             if dest is None:
                 self._safeExecWithRedirect("mount",
                                            ["--bind", "-o", "remount,ro", src, src])
