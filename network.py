@@ -583,6 +583,9 @@ class Network:
             if dev.get("DOMAIN"):
                 line += " --domain %s" % dev.get("DOMAIN")
 
+            if dev.get("DEFROUTE") == "no":
+                line += " --nodefroute"
+
             line += "\n"
             f.write(line)
 
