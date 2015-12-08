@@ -2397,6 +2397,8 @@ class FSSet(object):
         devices += self.swapDevices
         devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
         netdevs = self.devicetree.getDevicesByInstance(NetworkStorageDevice)
+        rootdev = self.rootDevice
+
         for device in devices:
             # why the hell do we put swap in the fstab, anyway?
             if not device.format.mountable and device.format.type != "swap":
@@ -2424,7 +2426,11 @@ class FSSet(object):
                 if device.dependsOn(netdev):
                     if mountpoint == "/":
                         options = options + ",_rnetdev"
-                    else:
+                    # Don't add _netdev to fstab if it is the same network device where root is.
+                    # Or they can wait for network forever, because the mountpoints
+                    # required for network validation could be waiting for network too...
+                    # Bug: 856446
+                    elif not rootdev.dependsOn(netdev):
                         options = options + ",_netdev"
                     break
             devspec = device.fstabSpec
