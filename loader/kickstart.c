@@ -161,7 +161,7 @@ int ksReadCommands(char * cmdFile) {
     commands = malloc(sizeof(*commands) * commandsAlloced);
 
     start = buf;
-    while (*start && !inSection) {
+    while (*start) {
         line++;
         if (!(end = strchr(start, '\n')))
             end = start + strlen(start);
@@ -181,12 +181,16 @@ int ksReadCommands(char * cmdFile) {
 
         if (!*start || *start == '#' || !strncmp(start, "%include", 8)) {
             /* keep parsing the file */
+        } else if (!strncmp(start, "%end", 4)) {
+            inSection = 0;
         } else if (*start == '%') {
             /* assumed - anything starting with %something is a section */
             inSection = 1;
         } else if  (*chptr == '\\') {
             /* JKFIXME: this should be handled better, but at least we 
              * won't segfault now */
+        } else if (inSection) {
+            /* Skip parsing things inside sections */
         } else {
             if (!g_shell_parse_argv(start, &argc, &argv, &optErr) && argc) {
                 newtWinMessage(_("Kickstart Error"), _("OK"),
