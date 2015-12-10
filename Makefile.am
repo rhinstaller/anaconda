@@ -92,6 +92,13 @@ po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 
+po-empty:
+	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
+		[ -f $(srcdir)/po/$$lingua.po ] || \
+		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
+		exit 1 ; \
+	done
+
 scratch:
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- po/$(PACKAGE_NAME).pot
