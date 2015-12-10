@@ -296,6 +296,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _grabObjects(self):
         self._customPart = self.builder.get_object("customRadioButton")
+        self._blivetGuiPart = self.builder.get_object("blivetguiRadioButton")
         self._encrypted = self.builder.get_object("encryptionCheckbox")
         self._reclaim = self.builder.get_object("reclaimCheckbox")
 
@@ -1021,11 +1022,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # 2) user wants to reclaim some more space => run the ResizeDialog
         # 3) we are just asked to do autopart => check free space and see if we need
         #                                        user to do anything more
-        self.autopart = not self._customPart.get_active()
+        self.autopart = not self._customPart.get_active() and not self._blivetGuiPart.get_active()
         disks = [d for d in self.disks if d.name in self.selected_disks]
         dialog = None
         if not self.autopart:
-            self.skipTo = "CustomPartitioningSpoke"
+            if self._customPart.get_active():
+                self.skipTo = "CustomPartitioningSpoke"
+            if self._blivetGuiPart.get_active():
+                self.skipTo = "BlivetGuiSpoke"
         elif self._reclaim.get_active():
             # HINT: change the logic of this 'if' statement if we are asked to
             # support "reclaim before custom partitioning"
