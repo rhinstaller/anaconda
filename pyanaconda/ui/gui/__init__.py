@@ -795,7 +795,7 @@ class GraphicalUserInterface(UserInterface):
         return obj
 
     def run(self):
-        (success, args) = Gtk.init_check(None)
+        (success, _args) = Gtk.init_check(None)
         if not success:
             raise RuntimeError("Failed to initialize Gtk")
 
