@@ -650,6 +650,7 @@ def collect(module_pattern, path, pred):
             continue
 
         except ImportError as imperr:
+            # pylint: disable=unsupported-membership-test
             if module_path and "pyanaconda" in module_path:
                 # failure when importing our own module:
                 raise
@@ -658,8 +659,8 @@ def collect(module_pattern, path, pred):
         finally:
             imp.release_lock()
 
-            if mod_info and mod_info[0]:
-                mod_info[0].close()
+            if mod_info and mod_info[0]: # pylint: disable=unsubscriptable-object
+                mod_info[0].close() # pylint: disable=unsubscriptable-object
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 

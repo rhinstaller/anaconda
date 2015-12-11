@@ -147,6 +147,8 @@ class Anaconda(object):
            stat.S_ISBLK(os.stat("/run/initramfs/livedev")[stat.ST_MODE]):
             specs.append(os.readlink("/run/initramfs/livedev"))
 
+        # methodstr and stage2 become strings in ways that pylint can't figure out
+        # pylint: disable=unsubscriptable-object
         if self.methodstr and self.methodstr.startswith("hd:"):
             specs.append(self.methodstr[3:].split(":", 3)[0])
 

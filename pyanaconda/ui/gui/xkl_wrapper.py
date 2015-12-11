@@ -193,9 +193,9 @@ class XklWrapper(object):
         if cur_group >= num_groups:
             cur_group = num_groups - 1
 
-        layout = self._rec.layouts[cur_group]
+        layout = self._rec.layouts[cur_group] # pylint: disable=unsubscriptable-object
         try:
-            variant = self._rec.variants[cur_group]
+            variant = self._rec.variants[cur_group] # pylint: disable=unsubscriptable-object
         except IndexError:
             # X server may have forgotten to add the "" variant for its default layout
             variant = ""
@@ -333,8 +333,8 @@ class XklWrapper(object):
             raise XklWrapperError(msg)
 
         idx = layouts_variants.index((layout, variant))
-        new_layouts = self._rec.layouts[:idx] + self._rec.layouts[(idx + 1):]
-        new_variants = self._rec.variants[:idx] + self._rec.variants[(idx + 1):]
+        new_layouts = self._rec.layouts[:idx] + self._rec.layouts[(idx + 1):] # pylint: disable=unsubscriptable-object
+        new_variants = self._rec.variants[:idx] + self._rec.variants[(idx + 1):] # pylint: disable=unsubscriptable-object
 
         self._rec.set_layouts(new_layouts)
         self._rec.set_variants(new_variants)
@@ -384,7 +384,7 @@ class XklWrapper(object):
         """
 
         #preserve old "non-switching options"
-        new_options = [opt for opt in self._rec.options if "grp:" not in opt]
+        new_options = [opt for opt in self._rec.options if "grp:" not in opt] # pylint: disable=not-an-iterable
         new_options += options
 
         self._rec.set_options(new_options)
