@@ -44,6 +44,7 @@ import urllib.request
 
 def run_program(*args):
     """Run a program with universal newlines on"""
+    # pylint: disable=no-value-for-parameter
     return subprocess.Popen(*args, universal_newlines=True, stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE).communicate()
 
