@@ -36,12 +36,12 @@ class DataHolderTests(unittest.TestCase):
 
         # test that adding an attr shows as a key
         data.master = "Gru"
-        self.assertEquals(data["master"], "Gru")
+        self.assertEqual(data["master"], "Gru")
 
         # test that adding a key shows as an attr
         data["sibling"] = "More Minions"
-        self.assertEquals(data.sibling, "More Minions")
+        self.assertEqual(data.sibling, "More Minions")
 
         # test that a copy results in the same key/values
         data_copy = data.copy()
-        self.assertEquals(data, data_copy)
+        self.assertEqual(data, data_copy)

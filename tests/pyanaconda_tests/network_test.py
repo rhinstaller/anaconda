@@ -331,8 +331,8 @@ class NetworkKSDataTests(unittest.TestCase):
         network.update_hostname_data(ksdata, "newhostname")
         # network --bootproto dhcp --onboot no --device em1
         # network --hostname newhostname
-        self.assertEquals(ksdata.network.network[0].hostname, "")
-        self.assertEquals(ksdata.network.network[1].hostname, "newhostname")
+        self.assertEqual(ksdata.network.network[0].hostname, "")
+        self.assertEqual(ksdata.network.network[1].hostname, "newhostname")
 
 class NetworkIfcfgTests(unittest.TestCase):
     def ifcfg_mock(self, settings):

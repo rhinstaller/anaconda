@@ -648,31 +648,31 @@ class MiscTests(unittest.TestCase):
         """Test strip_accents."""
 
         # empty string
-        self.assertEquals(iutil.strip_accents(u""), u"")
-        self.assertEquals(iutil.strip_accents(""), "")
+        self.assertEqual(iutil.strip_accents(u""), u"")
+        self.assertEqual(iutil.strip_accents(""), "")
 
         # some Czech accents
-        self.assertEquals(iutil.strip_accents(u"ěščřžýáíéúů"), u"escrzyaieuu")
-        self.assertEquals(iutil.strip_accents(u"v češtině"), u"v cestine")
-        self.assertEquals(iutil.strip_accents(u"měšťánek rozšíří HÁČKY"),
+        self.assertEqual(iutil.strip_accents(u"ěščřžýáíéúů"), u"escrzyaieuu")
+        self.assertEqual(iutil.strip_accents(u"v češtině"), u"v cestine")
+        self.assertEqual(iutil.strip_accents(u"měšťánek rozšíří HÁČKY"),
                                               u"mestanek rozsiri HACKY")
-        self.assertEquals(iutil.strip_accents(u"nejneobhospodařovávatelnějšímu"),
+        self.assertEqual(iutil.strip_accents(u"nejneobhospodařovávatelnějšímu"),
                                               u"nejneobhospodarovavatelnejsimu")
 
         # some German umlauts
-        self.assertEquals(iutil.strip_accents(u"Lärmüberhörer"), u"Larmuberhorer")
-        self.assertEquals(iutil.strip_accents(u"Heizölrückstoßabdämpfung"),
+        self.assertEqual(iutil.strip_accents(u"Lärmüberhörer"), u"Larmuberhorer")
+        self.assertEqual(iutil.strip_accents(u"Heizölrückstoßabdämpfung"),
                                               u"Heizolrucksto\xdfabdampfung")
 
         # some Japanese
-        self.assertEquals(iutil.strip_accents(u"日本語"), u"\u65e5\u672c\u8a9e")
-        self.assertEquals(iutil.strip_accents(u"アナコンダ"),  # Anaconda
+        self.assertEqual(iutil.strip_accents(u"日本語"), u"\u65e5\u672c\u8a9e")
+        self.assertEqual(iutil.strip_accents(u"アナコンダ"),  # Anaconda
                           u"\u30a2\u30ca\u30b3\u30f3\u30bf")
 
         # combined
         input_string = u"ASCI měšťánek アナコンダ Heizölrückstoßabdämpfung"
         output_string =u"ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
-        self.assertEquals(iutil.strip_accents(input_string), output_string)
+        self.assertEqual(iutil.strip_accents(input_string), output_string)
 
     def cmp_obj_attrs_test(self):
         """Test cmp_obj_attrs."""
@@ -786,7 +786,7 @@ class MiscTests(unittest.TestCase):
                 ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
 
         for d, r in dirs:
-            self.assertEquals(iutil.parent_dir(d), r)
+            self.assertEqual(iutil.parent_dir(d), r)
 
     def open_with_perm_test(self):
         """Test the open_with_perm function"""
