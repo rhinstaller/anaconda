@@ -297,7 +297,7 @@ class ErrorHandler(object):
         rc = ERROR_RAISE
 
         if not self.ui:
-            raise
+            raise exn
 
         _map = {"PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,
