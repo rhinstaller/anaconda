@@ -253,7 +253,13 @@ class Hub(GUIObject, common.Hub):
 
     @property
     def continuePossible(self):
-        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and getattr(self._checker, "success", True)
+        if len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0:
+            if flags.nospacecheck:
+                return True
+            else:
+                return getattr(self._checker, "success", True)
+
+        return False
 
     def _updateContinueButton(self):
         self.window.set_may_continue(self.continuePossible)

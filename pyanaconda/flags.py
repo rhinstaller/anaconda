@@ -78,6 +78,7 @@ class Flags(object):
         self.leavebootorder = False
         self.testing = False
         self.mpathFriendlyNames = True
+        self.nospacecheck = False
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         self.rescue_mode = False

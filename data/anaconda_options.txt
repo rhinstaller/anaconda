@@ -235,3 +235,9 @@ be retried if there is no listener (ie. won't block the installation).
 kexec
 Reboot the system using kexec with the new kernel and initrd. This will result in
 a faster reboot by skipping the BIOS/Firmware and bootloader steps.
+
+nospacecheck
+Disable space requirement check in the installation. You still get warning message
+when the root partition is too small but the installation process can be started
+anyway.
+This could result in failed installation or the installed system could be broken!
