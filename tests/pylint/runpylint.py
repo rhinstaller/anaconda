@@ -13,8 +13,8 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from BaseException: S390Error$"),
 
                                 # XXX: These are temporary until dogtail and koji have python3 versions.
-                                FalsePositive(r"^F0401.*: Unable to import 'dogtail.*'$"),
-                                FalsePositive(r"^F0401.*: Unable to import 'koji'$")
+                                FalsePositive(r"^E0401.*: Unable to import 'dogtail.*'$"),
+                                FalsePositive(r"^E0401.*: Unable to import 'koji'$")
                               ]
 
     @property
