@@ -205,7 +205,7 @@ class Network(commands.network.F24_Network, DracutArgsMixin):
             if net.device == "link":
                 net.device = first_device_with_link()
                 if not net.device:
-                    log.warn("No device with link found for --device=link")
+                    log.warning("No device with link found for --device=link")
                     return
                 else:
                     log.info("Using %s as first device with link found", net.device)
@@ -345,7 +345,7 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         req = ("gateway", "netmask", "nameserver", "ip")
         missing = ", ".join("--%s" % i for i in req if not hasattr(net, i))
         if missing:
-            log.warn("line %u: network missing %s", lineno, missing)
+            log.warning("line %u: network missing %s", lineno, missing)
         else:
             ip="{0.ip}::{0.gateway}:{0.netmask}:" \
                "{0.hostname}:{0.device}:none:{0.mtu}".format(net)

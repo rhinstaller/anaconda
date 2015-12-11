@@ -1558,7 +1558,7 @@ class GRUB2(GRUB):
             try:
                 default_index = self.images.index(self.default)
             except ValueError:
-                log.warn("Failed to find default image (%s), defaulting to 0", self.default.label)
+                log.warning("Failed to find default image (%s), defaulting to 0", self.default.label)
                 default_index = 0
 
             rc = iutil.execInSysroot("grub2-set-default", [str(default_index)])

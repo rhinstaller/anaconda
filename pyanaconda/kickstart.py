@@ -628,7 +628,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
 
         if self.disklabel:
             if not platform.setDefaultDiskLabelType(self.disklabel):
-                log.warn("%s is not a supported disklabel type on this platform. "
+                log.warning("%s is not a supported disklabel type on this platform. "
                          "Using default disklabel %s instead.", self.disklabel, platform.defaultDiskLabelType)
 
         storage.clearPartitions()
