@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.239\n"
+"Project-Id-Version: anaconda 13.21.240\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-12-01 14:50-0500\n"
+"POT-Creation-Date: 2015-12-14 15:19-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,9 +33,9 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:117 loader/hdinstall.c:268
 #: loader/hdinstall.c:327 loader/hdinstall.c:362 loader/hdinstall.c:442
 #: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kbd.c:119
-#: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
-#: loader/kickstart.c:197 loader/kickstart.c:304 loader/kickstart.c:336
-#: loader/kickstart.c:526 loader/kickstart.c:572 loader/kickstart.c:588
+#: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:196
+#: loader/kickstart.c:201 loader/kickstart.c:308 loader/kickstart.c:340
+#: loader/kickstart.c:530 loader/kickstart.c:576 loader/kickstart.c:592
 #: loader/lang.c:114 loader/lang.c:373 loader/loader.c:443 loader/loader.c:479
 #: loader/loader.c:519 loader/loader.c:537 loader/loader.c:554
 #: loader/loader.c:591 loader/loader.c:1246 loader/loader.c:1275
@@ -119,13 +119,13 @@ msgstr ""
 #: yuminstall.py:1388 yuminstall.py:1449 yuminstall.py:1639 yuminstall.py:1669
 #: yuminstall.py:1692 storage/__init__.py:106 storage/__init__.py:112
 #: storage/__init__.py:114 storage/__init__.py:222 storage/__init__.py:275
-#: storage/__init__.py:2166
+#: storage/__init__.py:2171
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1619
 #: kickstart.py:1666 upgrade.py:58 yuminstall.py:1454 yuminstall.py:1639
-#: iw/partition_gui.py:1643 storage/__init__.py:2167
+#: iw/partition_gui.py:1643 storage/__init__.py:2172
 msgid "_Continue"
 msgstr ""
 
@@ -265,7 +265,7 @@ msgstr ""
 
 #: gui.py:726 gui.py:1521 partIntfHelpers.py:160 partIntfHelpers.py:345
 #: text.py:100 text.py:101 iw/account_gui.py:138 loader/dirbrowser.c:128
-#: loader/driverdisk.c:479 loader/kickstart.c:336 loader/loader.c:479
+#: loader/driverdisk.c:479 loader/kickstart.c:340 loader/loader.c:479
 #: loader/loader.c:591 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
 msgstr ""
@@ -367,7 +367,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:1432 image.py:176 image.py:208 packages.py:370
-#: storage/__init__.py:1969
+#: storage/__init__.py:1974
 msgid "_Exit"
 msgstr ""
 
@@ -480,15 +480,15 @@ msgstr ""
 #: loader/driverdisk.c:294 loader/driverdisk.c:545 loader/driverdisk.c:586
 #: loader/driverdisk.c:614 loader/driverdisk.c:622 loader/driverdisk.c:694
 #: loader/hdinstall.c:117 loader/hdinstall.c:327 loader/hdinstall.c:442
-#: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kickstart.c:304
+#: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kickstart.c:308
 #: loader/lang.c:114 loader/loader.c:443 loader/loader.c:554
 #: loader/loader.c:1246 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:142 loader/urlinstall.c:164
 #: loader/urlinstall.c:226 loader/urls.c:339 loader/urls.c:345
-#: loader/urls.c:354 storage/__init__.py:271 storage/__init__.py:1970
-#: storage/__init__.py:1988 storage/__init__.py:2073 storage/zfcp.py:375
+#: loader/urls.c:354 storage/__init__.py:271 storage/__init__.py:1975
+#: storage/__init__.py:1993 storage/__init__.py:2078 storage/zfcp.py:375
 #: textw/upgrade_text.py:184 textw/upgrade_text.py:191
 msgid "Error"
 msgstr ""
@@ -1263,7 +1263,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:260 loader/cdinstall.c:263
-#: loader/method.c:324 storage/__init__.py:1969 storage/__init__.py:1987
+#: loader/method.c:324 storage/__init__.py:1974 storage/__init__.py:1992
 #: textw/upgrade_text.py:142
 msgid "Skip"
 msgstr ""
@@ -1281,7 +1281,7 @@ msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
 #: rescue.py:353 rescue.py:357 text.py:633 text.py:635
-#: storage/__init__.py:1987
+#: storage/__init__.py:1992
 msgid "Exit"
 msgstr ""
 
@@ -2859,7 +2859,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:618 storage/__init__.py:1969
+#: iw/partition_gui.py:618 storage/__init__.py:1974
 msgid "Format"
 msgstr ""
 
@@ -3600,9 +3600,9 @@ msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
-#: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
-#: loader/kickstart.c:197 loader/kickstart.c:526 loader/kickstart.c:572
-#: loader/kickstart.c:588 loader/net.c:1810 loader/net.c:1834
+#: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:196
+#: loader/kickstart.c:201 loader/kickstart.c:530 loader/kickstart.c:576
+#: loader/kickstart.c:592 loader/net.c:1810 loader/net.c:1834
 #: loader/nfsinstall.c:384 loader/urlinstall.c:379 loader/urlinstall.c:390
 #: loader/urlinstall.c:397
 msgid "Kickstart Error"
@@ -3725,41 +3725,41 @@ msgstr ""
 msgid "Error reading contents of kickstart file %s: %m"
 msgstr ""
 
-#: loader/kickstart.c:193
+#: loader/kickstart.c:197
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr ""
 
-#: loader/kickstart.c:198
+#: loader/kickstart.c:202
 #, c-format
 msgid "Missing options on line %d of kickstart file %s."
 msgstr ""
 
-#: loader/kickstart.c:305
+#: loader/kickstart.c:309
 msgid "Cannot find ks.cfg on removable media."
 msgstr ""
 
-#: loader/kickstart.c:341
+#: loader/kickstart.c:345
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 
-#: loader/kickstart.c:350
+#: loader/kickstart.c:354
 msgid "Error downloading kickstart file"
 msgstr ""
 
-#: loader/kickstart.c:527
+#: loader/kickstart.c:531
 #, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr ""
 
-#: loader/kickstart.c:573
+#: loader/kickstart.c:577
 #, c-format
 msgid "Bad argument to device kickstart method command: %s"
 msgstr ""
 
-#: loader/kickstart.c:589
+#: loader/kickstart.c:593
 msgid "A module name must be specified for the kickstart device command."
 msgstr ""
 
@@ -4528,11 +4528,11 @@ msgid ""
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: storage/__init__.py:1507 storage/__init__.py:1516
+#: storage/__init__.py:1512 storage/__init__.py:1521
 msgid "Dirty File Systems"
 msgstr ""
 
-#: storage/__init__.py:1508
+#: storage/__init__.py:1513
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4541,7 +4541,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1517
+#: storage/__init__.py:1522
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4549,7 +4549,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:2017
+#: storage/__init__.py:2022
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4560,7 +4560,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:2028
+#: storage/__init__.py:2033
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4572,7 +4572,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: storage/__init__.py:2036
+#: storage/__init__.py:2041
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4584,7 +4584,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: storage/__init__.py:2048
+#: storage/__init__.py:2053
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4595,7 +4595,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:2058
+#: storage/__init__.py:2063
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4604,7 +4604,7 @@ msgid ""
 "device."
 msgstr ""
 
-#: storage/__init__.py:2067
+#: storage/__init__.py:2072
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4614,11 +4614,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:2129 storage/__init__.py:2141
+#: storage/__init__.py:2134 storage/__init__.py:2146
 msgid "Invalid mount point"
 msgstr ""
 
-#: storage/__init__.py:2130
+#: storage/__init__.py:2135
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4627,7 +4627,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:2142
+#: storage/__init__.py:2147
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4636,18 +4636,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:2158 storage/__init__.py:2182
+#: storage/__init__.py:2163 storage/__init__.py:2187
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: storage/__init__.py:2159
+#: storage/__init__.py:2164
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: storage/__init__.py:2183
+#: storage/__init__.py:2188
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "

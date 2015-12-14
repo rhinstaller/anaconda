@@ -223,6 +223,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Dec 14 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.241-1
+- Prevent duplicate kernel params being written in zipl.conf (sbueno+anaconda)
+  Resolves: rhbz#1029505
+- Skip kickstart sections in loader (bcl)
+  Resolves: rhbz#1251300
+- Always write splashimage to grub.cfg on UEFI (bcl)
+  Resolves: rhbz#853844
+- Install ca-bundle certs in the initrd (bcl)
+  Resolves: rhbz#1259880
+- zerombr propagates to anaconda-ks (japokorn)
+  Resolves: rhbz#1246663
+- network: include --nodefroute option in generated kickstart (rvykydal)
+  Resolves: rhbz#1274686
+- network: don't misconfigure /etc/sysconfig/network GATEWAY (rvykydal)
+  Resolves: rhbz#1181290
+- ibft: add support for vlan id (rvykydal)
+  Resolves: rhbz#831002
+  Related: rhbz#831002
+
 * Tue Dec 01 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.240-1
 - Write --cdl clearpart option to /root/anaconda-ks.cfg (jstodola)
   Resolves: rhbz#1211559
