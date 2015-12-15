@@ -11,4 +11,4 @@ if [ $# -eq 0 ]; then
     set -- "${top_srcdir}"/tests/*_tests
 fi
 
-exec nosetests-3.4 -v --exclude=logpicker -a \!acceptance,\!slow "$@"
+exec nosetests-3.5 -v --exclude=logpicker -a \!acceptance,\!slow "$@"
