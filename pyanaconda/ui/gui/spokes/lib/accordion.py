@@ -85,6 +85,7 @@ class Accordion(Gtk.Box):
     def __init__(self):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
+        self._selectedPages = []
 
     def addPage(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
@@ -121,6 +122,10 @@ class Accordion(Gtk.Box):
             for member in page.members:
                 yield (page, member)
 
+    @property
+    def is_multiselection(self):
+        return len(self._selectedPages) > 1
+
     def expandPage(self, pageTitle):
         page = self._find_by_title(pageTitle)
         if not page:
@@ -136,6 +141,7 @@ class Accordion(Gtk.Box):
             return
 
         self._expanders.remove(target)
+        self._selectedPages.remove(target)
 
         # Then, remove it from the box.
         self.remove(target)
@@ -221,12 +227,25 @@ class Page(Gtk.Box):
         gi.require_version("Gdk", "3.0")
         from gi.repository import Gdk
 
-        if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
-            return
+        if event:
+            if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
+                return
 
-        if event and event.type == Gdk.EventType.KEY_RELEASE and \
-           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-            return
+            if event.type == Gdk.EventType.KEY_RELEASE and \
+               event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+                return
+
+            state = event.get_state()
+            accordion = self.get_ancestor(Accordion)
+            if state & Gdk.ModifierType.CONTROL_MASK:
+                if selector in accordion._selectedPages:
+                    # Unselect actual item and return
+                    accordion._selectedPages.remove(selector)
+                    return
+                else:
+                    accordion._selectedPages.append(selector)
+            elif not accordion._selectedPages:
+                accordion._selectedPages.append(selector)
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.
