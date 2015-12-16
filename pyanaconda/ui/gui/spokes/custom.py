@@ -1923,6 +1923,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._current_selector:
             return
 
+        skip_dialog = False
+        is_multiselection = self._accordion.is_multiselection
         for selector in self._accordion.selectedPages:
             page = self._current_page
             device = selector.device
@@ -1951,18 +1953,31 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # This is a device that exists on disk and most likely has data
                 # on it.  Thus, we first need to confirm with the user and then
                 # schedule actions to delete the thing.
-                dialog = ConfirmDeleteDialog(self.data)
-                snapshots = (device.direct and not device.isleaf)
-                dialog.refresh(getattr(device.format, "mountpoint", ""),
-                               device.name, root_name, snapshots=snapshots)
-                with self.main_window.enlightbox(dialog.window):
-                    rc = dialog.run()
+                if not skip_dialog:
+                    dialog = ConfirmDeleteDialog(self.data)
+                    snapshots = (device.direct and not device.isleaf)
+                    if not is_multiselection:
+                        if root_name and "_" in root_name:
+                            root_name = root_name.replace("_", "__")
+                            checkbox_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                                                "Delete _all other file systems in the %s root as well.")
+                                                % root_name)
+                    else:
+                        checkbox_text = C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                                           "Do _not show this dialog for other selected file systems.")
+                    dialog.refresh(getattr(device.format, "mountpoint", ""),
+                                   device.name, checkbox_text=checkbox_text, snapshots=snapshots)
+                    with self.main_window.enlightbox(dialog.window):
+                        rc = dialog.run()
+                        skip_dialog = dialog.option_checked
 
-                    if rc != 1:
-                        dialog.window.destroy()
-                        return
+                        if rc != 1:
+                            dialog.window.destroy()
+                            if skip_dialog:
+                                return
+                            continue
 
-                if dialog.deleteAll:
+                if skip_dialog and not is_multiselection:
                     for dev in (s._device for s in page.members):
                         self._destroy_device(dev)
                 else:
@@ -2305,8 +2320,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selectedDeviceLabel.set_text(selector.device.name)
                 desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.device.type, ""))
                 selectedDeviceDescLabel.set_text(desc)
+
+            if self._accordion.is_multiselection:
+                self._current_selector = selector
+
             selector.set_chosen(True)
-            self._current_selector = selector
             self._configButton.set_sensitive(False)
             self._removeButton.set_sensitive(True)
             return

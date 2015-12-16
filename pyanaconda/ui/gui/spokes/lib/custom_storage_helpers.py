@@ -41,7 +41,7 @@ from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
-from pyanaconda.i18n import _, N_, C_, CN_
+from pyanaconda.i18n import _, N_, CN_
 
 from blivet.size import Size
 from blivet.platform import platform
@@ -367,27 +367,34 @@ class ConfirmDeleteDialog(GUIObject):
 
     def __init__(self, *args, **kwargs):
         GUIObject.__init__(self, *args, **kwargs)
-        self._removeAll = self.builder.get_object("removeAllCheckbox")
+        self._optional_checkbox = self.builder.get_object("optionalCheckbox")
 
     @property
-    def deleteAll(self):
-        return self._removeAll.get_active()
+    def option_checked(self):
+        return self._optional_checkbox.get_active()
 
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
     # pylint: disable=arguments-differ
-    def refresh(self, mountpoint, device, rootName, snapshots=False):
+    def refresh(self, mountpoint, device, checkbox_text = "", snapshots=False):
+        """ Show confirmation dialog with the optional checkbox. If the
+            `checkbox_text` for the checkbox is not set then the checkbox
+            will not be showed.
+
+            :param str mountpoint: Mountpoint for device.
+            :param str device: Name of the device.
+            :param str checkbox_text: Text for checkbox. If nothing set do
+                                      not display the checkbox.
+            :param bool snapshot: If true warn user he's going to delete snapshots too.
+        """
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
 
-        if rootName and "_" in rootName:
-            rootName = rootName.replace("_", "__")
-        self._removeAll.set_label(
-                C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                    "Delete _all other file systems in the %s root as well.")
-                % rootName)
-        self._removeAll.set_sensitive(rootName is not None)
+        if checkbox_text:
+            self._optional_checkbox.set_label(checkbox_text)
+        else:
+            self._optional_checkbox.hide()
 
         if mountpoint:
             txt = "%s (%s)" % (mountpoint, device)
