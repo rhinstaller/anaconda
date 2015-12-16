@@ -126,6 +126,10 @@ class Accordion(Gtk.Box):
     def is_multiselection(self):
         return len(self._selectedPages) > 1
 
+    @property
+    def selectedPages(self):
+        return self._selectedPages
+
     def expandPage(self, pageTitle):
         page = self._find_by_title(pageTitle)
         if not page:
@@ -241,6 +245,7 @@ class Page(Gtk.Box):
                 if selector in accordion._selectedPages:
                     # Unselect actual item and return
                     accordion._selectedPages.remove(selector)
+                    selector.set_chosen(False)
                     return
                 else:
                     accordion._selectedPages.append(selector)
