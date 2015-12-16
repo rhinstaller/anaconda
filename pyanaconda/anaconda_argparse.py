@@ -506,6 +506,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("mpathfriendlynames"))
     ap.add_argument("--kexec", action="store_true", default=False,
                     help=help_parser.help_text("kexec"))
+    ap.add_argument("--nospacecheck", action="store_true", default=False,
+                    help=help_parser.help_text("nospacecheck"))
 
     # some defaults change based on cmdline flags
     if boot_cmdline is not None:

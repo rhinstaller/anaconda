@@ -587,6 +587,16 @@ Also note that while SELinux is running in the installation environment by
 default, it is running in permissive mode so disabling it there does not make
 much sense.
 
+.. inst.nospacecheck:
+
+inst.nospacecheck
+^^^^^^^^^^^^^^^^^
+
+Disable space requirement check in the installation. You still get warning message
+when the root partition is too small but the installation process can be started
+anyway.
+This could result in failed installation or the installed system could be broken!
+
 Third-party options
 ^^^^^^^^^^^^^^^^^^^
 

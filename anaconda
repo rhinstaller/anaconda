@@ -870,6 +870,7 @@ if __name__ == "__main__":
     flags.selinux = opts.selinux
     flags.eject = opts.eject
     flags.kexec = opts.kexec
+    flags.nospacecheck = opts.nospacecheck
 
     # Switch to tty1 on exception in case something goes wrong during X start.
     # This way if, for example, metacity doesn't start, we switch back to a

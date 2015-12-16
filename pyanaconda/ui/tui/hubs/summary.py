@@ -126,9 +126,11 @@ class SummaryHub(TUIHub):
                         return False
                 # do a bit of final sanity checking, making sure pkg selection
                 # size < available fs space
+                # only print warning if nospacecheck flag is set
                 if self._checker and not self._checker.check():
                     print(self._checker.error_message)
-                    return False
+                    if not flags.nospacecheck:
+                        return False
                 if self.app._screens:
                     self.app.close_screen()
                     return True
