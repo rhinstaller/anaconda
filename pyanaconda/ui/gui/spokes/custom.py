@@ -1923,52 +1923,52 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._current_selector:
             return
 
-        page = self._current_page
-        selector = self._current_selector
-        device = self._current_selector.device
-        root_name = None
-        if selector.root:
-            root_name = selector.root.name
-        elif page:
-            root_name = page.pageTitle
+        for selector in self._accordion.selectedPages:
+            page = self._current_page
+            device = selector.device
+            root_name = None
+            if selector.root:
+                root_name = selector.root.name
+            elif page:
+                root_name = page.pageTitle
 
-        log.debug("removing device '%s' from page %s", device, root_name)
+            log.debug("removing device '%s' from page %s", device, root_name)
 
-        if root_name == translated_new_install_name():
-            if device.exists:
-                # This is an existing device that was added to the new page.
-                # All we want to do is revert any changes to the device and
-                # it will end up back in whatever old pages it came from.
-                with ui_storage_logger():
-                    self._storage_playground.resetDevice(device)
+            if root_name == translated_new_install_name():
+                if device.exists:
+                    # This is an existing device that was added to the new page.
+                    # All we want to do is revert any changes to the device and
+                    # it will end up back in whatever old pages it came from.
+                    with ui_storage_logger():
+                        self._storage_playground.resetDevice(device)
 
-                log.debug("updated device: %s", device)
+                    log.debug("updated device: %s", device)
+                else:
+                    # Destroying a non-existing device doesn't require any
+                    # confirmation.
+                    self._destroy_device(device)
             else:
-                # Destroying a non-existing device doesn't require any
-                # confirmation.
-                self._destroy_device(device)
-        else:
-            # This is a device that exists on disk and most likely has data
-            # on it.  Thus, we first need to confirm with the user and then
-            # schedule actions to delete the thing.
-            dialog = ConfirmDeleteDialog(self.data)
-            snapshots = (device.direct and not device.isleaf)
-            dialog.refresh(getattr(device.format, "mountpoint", ""),
-                           device.name, root_name, snapshots=snapshots)
-            with self.main_window.enlightbox(dialog.window):
-                rc = dialog.run()
+                # This is a device that exists on disk and most likely has data
+                # on it.  Thus, we first need to confirm with the user and then
+                # schedule actions to delete the thing.
+                dialog = ConfirmDeleteDialog(self.data)
+                snapshots = (device.direct and not device.isleaf)
+                dialog.refresh(getattr(device.format, "mountpoint", ""),
+                               device.name, root_name, snapshots=snapshots)
+                with self.main_window.enlightbox(dialog.window):
+                    rc = dialog.run()
 
-                if rc != 1:
-                    dialog.window.destroy()
-                    return
+                    if rc != 1:
+                        dialog.window.destroy()
+                        return
 
-            if dialog.deleteAll:
-                for dev in (s._device for s in page.members):
-                    self._destroy_device(dev)
-            else:
-                self._destroy_device(device)
+                if dialog.deleteAll:
+                    for dev in (s._device for s in page.members):
+                        self._destroy_device(dev)
+                else:
+                    self._destroy_device(device)
 
-        log.info("ui: removed device %s", device.name)
+            log.info("ui: removed device %s", device.name)
 
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
@@ -2249,21 +2249,29 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         # Take care of the previously chosen selector.
-        if self._current_selector:
-            # unselect the previously chosen selector
+        if self._current_selector and not self._accordion.is_multiselection:
             self._current_selector.set_chosen(False)
             self._save_current_selector()
             log.debug("new selector: %s", selector.device)
+        # In multiselection the _current_selector variable is not used
+        elif self._current_selector:
+            self._current_selector = None
+            log.debug("Remove current selector in multiselection")
 
         no_edit = False
-        if selector.device.format.type == "luks" and \
+        currentPageType = None
+        if selector and self._accordion.is_multiselection:
+            currentPageType = NOTEBOOK_LABEL_PAGE
+            self._whenCreateLabel.set_text("Select a single mount point to edit properties.")
+            no_edit = True
+        elif selector.device.format.type == "luks" and \
            selector.device.format.exists:
-            self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
+            currentPageType = NOTEBOOK_LUKS_PAGE
             selectedDeviceLabel = self._encryptedDeviceLabel
             selectedDeviceDescLabel = self._encryptedDeviceDescLabel
             no_edit = True
         elif not getattr(selector.device, "complete", True):
-            self._partitionsNotebook.set_current_page(NOTEBOOK_INCOMPLETE_PAGE)
+            currentPageType = NOTEBOOK_INCOMPLETE_PAGE
             selectedDeviceLabel = self._incompleteDeviceLabel
             selectedDeviceDescLabel = self._incompleteDeviceDescLabel
 
@@ -2286,15 +2294,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
         elif devicefactory.get_device_type(selector.device) is None:
-            self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
+            currentPageType = NOTEBOOK_UNEDITABLE_PAGE
             selectedDeviceLabel = self._uneditableDeviceLabel
             selectedDeviceDescLabel = self._uneditableDeviceDescLabel
             no_edit = True
 
         if no_edit:
-            selectedDeviceLabel.set_text(selector.device.name)
-            desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.device.type, ""))
-            selectedDeviceDescLabel.set_text(desc)
+            self._partitionsNotebook.set_current_page(currentPageType)
+            if currentPageType != NOTEBOOK_LABEL_PAGE:
+                selectedDeviceLabel.set_text(selector.device.name)
+                desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.device.type, ""))
+                selectedDeviceDescLabel.set_text(desc)
             selector.set_chosen(True)
             self._current_selector = selector
             self._configButton.set_sensitive(False)
