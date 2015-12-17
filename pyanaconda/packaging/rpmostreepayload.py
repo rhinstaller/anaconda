@@ -141,7 +141,7 @@ class RPMOSTreePayload(ArchivePayload):
 
         # Store this for use in postInstall too, where we need to
         # undo/redo this step.
-        self._base_remote_args = ["remote", "add"]
+        self._base_remote_args = ["remote", "add", "--if-not-exists"]
         if ((hasattr(ostreesetup, 'noGpg') and ostreesetup.noGpg) or
             (hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg)):
             self._base_remote_args.append("--set=gpg-verify=false")
