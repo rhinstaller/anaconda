@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+#                    Jiri Konecny <jkonecny@redhat.com>
 #
 
 from blivet.devicefactory import is_supported_device_type
@@ -85,7 +86,8 @@ class Accordion(Gtk.Box):
     def __init__(self):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
-        self._selectedPages = []
+        self._selected_pages = []
+        self.current_selector = None
 
     def addPage(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
@@ -109,6 +111,20 @@ class Accordion(Gtk.Box):
         return None
 
     @property
+    def current_page(self):
+        # The current page is really a function of the current selector.
+        # Whatever selector on the LHS is selected, the current page is the
+        # page containing that selector.
+        if not self.current_selector:
+            return None
+
+        for page in self.allPages:
+            if self.current_selector in page.members:
+                return page
+
+        return None
+
+    @property
     def allPages(self):
         return [e.get_child() for e in self._expanders]
 
@@ -127,8 +143,14 @@ class Accordion(Gtk.Box):
         return len(self._selectedPages) > 1
 
     @property
+    def is_selected(self):
+        if self.currentSelector:
+            return True
+        return False
+
+    @property
     def selectedPages(self):
-        return self._selectedPages
+        return self._selected_pages
 
     def expandPage(self, pageTitle):
         page = self._find_by_title(pageTitle)
@@ -145,7 +167,7 @@ class Accordion(Gtk.Box):
             return
 
         self._expanders.remove(target)
-        self._selectedPages.remove(target)
+        self._selected_pages.remove(target)
 
         # Then, remove it from the box.
         self.remove(target)
@@ -156,9 +178,17 @@ class Accordion(Gtk.Box):
 
         self._expanders = []
 
+    def clear_current_selector(self):
+        """ If current selector is selected, deselect it
+        """
+        if self.current_selector:
+            self.current_selector.set_chosen(False)
+            self.current_selector = None
+
     def _onExpanded(self, obj, cb=None):
         if cb:
             cb(obj.get_child())
+
 
 # A Page is a box that is stored in an Accordion.  It breaks down all the filesystems that
 # comprise a single installed OS into two categories - Data filesystems and System filesystems.
@@ -242,15 +272,15 @@ class Page(Gtk.Box):
             state = event.get_state()
             accordion = self.get_ancestor(Accordion)
             if state & Gdk.ModifierType.CONTROL_MASK:
-                if selector in accordion._selectedPages:
+                if selector in accordion._selected_pages:
                     # Unselect actual item and return
-                    accordion._selectedPages.remove(selector)
+                    accordion._selected_pages.remove(selector)
                     selector.set_chosen(False)
                     return
                 else:
-                    accordion._selectedPages.append(selector)
-            elif not accordion._selectedPages:
-                accordion._selectedPages.append(selector)
+                    accordion._selected_pages.append(selector)
+            elif not accordion._selected_pages:
+                accordion._selected_pages.append(selector)
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.
