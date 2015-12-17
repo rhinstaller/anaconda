@@ -168,7 +168,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self.passphrase = ""
 
-        self._current_selector = None
         self._devices = []
         self._error = None
         self._hidden_disks = []
@@ -422,27 +421,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._updateSpaceDisplay()
         self._applyButton.set_sensitive(False)
 
-    @property
-    def _current_page(self):
-        # The current page is really a function of the current selector.
-        # Whatever selector on the LHS is selected, the current page is the
-        # page containing that selector.
-        if not self._current_selector:
-            return None
-
-        for page in self._accordion.allPages:
-            if self._current_selector in page.members:
-                return page
-
-        return None
-
-    def _clear_current_selector(self):
-        """ If something is selected, deselect it
-        """
-        if self._current_selector:
-            self._current_selector.set_chosen(False)
-            self._current_selector = None
-
     def _get_fstype(self, fstypeCombo):
         itr = fstypeCombo.get_active_iter()
         if not itr:
@@ -573,7 +551,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
         self._initialized = False
-        self._clear_current_selector()
+        self._accordion.clear_current_selector()
 
         # Start with buttons disabled, since nothing is selected.
         self._removeButton.set_sensitive(False)
@@ -1629,7 +1607,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.clear_errors()
 
         # Save anything from the currently displayed mountpoint.
-        self._save_right_side(self._current_selector)
+        self._save_right_side(self._accordion.current_selector)
         self._applyButton.set_sensitive(False)
 
         # And then display the summary screen.  From there, the user will either
@@ -1741,7 +1719,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.set_error(_("Invalid partition size set. Use a valid integer."))
 
     def on_add_clicked(self, button):
-        self._save_right_side(self._current_selector)
+        self._save_right_side(self._accordion.current_selector)
 
         ## initialize and run the AddDialog
         dialog = AddDialog(self.data,
@@ -1906,7 +1884,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("show mountpoint: %s", page.pageTitle)
         if not page.members:
-            self._clear_current_selector()
+            self._accordion.clear_current_selector()
             return
 
         if not mountpoint:
@@ -1920,7 +1898,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def on_remove_clicked(self, button):
         # Nothing displayed on the RHS?  Nothing to remove.
-        if not self._current_selector:
+        if not self._accordion.current_selector:
             return
 
         skip_dialog = False
@@ -1999,7 +1977,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog.run()
 
     def on_configure_clicked(self, button):
-        selector = self._current_selector
+        selector = self._accordion.current_selector
         if not selector:
             return
 
@@ -2254,23 +2232,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._modifyContainerButton.set_sensitive(not container_exists)
 
-    def _save_current_selector(self):
-        log.debug("current selector: %s", self._current_selector.device)
-        self._save_right_side(self._current_selector)
-        self._clear_current_selector()
+    def _save_current_page(self):
+        log.debug("current selector: %s", self._accordion.current_selector.device)
+        self._save_right_side(self._accordion.current_selector)
+        self._accordion.clear_current_selector()
 
     def on_selector_clicked(self, selector):
-        if not self._initialized or (self._current_selector is selector):
+        if not self._initialized or (self._accordion.current_selector is selector):
             return
 
         # Take care of the previously chosen selector.
-        if self._current_selector and not self._accordion.is_multiselection:
-            self._current_selector.set_chosen(False)
-            self._save_current_selector()
+        if self._accordion.current_selector and not self._accordion.is_multiselection:
+            self._accordion.current_selector.set_chosen(False)
+            self._save_current_page()
             log.debug("new selector: %s", selector.device)
-        # In multiselection the _current_selector variable is not used
-        elif self._current_selector:
-            self._current_selector = None
+        # In multiselection the current_selector variable is not used
+        elif self._accordion.current_selector:
+            self._accordion.current_selector = None
             log.debug("Remove current selector in multiselection")
 
         no_edit = False
@@ -2322,7 +2300,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selectedDeviceDescLabel.set_text(desc)
 
             if self._accordion.is_multiselection:
-                self._current_selector = selector
+                self._accordion.current_selector = selector
 
             selector.set_chosen(True)
             self._configButton.set_sensitive(False)
@@ -2336,7 +2314,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Set up the newly chosen selector.
         self._populate_right_side(selector)
         selector.set_chosen(True)
-        self._current_selector = selector
+        self._accordion.current_selector = selector
 
         self._applyButton.set_sensitive(False)
         container_device = devicefactory.get_device_type(selector.device) in CONTAINER_DEVICE_TYPES
@@ -2351,8 +2329,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         log.debug("page clicked: %s", page.pageTitle)
-        if self._current_selector:
-            self._save_current_selector()
+        if self._accordion.current_selector:
+            self._save_current_page()
 
         self._show_mountpoint(page=page, mountpoint=mountpointToShow)
 
@@ -2447,8 +2425,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         active = widget.get_active()
 
         encrypt_sensitive = active
-        if self._current_selector:
-            device = self._current_selector.device.raw_device
+        if self._accordion.current_selector:
+            device = self._accordion.current_selector.device.raw_device
 
             ancestors = device.ancestors
             ancestors.remove(device)
@@ -2482,10 +2460,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         """ Set up the vg widgets for lvm or hide them for other types. """
         device_type = self._get_current_device_type()
         if device is None:
-            if self._current_selector is None:
+            if self._accordion.current_selector is None:
                 return
 
-            device = self._current_selector.device
+            device = self._accordion.current_selector.device
             if device:
                 device = device.raw_device
 
@@ -2632,7 +2610,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         # lvm uses the RHS to set disk set. no foolish minds here.
-        exists = self._current_selector and self._current_selector.device.exists
+        exists = self._accordion.current_selector and self._accordion.current_selector.device.exists
         self._configButton.set_sensitive(not exists and new_type not in CONTAINER_DEVICE_TYPES)
 
         # this has to be done before calling populate_raid since it will need
@@ -2720,14 +2698,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     @timed_action(delay=50, threshold=100)
     def on_update_settings_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
-        self._save_right_side(self._current_selector)
+        self._save_right_side(self._accordion.current_selector)
         self._applyButton.set_sensitive(False)
 
     @timed_action(delay=50, threshold=100)
     def on_unlock_clicked(self, *args):
         """ try to open the luks device, populate, then call _do_refresh. """
         self.clear_errors()
-        device = self._current_selector.device
+        device = self._accordion.current_selector.device
         log.info("trying to unlock %s...", device.name)
         passphrase = self._passphraseEntry.get_text()
         device.format.passphrase = passphrase
@@ -2761,7 +2739,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._storage_playground.roots = findExistingInstallations(self._storage_playground.devicetree)
 
         self._devices = self._storage_playground.devices
-        self._clear_current_selector()
+        self._accordion.clear_current_selector()
         self._do_refresh()
 
     def on_value_changed(self, *args):
