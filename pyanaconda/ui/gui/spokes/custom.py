@@ -83,7 +83,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.helpers import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
-from pyanaconda.ui.gui.spokes.lib.accordion import updateSelectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
+from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, Accordion, Page, CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
@@ -469,7 +469,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _populate_accordion(self):
         # Make sure we start with a clean state.
-        self._accordion.removeAllPages()
+        self._accordion.remove_all_pages()
 
         new_devices = self.get_new_devices()
 
@@ -487,7 +487,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  self.on_create_clicked,
                                  self._change_autopart_type,
                                  partitionsToReuse=bool(ui_roots) or bool(self.unusedDevices))
-            self._accordion.addPage(page, cb=self.on_page_clicked)
+            self._accordion.add_page(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
             self._whenCreateLabel.set_text(_("When you create mount points for "
@@ -523,7 +523,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                    (root.name != translated_new_install_name() and not device.format.exists):
                     continue
 
-                selector = page.addSelector(device, self.on_selector_clicked,
+                selector = page.add_selector(device, self.on_selector_clicked,
                                             mountpoint=mountpoint)
                 selector.root = root
 
@@ -532,21 +532,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                    (root.name != translated_new_install_name() and not device.format.exists):
                     continue
 
-                selector = page.addSelector(device, self.on_selector_clicked)
+                selector = page.add_selector(device, self.on_selector_clicked)
                 selector.root = root
 
             page.show_all()
-            self._accordion.addPage(page, cb=self.on_page_clicked)
+            self._accordion.add_page(page, cb=self.on_page_clicked)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if self.unusedDevices:
             page = UnknownPage(_("Unknown"))
 
             for u in sorted(self.unusedDevices, key=lambda d: d.name):
-                page.addSelector(u, self.on_selector_clicked)
+                page.add_selector(u, self.on_selector_clicked)
 
             page.show_all()
-            self._accordion.addPage(page, cb=self.on_page_clicked)
+            self._accordion.add_page(page, cb=self.on_page_clicked)
 
     def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
@@ -563,8 +563,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # And then open the first page by default.  Most of the time, this will
         # be fine since it'll be the new installation page.
         self._initialized = True
-        firstPage = self._accordion.allPages[0]
-        self._accordion.expandPage(firstPage.pageTitle)
+        firstPage = self._accordion.all_pages[0]
+        self._accordion.expand_page(firstPage.pageTitle)
         self._show_mountpoint(page=firstPage, mountpoint=mountpointToShow)
 
         self._applyButton.set_sensitive(False)
@@ -590,7 +590,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             devices = list(set(devices))
 
         for _device in devices:
-            page.addSelector(_device, self.on_selector_clicked)
+            page.add_selector(_device, self.on_selector_clicked)
 
         page.show_all()
 
@@ -599,7 +599,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # we're only updating selectors in the new root. problem?
         page = self._accordion._find_by_title(translated_new_install_name()).get_child()
         for selector in page.members:
-            updateSelectorFromDevice(selector, selector.device)
+            update_selector_from_device(selector, selector.device)
 
     def _replace_device(self, **kwargs):
         """ Create a replacement device and update the device selector. """
@@ -612,21 +612,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if selector:
             # update the selector with the new device and its size
-            updateSelectorFromDevice(selector, new_device)
+            update_selector_from_device(selector, new_device)
 
     def _update_device_in_selectors(self, old_device, new_device):
-        for s in self._accordion.allSelectors:
+        for s in self._accordion.all_selectors:
             if s._device == old_device:
-                updateSelectorFromDevice(s, new_device)
+                update_selector_from_device(s, new_device)
 
     def _update_all_devices_in_selectors(self):
-        for s in self._accordion.allSelectors:
+        for s in self._accordion.all_selectors:
             for new_device in self._storage_playground.devices:
                 if ((s._device.name == new_device.name) or
                     (getattr(s._device, "req_name", 1) == getattr(new_device, "req_name", 2)) and
                     s._device.type == new_device.type and
                     s._device.format.type == new_device.format.type):
-                    updateSelectorFromDevice(s, new_device)
+                    update_selector_from_device(s, new_device)
                     break
             else:
                 log.warning("failed to replace device: %s", s._device)
@@ -792,7 +792,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # The selector shows the visible disk, so it is necessary
             # to use device and size, which are the values visible to
             # the user.
-            for s in self._accordion.allSelectors:
+            for s in self._accordion.all_selectors:
                 if s._device == device:
                     s.size = str(device.size)
 
@@ -857,20 +857,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             # first, remove this selector from any old install page(s)
             new_selector = None
-            for (page, _selector) in self._accordion.allMembers:
+            for (page, _selector) in self._accordion.all_members:
                 if _selector.device in (device, old_device):
                     if page.pageTitle == translated_new_install_name():
                         new_selector = _selector
                         continue
 
-                    page.removeSelector(_selector)
+                    page.remove_selector(_selector)
                     if not page.members:
                         log.debug("removing empty page %s", page.pageTitle)
-                        self._accordion.removePage(page.pageTitle)
+                        self._accordion.remove_page(page.pageTitle)
 
             # either update the existing selector or add a new one
             if new_selector:
-                updateSelectorFromDevice(new_selector, device)
+                update_selector_from_device(new_selector, device)
             else:
                 self.add_new_selector(device)
 
@@ -1208,7 +1208,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 log.debug("updating mountpoint of %s to %s", device.name, mountpoint)
                 device.format.mountpoint = mountpoint
                 if old_mountpoint:
-                    updateSelectorFromDevice(selector, device)
+                    update_selector_from_device(selector, device)
                 else:
                     # add an entry to the new page but do not remove any entries
                     # from other pages since we haven't altered the filesystem
@@ -1231,7 +1231,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     use_dev.name = old_name
                     self.set_info(_("Specified name %s already in use.") % new_name)
                 else:
-                    updateSelectorFromDevice(selector, device)
+                    update_selector_from_device(selector, device)
 
         self._populate_right_side(selector)
 
@@ -1903,7 +1903,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         skip_dialog = False
         is_multiselection = self._accordion.is_multiselection
-        for selector in self._accordion.selectedPages:
+        for selector in self._accordion.selected_pages:
             page = self._current_page
             device = selector.device
             root_name = None

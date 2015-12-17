@@ -37,14 +37,14 @@ from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
 __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
-           "newSelectorFromDevice", "updateSelectorFromDevice",
+           "new_selector_from_device", "update_selector_from_device",
            "Accordion",
            "Page", "UnknownPage", "CreateNewPage"]
 
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1
 
-def updateSelectorFromDevice(selector, device, mountpoint=""):
+def update_selector_from_device(selector, device, mountpoint=""):
     """Create a MountpointSelector from a Device object template.  This
        method should be used whenever constructing a new selector, or when
        setting a bunch of attributes on an existing selector.  For just
@@ -71,10 +71,10 @@ def updateSelectorFromDevice(selector, device, mountpoint=""):
     selector.props.mountpoint = mp
     selector.device = device
 
-def newSelectorFromDevice(device, mountpoint=""):
+def new_selector_from_device(device, mountpoint=""):
     selector = MountpointSelector(device.name, str(device.size))
     selector._root = None
-    updateSelectorFromDevice(selector, device, mountpoint)
+    update_selector_from_device(selector, device, mountpoint)
 
     return selector
 
@@ -89,7 +89,7 @@ class Accordion(Gtk.Box):
         self._selected_pages = []
         self.current_selector = None
 
-    def addPage(self, contents, cb):
+    def add_page(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
                           escape_markup(contents.pageTitle), use_markup=True,
                           xalign=0, yalign=0.5, wrap=True)
@@ -100,7 +100,7 @@ class Accordion(Gtk.Box):
 
         self.add(expander)
         self._expanders.append(expander)
-        expander.connect("activate", self._onExpanded, cb)
+        expander.connect("activate", self._on_expanded, cb)
         expander.show_all()
 
     def _find_by_title(self, title):
@@ -118,29 +118,29 @@ class Accordion(Gtk.Box):
         if not self.current_selector:
             return None
 
-        for page in self.allPages:
+        for page in self.all_pages:
             if self.current_selector in page.members:
                 return page
 
         return None
 
     @property
-    def allPages(self):
+    def all_pages(self):
         return [e.get_child() for e in self._expanders]
 
     @property
-    def allSelectors(self):
-        return [s for p in self.allPages for s in p.members]
+    def all_selectors(self):
+        return [s for p in self.all_pages for s in p.members]
 
     @property
-    def allMembers(self):
-        for page in self.allPages:
+    def all_members(self):
+        for page in self.all_pages:
             for member in page.members:
                 yield (page, member)
 
     @property
     def is_multiselection(self):
-        return len(self._selectedPages) > 1
+        return len(self._selected_pages) > 1
 
     @property
     def is_selected(self):
@@ -149,10 +149,10 @@ class Accordion(Gtk.Box):
         return False
 
     @property
-    def selectedPages(self):
+    def selected_pages(self):
         return self._selected_pages
 
-    def expandPage(self, pageTitle):
+    def expand_page(self, pageTitle):
         page = self._find_by_title(pageTitle)
         if not page:
             raise LookupError()
@@ -160,7 +160,7 @@ class Accordion(Gtk.Box):
         if not page.get_expanded():
             page.emit("activate")
 
-    def removePage(self, pageTitle):
+    def remove_page(self, pageTitle):
         # First, remove the expander from the list of expanders we maintain.
         target = self._find_by_title(pageTitle)
         if not target:
@@ -172,7 +172,7 @@ class Accordion(Gtk.Box):
         # Then, remove it from the box.
         self.remove(target)
 
-    def removeAllPages(self):
+    def remove_all_pages(self):
         for e in self._expanders:
             self.remove(e)
 
@@ -185,7 +185,7 @@ class Accordion(Gtk.Box):
             self.current_selector.set_chosen(False)
             self.current_selector = None
 
-    def _onExpanded(self, obj, cb=None):
+    def _on_expanded(self, obj, cb=None):
         if cb:
             cb(obj.get_child())
 
@@ -202,8 +202,8 @@ class Page(Gtk.Box):
         self._dataLabel = self._make_category_label(_("DATA"))
         really_hide(self._dataLabel)
         self._dataBox.add(self._dataLabel)
-        self._dataBox.connect("add", self._onSelectorAdded, self._dataLabel)
-        self._dataBox.connect("remove", self._onSelectorRemoved, self._dataLabel)
+        self._dataBox.connect("add", self._on_selector_added, self._dataLabel)
+        self._dataBox.connect("remove", self._on_selector_removed, self._dataLabel)
         self.add(self._dataBox)
 
         # Create the System label and a box to store all its members in.
@@ -211,8 +211,8 @@ class Page(Gtk.Box):
         self._systemLabel = self._make_category_label(_("SYSTEM"))
         really_hide(self._systemLabel)
         self._systemBox.add(self._systemLabel)
-        self._systemBox.connect("add", self._onSelectorAdded, self._systemLabel)
-        self._systemBox.connect("remove", self._onSelectorRemoved, self._systemLabel)
+        self._systemBox.connect("add", self._on_selector_added, self._systemLabel)
+        self._systemBox.connect("remove", self._on_selector_removed, self._systemLabel)
         self.add(self._systemBox)
 
         self.members = []
@@ -226,38 +226,38 @@ class Page(Gtk.Box):
         label.set_margin_left(24)
         return label
 
-    def addSelector(self, device, cb, mountpoint=""):
-        selector = newSelectorFromDevice(device, mountpoint=mountpoint)
-        selector.connect("button-press-event", self._onSelectorClicked, cb)
-        selector.connect("key-release-event", self._onSelectorClicked, cb)
-        selector.connect("focus-in-event", self._onSelectorFocusIn, cb)
+    def add_selector(self, device, cb, mountpoint=""):
+        selector = new_selector_from_device(device, mountpoint=mountpoint)
+        selector.connect("button-press-event", self._on_selector_clicked, cb)
+        selector.connect("key-release-event", self._on_selector_clicked, cb)
+        selector.connect("focus-in-event", self._on_selector_focus_in, cb)
         selector.set_margin_bottom(6)
         self.members.append(selector)
 
         # pylint: disable=no-member
-        if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
+        if self._mountpoint_type(selector.props.mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
         else:
             self._systemBox.add(selector)
 
         return selector
 
-    def removeSelector(self, selector):
-        if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
+    def remove_selector(self, selector):
+        if self._mountpoint_type(selector.props.mountpoint) == DATA_DEVICE:
             self._dataBox.remove(selector)
         else:
             self._systemBox.remove(selector)
 
         self.members.remove(selector)
 
-    def _mountpointType(self, mountpoint):
+    def _mountpoint_type(self, mountpoint):
         if not mountpoint or mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var",
                                             "swap", "PPC PReP Boot", "BIOS Boot"]:
             return SYSTEM_DEVICE
         else:
             return DATA_DEVICE
 
-    def _onSelectorClicked(self, selector, event, cb):
+    def _on_selector_clicked(self, selector, event, cb):
         gi.require_version("Gdk", "3.0")
         from gi.repository import Gdk
 
@@ -286,15 +286,15 @@ class Page(Gtk.Box):
         # show the details for the newly selected object.
         cb(selector)
 
-    def _onSelectorFocusIn(self, selector, event, cb):
+    def _on_selector_focus_in(self, selector, event, cb):
         # could be simple lambda, but this way it looks more similar to the
-        # _onSelectorClicked
+        # _on_selector_clicked
         cb(selector)
 
-    def _onSelectorAdded(self, container, widget, label):
+    def _on_selector_added(self, container, widget, label):
         really_show(label)
 
-    def _onSelectorRemoved(self, container, widget, label):
+    def _on_selector_removed(self, container, widget, label):
         # This runs before widget is removed from container, so if it's the last
         # item then the container will still not be empty.
         if len(container.get_children()) == 1:
@@ -308,17 +308,17 @@ class UnknownPage(Page):
         self.members = []
         self.pageTitle = title
 
-    def addSelector(self, device, cb, mountpoint=""):
-        selector = newSelectorFromDevice(device, mountpoint=mountpoint)
-        selector.connect("button-press-event", self._onSelectorClicked, cb)
-        selector.connect("key-release-event", self._onSelectorClicked, cb)
+    def add_selector(self, device, cb, mountpoint=""):
+        selector = new_selector_from_device(device, mountpoint=mountpoint)
+        selector.connect("button-press-event", self._on_selector_clicked, cb)
+        selector.connect("key-release-event", self._on_selector_clicked, cb)
 
         self.members.append(selector)
         self.add(selector)
 
         return selector
 
-    def removeSelector(self, selector):
+    def remove_selector(self, selector):
         self.remove(selector)
         self.members.remove(selector)
 
