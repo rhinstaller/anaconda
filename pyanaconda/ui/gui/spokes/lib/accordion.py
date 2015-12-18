@@ -36,6 +36,9 @@ gi.require_version("Gtk", "3.0")
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
+import logging
+log = logging.getLogger("anaconda")
+
 __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
            "new_selector_from_device", "update_selector_from_device",
            "Accordion",
@@ -78,16 +81,28 @@ def new_selector_from_device(device, mountpoint=""):
 
     return selector
 
-# An Accordion is a box that goes on the left side of the custom partitioning spoke.  It
-# stores multiple expanders which are here called Pages.  These Pages correspond to
-# individual installed OSes on the system plus some special ones.  When one Page is
-# expanded, all others are collapsed.
 class Accordion(Gtk.Box):
+    """ An Accordion is a box that goes on the left side of the custom partitioning spoke.
+        It stores multiple expanders which are here called Pages.  These Pages correspond to
+        individual installed OSes on the system plus some special ones.  When one Page is
+        expanded, all others are collapsed.
+    """
     def __init__(self):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
-        self._selected_pages = []
-        self.current_selector = None
+        self._active_selectors = []
+        self._current_selector = None
+
+    def _find_by_title(self, title):
+        for e in self._expanders:
+            if e.get_child().pageTitle == title:
+                return e
+
+        return None
+
+    def _on_expanded(self, obj, cb=None):
+        if cb:
+            cb(obj.get_child())
 
     def add_page(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
@@ -103,18 +118,67 @@ class Accordion(Gtk.Box):
         expander.connect("activate", self._on_expanded, cb)
         expander.show_all()
 
-    def _find_by_title(self, title):
-        for e in self._expanders:
-            if e.get_child().pageTitle == title:
-                return e
+    def select(self, selector):
+        """ Select one item. Remove selection from all other items
+            and clear ``current_selector`` if set. Add new selector and
+            append it to selected items. Also select the new item.
 
-        return None
+            :param selector: Selector which we want to select.
+        """
+        for s in self._active_selectors:
+            s.set_chosen(False)
+        self._active_selectors.clear()
+        self._active_selectors.append(selector)
+        self._current_selector = selector
+        selector.set_chosen(True)
+        log.debug("Select %s device", selector.device)
+
+    def append_selection(self, selectors):
+        """ Append new selectors to the actual selection. This takes
+            list of selectors.
+            If more than 1 item is selected remove the ``current_selector``.
+            No current selection is allowed in multiselection.
+
+            :param list selectors: List of selectors which will be
+            appended to current selection.
+        """
+        for s in selectors:
+            self._active_selectors.append(s)
+            s.set_chosen(True)
+            log.debug("Device %s appended to selection", s.device)
+
+        if len(self._active_selectors) == 1:
+            self._current_selector = self._active_selectors[0]
+        else:
+            self._current_selector = None
+
+    def remove_selection(self, selectors):
+        """ Remove :param:`selectors` from current selection. If only
+            one item is selected after this operation it's set as
+            ``current_selector``.
+            Items which are not selected are ignored.
+
+            :param list selectors: List of selectors which will be
+            removed from current selection.
+        """
+        for s in selectors:
+            if s in self._active_selectors:
+                s.set_chosen(False)
+                self._active_selectors.remove(s)
+                log.debug("Device %s removed from selection", s)
+
+        if len(self._active_selectors) == 1:
+            self._current_selector = self._active_selectors[0]
+            self._current_selector.set_chosen(True)
+        else:
+            self._current_selector = None
 
     @property
     def current_page(self):
-        # The current page is really a function of the current selector.
-        # Whatever selector on the LHS is selected, the current page is the
-        # page containing that selector.
+        """ The current page is really a function of the current selector.
+            Whatever selector on the LHS is selected, the current page is the
+            page containing that selector.
+        """
         if not self.current_selector:
             return None
 
@@ -123,6 +187,10 @@ class Accordion(Gtk.Box):
                 return page
 
         return None
+
+    @property
+    def current_selector(self):
+        return self._current_selector
 
     @property
     def all_pages(self):
@@ -140,17 +208,17 @@ class Accordion(Gtk.Box):
 
     @property
     def is_multiselection(self):
-        return len(self._selected_pages) > 1
+        return len(self._active_selectors) > 1
 
     @property
-    def is_selected(self):
-        if self.currentSelector:
+    def is_current_selected(self):
+        if self.current_selector:
             return True
         return False
 
     @property
-    def selected_pages(self):
-        return self._selected_pages
+    def selected_items(self):
+        return self._active_selectors
 
     def expand_page(self, pageTitle):
         page = self._find_by_title(pageTitle)
@@ -167,7 +235,7 @@ class Accordion(Gtk.Box):
             return
 
         self._expanders.remove(target)
-        self._selected_pages.remove(target)
+        self._active_selectors.remove(target)
 
         # Then, remove it from the box.
         self.remove(target)
@@ -181,13 +249,47 @@ class Accordion(Gtk.Box):
     def clear_current_selector(self):
         """ If current selector is selected, deselect it
         """
-        if self.current_selector:
-            self.current_selector.set_chosen(False)
-            self.current_selector = None
+        if self._current_selector:
+            if self._current_selector in self._active_selectors:
+                self._active_selectors.remove(self._current_selector)
+            self._current_selector.set_chosen(False)
+            self._current_selector = None
 
-    def _on_expanded(self, obj, cb=None):
-        if cb:
-            cb(obj.get_child())
+    def process_event(self, selector, event, cb):
+        """ Process events from selectors and select items as result.
+            Call cb after selection is done with old selector and new selector
+            as arguments.
+
+            :param selector: Clicked selector
+            :param event: Gtk event object
+            :param cb: Callback which will be called after selection is done.
+            This callback is setup in :meth:`Page.add_selector` method.
+        """
+        gi.require_version("Gdk", "3.0")
+        from gi.repository import Gdk
+
+        if event:
+            if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
+                return
+
+            if event.type == Gdk.EventType.KEY_RELEASE and \
+               event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+                return
+
+            old_selector = self.current_selector
+            # deal with multiselection
+            state = event.get_state()
+            if state & Gdk.ModifierType.CONTROL_MASK: # holding CTRL
+                if selector in self._active_selectors:
+                    self.remove_selection([selector])
+                else:
+                    self.append_selection([selector])
+            else:
+                self.select(selector)
+
+        # Then, this callback will set up the right hand side of the screen to
+        # show the details for the newly selected object.
+        cb(old_selector, selector)
 
 
 # A Page is a box that is stored in an Accordion.  It breaks down all the filesystems that
@@ -227,9 +329,10 @@ class Page(Gtk.Box):
         return label
 
     def add_selector(self, device, cb, mountpoint=""):
+        accordion = self.get_ancestor(Accordion)
         selector = new_selector_from_device(device, mountpoint=mountpoint)
-        selector.connect("button-press-event", self._on_selector_clicked, cb)
-        selector.connect("key-release-event", self._on_selector_clicked, cb)
+        selector.connect("button-press-event", accordion.process_event, cb)
+        selector.connect("key-release-event", accordion.process_event, cb)
         selector.connect("focus-in-event", self._on_selector_focus_in, cb)
         selector.set_margin_bottom(6)
         self.members.append(selector)
@@ -248,6 +351,8 @@ class Page(Gtk.Box):
         else:
             self._systemBox.remove(selector)
 
+        accordion = self.get_ancestor(Accordion)
+        accordion.remove_selection([selector])
         self.members.remove(selector)
 
     def _mountpoint_type(self, mountpoint):
@@ -257,39 +362,11 @@ class Page(Gtk.Box):
         else:
             return DATA_DEVICE
 
-    def _on_selector_clicked(self, selector, event, cb):
-        gi.require_version("Gdk", "3.0")
-        from gi.repository import Gdk
-
-        if event:
-            if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
-                return
-
-            if event.type == Gdk.EventType.KEY_RELEASE and \
-               event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-                return
-
-            state = event.get_state()
-            accordion = self.get_ancestor(Accordion)
-            if state & Gdk.ModifierType.CONTROL_MASK:
-                if selector in accordion._selected_pages:
-                    # Unselect actual item and return
-                    accordion._selected_pages.remove(selector)
-                    selector.set_chosen(False)
-                    return
-                else:
-                    accordion._selected_pages.append(selector)
-            elif not accordion._selected_pages:
-                accordion._selected_pages.append(selector)
-
-        # Then, this callback will set up the right hand side of the screen to
-        # show the details for the newly selected object.
-        cb(selector)
-
     def _on_selector_focus_in(self, selector, event, cb):
         # could be simple lambda, but this way it looks more similar to the
         # _on_selector_clicked
-        cb(selector)
+        accordion = self.get_ancestor(Accordion)
+        cb(accordion.current_selector, selector)
 
     def _on_selector_added(self, container, widget, label):
         really_show(label)
@@ -309,9 +386,10 @@ class UnknownPage(Page):
         self.pageTitle = title
 
     def add_selector(self, device, cb, mountpoint=""):
+        accordion = self.get_ancestor(Accordion)
         selector = new_selector_from_device(device, mountpoint=mountpoint)
-        selector.connect("button-press-event", self._on_selector_clicked, cb)
-        selector.connect("key-release-event", self._on_selector_clicked, cb)
+        selector.connect("button-press-event", accordion.process_event, cb)
+        selector.connect("key-release-event", accordion.process_event, cb)
 
         self.members.append(selector)
         self.add(selector)

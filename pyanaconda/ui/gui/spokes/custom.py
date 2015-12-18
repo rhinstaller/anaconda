@@ -516,6 +516,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 continue
 
             page = Page(root.name)
+            self._accordion.add_page(page, cb=self.on_page_clicked)
 
             for (mountpoint, device) in root.mounts.items():
                 if device not in self._devices or \
@@ -536,17 +537,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selector.root = root
 
             page.show_all()
-            self._accordion.add_page(page, cb=self.on_page_clicked)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if self.unusedDevices:
             page = UnknownPage(_("Unknown"))
+            self._accordion.add_page(page, cb=self.on_page_clicked)
 
             for u in sorted(self.unusedDevices, key=lambda d: d.name):
                 page.add_selector(u, self.on_selector_clicked)
 
             page.show_all()
-            self._accordion.add_page(page, cb=self.on_page_clicked)
 
     def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
@@ -1888,7 +1888,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         if not mountpoint:
-            self.on_selector_clicked(page.members[0])
+            self._accordion.select(page.members[0])
+            self.on_selector_clicked(None, page.members[0])
             return
 
         for member in page.members:
@@ -1903,7 +1904,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         skip_dialog = False
         is_multiselection = self._accordion.is_multiselection
-        for selector in self._accordion.selected_pages:
+        for selector in self._accordion.selected_items:
             page = self._current_page
             device = selector.device
             root_name = None
@@ -2232,61 +2233,61 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._modifyContainerButton.set_sensitive(not container_exists)
 
-    def _save_current_page(self):
-        log.debug("current selector: %s", self._accordion.current_selector.device)
-        self._save_right_side(self._accordion.current_selector)
-        self._accordion.clear_current_selector()
+    def _save_current_page(self, selector = None):
+        if selector is None:
+            selector = self._accordion.current_selector
+        log.debug("Saving current selector: %s", selector.device)
+        self._save_right_side(selector)
 
-    def on_selector_clicked(self, selector):
-        if not self._initialized or (self._accordion.current_selector is selector):
+    def on_selector_clicked(self, old_selector, selector):
+        if not self._initialized \
+           or ((old_selector or self._accordion.current_selector)   # one of them must be set
+               and (old_selector is self._accordion.current_selector)): # and they need to differ
             return
 
         # Take care of the previously chosen selector.
-        if self._accordion.current_selector and not self._accordion.is_multiselection:
-            self._accordion.current_selector.set_chosen(False)
-            self._save_current_page()
-            log.debug("new selector: %s", selector.device)
-        # In multiselection the current_selector variable is not used
-        elif self._accordion.current_selector:
-            self._accordion.current_selector = None
-            log.debug("Remove current selector in multiselection")
+        if old_selector:
+            self._save_current_page(old_selector)
 
+        curr_selector = self._accordion.current_selector
         no_edit = False
         currentPageType = None
-        if selector and self._accordion.is_multiselection:
+        # TODO: special label text for empty selection
+        #       remove curr_selector test and create new if
+        if self._accordion.is_multiselection or not curr_selector:
             currentPageType = NOTEBOOK_LABEL_PAGE
             self._whenCreateLabel.set_text("Select a single mount point to edit properties.")
             no_edit = True
-        elif selector.device.format.type == "luks" and \
-           selector.device.format.exists:
+        elif curr_selector.device.format.type == "luks" and \
+           curr_selector.device.format.exists:
             currentPageType = NOTEBOOK_LUKS_PAGE
             selectedDeviceLabel = self._encryptedDeviceLabel
             selectedDeviceDescLabel = self._encryptedDeviceDescLabel
             no_edit = True
-        elif not getattr(selector.device, "complete", True):
+        elif not getattr(curr_selector.device, "complete", True):
             currentPageType = NOTEBOOK_INCOMPLETE_PAGE
             selectedDeviceLabel = self._incompleteDeviceLabel
             selectedDeviceDescLabel = self._incompleteDeviceDescLabel
 
-            if isinstance(selector.device, MDRaidArrayDevice):
-                total = selector.device.memberDevices
-                missing = total - len(selector.device.parents)
+            if isinstance(curr_selector.device, MDRaidArrayDevice):
+                total = curr_selector.device.memberDevices
+                missing = total - len(curr_selector.device.parents)
                 txt = _("This Software RAID array is missing %(missingMembers)d of %(totalMembers)d member "
                         "partitions. You can remove it or select a different "
                         "device.") % {"missingMembers": missing, "totalMembers": total}
-            elif isinstance(selector.device, LVMVolumeGroupDevice):
-                total = selector.device.pvCount
-                missing = total - len(selector.device.parents)
+            elif isinstance(curr_selector.device, LVMVolumeGroupDevice):
+                total = curr_selector.device.pvCount
+                missing = total - len(curr_selector.device.parents)
                 txt = _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
                         "volumes. You can remove it or select a different "
                         "device.") % {"missingPVs": missing, "totalPVs": total}
             else:
                 txt = _("This %(type)s device is missing member devices. You can remove it or"
-                        " select a different device.") % selector.device.type
+                        " select a different device.") % curr_selector.device.type
 
             self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
-        elif devicefactory.get_device_type(selector.device) is None:
+        elif devicefactory.get_device_type(curr_selector.device) is None:
             currentPageType = NOTEBOOK_UNEDITABLE_PAGE
             selectedDeviceLabel = self._uneditableDeviceLabel
             selectedDeviceDescLabel = self._uneditableDeviceDescLabel
@@ -2295,14 +2296,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if no_edit:
             self._partitionsNotebook.set_current_page(currentPageType)
             if currentPageType != NOTEBOOK_LABEL_PAGE:
-                selectedDeviceLabel.set_text(selector.device.name)
-                desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.device.type, ""))
+                selectedDeviceLabel.set_text(curr_selector.device.name)
+                desc = _(MOUNTPOINT_DESCRIPTIONS.get(curr_selector.device.type, ""))
                 selectedDeviceDescLabel.set_text(desc)
 
-            if self._accordion.is_multiselection:
-                self._accordion.current_selector = selector
-
-            selector.set_chosen(True)
             self._configButton.set_sensitive(False)
             self._removeButton.set_sensitive(True)
             return
@@ -2312,24 +2309,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
 
         # Set up the newly chosen selector.
-        self._populate_right_side(selector)
-        selector.set_chosen(True)
-        self._accordion.current_selector = selector
+        self._populate_right_side(curr_selector)
 
         self._applyButton.set_sensitive(False)
-        container_device = devicefactory.get_device_type(selector.device) in CONTAINER_DEVICE_TYPES
-        self._configButton.set_sensitive(not selector.device.exists and
-                                         not selector.device.protected and
+        container_device = devicefactory.get_device_type(curr_selector.device) in CONTAINER_DEVICE_TYPES
+        self._configButton.set_sensitive(not curr_selector.device.exists and
+                                         not curr_selector.device.protected and
                                          not container_device)
-        self._removeButton.set_sensitive(not selector.device.protected)
-        return True
+        self._removeButton.set_sensitive(not curr_selector.device.protected)
 
     def on_page_clicked(self, page, mountpointToShow=None):
         if not self._initialized:
             return
 
         log.debug("page clicked: %s", page.pageTitle)
-        if self._accordion.current_selector:
+        if self._accordion.is_current_selected:
             self._save_current_page()
 
         self._show_mountpoint(page=page, mountpoint=mountpointToShow)
