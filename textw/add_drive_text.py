@@ -374,7 +374,7 @@ class addDriveDialog(object):
             return INSTALL_BACK
 
         grid = GridFormHelp(screen, _("Add FCoE SAN"), "fcoeconfig",
-                            1, 4)
+                            1, 5)
 
         tb = TextboxReflowed(60,
                         _("Select which NIC is connected to the FCoE SAN."))
@@ -391,7 +391,7 @@ class addDriveDialog(object):
             interfaceList.append(desc, dev)
 
         interfaceList.setCurrent(devs[0])
-        grid.add(interfaceList, 0, 1, padding = (0, 1, 0, 0))
+        grid.add(interfaceList, 0, 1, padding = (0, 0, 0, 1))
 
         dcbCheckbox = Checkbox(_("Use DCB"), 1)
         grid.add(dcbCheckbox, 0, 2, anchorLeft = 1)
@@ -399,7 +399,7 @@ class addDriveDialog(object):
         grid.add(autovlanCheckbox, 0, 3, anchorLeft = 1)
 
         buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON] )
-        grid.add(buttons, 0, 4, anchorLeft = 1, growx = 1)
+        grid.add(buttons, 0, 4, padding=(0, 1, 0, 0), anchorLeft = 1, growx = 1)
 
         result = grid.run()
         if buttons.buttonPressed(result) == TEXT_BACK_CHECK:
