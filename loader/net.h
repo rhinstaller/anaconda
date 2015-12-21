@@ -91,4 +91,5 @@ int split_bond_option(char *str, char **bondname, char **bondslaves, char **opti
 int networkDeviceExists(char *name);
 int writeBondSlaveIfcfgFile(char *slave, char *master);
 void parseDnsServers(const char *dnss, iface_t *iface);
+int writeBondVlanParentIfcfgFile(iface_t *iface);
 #endif

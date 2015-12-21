@@ -1573,6 +1573,9 @@ int writeEnabledNetInfo(iface_t *iface) {
             }
             g_strfreev(slaves);
         }
+        if (iface->vlanid) {
+            writeBondVlanParentIfcfgFile(iface);
+        }
     }
 
     if (rename(ofile, nfile) == -1) {
@@ -1654,6 +1657,64 @@ int enable_NM_BOND_VLAN() {
 
     return 0;
 
+}
+
+int writeBondVlanParentIfcfgFile(iface_t *iface) {
+    char *ofile = NULL;
+    char *nfile = NULL;
+    FILE *fp = NULL;
+    char *uuid = NULL;
+
+    checked_asprintf(&ofile, "%s/.ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
+                     iface->device);
+    checked_asprintf(&nfile, "%s/ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
+                     iface->device);
+
+    if ((fp = fopen(ofile, "w")) == NULL) {
+        free(ofile);
+        free(nfile);
+        return 2;
+    }
+
+    fprintf(fp, "DEVICE=%s\n", iface->device);
+    uuid = nm_utils_uuid_generate();
+    fprintf(fp, "UUID=%s\n", uuid);
+    fprintf(fp, "TYPE=Bond\n");
+    if (iface->bonding_opts) {
+        if (strchr(iface->bonding_opts, ';')) {
+            replaceChars(iface->bonding_opts, ';', ' ');
+        } else {
+            replaceChars(iface->bonding_opts, ',', ' ');
+        }
+        fprintf(fp, "BONDING_OPTS=\"%s\"\n", iface->bonding_opts);
+    }
+    fprintf(fp, "ONBOOT=yes\n");
+    fprintf(fp, "NM_CONTROLLED=yes\n");
+    g_free(uuid);
+
+    if (fclose(fp) == EOF) {
+        return 3;
+    }
+
+    if (rename(ofile, nfile) == -1) {
+        free(ofile);
+        free(nfile);
+        return 4;
+    }
+
+    if (ofile) {
+        free(ofile);
+        ofile = NULL;
+    }
+
+    if (nfile) {
+        free(nfile);
+        nfile = NULL;
+    }
+
+    return 0;
 }
 
 int writeBondSlaveIfcfgFile(char *slave, char *master) {
@@ -2391,7 +2452,6 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
                 logMessage(ERROR, "writeDisabledIfcfgFile failure (%s): %d",
                            __func__, rc);
             }
-
             loaderData->netDev_set = 0;
             loaderData->ipinfo_set = 0;
             free(loaderData->ipv4);
