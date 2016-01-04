@@ -108,7 +108,8 @@ def storageInitialize(anaconda, examine_all=True):
     else:
         storage.reset(examine_all=examine_all)
 
-    if not storage.disks:
+    # Check if not-hidden disks exist; also triggers when no disks are found
+    if all(x.format.hidden for x in storage.disks):
         custom_buttons=[_("_Try again"), _("_Exit installer")]
         if anaconda.dispatch and anaconda.dispatch.canGoBack():
             custom_buttons = [_("_Back"), _("_Exit installer")]
