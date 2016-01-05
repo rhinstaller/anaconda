@@ -220,6 +220,13 @@ class Accordion(Gtk.Box):
     def selected_items(self):
         return self._active_selectors
 
+    def page_for_selector(self, selector):
+        """ Return page for given selector. """
+        for page in self.all_pages:
+            for s in page.members:
+                if s is selector:
+                    return page
+
     def expand_page(self, pageTitle):
         page = self._find_by_title(pageTitle)
         if not page:
@@ -235,7 +242,9 @@ class Accordion(Gtk.Box):
             return
 
         self._expanders.remove(target)
-        self._active_selectors.remove(target)
+        for s in target.members:
+            if s in self._active_selectors:
+                self._active_selectors.remove(s)
 
         # Then, remove it from the box.
         self.remove(target)
@@ -245,6 +254,8 @@ class Accordion(Gtk.Box):
             self.remove(e)
 
         self._expanders = []
+        self._active_selectors = []
+        self._current_selector = None
 
     def clear_current_selector(self):
         """ If current selector is selected, deselect it
