@@ -1104,8 +1104,35 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 #endif
         else if (!strncasecmp(argv[i], "netmask=", 8))
             loaderData->netmask = strdup(argv[i] + 8);
-        else if (!strncasecmp(argv[i], "gateway=", 8))
-            loaderData->gateway = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "gateway=", 8)) {
+            char *gateway = strdup(argv[i] + 8);
+            int rc;
+            struct in_addr addr;
+#ifdef ENABLE_IPV6
+            struct in6_addr addr6;
+#endif
+
+            if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
+                loaderData->gateway = gateway;
+            } else if (rc == 0) {
+#ifdef ENABLE_IPV6
+                if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
+                    loaderData->gateway6 = gateway;
+                } else if (rc == 0) {
+#endif
+                    logMessage(WARNING,
+                               "invalid address in boot option gateway");
+#ifdef ENABLE_IPV6
+                } else {
+                    logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                               strerror(errno));
+                }
+#endif
+            } else {
+                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                           strerror(errno));
+            }
+        }
         else if (!strncasecmp(argv[i], "dns=", 4))
             loaderData->dns = strdup(argv[i] + 4);
         else if (!strncasecmp(argv[i], "ethtool=", 8))
