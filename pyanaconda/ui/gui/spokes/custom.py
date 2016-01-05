@@ -228,7 +228,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         partitionsNotebookViewport = self.builder.get_object("partitionsNotebookViewport")
         self._partitionsNotebook.set_focus_vadjustment(partitionsNotebookViewport.get_vadjustment())
 
-        self._whenCreateLabel = self.builder.get_object("whenCreateLabel")
+        self._pageLabel = self.builder.get_object("pageLabel")
 
         self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
         self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
@@ -490,7 +490,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._accordion.add_page(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._whenCreateLabel.set_text(_("When you create mount points for "
+            self._pageLabel.set_text(_("When you create mount points for "
                     "your %(name)s %(version)s installation, you'll be able to "
                     "view their details here.") % {"name" : productName,
                                                    "version" : productVersion})
@@ -1872,16 +1872,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._remove_empty_parents(device)
 
-    def _show_mountpoint(self, page=None, mountpoint=None):
+    def _show_mountpoint(self, page, mountpoint=None):
         if not self._initialized:
             return
 
         # Make sure there's something displayed on the RHS.  If a page and
         # mountpoint within that page is given, display that.  Otherwise, just
         # default to the first selector available.
-        if not page:
-            page = self._current_page
-
         log.debug("show mountpoint: %s", page.pageTitle)
         if not page.members:
             self._accordion.clear_current_selector()
@@ -1894,18 +1891,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         for member in page.members:
             if member.get_property("mountpoint").lower() == mountpoint.lower():
-                self.on_selector_clicked(member)
+                self.on_selector_clicked(None, member)
                 break
 
     def on_remove_clicked(self, button):
-        # Nothing displayed on the RHS?  Nothing to remove.
-        if not self._accordion.current_selector:
+        # Nothing selected?  Nothing to remove.
+        if not self._accordion.is_current_selected and not self._accordion.is_multiselection:
             return
 
         skip_dialog = False
         is_multiselection = self._accordion.is_multiselection
         for selector in self._accordion.selected_items:
-            page = self._current_page
+            page = self._accordion.page_for_selector(selector)
             device = selector.device
             root_name = None
             if selector.root:
@@ -1935,6 +1932,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if not skip_dialog:
                     dialog = ConfirmDeleteDialog(self.data)
                     snapshots = (device.direct and not device.isleaf)
+                    checkbox_text = None
                     if not is_multiselection:
                         if root_name and "_" in root_name:
                             root_name = root_name.replace("_", "__")
@@ -2256,7 +2254,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         #       remove curr_selector test and create new if
         if self._accordion.is_multiselection or not curr_selector:
             currentPageType = NOTEBOOK_LABEL_PAGE
-            self._whenCreateLabel.set_text("Select a single mount point to edit properties.")
+            self._pageLabel.set_text(_("Select a single mount point to edit properties."))
             no_edit = True
         elif curr_selector.device.format.type == "luks" and \
            curr_selector.device.format.exists:
@@ -2335,6 +2333,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # Make sure we're showing "here's how you create a new OS" label
             # instead of device/mountpoint details.
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
+            self._pageLabel.set_text(_("When you create mount points for "
+                    "your %(name)s %(version)s installation, you'll be able to "
+                    "view their details here.") % {"name" : productName,
+                                                   "version" : productVersion})
             self._removeButton.set_sensitive(False)
         else:
             self._removeButton.set_sensitive(True)
