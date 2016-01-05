@@ -1594,7 +1594,7 @@ class DeviceTree(object):
                 if origin_name.endswith("_vorigin]"):
                     log.info("snapshot volume '%s' has vorigin" % name)
                     lv_kwargs["vorigin"] = True
-                    vg_device.voriginSnapshots[lv_name] = lv_sizes[index]
+                    vg_device.voriginSnapshots[lv_name] = lv_size
                     return
                 else:
                     origin_device_name = "%s-%s" % (vg_name, origin_name)
@@ -1611,8 +1611,8 @@ class DeviceTree(object):
                     return
 
                 log.debug("adding %dMB to %s snapshot total"
-                            % (lv_sizes[index], origin.name))
-                origin.snapshotSpace += lv_sizes[index]
+                            % (lv_size, origin.name))
+                origin.snapshotSpace += lv_size
                 origin.snapshots.append(lv_name)
                 return
             elif lv_attr[0] == 'v':
