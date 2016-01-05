@@ -317,6 +317,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         os.close(p[1])
         os.close(p_stderr[1])
 
+        chroot()
         os.execvp(command, [command] + argv)
         os._exit(1)
 
