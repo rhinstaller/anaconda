@@ -141,6 +141,9 @@ class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
         self.cnt = 0
 
     def event(self, package, action, te_current, te_total, ts_current, ts_total):
+        # Process DNF actions, communicating with anaconda via the queue
+        # A normal installation consists of 'install' messages followed by
+        # the 'post' message.
         if action == self.PKG_INSTALL and te_current == 0:
             # do not report same package twice
             if self._last_ts == ts_current:
@@ -192,14 +195,20 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         self.total_size = Size(total_size)
 
 def do_transaction(base, queue_instance):
+    # Execute the DNF transaction and catch any errors. An error doesn't
+    # always raise a BaseException, so presence of 'quit' without a preceeding
+    # 'post' message also indicates a problem.
     try:
         display = PayloadRPMDisplay(queue_instance)
         base.do_transaction(display=display)
-    except BaseException as e:
+        exit_reason = "DNF quit"
+    except BaseException as exit_reason:
         log.error('The transaction process has ended abruptly')
-        log.info(e)
+        log.info(exit_reason)
         import traceback
-        queue_instance.put(('quit', str(e) + traceback.format_exc()))
+        exit_reason = str(exit_reason) + traceback.format_exc()
+    finally:
+        queue_instance.put(('quit', str(exit_reason)))
 
 class DNFPayload(packaging.PackagePayload):
     def __init__(self, data):
@@ -747,6 +756,9 @@ class DNFPayload(packaging.PackagePayload):
                                           args=(self._base, queue_instance))
         process.start()
         (token, msg) = queue_instance.get()
+        # When the installation works correctly it will get 'install' updates
+        # followed by a 'post' message and then a 'quit' message.
+        # If the installation fails it will send 'quit' without 'post'
         while token not in ('post', 'quit'):
             if token == 'install':
                 msg = _("Installing %s") % msg
