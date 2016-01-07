@@ -41,6 +41,7 @@ import iutil
 import platform
 import parted
 import _ped
+import block
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -946,7 +947,18 @@ class DeviceTree(object):
         # the filter ui.  Note that making the ui use md names instead is not
         # possible as the md names are simpy md# and we cannot predict the #
         if udev_device_get_md_level(info) == "container":
-            return False
+            if name in self.exclusiveDisks:
+                # XXX: should we do this somewhere above in general?
+                return False
+            # we should ignore the container if all its members are ignored
+            all_rsets = block.getRaidSets()
+            # rsets this device belongs to
+            rsets = []
+            for rs in all_rsets:
+                member_devs = set(member.devpath for member in rs.members if isinstance(member, block.device.RaidDev))
+                if udev_device_get_name(info) in member_devs:
+                    rsets.append(rs)
+            return not any(rs.rs.name in self.exclusiveDisks for rs in rsets)
 
         if udev_device_get_md_container(info) and \
                udev_device_get_md_name(info):
