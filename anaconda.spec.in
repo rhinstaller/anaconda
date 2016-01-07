@@ -223,6 +223,32 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 07 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.242-1
+- Make iutil.execWithCallback honor root option. (sbueno+anaconda)
+  Resolves: rhbz#883054
+- Change parameter at ks.cfg for fcoe as --nic= (jkonecny)
+  Resolves: rhbz#1225877
+- Fix IPoIB interfaces are shown as Ethernet (jkonecny)
+  Resolves: rhbz#1116633
+- Add support for ipv6 to gateway boot option (rvykydal)
+  Resolves: rhbz#1177984
+- Create symlink for NM ibft plugin rather then relocate iscsiadm (rvykydal)
+  Resolves: rhbz#831002
+  Related: rhbz#831002
+- Fixed IndexError in cleardisks_gui.py (japokorn)
+  Resolves: rhbz#1224413
+- Fix layout of "Add FCoE SAN" dialog in text and rescue mode (rvykydal)
+  Resolves: rhbz#1211931
+  Related: rhbz#1211931
+- Fix crash on "Add FCoE SAN" in text and rescue (rvykydal)
+  Resolves: rhbz#1211931
+- network: add support for vlan over bond boot option (rvykydal)
+  Resolves: rhbz#1011595
+- fcoe: take into account vlan device names trimmed to IFNAMSIZ (rvykydal)
+  Resolves: rhbz#1021067
+- Add possibility to have /usr and /var parts on iscsi (jkonecny)
+  Resolves: rhbz#856446
+
 * Mon Dec 14 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.241-1
 - Prevent duplicate kernel params being written in zipl.conf (sbueno+anaconda)
   Resolves: rhbz#1029505
