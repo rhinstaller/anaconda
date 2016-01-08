@@ -1976,12 +1976,24 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
            loaderData->vlanid = vlanid;
         }
 
-        if (noipv4)
+        if (noipv4) {
             flags |= LOADER_FLAGS_NOIPV4;
+        } else {
+            if (!firstnetdev) {
+                flags &= ~LOADER_FLAGS_NOIPV4;
+            }
+        }
+
+
 
 #ifdef ENABLE_IPV6
-        if (noipv6)
+        if (noipv6) {
             flags |= LOADER_FLAGS_NOIPV6;
+        } else {
+            if (!firstnetdev) {
+                flags &= ~LOADER_FLAGS_NOIPV6;
+            }
+        }
 
         if (loaderData->ipv6) {
             loaderData->ipv6info_set = 1;
