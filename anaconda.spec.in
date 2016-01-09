@@ -305,6 +305,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 08 2016 Brian C. Lane <bcl@redhat.com> - 24.9-1
+- Handle unexpected DNF exit (bcl)
+- Fix bad space needed messages (jkonecny)
+- nosetests-3.5 is now the right version. (clumens)
+- Ignore a pylint error about how we're using Popen (dshea)
+- Mark an unused variable as unused (dshea)
+- Ignore type-related errors for types pylint can't figure out (dshea)
+- Import errors are just regular errors now (dshea)
+- Replace the remaining log.warn calls with log.warning. (dshea)
+- Fix an erroneously bare raise statement (dshea)
+- Replace the deprecated assertEquals with assertEqual (dshea)
+- Don't add a None to the list of things to unmount on ostree installs.
+  (clumens)
+
 * Wed Dec 02 2015 Brian C. Lane <bcl@redhat.com> - 24.8-1
 - Fix pylint problems in the gui testing code. (clumens)
 - Merge 9c5e02392d0401a3bd0adecedea03535595773ef into
