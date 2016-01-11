@@ -1823,7 +1823,9 @@ function syntax_check_hostname() {
 }
 
 function handle_hostname() {
-    if ! hostname $HOSTNAME; then
+    # convert all the characters in $HOSTNAME to lowercase before running
+    # hostname cmd on it
+    if ! hostname "${HOSTNAME,,}"; then
         echo $"Could not configure hostname $HOSTNAME"
         return 1
     fi
@@ -2369,7 +2371,7 @@ function syntax_check_searchdns() {
     local allgood="yes"
     while read dnsitem; do
         syntax_check_domainname "$dnsitem" $"Not a valid DNS search domain: $dnsitem" || allgood="no"
-    done < <(echo $SEARCHDNS | sed 's/:/\n/g')
+    done < <(echo "${SEARCHDNS,,}" | sed 's/:/\n/g')
     if [ "$allgood" = "yes" ]; then
         return 0
     else

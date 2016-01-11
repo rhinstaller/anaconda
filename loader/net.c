@@ -380,7 +380,7 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     if (loaderData->hostname) {
         logMessage(INFO, "setting specified hostname of %s",
                    loaderData->hostname);
-        iface->hostname = strdup(loaderData->hostname);
+        iface->hostname = str2lower(strdup(loaderData->hostname));
     }
 
     if (loaderData->mtu) {

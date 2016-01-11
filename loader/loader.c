@@ -798,7 +798,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
                 } else if (!g_strcmp0(pair[0], "MACADDR")) {
                     loaderData->macaddr = strdup(val);
                 } else if (!g_strcmp0(pair[0], "HOSTNAME")) {
-                    loaderData->hostname = strdup(val);
+                    loaderData->hostname = str2lower(strdup(val));
                 }
             }
 
@@ -1095,7 +1095,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             setStage2LocFromCmdline(argv[i] + 7, loaderData);
         }
         else if (!strncasecmp(argv[i], "hostname=", 9))
-            loaderData->hostname = strdup(argv[i] + 9);
+            loaderData->hostname = str2lower(strdup(argv[i] + 9));
         else if (!strncasecmp(argv[i], "ip=", 3))
             parseCmdLineIp(loaderData, argv[i]);
 #ifdef ENABLE_IPV6
@@ -1682,7 +1682,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 /* set the hostname if we have that */
                 if (loaderData->hostname) {
-                    if (sethostname(loaderData->hostname,
+                    if (sethostname(str2lower(loaderData->hostname),
                                     strlen(loaderData->hostname))) {
                         logMessage(ERROR, "error setting hostname to %s",
                                    loaderData->hostname);
