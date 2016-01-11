@@ -46,6 +46,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
+# Define constants that will be used within the FilterWindow class
+# for the variable device_data
+UDEV_DATA = 0
+VISIBLE_IN_UI = 1
+ACTIVE_IN_UI = 2
+DEVICE_MUTABILITY = 3
 DEVICE_COL = 4
 MODEL_COL = 5
 CAPACITY_COL = 6
@@ -127,7 +133,7 @@ class Callbacks(object):
         self.sizeLabel = self.xml.get_widget("sizeLabel")
         self.sizeLabel.connect("realize", self.update)
 
-    def addToUI(self, tuple):
+    def addToUI(self, device_data):
         pass
 
     def deviceToggled(self, set, device):
@@ -202,12 +208,12 @@ class MPathCallbacks(FilteredCallbacks):
         self.interconnectEntry.connect("changed", lambda entry: self.model.get_model().refilter())
         self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
 
-    def addToUI(self, tuple):
-        if not tuple[VENDOR_COL] in self._vendors:
-            self._vendors.append(tuple[VENDOR_COL])
+    def addToUI(self, device_data):
+        if not device_data[VENDOR_COL] in self._vendors:
+            self._vendors.append(device_data[VENDOR_COL])
 
-        if not tuple[INTERCONNECT_COL] in self._interconnects:
-            self._interconnects.append(tuple[INTERCONNECT_COL])
+        if not device_data[INTERCONNECT_COL] in self._interconnects:
+            self._interconnects.append(device_data[INTERCONNECT_COL])
 
     def isMember(self, info):
         return info and isMultipath(info)
@@ -706,17 +712,17 @@ class FilterWindow(InstallWindow):
                 return
 
     def populate(self, nonraids, mpaths, raids, activeByDefault=False):
-        def _addTuple(tuple):
+        def _addDeviceData(device_data):
             global totalDevices, totalSize
             global selectedDevices, selectedSize
             added = False
 
-            self.store.append(None, tuple)
+            self.store.append(None, device_data)
 
             for pg in self.pages:
-                if pg.cb.isMember(tuple[0]):
+                if pg.cb.isMember(device_data[UDEV_DATA]):
                     added = True
-                    pg.cb.addToUI(tuple)
+                    pg.cb.addToUI(device_data)
 
             # Only update the size label if this device was added to any pages.
             # This prevents situations where we're only displaying the basic
@@ -724,11 +730,11 @@ class FilterWindow(InstallWindow):
             # in the store that cannot be seen.
             if added:
                 totalDevices += 1
-                totalSize += tuple[0]["XXX_SIZE"]
+                totalSize += device_data[UDEV_DATA]["XXX_SIZE"]
 
-                if tuple[2]:
+                if device_data[ACTIVE_IN_UI]:
                     selectedDevices += 1
-                    selectedSize += tuple[0]["XXX_SIZE"]
+                    selectedSize += device_data[UDEV_DATA]["XXX_SIZE"]
 
         def _isProtected(info):
             protectedNames = map(udev_resolve_devspec, self.anaconda.protected)
@@ -777,11 +783,11 @@ class FilterWindow(InstallWindow):
             else:
                 ident = udev_device_get_wwid(d)
 
-            tuple = (d, True, _active(d), _isProtected(d), name,
+            device_data = (d, True, _active(d), _isProtected(d), name,
                      partedDevice.model, long(d["XXX_SIZE"]),
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), ident, "", "", "", "")
-            _addTuple(tuple)
+            _addDeviceData(device_data)
 
         if raids and flags.dmraid:
             used_raidmembers = []
@@ -815,10 +821,10 @@ class FilterWindow(InstallWindow):
                         "sysfs_path": sysfs_path}
 
                 model = "BIOS RAID set (%s)" % rs.rs.set_type
-                tuple = (data, True, _active(data), _isProtected(data), rs.name,
+                device_data = (data, True, _active(data), _isProtected(data), rs.name,
                          model, long(size), "", "", "", "",
                          "\n".join(members), "", "", "")
-                _addTuple(tuple)
+                _addDeviceData(device_data)
 
             unused_raidmembers = []
             for d in raids:
@@ -845,7 +851,7 @@ class FilterWindow(InstallWindow):
             # dict as that would break NameCache matching
             data = mpath[0].copy()
             data["name"] = udev_device_get_multipath_name(mpath[0])
-            tuple = (data, True, _active(data), _isProtected(data),
+            device_data = (data, True, _active(data), _isProtected(data),
                      udev_device_get_multipath_name(mpath[0]), model,
                      long(mpath[0]["XXX_SIZE"]),
                      udev_device_get_vendor(mpath[0]),
@@ -853,7 +859,7 @@ class FilterWindow(InstallWindow):
                      udev_device_get_serial(mpath[0]),
                      udev_device_get_wwid(mpath[0]),
                      paths, "", "", "")
-            _addTuple(tuple)
+            _addDeviceData(device_data)
 
     def split_list(self, pred, lst):
         pos = []
