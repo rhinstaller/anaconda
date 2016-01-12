@@ -37,6 +37,7 @@ import threading
 import re
 import functools
 
+from blivet.size import Size
 from pyanaconda.iutil import requests_session
 from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
@@ -178,6 +179,21 @@ class Payload(object):
         not exist.  Used by the RPMOSTreePayload subclass. 
         """
         pass
+
+    def requiredDeviceSize(self, format_class):
+        """ We need to provide information how big device is required to have successful
+            installation. ``format_class`` should be filesystem format
+            class for the **root** filesystem this class carry information about
+            metadata size.
+
+            :param format_class: Class of the filesystem format.
+            :type format_class: Class which inherits :class:`blivet.formats.fs.FS`
+            :returns: Size of the device with given filesystem format.
+            :rtype: :class:`blivet.size.Size`
+        """
+        device_size = format_class.getRequiredSize(self.spaceRequired)
+        return device_size.roundToNearest(Size("1 MiB"))
+
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
