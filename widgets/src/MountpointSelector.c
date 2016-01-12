@@ -63,7 +63,10 @@ struct _AnacondaMountpointSelectorPrivate {
     GdkCursor *cursor;
 
     gboolean   chosen;
+    GtkWidget *parent_page;
 };
+
+static guint chosen_changed_signal = 0;
 
 G_DEFINE_TYPE(AnacondaMountpointSelector, anaconda_mountpoint_selector, GTK_TYPE_EVENT_BOX)
 
@@ -130,6 +133,24 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
                                                         P_("Mount point display"),
                                                         DEFAULT_MOUNTPOINT,
                                                         G_PARAM_READWRITE));
+
+    /**
+     * AnacondaMountpointSelector:chosen_changed:
+     *
+     * The #AnacondaMountpointSelector:chosen_changed signals when set_chosen is called.
+     *
+     * Since: 3.4
+     */
+    chosen_changed_signal = g_signal_newv("chosen_changed", // name
+                                          G_TYPE_FROM_CLASS(object_class), // type
+                                          G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS, // flags
+                                          NULL,             // class closure
+                                          NULL,             // accumulator
+                                          NULL,             // accumulator user data
+                                          NULL,             // c_marshaller
+                                          G_TYPE_NONE,      // return type
+                                          0,                // length of the parameter type array
+                                          NULL);            // array of types, one for each parameter
 
     g_type_class_add_private(object_class, sizeof(AnacondaMountpointSelectorPrivate));
 }
@@ -242,11 +263,15 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_margin_end(GTK_WIDGET(mountpoint->priv->grid), 12);
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
+
+    /* Set NULL to parent_page while it's not set already */
+    mountpoint->priv->parent_page = NULL;
 }
 
 static void anaconda_mountpoint_selector_finalize(GObject *object) {
     AnacondaMountpointSelector *widget = ANACONDA_MOUNTPOINT_SELECTOR(object);
     g_object_unref(widget->priv->cursor);
+    g_object_unref(widget->priv->parent_page);
 
     G_OBJECT_CLASS(anaconda_mountpoint_selector_parent_class)->finalize(object);
 }
@@ -261,39 +286,44 @@ static void anaconda_mountpoint_selector_get_property(GObject *object, guint pro
     AnacondaMountpointSelector *widget = ANACONDA_MOUNTPOINT_SELECTOR(object);
     AnacondaMountpointSelectorPrivate *priv = widget->priv;
 
-    switch(prop_id) {
+    switch (prop_id) {
         case PROP_NAME:
-           g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->name_label)));
-           break;
+            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->name_label)));
+            break;
 
         case PROP_SIZE:
-           g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->size_label)));
-           break;
+            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->size_label)));
+            break;
 
         case PROP_MOUNTPOINT:
-           g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->mountpoint_label)));
-           break;
+            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->mountpoint_label)));
+            break;
+
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            break;
     }
 }
 
 static void anaconda_mountpoint_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec) {
     AnacondaMountpointSelector *widget = ANACONDA_MOUNTPOINT_SELECTOR(object);
 
-    switch(prop_id) {
-        case PROP_NAME: {
+    switch (prop_id) {
+        case PROP_NAME:
             format_name_label(widget, g_value_get_string(value));
             break;
-        }
 
-        case PROP_SIZE: {
+        case PROP_SIZE:
             format_size_label(widget, g_value_get_string(value));
             break;
-        }
 
-        case PROP_MOUNTPOINT: {
+        case PROP_MOUNTPOINT:
             format_mountpoint_label(widget, g_value_get_string(value));
             break;
-        }
+
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            break;
     }
 }
 
@@ -341,4 +371,39 @@ void anaconda_mountpoint_selector_set_chosen(AnacondaMountpointSelector *widget,
     else {
         gtk_widget_hide(GTK_WIDGET(widget->priv->arrow));
     }
+
+    g_signal_emit(widget, chosen_changed_signal, 0);
+}
+
+/**
+ * anaconda_mountpoint_selector_get_page:
+ * @widget: a #AnacondaMountpointSelector
+ *
+ * Return pointer to Page where this #AnacondaMountpointSelector is contained.
+ *
+ * Returns: (transfer none): Pointer to GtkWidget page or #NONE.
+ *
+ * Since: 3.4
+ */
+GtkWidget *anaconda_mountpoint_selector_get_page(AnacondaMountpointSelector *widget) {
+    return widget->priv->parent_page;
+}
+
+/**
+ * anaconda_mountpoint_selector_set_page:
+ * @widget: a #AnacondaMountpointSelector
+ * @parent_page: Page object which owns this #AnacondaMountpointSelector
+ *
+ * Set a pointer to Page where this #AnacondaMountpointSelector is contained.
+ *
+ * Since: 3.4
+ */
+void anaconda_mountpoint_selector_set_page(AnacondaMountpointSelector *widget, GtkWidget *parent_page) {
+    if (widget->priv->parent_page != NULL)
+        g_object_unref(widget->priv->parent_page);
+
+    widget->priv->parent_page = parent_page;
+
+    if (parent_page != NULL)
+        g_object_ref(widget->priv->parent_page);
 }
