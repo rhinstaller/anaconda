@@ -131,6 +131,7 @@ class Accordion(Gtk.Box):
         self._active_selectors.clear()
         self._active_selectors.append(selector)
         self._current_selector = selector
+        selector.props.show_arrow = True
         selector.set_chosen(True)
         log.debug("Select %s device", selector.device)
 
@@ -143,15 +144,34 @@ class Accordion(Gtk.Box):
             :param list selectors: List of selectors which will be
             appended to current selection.
         """
+        if not selectors:
+            return
+
+        # If multiselection is already active it will be active even after the new selection.
+        multiselection = ((self.is_multiselection or len(selectors) > 1) or
+                          # Multiselection will be active also when there is one item already
+                          # selected and it's not the same which is in selectors array
+                          (self._current_selector and self._current_selector not in selectors))
+
+        # Hide arrow from current selected item if there will be multiselection.
+        if not self.is_multiselection and multiselection:
+            self._current_selector.props.show_arrow = False
+
         for s in selectors:
             self._active_selectors.append(s)
+            if multiselection:
+                s.props.show_arrow = False
+            else:
+                s.props.show_arrow = True
             s.set_chosen(True)
             log.debug("Device %s appended to selection", s.device)
 
-        if len(self._active_selectors) == 1:
-            self._current_selector = self._active_selectors[0]
-        else:
+        if multiselection:
             self._current_selector = None
+        else:
+            self._current_selector = self._active_selectors[0]
+        log.debug("Accordion: selected items %s; added items %s",
+                  len(self._active_selectors), len(selectors))
 
     def remove_selection(self, selectors):
         """ Remove :param:`selectors` from current selection. If only
@@ -170,9 +190,11 @@ class Accordion(Gtk.Box):
 
         if len(self._active_selectors) == 1:
             self._current_selector = self._active_selectors[0]
-            self._current_selector.set_chosen(True)
+            self._current_selector.props.show_arrow = True
         else:
             self._current_selector = None
+        log.debug("Accordion: selected items %s; removed items %s",
+                  len(self._active_selectors), len(selectors))
 
     @property
     def current_page(self):
