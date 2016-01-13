@@ -48,12 +48,14 @@
 enum {
     PROP_NAME = 1,
     PROP_SIZE,
-    PROP_MOUNTPOINT
+    PROP_MOUNTPOINT,
+    PROP_SHOW_ARROW
 };
 
 #define DEFAULT_NAME        ""
 #define DEFAULT_SIZE        N_("0 GB")
 #define DEFAULT_MOUNTPOINT  ""
+#define DEFAULT_SHOW_ARROW  TRUE
 
 struct _AnacondaMountpointSelectorPrivate {
     GtkWidget *grid;
@@ -63,6 +65,7 @@ struct _AnacondaMountpointSelectorPrivate {
     GdkCursor *cursor;
 
     gboolean   chosen;
+    gboolean   show_arrow;
     GtkWidget *parent_page;
 };
 
@@ -132,6 +135,22 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
                                                         P_("mountpoint"),
                                                         P_("Mount point display"),
                                                         DEFAULT_MOUNTPOINT,
+                                                        G_PARAM_READWRITE));
+
+    /**
+     * AnacondaMountpointSelector:show_arrow:
+     *
+     * The #AnacondaMountpointSelector:show_arrow boolean is used when arrow on the left should
+     * or shouldn't be visible.
+     *
+     * Since: 3.4
+     */
+    g_object_class_install_property(object_class,
+                                    PROP_SHOW_ARROW,
+                                    g_param_spec_boolean("show_arrow",
+                                                        P_("show_arrow"),
+                                                        P_("Show arrow when selected"),
+                                                        DEFAULT_SHOW_ARROW,
                                                         G_PARAM_READWRITE));
 
     /**
@@ -288,19 +307,23 @@ static void anaconda_mountpoint_selector_get_property(GObject *object, guint pro
 
     switch (prop_id) {
         case PROP_NAME:
-            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->name_label)));
+            g_value_set_string(value, gtk_label_get_text(GTK_LABEL(priv->name_label)));
             break;
 
         case PROP_SIZE:
-            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->size_label)));
+            g_value_set_string(value, gtk_label_get_text(GTK_LABEL(priv->size_label)));
             break;
 
         case PROP_MOUNTPOINT:
-            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->mountpoint_label)));
+            g_value_set_string(value, gtk_label_get_text(GTK_LABEL(priv->mountpoint_label)));
+            break;
+
+        case PROP_SHOW_ARROW:
+            g_value_set_boolean(value, priv->show_arrow);
             break;
 
         default:
-            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
             break;
     }
 }
@@ -321,8 +344,13 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
             format_mountpoint_label(widget, g_value_get_string(value));
             break;
 
+        case PROP_SHOW_ARROW:
+            widget->priv->show_arrow = g_value_get_boolean(value);
+            anaconda_mountpoint_selector_set_chosen(widget, widget->priv->chosen);
+            break;
+
         default:
-            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
             break;
     }
 }
@@ -365,7 +393,11 @@ void anaconda_mountpoint_selector_set_chosen(AnacondaMountpointSelector *widget,
     anaconda_mountpoint_selector_toggle_background(widget);
 
     if (is_chosen) {
-        gtk_widget_show(GTK_WIDGET(widget->priv->arrow));
+        if (widget->priv->show_arrow)
+            gtk_widget_show(GTK_WIDGET(widget->priv->arrow));
+        else
+            gtk_widget_hide(GTK_WIDGET(widget->priv->arrow));
+
         gtk_widget_grab_focus(GTK_WIDGET(widget));
     }
     else {
