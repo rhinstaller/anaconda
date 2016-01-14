@@ -93,6 +93,7 @@ class Accordion(Gtk.Box):
         self._expanders = []
         self._active_selectors = []
         self._current_selector = None
+        self._last_selected = None
 
     def _find_by_title(self, title):
         for e in self._expanders:
@@ -119,6 +120,15 @@ class Accordion(Gtk.Box):
         expander.connect("activate", self._on_expanded, cb)
         expander.show_all()
 
+    def unselect(self):
+        """ Unselect all items and clear current_selector.
+        """
+        for s in self._active_selectors:
+            s.set_chosen(False)
+        self._active_selectors.clear()
+        self._current_selector = None
+        log.debug("Accordion: unselecting all items")
+
     def select(self, selector):
         """ Select one item. Remove selection from all other items
             and clear ``current_selector`` if set. Add new selector and
@@ -126,14 +136,34 @@ class Accordion(Gtk.Box):
 
             :param selector: Selector which we want to select.
         """
-        for s in self._active_selectors:
-            s.set_chosen(False)
-        self._active_selectors.clear()
+        self.unselect()
         self._active_selectors.append(selector)
         self._current_selector = selector
+        self._last_selected = selector
         selector.props.show_arrow = True
         selector.set_chosen(True)
-        log.debug("Select %s device", selector.device)
+        log.debug("Accordion: select %s device", selector.device)
+
+    def _select_with_shift(self, clicked_selector):
+        # No items selected, only select this one
+        if not self._last_selected or self._last_selected is clicked_selector:
+            self.select(clicked_selector)
+            return
+
+        select_items = []
+        start_selection = False
+        for s in self.all_selectors:
+            if s is clicked_selector or s is self._last_selected:
+                if start_selection:
+                    select_items.append(s) # append last item too
+                    break
+                else:
+                    start_selection = True
+            if start_selection:
+                select_items.append(s)
+
+        self.unselect()
+        self.append_selection(select_items)
 
     def append_selection(self, selectors):
         """ Append new selectors to the actual selection. This takes
@@ -154,7 +184,7 @@ class Accordion(Gtk.Box):
                           (self._current_selector and self._current_selector not in selectors))
 
         # Hide arrow from current selected item if there will be multiselection.
-        if not self.is_multiselection and multiselection:
+        if not self.is_multiselection and multiselection and self._current_selector:
             self._current_selector.props.show_arrow = False
 
         for s in selectors:
@@ -165,6 +195,9 @@ class Accordion(Gtk.Box):
                 s.props.show_arrow = True
             s.set_chosen(True)
             log.debug("Device %s appended to selection", s.device)
+
+        if len(selectors) == 1:
+            self._last_selected = selectors[-1]
 
         if multiselection:
             self._current_selector = None
@@ -318,6 +351,8 @@ class Accordion(Gtk.Box):
                     self.remove_selection([selector])
                 else:
                     self.append_selection([selector])
+            elif state & Gdk.ModifierType.SHIFT_MASK: # holding SHIFT
+                self._select_with_shift(selector)
             else:
                 self.select(selector)
 
