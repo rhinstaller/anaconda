@@ -849,6 +849,7 @@ class AnacondaYum(YumSorter):
                                  enabled_plugins=["whiteout", "blacklist", "pidplugin"])
         self.configBaseRepo(root=root)
 
+        mediaAddons = []
         extraRepos = []
 
         ddArch = os.uname()[4]
@@ -866,6 +867,10 @@ class AnacondaYum(YumSorter):
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
+                if ksrepo.baseurl == "file://anaconda-addon":
+                    mediaAddons.append(ksrepo.name)
+                    continue
+
                 anacondaBaseURLs = [ksrepo.baseurl]
 
                 # yum doesn't understand nfs:// and doesn't want to.  We need
@@ -934,6 +939,9 @@ class AnacondaYum(YumSorter):
             try:
                 self.repos.add(repo)
                 log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
+
+                if repo.name in mediaAddons:
+                    repo.enable()
             except:
                 log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
 
@@ -2092,9 +2100,14 @@ debuglevel=6
                 continue
             if repo.name == "Red Hat Enterprise Linux":
                 continue
-            # ignore addon repos from media
+
+            # If this is a media install, give the enabled addon a special "addon"
+            # baseurl.  anaconda will understand this when it reads in the kickstart
+            # file and know what to do.  This does not require changes to pykickstart.
             if repo.anacondaBaseURLs[0].startswith("file://"):
-                continue
+                repo.baseurl = "file://anaconda-addon"
+                repo.mirrorlist = []
+                repo.cost = None
 
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
