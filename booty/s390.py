@@ -153,7 +153,7 @@ class s390BootloaderInfo(bootloaderInfo):
         f.write('target=%s\n' % (self.kernelLocation))
 
         cfPath = "/boot/"
-        for (label, longlabel, version) in kernelList:
+        for (label, longlabel, version) in defaultList:
             kernelTag = "-" + version
             kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
