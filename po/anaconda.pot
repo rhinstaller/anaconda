@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.241\n"
+"Project-Id-Version: anaconda 13.21.242\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-01-07 13:37-0500\n"
+"POT-Creation-Date: 2016-01-15 15:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/loader.c:1517 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/net.c:610 loader/net.c:994
-#: loader/net.c:1871 loader/net.c:1895 loader/net.c:2253 loader/net.c:2272
-#: loader/net.c:2284 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/net.c:1871 loader/net.c:1895 loader/net.c:2265 loader/net.c:2284
+#: loader/net.c:2296 loader/nfsinstall.c:91 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
 #: loader/urlinstall.c:142 loader/urlinstall.c:164 loader/urlinstall.c:226
 #: loader/urlinstall.c:379 loader/urlinstall.c:390 loader/urlinstall.c:397
@@ -1254,7 +1254,7 @@ msgstr ""
 
 #: rescue.py:311 iw/partition_gui.py:787 loader/cdinstall.c:218
 #: loader/cdinstall.c:226 loader/driverdisk.c:695 storage/__init__.py:167
-#: storage/devicetree.py:93
+#: storage/devicetree.py:94
 msgid "Continue"
 msgstr ""
 
@@ -3494,8 +3494,8 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
 #: loader/loader.c:1517 loader/loader.c:1550 loader/net.c:610 loader/net.c:994
-#: loader/net.c:2253 loader/net.c:2272 loader/nfsinstall.c:91
-#: loader/urls.c:268 storage/__init__.py:167 storage/devicetree.py:93
+#: loader/net.c:2265 loader/net.c:2284 loader/nfsinstall.c:91
+#: loader/urls.c:268 storage/__init__.py:167 storage/devicetree.py:94
 #: textw/constants_text.py:52
 msgid "Back"
 msgstr ""
@@ -4117,52 +4117,52 @@ msgstr ""
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:2029
+#: loader/net.c:2041
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2248
+#: loader/net.c:2260
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2249
+#: loader/net.c:2261
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2253
+#: loader/net.c:2265
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2262
+#: loader/net.c:2274
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2264
+#: loader/net.c:2276
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2271
+#: loader/net.c:2283
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2284
+#: loader/net.c:2296
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2285
+#: loader/net.c:2297
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2297
+#: loader/net.c:2309
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2527 loader/net.c:2531
+#: loader/net.c:2539 loader/net.c:2543
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4711,11 +4711,11 @@ msgstr ""
 msgid "Creating file %s"
 msgstr ""
 
-#: storage/devicetree.py:102
+#: storage/devicetree.py:103
 msgid "Confirm"
 msgstr ""
 
-#: storage/devicetree.py:103
+#: storage/devicetree.py:104
 #, python-format
 msgid ""
 "Are you sure you want to skip entering a passphrase for device %s?\n"
@@ -4724,7 +4724,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:2055 storage/devicetree.py:2103
+#: storage/devicetree.py:2067 storage/devicetree.py:2115
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

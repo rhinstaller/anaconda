@@ -223,6 +223,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 15 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.243-1
+- Ignore MD RAID containers if all their devices are ignored (vpodzime)
+  Resolves: rhbz#1120640
+- Fix --noipv4 option in case of multiple ks network commands (rvykydal)
+  Resolves: rhbz#1011595
+  Related: rhbz#1011595
+- Fix regression in lvm snapshot detection. (dlehman)
+  Resolves: rhbz#1295897
+
 * Thu Jan 07 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.242-1
 - Make iutil.execWithCallback honor root option. (sbueno+anaconda)
   Resolves: rhbz#883054
