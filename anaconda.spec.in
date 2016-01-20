@@ -223,6 +223,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 20 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.244-1
+- Keep 'wipefs' in the installation environment (vpodzime)
+  Resolves: rhbz#835865
+- Handle hostname and dns setting properly in loader (sbueno+anaconda)
+  Resolves: rhbz#1214266
+- Addon repos should still be added to anaconda-ks.cfg. (clumens)
+  Resolves: rhbz#1099178
+- Only write defaultList of filtered kernel entries to /etc/zipl.conf
+  (sbueno+anaconda)
+  Resolves: rhbz#1256211
+- Increase default loglevel of NetworkManager. (sbueno+anaconda)
+  Resolves: rhbz#831777
+- Increase default logging of yum. (sbueno+anaconda)
+  Resolves: rhbz#831777
+- Fix multipath UI representation (rmarshall)
+  Resolves: rhbz#914637
+  Related: rhbz#1014425
+- Refactor variable name (rmarshall)
+  Related: rhbz#914637
+  Resolves: rhbz#914637
+
 * Fri Jan 15 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.243-1
 - Ignore MD RAID containers if all their devices are ignored (vpodzime)
   Resolves: rhbz#1120640
