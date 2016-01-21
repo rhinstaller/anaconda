@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.243\n"
+"Project-Id-Version: anaconda 13.21.244\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-01-20 09:08-0500\n"
+"POT-Creation-Date: 2016-01-21 09:39-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/loader.c:1517 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/net.c:610 loader/net.c:994
-#: loader/net.c:1871 loader/net.c:1895 loader/net.c:2265 loader/net.c:2284
-#: loader/net.c:2296 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/net.c:1871 loader/net.c:1895 loader/net.c:2280 loader/net.c:2299
+#: loader/net.c:2311 loader/nfsinstall.c:91 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
 #: loader/urlinstall.c:142 loader/urlinstall.c:164 loader/urlinstall.c:226
 #: loader/urlinstall.c:379 loader/urlinstall.c:390 loader/urlinstall.c:397
@@ -3494,7 +3494,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
 #: loader/loader.c:1517 loader/loader.c:1550 loader/net.c:610 loader/net.c:994
-#: loader/net.c:2265 loader/net.c:2284 loader/nfsinstall.c:91
+#: loader/net.c:2280 loader/net.c:2299 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:167 storage/devicetree.py:94
 #: textw/constants_text.py:52
 msgid "Back"
@@ -3943,12 +3943,12 @@ msgstr ""
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2598
+#: loader/loader.c:2599
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2600
+#: loader/loader.c:2601
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4121,48 +4121,48 @@ msgstr ""
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2260
+#: loader/net.c:2275
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2261
+#: loader/net.c:2276
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2265
+#: loader/net.c:2280
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2274
+#: loader/net.c:2289
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2276
+#: loader/net.c:2291
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2283
+#: loader/net.c:2298
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2296
+#: loader/net.c:2311
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2297
+#: loader/net.c:2312
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2309
+#: loader/net.c:2324
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2539 loader/net.c:2543
+#: loader/net.c:2558 loader/net.c:2562
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
