@@ -217,14 +217,16 @@ class DeviceConfiguration(object):
     def get_device_type(self):
         if self.device:
             return self.device.get_device_type()
-        else:
+        elif self.con:
             return self.setting_types.get(self.con.get_connection_type(), None)
+        else:
+            return None
 
     def get_iface(self):
         iface = None
         if self.device:
             iface = self.device.get_iface()
-        else:
+        elif self.con:
             iface = self.con.get_setting_connection().get_interface_name()
             if not iface:
                 mac = self.con.get_setting_wired().get_mac_address()
