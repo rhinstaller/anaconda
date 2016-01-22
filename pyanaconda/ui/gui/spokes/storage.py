@@ -77,7 +77,7 @@ from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage_utils import on_disk_storage
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
-from pykickstart.errors import KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 import sys
 
@@ -351,7 +351,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             return
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
-        except (StorageError, KickstartValueError) as e:
+        except (StorageError, KickstartParseError) as e:
             log.error("storage configuration failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))

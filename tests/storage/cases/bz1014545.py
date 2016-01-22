@@ -22,7 +22,7 @@ __all__ = ["BZ1014545_TestCase"]
 from . import TestCase, TestCaseComponent
 
 from blivet.size import Size
-from pykickstart.errors import KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class BTRFSOnNonBTRFSComponent(TestCaseComponent):
     name = "BTRFSOnNonBTRFS"
@@ -42,7 +42,7 @@ btrfs none --data=0 --metadata=1 btrfs-on-non-btrfs-disk1
 
     @property
     def expectedExceptionType(self):
-        return KickstartValueError
+        return KickstartParseError
 
     @property
     def expectedExceptionText(self):
@@ -66,7 +66,7 @@ volgroup myvg volgroup-on-non-pv-disk1
 
     @property
     def expectedExceptionType(self):
-        return KickstartValueError
+        return KickstartParseError
 
     @property
     def expectedExceptionText(self):
@@ -91,7 +91,7 @@ raid / --level=1 --device=md0 raid-on-non-raid-disk1 raid-on-non-raid-disk2
 
     @property
     def expectedExceptionType(self):
-        return KickstartValueError
+        return KickstartParseError
 
     @property
     def expectedExceptionText(self):
@@ -101,7 +101,7 @@ class BZ1014545_TestCase(TestCase):
     name = "1014545"
     desc = """The members of various commands must have the correct format.
 For instance, raid members must have mdmember, and volgroup members must have
-lvmpv.  If they do not have this format, a KickstartValueError should be raised
+lvmpv.  If they do not have this format, a KickstartParseError should be raised
 during storage execution time.
 
 Note that this is different from the error condition described in the bug.

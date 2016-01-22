@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -111,7 +111,7 @@ class F22_PwPolicy(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("policy name required for %s") % "pwpolicy"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("policy name required for %s") % "pwpolicy"))
 
         pd = self.handler.PwPolicyData()
         self._setToObj(self.op, opts, pd)

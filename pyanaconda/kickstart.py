@@ -68,7 +68,7 @@ from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
 from pykickstart.base import BaseHandler
-from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import Section
@@ -304,7 +304,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         if self.fstype:
             fmt = blivet.formats.getFormat(self.fstype)
             if not fmt or fmt.type is None:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("autopart fstype of %s is invalid.") % self.fstype))
 
         return retval
@@ -321,7 +321,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
                 storage.setDefaultFSType(self.fstype)
                 storage.setDefaultBootFSType(self.fstype)
             except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Settings default fstype to %s failed.") % self.fstype))
 
         # sets up default autopartitioning.  use clearpart separately
@@ -352,12 +352,12 @@ class Bootloader(commands.bootloader.F21_Bootloader):
     def parse(self, args):
         commands.bootloader.F21_Bootloader.parse(self, args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("GRUB2 does not support installation to a partition.")))
 
         if self.isCrypted and isinstance(get_bootloader(), GRUB2):
             if not self.password.startswith("grub.pbkdf2."):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg="GRUB2 encrypted password must be in grub.pbkdf2 format."))
 
         return self
@@ -412,10 +412,10 @@ class Bootloader(commands.bootloader.F21_Bootloader):
             matches = set(deviceMatches(self.bootDrive,
                                         devicetree=storage.devicetree))
             if len(matches) > 1:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("More than one match found for given boot drive \"%s\".") % self.bootDrive))
             elif matches.isdisjoint(diskSet):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Requested boot drive \"%s\" doesn't exist or cannot be used.") % self.bootDrive))
         else:
             self.bootDrive = disk_names[0]
@@ -457,12 +457,12 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
                     dev = None
 
             if dev and dev.format.type != "btrfs":
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
                              {"device": member, "format": dev.format.type}))
 
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Tried to use undefined partition \"%s\" in Btrfs volume specification.") % member))
 
             members.append(dev)
@@ -475,7 +475,7 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
             name = None
 
         if len(members) == 0 and not self.preexist:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("Btrfs volume defined without any member devices.  Either specify member devices or use --useexisting.")))
 
         # allow creating btrfs vols/subvols without specifying mountpoint
@@ -484,7 +484,7 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
 
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint))
 
         # If a previous device has claimed this mount point, delete the
@@ -499,7 +499,7 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
         if self.preexist:
             device = devicetree.resolveDevice(self.name)
             if not device:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name))
 
             device.format.mountpoint = self.mountpoint
@@ -513,7 +513,7 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
                                        parents=members,
                                        createOptions=self.mkfsopts)
             except BTRFSValueError as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
 
@@ -586,7 +586,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
             self.type = CLEARPART_TYPE_NONE
 
         if self.disklabel and self.disklabel not in platform.diskLabelTypes:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("Disklabel \"%s\" given in clearpart command is not "
                           "supported on this platform.") % self.disklabel))
 
@@ -598,7 +598,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
             if matched:
                 drives.extend(matched)
             else:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Disk \"%s\" given in clearpart command does not exist.") % spec))
 
         self.drives = drives
@@ -611,7 +611,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
             if matched:
                 devices.extend(matched)
             else:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Device \"%s\" given in clearpart device list does not exist.") % spec))
 
         self.devices = devices
@@ -638,7 +638,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         fc = commands.fcoe.F13_Fcoe.parse(self, args)
 
         if fc.nic not in nm.nm_devices():
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("NIC \"%s\" given in fcoe command does not exist.") % fc.nic))
 
         if fc.nic in (info[0] for info in blivet.fcoe.fcoe().nics):
@@ -738,7 +738,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
             if matched:
                 drives.extend(matched)
             else:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
 
         self.ignoredisk = drives
@@ -749,7 +749,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
             if matched:
                 drives.extend(matched)
             else:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
 
         self.onlyuse = drives
@@ -762,7 +762,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
 
         if tg.iface:
             if not network.wait_for_network_devices([tg.iface]):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target is not up.") %
                              {"nic": tg.iface, "iscsiTarget": tg.target}))
 
@@ -772,7 +772,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
                 blivet.iscsi.iscsi().create_interfaces(nm.nm_activated_devices())
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("iscsi --iface must be specified (binding used) either for all targets or for none")))
 
         try:
@@ -785,7 +785,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
                                                            tg.ipaddr,
                                                            tg.iface)
         except (IOError, ValueError) as e:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
         return tg
 
@@ -820,7 +820,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
         # FIXME: we should be running sanityCheck on partitioning that is not ks
         # autopart, but that's likely too invasive for #873135 at this moment
         if self.mountpoint == "/boot" and blivet.arch.isS390():
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="/boot can not be of type 'lvmlv' on s390x"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg="/boot can not be of type 'lvmlv' on s390x"))
 
         # we might have truncated or otherwise changed the specified vg name
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
@@ -845,12 +845,12 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
         if size is None and not self.preexist:
             if not self.size:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg="Size can not be decided on from kickstart nor obtained from device."))
             try:
                 size = Size("%d MiB" % self.size)
             except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg="The size \"%s\" is invalid." % self.size))
 
         if self.thin_pool:
@@ -859,20 +859,20 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint))
 
         # Check that the VG this LV is a member of has already been specified.
         vg = devicetree.getDeviceByName(vgname)
         if not vg:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("No volume group exists with the name \"%s\".  Specify volume groups before logical volumes.") % self.vgname))
 
         # If cache PVs specified, check that they belong to the same VG this LV is a member of
         if self.cache_pvs:
             pv_devices = (lookupAlias(devicetree, pv) for pv in self.cache_pvs)
             if not all(pv in vg.pvs for pv in pv_devices):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("Cache PVs must belong to the same VG as the cached LV")))
 
         pool = None
@@ -881,18 +881,18 @@ class LogVolData(commands.logvol.F23_LogVolData):
             if not pool:
                 err = formatErrorMsg(self.lineno,
                                      msg=_("No thin pool exists with the name \"%s\". Specify thin pools before thin volumes.") % self.pool_name)
-                raise KickstartValueError(err)
+                raise KickstartParseError(err)
 
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not self.format:
             if not self.name:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("logvol --noformat must also use the --name= option.")))
 
             dev = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name))
 
             if self.resize:
@@ -903,7 +903,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                         devicetree.registerAction(ActionResizeFormat(dev, size))
                         devicetree.registerAction(ActionResizeDevice(dev, size))
                     except ValueError:
-                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                        raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                      {"size": self.size, "device": dev.name}))
                 else:
@@ -912,7 +912,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                         devicetree.registerAction(ActionResizeDevice(dev, size))
                         devicetree.registerAction(ActionResizeFormat(dev, size))
                     except ValueError:
-                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                        raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                      {"size": self.size, "device": dev.name}))
 
@@ -926,12 +926,12 @@ class LogVolData(commands.logvol.F23_LogVolData):
         if not self.preexist:
             tmp = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
             if tmp:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume name \"%(logvol)s\" is already in use in volume group \"%(volgroup)s\".") %
                              {"logvol": self.name, "volgroup": vg.name}))
 
             if not self.percent and size and not self.grow and size < vg.peSize:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume size \"%(logvolSize)s\" must be larger than the volume group extent size of \"%(extentSize)s\".") %
                              {"logvolSize": size, "extentSize": vg.peSize}))
 
@@ -943,7 +943,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                         createOptions=self.mkfsopts,
                         mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
 
         add_fstab_swap = None
@@ -954,7 +954,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
         if self.preexist:
             device = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
             if not device:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name))
 
             removeExistingFormat(device, storage)
@@ -964,7 +964,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 try:
                     devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
-                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                    raise KickstartParseError(formatErrorMsg(self.lineno,
                             msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                  {"size": self.size, "device": device.name}))
 
@@ -1004,7 +1004,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 try:
                     maxsize = Size("%d MiB" % self.maxSizeMB)
                 except ValueError:
-                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                    raise KickstartParseError(formatErrorMsg(self.lineno,
                             msg="The maximum size \"%s\" is invalid." % self.maxSizeMB))
             else:
                 maxsize = None
@@ -1030,7 +1030,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                                     cacheRequest=cache_request,
                                     **pool_args)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1149,7 +1149,7 @@ class PartitionData(commands.partition.F23_PartData):
                     break
 
             if not self.disk:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("No disk found for specified BIOS disk \"%s\".") % self.onbiosdisk))
 
         size = None
@@ -1184,7 +1184,7 @@ class PartitionData(commands.partition.F23_PartData):
             self.mountpoint = ""
 
             if devicetree.getDeviceByName(kwargs["name"]):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             if self.onPart:
@@ -1195,7 +1195,7 @@ class PartitionData(commands.partition.F23_PartData):
             self.mountpoint = ""
 
             if devicetree.getDeviceByName(kwargs["name"]):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("PV partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             if self.onPart:
@@ -1206,7 +1206,7 @@ class PartitionData(commands.partition.F23_PartData):
             self.mountpoint = ""
 
             if devicetree.getDeviceByName(kwargs["name"]):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             if self.onPart:
@@ -1229,19 +1229,19 @@ class PartitionData(commands.partition.F23_PartData):
             try:
                 size = Size("%d MiB" % self.size)
             except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("The size \"%s\" is invalid.") % self.size))
 
         # If this specified an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not self.format:
             if not self.onPart:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("part --noformat must also use the --onpart option.")))
 
             dev = devicetree.resolveDevice(self.onPart)
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Partition \"%s\" given in part command does not exist.") % self.onPart))
 
             if self.resize:
@@ -1252,7 +1252,7 @@ class PartitionData(commands.partition.F23_PartData):
                         devicetree.registerAction(ActionResizeFormat(dev, size))
                         devicetree.registerAction(ActionResizeDevice(dev, size))
                     except ValueError:
-                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                        raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                      {"size": self.size, "device": dev.name}))
                 else:
@@ -1261,7 +1261,7 @@ class PartitionData(commands.partition.F23_PartData):
                         devicetree.registerAction(ActionResizeDevice(dev, size))
                         devicetree.registerAction(ActionResizeFormat(dev, size))
                     except ValueError:
-                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                        raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                      {"size": self.size, "device": dev.name}))
 
@@ -1280,7 +1280,7 @@ class PartitionData(commands.partition.F23_PartData):
            createOptions=self.mkfsopts,
            size=size)
         if not kwargs["fmt"].type:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
 
         # If we were given a specific disk to create the partition on, verify
@@ -1295,21 +1295,21 @@ class PartitionData(commands.partition.F23_PartData):
                                  disk.name, mpath_device.name)
                 disk = mpath_device
             if not disk:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Disk \"%s\" given in part command does not exist.") % self.disk))
             if not disk.partitionable:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Cannot install to unpartitionable device \"%s\".") % self.disk))
 
             should_clear = storage.shouldClear(disk)
             if disk and (disk.partitioned or should_clear):
                 kwargs["parents"] = [disk]
             elif disk:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Disk \"%s\" in part command is not partitioned.") % self.disk))
 
             if not kwargs["parents"]:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Disk \"%s\" given in part command does not exist.") % self.disk))
 
         kwargs["grow"] = self.grow
@@ -1318,7 +1318,7 @@ class PartitionData(commands.partition.F23_PartData):
             try:
                 maxsize = Size("%d MiB" % self.maxSizeMB)
             except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("The maximum size \"%s\" is invalid.") % self.maxSizeMB))
         else:
             maxsize = None
@@ -1335,7 +1335,7 @@ class PartitionData(commands.partition.F23_PartData):
         if self.onPart:
             device = devicetree.resolveDevice(self.onPart)
             if not device:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Partition \"%s\" given in part command does not exist.") % self.onPart))
 
             removeExistingFormat(device, storage)
@@ -1344,7 +1344,7 @@ class PartitionData(commands.partition.F23_PartData):
                 try:
                     devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
-                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                    raise KickstartParseError(formatErrorMsg(self.lineno,
                             msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                  {"size": self.size, "device": device.name}))
 
@@ -1357,7 +1357,7 @@ class PartitionData(commands.partition.F23_PartData):
             try:
                 request = storage.newTmpFS(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
             storage.createDevice(request)
         else:
             # If a previous device has claimed this mount point, delete the
@@ -1372,7 +1372,7 @@ class PartitionData(commands.partition.F23_PartData):
             try:
                 request = storage.newPartition(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1447,7 +1447,7 @@ class RaidData(commands.raid.F23_RaidData):
             ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("PV partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             self.mountpoint = ""
@@ -1457,7 +1457,7 @@ class RaidData(commands.raid.F23_RaidData):
             ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             self.mountpoint = ""
@@ -1472,19 +1472,19 @@ class RaidData(commands.raid.F23_RaidData):
 
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint))
 
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
         if not self.format:
             if not devicename:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("raid --noformat must also use the --device option.")))
 
             dev = devicetree.getDeviceByName(devicename)
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID device  \"%s\" given in raid command does not exist.") % devicename))
 
             dev.format.mountpoint = self.mountpoint
@@ -1507,12 +1507,12 @@ class RaidData(commands.raid.F23_RaidData):
                     dev = None
 
             if dev and dev.format.type != "mdmember":
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"mdmember\".") %
                              {"device": member, "format": dev.format.type}))
 
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Tried to use undefined partition \"%s\" in RAID specification.") % member))
 
             raidmems.append(dev)
@@ -1525,7 +1525,7 @@ class RaidData(commands.raid.F23_RaidData):
            mountopts=self.fsopts,
            createOptions=self.mkfsopts)
         if not kwargs["fmt"].type:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
 
         kwargs["name"] = devicename
@@ -1541,7 +1541,7 @@ class RaidData(commands.raid.F23_RaidData):
         if self.preexist:
             device = devicetree.getDeviceByName(devicename)
             if not device:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID volume \"%s\" specified with --useexisting does not exist.") % devicename))
 
             removeExistingFormat(device, storage)
@@ -1550,7 +1550,7 @@ class RaidData(commands.raid.F23_RaidData):
                 storage.addFstabSwap(device)
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("The RAID volume name \"%s\" is already in use.") % devicename))
 
             # If a previous device has claimed this mount point, delete the
@@ -1565,7 +1565,7 @@ class RaidData(commands.raid.F23_RaidData):
             try:
                 request = storage.newMDArray(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1784,18 +1784,18 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
                     dev = None
 
             if dev and dev.format.type != "lvmpv":
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Physical volume \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"lvmpv\".") %
                              {"device": pv, "format": dev.format.type}))
 
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Tried to use undefined partition \"%s\" in Volume Group specification") % pv))
 
             pvs.append(dev)
 
         if len(pvs) == 0 and not self.preexist:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("Volume group \"%s\" defined without any physical volumes.  Either specify physical volumes or use --useexisting.") % self.vgname))
 
         if self.pesize == 0:
@@ -1805,22 +1805,22 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
         pesize = Size("%d KiB" % self.pesize)
         possible_extents = LVMVolumeGroupDevice.get_supported_pe_sizes()
         if pesize not in possible_extents:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("Volume group given physical extent size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %
                          {"extentSize": pesize, "validExtentSizes": ", ".join(str(e) for e in possible_extents)}))
 
         # If --noformat or --useexisting was given, there's really nothing to do.
         if not self.format or self.preexist:
             if not self.vgname:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("volgroup --noformat and volgroup --useexisting must also use the --name= option.")))
 
             dev = devicetree.getDeviceByName(self.vgname)
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
+                raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Volume group \"%s\" given in volgroup command does not exist.") % self.vgname))
         elif self.vgname in (vg.name for vg in storage.vgs):
-            raise KickstartValueError(formatErrorMsg(self.lineno,
+            raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The volume group name \"%s\" is already in use.") % self.vgname))
         else:
             try:
@@ -1828,7 +1828,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
                                     name=self.vgname,
                                     peSize=pesize)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if self.reserved_space:
