@@ -1903,6 +1903,27 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.on_selector_clicked(None, member)
                     break
 
+    def _show_confirmation_dialog(self, root_name, device):
+        dialog = ConfirmDeleteDialog(self.data)
+        snapshots = (device.direct and not device.isleaf)
+        checkbox_text = None
+        if not self._accordion.is_multiselection:
+            if root_name and "_" in root_name:
+                root_name = root_name.replace("_", "__")
+                checkbox_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                                    "Delete _all other file systems in the %s root as well.")
+                                    % root_name)
+        else:
+            checkbox_text = C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                               "Do _not show this dialog for other selected file systems.")
+        dialog.refresh(getattr(device.format, "mountpoint", ""),
+                       device.name, checkbox_text=checkbox_text, snapshots=snapshots)
+        with self.main_window.enlightbox(dialog.window):
+            rc = dialog.run()
+            option_checked = dialog.option_checked
+            dialog.window.destroy()
+            return (rc, option_checked)
+
     def on_remove_clicked(self, button):
         # Nothing selected?  Nothing to remove.
         if not self._accordion.is_current_selected and not self._accordion.is_multiselection:
@@ -1922,6 +1943,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.debug("removing device '%s' from page %s", device, root_name)
 
             if root_name == translated_new_install_name():
+                if is_multiselection and not skip_dialog:
+                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device)
+
+                    if rc != 1:
+                        if skip_dialog:
+                            return
+                        continue
+
                 if device.exists:
                     # This is an existing device that was added to the new page.
                     # All we want to do is revert any changes to the device and
@@ -1939,29 +1968,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # on it.  Thus, we first need to confirm with the user and then
                 # schedule actions to delete the thing.
                 if not skip_dialog:
-                    dialog = ConfirmDeleteDialog(self.data)
-                    snapshots = (device.direct and not device.isleaf)
-                    checkbox_text = None
-                    if not is_multiselection:
-                        if root_name and "_" in root_name:
-                            root_name = root_name.replace("_", "__")
-                            checkbox_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                                                "Delete _all other file systems in the %s root as well.")
-                                                % root_name)
-                    else:
-                        checkbox_text = C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                                           "Do _not show this dialog for other selected file systems.")
-                    dialog.refresh(getattr(device.format, "mountpoint", ""),
-                                   device.name, checkbox_text=checkbox_text, snapshots=snapshots)
-                    with self.main_window.enlightbox(dialog.window):
-                        rc = dialog.run()
-                        skip_dialog = dialog.option_checked
+                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device)
 
-                        if rc != 1:
-                            dialog.window.destroy()
-                            if skip_dialog:
-                                return
-                            continue
+                    if rc != 1:
+                        if skip_dialog:
+                            return
+                        continue
 
                 if skip_dialog and not is_multiselection:
                     for dev in (s._device for s in page.members):
