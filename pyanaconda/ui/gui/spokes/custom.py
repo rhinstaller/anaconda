@@ -469,12 +469,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _set_page_label_text(self):
         if self._accordion.is_multiselection:
-            self._pageLabel.set_text(_("Select a single mount point to edit properties."))
+            select_tmpl = _("{fmt_start}{selected}{fmt_end} of "
+                            "{fmt_start}{total}{fmt_end} mount "
+                            "points in {fmt_start}{name}{fmt_end}")
+            color_tmpl = _("<span size='large' weight='bold' fgcolor='{}'>")
+            pages_count = ""
+            for page in self._accordion.all_pages:
+                if not page.members:
+                    continue
+
+                if not page.selected_members:
+                    style = color_tmpl.format("gray")
+                    page_line = "<span fgcolor='gray'>" + select_tmpl + "</span>"
+                else:
+                    style = color_tmpl.format("black")
+                    page_line = select_tmpl
+
+                page_line = page_line.format_map({"selected" : len(page.selected_members),
+                                                  "total"    : len(page.members),
+                                                  "name"     : page.pageTitle,
+                                                  "fmt_start": style,
+                                                  "fmt_end"  : "</span>"})
+                pages_count += page_line + "\n"
+
+            self._pageLabel.set_markup(_("Please select a single mount point to edit properties.\n\n"
+                                         "You have currently selected:\n"
+                                         "{pages}").format_map({"pages" : pages_count}))
         else:
             self._pageLabel.set_text(_("When you create mount points for "
-                    "your %(name)s %(version)s installation, you'll be able to "
-                    "view their details here.") % {"name" : productName,
-                                                   "version" : productVersion})
+                    "your {name} {version} installation, you'll be able to "
+                    "view their details here.").format_map({"name"    : productName,
+                                                            "version" : productVersion}))
     def _populate_accordion(self):
         # Make sure we start with a clean state.
         self._accordion.remove_all_pages()
