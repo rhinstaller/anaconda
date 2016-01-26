@@ -106,6 +106,11 @@ class Accordion(Gtk.Box):
         if cb:
             cb(obj.get_child())
 
+    def _activate_selector(self, selector, activate, show_arrow):
+        selector.set_chosen(activate)
+        selector.props.show_arrow = show_arrow
+        selector.get_page().mark_selection(selector)
+
     def add_page(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
                           escape_markup(contents.pageTitle), use_markup=True,
@@ -124,7 +129,7 @@ class Accordion(Gtk.Box):
         """ Unselect all items and clear current_selector.
         """
         for s in self._active_selectors:
-            s.set_chosen(False)
+            self._activate_selector(s, False, False)
         self._active_selectors.clear()
         self._current_selector = None
         log.debug("Accordion: unselecting all items")
@@ -140,8 +145,7 @@ class Accordion(Gtk.Box):
         self._active_selectors.append(selector)
         self._current_selector = selector
         self._last_selected = selector
-        selector.props.show_arrow = True
-        selector.set_chosen(True)
+        self._activate_selector(selector, activate=True, show_arrow=True)
         log.debug("Accordion: select %s device", selector.device)
 
     def _select_with_shift(self, clicked_selector):
@@ -190,10 +194,9 @@ class Accordion(Gtk.Box):
         for s in selectors:
             self._active_selectors.append(s)
             if multiselection:
-                s.props.show_arrow = False
+                self._activate_selector(s, activate=True, show_arrow=False)
             else:
-                s.props.show_arrow = True
-            s.set_chosen(True)
+                self._activate_selector(s, activate=True, show_arrow=True)
             log.debug("Device %s appended to selection", s.device)
 
         if len(selectors) == 1:
@@ -217,7 +220,7 @@ class Accordion(Gtk.Box):
         """
         for s in selectors:
             if s in self._active_selectors:
-                s.set_chosen(False)
+                self._activate_selector(s, activate=False, show_arrow=False)
                 self._active_selectors.remove(s)
                 log.debug("Device %s removed from selection", s)
 
@@ -319,7 +322,7 @@ class Accordion(Gtk.Box):
         if self._current_selector:
             if self._current_selector in self._active_selectors:
                 self._active_selectors.remove(self._current_selector)
-            self._current_selector.set_chosen(False)
+            self._activate_selector(self._current_selector, activate=False, show_arrow=False)
             self._current_selector = None
 
     def process_event(self, selector, event, cb):
@@ -374,7 +377,11 @@ class BasePage(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title
-        self.selected_members = set()
+        self._selected_members = set()
+
+    @property
+    def selected_members(self):
+        return self._selected_members
 
     def _make_category_label(self, name):
         label = Gtk.Label()
@@ -383,6 +390,12 @@ class BasePage(Gtk.Box):
         label.set_halign(Gtk.Align.START)
         label.set_margin_left(24)
         return label
+
+    def mark_selection(self, selector):
+        if selector.get_chosen():
+            self._selected_members.add(selector)
+        else:
+            self._selected_members.discard(selector)
 
     def add_selector(self, device, cb, mountpoint=""):
         accordion = self.get_ancestor(Accordion)
