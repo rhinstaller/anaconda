@@ -154,6 +154,11 @@ class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
                 (package.name, package.arch, ts_current, ts_total)
             self.cnt += 1
             self._queue.put(('install', msg))
+
+            # Log the exact package nevra, build time and checksum
+            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
+            log_msg = "Installed: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
+            self._queue.put(('log', log_msg))
         elif action == self.TRANS_POST:
             self._queue.put(('post', None))
 
@@ -749,6 +754,8 @@ class DNFPayload(packaging.PackagePayload):
             if token == 'install':
                 msg = _("Installing %s") % msg
                 progressQ.send_message(msg)
+            elif token == 'log':
+                log.info(msg)
             (token, msg) = queue_instance.get()
 
         if token == 'quit':
