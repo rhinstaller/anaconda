@@ -348,6 +348,14 @@ class Spoke(object, metaclass=ABCMeta):
         """
         log.debug("Left spoke: %s", self.__class__.__name__)
 
+    def finished(self):
+        """Called when exiting the Summary Hub
+
+        This can be used to cleanup the spoke before continuing the
+        installation. This method is optional.
+        """
+        pass
+
 # Inherit abstract methods from Spoke
 # pylint: disable=abstract-method
 class NormalSpoke(Spoke):

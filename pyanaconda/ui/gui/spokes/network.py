@@ -1495,6 +1495,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.clear_info()
             NormalSpoke.on_back_clicked(self, button)
 
+    def finished(self):
+        """Disconnect callbacks
+
+        Called when leaving summary hub
+        """
+        self.network_control_box.kill_nmce(msg="finished with network spoke")
+        self.network_control_box.disconnect_client_callbacks()
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
     """
