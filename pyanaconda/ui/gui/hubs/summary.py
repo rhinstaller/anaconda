@@ -64,3 +64,12 @@ class SummaryHub(Hub):
         else:
             self._checker = DirInstallSpaceChecker(storage, payload)
 
+        # Add a continue-clicked handler
+        self.window.connect("continue-clicked", self._on_continue_clicked)
+
+    def _on_continue_clicked(self, win, user_data=None):
+        """Call finished method of spokes when leaving the hub.
+        """
+        for spoke in sorted(self._spokes.values(), key=lambda x: x.__class__.__name__):
+            if hasattr(spoke, "finished"):
+                spoke.finished()
