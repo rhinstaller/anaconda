@@ -25,6 +25,9 @@ import os
 import functools
 from pykickstart.sections import Section
 
+from pyanaconda.progress import progress_message
+from pyanaconda.i18n import N_
+
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
        in toplevel_addon_paths and registers each subdirectory
@@ -81,6 +84,7 @@ class AddonRegistry(object):
         """This method calls execute on all the registered addons."""
         for v in self.__dict__.values():
             if hasattr(v, "execute"):
+                progress_message(N_("Executing %s addon") % v.name)
                 v.execute(storage, ksdata, instClass, users)
 
     def setup(self, storage, ksdata, instClass):
