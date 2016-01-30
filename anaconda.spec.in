@@ -305,6 +305,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 29 2016 Brian C. Lane <bcl@redhat.com> - 24.10-1
+- Add a finished method to spokes (#1300499) (bcl)
+- Handle DeviceConfiguration with con = None (#1300499) (bcl)
+- Log detailed information about installed packages (bcl)
+- s/KickstartValueError/KickstartParseError. (clumens)
+- Move requiredDeviceSize to the main Payload class (#1297905) (dshea)
+
 * Fri Jan 08 2016 Brian C. Lane <bcl@redhat.com> - 24.9-1
 - Handle unexpected DNF exit (bcl)
 - Fix bad space needed messages (jkonecny)
