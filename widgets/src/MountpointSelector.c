@@ -213,6 +213,7 @@ static void format_name_label(AnacondaMountpointSelector *widget, const char *va
 
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     gchar *file;
+    GtkStyleContext *context;
 
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
@@ -285,6 +286,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Set NULL to parent_page while it's not set already */
     mountpoint->priv->parent_page = NULL;
+
+    /* Apply the "fallback" style so that the widgets are colored correctly when
+     * selected, insensitive, etc. */
+    context = gtk_widget_get_style_context(GTK_WIDGET(mountpoint));
+    gtk_style_context_add_class(context, "gtkstyle-fallback");
 }
 
 static void anaconda_mountpoint_selector_finalize(GObject *object) {

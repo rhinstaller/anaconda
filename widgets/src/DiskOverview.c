@@ -262,6 +262,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     AtkObject *atk;
     AtkRole role;
     char *markup;
+    GtkStyleContext *context;
 
     widget->priv = G_TYPE_INSTANCE_GET_PRIVATE(widget,
                                                ANACONDA_TYPE_DISK_OVERVIEW,
@@ -337,6 +338,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
     atk_object_set_role(atk, role);
+
+    /* Apply the "fallback" style so that the widgets are colored correctly when
+     * selected, insensitive, etc */
+    context = gtk_widget_get_style_context(GTK_WIDGET(widget));
+    gtk_style_context_add_class(context, "gtkstyle-fallback");
 }
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event) {
