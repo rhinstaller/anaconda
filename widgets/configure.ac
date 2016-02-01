@@ -22,7 +22,7 @@
 m4_define(python_required_version, 3.4)
 
 AC_PREREQ([2.63])
-AC_INIT([AnacondaWidgets], [3.2], [clumens@redhat.com])
+AC_INIT([AnacondaWidgets], [3.3], [clumens@redhat.com])
 
 # Disable building static libraries.
 # This needs to be set before initializing automake
@@ -51,7 +51,7 @@ m4_ifdef([GOBJECT_INTROSPECTION_CHECK],
 [GOBJECT_INTROSPECTION_CHECK([0.6.7])],
 [found_introspection=no
 AM_CONDITIONAL(HAVE_INTROSPECTION, false)])
- 
+
 # Complain if introspection was not enabled
 AS_IF([test "x$found_introspection" = xyes], [:],
       [ANACONDA_SOFT_FAILURE([GObject introspection must be enabled])])

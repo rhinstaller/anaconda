@@ -61,7 +61,7 @@ lib_LTLIBRARIES = libAnacondaWidgets.la
 libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) $(LIBXKLAVIER_CFLAGS) -Wall -g\
 			       -DWIDGETS_DATADIR=$(WIDGETSDATA)
 libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS) $(LIBXKLAVIER_LIBS)
-libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL) -version-info 3:1:1
+libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL) -version-info 4:0:2
 libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
 	  glade-adaptor.c
 
