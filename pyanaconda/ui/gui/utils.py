@@ -372,7 +372,7 @@ def setViewportBackground(vp, color="@theme_bg_color"):
     """
 
     provider = Gtk.CssProvider()
-    provider.load_from_data(bytes("GtkViewport { background-color: %s }" % color, "utf-8"))
+    provider.load_from_data(bytes("viewport { background: %s }" % color, "utf-8"))
     context = vp.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 

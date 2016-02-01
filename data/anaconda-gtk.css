@@ -8,59 +8,27 @@
  * default, but it defines them for level bars using a continuous value between
  * 0 and 1, so our discrete level bars are effectively always at the "high"
  * level.
- *
- * Fun surprises that might change in future versions:
- *
- *  - Defining properties for a level will set properties on both the filled
- *    portion and the empty portion of the level bar. So if all of the display
- *    properties are set, which we do, the level bar effectively becomes 100%
- *    filled with whatever properties are set. Copying the .empty-fill-block
- *    properties from the theme so that they apply at the application level
- *    works around this.
- *
- *  - There's a bug in the handling of the maximum offset in that it only
- *    applies when value == max-value, rather than when it's between
- *    max-value and the next lower offset. For example, consider a
- *    discrete-mode level bar with a max-value of 4 and offsets defined as
- *    "low": 2.0, "medium": 3.0 and "high": 4.0. Value 1 will be low,
- *    value 2 will be medium, value 3 will be in an undefined no-man's land,
- *    and value 4 will be high. To get around this we re-define the default
- *    fill-block values as the same as fill-block.level-high.
- *
- *  - The GNOME Adwaita theme applies a gradient to the progress bar when the
- *    window is focused. It does this by redefining the colors in a
- *    background-image property, so unless we reset background-image our colors
- *    will only apply when the window is out of focus, which uses the :backdrop
- *    selector.
  */
 
 @define-color anaconda_level_bar_low        red;
 @define-color anaconda_level_bar_medium     orange;
 @define-color anaconda_level_bar_high       green;
 
-.level-bar.fill-block.level-low {
+/* The .fill part works around https://bugzilla.gnome.org/show_bug.cgi?id=761416 */
+levelbar.discrete trough block.filled.full,
+levelbar.discrete trough block.filled.low {
     border-color: darker(@anaconda_level_bar_low);
-    background-color: @anaconda_level_bar_low;
-    background-image: none;
+    background: @anaconda_level_bar_low;
 }
 
-.level-bar.fill-block.level-medium {
+levelbar.discrete trough block.filled.medium {
     border-color: darker(@anaconda_level_bar_medium);
-    background-color: @anaconda_level_bar_medium;
-    background-image: none;
+    background: @anaconda_level_bar_medium;
 }
 
-.level-bar.fill-block,
-.level-bar.fill-block.level-high {
+levelbar.discrete trough block.filled.high {
     border-color: darker(@anaconda_level_bar_high);
-    background-color: @anaconda_level_bar_high;
-    background-image: none;
-}
-
-.level-bar.fill-block.empty-fill-block {
-    background-color: transparent;
-    background-image: none;
-    border-color: alpha(#000000, 0.1);
+    background: @anaconda_level_bar_high;
 }
 
 /* As of gnome-themes-standard 3.9.90, the Adwaita theme uses the same color
@@ -195,7 +163,7 @@ AnacondaSpokeSelector:insensitive {
  * separator up for each column. It looks kind of dumb. Provide a way to not do
  * that.
  */
-GtkTreeView.solid-separator {
+treeview.solid-separator {
     -GtkTreeView-horizontal-separator: 0;
 }
 
