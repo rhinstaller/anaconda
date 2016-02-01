@@ -271,6 +271,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
 static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     AtkObject *atk;
     AtkRole role;
+    GtkStyleContext *context;
 
     spoke->priv = G_TYPE_INSTANCE_GET_PRIVATE(spoke,
                                               ANACONDA_TYPE_SPOKE_SELECTOR,
@@ -339,6 +340,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     atk_object_set_name(atk, _(DEFAULT_TITLE));
     atk_object_set_description(atk, _(DEFAULT_STATUS));
     atk_object_set_role(atk, role);
+
+    /* Apply the "fallback" style so that the widgets are colored correctly when
+     * selected, insensitive, etc */
+    context = gtk_widget_get_style_context(GTK_WIDGET(spoke));
+    gtk_style_context_add_class(context, "gtkstyle-fallback");
 }
 
 static void anaconda_spoke_selector_finalize(GObject *object) {
