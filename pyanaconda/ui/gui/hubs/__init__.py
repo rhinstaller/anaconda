@@ -107,7 +107,7 @@ class Hub(GUIObject, common.Hub):
 
     def _createBox(self):
         gi.require_version("Gtk", "3.0")
-        gi.require_version("AnacondaWidgets", "3.0")
+        gi.require_version("AnacondaWidgets", "3.3")
 
         from gi.repository import Gtk, AnacondaWidgets
 

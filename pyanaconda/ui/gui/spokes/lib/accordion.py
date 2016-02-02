@@ -30,7 +30,7 @@ from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.storage_utils import AUTOPART_CHOICES, AUTOPART_DEVICE_TYPES
 
 import gi
-gi.require_version("AnacondaWidgets", "3.0")
+gi.require_version("AnacondaWidgets", "3.3")
 gi.require_version("Gtk", "3.0")
 
 from gi.repository.AnacondaWidgets import MountpointSelector

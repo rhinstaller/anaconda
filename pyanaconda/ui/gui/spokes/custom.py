@@ -32,7 +32,7 @@
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
-gi.require_version("AnacondaWidgets", "3.0")
+gi.require_version("AnacondaWidgets", "3.3")
 
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
