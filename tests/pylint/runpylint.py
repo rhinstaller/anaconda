@@ -25,6 +25,10 @@ class AnacondaLintConfig(PocketLintConfig):
     def initHook(self):
         return """'import gi.overrides, os; gi.overrides.__path__[0:0] = (os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":") if "ANACONDA_WIDGETS_OVERRIDES" in os.environ else [])'"""
 
+    @property
+    def ignoreNames(self):
+        return {"translation-canary"}
+
 if __name__ == "__main__":
     conf = AnacondaLintConfig()
     linter = PocketLinter(conf)

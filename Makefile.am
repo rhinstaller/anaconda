@@ -28,6 +28,10 @@ EXTRA_DIST += $(srcdir)/anaconda.po
 $(srcdir)/anaconda.po: $(srcdir)/anaconda
 	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)
 
+# Include the xgettext wrapper so pot-update can be run from the source distribution
+# This is needed for make distcheck.
+EXTRA_DIST += $(srcdir)/translation-canary/xgettext_werror.sh
+
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
                        INSTALL aclocal.m4 configure *.pyc py-compile \
@@ -51,6 +55,10 @@ MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 COVERAGE ?= coverage3
 USER_SITE_PACKAGES ?= $(shell $(PYTHON) -m site --user-site)
 ROOT_SITE_PACKAGES ?= $(shell sudo $(PYTHON) -m site --user-site)
+
+# Run tests on the translations before tarring them up
+dist-hook:
+	PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated --release $(distdir)
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
