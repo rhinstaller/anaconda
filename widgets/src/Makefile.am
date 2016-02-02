@@ -71,18 +71,18 @@ lib_include_HEADERS = $(HDRS)
 MAINTAINERCLEANFILES = gettext.h
 
 if HAVE_INTROSPECTION
-AnacondaWidgets-3.0.gir: libAnacondaWidgets.la
+AnacondaWidgets-3.3.gir: libAnacondaWidgets.la
 
-AnacondaWidgets_3_0_gir_FILES = $(GISOURCES) $(GIHDRS)
-AnacondaWidgets_3_0_gir_LIBS = libAnacondaWidgets.la
-AnacondaWidgets_3_0_gir_SCANNERFLAGS = --warn-all --identifier-prefix=Anaconda --symbol-prefix=anaconda
-AnacondaWidgets_3_0_gir_INCLUDES = Gtk-3.0 Xkl-1.0
+AnacondaWidgets_3_3_gir_FILES = $(GISOURCES) $(GIHDRS)
+AnacondaWidgets_3_3_gir_LIBS = libAnacondaWidgets.la
+AnacondaWidgets_3_3_gir_SCANNERFLAGS = --warn-all --identifier-prefix=Anaconda --symbol-prefix=anaconda
+AnacondaWidgets_3_3_gir_INCLUDES = Gtk-3.0 Xkl-1.0
 
-INTROSPECTION_GIRS = AnacondaWidgets-3.0.gir
+INTROSPECTION_GIRS = AnacondaWidgets-3.3.gir
 
 typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
-CLEANFILES = AnacondaWidgets-3.0.gir $(typelib_DATA)
+CLEANFILES = AnacondaWidgets-3.3.gir $(typelib_DATA)
 MAINTAINERCLEANFILES += Makefile.in
 endif
