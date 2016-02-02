@@ -19,6 +19,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #                    David Lehman <dlehman@redhat.com>
+#                    Jiri Konecny <jkonecny@redhat.com>
 #
 
 # TODO:
@@ -94,7 +95,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_ty
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
-from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action
+from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action, escape_markup
 from pyanaconda.ui.categories.system import SystemCategory
 
 from functools import wraps
@@ -469,37 +470,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _set_page_label_text(self):
         if self._accordion.is_multiselection:
-            select_tmpl = _("{fmt_start}{selected}{fmt_end} of "
-                            "{fmt_start}{total}{fmt_end} mount "
-                            "points in {fmt_start}{name}{fmt_end}")
-            color_tmpl = _("<span size='large' weight='bold' fgcolor='{}'>")
+            select_tmpl = _("%(items_selected)s of %(items_total)s mount points in %(page_name)s")
+            span_tmpl = "<span size='large' weight='bold' fgcolor='%s'>%s</span>"
             pages_count = ""
             for page in self._accordion.all_pages:
                 if not page.members:
                     continue
 
-                if not page.selected_members:
-                    style = color_tmpl.format("gray")
-                    page_line = "<span fgcolor='gray'>" + select_tmpl + "</span>"
+                if page.selected_members:
+                    highlight_color = "black"
+                    page_text_tmpl = select_tmpl
                 else:
-                    style = color_tmpl.format("black")
-                    page_line = select_tmpl
+                    highlight_color = "gray"
+                    page_text_tmpl = "<span fgcolor='gray'>%s</span>" % escape_markup(select_tmpl)
 
-                page_line = page_line.format_map({"selected" : len(page.selected_members),
-                                                  "total"    : len(page.members),
-                                                  "name"     : page.pageTitle,
-                                                  "fmt_start": style,
-                                                  "fmt_end"  : "</span>"})
+                selected_str = span_tmpl % (escape_markup(highlight_color),
+                                            escape_markup(str(len(page.selected_members))))
+                total_str = span_tmpl % (escape_markup(highlight_color),
+                                         escape_markup(str(len(page.members))))
+                page_name = span_tmpl % (escape_markup(highlight_color),
+                                         escape_markup(page.pageTitle))
+
+                page_line = page_text_tmpl % {"items_selected" : selected_str,
+                                              "items_total"    : total_str,
+                                              "page_name"      : page_name}
                 pages_count += page_line + "\n"
 
             self._pageLabel.set_markup(_("Please select a single mount point to edit properties.\n\n"
                                          "You have currently selected:\n"
-                                         "{pages}").format_map({"pages" : pages_count}))
+                                         "%s") % (pages_count))
         else:
             self._pageLabel.set_text(_("When you create mount points for "
-                    "your {name} {version} installation, you'll be able to "
-                    "view their details here.").format_map({"name"    : productName,
-                                                            "version" : productVersion}))
+                    "your %(name)s %(version)s installation, you'll be able to "
+                    "view their details here.") % {"name"    : productName,
+                                                   "version" : productVersion})
     def _populate_accordion(self):
         # Make sure we start with a clean state.
         self._accordion.remove_all_pages()
