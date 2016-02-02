@@ -18,6 +18,7 @@
 # Author: David Shea <dshea@redhat.com>
 
 import os, sys, re
+import string   # pylint: disable=deprecated-module
 
 def list_occurrences(occurrences):
     # Return polib's occurrences list [('file1', line1), ('file2', line2), ...]
@@ -30,10 +31,19 @@ def is_accelerated(message):
         return False
 
     if "python-format" in message.flags:
-        # Assume this is a %-formatted string, strip out everything from %
+        # This is a %-formatted string: strip out everything from %
         # to the end of a word, or at least to the end of the identifier
         # we're trying to ignore
         if "_" not in re.sub('%[()_a-zA-Z0-9]*', '', message.msgid):
+            return False
+
+    elif "python-brace-format" in message.flags:
+        # This is a PEP 3101 format string: use a Formatter object to
+        # strip out all of the format bits. The first part of each tuple
+        # returned by parse is the literal portion of the string.
+        formatter = string.Formatter()
+        literal = ''.join(s[0] for s in formatter.parse(message.msgid))
+        if "_" not in literal:
             return False
 
     return True
