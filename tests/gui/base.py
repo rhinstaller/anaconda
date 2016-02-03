@@ -135,7 +135,7 @@ class UITestCase(unittest.TestCase):
         return [child for child in view.findChildren(GenericPredicate(roleName="table cell"))]
 
     def selected_view_children(self, view):
-        return [child for child in self.view_children(view) if child.selected]
+        return [child for child in self.view_children(view) if child.parent == view and child.selected]
 
     ###
     ### METHODS FOR CHECKING A SINGLE WIDGET
