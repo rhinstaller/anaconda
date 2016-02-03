@@ -703,12 +703,11 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
     def execute(self, *args):
         action = "enable"
-        services = ["initial-setup-graphical.service",
-                    "initial-setup-text.service"]
+        unit_name = "initial-setup.service"
 
-        # find if the unit files for the Initial Setup services are installed
-        services = [name for name in services if os.path.exists(os.path.join(iutil.getSysroot(), "lib/systemd/system/", name))]
-        if services and self.firstboot == FIRSTBOOT_RECONFIG:
+        # find if the unit file for the Initial Setup service is installed
+        unit_exists = os.path.exists(os.path.join(iutil.getSysroot(), "lib/systemd/system/", unit_name))
+        if unit_exists and self.firstboot == FIRSTBOOT_RECONFIG:
             # write the reconfig trigger file
             f = open(os.path.join(iutil.getSysroot(), "/etc/reconfigSys"), "w+")
             f.close()
@@ -716,9 +715,9 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         if self.firstboot == FIRSTBOOT_SKIP:
             action = "disable"
 
-        # enable/disable all installed Initial Setup services
-        for service in services:
-            iutil.execInSysroot("systemctl", [action, service])
+        # enable/disable the Initial Setup service (if its unit is installed)
+        if unit_exists:
+            iutil.execInSysroot("systemctl", [action, unit_name])
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
