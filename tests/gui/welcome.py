@@ -40,8 +40,9 @@ class BasicWelcomeTestCase(UITestCase):
         view = self.find("Languages", node=spoke)
         self.assertIsNotNone(view, "Language view not found")
         enabled = self.selected_view_children(view)
+        enabled = enabled[0].children
         # We get back a list of [native name, english name, language setting] for each actual language.
-        self.assertEqual(len(enabled), 3, msg="An unexpected number of languages are selected")
+        self.assertEqual(len(enabled), 2, msg="An unexpected number of languages are selected")
         self.assertEqual(enabled[0].text, lang)
 
         view = self.find("Locales", node=spoke)
@@ -67,6 +68,6 @@ class BasicWelcomeTestCase(UITestCase):
         # And now we can check everything else on the screen.
         self.check_help_button(w)
         self.check_keyboard_layout_indicator("us", node=w)
-#        self.check_lang_locale_views(w)
+        self.check_lang_locale_views(w)
         self.check_quit_button(w)
         self.check_continue_button(w)
