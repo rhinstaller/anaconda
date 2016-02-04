@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 import os, sys, subprocess, tempfile
 
 if "top_srcdir" not in os.environ:

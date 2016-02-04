@@ -32,7 +32,6 @@ import io
 
 from pyanaconda import constants
 from pyanaconda.iutil import upcase_first_letter, setenv, execWithRedirect
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 import logging
 log = logging.getLogger("anaconda")

@@ -35,8 +35,6 @@ from pyanaconda.storage_utils import try_populate_devicetree
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
-
 import os
 import shutil
 import time

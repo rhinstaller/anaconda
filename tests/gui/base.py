@@ -17,10 +17,6 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-# pylint: disable=ignorable-system-call
-
 from blivet.size import MiB
 
 import os

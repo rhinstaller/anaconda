@@ -39,7 +39,6 @@ import blivet.arch
 
 import glob
 from pyanaconda import iutil
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import os
 import os.path
 import tempfile
@@ -101,9 +100,9 @@ class AnacondaKSScript(KSScript):
 
         (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
 
-        iutil.eintr_retry_call(os.write, fd, self.script.encode("utf-8"))
-        iutil.eintr_ignore(os.close, fd)
-        iutil.eintr_retry_call(os.chmod, path, 0o700)
+        os.write(fd, self.script.encode("utf-8"))
+        os.close(fd)
+        os.chmod(path, 0o700)
 
         # Always log stdout/stderr from scripts.  Using --log just lets you
         # pick where it goes.  The script will also be logged to program.log

@@ -36,7 +36,6 @@ import threading
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
 from pyanaconda import iutil
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda import addons
 
 import logging
@@ -213,8 +212,8 @@ class Anaconda(object):
         dump_text = exn.traceback_and_object_dump(self)
         dump_text += threads
         dump_text_bytes = dump_text.encode("utf-8")
-        iutil.eintr_retry_call(os.write, fd, dump_text_bytes)
-        iutil.eintr_ignore(os.close, fd)
+        os.write(fd, dump_text_bytes)
+        os.close(fd)
 
         # append to a given file
         with open("/tmp/anaconda-tb-all.log", "a+") as f:

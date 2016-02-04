@@ -26,8 +26,7 @@ import os
 import shlex
 import string # pylint: disable=deprecated-module
 import tempfile
-from pyanaconda.iutil import upperASCII, eintr_retry_call
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
+from pyanaconda.iutil import upperASCII
 
 _SAFECHARS = frozenset(string.ascii_letters + string.digits + '@%_-+=:,./')
 
@@ -82,7 +81,7 @@ def write_tmpfile(filename, data):
         m = os.stat(filename).st_mode
     else:
         m = 0o0644
-    eintr_retry_call(os.chmod, filename, m)
+    os.chmod(filename, m)
 
     # Move the temporary file over the top of the original
     os.rename(tmpf.name, filename)

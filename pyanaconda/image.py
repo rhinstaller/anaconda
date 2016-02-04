@@ -19,7 +19,6 @@
 
 from pyanaconda import isys
 import os, os.path, stat, tempfile
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 

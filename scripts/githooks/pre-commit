@@ -6,9 +6,6 @@
 
 """
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 import os
 import sys
 from subprocess import check_output, CalledProcessError

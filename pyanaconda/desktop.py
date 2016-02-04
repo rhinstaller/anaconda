@@ -23,7 +23,6 @@
 import os
 from pyanaconda.constants import RUNLEVELS
 from pyanaconda import iutil
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 import logging
 log = logging.getLogger("anaconda")

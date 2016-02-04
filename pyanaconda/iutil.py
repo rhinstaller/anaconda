@@ -516,7 +516,7 @@ def _sigchld_handler(num=None, frame=None):
 
     for child_pid in _forever_pids:
         try:
-            pid_result, status = eintr_retry_call(os.waitpid, child_pid, os.WNOHANG)
+            pid_result, status = os.waitpid(child_pid, os.WNOHANG)
         except ChildProcessError:
             continue
 
@@ -1056,11 +1056,11 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
             return
 
         # UID and GID matching or not required
-        eintr_retry_call(os.chown, path, uid, gid)
+        os.chown(path, uid, gid)
 
     if not from_uid_only and not from_gid_only:
         # the easy way
-        dir_tree_map(root, lambda path: eintr_retry_call(os.chown, path, uid, gid))
+        dir_tree_map(root, lambda path: os.chown(path, uid, gid))
     else:
         # conditional chown
         dir_tree_map(root, lambda path: conditional_chown(path, uid, gid,
@@ -1272,33 +1272,12 @@ def ipmi_report(event):
     # Event data 1 - the event code passed in
     # Event data 2 & 3 - always 0x0 for us
     event_string = "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event
-    eintr_retry_call(os.write, fd, event_string.encode("utf-8"))
-    eintr_ignore(os.close, fd)
+    os.write(fd, event_string.encode("utf-8"))
+    os.close(fd)
 
     execWithCapture("ipmitool", ["sel", "add", path])
 
     os.remove(path)
-
-# Copied from python's subprocess.py
-def eintr_retry_call(func, *args, **kwargs):
-    """Retry an interruptible system call if interrupted."""
-    while True:
-        try:
-            return func(*args, **kwargs)
-        except InterruptedError:
-            continue
-
-def eintr_ignore(func, *args, **kwargs):
-    """Call a function and ignore EINTR.
-
-       This is useful for calls to close() and dup2(), which can return EINTR
-       but which should *not* be retried, since by the time they return the
-       file descriptor is already closed.
-    """
-    try:
-        return func(*args, **kwargs)
-    except InterruptedError:
-        pass
 
 def parent_dir(directory):
     """Return the parent's path"""
@@ -1310,17 +1289,6 @@ def requests_session():
     session.mount("file://", FileAdapter())
     session.mount("ftp://", FTPAdapter())
     return session
-
-_open = open
-def open(*args, **kwargs):  # pylint: disable=redefined-builtin
-    """Open a file, and retry on EINTR.
-
-       The arguments are the same as those to python's builtin open.
-
-       This is equivalent to eintr_retry_call(open, ...).  Some other
-       high-level languages handle this for you, like C's fopen.
-    """
-    return eintr_retry_call(_open, *args, **kwargs)
 
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.
@@ -1334,7 +1302,7 @@ def open_with_perm(path, mode='r', perm=0o777, **kwargs):
        :param int perm: What permission bits to use if creating a new file
     """
     def _opener(path, open_flags):
-        return eintr_retry_call(os.open, path, open_flags, perm)
+        return os.open(path, open_flags, perm)
 
     return open(path, mode, opener=_opener, **kwargs)
 

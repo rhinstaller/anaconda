@@ -17,9 +17,6 @@
 #
 # Author(s): Brian C. Lane <bcl@redhat.com>
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 import os
 import unittest
 import tempfile

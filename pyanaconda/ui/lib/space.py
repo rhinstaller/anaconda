@@ -103,7 +103,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
                             in the info bar at the bottom of a Hub.
         """
         self.reset()
-        stat = iutil.eintr_retry_call(os.statvfs, iutil.getSysroot())
+        stat = os.statvfs(iutil.getSysroot())
         free = Size(stat.f_bsize * stat.f_bfree)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)

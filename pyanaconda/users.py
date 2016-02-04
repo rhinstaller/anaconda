@@ -27,7 +27,6 @@ from contextlib import contextmanager
 from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
@@ -431,7 +430,7 @@ class Users(object):
         sshdir = os.path.join(homedir, ".ssh")
         if not os.path.isdir(sshdir):
             os.mkdir(sshdir, 0o700)
-            iutil.eintr_retry_call(os.chown, sshdir, int(uid), int(gid))
+            os.chown(sshdir, int(uid), int(gid))
 
         authfile = os.path.join(sshdir, "authorized_keys")
         authfile_existed = os.path.exists(authfile)
@@ -440,5 +439,5 @@ class Users(object):
 
         # Only change ownership if we created it
         if not authfile_existed:
-            iutil.eintr_retry_call(os.chown, authfile, int(uid), int(gid))
+            os.chown(authfile, int(uid), int(gid))
             iutil.execWithRedirect("restorecon", ["-r", sshdir])

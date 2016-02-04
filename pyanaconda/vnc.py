@@ -22,7 +22,6 @@
 import os, sys
 import time
 from pyanaconda import constants, network, product, iutil
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import socket
 import subprocess
 import dbus
@@ -81,15 +80,15 @@ class VncServer:
 
         r, w = os.pipe()
         password_string = "%s\n" % self.password
-        iutil.eintr_retry_call(os.write, w, password_string.encode("utf-8"))
+        os.write(w, password_string.encode("utf-8"))
 
         with open(self.pw_file, "wb") as pw_file:
             # the -f option makes sure vncpasswd does not ask for the password again
             rc = iutil.execWithRedirect("vncpasswd", ["-f"],
                     stdin=r, stdout=pw_file, binary_output=True, log_output=False)
 
-            iutil.eintr_ignore(os.close, r)
-            iutil.eintr_ignore(os.close, w)
+            os.close(r)
+            os.close(w)
 
         return rc
 
@@ -144,7 +143,7 @@ class VncServer:
 
     def openlogfile(self):
         try:
-            fd = iutil.eintr_retry_call(os.open, self.log_file, os.O_RDWR | os.O_CREAT)
+            fd = os.open(self.log_file, os.O_RDWR | os.O_CREAT)
         except OSError as e:
             sys.stderr.write("error opening %s: %s\n", (self.log_file, e))
             fd = None

@@ -35,7 +35,6 @@ from time import sleep
 from threading import Lock
 import requests
 from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import hashlib
 import glob
 import functools
@@ -89,7 +88,7 @@ class LiveImagePayload(ImagePayload):
         # Grab the kernel version list now so it's available after umount
         self._updateKernelVersionList()
 
-        source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
+        source = os.statvfs(INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def unsetup(self):
@@ -115,7 +114,7 @@ class LiveImagePayload(ImagePayload):
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:
-                mnt_stat = iutil.eintr_retry_call(os.statvfs, iutil.getSysroot()+mnt)
+                mnt_stat = os.statvfs(iutil.getSysroot()+mnt)
                 dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
@@ -451,7 +450,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
             self._updateKernelVersionList()
 
-            source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
+            source = os.statvfs(INSTALL_TREE)
             self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def install(self):

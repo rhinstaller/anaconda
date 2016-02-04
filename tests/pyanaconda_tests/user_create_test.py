@@ -19,9 +19,6 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 #
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 from pyanaconda import users
 import unittest
 import tempfile

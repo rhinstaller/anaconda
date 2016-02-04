@@ -11,9 +11,6 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 import sys, os
 
 # If extensions (or modules to document with autodoc) are in another directory,

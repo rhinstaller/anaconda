@@ -31,7 +31,6 @@ import ntplib
 import socket
 
 from pyanaconda import isys
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_SYNC_TIME_BASENAME
 

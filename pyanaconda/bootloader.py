@@ -31,7 +31,6 @@ from itertools import chain
 import crypt
 
 from pyanaconda import iutil
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from blivet.devicelibs import raid
 from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -1317,12 +1316,12 @@ class GRUB(BootLoader):
                       "stage1dev": self.grub_device_name(stage1dev),
                       "stage2dev": self.grub_device_name(stage2dev)})
             (pread, pwrite) = os.pipe()
-            iutil.eintr_retry_call(os.write, pwrite, cmd.encode("utf-8"))
-            iutil.eintr_ignore(os.close, pwrite)
+            os.write(pwrite, cmd.encode("utf-8"))
+            os.close(pwrite)
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
             rc = iutil.execInSysroot("grub", args, stdin=pread)
-            iutil.eintr_ignore(os.close, pread)
+            os.close(pread)
             if rc:
                 raise BootLoaderError("boot loader install failed")
 
@@ -1510,12 +1509,12 @@ class GRUB2(GRUB):
 
         (pread, pwrite) = os.pipe()
         passwords = "%s\n%s\n" % (self.password, self.password)
-        iutil.eintr_retry_call(os.write, pwrite, passwords.encode("utf-8"))
-        iutil.eintr_ignore(os.close, pwrite)
+        os.write(pwrite, passwords.encode("utf-8"))
+        os.close(pwrite)
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,
                                     root=iutil.getSysroot())
-        iutil.eintr_ignore(os.close, pread)
+        os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
             raise BootLoaderError("failed to encrypt boot loader password")

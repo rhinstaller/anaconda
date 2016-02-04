@@ -29,9 +29,6 @@ def shutup():
        for multithreaded applications.
     """
 
-    # Ignore all the warnings about interruptible calls
-    # pylint: disable=ignorable-system-call, interruptible-system-call
-
     # Wrap the whole thing a try-finally to ensure errors don't leak file descriptor
     old_stdout = None
     old_stderr = None

@@ -26,18 +26,6 @@ from collections import OrderedDict
 import logging
 log = logging.getLogger("anaconda")
 
-# Importing iutil in this module would cause an import loop, so just
-# reimplement the open override
-import functools
-def eintr_retry_call(func, *args, **kwargs):
-    """Retry an interruptible system call if interrupted."""
-    while True:
-        try:
-            return func(*args, **kwargs)
-        except InterruptedError:
-            continue
-open = functools.partial(eintr_retry_call, open) # pylint: disable=redefined-builtin
-
 # A lot of effort, but it only allows a limited set of flags to be referenced
 class Flags(object):
     def __setattr__(self, attr, val):

@@ -1,8 +1,5 @@
 # test_driver_updates.py - unittests for driver_updates.py
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 import unittest
 try:
     import unittest.mock as mock

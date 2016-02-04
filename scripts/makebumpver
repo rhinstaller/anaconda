@@ -20,9 +20,6 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-# Ignore any interruptible calls
-# pylint: disable=interruptible-system-call
-
 import logging
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("bugzilla")

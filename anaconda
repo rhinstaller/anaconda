@@ -36,8 +36,7 @@ import site
 
 coverage = None
 
-# If we get a signal immediately after starting that would be pretty messed up
-proc_cmdline = open("/proc/cmdline", "r").read()    # pylint: disable=interruptible-system-call
+proc_cmdline = open("/proc/cmdline", "r").read()
 proc_cmdline = proc_cmdline.split()
 if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
     import coverage
@@ -734,7 +733,6 @@ if __name__ == "__main__":
     from pyanaconda import ntp
     from pyanaconda import keyboard
     from pyanaconda.iutil import ProxyString, ProxyStringError
-    from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
     verdesc = "%s for %s %s" % (getAnacondaVersionString(),
                                 product.productName, product.productVersion)
