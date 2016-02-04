@@ -507,6 +507,9 @@ EOF
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/gpu/drm/via/via.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/net/802/garp.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/net/802/stp.ko
+
+        # We may have removed the most last time, but it still wasn't enough! (#1303855)
+        rm -rf $MBD_DIR/firmware/brcm
     fi
 
     # clean up leftover cruft
