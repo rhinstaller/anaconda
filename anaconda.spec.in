@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 05 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.246-1
+- Fix the problem of ppc img being too large (sbueno+anaconda)
+  Resolves: rhbz#1303855
+
 * Thu Jan 21 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.245-1
 - Add support for vlan id in iBFT (rvykydal)
   Resolves: rhbz#831002
