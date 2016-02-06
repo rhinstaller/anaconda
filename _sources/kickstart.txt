@@ -6,7 +6,7 @@ Anaconda Kickstart Documentation
 
 Anaconda uses `kickstart <https://github.com/rhinstaller/pykickstart>`_ to automate
 installation and as a data store for the user interface. It also extends the kickstart
-commands `documented here <https://fedoraproject.org/wiki/Anaconda/Kickstart>`_
+commands `documented here <https://github.com/rhinstaller/pykickstart/blob/master/docs/kickstart-docs.rst>`_
 by adding a new kickstart section named %anaconda where commands to control the behavior
 of Anaconda will be defined.
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tests.dracut_tests package &mdash; Anaconda 24.3 documentation</title>
+  <title>tests.dracut_tests package &mdash; Anaconda 24.11 documentation</title>
   
 
   
@@ -30,13 +30,13 @@
   
 
   
-    <link rel="top" title="Anaconda 24.3 documentation" href="../index.html"/>
+    <link rel="top" title="Anaconda 24.11 documentation" href="../index.html"/>
         <link rel="up" title="tests package" href="tests.html"/>
         <link rel="next" title="tests.gettext_tests package" href="tests.gettext_tests.html"/>
         <link rel="prev" title="tests.dd_tests package" href="tests.dd_tests.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -46,17 +46,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-        
-          <a href="../index.html" class="icon icon-home"> Anaconda
-        
+          
+            <a href="../index.html" class="icon icon-home"> Anaconda
+          
 
-        
-        </a>
+          
+          </a>
 
-        
+          
+            
+            
+              <div class="version">
+                24.11
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -65,212 +75,23 @@
   </form>
 </div>
 
-        
-      </div>
+          
+        </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-          
-              <ul class="current">
+            
+            
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction to Anaconda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../boot-options.html">Anaconda Boot Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#installation-source">Installation Source</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-repo">inst.repo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-proxy">inst.proxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-stage2">inst.stage2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-dd">inst.dd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-multilib">inst.multilib</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#kickstart">Kickstart</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-ks">inst.ks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-ks-sendmac">inst.ks.sendmac</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-ks-sendsn">inst.ks.sendsn</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#network-options">Network Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#ip">ip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#nameserver">nameserver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#bootdev">bootdev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#ifname">ifname</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-dhcpclass">inst.dhcpclass</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#console-display-options">Console / Display Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#console">console</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-lang">inst.lang</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-geoloc">inst.geoloc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-keymap">inst.keymap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-cmdline">inst.cmdline</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-graphical">inst.graphical</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-text">inst.text</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-resolution">inst.resolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-vnc">inst.vnc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-vncpassword">inst.vncpassword</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-vncconnect">inst.vncconnect</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-headless">inst.headless</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-xdriver">inst.xdriver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-usefbx">inst.usefbx</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-sshd">inst.sshd</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-rescue">inst.rescue</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-updates">inst.updates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#nokill">nokill</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-loglevel">inst.loglevel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-noshell">inst.noshell</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-syslog">inst.syslog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-zram">inst.zram</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#boot-loader-options">Boot loader options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#extlinux">extlinux</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#leavebootorder">leavebootorder</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#storage-options">Storage options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-nompath">inst.nompath</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-gpt">inst.gpt</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#other-options">Other options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-selinux">inst.selinux</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#third-party-options">Third-party options</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../boot-options.html#inst-kdump">inst.kdump</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#deprecated-options">Deprecated Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#method">method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#repo-nfsiso">repo=nfsiso:...</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#dns">dns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#ip-bootif">ip=bootif</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#ksdevice">ksdevice</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../boot-options.html#removed-options">Removed Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#id4">serial</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#updates">updates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#ethtool">ethtool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#gdb">gdb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-mediacheck">inst.mediacheck</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#ks-floppy">ks=floppy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#display">display</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#utf8">utf8</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#noipv6">noipv6</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#upgradeany">upgradeany</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../kickstart.html">Anaconda Kickstart Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../kickstart.html#pwpolicy">pwpolicy</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../boot-options.html">Anaconda Boot Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kickstart.html">Anaconda Kickstart Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../commit-log.html">Rules for commit messages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../driverdisc.html">Brief description of DriverDisc version 3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#devices-which-can-contain-dds">Devices which can contain DDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#what-can-be-updated-using-dds">What can be updated using DDs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#selecting-dd-manually">Selecting DD manually</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#automatic-driverdisc-detection">Automatic DriverDisc detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#ddv3-structure">DDv3 structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#initrd-overlay-driverdisc-image">Initrd overlay driverdisc image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#firmware-and-module-update">Firmware and module update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#package-installation">Package installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../driverdisc.html#summary">Summary</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../iscsi.html">iSCSI and Anaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../iscsi.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iscsi.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iscsi.html#how-anaconda-handles-iscsi">How Anaconda handles iscsi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iscsi.html#libiscsi">Libiscsi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iscsi.html#debugging-iscsi-bugs">Debugging iSCSI bugs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../iscsi.html#future-of-iscsi-in-anaconda">Future of iSCSI in Anaconda</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../multipath.html">Multipath and Anaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multipath.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multipath.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multipath.html#how-anaconda-handles-multipath">How Anaconda handles multipath</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multipath.html#debugging-multipath-bugs">Debugging multipath bugs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html">pyanaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pyanaconda.html">pyanaconda package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../pyanaconda.installclasses.html">pyanaconda.installclasses package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../pyanaconda.isys.html">pyanaconda.isys package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../pyanaconda.packaging.html">pyanaconda.packaging package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../pyanaconda.ui.html">pyanaconda.ui package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.addons">pyanaconda.addons module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.anaconda">pyanaconda.anaconda module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.anaconda_argparse">pyanaconda.anaconda_argparse module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.anaconda_log">pyanaconda.anaconda_log module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.bootloader">pyanaconda.bootloader module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.constants">pyanaconda.constants module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.constants_text">pyanaconda.constants_text module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.desktop">pyanaconda.desktop module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.kickstart">pyanaconda.kickstart module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.localization">pyanaconda.localization module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.network">pyanaconda.network module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.nm">pyanaconda.nm module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.ntp">pyanaconda.ntp module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.orderedset">pyanaconda.orderedset module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.product">pyanaconda.product module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.progress">pyanaconda.progress module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.pwpolicy">pyanaconda.pwpolicy module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.queuefactory">pyanaconda.queuefactory module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.regexes">pyanaconda.regexes module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.rescue">pyanaconda.rescue module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.safe_dbus">pyanaconda.safe_dbus module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.screensaver">pyanaconda.screensaver module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../pyanaconda.html#module-pyanaconda">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing Anaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../testing.html#test-suite-architecture">Test Suite Architecture</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../driverdisc.html">Brief description of DriverDisc version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../iscsi.html">iSCSI and Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../multipath.html">Multipath and Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">pyanaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">tests</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="tests.html">tests package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="tests.html#subpackages">Subpackages</a><ul class="current">
@@ -278,6 +99,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="">tests.dracut_tests package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.gettext_tests.html">tests.gettext_tests package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.glade.html">tests.glade package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.gui.html">tests.gui package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.lib.html">tests.lib package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.regex_tests.html">tests.regex_tests package</a></li>
@@ -293,10 +115,10 @@
 </li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -311,7 +133,13 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
@@ -330,7 +158,8 @@
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="tests-dracut-tests-package">
 <h1>tests.dracut_tests package<a class="headerlink" href="#tests-dracut-tests-package" title="Permalink to this headline">¶</a></h1>
@@ -344,20 +173,20 @@
 <span id="tests-dracut-tests-test-driver-updates-module"></span><h2>tests.dracut_tests.test_driver_updates module<a class="headerlink" href="#module-tests.dracut_tests.test_driver_updates" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.DDUtilsTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">DDUtilsTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DDUtilsTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">DDUtilsTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DDUtilsTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DDUtilsTestCase.test_dd_extract">
-<tt class="descname">test_dd_extract</tt><big>(</big><em>check_output</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DDUtilsTestCase.test_dd_extract" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_dd_extract</code><span class="sig-paren">(</span><em>check_output</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DDUtilsTestCase.test_dd_extract" title="Permalink to this definition">¶</a></dt>
 <dd><p>dd_extract: call binary with expected arguments</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DDUtilsTestCase.test_dd_list">
-<tt class="descname">test_dd_list</tt><big>(</big><em>check_output</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DDUtilsTestCase.test_dd_list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_dd_list</code><span class="sig-paren">(</span><em>check_output</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DDUtilsTestCase.test_dd_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>dd_list: returns a list of Driver objects parsed from output</p>
 </dd></dl>
 
@@ -365,51 +194,51 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceInfoTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">DeviceInfoTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceInfoTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">DeviceInfoTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceInfoTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceInfoTestCase.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><em>get_disk_labels</em>, <em>check_output</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceInfoTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><em>get_disk_labels</em>, <em>check_output</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceInfoTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>get_deviceinfo: parses DeviceInfo from blkid etc.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceInfoTestCase.test_shortdev">
-<tt class="descname">test_shortdev</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceInfoTestCase.test_shortdev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_shortdev</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceInfoTestCase.test_shortdev" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceMenuTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">DeviceMenuTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">DeviceMenuTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.setUp">
-<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.setUp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu">
-<tt class="descname">test_device_menu</tt><big>(</big><em>stdout</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_device_menu</code><span class="sig-paren">(</span><em>stdout</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu" title="Permalink to this definition">¶</a></dt>
 <dd><p>device_menu: choosing a number returns that Device</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu_exit">
-<tt class="descname">test_device_menu_exit</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu_exit" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_device_menu_exit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu_exit" title="Permalink to this definition">¶</a></dt>
 <dd><p>device_menu: &#8216;c&#8217; exits the menu</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu_refresh">
-<tt class="descname">test_device_menu_refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu_refresh" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_device_menu_refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.DeviceMenuTestCase.test_device_menu_refresh" title="Permalink to this definition">¶</a></dt>
 <dd><p>device_menu: &#8216;r&#8217; makes the menu refresh</p>
 </dd></dl>
 
@@ -417,26 +246,26 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.ExtractDriversTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">ExtractDriversTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">ExtractDriversTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_drivers">
-<tt class="descname">test_drivers</tt><big>(</big><em>mock_extract</em>, <em>mock_append</em>, <em>mock_save</em>, <em>*args</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_drivers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_drivers</code><span class="sig-paren">(</span><em>mock_extract</em>, <em>mock_append</em>, <em>mock_save</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_drivers" title="Permalink to this definition">¶</a></dt>
 <dd><p>extract_drivers: save repo, write pkglist</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_enhancements">
-<tt class="descname">test_enhancements</tt><big>(</big><em>mock_extract</em>, <em>mock_append</em>, <em>mock_save</em>, <em>*args</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_enhancements" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_enhancements</code><span class="sig-paren">(</span><em>mock_extract</em>, <em>mock_append</em>, <em>mock_save</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_enhancements" title="Permalink to this definition">¶</a></dt>
 <dd><p>extract_drivers: extract selected drivers, don&#8217;t save enhancements</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_repo">
-<tt class="descname">test_repo</tt><big>(</big><em>mock_extract</em>, <em>mock_append</em>, <em>mock_save</em>, <em>*args</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_repo" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_repo</code><span class="sig-paren">(</span><em>mock_extract</em>, <em>mock_append</em>, <em>mock_save</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ExtractDriversTestCase.test_repo" title="Permalink to this definition">¶</a></dt>
 <dd><p>extract_drivers(repos=[...]) extracts all drivers from named repos</p>
 </dd></dl>
 
@@ -444,56 +273,56 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.FileTestCaseBase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">FileTestCaseBase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">FileTestCaseBase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FileTestCaseBase.makefiles">
-<tt class="descname">makefiles</tt><big>(</big><em>*paths</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase.makefiles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">makefiles</code><span class="sig-paren">(</span><em>*paths</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase.makefiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FileTestCaseBase.setUp">
-<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase.setUp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase.setUp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FileTestCaseBase.tearDown">
-<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase.tearDown" title="Permalink to this definition">¶</a></dt>
+<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase.tearDown" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.FinishedTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">FinishedTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">FinishedTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FinishedTestCase.test_all_finished">
-<tt class="descname">test_all_finished</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_all_finished" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_all_finished</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_all_finished" title="Permalink to this definition">¶</a></dt>
 <dd><p>all_finished: True if all lines from dd_todo are in dd_finished</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FinishedTestCase.test_extra_finished">
-<tt class="descname">test_extra_finished</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_extra_finished" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_extra_finished</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_extra_finished" title="Permalink to this definition">¶</a></dt>
 <dd><p>all_finished: True if dd_finished has more items than dd_todo</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FinishedTestCase.test_finish">
-<tt class="descname">test_finish</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_finish" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_finish</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_finish" title="Permalink to this definition">¶</a></dt>
 <dd><p>finish: mark request finished, and write dd.done if all complete</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.FinishedTestCase.test_mark_finished">
-<tt class="descname">test_mark_finished</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_mark_finished" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_mark_finished</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.FinishedTestCase.test_mark_finished" title="Permalink to this definition">¶</a></dt>
 <dd><p>mark_finished: appends a line to /tmp/dd_finished</p>
 </dd></dl>
 
@@ -501,14 +330,14 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.GrabDriverFilesTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">GrabDriverFilesTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.GrabDriverFilesTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">GrabDriverFilesTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.GrabDriverFilesTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.GrabDriverFilesTestCase.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.GrabDriverFilesTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.GrabDriverFilesTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>grab_driver_files: copy drivers into place, return module list</p>
 </dd></dl>
 
@@ -516,14 +345,14 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.LoadDriversTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">LoadDriversTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.LoadDriversTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">LoadDriversTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.LoadDriversTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.LoadDriversTestCase.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><em>call</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.LoadDriversTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><em>call</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.LoadDriversTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>load_drivers: runs depmod and modprobes all named modules</p>
 </dd></dl>
 
@@ -531,32 +360,32 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.MountTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">MountTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">MountTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.MountTestCase.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><em>check_call</em>, <em>mkdir</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><em>check_call</em>, <em>mkdir</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>mount: calls mount(8) to mount a device/image</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.MountTestCase.test_mkdir">
-<tt class="descname">test_mkdir</tt><big>(</big><em>check_call</em>, <em>mkdir</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_mkdir" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_mkdir</code><span class="sig-paren">(</span><em>check_call</em>, <em>mkdir</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_mkdir" title="Permalink to this definition">¶</a></dt>
 <dd><p>mount: makes mountpoint if needed</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.MountTestCase.test_mount_manager">
-<tt class="descname">test_mount_manager</tt><big>(</big><em>mock_umount</em>, <em>mock_mount</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_mount_manager" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_mount_manager</code><span class="sig-paren">(</span><em>mock_umount</em>, <em>mock_mount</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_mount_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>mounted: context manager mounts/umounts as expected</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.MountTestCase.test_umount">
-<tt class="descname">test_umount</tt><big>(</big><em>call</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_umount" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_umount</code><span class="sig-paren">(</span><em>call</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.MountTestCase.test_umount" title="Permalink to this definition">¶</a></dt>
 <dd><p>umount: calls umount(8)</p>
 </dd></dl>
 
@@ -564,31 +393,31 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">ProcessDriverDiskTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">ProcessDriverDiskTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.setUp">
-<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.setUp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>process_driver_disk: mount disk, extract RPMs, grab + load drivers</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_no_drivers">
-<tt class="descname">test_no_drivers</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_no_drivers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_no_drivers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_no_drivers" title="Permalink to this definition">¶</a></dt>
 <dd><p>process_driver_disk: don&#8217;t run depmod etc. if no new drivers</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_recursive">
-<tt class="descname">test_recursive</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_recursive" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_recursive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverDiskTestCase.test_recursive" title="Permalink to this definition">¶</a></dt>
 <dd><p>process_driver_disk: recursively process .isos at toplevel</p>
 </dd></dl>
 
@@ -596,19 +425,19 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">ProcessDriverRPMTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">ProcessDriverRPMTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase.setUp">
-<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase.setUp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.ProcessDriverRPMTestCase.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>process_driver_rpm: extract RPM, grab + load driver</p>
 </dd></dl>
 
@@ -616,14 +445,14 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.SelfTestCase">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">SelfTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.SelfTestCase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">SelfTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.SelfTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.SelfTestCase.test_makefiles">
-<tt class="descname">test_makefiles</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.SelfTestCase.test_makefiles" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_makefiles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.SelfTestCase.test_makefiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>check test helpers</p>
 </dd></dl>
 
@@ -631,20 +460,20 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestAppendLine">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestAppendLine</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestAppendLine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestAppendLine</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestAppendLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestAppendLine.test_append">
-<tt class="descname">test_append</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestAppendLine.test_append" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_append</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestAppendLine.test_append" title="Permalink to this definition">¶</a></dt>
 <dd><p>append_line: adds a line to the end of an existing file</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestAppendLine.test_empty">
-<tt class="descname">test_empty</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestAppendLine.test_empty" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestAppendLine.test_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>append_line: create file + append n when needed</p>
 </dd></dl>
 
@@ -652,32 +481,32 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestCopyFiles">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestCopyFiles</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestCopyFiles</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestCopyFiles.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>copy_file: copy files into destdir, leaving existing contents</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestCopyFiles.test_copy_to_parent">
-<tt class="descname">test_copy_to_parent</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_copy_to_parent" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_copy_to_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_copy_to_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>copy_file: skip files in subdirs of destdir</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestCopyFiles.test_overwrite">
-<tt class="descname">test_overwrite</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_overwrite" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_overwrite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_overwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>copy_file: overwrite files in destdir if they have the same name</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestCopyFiles.test_samefile">
-<tt class="descname">test_samefile</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_samefile" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_samefile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestCopyFiles.test_samefile" title="Permalink to this definition">¶</a></dt>
 <dd><p>copy_file: skip files already in destdir</p>
 </dd></dl>
 
@@ -685,20 +514,20 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestFindRepos">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestFindRepos</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestFindRepos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestFindRepos</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestFindRepos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestFindRepos.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestFindRepos.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestFindRepos.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>find_repos: return RPM dir if a valid repo is found</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestFindRepos.test_multiple_subdirs">
-<tt class="descname">test_multiple_subdirs</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestFindRepos.test_multiple_subdirs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_multiple_subdirs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestFindRepos.test_multiple_subdirs" title="Permalink to this definition">¶</a></dt>
 <dd><p>find_repos: descend multiple subdirs if needed</p>
 </dd></dl>
 
@@ -706,20 +535,20 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestIterFiles">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestIterFiles</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestIterFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestIterFiles</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestIterFiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestIterFiles.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestIterFiles.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestIterFiles.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>iter_files: iterates over full paths to files under topdir</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestIterFiles.test_pattern">
-<tt class="descname">test_pattern</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestIterFiles.test_pattern" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_pattern</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestIterFiles.test_pattern" title="Permalink to this definition">¶</a></dt>
 <dd><p>iter_files: match filename against glob pattern</p>
 </dd></dl>
 
@@ -727,20 +556,20 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestMkdirSeq">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestMkdirSeq</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMkdirSeq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestMkdirSeq</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMkdirSeq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestMkdirSeq.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMkdirSeq.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMkdirSeq.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>mkdir_seq: first dir ends with 1</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestMkdirSeq.test_one_exists">
-<tt class="descname">test_one_exists</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMkdirSeq.test_one_exists" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_one_exists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMkdirSeq.test_one_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>mkdir_seq: increment number if file exists</p>
 </dd></dl>
 
@@ -748,32 +577,32 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestMoveFiles">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestMoveFiles</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestMoveFiles</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestMoveFiles.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>move_files: move files to destdir</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestMoveFiles.test_move_to_parent">
-<tt class="descname">test_move_to_parent</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_move_to_parent" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_move_to_parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_move_to_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>move_files: leave files alone if they&#8217;re in a subdir of destdir</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestMoveFiles.test_overwrite">
-<tt class="descname">test_overwrite</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_overwrite" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_overwrite</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_overwrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>move_files: overwrite files with the same name</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestMoveFiles.test_samefile">
-<tt class="descname">test_samefile</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_samefile" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_samefile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestMoveFiles.test_samefile" title="Permalink to this definition">¶</a></dt>
 <dd><p>move_files: leave files alone if they&#8217;re already in destdir</p>
 </dd></dl>
 
@@ -781,32 +610,32 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestReadLine">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestReadLine</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestReadLine</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestReadLine.test_empty">
-<tt class="descname">test_empty</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_empty" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>read_lines: return [] for empty file</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestReadLine.test_missing">
-<tt class="descname">test_missing</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_missing" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_missing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_missing" title="Permalink to this definition">¶</a></dt>
 <dd><p>read_lines: return [] for missing file</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestReadLine.test_readline_and_append_line">
-<tt class="descname">test_readline_and_append_line</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_readline_and_append_line" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_readline_and_append_line</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_readline_and_append_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>read_lines: returns items as passed to append_line</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestReadLine.test_readlines">
-<tt class="descname">test_readlines</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_readlines" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_readlines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestReadLine.test_readlines" title="Permalink to this definition">¶</a></dt>
 <dd><p>read_lines: returns a list of lines without trailing newlines</p>
 </dd></dl>
 
@@ -814,14 +643,14 @@ not have a method with the specified name.</p>
 
 <dl class="class">
 <dt id="tests.dracut_tests.test_driver_updates.TestSaveRepo">
-<em class="property">class </em><tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">TestSaveRepo</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestSaveRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><tt class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">TestSaveRepo</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestSaveRepo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tests.dracut_tests.test_driver_updates.FileTestCaseBase" title="tests.dracut_tests.test_driver_updates.FileTestCaseBase"><code class="xref py py-class docutils literal"><span class="pre">tests.dracut_tests.test_driver_updates.FileTestCaseBase</span></code></a></p>
 <p>Create an instance of the class that will use the named test
 method when executed. Raises a ValueError if the instance does
 not have a method with the specified name.</p>
 <dl class="method">
 <dt id="tests.dracut_tests.test_driver_updates.TestSaveRepo.test_basic">
-<tt class="descname">test_basic</tt><big>(</big><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestSaveRepo.test_basic" title="Permalink to this definition">¶</a></dt>
+<code class="descname">test_basic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.TestSaveRepo.test_basic" title="Permalink to this definition">¶</a></dt>
 <dd><p>save_repo: copies a directory to /run/install/DD-X</p>
 </dd></dl>
 
@@ -829,32 +658,32 @@ not have a method with the specified name.</p>
 
 <dl class="function">
 <dt id="tests.dracut_tests.test_driver_updates.dd_list_output">
-<tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">dd_list_output</tt><big>(</big><em>driver</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.dd_list_output" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">dd_list_output</code><span class="sig-paren">(</span><em>driver</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.dd_list_output" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tests.dracut_tests.test_driver_updates.makedir">
-<tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">makedir</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makedir" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">makedir</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makedir" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tests.dracut_tests.test_driver_updates.makefile">
-<tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">makefile</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makefile" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">makefile</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makefile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tests.dracut_tests.test_driver_updates.makefiles">
-<tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">makefiles</tt><big>(</big><em>*paths</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makefiles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">makefiles</code><span class="sig-paren">(</span><em>*paths</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makefiles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tests.dracut_tests.test_driver_updates.makerepo">
-<tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">makerepo</tt><big>(</big><em>topdir</em>, <em>desc=None</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makerepo" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">makerepo</code><span class="sig-paren">(</span><em>topdir</em>, <em>desc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.makerepo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="tests.dracut_tests.test_driver_updates.touch">
-<tt class="descclassname">tests.dracut_tests.test_driver_updates.</tt><tt class="descname">touch</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.touch" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">tests.dracut_tests.test_driver_updates.</code><code class="descname">touch</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.dracut_tests.test_driver_updates.touch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -864,6 +693,7 @@ not have a method with the specified name.</p>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
@@ -882,9 +712,10 @@ not have a method with the specified name.</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Red Hat, Inc..
+
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -902,7 +733,7 @@ not have a method with the specified name.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'24.3',
+            VERSION:'24.11',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

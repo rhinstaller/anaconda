@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.isys package &mdash; Anaconda 24.3 documentation</title>
+  <title>pyanaconda.isys package &mdash; Anaconda 24.11 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.3 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.11 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda package" href="pyanaconda.html"/>
         <link rel="next" title="pyanaconda.packaging package" href="pyanaconda.packaging.html"/>
         <link rel="prev" title="pyanaconda.installclasses package" href="pyanaconda.installclasses.html"/> 
@@ -46,17 +46,27 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-nav-search">
-        
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-        
-          <a href="index.html" class="icon icon-home"> Anaconda
-        
+          
+            <a href="index.html" class="icon icon-home"> Anaconda
+          
 
-        
-        </a>
+          
+          </a>
 
-        
+          
+            
+            
+              <div class="version">
+                24.11
+              </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -65,149 +75,21 @@
   </form>
 </div>
 
-        
-      </div>
+          
+        </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-          
-              <ul class="current">
+            
+            
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-proxy">inst.proxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks">inst.ks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendmac">inst.ks.sendmac</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendsn">inst.ks.sendsn</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip">ip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nameserver">nameserver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#bootdev">bootdev</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ifname">ifname</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dhcpclass">inst.dhcpclass</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#console">console</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-lang">inst.lang</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-geoloc">inst.geoloc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-keymap">inst.keymap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-cmdline">inst.cmdline</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-graphical">inst.graphical</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-text">inst.text</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-resolution">inst.resolution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vnc">inst.vnc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncpassword">inst.vncpassword</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncconnect">inst.vncconnect</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-headless">inst.headless</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-xdriver">inst.xdriver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-usefbx">inst.usefbx</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-sshd">inst.sshd</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nokill">nokill</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noshell">inst.noshell</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#boot-loader-options">Boot loader options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#extlinux">extlinux</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#leavebootorder">leavebootorder</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#storage-options">Storage options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nompath">inst.nompath</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-gpt">inst.gpt</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#other-options">Other options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-selinux">inst.selinux</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#third-party-options">Third-party options</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="boot-options.html#inst-kdump">inst.kdump</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#method">method</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#repo-nfsiso">repo=nfsiso:...</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#dns">dns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id4">serial</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#gdb">gdb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-mediacheck">inst.mediacheck</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ks-floppy">ks=floppy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#display">display</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
-<li class="toctree-l1"><a class="reference internal" href="driverdisc.html">Brief description of DriverDisc version 3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#devices-which-can-contain-dds">Devices which can contain DDs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#what-can-be-updated-using-dds">What can be updated using DDs?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#selecting-dd-manually">Selecting DD manually</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#automatic-driverdisc-detection">Automatic DriverDisc detection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#ddv3-structure">DDv3 structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#initrd-overlay-driverdisc-image">Initrd overlay driverdisc image</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#firmware-and-module-update">Firmware and module update</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#package-installation">Package installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#summary">Summary</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="iscsi.html">iSCSI and Anaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="iscsi.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iscsi.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iscsi.html#how-anaconda-handles-iscsi">How Anaconda handles iscsi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iscsi.html#libiscsi">Libiscsi</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iscsi.html#debugging-iscsi-bugs">Debugging iSCSI bugs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="iscsi.html#future-of-iscsi-in-anaconda">Future of iSCSI in Anaconda</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="multipath.html">Multipath and Anaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="multipath.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multipath.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multipath.html#how-anaconda-handles-multipath">How Anaconda handles multipath</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multipath.html#debugging-multipath-bugs">Debugging multipath bugs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="driverdisc.html">Brief description of DriverDisc version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iscsi.html">iSCSI and Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multipath.html">Multipath and Anaconda</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="pyanaconda.html#subpackages">Subpackages</a><ul class="current">
@@ -229,10 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
@@ -267,36 +146,14 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Anaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="testing.html#test-suite-architecture">Test Suite Architecture</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tests/tests.html">tests package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.dd_tests.html">tests.dd_tests package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.dracut_tests.html">tests.dracut_tests package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.gettext_tests.html">tests.gettext_tests package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.glade.html">tests.glade package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.lib.html">tests.lib package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.pyanaconda_tests.html">tests.pyanaconda_tests package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.regex_tests.html">tests.regex_tests package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests/tests.storage.html">tests.storage package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests.usercustomize">tests.usercustomize module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests/tests.html#module-tests">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests/modules.html">tests</a></li>
 </ul>
 
+            
           
-        
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -311,7 +168,13 @@
       
       <div class="wy-nav-content">
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
@@ -330,7 +193,8 @@
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="pyanaconda-isys-package">
 <h1>pyanaconda.isys package<a class="headerlink" href="#pyanaconda-isys-package" title="Permalink to this headline">¶</a></h1>
@@ -338,22 +202,22 @@
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyanaconda.isys" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="pyanaconda.isys.isIsoImage">
-<tt class="descclassname">pyanaconda.isys.</tt><tt class="descname">isIsoImage</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pyanaconda.isys.isIsoImage" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyanaconda.isys.</code><code class="descname">isIsoImage</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#pyanaconda.isys.isIsoImage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.isys.isLpaeAvailable">
-<tt class="descclassname">pyanaconda.isys.</tt><tt class="descname">isLpaeAvailable</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.isys.isLpaeAvailable" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyanaconda.isys.</code><code class="descname">isLpaeAvailable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyanaconda.isys.isLpaeAvailable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.isys.isPaeAvailable">
-<tt class="descclassname">pyanaconda.isys.</tt><tt class="descname">isPaeAvailable</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.isys.isPaeAvailable" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyanaconda.isys.</code><code class="descname">isPaeAvailable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyanaconda.isys.isPaeAvailable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.isys.set_system_date_time">
-<tt class="descclassname">pyanaconda.isys.</tt><tt class="descname">set_system_date_time</tt><big>(</big><em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>hour=None</em>, <em>minute=None</em>, <em>second=None</em>, <em>tz=None</em><big>)</big><a class="headerlink" href="#pyanaconda.isys.set_system_date_time" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyanaconda.isys.</code><code class="descname">set_system_date_time</code><span class="sig-paren">(</span><em>year=None</em>, <em>month=None</em>, <em>day=None</em>, <em>hour=None</em>, <em>minute=None</em>, <em>second=None</em>, <em>tz=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyanaconda.isys.set_system_date_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set system date and time given by the parameters as numbers. If some
 parameter is missing or None, the current system date/time field is used
 instead (i.e. the value is not changed by this function).</p>
@@ -367,7 +231,7 @@ instead (i.e. the value is not changed by this function).</p>
 
 <dl class="function">
 <dt id="pyanaconda.isys.set_system_time">
-<tt class="descclassname">pyanaconda.isys.</tt><tt class="descname">set_system_time</tt><big>(</big><em>secs</em><big>)</big><a class="headerlink" href="#pyanaconda.isys.set_system_time" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyanaconda.isys.</code><code class="descname">set_system_time</code><span class="sig-paren">(</span><em>secs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyanaconda.isys.set_system_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set system time to time given as a number of seconds since the Epoch.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -381,7 +245,7 @@ instead (i.e. the value is not changed by this function).</p>
 
 <dl class="function">
 <dt id="pyanaconda.isys.total_memory">
-<tt class="descclassname">pyanaconda.isys.</tt><tt class="descname">total_memory</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.isys.total_memory" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyanaconda.isys.</code><code class="descname">total_memory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyanaconda.isys.total_memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns total system memory in kB (given to us by /proc/meminfo)</p>
 </dd></dl>
 
@@ -389,6 +253,7 @@ instead (i.e. the value is not changed by this function).</p>
 </div>
 
 
+           </div>
           </div>
           <footer>
   
@@ -407,9 +272,10 @@ instead (i.e. the value is not changed by this function).</p>
   <div role="contentinfo">
     <p>
         &copy; Copyright 2015, Red Hat, Inc..
+
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -427,7 +293,7 @@ instead (i.e. the value is not changed by this function).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'24.3',
+            VERSION:'24.11',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
