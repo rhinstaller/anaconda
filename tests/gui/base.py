@@ -104,7 +104,7 @@ class UITestCase(unittest.TestCase):
         pass
 
     def setUp(self):
-        self.ana = root.application("anaconda")
+        self.ana = root.application("anaconda.py")
 
     ###
     ### METHODS FOR FINDING WIDGETS
@@ -386,7 +386,7 @@ class DogtailTestCase(unittest.TestCase):
         if not self.tests:
             return
 
-        args = ["%s/anaconda" % os.environ.get("top_srcdir", ""), "-G"]
+        args = ["%s/anaconda.py" % os.environ.get("top_srcdir", ""), "-G"]
         for drive in self._drivePaths.values():
             args += ["--image", drive]
         args += testconfig.config.get("anacondaArgs", "").strip('"')
