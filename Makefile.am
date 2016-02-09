@@ -42,6 +42,9 @@ dist_sbin_SCRIPTS     = anaconda.py
 install-exec-hook:
 	cd $(DESTDIR)$(sbindir) && mv anaconda.py anaconda
 
+uninstall-hook:
+	-cd $(DESTDIR)$(sbindir) && rm -f anaconda
+
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
 ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
