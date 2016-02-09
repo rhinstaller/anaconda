@@ -399,6 +399,8 @@ class DogtailTestCase(unittest.TestCase):
 
         try:
             self.test_result = unittest.TextTestRunner(verbosity=2, failfast=True).run(self.suite)
+            if not self.test_result.wasSuccessful():
+                raise AssertionError('Dogtail tests failed')
         except TimedOutException:
             self.die(True)
             self.collect_logs()
