@@ -719,6 +719,7 @@ class DNFPayload(packaging.PackagePayload):
             self._download_location = self._pick_download_location()
         except packaging.PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
+                log.error("Installation failed: %r", e)
                 _failure_limbo()
 
         pkgs_to_download = self._base.transaction.install_set
@@ -731,6 +732,7 @@ class DNFPayload(packaging.PackagePayload):
             msg = 'Failed to download the following packages: %s' % str(e)
             exc = packaging.PayloadInstallError(msg)
             if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
+                log.error("Installation failed: %r", exc)
                 _failure_limbo()
 
         log.info('Downloading packages finished.')
