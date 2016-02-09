@@ -18,28 +18,35 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+# TODO: If all gui tests are properly annotated with a skipIf decorator
+# this file can be dropped and the tests executed by nosetests_root.sh
+
 function doit() {
     ARGS="-s \
           -v \
           --nologcapture \
           --process-timeout=1200 \
           --processes=1          \
-          --tc=resultsdir:$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX)"
+          --tc=resultsdir:$(mktemp -d --tmpdir=$top_srcdir/tests autogui-results-XXXXXX)"
 
     export LC_ALL=C # translations confuse Dogtail
 
     if [ -z "$1" ]; then
-        nosetests-3.5 ${ARGS} ${GUI_TESTS:-./test_*.py}
+        nosetests-3.5 ${ARGS} ${GUI_TESTS:-$top_srcdir/tests/gui/test_*.py}
     else
-        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-./test_*.py}
+        nosetests-3.5 ${ARGS} "${1}" ${GUI_TESTS:-$top_srcdir/tests/gui/test_*.py}
     fi
 }
 
 if [ -z "$top_srcdir" ]; then
-    echo "*** top_srcdir must be set"
-    exit 99
+    top_srcdir="$(dirname "$0")/.."
 fi
 
+# this script needs absolute paths
+export top_srcdir=`readlink -f $top_srcdir`
+if [ ! -z "$top_builddir" ]; then
+    export top_builddir=`readlink -f $top_builddir`
+fi
 . ${top_srcdir}/tests/testenv.sh
 
 if ! rpm -q python3-nose-testconfig &> /dev/null; then
@@ -64,6 +71,16 @@ if [ `getenforce` == "Enforcing" ]; then
    exit 77
 fi
 
+# in case we want coverage support configure
+# python to start coverage for all processes
+if [ ! -z "$COVERAGE_PROCESS_START" ]; then
+    ROOT_SITE_PACKAGES=`python3 -m site --user-site`
+    mkdir -p "$ROOT_SITE_PACKAGES"
+    if [ ! -f "$ROOT_SITE_PACKAGES/usercustomize.py" ]; then
+        cp "$top_srcdir/tests/usercustomize.py" "$ROOT_SITE_PACKAGES"
+    fi
+fi
+
 if [[ "${TEST_ANACONDA_ARGS}" != "" ]]; then
     EXTRA="--tc=anacondaArgs:\"${TEST_ANACONDA_ARGS}\""
 elif [[ $# != 0 ]]; then
@@ -72,10 +89,5 @@ else
     EXTRA=""
 fi
 
-# If we're being called from "make check", we will be outside the gui test directory.
-# Unfortunately, everything is written assuming that's where we will be.  So cd there.
-if [ -d gui ]; then
-    ( cd gui && doit "${EXTRA}" )
-else
-    doit "${EXTRA}"
-fi
+# execute the tests
+doit "${EXTRA}"
