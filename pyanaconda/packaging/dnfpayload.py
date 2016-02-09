@@ -60,6 +60,7 @@ DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 DOWNLOAD_MPOINTS = {'/tmp',
                     '/',
+                    '/var/tmp',
                     '/mnt/sysimage',
                     '/mnt/sysimage/home',
                     '/mnt/sysimage/tmp',
@@ -98,6 +99,11 @@ def _df_map():
         if not key.startswith('/'):
             continue
         structured[key] = Size(int(val)*1024)
+
+    # Add /var/tmp/ if this is a directory or image installation
+    if flags.dirInstall or flags.imageInstall:
+        var_tmp = os.statvfs("/var/tmp")
+        structured["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
     return structured
 
 def _paced(fn):
