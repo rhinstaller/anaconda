@@ -29,6 +29,7 @@ from parted import PARTITION_BIOS_GRUB
 from glob import glob
 from itertools import chain
 import crypt
+from ordered_set import OrderedSet
 
 from pyanaconda import iutil
 from blivet.devicelibs import raid
@@ -42,7 +43,6 @@ from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
-from pyanaconda.orderedset import OrderedSet
 
 import logging
 log = logging.getLogger("anaconda")
