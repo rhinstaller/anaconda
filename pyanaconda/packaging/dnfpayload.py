@@ -27,7 +27,6 @@ import blivet.arch
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.simpleconfig import simple_replace
 
 import configparser
 import collections
