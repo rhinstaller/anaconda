@@ -227,6 +227,9 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %{make_install}
 find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 
+# Create an empty directory for addons
+mkdir %{buildroot}%{_datadir}/anaconda/addons
+
 %ifarch %livearches
 desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 %endif
