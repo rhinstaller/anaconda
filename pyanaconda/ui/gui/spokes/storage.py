@@ -667,36 +667,46 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # wait for the initial storage thread to complete before taking any new
         # actions on storage devices
         threadMgr.wait(constants.THREAD_STORAGE)
+        updated = False
 
         if doformat:
-            unformatted = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
-            if not unformatted:
-                # nothing to do here; bail
-                return
+            unformatted = make_unformatted_dasd_list(getDisks(self.storage.devicetree))
+            if unformatted:
+                hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
+                for disk in unformatted:
+                    try:
+                        format_dasd(disk.name)
+                        # call removeChildren function instead of simply
+                        # removeDevice since the disk may have children in
+                        # devicetree, e.g. /dev/dasdc may have /dev/dasdc1
+                        self.storage.devicetree._removeChildrenFromTree(disk)
+                    except DasdFormatError as err:
+                        # Log errors if formatting fails, but don't halt the installer
+                        log.error(str(err))
+                        continue
 
-            hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
-            for disk in unformatted:
-                try:
-                    format_dasd(disk)
-                except DasdFormatError as err:
-                    # Log errors if formatting fails, but don't halt the installer
-                    log.error(str(err))
-                    continue
+                    updated = True
 
         if cdl:
-            ldldasds = [d.name for d in getDisks(self.storage.devicetree.dasd) if is_ldl_dasd(d.name)]
-            if not ldldasds:
-                # nothing to do here; bail
-                return
+            ldldasds = [d for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
+            if ldldasds:
+                hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
+                for disk in ldldasds:
+                    try:
+                        format_dasd(disk.name)
+                        # call removeChildren function instead of simply
+                        # removeDevice since the disk may have children in
+                        # devicetree, e.g. /dev/dasdc may have /dev/dasdc1
+                        self.storage.devicetree._removeChildrenFromTree(disk)
+                    except DasdFormatError as err:
+                        # Log errors if formatting fails, but don't halt the installer
+                        log.error(str(err))
+                        continue
 
-            hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
-            for disk in ldldasds:
-                try:
-                    format_dasd(disk)
-                except DasdFormatError as err:
-                    # Log errors if formatting fails, but don't halt the installer
-                    log.error(str(err))
-                    continue
+                    updated = True
+
+        if updated:
+            self.storage.devicetree.populate()
 
     # signal handlers
     def on_summary_clicked(self, button):
