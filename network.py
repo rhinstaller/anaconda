@@ -315,6 +315,8 @@ class Network:
         # running nm-c-e and before writing ifcfg files to system.
         self.setNMControlledDevices(self.netdevices.keys())
 
+        self.updateNMiBFTDevices()
+
     def update(self):
 
         ifcfglog.debug("Network.update() called")
@@ -464,6 +466,49 @@ class Network:
                 device.set(('NM_CONTROLLED', 'no'))
             else:
                 device.set(('NM_CONTROLLED', 'yes'))
+
+    # Because of possible race in loader devices activated by NM with iBFT
+    # connection might not have correct ifcfg file (BOOTPROTO=ibft) created.
+    # It is required for compatibility and supplying dracut ip=ibft option at
+    # the end of installation. Also handles case  of multiple ibft devices
+    # (#831002).
+    def updateNMiBFTDevices(self):
+
+        bus = dbus.SystemBus()
+        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+        nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+
+        active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
+
+        # Look for active connections named with 'iBFT' prefix (created by NM)
+        for connection in active_connections:
+            active_connection = bus.get_object(isys.NM_SERVICE, connection)
+            active_connection_props_iface = dbus.Interface(active_connection, isys.DBUS_PROPS_IFACE)
+            setting_path = active_connection_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Connection')
+
+            setting = bus.get_object(isys.NM_SERVICE, setting_path)
+            settings = setting.get_dbus_method("GetSettings")()
+            try:
+                con_id = str(settings['connection']['id'])
+            except KeyError:
+                con_id = ''
+
+            if con_id.startswith('iBFT'):
+                # Find the device using active 'iBFT' connection
+                devices = active_connection_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Devices')
+
+                for device_path in devices:
+                    device = bus.get_object(isys.NM_SERVICE, device_path)
+                    device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+
+                    interface_name = device_props_iface.Get(isys.NM_DEVICE_IFACE, 'Interface')
+                    # Update ifcfg of the device if needed
+                    if interface_name in self.netdevices:
+                        dev = self.netdevices[interface_name]
+                        if dev.get('BOOTPROTO') != "ibft":
+                            dev.set(('BOOTPROTO', "ibft"))
+                            dev.set(('ONBOOT', "yes"))
+                            dev.writeIfcfgFile()
 
     # devices == None => set for all
     def updateActiveDevices(self, devices=None):
