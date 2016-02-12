@@ -610,11 +610,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     ###
     def add_new_selector(self, device):
         """ Add an entry for device to the new install Page. """
-        page = self._accordion._find_by_title(translated_new_install_name()).get_child()
+        page = self._accordion.find_page_by_title(translated_new_install_name())
         devices = [device]
         if not page.members:
             # remove the CreateNewPage and replace it with a regular Page
-            expander = self._accordion._find_by_title(translated_new_install_name())
+            expander = self._accordion.find_page_by_title(translated_new_install_name()).get_parent()
             expander.remove(expander.get_child())
 
             page = Page(translated_new_install_name())
@@ -632,7 +632,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _update_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
-        page = self._accordion._find_by_title(translated_new_install_name()).get_child()
+        page = self._accordion.find_page_by_title(translated_new_install_name())
         for selector in page.members:
             update_selector_from_device(selector, selector.device)
 

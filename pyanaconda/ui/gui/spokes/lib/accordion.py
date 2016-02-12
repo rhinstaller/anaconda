@@ -95,10 +95,10 @@ class Accordion(Gtk.Box):
         self._current_selector = None
         self._last_selected = None
 
-    def _find_by_title(self, title):
+    def find_page_by_title(self, title):
         for e in self._expanders:
             if e.get_child().pageTitle == title:
-                return e
+                return e.get_child()
 
         return None
 
@@ -287,26 +287,27 @@ class Accordion(Gtk.Box):
                     return page
 
     def expand_page(self, pageTitle):
-        page = self._find_by_title(pageTitle)
-        if not page:
+        page = self.find_page_by_title(pageTitle)
+        expander = page.get_parent()
+        if not expander:
             raise LookupError()
 
-        if not page.get_expanded():
-            page.emit("activate")
+        if not expander.get_expanded():
+            expander.emit("activate")
 
     def remove_page(self, pageTitle):
         # First, remove the expander from the list of expanders we maintain.
-        target = self._find_by_title(pageTitle)
+        target = self.find_page_by_title(pageTitle)
         if not target:
             return
 
-        self._expanders.remove(target)
+        self._expanders.remove(target.get_parent())
         for s in target.members:
             if s in self._active_selectors:
                 self._active_selectors.remove(s)
 
         # Then, remove it from the box.
-        self.remove(target)
+        self.remove(target.get_parent())
 
     def remove_all_pages(self):
         for e in self._expanders:
