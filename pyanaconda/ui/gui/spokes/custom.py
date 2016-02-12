@@ -70,6 +70,7 @@ from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
+from blivet.platform import platform
 
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
@@ -1932,8 +1933,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.on_selector_clicked(None, member)
                     break
 
-    def _show_confirmation_dialog(self, root_name, device):
+    def _show_confirmation_dialog(self, root_name, device, protected):
         dialog = ConfirmDeleteDialog(self.data)
+        bootpart = device.format.type in protected
         snapshots = (device.direct and not device.isleaf)
         checkbox_text = None
         if not self._accordion.is_multiselection:
@@ -1946,7 +1948,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             checkbox_text = C_("GUI|Custom Partitioning|Confirm Delete Dialog",
                                "Do _not show this dialog for other selected file systems.")
         dialog.refresh(getattr(device.format, "mountpoint", ""),
-                       device.name, checkbox_text=checkbox_text, snapshots=snapshots)
+                       device.name, checkbox_text=checkbox_text,
+                       snapshots=snapshots, bootpart=bootpart)
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
             option_checked = dialog.option_checked
@@ -1960,6 +1963,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         skip_dialog = False
         is_multiselection = self._accordion.is_multiselection
+        protected = platform.bootStage1ConstraintDict["format_types"]
         for selector in self._accordion.selected_items:
             page = self._accordion.page_for_selector(selector)
             device = selector.device
@@ -1973,7 +1977,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             if root_name == translated_new_install_name():
                 if is_multiselection and not skip_dialog:
-                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device)
+                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device, protected)
 
                     if rc != 1:
                         if skip_dialog:
@@ -1997,7 +2001,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # on it.  Thus, we first need to confirm with the user and then
                 # schedule actions to delete the thing.
                 if not skip_dialog:
-                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device)
+                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device, protected)
 
                     if rc != 1:
                         if skip_dialog:
@@ -2005,16 +2009,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         continue
 
                 if skip_dialog and not is_multiselection:
-                    for dev in (s._device for s in page.members):
-                        self._destroy_device(dev)
-                else:
-                    self._destroy_device(device)
+                    otherpgs = (pg for pg in self._accordion.all_pages if
+                                pg.pageTitle != page.pageTitle)
+                    otherdevs = []
+                    for otherpg in otherpgs:
+                        otherdevs.extend([mem._device.id for mem in otherpg.members])
+                    # we never want to delete known-shared devs here. we also
+                    # exclude 'device' as we'll unconditionally delete it later
+                    for dev in (s._device for s in page.members if
+                                s._device.id not in otherdevs and
+                                s._device.id != device.id):
+                        # we only want to delete boot partitions if they're not
+                        # shared *and* we have no unknown partitions
+                        if (not self.unusedDevices or dev.format.type not in protected):
+                            log.debug("deleteall: removed %s", dev.name)
+                            self._destroy_device(dev)
+                        else:
+                            log.debug("deleteall: didn't remove %s", dev.name)
+
+                # We do this even in deleteAll case, see above comment
+                self._destroy_device(device)
 
             log.info("ui: removed device %s", device.name)
 
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
         # It's like they never existed.
+        self._storage_playground.roots = findExistingInstallations(self._storage_playground.devicetree)
         self._updateSpaceDisplay()
         self._do_refresh()
 
