@@ -2010,7 +2010,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                 if skip_dialog and not is_multiselection:
                     otherpgs = (pg for pg in self._accordion.all_pages if
-                                pg.pageTitle != page.pageTitle)
+                                pg is not page)
                     otherdevs = []
                     for otherpg in otherpgs:
                         otherdevs.extend([mem._device.id for mem in otherpg.members])
