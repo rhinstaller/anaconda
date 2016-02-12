@@ -377,7 +377,7 @@ class ConfirmDeleteDialog(GUIObject):
         self.window.destroy()
 
     # pylint: disable=arguments-differ
-    def refresh(self, mountpoint, device, checkbox_text = "", snapshots=False):
+    def refresh(self, mountpoint, device, checkbox_text = "", snapshots=False, bootpart = False):
         """ Show confirmation dialog with the optional checkbox. If the
             `checkbox_text` for the checkbox is not set then the checkbox
             will not be showed.
@@ -401,7 +401,9 @@ class ConfirmDeleteDialog(GUIObject):
         else:
             txt = device
 
-        if not snapshots:
+        if bootpart:
+            label_text = _("%s may be a system boot partition! Deleting it may break other operating systems. Are you sure you want to delete it?") % txt
+        elif not snapshots:
             label_text = _("Are you sure you want to delete all of the data on %s?") % txt
         else:
             label_text = _("Are you sure you want to delete all of the data on %s, including snapshots and/or subvolumes?") % txt
