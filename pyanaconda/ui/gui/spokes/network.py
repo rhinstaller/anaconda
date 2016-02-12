@@ -1164,18 +1164,21 @@ class NetworkControlBox(GObject.GObject):
         self.entry_hostname.set_text(value)
 
     def disconnect_client_callbacks(self):
-        self.client.disconnect_by_func(self.on_device_added)
-        self.client.disconnect_by_func(self.on_device_removed)
-        self.client.disconnect_by_func(self.on_connection_added)
-        self.client.disconnect_by_func(self.on_wireless_enabled)
-        self.client.disconnect_by_func(self.on_nm_state_changed)
-        try:
-            for device in self.client.get_devices():
-                device.disconnect_by_func(self.on_device_config_changed)
-                device.disconnect_by_func(self.on_device_state_changed)
-        except TypeError as e:
-            if not "nothing connected" in str(e):
-                log.debug("network: %s", e)
+        for cb in [self.on_device_added, self.on_device_removed,
+                   self.on_connection_added, self.on_wireless_enabled,
+                   self.on_nm_state_changed]:
+            _try_disconnect(self.client, cb)
+
+        for device in self.client.get_devices():
+            _try_disconnect(device, self.on_device_config_changed)
+            _try_disconnect(device, self.on_device_state_changed)
+
+def _try_disconnect(obj, callback):
+    try:
+        obj.disconnect_by_func(callback)
+    except TypeError as e:
+        if not "nothing connected" in str(e):
+            log.debug("network: %s", e)
 
 class SecretAgentDialog(GUIObject):
     builderObjects = ["secret_agent_dialog"]
