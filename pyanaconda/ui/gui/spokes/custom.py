@@ -1977,7 +1977,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                     if rc != 1:
                         if skip_dialog:
-                            return
+                            break # skip evaluation of all other mountpoints
                         continue
 
                 if device.exists:
@@ -2001,7 +2001,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                     if rc != 1:
                         if skip_dialog:
-                            return
+                            break # skip evaluation of all other mountpoints
                         continue
 
                 if skip_dialog and not is_multiselection:
