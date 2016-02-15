@@ -1958,7 +1958,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._accordion.is_current_selected and not self._accordion.is_multiselection:
             return
 
-        skip_dialog = False
+        option_checked = False
+        part_removed = False
         is_multiselection = self._accordion.is_multiselection
         for selector in self._accordion.selected_items:
             page = self._accordion.page_for_selector(selector)
@@ -1972,11 +1973,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.debug("removing device '%s' from page %s", device, root_name)
 
             if root_name == translated_new_install_name():
-                if is_multiselection and not skip_dialog:
-                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device)
+                if is_multiselection and not option_checked:
+                    (rc, option_checked) = self._show_confirmation_dialog(root_name, device)
 
                     if rc != 1:
-                        if skip_dialog:
+                        if option_checked:
                             break # skip evaluation of all other mountpoints
                         continue
 
@@ -1996,27 +1997,31 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # This is a device that exists on disk and most likely has data
                 # on it.  Thus, we first need to confirm with the user and then
                 # schedule actions to delete the thing.
-                if not skip_dialog:
-                    (rc, skip_dialog) = self._show_confirmation_dialog(root_name, device)
+                # In multiselection user could confirm once for all next
+                # selections.
+                if not option_checked:
+                    (rc, option_checked) = self._show_confirmation_dialog(root_name, device)
 
                     if rc != 1:
-                        if skip_dialog:
+                        if option_checked:
                             break # skip evaluation of all other mountpoints
                         continue
 
-                if skip_dialog and not is_multiselection:
+                if option_checked and not is_multiselection:
                     for dev in (s._device for s in page.members):
                         self._destroy_device(dev)
                 else:
                     self._destroy_device(device)
 
+            part_removed = True
             log.info("ui: removed device %s", device.name)
 
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
         # It's like they never existed.
-        self._updateSpaceDisplay()
-        self._do_refresh()
+        if part_removed:
+            self._updateSpaceDisplay()
+            self._do_refresh()
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
