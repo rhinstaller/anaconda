@@ -4,7 +4,7 @@ by: David Cantrell <dcantrell@redhat.com>
     Brian C. Lane <bcl@redhat.com>
 -----------------------------------------------------------------------------
 
-Anaconda, as of version 23.1, is using https://fedora.zanata.com for
+Anaconda, as of version 23.1, is using https://fedora.zanata.org for
 translations. You will need an account in order to pull translations until bug
 https://bugzilla.redhat.com/show_bug.cgi?id=1172618 (anonymous pull requests)
 has been resolved.
@@ -95,7 +95,7 @@ CREATING A NEW ANACONDA BRANCH
 When we make a new branch, we need to branch the translation files. You can do
 this via the zanata web ui or using the command line client.
 
-On https://fedora.zanata.com go to the project and version to use as a base.
+On https://fedora.zanata.org go to the project and version to use as a base.
 Select 'New Version+' from the hidden drop down menu on the right.  Give it a
 name that matches the git branch. eg. f23-branch and select the version to copy
 from (usually master). Wait for it to finish processing documents.
@@ -119,7 +119,7 @@ Now create a new git branch in anaconda itself:
     git clean -xdf
     git checkout BRANCH_NAME
 
-At https://fedora.zanata.com select the new version and then select the
+At https://fedora.zanata.org select the new version and then select the
 'Download Config file' from the hidden dropdown menu next to 'Settings'.  This
 will download a new zanata.xml file. Replace the zanata.xml file in the root
 directory of anaconda project with this new one.
