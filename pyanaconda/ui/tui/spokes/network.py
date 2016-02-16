@@ -248,7 +248,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             return key
 
     def apply(self):
-        " Apply all of our settings."""
+        """Apply all of our settings."""
         self._update_network_data()
 
         if self._apply:
