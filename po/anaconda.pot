@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.245\n"
+"Project-Id-Version: anaconda 13.21.246\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-02-05 05:38-0500\n"
+"POT-Creation-Date: 2016-02-16 17:28-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:245 bootloader.py:251 bootloader.py:258
-#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:940
+#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:985
 #: text.py:490 text.py:550 yuminstall.py:1651 yuminstall.py:1860
 #: yuminstall.py:1895 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -745,17 +745,17 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:941
+#: network.py:986
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:947 rescue.py:262 yuminstall.py:1364 iw/task_gui.py:311
+#: network.py:992 rescue.py:262 yuminstall.py:1364 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:948
+#: network.py:993
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
