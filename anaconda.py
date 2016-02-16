@@ -102,23 +102,22 @@ def exitHandler(rebootData, storage):
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
-        from pyanaconda.iutil import dracut_eject, get_mount_paths, execWithRedirect
 
         if flags.eject or rebootData.eject:
             for cdrom in storage.devicetree.getDevicesByType("cdrom"):
-                if get_mount_paths(cdrom.path):
-                    dracut_eject(cdrom.path)
+                if iutil.get_mount_paths(cdrom.path):
+                    iutil.dracut_eject(cdrom.path)
 
         if flags.kexec:
-            execWithRedirect("systemctl", ["--no-wall", "kexec"])
+            iutil.execWithRedirect("systemctl", ["--no-wall", "kexec"])
             while True:
                 time.sleep(10000)
         elif rebootData.action == KS_SHUTDOWN:
-            execWithRedirect("systemctl", ["--no-wall", "poweroff"])
+            iutil.execWithRedirect("systemctl", ["--no-wall", "poweroff"])
         elif rebootData.action == KS_WAIT:
-            execWithRedirect("systemctl", ["--no-wall", "halt"])
+            iutil.execWithRedirect("systemctl", ["--no-wall", "halt"])
         else:  # reboot action is KS_REBOOT or None
-            execWithRedirect("systemctl", ["--no-wall", "reboot"])
+            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
 def startSpiceVDAgent():
     status = iutil.execWithRedirect("spice-vdagent", [])
@@ -331,7 +330,6 @@ def gtk_warning(title, reason):
 # pylint: disable=redefined-outer-name
 def check_memory(anaconda, options, display_mode=None):
     from pyanaconda import isys
-    from pyanaconda.iutil import persistent_root_image
 
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
@@ -358,7 +356,7 @@ def check_memory(anaconda, options, display_mode=None):
     graphical_ram = int(isys.MIN_GUI_RAM)
 
     # count the squashfs.img in if it is kept in RAM
-    if not persistent_root_image():
+    if not iutil.persistent_root_image():
         needed_ram += isys.SQUASHFS_EXTRA_RAM
         graphical_ram += isys.SQUASHFS_EXTRA_RAM
 
@@ -628,8 +626,7 @@ def cleanPStore():
     # is sufficient free space on the flash part.  On some machines this will
     # take effect immediately, which is the best case.  Unfortunately on some,
     # an intervening reboot is needed."""
-    from pyanaconda.iutil import dir_tree_map
-    dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
+    iutil.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
 
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
@@ -667,6 +664,7 @@ if __name__ == "__main__":
     from pyanaconda import constants
     from pyanaconda.addons import collect_addon_paths
     from pyanaconda import geoloc
+    from pyanaconda import iutil
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags, can_touch_runtime_system
@@ -714,8 +712,6 @@ if __name__ == "__main__":
     from pyanaconda import product
 
     from pyanaconda import isys
-
-    from pyanaconda import iutil
 
     iutil.ipmi_report(constants.IPMI_STARTED)
 
