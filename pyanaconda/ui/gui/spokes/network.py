@@ -284,6 +284,7 @@ class NetworkControlBox(GObject.GObject):
         self._running_nmce = None
         self.spoke = spoke
         self.client = client
+        self._old_timestamp = None
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -577,7 +578,20 @@ class NetworkControlBox(GObject.GObject):
         log.info("network: configuring new connection %s", uuid)
         self._run_nmce(uuid, activate)
 
+    def _get_selected_con_timestamp(self):
+        dev_cfg = self.selected_dev_cfg()
+        try:
+            con = dev_cfg.con
+            timestamp = con.get_setting_connection().get_timestamp()
+        except AttributeError as e:
+            log.warning("Connection was None when getting timestamp")
+            return None
+
+        return timestamp
+
     def _run_nmce(self, uuid, activate):
+        self._old_timestamp = self._get_selected_con_timestamp()
+
         self.kill_nmce(msg="Configure button clicked")
         proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
         self._running_nmce = proc
@@ -618,7 +632,8 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
-            if self.spoke:
+            new_timestamp = self._get_selected_con_timestamp()
+            if self.spoke and self._old_timestamp != new_timestamp:
                 self.spoke.settings_changed = True
             network.logIfcfgFiles("nm-c-e run")
 
