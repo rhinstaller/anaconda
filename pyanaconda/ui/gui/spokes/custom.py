@@ -1942,7 +1942,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if root_name and "_" in root_name:
                 root_name = root_name.replace("_", "__")
                 checkbox_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                                    "Delete _all other file systems in the %s root as well.")
+                                    "Delete _all file systems which are only used by %s.")
                                     % root_name)
         else:
             checkbox_text = C_("GUI|Custom Partitioning|Confirm Delete Dialog",
@@ -2017,11 +2017,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     otherdevs = []
                     for otherpg in otherpgs:
                         otherdevs.extend(mem._device.id for mem in otherpg.members)
-                    # we never want to delete known-shared devs here. we also
-                    # exclude 'device' as we'll unconditionally delete it later
+                    # We never want to delete known-shared devs here.
+                    # The same rule applies for selected device. If it's shared do not
+                    # remove it in other pages when Delete all option is checked.
                     for dev in (s._device for s in page.members
-                                if s._device.id not in otherdevs
-                                and s._device.id != device.id):
+                                if s._device.id not in otherdevs):
                         # we only want to delete boot partitions if they're not
                         # shared *and* we have no unknown partitions
                         if (not self.unusedDevices or dev.format.type not in protected_types):
@@ -2029,9 +2029,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             self._destroy_device(dev)
                         else:
                             log.debug("deleteall: didn't remove %s", dev.name)
-
-                # We do this even in deleteAll case, see above comment
-                self._destroy_device(device)
+                else:
+                    self._destroy_device(device)
 
             part_removed = True
             log.info("ui: removed device %s", device.name)
