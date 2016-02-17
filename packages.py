@@ -240,7 +240,7 @@ def setFileCons(anaconda):
                  "/etc/udev/rules.d/70-persistent-net.rules",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
-                 "/etc/zipl.conf"] + glob.glob('/etc/dhcp/dhclient-*.conf')
+                 "/etc/zipl.conf", "/etc/localtime"] + glob.glob('/etc/dhcp/dhclient-*.conf')
 
         vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
         for f in files + vgs:
