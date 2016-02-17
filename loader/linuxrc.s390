@@ -2417,6 +2417,7 @@ function parse_dasd() {
             echo $"Not all specified DASDs could be detected within timeout."
             allgood="no"
         fi
+        udevadm settle
     fi
     while read dasditem; do
         unset range features range lo hi rangegood \
