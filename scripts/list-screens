@@ -29,7 +29,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # for now we only list the GUI spokes
 GUI_SPOKES = "../pyanaconda/ui/gui/spokes"
 BASE_SPOKES = ["StandaloneSpoke", "NormalSpoke"]
-SPOKE_DETECTION_RE = "class\s*(?P<spoke_name>\w+)[(].*Spoke.*[)]"
+SPOKE_DETECTION_RE = r"class\s*(?P<spoke_name>\w+)[(].*Spoke.*[)]"
 compiled_re = re.compile(SPOKE_DETECTION_RE)
 
 # iterate over all files in the spokes folder
