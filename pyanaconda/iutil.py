@@ -1169,7 +1169,7 @@ def ipmi_report(event):
     eintr_retry_call(os.write, fd, "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event)
     eintr_retry_call(os.close, fd)
 
-    execWithCapture("ipmitool", ["sel", "add", path])
+    execWithCapture("ipmitool", ["event", "file", path])
 
     os.remove(path)
 
