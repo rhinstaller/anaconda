@@ -1275,7 +1275,7 @@ def ipmi_report(event):
     os.write(fd, event_string.encode("utf-8"))
     os.close(fd)
 
-    execWithCapture("ipmitool", ["sel", "add", path])
+    execWithCapture("ipmitool", ["event", "file", path])
 
     os.remove(path)
 
