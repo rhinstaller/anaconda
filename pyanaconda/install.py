@@ -204,6 +204,9 @@ def doInstall(storage, payload, ksdata, instClass):
     # Check for additional packages
     ksdata.authconfig.setup()
     ksdata.firewall.setup()
+    # Setup timezone and add chrony as package if timezone was set in KS
+    # and "-chrony" wasn't in packages section and/or --nontp wasn't set.
+    ksdata.timezone.setup(ksdata)
 
     # anaconda requires storage packages in order to make sure the target
     # system is bootable and configurable, and some other packages in order
