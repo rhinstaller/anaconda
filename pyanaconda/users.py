@@ -29,6 +29,7 @@ from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
 import crypt
+import re
 
 import logging
 log = logging.getLogger("anaconda")
@@ -119,6 +120,22 @@ def validatePassword(pw, user="root", settings=None, minlen=None):
             message = e.args[1]
 
     return (valid, strength, message)
+
+def check_name(in_name):
+    in_name = in_name.replace(" ", "")
+    ign_cond = {r"^[\d]": "User name cannot start with a digit: ",
+                r"[^-_A-Za-z0-9]": "User name cannot contain any non-alphanumerical character: "}
+
+    for sys_name in os.listdir("/") + ["root", "home", "daemon", "system"]:
+        if in_name in sys_name:
+            return (False, "Username is reserved for system: %s" % sys_name)
+
+    for cond in ign_cond:
+        match = re.search(cond, in_name)
+        if match:
+            return (False, ign_cond[cond] + "'%s'" % match.group())
+
+    return (True, None)
 
 def guess_username(fullname):
     fullname = fullname.split()

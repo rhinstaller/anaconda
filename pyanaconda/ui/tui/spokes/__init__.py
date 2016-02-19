@@ -19,7 +19,7 @@
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
-from pyanaconda.users import validatePassword, cryptPassword
+from pyanaconda.users import validatePassword, cryptPassword, check_name
 import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
@@ -111,7 +111,6 @@ class EditTUIDialog(NormalTUISpoke):
        To override the wrong input message set the wrong_input_message attribute
        to a translated string.
     """
-
     title = N_("New value")
     PASSWORD = re.compile(".*")
 
@@ -191,16 +190,20 @@ class EditTUIDialog(NormalTUISpoke):
             return _("Enter a new value for '%s' and press [Enter]\n") % entry.title
 
     def input(self, entry, key):
-        if entry.aux.match(key):
+        valid, err_msg = check_name(key)
+        if valid and entry.aux.match(key):
             self.value = key
             self.close()
             return True
         else:
+            self.wrong_input_message = err_msg
             if self.wrong_input_message:
                 print(self.wrong_input_message)
             else:
-                print(_("You have provided an invalid value\n"))
+                print(_("You have provided an invalid user name: %s\n"
+                        "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
             return NormalTUISpoke.input(self, entry, key)
+
 
 class OneShotEditTUIDialog(EditTUIDialog):
     """The same as EditTUIDialog, but closes automatically after
