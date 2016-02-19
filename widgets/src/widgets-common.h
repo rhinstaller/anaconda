@@ -20,6 +20,11 @@
 #ifndef _WIDGETS_COMMON_H
 #define _WIDGETS_COMMON_H
 
+#include <gtk/gtk.h>
+
 #define ANACONDA_RESOURCE_PATH  "/org/fedoraproject/anaconda/widgets/"
+
+G_GNUC_INTERNAL void anaconda_widget_apply_stylesheet(GtkWidget *widget, const gchar *name);
+
 
 #endif
