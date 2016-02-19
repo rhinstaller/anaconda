@@ -1,0 +1,13 @@
+/* Color the mountpoint label grayish when the parent selector is
+ * unselected, black when it is selected.
+ */
+
+#anaconda-mountpoint-label {
+    color: #555555;
+    font-size: large;
+    font-weight: bold;
+}
+
+AnacondaMountpointSelector:selected #anaconda-mountpoint-label {
+    color: black;
+}
