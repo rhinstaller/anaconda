@@ -554,7 +554,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self._update_datetime_timer_id is not None:
             GLib.source_remove(self._update_datetime_timer_id)
         self._update_datetime_timer_id = None
-        self.data.timezone.setup(self.data)
 
     @property
     def ready(self):
