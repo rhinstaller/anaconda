@@ -42,6 +42,49 @@
  * may be caught.  The #GtkWidget::button-press-event signal is already
  * handled internally to change the background color, but may also be handled
  * by user code in order to take some action based on the disk clicked upon.
+ *
+ * # CSS nodes
+ *
+ * |[<!-- language="plain" -->
+ * AnacondaDiskOverview
+ * ├── #anaconda-disk-capacity
+ * ├── #anaconda-disk-kind
+ * ├── #anaconda-disk-description
+ * ├── #anaconda-disk-name[.anaconda-disk-details]
+ * ├── #anaconda-disk-separator[.anaconda-disk-details]
+ * ╰── #anaconda-disk-free[.anaconda-disk-details]
+ * ]|
+ *
+ * The internal widgets are accessible by name for the purposes of CSS
+ * selectors.
+ *
+ * - anaconda-disk-capacity
+ *
+ *   The total size of the disk, plus units
+ *
+ * - anaconda-disk-kind
+ *
+ *   The icon displayed for the type of disk this widget is describing
+ *
+ * - anaconda-disk-description
+ *
+ *   The string describing the disk
+ *
+ * - anaconda-disk-name
+ *
+ *   The name of the device
+ *
+ * - anaconda-disk-free
+ *
+ *   The amount of free, unpartitioned space on the disk, plus units
+ *
+ * - anaconda-disk-separator
+ *
+ *   A string separating the name and free labels.
+ *
+ * Additionally, anaconda-disk-name, anaconda-disk-free, and
+ * anaconda-disk-separator are all accessible via the .anaconda-disk-details
+ * class.
  */
 enum {
     PROP_DESCRIPTION = 1,
@@ -258,7 +301,7 @@ static void set_icon(AnacondaDiskOverview *widget, const char *icon_name) {
 static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     AtkObject *atk;
     AtkRole role;
-    char *markup;
+    GtkWidget *separator;
     GtkStyleContext *context;
 
     widget->priv = G_TYPE_INSTANCE_GET_PRIVATE(widget,
@@ -286,37 +329,47 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     gtk_container_set_border_width(GTK_CONTAINER(widget->priv->grid), 6);
 
     /* Create the capacity label. */
-    widget->priv->capacity_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_CAPACITY));
-    gtk_label_set_markup(GTK_LABEL(widget->priv->capacity_label), markup);
-    g_free(markup);
+    widget->priv->capacity_label = gtk_label_new(_(DEFAULT_CAPACITY));
+    gtk_widget_set_name(widget->priv->capacity_label, "anaconda-disk-capacity");
 
     /* Create the spoke's icon. */
     set_icon(widget, DEFAULT_KIND);
 
     /* Create the description label. */
-    widget->priv->description_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(DEFAULT_DESCRIPTION));
-    gtk_label_set_markup(GTK_LABEL(widget->priv->description_label), markup);
-    g_free(markup);
+    widget->priv->description_label = gtk_label_new(_(DEFAULT_DESCRIPTION));
+    gtk_label_set_justify(GTK_LABEL(widget->priv->description_label), GTK_JUSTIFY_CENTER);
+    gtk_widget_set_name(widget->priv->description_label, "anaconda-disk-description");
 
     /* Create the name label. */
     widget->priv->name_label = gtk_label_new(NULL);
     gtk_widget_set_halign(widget->priv->name_label, GTK_ALIGN_END);
+    gtk_widget_set_name(widget->priv->name_label, "anaconda-disk-name");
 
     /* Create the free space label. */
-    widget->priv->free_label = gtk_label_new(NULL);
+    widget->priv->free_label = gtk_label_new(_(DEFAULT_FREE));
     gtk_widget_set_halign(widget->priv->free_label, GTK_ALIGN_START);
-    markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_FREE));
-    gtk_label_set_markup(GTK_LABEL(widget->priv->capacity_label), markup);
-    g_free(markup);
+    gtk_widget_set_name(widget->priv->free_label, "anaconda-disk-free");
+
+    /* Create the separator label. */
+    separator = gtk_label_new("/");
+    gtk_widget_set_name(separator, "anaconda-disk-separator");
+
+    /* Apply the details style class to the widgets in the bottom row */
+    context = gtk_widget_get_style_context(widget->priv->name_label);
+    gtk_style_context_add_class(context, "anaconda-disk-details");
+
+    context = gtk_widget_get_style_context(widget->priv->free_label);
+    gtk_style_context_add_class(context, "anaconda-disk-details");
+
+    context = gtk_widget_get_style_context(separator);
+    gtk_style_context_add_class(context, "anaconda-disk-details");
 
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->capacity_label, 0, 0, 3, 1);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->kind_icon, 0, 1, 3, 1);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->description_label, 0, 2, 3, 1);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->name_label, 0, 3, 1, 1);
-    gtk_grid_attach(GTK_GRID(widget->priv->grid), gtk_label_new("/"), 1, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), separator, 1, 3, 1, 1);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->free_label, 2, 3, 1, 1);
 
     gtk_container_add(GTK_CONTAINER(widget), widget->priv->grid);
@@ -340,6 +393,12 @@ G_GNUC_END_IGNORE_DEPRECATIONS
      * selected, insensitive, etc */
     context = gtk_widget_get_style_context(GTK_WIDGET(widget));
     gtk_style_context_add_class(context, "gtkstyle-fallback");
+
+    /* Add the style data to widgets with stylesheets */
+    anaconda_widget_apply_stylesheet(widget->priv->capacity_label, "DiskOverview-capacity");
+    anaconda_widget_apply_stylesheet(widget->priv->description_label, "DiskOverview-description");
+    anaconda_widget_apply_stylesheet(widget->priv->name_label, "DiskOverview-name");
+    anaconda_widget_apply_stylesheet(widget->priv->free_label, "DiskOverview-free");
 }
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event) {
@@ -416,10 +475,7 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
 
     switch(prop_id) {
         case PROP_DESCRIPTION: {
-            char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->description_label), markup);
-            g_free(markup);
-            gtk_label_set_justify(GTK_LABEL(priv->description_label), GTK_JUSTIFY_CENTER);
+            gtk_label_set_text(GTK_LABEL(priv->description_label), g_value_get_string(value));
             break;
         }
 
@@ -433,23 +489,17 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
             break;
 
         case PROP_FREE: {
-            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->free_label), markup);
-            g_free(markup);
+            gtk_label_set_text(GTK_LABEL(priv->free_label), g_value_get_string(value));
             break;
         }
 
         case PROP_CAPACITY: {
-            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->capacity_label), markup);
-            g_free(markup);
+            gtk_label_set_text(GTK_LABEL(priv->capacity_label), g_value_get_string(value));
             break;
         }
 
         case PROP_NAME: {
-            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
-            g_free(markup);
+            gtk_label_set_text(GTK_LABEL(priv->name_label), g_value_get_string(value));
             break;
         }
 

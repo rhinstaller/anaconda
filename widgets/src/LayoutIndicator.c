@@ -30,12 +30,12 @@
 
 #include "LayoutIndicator.h"
 #include "intl.h"
+#include "widgets-common.h"
 
 #define MULTIPLE_LAYOUTS_TIP  _("Current layout: '%s'. Click to switch to the next layout.")
 #define SINGLE_LAYOUT_TIP _("Current layout: '%s'. Add more layouts to enable switching.")
 #define DEFAULT_LAYOUT "us"
 #define DEFAULT_LABEL_MAX_CHAR_WIDTH 8
-#define MARKUP_FORMAT_STR "<span fgcolor='black' weight='bold'>%s</span>"
 
 /**
  * SECTION: LayoutIndicator
@@ -46,6 +46,25 @@
  * indication of currently activated X layout should be shown.
  *
  * An #AnacondaLayoutIndicator is a subclass of a #GtkEventBox.
+ *
+ * # CSS nodes
+ *
+ * |[<!-- language="plain" -->
+ * AnacondaLayoutIndicator
+ * ├── #anaconda-layout-icon
+ * ╰── #anaconda-layout-label
+ * ]|
+ *
+ * The internal widgets are accessible by name for the purposes of CSS
+ * selectors.
+ *
+ * - anaconda-layout-icon
+ *
+ *   The keyboard icon indicating that this is a keyboard layout widget
+ *
+ * - anaconda-layout-label
+ *
+ *   A label describing the current layout
  */
 
 enum {
@@ -214,6 +233,7 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(self->priv->layout_label), 0.0, 0.5);
 G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_widget_set_name(GTK_WIDGET(self->priv->layout_label), "anaconda-layout-label");
 
     /* initialize the label with the current layout name */
     anaconda_layout_indicator_refresh_ui_elements(self);
@@ -221,6 +241,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     /* create the little keyboard icon and set its left margin */
     self->priv->icon = gtk_image_new_from_icon_name("input-keyboard-symbolic",
                                                     GTK_ICON_SIZE_SMALL_TOOLBAR);
+    gtk_widget_set_name(self->priv->icon, "anaconda-layout-icon");
 
     /* create and populate the main box */
     self->priv->main_box = GTK_BOX(gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4));
@@ -237,6 +258,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     atk = gtk_widget_get_accessible(GTK_WIDGET(self));
     atk_object_set_name(atk, "Keyboard Layout");
     atk_object_set_description(atk, self->priv->layout);
+
+    /* Apply stylesheets to widgets that have them */
+    anaconda_widget_apply_stylesheet(GTK_WIDGET(self), "LayoutIndicator");
+    anaconda_widget_apply_stylesheet(GTK_WIDGET(self->priv->layout_label), "LayoutIndicator-label");
 }
 
 static void anaconda_layout_indicator_dispose(GObject *object) {
@@ -329,11 +354,7 @@ static void anaconda_layout_indicator_clicked(GtkWidget *widget, GdkEvent *event
 }
 
 static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicator *self) {
-    gchar *markup;
-
-    markup = g_markup_printf_escaped(MARKUP_FORMAT_STR, self->priv->layout);
-    gtk_label_set_markup(self->priv->layout_label, markup);
-    g_free(markup);
+    gtk_label_set_text(self->priv->layout_label, self->priv->layout);
 
     anaconda_layout_indicator_refresh_tooltip(self);
 }
