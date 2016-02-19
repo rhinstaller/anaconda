@@ -306,7 +306,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
               re.compile("^(?:" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp)$"), True),
         Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
-        Entry(N_('IPv6 address or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to turn off')
+        Entry(N_('IPv6 address[/prefix] or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to turn off')
               % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'}, "ipv6",
               Fake_RE_IPV6(allow_prefix=True, whitelist=["auto", "dhcp", "ignore"]), True),
         Entry(N_("IPv6 default gateway"), "ipv6gateway", Fake_RE_IPV6(), True),
