@@ -1679,7 +1679,8 @@ class Timezone(commands.timezone.F23_Timezone):
         self._disabled_chrony = False
 
     def setup(self, ksdata):
-        if self.nontp:
+        # do not install and use NTP package
+        if self.nontp or NTP_PACKAGE in ksdata.packages.excludedList:
             if iutil.service_running(NTP_SERVICE) and \
                     can_touch_runtime_system("stop NTP service"):
                 ret = iutil.stop_service(NTP_SERVICE)
@@ -1699,7 +1700,7 @@ class Timezone(commands.timezone.F23_Timezone):
             if NTP_SERVICE not in ksdata.services.disabled:
                 ksdata.services.disabled.append(NTP_SERVICE)
                 self._disabled_chrony = True
-
+        # install and use NTP package
         else:
             if not iutil.service_running(NTP_SERVICE) and \
                     can_touch_runtime_system("start NTP service"):
@@ -1730,14 +1731,27 @@ class Timezone(commands.timezone.F23_Timezone):
 
         timezone.write_timezone_config(self, iutil.getSysroot())
 
-        # write out NTP configuration (if set)
-        chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
-        if self.ntpservers and os.path.exists(chronyd_conf_path):
+        # write out NTP configuration (if set) and --nontp is not used
+        if not self.nontp and self.ntpservers:
+            chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
             pools, servers = ntp.internal_to_pools_and_servers(self.ntpservers)
-            try:
-                ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
-            except ntp.NTPconfigError as ntperr:
-                log.warning("Failed to save NTP configuration: %s", ntperr)
+            if os.path.exists(chronyd_conf_path):
+                log.debug("Modifying installed chrony configuration")
+                try:
+                    ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
+                except ntp.NTPconfigError as ntperr:
+                    log.warning("Failed to save NTP configuration: %s", ntperr)
+            # use chrony conf file from installation environment when
+            # chrony is not installed (chrony conf file is missing)
+            else:
+                log.debug("Creating chrony configuration based on the "
+                          "configuration from installation environment")
+                try:
+                    ntp.save_servers_to_config(pools, servers,
+                                               conf_file_path=ntp.NTP_CONFIG_FILE,
+                                               out_file_path=chronyd_conf_path)
+                except ntp.NTPconfigError as ntperr:
+                    log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
 class User(commands.user.F19_User):
     def execute(self, storage, ksdata, instClass, users):
