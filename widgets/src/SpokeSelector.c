@@ -45,6 +45,31 @@
  * As a #AnacondaSpokeSelector is a subclass of a #GtkEventBox, any signals
  * may be caught.  However ::button-press-event is the most important one and
  * should be how control is transferred to a Spoke.
+ *
+ * <refsect2 id="AnacondaSpokeSelector-CSS-nodes"><title>CSS nodes</title>
+ * <example><programlisting><![CDATA[
+ * AnacondaSpokeSelector
+ * ├── #anaconda-spoke-selector-title
+ * ╰── #anaconda-spoke-selector-status
+ * ]]></programlisting></example>
+ * <para>
+ * The internal widgets are accessible by name for the purposes of CSS
+ * </para>
+ * <itemizedlist>
+ * <listitem>
+ * <para>anaconda-spoke-selector-title</para>
+ * <para>The title of the spoke</para>
+ * </listitem>
+ * <listitem>
+ * <para>anaconda-spoke-selector-status</para>
+ * <para>The status of the spoke</para>
+ * </listitem>
+ * </itemizedlist>
+ * <para>
+ * In addition, the :inconsistent pseudo-class can be used to select
+ * selectors that are in an error state.
+ * </para>
+ * </refsect2>
  */
 
 enum {
@@ -58,7 +83,6 @@ enum {
 #define DEFAULT_TITLE   N_("New Selector")
 
 struct _AnacondaSpokeSelectorPrivate {
-    gboolean   is_incomplete;
     gchar     *icon_name;
 
     GtkWidget *grid;
@@ -155,38 +179,6 @@ GtkWidget *anaconda_spoke_selector_new() {
     return g_object_new(ANACONDA_TYPE_SPOKE_SELECTOR, NULL);
 }
 
-static void format_status_label(AnacondaSpokeSelector *spoke, const char *markup) {
-    gchar *escaped;
-    PangoAttrList *attrs;
-
-    attrs = pango_attr_list_new();
-    pango_attr_list_insert(attrs, pango_attr_style_new(PANGO_STYLE_ITALIC));
-    pango_attr_list_insert(attrs, pango_attr_scale_new(PANGO_SCALE_LARGE));
-
-    /* Display error text in a dark red color to draw the user's attention. */
-    if (anaconda_spoke_selector_get_incomplete(spoke) &&
-        gtk_widget_get_sensitive(GTK_WIDGET(spoke))) {
-        pango_attr_list_insert(attrs, pango_attr_foreground_new(0xcccc, 0x1a1a, 0x1a1a));
-    }
-
-    /* Ampersands (and maybe other characters) in status text need to be escaped. */
-    escaped = g_markup_escape_text(markup, -1);
-
-    gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), escaped);
-    gtk_label_set_attributes(GTK_LABEL(spoke->priv->status_label), attrs);
-
-    pango_attr_list_unref(attrs);
-    g_free(escaped);
-}
-
-static void format_title_label(AnacondaSpokeSelector *widget, const char *label) {
-    char *markup;
-
-    markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", label);
-    gtk_label_set_markup_with_mnemonic(GTK_LABEL(widget->priv->title_label), markup);
-    g_free(markup);
-}
-
 static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     GError *err = NULL;
     GIcon *base_icon, *emblem_icon, *icon;
@@ -203,7 +195,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     if (widget->priv->icon)
         gtk_widget_destroy(widget->priv->icon);
 
-    if (widget->priv->is_incomplete) {
+    if (anaconda_spoke_selector_get_incomplete(widget)) {
         base_icon = g_icon_new_for_string(icon_name, &err);
         if (!base_icon) {
             fprintf(stderr, "could not create icon: %s\n", err->message);
@@ -285,9 +277,6 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv->cursor = gdk_cursor_new(GDK_HAND2);
     g_signal_connect(spoke, "realize", G_CALLBACK(anaconda_spoke_selector_realize), NULL);
 
-    /* Set property defaults. */
-    spoke->priv->is_incomplete = FALSE;
-
     /* Create the grid. */
     spoke->priv->grid = gtk_grid_new();
     gtk_grid_set_column_spacing(GTK_GRID(spoke->priv->grid), 6);
@@ -298,7 +287,7 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     /* Create the title label. */
     spoke->priv->title_label = gtk_label_new(NULL);
-    format_title_label(spoke, _(DEFAULT_TITLE));
+    gtk_label_set_text_with_mnemonic(GTK_LABEL(spoke->priv->title_label), _(DEFAULT_TITLE));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->title_label), GTK_JUSTIFY_LEFT);
     gtk_label_set_mnemonic_widget(GTK_LABEL(spoke->priv->title_label), GTK_WIDGET(spoke));
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
@@ -306,10 +295,10 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 1);
 G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->title_label), FALSE);
+    gtk_widget_set_name(spoke->priv->title_label, "anaconda-spoke-selector-title");
 
     /* Create the status label. */
-    spoke->priv->status_label = gtk_label_new(NULL);
-    format_status_label(spoke, _(DEFAULT_STATUS));
+    spoke->priv->status_label = gtk_label_new(_(DEFAULT_STATUS));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->status_label), GTK_JUSTIFY_LEFT);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
@@ -317,6 +306,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);
+    gtk_widget_set_name(spoke->priv->status_label, "anaconda-spoke-selector-status");
 
     /* Add everything to the grid, add the grid to the widget.  The icon is attached by
      * the call to set_icon earlier.
@@ -336,6 +326,10 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     atk_object_set_name(atk, _(DEFAULT_TITLE));
     atk_object_set_description(atk, _(DEFAULT_STATUS));
     atk_object_set_role(atk, role);
+
+    /* Apply stylesheets where appropriate */
+    anaconda_widget_apply_stylesheet(spoke->priv->title_label, "SpokeSelector-title");
+    anaconda_widget_apply_stylesheet(spoke->priv->status_label, "SpokeSelector-status");
 }
 
 static void anaconda_spoke_selector_finalize(GObject *object) {
@@ -381,7 +375,7 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
         case PROP_STATUS: {
             atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
 
-            format_status_label(widget, g_value_get_string(value));
+            gtk_label_set_text(GTK_LABEL(widget->priv->status_label), g_value_get_string(value));
             atk_object_set_description(atk, g_value_get_string(value));
             break;
         }
@@ -389,7 +383,7 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
         case PROP_TITLE: {
             atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
 
-            format_title_label(widget, g_value_get_string(value));
+            gtk_label_set_text_with_mnemonic(GTK_LABEL(widget->priv->title_label), g_value_get_string(value));
             atk_object_set_name(atk, gtk_label_get_text(GTK_LABEL(widget->priv->title_label)));
             break;
         }
@@ -407,7 +401,7 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
  * Since: 1.0
  */
 gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
-    return spoke->priv->is_incomplete;
+    return gtk_widget_get_state_flags(GTK_WIDGET(spoke)) & GTK_STATE_FLAG_INCONSISTENT;
 }
 
 /**
@@ -423,16 +417,22 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
  * Since: 1.0
  */
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
-    spoke->priv->is_incomplete = is_incomplete;
+    GtkStateFlags flags = gtk_widget_get_state_flags(GTK_WIDGET(spoke));
+
+    /* 
+     * If the spoke is incomplete, set the "inconsistent" state to indicate that it
+     * needs attention
+     */
+    if (is_incomplete) {
+        flags |= GTK_STATE_FLAG_INCONSISTENT;
+    } else {
+        flags &= ~GTK_STATE_FLAG_INCONSISTENT;
+    }
+    gtk_widget_set_state_flags(GTK_WIDGET(spoke), flags, TRUE);
 
     /* Update the icon we are displaying, complete with any warning emblem. */
     set_icon(spoke, spoke->priv->icon_name);
     gtk_widget_show_all(spoke->priv->icon);
-
-    /* We need to update the status label's color, in case this spoke was
-     * previously incomplete but now is not (or the other way around).
-     */
-    format_status_label(spoke, gtk_label_get_text(GTK_LABEL(spoke->priv->status_label)));
 }
 
 static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {

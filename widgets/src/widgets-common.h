@@ -20,12 +20,15 @@
 #ifndef _WIDGETS_COMMON_H
 #define _WIDGETS_COMMON_H
 
+#include <gtk/gtk.h>
 #include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 G_BEGIN_DECLS
 
 const gchar *anaconda_get_widgets_datadir(void);
+
+G_GNUC_INTERNAL void anaconda_widget_apply_stylesheet(GtkWidget *widget, const gchar *name);
 
 G_END_DECLS
 

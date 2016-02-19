@@ -40,6 +40,38 @@
  * As a #AnacondaMountpointSelector is a subclass of a #GtkEventBox, any signals
  * may be caught.  However ::button-press-event is the most important one and is
  * how we determine what should be displayed on the rest of the screen.
+ *
+ * <refsect2 id="AnacondaMountpointSelector-CSS-nodes"><title>CSS nodes</title>
+ * <example><programlisting><![CDATA[
+ * AnacondaMountpointSelector
+ * ├── #anaconda-mountpoint-label
+ * ├── #anaconda-mountpoint-size-label
+ * ├── #anaconda-mountpoint-arrow
+ * ╰── #anaconda-mountpoint-name-label
+ * ]]></programlisting></example>
+ * <para>
+ * The internal widgets are accessible by name for the purposes of CSS
+ * </para>
+ * <itemizedlist>
+ * <listitem>
+ * <para>anaconda-mountpoint-name-label</para>
+ * <para>The name of the mountpoint (e.g., /boot, /home, swap).</para>
+ * </listitem>
+ * <listitem>
+ * <para>anaconda-mountpoint-size-label</para>
+ * <para>The size of the mountpoint.</para>
+ * </listitem>
+ * <listitem>
+ * <para>anaconda-mountpoint-arrow</para>
+ * <para>The arrow image displayed on the selected mountpoint.</para>
+ * </listitem>
+ * <listitem>
+ * <para>anaconda-mountpoint-name-label</para>
+ * <para>The secondary text displayed for the mountpoint. This is commonly the
+ * name of the device node containing the mountpoint.</para>
+ * </listitem>
+ * </itemizedlist>
+ * </refsect2>
  */
 
 enum {
@@ -144,30 +176,6 @@ GtkWidget *anaconda_mountpoint_selector_new() {
     return g_object_new(ANACONDA_TYPE_MOUNTPOINT_SELECTOR, NULL);
 }
 
-static void format_mountpoint_label(AnacondaMountpointSelector *widget, const char *value) {
-    char *markup;
-
-    markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", value);
-    gtk_label_set_markup(GTK_LABEL(widget->priv->mountpoint_label), markup);
-    g_free(markup);
-}
-
-static void format_size_label(AnacondaMountpointSelector *widget, const char *value) {
-    char *markup;
-
-    markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", value);
-    gtk_label_set_markup(GTK_LABEL(widget->priv->size_label), markup);
-    g_free(markup);
-}
-
-static void format_name_label(AnacondaMountpointSelector *widget, const char *value) {
-    char *markup;
-
-    markup = g_markup_printf_escaped("<span fgcolor='black' size='small'>%s</span>", value);
-    gtk_label_set_markup(GTK_LABEL(widget->priv->name_label), markup);
-    g_free(markup);
-}
-
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     gchar *file;
 
@@ -201,13 +209,13 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     mountpoint->priv->arrow = gtk_image_new_from_file(file);
     g_free(file);
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
+    gtk_widget_set_name(mountpoint->priv->arrow, "anaconda-mountpoint-arrow");
 
     /* Set some properties. */
     mountpoint->priv->chosen = FALSE;
 
     /* Create the name label. */
-    mountpoint->priv->name_label = gtk_label_new(NULL);
-    format_name_label(mountpoint, _(DEFAULT_NAME));
+    mountpoint->priv->name_label = gtk_label_new(_(DEFAULT_NAME));
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     /* gtk+ did a garbage job of "deprecating" GtkMisc, so keep using it for now */
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
@@ -215,21 +223,22 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_label_set_ellipsize(GTK_LABEL(mountpoint->priv->name_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(mountpoint->priv->name_label), 25);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->name_label), TRUE);
+    gtk_widget_set_name(mountpoint->priv->name_label, "anaconda-mountpoint-name-label");
 
     /* Create the size label. */
-    mountpoint->priv->size_label = gtk_label_new(NULL);
-    format_size_label(mountpoint, _(DEFAULT_SIZE));
+    mountpoint->priv->size_label = gtk_label_new(_(DEFAULT_SIZE));
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->size_label), 0, 0.5);
 G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_widget_set_name(mountpoint->priv->size_label, "anaconda-mountpoint-size-label");
 
     /* Create the mountpoint label. */
-    mountpoint->priv->mountpoint_label = gtk_label_new(NULL);
-    format_mountpoint_label(mountpoint, DEFAULT_MOUNTPOINT);
+    mountpoint->priv->mountpoint_label = gtk_label_new(DEFAULT_MOUNTPOINT);
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->mountpoint_label), 0, 0);
 G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);
+    gtk_widget_set_name(mountpoint->priv->mountpoint_label, "anaconda-mountpoint-label");
 
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->mountpoint_label, 0, 0, 1, 1);
@@ -237,6 +246,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->arrow, 2, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->name_label, 0, 1, 1, 2);
     gtk_widget_set_margin_end(GTK_WIDGET(mountpoint->priv->grid), 12);
+
+    /* Set the stylesheet data on child widgets that have it */
+    anaconda_widget_apply_stylesheet(mountpoint->priv->mountpoint_label, "MountpointSelector-mountpoint");
+    anaconda_widget_apply_stylesheet(mountpoint->priv->size_label, "MountpointSelector-size");
+    anaconda_widget_apply_stylesheet(mountpoint->priv->name_label, "MountpointSelector-name");
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
 }
@@ -278,17 +292,17 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
 
     switch(prop_id) {
         case PROP_NAME: {
-            format_name_label(widget, g_value_get_string(value));
+            gtk_label_set_text(GTK_LABEL(widget->priv->name_label), g_value_get_string(value));
             break;
         }
 
         case PROP_SIZE: {
-            format_size_label(widget, g_value_get_string(value));
+            gtk_label_set_text(GTK_LABEL(widget->priv->size_label), g_value_get_string(value));
             break;
         }
 
         case PROP_MOUNTPOINT: {
-            format_mountpoint_label(widget, g_value_get_string(value));
+            gtk_label_set_text(GTK_LABEL(widget->priv->mountpoint_label), g_value_get_string(value));
             break;
         }
     }
@@ -297,13 +311,9 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
 static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget) {
     if (widget->priv->chosen) {
         gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
-        gtk_widget_override_color(GTK_WIDGET(widget->priv->mountpoint_label), GTK_STATE_FLAG_SELECTED, NULL);
     }
     else {
-        GdkRGBA color;
         gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
-        gdk_rgba_parse(&color, "#555555");
-        gtk_widget_override_color(GTK_WIDGET(widget->priv->mountpoint_label), GTK_STATE_FLAG_NORMAL, &color);
     }
 }
 

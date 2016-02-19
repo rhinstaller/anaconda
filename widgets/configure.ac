@@ -60,6 +60,9 @@ PKG_CHECK_MODULES([GLIB], [glib-2.0])
 PKG_CHECK_MODULES([LIBXKLAVIER], [libxklavier >= 5.2.1])
 PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
 
+# Use AM_PATH_GLIB_2_0 to define some extra glib-related variables
+AM_PATH_GLIB_2_0
+
 AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
 
 AC_STRUCT_TIMEZONE

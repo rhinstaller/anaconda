@@ -41,6 +41,17 @@
  *
  * - An action area in the rest of the screen, taking up a majority of the
  *   space.  This is where widgets will be added and the user will do things.
+ *
+ * <refsect2 id="AnacondaSpokeWindow-CSS-nodes"><title>CSS nodes</title>
+ * <example><programlisting><![CDATA[
+ * AnacondaSpokeWindow
+ * ╰── #anaconda-spoke-window-button
+ * ]]></programlisting></example>
+ * <para>
+ * The button in the upper left is accessible as the name
+ * "anaconda-spoke-window-button" for the purposes of CSS selectors.
+ * </para>
+ * </refsect2>
  */
 
 #define DEFAULT_BUTTON_LABEL _("_Done")
@@ -118,6 +129,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     gtk_widget_set_vexpand(win->priv->button, FALSE);
     gtk_widget_set_valign(win->priv->button, GTK_ALIGN_END);
     gtk_widget_set_margin_bottom(win->priv->button, 6);
+    gtk_widget_set_name(win->priv->button, "anaconda-spoke-window-done");
 
     atk = gtk_widget_get_accessible(win->priv->button);
     atk_object_set_name(atk, DEFAULT_BUTTON_LABEL);
