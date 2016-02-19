@@ -211,6 +211,9 @@ def doInstall(storage, payload, ksdata, instClass):
     ksdata.authconfig.setup()
     ksdata.firewall.setup()
     ksdata.network.setup()
+    # Setup timezone and add chrony as package if timezone was set in KS
+    # and "-chrony" wasn't in packages section and/or --nontp wasn't set.
+    ksdata.timezone.setup(ksdata)
 
     # make name resolution work for rpm scripts in chroot
     if flags.can_touch_runtime_system("copy /etc/resolv.conf to sysroot"):
