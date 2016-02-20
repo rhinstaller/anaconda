@@ -309,6 +309,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 19 2016 Brian C. Lane <bcl@redhat.com> - 24.13-1
+- tests/gui enhancements (atodorov)
+- Fix gui tests for anaconda move to anaconda.py (atodorov)
+- Use a different ipmi command to log events. (clumens)
+- Clarify that a string in list-screens is actually a regex. (clumens)
+- Merge pull request #513 from wgwoods/update-dd-docs (wwoods)
+- updated driver updates docs (wwoods)
+- Add specification for the user interaction config file (mkolman)
+- Update zanata webui URL in translation doc. (dlehman)
+- Tweak partition removal in Custom spoke (jkonecny)
+- Do not skip evaluation after removing partitions (jkonecny)
+- Import iutil earlier so we can use ipmi_report from check_for_ssh. (clumens)
+- Make disconnect_client_callbacks more resilient (#1307063). (clumens)
+- Move the langpacks install into to a separate function. (dshea)
+- Fix _find_by_title method in Accordion (jkonecny)
+
 * Fri Feb 12 2016 Brian C. Lane <bcl@redhat.com> - 24.12-1
 - Use host storage for directory or image install dnf download (bcl)
 - Log payloadError so we know why installation failed. (bcl)

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 24.11\n"
+"Project-Id-Version: anaconda 24.12\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-02-12 16:17-0800\n"
+"POT-Creation-Date: 2016-02-19 17:04-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda.py:336
+#: anaconda.py:334
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda.py:338
+#: anaconda.py:336
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -33,17 +33,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda.py:341
+#: anaconda.py:339
 msgid ""
 "\n"
 "Press <Enter> to reboot your system.\n"
 msgstr ""
 
-#: anaconda.py:343
+#: anaconda.py:341
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda.py:344
+#: anaconda.py:342
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -52,47 +52,47 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda.py:347
+#: anaconda.py:345
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda.py:383
+#: anaconda.py:381
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda.py:384 pyanaconda/ui/tui/simpleline/base.py:571
+#: anaconda.py:382 pyanaconda/ui/tui/simpleline/base.py:571
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: anaconda.py:507
+#: anaconda.py:505
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda.py:515
+#: anaconda.py:513
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda.py:523
+#: anaconda.py:521
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda.py:619
+#: anaconda.py:617
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda.py:621
+#: anaconda.py:619
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: anaconda.py:811
+#: anaconda.py:807
 msgid "Unable to create PID file"
 msgstr ""
 
-#: anaconda.py:812
+#: anaconda.py:808
 #, python-format
 msgid ""
 "Anaconda is unable to create %s because the file already exists. Anaconda is "
@@ -551,7 +551,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:242 pyanaconda/packaging/livepayload.py:182
-#: pyanaconda/packaging/dnfpayload.py:768
+#: pyanaconda/packaging/dnfpayload.py:784
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1388,19 +1388,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:715
+#: pyanaconda/packaging/dnfpayload.py:731
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:733
+#: pyanaconda/packaging/dnfpayload.py:749
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:746
+#: pyanaconda/packaging/dnfpayload.py:762
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:759
+#: pyanaconda/packaging/dnfpayload.py:775
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1446,7 +1446,7 @@ msgid "SOFTWARE"
 msgstr ""
 
 #: pyanaconda/ui/categories/system.py:32
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:468
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:469
 msgid "SYSTEM"
 msgstr ""
 
@@ -1667,7 +1667,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:158
-#: pyanaconda/ui/gui/spokes/network.py:1330
+#: pyanaconda/ui/gui/spokes/network.py:1333
 msgid "Password: "
 msgstr ""
 
@@ -1793,8 +1793,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:267
-#: pyanaconda/ui/gui/spokes/network.py:1491
-#: pyanaconda/ui/gui/spokes/network.py:1572
+#: pyanaconda/ui/gui/spokes/network.py:1494
+#: pyanaconda/ui/gui/spokes/network.py:1575
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""
@@ -2417,7 +2417,7 @@ msgid "Device reformat request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:1261
-#: pyanaconda/ui/gui/spokes/custom.py:2183
+#: pyanaconda/ui/gui/spokes/custom.py:2188
 #, python-format
 msgid "Invalid device name: %s"
 msgstr ""
@@ -2493,67 +2493,67 @@ msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
 msgid "Do _not show this dialog for other selected file systems."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2120
+#: pyanaconda/ui/gui/spokes/custom.py:2125
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2150
+#: pyanaconda/ui/gui/spokes/custom.py:2155
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2321
+#: pyanaconda/ui/gui/spokes/custom.py:2326
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2327
+#: pyanaconda/ui/gui/spokes/custom.py:2332
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2331
+#: pyanaconda/ui/gui/spokes/custom.py:2336
 #, python-format
 msgid ""
 "This %(type)s device is missing member devices. You can remove it or select "
 "a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2413
+#: pyanaconda/ui/gui/spokes/custom.py:2418
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2418
+#: pyanaconda/ui/gui/spokes/custom.py:2423
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2423
-#: pyanaconda/ui/gui/spokes/custom.py:2448
+#: pyanaconda/ui/gui/spokes/custom.py:2428
+#: pyanaconda/ui/gui/spokes/custom.py:2453
 msgid "Automatic partitioning failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2678
+#: pyanaconda/ui/gui/spokes/custom.py:2683
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2686
+#: pyanaconda/ui/gui/spokes/custom.py:2691
 msgctxt "GUI|Custom Partitioning|Reset Dialog"
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2687
+#: pyanaconda/ui/gui/spokes/custom.py:2692
 msgctxt "GUI|Custom Partitioning|Reset Dialog"
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2762
+#: pyanaconda/ui/gui/spokes/custom.py:2767
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
@@ -2764,41 +2764,41 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1292
+#: pyanaconda/ui/gui/spokes/network.py:1295
 #: pyanaconda/ui/gui/spokes/network.glade:2428
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1293
+#: pyanaconda/ui/gui/spokes/network.py:1296
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1307
+#: pyanaconda/ui/gui/spokes/network.py:1310
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1315
+#: pyanaconda/ui/gui/spokes/network.py:1318
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1325
+#: pyanaconda/ui/gui/spokes/network.py:1328
 msgid "User name: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1336
+#: pyanaconda/ui/gui/spokes/network.py:1339
 msgid "Identity: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1341
+#: pyanaconda/ui/gui/spokes/network.py:1344
 msgid "Private key password: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1401
+#: pyanaconda/ui/gui/spokes/network.py:1404
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
@@ -3208,33 +3208,33 @@ msgid ""
 "Please select which nodes you wish to log into:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:459
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:460
 msgid "DATA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:514
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:515
 #, python-format
 msgid ""
 "You haven't created any mount points for your %(product)s %(version)s "
 "installation yet.  You can:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:524
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:525
 msgctxt "GUI|Custom Partitioning|Autopart Page"
 msgid "_Click here to create them automatically."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:549
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:550
 msgid "Create new mount points by clicking the '+' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:557
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:558
 msgid ""
 "Or, assign new mount points to existing partitions after selecting them "
 "below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:562
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:563
 msgctxt "GUI|Custom Partitioning|Autopart Page"
 msgid "_New mount points will use the following partitioning scheme:"
 msgstr ""
