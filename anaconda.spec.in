@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 22 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.248-1
+- Wait for all udev events to finish (jstodola)
+  Resolves: rhbz#1309348
+- Run restorecon on /etc/localtime to reset SElinux context. (sbueno+anaconda)
+  Resolves: rhbz#1302290
+
 * Tue Feb 16 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.247-1
 - Make sure devices configured by NM from iBFT have correct ifcfg (rvykydal)
   Resolves: rhbz#831002
