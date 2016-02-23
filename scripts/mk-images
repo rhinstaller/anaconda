@@ -880,8 +880,8 @@ makeinitrd() {
     install -m 644 $IMGPATH/etc/netconfig $MBD_DIR/etc/netconfig
     install -m 644 $IMGPATH/etc/nsswitch.conf $MBD_DIR/etc/nsswitch.conf
     install -m 644 $IMGPATH/etc/hosts $MBD_DIR/etc/hosts
-    install -m 644 $IMGPATH/pki/tls/certs/ca-bundle.crt $MBD_DIR/pki/tls/certs/ca-bundle.crt
-    install -m 644 $IMGPATH/pki/tls/certs/ca-bundle.trust.crt $MBD_DIR/pki/tls/certs/ca-bundle.trust.crt
+    install -m 644 $IMGPATH/etc/pki/tls/certs/ca-bundle.crt $MBD_DIR/etc/pki/tls/certs/ca-bundle.crt
+    install -m 644 $IMGPATH/etc/pki/tls/certs/ca-bundle.trust.crt $MBD_DIR/etc/pki/tls/certs/ca-bundle.trust.crt
     mkdir -p $MBD_DIR/usr/lib/locale
     localedef -c -i en_US -f UTF-8 --prefix $MBD_DIR en_US
 
