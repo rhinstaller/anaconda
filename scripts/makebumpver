@@ -99,6 +99,7 @@ class MakeBumpVer:
         self.zanata_config = kwargs.get('zanata_config')
         self.skip_zanata = kwargs.get("skip_zanata", False)
         self.skip_jenkins = kwargs.get("skip_jenkins", False)
+        self.dry_run = kwargs.get('dry_run', False)
 
         if self.skip_all:
             self.skip_acks = True
@@ -530,8 +531,9 @@ class MakeBumpVer:
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.new_release)
         rpmlog = self._rpmLog(fixedIn)
 
-        self._writeNewConfigure(newVersion)
-        self._writeNewSpec(newVersion, rpmlog)
+        if not self.dry_run:
+            self._writeNewConfigure(newVersion)
+            self._writeNewSpec(newVersion, rpmlog)
 
 def usage(cmd):
     sys.stdout.write("Usage: %s [OPTION]...\n" % (cmd,))
@@ -548,6 +550,7 @@ def usage(cmd):
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
     sys.stdout.write("    --skip-zanata    Skip checking Zanata config for branch name\n")
     sys.stdout.write("    --skip-jenkins   Skip checking Jenkins for test results\n")
+    sys.stdout.write("    --dry-run        Do not change any files, only run checks\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
     sys.stdout.write("BZ number to a RHEL BZ number for the spec file changelog.  Use -m if you have\n")
@@ -563,13 +566,15 @@ def main(argv):
     name, version, release, new_release, bugreport = None, None, None, None, None
     ignore, bugmap = None, None
     show_help, unknown, skip_acks, skip_all, skip_zanata, skip_jenkins = False, False, False, False, False, False
+    dry_run = False
     opts = []
 
     try:
         opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:sSd?',
                                    ['name=', 'version=', 'release=', "newrelease=",
                                     'bugreport=', 'ignore=', 'map=',
-                                    'debug', 'help', 'skip-zanata', 'skip-jenkins'])
+                                    'debug', 'help', 'skip-zanata', 'skip-jenkins',
+                                    'dry-run'])
     except getopt.GetoptError:
         show_help = True
 
@@ -598,6 +603,8 @@ def main(argv):
             skip_zanata = True
         elif o in ('--skip-jenkins'):
             skip_jenkins = True
+        elif o in ('--dry-run'):
+            dry_run = True
         elif o in ('-?', '--help'):
             show_help = True
         else:
@@ -635,7 +642,7 @@ def main(argv):
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
                       configure=configure, spec=spec, skip_acks=skip_acks,
                       skip_all=skip_all, zanata_config=zanata_config, skip_zanata=skip_zanata,
-                      skip_jenkins=skip_jenkins, new_release=new_release)
+                      skip_jenkins=skip_jenkins, new_release=new_release, dry_run=dry_run)
     mbv.run()
 
 if __name__ == "__main__":
