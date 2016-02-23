@@ -130,10 +130,10 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     minute = minute if minute is not None else now.minute
     second = second if second is not None else now.second
 
-    set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
+    set_date = tz.localize(datetime.datetime(year, month, day, hour, minute, second))
 
     # Calculate the number of seconds between this time and timestamp 0
-    epoch = datetime.datetime.fromtimestamp(0, pytz.UTC)
+    epoch = tz.localize(datetime.datetime.fromtimestamp(0))
     timestamp = (set_date - epoch).total_seconds()
 
     set_system_time(int(timestamp))
