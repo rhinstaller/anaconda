@@ -113,10 +113,10 @@ class DASDDialog(GUIObject):
             self._discoveryError = None
             self._conditionNotebook.set_current_page(2)
         else:
-            # Great success. Just return to the advanced storage window and let the
-            # UI update with the newly-added device
-            self.window.response(1)
-            return True
+            # Great success. Since DASDs go under local disks, update dialog to
+            # show users that's where they'll be
+            self._conditionNotebook.set_current_page(3)
+            self._okButton.set_sensitive(True)
 
         self._cancelButton.set_sensitive(True)
         return False
