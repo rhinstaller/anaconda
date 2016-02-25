@@ -30,7 +30,6 @@ gi.require_version("Pango", "1.0")
 
 from gi.repository import Gtk, Pango
 
-import os
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
 from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
@@ -60,9 +59,8 @@ class LangLocaleHandler(object):
 
     def initialize(self):
         # Render an arrow for the chosen language
-        datadir = os.environ.get("ANACONDA_WIDGETS_DATA", "/usr/share/anaconda")
-        self._right_arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "right-arrow-icon.png"))
-        self._left_arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "left-arrow-icon.png"))
+        self._right_arrow = Gtk.Image.new_from_resource("/org/fedoraproject/anaconda/widgets/right-arrow-icon.png")
+        self._left_arrow = Gtk.Image.new_from_resource("/org/fedoraproject/anaconda/wdigets/left-arrow-icon.png")
         override_cell_property(self._langSelectedColumn, self._langSelectedRenderer,
                                "pixbuf", self._render_lang_selected)
 
