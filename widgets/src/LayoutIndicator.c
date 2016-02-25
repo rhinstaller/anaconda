@@ -449,7 +449,7 @@ gchar* anaconda_layout_indicator_get_current_layout(AnacondaLayoutIndicator *ind
  * anaconda_layout_indicator_get_label_width:
  * @indicator: a #AnacondaLayoutIndicator
  *
- * Returns: (transfer none): the current width of the layout label in number of chars
+ * Returns: the current width of the layout label in number of chars
  *
  * Since: 1.0
  */
