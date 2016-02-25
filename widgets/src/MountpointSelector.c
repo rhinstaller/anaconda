@@ -212,7 +212,6 @@ static void format_name_label(AnacondaMountpointSelector *widget, const char *va
 }
 
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
-    gchar *file;
     GtkStyleContext *context;
 
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
@@ -235,15 +234,13 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_widget_set_margin_start(GTK_WIDGET(mountpoint->priv->grid), 30);
 
     /* Create the icon.  We don't need to check if it returned NULL since
-     * gtk_image_new_from_file will just display a broken image icon in that
+     * gtk_image_new_from_resource will just display a broken image icon in that
      * case.  That's good enough error notification.
      */
     if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
-        file = g_strdup_printf("%s/pixmaps/right-arrow-icon.png", anaconda_get_widgets_datadir());
+        mountpoint->priv->arrow = gtk_image_new_from_resource(ANACONDA_RESOURCE_PATH "right-arrow-icon.png");
     else
-        file = g_strdup_printf("%s/pixmaps/left-arrow-icon.png", anaconda_get_widgets_datadir());
-    mountpoint->priv->arrow = gtk_image_new_from_file(file);
-    g_free(file);
+        mountpoint->priv->arrow = gtk_image_new_from_resource(ANACONDA_RESOURCE_PATH "left-arrow-icon.png");
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
 
     /* Set some properties. */

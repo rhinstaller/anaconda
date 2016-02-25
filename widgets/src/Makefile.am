@@ -31,8 +31,7 @@ GISOURCES = BaseWindow.c \
 	 SpokeWindow.c \
 	 StandaloneWindow.c \
 	 LayoutIndicator.c \
-	 BaseStandalone.c \
-	 widgets-common.c
+	 BaseStandalone.c
 
 GIHDRS = BaseWindow.h \
 	 DiskOverview.h \
@@ -42,12 +41,11 @@ GIHDRS = BaseWindow.h \
 	 SpokeWindow.h \
 	 StandaloneWindow.h \
 	 LayoutIndicator.h \
-	 BaseStandalone.h \
-	 widgets-common.h
+	 BaseStandalone.h
 
-NONGISOURCES =
+NONGISOURCES = widgets-common.c
 
-NONGIHDRS =
+NONGIHDRS = widgets-common.h
 
 SOURCES = $(GISOURCES) $(NONGISOURCES)
 

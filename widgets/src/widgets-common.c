@@ -23,28 +23,3 @@
 #include "config.h"
 
 #include "widgets-common.h"
-
-#include <stdlib.h>
-#include <string.h>
-
-/**
- * anaconda_get_widgets_datadir:
- *
- * Return the directory containing the anaconda widgets data files.
- *
- * The widgets data directory contains the pixmaps used by the anaconda
- * widgets. This directory defaults to ${prefix}/share/anaconda/pixmaps, but
- * it may be overriden at runtime using the ANACONDA_WIDGETS_DATA environment
- * variable.
- *
- * Returns: the widgets data directory.
- */
-const gchar *anaconda_get_widgets_datadir(void) {
-    gchar *env_value;
-
-    env_value = getenv("ANACONDA_WIDGETS_DATA");
-    if (env_value == NULL)
-        return WIDGETS_DATADIR;
-    else
-        return env_value;
-}
