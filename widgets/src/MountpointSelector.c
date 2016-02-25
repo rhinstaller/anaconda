@@ -138,29 +138,29 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
                                                         G_PARAM_READWRITE));
 
     /**
-     * AnacondaMountpointSelector:show_arrow:
+     * AnacondaMountpointSelector:show-arrow:
      *
-     * The #AnacondaMountpointSelector:show_arrow boolean is used when arrow on the left should
+     * The #AnacondaMountpointSelector:show-arrow boolean is used when arrow on the left should
      * or shouldn't be visible.
      *
      * Since: 3.4
      */
     g_object_class_install_property(object_class,
                                     PROP_SHOW_ARROW,
-                                    g_param_spec_boolean("show_arrow",
-                                                        P_("show_arrow"),
+                                    g_param_spec_boolean("show-arrow",
+                                                        P_("show-arrow"),
                                                         P_("Show arrow when selected"),
                                                         DEFAULT_SHOW_ARROW,
                                                         G_PARAM_READWRITE));
 
     /**
-     * AnacondaMountpointSelector:chosen_changed:
+     * AnacondaMountpointSelector::chosen-changed:
      *
-     * The #AnacondaMountpointSelector:chosen_changed signals when set_chosen is called.
+     * The #AnacondaMountpointSelector:chosen-changed signals when set_chosen is called.
      *
      * Since: 3.4
      */
-    chosen_changed_signal = g_signal_newv("chosen_changed", // name
+    chosen_changed_signal = g_signal_newv("chosen-changed", // name
                                           G_TYPE_FROM_CLASS(object_class), // type
                                           G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS, // flags
                                           NULL,             // class closure
