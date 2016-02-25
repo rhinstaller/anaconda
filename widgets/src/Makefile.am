@@ -105,6 +105,9 @@ resources.c: $(RESOURCE_XML) $(RESOURCE_DEPS) Makefile
 
 nodist_libAnacondaWidgets_la_SOURCES = resources.c resources.h
 
+# libtool misses this dependency
+widgets-common.c: resources.h
+
 CLEANFILES = resources.c resources.h
 
 MAINTAINERCLEANFILES = gettext.h
