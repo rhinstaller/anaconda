@@ -71,6 +71,10 @@ BuildRequires: s390utils-devel
 %endif
 BuildRequires: libtimezonemap-devel >= %{libtimezonemapver}
 
+# Tools used by the widgets resource bundle generation
+BuildRequires: gdk-pixbuf2-devel
+BuildRequires: libxml2
+
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
 Requires: anaconda-tui = %{version}-%{release}
