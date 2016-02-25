@@ -20,13 +20,6 @@
 #ifndef _WIDGETS_COMMON_H
 #define _WIDGETS_COMMON_H
 
-#include <glib.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-G_BEGIN_DECLS
-
-const gchar *anaconda_get_widgets_datadir(void);
-
-G_END_DECLS
+#define ANACONDA_RESOURCE_PATH  "/org/fedoraproject/anaconda/widgets/"
 
 #endif

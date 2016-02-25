@@ -168,7 +168,6 @@ updates:
 runglade:
 	ANACONDA_DATA=$(srcdir)/data \
 	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
-	ANACONDA_WIDGETS_DATA=$(srcdir)/widgets/data \
 	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
 	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
 	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \

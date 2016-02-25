@@ -22,7 +22,6 @@
 #include "BaseWindow.h"
 #include "SpokeWindow.h"
 #include "intl.h"
-#include "widgets-common.h"
 
 #include <atk/atk.h>
 #include <gdk/gdkkeysyms.h>

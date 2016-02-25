@@ -84,9 +84,7 @@ AC_CONFIG_FILES([Makefile
                  doc/Makefile
                  glade/Makefile
                  src/Makefile
-                 python/Makefile
-                 data/Makefile
-                 data/pixmaps/Makefile])
+                 python/Makefile])
 AC_OUTPUT
 
 # Gently advise the user about the build failures they are about to encounter

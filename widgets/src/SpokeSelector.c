@@ -198,7 +198,6 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     GtkIconTheme *icon_theme;
     GtkIconInfo *icon_info;
     GdkPixbuf *pixbuf;
-    gchar *file;
 
     if (!icon_name)
         return;
@@ -214,9 +213,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
             return;
         }
 
-        file = g_strdup_printf("%s/pixmaps/dialog-warning-symbolic.svg", anaconda_get_widgets_datadir());
-        emblem_icon = g_icon_new_for_string(file, &err);
-        g_free(file);
+        emblem_icon = g_icon_new_for_string("resource://" ANACONDA_RESOURCE_PATH "dialog-warning-symbolic.svg", &err);
         if (!emblem_icon) {
             fprintf(stderr, "could not create emblem: %s\n", err->message);
             g_error_free(err);
