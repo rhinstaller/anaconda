@@ -39,7 +39,7 @@ IGNORE_HFILES = config.h \
 SCAN_OPTIONS=--rebuild-types
 
 # Extra options to supply to gtkdoc-mkdb
-MKDB_OPTIONS=--sgml-mode
+MKDB_OPTIONS=
 
 # Only needed if you are using gtkdoc-scangobj to dynamically query widget
 # signals and properties (which we are).

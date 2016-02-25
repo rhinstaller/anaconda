@@ -47,15 +47,14 @@
  * - An action area in the majority of the screen.  This area is where
  *   subclasses should add their particular widgets.
  *
- * <refsect2 id="AnacondaBaseWindow-BUILDER-UI"><title>AnacondaBaseWindow as GtkBuildable</title>
- * <para>
+ * # AnacondaBaseWindow as GtkBuildable
+ *
  * The AnacondaBaseWindow implementation of the #GtkBuildable interface exposes
  * the @nav_area as an internal child with the name "nav_area" and the
  * @action_area as an internal child with the name "action_area".
- * </para>
- * <example>
- * <title>A <structname>AnacondaBaseWindow</structname> UI definition fragment.</title>
- * <programlisting><![CDATA[
+ *
+ * A AnacondaBaseWindow UI definition fragment:
+ * |[
  * <object class="AnacondaBaseWindow" id="window1">
  *     <child internal-child="main_box">
  *         <object class="GtkBox" id="main_box1">
@@ -90,9 +89,7 @@
  *         </object>
  *     </child>
  * </object>
- * ]]></programlisting>
- * </example>
- * </refsect2>
+ * ]|
  */
 
 enum {
