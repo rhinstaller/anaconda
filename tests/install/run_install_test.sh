@@ -57,7 +57,7 @@ EOF
 # out here.
 if [[ "$(uname -m)" == "x86_64" ]]; then
     cat <<EOF >> ${tmpdir}/yum.conf
-baseurl=http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/\$basearch/os/
+baseurl=http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/Everything/\$basearch/os/
 EOF
 else
     cat <<EOF >> ${tmpdir}/yum.conf
