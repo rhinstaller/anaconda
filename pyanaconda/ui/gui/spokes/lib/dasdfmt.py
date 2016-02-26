@@ -56,7 +56,7 @@ class DasdFormatDialog(GUIObject):
         self._hub_label = self.builder.get_object("returnToHubLabel1")
 
         if len(self.to_format) > 0:
-            self._unformatted_label.set_text("\n".join("/dev/" + d for d in to_format))
+            self._unformatted_label.set_text("\n".join("/dev/" + d.name + " (" + d.busid + ")" for d in to_format))
         else:
             self._unformatted_label.set_text("")
 
@@ -90,8 +90,8 @@ class DasdFormatDialog(GUIObject):
         """ Loop through our disks and run dasdfmt against them. """
         for disk in self.to_format:
             try:
-                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk)
-                format_dasd(disk)
+                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk.name)
+                format_dasd(disk.name)
             except DasdFormatError as err:
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))

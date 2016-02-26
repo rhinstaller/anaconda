@@ -849,10 +849,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # check for unformatted DASDs and launch dasdfmt if any discovered
             dasds = make_unformatted_dasd_list(self.selected_disks)
             if len(dasds) > 0:
+                # need to get a list of DASDDevice objects, so....
+                dasdobjs = [self.storage.devicetree.getDeviceByName(d) for d in dasds]
+
                 # We want to apply current selection before running dasdfmt to
                 # prevent this information from being lost afterward
                 applyDiskSelection(self.storage, self.data, self.selected_disks)
-                dialog = DasdFormatDialog(self.data, self.storage, dasds)
+                dialog = DasdFormatDialog(self.data, self.storage, dasdobjs)
                 ignoreEscape(dialog.window)
                 rc = self.run_lightbox_dialog(dialog)
                 if rc == 1:
@@ -870,7 +873,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     return
 
             # check for ldl dasds
-            ldldasds = [d.name for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
+            ldldasds = [d for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
             if len(ldldasds) > 0:
                 dialog = DasdFormatDialog(self.data, self.storage, ldldasds)
                 ignoreEscape(dialog.window)
