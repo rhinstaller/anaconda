@@ -263,6 +263,7 @@ class YumPayload(PackagePayload):
             log.error ("Error setting langpack_locales: %s", msg)
 
     def _copyLangpacksConfigToTarget(self):
+        iutil.mkdirChain(os.path.dirname(iutil.getSysroot()+_yum_target_langpack_conf))
         shutil.copy2(_yum_installer_langpack_conf,
                      iutil.getSysroot()+_yum_target_langpack_conf)
 

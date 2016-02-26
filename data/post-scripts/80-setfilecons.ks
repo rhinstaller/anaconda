@@ -2,7 +2,7 @@
 
 restorecon -ir /etc/sysconfig/network-scripts /var/lib /etc/lvm \
                /dev /etc/iscsi /var/lib/iscsi /root /var/lock /var/log \
-               /etc/modprobe.d /etc/sysconfig /var/cache/yum
+               /etc/modprobe.d /etc/sysconfig /var/cache/yum /etc/yum
 
 # Also relabel the OSTree variants of the normal mounts (if they exist)
 restorecon -ir /var/roothome /var/home /var/opt /var/srv /var/media /var/mnt
