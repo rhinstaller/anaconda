@@ -1053,10 +1053,12 @@ class PackagePayload(Payload):
                 log.info("Running createrepo on %s", repo)
                 iutil.execWithRedirect("createrepo_c", [repo])
 
-            ks_repo = self.data.RepoData(name="DD-%d" % dir_num,
-                                         baseurl="file://"+repo,
-                                         enabled=True)
-            self.addRepo(ks_repo)
+            repo_name = "DD-%d" % dir_num
+            if repo_name not in self.addOns:
+                ks_repo = self.data.RepoData(name=repo_name,
+                                             baseurl="file://"+repo,
+                                             enabled=True)
+                self.addRepo(ks_repo)
 
         # Add packages
         if not os.path.exists("/run/install/dd_packages"):
