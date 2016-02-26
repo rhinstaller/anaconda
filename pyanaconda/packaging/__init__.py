@@ -896,9 +896,9 @@ class PackagePayload(Payload):
             #    the NFS mount w/o mounting the iso.
             #    isodev will be None and device will be the nfs: path
             # 3. dracut did not mount the nfs (eg. stage2 came from elsewhere)
-            #    isodev and device are both None
+            #    isodev and/or device are None
             # 4. The repo may not contain an iso, in that case use it as is
-            if isodev:
+            if isodev and device:
                 path = iutil.parseNfsUrl('nfs:%s' % isodev)[2]
                 # See if the dir holding the iso is what we want
                 # and also if we have an iso mounted to /run/install/repo
@@ -913,6 +913,16 @@ class PackagePayload(Payload):
                     if path and path in device:
                         needmount = False
                         path = DRACUT_REPODIR
+                elif isodev:
+                    # isodev with no device can happen when options on an existing
+                    # nfs mount have changed. It is already mounted, but on INSTALL_TREE
+                    # which is the same as DRACUT_ISODIR, making it hard for _setupNFS
+                    # to detect that it is already mounted.
+                    _options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
+                    if path and path in isodev:
+                        needmount = False
+                        path = DRACUT_ISODIR
+
                 if needmount:
                     # Mount the NFS share on INSTALL_TREE. If it ends up
                     # being nfsiso we will move the mountpoint to ISO_DIR.
