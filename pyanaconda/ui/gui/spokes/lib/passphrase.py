@@ -62,6 +62,7 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self._strength_bar.add_offset_value("low", 2)
         self._strength_bar.add_offset_value("medium", 3)
         self._strength_bar.add_offset_value("high", 4)
+        self._strength_bar.add_offset_value("full", 4)
 
         # Configure the password policy, if available. Otherwise use defaults.
         self.policy = self.data.anaconda.pwpolicy.get_policy("luks")
