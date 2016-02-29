@@ -266,9 +266,17 @@ def setup_locale(locale, lang=None, text_mode=False):
             os.environ["LANG"] = locale  # pylint: disable=environment-modify
 
     # set the locale to the value we have selected
+    # Since glibc does not install all locales, an installable locale may not
+    # actually be available right now. Give it a shot and fallback.
     log.debug("setting locale to: %s", locale)
     setenv("LANG", locale)
-    locale_mod.setlocale(locale_mod.LC_ALL, locale)
+
+    try:
+        locale_mod.setlocale(locale_mod.LC_ALL, locale)
+    except locale_mod.Error as e:
+        log.debug("setlocale failed: %s", e)
+        setenv("LANG", constants.DEFAULT_LANG)
+        locale_mod.setlocale(locale_mod.LC_ALL, constants.DEFAULT_LANG)
 
     # This part is pretty gross:
     # In python3, sys.stdout and friends are TextIOWrapper objects that translate
