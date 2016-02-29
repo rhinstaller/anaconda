@@ -14,8 +14,6 @@
 @define-color anaconda_level_bar_medium     orange;
 @define-color anaconda_level_bar_high       green;
 
-/* The .fill part works around https://bugzilla.gnome.org/show_bug.cgi?id=761416 */
-levelbar.discrete trough block.filled.full,
 levelbar.discrete trough block.filled.low {
     border-color: darker(@anaconda_level_bar_low);
     background: @anaconda_level_bar_low;
@@ -26,6 +24,7 @@ levelbar.discrete trough block.filled.medium {
     background: @anaconda_level_bar_medium;
 }
 
+levelbar.discrete trough block.filled.full,
 levelbar.discrete trough block.filled.high {
     border-color: darker(@anaconda_level_bar_high);
     background: @anaconda_level_bar_high;
