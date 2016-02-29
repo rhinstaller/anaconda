@@ -215,11 +215,15 @@ def setup_locale(locale, lang=None, text_mode=False):
     If the font for the locale can't be displayed in the Linux console,
     we fall back to the English locale.
 
+    This function returns the locale that was used in the setlocale call, which,
+    depending on what the environment and interface is able to support, may be
+    different from the locale requested.
+
     :param str locale: locale to setup
     :param lang: ksdata.lang object or None
     :param bool text_mode: if the locale is being setup for text mode
-    :return: None
-    :rtype: None
+    :return: the locale that was actually set
+    :rtype: str
 
     """
 
@@ -275,8 +279,9 @@ def setup_locale(locale, lang=None, text_mode=False):
         locale_mod.setlocale(locale_mod.LC_ALL, locale)
     except locale_mod.Error as e:
         log.debug("setlocale failed: %s", e)
-        setenv("LANG", constants.DEFAULT_LANG)
-        locale_mod.setlocale(locale_mod.LC_ALL, constants.DEFAULT_LANG)
+        locale = constants.DEFAULT_LANG
+        setenv("LANG", locale)
+        locale_mod.setlocale(locale_mod.LC_ALL, locale)
 
     # This part is pretty gross:
     # In python3, sys.stdout and friends are TextIOWrapper objects that translate
@@ -296,6 +301,8 @@ def setup_locale(locale, lang=None, text_mode=False):
         sys.stdin = io.TextIOWrapper(sys.stdin.detach())
         sys.stdout = io.TextIOWrapper(sys.stdout.detach())
         sys.stderr = io.TextIOWrapper(sys.stderr.detach())
+
+    return locale
 
 def get_english_name(locale):
     """

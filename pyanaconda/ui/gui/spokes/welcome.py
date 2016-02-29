@@ -70,8 +70,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         (store, itr) = self._localeSelection.get_selected()
 
         locale = store[itr][1]
+        locale = localization.setup_locale(locale, self.data.lang, text_mode=False)
         self._set_lang(locale)
-        localization.setup_locale(locale, self.data.lang, text_mode=False)
 
         # Skip timezone and keyboard default setting for kickstart installs.
         # The user may have provided these values via kickstart and if not, we
@@ -225,8 +225,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
 
         # setup the "best" locale
-        self._set_lang(locales[0])
-        localization.setup_locale(locales[0], self.data.lang)
+        locale = localization.setup_locale(locales[0], self.data.lang)
+        self._set_lang(locale)
         self._select_locale(self.data.lang.lang)
 
     def _retranslate_one(self, widgetName, context=None):
@@ -315,8 +315,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         if selected:
             lang = store[selected[0]][1]
+            lang = localization.setup_locale(lang)
             self._set_lang(lang)
-            localization.setup_locale(lang)
             self.retranslate()
 
             # Reset the text direction
