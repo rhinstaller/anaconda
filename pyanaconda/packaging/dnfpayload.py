@@ -585,6 +585,10 @@ class DNFPayload(packaging.PackagePayload):
     @property
     def spaceRequired(self):
         size = self._spaceRequired()
+        if not self.storage:
+            log.warning("Payload doesn't have storage")
+            return size
+
         download_size = self._download_space
         valid_points = _df_map()
         root_mpoint = pyanaconda.iutil.getSysroot()
