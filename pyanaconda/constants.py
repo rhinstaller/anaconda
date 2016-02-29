@@ -61,7 +61,7 @@ INSTALL_TREE = MOUNT_DIR + "/source"
 BASE_REPO_NAME = "anaconda"
 
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
-DEFAULT_LANG = "en_US.UTF-8"
+DEFAULT_LANG = "C.UTF-8"
 
 DEFAULT_VC_FONT = "eurlatgr"
 
