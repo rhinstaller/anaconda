@@ -8,7 +8,7 @@ ConditionPathIsDirectory=!/sys/hypervisor/s390
 [Service]
 Type=idle
 WorkingDirectory=/root
-Environment=LANG=en_US.UTF-8
+Environment=LANG=C.UTF-8
 ExecStartPre=/usr/bin/echo -e \033%G
 ExecStart=/usr/bin/tmux -u attach -t anaconda
 StandardInput=tty
