@@ -3,6 +3,7 @@
 # a live CD
 
 # Prevents breakage if the hostname is changed before or during the install
+# Also lets us run (with the X11 backend) on Wayland
 [ -x /usr/bin/xhost ] && xhost +si:localuser:root > /dev/null 2>&1
 
 # don't run on geode (olpc)

@@ -25,8 +25,10 @@ dist_sbin_SCRIPTS  = liveinst
 desktopdir         = $(datadir)/applications
 desktop_DATA       = liveinst.desktop
 
-xinitdir           = $(sysconfdir)/X11/xinit/xinitrc.d
-dist_xinit_SCRIPTS = zz-liveinst.sh
+dist_libexec_SCRIPTS = liveinst-setup.sh
+
+autostartdir       = $(sysconfdir)/xdg/autostart
+dist_autostart_DATA = liveinst-setup.desktop
 
 install-exec-local:
 	$(MKDIR_P) $(DESTDIR)$(bindir)
