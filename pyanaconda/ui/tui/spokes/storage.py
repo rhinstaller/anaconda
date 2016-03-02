@@ -91,12 +91,13 @@ class StorageSpoke(NormalTUISpoke):
         self.errors = []
         self.warnings = []
 
-        if self.data.zerombr.zerombr and arch.isS390():
+        if self.data.zerombr.zerombr and arch.is_s390():
             # if zerombr is specified in a ks file and there are unformatted
             # dasds, automatically format them. pass in storage.devicetree here
-            # instead of storage.disks since mediaPresent is checked on disks;
+            # instead of storage.disks since media_present is checked on disks;
             # a dasd needing dasdfmt will fail this media check though
-            to_format = storage.devicetree.make_unformatted_dasd_list(getDisks(self.storage.devicetree))
+            to_format = [d for d in getDisks(self.storage.devicetree)
+                         if d.type == "dasd" and blockdev.s390.dasd_needs_format(d.busid)]
             if to_format:
                 self.run_dasdfmt(to_format)
 
@@ -106,7 +107,7 @@ class StorageSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        retval = bool(self.storage.rootDevice and not self.errors)
+        retval = bool(self.storage.root_device and not self.errors)
 
         return retval
 
@@ -129,7 +130,7 @@ class StorageSpoke(NormalTUISpoke):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
 
-        if flags.automatedInstall and not self.storage.rootDevice:
+        if flags.automatedInstall and not self.storage.root_device:
             msg = _("Kickstart insufficient")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
@@ -167,7 +168,7 @@ class StorageSpoke(NormalTUISpoke):
         free = Size(0)
 
         # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.getFreeSpace(disks=self.disks)
+        free_space = self.storage.get_free_space(disks=self.disks)
         selected = [d for d in self.disks if d.name in self.selected_disks]
 
         for disk in selected:
@@ -284,9 +285,10 @@ class StorageSpoke(NormalTUISpoke):
                     # check selected disks to see if we have any unformatted DASDs
                     # if we're on s390x, since they need to be formatted before we
                     # can use them.
-                    if arch.isS390():
+                    if arch.is_s390():
                         _disks = [d for d in self.disks if d.name in self.selected_disks]
-                        to_format = self.storage.devicetree.make_unformatted_dasd_list(_disks)
+                        to_format = [d for d in _disks if d.type == "dasd" and
+                                     blockdev.s390.dasd_needs_format(d.busid)]
                         if to_format:
                             self.run_dasdfmt(to_format)
                             return None
@@ -381,7 +383,7 @@ class StorageSpoke(NormalTUISpoke):
         # created/scheduled to make room for autopart.
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
-        self.storage.config.clearNonExistent = self.data.autopart.autopart
+        self.storage.config.clear_non_existent = self.data.autopart.autopart
 
     def execute(self):
         print(_("Generating updated storage configuration"))
@@ -395,7 +397,7 @@ class StorageSpoke(NormalTUISpoke):
             self.data.clearpart.type = CLEARPART_TYPE_ALL
             self.data.clearpart.initAll = False
             self.storage.config.update(self.data)
-            self.storage.autoPartType = self.data.autopart.type
+            self.storage.autopart_type = self.data.autopart.type
             self.storage.reset()
             # now set ksdata back to the user's specified config
             applyDiskSelection(self.storage, self.data, self.selected_disks)

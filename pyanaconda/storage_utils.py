@@ -177,8 +177,8 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     mustbeonroot = ['/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc']
 
     filesystems = storage.mountpoints
-    root = storage.fsset.rootDevice
-    swaps = storage.fsset.swapDevices
+    root = storage.fsset.root_device
+    swaps = storage.fsset.swap_devices
 
     if root:
         if root.size < Size("250 MiB"):
@@ -199,8 +199,8 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     # restricted to a single PV.  The backend support is there, but there are
     # no UI hook-ups to drive that functionality, but I do not personally
     # care.  --dcantrell
-    if arch.isS390() and '/boot' not in storage.mountpoints and root:
-        if root.type == 'lvmlv' and not root.singlePV:
+    if arch.is_s390() and '/boot' not in storage.mountpoints and root:
+        if root.type == 'lvmlv' and not root.single_pv:
             exns.append(
                SanityError(_("This platform requires /boot on a dedicated "
                             "partition or logical volume.  If you do not "
@@ -221,19 +221,19 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     # storage.mountpoints is a property that returns a new dict each time, so
     # iterating over it is thread-safe.
     for (mount, device) in filesystems.items():
-        problem = filesystems[mount].checkSize()
+        problem = filesystems[mount].check_size()
         if problem < 0:
             exns.append(
                SanityError(_("Your %(mount)s partition is too small for %(format)s formatting "
                             "(allowable size is %(minSize)s to %(maxSize)s)")
                           % {"mount": mount, "format": device.format.name,
-                             "minSize": device.minSize, "maxSize": device.maxSize}))
+                             "minSize": device.min_size, "maxSize": device.max_size}))
         elif problem > 0:
             exns.append(
                SanityError(_("Your %(mount)s partition is too large for %(format)s formatting "
                             "(allowable size is %(minSize)s to %(maxSize)s)")
                           % {"mount":mount, "format": device.format.name,
-                             "minSize": device.minSize, "maxSize": device.maxSize}))
+                             "minSize": device.min_size, "maxSize": device.max_size}))
 
     if storage.bootloader and not storage.bootloader.skip_bootloader:
         stage1 = storage.bootloader.stage1_device
@@ -241,7 +241,7 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
             exns.append(
                SanityError(_("No valid boot loader target device found. "
                             "See below for details.")))
-            pe = _platform.stage1MissingError
+            pe = _platform.stage1_missing_error
             if pe:
                 exns.append(SanityError(_(pe)))
         else:
@@ -263,7 +263,7 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
         # check that GPT boot disk on BIOS system has a BIOS boot partition
         #
         if _platform.weight(fstype="biosboot") and \
-           stage1 and stage1.isDisk and \
+           stage1 and stage1.is_disk and \
            getattr(stage1.format, "labelType", None) == "gpt":
             missing = True
             for part in [p for p in storage.partitions if p.disk == stage1]:
@@ -312,12 +312,12 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
                SanityError(_("This mount point is invalid.  The %s directory must "
                             "be on the / file system.") % mountpoint))
 
-        if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linuxNative):
+        if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linux_native):
             exns.append(
                SanityError(_("The mount point %s must be on a linux file system.") % mountpoint))
 
-    if storage.rootDevice and storage.rootDevice.format.exists:
-        e = storage.mustFormat(storage.rootDevice)
+    if storage.root_device and storage.root_device.format.exists:
+        e = storage.must_format(storage.root_device)
         if e:
             exns.append(SanityError(e))
 
@@ -341,7 +341,7 @@ def verify_LUKS_devices_have_key(storage):
     for dev in (d for d in storage.devices if \
        d.format.type == "luks" and \
        not d.format.exists and \
-       not d.format.hasKey):
+       not d.format.has_key):
         yield LUKSDeviceWithoutKeyError(_("Encryption requested for LUKS device %s but no encryption key specified for this device.") % (dev.name,))
 
 
@@ -362,8 +362,8 @@ def bound_size(size, device, old_size):
         If no maximum size is available, reset size to old_size, but
         log a warning.
     """
-    max_size = device.maxSize
-    min_size = device.minSize
+    max_size = device.max_size
+    min_size = device.min_size
     if not size:
         if max_size:
             log.info("No size specified, using maximum size for this device (%d).", max_size)

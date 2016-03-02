@@ -53,7 +53,7 @@ class TerritoryTimezones(unittest.TestCase):
 class s390HWclock(unittest.TestCase):
     def setUp(self):
         self.arch_mock = mock.Mock()
-        self.arch_mock.isS390.return_value = True
+        self.arch_mock.is_s390.return_value = True
         self.iutil_mock = mock.Mock()
 
         # pylint: disable=no-member

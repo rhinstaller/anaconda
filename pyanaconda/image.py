@@ -29,7 +29,7 @@ from blivet.errors import FSError
 import logging
 log = logging.getLogger("anaconda")
 
-_arch = blivet.arch.getArch()
+_arch = blivet.arch.get_arch()
 
 def findFirstIsoImage(path):
     """
@@ -135,12 +135,12 @@ def opticalInstallMedia(devicetree):
     # Search for devices identified as cdrom along with any other
     # device that has an iso9660 filesystem. This will catch USB media
     # created from ISO images.
-    for dev in set(devicetree.getDevicesByType("cdrom") + \
+    for dev in set([d for d in devicetree.devices if d.type == "cdrom"] + \
             [d for d in devicetree.devices if d.format.type == "iso9660"]):
         if not dev.controllable:
             continue
 
-        devicetree.updateDeviceFormat(dev)
+        devicetree.handle_format(dev)
         if not hasattr(dev.format, "mount"):
             # no mountable media
             continue
@@ -165,10 +165,11 @@ def opticalInstallMedia(devicetree):
 
     return retval
 
-# Return a list of Device instances that may have HDISO install media
-# somewhere.  Candidate devices are simply any that we can mount.
+# Return a generator yielding Device instances that may have HDISO install
+# media somewhere.  Candidate devices are simply any that we can mount.
 def potentialHdisoSources(devicetree):
-    return filter(lambda d: d.format.exists and d.format.mountable, devicetree.getDevicesByType("partition"))
+    return (d for d in devicetree.devices
+            if d.type == "partition" and d.format.exists and d.format.mountable)
 
 def verifyMedia(tree, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):

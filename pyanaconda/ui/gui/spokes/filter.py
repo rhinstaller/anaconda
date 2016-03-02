@@ -410,7 +410,7 @@ class ZPage(FilterPage):
         self._lunEntry = self.builder.get_object("zLUNEntry")
         self._combo = self.builder.get_object("zTypeCombo")
 
-        self._isS390 = arch.isS390()
+        self._isS390 = arch.is_s390()
 
     def clear(self):
         self._lunEntry.set_text("")
@@ -531,7 +531,7 @@ class FilterSpoke(NormalSpoke):
 
         self._notebook = self.builder.get_object("advancedNotebook")
 
-        if not arch.isS390():
+        if not arch.is_s390():
             self._notebook.remove_page(-1)
             self.builder.get_object("addZFCPButton").destroy()
             self.builder.get_object("addDASDButton").destroy()

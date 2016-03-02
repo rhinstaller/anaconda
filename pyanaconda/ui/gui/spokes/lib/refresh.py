@@ -28,7 +28,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
 
-from blivet.osinstall import storageInitialize
+from blivet.osinstall import storage_initialize
 
 __all__ = ["RefreshDialog"]
 
@@ -92,8 +92,8 @@ class RefreshDialog(GUIObject):
         self._notebook.set_current_page(1)
 
         # And now to fire up the storage reinitialization.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
-                                     args=(self.storage, self.data, self.storage.devicetree.protectedDevNames)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
+                                     args=(self.storage, self.data, self.storage.devicetree.protected_dev_names)))
 
         self._elapsed = 0
 

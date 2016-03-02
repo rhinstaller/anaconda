@@ -26,7 +26,7 @@ import os, sys
 import imp
 
 from blivet.partspec import PartSpec
-from blivet.autopart import swapSuggestion
+from blivet.autopart import swap_suggestion
 from blivet.platform import platform
 from blivet.size import Size
 
@@ -87,35 +87,35 @@ class BaseInstallClass(object):
         return None
 
     def setDefaultPartitioning(self, storage):
-        autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
+        autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
                                  size=Size("1GiB"),
-                                 maxSize=Size("50GiB"),
+                                 max_size=Size("50GiB"),
                                  grow=True,
                                  btr=True, lv=True, thin=True, encrypted=True),
                         PartSpec(mountpoint="/home",
-                                 fstype=storage.defaultFSType,
+                                 fstype=storage.default_fstype,
                                  size=Size("500MiB"), grow=True,
-                                 requiredSpace=Size("50GiB"),
+                                 required_space=Size("50GiB"),
                                  btr=True, lv=True, thin=True, encrypted=True)]
 
-        bootreqs = platform.setDefaultPartitioning()
+        bootreqs = platform.set_default_partitioning()
         if bootreqs:
             autorequests.extend(bootreqs)
 
 
         disk_space = getAvailableDiskSpace(storage)
-        swp = swapSuggestion(disk_space=disk_space)
+        swp = swap_suggestion(disk_space=disk_space)
         autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
                                      lv=True, encrypted=True))
 
         for autoreq in autorequests:
             if autoreq.fstype is None:
                 if autoreq.mountpoint == "/boot":
-                    autoreq.fstype = storage.defaultBootFSType
+                    autoreq.fstype = storage.default_boot_fstype
                 else:
-                    autoreq.fstype = storage.defaultFSType
+                    autoreq.fstype = storage.default_fstype
 
-        storage.autoPartitionRequests = autorequests
+        storage.autopart_requests = autorequests
 
     def configure(self, anaconda):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault

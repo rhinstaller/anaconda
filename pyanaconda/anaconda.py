@@ -175,7 +175,7 @@ class Anaconda(object):
             if self.instClass.defaultFS:
                 self._storage.setDefaultFSType(self.instClass.defaultFS)
 
-            if blivet.arch.isS390():
+            if blivet.arch.is_s390():
                 # want to make sure s390 plugin is loaded
                 if "s390" not in blockdev.get_available_plugin_names():
                     plugin = blockdev.PluginSpec()

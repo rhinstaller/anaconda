@@ -72,13 +72,13 @@ class FileSystemSpaceChecker(object):
                             in the info bar at the bottom of a Hub.
         """
         self.reset()
-        free = Size(self.storage.fileSystemFreeSpace)
+        free = Size(self.storage.file_system_free_space)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free > needed)
         if not self.success:
-            dev_required_size = self.payload.requiredDeviceSize(self.storage.rootDevice.format)
-            self.deficit = dev_required_size - self.storage.rootDevice.size
+            dev_required_size = self.payload.requiredDeviceSize(self.storage.root_device.format)
+            self.deficit = dev_required_size - self.storage.root_device.size
             self.error_message = _(self.error_template) % self.deficit
 
         return self.success
@@ -109,8 +109,8 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free > needed)
         if not self.success:
-            dev_required_size = self.payload.requiredDeviceSize(self.storage.rootDevice.format)
-            self.deficit = dev_required_size - self.storage.rootDevice.size
+            dev_required_size = self.payload.requiredDeviceSize(self.storage.root_device.format)
+            self.deficit = dev_required_size - self.storage.root_device.size
             self.error_message = _(self.error_template) % self.deficit
 
         return self.success

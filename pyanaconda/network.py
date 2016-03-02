@@ -400,7 +400,7 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
 
     nettype = ifcfg.get("NETTYPE")
     subchannels = ifcfg.get("SUBCHANNELS")
-    if blivet.arch.isS390() and nettype and subchannels:
+    if blivet.arch.is_s390() and nettype and subchannels:
         znet = "rd.znet=%s,%s" % (nettype, subchannels)
         options = ifcfg.get("OPTIONS").strip("'\"")
         if options:
@@ -570,7 +570,7 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['connection', 'id', devname, 's'])
         values.append(['connection', 'interface-name', devname, 's'])
 
-        if blivet.arch.isS390():
+        if blivet.arch.is_s390():
             # Add s390 settings
             s390cfg = _get_s390_settings(devname)
             if s390cfg['SUBCHANNELS']:

@@ -24,9 +24,9 @@ from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-from blivet.formats import getFormat
-from blivet.partitioning import doPartitioning
-from blivet.partitioning import growLVM
+from blivet.formats import get_format
+from blivet.partitioning import do_partitioning
+from blivet.partitioning import grow_lvm
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
 from blivet.size import Size, KiB
 from blivet import udev
@@ -204,7 +204,7 @@ def deviceMatches(spec, devicetree=None):
     if devicetree is None:
         dev = udev.resolve_devspec(spec)
     else:
-        dev = getattr(devicetree.resolveDevice(spec), "name", None)
+        dev = getattr(devicetree.resolve_device(spec), "name", None)
 
     # udev.resolve_devspec returns None if there's no match, but we don't
     # want that ending up in the list.
@@ -223,14 +223,14 @@ def lookupAlias(devicetree, alias):
 # Remove any existing formatting on a device, but do not remove the partition
 # itself.  This sets up an existing device to be used in a --onpart option.
 def removeExistingFormat(device, storage):
-    deps = storage.deviceDeps(device)
+    deps = storage.device_deps(device)
     while deps:
         leaves = [d for d in deps if d.isleaf]
         for leaf in leaves:
-            storage.destroyDevice(leaf)
+            storage.destroy_device(leaf)
             deps.remove(leaf)
 
-    storage.devicetree.registerAction(ActionDestroyFormat(device))
+    storage.devicetree.actions.add(ActionDestroyFormat(device))
 
 def getAvailableDiskSpace(storage):
     """
@@ -242,7 +242,7 @@ def getAvailableDiskSpace(storage):
 
     """
 
-    free_space = storage.freeSpaceSnapshot
+    free_space = storage.free_space_snapshot
     # blivet creates a new free space dict to instead of modifying the old one,
     # so there is no worry about the dictionary changing during iteration.
     return sum(disk_free for disk_free, fs_free in free_space.values())
@@ -256,10 +256,10 @@ def refreshAutoSwapSize(storage):
 
     """
 
-    for request in storage.autoPartitionRequests:
+    for request in storage.autopart_requests:
         if request.fstype == "swap":
             disk_space = getAvailableDiskSpace(storage)
-            request.size = autopart.swapSuggestion(disk_space=disk_space)
+            request.size = autopart.swap_suggestion(disk_space=disk_space)
             break
 
 ###
@@ -301,7 +301,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         retval = commands.autopart.F21_AutoPart.parse(self, args)
 
         if self.fstype:
-            fmt = blivet.formats.getFormat(self.fstype)
+            fmt = blivet.formats.get_format(self.fstype)
             if not fmt or fmt.type is None:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("autopart fstype of %s is invalid.") % self.fstype))
@@ -309,7 +309,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         return retval
 
     def execute(self, storage, ksdata, instClass):
-        from blivet.autopart import doAutoPartition
+        from blivet.autopart import do_autopart
         from pyanaconda.storage_utils import sanity_check
 
         if not self.autopart:
@@ -317,8 +317,8 @@ class AutoPart(commands.autopart.F21_AutoPart):
 
         if self.fstype:
             try:
-                storage.setDefaultFSType(self.fstype)
-                storage.setDefaultBootFSType(self.fstype)
+                storage.set_default_fstype(self.fstype)
+                storage.set_default_boot_fstype(self.fstype)
             except ValueError:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Settings default fstype to %s failed.") % self.fstype))
@@ -326,19 +326,19 @@ class AutoPart(commands.autopart.F21_AutoPart):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
         instClass.setDefaultPartitioning(storage)
-        storage.doAutoPart = True
+        storage.do_autopart = True
 
         if self.encrypted:
-            storage.encryptedAutoPart = True
-            storage.encryptionPassphrase = self.passphrase
-            storage.encryptionCipher = self.cipher
-            storage.autoPartEscrowCert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
-            storage.autoPartAddBackupPassphrase = self.backuppassphrase
+            storage.encrypted_autopart = True
+            storage.encryption_passphrase = self.passphrase
+            storage.encryption_cipher = self.cipher
+            storage.autopart_escrow_cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
+            storage.autoppart_add_backup_passphrase = self.backuppassphrase
 
         if self.type is not None:
-            storage.autoPartType = self.type
+            storage.autopart_type = self.type
 
-        doAutoPartition(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
+        do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         errors = sanity_check(storage)
         if errors:
             raise PartitioningError("autopart failed:\n" + "\n".join(str(error) for error in errors))
@@ -362,7 +362,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         return self
 
     def execute(self, storage, ksdata, instClass):
-        if flags.imageInstall and blivet.arch.isS390():
+        if flags.imageInstall and blivet.arch.is_s390():
             self.location = "none"
 
         if self.location == "none":
@@ -396,7 +396,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         # device on an s390 machine)
         disk_names = [d.name for d in storage.disks
                       if not d.format.hidden and not d.protected and
-                      (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
+                      (not blivet.arch.is_s390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
         diskSet = set(disk_names)
 
         for drive in self.driveorder[:]:
@@ -419,7 +419,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         else:
             self.bootDrive = disk_names[0]
 
-        drive = storage.devicetree.resolveDevice(self.bootDrive)
+        drive = storage.devicetree.resolve_device(self.bootDrive)
         storage.bootloader.stage1_disk = drive
 
         if self.leavebootorder:
@@ -437,21 +437,21 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
-        storage.doAutoPart = False
+        storage.do_autopart = False
 
         members = []
 
         # Get a list of all the devices that make up this volume.
         for member in self.devices:
-            dev = devicetree.resolveDevice(member)
+            dev = devicetree.resolve_device(member)
             if not dev:
                 # if using --onpart, use original device
                 member_name = ksdata.onPart.get(member, member)
-                dev = devicetree.resolveDevice(member_name) or lookupAlias(devicetree, member)
+                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
 
             if dev and dev.format.type == "luks":
                 try:
-                    dev = devicetree.getChildren(dev)[0]
+                    dev = dev.children[0]
                 except IndexError:
                     dev = None
 
@@ -491,12 +491,12 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
         try:
             if self.mountpoint:
                 device = storage.mountpoints[self.mountpoint]
-                storage.destroyDevice(device)
+                storage.destroy_device(device)
         except KeyError:
             pass
 
         if self.preexist:
-            device = devicetree.resolveDevice(self.name)
+            device = devicetree.resolve_device(self.name)
             if not device:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name))
@@ -504,17 +504,17 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
             device.format.mountpoint = self.mountpoint
         else:
             try:
-                request = storage.newBTRFS(name=name,
+                request = storage.new_btrfs(name=name,
                                        subvol=self.subvol,
                                        mountpoint=self.mountpoint,
-                                       metaDataLevel=self.metaDataLevel,
-                                       dataLevel=self.dataLevel,
+                                       meta_data_level=self.metaDataLevel,
+                                       data_level=self.dataLevel,
                                        parents=members,
-                                       createOptions=self.mkfsopts)
+                                       create_options=self.mkfsopts)
             except BTRFSValueError as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
-            storage.createDevice(request)
+            storage.create_device(request)
 
 class Realm(commands.realm.F19_Realm):
     def __init__(self, *args):
@@ -618,19 +618,19 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         return retval
 
     def execute(self, storage, ksdata, instClass):
-        storage.config.clearPartType = self.type
-        storage.config.clearPartDisks = self.drives
-        storage.config.clearPartDevices = self.devices
+        storage.config.clearpart_type = self.type
+        storage.config.clearpart_disks = self.drives
+        storage.config.clearpart_devices = self.devices
 
         if self.initAll:
-            storage.config.initializeDisks = self.initAll
+            storage.config.initialize_disks = self.initAll
 
         if self.disklabel:
             if not platform.setDefaultDiskLabelType(self.disklabel):
                 log.warning("%s is not a supported disklabel type on this platform. "
                          "Using default disklabel %s instead.", self.disklabel, platform.defaultDiskLabelType)
 
-        storage.clearPartitions()
+        storage.clear_partitions()
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -640,13 +640,13 @@ class Fcoe(commands.fcoe.F13_Fcoe):
             raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("NIC \"%s\" given in fcoe command does not exist.") % fc.nic))
 
-        if fc.nic in (info[0] for info in blivet.fcoe.fcoe().nics):
+        if fc.nic in (info[0] for info in blivet.fcoe.fcoe.nics):
             log.info("Kickstart fcoe device %s already added from EDD, ignoring", fc.nic)
         else:
-            msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+            msg = blivet.fcoe.fcoe.addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
             if not msg:
                 msg = "Succeeded."
-                blivet.fcoe.fcoe().added_nics.append(fc.nic)
+                blivet.fcoe.fcoe.added_nics.append(fc.nic)
 
             log.info("adding FCoE SAN on %s: %s", fc.nic, msg)
 
@@ -764,17 +764,17 @@ class Iscsi(commands.iscsi.F17_Iscsi):
                         msg=_("Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target is not up.") %
                              {"nic": tg.iface, "iscsiTarget": tg.target}))
 
-        mode = blivet.iscsi.iscsi().mode
+        mode = blivet.iscsi.iscsi.mode
         if mode == "none":
             if tg.iface:
-                blivet.iscsi.iscsi().create_interfaces(nm.nm_activated_devices())
+                blivet.iscsi.iscsi.create_interfaces(nm.nm_activated_devices())
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
             raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("iscsi --iface must be specified (binding used) either for all targets or for none")))
 
         try:
-            blivet.iscsi.iscsi().addTarget(tg.ipaddr, tg.port, tg.user,
+            blivet.iscsi.iscsi.addTarget(tg.ipaddr, tg.port, tg.user,
                                             tg.password, tg.user_in,
                                             tg.password_in,
                                             target=tg.target,
@@ -791,7 +791,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
     def parse(self, args):
         retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
 
-        blivet.iscsi.iscsi().initiator = self.iscsiname
+        blivet.iscsi.iscsi.initiator = self.iscsiname
         return retval
 
 class Lang(commands.lang.F19_Lang):
@@ -807,17 +807,17 @@ class LogVol(commands.logvol.F23_LogVol):
             l.execute(storage, ksdata, instClass)
 
         if self.lvList:
-            growLVM(storage)
+            grow_lvm(storage)
 
 class LogVolData(commands.logvol.F23_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
-        storage.doAutoPart = False
+        storage.do_autopart = False
 
         # FIXME: we should be running sanityCheck on partitioning that is not ks
         # autopart, but that's likely too invasive for #873135 at this moment
-        if self.mountpoint == "/boot" and blivet.arch.isS390():
+        if self.mountpoint == "/boot" and blivet.arch.is_s390():
             raise KickstartParseError(formatErrorMsg(self.lineno, msg="/boot can not be of type 'lvmlv' on s390x"))
 
         # we might have truncated or otherwise changed the specified vg name
@@ -833,13 +833,13 @@ class LogVolData(commands.logvol.F23_LogVolData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                size = autopart.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
+                size = autopart.swap_suggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         else:
             if self.fstype != "":
                 ty = self.fstype
             else:
-                ty = storage.defaultFSType
+                ty = storage.default_fstype
 
         if size is None and not self.preexist:
             if not self.size:
@@ -861,7 +861,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                     msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint))
 
         # Check that the VG this LV is a member of has already been specified.
-        vg = devicetree.getDeviceByName(vgname)
+        vg = devicetree.get_device_by_name(vgname)
         if not vg:
             raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("No volume group exists with the name \"%s\".  Specify volume groups before logical volumes.") % self.vgname))
@@ -875,7 +875,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
         pool = None
         if self.thin_volume:
-            pool = devicetree.getDeviceByName("%s-%s" % (vg.name, self.pool_name))
+            pool = devicetree.get_device_by_name("%s-%s" % (vg.name, self.pool_name))
             if not pool:
                 err = formatErrorMsg(self.lineno,
                                      msg=_("No thin pool exists with the name \"%s\". Specify thin pools before thin volumes.") % self.pool_name)
@@ -888,18 +888,18 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("logvol --noformat must also use the --name= option.")))
 
-            dev = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
+            dev = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
             if not dev:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name))
 
             if self.resize:
-                size = dev.raw_device.alignTargetSize(size)
+                size = dev.raw_device.align_target_size(size)
                 if size < dev.currentSize:
                     # shrink
                     try:
-                        devicetree.registerAction(ActionResizeFormat(dev, size))
-                        devicetree.registerAction(ActionResizeDevice(dev, size))
+                        devicetree.actions.add(ActionResizeFormat(dev, size))
+                        devicetree.actions.add(ActionResizeDevice(dev, size))
                     except ValueError:
                         raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
@@ -907,8 +907,8 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 else:
                     # grow
                     try:
-                        devicetree.registerAction(ActionResizeDevice(dev, size))
-                        devicetree.registerAction(ActionResizeFormat(dev, size))
+                        devicetree.actions.add(ActionResizeDevice(dev, size))
+                        devicetree.actions.add(ActionResizeFormat(dev, size))
                     except ValueError:
                         raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
@@ -917,28 +917,28 @@ class LogVolData(commands.logvol.F23_LogVolData):
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             if ty == "swap":
-                storage.addFstabSwap(dev)
+                storage.add_fstab_swap(dev)
             return
 
         # Make sure this LV name is not already used in the requested VG.
         if not self.preexist:
-            tmp = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
+            tmp = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
             if tmp:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume name \"%(logvol)s\" is already in use in volume group \"%(volgroup)s\".") %
                              {"logvol": self.name, "volgroup": vg.name}))
 
-            if not self.percent and size and not self.grow and size < vg.peSize:
+            if not self.percent and size and not self.grow and size < vg.pe_size:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume size \"%(logvolSize)s\" must be larger than the volume group extent size of \"%(extentSize)s\".") %
-                             {"logvolSize": size, "extentSize": vg.peSize}))
+                             {"logvolSize": size, "extentSize": vg.pe_size}))
 
         # Now get a format to hold a lot of these extra values.
-        fmt = getFormat(ty,
+        fmt = get_format(ty,
                         mountpoint=self.mountpoint,
                         label=self.label,
                         fsprofile=self.fsprofile,
-                        createOptions=self.mkfsopts,
+                        create_options=self.mkfsopts,
                         mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
             raise KickstartParseError(formatErrorMsg(self.lineno,
@@ -950,7 +950,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
         # to take place there.  Also, we only support a subset of all the
         # options on pre-existing LVs.
         if self.preexist:
-            device = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
+            device = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
             if not device:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name))
@@ -958,15 +958,15 @@ class LogVolData(commands.logvol.F23_LogVolData):
             removeExistingFormat(device, storage)
 
             if self.resize:
-                size = device.raw_device.alignTargetSize(size)
+                size = device.raw_device.align_target_size(size)
                 try:
-                    devicetree.registerAction(ActionResizeDevice(device, size))
+                    devicetree.actions.add(ActionResizeDevice(device, size))
                 except ValueError:
                     raise KickstartParseError(formatErrorMsg(self.lineno,
                             msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                  {"size": self.size, "device": device.name}))
 
-            devicetree.registerAction(ActionCreateFormat(device, fmt))
+            devicetree.actions.add(ActionCreateFormat(device, fmt))
             if ty == "swap":
                 add_fstab_swap = device
         else:
@@ -975,7 +975,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
             try:
                 if self.mountpoint:
                     device = storage.mountpoints[self.mountpoint]
-                    storage.destroyDevice(device)
+                    storage.destroy_device(device)
             except KeyError:
                 pass
 
@@ -1016,7 +1016,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 cache_request = None
 
             try:
-                request = storage.newLV(fmt=fmt,
+                request = storage.new_lv(fmt=fmt,
                                     name=self.name,
                                     parents=parents,
                                     size=size,
@@ -1025,42 +1025,42 @@ class LogVolData(commands.logvol.F23_LogVolData):
                                     grow=self.grow,
                                     maxsize=maxsize,
                                     percent=self.percent,
-                                    cacheRequest=cache_request,
+                                    cache_request=cache_request,
                                     **pool_args)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
-            storage.createDevice(request)
+            storage.create_device(request)
             if ty == "swap":
                 add_fstab_swap = request
 
         if self.encrypted:
-            if self.passphrase and not storage.encryptionPassphrase:
-                storage.encryptionPassphrase = self.passphrase
+            if self.passphrase and not storage.encryption_passphrase:
+                storage.encryption_passphrase = self.passphrase
 
             # try to use the global passphrase if available
             # XXX: we require the LV/part with --passphrase to be processed
-            # before this one to setup the storage.encryptionPassphrase
-            self.passphrase = self.passphrase or storage.encryptionPassphrase
+            # before this one to setup the storage.encryption_passphrase
+            self.passphrase = self.passphrase or storage.encryption_passphrase
 
-            cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
+            cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
             if self.preexist:
                 luksformat = fmt
-                device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
+                device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
-                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=self.passphrase,
+                request.format = get_format("luks", passphrase=self.passphrase,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase,
                                            min_luks_entropy=MIN_CREATE_ENTROPY)
-                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
             if ty == "swap":
@@ -1068,10 +1068,10 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 # override the info here
                 add_fstab_swap = luksdev
 
-            storage.createDevice(luksdev)
+            storage.create_device(luksdev)
 
         if add_fstab_swap:
-            storage.addFstabSwap(add_fstab_swap)
+            storage.add_fstab_swap(add_fstab_swap)
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, *args):
@@ -1129,19 +1129,19 @@ class Partition(commands.partition.F23_Partition):
             p.execute(storage, ksdata, instClass)
 
         if self.partitions:
-            doPartitioning(storage)
+            do_partitioning(storage)
 
 class PartitionData(commands.partition.F23_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
 
-        storage.doAutoPart = False
+        storage.do_autopart = False
 
         if self.onbiosdisk != "":
-            # eddDict is only modified during storage.reset(), so don't do that
+            # edd_dict is only modified during storage.reset(), so don't do that
             # while executing storage.
-            for (disk, biosdisk) in storage.eddDict.items():
+            for (disk, biosdisk) in storage.edd_dict.items():
                 if "%x" % biosdisk == self.onbiosdisk:
                     self.disk = disk
                     break
@@ -1157,7 +1157,7 @@ class PartitionData(commands.partition.F23_PartData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                size = autopart.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
+                size = autopart.swap_suggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
@@ -1166,7 +1166,7 @@ class PartitionData(commands.partition.F23_PartData):
             if self.fstype:
                 ty = self.fstype
             else:
-                ty = storage.defaultFSType
+                ty = storage.default_fstype
         elif self.mountpoint == 'appleboot':
             ty = "appleboot"
             self.mountpoint = ""
@@ -1181,7 +1181,7 @@ class PartitionData(commands.partition.F23_PartData):
             kwargs["name"] = self.mountpoint
             self.mountpoint = ""
 
-            if devicetree.getDeviceByName(kwargs["name"]):
+            if devicetree.get_device_by_name(kwargs["name"]):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
@@ -1192,7 +1192,7 @@ class PartitionData(commands.partition.F23_PartData):
             kwargs["name"] = self.mountpoint
             self.mountpoint = ""
 
-            if devicetree.getDeviceByName(kwargs["name"]):
+            if devicetree.get_device_by_name(kwargs["name"]):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("PV partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
@@ -1203,14 +1203,14 @@ class PartitionData(commands.partition.F23_PartData):
             kwargs["name"] = self.mountpoint
             self.mountpoint = ""
 
-            if devicetree.getDeviceByName(kwargs["name"]):
+            if devicetree.get_device_by_name(kwargs["name"]):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint == "/boot/efi":
-            if blivet.arch.isMactel():
+            if blivet.arch.is_mactel():
                 ty = "macefi"
             else:
                 ty = "EFI System Partition"
@@ -1219,9 +1219,9 @@ class PartitionData(commands.partition.F23_PartData):
             if self.fstype != "":
                 ty = self.fstype
             elif self.mountpoint == "/boot":
-                ty = storage.defaultBootFSType
+                ty = storage.default_boot_fstype
             else:
-                ty = storage.defaultFSType
+                ty = storage.default_fstype
 
         if not size and self.size:
             try:
@@ -1237,18 +1237,18 @@ class PartitionData(commands.partition.F23_PartData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("part --noformat must also use the --onpart option.")))
 
-            dev = devicetree.resolveDevice(self.onPart)
+            dev = devicetree.resolve_device(self.onPart)
             if not dev:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Partition \"%s\" given in part command does not exist.") % self.onPart))
 
             if self.resize:
-                size = dev.raw_device.alignTargetSize(size)
+                size = dev.raw_device.align_target_size(size)
                 if size < dev.currentSize:
                     # shrink
                     try:
-                        devicetree.registerAction(ActionResizeFormat(dev, size))
-                        devicetree.registerAction(ActionResizeDevice(dev, size))
+                        devicetree.actions.add(ActionResizeFormat(dev, size))
+                        devicetree.actions.add(ActionResizeDevice(dev, size))
                     except ValueError:
                         raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
@@ -1256,8 +1256,8 @@ class PartitionData(commands.partition.F23_PartData):
                 else:
                     # grow
                     try:
-                        devicetree.registerAction(ActionResizeDevice(dev, size))
-                        devicetree.registerAction(ActionResizeFormat(dev, size))
+                        devicetree.actions.add(ActionResizeDevice(dev, size))
+                        devicetree.actions.add(ActionResizeFormat(dev, size))
                     except ValueError:
                         raise KickstartParseError(formatErrorMsg(self.lineno,
                                 msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
@@ -1266,16 +1266,16 @@ class PartitionData(commands.partition.F23_PartData):
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             if ty == "swap":
-                storage.addFstabSwap(dev)
+                storage.add_fstab_swap(dev)
             return
 
         # Now get a format to hold a lot of these extra values.
-        kwargs["fmt"] = getFormat(ty,
+        kwargs["fmt"] = get_format(ty,
            mountpoint=self.mountpoint,
            label=self.label,
            fsprofile=self.fsprofile,
            mountopts=self.fsopts,
-           createOptions=self.mkfsopts,
+           create_options=self.mkfsopts,
            size=size)
         if not kwargs["fmt"].type:
             raise KickstartParseError(formatErrorMsg(self.lineno,
@@ -1285,10 +1285,10 @@ class PartitionData(commands.partition.F23_PartData):
         # that it exists first.  If it doesn't exist, see if it exists with
         # mapper/ on the front.  If that doesn't exist either, it's an error.
         if self.disk:
-            disk = devicetree.resolveDevice(self.disk)
+            disk = devicetree.resolve_device(self.disk)
             # if this is a multipath member promote it to the real mpath
             if disk and disk.format.type == "multipath_member":
-                mpath_device = storage.devicetree.getChildren(disk)[0]
+                mpath_device = disk.children[0]
                 storage_log.info("kickstart: part: promoting %s to %s",
                                  disk.name, mpath_device.name)
                 disk = mpath_device
@@ -1299,7 +1299,7 @@ class PartitionData(commands.partition.F23_PartData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Cannot install to unpartitionable device \"%s\".") % self.disk))
 
-            should_clear = storage.shouldClear(disk)
+            should_clear = storage.should_clear(disk)
             if disk and (disk.partitioned or should_clear):
                 kwargs["parents"] = [disk]
             elif disk:
@@ -1331,79 +1331,79 @@ class PartitionData(commands.partition.F23_PartData):
         # take place there.  Also, we only support a subset of all the options
         # on pre-existing partitions.
         if self.onPart:
-            device = devicetree.resolveDevice(self.onPart)
+            device = devicetree.resolve_device(self.onPart)
             if not device:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Partition \"%s\" given in part command does not exist.") % self.onPart))
 
             removeExistingFormat(device, storage)
             if self.resize:
-                size = device.raw_device.alignTargetSize(size)
+                size = device.raw_device.align_target_size(size)
                 try:
-                    devicetree.registerAction(ActionResizeDevice(device, size))
+                    devicetree.actions.add(ActionResizeDevice(device, size))
                 except ValueError:
                     raise KickstartParseError(formatErrorMsg(self.lineno,
                             msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
                                  {"size": self.size, "device": device.name}))
 
-            devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
+            devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
                 add_fstab_swap = device
         # tmpfs mounts are not disks and don't occupy a disk partition,
         # so handle them here
         elif self.fstype == "tmpfs":
             try:
-                request = storage.newTmpFS(**kwargs)
+                request = storage.new_tmpfs(**kwargs)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
-            storage.createDevice(request)
+            storage.create_device(request)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
             try:
                 if self.mountpoint:
                     device = storage.mountpoints[self.mountpoint]
-                    storage.destroyDevice(device)
+                    storage.destroy_device(device)
             except KeyError:
                 pass
 
             try:
-                request = storage.newPartition(**kwargs)
+                request = storage.new_partition(**kwargs)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
-            storage.createDevice(request)
+            storage.create_device(request)
             if ty == "swap":
                 add_fstab_swap = request
 
         if self.encrypted:
-            if self.passphrase and not storage.encryptionPassphrase:
-                storage.encryptionPassphrase = self.passphrase
+            if self.passphrase and not storage.encryption_passphrase:
+                storage.encryption_passphrase = self.passphrase
 
             # try to use the global passphrase if available
             # XXX: we require the LV/part with --passphrase to be processed
-            # before this one to setup the storage.encryptionPassphrase
-            self.passphrase = self.passphrase or storage.encryptionPassphrase
+            # before this one to setup the storage.encryption_passphrase
+            self.passphrase = self.passphrase or storage.encryption_passphrase
 
-            cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
+            cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
             if self.onPart:
                 luksformat = kwargs["fmt"]
-                device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
+                device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase,
                                           min_luks_entropy=MIN_CREATE_ENTROPY)
-                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=self.passphrase,
+                request.format = get_format("luks", passphrase=self.passphrase,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase,
                                            min_luks_entropy=MIN_CREATE_ENTROPY)
-                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
 
@@ -1412,10 +1412,10 @@ class PartitionData(commands.partition.F23_PartData):
                 # override the info here
                 add_fstab_swap = luksdev
 
-            storage.createDevice(luksdev)
+            storage.create_device(luksdev)
 
         if add_fstab_swap:
-            storage.addFstabSwap(add_fstab_swap)
+            storage.add_fstab_swap(add_fstab_swap)
 
 class Raid(commands.raid.F23_Raid):
     def execute(self, storage, ksdata, instClass):
@@ -1428,13 +1428,13 @@ class RaidData(commands.raid.F23_RaidData):
         devicetree = storage.devicetree
         devicename = self.device
         if self.preexist:
-            device = devicetree.resolveDevice(devicename)
+            device = devicetree.resolve_device(devicename)
             if device:
                 devicename = device.name
 
         kwargs = {}
 
-        storage.doAutoPart = False
+        storage.do_autopart = False
 
         if self.mountpoint == "swap":
             ty = "swap"
@@ -1444,7 +1444,7 @@ class RaidData(commands.raid.F23_RaidData):
             kwargs["name"] = self.mountpoint
             ksdata.onPart[kwargs["name"]] = devicename
 
-            if devicetree.getDeviceByName(kwargs["name"]):
+            if devicetree.get_device_by_name(kwargs["name"]):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("PV partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
@@ -1454,7 +1454,7 @@ class RaidData(commands.raid.F23_RaidData):
             kwargs["name"] = self.mountpoint
             ksdata.onPart[kwargs["name"]] = devicename
 
-            if devicetree.getDeviceByName(kwargs["name"]):
+            if devicetree.get_device_by_name(kwargs["name"]):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
@@ -1464,9 +1464,9 @@ class RaidData(commands.raid.F23_RaidData):
                 ty = self.fstype
             elif self.mountpoint == "/boot" and \
                  "mdarray" in storage.bootloader.stage2_device_types:
-                ty = storage.defaultBootFSType
+                ty = storage.default_boot_fstype
             else:
-                ty = storage.defaultFSType
+                ty = storage.default_fstype
 
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
@@ -1480,7 +1480,7 @@ class RaidData(commands.raid.F23_RaidData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("raid --noformat must also use the --device option.")))
 
-            dev = devicetree.getDeviceByName(devicename)
+            dev = devicetree.get_device_by_name(devicename)
             if not dev:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID device  \"%s\" given in raid command does not exist.") % devicename))
@@ -1488,19 +1488,19 @@ class RaidData(commands.raid.F23_RaidData):
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             if ty == "swap":
-                storage.addFstabSwap(dev)
+                storage.add_fstab_swap(dev)
             return
 
         # Get a list of all the RAID members.
         for member in self.members:
-            dev = devicetree.resolveDevice(member)
+            dev = devicetree.resolve_device(member)
             if not dev:
                 # if member is using --onpart, use original device
                 mem = ksdata.onPart.get(member, member)
-                dev = devicetree.resolveDevice(mem) or lookupAlias(devicetree, member)
+                dev = devicetree.resolve_device(mem) or lookupAlias(devicetree, member)
             if dev and dev.format.type == "luks":
                 try:
-                    dev = devicetree.getChildren(dev)[0]
+                    dev = dev.children[0]
                 except IndexError:
                     dev = None
 
@@ -1516,12 +1516,12 @@ class RaidData(commands.raid.F23_RaidData):
             raidmems.append(dev)
 
         # Now get a format to hold a lot of these extra values.
-        kwargs["fmt"] = getFormat(ty,
+        kwargs["fmt"] = get_format(ty,
            label=self.label,
            fsprofile=self.fsprofile,
            mountpoint=self.mountpoint,
            mountopts=self.fsopts,
-           createOptions=self.mkfsopts)
+           create_options=self.mkfsopts)
         if not kwargs["fmt"].type:
             raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
@@ -1529,23 +1529,23 @@ class RaidData(commands.raid.F23_RaidData):
         kwargs["name"] = devicename
         kwargs["level"] = self.level
         kwargs["parents"] = raidmems
-        kwargs["memberDevices"] = len(raidmems) - self.spares
-        kwargs["totalDevices"] = len(raidmems)
+        kwargs["member_devices"] = len(raidmems) - self.spares
+        kwargs["total_devices"] = len(raidmems)
 
         # If we were given a pre-existing RAID to create a filesystem on,
         # we need to verify it exists and then schedule a new format action
         # to take place there.  Also, we only support a subset of all the
         # options on pre-existing RAIDs.
         if self.preexist:
-            device = devicetree.getDeviceByName(devicename)
+            device = devicetree.get_device_by_name(devicename)
             if not device:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID volume \"%s\" specified with --useexisting does not exist.") % devicename))
 
             removeExistingFormat(device, storage)
-            devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
+            devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
-                storage.addFstabSwap(device)
+                storage.add_fstab_swap(device)
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
@@ -1556,43 +1556,43 @@ class RaidData(commands.raid.F23_RaidData):
             try:
                 if self.mountpoint:
                     device = storage.mountpoints[self.mountpoint]
-                    storage.destroyDevice(device)
+                    storage.destroy_device(device)
             except KeyError:
                 pass
 
             try:
-                request = storage.newMDArray(**kwargs)
+                request = storage.new_mdarray(**kwargs)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
-            storage.createDevice(request)
+            storage.create_device(request)
             if ty == "swap":
-                storage.addFstabSwap(request)
+                storage.add_fstab_swap(request)
 
         if self.encrypted:
-            if self.passphrase and not storage.encryptionPassphrase:
-                storage.encryptionPassphrase = self.passphrase
+            if self.passphrase and not storage.encryption_passphrase:
+                storage.encryption_passphrase = self.passphrase
 
-            cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
+            cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
             if self.preexist:
                 luksformat = kwargs["fmt"]
-                device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
+                device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
-                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=self.passphrase,
+                request.format = get_format("luks", passphrase=self.passphrase,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
-                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
-            storage.createDevice(luksdev)
+            storage.create_device(luksdev)
 
 class RepoData(commands.repo.F21_RepoData):
     def __init__(self, *args, **kwargs):
@@ -1608,25 +1608,25 @@ class RepoData(commands.repo.F21_RepoData):
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
-        from blivet.autopart import doReqPartition
+        from blivet.autopart import do_reqpart
 
         if not self.reqpart:
             return
 
-        reqs = platform.setPlatformBootloaderReqs()
+        reqs = platform.set_platform_bootloader_reqs()
         if self.addBoot:
-            bootPartitions = platform.setPlatformBootPartition()
+            bootPartitions = platform.set_platform_boot_partition()
 
             # blivet doesn't know this - anaconda sets up the default boot fstype
             # in various places in this file, as well as in setDefaultPartitioning
             # in the install classes.  We need to duplicate that here.
             for part in bootPartitions:
                 if part.mountpoint == "/boot":
-                    part.fstype = storage.defaultBootFSType
+                    part.fstype = storage.default_boot_fstype
 
             reqs += bootPartitions
 
-        doReqPartition(storage, reqs)
+        do_reqpart(storage, reqs)
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
@@ -1780,18 +1780,18 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
 
         devicetree = storage.devicetree
 
-        storage.doAutoPart = False
+        storage.do_autopart = False
 
         # Get a list of all the physical volume devices that make up this VG.
         for pv in self.physvols:
-            dev = devicetree.resolveDevice(pv)
+            dev = devicetree.resolve_device(pv)
             if not dev:
                 # if pv is using --onpart, use original device
                 pv_name = ksdata.onPart.get(pv, pv)
-                dev = devicetree.resolveDevice(pv_name) or lookupAlias(devicetree, pv)
+                dev = devicetree.resolve_device(pv_name) or lookupAlias(devicetree, pv)
             if dev and dev.format.type == "luks":
                 try:
-                    dev = devicetree.getChildren(dev)[0]
+                    dev = dev.children[0]
                 except IndexError:
                     dev = None
 
@@ -1812,7 +1812,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
 
         if self.pesize == 0:
             # default PE size requested -- we use blivet's default in KiB
-            self.pesize = LVM_PE_SIZE.convertTo(KiB)
+            self.pesize = LVM_PE_SIZE.convert_to(KiB)
 
         pesize = Size("%d KiB" % self.pesize)
         possible_extents = LVMVolumeGroupDevice.get_supported_pe_sizes()
@@ -1827,7 +1827,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("volgroup --noformat and volgroup --useexisting must also use the --name= option.")))
 
-            dev = devicetree.getDeviceByName(self.vgname)
+            dev = devicetree.get_device_by_name(self.vgname)
             if not dev:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Volume group \"%s\" given in volgroup command does not exist.") % self.vgname))
@@ -1836,13 +1836,13 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
                     msg=_("The volume group name \"%s\" is already in use.") % self.vgname))
         else:
             try:
-                request = storage.newVG(parents=pvs,
+                request = storage.new_vg(parents=pvs,
                                     name=self.vgname,
-                                    peSize=pesize)
+                                    pe_size=pesize)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
-            storage.createDevice(request)
+            storage.create_device(request)
             if self.reserved_space:
                 request.reserved_space = self.reserved_space
             elif self.reserved_percent:
@@ -1874,7 +1874,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
         try:
-            blivet.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+            blivet.zfcp.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError as e:
             log.warning(str(e))
 
@@ -2118,9 +2118,9 @@ def parseKickstart(f):
     # We need this so all the /dev/disk/* stuff is set up before parsing.
     udev.trigger(subsystem="block", action="change")
     # So that drives onlined by these can be used in the ks file
-    blivet.iscsi.iscsi().startup()
-    blivet.fcoe.fcoe().startup()
-    blivet.zfcp.ZFCP().startup()
+    blivet.iscsi.iscsi.startup()
+    blivet.fcoe.fcoe.startup()
+    blivet.zfcp.zfcp.startup()
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
 
@@ -2209,7 +2209,7 @@ def doKickstartStorage(storage, ksdata, instClass):
         return
 
     # snapshot free space now so that we know how much we had available
-    storage.createFreeSpaceSnapshot()
+    storage.create_free_space_snapshot()
 
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
@@ -2220,4 +2220,4 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.logvol.execute(storage, ksdata, instClass)
     ksdata.btrfs.execute(storage, ksdata, instClass)
     # also calls ksdata.bootloader.execute
-    storage.setUpBootLoader()
+    storage.set_up_bootloader()

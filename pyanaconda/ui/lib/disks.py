@@ -52,21 +52,21 @@ def getDisks(devicetree, fake=False):
         devices = devicetree.devices
         if flags.imageInstall:
             hidden_images = [d for d in devicetree._hidden \
-                             if d.name in devicetree.diskImages]
+                             if d.name in devicetree.disk_images]
             devices += hidden_images
         else:
             devices += devicetree._hidden
 
         disks = []
         for d in devices:
-            if d.isDisk and not d.format.hidden and not d.protected:
+            if d.is_disk and not d.format.hidden and not d.protected:
                 # unformatted DASDs are detected with a size of 0, but they should
                 # still show up as valid disks if this function is called, since we
                 # can still use them; anaconda will know how to handle them, so they
                 # don't need to be ignored anymore
                 if d.type == "dasd":
                     disks.append(d)
-                elif d.size > 0 and d.mediaPresent:
+                elif d.size > 0 and d.media_present:
                     disks.append(d)
     else:
         disks = []
@@ -105,8 +105,8 @@ def checkDiskSelection(storage, selected_disks):
     """
     errors = []
     for name in selected_disks:
-        selected = storage.devicetree.getDeviceByName(name, hidden=True)
-        related = sorted(storage.devicetree.getRelatedDisks(selected), key=lambda d: d.name)
+        selected = storage.devicetree.get_device_by_name(name, hidden=True)
+        related = sorted(storage.devicetree.get_related_disks(selected), key=lambda d: d.name)
         missing = [r.name for r in related if r.name not in selected_disks]
         if missing:
             errors.append(P_("You selected disk %(selected)s, which contains "
