@@ -314,6 +314,59 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 01 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.57-1
+- Make sure pluginconf.d exists (bcl)
+  Resolves: rhbz#1271766
+- Check to see if DD repo is already in addOn list (bcl)
+  Resolves: rhbz#1268357
+- Add --sshkey to kickstart sshpw command (bcl)
+  Resolves: rhbz#1240410
+- Add sshkey kickstart command (bcl)
+  Resolves: rhbz#1311755
+- Fix nfs source crash when options change (bcl)
+  Resolves: rhbz#1264071
+- Fix pre-install script execution (bcl)
+  Related: rhbz#1311184
+- Add kickstart %%pre-install section support (bcl)
+  Resolves: rhbz#1311184
+- Fix a race between a window continuing and the next starting (dshea)
+  Resolves: rhbz#1255858
+- Don't process continue-clicked events for windows that aren't shown.
+  (clumens)
+  Related: rhbz#1255858
+- Generate resources.h before compiling widgets-common.c (dshea)
+  Related: rhbz#1243929
+- Use CSS to style the internal widgets. (dshea)
+  Resolves: rhbz#1243929
+- Lookup IPv6 address without brackets (bcl)
+  Resolves: rhbz#1267872
+- Copy rhsm logs to target system (bcl)
+  Resolves: rhbz#1130268
+- Add specific error string to TUI user dialog (bcl)
+  Resolves: rhbz#1248421
+- Make EditTUIDialog error generic (bcl)
+  Related: rhbz#1248421
+- Don't clear the _currentIsoFile if another iso was selected (bcl)
+  Related: rhbz#1274855
+- Fix problems with the hdiso method (clumens)
+  Resolves: rhbz#1274855
+- Always quote values in ifcfg- files (bcl)
+  Resolves: rhbz#1279131
+- Include original kickstart in /root/original-ks.cfg (bcl)
+  Resolves: rhbz#1227939
+- Manually set clock shifts on UI idle (rmarshall)
+  Resolves: rhbz#1251044
+- Import iutil earlier so we can use ipmi_report from check_for_ssh. (clumens)
+  Resolves: rhbz#1267658
+- In tui cmdline mode skip showError and log message (bcl)
+  Resolves: rhbz#1280371
+- Fix a typo in the hardware error message. (clumens)
+  Resolves: rhbz#1284165
+- Make reclaim work with small screens and big labels (dshea)
+  Resolves: rhbz#1262778
+- Use GtkResponseType values in the iso chooser dialog (dshea)
+  Resolves: rhbz#1265060
+
 * Thu Oct 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.56-1
 - Ignore interfaces with invalid VLAN IDs. (dshea)
   Resolves: rhbz#1274893
