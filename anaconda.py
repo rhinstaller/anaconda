@@ -77,11 +77,11 @@ def exitHandler(rebootData, storage):
             time.sleep(10000)
 
     if image_count or flags.dirInstall:
-        anaconda.storage.umountFilesystems(swapoff=False)
+        anaconda.storage.umount_filesystems(swapoff=False)
         devicetree = anaconda.storage.devicetree
-        devicetree.teardownAll()
-        for imageName in devicetree.diskImages:
-            dev = devicetree.getDeviceByName(imageName)
+        devicetree.teardown_all()
+        for imageName in devicetree.disk_images:
+            dev = devicetree.get_device_by_name(imageName)
             for loop in dev.parents:
                 loop.controllable = True
             dev.deactivate(recursive=True)
@@ -104,7 +104,7 @@ def exitHandler(rebootData, storage):
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
-            for cdrom in storage.devicetree.getDevicesByType("cdrom"):
+            for cdrom in (d for d in storage.devices if d.type == "cdrom"):
                 if iutil.get_mount_paths(cdrom.path):
                     iutil.dracut_eject(cdrom.path)
 
@@ -429,7 +429,7 @@ def setupDisplay(anaconda, options, addons=None):
     vncS.anaconda = anaconda
 
     anaconda.displayMode = options.display_mode
-    anaconda.isHeadless = arch.isS390()
+    anaconda.isHeadless = arch.is_s390()
 
     if options.vnc:
         flags.usevnc = True
@@ -769,7 +769,7 @@ if __name__ == "__main__":
     if not opts.images and not opts.dirinstall:
         print(logs_note)
         # no fancy stuff like TTYs on a s390...
-        if not arch.isS390():
+        if not arch.is_s390():
             if "TMUX" in os.environ and os.environ.get("TERM") == "screen":
                 print(shell_and_tmux_note)
             else:
@@ -1119,7 +1119,7 @@ if __name__ == "__main__":
     try:
         for (name, path) in name_path_pairs(opts.images):
             log.info("naming disk image '%s' '%s'", path, name)
-            anaconda.storage.config.diskImages[name] = path
+            anaconda.storage.config.disk_images[name] = path
             image_count += 1
             flags.imageInstall = True
     except ValueError as e:
@@ -1128,14 +1128,14 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if image_count:
-        anaconda.storage.setupDiskImages()
+        anaconda.storage.setup_disk_images()
 
-    from blivet.osinstall import storageInitialize
+    from blivet.osinstall import storage_initialize
     from pyanaconda.packaging import payloadMgr
     from pyanaconda.timezone import time_initialize
 
     if not flags.dirInstall:
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
 
     if can_touch_runtime_system("initialize time", touch_live=True):

@@ -438,7 +438,7 @@ class NetworkIfcfgTests(unittest.TestCase):
                 network.dracutBootArguments("em1", ifcfg, "2001::1"),
                 set(["ip=[2001::4]::[2001::a]:::em1:none"]))
 
-    @patch("blivet.arch.isS390", lambda: True)
+    @patch("blivet.arch.is_s390", lambda: True)
     def dracutBootArguments_s390_test(self):
         ifcfg = self.ifcfg_mock({"NETTYPE": "qeth",
                                  "SUBCHANNELS": "0.0.f5f0,0.0.f5f1,0.0.f5f2",

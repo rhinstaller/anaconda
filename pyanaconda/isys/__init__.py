@@ -37,7 +37,7 @@ import pytz
 import logging
 log = logging.getLogger("anaconda")
 
-if blivet.arch.getArch() in ["ppc64", "ppc64le"]:
+if blivet.arch.get_arch() in ["ppc64", "ppc64le"]:
     MIN_RAM = 768
     GUI_INSTALL_EXTRA_RAM = 512
 else:
@@ -72,7 +72,7 @@ def isPaeAvailable():
         return isPAE
 
     isPAE = False
-    if not blivet.arch.isX86():
+    if not blivet.arch.is_x86():
         return isPAE
 
     f = open("/proc/cpuinfo", "r")

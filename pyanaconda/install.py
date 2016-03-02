@@ -21,7 +21,7 @@
 #
 
 from blivet import callbacks
-from blivet.osinstall import turnOnFilesystems
+from blivet.osinstall import turn_on_filesystems
 from blivet.devices import BTRFSDevice
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progress_message, progress_step, progress_complete, progress_init
@@ -148,8 +148,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # We really only care about actions that affect filesystems, since
     # those are the ones that take the most time.
-    steps = len(storage.devicetree.findActions(action_type="create", object_type="format")) + \
-            len(storage.devicetree.findActions(action_type="resize", object_type="format"))
+    steps = len(storage.devicetree.actions.find(action_type="create", object_type="format")) + \
+            len(storage.devicetree.actions.find(action_type="resize", object_type="format"))
 
     # Update every 10% of packages installed.  We don't know how many packages
     # we are installing until it's too late (see realmd later on) so this is
@@ -182,7 +182,7 @@ def doInstall(storage, payload, ksdata, instClass):
         ksdata.firstboot.setup(storage, ksdata, instClass)
         ksdata.addons.setup(storage, ksdata, instClass)
 
-    storage.updateKSData()  # this puts custom storage info into ksdata
+    storage.update_ksdata()  # this puts custom storage info into ksdata
 
     # Do partitioning.
     payload.preStorage()
@@ -198,7 +198,7 @@ def doInstall(storage, payload, ksdata, instClass):
                                                             resize_format_post=step_clbk,
                                                             wait_for_entropy=entropy_wait_clbk)
 
-    turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall, callbacks=callbacks_reg)
+    turn_on_filesystems(storage, mount_only=flags.flags.dirInstall, callbacks=callbacks_reg)
     payload.writeStorageEarly()
 
     # Run %pre-install scripts with the filesystem mounted and no packages

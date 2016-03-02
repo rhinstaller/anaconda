@@ -20,7 +20,7 @@
 #
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
-from blivet.osinstall import mountExistingSystem, findExistingInstallations
+from blivet.osinstall import mount_existing_system, find_existing_installations
 
 from pyanaconda import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP
@@ -190,7 +190,7 @@ class RescueMode(NormalTUISpoke):
             # installations are discovered. IOW, this is a hack.
             time.sleep(2)
             # attempt to find previous installations
-            roots = findExistingInstallations(self.storage.devicetree)
+            roots = find_existing_installations(self.storage.devicetree)
             if len(roots) == 1:
                 self._root = roots[0]
             elif len(roots) > 1:
@@ -246,10 +246,10 @@ class RescueMode(NormalTUISpoke):
                     try:
                         device.setup()
                         device.format.setup()
-                        luks_dev = LUKSDevice(device.format.mapName,
+                        luks_dev = LUKSDevice(device.format.map_name,
                                               parents=[device],
                                               exists=True)
-                        self.storage.devicetree._addDevice(luks_dev)
+                        self.storage.devicetree._add_device(luks_dev)
                         try_populate_devicetree(self.storage.devicetree)
                         unlocked = True
                         # try to use the same passhprase for other devices
@@ -338,8 +338,8 @@ class RescueMountSpoke(NormalTUISpoke):
 
         if self._root:
             try:
-                mountExistingSystem(self.storage.fsset, self._root.device,
-                                    readOnly=self.readOnly)
+                mount_existing_system(self.storage.fsset, self._root.device,
+                                      read_only=self.readOnly)
                 if flags.automatedInstall:
                     log.info("System has been mounted under: %s", iutil.getSysroot())
                 else:
@@ -353,7 +353,7 @@ class RescueMountSpoke(NormalTUISpoke):
                 # now turn on swap
                 if not flags.imageInstall or not self.readOnly:
                     try:
-                        self.storage.turnOnSwap()
+                        self.storage.turn_on_swap()
                     except StorageError:
                         log.error("Error enabling swap.")
 
@@ -407,7 +407,7 @@ class RescueMountSpoke(NormalTUISpoke):
             return True
 
         if rootmounted and not self.readOnly:
-            self.storage.makeMtab()
+            self.storage.make_mtab()
             try:
                 makeResolvConf(iutil.getSysroot())
             except(OSError, IOError) as e:

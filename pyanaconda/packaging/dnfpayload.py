@@ -250,7 +250,7 @@ class DNFPayload(packaging.PackagePayload):
             return url
 
         url = url.replace("$releasever", self._base.conf.releasever)
-        url = url.replace("$basearch", blivet.arch.getArch())
+        url = url.replace("$basearch", blivet.arch.get_arch())
 
         return url
 
@@ -598,7 +598,7 @@ class DNFPayload(packaging.PackagePayload):
                 new_key = key[:-1]
             # we can ignore swap
             if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
-                valid_points[root_mpoint + new_key] = val.format.freeSpaceEstimate(val.size)
+                valid_points[root_mpoint + new_key] = val.format.free_space_estimate(val.size)
 
         m_point = _pick_mpoint(valid_points, download_size, size)
         if not m_point or m_point == root_mpoint:

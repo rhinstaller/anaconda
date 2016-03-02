@@ -43,10 +43,10 @@ class ActionSummaryDialog(GUIObject):
 
             if action.type in [ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE]:
                 typeString = """<span foreground='red'>%s</span>""" % \
-                        escape_markup(action.typeDesc.title())
+                        escape_markup(action.type_desc.title())
             else:
                 typeString = """<span foreground='green'>%s</span>""" % \
-                        escape_markup(action.typeDesc.title())
+                        escape_markup(action.type_desc.title())
                 if action.obj == ACTION_OBJECT_FORMAT:
                     mountpoint = getattr(action.device.format, "mountpoint", "")
 
@@ -64,7 +64,7 @@ class ActionSummaryDialog(GUIObject):
 
             self._store.append([i,
                                 typeString,
-                                action.objectTypeString,
+                                action.object_type_string,
                                 desc,
                                 mountpoint,
                                 serial])

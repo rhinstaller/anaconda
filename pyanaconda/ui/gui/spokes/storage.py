@@ -283,7 +283,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.autoPartType = None
         self.clearPartType = CLEARPART_TYPE_NONE
 
-        if self.data.zerombr.zerombr and arch.isS390():
+        if self.data.zerombr.zerombr and arch.is_s390():
             # run dasdfmt on any unformatted DASDs automatically
             threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
                             target=self.run_dasdfmt))
@@ -319,15 +319,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.clearpart.type = self.clearPartType
 
         self.storage.config.update(self.data)
-        self.storage.autoPartType = self.data.autopart.type
-        self.storage.encryptedAutoPart = self.data.autopart.encrypted
-        self.storage.encryptionPassphrase = self.data.autopart.passphrase
+        self.storage.autopart_type = self.data.autopart.type
+        self.storage.encrypted_autopart = self.data.autopart.encrypted
+        self.storage.encryption_passphrase = self.data.autopart.passphrase
 
         # If autopart is selected we want to remove whatever has been
         # created/scheduled to make room for autopart.
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
-        self.storage.config.clearNonExistent = self.data.autopart.autopart
+        self.storage.config.clear_non_existent = self.data.autopart.autopart
 
     @gtk_action_nowait
     def execute(self):
@@ -381,7 +381,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def completed(self):
         retval = (threadMgr.get(constants.THREAD_EXECUTE_STORAGE) is None and
                   threadMgr.get(constants.THREAD_CHECK_STORAGE) is None and
-                  self.storage.rootDevice is not None and
+                  self.storage.root_device is not None and
                   not self.errors)
         return retval
 
@@ -400,7 +400,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
 
-        if flags.automatedInstall and not self.storage.rootDevice:
+        if flags.automatedInstall and not self.storage.root_device:
             msg = _("Kickstart insufficient")
         elif threadMgr.get(constants.THREAD_DASDFMT):
             msg = _("Formatting DASDs")
@@ -529,7 +529,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         for name in self.data.ignoredisk.onlyuse:
             if name not in disk_names:
                 continue
-            obj = self.storage.devicetree.getDeviceByName(name, hidden=True)
+            obj = self.storage.devicetree.get_device_by_name(name, hidden=True)
             # since zfcp devices may be detected as local disks when added
             # manually, specifically check the disk type here to make sure
             # we won't accidentally bypass adding zfcp devices to the disk
@@ -601,7 +601,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             description = disk.description
 
-        free = self.storage.getFreeSpace(disks=[disk])[disk.name][0]
+        free = self.storage.get_free_space(disks=[disk])[disk.name][0]
 
         overview = AnacondaWidgets.DiskOverview(description,
                                                 kind,
@@ -643,7 +643,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         free = Size(0)
 
         # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.getFreeSpace(disks=self.disks)
+        free_space = self.storage.get_free_space(disks=self.disks)
         selected = [d for d in self.disks if d.name in self.selected_disks]
 
         for disk in selected:
@@ -699,7 +699,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # actions on storage devices
         threadMgr.wait(constants.THREAD_STORAGE)
 
-        to_format = self.storage.devicetree.make_unformatted_dasd_list(d for d in getDisks(self.storage.devicetree))
+        to_format = (d for d in getDisks(self.storage.devicetree)
+                     if d.type == "dasd" and blockdev.s390.dasd_needs_format(d.busid))
         if not to_format:
             # nothing to do here; bail
             return
@@ -717,7 +718,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def on_summary_clicked(self, button):
         # show the selected disks dialog
         # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.getFreeSpace(disks=self.disks)
+        free_space = self.storage.get_free_space(disks=self.disks)
         dialog = SelectedDisksDialog(self.data,)
         dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
                        free_space)
@@ -757,7 +758,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         for device in self.storage.devices:
             if device.format.type == "luks" and not device.format.exists:
-                if not device.format.hasKey:
+                if not device.format.has_key:
                     device.format.passphrase = self.passphrase
 
         return True
@@ -767,7 +768,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # check if it's been removed in a previous iteration
             if not partition.exists and \
                partition in self.storage.partitions:
-                self.storage.recursiveRemove(partition)
+                self.storage.recursive_remove(partition)
 
     def _hide_disks(self):
         for disk in self.disks:
@@ -784,7 +785,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _check_dasd_formats(self):
         rc = DASD_FORMAT_NO_CHANGE
-        dasds = self.storage.devicetree.make_unformatted_dasd_list(self.storage.devicetree.dasd)
+        dasds = (d for d in self.storage.devicetree.devices
+                 if d.type == "dasd" and blockdev.s390.dasd_needs_format(d.busid))
         if len(dasds) > 0:
             # We want to apply current selection before running dasdfmt to
             # prevent this information from being lost afterward
@@ -799,28 +801,28 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # Figure out if the existing disk labels will work on this platform
         # you need to have at least one of the platform's labels in order for
         # any of the free space to be useful.
-        disk_labels = set(disk.format.labelType for disk in disks
-                              if hasattr(disk.format, "labelType"))
-        platform_labels = set(platform.diskLabelTypes)
+        disk_labels = set(disk.format.label_type for disk in disks
+                              if hasattr(disk.format, "label_type"))
+        platform_labels = set(platform.disklabel_types)
         if disk_labels and platform_labels.isdisjoint(disk_labels):
             disk_free = 0
             fs_free = 0
             log.debug("Need disklabel: %s have: %s", ", ".join(platform_labels),
                                                      ", ".join(disk_labels))
         else:
-            free_space = self.storage.getFreeSpace(disks=disks,
-                                                   clearPartType=CLEARPART_TYPE_NONE)
+            free_space = self.storage.get_free_space(disks=disks,
+                                                     clear_part_type=CLEARPART_TYPE_NONE)
             disk_free = sum(f[0] for f in free_space.values())
             fs_free = sum(f[1] for f in free_space.values())
 
         disks_size = sum((d.size for d in disks), Size(0))
         required_space = self.payload.spaceRequired
-        auto_swap = sum((r.size for r in self.storage.autoPartitionRequests
+        auto_swap = sum((r.size for r in self.storage.autopart_requests
                                 if r.fstype == "swap"), Size(0))
         if self.autopart and auto_swap == Size(0):
             # autopartitioning requested, but not applied yet (=> no auto swap
             # requests), ask user for enough space to fit in the suggested swap
-            auto_swap = autopart.swapSuggestion()
+            auto_swap = autopart.swap_suggestion()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, required_space, auto_swap)
@@ -915,7 +917,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self._back_clicked = False
             return
 
-        if arch.isS390():
+        if arch.is_s390():
             # check for unformatted DASDs and launch dasdfmt if any discovered
             rc = self._check_dasd_formats()
             if rc == DASD_FORMAT_NO_CHANGE:

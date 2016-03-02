@@ -69,7 +69,7 @@ from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
 from blivet.platform import platform
-from blivet import setSysroot
+from blivet import set_sysroot
 
 from pyanaconda.product import productName, productVersion
 USER_AGENT = "%s (anaconda)/%s" %(productName, productVersion)
@@ -190,8 +190,8 @@ class Payload(object):
             :returns: Size of the device with given filesystem format.
             :rtype: :class:`blivet.size.Size`
         """
-        device_size = format_class.getRequiredSize(self.spaceRequired)
-        return device_size.roundToNearest(Size("1 MiB"))
+        device_size = format_class.get_required_size(self.spaceRequired)
+        return device_size.round_to_nearest(Size("1 MiB"))
 
 
     ###
@@ -638,13 +638,13 @@ class Payload(object):
         """
         if not flags.dirInstall:
             if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
-                setSysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
+                set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
 
                 # Now that we have the FS layout in the target, umount
                 # things that were in the legacy sysroot, and put them in
                 # the target root, except for the physical /.  First,
                 # unmount all target filesystems.
-                self.storage.umountFilesystems()
+                self.storage.umount_filesystems()
 
                 # Explicitly mount the root on the physical sysroot
                 rootmnt = self.storage.mountpoints.get('/')
@@ -656,7 +656,7 @@ class Payload(object):
                 # Everything else goes in the target root, including /boot
                 # since the bootloader code will expect to find /boot
                 # inside the chroot.
-                self.storage.mountFilesystems(skipRoot=True)
+                self.storage.mount_filesystems(skip_root=True)
 
             self.storage.write()
 
@@ -751,13 +751,13 @@ class PackagePayload(Payload):
 
         kernels = ["kernel"]
 
-        if blivet.arch.isX86(32) and isys.isPaeAvailable():
+        if blivet.arch.is_x86(32) and isys.isPaeAvailable():
             kernels.insert(0, "kernel-PAE")
 
         # most ARM systems use platform-specific kernels
-        if blivet.arch.isARM():
-            if platform.armMachine is not None:
-                kernels = ["kernel-%s" % platform.armMachine]
+        if blivet.arch.is_arm():
+            if platform.arm_machine is not None:
+                kernels = ["kernel-%s" % platform.arm_machine]
 
             if isys.isLpaeAvailable():
                 kernels.insert(0, "kernel-lpae")
@@ -896,7 +896,7 @@ class PackagePayload(Payload):
                     # We don't setup an install_device here
                     # because we can't tear it down
 
-            isodevice = storage.devicetree.resolveDevice(devspec)
+            isodevice = storage.devicetree.resolve_device(devspec)
             if needmount:
                 if not isodevice:
                     raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
@@ -997,7 +997,7 @@ class PackagePayload(Payload):
 
             # Only look at the dracut mount if we don't already have a cdrom
             if device and not self.install_device:
-                self.install_device = storage.devicetree.getDeviceByPath(device)
+                self.install_device = storage.devicetree.get_device_by_path(device)
                 url = "file://" + DRACUT_REPODIR
                 if not method.method:
                     # See if this is a nfs mount

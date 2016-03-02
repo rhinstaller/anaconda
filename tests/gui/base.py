@@ -377,7 +377,7 @@ class DogtailTestCase(unittest.TestCase):
             # For now we are using qemu-img to create these files but specifying
             # sizes in blivet Size objects.  Unfortunately, qemu-img wants sizes
             # as xM or xG, not xMB or xGB.  That's what the conversion here is for.
-            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(MiB)],
+            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convert_to(MiB)],
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
                             )
             self._drivePaths[drive] = diskimage

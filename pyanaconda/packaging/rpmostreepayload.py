@@ -252,7 +252,7 @@ class RPMOSTreePayload(ArchivePayload):
         # device at two different paths.
         dest = iutil.getSysroot() + "/sysroot"
         self._safeExecWithRedirect("mount",
-                                   [storage.rootDevice.format.device, dest])
+                                   [storage.root_device.format.device, dest])
         self._internal_mounts.append(dest)
 
         # Now, ensure that all other potential mount point directories such as
@@ -320,7 +320,7 @@ class RPMOSTreePayload(ArchivePayload):
         # such.
         set_kargs_args = ["admin", "instutil", "set-kargs"]
         set_kargs_args.extend(self.storage.bootloader.boot_args)
-        set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
+        set_kargs_args.append("root=" + self.storage.root_device.fstab_spec)
         self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
 
     def writeStorageEarly(self):
