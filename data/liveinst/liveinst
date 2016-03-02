@@ -186,6 +186,9 @@ if [ -z $LC_ALL ]; then
     export LC_ALL=$LANG
 fi
 
+# Force the X11 backend since sudo and wayland do not mix
+export GDK_BACKEND=x11
+
 if [ -x /usr/bin/udisks ]; then
     /usr/bin/udisks --inhibit -- $ANACONDA $*
 else
