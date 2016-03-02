@@ -134,7 +134,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             if retry_count:
                 # retry after waiting a bit
                 time.sleep(next(xdelay))
-                print("PROGRESS_INSTALL: error populating transaction, retrying (%d/%d)"
+                print("PROGRESS_RETRY: Error populating transaction, retrying (%d/%d)"
                       % (retry_count, MAX_DOWNLOAD_RETRIES))
             try:
                 # uses dsCallback.transactionPopulation
@@ -144,7 +144,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
                 continue
         else:
             # else = no break called = no successful attempt
-            print("ERROR: error populating transaction after %d retries: %s"
+            print("ERROR: Error populating transaction after %d retries: %s"
                   % (retry_count, e))
             # we don't need to print "QUIT:" there, the finally clause
             # of the toplevel try-block will do that for us
@@ -298,7 +298,7 @@ class RPMCallback(object):
             # retry count > 0  -> retry
             if retry_count and retry_message:
                 time.sleep(next(xdelay))  # wait a bit before retry
-                print("PROGRESS_INSTALL: %s (%d/%d)" % (retry_message, retry_count, MAX_DOWNLOAD_RETRIES))
+                print("PROGRESS_RETRY: %s (%d/%d)" % (retry_message, retry_count, MAX_DOWNLOAD_RETRIES))
 
             try:
                 # checkfunc gets passed to yum's use of URLGrabber which
@@ -330,7 +330,7 @@ class RPMCallback(object):
                 # the package file you want to download vanishes, not URLGrabError
 
                 if retry_count < MAX_DOWNLOAD_RETRIES:
-                    retry_message = "retrying download of %s" % txmbr.po
+                    retry_message = "Retrying download of %s" % txmbr.po
                     # remove any unfinished downloads of this package
                     if os.path.exists(txmbr.po.localPkg()):
                         os.unlink(txmbr.po.localPkg())
