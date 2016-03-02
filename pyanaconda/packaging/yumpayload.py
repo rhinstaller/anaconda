@@ -278,7 +278,7 @@ metadata_expire=never
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=%s,/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
-debuglevel=3
+debuglevel=6
 errorlevel=6
 reposdir=%s
 """ % (_yum_cache_dir, os.path.dirname(_yum_installer_langpack_conf),
