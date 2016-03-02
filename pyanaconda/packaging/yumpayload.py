@@ -1457,6 +1457,7 @@ reposdir=%s
         progress_map = {
             "PROGRESS_PREP"    : _("Preparing transaction from installation source"),
             "PROGRESS_INSTALL" : _("Installing"),
+            "PROGRESS_RETRY"   : _(""),
             "PROGRESS_POST"    : _("Performing post-installation setup tasks")
         }
 
