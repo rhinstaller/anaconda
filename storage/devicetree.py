@@ -947,6 +947,11 @@ class DeviceTree(object):
         # the filter ui.  Note that making the ui use md names instead is not
         # possible as the md names are simpy md# and we cannot predict the #
         if udev_device_get_md_level(info) == "container":
+            if not self.exclusiveDisks and not self._ignoredDisks:
+                # both exclusiveDisks and _ignoredDisks being empty means use
+                # everything
+                return False
+
             if name in self.exclusiveDisks:
                 # XXX: should we do this somewhere above in general?
                 return False
