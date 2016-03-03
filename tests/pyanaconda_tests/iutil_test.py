@@ -804,3 +804,19 @@ class MiscTests(unittest.TestCase):
                 os.umask(old_umask)
         finally:
             shutil.rmtree(test_dir)
+
+    def touch_test(self):
+        """Test if the touch function correctly creates empty files"""
+        test_dir = tempfile.mkdtemp()
+        try:
+            file_path = os.path.join(test_dir, "EMPTY_FILE")
+            # try to create an empty file with touch()
+            iutil.touch(file_path)
+
+            # check if it exists & is a file
+            self.assertTrue(os.path.isfile(file_path))
+
+            # check if the file is empty
+            self.assertEqual(os.stat(file_path).st_size, 0)
+        finally:
+            shutil.rmtree(test_dir)

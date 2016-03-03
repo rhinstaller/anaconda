@@ -1341,3 +1341,11 @@ def save_screenshots():
 
     except OSError:
         log.exception("saving screenshots to installed system failed")
+
+def touch(file_path):
+    """Create an empty file."""
+    # this misrrors how touch works - it does not
+    # throw an error if the given path exists,
+    # even when the path points to dirrectory
+    if not os.path.exists(file_path):
+        os.mknod(file_path)
