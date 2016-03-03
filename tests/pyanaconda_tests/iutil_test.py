@@ -760,3 +760,19 @@ class EncryptPasswordTests(unittest.TestCase):
             self.assertEqual(algo, enc_pw[:3])
             self.assertEqual(crypt.crypt("DocBrown", enc_pw), enc_pw)
             self.assertNotEqual(crypt.crypt("Einstein", enc_pw), enc_pw)
+
+    def touch_test(self):
+        """Test if the touch function correctly creates empty files"""
+        test_dir = tempfile.mkdtemp()
+        try:
+            file_path = os.path.join(test_dir, "EMPTY_FILE")
+            # try to create an empty file with touch()
+            iutil.touch(file_path)
+
+            # check if it exists & is a file
+            self.assertTrue(os.path.isfile(file_path))
+
+            # check if the file is empty
+            self.assertEqual(os.stat(file_path).st_size, 0)
+        finally:
+            shutil.rmtree(test_dir)

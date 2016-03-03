@@ -1234,3 +1234,11 @@ def encrypt_password(password, algo, salt_len):
     rand_gen = random.SystemRandom()
     salt += "".join(rand_gen.choice(SALT_CHARS) for i in range(salt_len))
     return crypt.crypt(password, salt)
+
+def touch(file_path):
+    """Create an empty file."""
+    # this misrrors how touch works - it does not
+    # throw an error if the given path exists,
+    # even when the path points to dirrectory
+    if not os.path.exists(file_path):
+        os.mknod(file_path)
