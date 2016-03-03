@@ -139,22 +139,30 @@ class Callbacks(object):
 
     def incrementDeviceCount(self, device_data):
         """Update the selected and total device counts when a device is added."""
+
+        deviceName = udev_device_get_name(device_data[UDEV_DATA])
+        deviceSize = device_data[UDEV_DATA]["XXX_SIZE"]
+
+        self._incrementDeviceCount(deviceName, deviceSize, device_data[ACTIVE_IN_UI])
+
+
+    def _incrementDeviceCount(self, deviceName, deviceSize, isActiveInUI):
         global totalDevices, totalSize
         global selectedDevices, selectedSize
         global talliedDevices
 
-        # Check to be sure this device has not already been counted
-        if device_data[UDEV_DATA]["name"] in talliedDevices or device_data[UDEV_DATA]["DEVNAME"] in talliedDevices:
+        # do not tally devices that were already counted
+        if deviceName in talliedDevices:
             return
 
-        talliedDevices.append(device_data[UDEV_DATA]["name"])
+        talliedDevices.append(deviceName)
 
         totalDevices += 1
-        totalSize += device_data[UDEV_DATA]["XXX_SIZE"]
+        totalSize += deviceSize
 
-        if device_data[ACTIVE_IN_UI]:
+        if isActiveInUI:
             selectedDevices += 1
-            selectedSize += device_data[UDEV_DATA]["XXX_SIZE"]
+            selectedSize += deviceSize
 
     def deviceToggled(self, set, device):
         global selectedDevices, totalDevices
@@ -240,29 +248,23 @@ class MPathCallbacks(FilteredCallbacks):
         that a non-multipath device can turn into a multipath device thereby not
         incrementing the device count.
         """
-        global totalDevices, totalSize
-        global selectedDevices, selectedSize
         global talliedDevices
 
-        # Check to be sure this device has not already been counted
-        if device_data[UDEV_DATA]["name"] in talliedDevices:
+        deviceName = udev_device_get_name(device_data[UDEV_DATA])
+        mpathName = udev_device_get_multipath_name(device_data[UDEV_DATA])
+        deviceSize = device_data[UDEV_DATA]["XXX_SIZE"]
+
+        if mpathName is None:
+            super(MPathCallbacks, self).incrementDeviceCount(device_data)
             return
 
-        # If the mpath member is already in the list, add the mpath device name
-        if device_data[UDEV_DATA]["DEVNAME"] in talliedDevices:
-            talliedDevices.append(device_data[UDEV_DATA]["name"])
-            return
+        # if a device was single but joined a multipath container, then we should swap out the
+        # name so that it is appropriately skipped for incrementing our count and size
+        if deviceName in talliedDevices:
+            talliedDevices.remove(deviceName)
+            talliedDevices.append(mpathName)
 
-        # If neither the mpath device nor the mpath member exist, add both and increment
-        talliedDevices.append(device_data[UDEV_DATA]["name"])
-        talliedDevices.append(device_data[UDEV_DATA]["DEVNAME"])
-
-        totalDevices += 1
-        totalSize += device_data[UDEV_DATA]["XXX_SIZE"]
-
-        if device_data[ACTIVE_IN_UI]:
-            selectedDevices += 1
-            selectedSize += device_data[UDEV_DATA]["XXX_SIZE"]
+        self._incrementDeviceCount(mpathName, deviceSize, device_data[ACTIVE_IN_UI])
 
     def isMember(self, info):
         return info and isMultipath(info)
@@ -921,12 +923,7 @@ class FilterWindow(InstallWindow):
             # However, we do need all the paths making up this multipath set.
             paths = "\n".join(map(udev_device_get_name, mpath))
 
-            # We use a copy here, so as to not modify the original udev info
-            # dict as that would break NameCache matching
-            data = mpath[0].copy()
-            # This will swap the device name (eg: sda) for the mpath name (eg: mpatha)
-            data["name"] = udev_device_get_multipath_name(mpath[0])
-            device_data = (data, True, _active(data), _isProtected(data),
+            device_data = (mpath[0], True, _active(mpath[0]), _isProtected(mpath[0]),
                      udev_device_get_multipath_name(mpath[0]), model,
                      long(mpath[0]["XXX_SIZE"]),
                      udev_device_get_vendor(mpath[0]),
