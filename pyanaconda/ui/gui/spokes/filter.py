@@ -683,7 +683,11 @@ class FilterSpoke(NormalSpoke):
 
         with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
-            dialog.run()
+            rc = dialog.run()
+
+        if rc == 1:
+            self.skipTo = "StorageSpoke"
+            self.on_back_clicked(rc)
 
         # We now need to refresh so any new disks picked up by adding advanced
         # storage are displayed in the UI.
