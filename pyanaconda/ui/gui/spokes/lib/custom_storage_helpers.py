@@ -517,7 +517,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             self._store.append([disk.description,
                                 str(disk.size),
                                 str(free[disk.name][0]),
-                                disk.serial,
+                                disk.name,
                                 disk.id])
 
         model = self._treeview.get_model()

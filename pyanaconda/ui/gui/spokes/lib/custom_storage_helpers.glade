@@ -716,12 +716,25 @@ use.  Try something else?</property>
                     <child>
                       <object class="GtkTreeViewColumn" id="disk_column1">
                         <property name="spacing">6</property>
-                        <property name="title" translatable="yes">Disk</property>
+                        <property name="title" translatable="yes">Description</property>
                         <property name="clickable">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="disk_renderer1"/>
                           <attributes>
                             <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="name_column1">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Name</property>
+                        <property name="clickable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="name_renderer1"/>
+                          <attributes>
+                            <attribute name="text">3</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -748,19 +761,6 @@ use.  Try something else?</property>
                           <object class="GtkCellRendererText" id="free_renderer1"/>
                           <attributes>
                             <attribute name="text">2</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="id_column1">
-                        <property name="spacing">6</property>
-                        <property name="title" translatable="yes">ID</property>
-                        <property name="clickable">True</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="id_renderer1"/>
-                          <attributes>
-                            <attribute name="text">3</attribute>
                           </attributes>
                         </child>
                       </object>
