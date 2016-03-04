@@ -58,6 +58,7 @@ class DasdFormatDialog(GUIObject):
 
         if len(self.to_format) > 0:
             self._unformatted_label.set_text("\n".join("/dev/" + d.name for d in to_format))
+            self._unformatted_label.set_text("\n".join("/dev/" + d.name + " (" + d.busid + ")" for d in to_format))
         else:
             self._unformatted_label.set_text("")
 
