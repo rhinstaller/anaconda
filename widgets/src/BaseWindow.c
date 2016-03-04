@@ -400,7 +400,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_margin_bottom(win->priv->layout_indicator, 6);
 
     /* Create the help button. */
-    win->priv->help_button = gtk_button_new_with_label(HELP_BUTTON_LABEL);
+    win->priv->help_button = gtk_button_new_with_label(_(HELP_BUTTON_LABEL));
     gtk_widget_set_halign(win->priv->help_button, GTK_ALIGN_END);
     gtk_widget_set_vexpand(win->priv->help_button, FALSE);
     gtk_widget_set_valign(win->priv->help_button, GTK_ALIGN_END);
@@ -408,7 +408,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_name(win->priv->help_button, "anaconda-help-button");
 
     atk = gtk_widget_get_accessible(win->priv->help_button);
-    atk_object_set_name(atk, HELP_BUTTON_LABEL);
+    atk_object_set_name(atk, _(HELP_BUTTON_LABEL));
 
     /* Hook up some signals for that button.  The signal handlers here will
      * just raise our own custom signals for the whole window.
@@ -837,6 +837,8 @@ void anaconda_base_window_retranslate(AnacondaBaseWindow *win) {
     }
 
     gtk_label_set_text(GTK_LABEL(win->priv->beta_label), _(win->priv->orig_beta));
+
+    gtk_button_set_label(GTK_BUTTON(win->priv->help_button), _(HELP_BUTTON_LABEL));
 
     /* retranslate the layout indicator */
     anaconda_layout_indicator_retranslate(ANACONDA_LAYOUT_INDICATOR(win->priv->layout_indicator));
