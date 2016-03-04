@@ -80,7 +80,7 @@ class ResizeDialog(GUIObject):
         self._selected_label = self.builder.get_object("selectedSpaceLabel")
 
         self._required_label = self.builder.get_object("requiredSpaceLabel")
-        markup = self._required_label.get_label()
+        markup = _("Installation requires a total of <b>%s</b> for system data.")
         self._required_label.set_markup(markup % escape_markup(str(self.payload.spaceRequired)))
 
         self._reclaimDescLabel = self.builder.get_object("reclaimDescLabel")
