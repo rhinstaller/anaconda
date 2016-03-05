@@ -314,6 +314,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 04 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.58-1
+- Add device id to dasdfmt screen. (sbueno+anaconda)
+  Resolves: rhbz#1269174
+- Unify displayed columns in custom spoke dialogs. (sbueno+anaconda)
+  Resolves: rhbz#1289577
+- Show some confirmation to users if adding a DASD was successful.
+  (sbueno+anaconda)
+  Resolves: rhbz#1259016
+- Fix dasdfmt during graphical kickstart. (sbueno+anaconda)
+  Resolves: rhbz#1269863
+- Improve password salt creation (bcl)
+  Resolves: rhbz#1229474
+- Display a fatal error if unable to encrypt a password. (dshea)
+  Related: rhbz#1229474
+- NTP should have better behavior (jkonecny)
+  Resolves: rhbz#1260725
+
 * Tue Mar 01 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.57-1
 - Make sure pluginconf.d exists (bcl)
   Resolves: rhbz#1271766

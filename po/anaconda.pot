@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.56\n"
+"Project-Id-Version: anaconda 21.48.22.57\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-03-01 17:57-0800\n"
+"POT-Creation-Date: 2016-03-04 17:49-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1362
+#: pyanaconda/bootloader.py:1354
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -106,7 +106,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1368
+#: pyanaconda/bootloader.py:1360
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -114,7 +114,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1659
+#: pyanaconda/bootloader.py:1651
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -190,7 +190,7 @@ msgstr ""
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/errors.py:104
+#: pyanaconda/errors.py:109
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -200,12 +200,12 @@ msgid ""
 "The installation will now terminate."
 msgstr ""
 
-#: pyanaconda/errors.py:110
+#: pyanaconda/errors.py:115
 #, python-format
 msgid "An error occurred while resizing the device %s."
 msgstr ""
 
-#: pyanaconda/errors.py:119
+#: pyanaconda/errors.py:124
 #, python-format
 msgid ""
 "There is a problem with your existing storage configuration: %(errortxt)s\n"
@@ -218,21 +218,21 @@ msgid ""
 "not fix it you will have to exit the installer."
 msgstr ""
 
-#: pyanaconda/errors.py:128 pyanaconda/ui/gui/main.glade.h:1
+#: pyanaconda/errors.py:133 pyanaconda/ui/gui/main.glade.h:1
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/errors.py:128
+#: pyanaconda/errors.py:133
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/errors.py:135
+#: pyanaconda/errors.py:140
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/errors.py:142
+#: pyanaconda/errors.py:147
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -240,14 +240,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/errors.py:153
+#: pyanaconda/errors.py:158
 msgid ""
 "There is an entry in your /etc/fstab file that contains an invalid or "
 "incorrect file system type:\n"
 "\n"
 msgstr ""
 
-#: pyanaconda/errors.py:159
+#: pyanaconda/errors.py:164
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
@@ -258,7 +258,7 @@ msgid ""
 "using this image?"
 msgstr ""
 
-#: pyanaconda/errors.py:173
+#: pyanaconda/errors.py:178
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it "
 "on the hard drive.\n"
@@ -266,26 +266,26 @@ msgid ""
 "Should I try again to locate the image?"
 msgstr ""
 
-#: pyanaconda/errors.py:183
+#: pyanaconda/errors.py:188
 #, python-format
 msgid "An error occurred mounting the source device %s. Retry?"
 msgstr ""
 
-#: pyanaconda/errors.py:191
+#: pyanaconda/errors.py:196
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: pyanaconda/errors.py:199
+#: pyanaconda/errors.py:204
 #, python-format
 msgid ""
 "The group '%s' is required for this installation. This group does not exist. "
 "This is a fatal error and installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:205
+#: pyanaconda/errors.py:210
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -293,7 +293,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:210
+#: pyanaconda/errors.py:215
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be excluded from "
@@ -301,14 +301,14 @@ msgid ""
 "group and continue with installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:222
+#: pyanaconda/errors.py:227
 #, python-format
 msgid ""
 "The package '%s' is required for this installation. This package does not "
 "exist. This is a fatal error and installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:229
+#: pyanaconda/errors.py:234
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -316,7 +316,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:240
+#: pyanaconda/errors.py:245
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  This is "
@@ -326,27 +326,27 @@ msgid ""
 "%(details)s"
 msgstr ""
 
-#: pyanaconda/errors.py:248
+#: pyanaconda/errors.py:253
 msgid ""
 "The following error occurred while installing.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:256
+#: pyanaconda/errors.py:261
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
 "your installation source."
 msgstr ""
 
-#: pyanaconda/errors.py:264
+#: pyanaconda/errors.py:269
 msgid ""
 "The following error occurred while installing the boot loader. The system "
 "will not be bootable. Would you like to ignore this and continue with "
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:277
+#: pyanaconda/errors.py:282
 #, python-format
 msgid ""
 "Installation was stopped due to an error installing the boot loader. The "
@@ -355,6 +355,11 @@ msgid ""
 "%s\n"
 "\n"
 "The installer will now terminate."
+msgstr ""
+
+#: pyanaconda/errors.py:290
+#, python-format
+msgid "Unable to encrypt password: unsupported algorithm %s"
 msgstr ""
 
 #: pyanaconda/exception.py:101
@@ -436,7 +441,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:193 pyanaconda/kickstart.py:2038
+#: pyanaconda/install.py:193 pyanaconda/kickstart.py:2051
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -444,24 +449,24 @@ msgstr ""
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:257
+#: pyanaconda/install.py:260
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:260 pyanaconda/packaging/livepayload.py:170
+#: pyanaconda/install.py:263 pyanaconda/packaging/livepayload.py:170
 #: pyanaconda/packaging/yumpayload.py:1449
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/iutil.py:775
+#: pyanaconda/iutil.py:777
 msgid "No host url"
 msgstr ""
 
-#: pyanaconda/iutil.py:796
+#: pyanaconda/iutil.py:798
 msgid "malformed URL, cannot parse it."
 msgstr ""
 
-#: pyanaconda/iutil.py:812
+#: pyanaconda/iutil.py:814
 msgid "URL has no host component"
 msgstr ""
 
@@ -733,26 +738,26 @@ msgstr ""
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1732
+#: pyanaconda/kickstart.py:1745
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1737
+#: pyanaconda/kickstart.py:1750
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1743
+#: pyanaconda/kickstart.py:1756
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1753
+#: pyanaconda/kickstart.py:1766
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -760,23 +765,23 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1760
+#: pyanaconda/kickstart.py:1773
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1765
+#: pyanaconda/kickstart.py:1778
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1768
+#: pyanaconda/kickstart.py:1781
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1821
+#: pyanaconda/kickstart.py:1834
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
@@ -1004,9 +1009,7 @@ msgstr ""
 msgid "Btrfs"
 msgstr ""
 
-#: pyanaconda/storage_utils.py:57
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:34
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
+#: pyanaconda/storage_utils.py:57 pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
 msgid "Disk"
 msgstr ""
 
@@ -2424,25 +2427,25 @@ msgstr ""
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:695
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:709
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:891
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:694
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:708
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:890
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:27
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:697
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:706
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:890
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:893
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:696
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:705
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:889
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:892
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1040
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1039
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1044
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1043
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2897,8 +2900,8 @@ msgid "Failed to save storage configuration..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/storage.py:379
-#: pyanaconda/ui/gui/spokes/storage.py:677
-#: pyanaconda/ui/gui/spokes/storage.py:692
+#: pyanaconda/ui/gui/spokes/storage.py:675
+#: pyanaconda/ui/gui/spokes/storage.py:693
 msgid "Formatting DASDs"
 msgstr ""
 
@@ -2932,44 +2935,44 @@ msgid_plural "%(count)d disks selected; %(capacity)s capacity; %(free)s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:725
+#: pyanaconda/ui/gui/spokes/storage.py:735
 msgid ""
 "You have chosen to skip boot loader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:825
+#: pyanaconda/ui/gui/spokes/storage.py:835
 msgid "There was a problem with your disk selection. Click here for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1011
+#: pyanaconda/ui/gui/spokes/storage.py:1024
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1027
+#: pyanaconda/ui/gui/spokes/storage.py:1040
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1032
+#: pyanaconda/ui/gui/spokes/storage.py:1045
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1033
+#: pyanaconda/ui/gui/spokes/storage.py:1046
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1047
+#: pyanaconda/ui/gui/spokes/storage.py:1060
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1051
+#: pyanaconda/ui/gui/spokes/storage.py:1064
 msgid "_OK"
 msgstr ""
 
@@ -3578,7 +3581,6 @@ msgid "Filter _By:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:28
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:35
 msgid "ID"
 msgstr ""
 
@@ -4778,6 +4780,14 @@ msgctxt "GUI|Advanced Storage|DASD|Configure"
 msgid "_Retry Discovery"
 msgstr ""
 
+#: pyanaconda/ui/gui/spokes/advstorage/dasd.glade.h:11
+msgid "Device discovery succeeded."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/dasd.glade.h:12
+msgid "The added DASD can be found under \"Local Standard Disks\"."
+msgstr ""
+
 #: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:1
 msgctxt "GUI|Advanced Storage|FCoE"
 msgid "_Cancel"
@@ -5172,32 +5182,32 @@ msgctxt "GUI|Custom Partitioning|Container Dialog"
 msgid "_Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:36
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:34
 msgid "RAID Level:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:37
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:35
 msgid "Encrypt"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:38
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:36
 msgid "Please enter a valid name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:39
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:37
 msgctxt "GUI|Custom Partitioning|Container Dialog"
 msgid "Si_ze policy:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:40
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:38
 msgid "Automatic"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:41
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:39
 msgid "As large as possible"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:42
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:40
 msgid "Fixed"
 msgstr ""
 
