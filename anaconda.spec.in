@@ -313,6 +313,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 04 2016 Brian C. Lane <bcl@redhat.com> - 25.0-1
+- Add device id to dasdfmt screen. (#1269174) (sbueno+anaconda)
+- Unify displayed columns in custom spoke dialogs. (#1289577) (sbueno+anaconda)
+- Show some confirmation to users if adding a DASD was successful. (#1259016)
+  (sbueno+anaconda)
+- Hotfix for missing storage in payload class (#1271657) (jkonecny)
+- Check to see if DD repo is already in addOn list (#1268357) (bcl)
+- Use the default levelbar offset values. (dshea)
+- Do not change the GUI language to a missing locale. (#1312607) (dshea)
+- Don't crash when setting an unavailable locale (#1312607) (dshea)
+- Change the default locale to C.UTF-8 (#1312607) (dshea)
+- Update the libtool version-info. (dshea)
+- Use CSS to style the internal widgets. (dshea)
+- Move the widgets pixmaps into resources. (dshea)
+- Add a resource bundle to libAnacondaWidgets (dshea)
+- Rename show_arrow and chosen_changed to show-arrow and chosen-changed (dshea)
+- Remove an invalid transfer notation. (dshea)
+- Stop using SGML in the docs. (dshea)
+- Change the install test URL. (dshea)
+- Fix nfs source crash when options change (#1264071) (bcl)
+- makebumpver: Add a --dry-run option (bcl)
+- NTP should have better behavior (#1309396) (jkonecny)
+- Manually set clock shifts on UI idle (#1251044) (rmarshall)
+- Don't remove selected shared part when Delete all (#1183880) (jkonecny)
+- Don't delete shared/boot parts in deleteAll (#1183880) (jkonecny)
+
 * Fri Feb 19 2016 Brian C. Lane <bcl@redhat.com> - 24.13-1
 - tests/gui enhancements (atodorov)
 - Fix gui tests for anaconda move to anaconda.py (atodorov)
