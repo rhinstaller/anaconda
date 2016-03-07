@@ -751,7 +751,7 @@ class PackagePayload(Payload):
 
         kernels = ["kernel"]
 
-        if isys.isPaeAvailable():
+        if blivet.arch.isX86(32) and isys.isPaeAvailable():
             kernels.insert(0, "kernel-PAE")
 
         # most ARM systems use platform-specific kernels
