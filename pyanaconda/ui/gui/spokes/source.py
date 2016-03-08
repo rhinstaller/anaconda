@@ -21,6 +21,7 @@
 #
 
 import time
+import threading
 
 import logging
 log = logging.getLogger("anaconda")
@@ -365,6 +366,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._proxyUrl = ""
         self._proxyChange = False
         self._cdrom = None
+        self._repoStore_lock = threading.Lock()
 
     def apply(self):
         # If askmethod was provided on the command line, entering the source
@@ -1146,24 +1148,25 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         REPO_ATTRS=("name", "baseurl", "mirrorlist", "proxy", "enabled")
         changed = False
 
-        ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repoStore]
+        with self._repoStore_lock:
+            ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repoStore]
 
-        # Remove repos from payload that were removed in the UI
-        for repo_name in [r for r in self.payload.addOns if r not in ui_orig_names]:
-            repo = self.payload.getAddOnRepo(repo_name)
-            # TODO: Need an API to do this w/o touching yum (not addRepo)
-            self.payload.data.repo.dataList().remove(repo)
-            changed = True
-
-        for repo, orig_repo in [(r[REPO_OBJ],self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
-            if not orig_repo:
+            # Remove repos from payload that were removed in the UI
+            for repo_name in [r for r in self.payload.addOns if r not in ui_orig_names]:
+                repo = self.payload.getAddOnRepo(repo_name)
                 # TODO: Need an API to do this w/o touching yum (not addRepo)
-                self.payload.data.repo.dataList().append(repo)
+                self.payload.data.repo.dataList().remove(repo)
                 changed = True
-            elif not cmp_obj_attrs(orig_repo, repo, REPO_ATTRS):
-                for attr in REPO_ATTRS:
-                    setattr(orig_repo, attr, getattr(repo, attr))
-                changed = True
+
+            for repo, orig_repo in [(r[REPO_OBJ],self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
+                if not orig_repo:
+                    # TODO: Need an API to do this w/o touching yum (not addRepo)
+                    self.payload.data.repo.dataList().append(repo)
+                    changed = True
+                elif not cmp_obj_attrs(orig_repo, repo, REPO_ATTRS):
+                    for attr in REPO_ATTRS:
+                        setattr(orig_repo, attr, getattr(repo, attr))
+                    changed = True
 
         return changed
 
@@ -1182,21 +1185,22 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoURLChecks = {}
         self._repoProxyChecks = {}
 
-        self._repoStore.clear()
-        repos = self.payload.addOns
-        log.debug("Setting up repos: %s", repos)
-        for name in repos:
-            repo = self.payload.getAddOnRepo(name)
-            ks_repo = self.data.RepoData(name=repo.name,
-                                         baseurl=repo.baseurl,
-                                         mirrorlist=repo.mirrorlist,
-                                         proxy=repo.proxy,
-                                         enabled=repo.enabled)
-            # Track the original name, user may change .name
-            ks_repo.orig_name = name
-            self._repoStore.append([self.payload.isRepoEnabled(name),
-                                    ks_repo.name,
-                                    ks_repo])
+        with self._repoStore_lock:
+            self._repoStore.clear()
+            repos = self.payload.addOns
+            log.debug("Setting up repos: %s", repos)
+            for name in repos:
+                repo = self.payload.getAddOnRepo(name)
+                ks_repo = self.data.RepoData(name=repo.name,
+                                             baseurl=repo.baseurl,
+                                             mirrorlist=repo.mirrorlist,
+                                             proxy=repo.proxy,
+                                             enabled=repo.enabled)
+                # Track the original name, user may change .name
+                ks_repo.orig_name = name
+                self._repoStore.append([self.payload.isRepoEnabled(name),
+                                        ks_repo.name,
+                                        ks_repo])
 
         if len(self._repoStore) > 0:
             self._repoSelection.select_path(0)
