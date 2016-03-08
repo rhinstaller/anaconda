@@ -223,6 +223,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.249-1
+- Bios RAID traceback on Filter GUI (rmarshall)
+  Resolves: rhbz#1309069
+- Don't ignore FW RAID containers if everything should be used (vpodzime)
+  Related: rhbz#1120640
+- Fix pki cert path in initrd (bcl)
+  Resolves: rhbz#1259880
+
 * Mon Feb 22 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.248-1
 - Wait for all udev events to finish (jstodola)
   Resolves: rhbz#1309348

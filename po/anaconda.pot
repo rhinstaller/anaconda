@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.247\n"
+"Project-Id-Version: anaconda 13.21.248\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-02-22 15:01-0500\n"
+"POT-Creation-Date: 2016-03-08 10:52-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -473,7 +473,7 @@ msgstr ""
 #: yuminstall.py:1120 yuminstall.py:1400 yuminstall.py:1467 yuminstall.py:1671
 #: yuminstall.py:1693 iw/advanced_storage.py:385 iw/advanced_storage.py:398
 #: iw/advanced_storage.py:458 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:497 iw/osbootwidget.py:211
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:499 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:472
 #: loader/windows.h:31 loader/cdinstall.c:240 loader/cdinstall.c:512
@@ -2174,7 +2174,7 @@ msgstr ""
 msgid "Clear Disks Selector"
 msgstr ""
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:498
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:500
 msgid "You must select at least one drive to be used for installation."
 msgstr ""
 
@@ -2182,8 +2182,8 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:611
-#: iw/filter_gui.py:623 iw/filter_gui.py:653
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:613
+#: iw/filter_gui.py:625 iw/filter_gui.py:655
 msgid "Model"
 msgstr ""
 
@@ -2191,18 +2191,18 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:613 iw/filter_gui.py:633
-#: iw/filter_gui.py:644 iw/filter_gui.py:655
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:615 iw/filter_gui.py:635
+#: iw/filter_gui.py:646 iw/filter_gui.py:657
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:616
-#: iw/filter_gui.py:631 iw/filter_gui.py:642 iw/filter_gui.py:658
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:618
+#: iw/filter_gui.py:633 iw/filter_gui.py:644 iw/filter_gui.py:660
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:614 iw/filter_gui.py:634
-#: iw/filter_gui.py:645 iw/filter_gui.py:656
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:616 iw/filter_gui.py:636
+#: iw/filter_gui.py:647 iw/filter_gui.py:658
 msgid "Interconnect"
 msgstr ""
 
@@ -2310,43 +2310,43 @@ msgstr ""
 msgid "Unknown Linux system"
 msgstr ""
 
-#: iw/filter_gui.py:180
+#: iw/filter_gui.py:188
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr ""
 
-#: iw/filter_gui.py:464
+#: iw/filter_gui.py:466
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:612 iw/filter_gui.py:624 iw/filter_gui.py:632
-#: iw/filter_gui.py:643 iw/filter_gui.py:654
+#: iw/filter_gui.py:614 iw/filter_gui.py:626 iw/filter_gui.py:634
+#: iw/filter_gui.py:645 iw/filter_gui.py:656
 msgid "Capacity (MB)"
 msgstr ""
 
-#: iw/filter_gui.py:615 iw/filter_gui.py:646 iw/filter_gui.py:657
+#: iw/filter_gui.py:617 iw/filter_gui.py:648 iw/filter_gui.py:659
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:617 iw/filter_gui.py:625 iw/filter_gui.py:636
-#: iw/filter_gui.py:647 iw/filter_gui.py:662 iw/osbootwidget.py:66
+#: iw/filter_gui.py:619 iw/filter_gui.py:627 iw/filter_gui.py:638
+#: iw/filter_gui.py:649 iw/filter_gui.py:664 iw/osbootwidget.py:66
 #: iw/partition_gui.py:613
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:635
+#: iw/filter_gui.py:637
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:659
+#: iw/filter_gui.py:661
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:660
+#: iw/filter_gui.py:662
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:661
+#: iw/filter_gui.py:663
 msgid "LUN"
 msgstr ""
 
@@ -4724,7 +4724,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:2067 storage/devicetree.py:2115
+#: storage/devicetree.py:2072 storage/devicetree.py:2120
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
