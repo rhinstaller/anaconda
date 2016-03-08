@@ -215,7 +215,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 # we hate you.
 
                 continue
-            setattr(namespace, option.dest, val)
+            option(self, namespace, val)
         return namespace
 
     # pylint: disable=arguments-differ
