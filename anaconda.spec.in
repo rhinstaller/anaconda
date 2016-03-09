@@ -314,6 +314,37 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 09 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 24.13.1-1
+- don't install kernel-PAE on x86_64 (#1313957) (awilliam)
+- except block in py3.5 undefines the variable (bcl)
+- Remove some history from the liveinst setup. (#1313098) (dshea)
+- Do not run the liveinst setup if not in a live environment. (#1313098) (dshea)
+- Set GDK_BACKEND=x11 before running anaconda from liveinst. (#1313098) (dshea)
+- Run zz-liveinst as an autostart application (#1313098) (dshea)
+- Translate the help button. (dshea)
+- Translate the required space labes in resize.py (dshea)
+- Add device id to dasdfmt screen. (#1269174) (sbueno+anaconda)
+- Unify displayed columns in custom spoke dialogs. (#1289577) (sbueno+anaconda)
+- Show some confirmation to users if adding a DASD was successful. (#1259016) (sbueno+anaconda)
+- Hotfix for missing storage in payload class (#1271657) (jkonecny)
+- Use the default levelbar offset values. (dshea)
+- Do not change the GUI language to a missing locale. (#1312607) (dshea)
+- Don't crash when setting an unavailable locale (#1312607) (dshea)
+- Change the default locale to C.UTF-8 (#1312607) (dshea)
+- Update the libtool version-info. (dshea)
+- Use CSS to style the internal widgets. (dshea)
+- Move the widgets pixmaps into resources. (dshea)
+- Add a resource bundle to libAnacondaWidgets (dshea)
+- Rename show_arrow and chosen_changed to show-arrow and chosen-changed (dshea)
+- Remove an invalid transfer notation. (dshea)
+- Stop using SGML in the docs. (dshea)
+- Change the install test URL. (dshea)
+- NTP should have better behavior (#1309396) (jkonecny)
+- Update zanata.xml file for f24-branch. (sbueno+anaconda)
+- Manually set clock shifts on UI idle (#1251044) (rmarshall)
+- Don't remove selected shared part when Delete all (#1183880) (jkonecny)
+- Don't delete shared/boot parts in deleteAll (#1183880) (jkonecny)
+
 * Fri Feb 19 2016 Brian C. Lane <bcl@redhat.com> - 24.13-1
 - tests/gui enhancements (atodorov)
 - Fix gui tests for anaconda move to anaconda.py (atodorov)
