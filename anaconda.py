@@ -171,6 +171,10 @@ def doExtraX11Actions(runres):
 
     set_x_resolution(runres)
 
+    # Load the system-wide Xresources
+    iutil.execWithRedirect("xrdb",
+            ["-nocpp", "-merge", "/etc/X11/Xresources"])
+
     startSpiceVDAgent()
 
 def setupPythonUpdates():
