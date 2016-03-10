@@ -566,8 +566,8 @@ reposdir=%s
                                  proxyurl=proxyurl, sslverify=sslverify)
                 self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl, sslverify)
             except (MetadataError, PayloadError) as e:
-                log.error("base repo (%s/%s) not valid -- removing it",
-                          method.method, url)
+                log.error("base repo (%s/%s) not valid -- removing it", method.method, url)
+                log.error("reason for repo removal: %s", e)
                 self._removeYumRepo(BASE_REPO_NAME)
                 if not fallback:
                     with _yum_lock:
