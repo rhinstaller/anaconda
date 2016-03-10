@@ -509,6 +509,24 @@ class Network:
                             dev.set(('BOOTPROTO', "ibft"))
                             dev.set(('ONBOOT', "yes"))
                             dev.writeIfcfgFile()
+                    # For vlan create the ifcfg
+                    elif settings['connection']['type'] == "vlan":
+                        buf = """
+DEVICE=%s
+UUID=%s
+ONBOOT=yes
+TYPE=Vlan
+VLAN=yes
+BOOTPROTO=ibft
+""" % (interface_name, settings['connection']['uuid'])
+                        ifcfgfile = "%s/ifcfg-%s" % (netscriptsDir, interface_name)
+                        f = open(ifcfgfile, "w")
+                        f.write(buf)
+                        f.close()
+
+                        device = NetworkDevice(netscriptsDir, interface_name)
+                        device.loadIfcfgFile()
+                        self.netdevices[interface_name] = device
 
     # devices == None => set for all
     def updateActiveDevices(self, devices=None):
