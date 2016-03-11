@@ -41,6 +41,7 @@ from pyanaconda import threads
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once, unbusyCursor
+from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda import ihelp
 import os.path
 
@@ -446,6 +447,10 @@ class MainWindow(Gtk.Window):
         # we have a sensible initial value, just in case
         self._saved_help_button_label = _("Help!")
 
+        # Apply the initial language attributes
+        self._language = None
+        self.reapply_language()
+
     def _on_delete_event(self, widget, event, user_data=None):
         # Use the quit-clicked signal on the the current standalone, even if the
         # standalone is not currently displayed.
@@ -478,6 +483,11 @@ class MainWindow(Gtk.Window):
         else:
             # restore the old label
             help_button.set_label(self._saved_help_button_label)
+
+    def _on_child_added(self, widget, user_data):
+        # If this is GtkLabel, apply the language attribute
+        if isinstance(widget, Gtk.Label):
+            AnacondaWidgets.apply_language(widget, user_data)
 
     @property
     def current_action(self):
@@ -605,9 +615,24 @@ class MainWindow(Gtk.Window):
         dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         dialog.set_transient_for(self)
 
+        # Apply the language attributes to the dialog
+        watch_children(dialog, self._on_child_added, self._language)
+
         yield
 
+        unwatch_children(dialog, self._on_child_added, self._language)
+
         self.lightbox_off()
+
+    def reapply_language(self):
+        # Set a new watch_children watcher with the current language
+
+        # Clear the old one, if there is one
+        if self._language:
+            unwatch_children(self, self._on_child_added, self._language)
+
+        self._language = os.environ["LANG"]
+        watch_children(self, self._on_child_added, self._language)
 
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
