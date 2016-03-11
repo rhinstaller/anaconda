@@ -193,8 +193,9 @@ class Network(commands.network.RHEL7_Network, DracutArgsMixin):
                     return
                 else:
                     log.info("Using %s as first device with link found", net.device)
-            # tell dracut to bring this device up
-            netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
+            # tell dracut to bring this device up if it's not already done by user
+            if not "ip" in proc_cmdline:
+                netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
         else:
             # all subsequent 'network' lines require '--device'
             if not net.device or net.device == "link":
