@@ -25,6 +25,10 @@ import re
 import langtable
 import os
 
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
+
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup, gtk_action_wait
@@ -280,8 +284,11 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         #   so make sure the object is actually what we think it is
         # - ignoring this run is OK as the initial title is
         #   already translated to the initial language
-        if hasattr(self.main_window, "set_title"):
+        if isinstance(self.main_window, Gtk.Window):
             self.main_window.set_title(_(WINDOW_TITLE_TEXT))
+
+            # Correct the language attributes for labels
+            self.main_window.reapply_language()
 
     def refresh(self):
         self._select_locale(self.data.lang.lang)
