@@ -42,6 +42,11 @@
         <xi:include href="xml/LayoutIndicator.xml" />
     </chapter>
 
+    <chapter id="utility">
+        <title>Utility Functions</title>
+        <xi:include href="xml/widgets-common.xml" />
+    </chapter>
+
     <chapter id="hierarchy">
         <title>Object Hierarchy</title>
         <xi:include href="xml/tree_index.sgml" />
@@ -61,6 +66,10 @@
 
     <index id="api-index-3.1" role="3.1">
 	<title>Index of new symbols in 3.1</title>
+    </index>
+
+    <index id="api-index-3.4" role="3.4">
+	<title>Index of new symbols in 3.4</title>
     </index>
 
     <xi:include href="xml/annotation-glossary.xml">
