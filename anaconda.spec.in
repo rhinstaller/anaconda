@@ -314,6 +314,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 10 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.59-1
+- Fix a DBus InvalidProperty handling (jkonecny)
+  Resolves: rhbz#1315843
+- Fix a bad usage of execWithRedirect (dshea)
+  Resolves: rhbz#1270319
+- Use an icon that exists in Adwaita for the dasd confirmation (dshea)
+  Related: rhbz#1259016
+- Translate the help button. (dshea)
+  Resolves: rhbz#1314451
+- Translate the required space labes in resize.py (dshea)
+  Resolves: rhbz#1314451
+- Increase yum debug logging level from 3 to 6 (jkonecny)
+  Resolves: rhbz#1254368
+
 * Fri Mar 04 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.58-1
 - Add device id to dasdfmt screen. (sbueno+anaconda)
   Resolves: rhbz#1269174
