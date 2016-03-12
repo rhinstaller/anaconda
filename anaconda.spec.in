@@ -314,6 +314,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 11 2016 Brian C. Lane <bcl@redhat.com> - 25.2-1
+- Load the system-wide Xresources (#1241724) (dshea)
+- Use an icon that exists in Adwaita for the dasd confirmation (dshea)
+- Make it possible to skip saving of kickstarts and logs (#1285519) (mkolman)
+- Add a function for empty file creation (#1285519) (mkolman)
+- Run actions for argparse arguments (#1285519) (mkolman)
+
 * Wed Mar 09 2016 Brian C. Lane <bcl@redhat.com> - 25.1-1
 - don't install kernel-PAE on x86_64 (#1313957) (awilliam)
 - except block in py3.5 undefines the variable (bcl)
