@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 14 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.250-1
+- Create ibft vlan ifcfg file in stage2 if needed (rvykydal)
+  Resolves: rhbz#831002
+
 * Tue Mar 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.249-1
 - Bios RAID traceback on Filter GUI (rmarshall)
   Resolves: rhbz#1309069
