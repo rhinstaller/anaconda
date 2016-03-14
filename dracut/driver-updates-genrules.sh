@@ -26,7 +26,7 @@ for dd in $DD_OEMDRV $DD_DISK; do
     # ..is this actually a disk image that already exists inside initramfs?
     if [ -f $dd ]; then
         # if so, no need to wait for udev - add it to initqueue now
-        initqueue --onetime --unique --name dd_initrd \
+        initqueue --onetime --name dd_initrd \
             driver-updates --disk $dd $dd
     else
         # otherwise, tell udev to do driver-updates when the device appears
