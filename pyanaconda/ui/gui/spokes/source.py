@@ -301,7 +301,7 @@ class IsoChooser(GUIObject):
 
     def __init__(self, data):
         GUIObject.__init__(self, data)
-        self._chooser = self.builder.get_object("isoChooser")
+        self._chooser = self.builder.get_object("isoChooserDialog")
 
     # pylint: disable=arguments-differ
     def refresh(self, currentFile=""):
