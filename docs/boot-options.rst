@@ -454,10 +454,10 @@ Locations may be specified using any of the formats allowed for ``inst.repo``.
 For any format the ``<path>`` component defaults to ``/updates.img`` if it is
 omitted.
 
-.. nokill:
+.. inst.nokill:
 
-nokill
-^^^^^^
+inst.nokill
+^^^^^^^^^^^
 
 A debugging option that prevents anaconda from and rebooting when a fatal error
 occurs or at the end of the installation process.
