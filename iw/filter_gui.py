@@ -34,6 +34,7 @@ from iw_gui import *
 from storage.devices import devicePathToName
 from storage.udev import *
 from storage.devicelibs.mpath import *
+from storage.devicelibs.mdraid import mdadd, mddeactivate, ensure_mdadm_conf_entry
 from flags import flags
 import storage.iscsi
 import storage.fcoe
@@ -839,6 +840,13 @@ class FilterWindow(InstallWindow):
         # Entry point to the code that runs when the FilterWindow GUI is opened
         # within the anaconda installer
         for d in nonraids:
+            # It is possible that an md fwraid array has already been activated
+            # from here or the basic storage path. Since isRAID really
+            # identifies raid _members_ the arrays end up in nonraids, which is
+            # wrong.
+            if udev_device_get_md_uuid(d):
+                continue
+
             name = udev_device_get_name(d)
 
             # We aren't guaranteed to be able to get a device.  In
@@ -866,10 +874,13 @@ class FilterWindow(InstallWindow):
             _addDeviceData(device_data)
 
         if raids and flags.dmraid:
+            # isw/imsm is handled by mdadm -- not dmraid/pyblock
+            mdraids = [d for d in raids
+                       if udev_device_get_format(d) == "isw_raid_member"]
             used_raidmembers = []
             for rs in block.getRaidSets():
                 # dmraid does everything in sectors
-                size = (rs.rs.sectors * 512) / (1024.0 * 1024.0)
+                size = (rs.rs.sectors * LINUX_SECTOR_SIZE) / 1024.0 ** 2
                 fstype = ""
 
                 # get_members also returns subsets with layered raids, we only
@@ -879,6 +890,10 @@ class FilterWindow(InstallWindow):
                 members = map(lambda m: m.get_devpath(), members)
                 for d in raids:
                     if udev_device_get_name(d) in members:
+                        if d in mdraids:
+                            # use mdadm instead of pyblock
+                            break
+
                         fstype = udev_device_get_format(d)
                         sysfs_path = udev_device_get_sysfs_path(d)
                         break
@@ -900,6 +915,51 @@ class FilterWindow(InstallWindow):
                 device_data = (data, True, _active(data), _isProtected(data), rs.name,
                          model, long(size), "", "", "", "",
                          "\n".join(members), "", "", "")
+                _addDeviceData(device_data)
+
+            # handle imsm/isw separately without pyblock/dmraid
+            mduuids = set()
+            for mdmember in mdraids:
+                # Put the container in mdadm.conf to be consistent with the way
+                # it is done in the storage code. Otherwise the names will vary
+                # depending on whether the user visited the filter the first
+                # time through. If the devicetree was already populated this
+                # should have no effect since mdadm.conf will already be
+                # written out. Note that the fwraid arrays themselves are
+                # not in mdadm.conf until after they are activated, resulting
+                # in them having names like md127.
+                uuid = udev_device_get_md_uuid(mdmember)
+                name = "md%d" % len(mduuids)
+                ensure_mdadm_conf_entry("/dev/" + name, uuid)
+                if uuid not in mduuids:
+                    mduuids.add(uuid)
+
+                try:
+                    mdadd("/dev/" + mdmember["DEVNAME"])
+                except Exception as e:
+                    log.info("error adding biosraid member %s: %s"
+                             % (udev_device_get_name(mdmember), e))
+                    continue
+
+            udev_settle()
+            mdarrays = filter(lambda d: udev_device_get_md_container(d) is not None and
+                                        not udev_device_is_partition(d),
+                              udev_get_block_devices())
+            for mdarray in mdarrays:
+                sectors = iutil.get_sysfs_attr(udev_device_get_sysfs_path(mdarray), "size")
+                size = (int(sectors) * LINUX_SECTOR_SIZE) / 1024.0 ** 2  # MiB
+                members = os.listdir("/sys%s/slaves" % udev_device_get_sysfs_path(mdarray))
+                used_raidmembers.extend(members)
+
+                # Make the strange combination of data required to satisfy isRAID.
+                data = {"XXX_SIZE": size, "ID_FS_TYPE": "isw_raid_member",
+                        "name": mdarray["DEVNAME"],
+                        "sysfs_path": udev_device_get_sysfs_path(mdarray)}
+                device_data = (data, True, _active(data), _isProtected(data),
+                               mdarray["DEVNAME"],
+                               "BIOS RAID set (%s)" % udev_device_get_md_level(mdarray),
+                               long(size), "", "", "", "", "\n".join(sorted(members)),
+                               "", "", "")
                 _addDeviceData(device_data)
 
             unused_raidmembers = []
