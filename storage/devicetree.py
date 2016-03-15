@@ -941,23 +941,28 @@ class DeviceTree(object):
             return True
 
         # Special handling for mdraid external metadata sets (mdraid BIOSRAID):
-        if udev_device_get_md_level(info) == "container":
+        if udev_device_is_md(info) and \
+           udev_device_get_md_level(info) == "container":
             if not self.exclusiveDisks and not self._ignoredDisks:
                 # both exclusiveDisks and _ignoredDisks being empty means use
                 # everything
                 return False
 
-            if name in self.exclusiveDisks:
-                # XXX: should we do this somewhere above in general?
-                return False
-            # we should ignore the container if all its members are ignored
+            # we should ignore the container if any of its members are ignored
             # Members of a fwraid array should have only one name since they
             # are not virtual devices.
             members = os.listdir("/sys%s/slaves" % sysfs_path)
             if not members:
                 return True
 
-            return not any(member in self.exclusiveDisks for member in members)
+            for member in members:
+                if member in self._ignoredDisks:
+                    return True
+
+                if self.exclusiveDisks and member not in self.exclusiveDisks:
+                    return True
+
+            return False
 
         # We want exclusiveDisks to operate on anything that could be
         # considered a directly usable disk, ie: fwraid array, mpath, or disk.
