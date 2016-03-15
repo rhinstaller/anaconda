@@ -2915,8 +2915,9 @@ class MDRaidArrayDevice(StorageDevice):
         if self.exists and self.uuid:
             # this is a hack to work around mdadm's insistence on giving
             # really high minors to arrays it has no config entry for
-            open("/etc/mdadm.conf", "a").write("ARRAY %s UUID=%s\n"
-                                                % (self.path, self.uuid))
+            # XXX This doesn't work for fwraid arrays since they get started
+            #     before an mdadm.conf entry is added for them.
+            mdraid.ensure_mdadm_conf_entry(self.path, self.uuid)
 
     @property
     def rawArraySize(self):
