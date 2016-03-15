@@ -31,6 +31,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
+MDADM_CONF = "/etc/mdadm.conf"
+
 # raidlevels constants
 RAID10 = 10
 RAID6 = 6
@@ -230,3 +232,9 @@ def mdexamine(device):
 
     return info
 
+def ensure_mdadm_conf_entry(path, uuid):
+    """ Add an array entry to mdadm.conf if one doesn't already exist. """
+    if os.path.exists(MDADM_CONF) and uuid in open(MDADM_CONF).read():
+        return
+
+    open(MDADM_CONF, "a").write("ARRAY %s UUID=%s\n" % (path, uuid))
