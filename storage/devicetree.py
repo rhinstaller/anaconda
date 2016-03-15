@@ -941,11 +941,6 @@ class DeviceTree(object):
             return True
 
         # Special handling for mdraid external metadata sets (mdraid BIOSRAID):
-        # 1) The containers are intermediate devices which will never be
-        # in exclusiveDisks
-        # 2) Sets get added to exclusive disks with their dmraid set name by
-        # the filter ui.  Note that making the ui use md names instead is not
-        # possible as the md names are simpy md# and we cannot predict the #
         if udev_device_get_md_level(info) == "container":
             if not self.exclusiveDisks and not self._ignoredDisks:
                 # both exclusiveDisks and _ignoredDisks being empty means use
@@ -956,25 +951,13 @@ class DeviceTree(object):
                 # XXX: should we do this somewhere above in general?
                 return False
             # we should ignore the container if all its members are ignored
-            all_rsets = block.getRaidSets()
-            # rsets this device belongs to
-            rsets = []
-            for rs in all_rsets:
-                member_devs = set(member.devpath for member in rs.members if isinstance(member, block.device.RaidDev))
-                if udev_device_get_name(info) in member_devs:
-                    rsets.append(rs)
-            return not any(rs.rs.name in self.exclusiveDisks for rs in rsets)
+            # Members of a fwraid array should have only one name since they
+            # are not virtual devices.
+            members = os.listdir("/sys%s/slaves" % sysfs_path)
+            if not members:
+                return True
 
-        if udev_device_get_md_container(info) and \
-               udev_device_get_md_name(info):
-            md_name = udev_device_get_md_name(info)
-            for i in range(0, len(self.exclusiveDisks)):
-                # Udev changes special characters in md device names
-                # Substitute them in name from exclusiveDisks before matching
-                disk_name = re.sub('[ \t]', '_', self.exclusiveDisks[i]).replace('/', '-')
-                if re.match("isw_[a-z]*_%s" % md_name, disk_name):
-                    self.exclusiveDisks[i] = name
-                    return False
+            return not any(member in self.exclusiveDisks for member in members)
 
         # We want exclusiveDisks to operate on anything that could be
         # considered a directly usable disk, ie: fwraid array, mpath, or disk.
