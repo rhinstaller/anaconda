@@ -792,10 +792,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         self._updateURLEntryCheck()
 
-        # Set up the default state of UI elements.
-        self._networkButton.set_sensitive(True)
-        self._networkBox.set_sensitive(True)
-
         if self.data.method.method == "url":
             self._networkButton.set_active(True)
 
@@ -874,6 +870,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self.clear_info()
             self.set_warning(_("You need to configure the network to use a network installation source."))
+        else: # network button could be deativated from last visit
+            self._networkButton.set_sensitive(True)
 
 
     def _setup_no_updates(self):
