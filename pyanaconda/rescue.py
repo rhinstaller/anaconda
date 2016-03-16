@@ -420,8 +420,6 @@ class RescueMountSpoke(NormalTUISpoke):
                 makeResolvConf(iutil.getSysroot())
             except(OSError, IOError) as e:
                 log.error("Error making resolv.conf: %s", e)
-            text = TextWidget(_("Your system is mounted under the %s directory.") % iutil.getSysroot())
-            self._window.append(text)
 
         # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
         makeFStab()
