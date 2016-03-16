@@ -32,10 +32,10 @@ bad_strings = {'(?i)bootloader': 'boot loader',
                '(?i)mountpoint': 'mount point',
                'Ok':             'OK',
                # Find instances of "return" that are referring to a keyboard key
-               '(?i)<return>':   '<Enter>',
+               '(?i)<return>':   '[Enter]',
                '(?i)press return': 'press Enter',
                # Make sure "Enter" is capitalized
-               '<enter>':        '<Enter>',
+               '<enter>':        '[Enter]',
                '[Pp]ress enter': 'press Enter'
                }
 
@@ -45,7 +45,8 @@ bad_strings = {'(?i)bootloader': 'boot loader',
 expected_badness = {'pyanaconda/bootloader.py': {'mountpoint': 1},  # format string specifier
                     'pyanaconda/kickstart.py':  {'btrfs': 1},       # quoted filesystem type
                     'pyanaconda/network.py':    {'vlan': 1},        # format string specifier
-                    'pyanaconda/rescue.py':     {'mountpoint': 1}}  # format string specifier
+                    'pyanaconda/rescue.py':     {'mountpoint': 1},  # format string specifier
+                    'anaconda.py':              {'HOSTNAME': 1}}    # ssh to install@HOSTNAME
 
 # Use polib to parse anaconda.pot
 try:

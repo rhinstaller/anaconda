@@ -431,7 +431,7 @@ class RescueMountSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
-        return _("Please press <Enter> to get a shell. ")
+        return _("Please press [Enter] to get a shell. ")
 
     def input(self, args, key):
         """Move along home."""

@@ -333,7 +333,7 @@ def check_memory(anaconda, options, display_mode=None):
                          "MB of memory, but you only have %(total_ram)s MB\n.")
 
     reboot_extra = _('\n'
-                     'Press <Enter> to reboot your system.\n')
+                     'Press [Enter] to reboot your system.\n')
     livecd_title = _("Not enough RAM")
     livecd_extra = _(" Try the text mode installer by running:\n\n"
                      "'/usr/bin/liveinst -T'\n\n from a root "
@@ -612,7 +612,7 @@ def prompt_for_ssh():
     if connxinfo:
         stdoutLog.info(_("Please ssh install@%s to begin the install."), connxinfo)
     else:
-        stdoutLog.info(_("Please ssh install@<host> to continue installation."))
+        stdoutLog.info(_("Please ssh install@HOSTNAME to continue installation."))
 
 def cleanPStore():
     """remove files stored in nonvolatile ram created by the pstore subsystem"""

@@ -199,9 +199,9 @@ class VncServer:
         if self.connxinfo != None:
             self.log.info(_("Please manually connect your vnc client to %s to begin the install."), self.connxinfo)
         else:
-            self.log.info(_("Please manually connect your vnc client to <IP ADDRESS>:%s "
+            self.log.info(_("Please manually connect your vnc client to IP-ADDRESS:%s "
                             "to begin the install. Switch to the shell (Ctrl-B 2) and "
-                            "run 'ip addr' to find the <IP ADDRESS>."), constants.X_DISPLAY_NUMBER)
+                            "run 'ip addr' to find the IP-ADDRESS."), constants.X_DISPLAY_NUMBER)
 
     def startServer(self):
         self.log.info(_("Starting VNC..."))
@@ -251,7 +251,7 @@ class VncServer:
                                 "to the vncviewer is unsuccessful\n\n"))
         elif self.password == "":
             self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
-                                "You can use the vncpassword=<password> boot option\n"
+                                "You can use the vncpassword=PASSWORD boot option\n"
                                 "if you would like to secure the server.\n\n"))
         elif self.password != "":
             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
