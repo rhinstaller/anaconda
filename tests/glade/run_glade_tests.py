@@ -9,8 +9,8 @@ from gladecheck import GladePlugin
 
 # Check for prerequisites
 # used in check_icons.py via tests/lib/iconcheck.py
-if os.system("rpm -q gnome-icon-theme gnome-icon-theme-symbolic >/dev/null 2>&1") != 0:
-    print("gnome-icon-theme and gnome-icon-theme-symbolic must be installed")
+if os.system("rpm -q adwaita-icon-theme >/dev/null 2>&1") != 0:
+    print("adwaita-icon-theme must be installed")
     sys.exit(99)
 
 # If no test scripts were specified on the command line, select check_*.py
