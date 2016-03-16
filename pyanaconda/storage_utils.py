@@ -188,21 +188,6 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
                         "which is required for installation of %s "
                         "to continue.") % (productName,)))
 
-    # Prevent users from installing on s390x with (a) no /boot volume, (b) the
-    # root volume on LVM, and (c) the root volume not restricted to a single
-    # PV
-    # NOTE: There is not really a way for users to create a / volume
-    # restricted to a single PV.  The backend support is there, but there are
-    # no UI hook-ups to drive that functionality, but I do not personally
-    # care.  --dcantrell
-    if arch.isS390() and '/boot' not in storage.mountpoints and root:
-        if root.type == 'lvmlv' and not root.singlePV:
-            exns.append(
-               SanityError(_("This platform requires /boot on a dedicated "
-                            "partition or logical volume.  If you do not "
-                            "want a /boot volume, you must place / on a "
-                            "dedicated non-LVM partition.")))
-
     # FIXME: put a check here for enough space on the filesystems. maybe?
 
     for (mount, size) in checkSizes:
