@@ -67,6 +67,9 @@ SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
 AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
 AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
 
+IPV4_CONFIG = "IPv4"
+IPV6_CONFIG = "IPv6"
+
 DEVICES_COLUMN_TITLE = 2
 DEVICES_COLUMN_OBJECT = 3
 
@@ -747,9 +750,35 @@ class NetworkControlBox(GObject.GObject):
         else:
             self.add_dev_cfg(DeviceConfiguration(device=device, con=con))
 
-        device.connect("notify::ip4-config", self.on_device_config_changed)
-        device.connect("notify::ip6-config", self.on_device_config_changed)
+        device.connect("notify::ip4-config", self.on_ip_obj_changed, IPV4_CONFIG)
+        device.connect("notify::ip6-config", self.on_ip_obj_changed, IPV6_CONFIG)
         device.connect("state-changed", self.on_device_state_changed)
+
+    def on_ip_obj_changed(self, device, *args):
+        """Callback when ipX-config objects will be changed.
+
+        Register callback on properties (IP address, gateway...) of these ipX-config
+        objects when they are created.
+        """
+        log.debug("network: %s object changed", args[1])
+        self.on_device_config_changed(device)
+        if args[1] == IPV4_CONFIG:
+            config = device.props.ip4_config
+        else:
+            config = device.props.ip6_config
+
+        if config:
+            # register callback when inner NMIP[4,6]Config object changed
+            config.connect("notify::addresses", self.on_config_changed, device)
+            config.connect("notify::gateway", self.on_config_changed, device)
+            config.connect("notify::nameservers", self.on_config_changed, device)
+
+    def on_config_changed(self, config, *args):
+        """Callback on property change of ipX-config objects.
+
+        Call method which show changed properties (IP, gateway...) to an user.
+        """
+        self.on_device_config_changed(args[1])
 
     def _dev_icon_name(self, dev_cfg):
         icon_name = ""
@@ -1172,6 +1201,22 @@ class NetworkControlBox(GObject.GObject):
         for device in self.client.get_devices():
             _try_disconnect(device, self.on_device_config_changed)
             _try_disconnect(device, self.on_device_state_changed)
+            _try_disconnect(device, self.on_ip_obj_changed)
+            for config in self._get_ip_configs(device):
+                _try_disconnect(config, self.on_config_changed)
+
+    def _get_ip_configs(self, device):
+        out = []
+        try:
+            out.append(self.props.ip4_config)
+        except AttributeError:
+            pass
+        try:
+            out.append(self.props.ip6_config)
+        except AttributeError:
+            pass
+
+        return out
 
 def _try_disconnect(obj, callback):
     try:
