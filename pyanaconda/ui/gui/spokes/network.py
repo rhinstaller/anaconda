@@ -70,7 +70,8 @@ SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
 AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
 AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
 
-
+IPV4_CONFIG = "IPv4"
+IPV6_CONFIG = "IPv6"
 
 def getNMObjProperty(obj, nm_iface_suffix, prop):
     props_iface = dbus.Interface(obj, DBUS_PROPS_IFACE)
@@ -711,9 +712,24 @@ class NetworkControlBox(GObject.GObject):
             dev_cfg = DeviceConfiguration(device=device)
             self.add_dev_cfg(dev_cfg)
 
-        device.connect("notify::ip4-config", self.on_device_config_changed)
-        device.connect("notify::ip6-config", self.on_device_config_changed)
+        device.connect("notify::ip4-config", self.on_ip_obj_changed, IPV4_CONFIG)
+        device.connect("notify::ip6-config", self.on_ip_obj_changed, IPV6_CONFIG)
         device.connect("state-changed", self.on_device_state_changed)
+
+    def on_ip_obj_changed(self, device, *args):
+        log.debug("%s object changed", args[1])
+        self.on_device_config_changed(device)
+        if args[1] == IPV4_CONFIG:
+            config = device.props.ip4_config
+        else:
+            config = device.props.ip6_config
+
+        if config:
+            # register callback when inner NMIP[4,6]Config object changed
+            callback = lambda _x, _y: self.on_device_config_changed(device)
+            config.connect("notify::addresses", callback)
+            config.connect("notify::gateway", callback)
+            config.connect("notify::nameservers", callback)
 
     def _dev_icon_name(self, dev_cfg):
         icon_name = ""
