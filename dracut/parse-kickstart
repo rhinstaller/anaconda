@@ -63,7 +63,10 @@ def read_cmdline(f):
     for line in lines:
         for arg in line.split():
             k,_,v = arg.partition("=")
-            args[k] = v
+            if k not in args:
+                args[k] = [v]
+            else:
+                args[k].append(v)
     return args
 
 def first_device_with_link():
@@ -190,8 +193,9 @@ class Network(commands.network.RHEL7_Network, DracutArgsMixin):
                     return
                 else:
                     log.info("Using %s as first device with link found", net.device)
-            # tell dracut to bring this device up
-            netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
+            # tell dracut to bring this device up if it's not already done by user
+            if not "ip" in proc_cmdline:
+                netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
         else:
             # all subsequent 'network' lines require '--device'
             if not net.device or net.device == "link":
@@ -310,8 +314,22 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
 
     if is_mac(net.device): # this is a MAC - find the interface name
         mac = net.device
+        # we need dev name to create dracut commands
         net.device = find_devname(mac)
         if net.device is None:  # iface not active - pick a name for it
+            try:
+                # find if 'ifname' command isn't already used for this device
+                # if so use user device name
+                for cmd_ifname in proc_cmdline["ifname"]:
+                    cmd_ifname, cmd_mac= cmd_ifname.split(":", 1)
+                    if mac == cmd_mac:
+                        net.device = cmd_ifname
+                        log.info("MAC '%s' is named by user. Use '%s' name." % (mac, cmd_ifname))
+                        break
+            except KeyError:
+                log.debug("ifname= command isn't used generate name ksdev0 for device")
+        # if the device is still None use ksdev0 name
+        if net.device is None:
             net.device = "ksdev0" # we only get called once, so this is OK
             line.append("ifname=%s:%s" % (net.device, mac.lower()))
 
@@ -564,7 +582,9 @@ def write_ifcfg(filename, ifcfg):
 def process_kickstart(ksfile):
     handler = DracutHandler()
     try:
-        handler.ksdevice = proc_cmdline['ksdevice']
+        # if the ksdevice key is present the first item must be there
+        # and it should be only once (ignore the orthers)
+        handler.ksdevice = proc_cmdline['ksdevice'][0]
     except KeyError:
         log.debug("ksdevice argument is not available")
     parser = KickstartParser(handler, missingIncludeIsFatal=False, errorsAreFatal=False)
