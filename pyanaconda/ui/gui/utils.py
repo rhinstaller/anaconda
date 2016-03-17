@@ -520,3 +520,70 @@ def find_first_child(parent, match_func):
             search_list.extend(widget.get_children())
 
     return None
+
+
+_widget_watch_list = {}
+def watch_children(widget, callback, user_data=None):
+    """
+    Call callback on widget and all children of widget as they are added.
+
+    Callback is a function that takes widget and user_data as arguments. No
+    return value is expected.
+
+    Callback will be called immediately for widget, and, if widget is a
+    GtkContainer, for all children of widget. If widget is a container it will
+    be then be watched for new widgets added to the container, and callback
+    will be called on the new children as they are added.
+
+    :param GtkWidget widget: the widget to watch
+    :param function callback: the callback function
+    :param user_data: optional user_data to pass to callback
+    """
+
+    # Watch new children as they are added, and unwatch them as they are removed
+    def _add_signal(container, widget, user_data):
+        callback, user_data = user_data
+
+        watch_children(widget, callback, user_data)
+
+    def _remove_signal(container, widget, user_data):
+        callback, user_data = user_data
+
+        unwatch_children(widget, callback, user_data)
+
+    callback(widget, user_data)
+    if (isinstance(widget, Gtk.Container)):
+        for child in widget.get_children():
+            watch_children(child, callback, user_data)
+
+        # Watch for changes to the container
+        # Only register new signals if there are not already signals for this
+        # widget, function, data combo.
+        signal_key = (widget, callback, user_data)
+
+        if signal_key not in _widget_watch_list:
+            add_signal = widget.connect("add", _add_signal, (callback, user_data))
+            remove_signal = widget.connect("remove", _remove_signal, (callback, user_data))
+
+            _widget_watch_list[signal_key] = (add_signal, remove_signal)
+
+def unwatch_children(widget, callback, user_data=None):
+    """
+    Unregister a callback previously added with watch_children.
+
+    :param GtkWidget widget: the widget to unwatch
+    :param function callback: the callback that was previously added to the widget
+    :param user_data: The user_data that was previously added to the widget
+    """
+
+    signal_key = (widget, callback, user_data)
+
+    if signal_key in _widget_watch_list:
+        add_signal, remove_signal = _widget_watch_list[signal_key]
+        widget.disconnect(add_signal)
+        widget.disconnect(remove_signal)
+        del _widget_watch_list[signal_key]
+
+    if isinstance(widget, Gtk.Container):
+        for child in widget.get_children():
+            unwatch_children(child, callback, user_data)
