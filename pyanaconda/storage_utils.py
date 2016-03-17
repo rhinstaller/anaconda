@@ -25,7 +25,6 @@ import locale
 
 from contextlib import contextmanager
 
-from blivet import arch
 from blivet import util
 from blivet.size import Size
 from blivet.errors import StorageError
