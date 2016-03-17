@@ -563,6 +563,22 @@ def ksnet_to_ifcfg(net, filename=None):
         ifcfg['DEVICE'] = interface_name
         ifcfg['PHYSDEV'] = dev
         filename = "/tmp/ifcfg/ifcfg-%s" % interface_name
+        if net.bondslaves:
+            bond_ifcfg = {
+                           'TYPE' : "Bond",
+                           'NAME' : "Bond connection %s" % dev,
+                           'UUID' : ifcfg['UUID'],
+                           'ONBOOT' : ifcfg['ONBOOT'],
+                           'BONDING_MASTER' : ifcfg['BONDING_MASTER'],
+                           'BONDING_OPTS' : ifcfg['BONDING_OPTS'],
+                           'DEVICE' : dev,
+                         }
+            bond_filename = "/tmp/ifcfg/ifcfg-%s" % dev
+            log.info("writing parent bond ifcfg %s for vlan %s", bond_filename, interface_name)
+            write_ifcfg(bond_filename, bond_ifcfg)
+        ifcfg.pop('BONDING_OPTS', None)
+        ifcfg.pop('BONDING_MASTER', None)
+        ifcfg['UUID'] = str(uuid.uuid4())
 
     log.info("writing ifcfg %s for %s" % (filename, dev))
     if write_ifcfg(filename, ifcfg):
