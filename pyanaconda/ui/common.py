@@ -335,6 +335,7 @@ class Spoke(object, metaclass=ABCMeta):
            more specific information, but an overridden method should finish
            by calling this method so the entry will be logged.
         """
+        log.debug("ENTER SPOKE LOG")
         log.debug("Entered spoke: %s", self.__class__.__name__)
 
     def exit_logger(self):
@@ -343,6 +344,7 @@ class Spoke(object, metaclass=ABCMeta):
            overridden method should finish by calling this method so the
            exit will be logged.
         """
+        log.debug("EXIT SPOKE LOG")
         log.debug("Left spoke: %s", self.__class__.__name__)
 
     def finished(self):

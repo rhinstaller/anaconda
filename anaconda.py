@@ -1088,6 +1088,10 @@ if __name__ == "__main__":
     networkInitialize(ksdata)
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
 
+    # initialize the screen access manager before launching the UI
+    from pyanaconda import screen_access
+    screen_access.initSAM()
+
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
     if anaconda.gui_startup_failed:
