@@ -966,9 +966,17 @@ BOOTPROTO=ibft
                     netargs.add("ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
                                gateway, netmask, hostname, nic))
 
+        # ifname= prevents dracut from renaming the devices configured with ip=ibft
+        # to ibftX on installed system
         hwaddr = dev.get("HWADDR")
         if hwaddr:
             netargs.add("ifname=%s:%s" % (nic, hwaddr.lower()))
+        # For vlan devices configured in ibft we need to bind name of the parent
+        if dev.get('BOOTPROTO') == 'ibft' and dev.get("TYPE") == "Vlan":
+            parent_nic = nic.split(".")[0]
+            parent_dev = self.netdevices[parent_nic]
+            parent_hwaddr = parent_dev.get("HWADDR")
+            netargs.add("ifname=%s:%s" % (parent_nic, parent_hwaddr.lower()))
 
         nettype = dev.get("NETTYPE")
         subchannels = dev.get("SUBCHANNELS")
