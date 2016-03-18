@@ -695,16 +695,22 @@ BOOTPROTO=ibft
         for devName, device in self.netdevices.items():
             if (device.usedByFCoE(anaconda) or
                 device.usedByRootOnISCSI(anaconda)):
-                dev = NetworkDevice(instPath + netscriptsDir, devName)
-                if os.access(dev.path, os.R_OK):
-                    dev.loadIfcfgFile()
-                    dev.set(('NM_CONTROLLED', 'no'))
-                    dev.writeIfcfgFile()
-                    log.info("network device %s used by storage will not be "
-                             "controlled by NM" % device.path)
-                else:
-                    log.warning("disableNMForStorageDevices: %s file not found" %
-                                device.path)
+                devNames = [devName]
+                # for vlan configured in ibft turn off NM also for parent
+                if device.get("TYPE") == "Vlan" and device.get("BOOTPROTO") == "ibft":
+                    devNames.append(devName.split(".")[0])
+                for name in devNames:
+                    dev = NetworkDevice(instPath + netscriptsDir, name)
+                    if os.access(dev.path, os.R_OK):
+                        dev.loadIfcfgFile()
+                        dev.set(('NM_CONTROLLED', 'no'))
+                        dev.writeIfcfgFile()
+                        log.info("network device %s used by storage will not be "
+                                 "controlled by NM" % device.path)
+                    else:
+                        log.warning("disableNMForStorageDevices: %s file not found" %
+                                    device.path)
+
 
     def autostartFCoEDevices(self, anaconda, instPath=''):
         for devName, device in self.netdevices.items():
