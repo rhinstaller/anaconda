@@ -314,6 +314,42 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 18 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.60-1
+- Remove unused import in storage_utils (sbueno+anaconda)
+  Related: rhbz#1268025
+- Remove the last instance of singlePV (sbueno+anaconda)
+  Resolves: rhbz#1268025
+- Remove duplicate informational message from rescue mode. (sbueno+anaconda)
+  Resolves: rhbz#1249082
+- If doing dirinstall on s390x, don't prompt to login via ssh to begin install.
+  (sbueno+anaconda)
+  Resolves: rhbz#1269207
+- Fix a problem introduced by a cherry-pick (dshea)
+  Resolves: rhbz#1317558
+  Related: rhbz#1274855
+- Fix duplicate network settings in dracut (jkonecny)
+  Related: rhbz#1293539
+- Fix create device with bad name when parsing KS (jkonecny)
+  Resolves: rhbz#1293539
+- network: don't traceback when trying to turn off misconfigured team
+  connection (rvykydal)
+  Resolves: rhbz#1263971
+- network: don't set NM_CONTROLLED=no for root on SAN (rvykydal)
+  Resolves: rhbz#1273323
+- Use a lock for repoStore access (bcl)
+  Resolves: rhbz#1315414
+- network: use NAME to find ifcfg on s390 with net.ifnames=0 (rvykydal)
+  Resolves: rhbz#1249750
+- fix multiple inst.dd=<path> args (rhbz#1268792) (wwoods)
+  Resolves: rhbz#1268792
+- network: fix configuring team in kickstart pre (rvykydal)
+  Resolves: rhbz#1254929
+- network: Don't set --device link default for hostname only network cmd
+  (rvykydal)
+  Resolves: rhbz#1272274
+- Make the No Space dialog look less terrible. (clumens)
+  Resolves: rhbz#1264328
+
 * Thu Mar 10 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.59-1
 - Fix a DBus InvalidProperty handling (jkonecny)
   Resolves: rhbz#1315843
