@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 25.1\n"
+"Project-Id-Version: anaconda 25.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-03-11 17:12-0800\n"
+"POT-Creation-Date: 2016-03-19 08:08-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2040,25 +2040,25 @@ msgid "Installation source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:62 pyanaconda/ui/tui/spokes/source.py:111
-#: pyanaconda/ui/gui/spokes/source.py:596
+#: pyanaconda/ui/gui/spokes/source.py:598
 #: pyanaconda/ui/gui/spokes/source.glade:758
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:103
-#: pyanaconda/ui/gui/spokes/source.py:588
+#: pyanaconda/ui/gui/spokes/source.py:590
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:105
-#: pyanaconda/ui/gui/spokes/source.py:590
+#: pyanaconda/ui/gui/spokes/source.py:592
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:108
 #: pyanaconda/ui/tui/spokes/source.py:122
-#: pyanaconda/ui/gui/spokes/source.py:584
+#: pyanaconda/ui/gui/spokes/source.py:586
 msgid "Error setting up software source"
 msgstr ""
 
@@ -2067,7 +2067,7 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:558
 #: pyanaconda/ui/gui/spokes/software.py:307
 #: pyanaconda/ui/gui/spokes/software.py:312
-#: pyanaconda/ui/gui/spokes/source.py:598
+#: pyanaconda/ui/gui/spokes/source.py:600
 msgid "Nothing selected"
 msgstr ""
 
@@ -2089,7 +2089,7 @@ msgid "Network"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:144
-#: pyanaconda/ui/gui/spokes/source.py:909
+#: pyanaconda/ui/gui/spokes/source.py:911
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
@@ -2269,22 +2269,22 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:447 widgets/src/BaseWindow.c:153
+#: pyanaconda/ui/gui/__init__.py:448 widgets/src/BaseWindow.c:153
 msgid "Help!"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:893
+#: pyanaconda/ui/gui/__init__.py:917
 #: pyanaconda/ui/gui/spokes/lib/detailederror.py:59
 msgctxt "GUI|Detailed Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:909
+#: pyanaconda/ui/gui/__init__.py:933
 msgctxt "GUI|Yes No Dialog"
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:910
+#: pyanaconda/ui/gui/__init__.py:934
 msgctxt "GUI|Yes No Dialog"
 msgid "_Yes"
 msgstr ""
@@ -2829,7 +2829,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:214
-#: pyanaconda/ui/gui/spokes/source.py:578
+#: pyanaconda/ui/gui/spokes/source.py:580
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2872,146 +2872,146 @@ msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:61
+#: pyanaconda/ui/gui/spokes/source.py:62
 msgid "Setting up installation source..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:81
+#: pyanaconda/ui/gui/spokes/source.py:82
 msgid " <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:92
+#: pyanaconda/ui/gui/spokes/source.py:93
 msgid "Invalid proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:97
+#: pyanaconda/ui/gui/spokes/source.py:98
 #, python-format
 msgid "Invalid proxy protocol: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:103
+#: pyanaconda/ui/gui/spokes/source.py:104
 msgid "Extra characters in proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:107
+#: pyanaconda/ui/gui/spokes/source.py:108
 msgid "Proxy authentication data duplicated"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:261
+#: pyanaconda/ui/gui/spokes/source.py:262
 msgid "This media is good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:263
+#: pyanaconda/ui/gui/spokes/source.py:264
 msgid "This media is not good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:397
+#: pyanaconda/ui/gui/spokes/source.py:398
 msgctxt "GUI|Spoke"
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:517
+#: pyanaconda/ui/gui/spokes/source.py:519
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:582
+#: pyanaconda/ui/gui/spokes/source.py:584
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:593
+#: pyanaconda/ui/gui/spokes/source.py:595
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:726
+#: pyanaconda/ui/gui/spokes/source.py:728
 msgid "Failed to set up installation source; check the repo url."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:728
+#: pyanaconda/ui/gui/spokes/source.py:730
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:760
+#: pyanaconda/ui/gui/spokes/source.py:762
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:761
+#: pyanaconda/ui/gui/spokes/source.py:763
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:921
+#: pyanaconda/ui/gui/spokes/source.py:923
 msgid "You need to configure the network to use a network installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:992
+#: pyanaconda/ui/gui/spokes/source.py:994
 #, python-format
 msgid "Repository %s has empty url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:994
+#: pyanaconda/ui/gui/spokes/source.py:996
 msgid "URL is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:999
+#: pyanaconda/ui/gui/spokes/source.py:1001
 #, python-format
 msgid "Repository %s has invalid url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1001
+#: pyanaconda/ui/gui/spokes/source.py:1003
 msgid "Invalid URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1008
+#: pyanaconda/ui/gui/spokes/source.py:1010
 #, python-format
 msgid "Repository %s does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1010
+#: pyanaconda/ui/gui/spokes/source.py:1012
 msgid "Protocol in URL does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1014
+#: pyanaconda/ui/gui/spokes/source.py:1016
 #, python-format
 msgid "Repository %s has empty NFS server"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1016
+#: pyanaconda/ui/gui/spokes/source.py:1018
 msgid "NFS server is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1024
+#: pyanaconda/ui/gui/spokes/source.py:1026
 #, python-format
 msgid "Repository %s has invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1026
+#: pyanaconda/ui/gui/spokes/source.py:1028
 msgid "Invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1030
+#: pyanaconda/ui/gui/spokes/source.py:1032
 #, python-format
 msgid "Repository %s required remote directory"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1032
+#: pyanaconda/ui/gui/spokes/source.py:1034
 msgid "Remote directory is required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1053
+#: pyanaconda/ui/gui/spokes/source.py:1055
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1061
+#: pyanaconda/ui/gui/spokes/source.py:1063
 msgid "Empty repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1064
+#: pyanaconda/ui/gui/spokes/source.py:1066
 msgid "Invalid repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1070
+#: pyanaconda/ui/gui/spokes/source.py:1072
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -3193,7 +3193,7 @@ msgstr ""
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.py:262
+#: pyanaconda/ui/gui/spokes/welcome.py:266
 #, python-format
 msgid "WELCOME TO %(name)s %(version)s."
 msgstr ""

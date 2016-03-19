@@ -314,6 +314,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Sat Mar 19 2016 Brian C. Lane <bcl@redhat.com> - 25.3-1
+- Apply language attributes to all labels within anaconda. (dshea)
+- Add a function to apply a PangoAttrLanguage to a label. (dshea)
+- Add functions to watch changes to a container widget. (dshea)
+- Switch to the adwaita icon theme. (dshea)
+- Fix duplicate network settings in dracut (#1293539) (jkonecny)
+- Fix create device with bad name when parsing KS (#1293539) (jkonecny)
+- Use a lock for repoStore access (#1315414) (bcl)
+- Add missing inst prefix to the nokill option in docs (mkolman)
+- Merge pull request #551 from wgwoods/master-multiple-initrd-dd-fix (wwoods)
+- fix multiple inst.dd=<path> args (rhbz#1268792) (wwoods)
+
 * Fri Mar 11 2016 Brian C. Lane <bcl@redhat.com> - 25.2-1
 - Load the system-wide Xresources (#1241724) (dshea)
 - Use an icon that exists in Adwaita for the dasd confirmation (dshea)
