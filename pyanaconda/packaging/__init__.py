@@ -36,6 +36,7 @@ import shutil
 from glob import glob
 import re
 import threading
+import time
 
 if __name__ == "__main__":
     from pyanaconda import anaconda_log
@@ -53,7 +54,7 @@ from pyanaconda import isys
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia
-from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
 from pyanaconda.regexes import VERSION_DIGITS
 from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -72,6 +73,8 @@ import urlgrabber
 urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
 
 REPO_NOT_SET = False
+
+MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
 ###
 ### ERROR HANDLING
@@ -428,18 +431,51 @@ class Payload(object):
                          proxy_url, e)
 
         ug = URLGrabber()
-        try:
-            treeinfo = ug.urlgrab("%s/.treeinfo" % url,
-                                  "/tmp/.treeinfo", copy_local=True,
-                                  proxies=proxies, **ugopts)
-        except URLGrabError as e:
+
+        # Retry treeinfo downloads with a progressively longer pause,
+        # so NetworkManager have a chance setup a network and we have
+        # full connectivity before trying to download things. (#1292613)
+        xdelay = xprogressive_delay()
+        for retry_count in xrange(0, MAX_TREEINFO_DOWNLOAD_RETRIES + 1):
+            if retry_count > 0:
+                # introduce a retry delay
+                time.sleep(next(xdelay))
+
             try:
-                treeinfo = ug.urlgrab("%s/treeinfo" % url,
+                treeinfo = ug.urlgrab("%s/.treeinfo" % url,
                                       "/tmp/.treeinfo", copy_local=True,
                                       proxies=proxies, **ugopts)
+                log.debug("retrieved '.treeinfo' from %s", url)
+                break
             except URLGrabError as e:
-                log.info("Error downloading treeinfo: %s", e)
-                treeinfo = None
+                log.info("Error downloading '.treeinfo': %s", e)
+                log.info("Trying to download 'treeinfo'")
+
+                try:
+                    treeinfo = ug.urlgrab("%s/treeinfo" % url,
+                                          "/tmp/.treeinfo", copy_local=True,
+                                          proxies=proxies, **ugopts)
+                    log.debug("retrieved 'treeinfo' from %s", url)
+                    break
+                except URLGrabError as ex:
+                    log.info("Error downloading 'treeinfo': %s", ex)
+
+                    # Don't retry if we got a 'HTTP Error 404' from both reponses
+                    # from curl (likely not to be a transient error), just move on.
+                    if "404" in str(e) and "404" in str(ex):
+                        treeinfo = None
+                        log.error("got HTTP Error 404 when downloading [.]treeinfo files")
+                        break
+
+                    if retry_count < MAX_TREEINFO_DOWNLOAD_RETRIES:
+                        # retry
+                        log.info("retrying repo info download for %s, retrying (%d/%d)",
+                                 url, retry_count + 1, MAX_TREEINFO_DOWNLOAD_RETRIES)
+                    else:
+                        # run out of retries
+                        log.error("repo info download for %s failed after %d retries",
+                                  url, retry_count)
+                        treeinfo = None
 
         return treeinfo
 
