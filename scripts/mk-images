@@ -1280,7 +1280,7 @@ elif [ ${BUILDARCH} = ppc64 ]; then
     # ... and similar for ppc64
     source $TOPDIR/mk-images.ppc
 elif [ ${BUILDARCH} = "x86_64" ]; then
-    export UEFI_BOOT_ISO="no"
+    export UEFI_BOOT_ISO="yes"
     source $TOPDIR/mk-images.x86
     source $TOPDIR/mk-images.efi
 elif [ ${BUILDARCH} = "i386" ]; then
