@@ -36,6 +36,7 @@ from fnmatch import fnmatch
 import threading
 import re
 import functools
+import time
 
 from blivet.size import Size
 from pyanaconda.iutil import requests_session
@@ -56,7 +57,7 @@ from pyanaconda import isys
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
-from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.regexes import VERSION_DIGITS
 
@@ -77,6 +78,7 @@ USER_AGENT = "%s (anaconda)/%s" %(productName, productVersion)
 from distutils.version import LooseVersion
 
 REPO_NOT_SET = False
+MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
 def versionCmp(v1, v2):
     """ Compare two version number strings. """
@@ -374,18 +376,50 @@ class Payload(object):
                 log.info("Failed to parse proxy for _getTreeInfo %s: %s",
                          proxy_url, e)
 
+        # Retry treeinfo downloads with a progressively longer pause,
+        # so NetworkManager have a chance setup a network and we have
+        # full connectivity before trying to download things. (#1292613)
+        xdelay = xprogressive_delay()
         response = None
+        ret_code = [None, None]
         headers = {"user-agent": USER_AGENT}
-        try:
-            response = self._session.get("%s/.treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
-        except requests.exceptions.RequestException as e:
-            try:
-                response = self._session.get("%s/treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
-            except requests.exceptions.RequestException as e:
-                log.info("Error downloading treeinfo: %s", e)
-                self.verbose_errors.append(str(e))
-                response = None
 
+        for retry_count in range(0, MAX_TREEINFO_DOWNLOAD_RETRIES + 1):
+            if retry_count > 0:
+                time.sleep(next(xdelay))
+            # Downloading .treeinfo
+            log.info("Trying to download '.treeinfo'")
+            (response, ret_code[0]) = self._download_treeinfo_file(url, ".treeinfo",
+                                                                   headers, proxies, sslverify)
+            if response:
+                break
+            # Downloading treeinfo
+            log.info("Trying to download 'treeinfo'")
+            (response, ret_code[1]) = self._download_treeinfo_file(url, "treeinfo",
+                                                                   headers, proxies, sslverify)
+            if response:
+                break
+
+            # The [.]treeinfo wasn't downloaded. Try it again if [.]treeinfo
+            # is on the server.
+            #
+            # Server returned HTTP 404 code -> no need to try again
+            if (ret_code[0] is not None and ret_code[0] == 404 and
+                ret_code[1] is not None and ret_code[1] == 404):
+                response = None
+                log.error("Got HTTP 404 Error when downloading [.]treeinfo files")
+                break
+            if retry_count < MAX_TREEINFO_DOWNLOAD_RETRIES:
+                # retry
+                log.info("Retrying repo info download for %s, retrying (%d/%d)",
+                         url, retry_count + 1, MAX_TREEINFO_DOWNLOAD_RETRIES)
+            else:
+                # run out of retries
+                err_msg = ("Repo info download for %s failed after %d retries" %
+                           (url, retry_count))
+                log.error(err_msg)
+                self.verbose_errors.append(err_msg)
+                response = None
         if response:
             # write the local treeinfo file
             with open("/tmp/.treeinfo", "w") as f:
@@ -395,6 +429,20 @@ class Payload(object):
             return response.text
         else:
             return None
+
+    def _download_treeinfo_file(self, url, file_name, headers, proxies, verify):
+        try:
+            result = self._session.get("%s/%s" % (url, file_name), headers=headers,
+                                       proxies=proxies, verify=verify)
+            # Server returned HTTP 4XX or 5XX codes
+            if result.status_code >= 400 and result.status_code < 600:
+                log.info("Server returned %i code", result.status_code)
+                return (None, result.status_code)
+            log.debug("Retrieved '%s' from %s", file_name, url)
+        except requests.exceptions.RequestException as e:
+            log.info("Error downloading '%s': %s", file_name, e)
+            return (None, None)
+        return (result, result.status_code)
 
     def _getReleaseVersion(self, url):
         """ Return the release version of the tree at the specified URL. """
