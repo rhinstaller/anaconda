@@ -878,7 +878,7 @@ class FilterWindow(InstallWindow):
                                "BIOS RAID set (%s)" % udev_device_get_md_level(mdarray),
                                long(size), "", "", "", "", "\n".join(sorted(members)),
                                "", "", "")
-                _addDeviceData(device_data)
+                _addTuple(device_data)
 
             unused_raidmembers = []
             for d in raids:
