@@ -1417,12 +1417,12 @@ class PartitionData(commands.partition.F23_PartData):
         if add_fstab_swap:
             storage.addFstabSwap(add_fstab_swap)
 
-class Raid(commands.raid.F23_Raid):
+class Raid(commands.raid.F25_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
 
-class RaidData(commands.raid.F23_RaidData):
+class RaidData(commands.raid.F25_RaidData):
     def execute(self, storage, ksdata, instClass):
         raidmems = []
         devicetree = storage.devicetree
@@ -1531,6 +1531,9 @@ class RaidData(commands.raid.F23_RaidData):
         kwargs["parents"] = raidmems
         kwargs["memberDevices"] = len(raidmems) - self.spares
         kwargs["totalDevices"] = len(raidmems)
+
+        if self.chunk_size:
+            kwargs["chunk_size"] = Size("%d KiB" % self.chunk_size)
 
         # If we were given a pre-existing RAID to create a filesystem on,
         # we need to verify it exists and then schedule a new format action
