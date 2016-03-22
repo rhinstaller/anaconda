@@ -223,6 +223,31 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 22 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.251-1
+- Adjust commit 74014d71 after recent reverts. (dlehman)
+  Related: rhbz#1269872
+- Revert "Refactor variable name (sbueno+anaconda)"
+  Resolves: rhbz#1319697
+- Revert "Fix multipath UI representation (sbueno+anaconda)"
+  Resolves: rhbz#1319697
+- Revert "Bios RAID traceback on Filter GUI (sbueno+anaconda)"
+  Resolves: rhbz#1319697
+- Add the /EFI directory to the boot.iso (bcl)
+  Resolves: rhbz#1188876
+- Clean up devicetree filtering of md containers. (dlehman)
+  Related: rhbz#1120640
+  Related: rhbz#1269872
+- Remove pyblock/dmraid remnants from md container handling. (dlehman)
+  Related: rhbz#1269872
+- Don't use pyblock/dmraid to get sizes of imsm/isw arrays. (dlehman)
+  Resolves: rhbz#1269872
+- Move mdadm.conf entry creation to a function. (dlehman)
+  Related: rhbz#1269872
+- network: disable NM for parent device of vlan configured in ibft (rvykydal)
+  Resolves: rhbz#831002
+- network: set ifname= for parent of vlan defined in ibft (rvykydal)
+  Resolves: rhbz#831002
+
 * Mon Mar 14 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.250-1
 - Create ibft vlan ifcfg file in stage2 if needed (rvykydal)
   Resolves: rhbz#831002
