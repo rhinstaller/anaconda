@@ -23,6 +23,7 @@ import os
 import copy
 import glob
 import shutil
+import selinux
 import subprocess
 import tempfile
 import traceback
@@ -32,7 +33,7 @@ import testconfig
 from dogtail.config import config as dogtail_config
 from dogtail.predicate import GenericPredicate
 from dogtail.tree import SearchError, root
-from dogtail.utils import doDelay, screenshot
+from dogtail.utils import doDelay, isA11yEnabled, screenshot
 from nose.plugins.multiprocess import TimedOutException
 
 class UITestCase(unittest.TestCase):
@@ -69,11 +70,16 @@ class UITestCase(unittest.TestCase):
          which is used instead of runTest for error handling purposes.
     """
 
+    suite_name = None
+
     def update_scratch_dir(self, name=""):
         """ Update the directory where Dogtail saves screenshots. """
         path = os.path.join(testconfig.config.get("resultsdir", ""), name)
         if not path.endswith("/"):
             path += "/"
+
+        if not os.path.isdir(path):
+            os.makedirs(path)
 
         dogtail_config.load({"scratchDir": path})
 
@@ -86,7 +92,7 @@ class UITestCase(unittest.TestCase):
            anaconda should a test fail.  Subclasses should not override this.
            See the documentation for _run.
         """
-        self.update_scratch_dir()
+        self.update_scratch_dir(self.suite_name)
 
         try:
             self._run()
@@ -240,6 +246,10 @@ class UITestCase(unittest.TestCase):
         self.check_window_displayed(hubName)
 
 
+@unittest.skipIf(os.geteuid() != 0, "GUI tests must be run as root")
+@unittest.skipIf(os.environ.get("DISPLAY", "") == "", "DISPLAY must be defined")
+@unittest.skipIf(selinux.security_getenforce() == 1, "SELinux must be disabled or in Permissive mode, see rhbz#1276376")
+@unittest.skipIf(not isA11yEnabled(), "Assistive Technologies are disabled")
 class DogtailTestCase(unittest.TestCase):
     """A subclass that defines all the parameters for starting a local
        copy of anaconda, inspecting results, and managing temporary data!
@@ -275,7 +285,7 @@ class DogtailTestCase(unittest.TestCase):
         self.suite = unittest.TestSuite()
         for test in self.tests:
             T = test()
-            T.update_scratch_dir(self.name)
+            T.suite_name = self.name
             self.suite.addTest(T)
         self.test_result = None
 
@@ -351,11 +361,11 @@ class DogtailTestCase(unittest.TestCase):
             if terminate:
                 self._proc.terminate()
 
-            # tests will click the Reboot or Quit button which will shutdown anaconda
-            # we need to make sure /mnt/sysimage/* are unmounted and device mapper devices
-            # are removed before starting the next test. ATM I have no idea if pyanaconda
-            # provides an API for this so wait for a while instead!
-            doDelay(30)
+            # Tests will click the Reboot or Quit button which will shutdown anaconda.
+            # We need to make sure /mnt/sysimage/* are unmounted and device mapper devices
+            # are removed before starting the next test.
+            subprocess.call(["%s/scripts/anaconda-cleanup" % os.environ.get("top_srcdir", ".")],
+                            stderr=subprocess.STDOUT)
 
             self._proc.kill()
             self._proc = None
@@ -389,7 +399,6 @@ class DogtailTestCase(unittest.TestCase):
         args = ["%s/anaconda.py" % os.environ.get("top_srcdir", ""), "-G"]
         for drive in self._drivePaths.values():
             args += ["--image", drive]
-        args += testconfig.config.get("anacondaArgs", "").strip('"')
 
         # Save a reference to the running anaconda process so we can later kill
         # it if necessary.  For now, the only reason we'd want to kill it is
@@ -401,7 +410,7 @@ class DogtailTestCase(unittest.TestCase):
             self.test_result = unittest.TextTestRunner(verbosity=2, failfast=True).run(self.suite)
             if not self.test_result.wasSuccessful():
                 raise AssertionError('Dogtail tests failed')
-        except TimedOutException:
+        except (TimedOutException, AssertionError):
             self.die(True)
             self.collect_logs()
             self.cleanup()
