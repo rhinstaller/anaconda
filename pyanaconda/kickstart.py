@@ -1546,6 +1546,9 @@ class RaidData(commands.raid.RHEL7_RaidData):
         kwargs["memberDevices"] = len(raidmems) - self.spares
         kwargs["totalDevices"] = len(raidmems)
 
+        if self.chunk_size:
+            kwargs["chunkSize"] = Size("%d KiB" % self.chunk_size)
+
         add_fstab_swap = None
 
         # If we were given a pre-existing RAID to create a filesystem on,
