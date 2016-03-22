@@ -22,7 +22,8 @@ schemadir = $(pkgdatadir)/window-manager/glib-2.0/schemas
 # These files need to be compiled by glib-compile-schemas. This is handled
 # in the spec file scriptlets.
 dist_schema_DATA = org.gnome.desktop.wm.keybindings.gschema.override \
-		   org.gnome.desktop.wm.preferences.gschema.override
+		   org.gnome.desktop.wm.preferences.gschema.override \
+		   org.gnome.metacity.gschema.override
 
 # GSettings insists on the override files being in the same directory as the
 # schemas they modify, so pretend that this is the case with symlinks and
@@ -31,6 +32,7 @@ install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(schemadir)
 	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml $(DESTDIR)$(schemadir)
 	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.desktop.wm.preferences.gschema.xml $(DESTDIR)$(schemadir)
+	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.metacity.gschema.xml $(DESTDIR)$(schemadir)
 	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.desktop.enums.xml $(DESTDIR)$(schemadir)
 	glib-compile-schemas $(DESTDIR)$(schemadir)
 
