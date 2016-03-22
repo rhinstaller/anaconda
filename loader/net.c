@@ -59,6 +59,8 @@
 /* boot flags */
 extern uint64_t flags;
 
+static int anaconda_activated_some_device = 0;
+
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP
  * configuration window.
@@ -502,6 +504,8 @@ int readNetConfig(char * device, iface_t * iface,
 
             logMessage(ERROR, "failed to configure network interface");
             return LOADER_BACK;
+        } else {
+            anaconda_activated_some_device = 1;
         }
 
         return LOADER_NOOP;
@@ -560,6 +564,8 @@ int readNetConfig(char * device, iface_t * iface,
         iface->ipv4method = IPV4_UNUSED_METHOD;
         iface->ipv6method = IPV6_UNUSED_METHOD;
         return LOADER_ERROR;
+    } else {
+        anaconda_activated_some_device = 1;
     }
 
     return LOADER_OK;
@@ -2353,8 +2359,13 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
 
     if ((is_nm_connected() == TRUE) &&
-        (loaderData->netDev != NULL) && (loaderData->netDev_set == 1))
-        return 0;
+        (loaderData->netDev != NULL) && (loaderData->netDev_set == 1)) {
+        if (anaconda_activated_some_device) {
+            return 0;
+        } else {
+            logMessage(INFO, "Have only NM iBFT connections, going to activate network devices from boot options");
+        }
+    }
 
     iface_init_iface_t(iface);
 
