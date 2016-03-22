@@ -875,6 +875,7 @@ class DNFPayload(packaging.PackagePayload):
             except (packaging.MetadataError, packaging.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           method.method, url)
+                log.error("reason for repo removal: %s", e)
                 with self._repos_lock:
                     self._base.repos.pop(constants.BASE_REPO_NAME, None)
                 if not fallback:
