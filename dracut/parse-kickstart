@@ -421,14 +421,17 @@ def ksnet_to_ifcfg(net, filename=None):
     add_s390_settings(dev, ifcfg)
 
     # dhcp etc.
-    ifcfg['BOOTPROTO'] = net.bootProto
-    if net.bootProto == 'static':
-        ifcfg['IPADDR'] = net.ip
-        ifcfg['NETMASK'] = net.netmask
-        ifcfg['GATEWAY'] = net.gateway
-    if net.bootProto == 'dhcp':
-        if net.hostname:
-            ifcfg['DHCP_HOSTNAME'] = net.hostname
+    if net.noipv4:
+        ifcfg['BOOTPROTO'] = "none"
+    else:
+        ifcfg['BOOTPROTO'] = net.bootProto
+        if net.bootProto == 'static':
+            ifcfg['IPADDR'] = net.ip
+            ifcfg['NETMASK'] = net.netmask
+            ifcfg['GATEWAY'] = net.gateway
+        if net.bootProto == 'dhcp':
+            if net.hostname:
+                ifcfg['DHCP_HOSTNAME'] = net.hostname
 
     # ipv6 settings
     if net.noipv6:
