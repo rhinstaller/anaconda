@@ -67,8 +67,10 @@
  *
  *   The status of the spoke
  *
- * In addition, the :inconsistent pseudo-class can be used to select
- * selectors that are in an error state.
+ * In addition, the :indeterminate pseudo-class can be used to select
+ * selectors that are in an error state. The :indeterminate pseudo-class is
+ * also set on the anaconda-spoke-selector-title and
+ * anaconda-spoke-selector-status labels.
  */
 
 enum {
@@ -420,18 +422,19 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
  * Since: 1.0
  */
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
-    GtkStateFlags flags = gtk_widget_get_state_flags(GTK_WIDGET(spoke));
-
     /*
      * If the spoke is incomplete, set the "inconsistent" state to indicate that it
-     * needs attention
+     * needs attention. Copy the flag to the child labels to make style stuff work.
      */
     if (is_incomplete) {
-        flags |= GTK_STATE_FLAG_INCONSISTENT;
+        gtk_widget_set_state_flags(GTK_WIDGET(spoke), GTK_STATE_FLAG_INCONSISTENT, FALSE);
+        gtk_widget_set_state_flags(spoke->priv->status_label, GTK_STATE_FLAG_INCONSISTENT, FALSE);
+        gtk_widget_set_state_flags(spoke->priv->title_label, GTK_STATE_FLAG_INCONSISTENT, FALSE);
     } else {
-        flags &= ~GTK_STATE_FLAG_INCONSISTENT;
+        gtk_widget_unset_state_flags(GTK_WIDGET(spoke), GTK_STATE_FLAG_INCONSISTENT);
+        gtk_widget_unset_state_flags(spoke->priv->status_label, GTK_STATE_FLAG_INCONSISTENT);
+        gtk_widget_unset_state_flags(spoke->priv->title_label, GTK_STATE_FLAG_INCONSISTENT);
     }
-    gtk_widget_set_state_flags(GTK_WIDGET(spoke), flags, TRUE);
 
     /* Update the icon we are displaying, complete with any warning emblem. */
     set_icon(spoke, spoke->priv->icon_name);
