@@ -143,6 +143,9 @@ Requires: python3-coverage >= 4.0-0.12.b3
 # required because of the rescue mode and VNC question
 Requires: anaconda-tui = %{version}-%{release}
 
+# Make sure we get the en locale one way or another
+Requires: (glibc-langpack-en or glibc-all-langpacks)
+
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
