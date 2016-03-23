@@ -385,10 +385,13 @@ def _get_ip_setting_values_from_ksdata(networkdata):
     values = []
 
     # ipv4 settings
-    method4 = "auto"
-    if networkdata.bootProto == "static":
-        method4 = "manual"
-    values.append(["ipv4", "method", method4, "s"])
+    if networkdata.noipv4:
+        method4 = "disabled"
+    else:
+        method4 = "auto"
+        if networkdata.bootProto == "static":
+            method4 = "manual"
+        values.append(["ipv4", "method", method4, "s"])
 
     if method4 == "manual":
         addr4 = nm.nm_ipv4_to_dbus_int(networkdata.ip)
