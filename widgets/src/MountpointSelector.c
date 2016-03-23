@@ -371,11 +371,20 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
 }
 
 static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget) {
+    /* Copy state flag changes to the child labels so they can be used in CSS selectors */
     if (widget->priv->chosen) {
         gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
+        gtk_widget_set_state_flags(widget->priv->arrow, GTK_STATE_FLAG_SELECTED, FALSE);
+        gtk_widget_set_state_flags(widget->priv->name_label, GTK_STATE_FLAG_SELECTED, FALSE);
+        gtk_widget_set_state_flags(widget->priv->size_label, GTK_STATE_FLAG_SELECTED, FALSE);
+        gtk_widget_set_state_flags(widget->priv->mountpoint_label, GTK_STATE_FLAG_SELECTED, FALSE);
     }
     else {
         gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
+        gtk_widget_unset_state_flags(widget->priv->arrow, GTK_STATE_FLAG_SELECTED);
+        gtk_widget_unset_state_flags(widget->priv->name_label, GTK_STATE_FLAG_SELECTED);
+        gtk_widget_unset_state_flags(widget->priv->size_label, GTK_STATE_FLAG_SELECTED);
+        gtk_widget_unset_state_flags(widget->priv->mountpoint_label, GTK_STATE_FLAG_SELECTED);
     }
 }
 
