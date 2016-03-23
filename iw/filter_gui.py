@@ -762,8 +762,11 @@ class FilterWindow(InstallWindow):
             # from here or the basic storage path. Since isRAID really
             # identifies raid _members_ the arrays end up in nonraids, which is
             # wrong.
-            if udev_device_get_md_uuid(d):
-                continue
+            try:
+                if udev_device_get_md_uuid(d):
+                    continue
+            except KeyError:
+                pass
 
             name = udev_device_get_name(d)
 
