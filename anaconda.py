@@ -729,6 +729,11 @@ if __name__ == "__main__":
 
     iutil.ipmi_report(constants.IPMI_STARTED)
 
+    if (opts.images or opts.dirinstall) and opts.liveinst:
+        stdoutLog.error("--liveinst cannot be used with --images or --dirinstall")
+        iutil.ipmi_report(constants.IPMI_ABORTED)
+        sys.exit(1)
+
     if opts.images and opts.dirinstall:
         stdoutLog.error("--images and --dirinstall cannot be used at the same time")
         iutil.ipmi_report(constants.IPMI_ABORTED)
