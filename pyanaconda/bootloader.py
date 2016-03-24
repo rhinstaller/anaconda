@@ -795,6 +795,12 @@ class BootLoader(object):
 
         dracut_devices.extend(storage.fsset.swapDevices)
 
+        # Let dracut know where resume from hibernate data may be.
+        # dracut_devices should take care of the rest of setting up the
+        # device's dependencies.
+        for dev in storage.fsset.swapDevices:
+            self.boot_args.add('resume=%s' % dev.path)
+
         # Does /usr have its own device? If so, we need to tell dracut
         usr_device = storage.mountpoints.get("/usr")
         if usr_device:
