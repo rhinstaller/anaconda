@@ -314,6 +314,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 24 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.61-1
+- Fix crash when new device appear in Welcome screen (jkonecny)
+  Resolves: rhbz#1216926
+- Add reason when logging invalid repository (jkonecny)
+  Resolves: rhbz#1240379
+- network: fix vlan over bond in kickstart (rvykydal)
+  Resolves: rhbz#1234849
+
 * Fri Mar 18 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.60-1
 - Remove unused import in storage_utils (sbueno+anaconda)
   Related: rhbz#1268025

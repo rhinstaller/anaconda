@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.59\n"
+"Project-Id-Version: anaconda 21.48.22.60\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-03-18 20:32-0700\n"
+"POT-Creation-Date: 2016-03-24 16:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1540,7 +1540,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:147
-#: pyanaconda/ui/gui/spokes/network.py:1331
+#: pyanaconda/ui/gui/spokes/network.py:1337
 msgid "Password: "
 msgstr ""
 
@@ -1662,8 +1662,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:263
-#: pyanaconda/ui/gui/spokes/network.py:1490
-#: pyanaconda/ui/gui/spokes/network.py:1559
+#: pyanaconda/ui/gui/spokes/network.py:1496
+#: pyanaconda/ui/gui/spokes/network.py:1565
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""
@@ -2555,88 +2555,88 @@ msgid "Bridge"
 msgstr ""
 
 #. TRANSLATORS: ethernet cable is unplugged
-#: pyanaconda/ui/gui/spokes/network.py:741
+#: pyanaconda/ui/gui/spokes/network.py:747
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:831
+#: pyanaconda/ui/gui/spokes/network.py:837
 #: pyanaconda/ui/gui/spokes/network.glade.h:16
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:832
+#: pyanaconda/ui/gui/spokes/network.py:838
 #: pyanaconda/ui/gui/spokes/network.glade.h:15
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:834
-#: pyanaconda/ui/gui/spokes/network.py:836
+#: pyanaconda/ui/gui/spokes/network.py:840
+#: pyanaconda/ui/gui/spokes/network.py:842
 #: pyanaconda/ui/gui/spokes/network.glade.h:32
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:926
+#: pyanaconda/ui/gui/spokes/network.py:932
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1146
+#: pyanaconda/ui/gui/spokes/network.py:1152
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1149
+#: pyanaconda/ui/gui/spokes/network.py:1155
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1152
+#: pyanaconda/ui/gui/spokes/network.py:1158
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1156
+#: pyanaconda/ui/gui/spokes/network.py:1162
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1161 widgets/src/SpokeSelector.c:82
+#: pyanaconda/ui/gui/spokes/network.py:1167 widgets/src/SpokeSelector.c:82
 #: pyanaconda/ui/gui/spokes/filter.glade.h:3
 #: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:21
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1293
+#: pyanaconda/ui/gui/spokes/network.py:1299
 #: pyanaconda/ui/gui/spokes/network.glade.h:59
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1294
+#: pyanaconda/ui/gui/spokes/network.py:1300
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1308
+#: pyanaconda/ui/gui/spokes/network.py:1314
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1316
+#: pyanaconda/ui/gui/spokes/network.py:1322
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1326
+#: pyanaconda/ui/gui/spokes/network.py:1332
 msgid "User name: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1337
+#: pyanaconda/ui/gui/spokes/network.py:1343
 msgid "Identity: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1342
+#: pyanaconda/ui/gui/spokes/network.py:1348
 msgid "Private key password: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1398
+#: pyanaconda/ui/gui/spokes/network.py:1404
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
