@@ -318,6 +318,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 24 2016 Brian C. Lane <bcl@redhat.com> - 25.4-1
+- Require that the English locale data be available. (#1315494) (dshea)
+- Revert "Change the default locale to C.UTF-8 (#1312607)" (#1315494) (dshea)
+- Make windows in metacity closable (#1319590) (dshea)
+- Fix the use of CSS psuedo-classes in the widgets. (dshea)
+- Add reason when logging invalid repository (#1240379) (jkonecny)
+
 * Sat Mar 19 2016 Brian C. Lane <bcl@redhat.com> - 25.3-1
 - Apply language attributes to all labels within anaconda. (dshea)
 - Add a function to apply a PangoAttrLanguage to a label. (dshea)
