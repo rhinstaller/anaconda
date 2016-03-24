@@ -156,7 +156,8 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         else:
             self._user.gid = None
 
-        self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",")]
+        # ''.split(',') returns [''] instead of [], which is not what we want
+        self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",") if g]
 
     def run(self):
         self.window.show()
