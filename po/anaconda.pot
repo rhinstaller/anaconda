@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.250\n"
+"Project-Id-Version: anaconda 13.21.251\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-03-22 10:49-0400\n"
+"POT-Creation-Date: 2016-03-29 14:39-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,9 +41,9 @@ msgstr ""
 #: loader/loader.c:591 loader/loader.c:1273 loader/loader.c:1302
 #: loader/loader.c:1517 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
-#: loader/method.c:277 loader/method.c:351 loader/net.c:610 loader/net.c:994
-#: loader/net.c:1871 loader/net.c:1895 loader/net.c:2280 loader/net.c:2299
-#: loader/net.c:2311 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/method.c:277 loader/method.c:351 loader/net.c:616 loader/net.c:1000
+#: loader/net.c:1877 loader/net.c:1901 loader/net.c:2286 loader/net.c:2305
+#: loader/net.c:2317 loader/nfsinstall.c:91 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
 #: loader/urlinstall.c:142 loader/urlinstall.c:164 loader/urlinstall.c:226
 #: loader/urlinstall.c:379 loader/urlinstall.c:390 loader/urlinstall.c:397
@@ -1394,8 +1394,8 @@ msgid ""
 "(details)s"
 msgstr ""
 
-#: text.py:633 loader/net.c:112 loader/net.c:557 loader/net.c:699
-#: loader/net.c:707 loader/net.c:1133 loader/net.c:1141
+#: text.py:633 loader/net.c:114 loader/net.c:561 loader/net.c:705
+#: loader/net.c:713 loader/net.c:1139 loader/net.c:1147
 #: textw/constants_text.py:68
 msgid "Retry"
 msgstr ""
@@ -3493,10 +3493,10 @@ msgstr ""
 #: loader/driverdisk.c:602 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
-#: loader/loader.c:1517 loader/loader.c:1550 loader/net.c:610 loader/net.c:994
-#: loader/net.c:2280 loader/net.c:2299 loader/nfsinstall.c:91
-#: loader/urls.c:268 storage/__init__.py:167 storage/devicetree.py:94
-#: textw/constants_text.py:52
+#: loader/loader.c:1517 loader/loader.c:1550 loader/net.c:616
+#: loader/net.c:1000 loader/net.c:2286 loader/net.c:2305
+#: loader/nfsinstall.c:91 loader/urls.c:268 storage/__init__.py:167
+#: storage/devicetree.py:94 textw/constants_text.py:52
 msgid "Back"
 msgstr ""
 
@@ -3602,7 +3602,7 @@ msgstr ""
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
 #: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:196
 #: loader/kickstart.c:201 loader/kickstart.c:530 loader/kickstart.c:576
-#: loader/kickstart.c:592 loader/net.c:1871 loader/net.c:1895
+#: loader/kickstart.c:592 loader/net.c:1877 loader/net.c:1901
 #: loader/nfsinstall.c:384 loader/urlinstall.c:379 loader/urlinstall.c:390
 #: loader/urlinstall.c:397
 msgid "Kickstart Error"
@@ -4008,22 +4008,22 @@ msgstr ""
 msgid "Checksum Test"
 msgstr ""
 
-#: loader/net.c:112
+#: loader/net.c:114
 msgid "Invalid Prefix"
 msgstr ""
 
-#: loader/net.c:113
+#: loader/net.c:115
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:496 loader/net.c:558
+#: loader/net.c:498 loader/net.c:562
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:498
+#: loader/net.c:500
 #, c-format
 msgid ""
 "\n"
@@ -4031,138 +4031,138 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:557 textw/netconfig_text.py:403
+#: loader/net.c:561 textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:588
+#: loader/net.c:594
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:602
+#: loader/net.c:608
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:642
+#: loader/net.c:648
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:699
+#: loader/net.c:705
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:700
+#: loader/net.c:706
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:707
+#: loader/net.c:713
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:708
+#: loader/net.c:714
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:814
+#: loader/net.c:820
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:826 loader/net.c:893
+#: loader/net.c:832 loader/net.c:899
 msgid "/"
 msgstr ""
 
-#: loader/net.c:881
+#: loader/net.c:887
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:947 textw/netconfig_text.py:184 textw/netconfig_text.py:224
+#: loader/net.c:953 textw/netconfig_text.py:184 textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:955
+#: loader/net.c:961
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:1000
+#: loader/net.c:1006
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:1017
+#: loader/net.c:1023
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1133 loader/net.c:1141
+#: loader/net.c:1139 loader/net.c:1147
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1134
+#: loader/net.c:1140
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1142
+#: loader/net.c:1148
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1872
+#: loader/net.c:1878
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1896
+#: loader/net.c:1902
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:2041
+#: loader/net.c:2047
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2275
+#: loader/net.c:2281
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2276
+#: loader/net.c:2282
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2280
+#: loader/net.c:2286
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2289
+#: loader/net.c:2295
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2291
+#: loader/net.c:2297
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2298
+#: loader/net.c:2304
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2311
+#: loader/net.c:2317
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2312
+#: loader/net.c:2318
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2324
+#: loader/net.c:2330
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2558 loader/net.c:2562
+#: loader/net.c:2569 loader/net.c:2573
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
