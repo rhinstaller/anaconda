@@ -181,6 +181,7 @@ G_DEFINE_TYPE_WITH_CODE(AnacondaBaseWindow, anaconda_base_window, GTK_TYPE_BIN,
 
 static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     object_class->set_property = anaconda_base_window_set_property;
     object_class->get_property = anaconda_base_window_get_property;
@@ -264,6 +265,8 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
                                                               G_TYPE_NONE, 0);
 
     g_type_class_add_private(object_class, sizeof(AnacondaBaseWindowPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaBaseWindow");
 }
 
 /**
