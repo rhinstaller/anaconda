@@ -113,6 +113,7 @@ static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSel
 
 static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     object_class->set_property = anaconda_mountpoint_selector_set_property;
     object_class->get_property = anaconda_mountpoint_selector_get_property;
@@ -202,6 +203,8 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
                                           NULL);            // array of types, one for each parameter
 
     g_type_class_add_private(object_class, sizeof(AnacondaMountpointSelectorPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaMountpointSelector");
 }
 
 /**
