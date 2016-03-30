@@ -1036,11 +1036,12 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
 
 # /etc/sysconfig/network-scripts/ifcfg-*
 # /etc/sysconfig/network-scripts/keys-*
-# TODO: routing info from /etc/sysconfig/network-scripts?
+# static routes
+# /etc/sysconfig/network-scripts/route-*
 def copyIfcfgFiles(destPath):
     files = os.listdir(netscriptsDir)
     for cfgFile in files:
-        if cfgFile.startswith(("ifcfg-", "keys-")):
+        if cfgFile.startswith(("ifcfg-", "keys-", "route-")):
             srcfile = os.path.join(netscriptsDir, cfgFile)
             copyFileToPath(srcfile, destPath)
 
