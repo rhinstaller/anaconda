@@ -97,7 +97,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.sshkey.execute(storage, ksdata, instClass, u)
 
     with progress_report(N_("Configuring addons")):
-        ksdata.addons.execute(storage, ksdata, instClass, u)
+        ksdata.addons.execute(storage, ksdata, instClass, u, payload)
 
     with progress_report(N_("Generating initramfs")):
         payload.recreateInitrds()
@@ -180,7 +180,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     with progress_report(N_("Setting up the installation environment")):
         ksdata.firstboot.setup(storage, ksdata, instClass)
-        ksdata.addons.setup(storage, ksdata, instClass)
+        ksdata.addons.setup(storage, ksdata, instClass, payload)
 
     storage.update_ksdata()  # this puts custom storage info into ksdata
 

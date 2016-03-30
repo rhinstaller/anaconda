@@ -23,10 +23,13 @@ __all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
 
 import os
 import functools
+import logging
 from pykickstart.sections import Section
 
 from pyanaconda.progress import progress_message
 from pyanaconda.i18n import N_
+
+log = logging.getLogger("anaconda")
 
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
@@ -80,18 +83,28 @@ class AddonRegistry(object):
         return functools.reduce(lambda acc, id_addon: acc + str(id_addon[1]),
                                 self.__dict__.items(), "")
 
-    def execute(self, storage, ksdata, instClass, users):
+    def execute(self, storage, ksdata, instClass, users, payload):
         """This method calls execute on all the registered addons."""
         for v in self.__dict__.values():
             if hasattr(v, "execute"):
                 progress_message(N_("Executing %s addon") % v.name)
-                v.execute(storage, ksdata, instClass, users)
+                if v.execute.__code__.co_argcount == 6:
+                    v.execute(storage, ksdata, instClass, users, payload)
+                else:
+                    v.execute(storage, ksdata, instClass, users)
+                    log.warning("Addon %s is using deprecated method signature", v.name)
+                    log.warning("Use execute(storage, ksdata, instClass, users, payload) instead")
 
-    def setup(self, storage, ksdata, instClass):
+    def setup(self, storage, ksdata, instClass, payload):
         """This method calls setup on all the registered addons."""
         for v in self.__dict__.values():
             if hasattr(v, "setup"):
-                v.setup(storage, ksdata, instClass)
+                if v.setup.__code__.co_argcount == 5:
+                    v.setup(storage, ksdata, instClass, payload)
+                else:
+                    v.setup(storage, ksdata, instClass)
+                    log.warning("Addon %s is using deprecated method signature", v.name)
+                    log.warning("Use setup(storage, ksdata, instClass, payload) instead")
 
 
 class AddonData(object):
@@ -118,7 +131,7 @@ class AddonData(object):
     def __str__(self):
         return "%%addon %s %s\n%s%%end\n" % (self.name, self.header_args, self.content)
 
-    def setup(self, storage, ksdata, instClass):
+    def setup(self, storage, ksdata, instClass, payload):
         """Make the changes to the install system.
 
            This method is called before the installation
@@ -126,7 +139,7 @@ class AddonData(object):
            to call it multiple times without breaking the environment."""
         pass
 
-    def execute(self, storage, ksdata, instClass, users):
+    def execute(self, storage, ksdata, instClass, users, payload):
         """Make the changes to the underlying system.
 
            This method is called only once in the post-install
