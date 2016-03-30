@@ -74,6 +74,7 @@ static void anaconda_spoke_window_button_clicked(GtkButton *button,
 
 static void anaconda_spoke_window_class_init(AnacondaSpokeWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     klass->button_clicked = NULL;
 
@@ -99,6 +100,8 @@ static void anaconda_spoke_window_class_init(AnacondaSpokeWindowClass *klass) {
                                                          G_TYPE_NONE, 0);
 
     g_type_class_add_private(object_class, sizeof(AnacondaSpokeWindowPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaSpokeWindow");
 }
 
 /**

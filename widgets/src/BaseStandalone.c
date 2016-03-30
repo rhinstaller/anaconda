@@ -148,6 +148,8 @@ static void anaconda_base_standalone_class_init(AnacondaBaseStandaloneClass *kla
                                                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 
     g_type_class_add_private(object_class, sizeof(AnacondaBaseStandalonePrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaBaseStandalone");
 }
 
 static void anaconda_base_standalone_init(AnacondaBaseStandalone *win) {
