@@ -69,16 +69,20 @@ class SummaryHub(TUIHub):
         incompleteSpokes = [spoke for spoke in self._keys.values()
                                       if spoke.mandatory and not spoke.completed]
 
-        # do a bit of final sanity checking, make sure pkg selection
-        # size < available fs space
-        if flags.automatedInstall:
-            if self._checker and not self._checker.check():
-                print(self._checker.error_message)
-            if not incompleteSpokes:
-                self.close()
-                return None
+        # Kickstart space check failure either stops the automated install or
+        # raises an error when using cmdline mode.
+        if flags.automatedInstall and self._checker and not self._checker.check():
+            print(self._checker.error_message)
+            if not flags.ksprompt:
+                log.error("CmdlineError: %s", self._checker.error_message)
+                raise CmdlineError(self._checker.error_message)
+        elif flags.automatedInstall and not incompleteSpokes:
+            # Space is ok and spokes are complete, continue
+            self.close()
+            return None
 
-        if not flags.ksprompt:
+        # cmdline mode and incomplete spokes raises and error
+        if not flags.ksprompt and incompleteSpokes:
             errtxt = _("The following mandatory spokes are not completed:") + \
                      "\n" + "\n".join(spoke.title for spoke in incompleteSpokes)
             log.error("CmdlineError: %s", errtxt)
