@@ -108,6 +108,7 @@ static GdkFilterReturn handle_xevent(GdkXEvent *xev, GdkEvent *event, gpointer e
 
 static void anaconda_layout_indicator_class_init(AnacondaLayoutIndicatorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     object_class->get_property = anaconda_layout_indicator_get_property;
     object_class->set_property = anaconda_layout_indicator_set_property;
@@ -144,6 +145,8 @@ static void anaconda_layout_indicator_class_init(AnacondaLayoutIndicatorClass *k
                                                       G_PARAM_READWRITE));
 
     g_type_class_add_private(object_class, sizeof(AnacondaLayoutIndicatorPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaLayoutIndicator");
 }
 
 /**
