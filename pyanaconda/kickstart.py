@@ -1115,14 +1115,6 @@ class Network(commands.network.F24_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
-class MultiPath(commands.multipath.FC6_MultiPath):
-    def parse(self, args):
-        raise NotImplementedError(_("The %s kickstart command is not currently supported.") % "multipath")
-
-class DmRaid(commands.dmraid.FC6_DmRaid):
-    def parse(self, args):
-        raise NotImplementedError(_("The %s kickstart command is not currently supported.") % "dmraid")
-
 class Partition(commands.partition.F23_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
@@ -1966,7 +1958,6 @@ commandMap = {
         "btrfs": BTRFS,
         "bootloader": Bootloader,
         "clearpart": ClearPart,
-        "dmraid": DmRaid,
         "eula": Eula,
         "fcoe": Fcoe,
         "firewall": Firewall,
@@ -1979,7 +1970,6 @@ commandMap = {
         "lang": Lang,
         "logging": Logging,
         "logvol": LogVol,
-        "multipath": MultiPath,
         "network": Network,
         "part": Partition,
         "partition": Partition,
