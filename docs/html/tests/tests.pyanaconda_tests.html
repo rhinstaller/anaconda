@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tests.pyanaconda_tests package &mdash; Anaconda 24.11 documentation</title>
+  <title>tests.pyanaconda_tests package &mdash; Anaconda 25.5 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 24.11 documentation" href="../index.html"/>
+    <link rel="top" title="Anaconda 25.5 documentation" href="../index.html"/>
         <link rel="up" title="tests package" href="tests.html"/>
         <link rel="next" title="tests.regex_tests package" href="tests.regex_tests.html"/>
         <link rel="prev" title="tests.lib package" href="tests.lib.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                24.11
+                25.5
               </div>
             
           
@@ -211,63 +211,8 @@ not have a method with the specified name.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-tests.pyanaconda_tests.grub_raid_test">
-<span id="tests-pyanaconda-tests-grub-raid-test-module"></span><h2>tests.pyanaconda_tests.grub_raid_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.grub_raid_test" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.grub_raid_test.</code><code class="descname">GRUBRaidSimpleTest</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_btrfs_test">
-<code class="descname">grub_btrfs_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_btrfs_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test installing GRUB to a MBR stage1 and btrfs RAID stage2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_mbr_partition_test">
-<code class="descname">grub_mbr_partition_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_mbr_partition_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test installing GRUB to a MBR stage1 and partition stage2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_mbr_raid1_test">
-<code class="descname">grub_mbr_raid1_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_mbr_raid1_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test installing GRUB to a MBR stage1 and RAID1 stage2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_partition_btrfs_test">
-<code class="descname">grub_partition_btrfs_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_partition_btrfs_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test installing GRUB to a partition stage1 and MBR stage2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_partition_partition_test">
-<code class="descname">grub_partition_partition_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_partition_partition_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test installing GRUB to a partition stage1 and partition stage2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_partition_raid1_test">
-<code class="descname">grub_partition_raid1_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.grub_partition_raid1_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test installing GRUB to a partition stage1 and MBR stage2</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.grub_raid_test.GRUBRaidSimpleTest.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create some device objects to test with.</p>
-<p>This sets up two disks (sda, sdb). The first partition of each
-is a biosboot partition. The second partitions comprise a RAID1
-array formatted as /boot.</p>
-<p>sda additionally contains a third partition formatted as ext4.</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="tests-pyanaconda-tests-grub-raid-test-module">
+<h2>tests.pyanaconda_tests.grub_raid_test module<a class="headerlink" href="#tests-pyanaconda-tests-grub-raid-test-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-tests.pyanaconda_tests.iutil_test">
 <span id="tests-pyanaconda-tests-iutil-test-module"></span><h2>tests.pyanaconda_tests.iutil_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.iutil_test" title="Permalink to this headline">¶</a></h2>
@@ -360,6 +305,12 @@ not have a method with the specified name.</p>
 <dt id="tests.pyanaconda_tests.iutil_test.MiscTests.to_ascii_test">
 <code class="descname">to_ascii_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.iutil_test.MiscTests.to_ascii_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test _toASCII.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tests.pyanaconda_tests.iutil_test.MiscTests.touch_test">
+<code class="descname">touch_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.iutil_test.MiscTests.touch_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the touch function correctly creates empty files</p>
 </dd></dl>
 
 <dl class="method">
@@ -604,34 +555,6 @@ not have a method with the specified name.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-tests.pyanaconda_tests.lang_locale_handler_test">
-<span id="tests-pyanaconda-tests-lang-locale-handler-test-module"></span><h2>tests.pyanaconda_tests.lang_locale_handler_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.lang_locale_handler_test" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="tests.pyanaconda_tests.lang_locale_handler_test.LLH">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.lang_locale_handler_test.</code><code class="descname">LLH</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.lang_locale_handler_test.LLH" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.lang_locale_handler_test.LLH.anaconda_widgets_data_test">
-<code class="descname">anaconda_widgets_data_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.lang_locale_handler_test.LLH.anaconda_widgets_data_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test if ANACONDA_WIDGETS_DATA is used if specified.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.lang_locale_handler_test.LLH.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.lang_locale_handler_test.LLH.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.lang_locale_handler_test.LLH.tearDown">
-<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.lang_locale_handler_test.LLH.tearDown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="module-tests.pyanaconda_tests.localization_test">
 <span id="tests-pyanaconda-tests-localization-test-module"></span><h2>tests.pyanaconda_tests.localization_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.localization_test" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -683,90 +606,8 @@ not have a method with the specified name.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-tests.pyanaconda_tests.network_test">
-<span id="tests-pyanaconda-tests-network-test-module"></span><h2>tests.pyanaconda_tests.network_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.network_test" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="tests.pyanaconda_tests.network_test.NetworkIfcfgTests">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.network_test.</code><code class="descname">NetworkIfcfgTests</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkIfcfgTests" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkIfcfgTests.dracutBootArguments_s390_test">
-<code class="descname">dracutBootArguments_s390_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkIfcfgTests.dracutBootArguments_s390_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkIfcfgTests.dracutBootArguments_test">
-<code class="descname">dracutBootArguments_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkIfcfgTests.dracutBootArguments_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkIfcfgTests.ifcfg_mock">
-<code class="descname">ifcfg_mock</code><span class="sig-paren">(</span><em>settings</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkIfcfgTests.ifcfg_mock" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="tests.pyanaconda_tests.network_test.NetworkKSDataTests">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.network_test.</code><code class="descname">NetworkKSDataTests</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkKSDataTests" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkKSDataTests.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkKSDataTests.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkKSDataTests.update_hostname_data_test">
-<code class="descname">update_hostname_data_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkKSDataTests.update_hostname_data_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.network_test.</code><code class="descname">NetworkTests</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests.bond_options_ksdata_to_dbus_test">
-<code class="descname">bond_options_ksdata_to_dbus_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests.bond_options_ksdata_to_dbus_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests.default_ks_vlan_interface_name_test">
-<code class="descname">default_ks_vlan_interface_name_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests.default_ks_vlan_interface_name_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests.nm_check_ip_address_test">
-<code class="descname">nm_check_ip_address_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests.nm_check_ip_address_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests.nm_ks_spec_to_device_name_test">
-<code class="descname">nm_ks_spec_to_device_name_test</code><span class="sig-paren">(</span><em>nm_hwaddr_mock</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests.nm_ks_spec_to_device_name_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests.prefix2netmask2prefix_test">
-<code class="descname">prefix2netmask2prefix_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests.prefix2netmask2prefix_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.network_test.NetworkTests.sanityCheckHostname_test">
-<code class="descname">sanityCheckHostname_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.network_test.NetworkTests.sanityCheckHostname_test" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="tests-pyanaconda-tests-network-test-module">
+<h2>tests.pyanaconda_tests.network_test module<a class="headerlink" href="#tests-pyanaconda-tests-network-test-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-tests.pyanaconda_tests.nm_test">
 <span id="tests-pyanaconda-tests-nm-test-module"></span><h2>tests.pyanaconda_tests.nm_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.nm_test" title="Permalink to this headline">¶</a></h2>
@@ -941,76 +782,8 @@ not have a method with the specified name.</p>
 <div class="section" id="module-tests.pyanaconda_tests.test_constants">
 <span id="tests-pyanaconda-tests-test-constants-module"></span><h2>tests.pyanaconda_tests.test_constants module<a class="headerlink" href="#module-tests.pyanaconda_tests.test_constants" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-tests.pyanaconda_tests.timezone_test">
-<span id="tests-pyanaconda-tests-timezone-test-module"></span><h2>tests.pyanaconda_tests.timezone_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.timezone_test" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="tests.pyanaconda_tests.timezone_test.TerritoryTimezones">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.timezone_test.</code><code class="descname">TerritoryTimezones</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.TerritoryTimezones" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.TerritoryTimezones.invalid_territory_zones_test">
-<code class="descname">invalid_territory_zones_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.TerritoryTimezones.invalid_territory_zones_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if None is return for an invalid territory.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.TerritoryTimezones.string_valid_territory_zone_test">
-<code class="descname">string_valid_territory_zone_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.TerritoryTimezones.string_valid_territory_zone_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if the returned value is string for a valid territory.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="tests.pyanaconda_tests.timezone_test.TimezonesListings">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.timezone_test.</code><code class="descname">TimezonesListings</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.TimezonesListings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.TimezonesListings.all_timezones_valid_test">
-<code class="descname">all_timezones_valid_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.TimezonesListings.all_timezones_valid_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if all returned timezones are considered valid timezones.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.TimezonesListings.string_timezones_test">
-<code class="descname">string_timezones_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.TimezonesListings.string_timezones_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if returned timezones are plain strings, not unicode objects.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="tests.pyanaconda_tests.timezone_test.s390HWclock">
-<em class="property">class </em><code class="descclassname">tests.pyanaconda_tests.timezone_test.</code><code class="descname">s390HWclock</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.s390HWclock" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<p>Create an instance of the class that will use the named test
-method when executed. Raises a ValueError if the instance does
-not have a method with the specified name.</p>
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.s390HWclock.s390_save_hw_clock_test">
-<code class="descname">s390_save_hw_clock_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.s390HWclock.s390_save_hw_clock_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check that save_hw_clock does nothing on s390.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.s390HWclock.s390_time_initialize_test">
-<code class="descname">s390_time_initialize_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.s390HWclock.s390_time_initialize_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check that time_initialize doesn&#8217;t call hwclock on s390.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="tests.pyanaconda_tests.timezone_test.s390HWclock.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tests.pyanaconda_tests.timezone_test.s390HWclock.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="tests-pyanaconda-tests-timezone-test-module">
+<h2>tests.pyanaconda_tests.timezone_test module<a class="headerlink" href="#tests-pyanaconda-tests-timezone-test-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-tests.pyanaconda_tests.user_create_test">
 <span id="tests-pyanaconda-tests-user-create-test-module"></span><h2>tests.pyanaconda_tests.user_create_test module<a class="headerlink" href="#module-tests.pyanaconda_tests.user_create_test" title="Permalink to this headline">¶</a></h2>
@@ -1197,7 +970,7 @@ not have a method with the specified name.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'24.11',
+            VERSION:'25.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
