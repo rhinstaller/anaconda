@@ -140,7 +140,7 @@ def opticalInstallMedia(devicetree):
         if not dev.controllable:
             continue
 
-        devicetree.handle_format(dev)
+        devicetree.handle_format(None, dev)
         if not hasattr(dev.format, "mount"):
             # no mountable media
             continue
