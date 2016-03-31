@@ -914,6 +914,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # The disk selection has to make sense before we can proceed.
             self.set_error(_("There was a problem with your disk selection. "
                              "Click here for details."))
+            self._unhide_disks()
             self._back_clicked = False
             return
 
