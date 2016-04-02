@@ -314,6 +314,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 01 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.62-1
+- Reset invalid disk selection before proceeding. (dlehman)
+  Resolves: rhbz#1265330
+- Fix bad sensitivity on boxes in source spoke (jkonecny)
+  Resolves: rhbz#1262833
+- Fix only one address is shown in anaconda (jkonecny)
+  Resolves: rhbz#1264400
+- network: copy static routes configured in installer to system (rvykydal)
+  Resolves: rhbz#1255801
+- network: fix kickstart --noipv4 option in %%pre section (rvykydal)
+  Related: rhbz#1291333
+- network: fix kickstart --noipv4 option (rvykydal)
+  Resolves: rhbz#1291333
+
 * Thu Mar 24 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.61-1
 - Fix crash when new device appear in Welcome screen (jkonecny)
   Resolves: rhbz#1216926
