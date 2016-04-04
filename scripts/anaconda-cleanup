@@ -40,7 +40,6 @@ pyanaconda.anaconda_log.init()
 
 from blivet.blivet import StorageDiscoveryConfig
 from blivet.devicetree import DeviceTree
-from blivet import devicelibs
 from gi.repository import BlockDev as blockdev
 
 storage_config = StorageDiscoveryConfig()
