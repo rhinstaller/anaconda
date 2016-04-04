@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 1
 
    intro
+   release
    boot-options
    kickstart
    commit-log
