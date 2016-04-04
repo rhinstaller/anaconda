@@ -538,8 +538,6 @@ def add_connection_for_ksdata(networkdata, devname):
         if flags.cmdline.get("ifname", "").upper() == "{0}:{1}".format(devname, mac).upper():
             mac = [int(b, 16) for b in mac.split(":")]
             values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
-        else:
-            values.append(['802-3-ethernet', 'name', devname, 's'])
         values.append(['connection', 'type', '802-3-ethernet', 's'])
         values.append(['connection', 'id', devname, 's'])
         values.append(['connection', 'interface-name', devname, 's'])
