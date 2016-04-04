@@ -23,6 +23,13 @@ import os
 import stat
 import parted
 
+# The list-harddrives script is primarily meant for use in the
+# kickstart %post scriptlets for listing all individual harddrives
+# on the system.
+#
+# For more information check the docs/list-harddrives.rsh file
+# in the Anaconda source code.
+
 def check_device(device):
     if stat.S_ISBLK(os.stat(device.path).st_mode):
         # exclude device mapper devices
@@ -31,8 +38,11 @@ def check_device(device):
         # exclude block devices for CD/DVD disks
         elif device.path.startswith("/dev/sr"):
             return False
-        # exclude zram bloc devices
+        # exclude zram block devices
         elif device.path.startswith("/dev/zram"):
+            return False
+        # exclude software raid block devices
+        elif device.path.startswith("/dev/md"):
             return False
         # the remaining block devices should be fine
         else:
