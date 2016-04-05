@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Chris Lumens <clumens@redhat.com>
+import re
 from dogtail.predicate import GenericPredicate
 from dogtail.utils import doDelay
 
@@ -72,6 +73,7 @@ class SummaryTestCase(UITestCase):
             elif selector.name == "NETWORK & HOST NAME":
                 self.assertTrue(
                                 selector.description.startswith("Connected:") or
+                                re.match("Wired (.*) connected", selector.description) or
                                 selector.description.startswith("Wireless connected to")
                                 )
             elif selector.name == "INSTALLATION SOURCE":
