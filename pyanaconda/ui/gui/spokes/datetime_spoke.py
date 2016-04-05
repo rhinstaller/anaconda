@@ -36,6 +36,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_action_wait, gtk_call_once, override_cell_property
+from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
@@ -1046,10 +1047,16 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return
 
         timezone = location.get_property('zone')
-        if self._set_timezone(timezone):
-            # timezone successfully set
-            self._tz = get_timezone(timezone)
-            self._update_datetime()
+
+        # Updating the timezone will update the region/city combo boxes to match.
+        # The on_city_changed handler will attempt to convert the timezone back
+        # to a location and set it in the map, which we don't want, since we
+        # already have a location. That's why we're here.
+        with blockedHandler(self._cityCombo, self.on_city_changed):
+            if self._set_timezone(timezone):
+                # timezone successfully set
+                self._tz = get_timezone(timezone)
+                self._update_datetime()
 
     def on_timeformat_changed(self, button24h, *args):
         hours = int(self._hoursLabel.get_text())
