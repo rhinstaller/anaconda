@@ -314,6 +314,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 05 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.63-1
+- network: don't set 803-3-ethernet.name setting (rvykydal)
+  Resolves: rhbz#1323589
+- Add retry when downloading .treeinfo (jkonecny)
+  Resolves: rhbz#1292613
+- Make it possible to skip saving of kickstarts and logs (mkolman)
+  Resolves: rhbz#1285519
+- Add a function for empty file creation (mkolman)
+  Related: rhbz#1285519
+- Run actions for argparse arguments (mkolman)
+  Related: rhbz#1285519
+
 * Fri Apr 01 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.62-1
 - Reset invalid disk selection before proceeding. (dlehman)
   Resolves: rhbz#1265330

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.61\n"
+"Project-Id-Version: anaconda 21.48.22.62\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-04-01 17:20-0700\n"
+"POT-Creation-Date: 2016-04-05 16:54-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -432,28 +432,28 @@ msgstr ""
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:160
+#: pyanaconda/install.py:166
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:166
+#: pyanaconda/install.py:172
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:193 pyanaconda/kickstart.py:2064
+#: pyanaconda/install.py:199 pyanaconda/kickstart.py:2064
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:201
+#: pyanaconda/install.py:207
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:260
+#: pyanaconda/install.py:266
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:263 pyanaconda/packaging/livepayload.py:170
+#: pyanaconda/install.py:269 pyanaconda/packaging/livepayload.py:170
 #: pyanaconda/packaging/yumpayload.py:1449
 msgid "Performing post-installation setup tasks"
 msgstr ""
@@ -802,60 +802,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1369 pyanaconda/ui/gui/spokes/custom.py:537
+#: pyanaconda/network.py:1367 pyanaconda/ui/gui/spokes/custom.py:537
 #: pyanaconda/ui/gui/spokes/network.py:302
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1373
+#: pyanaconda/network.py:1371
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1375
+#: pyanaconda/network.py:1373
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1395
+#: pyanaconda/network.py:1393
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1398
+#: pyanaconda/network.py:1396
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1401
+#: pyanaconda/network.py:1399
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1405
+#: pyanaconda/network.py:1403
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1409
+#: pyanaconda/network.py:1407
 #, python-format
 msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1415
+#: pyanaconda/network.py:1413
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1432
+#: pyanaconda/network.py:1430
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1435
+#: pyanaconda/network.py:1433
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1438 pyanaconda/ui/gui/spokes/network.glade.h:46
+#: pyanaconda/network.py:1436 pyanaconda/ui/gui/spokes/network.glade.h:46
 msgid "No network devices available"
 msgstr ""
 
@@ -1229,15 +1229,15 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1153
+#: pyanaconda/packaging/__init__.py:1189
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1154
+#: pyanaconda/packaging/__init__.py:1190
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1155
+#: pyanaconda/packaging/__init__.py:1191
 msgid "No installation source available"
 msgstr ""
 
@@ -1502,7 +1502,7 @@ msgstr ""
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:580 anaconda:489
+#: pyanaconda/ui/tui/simpleline/base.py:580 anaconda:515
 msgid "Press ENTER to continue"
 msgstr ""
 
@@ -5509,14 +5509,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:441
+#: anaconda:467
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:443
+#: anaconda:469
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5524,17 +5524,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:446
+#: anaconda:472
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:448
+#: anaconda:474
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:449
+#: anaconda:475
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5543,35 +5543,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:452
+#: anaconda:478
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:488
+#: anaconda:514
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda:607
+#: anaconda:633
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:615
+#: anaconda:641
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:623
+#: anaconda:649
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:719
+#: anaconda:745
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:721
+#: anaconda:747
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
