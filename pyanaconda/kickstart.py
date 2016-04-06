@@ -723,7 +723,10 @@ class Group(commands.group.F12_Group):
         for grp in self.groupList:
             kwargs = grp.__dict__
             kwargs.update({"root": iutil.getSysroot()})
-            users.createGroup(grp.name, **kwargs)
+            try:
+                users.createGroup(grp.name, **kwargs)
+            except ValueError as e:
+                log.warning(str(e))
 
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
@@ -1766,8 +1769,10 @@ class User(commands.user.F19_User):
             # empty password.
             if ksdata.user.seen and kwargs.get("password", "") == "":
                 kwargs["password"] = None
-            if not users.createUser(usr.name, **kwargs):
-                log.error("User %s already exists, not creating.", usr.name)
+            try:
+                users.createUser(usr.name, **kwargs)
+            except ValueError as e:
+                log.warning(str(e))
 
 class VolGroup(commands.volgroup.F21_VolGroup):
     def execute(self, storage, ksdata, instClass):
