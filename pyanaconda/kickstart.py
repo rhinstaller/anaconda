@@ -507,7 +507,7 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
                 request = storage.new_btrfs(name=name,
                                        subvol=self.subvol,
                                        mountpoint=self.mountpoint,
-                                       meta_data_level=self.metaDataLevel,
+                                       metadata_level=self.metaDataLevel,
                                        data_level=self.dataLevel,
                                        parents=members,
                                        create_options=self.mkfsopts)
