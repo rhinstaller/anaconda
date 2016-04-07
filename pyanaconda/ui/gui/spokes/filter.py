@@ -179,7 +179,7 @@ class SearchPage(FilterPage):
 
         ports = []
         for disk in disks:
-            if hasattr(disk, "node"):
+            if hasattr(disk, "node") and disk.node is not None:
                 ports.append(str(disk.node.port))
 
         self.setupCombo(self._portCombo, ports)
@@ -339,7 +339,7 @@ class OtherPage(FilterPage):
             paths = [d.name for d in disk.parents]
             selected = disk.name in selectedNames
 
-            if hasattr(disk, "node"):
+            if hasattr(disk, "node") and disk.node is not None:
                 port = str(disk.node.port)
                 lun = str(disk.node.tpgt)
             else:
