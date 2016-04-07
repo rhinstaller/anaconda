@@ -1332,6 +1332,10 @@ reposdir=%s
         self.selectRequiredPackages()
 
     def checkSoftwareSelection(self):
+        if not self.baseRepo:
+            log.warn("Skipping checkSoftwareSelect, no base repo setup.")
+            return
+
         log.info("checking software selection")
         self.txID = time.time()
 

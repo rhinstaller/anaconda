@@ -159,10 +159,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         hubQ.send_message(self.__class__.__name__, payloadMgr.error)
 
     def _apply(self):
-        if not self.environment:
-            return
-
-        if not (flags.automatedInstall and self.data.packages.seen):
+        if self.environment and not (flags.automatedInstall and self.data.packages.seen):
             addons = self._get_selected_addons()
             for group in addons:
                 if group not in self.selectedGroups:
