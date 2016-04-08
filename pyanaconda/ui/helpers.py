@@ -126,7 +126,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         """
         if self.data.method.method == "harddrive" and self.data.method.partition:
             part = self.data.method.partition
-            dev = self.storage.devicetree.getDeviceByName(part)
+            dev = self.storage.devicetree.get_device_by_name(part)
             if dev:
                 dev.protected = False
             self.storage.config.protectedDevSpecs.remove(part)

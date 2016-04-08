@@ -73,7 +73,7 @@ class LiveImagePayload(ImagePayload):
         super(LiveImagePayload, self).setup(storage, instClass)
 
         # Mount the live device and copy from it instead of the overlay at /
-        osimg = storage.devicetree.getDeviceByPath(self.data.method.partition)
+        osimg = storage.devicetree.get_device_by_path(self.data.method.partition)
         if not osimg:
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
