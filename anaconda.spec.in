@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Apr 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.253-1
+- Complete support for mesa-libEGL in upd-instroot (sbueno+anaconda)
+  Resolves: rhbz#1316646
+
 * Tue Mar 29 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.252-1
 - Add mesa-libEGL to upd-instroot. (sbueno+anaconda)
   Resolves: rhbz#1316646
