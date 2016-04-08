@@ -347,7 +347,7 @@ class Users(object):
         if status == 4:
             raise ValueError("UID %s already exists" % kwargs.get("uid"))
         elif status == 6:
-            raise ValueError("Invalid groups %s" % kwargs.get("groups", []))
+            raise OSError("Invalid groups %s" % kwargs.get("groups", []))
         elif status == 9:
             raise ValueError("User %s already exists" % user_name)
         elif status != 0:
@@ -417,12 +417,12 @@ class Users(object):
 
         pwent = self._getpwnam(username, root)
         if not pwent:
-            raise ValueError("setUserSshKey: user %s does not exist" % username)
+            raise OSError("setUserSshKey: user %s does not exist" % username)
 
         homedir = root + pwent[5]
         if not os.path.exists(homedir):
             log.error("setUserSshKey: home directory for %s does not exist", username)
-            raise ValueError("setUserSshKey: home directory for %s does not exist" % username)
+            raise OSError("setUserSshKey: home directory for %s does not exist" % username)
 
         uid = pwent[2]
         gid = pwent[3]
