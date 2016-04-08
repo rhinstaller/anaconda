@@ -2,7 +2,7 @@
 #
 # scan system for harddrives and output device name/size
 #
-# Copyright (C) 2007, 2009  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2007-2016  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,12 +19,42 @@
 #
 
 import sys
+import os
+import stat
 import parted
+
+# The list-harddrives script is primarily meant for use in the
+# kickstart %post scriptlets for listing all individual harddrives
+# on the system.
+#
+# For more information check the docs/list-harddrives.rsh file
+# in the Anaconda source code.
+
+def check_device(device):
+    if stat.S_ISBLK(os.stat(device.path).st_mode):
+        # exclude device mapper devices
+        if device.type == parted.DEVICE_DM:
+            return False
+        # exclude block devices for CD/DVD disks
+        elif device.path.startswith("/dev/sr"):
+            return False
+        # exclude zram block devices
+        elif device.path.startswith("/dev/zram"):
+            return False
+        # exclude software raid block devices
+        elif device.path.startswith("/dev/md"):
+            return False
+        # the remaining block devices should be fine
+        else:
+            return True
+    else:
+        # ignore everything that is not a block device
+        return False
 
 def main(argv):
     lst = set()
 
-    for dev in filter(lambda d: d.type != parted.DEVICE_DM and not d.path.startswith("/dev/sr"), parted.getAllDevices()):
+    for dev in filter(check_device, parted.getAllDevices()):
         if dev.path.startswith("/dev/"):
             path = dev.path[5:]
         else:
