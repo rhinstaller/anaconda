@@ -314,6 +314,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 08 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.64-1
+- Exclude software raid block devices from list-harddrives output (mkolman)
+  Resolves: rhbz#1311512
+
 * Tue Apr 05 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.63-1
 - network: don't set 803-3-ethernet.name setting (rvykydal)
   Resolves: rhbz#1323589
