@@ -223,6 +223,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 11 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.254-1
+- Revert "Always write splashimage to grub.cfg on UEFI (bcl)"
+  Related: rhbz#1325971
+  Resolves: rhbz#1325971
+
 * Fri Apr 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.253-1
 - Complete support for mesa-libEGL in upd-instroot (sbueno+anaconda)
   Resolves: rhbz#1316646
