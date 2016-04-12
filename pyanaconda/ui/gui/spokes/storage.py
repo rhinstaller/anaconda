@@ -59,7 +59,7 @@ from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
 from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice
+from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, MultipathDevice
 from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib
@@ -308,6 +308,34 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         threadMgr.add(AnacondaThread(name=constants.THREAD_EXECUTE_STORAGE,
                                      target=self._doExecute))
 
+        # Register iSCSI to kickstart data
+        iscsi_devices = []
+        # Find all selected disks and add all iscsi disks to iscsi_devices list
+        for d in [d for d in getDisks(self.storage.devicetree) if d.name in self.selected_disks]:
+            # Get parents of a multipath devices
+            if isinstance(d, MultipathDevice):
+                for parent_dev in d.parents:
+                    if isinstance(parent_dev, iScsiDiskDevice) and not parent_dev.ibft:
+                        iscsi_devices.append(parent_dev)
+            # Add no-ibft iScsiDiskDevice. IBFT disks are added by firmware so there is
+            # no need to have them in KS.
+            elif isinstance(d, iScsiDiskDevice) and not d.ibft:
+                iscsi_devices.append(d)
+
+        if iscsi_devices:
+            self.data.iscsiname.iscsiname = self.storage.iscsi.initiator
+            # Remove the old iscsi data information and generate new one
+            self.data.iscsi.iscsi = []
+            for device in iscsi_devices:
+                iscsi_data = self._create_iscsi_data(device)
+                for saved_iscsi in self.data.iscsi.iscsi:
+                    if (iscsi_data.ipaddr == saved_iscsi.ipaddr and
+                        iscsi_data.target == saved_iscsi.target and
+                        iscsi_data.port == saved_iscsi.port):
+                        break
+                else:
+                    self.data.iscsi.iscsi.append(iscsi_data)
+
     def _doExecute(self):
         self._ready = False
         hubQ.send_not_ready(self.__class__.__name__)
@@ -348,6 +376,29 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             resetCustomStorageData(self.data)
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
+
+    def _create_iscsi_data(self, device):
+        from pyanaconda.kickstart import AnacondaKSHandler
+        handler = AnacondaKSHandler()
+        # pylint: disable=E1101
+        iscsi_data = handler.IscsiData()
+        dev_node = device.node
+        iscsi_data.ipaddr = dev_node.address
+        iscsi_data.target = dev_node.name
+        iscsi_data.port = dev_node.port
+        # Bind interface to target
+        if self.storage.iscsi.ifaces:
+            iscsi_data.iface = self.storage.iscsi.ifaces[device.iface]
+
+        auth = dev_node.getAuth()
+        if auth:
+            if auth.username and auth.password:
+                iscsi_data.user = auth.username
+                iscsi_data.password = auth.password
+            if auth.reverse_username and auth.reverse_password:
+                iscsi_data.user_in = auth.reverse_username
+                iscsi_data.password_in = auth.reverse_password
+        return iscsi_data
 
     @property
     def completed(self):
