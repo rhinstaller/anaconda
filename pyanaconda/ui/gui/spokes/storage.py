@@ -65,7 +65,7 @@ from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetC
 from blivet import arch
 from blivet import autopart
 from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, MultipathDevice
+from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError
 from blivet.platform import platform
 from pyanaconda.threads import threadMgr, AnacondaThread
