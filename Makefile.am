@@ -200,6 +200,19 @@ ci: rc-release
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
+test-gui:
+	@rm -f tests/test-suite.log
+	@rm -rf tests/autogui-results-*/
+	@mkdir -p $(USER_SITE_PACKAGES)
+	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
+	sudo COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		PYTHONUSERBASE=$(USER_SITE_BASE) \
+		$(abs_builddir)/tests/run_gui_tests.sh >tests/test-suite.log 2>&1
+	@rm -rf $(USER_SITE_BASE)
+	@cat tests/test-suite.log
+	@mv .coverage.* tests/
+	$(MAKE) coverage-report
+
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
 	$(COVERAGE) report --omit "tests/*" > tests/coverage-report.log
