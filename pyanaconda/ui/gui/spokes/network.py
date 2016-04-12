@@ -527,6 +527,9 @@ class NetworkControlBox(GObject.GObject):
 
     def _find_first_ap_setting(self, device, ap):
         for con in device.filter_connections(self.client.get_connections()):
+            if not con.get_setting_wireless().get_ssid():
+                # non-broadcast AP, we ignore these
+                return
             if con.get_setting_wireless().get_ssid().get_data() == ap.get_ssid().get_data():
                 return con
 
@@ -1080,7 +1083,11 @@ class NetworkControlBox(GObject.GObject):
             value_label.set_label(value_str)
 
     def _add_ap(self, ap, active=False):
-        ssid = ap.get_ssid().get_data()
+        ssid = ap.get_ssid()
+        if not ssid:
+            # get_ssid can return None if AP does not broadcast.
+            return
+        ssid = ssid.get_data()
         if not ssid:
             return
 
@@ -1108,6 +1115,9 @@ class NetworkControlBox(GObject.GObject):
     def _get_strongest_unique_aps(self, access_points):
         strongest_aps = {}
         for ap in access_points:
+            if not ap.get_ssid():
+                # non-broadcasting AP. We don't do anything with these
+                continue
             ssid = ap.get_ssid().get_data()
             if ssid in strongest_aps:
                 if ap.get_strength() > strongest_aps[ssid].get_strength():
