@@ -26,6 +26,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
+from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.i18n import N_, _
 from pyanaconda import network
 from pyanaconda import nm
@@ -41,7 +42,7 @@ import re
 __all__ = ["NetworkSpoke"]
 
 
-class NetworkSpoke(EditTUISpoke):
+class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     """ Spoke used to configure network settings.
 
        .. inheritance-diagram:: NetworkSpoke
