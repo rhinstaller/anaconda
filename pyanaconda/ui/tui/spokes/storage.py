@@ -86,8 +86,8 @@ class StorageSpoke(NormalTUISpoke):
 
         # automatically dasdfmt any unformatted/ldl dasds if a user has
         # specified zerombr/cdl in their ks file
-        if arch.isS390() and (self.data.zerombr.zerombr or self.data.clearpart.cdl):
-            self.run_dasdfmt(self.selected_disks)
+        if arch.isS390() and flags.automatedInstall:
+            self.run_dasdfmt()
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
@@ -272,13 +272,12 @@ class StorageSpoke(NormalTUISpoke):
                     # LDL DASDs if we're on s390x, since they need to be
                     # formatted before we can use them.
                     if arch.isS390():
-                        dasds = make_unformatted_dasd_list(self.selected_disks)
+                        unformatted = make_unformatted_dasd_list(self.selected_disks)
+                        ldl = [d for d in self.selected_disks if is_ldl_dasd(d)]
+                        # combine into one nice list
+                        dasds = list(set(unformatted + ldl))
                         if dasds:
                             self.run_dasdfmt(dasds)
-                            return None
-                        ldldasds = [d.name for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
-                        if ldldasds:
-                            self.run_dasdfmt(ldldasds)
                             return None
 
                     # make sure no containers were split up by the user's disk
@@ -300,18 +299,39 @@ class StorageSpoke(NormalTUISpoke):
             else:
                 return key
 
-    def run_dasdfmt(self, to_format):
+    def run_dasdfmt(self, to_format=None):
         """
         This generates the list of DASDs requiring dasdfmt and runs dasdfmt
         against them.
+
+        to_format is an optional list of DASDs to format. This shouldn't be
+        passed if run_dasdfmt is called during a ks installation, and if called
+        during a manual installation, a list of DASDs needs to be passed.
         """
+        if not to_format:
+            # go ahead and initialize this
+            to_format = []
+
         # if the storage thread is running, wait on it to complete before taking
         # any further actions on devices; most likely to occur if user has
         # zerombr in their ks file
         threadMgr.wait(THREAD_STORAGE)
 
-        # ask user to verify they want to format if zerombr or cdl not in ks file
-        if not (self.data.zerombr.zerombr or self.data.clearpart.cdl):
+        if flags.automatedInstall:
+            # automated install case
+            unformatted = []
+            ldl = []
+
+            if self.data.zerombr.zerombr:
+                # unformatted DASDs
+                unformatted += make_unformatted_dasd_list([d for d in self.data.ignoredisk.onlyuse])
+            if self.data.clearpart.cdl:
+                # LDL DASDs
+                ldl += [d for d in self.data.ignoredisk.onlyuse if is_ldl_dasd(d)]
+            # combine into one nice list
+            to_format = list(set(unformatted + ldl))
+        else:
+            # manual install; ask to verify they want to run dasdfmt
             # prepare our msg strings; copied directly from dasdfmt.glade
             summary = _("The following unformatted or LDL DASDs have been "
                         "detected on your system. You can choose to format them "
@@ -337,7 +357,7 @@ class StorageSpoke(NormalTUISpoke):
                 format_dasd(disk)
             except DasdFormatError as err:
                 # Log errors if formatting fails, but don't halt the installer
-                log.error(str(err))
+                log.error("dasdfmt /dev/%s failed: %s", disk, err)
                 continue
 
         # need to make devicetree aware of disk changes
