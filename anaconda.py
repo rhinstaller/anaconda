@@ -146,10 +146,11 @@ def doStartupX11Actions():
     # fingers crossed.
     # Add XDG_DATA_DIRS to the environment to pull in our overridden schema
     # files.
+    datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
     if 'XDG_DATA_DIRS' in os.environ:
-        xdg_data_dirs = '/usr/share/anaconda/window-manager:' + os.environ['XDG_DATA_DIRS']
+        xdg_data_dirs = datadir + '/window-manager:' + os.environ['XDG_DATA_DIRS']
     else:
-        xdg_data_dirs = '/usr/share/anaconda/window-manager:/usr/share'
+        xdg_data_dirs = datadir + '/window-manager:/usr/share'
 
     childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"],
             env_add={'XDG_DATA_DIRS': xdg_data_dirs})
