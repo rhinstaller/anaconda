@@ -1094,7 +1094,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if rc == 0:
                 # Quit.
-                iutil.ipmi_report(constants.IPMI_ABORTED)
+                iutil.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
         elif self.errors:
@@ -1115,7 +1115,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if rc == 0:
                 # Quit.
-                iutil.ipmi_report(constants.IPMI_ABORTED)
+                iutil.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
         elif self.warnings:
             label = _("The following warnings were encountered when checking your storage "

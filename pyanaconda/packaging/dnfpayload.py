@@ -44,7 +44,7 @@ import shutil
 import sys
 import time
 import threading
-from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.iutil import ProxyString, ProxyStringError, ipmi_abort
 
 log = logging.getLogger("packaging")
 
@@ -474,7 +474,7 @@ class DNFPayload(packaging.PackagePayload):
             # Doing a sys.exit also ensures the running thread quits before
             # it can do anything else.
             progressQ.send_quit(1)
-            pyanaconda.iutil.ipmi_report(constants.IPMI_ABORTED)
+            ipmi_abort(scripts=self.data.scripts)
             sys.exit(1)
 
     def _pick_download_location(self):

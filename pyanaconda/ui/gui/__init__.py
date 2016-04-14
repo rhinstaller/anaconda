@@ -35,7 +35,7 @@ gi.require_version("GObject", "2.0")
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
 
 from pyanaconda.i18n import _, C_
-from pyanaconda.constants import IPMI_ABORTED, WINDOW_TITLE_TEXT
+from pyanaconda.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product, iutil, constants
 from pyanaconda import threads
 
@@ -1042,7 +1042,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exit_logger()
-            iutil.ipmi_report(IPMI_ABORTED)
+            iutil.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):

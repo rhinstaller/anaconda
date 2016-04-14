@@ -23,7 +23,6 @@
 import os
 import sys
 
-from pyanaconda import constants
 from pyanaconda import iutil
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _
@@ -179,7 +178,7 @@ class RPMOSTreePayload(ArchivePayload):
             log.error(str(exn))
             if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
                 progressQ.send_quit(1)
-                iutil.ipmi_report(constants.IPMI_ABORTED)
+                iutil.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
         progressQ.send_message(_("Preparing deployment of %s") % (ostreesetup.ref, ))
@@ -222,7 +221,7 @@ class RPMOSTreePayload(ArchivePayload):
             log.error(str(exn))
             if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
                 progressQ.send_quit(1)
-                iutil.ipmi_report(constants.IPMI_ABORTED)
+                iutil.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
         mainctx.pop_thread_default()

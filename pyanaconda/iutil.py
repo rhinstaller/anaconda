@@ -46,7 +46,7 @@ gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
-from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
+from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED
 from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
 from pyanaconda.regexes import URL_PARSE
 
@@ -57,6 +57,8 @@ log = logging.getLogger("anaconda")
 program_log = logging.getLogger("program")
 
 from pyanaconda.anaconda_log import program_log_lock
+
+from pykickstart.constants import KS_SCRIPT_ONERROR
 
 _child_env = {}
 
@@ -1278,6 +1280,19 @@ def ipmi_report(event):
     execWithCapture("ipmitool", ["event", "file", path])
 
     os.remove(path)
+
+def ipmi_abort(scripts=None):
+    ipmi_report(IPMI_ABORTED)
+    runOnErrorScripts(scripts)
+
+def runOnErrorScripts(scripts):
+    if not scripts:
+        return
+
+    log.info("Running kickstart %%onerror script(s)")
+    for script in filter(lambda s: s.type == KS_SCRIPT_ONERROR, scripts):
+        script.run("/")
+    log.info("All kickstart %%onerror script(s) have been run")
 
 def parent_dir(directory):
     """Return the parent's path"""

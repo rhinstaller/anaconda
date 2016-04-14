@@ -22,14 +22,13 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
-from pyanaconda.constants import USEVNC, USETEXT, IPMI_ABORTED
+from pyanaconda.constants import USEVNC, USETEXT
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
-from pyanaconda.iutil import execWithRedirect
+from pyanaconda.iutil import execWithRedirect, ipmi_abort
 from pyanaconda.flags import can_touch_runtime_system
-from pyanaconda import iutil
 import getpass
 import sys
 
@@ -112,7 +111,7 @@ class AskVNCSpoke(NormalTUISpoke):
             d = YesNoDialog(self.app, _(self.app.quit_message))
             self.app.switch_screen_modal(d)
             if d.answer:
-                iutil.ipmi_report(IPMI_ABORTED)
+                ipmi_abort(scripts=self.data.scripts)
                 if can_touch_runtime_system("Quit and Reboot"):
                     execWithRedirect("systemctl", ["--no-wall", "reboot"])
                 else:

@@ -176,7 +176,7 @@ class VncServer:
                 continue
             else:
                 log.critical(err)
-                iutil.ipmi_report(constants.IPMI_ABORTED)
+                iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
                 sys.exit(1)
         self.log.error(P_("Giving up attempting to connect after %d try!\n",
                           "Giving up attempting to connect after %d tries!\n",
@@ -214,7 +214,7 @@ class VncServer:
             self.initialize()
         except (socket.herror, dbus.DBusException, ValueError) as e:
             stdoutLog.critical("Could not initialize the VNC server: %s", e)
-            iutil.ipmi_report(constants.IPMI_ABORTED)
+            iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
         if self.password and (len(self.password) < 6 or len(self.password) > 8):
@@ -240,7 +240,7 @@ class VncServer:
             iutil.startX(xvnccommand, output_redirect=self.openlogfile())
         except OSError:
             stdoutLog.critical("Could not start the VNC server.  Aborting.")
-            iutil.ipmi_report(constants.IPMI_ABORTED)
+            iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
         self.log.info(_("The VNC server is now running."))
@@ -259,7 +259,7 @@ class VncServer:
             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
         else:
             self.log.warning(_("\n\nUnknown Error.  Aborting. \n\n"))
-            iutil.ipmi_report(constants.IPMI_ABORTED)
+            iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
         # Lets try to configure the vnc server to whatever the user specified
