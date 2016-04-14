@@ -198,6 +198,14 @@ class SoftwareSpoke(NormalTUISpoke):
 
         self._origEnv = self.environment
 
+    def execute(self):
+        """ Called when kickstarting and all spokes are ready.
+
+            This makes sure that the required size estimate is correct for kickstart.
+        """
+        print(_("Checking software selection"))
+        self.checkSoftwareSelection()
+
     def checkSoftwareSelection(self):
         """ Depsolving """
         try:
