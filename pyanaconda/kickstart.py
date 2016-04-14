@@ -1349,7 +1349,7 @@ class PartitionData(commands.partition.F23_PartData):
         # so handle them here
         elif self.fstype == "tmpfs":
             try:
-                request = storage.new_tmpfs(**kwargs)
+                request = storage.new_tmp_fs(**kwargs)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
             storage.create_device(request)
