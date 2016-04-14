@@ -35,8 +35,8 @@ from pyanaconda.product import distributionText, isFinal, productName, productVe
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _, C_
-from pyanaconda.iutil import is_unsupported_hw, ipmi_report
-from pyanaconda.constants import DEFAULT_LANG, IPMI_ABORTED
+from pyanaconda.iutil import is_unsupported_hw, ipmi_abort
+from pyanaconda.constants import DEFAULT_LANG
 
 import logging
 log = logging.getLogger("anaconda")
@@ -277,7 +277,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 rc = dlg.run()
                 dlg.hide()
             if rc != 1:
-                ipmi_report(IPMI_ABORTED)
+                ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
         if productName.startswith("Red Hat ") and \
@@ -287,7 +287,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 rc = dlg.run()
                 dlg.destroy()
             if rc != 1:
-                ipmi_report(IPMI_ABORTED)
+                ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
         StandaloneSpoke._on_continue_clicked(self, window, user_data)

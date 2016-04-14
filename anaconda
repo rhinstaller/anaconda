@@ -1268,7 +1268,7 @@ if __name__ == "__main__":
             flags.imageInstall = True
     except ValueError as e:
         stdoutLog.error("error specifying image file: %s", e)
-        iutil.ipmi_report(constants.IPMI_ABORTED)
+        iutil.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
     if image_count:

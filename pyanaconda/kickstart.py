@@ -1,7 +1,7 @@
 #
 # kickstart.py: kickstart install support
 #
-# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007
+# Copyright (C) 1999-2016
 # Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -72,7 +72,8 @@ from pykickstart.base import BaseHandler
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, TracebackScriptSection
+from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
+                                 OnErrorScriptSection, TracebackScriptSection
 from pykickstart.sections import Section
 from pykickstart.version import returnClassForVersion, RHEL7
 
@@ -2105,6 +2106,7 @@ class AnacondaPreParser(KickstartParser):
         self.registerSection(PreScriptSection(self.handler, dataObj=AnacondaKSScript))
         self.registerSection(NullSection(self.handler, sectionOpen="%pre-install"))
         self.registerSection(NullSection(self.handler, sectionOpen="%post"))
+        self.registerSection(NullSection(self.handler, sectionOpen="%onerror"))
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
         self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
@@ -2128,6 +2130,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(PreInstallScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
+        self.registerSection(OnErrorScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
         self.registerSection(AddonSection(self.handler))
         self.registerSection(AnacondaSection(self.handler.anaconda))
