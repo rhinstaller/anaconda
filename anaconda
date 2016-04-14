@@ -133,7 +133,16 @@ def doStartupX11Actions():
     # connection to Xorg, and if anaconda starts up before metacity, metacity
     # will just take over and maximize the window and make everything right,
     # fingers crossed.
-    childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"])
+    # Add XDG_DATA_DIRS to the environment to pull in our overridden schema
+    # files.
+    datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
+    if 'XDG_DATA_DIRS' in os.environ:
+        xdg_data_dirs = datadir + '/window-manager:' + os.environ['XDG_DATA_DIRS']
+    else:
+        xdg_data_dirs = datadir + '/window-manager:/usr/share'
+
+    childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"],
+            env_add={'XDG_DATA_DIRS': xdg_data_dirs})
     iutil.watchProcess(childproc, "metacity")
 
 def set_x_resolution(runres):
