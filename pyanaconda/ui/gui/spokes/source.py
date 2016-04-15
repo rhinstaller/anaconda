@@ -406,6 +406,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._error_msg = ""
         self._proxyUrl = ""
         self._proxyChange = False
+        self._updatesChange = False
         self._cdrom = None
         self._repo_counter = id_generator()
 
@@ -467,7 +468,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self.data.method.method = None
             self.data.method.proxy = self._proxyUrl
             if not old_source.method and self.payload.baseRepo and \
-               not self._proxyChange:
+               not self._proxyChange and not self._updatesChange:
                 return False
         elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
@@ -544,6 +545,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 dev.protected = False
 
         self._proxyChange = False
+        self._updatesChange = False
 
         return True
 
@@ -1449,13 +1451,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             Before final release this will also toggle the updates-testing repo
         """
         if self._noUpdatesCheckbox.get_active():
-            self.payload.disableRepo("updates")
-            if not constants.isFinal:
-                self.payload.disableRepo("updates-testing")
+            self.payload.setUpdatesEnabled(False)
         else:
-            self.payload.enableRepo("updates")
-            if not constants.isFinal:
-                self.payload.enableRepo("updates-testing")
+            self.payload.setUpdatesEnabled(True)
+
+        # Refresh the metadata using the new set of repos
+        self._updatesChange = True
 
     def on_addRepo_clicked(self, button):
         """ Add a new repository
