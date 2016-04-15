@@ -223,6 +223,7 @@ class DNFPayload(packaging.PackagePayload):
 
         self._base = None
         self._download_location = None
+        self._updates_enabled = True
         self._configure()
 
         # Protect access to _base.repos to ensure that the dictionary is not
@@ -661,6 +662,22 @@ class DNFPayload(packaging.PackagePayload):
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.spaceRequired)
 
+    def setUpdatesEnabled(self, state):
+        """ Enable or Disable the repos used to update closest mirror.
+
+            :param bool state: True to enable updates, False to disable.
+        """
+        self._updates_enabled = state
+
+        if self._updates_enabled:
+            self.enableRepo("updates")
+            if not constants.isFinal:
+                self.enableRepo("updates-testing")
+        else:
+            self.disableRepo("updates")
+            if not constants.isFinal:
+                self.disableRepo("updates-testing")
+
     def disableRepo(self, repo_id):
         try:
             self._base.repos[repo_id].disable()
@@ -846,6 +863,10 @@ class DNFPayload(packaging.PackagePayload):
         # are enabled, and then disable them all.  If the user gave us a method, we want
         # to use that instead of the default repos.
         self._base.read_all_repos()
+
+        # Repos on disk are always enabled. When reloaded their state needs to
+        # be synchronized with the user selection.
+        self.setUpdatesEnabled(self._updates_enabled)
 
         enabled = []
         with self._repos_lock:
