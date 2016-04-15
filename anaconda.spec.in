@@ -103,6 +103,11 @@ Requires: firewalld >= %{firewalldver}
 Requires: util-linux >= %{utillinuxver}
 Requires: python3-dbus
 Requires: python3-pwquality
+
+# pwquality only "recommends" the dictionaries it needs to do anything useful,
+# which is apparently great for containers but unhelpful for the rest of us
+Requires: cracklib-dicts
+
 Requires: python3-pytz
 Requires: realmd
 Requires: teamd
