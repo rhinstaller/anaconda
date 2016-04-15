@@ -314,6 +314,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 14 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.65-1
+- Move the pykickstart version test into a different subdirectory. (clumens)
+  Resolves: rhbz#1263367
+- Show network spoke in the TUI reconfig mode (mkolman)
+  Resolves: rhbz#1302165
+- iscsi: don't generate kickstart iscsi commands for offload devices (rvykydal)
+  Related: rhbz#1252879
+- iscsi: allow installing bootloader on offload iscsi disks (qla4xxx)
+  (rvykydal)
+  Resolves: rhbz#1325134
+- Fix iSCSI kickstart options aren't generated (jkonecny)
+  Resolves: rhbz#1252879
+- Fix adding offload iSCSI devices (vtrefny)
+  Resolves: rhbz#1255280
+
 * Fri Apr 08 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.64-1
 - Exclude software raid block devices from list-harddrives output (mkolman)
   Resolves: rhbz#1311512
