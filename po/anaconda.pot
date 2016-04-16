@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.64\n"
+"Project-Id-Version: anaconda 21.48.22.65\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-04-14 17:07-0700\n"
+"POT-Creation-Date: 2016-04-15 18:18-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -454,7 +454,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:269 pyanaconda/packaging/livepayload.py:170
-#: pyanaconda/packaging/yumpayload.py:1449
+#: pyanaconda/packaging/yumpayload.py:1453
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1261,15 +1261,15 @@ msgstr ""
 msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1412
+#: pyanaconda/packaging/yumpayload.py:1416
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1447
+#: pyanaconda/packaging/yumpayload.py:1451
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1448
+#: pyanaconda/packaging/yumpayload.py:1452
 msgid "Installing"
 msgstr ""
 
@@ -1293,7 +1293,7 @@ msgstr ""
 msgid "Deployment complete: %s"
 msgstr ""
 
-#: pyanaconda/ui/helpers.py:94 pyanaconda/ui/tui/spokes/storage.py:406
+#: pyanaconda/ui/helpers.py:94 pyanaconda/ui/tui/spokes/storage.py:426
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1394,11 +1394,11 @@ msgstr ""
 msgid "Starting automated install"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:82
+#: pyanaconda/ui/tui/hubs/summary.py:86
 msgid "The following mandatory spokes are not completed:"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:95
+#: pyanaconda/ui/tui/hubs/summary.py:99
 #, python-format
 msgid ""
 "  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to "
@@ -1407,7 +1407,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/hubs/summary.py:97 pyanaconda/ui/tui/hubs/__init__.py:135
+#: pyanaconda/ui/tui/hubs/summary.py:101 pyanaconda/ui/tui/hubs/__init__.py:135
 #: pyanaconda/ui/tui/simpleline/base.py:464
 #: pyanaconda/ui/tui/simpleline/base.py:633
 msgctxt "TUI|Spoke Navigation"
@@ -1415,7 +1415,7 @@ msgid "q"
 msgstr ""
 
 #. TRANSLATORS: 'b' to begin installation
-#: pyanaconda/ui/tui/hubs/summary.py:99 pyanaconda/ui/tui/hubs/summary.py:116
+#: pyanaconda/ui/tui/hubs/summary.py:103 pyanaconda/ui/tui/hubs/summary.py:120
 msgctxt "TUI|Spoke Navigation"
 msgid "b"
 msgstr ""
@@ -1424,14 +1424,14 @@ msgstr ""
 #. TRANSLATORS:'r' to refresh
 #. TRANSLATORS: 'r' to refresh
 #. TRANSLATORS:'r' to refresh
-#: pyanaconda/ui/tui/hubs/summary.py:101 pyanaconda/ui/tui/hubs/__init__.py:139
+#: pyanaconda/ui/tui/hubs/summary.py:105 pyanaconda/ui/tui/hubs/__init__.py:139
 #: pyanaconda/ui/tui/simpleline/base.py:452
 #: pyanaconda/ui/tui/simpleline/base.py:637
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:119 pyanaconda/ui/tui/hubs/__init__.py:114
+#: pyanaconda/ui/tui/hubs/summary.py:123 pyanaconda/ui/tui/hubs/__init__.py:114
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
@@ -1439,7 +1439,7 @@ msgstr ""
 #. TRANSLATORS:'c' to continue
 #. TRANSLATORS: 'c' to continue
 #. TRANSLATORS:'c' to continue
-#: pyanaconda/ui/tui/hubs/summary.py:130 pyanaconda/ui/tui/hubs/__init__.py:111
+#: pyanaconda/ui/tui/hubs/summary.py:134 pyanaconda/ui/tui/hubs/__init__.py:111
 #: pyanaconda/ui/tui/hubs/__init__.py:137
 #: pyanaconda/ui/tui/simpleline/base.py:458
 #: pyanaconda/ui/tui/simpleline/base.py:635
@@ -1801,7 +1801,7 @@ msgstr ""
 msgid "Select all"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:316
+#: pyanaconda/ui/tui/spokes/storage.py:336
 msgid ""
 "The following unformatted or LDL DASDs have been detected on your system. "
 "You can choose to format them now with dasdfmt or cancel to leave them "
@@ -1809,7 +1809,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:321
+#: pyanaconda/ui/tui/spokes/storage.py:341
 msgid ""
 "Warning: All storage changes made using the installer will be lost when you "
 "choose to format.\n"
@@ -1817,37 +1817,37 @@ msgid ""
 "Proceed to run dasdfmt?\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:336
+#: pyanaconda/ui/tui/spokes/storage.py:356
 #: pyanaconda/ui/gui/spokes/lib/dasdfmt.py:93
 #, python-format
 msgid "Formatting /dev/%s. This may take a moment."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:385
+#: pyanaconda/ui/tui/spokes/storage.py:405
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:390
-#: pyanaconda/ui/tui/spokes/storage.py:402
+#: pyanaconda/ui/tui/spokes/storage.py:410
+#: pyanaconda/ui/tui/spokes/storage.py:422
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:449
+#: pyanaconda/ui/tui/spokes/storage.py:469
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:475
+#: pyanaconda/ui/tui/spokes/storage.py:495
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:514
+#: pyanaconda/ui/tui/spokes/storage.py:534
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:538
+#: pyanaconda/ui/tui/spokes/storage.py:558
 msgid "Select a partition scheme configuration."
 msgstr ""
 
@@ -1938,8 +1938,8 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:119
 #: pyanaconda/ui/tui/spokes/software.py:87
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:529
-#: pyanaconda/ui/gui/spokes/software.py:284
-#: pyanaconda/ui/gui/spokes/software.py:292
+#: pyanaconda/ui/gui/spokes/software.py:281
+#: pyanaconda/ui/gui/spokes/software.py:289
 #: pyanaconda/ui/gui/spokes/source.py:556
 msgid "Nothing selected"
 msgstr ""
@@ -2009,22 +2009,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:65
-#: pyanaconda/ui/gui/spokes/software.py:265
+#: pyanaconda/ui/gui/spokes/software.py:262
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:69
-#: pyanaconda/ui/gui/spokes/software.py:268
+#: pyanaconda/ui/gui/spokes/software.py:265
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:71
-#: pyanaconda/ui/gui/spokes/software.py:271
+#: pyanaconda/ui/gui/spokes/software.py:268
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:86
-#: pyanaconda/ui/gui/spokes/software.py:278
+#: pyanaconda/ui/gui/spokes/software.py:275
 msgid "Custom software selected"
 msgstr ""
 
@@ -2035,6 +2035,10 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:121
 #: pyanaconda/ui/tui/spokes/software.py:131
 msgid "Base environment"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/software.py:206
+msgid "Checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/user.py:37
@@ -2677,47 +2681,47 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:191
+#: pyanaconda/ui/gui/spokes/software.py:188
 #: pyanaconda/ui/gui/spokes/source.py:536
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:196
+#: pyanaconda/ui/gui/spokes/software.py:193
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:281
+#: pyanaconda/ui/gui/spokes/software.py:278
 msgid "Invalid environment specified in kickstart"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:290
-#: pyanaconda/ui/gui/spokes/software.py:297
+#: pyanaconda/ui/gui/spokes/software.py:287
+#: pyanaconda/ui/gui/spokes/software.py:294
 msgid "Selected environment is not valid"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:440
+#: pyanaconda/ui/gui/spokes/software.py:437
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:538
+#: pyanaconda/ui/gui/spokes/software.py:535
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:543
+#: pyanaconda/ui/gui/spokes/software.py:540
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:544
+#: pyanaconda/ui/gui/spokes/software.py:541
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:545
+#: pyanaconda/ui/gui/spokes/software.py:542
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""

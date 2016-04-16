@@ -314,6 +314,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 15 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.66-1
+- Check software selection in tui kickstart (bcl)
+  Resolves: rhbz#1320436
+- Run the checkSoftwareSelection even when no environment is selected (bcl)
+  Resolves: rhbz#1320436
+- Stop kickstart when space check fails (bcl)
+  Resolves: rhbz#1320436
+- Fix problem of DASDs not being formatted in text ks. (sbueno+anaconda)
+  Resolves: rhbz#1259437
+
 * Thu Apr 14 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.65-1
 - Move the pykickstart version test into a different subdirectory. (clumens)
   Resolves: rhbz#1263367
