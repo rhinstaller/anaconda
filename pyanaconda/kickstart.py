@@ -585,7 +585,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
-        if self.disklabel and self.disklabel not in platform.diskLabelTypes:
+        if self.disklabel and self.disklabel not in platform.disklabel_types:
             raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("Disklabel \"%s\" given in clearpart command is not "
                           "supported on this platform.") % self.disklabel))
@@ -627,9 +627,9 @@ class ClearPart(commands.clearpart.F21_ClearPart):
             storage.config.initialize_disks = self.initAll
 
         if self.disklabel:
-            if not platform.setDefaultDiskLabelType(self.disklabel):
+            if not platform.set_default_disklabel_type(self.disklabel):
                 log.warning("%s is not a supported disklabel type on this platform. "
-                         "Using default disklabel %s instead.", self.disklabel, platform.defaultDiskLabelType)
+                         "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
 
         storage.clear_partitions()
 
@@ -644,7 +644,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         if fc.nic in (info[0] for info in blivet.fcoe.fcoe.nics):
             log.info("Kickstart fcoe device %s already added from EDD, ignoring", fc.nic)
         else:
-            msg = blivet.fcoe.fcoe.addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+            msg = blivet.fcoe.fcoe.add_san(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
             if not msg:
                 msg = "Succeeded."
                 blivet.fcoe.fcoe.added_nics.append(fc.nic)
@@ -778,7 +778,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
                     msg=_("iscsi --iface must be specified (binding used) either for all targets or for none")))
 
         try:
-            blivet.iscsi.iscsi.addTarget(tg.ipaddr, tg.port, tg.user,
+            blivet.iscsi.iscsi.add_target(tg.ipaddr, tg.port, tg.user,
                                             tg.password, tg.user_in,
                                             tg.password_in,
                                             target=tg.target,
@@ -1875,7 +1875,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
         try:
-            blivet.zfcp.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+            blivet.zfcp.zfcp.add_fcp(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError as e:
             log.warning(str(e))
 
