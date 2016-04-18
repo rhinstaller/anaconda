@@ -32,6 +32,8 @@ log = logging.getLogger("anaconda")
 class GrubbyInfoError(Exception):
     pass
 
+_BootInfo = namedtuple("BootInfo", ["kernel", "initrd", "root", "args"])
+
 def run_grubby(args=None):
     """ Run grubby and retrieve the kernel, initrd and boot arguments
 
@@ -43,8 +45,8 @@ def run_grubby(args=None):
         The returned namedtuple contains the following attributes:
             kernel, initrd, root, args
     """
-    attrs = ["kernel", "initrd", "root", "args"]
-    boot_info = namedtuple("boot_info", attrs)
+    boot_info = _BootInfo()
+    attrs = list(_BootInfo._fields)
 
     if not args:
         args = ["--info", "DEFAULT"]
