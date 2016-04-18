@@ -379,6 +379,8 @@ class BasePage(Gtk.Box):
         self.members = []
         self.pageTitle = title
         self._selected_members = set()
+        self._dataBox = None
+        self._systemBox = None
 
     @property
     def selected_members(self):
