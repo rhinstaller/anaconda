@@ -70,7 +70,7 @@ class TestCase(object):
         successes = 0
         failures = 0
 
-        if self.platforms and blivet.platform.getPlatform().__class__.__name__ not in self.platforms:
+        if self.platforms and blivet.platform.get_platform().__class__.__name__ not in self.platforms:
             print("Test %s skipped:  not valid for this platform" % self.name, file=sys.stderr)
             return
 
