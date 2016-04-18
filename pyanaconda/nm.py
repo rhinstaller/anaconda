@@ -830,7 +830,7 @@ def nm_activate_device_connection(dev_name, con_uuid):
         proxy = _get_proxy()
         try:
             device_path = proxy.GetDeviceByIpIface('(s)', dev_name)
-        except Exception as e:
+        except GLib.GError as e:
             if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
                 raise UnknownDeviceError(dev_name, e)
             raise
