@@ -103,6 +103,7 @@ def set_system_time(secs):
 
     """
 
+    # pylint: disable=no-member
     _isys.set_system_time(secs)
     log.info("System time set to %s UTC", time.asctime(time.gmtime(secs)))
 
@@ -172,4 +173,5 @@ def total_memory():
         log.error("MemTotal: line not found in /proc/meminfo")
         raise RuntimeError("MemTotal: line not found in /proc/meminfo")
 
+# pylint: disable=no-member
 installSyncSignalHandlers = _isys.installSyncSignalHandlers

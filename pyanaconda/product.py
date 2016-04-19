@@ -44,8 +44,8 @@ productName = config.get("Main", "Product")
 productStamp = config.get("Main", "UUID")
 productVersion = config.get("Main", "Version")
 
-if not productArch and productStamp.index(".") != -1:
-    productArch = productStamp[productStamp.index(".")+1:]
+if not productArch and productStamp.index(".") != -1:           # pylint: disable=no-member
+    productArch = productStamp[productStamp.index(".")+1:]      # pylint: disable=no-member
 if productVersion == "development":
     productVersion = "rawhide"
 

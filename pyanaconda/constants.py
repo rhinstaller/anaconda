@@ -40,8 +40,8 @@ bugzillaUrl = product.bugUrl
 isFinal = product.isFinal
 
 # for use in device names, eg: "fedora", "rhel"
-shortProductName = productName.lower()
-if productName.count(" "):
+shortProductName = productName.lower()          # pylint: disable=no-member
+if productName.count(" "):                      # pylint: disable=no-member
     shortProductName = ''.join(s[0] for s in shortProductName.split())
 
 # DriverDisc Paths

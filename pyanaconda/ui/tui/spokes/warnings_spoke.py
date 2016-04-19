@@ -50,6 +50,7 @@ class WarningsSpoke(StandaloneTUISpoke):
                           "supported hardware, please refer to "
                           "http://www.redhat.com/hardware.")
         # Does anything need to be displayed?
+        # pylint: disable=no-member
         self._unsupported = productName.startswith("Red Hat ") and \
                             is_unsupported_hw() and \
                             not self.data.unsupportedhardware.unsupported_hardware

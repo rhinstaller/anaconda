@@ -577,7 +577,7 @@ class UIScreen(object):
 
         for w in self._window:
             if hasattr(w, "render"):
-                w.render(self.app.width)
+                w.render(self.app.width)                    # pylint: disable=no-member
             if isinstance(w, Widget):
                 self._print_long_widget(w)
             elif isinstance(w, bytes):

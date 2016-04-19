@@ -214,7 +214,7 @@ def download_to_file(url, path):
         download_folder = os.path.split(path)[0]
         if not os.access(download_folder, os.W_OK):
             os.makedirs(download_folder)
-        result = urllib.urlretrieve(url, path)
+        result = urllib.urlretrieve(url, path)                  # pylint: disable=no-member
         # return the storage path
         return result[0]
     except IOError as e:

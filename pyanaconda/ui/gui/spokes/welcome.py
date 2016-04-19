@@ -264,7 +264,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         welcomeLabel = self.builder.get_object("welcomeLabel")
 
         welcomeLabel.set_text(_("WELCOME TO %(name)s %(version)s.") %
-                {"name" : productName.upper(), "version" : productVersion})
+                {"name" : productName.upper(), "version" : productVersion})         # pylint: disable=no-member
 
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
@@ -346,6 +346,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
+        # pylint: disable=no-member
         if productName.startswith("Red Hat ") and \
           is_unsupported_hw() and not self.data.unsupportedhardware.unsupported_hardware:
             dlg = self.builder.get_object("unsupportedHardwareDialog")
