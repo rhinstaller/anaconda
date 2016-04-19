@@ -129,13 +129,6 @@ class AnacondaLog:
                             autoLevel=True)
         self.forwardToSyslog(packaging_logger)
 
-        # Create the yum logger and link it to packaging
-        yum_logger = logging.getLogger("yum")
-        yum_logger.setLevel(logging.DEBUG)
-        self.addFileHandler(PACKAGING_LOG_FILE, yum_logger,
-                            minLevel=logging.DEBUG)
-        self.forwardToSyslog(yum_logger)
-
         # Create the sensitive information logger
         # * the sensitive-info.log file is not copied to the installed
         # system, as it might contain sensitive information that
