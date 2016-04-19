@@ -25,7 +25,7 @@ from pyanaconda import nm
 class RHELBaseInstallClass(BaseInstallClass):
     name = "Red Hat Enterprise Linux"
     sortPriority = 10000
-    if not productName.startswith("Red Hat "):
+    if not productName.startswith("Red Hat "):          # pylint: disable=no-member
         hidden = True
     defaultFS = "xfs"
 

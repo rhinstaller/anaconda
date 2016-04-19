@@ -1151,6 +1151,7 @@ class GRUB(BootLoader):
         try:
             default_index = self.images.index(self.default)
         except ValueError:
+            # pylint: disable=no-member
             e = "Failed to find default image (%s)" % self.default.label
             raise BootLoaderError(e)
 
@@ -1413,7 +1414,7 @@ class GRUB2(GRUB):
 
     @property
     def stage2_format_types(self):
-        if productName.startswith("Red Hat "):
+        if productName.startswith("Red Hat "):              # pylint: disable=no-member
             return ["xfs", "ext4", "ext3", "ext2", "btrfs"]
         else:
             return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
@@ -1565,6 +1566,7 @@ class GRUB2(GRUB):
             try:
                 default_index = self.images.index(self.default)
             except ValueError:
+                # pylint: disable=no-member
                 log.warning("Failed to find default image (%s), defaulting to 0", self.default.label)
                 default_index = 0
 
@@ -1721,7 +1723,7 @@ class EFIGRUB(GRUB2):
             except ValueError:
                 continue
 
-            if _product == productName.split("-")[0]:
+            if _product == productName.split("-")[0]:           # pylint: disable=no-member
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
@@ -1741,7 +1743,7 @@ class EFIGRUB(GRUB2):
         boot_disk = partition.disk
         boot_part_num = str(partition.parted_partition.number)
 
-        rc = self.efibootmgr("-c", "-w", "-L", productName.split("-")[0],
+        rc = self.efibootmgr("-c", "-w", "-L", productName.split("-")[0],       # pylint: disable=no-member
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
                              self.efi_dir_as_efifs_dir + self._efi_binary,
@@ -2112,7 +2114,7 @@ class ZIPL(BootLoader):
 
     @property
     def stage2_format_types(self):
-        if productName.startswith("Red Hat "):
+        if productName.startswith("Red Hat "):          # pylint: disable=no-member
             return ["xfs", "ext4", "ext3", "ext2"]
         else:
             return ["ext4", "ext3", "ext2", "xfs"]
