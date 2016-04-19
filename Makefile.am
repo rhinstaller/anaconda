@@ -184,7 +184,7 @@ ci: rc-release
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	@sudo mkdir -p $(ROOT_SITE_PACKAGES)
 	@sudo cp $(abs_builddir)/tests/usercustomize.py $(ROOT_SITE_PACKAGES)
-	$(MAKE) -C utils/dd
+	$(MAKE)
 	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ check
 	@tail -n 1 tests/gettext_tests/*.log > tests/gettext_tests/gettext_tests.log
