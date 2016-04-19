@@ -54,8 +54,8 @@ RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
 COVERAGE ?= coverage3
-USER_SITE_PACKAGES ?= $(shell $(PYTHON) -m site --user-site)
-ROOT_SITE_PACKAGES ?= $(shell sudo $(PYTHON) -m site --user-site)
+USER_SITE_BASE ?= $(abs_top_builddir)/python-site
+USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
 # Run tests on the translations before tarring them up
 dist-hook:
@@ -182,24 +182,22 @@ ci: rc-release
 	@rm -f tests/test-suite.log.*
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
-	@sudo mkdir -p $(ROOT_SITE_PACKAGES)
-	@sudo cp $(abs_builddir)/tests/usercustomize.py $(ROOT_SITE_PACKAGES)
 	$(MAKE)
 	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ check
+		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@tail -n 1 tests/gettext_tests/*.log > tests/gettext_tests/gettext_tests.log
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh check
+		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh \
+		PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=install/run_install_test.sh \
-		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ check
+		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@cat tests/test-suite.log.* > tests/test-suite.log
 	@rm -f tests/test-suite.log.*
-	@rm -f $(USER_SITE_PACKAGES)/usercustomize.py
-	@sudo rm -f $(ROOT_SITE_PACKAGES)/usercustomize.py
+	@rm -f $(USER_SITE_PACKAGES)
 	$(MAKE) coverage-report
 
 coverage-report:
