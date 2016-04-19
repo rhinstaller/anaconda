@@ -315,7 +315,6 @@ class NetworkControlBox(GObject.GObject):
         self.builder = builder
         self._running_nmce = None
         self.spoke = spoke
-        self.settings_changed = False
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -606,7 +605,8 @@ class NetworkControlBox(GObject.GObject):
                 uuid, devname, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, uuid, devname)
-            self.settings_changed = True
+            if self.spoke:
+                self.spoke.networking_changed = True
             network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, uuid, devname):
@@ -626,8 +626,8 @@ class NetworkControlBox(GObject.GObject):
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
             return
-
-        self.settings_changed = True
+        if self.spoke:
+            self.spoke.networking_changed = True
         log.info("network: device %s switched %s", dev_cfg.get_iface(), "on" if active else "off")
 
         if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
@@ -792,7 +792,8 @@ class NetworkControlBox(GObject.GObject):
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        self.settings_changed = True
+        if self.spoke:
+            self.spoke.networking_changed = True
         log.debug("network: GUI, device removed: %s" , device.get_iface())
         dev_cfg = self.dev_cfg(device=device)
         if dev_cfg:
@@ -1440,6 +1441,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
+        self.networking_changed = False
         self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
         self.network_control_box.connect("nm-state-changed",
@@ -1451,12 +1453,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         _update_network_data(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s", self.data.network)
 
-        if self.network_control_box.settings_changed:
+        if self.networking_changed:
             log.debug("network spoke (apply) refresh payload")
             from pyanaconda.packaging import payloadMgr
             payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
                                      fallback=not anaconda_flags.automatedInstall)
-            self.network_control_box.settings_changed = False
+            self.networking_changed = False
         else:
             log.debug("network spoke (apply), no changes detected")
 
