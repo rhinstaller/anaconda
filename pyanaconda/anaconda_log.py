@@ -29,7 +29,6 @@ import sys
 import warnings
 
 from pyanaconda.flags import flags
-from pyanaconda.constants import LOGLVL_LOCK
 
 DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
@@ -46,8 +45,7 @@ ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 from threading import Lock
 program_log_lock = Lock()
 
-logLevelMap = {"lock": LOGLVL_LOCK,
-               "debug": logging.DEBUG,
+logLevelMap = {"debug": logging.DEBUG,
                "info": logging.INFO,
                "warning": logging.WARNING,
                "error": logging.ERROR,
@@ -65,8 +63,7 @@ def setHandlersLevel(logr, level):
 class AnacondaSyslogHandler(SysLogHandler):
     # syslog doesn't understand these level names
     levelMap = {"ERR": "error",
-                "CRIT": "critical",
-                "LOCK": "debug"}
+                "CRIT": "critical"}
 
     def __init__(self,
                  address=('localhost', SYSLOG_UDP_PORT),
@@ -100,7 +97,6 @@ class AnacondaLog:
         logging.addLevelName(logging.WARNING, "WARN")
         logging.addLevelName(logging.ERROR, "ERR")
         logging.addLevelName(logging.CRITICAL, "CRIT")
-        logging.addLevelName(LOGLVL_LOCK, "LOCK")
 
         # Create the base of the logger hierarchy.
         self.anaconda_logger = logging.getLogger("anaconda")
@@ -127,7 +123,7 @@ class AnacondaLog:
 
         # Create the packaging logger.
         packaging_logger = logging.getLogger("packaging")
-        packaging_logger.setLevel(LOGLVL_LOCK)
+        packaging_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
                             minLevel=logging.INFO,
                             autoLevel=True)

@@ -168,9 +168,6 @@ DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
 # Default to these units when reading user input when no units given
 SIZE_UNITS_DEFAULT = "MiB"
 
-import logging
-LOGLVL_LOCK = logging.DEBUG-1
-
 # Constants for reporting status to IPMI.  These are from the IPMI spec v2 rev1.1, page 512.
 IPMI_STARTED = 0x7          # installation started
 IPMI_FINISHED = 0x8         # installation finished successfully
