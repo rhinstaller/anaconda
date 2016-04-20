@@ -197,7 +197,7 @@ ci: rc-release
 		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@cat tests/test-suite.log.* > tests/test-suite.log
 	@rm -f tests/test-suite.log.*
-	@rm -f $(USER_SITE_PACKAGES)
+	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
 coverage-report:
