@@ -27,6 +27,8 @@ from logging.handlers import SysLogHandler, SocketHandler, SYSLOG_UDP_PORT
 import os
 import sys
 import warnings
+from abc import ABCMeta
+import wrapt
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import LOGLVL_LOCK
@@ -62,7 +64,46 @@ def setHandlersLevel(logr, level):
     for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
         handler.setLevel(level)
 
-class AnacondaSyslogHandler(SysLogHandler):
+class _AnacondaLogFixer(object, metaclass=ABCMeta):
+    """ A mixin for logging.StreamHandler that does not lock during format.
+
+        Add this mixin before the Handler type in the inheritance order.
+    """
+
+    def handle(self, record):
+        # copied from logging.Handler, minus the lock acquisition
+        rv = self.filter(record)
+        if rv:
+            self.emit(record)
+        return rv
+
+    @property
+    def stream(self):
+        return self._stream
+
+    @stream.setter
+    def stream(self, value):
+        # Wrap the stream write in a lock acquisition
+        # Use an object proxy in order to work with types that may not allow
+        # the write property to be set.
+        class WriteProxy(wrapt.ObjectProxy):
+            # pylint: disable=no-self-argument
+            # rename self so we can reference the Handler object
+            def write(wrapped_self, *args, **kwargs):
+                self.acquire()
+                try:
+                    wrapped_self.__wrapped__.write(*args, **kwargs)
+                finally:
+                    self.release()
+
+        # Live with this attribute being defined outside of init to avoid the
+        # hassle of having an init. If _stream is not set, then stream was
+        # never set on the StreamHandler object, so accessing it in that case
+        # is supposed to be an error.
+        self._stream = WriteProxy(value) # pylint: disable=attribute-defined-outside-init
+
+
+class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
     # syslog doesn't understand these level names
     levelMap = {"ERR": "error",
                 "CRIT": "critical",
@@ -85,9 +126,15 @@ class AnacondaSyslogHandler(SysLogHandler):
         """Map the priority level to a syslog level """
         return self.levelMap.get(level, SysLogHandler.mapPriority(self, level))
 
-class AnacondaSocketHandler(SocketHandler):
+class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
     def makePickle(self, record):
         return bytes(self.formatter.format(record) + "\n", "utf-8")
+
+class AnacondaFileHandler(_AnacondaLogFixer, logging.FileHandler):
+    pass
+
+class AnacondaStreamHandler(_AnacondaLogFixer, logging.StreamHandler):
+    pass
 
 class AnacondaLog:
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
@@ -103,13 +150,17 @@ class AnacondaLog:
         logging.addLevelName(LOGLVL_LOCK, "LOCK")
 
         # Create the base of the logger hierarchy.
+        # Disable propagation to the parent logger, since the root logger is
+        # handled by a FileHandler(/dev/null), which can deadlock.
         self.anaconda_logger = logging.getLogger("anaconda")
+        self.anaconda_logger.propagate = False
         self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
                             minLevel=logging.DEBUG)
         warnings.showwarning = self.showwarning
 
         # Create the storage logger.
         storage_logger = logging.getLogger("blivet")
+        storage_logger.propagate = False
         self.addFileHandler(STORAGE_LOG_FILE, storage_logger,
                             minLevel=logging.DEBUG)
 
@@ -120,6 +171,7 @@ class AnacondaLog:
 
         # External program output log
         program_logger = logging.getLogger("program")
+        program_logger.propagate = False
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             minLevel=logging.DEBUG)
@@ -127,6 +179,7 @@ class AnacondaLog:
 
         # Create the packaging logger.
         packaging_logger = logging.getLogger("packaging")
+        packaging_logger.propagate = False
         packaging_logger.setLevel(LOGLVL_LOCK)
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
                             minLevel=logging.INFO,
@@ -135,6 +188,7 @@ class AnacondaLog:
 
         # Create the yum logger and link it to packaging
         yum_logger = logging.getLogger("yum")
+        yum_logger.propagate = False
         yum_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, yum_logger,
                             minLevel=logging.DEBUG)
@@ -145,6 +199,7 @@ class AnacondaLog:
         # system, as it might contain sensitive information that
         # should not be persistently stored by default
         sensitive_logger = logging.getLogger("sensitive-info")
+        sensitive_logger.propagate = False
         self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger,
                             minLevel=logging.DEBUG)
 
@@ -170,9 +225,9 @@ class AnacondaLog:
                         autoLevel=False):
         try:
             if isinstance(dest, str):
-                logfileHandler = logging.FileHandler(dest)
+                logfileHandler = AnacondaFileHandler(dest)
             else:
-                logfileHandler = logging.StreamHandler(dest)
+                logfileHandler = AnacondaStreamHandler(dest)
 
             logfileHandler.setLevel(minLevel)
             logfileHandler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
