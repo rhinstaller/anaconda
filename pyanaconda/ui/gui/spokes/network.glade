@@ -488,31 +488,6 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkLabel" id="heading_wired_subnet">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">Subnet Mask</property>
-                                            <property name="xalign">1</property>
-                                          </object>
-                                          <packing>
-                                            <property name="left_attach">0</property>
-                                            <property name="top_attach">8</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkLabel" id="label_wired_subnet">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="label">127.0.0.1</property>
-                                            <property name="xalign">0</property>
-                                          </object>
-                                          <packing>
-                                            <property name="left_attach">1</property>
-                                            <property name="top_attach">8</property>
-                                            <property name="width">2</property>
-                                          </packing>
-                                        </child>
-                                        <child>
                                           <object class="GtkLabel" id="heading_wired_ipv6">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
