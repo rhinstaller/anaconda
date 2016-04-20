@@ -38,7 +38,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
+from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.iutil import startProgram
 
@@ -1075,11 +1075,11 @@ class NetworkControlBox(GObject.GObject):
         heading = self.builder.get_object("heading_%s_%s" % (dev_type_str, info))
         value_label = self.builder.get_object("label_%s_%s" % (dev_type_str, info))
         if value_str is None:
-            heading.hide()
-            value_label.hide()
+            really_hide(heading)
+            really_hide(value_label)
         else:
-            heading.show()
-            value_label.show()
+            really_show(heading)
+            really_show(value_label)
             value_label.set_label(value_str)
 
     def _add_ap(self, ap, active=False):
