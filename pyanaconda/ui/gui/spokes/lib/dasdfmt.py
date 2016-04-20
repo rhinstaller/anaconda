@@ -20,6 +20,7 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
+from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once
@@ -116,6 +117,12 @@ class DasdFormatDialog(GUIObject):
         # Need to make devicetree aware of storage change
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
                                      args=(self.storage, self.data, self.storage.devicetree.protectedDevNames)))
+
+        # And update (re-create) the storage snapshot to reflect these changes
+        threadMgr.wait(constants.THREAD_STORAGE)
+        if on_disk_storage.created:
+            on_disk_storage.dispose_snapshot()
+        on_disk_storage.create_snapshot(self.storage)
 
     @gtk_action_wait
     def update_dialog(self, epoch_started):
