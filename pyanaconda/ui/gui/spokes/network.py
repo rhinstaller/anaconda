@@ -877,16 +877,13 @@ class NetworkControlBox(GObject.GObject):
         if ipv4cfg:
             addr_str = ",".join("%s/%d" % (a.get_address(), a.get_prefix())
                                            for a in ipv4cfg.get_addresses())
-            netmask_str = None
             gateway_str = ipv4cfg.get_gateway()
             dnss_str = ",".join(ipv4cfg.get_nameservers())
         else:
-            addr_str = dnss_str = gateway_str = netmask_str = None
+            addr_str = dnss_str = gateway_str = None
         self._set_device_info_value(dt, "ipv4", addr_str)
         self._set_device_info_value(dt, "dns", dnss_str)
         self._set_device_info_value(dt, "route", gateway_str)
-        if dt == "wired":
-            self._set_device_info_value(dt, "subnet", netmask_str)
 
         addr6_str = ""
         if ipv6cfg:
