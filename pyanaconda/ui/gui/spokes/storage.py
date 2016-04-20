@@ -899,8 +899,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 self.storage.devicetree.unhide(disk)
 
         if arch.isS390():
-            # check for unformatted DASDs and launch dasdfmt if any discovered
-            dasds = make_unformatted_dasd_list(self.selected_disks)
+            # check for unformatted DASDs
+            unformatted = make_unformatted_dasd_list(self.selected_disks)
+            # check for ldl dasds
+            ldldasds = [d for d in self.selected_disks if is_ldl_dasd(d)]
+
+            # combine it all in one list and format
+            dasds = list(set(unformatted + ldldasds))
             if len(dasds) > 0:
                 # need to get a list of DASDDevice objects, so....
                 dasdobjs = [self.storage.devicetree.getDeviceByName(d) for d in dasds]
@@ -909,26 +914,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 # prevent this information from being lost afterward
                 applyDiskSelection(self.storage, self.data, self.selected_disks)
                 dialog = DasdFormatDialog(self.data, self.storage, dasdobjs)
-                ignoreEscape(dialog.window)
-                rc = self.run_lightbox_dialog(dialog)
-                if rc == 1:
-                    # User hit OK on the dialog
-                    self.refresh()
-                elif rc == 2:
-                    # User clicked uri to return to hub.
-                    NormalSpoke.on_back_clicked(self, button)
-                    return
-                elif rc != 2:
-                    # User either hit cancel on the dialog or closed it via escape,
-                    # there was no formatting done.
-                    # NOTE: rc == 2 means the user clicked on the link that takes t
-                    # back to the hub.
-                    return
-
-            # check for ldl dasds
-            ldldasds = [d for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
-            if len(ldldasds) > 0:
-                dialog = DasdFormatDialog(self.data, self.storage, ldldasds)
                 ignoreEscape(dialog.window)
                 rc = self.run_lightbox_dialog(dialog)
                 if rc == 1:
