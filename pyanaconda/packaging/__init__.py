@@ -636,29 +636,11 @@ class Payload(object):
            every payload except for dnf.  Payloads should only implement one of
            these methods by overriding the unneeded one with a pass.
         """
-        if not flags.dirInstall:
-            if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
-                set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
-
-                # Now that we have the FS layout in the target, umount
-                # things that were in the legacy sysroot, and put them in
-                # the target root, except for the physical /.  First,
-                # unmount all target filesystems.
-                self.storage.umount_filesystems()
-
-                # Explicitly mount the root on the physical sysroot
-                rootmnt = self.storage.mountpoints.get('/')
-                rootmnt.setup()
-                rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
-
-                self.prepareMountTargets(self.storage)
-
-                # Everything else goes in the target root, including /boot
-                # since the bootloader code will expect to find /boot
-                # inside the chroot.
-                self.storage.mount_filesystems(skip_root=True)
-
-            self.storage.write()
+        if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
+            set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
+            self.prepareMountTargets(self.storage)
+            if not flags.dirInstall:
+                self.storage.write()
 
 # Inherit abstract methods from Payload
 # pylint: disable=abstract-method
