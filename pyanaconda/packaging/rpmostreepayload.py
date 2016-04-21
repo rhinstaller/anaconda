@@ -286,14 +286,15 @@ class RPMOSTreePayload(ArchivePayload):
             os.rename(boot_grub2_cfg, target_grub_cfg)
             os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
-
-        # OSTree owns the bootloader configuration, so here we give it
-        # the argument list we computed from storage, architecture and
-        # such.
-        set_kargs_args = ["admin", "instutil", "set-kargs"]
-        set_kargs_args.extend(self.storage.bootloader.boot_args)
-        set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
-        self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
+        # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
+        if not flags.dirInstall:
+            # OSTree owns the bootloader configuration, so here we give it
+            # the argument list we computed from storage, architecture and
+            # such.
+            set_kargs_args = ["admin", "instutil", "set-kargs"]
+            set_kargs_args.extend(self.storage.bootloader.boot_args)
+            set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
+            self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
 
     def preShutdown(self):
         # A crude hack for 7.2; forcibly recursively unmount
