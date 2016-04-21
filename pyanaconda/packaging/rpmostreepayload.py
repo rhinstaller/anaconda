@@ -214,24 +214,28 @@ class RPMOSTreePayload(ArchivePayload):
         mainctx.pop_thread_default()
 
     def prepareMountTargets(self, storage):
+        """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
         varroot = iutil.getTargetPhysicalRoot() + '/ostree/deploy/' + ostreesetup.osname + '/var'
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        self._binds = [(iutil.getTargetPhysicalRoot(),
-                  iutil.getSysroot() + '/sysroot'),
-                 (varroot,
-                  iutil.getSysroot() + '/var'),
-                 (iutil.getSysroot() + '/usr', None)]
+        self._binds = [(varroot, iutil.getSysroot() + '/var'),
+                       (iutil.getSysroot() + '/usr', None),
+                       (iutil.getTargetPhysicalRoot(), iutil.getSysroot() + "/sysroot"),
+                       (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
+
+        # Bind mount the other filesystems from /mnt/sysimage to the ostree root
+        for path in ["/dev", "/dev/pts", "/dev/shm", "/proc", "/run", "/sys", "/sys/fs/selinux"]:
+            self._binds += [(iutil.getTargetPhysicalRoot()+path, iutil.getSysroot()+path)]
 
         for (src, dest) in self._binds:
             self._safeExecWithRedirect("mount",
                                        ["--bind", src, dest if dest else src])
             if dest is None:
                 self._safeExecWithRedirect("mount",
-                                           ["--bind", "-o", "ro", src, src])
+                                           ["--bind", "-o", "remount,ro", src, src])
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
