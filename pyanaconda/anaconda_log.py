@@ -27,7 +27,6 @@ from logging.handlers import SysLogHandler, SocketHandler, SYSLOG_UDP_PORT
 import os
 import sys
 import warnings
-from abc import ABCMeta
 import wrapt
 
 from pyanaconda.flags import flags
@@ -62,17 +61,19 @@ def setHandlersLevel(logr, level):
     for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
         handler.setLevel(level)
 
-class _AnacondaLogFixer(object, metaclass=ABCMeta):
+class _AnacondaLogFixer(object):
     """ A mixin for logging.StreamHandler that does not lock during format.
 
         Add this mixin before the Handler type in the inheritance order.
     """
 
+    # filter, emit, lock, and acquire need to be implemented in a subclass
+
     def handle(self, record):
         # copied from logging.Handler, minus the lock acquisition
-        rv = self.filter(record)
+        rv = self.filter(record)    # pylint: disable=no-member
         if rv:
-            self.emit(record)
+            self.emit(record)       # pylint: disable=no-member
         return rv
 
     @property
@@ -88,11 +89,11 @@ class _AnacondaLogFixer(object, metaclass=ABCMeta):
             # pylint: disable=no-self-argument
             # rename self so we can reference the Handler object
             def write(wrapped_self, *args, **kwargs):
-                self.acquire()
+                self.acquire()      # pylint: disable=no-member
                 try:
                     wrapped_self.__wrapped__.write(*args, **kwargs)
                 finally:
-                    self.release()
+                    self.release()  # pylint: disable=no-member
 
         # Live with this attribute being defined outside of init to avoid the
         # hassle of having an init. If _stream is not set, then stream was
