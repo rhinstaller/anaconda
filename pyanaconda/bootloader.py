@@ -990,8 +990,8 @@ class BootLoader(object):
 
 class GRUB(BootLoader):
     name = "GRUB"
-    _config_dir = "grub"
     _config_file = "grub.conf"
+    _config_dir = "grub"
     _device_map_file = "device.map"
     can_dual_boot = True
     can_update = True
@@ -1677,6 +1677,119 @@ class GRUB2(GRUB):
 
         return ret
 
+class EFIGRUB1(GRUB):
+    packages = ["efibootmgr"]
+    can_dual_boot = False
+    _config_dir = "efi/EFI/redhat"
+
+    # list of strings representing options for boot device types
+    stage2_device_types = ["partition"]
+    stage2_raid_levels = []
+    stage2_raid_member_types = []
+    stage2_raid_metadata = []
+
+    stage2_is_valid_stage1 = False
+    stage2_bootable = False
+    stage2_max_end_mb = None
+
+    def efibootmgr(self, *args, **kwargs):
+        if flags.imageInstall or flags.dirInstall:
+            log.info("Skipping efibootmgr for image/directory install.")
+            return ""
+
+        if kwargs.pop("capture", False):
+            exec_func = iutil.execWithCapture
+        else:
+            exec_func = iutil.execWithRedirect
+        if "root" not in kwargs:
+            kwargs["root"] = iutil.getSysroot()
+
+        return exec_func("efibootmgr", list(args), **kwargs)
+
+    #
+    # configuration
+    #
+
+    @property
+    def efi_product_path(self):
+        """ The EFI product path.
+
+            eg: HD(1,800,64000,faacb4ef-e361-455e-bd97-ca33632550c3)
+        """
+        buf = self.efibootmgr("-v", stderr="/dev/tty5", capture=True)
+        matches = re.search(productName + r'\s+(HD\(.+?\))', buf)
+        if matches and matches.groups():
+            return matches.group(1)
+        return ""
+
+    @property
+    def grub_conf_device_line(self):
+        return "device %s %s\n" % (self.grub_device_name(self.stage2_device),
+                                   self.efi_product_path)
+
+    #
+    # installation
+    #
+
+    def remove_efi_boot_target(self):
+        buf = self.efibootmgr(capture=True)
+        for line in buf.splitlines():
+            try:
+                (slot, _product) = line.split(None, 1)
+            except ValueError:
+                continue
+
+            if _product == productName:
+                slot_id = slot[4:8]
+                # slot_id is hex, we can't use .isint and use this regex:
+                if not re.match("^[0-9a-fA-F]+$", slot_id):
+                    log.warning("failed to parse efi boot slot (%s)", slot)
+                    continue
+
+                rc = self.efibootmgr("-b", slot_id, "-B",
+                                     root=iutil.getSysroot())
+                if rc:
+                    raise BootLoaderError("failed to remove old efi boot entry")
+
+    def _add_single_efi_boot_target(self, partition):
+        boot_disk = partition.disk
+        boot_part_num = str(partition.partedPartition.number)
+
+        rc = self.efibootmgr("-c", "-w", "-L", productName,
+                             "-d", boot_disk.path, "-p", boot_part_num,
+                             "-l", "\\EFI\\redhat\\grub.efi",
+                             root=iutil.getSysroot())
+        if rc:
+            raise BootLoaderError("failed to set new efi boot target. This is most likely a kernel or firmware bug.")
+
+    def add_efi_boot_target(self):
+        if self.stage1_device.type == "partition":
+            self._add_single_efi_boot_target(self.stage1_device)
+        elif self.stage1_device.type == "mdarray":
+            for parent in self.stage1_device.parents:
+                self._add_single_efi_boot_target(parent)
+
+    def install(self, args=None):
+        self.remove_efi_boot_target()
+        self.add_efi_boot_target()
+
+    def update(self):
+        self.install()
+
+    #
+    # installation
+    #
+    def write(self):
+        """ Write the bootloader configuration and install the bootloader. """
+        if self.update_only:
+            self.update()
+            return
+
+        os.sync()
+        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+        self.install()
+        self.write_config()
+
 class EFIGRUB(GRUB2):
     packages = ["grub2-efi", "efibootmgr", "shim"]
     can_dual_boot = False
@@ -2303,16 +2416,27 @@ class EXTLINUX(BootLoader):
 
 
 # every platform that wants a bootloader needs to be in this dict
-bootloader_by_platform = {platform.X86: GRUB2,
-                          platform.EFI: EFIGRUB,
-                          platform.MacEFI: MacEFIGRUB,
-                          platform.PPC: GRUB2,
-                          platform.IPSeriesPPC: IPSeriesGRUB2,
-                          platform.NewWorldPPC: MacYaboot,
-                          platform.S390: ZIPL,
-                          platform.Aarch64EFI: Aarch64EFIGRUB,
-                          platform.ARM: EXTLINUX,
-                          platform.omapARM: EXTLINUX}
+if flags.cmdline.get("legacygrub") == "1":
+    log.info("Using legacy grub (0.9x)")
+    bootloader_by_platform = {platform.X86: GRUB,
+                              platform.EFI: EFIGRUB1,
+                              platform.MacEFI: MacEFIGRUB,
+                              platform.PPC: GRUB2,
+                              platform.IPSeriesPPC: IPSeriesGRUB2,
+                              platform.NewWorldPPC: MacYaboot,
+                              platform.S390: ZIPL,
+                              platform.Aarch64EFI: Aarch64EFIGRUB}
+else:
+    bootloader_by_platform = {platform.X86: GRUB2,
+                              platform.EFI: EFIGRUB,
+                              platform.MacEFI: MacEFIGRUB,
+                              platform.PPC: GRUB2,
+                              platform.IPSeriesPPC: IPSeriesGRUB2,
+                              platform.NewWorldPPC: MacYaboot,
+                              platform.S390: ZIPL,
+                              platform.Aarch64EFI: Aarch64EFIGRUB,
+                              platform.ARM: EXTLINUX,
+                              platform.omapARM: EXTLINUX}
 
 def get_bootloader():
     platform_name = platform.platform.__class__.__name__
