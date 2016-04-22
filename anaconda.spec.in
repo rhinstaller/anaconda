@@ -318,6 +318,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 21 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.67-1
+- Combine formatting of LDL and unformatted DASDs. (sbueno+anaconda)
+  Resolves: rhbz#1316088
+- Move metacity settings into anaconda. (dshea)
+  Resolves: rhbz#1324889
+
 * Fri Apr 15 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.66-1
 - Check software selection in tui kickstart (bcl)
   Resolves: rhbz#1320436
