@@ -31,6 +31,8 @@ from pyanaconda.i18n import N_
 
 log = logging.getLogger("anaconda")
 
+PLACEHOLDER_NAME = "ADDON_placeholder"
+
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
        in toplevel_addon_paths and registers each subdirectory
@@ -97,6 +99,15 @@ class AddonRegistry(object):
 
     def setup(self, storage, ksdata, instClass, payload):
         """This method calls setup on all the registered addons."""
+        # filter out placeholders (should be imported now)
+        d = {}
+        for k, v in self.__dict__.items():
+            if not v.name == PLACEHOLDER_NAME:
+                d[k] = v
+            else:
+                log.warning("Removing placeholder for addon %s. Addon wasn't imported!", k)
+
+        self.__dict__ = d
         for v in self.__dict__.values():
             if hasattr(v, "setup"):
                 if v.setup.__code__.co_argcount == 5:
@@ -137,7 +148,7 @@ class AddonData(object):
            This method is called before the installation
            is started and directly from spokes. It must be possible
            to call it multiple times without breaking the environment."""
-        pass
+        log.warning("Addon %s doesn't have setup method!", self.name)
 
     def execute(self, storage, ksdata, instClass, users, payload):
         """Make the changes to the underlying system.
@@ -145,7 +156,7 @@ class AddonData(object):
            This method is called only once in the post-install
            setup phase.
         """
-        pass
+        log.warning("Addon %s doesn't have execute method!", self.name)
 
     def handle_header(self, lineno, args):
         """Process additional arguments to the %addon line.
@@ -198,9 +209,10 @@ class AddonSection(Section):
         Section.handleHeader(self, lineno, args)
         self.addon_id = args[1]
 
-        # if the addon is not registered, create dummy placeholder for it
+        # If the addon is not registered, create dummy placeholder for it.
+        # If not replaced, the placeholder will be removed in the setup method.
         if self.addon_id and not hasattr(self.handler.addons, self.addon_id):
-            setattr(self.handler.addons, self.addon_id, AddonData(self.addon_id))
+            setattr(self.handler.addons, self.addon_id, AddonData(PLACEHOLDER_NAME))
 
         # Parse additional arguments to %addon with the AddonData handler
         addon = getattr(self.handler.addons, self.addon_id)
