@@ -173,7 +173,7 @@ class Anaconda(object):
             self._storage = blivet.Blivet(ksdata=self.ksdata)
 
             if self.instClass.defaultFS:
-                self._storage.setDefaultFSType(self.instClass.defaultFS)
+                self._storage.set_default_fstype(self.instClass.defaultFS)
 
             if blivet.arch.is_s390():
                 # want to make sure s390 plugin is loaded
