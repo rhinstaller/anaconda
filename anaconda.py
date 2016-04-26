@@ -76,6 +76,15 @@ def exitHandler(rebootData, storage):
         while True:
             time.sleep(10000)
 
+    if anaconda.dbus_inhibit_id:
+        from pyanaconda.screensaver import uninhibit_screensaver
+        uninhibit_screensaver(anaconda.dbus_session_connection, anaconda.dbus_inhibit_id)
+        anaconda.dbus_inhibit_id = None
+
+    # Unsetup the payload, which most usefully unmounts live images
+    if anaconda.payload:
+        anaconda.payload.unsetup()
+
     if image_count or flags.dirInstall:
         anaconda.storage.umount_filesystems(swapoff=False)
         devicetree = anaconda.storage.devicetree
@@ -85,15 +94,6 @@ def exitHandler(rebootData, storage):
             for loop in dev.parents:
                 loop.controllable = True
             dev.deactivate(recursive=True)
-
-    if anaconda.dbus_inhibit_id:
-        from pyanaconda.screensaver import uninhibit_screensaver
-        uninhibit_screensaver(anaconda.dbus_session_connection, anaconda.dbus_inhibit_id)
-        anaconda.dbus_inhibit_id = None
-
-    # Unsetup the payload, which most usefully unmounts live images
-    if anaconda.payload:
-        anaconda.payload.unsetup()
 
     # Clean up the PID file
     if pidfile:

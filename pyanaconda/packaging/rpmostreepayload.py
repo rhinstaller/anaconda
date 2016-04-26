@@ -22,6 +22,7 @@
 
 import os
 import sys
+from subprocess import CalledProcessError
 
 from pyanaconda import iutil
 from pyanaconda.flags import flags
@@ -268,7 +269,10 @@ class RPMOSTreePayload(ArchivePayload):
         super(RPMOSTreePayload, self).unsetup()
 
         for mount in reversed(self._internal_mounts):
-            umount(mount)
+            try:
+                umount(mount)
+            except CalledProcessError as e:
+                log.debug("unmounting %s failed: %s", mount, str(e))
 
     def recreateInitrds(self):
         # For rpmostree payloads, we're replicating an initramfs from
