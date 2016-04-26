@@ -702,7 +702,7 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
             self.firstboot = FIRSTBOOT_SKIP
 
     def execute(self, *args):
-        action = "enable"
+        action = iutil.enable_service
         unit_name = "initial-setup.service"
 
         # find if the unit file for the Initial Setup service is installed
@@ -713,11 +713,11 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
             f.close()
 
         if self.firstboot == FIRSTBOOT_SKIP:
-            action = "disable"
+            action = iutil.disable_service
 
         # enable/disable the Initial Setup service (if its unit is installed)
         if unit_exists:
-            iutil.execInSysroot("systemctl", [action, unit_name])
+            action(unit_name)
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
@@ -1659,10 +1659,10 @@ class SELinux(commands.selinux.FC3_SELinux):
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
         for svc in self.disabled:
-            iutil.execInSysroot("systemctl", ["disable", svc])
+            iutil.disable_service(svc)
 
         for svc in self.enabled:
-            iutil.execInSysroot("systemctl", ["enable", svc])
+            iutil.enable_service(svc)
 
 class SshKey(commands.sshkey.F22_SshKey):
     def execute(self, storage, ksdata, instClass, users):
