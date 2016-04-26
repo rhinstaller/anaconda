@@ -751,7 +751,7 @@ def setup_translations():
         add_po_path(TRANSLATIONS_UPDATE_DIR)
     gettext.textdomain("anaconda")
 
-def _run_systemctl(command, service):
+def _run_systemctl(command, service, root="/"):
     """
     Runs 'systemctl command service.service'
 
@@ -759,7 +759,11 @@ def _run_systemctl(command, service):
 
     """
 
-    ret = execWithRedirect("systemctl", [command, service])
+    args = [command, service]
+    if root != "/":
+        args += ["--root", root]
+
+    ret = execWithRedirect("systemctl", args)
 
     return ret
 
@@ -776,6 +780,20 @@ def service_running(service):
     ret = _run_systemctl("status", service)
 
     return ret == 0
+
+def enable_service(service):
+    """ Enable a systemd service in the sysroot """
+    ret = _run_systemctl("enable", service, root=getSysroot())
+
+    if ret != 0:
+        raise ValueError("Error enabling service %s: %s" % (service, ret))
+
+def disable_service(service):
+    """ Disable a systemd service in the sysroot """
+    ret = _run_systemctl("disable", service, root=getSysroot())
+
+    if ret != 0:
+        raise ValueError("Error disabling service %s: %s" % (service, ret))
 
 def dracut_eject(device):
     """
