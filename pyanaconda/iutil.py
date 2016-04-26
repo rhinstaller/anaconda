@@ -759,8 +759,7 @@ def _run_systemctl(command, service):
 
     """
 
-    service_name = service + ".service"
-    ret = execWithRedirect("systemctl", [command, service_name])
+    ret = execWithRedirect("systemctl", [command, service])
 
     return ret
 
