@@ -790,10 +790,12 @@ def enable_service(service):
 
 def disable_service(service):
     """ Disable a systemd service in the sysroot """
+    # we ignore the error so we can disable services even if they don't
+    # exist, because that's effectively disabled
     ret = _run_systemctl("disable", service, root=getSysroot())
 
     if ret != 0:
-        raise ValueError("Error disabling service %s: %s" % (service, ret))
+        log.warning("Disabling %s failed. It probably doesn't exist" % service)
 
 def dracut_eject(device):
     """
