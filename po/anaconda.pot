@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 25.7\n"
+"Project-Id-Version: anaconda 25.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-04-15 17:57-0700\n"
+"POT-Creation-Date: 2016-04-27 17:18-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda.py:338
+#: anaconda.py:339
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda.py:340
+#: anaconda.py:341
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -33,17 +33,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda.py:343
+#: anaconda.py:344
 msgid ""
 "\n"
 "Press <Enter> to reboot your system.\n"
 msgstr ""
 
-#: anaconda.py:345
+#: anaconda.py:346
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda.py:346
+#: anaconda.py:347
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -52,54 +52,54 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda.py:349
+#: anaconda.py:350
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda.py:385
+#: anaconda.py:386
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda.py:386 pyanaconda/ui/tui/simpleline/base.py:571
+#: anaconda.py:387 pyanaconda/ui/tui/simpleline/base.py:571
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: anaconda.py:509
+#: anaconda.py:510
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda.py:517
+#: anaconda.py:518
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda.py:525
+#: anaconda.py:526
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda.py:621
+#: anaconda.py:622
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda.py:623
+#: anaconda.py:624
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: anaconda.py:826
+#: anaconda.py:827
 msgid "Unable to create PID file"
 msgstr ""
 
-#: anaconda.py:827
+#: anaconda.py:828
 #, python-format
 msgid ""
 "Anaconda is unable to create %s because the file already exists. Anaconda is "
 "already running, or a previous instance of anaconda has crashed."
 msgstr ""
 
-#: pyanaconda/addons.py:87
+#: pyanaconda/addons.py:90
 #, python-format
 msgid "Executing %s addon"
 msgstr ""
@@ -184,7 +184,7 @@ msgstr ""
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1365
+#: pyanaconda/bootloader.py:1366
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -192,7 +192,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1371
+#: pyanaconda/bootloader.py:1372
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -200,7 +200,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1666
+#: pyanaconda/bootloader.py:1668
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -277,19 +277,19 @@ msgstr ""
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/constants.py:189
+#: pyanaconda/constants.py:186
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/constants.py:190
+#: pyanaconda/constants.py:187
 msgid "Downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/constants.py:191
+#: pyanaconda/constants.py:188
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/constants.py:194
+#: pyanaconda/constants.py:191
 msgid "Anaconda Installer"
 msgstr ""
 
@@ -551,19 +551,19 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:251 pyanaconda/packaging/livepayload.py:182
-#: pyanaconda/packaging/dnfpayload.py:788
+#: pyanaconda/packaging/dnfpayload.py:805
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/iutil.py:861
+#: pyanaconda/iutil.py:878
 msgid "No host url"
 msgstr ""
 
-#: pyanaconda/iutil.py:882
+#: pyanaconda/iutil.py:899
 msgid "malformed URL, cannot parse it."
 msgstr ""
 
-#: pyanaconda/iutil.py:898
+#: pyanaconda/iutil.py:915
 msgid "URL has no host component"
 msgstr ""
 
@@ -948,7 +948,7 @@ msgstr ""
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1480 pyanaconda/ui/gui/spokes/network.glade:2077
+#: pyanaconda/network.py:1480 pyanaconda/ui/gui/spokes/network.glade:2052
 msgid "No network devices available"
 msgstr ""
 
@@ -1381,19 +1381,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:735
+#: pyanaconda/packaging/dnfpayload.py:752
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:753
+#: pyanaconda/packaging/dnfpayload.py:770
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:766
+#: pyanaconda/packaging/dnfpayload.py:783
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:779
+#: pyanaconda/packaging/dnfpayload.py:796
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1439,7 +1439,7 @@ msgid "SOFTWARE"
 msgstr ""
 
 #: pyanaconda/ui/categories/system.py:32
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:469
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:471
 msgid "SYSTEM"
 msgstr ""
 
@@ -1660,7 +1660,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:157
-#: pyanaconda/ui/gui/spokes/network.py:1388
+#: pyanaconda/ui/gui/spokes/network.py:1385
 msgid "Password: "
 msgstr ""
 
@@ -1768,7 +1768,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:192
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:241
-#: pyanaconda/ui/gui/spokes/network.glade:2226
+#: pyanaconda/ui/gui/spokes/network.glade:2201
 msgid "Host Name"
 msgstr ""
 
@@ -1786,8 +1786,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:268
-#: pyanaconda/ui/gui/spokes/network.py:1549
-#: pyanaconda/ui/gui/spokes/network.py:1630
+#: pyanaconda/ui/gui/spokes/network.py:1546
+#: pyanaconda/ui/gui/spokes/network.py:1627
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""
@@ -1978,8 +1978,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:65
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:550
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:556
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:551
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:557
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -2035,34 +2035,34 @@ msgid "Installation source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:62 pyanaconda/ui/tui/spokes/source.py:111
-#: pyanaconda/ui/gui/spokes/source.py:598
+#: pyanaconda/ui/gui/spokes/source.py:600
 #: pyanaconda/ui/gui/spokes/source.glade:758
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:103
-#: pyanaconda/ui/gui/spokes/source.py:590
+#: pyanaconda/ui/gui/spokes/source.py:592
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:105
-#: pyanaconda/ui/gui/spokes/source.py:592
+#: pyanaconda/ui/gui/spokes/source.py:594
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:108
 #: pyanaconda/ui/tui/spokes/source.py:122
-#: pyanaconda/ui/gui/spokes/source.py:586
+#: pyanaconda/ui/gui/spokes/source.py:588
 msgid "Error setting up software source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:113
 #: pyanaconda/ui/tui/spokes/software.py:125
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:558
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:559
 #: pyanaconda/ui/gui/spokes/software.py:307
 #: pyanaconda/ui/gui/spokes/software.py:312
-#: pyanaconda/ui/gui/spokes/source.py:600
+#: pyanaconda/ui/gui/spokes/source.py:602
 msgid "Nothing selected"
 msgstr ""
 
@@ -2084,7 +2084,7 @@ msgid "Network"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:144
-#: pyanaconda/ui/gui/spokes/source.py:911
+#: pyanaconda/ui/gui/spokes/source.py:913
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
@@ -2551,38 +2551,38 @@ msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:418
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:419
 msgctxt "GUI|Spoke"
 msgid "_TIME & DATE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:541
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:542
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:552
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:553
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:727
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:741
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:927
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:728
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:742
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:928
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:751
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:729
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:738
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:926
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:929
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:730
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:739
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:927
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:930
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1077
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1084
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1081
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1088
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2708,47 +2708,47 @@ msgstr ""
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:900
-#: pyanaconda/ui/gui/spokes/network.glade:544
-#: pyanaconda/ui/gui/spokes/network.glade:820
+#: pyanaconda/ui/gui/spokes/network.py:897
+#: pyanaconda/ui/gui/spokes/network.glade:519
+#: pyanaconda/ui/gui/spokes/network.glade:795
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:901
-#: pyanaconda/ui/gui/spokes/network.glade:519
-#: pyanaconda/ui/gui/spokes/network.glade:832
-#: pyanaconda/ui/gui/spokes/network.glade:1399
+#: pyanaconda/ui/gui/spokes/network.py:898
+#: pyanaconda/ui/gui/spokes/network.glade:494
+#: pyanaconda/ui/gui/spokes/network.glade:807
+#: pyanaconda/ui/gui/spokes/network.glade:1374
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:903
-#: pyanaconda/ui/gui/spokes/network.py:905
-#: pyanaconda/ui/gui/spokes/network.glade:1387
+#: pyanaconda/ui/gui/spokes/network.py:900
+#: pyanaconda/ui/gui/spokes/network.py:902
+#: pyanaconda/ui/gui/spokes/network.glade:1362
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:988
+#: pyanaconda/ui/gui/spokes/network.py:985
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1165
+#: pyanaconda/ui/gui/spokes/network.py:1162
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1168
+#: pyanaconda/ui/gui/spokes/network.py:1165
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1171
+#: pyanaconda/ui/gui/spokes/network.py:1168
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1175
+#: pyanaconda/ui/gui/spokes/network.py:1172
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1180 widgets/src/SpokeSelector.c:83
+#: pyanaconda/ui/gui/spokes/network.py:1177 widgets/src/SpokeSelector.c:83
 #: pyanaconda/ui/gui/spokes/filter.glade:145
 #: pyanaconda/ui/gui/spokes/filter.glade:560
 #: pyanaconda/ui/gui/spokes/filter.glade:894
@@ -2757,41 +2757,41 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1350
-#: pyanaconda/ui/gui/spokes/network.glade:2428
+#: pyanaconda/ui/gui/spokes/network.py:1347
+#: pyanaconda/ui/gui/spokes/network.glade:2403
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1351
+#: pyanaconda/ui/gui/spokes/network.py:1348
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1365
+#: pyanaconda/ui/gui/spokes/network.py:1362
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1373
+#: pyanaconda/ui/gui/spokes/network.py:1370
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1383
+#: pyanaconda/ui/gui/spokes/network.py:1380
 msgid "User name: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1394
+#: pyanaconda/ui/gui/spokes/network.py:1391
 msgid "Identity: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1399
+#: pyanaconda/ui/gui/spokes/network.py:1396
 msgid "Private key password: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1459
+#: pyanaconda/ui/gui/spokes/network.py:1456
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
@@ -2824,7 +2824,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:214
-#: pyanaconda/ui/gui/spokes/source.py:580
+#: pyanaconda/ui/gui/spokes/source.py:582
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2905,108 +2905,108 @@ msgctxt "GUI|Spoke"
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:519
+#: pyanaconda/ui/gui/spokes/source.py:520
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:584
+#: pyanaconda/ui/gui/spokes/source.py:586
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:595
+#: pyanaconda/ui/gui/spokes/source.py:597
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:728
+#: pyanaconda/ui/gui/spokes/source.py:730
 msgid "Failed to set up installation source; check the repo url."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:730
+#: pyanaconda/ui/gui/spokes/source.py:732
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:762
+#: pyanaconda/ui/gui/spokes/source.py:764
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:763
+#: pyanaconda/ui/gui/spokes/source.py:765
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:923
+#: pyanaconda/ui/gui/spokes/source.py:925
 msgid "You need to configure the network to use a network installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:994
+#: pyanaconda/ui/gui/spokes/source.py:996
 #, python-format
 msgid "Repository %s has empty url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:996
+#: pyanaconda/ui/gui/spokes/source.py:998
 msgid "URL is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1001
+#: pyanaconda/ui/gui/spokes/source.py:1003
 #, python-format
 msgid "Repository %s has invalid url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1003
+#: pyanaconda/ui/gui/spokes/source.py:1005
 msgid "Invalid URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1010
+#: pyanaconda/ui/gui/spokes/source.py:1012
 #, python-format
 msgid "Repository %s does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1012
+#: pyanaconda/ui/gui/spokes/source.py:1014
 msgid "Protocol in URL does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1016
+#: pyanaconda/ui/gui/spokes/source.py:1018
 #, python-format
 msgid "Repository %s has empty NFS server"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1018
+#: pyanaconda/ui/gui/spokes/source.py:1020
 msgid "NFS server is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1026
+#: pyanaconda/ui/gui/spokes/source.py:1028
 #, python-format
 msgid "Repository %s has invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1028
+#: pyanaconda/ui/gui/spokes/source.py:1030
 msgid "Invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1032
+#: pyanaconda/ui/gui/spokes/source.py:1034
 #, python-format
 msgid "Repository %s required remote directory"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1034
+#: pyanaconda/ui/gui/spokes/source.py:1036
 msgid "Remote directory is required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1055
+#: pyanaconda/ui/gui/spokes/source.py:1057
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1063
+#: pyanaconda/ui/gui/spokes/source.py:1065
 msgid "Empty repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1066
+#: pyanaconda/ui/gui/spokes/source.py:1068
 msgid "Invalid repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1072
+#: pyanaconda/ui/gui/spokes/source.py:1074
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -3201,33 +3201,33 @@ msgid ""
 "Please select which nodes you wish to log into:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:460
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:462
 msgid "DATA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:515
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:517
 #, python-format
 msgid ""
 "You haven't created any mount points for your %(product)s %(version)s "
 "installation yet.  You can:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:525
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:527
 msgctxt "GUI|Custom Partitioning|Autopart Page"
 msgid "_Click here to create them automatically."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:550
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:552
 msgid "Create new mount points by clicking the '+' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:558
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:560
 msgid ""
 "Or, assign new mount points to existing partitions after selecting them "
 "below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:563
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:565
 msgctxt "GUI|Custom Partitioning|Autopart Page"
 msgid "_New mount points will use the following partitioning scheme:"
 msgstr ""
@@ -3951,7 +3951,7 @@ msgid "_Select the type of device you wish to add"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:165
-#: pyanaconda/ui/gui/spokes/network.glade:2263
+#: pyanaconda/ui/gui/spokes/network.glade:2238
 msgid "NETWORK & HOST NAME"
 msgstr ""
 
@@ -3966,199 +3966,195 @@ msgid "Slaves"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:441
-#: pyanaconda/ui/gui/spokes/network.glade:856
-#: pyanaconda/ui/gui/spokes/network.glade:1423
+#: pyanaconda/ui/gui/spokes/network.glade:831
+#: pyanaconda/ui/gui/spokes/network.glade:1398
 msgid "DNS"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:469
-#: pyanaconda/ui/gui/spokes/network.glade:844
-#: pyanaconda/ui/gui/spokes/network.glade:1411
+#: pyanaconda/ui/gui/spokes/network.glade:819
+#: pyanaconda/ui/gui/spokes/network.glade:1386
 msgid "Default Route"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:494
-msgid "Subnet Mask"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.glade:569
-#: pyanaconda/ui/gui/spokes/network.glade:808
-#: pyanaconda/ui/gui/spokes/network.glade:1255
+#: pyanaconda/ui/gui/spokes/network.glade:544
+#: pyanaconda/ui/gui/spokes/network.glade:783
+#: pyanaconda/ui/gui/spokes/network.glade:1230
 msgid "Speed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:594
-#: pyanaconda/ui/gui/spokes/network.glade:796
+#: pyanaconda/ui/gui/spokes/network.glade:569
+#: pyanaconda/ui/gui/spokes/network.glade:771
 msgid "Hardware Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:619
+#: pyanaconda/ui/gui/spokes/network.glade:594
 msgid "Parent"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:631
+#: pyanaconda/ui/gui/spokes/network.glade:606
 msgid "VLAN ID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:679
+#: pyanaconda/ui/gui/spokes/network.glade:654
 msgctxt "GUI|Network|Wired"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:683
+#: pyanaconda/ui/gui/spokes/network.glade:658
 msgid "To apply the configuration immediately turn the device off and on."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:969
+#: pyanaconda/ui/gui/spokes/network.glade:944
 msgid "Security"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:981
+#: pyanaconda/ui/gui/spokes/network.glade:956
 msgctxt "GUI|Network|Wireless"
 msgid "_Network Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:995
+#: pyanaconda/ui/gui/spokes/network.glade:970
 msgid "Network Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1007
+#: pyanaconda/ui/gui/spokes/network.glade:982
 msgid "Security Key"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1091
+#: pyanaconda/ui/gui/spokes/network.glade:1066
 msgctxt "GUI|Network|Wireless"
 msgid "_Use as Hotspot..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1108
+#: pyanaconda/ui/gui/spokes/network.glade:1083
 msgctxt "GUI|Network|Wireless"
 msgid "_Stop Hotspot..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1125
+#: pyanaconda/ui/gui/spokes/network.glade:1100
 msgctxt "GUI|Network|Wireless"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1243
+#: pyanaconda/ui/gui/spokes/network.glade:1218
 msgid "IMEI"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1267
+#: pyanaconda/ui/gui/spokes/network.glade:1242
 msgid "Provider"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1450
+#: pyanaconda/ui/gui/spokes/network.glade:1425
 msgctxt "GUI|Network|Mobile Broadband"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1560
+#: pyanaconda/ui/gui/spokes/network.glade:1535
 msgid "VPN Type"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1572
+#: pyanaconda/ui/gui/spokes/network.glade:1547
 msgid "Gateway"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1584
+#: pyanaconda/ui/gui/spokes/network.glade:1559
 msgid "Group Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1596
+#: pyanaconda/ui/gui/spokes/network.glade:1571
 msgid "Group Password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1608
+#: pyanaconda/ui/gui/spokes/network.glade:1583
 #: pyanaconda/ui/gui/spokes/user.glade:117
 msgid "User Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1716
+#: pyanaconda/ui/gui/spokes/network.glade:1691
 msgctxt "GUI|Network|VPN"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1838
+#: pyanaconda/ui/gui/spokes/network.glade:1813
 msgctxt "GUI|Network|Proxy"
 msgid "_Method"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1863
+#: pyanaconda/ui/gui/spokes/network.glade:1838
 msgctxt "GUI|Network|Proxy"
 msgid "_Configuration URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1888
+#: pyanaconda/ui/gui/spokes/network.glade:1863
 msgctxt "GUI|Network|Proxy"
 msgid "HTTP _Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1902
+#: pyanaconda/ui/gui/spokes/network.glade:1877
 msgctxt "GUI|Network|Proxy"
 msgid "H_TTPS Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1916
+#: pyanaconda/ui/gui/spokes/network.glade:1891
 msgctxt "GUI|Network|Proxy"
 msgid "_FTP Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1930
+#: pyanaconda/ui/gui/spokes/network.glade:1905
 msgctxt "GUI|Network|Proxy"
 msgid "_Socks Host"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2120
+#: pyanaconda/ui/gui/spokes/network.glade:2095
 msgid "Network Config Box"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2136
+#: pyanaconda/ui/gui/spokes/network.glade:2111
 msgctxt "GUI|Network"
 msgid "Unloc_k"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2169
+#: pyanaconda/ui/gui/spokes/network.glade:2144
 msgctxt "GUI|Network"
 msgid "_Airplane Mode"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2189
+#: pyanaconda/ui/gui/spokes/network.glade:2164
 msgid "More Network Config Box"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2209
+#: pyanaconda/ui/gui/spokes/network.glade:2184
 msgctxt "GUI|Network"
 msgid "_Host Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2269
+#: pyanaconda/ui/gui/spokes/network.glade:2244
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2314
+#: pyanaconda/ui/gui/spokes/network.glade:2289
 msgid ""
 "We'll need network access to fetch information about your location and to "
 "make software\n"
 "updates available for you."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2344
+#: pyanaconda/ui/gui/spokes/network.glade:2319
 msgid "Authentication"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2358
+#: pyanaconda/ui/gui/spokes/network.glade:2333
 msgctxt "GUI|Network|Authentication Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2373
+#: pyanaconda/ui/gui/spokes/network.glade:2348
 msgctxt "GUI|Network|Authentication Dialog"
 msgid "C_onnect"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2445
+#: pyanaconda/ui/gui/spokes/network.glade:2420
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network"

@@ -323,6 +323,37 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 27 2016 Brian C. Lane <bcl@redhat.com> - 25.9-1
+- Use the iutil functions for interacting with systemd services. (dshea)
+- Add methods to enable and disable systemd services. (dshea)
+- Do not add .service to the end of service names. (dshea)
+- Remove detach-client from tmux.conf (dshea)
+- Use Blivet 2.0 for set_default_fstype (#607) (sgallagh)
+- Remove dnf from the list of required packages. (#605) (dshea)
+- Add access to the payload from addons (#1288636) (jkonecny)
+- Disable pylint warnings related to the log handler fixer. (dshea)
+- Allow the metacity config dir to be overriden. (dshea)
+- Do not include /usr/share/anaconda files in the gui package. (dshea)
+- Work around logging's crummy lock behavior. (dshea)
+- Use rm -r to remove the temporary python site directory. (dshea)
+- Remove the subnet label for wired devices. (#1327615) (dshea)
+- Fix how unusued network labels are hidden (#1327615) (dshea)
+- Remove yum_logger (bcl)
+- Remove the lock loglevel (bcl)
+- Use a temporary user-site directory for the tests. (dshea)
+- Build everything for make ci. (dshea)
+- Ignore some E1101 no-member errors when running pylint (bcl)
+- Sprinkle the code with pylint no-member disable statements (bcl)
+- Catch GLib.GError instead of Exception (bcl)
+- Update storage test for Blivet 2.0 API change. (bcl)
+- Initialize missing private methods in BasePage class (bcl)
+- Update kickstart.py for Blivet 2.0 API change. (bcl)
+- Use namedtuple correctly in kexec.py (bcl)
+- Add more requires to make password checking still work. (#1327411) (dshea)
+- Rename isS390 to match the renames in blivet. (dshea)
+- Suppress signal handling when setting zone from location (#1322648) (dshea)
+- Refresh metadata when updates checkbox changes (#1211907) (bcl)
+
 * Fri Apr 15 2016 Brian C. Lane <bcl@redhat.com> - 25.8-1
 - network: handle null wireless AP SSID object (#1262556) (awilliam)
 - Change new_tmpfs to new_tmp_fs. (clumens)
