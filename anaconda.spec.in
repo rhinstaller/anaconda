@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 27 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.68-1
+- Update storage snapshot after running dasdfmt. (sbueno+anaconda)
+  Resolves: rhbz#1266151
+- Add access to the payload from addons (jkonecny)
+  Resolves: rhbz#1288636
+- Update the on-disk snapshot of storage when adv. disks are added (vpodzime)
+  Resolves: rhbz#1267944
+
 * Thu Apr 21 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.67-1
 - Combine formatting of LDL and unformatted DASDs. (sbueno+anaconda)
   Resolves: rhbz#1316088

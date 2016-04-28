@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.66\n"
+"Project-Id-Version: anaconda 21.48.22.67\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-04-21 17:02-0700\n"
+"POT-Creation-Date: 2016-04-27 17:46-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1818,7 +1818,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:356
-#: pyanaconda/ui/gui/spokes/lib/dasdfmt.py:93
+#: pyanaconda/ui/gui/spokes/lib/dasdfmt.py:94
 #, python-format
 msgid "Formatting /dev/%s. This may take a moment."
 msgstr ""
@@ -2446,7 +2446,7 @@ msgctxt "GUI|Spoke"
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.py:586
+#: pyanaconda/ui/gui/spokes/filter.py:592
 #, python-format
 msgctxt "GUI|Installation Destination|Filter"
 msgid "%d _storage device selected"
@@ -2941,30 +2941,30 @@ msgstr ""
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1078
+#: pyanaconda/ui/gui/spokes/storage.py:1082
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1083
+#: pyanaconda/ui/gui/spokes/storage.py:1087
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1084
+#: pyanaconda/ui/gui/spokes/storage.py:1088
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1098
+#: pyanaconda/ui/gui/spokes/storage.py:1102
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1102
+#: pyanaconda/ui/gui/spokes/storage.py:1106
 msgid "_OK"
 msgstr ""
 
