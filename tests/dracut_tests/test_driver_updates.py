@@ -507,7 +507,7 @@ class ProcessDriverRPMTestCase(unittest.TestCase):
         """process_driver_rpm: extract RPM, grab + load driver"""
         rpm = '/tmp/fake/driver.rpm'
         process_driver_rpm(rpm)
-        self.mocks['extract_drivers'].assert_called_once_with(repos=["/tmp/fake"])
+        self.mocks['extract_drivers'].assert_called_once_with(repos=["/tmp/fake/driver.rpm"])
         self.mocks['grab_driver_files'].assert_called_once_with()
         self.mocks['load_drivers'].assert_called_once_with(self.modlist)
 
