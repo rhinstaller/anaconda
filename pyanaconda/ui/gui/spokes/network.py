@@ -287,6 +287,7 @@ class NetworkControlBox(GObject.GObject):
         self._running_nmce = None
         self.spoke = spoke
         self.client = client
+        self._old_timestamp = None
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -583,7 +584,20 @@ class NetworkControlBox(GObject.GObject):
         log.info("network: configuring new connection %s", uuid)
         self._run_nmce(uuid, activate)
 
+    def _get_selected_con_timestamp(self):
+        dev_cfg = self.selected_dev_cfg()
+        try:
+            con = dev_cfg.con
+            timestamp = con.get_setting_connection().get_timestamp()
+        except AttributeError as e:
+            log.warning("Connection was None when getting timestamp")
+            return None
+
+        return timestamp
+
     def _run_nmce(self, uuid, activate):
+        self._old_timestamp = self._get_selected_con_timestamp()
+
         self.kill_nmce(msg="Configure button clicked")
         proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
         self._running_nmce = proc
@@ -624,6 +638,9 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
+            new_timestamp = self._get_selected_con_timestamp()
+            if self.spoke and self._old_timestamp != new_timestamp:
+                self.spoke.settings_changed = True
             network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, con, device):
@@ -663,6 +680,9 @@ class NetworkControlBox(GObject.GObject):
                     log.debug("network: on_device_off_toggled: no device for %s", dev_cfg.get_iface())
                     return
                 device.disconnect(None)
+
+        if self.spoke:
+            self.spoke.settings_changed = True
 
     def on_add_device_clicked(self, *args):
         dialog = self.builder.get_object("add_device_dialog")
@@ -840,6 +860,8 @@ class NetworkControlBox(GObject.GObject):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
         log.debug("network: GUI, device removed: %s", device.get_iface())
+        if self.spoke:
+            self.spoke.settings_changed = True
         dev_cfg = self.dev_cfg(device=device)
         if dev_cfg:
             dev_cfg.device = None
@@ -1460,24 +1482,29 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
+        self.settings_changed = False
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
         self.network_control_box.connect("device-state-changed",
                                          self.on_device_state_changed)
-        # true if network settings change (hostname excluded)
-        self._network_change = False
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s", self.data.network)
-        self.network_control_box.kill_nmce(msg="leaving network spoke")
 
-        # if installation media or hdd is not used and settings changed try if source is reachable
-        if (self.data.method.method != "cdrom" and self.data.method.method != "harddrive" and self._network_change):
+        # if installation media or hdd aren't used and settings have changed
+        # try if source is available
+        if self.data.method.method not in ["cdrom", "harddrive"] and self.settings_changed:
+            log.debug("network spoke (apply) refresh payload")
             from pyanaconda.packaging import payloadMgr
-            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass, checkmount=False)
+            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                                     fallback=not anaconda_flags.automatedInstall)
+            self.settings_changed = False
+        else:
+            log.debug("network spoke (apply), no changes detected")
+        self.network_control_box.kill_nmce(msg="leaving network spoke")
 
     def execute(self):
         # update system's hostname
@@ -1515,19 +1542,16 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
-        self._network_change = False
 
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_status)
         gtk_call_once(self._update_hostname)
-        self._network_change = True
 
     def on_device_state_changed(self, source, device, new_state, *args):
         if new_state in (NM.DeviceState.ACTIVATED,
                          NM.DeviceState.DISCONNECTED,
                          NM.DeviceState.UNAVAILABLE):
             gtk_call_once(self._update_status)
-        self._network_change = True
 
     def _update_status(self):
         hubQ.send_message(self.__class__.__name__, self.status)
