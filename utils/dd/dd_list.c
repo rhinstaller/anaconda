@@ -171,10 +171,15 @@ int main(int argc, char *argv[])
     int option;
     int option_index;
 
-    char *directory = NULL;
+    char *path = NULL;
+    int path_len;
     int verbose = 0;
 
     struct _version_struct versions = {NULL, NULL};
+
+    char *globpattern;
+    glob_t globres;
+    char** globitem;
 
     while ((option = getopt_long(argc, argv, shortopts, longopts, &option_index)) != -1) {
         switch (option) {
@@ -183,7 +188,7 @@ int main(int argc, char *argv[])
             break;
 
         case 'd':
-            directory = strdup(optarg);
+            path = strdup(optarg);
             break;
 
         case 'k':
@@ -206,38 +211,49 @@ int main(int argc, char *argv[])
 
     }
 
-    if (!directory || !versions.kernel || !versions.anaconda) {
+    if (!path || !versions.kernel || !versions.anaconda) {
         show_help();
         rc = 1;
         goto cleanup;
     }
 
-    if (verbose) {
-        printf("Listing DD dir %s\n", directory);
-    }
-
     init_rpm();
 
-    char *globpattern;
-    checked_asprintf(&globpattern, "%s/*.rpm", directory);
+    path_len = strlen(path);
 
-    glob_t globres;
-    char** globitem;
-
-    if (!glob(globpattern, GLOB_NOSORT|GLOB_NOESCAPE, globErrFunc, &globres)) {
-        /* iterate over all rpm files */
-        globitem = globres.gl_pathv;
-        while (globres.gl_pathc>0 && globitem != NULL && *globitem != NULL) {
-            checkDDRPM(*globitem, dlabelProvides, NULL, dlabelOK, &versions);
-            globitem++;
+    /* determine if the path is rpm filename or directory */
+    if ((path_len > 5) && (strcmp(path + path_len - 4, ".rpm") == 0)) {
+        if (verbose) {
+            /* careful - standard output is being parsed */
+            printf("Listing DD file %s\n", path);
         }
-        globfree(&globres);
-        /* end of iteration */
+
+        checkDDRPM(path, dlabelProvides, NULL, dlabelOK, &versions);
+
+    } else {
+        if (verbose) {
+            /* careful - standard output is being parsed */
+            printf("Listing DD dir %s\n", path);
+        }
+
+        /* look for all .rpm files in a given direcory */
+        checked_asprintf(&globpattern, "%s/*.rpm", path);
+
+        if (!glob(globpattern, GLOB_NOSORT|GLOB_NOESCAPE, globErrFunc, &globres)) {
+            /* iterate over all rpm files */
+            globitem = globres.gl_pathv;
+            while (globres.gl_pathc>0 && globitem != NULL && *globitem != NULL) {
+                checkDDRPM(*globitem, dlabelProvides, NULL, dlabelOK, &versions);
+                globitem++;
+            }
+            globfree(&globres);
+            /* end of iteration */
+        }
+        free(globpattern);
     }
-    free(globpattern);
 
 cleanup:
-    free(directory);
+    free(path);
     free(versions.kernel);
     free(versions.anaconda);
 

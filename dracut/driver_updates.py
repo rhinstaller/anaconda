@@ -359,7 +359,7 @@ def _process_driver_rpm(rpm):
     rpm for Anaconda to install on the target system.
     """
     log.info("Examining %s", rpm)
-    new_modules = extract_drivers(repos=[os.path.dirname(rpm)])
+    new_modules = extract_drivers(repos=[rpm])
     if new_modules:
         modules = grab_driver_files()
         load_drivers(modules)
@@ -606,10 +606,10 @@ def main(args):
 
     if mode in ('--disk', '--net'):
         request, dev = args
-        if dev.endswith(".rpm"):
-            process_driver_rpm(dev)
-        else:
+        if dev.endswith(".iso"):
             process_driver_disk(dev)
+        else:
+            process_driver_rpm(dev)
 
     elif mode == '--interactive':
         log.info("starting interactive mode")
