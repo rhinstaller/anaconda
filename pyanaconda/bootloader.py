@@ -1680,7 +1680,7 @@ class GRUB2(GRUB):
 class EFIBase(object):
     @property
     def _config_dir(self):
-        return "efi/EFI/%s" % (self.efi_dir,)
+        return "efi/EFI/%s" % (self.efi_dir,) # pylint: disable=no-member
 
     def efibootmgr(self, *args, **kwargs):
         if flags.imageInstall or flags.dirInstall:
@@ -1712,17 +1712,17 @@ class EFIBase(object):
         rc = self.efibootmgr(
             "-c", "-w", "-L", productName.split("-")[0], # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
-            "-l", self.efi_dir_as_efifs_dir + self._efi_binary,
+            "-l", self.efi_dir_as_efifs_dir + self._efi_binary, # pylint: disable=no-member
             root=iutil.getSysroot()
         )
         if rc:
             raise BootLoaderError("failed to set new efi boot target. This is most likely a kernel or firmware bug.")
 
     def add_efi_boot_target(self):
-        if self.stage1_device.type == "partition":
-            self._add_single_efi_boot_target(self.stage1_device)
-        elif self.stage1_device.type == "mdarray":
-            for parent in self.stage1_device.parents:
+        if self.stage1_device.type == "partition": # pylint: disable=no-member
+            self._add_single_efi_boot_target(self.stage1_device) # pylint: disable=no-member
+        elif self.stage1_device.type == "mdarray": # pylint: disable=no-member
+            for parent in self.stage1_device.parents: # pylint: disable=no-member
                 self._add_single_efi_boot_target(parent)
 
     def remove_efi_boot_target(self):
@@ -1749,19 +1749,19 @@ class EFIBase(object):
 
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
-        if self.skip_bootloader:
+        if self.skip_bootloader: # pylint: disable=no-member
             return
 
-        if self.update_only:
+        if self.update_only: # pylint: disable=no-member
             self.update()
             return
 
         try:
             os.sync()
-            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot()) # pylint: disable=no-member
             self.install()
         finally:
-            self.write_config()
+            self.write_config() # pylint: disable=no-member
 
     def check(self):
         return True
