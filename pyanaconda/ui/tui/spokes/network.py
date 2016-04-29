@@ -31,7 +31,7 @@ from pyanaconda.i18n import N_, _
 from pyanaconda import network
 from pyanaconda import nm
 
-from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS, IPV4_NETMASK_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
 
 import logging
@@ -313,7 +313,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
     edit_fields = [
         Entry(N_('IPv4 address or %s for DHCP') % '"dhcp"', "ip",
               re.compile("^(?:" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp)$"), True),
-        Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
+        Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_NETMASK_WITHOUT_ANCHORS + "$"), True),
         Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_('IPv6 address or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to turn off')
               % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'}, "ipv6",
@@ -333,7 +333,6 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         if self.args.noipv6:
             self.args.ipv6 = "ignore"
         self.args._apply = False
-        self.dialog.wrong_input_message = _("Bad format of the IP address")
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -341,6 +340,13 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         message = _("Configuring device %s.") % self.args.device
         self._window += [TextWidget(message), ""]
         return True
+
+    def input(self, args, key):
+        if self.edit_fields[int(key)-1].attribute == "netmask":
+            self.dialog.wrong_input_message = _("Bad format of the netmask")
+        else:
+            self.dialog.wrong_input_message = _("Bad format of the IP address")
+        return EditTUISpoke.input(self, args, key)
 
     @property
     def indirect(self):
