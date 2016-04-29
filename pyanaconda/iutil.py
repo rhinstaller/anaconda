@@ -795,7 +795,7 @@ def disable_service(service):
     ret = _run_systemctl("disable", service, root=getSysroot())
 
     if ret != 0:
-        log.warning("Disabling %s failed. It probably doesn't exist" % service)
+        log.warning("Disabling %s failed. It probably doesn't exist", service)
 
 def dracut_eject(device):
     """
