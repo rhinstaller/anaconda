@@ -589,7 +589,7 @@ class NetworkControlBox(GObject.GObject):
         try:
             con = dev_cfg.con
             timestamp = con.get_setting_connection().get_timestamp()
-        except AttributeError as e:
+        except AttributeError:
             log.warning("Connection was None when getting timestamp")
             return None
 
