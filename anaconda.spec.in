@@ -323,6 +323,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 29 2016 Brian C. Lane <bcl@redhat.com> - 25.10-1
+- Handle unmounting ostree when exiting (bcl)
+- ostree: Use bind mounts to setup ostree root (bcl)
+- ostree: Skip root= setup when using --dirinstall (bcl)
+- disable_service: Specify string format args as logging params. (clumens)
+- Ignore failure when disable services that do not exist (phil)
+- Get rid of an unused variable in the network spoke. (clumens)
+- Revalidate source only if nm-con-ed change settings (#1270354) (jkonecny)
+- Merge solutions for test source when network change (#1270354) (jkonecny)
+- Changes in network state revalidate sources rhbz#1270354 (riehecky)
+
 * Wed Apr 27 2016 Brian C. Lane <bcl@redhat.com> - 25.9-1
 - Use the iutil functions for interacting with systemd services. (dshea)
 - Add methods to enable and disable systemd services. (dshea)

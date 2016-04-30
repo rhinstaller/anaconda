@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 25.8\n"
+"Project-Id-Version: anaconda 25.9\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-04-27 17:18-0700\n"
+"POT-Creation-Date: 2016-04-29 18:57-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -555,15 +555,15 @@ msgstr ""
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/iutil.py:878
+#: pyanaconda/iutil.py:880
 msgid "No host url"
 msgstr ""
 
-#: pyanaconda/iutil.py:899
+#: pyanaconda/iutil.py:901
 msgid "malformed URL, cannot parse it."
 msgstr ""
 
-#: pyanaconda/iutil.py:915
+#: pyanaconda/iutil.py:917
 msgid "URL has no host component"
 msgstr ""
 
@@ -1347,15 +1347,15 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1191
+#: pyanaconda/packaging/__init__.py:1173
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1192
+#: pyanaconda/packaging/__init__.py:1174
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1193
+#: pyanaconda/packaging/__init__.py:1175
 msgid "No installation source available"
 msgstr ""
 
@@ -1398,22 +1398,22 @@ msgstr ""
 msgid "Installing %s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:168
+#: pyanaconda/packaging/rpmostreepayload.py:169
 #, python-format
 msgid "Starting pull of %(branchName)s from %(source)s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:184
+#: pyanaconda/packaging/rpmostreepayload.py:185
 #, python-format
 msgid "Preparing deployment of %s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:204
+#: pyanaconda/packaging/rpmostreepayload.py:205
 #, python-format
 msgid "Deployment starting: %s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:207
+#: pyanaconda/packaging/rpmostreepayload.py:208
 #, python-format
 msgid "Deployment complete: %s"
 msgstr ""
@@ -1660,7 +1660,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:157
-#: pyanaconda/ui/gui/spokes/network.py:1385
+#: pyanaconda/ui/gui/spokes/network.py:1408
 msgid "Password: "
 msgstr ""
 
@@ -1727,116 +1727,116 @@ msgstr ""
 msgid "Network configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:112
+#: pyanaconda/ui/tui/spokes/network.py:113
 #, python-format
 msgid "Wired (%(interface_name)s) disconnected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:117
+#: pyanaconda/ui/tui/spokes/network.py:118
 #, python-format
 msgid "Wired (%(interface_name)s) connected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:129
+#: pyanaconda/ui/tui/spokes/network.py:130
 #, python-format
 msgid " IPv4 Address: %(addr)s Netmask: %(netmask)s Gateway: %(gateway)s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:131
+#: pyanaconda/ui/tui/spokes/network.py:132
 #, python-format
 msgid " DNS: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:138
+#: pyanaconda/ui/tui/spokes/network.py:139
 #, python-format
 msgid " IPv6 Address: %(addr)s/%(prefix)d\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:159
+#: pyanaconda/ui/tui/spokes/network.py:160
 #, python-format
 msgid "Host Name: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:171
+#: pyanaconda/ui/tui/spokes/network.py:172
 msgid "Set host name"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:173
+#: pyanaconda/ui/tui/spokes/network.py:174
 #, python-format
 msgid "Configure device %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:192
+#: pyanaconda/ui/tui/spokes/network.py:193
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:241
 #: pyanaconda/ui/gui/spokes/network.glade:2201
 msgid "Host Name"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:212
+#: pyanaconda/ui/tui/spokes/network.py:213
 msgid "Configuration of device not found"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:225
+#: pyanaconda/ui/tui/spokes/network.py:226
 msgid ""
 "Configuration not saved: gateway or netmask missing in static configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:241
+#: pyanaconda/ui/tui/spokes/network.py:243
 msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:268
-#: pyanaconda/ui/gui/spokes/network.py:1546
-#: pyanaconda/ui/gui/spokes/network.py:1627
+#: pyanaconda/ui/tui/spokes/network.py:276
+#: pyanaconda/ui/gui/spokes/network.py:1571
+#: pyanaconda/ui/gui/spokes/network.py:1652
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:306
+#: pyanaconda/ui/tui/spokes/network.py:314
 msgid "Device configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:310
+#: pyanaconda/ui/tui/spokes/network.py:318
 #, python-format
 msgid "IPv4 address or %s for DHCP"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:312
+#: pyanaconda/ui/tui/spokes/network.py:320
 msgid "IPv4 netmask"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:313
+#: pyanaconda/ui/tui/spokes/network.py:321
 msgid "IPv4 gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:314
+#: pyanaconda/ui/tui/spokes/network.py:322
 #, python-format
 msgid ""
 "IPv6 address or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to "
 "turn off"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:317
+#: pyanaconda/ui/tui/spokes/network.py:325
 msgid "IPv6 default gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:318
+#: pyanaconda/ui/tui/spokes/network.py:326
 msgid "Nameservers (comma separated)"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:320
+#: pyanaconda/ui/tui/spokes/network.py:328
 msgid "Connect automatically after reboot"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:321
+#: pyanaconda/ui/tui/spokes/network.py:329
 msgid "Apply configuration in installer"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:332
+#: pyanaconda/ui/tui/spokes/network.py:340
 msgid "Bad format of the IP address"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:337
+#: pyanaconda/ui/tui/spokes/network.py:345
 #, python-format
 msgid "Configuring device %s."
 msgstr ""
@@ -2704,51 +2704,51 @@ msgid "Bridge"
 msgstr ""
 
 #. TRANSLATORS: ethernet cable is unplugged
-#: pyanaconda/ui/gui/spokes/network.py:809
+#: pyanaconda/ui/gui/spokes/network.py:830
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:897
+#: pyanaconda/ui/gui/spokes/network.py:920
 #: pyanaconda/ui/gui/spokes/network.glade:519
 #: pyanaconda/ui/gui/spokes/network.glade:795
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:898
+#: pyanaconda/ui/gui/spokes/network.py:921
 #: pyanaconda/ui/gui/spokes/network.glade:494
 #: pyanaconda/ui/gui/spokes/network.glade:807
 #: pyanaconda/ui/gui/spokes/network.glade:1374
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:900
-#: pyanaconda/ui/gui/spokes/network.py:902
+#: pyanaconda/ui/gui/spokes/network.py:923
+#: pyanaconda/ui/gui/spokes/network.py:925
 #: pyanaconda/ui/gui/spokes/network.glade:1362
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:985
+#: pyanaconda/ui/gui/spokes/network.py:1008
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1162
+#: pyanaconda/ui/gui/spokes/network.py:1185
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1165
+#: pyanaconda/ui/gui/spokes/network.py:1188
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1168
+#: pyanaconda/ui/gui/spokes/network.py:1191
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1172
+#: pyanaconda/ui/gui/spokes/network.py:1195
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1177 widgets/src/SpokeSelector.c:83
+#: pyanaconda/ui/gui/spokes/network.py:1200 widgets/src/SpokeSelector.c:83
 #: pyanaconda/ui/gui/spokes/filter.glade:145
 #: pyanaconda/ui/gui/spokes/filter.glade:560
 #: pyanaconda/ui/gui/spokes/filter.glade:894
@@ -2757,41 +2757,41 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1347
+#: pyanaconda/ui/gui/spokes/network.py:1370
 #: pyanaconda/ui/gui/spokes/network.glade:2403
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1348
+#: pyanaconda/ui/gui/spokes/network.py:1371
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1362
+#: pyanaconda/ui/gui/spokes/network.py:1385
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1370
+#: pyanaconda/ui/gui/spokes/network.py:1393
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1380
+#: pyanaconda/ui/gui/spokes/network.py:1403
 msgid "User name: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1391
+#: pyanaconda/ui/gui/spokes/network.py:1414
 msgid "Identity: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1396
+#: pyanaconda/ui/gui/spokes/network.py:1419
 msgid "Private key password: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1456
+#: pyanaconda/ui/gui/spokes/network.py:1479
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
