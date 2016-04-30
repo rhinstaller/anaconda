@@ -318,6 +318,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 29 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.69-1
+- Check minimal memory requirements properly (jstodola)
+  Resolves: rhbz#1267673
+- Check that cache PVs (if any) are in the VG the LV belongs to (vpodzime)
+  Resolves: rhbz#1263258
+- Move settings_changed from NCB to Network Spoke (jkonecny)
+  Related: rhbz#1270354
+- Changes in network state revalidate sources rhbz#1270354 (riehecky)
+  Resolves: rhbz#1270354
+
 * Wed Apr 27 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.68-1
 - Update storage snapshot after running dasdfmt. (sbueno+anaconda)
   Resolves: rhbz#1266151
