@@ -448,6 +448,12 @@ class DNFPayload(packaging.PackagePayload):
 
         conf.reposdir = REPO_DIRS
 
+        # Two reasons to turn this off:
+        # 1. Minimal installs don't want all the extras this brings in.
+        # 2. Installs aren't reproducible due to weak deps. failing silently.
+        if self.data.packages.excludeWeakdeps:
+            conf.install_weak_deps = False
+
     @property
     def _download_space(self):
         transaction = self._base.transaction
