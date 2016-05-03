@@ -206,7 +206,7 @@ class GUIObject(common.UIObject):
 
         fn = os.path.join(constants.SCREENSHOTS_DIRECTORY, screenshot_filename)
 
-        root_window = self.main_window.get_window()
+        root_window = self.main_window.get_root_window()
         pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
                                             root_window.get_width(),
                                             root_window.get_height())
