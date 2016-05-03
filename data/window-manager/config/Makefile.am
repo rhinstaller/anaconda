@@ -29,6 +29,7 @@ install-data-hook:
 	$(MKDIR_P) $(DESTDIR)$(schemadir)
 	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml $(DESTDIR)$(schemadir)
 	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.desktop.wm.preferences.gschema.xml $(DESTDIR)$(schemadir)
+	$(LN_S) -f /usr/share/glib-2.0/schemas/org.gnome.desktop.enums.xml $(DESTDIR)$(schemadir)
 	glib-compile-schemas --strict $(DESTDIR)$(schemadir)
 
 uninstall-local:
