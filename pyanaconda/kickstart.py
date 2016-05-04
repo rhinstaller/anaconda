@@ -709,7 +709,7 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         unit_exists = os.path.exists(os.path.join(iutil.getSysroot(), "lib/systemd/system/", unit_name))
         if unit_exists and self.firstboot == FIRSTBOOT_RECONFIG:
             # write the reconfig trigger file
-            f = open(os.path.join(iutil.getSysroot(), "/etc/reconfigSys"), "w+")
+            f = open(os.path.join(iutil.getSysroot(), "etc/reconfigSys"), "w+")
             f.close()
 
         if self.firstboot == FIRSTBOOT_SKIP:
