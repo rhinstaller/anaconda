@@ -74,6 +74,8 @@ class Flags(object):
         self.nosave_input_ks = False
         self.nosave_output_ks = False
         self.nosave_logs = False
+        # single language options
+        self.singlelang = False
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!

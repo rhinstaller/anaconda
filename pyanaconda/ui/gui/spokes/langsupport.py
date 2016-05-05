@@ -113,7 +113,8 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     @property
     def showable(self):
-        return not flags.livecdInstall
+        # don't show the language support spoke on live media and in single language mode
+        return not flags.livecdInstall and not flags.singlelang
 
     @property
     def status(self):
