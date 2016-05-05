@@ -312,6 +312,8 @@ def parseArguments(argv=None, boot_cmdline=None):
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))
     ap.add_argument("--lang", metavar="LANG", help=help_parser.help_text("lang"))
+    ap.add_argument("--singlelang", action="store_true", default=False,
+                    help=help_parser.help_text("singlelang"))
 
     # Obvious
     ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
@@ -988,6 +990,7 @@ if __name__ == "__main__":
     flags.selinux = opts.selinux
     flags.eject = opts.eject
     flags.kexec = opts.kexec
+    flags.singlelang = opts.singlelang
 
     # Switch to tty1 on exception in case something goes wrong during X start.
     # This way if, for example, metacity doesn't start, we switch back to a

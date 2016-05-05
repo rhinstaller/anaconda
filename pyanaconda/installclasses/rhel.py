@@ -17,11 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import logging
+log = logging.getLogger("anaconda")
+
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda.kickstart import getAvailableDiskSpace
+from pyanaconda.flags import flags
 from blivet.partspec import PartSpec
 from blivet.platform import platform
 from blivet.devicelibs import swap
@@ -72,6 +76,12 @@ class RHELAtomicInstallClass(RHELBaseInstallClass):
     name = "Red Hat Enterprise Linux Atomic Host"
     sortPriority=21000
     hidden = not productName.startswith(("RHEL Atomic Host", "Red Hat Enterprise Linux Atomic"))
+
+    def configure(self, anaconda):
+        RHELBaseInstallClass.configure(self, anaconda)
+        # Atomic installations are always single language (#1235726)
+        log.info("Automatically enabling single language mode for %s installation." % self.name)
+        flags.singlelang = True
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,

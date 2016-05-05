@@ -109,6 +109,9 @@ lang
 Language to use for the installation. LANG should be a language code which is valid to be used
 with the lang kickstart command.
 
+singlelang
+Install in single language mode -  no interactive options for language configuration will be available.
+
 loglevel
 Set the minimum level required for messages to be logged on a terminal (log files always
 contain messages of all levels). Values for LEVEL are "debug", "info", "warning", "error",
