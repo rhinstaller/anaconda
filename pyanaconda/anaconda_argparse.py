@@ -442,6 +442,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))
     ap.add_argument("--lang", metavar="LANG", help=help_parser.help_text("lang"))
+    ap.add_argument("--singlelang", action="store_true", default=False,
+                    help=help_parser.help_text("singlelang"))
 
     # Obvious
     ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
