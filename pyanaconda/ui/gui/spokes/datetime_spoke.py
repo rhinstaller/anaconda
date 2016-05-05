@@ -1020,6 +1020,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def on_city_region_text_entry_activated(self, entry):
         combo = entry.get_parent()
+
+        # It's gotta be up there somewhere, right? right???
+        while not isinstance(combo, Gtk.ComboBox):
+            combo = combo.get_parent()
+
         model = combo.get_model()
         entry_text = entry.get_text().lower()
 
