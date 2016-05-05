@@ -102,9 +102,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
     with progress_report(N_("Generating initramfs")):
         payload.recreateInitrds()
 
-    # Work around rhbz#1200539, grubby doesn't handle grub2 missing initrd with /boot on btrfs
-    # So rerun writing the bootloader if this is live and /boot is on btrfs
-    boot_on_btrfs = isinstance(storage.mountpoints.get("/boot", storage.mountpoints.get("/")), BTRFSDevice)
+    # This works around 2 problems, /boot on BTRFS and BTRFS installations where the initrd is
+    # recreated after the first writeBootLoader call. This reruns it after the new initrd has
+    # been created, fixing the kernel root and subvol args and adding the missing initrd entry.
+    boot_on_btrfs = isinstance(storage.mountpoints.get("/"), BTRFSDevice)
     if flags.flags.livecdInstall and boot_on_btrfs \
                                  and (not ksdata.bootloader.disabled and ksdata.bootloader != "none"):
         writeBootLoader(storage, payload, instClass, ksdata)
