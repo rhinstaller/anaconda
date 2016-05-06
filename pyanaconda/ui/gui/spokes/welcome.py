@@ -22,7 +22,6 @@
 
 import sys
 import re
-import langtable
 import os
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -33,12 +32,11 @@ from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
-from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _, C_
 from pyanaconda.iutil import is_unsupported_hw, ipmi_report
-from pyanaconda.constants import DEFAULT_LANG, DEFAULT_KEYBOARD, IPMI_ABORTED
+from pyanaconda.constants import DEFAULT_LANG, IPMI_ABORTED
 
 import logging
 log = logging.getLogger("anaconda")
@@ -85,59 +83,6 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             # no data is provided by Geolocation, try to get timezone from the
             # current language
             self.data.timezone.timezone = loc_timezones[0]
-
-        self._set_keyboard_defaults(self.data.lang.lang)
-
-    def _set_keyboard_defaults(self, locale):
-        """
-        Set default keyboard settings (layouts, layout switching).
-
-        :param locale: locale string (see localization.LANGCODE_RE)
-        :type locale: str
-        :return: list of preferred keyboard layouts
-        :rtype: list of strings
-        :raise InvalidLocaleSpec: if an invalid locale is given (see
-                                  localization.LANGCODE_RE)
-
-        """
-
-        #remove all X layouts that are not valid X layouts (unsupported)
-        #from the ksdata
-        #XXX: could go somewhere else, but we need X running and we have
-        #     XklWrapper instance here
-        for layout in self.data.keyboard.x_layouts:
-            if not self._xklwrapper.is_valid_layout(layout):
-                self.data.keyboard.x_layouts.remove(layout)
-
-        if self.data.keyboard.x_layouts:
-            #do not add layouts if there are any specified in the kickstart
-            return
-
-        layouts = localization.get_locale_keyboards(locale)
-        if layouts:
-            # take the first locale (with highest rank) from the list and
-            # store it normalized
-            new_layouts = [keyboard.normalize_layout_variant(layouts[0])]
-            if not langtable.supports_ascii(layouts[0]):
-                # does not support typing ASCII chars, append the default layout
-                new_layouts.append(DEFAULT_KEYBOARD)
-        else:
-            log.error("Failed to get layout for chosen locale '%s'", locale)
-            new_layouts = [DEFAULT_KEYBOARD]
-
-        self.data.keyboard.x_layouts = new_layouts
-        if flags.can_touch_runtime_system("replace runtime X layouts", touch_live=True):
-            self._xklwrapper.replace_layouts(new_layouts)
-
-        if len(new_layouts) >= 2 and not self.data.keyboard.switch_options:
-            #initialize layout switching if needed
-            self.data.keyboard.switch_options = ["grp:alt_shift_toggle"]
-
-            if flags.can_touch_runtime_system("init layout switching", touch_live=True):
-                self._xklwrapper.set_switching_options(["grp:alt_shift_toggle"])
-                # activate the language-default layout instead of the additional
-                # one
-                self._xklwrapper.activate_default_layout()
 
     @property
     def completed(self):
