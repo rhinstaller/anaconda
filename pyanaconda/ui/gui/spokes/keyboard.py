@@ -326,6 +326,12 @@ class KeyboardSpoke(NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+
+        # set X keyboard defaults
+        # - this needs to be done early in spoke initialization so that
+        #   the spoke status does not show outdated keyboard selection
+        keyboard.set_x_keyboard_defaults(self.data, self._xkl_wrapper)
+
         self._add_dialog = AddLayoutDialog(self.data)
         self._add_dialog.initialize()
 

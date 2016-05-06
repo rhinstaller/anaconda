@@ -29,9 +29,11 @@ mutually converting X layouts and VConsole keymaps.
 import os
 import re
 import shutil
+import langtable
 
 from pyanaconda import iutil
 from pyanaconda import safe_dbus
+from pyanaconda import localization
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
 from pyanaconda.flags import can_touch_runtime_system
 
@@ -323,6 +325,55 @@ def activate_keyboard(keyboard):
 
         # write out keyboard configuration for the X session
         write_keyboard_config(keyboard, root="/", convert=False)
+
+def set_x_keyboard_defaults(ksdata, xkl_wrapper):
+    """
+    Set default keyboard settings (layouts, layout switching).
+
+    :param ksdata: kickstart instance
+    :type ksdata: object instance
+    :param xkl_wrapper: XklWrapper instance
+    :type xkl_wrapper: object instance
+    :raise InvalidLocaleSpec: if an invalid locale is given (see
+                              localization.LANGCODE_RE)
+    """
+    locale = ksdata.lang.lang
+
+    # remove all X layouts that are not valid X layouts (unsupported)
+    for layout in ksdata.keyboard.x_layouts:
+        if not xkl_wrapper.is_valid_layout(layout):
+            ksdata.keyboard.x_layouts.remove(layout)
+
+    if ksdata.keyboard.x_layouts:
+        # do not add layouts if there are any specified in the kickstart
+        # (the x_layouts list comes from kickstart)
+        return
+
+    layouts = localization.get_locale_keyboards(locale)
+    if layouts:
+        # take the first locale (with highest rank) from the list and
+        # store it normalized
+        new_layouts = [normalize_layout_variant(layouts[0])]
+        if not langtable.supports_ascii(layouts[0]):
+            # does not support typing ASCII chars, append the default layout
+            new_layouts.append(DEFAULT_KEYBOARD)
+    else:
+        log.error("Failed to get layout for chosen locale '%s'", locale)
+        new_layouts = [DEFAULT_KEYBOARD]
+
+    ksdata.keyboard.x_layouts = new_layouts
+    if can_touch_runtime_system("replace runtime X layouts", touch_live=True):
+        xkl_wrapper.replace_layouts(new_layouts)
+
+    if len(new_layouts) >= 2 and not ksdata.keyboard.switch_options:
+        # initialize layout switching if needed
+        ksdata.keyboard.switch_options = ["grp:alt_shift_toggle"]
+
+        if can_touch_runtime_system("init layout switching", touch_live=True):
+            xkl_wrapper.set_switching_options(["grp:alt_shift_toggle"])
+            # activate the language-default layout instead of the additional
+            # one
+            xkl_wrapper.activate_default_layout()
 
 class LocaledWrapperError(KeyboardConfigError):
     """Exception class for reporting Localed-related problems"""
