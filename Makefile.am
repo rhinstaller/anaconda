@@ -191,7 +191,7 @@ ci: rc-release
 		PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@mkdir -p repo
 	@mv *rpm repo
-	@createrepo -p repo
+	@createrepo_c -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=install/run_install_test.sh \
 		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ PYTHONUSERBASE=$(USER_SITE_BASE) check
