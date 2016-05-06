@@ -155,24 +155,6 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     def on_proxyPasswordEntry_changed(self, entry, user_data=None):
         self._proxyValidate.update_check_status()
 
-    def on_proxy_ok_clicked(self, *args):
-        if self._proxyCheck.get_active():
-            url = self._proxyURLEntry.get_text()
-
-            if self._authCheck.get_active():
-                username = self._proxyUsernameEntry.get_text()
-                password = self._proxyPasswordEntry.get_text()
-            else:
-                username = None
-                password = None
-
-            proxy = ProxyString(url=url, username=username, password=password)
-            self.proxyUrl = proxy.url
-        else:
-            self.proxyUrl = ""
-
-        self.window.destroy()
-
     def on_proxy_enable_toggled(self, button, *args):
         self._proxyInfoBox.set_sensitive(button.get_active())
 
