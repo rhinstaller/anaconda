@@ -318,6 +318,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 06 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.70-1
+- Don't join two absolute paths (mkolman)
+  Related: rhbz#1249598
+- Switch to the new Initial Setup unit name (mkolman)
+  Related: rhbz#1249598
+- Don't crash when taking a screenshot on the hub (mkolman)
+  Resolves: rhbz#1327456
+- network: validate netmask in tui (rvykydal)
+  Resolves: rhbz#1331054
+
 * Fri Apr 29 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.69-1
 - Check minimal memory requirements properly (jstodola)
   Resolves: rhbz#1267673
