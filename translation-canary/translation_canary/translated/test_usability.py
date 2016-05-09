@@ -1,4 +1,4 @@
-# Check a .mo file for basic usability
+# Check a .po file for basic usability
 #
 # This will test that the file is well-formed and that the Plural-Forms value
 # is parseable
@@ -22,7 +22,25 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
 import gettext
+import tempfile
+import polib
+import subprocess
 
-def test_usability(mofile):
-    with open(mofile, "rb") as fp:
-        _t = gettext.GNUTranslations(fp=fp)
+def test_usability(pofile):
+    # Use polib to write a mofile
+    with tempfile.NamedTemporaryFile(mode="w+b") as mofile:
+        pofile = polib.pofile(pofile)
+        pofile.save_as_mofile(mofile.name)
+
+        # Try to open it
+        _t = gettext.GNUTranslations(fp=mofile)
+
+def test_msgfmt(pofile):
+    # Check that the .po file can actually be compiled
+    with tempfile.NamedTemporaryFile(mode="w+b", suffix=".mo") as mofile:
+        try:
+            # Ignore the output on success
+            subprocess.check_output(["msgfmt", "-c", "--verbose", "-o", mofile.name, pofile],
+                                    stderr=subprocess.STDOUT, universal_newlines=True)
+        except subprocess.CalledProcessError as e:
+            raise AssertionError("Unable to compile %s: %s" % (pofile, e.output))

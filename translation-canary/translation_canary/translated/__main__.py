@@ -26,6 +26,8 @@ ap.add_argument('--release', action='store_true', default=False,
         help='Run in release mode')
 ap.add_argument('--test', dest='release', action='store_false',
         help='Run in test mode')
+ap.add_argument('--no-modify-linguas', dest='modify_linguas', action='store_false', default=True,
+        help='In release mode, do not remove failing translation from LINGUAS')
 ap.add_argument('source_trees', metavar='SOURCE-TREE', nargs='+',
         help='Source directory to test')
 
@@ -33,7 +35,7 @@ args = ap.parse_args()
 
 status = 0
 for srcdir in args.source_trees:
-    if not testSourceTree(srcdir, args.release):
+    if not testSourceTree(srcdir, args.release, args.modify_linguas):
         status = 1
 
 sys.exit(status)

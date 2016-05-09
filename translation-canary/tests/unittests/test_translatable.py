@@ -17,10 +17,14 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
 import unittest
-from polib import POEntry
+import unittest.mock
+from polib import POEntry, POFile
+import tempfile
 
 from translation_canary.translatable.test_markup import test_markup
 from translation_canary.translatable.test_comment import test_comment
+
+from translation_canary.translatable import testString, testPOT
 
 class TestMarkup(unittest.TestCase):
     def test_ok(self):
@@ -43,3 +47,52 @@ class TestComment(unittest.TestCase):
 
     def test_no_comment(self):
         self.assertRaises(AssertionError, test_comment, POEntry(msgid="c"))
+
+# Test the top-level functions
+# fake tests for testing with
+def _true_test(_s):
+    pass
+
+def _false_test(_s):
+    raise AssertionError("no good")
+
+def _picky_test(s):
+    if s.msgstr.startswith("p"):
+        raise AssertionError("I don't like this one")
+
+class TestTestString(unittest.TestCase):
+    @unittest.mock.patch("translation_canary.translatable._tests", [_true_test])
+    def test_success(self):
+        self.assertTrue(testString(POEntry()))
+
+    @unittest.mock.patch("translation_canary.translatable._tests", [_false_test])
+    def test_failure(self):
+        self.assertFalse(testString(POEntry()))
+
+@unittest.mock.patch("translation_canary.translatable._tests", [_picky_test])
+class TestTestPOT(unittest.TestCase):
+    def test_success(self):
+        with tempfile.NamedTemporaryFile(suffix=".pot") as potfile:
+            poobj = POFile()
+            poobj.append(POEntry(msgstr="test string"))
+            poobj.save(potfile.name)
+
+            self.assertTrue(testPOT(potfile.name))
+
+    def test_some_failure(self):
+        with tempfile.NamedTemporaryFile(suffix=".pot") as potfile:
+            poobj = POFile()
+            poobj.append(POEntry(msgstr="test string"))
+            poobj.append(POEntry(msgstr="pest string"))
+            poobj.save(potfile.name)
+
+            self.assertFalse(testPOT(potfile.name))
+
+    def test_all_failure(self):
+        with tempfile.NamedTemporaryFile(suffix=".pot") as potfile:
+            poobj = POFile()
+            poobj.append(POEntry(msgstr="pest string"))
+            poobj.append(POEntry(msgstr="past string"))
+            poobj.save(potfile.name)
+
+            self.assertFalse(testPOT(potfile.name))

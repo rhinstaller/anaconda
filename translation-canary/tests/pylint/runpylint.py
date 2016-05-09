@@ -6,8 +6,7 @@ from pocketlint import PocketLintConfig, PocketLinter
 class TranslationCanaryLintConfig(PocketLintConfig):
     @property
     def disabledOptions(self):
-        return [ "W9930",           # Found interruptible system call %s
-                 "I0011",           # Locally disabling %s
+        return [ "I0011",           # Locally disabling %s
                ]
 
     @property
