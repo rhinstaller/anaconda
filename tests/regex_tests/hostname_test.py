@@ -23,8 +23,7 @@ import unittest
 import re
 
 from regexcheck import regex_match
-from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IPV4_PATTERN_WITHOUT_ANCHORS,\
-        IPV6_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IPV4_PATTERN_WITHOUT_ANCHORS
 
 class HostnameRegexTestCase(unittest.TestCase):
     def hostname_test(self):
@@ -83,93 +82,4 @@ class IPv4RegexTestCase(unittest.TestCase):
 
         ipv4_re = re.compile('^(' + IPV4_PATTERN_WITHOUT_ANCHORS + ')$')
         if not regex_match(ipv4_re, good_tests, bad_tests):
-            self.fail()
-
-class IPv6RegexTestCase(unittest.TestCase):
-    def ipv6_test(self):
-        good_tests = [
-                '0000:0000:0000:0000:0000:0000:0000:0000',
-                '0000:0000:0000:0000:0000:0000:1.2.3.4',
-                '::a:b:c:d:e:f:1',
-                '::a:b:c:d:e:255.255.255.255',
-                '1::a:b:c:d:e:f',
-                '1::a:b:c:d:255.255.255.255',
-                '1:12::a:b:c:d:e',
-                '1:12::a:b:c:10.20.30.40',
-                '12::a:b:c:d:e',
-                '12::a:b:c:10.20.30.40',
-                '1:12:123::a:b:c:d',
-                '1:12:123::a:b:100.200.250.249',
-                '12:123::a:b:c:d',
-                '12:123::a:b:100.200.250.249',
-                '123::a:b:c:d',
-                '123::a:b:100.200.250.249',
-                '::a:b:c:d',
-                '::a:b:100.200.250.249',
-                '1:12:123:1234::a:b:c',
-                '1:12:123:1234::a:1.20.30.99',
-                '12:123:1234::a:b:c',
-                '12:123:1234::a:1.20.30.99',
-                '123:1234::a:b:c',
-                '123:1234::a:1.20.30.99',
-                '1234::a:b:c',
-                '1234::a:1.20.30.99',
-                '::a:b:c',
-                '::a:1.20.30.99',
-                '1:12:123:1234:abcd::a:b',
-                '1:12:123:1234:abcd::0.0.0.0',
-                '12:123:1234:abcd::a:b',
-                '12:123:1234:abcd::0.0.0.0',
-                '123:1234:abcd::a:b',
-                '123:1234:abcd::0.0.0.0',
-                '1234:abcd::a:b',
-                '1234:abcd::0.0.0.0',
-                'abcd::a:b',
-                'abcd::0.0.0.0',
-                '::a:b',
-                '::0.0.0.0',
-                '1:12:123:1234:dead:beef::aaaa',
-                '12:123:1234:dead:beef::aaaa',
-                '123:1234:dead:beef::aaaa',
-                '1234:dead:beef::aaaa',
-                'dead:beef::aaaa',
-                'beef::aaaa',
-                '::aaaa',
-                '::'
-                ]
-
-        bad_tests = [
-                # Too many bits
-                '0000:0000:0000:0000:0000:0000:0000:0000:0000'
-                '0000:0000:0000:0000:0000:0000:0000:1.2.3.4',
-                '0000:0000:0000:0000:0000:0000:1.2.3.4.5',
-                # Not enough bits
-                '0000:0000:0000:0000:0000:0000:0000',
-                '0000:0000:0000:0000:0000:1.2.3.4',
-                # zero-length contractions
-                '0000::0000:0000:0000:0000:0000:1.2.3.4',
-                '0000:0000::0000:0000:0000:0000:1.2.3.4',
-                '0000:0000:0000::0000:0000:0000:1.2.3.4',
-                '0000:0000:0000:0000::0000:0000:1.2.3.4',
-                '0000:0000:0000:0000:0000::0000:1.2.3.4',
-                '0000:0000:0000:0000:0000:0000::1.2.3.4',
-                '123::4567:89:a:bcde:f0f0:aaaa:8',
-                '123:4567::89:a:bcde:f0f0:aaaa:8',
-                '123:4567:89::a:bcde:f0f0:aaaa:8',
-                '123:4567:89:a:bcde::f0f0:aaaa:8',
-                '123:4567:89:a:bcde:f0f0::aaaa:8',
-                '123:4567:89:a:bcde:f0f0:aaaa::8',
-                # too many contractions
-                'a::b::c',
-                '::a::b',
-                'a::b::',
-                # invalid numbers
-                '00000::0000',
-                'defg::',
-                '12345::abcd',
-                'ffff::0x1e'
-                ]
-
-        ipv6_re = re.compile('^(' + IPV6_PATTERN_WITHOUT_ANCHORS + ')$')
-        if not regex_match(ipv6_re, good_tests, bad_tests):
             self.fail()
