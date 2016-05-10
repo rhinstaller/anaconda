@@ -62,21 +62,29 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 # After pulling from zanata, use translation-canary to delete any bad
-# translations, and then run po-empty to replace them with empty .po
-# files.
+# translations, and then generate LINUGAS based on what is left.
 po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 	PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated \
 		   --release --no-modify-linguas $(srcdir)
-	$(MAKE) po-empty
+	$(MAKE) linguas
 
-po-empty:
-	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
-		[ -f $(srcdir)/po/$$lingua.po ] || \
-		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
-		exit 1 ; \
+po-empty: linguas
+
+# sr@latin is a special case when generating LINGUAS since it can be
+# automatically created from the Cyrillic sr.po
+linguas:
+	rm -f $(srcdir)/po/LINGUAS
+	touch $(srcdir)/po/LINGUAS
+	for lang in $(srcdir)/po/*.po ; do \
+	    if [ -f "$$lang" ] ; then \
+		echo "$$(basename $$lang .po)" >> $(srcdir)/po/LINGUAS ; \
+	    fi ; \
 	done
+	if [ -f $(srcdir)/po/sr.po -a \! -f $(srcdir)/po/sr@latin.po ] ; then \
+	    echo sr@latin >> $(srcdir)/po/LINGUAS ; \
+	fi
 
 # Try to fetch the real .po files, but if that fails use the empty ones
 po-fallback:
