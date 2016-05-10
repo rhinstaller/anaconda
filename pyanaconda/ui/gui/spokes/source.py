@@ -418,6 +418,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # Make sure anaconda doesn't touch this device.
             part.protected = True
             self.storage.config.protectedDevSpecs.append(part.name)
+            if part.type == "partition" and part.isLogical:
+                # mark the extended partition as protected too
+                extended = self.storage.devicetree.getDeviceByPath(part.disk.format.extendedPartition.path)
+                extended.protected = True
+                if extended.name not in self.storage.config.protectedDevSpecs:
+                    self.storage.config.protectedDevSpecs.append(extended.name)
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -498,6 +504,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             dev = self.storage.devicetree.getDeviceByName(old_source.partition)
             if dev:
                 dev.protected = False
+
+            if dev and dev.type == "partition" and dev.isLogical:
+                # mark the extended partition as not protected if there are no protected logical partitions
+                logicals = (self.storage.devicetree.getDeviceByPath(p.path) for p in dev.disk.format.logicalPartitions)
+                if not any(logical.protected for logical in logicals):
+                    extended = self.storage.devicetree.getDeviceByPath(dev.disk.format.extendedPartition.path)
+                    extended.protected = False
+                    if extended.name in self.storage.config.protectedDevSpecs:
+                        self.storage.config.protectedDevSpecs.remove(extended.name)
 
         self._proxyChange = False
 
