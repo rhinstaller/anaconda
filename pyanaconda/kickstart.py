@@ -63,6 +63,7 @@ from pyanaconda.ui.common import collect
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
+from pyanaconda.storage_utils import device_matches
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
@@ -178,41 +179,6 @@ def getEscrowCertificate(escrowCerts, url):
         f.close()
 
     return escrowCerts[url]
-
-def deviceMatches(spec, devicetree=None):
-    """ Return names of block devices matching the provided specification.
-
-        :param str spec: a device identifier (name, UUID=<uuid>, &c)
-        :keyword devicetree: device tree to look up devices in (optional)
-        :type devicetree: :class:`blivet.DeviceTree`
-        :returns: names of matching devices
-        :rtype: list of str
-
-        parse methods will not have access to a devicetree, while execute
-        methods will. The devicetree is superior in that it can resolve md
-        array names and in that it reflects scheduled device removals, but for
-        normal local disks udev.resolve_devspec should suffice.
-    """
-    full_spec = spec
-    if not full_spec.startswith("/dev/"):
-        full_spec = os.path.normpath("/dev/" + full_spec)
-
-    # the regular case
-    matches = udev.resolve_glob(full_spec)
-
-    # Use spec here instead of full_spec to preserve the spec and let the
-    # called code decide whether to treat the spec as a path instead of a name.
-    if devicetree is None:
-        dev = udev.resolve_devspec(spec)
-    else:
-        dev = getattr(devicetree.resolveDevice(spec), "name", None)
-
-    # udev.resolve_devspec returns None if there's no match, but we don't
-    # want that ending up in the list.
-    if dev and dev not in matches:
-        matches.append(dev)
-
-    return matches
 
 def lookupAlias(devicetree, alias):
     for dev in devicetree.devices:
@@ -398,17 +364,24 @@ class Bootloader(commands.bootloader.RHEL7_Bootloader):
                       (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
         diskSet = set(disk_names)
 
+        valid_disks = []
+        # Drive specifications can contain | delimited variant specifications,
+        # such as for example: "vd*|hd*|sd*"
+        # So use the resolved disk identifiers returned by the device_matches() function in place
+        # of the original specification but still remove the specifications that don't match anything
+        # from the output kickstart to keep existing --driveorder processing behavior.
         for drive in self.driveorder[:]:
-            matches = set(deviceMatches(drive, devicetree=storage.devicetree))
-            if matches.isdisjoint(diskSet):
+            matches = device_matches(drive, devicetree=storage.devicetree, disks_only=True)
+            if set(matches).isdisjoint(diskSet):
                 log.warning("requested drive %s in boot drive order doesn't exist or cannot be used", drive)
                 self.driveorder.remove(drive)
+            else:
+                valid_disks.extend(matches)
 
-        storage.bootloader.disk_order = self.driveorder
+        storage.bootloader.disk_order = valid_disks
 
         if self.bootDrive:
-            matches = set(deviceMatches(self.bootDrive,
-                                        devicetree=storage.devicetree))
+            matches = set(device_matches(self.bootDrive, devicetree=storage.devicetree, disks_only=True))
             if len(matches) > 1:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg=_("More than one match found for given boot drive \"%s\".") % self.bootDrive))
@@ -589,7 +562,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         # disks available before the execute methods run.
         drives = []
         for spec in self.drives:
-            matched = deviceMatches(spec)
+            matched = device_matches(spec, disks_only=True)
             if matched:
                 drives.extend(matched)
             else:
@@ -602,7 +575,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         # devices available before the execute methods run.
         devices = []
         for spec in self.devices:
-            matched = deviceMatches(spec)
+            matched = device_matches(spec, disks_only=True)
             if matched:
                 devices.extend(matched)
             else:
@@ -728,7 +701,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
         # See comment in ClearPart.parse
         drives = []
         for spec in self.ignoredisk:
-            matched = deviceMatches(spec)
+            matched = device_matches(spec, disks_only=True)
             if matched:
                 drives.extend(matched)
             else:
@@ -739,7 +712,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
 
         drives = []
         for spec in self.onlyuse:
-            matched = deviceMatches(spec)
+            matched = device_matches(spec, disks_only=True)
             if matched:
                 drives.extend(matched)
             else:
