@@ -55,15 +55,21 @@ tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
+# Generate LINGUAS after a pull from the list of translations we got from Zanata.
 po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
+	$(MAKE) linguas
 
-po-empty:
-	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
-		[ -f $(srcdir)/po/$$lingua.po ] || \
-		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
-		exit 1 ; \
+po-empty: linguas
+
+linguas:
+	rm -f $(srcdir)/po/LINGUAS
+	touch $(srcdir)/po/LINGUAS
+	for lang in $(srcdir)/po/*.po ; do \
+	    if [ -f "$$lang" ]; then \
+	        echo "$$(basename $$lang .po)" >> $(srcdir)/po/LINGUAS ; \
+            fi ; \
 	done
 
 scratch: po-empty get-help
