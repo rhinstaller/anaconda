@@ -444,8 +444,8 @@ class NetworkControlBox(GObject.GObject):
             return False
         if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET \
            and dev_cfg.setting_value("connection", "master"):
-                log.debug("network: GUI, not adding slave connection %s", uuid)
-                return False
+            log.debug("network: GUI, not adding slave connection %s", uuid)
+            return False
         # Wireless settings are handled in scope of its device's dev_cfg
         if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             log.debug("network: GUI, not adding wireless connection %s", uuid)
