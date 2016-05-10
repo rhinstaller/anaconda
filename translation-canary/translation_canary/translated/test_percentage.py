@@ -1,4 +1,4 @@
-# Check what percentage of strings a .mo translates
+# Check what percentage of strings a .po translates
 #
 # This will reject translations that fall below a certain threshold of
 # translated strings.
@@ -21,7 +21,6 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
-import os
 import warnings
 
 try:
@@ -32,10 +31,8 @@ except ImportError:
 
 threshold = 10
 
-def test_percentage(mofile):
-    # Open the .po file instead, which should be in the same location as the
-    # .mo file in the source archive
-    pofile = polib.pofile(os.path.splitext(mofile)[0] + '.po')
+def test_percentage(pofile):
+    pofile = polib.pofile(pofile)
     if pofile.percent_translated() < threshold:
         # Issue a warning instead of an exception, since these should probably
         # be handled on a case-by-case basis

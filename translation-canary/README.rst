@@ -29,7 +29,7 @@ Both translatable and translated are run by running the module
 the argument.
 
 In addition to the python modules, this project contains xgettext_werror.sh, a
-wrapper for xgettext that treats warnings as errors.  xgettext will print
+wrapper for xgettext that treats warnings as errors. xgettext will print
 warnings as it extracts translatable strings from source files, and these
 warnings should be addressed instead of silently ignored as they scroll by in
 the build output. To use the script in a package that uses the gettext template

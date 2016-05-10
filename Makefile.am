@@ -57,17 +57,19 @@ COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
 USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
-# Run tests on the translations before tarring them up
-dist-hook:
-	PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated --release $(distdir)
-
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
+# After pulling from zanata, use translation-canary to delete any bad
+# translations, and then run po-empty to replace them with empty .po
+# files.
 po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
+	PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated \
+		   --release --no-modify-linguas $(srcdir)
+	$(MAKE) po-empty
 
 po-empty:
 	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
@@ -80,7 +82,7 @@ po-empty:
 po-fallback:
 	$(MAKE) po-pull || $(MAKE) po-empty
 
-scratch: po-fallback
+scratch: po-empty
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
