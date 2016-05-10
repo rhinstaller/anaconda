@@ -207,7 +207,7 @@ class YumPayload(PackagePayload):
         super(YumPayload, self).unsetup()
         self._setup = False
 
-    def _resetYum(self, root=None, keep_cache=False, releasever=None):
+    def _resetYum(self, root=None, keep_cache=False, releasever=None, cache_dir=_yum_cache_dir):
         """ Delete and recreate the payload's YumBase instance.
 
             Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
@@ -227,7 +227,7 @@ class YumPayload(PackagePayload):
 
                 del self._yum
 
-            self._writeYumConfig()
+            self._writeYumConfig(cache_dir=cache_dir)
             self._yum = yum.YumBase()
 
             self._yum.use_txmbr_in_callback = True
@@ -267,7 +267,7 @@ class YumPayload(PackagePayload):
         shutil.copy2(_yum_installer_langpack_conf,
                      iutil.getSysroot()+_yum_target_langpack_conf)
 
-    def _writeYumConfig(self):
+    def _writeYumConfig(self, cache_dir=_yum_cache_dir):
         """ Write out anaconda's main yum configuration file. """
         buf = """
 [main]
@@ -281,7 +281,7 @@ plugins=1
 debuglevel=6
 errorlevel=6
 reposdir=%s
-""" % (_yum_cache_dir, os.path.dirname(_yum_installer_langpack_conf),
+""" % (cache_dir, os.path.dirname(_yum_installer_langpack_conf),
        self._repos_dir)
 
         if flags.noverifyssl:
@@ -400,12 +400,19 @@ reposdir=%s
             except PayloadSetupError as e:
                 log.error(e)
 
-        releasever = self._yum.conf.yumvar['releasever']
-        self._writeYumConfig()
+        # Move the yum.cache to the new disk space to save memory
+        new_cache = iutil.getSysroot()+"/var/tmp/yum.cache"
+        os.makedirs(iutil.getSysroot()+"/var/tmp")
+        try:
+            shutil.move(_yum_cache_dir, new_cache)
+        except shutil.Error:
+            log.warn("Problem moving yum cache to %s, using %s instead", new_cache, _yum_cache_dir)
+            new_cache = _yum_cache_dir
+
         self._writeLangpacksConfig()
+        releasever = self._yum.conf.yumvar['releasever']
         log.debug("setting releasever to previous value of %s", releasever)
-        self._resetYum(root=iutil.getSysroot(), keep_cache=True, releasever=releasever)
-        self._yumCacheDirHack()
+        self._resetYum(root=iutil.getSysroot(), keep_cache=True, releasever=releasever, cache_dir=new_cache)
         self.gatherRepoMetadata()
 
         # trigger setup of self._yum.config
@@ -1514,6 +1521,10 @@ reposdir=%s
                         log.info(l)
                 log.info("==== end rpm scriptlet logs ====")
                 os.unlink(script_log)
+
+            # Cleanup temporary yum.cache on disk
+            if os.path.isdir(iutil.getSysroot()+"/var/tmp/yum.cache"):
+                shutil.rmtree(iutil.getSysroot()+"/var/tmp/yum.cache")
 
         if install_errors:
             exn = PayloadInstallError("\n".join(install_errors))
