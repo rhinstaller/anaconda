@@ -1771,8 +1771,6 @@ class EFIGRUB(GRUB2):
 class Aarch64EFIGRUB(EFIGRUB):
     _serial_consoles = ["ttyAMA", "ttyS"]
 
-    _efi_binary = "\\grubaa64.efi"
-
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
