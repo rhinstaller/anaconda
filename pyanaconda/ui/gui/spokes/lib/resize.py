@@ -417,17 +417,16 @@ class ResizeDialog(GUIObject):
         """ Remove a device, or if it has protected children, just remove the
             unprotected children.
         """
-        if not any(d for d in self.storage.devices \
-                   if device in d.parents and d.protected):
+        if device.protected:
+            return
+
+        if not any(d.protected for d in device.children):
             # No protected children, remove the device
             self.storage.recursive_remove(device)
         else:
             # Only remove unprotected children
-            unprotected = (d for d in self.storage.devices \
-                           if device in d.parents and not d.protected)
-            for child in unprotected:
-                if child in self.storage.devices:
-                    self.storage.recursive_remove(child)
+            for child in (d for d in device.children if not d.protected):
+                self.storage.recursive_remove(child)
 
     def _scheduleActions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
