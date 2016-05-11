@@ -274,6 +274,14 @@ ifname
     Assign the given interface name to the network device with the given MAC. May
     be used multiple times.
 
+.. NOTE::
+
+    Dracut applies ifname option (which might involve renaming the device with
+    given MAC) in initramfs only if the device is activated in initramfs stage
+    (based on ip= option). If it is not the case, installer still binds the
+    current device name to the MAC by adding HWADDR setting to the ifcfg file of
+    the device.
+
 .. inst.dhcpclass:
 
 inst.dhcpclass
