@@ -534,10 +534,11 @@ def add_connection_for_ksdata(networkdata, devname):
         dev_spec = None
     # type "802-3-ethernet"
     else:
-        mac = nm.nm_device_perm_hwaddress(devname)
-        if flags.cmdline.get("ifname", "").upper() == "{0}:{1}".format(devname, mac).upper():
+        mac = _bound_hwaddr_of_device(devname)
+        if mac:
             mac = [int(b, 16) for b in mac.split(":")]
             values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
+
         values.append(['connection', 'type', '802-3-ethernet', 's'])
         values.append(['connection', 'id', devname, 's'])
         values.append(['connection', 'interface-name', devname, 's'])
@@ -564,6 +565,35 @@ def add_connection_for_ksdata(networkdata, devname):
         return []
     added_connections.insert(0, (con_uuid, dev_spec))
     return added_connections
+
+def _bound_hwaddr_of_device(devname):
+    """Return hwaddr of the device if it's bound by ifname= dracut boot option
+
+    For example ifname=ens3:f4:ce:46:2c:44:7a should bind the device name ens3
+    to the MAC address (and rename the device in initramfs eventually).  If
+    hwaddress of the device devname is the same as the MAC address, its value
+    is returned.
+
+    :param devname: device name
+    :type devname: str
+    :return: hwaddress of the device if bound, or None
+    :rtype: str or None
+
+    """
+    ifname_values = flags.cmdline.get("ifname", "").split()
+    for ifname in ifname_values:
+        dev, mac = ifname.split(":", 1)
+        if dev == devname:
+            try:
+                hwaddr = nm.nm_device_perm_hwaddress(devname)
+            except nm.PropertyNotFoundError:
+                continue
+            else:
+                if mac.upper() == hwaddr.upper():
+                    return hwaddr.upper()
+                else:
+                    log.warning("network: ifname=%s does not match device's hwaddr %s", ifname, hwaddr)
+    return None
 
 # We duplicate this in dracut/parse-kickstart
 def _get_s390_settings(devname):
@@ -871,7 +901,7 @@ def find_ifcfg_file_of_device(devname, root_path=""):
                 # has neither DEVICE nor HWADDR (#1249750)
                 ifcfg_path = find_ifcfg_file([("NAME", devname)], root_path)
             else:
-                log.warning("network: neither HWADDR nor DEVICE in %s", ifcfg_path)
+                log.debug("network: ifcfg file for %s not found", devname)
 
     return ifcfg_path
 
