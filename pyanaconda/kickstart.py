@@ -221,18 +221,6 @@ def lookupAlias(devicetree, alias):
 
     return None
 
-# Remove any existing formatting on a device, but do not remove the partition
-# itself.  This sets up an existing device to be used in a --onpart option.
-def removeExistingFormat(device, storage):
-    deps = storage.device_deps(device)
-    while deps:
-        leaves = [d for d in deps if d.isleaf]
-        for leaf in leaves:
-            storage.destroy_device(leaf)
-            deps.remove(leaf)
-
-    storage.devicetree.actions.add(ActionDestroyFormat(device))
-
 def getAvailableDiskSpace(storage):
     """
     Get overall disk space available on disks we may use.
@@ -959,7 +947,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name))
 
-            removeExistingFormat(device, storage)
+            storage.devicetree.recursive_remove(device, remove_device=False)
 
             if self.resize:
                 size = device.raw_device.align_target_size(size)
@@ -1332,7 +1320,7 @@ class PartitionData(commands.partition.F23_PartData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("Partition \"%s\" given in part command does not exist.") % self.onPart))
 
-            removeExistingFormat(device, storage)
+            storage.devicetree.recursive_remove(device, remove_device=False)
             if self.resize:
                 size = device.raw_device.align_target_size(size)
                 try:
@@ -1541,7 +1529,7 @@ class RaidData(commands.raid.F25_RaidData):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
                         msg=_("RAID volume \"%s\" specified with --useexisting does not exist.") % devicename))
 
-            removeExistingFormat(device, storage)
+            storage.devicetree.recursive_remove(device, remove_device=False)
             devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
                 storage.add_fstab_swap(device)
