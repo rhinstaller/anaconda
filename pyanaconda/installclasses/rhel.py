@@ -80,7 +80,7 @@ class RHELAtomicInstallClass(RHELBaseInstallClass):
     def configure(self, anaconda):
         RHELBaseInstallClass.configure(self, anaconda)
         # Atomic installations are always single language (#1235726)
-        log.info("Automatically enabling single language mode for %s installation." % self.name)
+        log.info("Automatically enabling single language mode for %s installation.", self.name)
         flags.singlelang = True
 
     def setDefaultPartitioning(self, storage):
