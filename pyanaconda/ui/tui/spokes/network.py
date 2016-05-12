@@ -144,17 +144,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         self._load_new_devices()
         EditTUISpoke.refresh(self, args)
 
-        # on refresh check if we haven't got hostname from NM on activated
-        # connection (dhcp or DNS)
-        if self.hostname_dialog.value == network.DEFAULT_HOSTNAME:
-            hostname = network.getHostname()
-            network.update_hostname_data(self.data, hostname)
-            self.hostname_dialog.value = self.data.network.hostname
-
         summary = self._summary_text()
         self._window += [TextWidget(summary), ""]
         hostname = _("Host name: %s\n") % self.data.network.hostname
         self._window += [TextWidget(hostname), ""]
+        current_hostname = _("Current host name: %s\n") % network.current_hostname()
+        self._window += [TextWidget(current_hostname), ""]
 
         # if we have any errors, display them
         while len(self.errors) > 0:

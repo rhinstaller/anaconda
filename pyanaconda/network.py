@@ -169,6 +169,10 @@ def prefix2netmask(prefix):
     netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
+
+def current_hostname():
+    return socket.gethostname()
+
 # Try to determine what the hostname should be for this system
 def getHostname():
 
@@ -1299,8 +1303,7 @@ def networkInitialize(ksdata):
         logIfcfgFiles(msg)
 
     if ksdata.network.hostname is None:
-        hostname = getHostname()
-        update_hostname_data(ksdata, hostname)
+        update_hostname_data(ksdata, DEFAULT_HOSTNAME)
 
 def _get_ntp_servers_from_dhcp(ksdata):
     """Check if some NTP servers were returned from DHCP and set them
@@ -1363,9 +1366,6 @@ def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
     connected = _wait_for_connecting_NM()
     if connected:
-        if ksdata.network.hostname == DEFAULT_HOSTNAME:
-            hostname = getHostname()
-            update_hostname_data(ksdata, hostname)
         _get_ntp_servers_from_dhcp(ksdata)
     with network_connected_condition:
         global network_connected
