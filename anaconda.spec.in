@@ -318,6 +318,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 11 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.71-1
+- Do not override StorageChecker.errors in StorageSpoke (vtrefny)
+  Resolves: rhbz#1269195
+- Add single language mode (mkolman)
+  Resolves: rhbz#1235726
+- Move default X keyboard setting out of the Welcome spoke (mkolman)
+  Related: rhbz#1235726
+- bootloader: Use shim on Aarch64. (pjones)
+  Resolves: rhbz#1256942
+- Fix bad indentation (rvykydal)
+  Related: rhbz#1265593
+- network: don't show libvirt virtual devices (rvykydal)
+  Related: rhbz#1298444
+- network: don't crash when adding device without connection to list (rvykydal)
+  Related: rhbz#1265593
+- Use a different ipmi command to log events. (clumens)
+  Resolves: rhbz#1268195
+- Add missing glib schema dependencies (dshea)
+  Related: rhbz#1324889
+- Compile glib schema overrides with --strict. (dshea)
+  Related: rhbz#1324889
+
 * Fri May 06 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.70-1
 - Don't join two absolute paths (mkolman)
   Related: rhbz#1249598
