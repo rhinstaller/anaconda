@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 24.13.3\n"
+"Project-Id-Version: anaconda 24.13.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-04-18 16:11-0400\n"
+"POT-Creation-Date: 2016-05-13 13:23-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,7 +551,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:245 pyanaconda/packaging/livepayload.py:182
-#: pyanaconda/packaging/dnfpayload.py:805
+#: pyanaconda/packaging/dnfpayload.py:811
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -953,7 +953,7 @@ msgstr ""
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1472 pyanaconda/ui/gui/spokes/network.glade:2077
+#: pyanaconda/network.py:1472 pyanaconda/ui/gui/spokes/network.glade:2052
 msgid "No network devices available"
 msgstr ""
 
@@ -1386,19 +1386,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:752
+#: pyanaconda/packaging/dnfpayload.py:758
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:770
+#: pyanaconda/packaging/dnfpayload.py:776
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:783
+#: pyanaconda/packaging/dnfpayload.py:789
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:796
+#: pyanaconda/packaging/dnfpayload.py:802
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1665,7 +1665,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:158
-#: pyanaconda/ui/gui/spokes/network.py:1388
+#: pyanaconda/ui/gui/spokes/network.py:1385
 msgid "Password: "
 msgstr ""
 
@@ -1773,7 +1773,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:192
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:241
-#: pyanaconda/ui/gui/spokes/network.glade:2226
+#: pyanaconda/ui/gui/spokes/network.glade:2201
 msgid "Host Name"
 msgstr ""
 
@@ -1791,8 +1791,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:268
-#: pyanaconda/ui/gui/spokes/network.py:1549
-#: pyanaconda/ui/gui/spokes/network.py:1630
+#: pyanaconda/ui/gui/spokes/network.py:1546
+#: pyanaconda/ui/gui/spokes/network.py:1627
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""
@@ -2583,11 +2583,11 @@ msgstr ""
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1077
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1082
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1081
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1086
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2713,47 +2713,47 @@ msgstr ""
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:900
-#: pyanaconda/ui/gui/spokes/network.glade:544
-#: pyanaconda/ui/gui/spokes/network.glade:820
+#: pyanaconda/ui/gui/spokes/network.py:897
+#: pyanaconda/ui/gui/spokes/network.glade:519
+#: pyanaconda/ui/gui/spokes/network.glade:795
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:901
-#: pyanaconda/ui/gui/spokes/network.glade:519
-#: pyanaconda/ui/gui/spokes/network.glade:832
-#: pyanaconda/ui/gui/spokes/network.glade:1399
+#: pyanaconda/ui/gui/spokes/network.py:898
+#: pyanaconda/ui/gui/spokes/network.glade:494
+#: pyanaconda/ui/gui/spokes/network.glade:807
+#: pyanaconda/ui/gui/spokes/network.glade:1374
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:903
-#: pyanaconda/ui/gui/spokes/network.py:905
-#: pyanaconda/ui/gui/spokes/network.glade:1387
+#: pyanaconda/ui/gui/spokes/network.py:900
+#: pyanaconda/ui/gui/spokes/network.py:902
+#: pyanaconda/ui/gui/spokes/network.glade:1362
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:988
+#: pyanaconda/ui/gui/spokes/network.py:985
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1165
+#: pyanaconda/ui/gui/spokes/network.py:1162
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1168
+#: pyanaconda/ui/gui/spokes/network.py:1165
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1171
+#: pyanaconda/ui/gui/spokes/network.py:1168
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1175
+#: pyanaconda/ui/gui/spokes/network.py:1172
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1180 widgets/src/SpokeSelector.c:83
+#: pyanaconda/ui/gui/spokes/network.py:1177 widgets/src/SpokeSelector.c:83
 #: pyanaconda/ui/gui/spokes/filter.glade:145
 #: pyanaconda/ui/gui/spokes/filter.glade:560
 #: pyanaconda/ui/gui/spokes/filter.glade:894
@@ -2762,41 +2762,41 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1350
-#: pyanaconda/ui/gui/spokes/network.glade:2428
+#: pyanaconda/ui/gui/spokes/network.py:1347
+#: pyanaconda/ui/gui/spokes/network.glade:2403
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1351
+#: pyanaconda/ui/gui/spokes/network.py:1348
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1365
+#: pyanaconda/ui/gui/spokes/network.py:1362
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1373
+#: pyanaconda/ui/gui/spokes/network.py:1370
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1383
+#: pyanaconda/ui/gui/spokes/network.py:1380
 msgid "User name: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1394
+#: pyanaconda/ui/gui/spokes/network.py:1391
 msgid "Identity: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1399
+#: pyanaconda/ui/gui/spokes/network.py:1396
 msgid "Private key password: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1459
+#: pyanaconda/ui/gui/spokes/network.py:1456
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
@@ -3956,7 +3956,7 @@ msgid "_Select the type of device you wish to add"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:165
-#: pyanaconda/ui/gui/spokes/network.glade:2263
+#: pyanaconda/ui/gui/spokes/network.glade:2238
 msgid "NETWORK & HOST NAME"
 msgstr ""
 
@@ -3971,199 +3971,195 @@ msgid "Slaves"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:441
-#: pyanaconda/ui/gui/spokes/network.glade:856
-#: pyanaconda/ui/gui/spokes/network.glade:1423
+#: pyanaconda/ui/gui/spokes/network.glade:831
+#: pyanaconda/ui/gui/spokes/network.glade:1398
 msgid "DNS"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:469
-#: pyanaconda/ui/gui/spokes/network.glade:844
-#: pyanaconda/ui/gui/spokes/network.glade:1411
+#: pyanaconda/ui/gui/spokes/network.glade:819
+#: pyanaconda/ui/gui/spokes/network.glade:1386
 msgid "Default Route"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:494
-msgid "Subnet Mask"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.glade:569
-#: pyanaconda/ui/gui/spokes/network.glade:808
-#: pyanaconda/ui/gui/spokes/network.glade:1255
+#: pyanaconda/ui/gui/spokes/network.glade:544
+#: pyanaconda/ui/gui/spokes/network.glade:783
+#: pyanaconda/ui/gui/spokes/network.glade:1230
 msgid "Speed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:594
-#: pyanaconda/ui/gui/spokes/network.glade:796
+#: pyanaconda/ui/gui/spokes/network.glade:569
+#: pyanaconda/ui/gui/spokes/network.glade:771
 msgid "Hardware Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:619
+#: pyanaconda/ui/gui/spokes/network.glade:594
 msgid "Parent"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:631
+#: pyanaconda/ui/gui/spokes/network.glade:606
 msgid "VLAN ID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:679
+#: pyanaconda/ui/gui/spokes/network.glade:654
 msgctxt "GUI|Network|Wired"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:683
+#: pyanaconda/ui/gui/spokes/network.glade:658
 msgid "To apply the configuration immediately turn the device off and on."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:969
+#: pyanaconda/ui/gui/spokes/network.glade:944
 msgid "Security"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:981
+#: pyanaconda/ui/gui/spokes/network.glade:956
 msgctxt "GUI|Network|Wireless"
 msgid "_Network Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:995
+#: pyanaconda/ui/gui/spokes/network.glade:970
 msgid "Network Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1007
+#: pyanaconda/ui/gui/spokes/network.glade:982
 msgid "Security Key"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1091
+#: pyanaconda/ui/gui/spokes/network.glade:1066
 msgctxt "GUI|Network|Wireless"
 msgid "_Use as Hotspot..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1108
+#: pyanaconda/ui/gui/spokes/network.glade:1083
 msgctxt "GUI|Network|Wireless"
 msgid "_Stop Hotspot..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1125
+#: pyanaconda/ui/gui/spokes/network.glade:1100
 msgctxt "GUI|Network|Wireless"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1243
+#: pyanaconda/ui/gui/spokes/network.glade:1218
 msgid "IMEI"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1267
+#: pyanaconda/ui/gui/spokes/network.glade:1242
 msgid "Provider"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1450
+#: pyanaconda/ui/gui/spokes/network.glade:1425
 msgctxt "GUI|Network|Mobile Broadband"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1560
+#: pyanaconda/ui/gui/spokes/network.glade:1535
 msgid "VPN Type"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1572
+#: pyanaconda/ui/gui/spokes/network.glade:1547
 msgid "Gateway"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1584
+#: pyanaconda/ui/gui/spokes/network.glade:1559
 msgid "Group Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1596
+#: pyanaconda/ui/gui/spokes/network.glade:1571
 msgid "Group Password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1608
+#: pyanaconda/ui/gui/spokes/network.glade:1583
 #: pyanaconda/ui/gui/spokes/user.glade:117
 msgid "User Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1716
+#: pyanaconda/ui/gui/spokes/network.glade:1691
 msgctxt "GUI|Network|VPN"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1838
+#: pyanaconda/ui/gui/spokes/network.glade:1813
 msgctxt "GUI|Network|Proxy"
 msgid "_Method"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1863
+#: pyanaconda/ui/gui/spokes/network.glade:1838
 msgctxt "GUI|Network|Proxy"
 msgid "_Configuration URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1888
+#: pyanaconda/ui/gui/spokes/network.glade:1863
 msgctxt "GUI|Network|Proxy"
 msgid "HTTP _Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1902
+#: pyanaconda/ui/gui/spokes/network.glade:1877
 msgctxt "GUI|Network|Proxy"
 msgid "H_TTPS Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1916
+#: pyanaconda/ui/gui/spokes/network.glade:1891
 msgctxt "GUI|Network|Proxy"
 msgid "_FTP Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:1930
+#: pyanaconda/ui/gui/spokes/network.glade:1905
 msgctxt "GUI|Network|Proxy"
 msgid "_Socks Host"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2120
+#: pyanaconda/ui/gui/spokes/network.glade:2095
 msgid "Network Config Box"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2136
+#: pyanaconda/ui/gui/spokes/network.glade:2111
 msgctxt "GUI|Network"
 msgid "Unloc_k"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2169
+#: pyanaconda/ui/gui/spokes/network.glade:2144
 msgctxt "GUI|Network"
 msgid "_Airplane Mode"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2189
+#: pyanaconda/ui/gui/spokes/network.glade:2164
 msgid "More Network Config Box"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2209
+#: pyanaconda/ui/gui/spokes/network.glade:2184
 msgctxt "GUI|Network"
 msgid "_Host Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2269
+#: pyanaconda/ui/gui/spokes/network.glade:2244
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2314
+#: pyanaconda/ui/gui/spokes/network.glade:2289
 msgid ""
 "We'll need network access to fetch information about your location and to "
 "make software\n"
 "updates available for you."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2344
+#: pyanaconda/ui/gui/spokes/network.glade:2319
 msgid "Authentication"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2358
+#: pyanaconda/ui/gui/spokes/network.glade:2333
 msgctxt "GUI|Network|Authentication Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2373
+#: pyanaconda/ui/gui/spokes/network.glade:2348
 msgctxt "GUI|Network|Authentication Dialog"
 msgid "C_onnect"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade:2445
+#: pyanaconda/ui/gui/spokes/network.glade:2420
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network"
