@@ -185,10 +185,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self.environment:
             return
 
+        # NOTE: This block is skipped for kickstart where addons and _origAddons will
+        # both be [], preventing it from wiping out the kickstart's package selection
         addons = self._get_selected_addons()
-        for group in addons:
-            if group not in self.selectedGroups:
-                self.selectedGroups.append(group)
+        if set(addons) != set(self._origAddons):
+            for group in addons:
+                if group not in self.selectedGroups:
+                    self.selectedGroups.append(group)
 
             self._selectFlag = False
             self.payload.data.packages.packageList = []
