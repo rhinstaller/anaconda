@@ -35,9 +35,6 @@ def check_potfile(checkfile, potlist):
             subprocess.check_call(["xgettext", "-o", pofile.name] + XGETTEXT_OPTIONS + [checkfile])
             if os.path.getsize(pofile.name) > 0:
                 potcheckfile = checkfile
-    elif checkfile.endswith(".desktop.in"):
-        # These are handled by intltool, make sure the .h version is present
-        potcheckfile = checkfile + ".h"
 
     if not potcheckfile:
         return
