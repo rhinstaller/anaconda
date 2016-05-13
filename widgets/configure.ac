@@ -43,7 +43,8 @@ AC_TYPE_SIZE_T
 AC_PROG_CC
 AC_PROG_LIBTOOL
 
-AM_GNU_GETTEXT([external])
+# Define this so gettext.h works instead of using the whole gettext macro
+CFLAGS="${CFLAGS} -DENABLE_NLS"
 
 dnl Make sure that autoconf fails if the gobject-introspection macro
 dnl is not expanded.

@@ -7,7 +7,6 @@ prepare the environment and build the sources::
     make -f Makefile.am install-test-requires
     ./autogen.sh
     ./configure
-    make po-empty
     make
 
 Executing the tests can be done with::

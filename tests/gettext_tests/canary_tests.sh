@@ -15,4 +15,4 @@ PYTHONPATH="${PYTHONPATH}:${top_srcdir}/translation-canary"
 export PYTHONPATH
 
 # Run the translatable tests on the POT file
-python3 -m translation_canary.translatable "${top_srcdir}/po/anaconda.pot"
+python3 -m translation_canary.translatable "${top_builddir}/po/anaconda.pot"

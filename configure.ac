@@ -43,9 +43,13 @@ AC_PROG_LN_S
 AC_PROG_LIBTOOL
 AC_PROG_MKDIR_P
 
-AM_GNU_GETTEXT([external])
-# Also update in gettextver in anaconda.spec.in
-AM_GNU_GETTEXT_VERSION([0.19.1])
+# Check for the gettext programs
+AC_PATH_PROG([XGETTEXT], [xgettext])
+AC_PATH_PROG([MSGFMT], [msgfmt])
+AC_PATH_PROG([MSGMERGE], [msgmerge])
+AC_PATH_PROG([MSGCAT], [msgcat])
+AS_IF([test -z "$XGETTEXT" -o -z "$MSGFMT" -o -z "$MSGMERGE" -o -z "$MSGCAT"],
+      [ANACONDA_SOFT_FAILURE([gettext not found])])
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/time.h unistd.h],
@@ -121,7 +125,7 @@ AC_CONFIG_FILES([Makefile
                  data/window-manager/Makefile
                  data/window-manager/config/Makefile
                  data/window-manager/theme/Makefile
-                 po/Makefile.in
+                 po/Makefile
                  scripts/Makefile
                  pyanaconda/Makefile
                  pyanaconda/version.py
