@@ -486,7 +486,7 @@ def copyTranslations(updates, srcdir, builddir):
         sys.exit(1)
 
     # From here gettext puts everything in $srcdir
-    # For each language in LINGUAS, install srcdir/<lang>.gmo as
+    # For each language in LINGUAS, install srcdir/<lang>.mo as
     # /usr/share/locale/$language/LC_MESSAGES/anaconda.mo
     with open(srcdir + '/po/LINGUAS') as linguas:
         for line in linguas.readlines():
@@ -497,7 +497,7 @@ def copyTranslations(updates, srcdir, builddir):
                 if not os.path.isdir(updates + localedir + lang + "/LC_MESSAGES"):
                     os.makedirs(updates + localedir + lang + "/LC_MESSAGES")
 
-                shutil.copy2(srcdir + "/po/" + lang + ".gmo",
+                shutil.copy2(srcdir + "/po/" + lang + ".mo",
                         updates + localedir + lang + "/LC_MESSAGES/anaconda.mo")
 
 def addRpms(updates_path, add_rpms):

@@ -62,7 +62,6 @@ TESTS = nosetests.sh \
 	pylint/runpylint.py \
 	cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
-	gettext_tests/gettext_potfiles.py \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
 	gettext_tests/canary_tests.sh \

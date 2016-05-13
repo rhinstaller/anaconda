@@ -110,7 +110,7 @@ class GladePlugin(nose.plugins.Plugin):
 
         parser.add_option("--glade-file", action="append",
                 help="Glade file(s) to test. If none specified, all files will be tested")
-        parser.add_option("--notranslate", dest="translate", action="store_false", default=True,
+        parser.add_option("--notranslate", dest="translate", action="store_false", default=False,
                 help="Do not test translations of glade files")
         parser.add_option("--translate", action="store_true",
                 help="Test glade files with translations")

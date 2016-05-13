@@ -60,10 +60,6 @@ The 'make tag' step now runs after 'make dist' in case dist generation
 fails.  That way you don't end up with a partially created dist AND a
 bad tag you have to delete.
 
-The 'make scratch' and 'make po-empty' targets will now create empty
-translation files so that local test builds can be created without needing a
-zanata account.
-
 
 DEALING WITH ERRORS IN *.po FILES
 ---------------------------------

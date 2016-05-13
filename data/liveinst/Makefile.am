@@ -35,9 +35,16 @@ install-exec-local:
 	$(LN_S) consolehelper $(DESTDIR)$(bindir)/liveinst
 
 # Merge translations into the desktop file
+# Use the merged translations in $(builddir). If no merged translations exist,
+# just exit.
 install-data-hook:
-	$(MSGFMT) --desktop --template $(srcdir)/liveinst.desktop -d $(top_srcdir)/po \
-		-o $(DESTDIR)$(desktopdir)/liveinst.desktop
+	for p in $(top_builddir)/po/*.mpo ; do \
+	    [ -e $$p ] || exit 0 ; \
+	    $(MSGFMT) --desktop --template=$(DESTDIR)$(desktopdir)/liveinst.desktop \
+	        --locale=$$(basename $$p .mpo) \
+		-o $(DESTDIR)$(desktopdir)/liveinst.desktop.new $$p || exit 1 ; \
+	    mv $(DESTDIR)$(desktopdir)/liveinst.desktop.new $(DESTDIR)$(desktopdir)/liveinst.desktop || exit 1 ; \
+	done
 
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/liveinst

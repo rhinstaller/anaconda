@@ -65,13 +65,8 @@ if "top_builddir" not in os.environ:
     sys.stderr.write("$top_builddir must be defined in the test environment\n")
     sys.exit(99)
 
-# Update the .pot file with the latest strings
-if os.system('make -C %s anaconda.pot-update' % (os.environ['top_builddir'] + "/po")) != 0:
-    sys.stderr.write("Unable to update anaconda.pot")
-    sys.exit(1)
-
 # Parse anaconda.pot and rearrange the POFile object into a dict of {msgid: POEntry}
-pofile = polib.pofile(os.environ['top_srcdir'] + "/po/anaconda.pot")
+pofile = polib.pofile(os.environ['top_builddir'] + "/po/anaconda.pot")
 msgs = {e.msgid: e for e in pofile}
 
 # Look for each of the bad regexes

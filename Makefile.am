@@ -21,7 +21,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
-EXTRA_DIST = config.rpath COPYING .coveragerc
+EXTRA_DIST = COPYING .coveragerc
 
 # Include the xgettext wrapper so pot-update can be run from the source distribution
 # This is needed for make distcheck.
@@ -30,7 +30,7 @@ EXTRA_DIST += $(srcdir)/translation-canary/xgettext_werror.sh
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
                        INSTALL aclocal.m4 configure *.pyc py-compile \
-		       m4/* config.rpath po/Makefile.in.in po/Rules-quot \
+		       m4/* po/Makefile.in.in po/Rules-quot \
 		       test-driver
 
 CLEANFILES = *~
@@ -57,36 +57,34 @@ COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
 USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
+# If translations are present, run tests on the .po files before tarring them
+# up. Use a weird looking loop because shell doesn't have a good way to test
+# for a wildcard
+dist-hook:
+	for p in $(distdir)/po/*.po ; do \
+	    if [ -e "$$p" ]; then \
+		PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated \
+		    --release $(distdir)/po ; \
+	    fi ; \
+	    break ; \
+	done
+
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
-# After pulling from zanata, use translation-canary to delete any bad
-# translations, and then run po-empty to replace them with empty .po
-# files.
 po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
-	zanata pull $(ZANATA_PULL_ARGS)
-	PYTHONPATH=$(srcdir)/translation-canary python3 -m translation_canary.translated \
-		   --release --no-modify-linguas $(srcdir)
-	$(MAKE) po-empty
+	( cd $(srcdir) && zanata pull $(ZANATA_PULL_ARGS) )
 
-po-empty:
-	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
-		[ -f $(srcdir)/po/$$lingua.po ] || \
-		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
-		exit 1 ; \
-	done
-
-# Try to fetch the real .po files, but if that fails use the empty ones
+# Try to fetch translations, but if that fails just keep going
 po-fallback:
-	$(MAKE) po-pull || $(MAKE) po-empty
+	-$(MAKE) po-pull
 
-scratch: po-empty
+scratch:
 	$(MAKE) ARCHIVE_TAG=HEAD dist
-	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
-scratch-bumpver: po-empty
+scratch-bumpver:
 	@opts="-S -n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT) --newrelease $(RC_RELEASE)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
@@ -101,7 +99,7 @@ scratch-bumpver: po-empty
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release:
-	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
+	$(MAKE) dist && $(MAKE) tag
 
 rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --scrub all || exit 1

@@ -24,10 +24,17 @@ dist_welcome_SCRIPTS    = fedora-welcome.js
 MAINTAINERCLEANFILES = Makefile.in
 
 # Merge the translations into the desktop file
+# Use the merged translations in $(builddir). If no merged translations exist,
+# just exit.
 # Rename fedora-welcome.js to just fedora-welcome
 install-data-hook:
-	$(MSGFMT) --desktop --template $(srcdir)/fedora-welcome.desktop -d $(top_srcdir)/po \
-		-o $(DESTDIR)$(welcomedir)/fedora-welcome.desktop
+	for p in $(top_builddir)/po/*.mpo ; do \
+	    [ -e $$p ] || exit 0 ; \
+	    $(MSGFMT) --desktop --template=$(DESTDIR)$(welcomedir)/fedora-welcome.desktop \
+	        --locale=$$(basename $$p .mpo) \
+		-o $(DESTDIR)$(welcomedir)/fedora-welcome.desktop.new $$p || exit 1 ; \
+	    mv $(DESTDIR)$(welcomedir)/fedora-welcome.desktop.new $(DESTDIR)$(welcomedir)/fedora-welcome.desktop || exit 1 ; \
+	done
 	cd $(DESTDIR)$(welcomedir) && mv fedora-welcome.js fedora-welcome
 
 uninstall-hook:
