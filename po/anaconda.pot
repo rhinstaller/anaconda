@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 25.10\n"
+"Project-Id-Version: anaconda 25.11\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-05-06 17:31-0700\n"
+"POT-Creation-Date: 2016-05-13 16:49-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgid ""
 "already running, or a previous instance of anaconda has crashed."
 msgstr ""
 
-#: pyanaconda/addons.py:90
+#: pyanaconda/addons.py:92
 #, python-format
 msgid "Executing %s addon"
 msgstr ""
@@ -520,38 +520,38 @@ msgstr ""
 msgid "Generating initramfs"
 msgstr ""
 
-#: pyanaconda/install.py:113
+#: pyanaconda/install.py:114
 #, python-format
 msgid "Joining realm: %s"
 msgstr ""
 
-#: pyanaconda/install.py:116
+#: pyanaconda/install.py:117
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:174
+#: pyanaconda/install.py:175
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:181
+#: pyanaconda/install.py:182
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:205 pyanaconda/kickstart.py:2173
+#: pyanaconda/install.py:206 pyanaconda/kickstart.py:2173
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:213
+#: pyanaconda/install.py:214
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:248
+#: pyanaconda/install.py:249
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:251 pyanaconda/packaging/livepayload.py:182
-#: pyanaconda/packaging/dnfpayload.py:805
+#: pyanaconda/install.py:252 pyanaconda/packaging/livepayload.py:182
+#: pyanaconda/packaging/dnfpayload.py:811
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1242,11 +1242,18 @@ msgstr ""
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: pyanaconda/storage_utils.py:345
+#: pyanaconda/storage_utils.py:347
 #, python-format
 msgid ""
 "Encryption requested for LUKS device %s but no encryption key specified for "
 "this device."
+msgstr ""
+
+#: pyanaconda/storage_utils.py:362
+#, python-format
+msgid ""
+"%s is currently mounted and cannot be used for the installation. Please "
+"unmount it and retry."
 msgstr ""
 
 #: pyanaconda/vnc.py:74
@@ -1347,15 +1354,15 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1173
+#: pyanaconda/packaging/__init__.py:1221
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1174
+#: pyanaconda/packaging/__init__.py:1222
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1175
+#: pyanaconda/packaging/__init__.py:1223
 msgid "No installation source available"
 msgstr ""
 
@@ -1381,19 +1388,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:752
+#: pyanaconda/packaging/dnfpayload.py:758
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:770
+#: pyanaconda/packaging/dnfpayload.py:776
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:783
+#: pyanaconda/packaging/dnfpayload.py:789
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:796
+#: pyanaconda/packaging/dnfpayload.py:802
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1680,30 +1687,30 @@ msgstr ""
 msgid "The password cannot be more than eight characters long."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/langsupport.py:41
+#: pyanaconda/ui/tui/spokes/langsupport.py:42
 msgid "Language settings"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/langsupport.py:68
+#: pyanaconda/ui/tui/spokes/langsupport.py:74
 msgid "Language is not set."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/langsupport.py:78
+#: pyanaconda/ui/tui/spokes/langsupport.py:84
 msgid "Available locales"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/langsupport.py:81
+#: pyanaconda/ui/tui/spokes/langsupport.py:87
 msgid "Available languages"
 msgstr ""
 
 #. TRANSLATORS: 'b' to go back
-#: pyanaconda/ui/tui/spokes/langsupport.py:117
-#: pyanaconda/ui/tui/spokes/langsupport.py:127
+#: pyanaconda/ui/tui/spokes/langsupport.py:123
+#: pyanaconda/ui/tui/spokes/langsupport.py:133
 msgctxt "TUI|Spoke Navigation|Language Support"
 msgid "b"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/langsupport.py:125
+#: pyanaconda/ui/tui/spokes/langsupport.py:131
 #, python-format
 msgid ""
 "Please select language support to install.\n"
@@ -1712,13 +1719,13 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS:'c' to continue
-#: pyanaconda/ui/tui/spokes/langsupport.py:129
+#: pyanaconda/ui/tui/spokes/langsupport.py:135
 msgctxt "TUI|Spoke Navigation|Language Support"
 msgid "c"
 msgstr ""
 
 #. TRANSLATORS:'q' to quit
-#: pyanaconda/ui/tui/spokes/langsupport.py:131
+#: pyanaconda/ui/tui/spokes/langsupport.py:137
 msgctxt "TUI|Spoke Navigation|Language Support"
 msgid "q"
 msgstr ""
@@ -2578,11 +2585,11 @@ msgstr ""
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1084
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1089
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1088
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1093
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2609,15 +2616,15 @@ msgctxt "GUI|Spoke"
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:363
+#: pyanaconda/ui/gui/spokes/keyboard.py:373
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:371
+#: pyanaconda/ui/gui/spokes/keyboard.py:381
 msgid "Getting list of layouts..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:426
+#: pyanaconda/ui/gui/spokes/keyboard.py:436
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -3188,7 +3195,7 @@ msgstr ""
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.py:266
+#: pyanaconda/ui/gui/spokes/welcome.py:217
 #, python-format
 msgid "WELCOME TO %(name)s %(version)s."
 msgstr ""
