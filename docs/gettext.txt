@@ -65,18 +65,8 @@ po/LINGUAS
 po/Rules-extract
 
     Extra Makefile rules to process files that gettext can't handle on its
-    own.
-
-    Currently there are two types of files handled in Rules-extract: files in
-    a language that gettext doesn't know, and files in a language that gettext
-    can't figure out from the filename. For the first type of file (.desktop
-    files, consolehelper files), we use intltool-extract to create a C-style
-    header file containing the translatable strings, and for the second we
-    manually run xgettext, forcing a --language setting, and generate an
-    intermediate .po file.
-
-    In both cases, the name of the generated file is what goes in
-    po/POTFILES.in.
+    own. The rules extract translatable strings to an intermediary file, and
+    the name of the generated file is what goes in po/POTFILES.in.
 
 po/anaconda.pot
 

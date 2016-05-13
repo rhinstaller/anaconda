@@ -23,7 +23,7 @@ if IS_LIVEINST_ARCH
 dist_sbin_SCRIPTS  = liveinst
 
 desktopdir         = $(datadir)/applications
-desktop_DATA       = liveinst.desktop
+dist_desktop_DATA  = liveinst.desktop
 
 dist_libexec_SCRIPTS = liveinst-setup.sh
 
@@ -34,19 +34,15 @@ install-exec-local:
 	$(MKDIR_P) $(DESTDIR)$(bindir)
 	$(LN_S) consolehelper $(DESTDIR)$(bindir)/liveinst
 
+# Merge translations into the desktop file
+install-data-hook:
+	$(MSGFMT) --desktop --template $(srcdir)/liveinst.desktop -d $(top_srcdir)/po \
+		-o $(DESTDIR)$(desktopdir)/liveinst.desktop
+
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/liveinst
 endif
 
-EXTRA_DIST = README liveinst.desktop.in
-
-CLEANFILES = liveinst.desktop *.h
+EXTRA_DIST = README
 
 MAINTAINERCLEANFILES = Makefile.in
-
-@INTLTOOL_DESKTOP_RULE@
-
-# Files generated for gettext need to be included in the distribution
-EXTRA_DIST += $(srcdir)/liveinst.desktop.in.h
-$(srcdir)/liveinst.desktop.in.h: $(srcdir)/liveinst.desktop.in
-	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)

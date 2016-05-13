@@ -1,31 +1,14 @@
 # Handle files that xgettext can't handle automatically
 
-# intltool-extract is kind of weird. It treats the input file list as relative
-# to what it thinks $srcdir is, which is either the current directory or the
-# value of the undocumented -s parameter. For the output filename, it has two
-# modes: --update, the default, will output files in the same directory as the
-# input file. --local will output files in a tmp/ directory relative to the
-# current working directory.
-#
-# All output files need to be in $srcdir for gettext to be able to find them.
-
 DISTFILES.common.extra2 = Rules-extract
 
-%.desktop.in.h: %.desktop.in
-	@intltool-extract -q --type=gettext/keys -l --srcdir / $(realpath $<) && \
-	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
-	rm -f tmp/$$(basename $@)
-
+# Extract the STARTUP_NOTIFICATION_NAME string from the consolehelper config
 %liveinst.h: %liveinst
-	@intltool-extract -q --type=gettext/quoted -l --srcdir / $(realpath $<) && \
-	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
-	rm -f tmp/$$(basename $@)
+	@sed -n 's/^STARTUP_NOTIFICATION_NAME=\(.*\)/char *s = N_(\1)/p' < $< > $@
 
 maintainer-clean: maintainer-clean-extract
 maintainer-clean-extract:
 	rm -f $(top_srcdir)/data/liveinst/console.apps/liveinst.h
-	find $(top_srcdir) \( -name '*.desktop.in.h' \) \
-		-exec rm -f {} \;
 
 mostlyclean: mostlyclean-extract
 mostlyclean-extract:

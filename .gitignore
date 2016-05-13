@@ -1,6 +1,5 @@
 *.a
 *.bak
-*.desktop.in.h
 *.gir
 *.la
 *.lo
@@ -33,7 +32,6 @@ config.rpath
 config.status
 config.sub
 configure
-data/liveinst/gnome/fedora-welcome.desktop
 depcomp
 dirbrowser
 install-sh
@@ -66,8 +64,6 @@ po/quot.sed
 po/remove-potcdate.sed
 po/remove-potcdate.sin
 po/stamp-po
-po/tmp
-po/.intltool-merge-cache
 py-compile
 stamp-h1
 tags

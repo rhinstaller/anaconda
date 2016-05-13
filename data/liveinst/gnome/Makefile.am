@@ -18,26 +18,17 @@
 # Author: Kalev Lember <kalevlember@gmail.com>
 
 welcomedir              = $(datadir)/$(PACKAGE_NAME)/gnome
-dist_welcome_DATA       = install-button.png
+dist_welcome_DATA       = install-button.png fedora-welcome.desktop
 dist_welcome_SCRIPTS    = fedora-welcome.js
-welcome_DATA            = fedora-welcome.desktop
-
-EXTRA_DIST = fedora-welcome.desktop.in
-
-CLEANFILES = fedora-welcome.desktop
 
 MAINTAINERCLEANFILES = Makefile.in
 
+# Merge the translations into the desktop file
 # Rename fedora-welcome.js to just fedora-welcome
 install-data-hook:
+	$(MSGFMT) --desktop --template $(srcdir)/fedora-welcome.desktop -d $(top_srcdir)/po \
+		-o $(DESTDIR)$(welcomedir)/fedora-welcome.desktop
 	cd $(DESTDIR)$(welcomedir) && mv fedora-welcome.js fedora-welcome
 
 uninstall-hook:
 	-cd $(DESTDIR)$(welcomedir) && rm -f fedora-welcome
-
-@INTLTOOL_DESKTOP_RULE@
-
-# Files generated for gettext need to be included in the distribution
-EXTRA_DIST += $(srcdir)/fedora-welcome.desktop.in.h
-$(srcdir)/fedora-welcome.desktop.in.h: $(srcdir)/fedora-welcome.desktop.in
-	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)

@@ -20,7 +20,6 @@ Source0: %{name}-%{version}.tar.bz2
 
 # Also update in AM_GNU_GETTEXT_VERSION in configure.ac
 %define gettextver 0.19.1
-%define intltoolver 0.31.2-3
 %define pykickstartver 2.30-1
 %define dnfver 0.6.4
 %define partedver 1.8.1
@@ -49,7 +48,6 @@ BuildRequires: gtk3-devel-docs
 BuildRequires: glib2-doc
 BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
-BuildRequires: intltool >= %{intltoolver}
 BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: pango-devel
