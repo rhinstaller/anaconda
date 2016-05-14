@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 13 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.72-1
+- Lower required squashfs ram to 350M (bcl)
+  Resolves: rhbz#1333113
+- Add epoch for anaconda-user-help & bump version (mkolman)
+  Related: rhbz#1275285
+- Specify string format arguments as logging function parameters (mkolman)
+  Related: rhbz#1235726
+
 * Wed May 11 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.71-1
 - Do not override StorageChecker.errors in StorageSpoke (vtrefny)
   Resolves: rhbz#1269195
