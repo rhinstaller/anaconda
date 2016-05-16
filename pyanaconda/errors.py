@@ -277,8 +277,8 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _ziplErrorHandler(self, *args, **kwargs):
-        details = kwargs["exception"]
+    def _ziplErrorHandler(self, exn):
+        details = str(exn)
         message = _("Installation was stopped due to an error installing the "
                     "boot loader. The exact error message is:\n\n%s\n\n"
                     "The installer will now terminate.") % details
