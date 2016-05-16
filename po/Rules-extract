@@ -21,16 +21,9 @@ DISTFILES.common.extra2 = Rules-extract
 	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
 	rm -f tmp/$$(basename $@)
 
-%fedora-welcome.po: %fedora-welcome
-	@input_file="$(realpath $<)" && \
-	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \
-		--language=JavaScript -o $@ $${input_file##$(realpath $(top_srcdir))/}
-
 maintainer-clean: maintainer-clean-extract
 maintainer-clean-extract:
-	rm -f \
-		$(top_srcdir)/anaconda.po $(top_srcdir)/data/liveinst/gnome/fedora-welcome.po \
-		$(top_srcdir)/data/liveinst/console.apps/liveinst.h
+	rm -f $(top_srcdir)/data/liveinst/console.apps/liveinst.h
 	find $(top_srcdir) \( -name '*.desktop.in.h' \) \
 		-exec rm -f {} \;
 
