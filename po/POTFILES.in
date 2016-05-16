@@ -150,8 +150,4 @@ data/liveinst/console.apps/liveinst.h
 
 # welcome screen for GNOME Shell
 data/liveinst/gnome/fedora-welcome.desktop.in.h
-
-# These are files that gettext does understand, but that lack an extension
-# for xgettext to detect the language. Use Rules-extract to generate a .po
-# that will be imported into the .pot.
-data/liveinst/gnome/fedora-welcome.po
+data/liveinst/gnome/fedora-welcome.js
