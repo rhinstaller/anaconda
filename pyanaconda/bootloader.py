@@ -1772,7 +1772,7 @@ class EFIBase(object):
         self.add_efi_boot_target()
 
 
-class EFIGRUB1(GRUB, EFIBase):
+class EFIGRUB1(EFIBase, GRUB):
     packages = ["efibootmgr"]
     can_dual_boot = False
 
@@ -1808,7 +1808,7 @@ class EFIGRUB1(GRUB, EFIBase):
                                    self.efi_product_path)
 
 
-class EFIGRUB(GRUB2, EFIBase):
+class EFIGRUB(EFIBase, GRUB2):
     packages = ["grub2-efi", "efibootmgr", "shim"]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
