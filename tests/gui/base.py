@@ -248,7 +248,7 @@ class UITestCase(unittest.TestCase):
 
 @unittest.skipIf(os.geteuid() != 0, "GUI tests must be run as root")
 @unittest.skipIf(os.environ.get("DISPLAY", "") == "", "DISPLAY must be defined")
-@unittest.skipIf(selinux.security_getenforce() == 1, "SELinux must be disabled or in Permissive mode, see rhbz#1276376")
+@unittest.skipIf(selinux.is_selinux_enabled() and selinux.security_getenforce() == 1, "SELinux must be disabled or in Permissive mode, see rhbz#1276376")
 @unittest.skipIf(not isA11yEnabled(), "Assistive Technologies are disabled")
 class DogtailTestCase(unittest.TestCase):
     """A subclass that defines all the parameters for starting a local
