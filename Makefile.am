@@ -207,7 +207,9 @@ test-gui:
 	@rm -rf tests/autogui-results-*/
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
+	$(MAKE) -C pyanaconda/isys
 	sudo COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		PYTHONPATH=$(builddir)/pyanaconda/isys/.libs \
 		PYTHONUSERBASE=$(USER_SITE_BASE) \
 		$(abs_builddir)/tests/run_gui_tests.sh >tests/test-suite.log 2>&1
 	@rm -rf $(USER_SITE_BASE)
