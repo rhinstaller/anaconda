@@ -394,6 +394,7 @@ class NetworkControlBox(GObject.GObject):
                                                               self.on_edit_connection)
         self.entry_hostname = self.builder.get_object("entry_hostname")
         self.label_current_hostname = self.builder.get_object("label_current_hostname")
+        self.checkbutton_apply_hostname = self.builder.get_object("checkbutton_apply_hostname")
 
         self.client.connect("notify::%s" % NMClient.CLIENT_STATE,
                             self.on_nm_state_changed)
@@ -1239,6 +1240,10 @@ class NetworkControlBox(GObject.GObject):
             return
         self.label_current_hostname.set_text(value)
 
+    @property
+    def apply_hostname(self):
+        return self.checkbutton_apply_hostname.get_active()
+
 class SecretAgentDialog(GUIObject):
     builderObjects = ["secret_agent_dialog"]
     mainWidgetName = "secret_agent_dialog"
@@ -1501,7 +1506,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def execute(self):
         # update system's hostname
-        network.set_hostname(self.data.network.hostname)
+        if self.network_control_box.apply_hostname:
+            network.set_hostname(self.data.network.hostname)
 
     @property
     def completed(self):
@@ -1606,7 +1612,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def execute(self):
         # update system's hostname
-        network.set_hostname(self.data.network.hostname)
+        if self.network_control_box.apply_hostname:
+            network.set_hostname(self.data.network.hostname)
 
     @property
     def completed(self):
