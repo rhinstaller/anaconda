@@ -687,8 +687,8 @@ class Payload(object):
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
             set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
             self.prepareMountTargets(self.storage)
-            if not flags.dirInstall:
-                self.storage.write()
+        if not flags.dirInstall:
+            self.storage.write()
 
 # Inherit abstract methods from Payload
 # pylint: disable=abstract-method
