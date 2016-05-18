@@ -139,6 +139,7 @@ def kill_yelp():
 
     log.debug("killing yelp")
     yelp_process.kill()
+    yelp_process.wait()
     yelp_process = None
     return True
 
