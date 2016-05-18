@@ -173,33 +173,6 @@ def prefix2netmask(prefix):
 def current_hostname():
     return socket.gethostname()
 
-# Try to determine what the hostname should be for this system
-def getHostname():
-
-    hn = None
-
-    # First address (we prefer ipv4) of last device (as it used to be) wins
-    for dev in nm.nm_activated_devices():
-        addrs = (nm.nm_device_ip_addresses(dev, version=4) +
-                 nm.nm_device_ip_addresses(dev, version=6))
-        for ipaddr in addrs:
-            try:
-                hinfo = socket.gethostbyaddr(ipaddr)
-            except socket.herror as e:
-                log.debug("Exception caught trying to get host name of %s: %s", ipaddr, e)
-            else:
-                if len(hinfo) == 3:
-                    hn = hinfo[0]
-                    break
-
-    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
-        hn = socket.gethostname()
-
-    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
-        hn = DEFAULT_HOSTNAME
-
-    return hn
-
 def logIfcfgFile(path, message=""):
     content = ""
     if os.access(path, os.R_OK):
@@ -317,8 +290,7 @@ def dracutSetupArgs(networkStorageDevice):
     ifcfg.read()
     return dracutBootArguments(nic,
                                ifcfg,
-                               networkStorageDevice.host_address,
-                               getHostname())
+                               networkStorageDevice.host_address)
 
 def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
 
