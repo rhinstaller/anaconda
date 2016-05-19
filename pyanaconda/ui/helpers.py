@@ -61,6 +61,7 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.i18n import _
+from pyanaconda.packaging import payloadMgr
 from pyanaconda import isys
 
 import logging
@@ -119,6 +120,18 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self._device = None
         self._current_iso_path = None
 
+    def unset_source(self):
+        """Unset an already selected source method.
+
+        Unset the source in kickstart and notify the payload so that it can correctly
+        release all related resources (unmount iso files, drop caches, etc.).
+        """
+        self._clean_hdd_iso()
+        self.data.method.method = None
+        payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass, checkmount=False)
+        threadMgr.wait(constants.THREAD_PAYLOAD_RESTART)
+        threadMgr.wait(constants.THREAD_PAYLOAD)
+
     def _clean_hdd_iso(self):
         """ Clean HDD ISO usage
         This means unmounting the partition and unprotecting it,
@@ -129,7 +142,10 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
             dev = self.storage.devicetree.get_device_by_name(part)
             if dev:
                 dev.protected = False
-            self.storage.config.protectedDevSpecs.remove(part)
+            # the hdd iso cleanup function might be run multiple times,
+            # so make sure the partition still is in the list of protected devices
+            if part in self.storage.config.protectedDevSpecs:
+                self.storage.config.protectedDevSpecs.remove(part)
 
     def set_source_hdd_iso(self, device, iso_path):
         """ Switch to the HDD ISO install source
