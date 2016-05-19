@@ -325,6 +325,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 19 2016 Brian C. Lane <bcl@redhat.com> - 25.13-1
+- Fix writeStorageLate for live installations (#1334019) (bcl)
+- Remove the locale list from zanata.xml (dshea)
+- Ditch autopoint. (dshea)
+- Ditch intltool. (dshea)
+- Rename fedora-welcome to fedora-welcome.js (dshea)
+- Fix UEFI installation after EFIBase refactor (bcl)
+- Fix error handling for s390 bootloader errors (sbueno+anaconda)
+- Deselect all addons correctly (#1333505) (bcl)
+- gui-testing needs isys to be compiled. (clumens)
+- Add more to the selinux check in tests/gui/base.py. (clumens)
+
 * Fri May 13 2016 Brian C. Lane <bcl@redhat.com> - 25.12-1
 - Add single language mode (#1235726) (mkolman)
 - Move default X keyboard setting out of the Welcome spoke (mkolman)
