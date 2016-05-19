@@ -52,6 +52,8 @@ class SummaryHub(TUIHub):
             sys.stdout.flush()
             spokes = self._keys.values()
             while not all(spoke.ready for spoke in spokes):
+                # Catch any asyncronous events (like storage crashing)
+                self._app.process_events()
                 sys.stdout.write('.')
                 sys.stdout.flush()
                 time.sleep(1)
