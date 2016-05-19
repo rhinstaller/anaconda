@@ -18,11 +18,11 @@
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
-
+import sys
+from pyanaconda import iutil, constants
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.ui import common
 from pyanaconda.ui.tui import simpleline as tui
-from pyanaconda.constants_text import INPUT_PROCESSED
 
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""
@@ -51,9 +51,12 @@ class ErrorDialog(tui.UIScreen):
         return _("Press enter to exit.")
 
     def input(self, args, key):
-        """This dialog is closed by any input."""
-        self.close()
-        return INPUT_PROCESSED
+        """This dialog is closed by any input.
+
+        And causes the program to quit.
+        """
+        iutil.ipmi_report(constants.IPMI_ABORTED)
+        sys.exit(1)
 
 class PasswordDialog(tui.UIScreen):
     """Dialog screen for password input."""
