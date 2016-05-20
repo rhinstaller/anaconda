@@ -43,7 +43,7 @@ import os
 import fnmatch
 
 import logging
-LOG = logging.getLogger("anaconda")
+log = logging.getLogger("anaconda")
 
 
 __all__ = ["SourceSpoke"]
@@ -319,7 +319,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
         try:
             (self.data.method.server, self.data.method.dir) = self.args.server.split(":", 2)
         except ValueError as err:
-            LOG.error("ValueError: %s", err)
+            log.error("ValueError: %s", err)
             self._error = True
             return
 
