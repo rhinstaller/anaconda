@@ -512,6 +512,9 @@ class DNFPayload(packaging.PackagePayload):
         exclude = self.data.packages.excludedList
         try:
             self._base.group_install(grp, types, exclude=exclude)
+        except dnf.exceptions.MarkingError as e:
+            # dnf-1.1.9 raises this error when a package is missing from a group
+            raise packaging.NoSuchPackage(str(e), required=True)
         except dnf.exceptions.CompsError as e:
             # DNF raises this when it is already selected
             log.debug(e)
