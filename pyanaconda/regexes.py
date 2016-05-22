@@ -73,22 +73,6 @@ GROUPLIST_FANCY_PARSE = re.compile(r'^(?:\s*)(?P<name>.*?)\s*(?:\((?P<gid>\d+)\)
 # IPv4 address without anchors
 IPV4_PATTERN_WITHOUT_ANCHORS = r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
 
-# IPv6 address without anchors
-# Adapted from the IPv6address ABNF definition in RFC 3986, so it has all those
-# IPv4 compatibility bits too. All groups are non-capturing to make it easy to
-# use in an expression with groups and completely impossible to read
-IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){6})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:::(?:(?:[0-9a-fA-F]{1,4}:){5})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:(?:[0-9a-fA-F]{1,4})?::(?:(?:[0-9a-fA-F]{1,4}:){4})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,1}(?:[0-9a-fA-F]{1,4}))?::(?:(?:[0-9a-fA-F]{1,4}:){3})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,2}(?:[0-9a-fA-F]{1,4}))?::(?:(?:[0-9a-fA-F]{1,4}:){2})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,3}(?:[0-9a-fA-F]{1,4}))?::(?:(?:[0-9a-fA-F]{1,4}:){1})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,4}(?:[0-9a-fA-F]{1,4}))?::(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,5}(?:[0-9a-fA-F]{1,4}))?::(?:[0-9a-fA-F]{1,4}))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,6}(?:[0-9a-fA-F]{1,4}))?::)' + \
-                               r')'
-
 # Hostname validation
 # A hostname consists of sections separated by periods. Each of these sections
 # must be between 1 and 63 characters, contain only alphanumeric characters or
@@ -98,11 +82,6 @@ IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:' + \
 # hyphen rules and make it way more confusing
 HOSTNAME_PATTERN_WITHOUT_ANCHORS = r'(?:(?!-)[A-Za-z0-9-]{1,63}(?<!-)(?:\.(?!-)[A-Za-z0-9-]{1,63}(?<!-))*\.?)'
 
-# URL Hostname
-# This matches any hostname, IPv4 literal or properly encased IPv6 literal
-# This does not match the "IPvFuture" form because come the hell on
-URL_HOSTNAME_PATTERN_WITHOUT_ANCHORS = r'(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')|(?:\[' + IPV6_PATTERN_WITHOUT_ANCHORS + r'])|(?:' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + ')'
-
 # Matches the "scheme" defined by RFC 3986
 URL_SCHEME_PATTERN_WITHOUT_ANCHORS = r'[A-Za-z][A-Za-z0-9+.-]*'
 
@@ -111,26 +90,6 @@ URL_NORMAL_CHAR = r'[A-Za-z0-9._~-]|(?:%[0-9A-Fa-f]{2})'
 
 # The above but also matches 'sub-delims' and :, @ and /
 URL_PATH_CHAR = URL_NORMAL_CHAR + "|[!$&'()*+,;=:@/]"
-
-# Parse a URL
-# Parses a URL of the form [protocol://][username[:password]@]host[:port][path][?query][#fragment]
-# into the following named groups:
-#   1: protocol (e.g., http://)
-#   2: username
-#   3: password
-#   4: host
-#   5: port
-#   6: path
-#   7: query
-#   8: fragment
-URL_PARSE = re.compile(r'^(?P<protocol>' + URL_SCHEME_PATTERN_WITHOUT_ANCHORS + r'://)?' +
-                       r'(?:(?P<username>(?:' + URL_NORMAL_CHAR + r')*)(?::(?P<password>(?:' + URL_NORMAL_CHAR + r')*))?@)?' +
-                       r'(?P<host>' + URL_HOSTNAME_PATTERN_WITHOUT_ANCHORS + ')' +
-                       r'(?::(?P<port>[0-9]+))?' +
-                       r'(?P<path>/(?:' + URL_PATH_CHAR + r')*)?' +
-                       r'(?:\?(?P<query>(?:' + URL_PATH_CHAR + r'|\?)*))?' +
-                       r'(?:#(?P<fragment>(?:' + URL_PATH_CHAR + r'|\?)*))?$')
-
 
 # Valid characters for repository names
 REPO_NAME_VALID = re.compile(r'^[a-zA-Z0-9_.:-]+$')

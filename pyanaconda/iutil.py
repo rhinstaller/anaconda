@@ -48,7 +48,6 @@ from gi.repository import GLib
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED
 from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
-from pyanaconda.regexes import URL_PARSE
 
 from pyanaconda.i18n import _
 
@@ -842,28 +841,79 @@ def vtActivate(num):
 
     return ret == 0
 
+class ParseError(Exception):
+    pass
+
+def parseUrl(url):
+    """Parse url to components and return dictionary with them.
+
+       .. NOTE::
+           Components could be these:
+
+           * scheme - URL scheme specifier (without ``://``)
+           * hostname - Host name (lower case)
+           * port - Port number as integer, if present
+           * username - User name
+           * password - Password
+           * path - Hierarchical path
+           * query - Query component
+           * fragment - Fragment identifier
+
+       :param url: input url for parser
+       :type url: str
+       :return: dictionary with parsed components
+       :rtype: dict[str]
+    """
+    from urllib.parse import urlparse
+
+    # If no scheme is present then all stuff goes to path.
+    # To avoid this behavior, add // before the url.
+    if "://" not in url[:15]:
+        url = "//" + url
+    parsed = urlparse(url)
+
+    output = dict()
+    for i in ["scheme", "hostname", "port", "username", "password",
+              "path", "query", "fragment"]:
+        try:
+            if i == "username" or i == "password":
+                output[i] = ensure_str(unquote(getattr(parsed, i)))
+            elif i == "port":
+                output[i] = str(getattr(parsed, i))
+            # Use netloc if hostname is empty
+            elif i == "hostname" and not hasattr(parsed, i):
+                output[i] = ensure_str(getattr(parsed, "netloc"))
+            else:
+                output[i] = ensure_str(getattr(parsed, i))
+        except (ValueError, TypeError): # empty port and unquote can raise this exception
+            output[i] = ""
+
+    if not output["hostname"]:
+        raise ParseError(_("malformed %s, cannot parse it.") % "URL")
+
+    return output
+
 class ProxyStringError(Exception):
     pass
 
 class ProxyString(object):
-    """ Handle a proxy url
-    """
+    """Handle a proxy url"""
     def __init__(self, url=None, protocol="http://", host=None, port="3128",
                  username=None, password=None):
-        """ Initialize with either url
-        ([protocol://][username[:password]@]host[:port]) or pass host and
-        optionally:
+        """Initialize with either url
+           ([protocol://][username[:password]@]host[:port]) or pass host and
+           optionally:
 
-        protocol    http, https, ftp
-        host        hostname without protocol
-        port        port number (defaults to 3128)
-        username    username
-        password    password
+           protocol    http, https, ftp
+           host        hostname without protocol
+           port        port number (defaults to 3128)
+           username    username
+           password    password
 
-        The str() of the object is the full proxy url
+           The str() of the object is the full proxy url
 
-        ProxyString.url is the full url including username:password@
-        ProxyString.noauth_url is the url without username:password@
+           ProxyString.url is the full url including username:password@
+           ProxyString.noauth_url is the url without username:password@
         """
         self.url = ensure_str(url, keep_none=True)
         self.protocol = ensure_str(protocol, keep_none=True)
@@ -872,6 +922,9 @@ class ProxyString(object):
         self.username = ensure_str(username, keep_none=True)
         self.password = ensure_str(password, keep_none=True)
         self.proxy_auth = ""
+        self.path = ""
+        self.query = ""
+        self.fragment = ""
         self.noauth_url = None
 
         if url:
@@ -882,59 +935,73 @@ class ProxyString(object):
             self.parse_components()
 
     def parse_url(self):
-        """ Parse the proxy url into its component pieces
+        """Parse the url into its component pieces.
+
+           Example url:
+           [protocol://][username[:password]@]host[:port][path][?query][#fragment]
+
+           :return: dict containing members of url. If members are not present
+                    dictionary contains empty string.
+                    These parts are:
+
+                    * protocol
+                    * username
+                    * password
+                    * host
+                    * port
+                    * path
+                    * query
+                    * fragment
+           :rtype: dict[str]
         """
         # NOTE: If this changes, update tests/regex/proxy.py
-        #
-        # proxy=[protocol://][username[:password]@]host[:port][path][?query][#fragment]
-        # groups (both named and numbered)
-        # 1 = protocol
-        # 2 = username
-        # 3 = password
-        # 4 = host
-        # 5 = port
-        # 6 = path
-        # 7 = query
-        # 8 = fragment
-        m = URL_PARSE.match(self.url)
-        if not m:
-            raise ProxyStringError(_("malformed URL, cannot parse it."))
+        try:
+            output = parseUrl(self.url)
+        except ParseError as e:
+            raise ProxyStringError(e)
 
-        # If no protocol was given default to http.
-        self.protocol = m.group("protocol") or "http://"
-
-        if m.group("username"):
-            self.username = ensure_str(unquote(m.group("username")))
-
-        if m.group("password"):
-            self.password = ensure_str(unquote(m.group("password")))
-
-        if m.group("host"):
-            self.host = m.group("host")
-            if m.group("port"):
-                self.port = m.group("port")
-        else:
+        # test if host is set
+        if not output["hostname"]:
             raise ProxyStringError(_("URL has no host component"))
+
+        # set everything here to hold consistency
+        for key in output.keys():
+            if key == "scheme":
+                if output["scheme"]:
+                    self.protocol = output["scheme"] + "://"
+                else: # remove the default protocol
+                    self.protocol = ""
+            elif key == "hostname" and output[key]: # set host if exists
+                self.host = output["hostname"]
+            elif output[key]:
+                setattr(self, key, output[key]) # if the parameter exists set it
 
         self.parse_components()
 
     def parse_components(self):
-        """ Parse the components of a proxy url into url and noauth_url
-        """
+        """Parse the components of a proxy url into url and noauth_url"""
         if self.username or self.password:
             self.proxy_auth = "%s:%s@" % (quote(self.username or ""),
                                           quote(self.password or ""))
 
-        self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
-        self.noauth_url = self.protocol + self.host + ":" + self.port
+        self.url = self.protocol + self.proxy_auth + self.host
+        self.noauth_url = self.protocol + self.host
+
+        if self.port:
+            self.url += ":" + self.port
+            self.noauth_url += ":" + self.port
 
     @property
     def dict(self):
-        """ return a dict of all the elements of the proxy string
-        url, noauth_url, protocol, host, port, username, password
+        """Get dict of all the elements.
+
+           :return: dict of all the elements of the proxy string
+                    url, noauth_url, protocol, host, port, username, password,
+                    path, query, fragment
+           :rtype: dict[str]
         """
         components = ["url", "noauth_url", "protocol", "host", "port",
-                      "username", "password"]
+                      "username", "password", "path", "query", "fragment"]
         return dict((k, getattr(self, k)) for k in components)
 
     def __str__(self):
