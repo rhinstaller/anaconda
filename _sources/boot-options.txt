@@ -308,6 +308,21 @@ inst.lang
 Set the language to be used during installation. The language specified must
 be valid for the ``lang`` kickstart command.
 
+
+.. inst.singlelang:
+
+inst.singlelang
+^^^^^^^^^^^^^^^
+
+Install in single language mode - no interactive options for installation language
+and language support configuration will be available.
+If a language has been specified via the `inst.lang`_ boot option
+or the `lang` kickstart command it will be used.
+If no language is specified Anaconda will default to en_US.UTF-8.
+
+.. NOTE::
+         Atomic installations always run in single language mode.
+
 .. inst.geoloc:
 
 inst.geoloc

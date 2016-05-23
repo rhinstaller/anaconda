@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Anaconda Boot Options &mdash; Anaconda 25.5 documentation</title>
+  <title>Anaconda Boot Options &mdash; Anaconda 25.14 documentation</title>
   
 
   
@@ -30,9 +30,9 @@
   
 
   
-    <link rel="top" title="Anaconda 25.5 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 25.14 documentation" href="index.html"/>
         <link rel="next" title="Anaconda Kickstart Documentation" href="kickstart.html"/>
-        <link rel="prev" title="Introduction to Anaconda" href="intro.html"/> 
+        <link rel="prev" title="Building a Release" href="release.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                25.5
+                25.14
               </div>
             
           
@@ -83,6 +83,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Building a Release</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#inst-repo">inst.repo</a></li>
@@ -110,6 +111,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#console-display-options">Console / Display Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#console">console</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-lang">inst.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-singlelang">inst.singlelang</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-geoloc">inst.geoloc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-keymap">inst.keymap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-cmdline">inst.cmdline</a></li>
@@ -478,6 +480,18 @@ all consoles, but anaconda will put its display on the last console listed.</p>
 <p>Set the language to be used during installation. The language specified must
 be valid for the <code class="docutils literal"><span class="pre">lang</span></code> kickstart command.</p>
 </div>
+<div class="section" id="inst-singlelang">
+<h3>inst.singlelang<a class="headerlink" href="#inst-singlelang" title="Permalink to this headline">¶</a></h3>
+<p>Install in single language mode - no interactive options for installation language
+and language support configuration will be available.
+If a language has been specified via the <a class="reference internal" href="#inst-lang">inst.lang</a> boot option
+or the <cite>lang</cite> kickstart command it will be used.
+If no language is specified Anaconda will default to en_US.UTF-8.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Atomic installations always run in single language mode.</p>
+</div>
+</div>
 <div class="section" id="inst-geoloc">
 <h3>inst.geoloc<a class="headerlink" href="#inst-geoloc" title="Permalink to this headline">¶</a></h3>
 <p>Configure geolocation usage in Anaconda. Geolocation is used to pre-set
@@ -840,7 +854,7 @@ the installed system.</p>
         <a href="kickstart.html" class="btn btn-neutral float-right" title="Anaconda Kickstart Documentation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="intro.html" class="btn btn-neutral" title="Introduction to Anaconda" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="release.html" class="btn btn-neutral" title="Building a Release" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -871,7 +885,7 @@ the installed system.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'25.5',
+            VERSION:'25.14',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
