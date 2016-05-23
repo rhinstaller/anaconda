@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Testing Anaconda &mdash; Anaconda 25.5 documentation</title>
+  <title>Testing Anaconda &mdash; Anaconda 25.14 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 25.5 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 25.14 documentation" href="index.html"/>
         <link rel="next" title="tests" href="tests/modules.html"/>
         <link rel="prev" title="pyanaconda.ui.tui.spokes package" href="pyanaconda.ui.tui.spokes.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                25.5
+                25.14
               </div>
             
           
@@ -83,6 +83,7 @@
             
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Building a Release</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
@@ -146,7 +147,6 @@ prepare the environment and build the sources:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>make -f Makefile.am install-test-requires
 ./autogen.sh
 ./configure
-make po-empty
 make
 </pre></div>
 </div>
@@ -191,7 +191,8 @@ Bash;</li>
 <li><em>glade/</em> - sanity tests for .glade files. Written in Python;</li>
 <li><em>gui/</em> - specialized test suite for the graphical interface of anaconda. This
 is written in Python and uses the <a class="reference external" href="https://fedorahosted.org/dogtail/">dogtail</a>
-accessibility module. All tests are executed inside a LiveCD;</li>
+accessibility module. All tests are executed using ./anaconda.py from the local
+directory;</li>
 <li><em>install/</em> - basic RPM sanity test. Checks if anaconda.rpm can be installed in
 a temporary directory without failing dependencies or other RPM issues;</li>
 <li><em>lib/</em> - helper modules used during testing;</li>
@@ -256,7 +257,7 @@ user!</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'25.5',
+            VERSION:'25.14',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
