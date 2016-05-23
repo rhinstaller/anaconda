@@ -342,10 +342,14 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         return True
 
     def input(self, args, key):
-        if self.edit_fields[int(key)-1].attribute == "netmask":
-            self.dialog.wrong_input_message = _("Bad format of the netmask")
+        self.dialog.wrong_input_message = _("Bad format of the IP address")
+        try:
+            field = self.edit_fields[int(key)-1]
+        except (ValueError, IndexError):
+            pass
         else:
-            self.dialog.wrong_input_message = _("Bad format of the IP address")
+            if field.attribute == "netmask":
+                self.dialog.wrong_input_message = _("Bad format of the netmask")
         return EditTUISpoke.input(self, args, key)
 
     @property
