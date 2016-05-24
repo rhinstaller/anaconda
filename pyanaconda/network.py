@@ -338,8 +338,7 @@ def dracutSetupArgs(networkStorageDevice):
     ifcfg.read()
     return dracutBootArguments(nic,
                                ifcfg,
-                               networkStorageDevice.host_address,
-                               getHostname())
+                               networkStorageDevice.host_address)
 
 def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
 
