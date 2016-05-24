@@ -169,32 +169,9 @@ def prefix2netmask(prefix):
     netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
-# Try to determine what the hostname should be for this system
-def getHostname():
 
-    hn = None
-
-    # First address (we prefer ipv4) of last device (as it used to be) wins
-    for dev in nm.nm_activated_devices():
-        addrs = (nm.nm_device_ip_addresses(dev, version=4) +
-                 nm.nm_device_ip_addresses(dev, version=6))
-        for ipaddr in addrs:
-            try:
-                hinfo = socket.gethostbyaddr(ipaddr)
-            except socket.herror as e:
-                log.debug("Exception caught trying to get host name of %s: %s", ipaddr, e)
-            else:
-                if len(hinfo) == 3:
-                    hn = hinfo[0]
-                    break
-
-    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
-        hn = socket.gethostname()
-
-    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
-        hn = DEFAULT_HOSTNAME
-
-    return hn
+def current_hostname():
+    return socket.gethostname()
 
 def logIfcfgFile(path, message=""):
     content = ""
@@ -313,8 +290,7 @@ def dracutSetupArgs(networkStorageDevice):
     ifcfg.read()
     return dracutBootArguments(nic,
                                ifcfg,
-                               networkStorageDevice.host_address,
-                               getHostname())
+                               networkStorageDevice.host_address)
 
 def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
 
@@ -1269,8 +1245,7 @@ def networkInitialize(ksdata):
         logIfcfgFiles(msg)
 
     if ksdata.network.hostname is None:
-        hostname = getHostname()
-        update_hostname_data(ksdata, hostname)
+        update_hostname_data(ksdata, DEFAULT_HOSTNAME)
 
 def _get_ntp_servers_from_dhcp(ksdata):
     """Check if some NTP servers were returned from DHCP and set them
@@ -1333,9 +1308,6 @@ def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
     connected = _wait_for_connecting_NM()
     if connected:
-        if ksdata.network.hostname == DEFAULT_HOSTNAME:
-            hostname = getHostname()
-            update_hostname_data(ksdata, hostname)
         _get_ntp_servers_from_dhcp(ksdata)
     with network_connected_condition:
         global network_connected
