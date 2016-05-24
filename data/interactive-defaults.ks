@@ -5,7 +5,7 @@ firstboot --enable
 
 %anaconda
 # Default password policies
-pwpolicy root --strict --minlen=8 --minquality=50 --nochanges --emptyok
-pwpolicy user --strict --minlen=8 --minquality=50 --nochanges --emptyok
-pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
+pwpolicy root --notstrict --minlen=8 --minquality=50 --nochanges --emptyok
+pwpolicy user --notstrict --minlen=8 --minquality=50 --nochanges --emptyok
+pwpolicy luks --notstrict --minlen=8 --minquality=50 --nochanges --notempty
 %end
