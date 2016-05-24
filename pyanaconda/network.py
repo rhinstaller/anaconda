@@ -1416,7 +1416,8 @@ def status_message():
     elif state == NetworkManager.State.DISCONNECTING:
         msg = _("Disconnecting...")
     else:
-        active_devs = nm.nm_activated_devices()
+        active_devs = [d for d in nm.nm_activated_devices()
+                       if not is_libvirt_device(d)]
         if active_devs:
 
             slaves = {}
@@ -1444,11 +1445,11 @@ def status_message():
                           % {"interface_name": devname, \
                              "list_of_slaves": ",".join(slaves[devname])}
                 elif nm.nm_device_type_is_team(devname):
-                    msg = _("Team%(interface_name)s (%(list_of_slaves)s) connected") \
+                    msg = _("Team %(interface_name)s (%(list_of_slaves)s) connected") \
                           % {"interface_name": devname, \
                              "list_of_slaves": ",".join(slaves[devname])}
                 elif nm.nm_device_type_is_bridge(devname):
-                    msg = _("Bridge%(interface_name)s (%(list_of_slaves)s) connected") \
+                    msg = _("Bridge %(interface_name)s (%(list_of_slaves)s) connected") \
                           % {"interface_name": devname, \
                              "list_of_slaves": ",".join(slaves[devname])}
                 elif nm.nm_device_type_is_vlan(devname):
@@ -1517,3 +1518,6 @@ def update_onboot_value(devname, value, ksdata):
 
 def is_using_team_device():
     return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
+
+def is_libvirt_device(iface):
+    return iface.startswith("virbr")

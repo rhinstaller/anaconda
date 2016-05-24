@@ -393,6 +393,9 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: GUI, not adding read-only connection %s", uuid)
             return False
         dev_cfg = DeviceConfiguration(con=con)
+        if network.is_libvirt_device(dev_cfg.get_iface() or ""):
+            log.debug("network: GUI, not adding %s", dev_cfg.get_iface())
+            return False
         if dev_cfg.get_device_type() not in self.supported_device_types:
             log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
             return False
@@ -733,6 +736,9 @@ class NetworkControlBox(GObject.GObject):
 
     def add_device_to_list(self, device):
         if device.get_device_type() not in self.supported_device_types:
+            return
+        if network.is_libvirt_device(device.get_iface()):
+            log.debug("network: not adding %s", device.get_iface())
             return
         # ignore fcoe vlan devices
         # (can be chopped off to IFNAMSIZ kernel limit)
