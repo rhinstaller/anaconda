@@ -511,7 +511,10 @@ class DNFPayload(packaging.PackagePayload):
             types.add('optional')
         exclude = self.data.packages.excludedList
         try:
-            self._base.group_install(grp, types, exclude=exclude)
+            # Setting strict=False means that missing packages in the group will be ignored
+            # this is necessary because comps has no way to express arch-specific packages
+            # eg. s390-tools in @anaconda-tools doesn't exist on x86_64
+            self._base.group_install(grp, types, exclude=exclude, strict=False)
         except dnf.exceptions.MarkingError as e:
             # dnf-1.1.9 raises this error when a package is missing from a group
             raise packaging.NoSuchPackage(str(e), required=True)
