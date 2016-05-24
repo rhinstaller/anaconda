@@ -1,10 +1,5 @@
 /* unpack the payload of RPM package to the current directory
  *
- * File name: rpmutils.c
- * Based on:  loader/rpmextract.c from RHEL6 Anaconda
- * Date:      2012/06/29
- * Author:    Martin Sivak <msivak at redhat dot com>
- *
  * Copyright (C) 2012-2013 Red Hat, Inc. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or

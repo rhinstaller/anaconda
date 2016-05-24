@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Chris Lumens <clumens@redhat.com>
-#            David Cantrell <dcantrell@redhat.com>
-#            Vratislav Podzimek <vpodzime@redhat.com>
-#
 from meh import Config
 from meh.handler import ExceptionHandler
 from meh.dump import ReverseExceptionDump

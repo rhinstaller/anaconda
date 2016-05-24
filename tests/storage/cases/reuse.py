@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: Chris Lumens <clumens@redhat.com>
 
 __all__ = ["PartitionReuse_TestCase", "LVMReuse_TestCase", "BTRFSReuse_TestCase", "ThinpReuse_TestCase"]
 

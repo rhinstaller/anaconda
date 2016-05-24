@@ -21,9 +21,6 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-#
-# Authors:
-#   Will Woods <wwoods@redhat.com>
 
 ## XXX HACK - Monkeypatch os.urandom to use /dev/urandom not getrandom()
 ## XXX HACK - which will block until pool is initialized which takes forever

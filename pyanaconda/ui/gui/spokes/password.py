@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
-#                    Chris Lumens <clumens@redhat.com>
-#
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_

@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#                    Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 import gi
 gi.require_version("Gkbd", "3.0")

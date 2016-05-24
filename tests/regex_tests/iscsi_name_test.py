@@ -14,9 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Author(s): Sujith Pandel <sujithpshankar@gmail.com>
-#            Ajith Pandel  <ajithpandel@gmail.com>
-#
 import unittest
 
 from regexcheck import regex_match

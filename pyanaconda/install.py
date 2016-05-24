@@ -17,8 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#
 
 from blivet import callbacks
 from blivet.osinstall import turn_on_filesystems

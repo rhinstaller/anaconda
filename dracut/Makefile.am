@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: Will Woods <wwoods@redhat.com>
 
 dracutdir = $(prefix)/lib/dracut/modules.d/80$(PACKAGE_NAME)
 dist_dracut_SCRIPTS = module-setup.sh \

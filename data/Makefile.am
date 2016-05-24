@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: Martin Sivak <msivak@redhat.com>
 
 SUBDIRS = command-stubs liveinst systemd post-scripts window-manager
 

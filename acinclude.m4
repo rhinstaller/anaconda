@@ -14,8 +14,6 @@ dnl GNU Lesser General Public License for more details.
 dnl
 dnl You should have received a copy of the GNU Lesser General Public License
 dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
-dnl
-dnl Author: David Shea <dshea@redhat.com>
 
 dnl ANACONDA_SOFT_FAILURE(MESSAGE)
 dnl

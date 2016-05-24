@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>
-#
 
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory

@@ -17,11 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Author(s): Matt Wilson <msw@redhat.com>
-#            Jeremy Katz <katzj@redhat.com>
-#            Will Woods <wwoods@redhat.com>
-#            Brian C. Lane <bcl@redhat.com>
-#
 import os
 import shlex
 import string # pylint: disable=deprecated-module

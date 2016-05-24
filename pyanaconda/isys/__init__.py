@@ -17,10 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Matt Wilson <msw@redhat.com>
-#            Erik Troan <ewt@redhat.com>
-#            Jeremy Katz <katzj@redhat.com>
-#
 
 try:
     from pyanaconda import _isys

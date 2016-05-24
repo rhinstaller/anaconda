@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Martin Sivak <msivak@redhat.com>
-#
 
 # pylint: disable=wildcard-import
 from pyanaconda.ui.tui.simpleline.base import *

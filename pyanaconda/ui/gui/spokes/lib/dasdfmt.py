@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>
-#                    Chris Lumens <clumens@redhat.com>
-#
 
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject

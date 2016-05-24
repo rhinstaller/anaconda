@@ -17,9 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Ales Kozumplik <akozumpl@redhat.com>
-#                    Jiri Konecny   <jkonecny@redhat.com>
-#
 import os
 
 from blivet.size import Size

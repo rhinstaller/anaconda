@@ -15,8 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 """
 Helper module with functions for informing user we are waiting for random

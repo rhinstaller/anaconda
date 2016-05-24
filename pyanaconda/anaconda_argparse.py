@@ -15,10 +15,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Authors:
-#   Will Woods <wwoods@redhat.com>
-#   Martin Kolman <mkolman@redhat.com>
 
 DESCRIPTION = "Anaconda is the installation program used by Fedora," \
               "Red Hat Enterprise Linux and some other distributions."

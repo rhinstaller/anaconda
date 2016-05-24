@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#
 
 gladedir	= $(datadir)/glade/catalogs
 dist_glade_DATA	= AnacondaWidgets.xml

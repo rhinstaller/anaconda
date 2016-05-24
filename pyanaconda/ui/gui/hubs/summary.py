@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker

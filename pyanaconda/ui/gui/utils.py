@@ -16,10 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#                    Martin Sivak <msivak@redhat.com>
-#                    Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 import gi
 gi.require_version("Gdk", "3.0")

@@ -13,8 +13,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * Author: Martin Sivak <msivak@redhat.com>
  */
 #ifndef _DD_UTILS_H_
 #define _DD_UTILS_H_

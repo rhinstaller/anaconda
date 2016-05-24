@@ -17,8 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): David Shea <dshea@redhat.com>
-#
 
 # Using make to run tools with multiple outputs is a recipe for disaster, so
 # use make to run this instead. It's not like any of it can be parallelized

@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
-#                    Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 import gi
 gi.require_version("Pango", "1.0")

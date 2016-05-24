@@ -17,8 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
-#
 import imp
 
 

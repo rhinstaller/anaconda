@@ -16,8 +16,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: David Shea <dshea@redhat.com>
 
 # This file is intended to replace everything that gettextize or autopoint
 # installs. It has a lot less weird crud and tries to cooperate with

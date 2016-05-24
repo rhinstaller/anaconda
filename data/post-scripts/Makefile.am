@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: Chris Lumens <clumens@redhat.com>
 
 postscriptsdir = $(datadir)/$(PACKAGE_NAME)/post-scripts
 dist_postscripts_DATA = 80-setfilecons.ks 90-copy-screenshots.ks 99-copy-logs.ks

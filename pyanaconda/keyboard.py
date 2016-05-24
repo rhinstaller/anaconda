@@ -15,9 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Martin Gracik <mgracik@redhat.com>
-#                    Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 """
 This module provides functions for dealing with keyboard layouts/keymaps in

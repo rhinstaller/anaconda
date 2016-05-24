@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#
 
 overridesdir    = $(pyexecdir)/gi/overrides
 dist_overrides_PYTHON = AnacondaWidgets.py

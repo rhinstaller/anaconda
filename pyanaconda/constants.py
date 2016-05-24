@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Erik Troan <ewt@redhat.com>
-#
 
 # Used for digits, ascii_letters, punctuation constants
 import string # pylint: disable=deprecated-module

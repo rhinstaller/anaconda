@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Brian C. Lane <bcl@redhat.com>
-#
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget

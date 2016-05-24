@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Martin Sivak <msivak@redhat.com>
-#                    Jesse Keating <jkeating@redhat.com>
-#
 
 from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
 from pyanaconda.ui.tui.hubs import TUIHub

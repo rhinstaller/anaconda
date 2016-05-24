@@ -15,10 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s):
-#   Brian C. Lane <bcl@brianlane.com>
-#   Will Woods <wwoods@redhat.com>
-#
 """
 Driver Update Disk handler program.
 

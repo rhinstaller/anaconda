@@ -15,8 +15,6 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
-#
-# Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 
 from pyanaconda import nm
 import unittest

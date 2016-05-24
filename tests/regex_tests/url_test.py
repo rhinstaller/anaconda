@@ -15,9 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Brian C. Lane <bcl@redhat.com>
-#                    David Shea <dshea@redhat.com>
-#
 
 import unittest
 

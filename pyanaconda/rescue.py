@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Samantha N. Bueno <sbueno@redhat.com>
-#
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
 from blivet.osinstall import mount_existing_system, find_existing_installations

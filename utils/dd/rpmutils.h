@@ -1,8 +1,4 @@
 /*
-   File name: rpmextract.h
-   Date:      2009/09/16
-   Author:    msivak
-
    Copyright (C) 2009-2013 Red Hat, Inc.
 
    This program is free software; you can redistribute it and/or

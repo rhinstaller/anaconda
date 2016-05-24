@@ -17,9 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): David Lehman <dlehman@redhat.com>
-#                    Matthew Miller <mattdm@redhat.com> (extlinux portion)
-#
 
 import collections
 import os

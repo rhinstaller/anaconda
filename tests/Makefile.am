@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: David Shea <dshea@redhat.com>
 
 # This Makefile is non-recursive so that all tests can easily be run with the
 # same python environment. $top_srcdir and $top_builddir are added to the

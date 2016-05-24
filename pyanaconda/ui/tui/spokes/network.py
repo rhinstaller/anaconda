@@ -16,9 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>,
-#                    Radek Vykydal <rvykydal@redhat.com>
-#
 
 
 from pyanaconda.flags import can_touch_runtime_system

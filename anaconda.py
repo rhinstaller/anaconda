@@ -18,15 +18,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Brent Fox <bfox@redhat.com>
-#            Mike Fulbright <msf@redhat.com>
-#            Jakub Jelinek <jakub@redhat.com>
-#            Jeremy Katz <katzj@redhat.com>
-#            Chris Lumens <clumens@redhat.com>
-#            Paul Nasrat <pnasrat@redhat.com>
-#            Erik Troan <ewt@rpath.com>
-#            Matt Wilson <msw@rpath.com>
-#
 
 # This toplevel file is a little messy at the moment... (2001-06-22)
 # ...still messy (2013-07-12)

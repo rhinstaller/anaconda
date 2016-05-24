@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Martin Sivak <msivak@redhat.com>
-#
 import sys
 from pyanaconda import iutil, constants
 from pyanaconda.i18n import N_, _, C_

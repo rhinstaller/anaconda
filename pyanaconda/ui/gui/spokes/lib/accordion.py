@@ -17,9 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#                    Jiri Konecny <jkonecny@redhat.com>
-#
 
 from blivet.devicefactory import is_supported_device_type
 

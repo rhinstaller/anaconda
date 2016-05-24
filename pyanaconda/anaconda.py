@@ -16,15 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Brent Fox <bfox@redhat.com>
-#            Mike Fulbright <msf@redhat.com>
-#            Jakub Jelinek <jakub@redhat.com>
-#            Jeremy Katz <katzj@redhat.com>
-#            Chris Lumens <clumens@redhat.com>
-#            Paul Nasrat <pnasrat@redhat.com>
-#            Erik Troan <ewt@rpath.com>
-#            Matt Wilson <msw@rpath.com>
-#
 
 import os
 import sys

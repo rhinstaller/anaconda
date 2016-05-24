@@ -16,8 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): David Shea <dshea@redhat.com>
-#
 
 # This file contains abstract base classes that are specific to GUI
 # functionality. See also pyanaconda.ui.helpers.

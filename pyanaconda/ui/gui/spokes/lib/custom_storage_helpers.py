@@ -16,10 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#                    David Lehman <dlehman@redhat.com>
-#                    Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 """Helper functions and classes for custom partitioning."""
 

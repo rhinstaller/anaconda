@@ -14,8 +14,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: Kalev Lember <kalevlember@gmail.com>
 
 welcomedir              = $(datadir)/$(PACKAGE_NAME)/gnome
 dist_welcome_DATA       = install-button.png fedora-welcome.desktop

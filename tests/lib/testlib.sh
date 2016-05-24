@@ -15,8 +15,6 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: David Shea <dshea@redhat.com>
 
 # Print a list of files to test on stdout
 # Takes filter arguments identical to the find utility, for example

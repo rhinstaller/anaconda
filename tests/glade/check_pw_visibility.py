@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: Vratislav Podzimek <vpodzime@redhat.com>
-#
 
 """
 Simple python script checking that password GtkEntries in the given .glade files

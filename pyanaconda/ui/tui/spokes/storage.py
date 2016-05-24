@@ -16,11 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
-#
-# Some of the code here is copied from pyanaconda/ui/gui/spokes/storage.py
-# which has the same license and authored by David Lehman <dlehman@redhat.com>
-#
 
 import gi
 gi.require_version("BlockDev", "1.0")
