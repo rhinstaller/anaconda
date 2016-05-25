@@ -134,7 +134,7 @@ class ResizeDialog(GUIObject):
             # First add the disk itself.
             editable = not disk.protected
 
-            if disk.partitioned:
+            if disk.partitioned and disk.format.supported:
                 fstype = ""
                 diskReclaimableSpace = Size(0)
             else:
@@ -152,7 +152,7 @@ class ResizeDialog(GUIObject):
                                                 int(disk.size),
                                                 disk.name])
 
-            if disk.partitioned:
+            if disk.partitioned and disk.format.supported:
                 # Then add all its partitions.
                 for dev in disk.children:
                     if dev.is_extended and disk.format.logical_partitions:
@@ -346,7 +346,7 @@ class ResizeDialog(GUIObject):
         obj = PartStoreRow(*model[itr])
 
         device = self.storage.devicetree.get_device_by_id(obj.id)
-        if device.is_disk and device.partitioned:
+        if device.is_disk and device.partitioned and device.format.supported:
             return False
 
         if obj.action == _(PRESERVE):
@@ -381,7 +381,7 @@ class ResizeDialog(GUIObject):
         # If that row is a disk header, we need to process all the partitions
         # it contains.
         device = self.storage.devicetree.get_device_by_id(selectedRow[DEVICE_ID_COL])
-        if device.is_disk and device.partitioned:
+        if device.is_disk and device.partitioned and device.format.supported:
             partItr = self._diskStore.iter_children(itr)
             while partItr:
                 # Immutable entries are those that we can't do anything to - like
