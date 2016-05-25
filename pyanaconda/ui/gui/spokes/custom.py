@@ -68,6 +68,7 @@ from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DES
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
 from pyanaconda.storage_utils import SanityError, SanityWarning, LUKSDeviceWithoutKeyError
 from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.storage_utils import filter_unsupported_disklabel_devices
 from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
@@ -310,6 +311,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         incomplete = [d for d in self._storage_playground.devicetree._devices
                             if not getattr(d, "complete", True)]
         unused_devices.extend(incomplete)
+        unused_devices.extend(d for d in self._storage_playground.partitioned if not d.format.supported)
         return unused_devices
 
     @property
@@ -466,14 +468,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Make sure we start with a clean state.
         self._accordion.removeAllPages()
 
-        new_devices = self.get_new_devices()
+        new_devices = filter_unsupported_disklabel_devices(self.get_new_devices())
+        all_devices = filter_unsupported_disklabel_devices(self._devices)
+        unused_devices = filter_unsupported_disklabel_devices(self.unusedDevices)
 
         # Now it's time to populate the accordion.
-        log.debug("ui: devices=%s", [d.name for d in self._devices])
-        log.debug("ui: unused=%s", [d.name for d in self.unusedDevices])
+        log.debug("ui: devices=%s", [d.name for d in all_devices])
+        log.debug("ui: unused=%s", [d.name for d in unused_devices])
         log.debug("ui: new_devices=%s", [d.name for d in new_devices])
 
-        ui_roots = self._storage_playground.roots[:]
+        ui_roots = []
+        for root in self._storage_playground.roots:
+            root_devices = root.swaps + root.mounts.values()
+            # Don't make a page if none of the root's devices are left.
+            # Also, only include devices in an old page if the format is intact.
+            if not any(d for d in root_devices if d in all_devices and d.disks and
+                       (root.name == translated_new_install_name() or d.format.exists)):
+                continue
+
+            if not filter_unsupported_disklabel_devices(root_devices):
+                continue
+
+            ui_roots.append(root)
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
@@ -481,7 +497,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = CreateNewPage(translated_new_install_name(),
                                  self.on_create_clicked,
                                  self._change_autopart_type,
-                                 partitionsToReuse=bool(ui_roots) or bool(self.unusedDevices))
+                                 partitionsToReuse=bool(ui_roots) or bool(unused_devices))
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
@@ -503,17 +519,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Add in all the existing (or autopart-created) operating systems.
         for root in ui_roots:
-            # Don't make a page if none of the root's devices are left.
-            # Also, only include devices in an old page if the format is intact.
-            if not any(d for d in root.swaps + root.mounts.values()
-                        if d in self._devices and d.disks and
-                           (root.name == translated_new_install_name() or d.format.exists)):
-                continue
-
             page = Page(root.name)
 
             for (mountpoint, device) in root.mounts.iteritems():
-                if device not in self._devices or \
+                if device not in all_devices or \
                    not device.disks or \
                    (root.name != translated_new_install_name() and not device.format.exists):
                     continue
@@ -523,7 +532,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selector.root = root
 
             for device in root.swaps:
-                if device not in self._devices or \
+                # by using all_devices we've already accounted for devices on unsupported disklabels
+                if device not in all_devices or \
                    (root.name != translated_new_install_name() and not device.format.exists):
                     continue
 
@@ -534,10 +544,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        if self.unusedDevices:
+        if unused_devices:
             page = UnknownPage(_("Unknown"))
 
-            for u in sorted(self.unusedDevices, key=lambda d: d.name):
+            for u in sorted(unused_devices, key=lambda d: d.name):
                 page.addSelector(u, self.on_selector_clicked)
 
             page.show_all()
@@ -1749,6 +1759,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if device.protected:
                 raise StorageError("Device %s is protected" % device.name)
             if device.isDisk:
+                if device.partitioned and not device.format.supported:
+                    self._storage_playground.recursiveRemove(device)
                 self._storage_playground.initializeDisk(device)
             elif device.direct and not device.isleaf:
                 # we shouldn't call this method for with non-leaf devices except
