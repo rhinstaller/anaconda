@@ -352,7 +352,7 @@ def check_mounted_partitions(storage):
         :returns: a generator of error messages, may yield no error messages
     """
     for disk in storage.disks:
-        if not disk.format:
+        if not disk.partitioned:
             continue
 
         for part in disk.format.partitions:
