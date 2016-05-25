@@ -489,3 +489,8 @@ class StorageSnapshot(object):
 # a snapshot of early storage as we got it from scanning disks without doing any
 # changes
 on_disk_storage = StorageSnapshot()
+
+def filter_unsupported_disklabel_devices(devices):
+    """ Return input list minus any devices that exist on an unsupported disklabel. """
+    return [d for d in devices
+            if not any(not getattr(p, "disklabel_supported", True) for p in d.ancestors)]
