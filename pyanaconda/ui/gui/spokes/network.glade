@@ -700,7 +700,6 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
-                                            <property name="tooltip_text" translatable="yes">To apply the configuration immediately turn the device off and on.</property>
                                             <property name="halign">end</property>
                                             <property name="valign">end</property>
                                             <property name="hexpand">True</property>
@@ -2252,6 +2251,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes">Set as current system host name.</property>
                             <property name="use_underline">True</property>
                           </object>
                           <packing>
