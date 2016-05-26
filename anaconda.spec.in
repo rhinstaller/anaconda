@@ -318,6 +318,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 25 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.73-1
+- network: don't crash on devices with zero MAC address (rvykydal)
+  Resolves: rhbz#1334632
+- network: fix regression in network tui device configuration (rvykydal)
+  Resolves: rhbz#1338620
+- Fix TUI ErrorDialog processing (bcl)
+  Resolves: rhbz#1337427
+- Fix a pylint error in the source switch handler mixin (mkolman)
+  Related: rhbz#1275771
+- Don't crash when selecting the same hdd ISO again (mkolman)
+  Resolves: rhbz#1275771
+- Protect extended partition when ISO file is on logical partition (vtrefny)
+  Resolves: rhbz#1255237
+- Fix error handling for s390 bootloader errors (sbueno+anaconda)
+  Resolves: rhbz#1260934
+- Move yum.cache to disk after partitioning (bcl)
+  Resolves: rhbz#1287438
+
 * Fri May 13 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.72-1
 - Lower required squashfs ram to 350M (bcl)
   Resolves: rhbz#1333113
