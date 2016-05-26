@@ -138,7 +138,7 @@ def populate_missing_items(keyboard):
         keyboard.vc_keymap = keyboard._keyboard
 
     if keyboard.x_layouts and not keyboard.vc_keymap:
-        keyboard.vc_keymap = localed.convert_layout(keyboard.x_layouts[0])
+        keyboard.vc_keymap = localed.convert_layouts(keyboard.x_layouts)
 
     if not keyboard.vc_keymap:
         keyboard.vc_keymap = DEFAULT_KEYBOARD
@@ -315,7 +315,7 @@ def activate_keyboard(keyboard):
             keyboard.x_layouts.append(keyboard.vc_keymap)
 
     if keyboard.x_layouts:
-        c_keymap = localed.set_and_convert_layout(keyboard.x_layouts[0])
+        c_keymap = localed.set_and_convert_layouts(keyboard.x_layouts)
 
         if not keyboard.vc_keymap:
             keyboard.vc_keymap = c_keymap
@@ -569,7 +569,7 @@ class LocaledWrapper(object):
         except safe_dbus.DBusCallError as e:
             log.error("Failed to set layouts: %s", e)
 
-    def set_and_convert_layout(self, layout_variant):
+    def set_and_convert_layouts(self, layouts_variants):
         """
         Method that sets X11 layout and variant (for later X sessions)
         and returns VConsole keymap that (systemd-localed thinks) matches
@@ -580,11 +580,11 @@ class LocaledWrapper(object):
 
         """
 
-        self.set_layouts([layout_variant], convert=True)
+        self.set_layouts(layouts_variants, convert=True)
 
         return self.keymap
 
-    def convert_layout(self, layout_variant):
+    def convert_layouts(self, layouts_variants):
         """
         Method that returns VConsole keymap that (systemd-localed thinks)
         matches given layout and variant best.
@@ -599,7 +599,7 @@ class LocaledWrapper(object):
         # hack around systemd's lack of functionality -- no function to just
         # convert without changing keyboard configuration
         orig_layouts_variants = self.layouts_variants
-        ret = self.set_and_convert_layout(layout_variant)
+        ret = self.set_and_convert_layouts(layouts_variants)
         self.set_layouts(orig_layouts_variants)
 
         return ret
