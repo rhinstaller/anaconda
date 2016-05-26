@@ -277,6 +277,7 @@ class NetworkControlBox(GObject.GObject):
     __gsignals__ = {
         "nm-state-changed": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, []),
         "device-state-changed": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, [str, int, int, int]),
+        "apply-hostname": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, []),
     }
 
     supported_device_types = [
@@ -393,6 +394,9 @@ class NetworkControlBox(GObject.GObject):
         self.builder.get_object("button_wireless_options").connect("clicked",
                                                               self.on_edit_connection)
         self.entry_hostname = self.builder.get_object("entry_hostname")
+        self.label_current_hostname = self.builder.get_object("label_current_hostname")
+        self.button_apply_hostname = self.builder.get_object("button_apply_hostname")
+        self.button_apply_hostname.connect("clicked", self.on_apply_hostname)
 
         self.client.connect("notify::%s" % NMClient.CLIENT_STATE,
                             self.on_nm_state_changed)
@@ -685,6 +689,9 @@ class NetworkControlBox(GObject.GObject):
         dev_cfg = model[itr][DEVICES_COLUMN_OBJECT]
         model.remove(itr)
         nm.nm_delete_connection(dev_cfg.con_uuid)
+
+    def on_apply_hostname(self, *args):
+        self.emit("apply-hostname")
 
     def add_device(self, ty):
         log.info("network: adding device of type %s", ty)
@@ -1228,6 +1235,16 @@ class NetworkControlBox(GObject.GObject):
             return
         self.entry_hostname.set_text(value)
 
+    @property
+    def current_hostname(self):
+        return self.label_current_hostname.get_text()
+
+    @current_hostname.setter
+    def current_hostname(self, value):
+        if not value:
+            return
+        self.label_current_hostname.set_text(value)
+
 class SecretAgentDialog(GUIObject):
     builderObjects = ["secret_agent_dialog"]
     mainWidgetName = "secret_agent_dialog"
@@ -1467,10 +1484,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.networking_changed = False
         self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
+        self.network_control_box.current_hostname = network.current_hostname()
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
         self.network_control_box.connect("device-state-changed",
                                          self.on_device_state_changed)
+        self.network_control_box.connect("apply-hostname",
+                                         self.on_apply_hostname)
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
@@ -1486,10 +1506,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
             log.debug("network spoke (apply), no changes detected")
 
         self.network_control_box.kill_nmce(msg="leaving network spoke")
-
-    def execute(self):
-        # update system's hostname
-        network.set_hostname(self.data.network.hostname)
 
     @property
     def completed(self):
@@ -1523,6 +1539,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
+        self.network_control_box.current_hostname = network.current_hostname()
 
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_status)
@@ -1534,14 +1551,24 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
                          NetworkManager.DeviceState.UNAVAILABLE):
             gtk_call_once(self._update_status)
 
+    def on_apply_hostname(self, *args):
+        hostname = self.network_control_box.hostname
+        (valid, error) = network.sanityCheckHostname(hostname)
+        if not valid:
+            self.clear_info()
+            msg = _("Host name is not valid: %s") % error
+            self.set_warning(msg)
+            self.network_control_box.entry_hostname.grab_focus()
+        else:
+            self.clear_info()
+            network.set_hostname(hostname)
+            self._update_hostname()
+
     def _update_status(self):
         hubQ.send_message(self.__class__.__name__, self.status)
 
     def _update_hostname(self):
-        if self.network_control_box.hostname == network.DEFAULT_HOSTNAME:
-            hostname = network.getHostname()
-            network.update_hostname_data(self.data, hostname)
-            self.network_control_box.hostname = self.data.network.hostname
+        self.network_control_box.current_hostname = network.current_hostname()
 
     def on_back_clicked(self, button):
         hostname = self.network_control_box.hostname
@@ -1568,11 +1595,14 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
+        self.network_control_box.current_hostname = network.current_hostname()
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
 
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
+        self.network_control_box.connect("apply-hostname",
+                                         self.on_apply_hostname)
 
         self._initially_available = self.completed
         log.debug("network standalone spoke (init): completed: %s", self._initially_available)
@@ -1593,10 +1623,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
         self.network_control_box.kill_nmce(msg="leaving standalone network spoke")
 
-    def execute(self):
-        # update system's hostname
-        network.set_hostname(self.data.network.hostname)
-
     @property
     def completed(self):
         return (not can_touch_runtime_system("require network connection")
@@ -1611,6 +1637,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def refresh(self):
         StandaloneSpoke.refresh(self)
         self.network_control_box.refresh()
+        self.network_control_box.current_hostname = network.current_hostname()
 
     def _on_continue_clicked(self, window, user_data=None):
         hostname = self.network_control_box.hostname
@@ -1628,11 +1655,21 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_hostname)
 
+    def on_apply_hostname(self, *args):
+        hostname = self.network_control_box.hostname
+        (valid, error) = network.sanityCheckHostname(hostname)
+        if not valid:
+            self.clear_info()
+            msg = _("Host name is not valid: %s") % error
+            self.set_warning(msg)
+            self.network_control_box.entry_hostname.grab_focus()
+        else:
+            self.clear_info()
+            network.set_hostname(hostname)
+            self._update_hostname()
+
     def _update_hostname(self):
-        if self.network_control_box.hostname == network.DEFAULT_HOSTNAME:
-            hostname = network.getHostname()
-            network.update_hostname_data(self.data, hostname)
-            self.network_control_box.hostname = self.data.network.hostname
+        self.network_control_box.current_hostname = network.current_hostname()
 
 def _update_network_data(data, ncb):
     data.network.network = []
