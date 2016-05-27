@@ -1147,3 +1147,4 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             overview.set_chosen(True)
 
         self._update_disk_list()
+        self._update_summary()
