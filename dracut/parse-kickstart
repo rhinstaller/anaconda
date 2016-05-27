@@ -178,7 +178,8 @@ class Network(commands.network.RHEL7_Network, DracutArgsMixin):
 
         # first 'network' line
         if len(self.network) == 1:
-            net.activate = True
+            if net.activate is None:
+                net.activate = True
             # Note that there may be no net.device and no ksdevice if inst.ks=file:/ks.cfg
             # If that is the case, fall into ksnet_to_dracut with net.device=None and let
             # it handle things.
