@@ -167,7 +167,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
 
         return "\n".join(dd_args)
 
-class Network(commands.network.F24_Network, DracutArgsMixin):
+class Network(commands.network.F25_Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -184,7 +184,8 @@ class Network(commands.network.F24_Network, DracutArgsMixin):
 
         # first 'network' line
         if len(self.network) == 1:
-            net.activate = True
+            if net.activate is None:
+                net.activate = True
             # Note that there may be no net.device and no ksdevice if inst.ks=file:/ks.cfg
             # If that is the case, fall into ksnet_to_dracut with net.device=None and let
             # it handle things.
