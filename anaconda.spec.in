@@ -325,6 +325,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 27 2016 Brian C. Lane <bcl@redhat.com> - 25.15-1
+- Resolve shortcut conflict between "Desired Capacity" and "Done" (yaneti)
+- network: don't crash on devices with zero MAC address (#1334632) (rvykydal)
+- Remove Authors lines from the tops of all files. (clumens)
+- Related: rhbz#1298444 (rvykydal)
+- New Anaconda documentation - 25.14 (bcl)
+- Catch DNF MarkingError during group installation (#1337731) (bcl)
+- Fix TUI ErrorDialog processing (#1337427) (bcl)
+- Clean up yelp processes (#1282432) (dshea)
+
 * Fri May 20 2016 Brian C. Lane <bcl@redhat.com> - 25.14-1
 - Temporarily disable translations (bcl)
 - Don't crash when selecting the same hdd ISO again (#1275771) (mkolman)
