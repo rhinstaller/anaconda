@@ -318,6 +318,46 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 27 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.74-1
+- Print an error when the kickstart file is missing (bcl)
+  Resolves: rhbz#1297380
+- Adapt the pwpolicy defaults to the old behavior (vpodzime)
+  Related: rhbz#1240303
+- Ignore addon and anaconda sections in handle-sshpw (bcl)
+  Related: rhbz#1240303
+- Ignore %%anaconda section in parse-kickstart (bcl)
+  Related: rhbz#1240303
+- Add documentation on %%anaconda kickstart command (bcl)
+  Related: rhbz#1240303
+- TUI pwpolicy setup was supposed to be in __init__ not refresh (bcl)
+  Related: rhbz#1240303
+- Fix pylint/translation issues from the pwpolicy patches. (clumens)
+  Related: rhbz#1240303
+- Implement %%anaconda kickstart section for pwpolicy (bcl)
+  Resolves: rhbz#1240303
+- Add pwpolicy support to TUI interface (bcl)
+  Related: rhbz#1240303
+- Add pwpolicy for the LUKS passphrase dialog. (bcl)
+  Related: rhbz#1240303
+- Add pwpolicy for the user spoke. (bcl)
+  Related: rhbz#1240303
+- Use pwpolicy for the root password spoke. (bcl)
+  Related: rhbz#1240303
+- hostname: add tooltip to Apply button (rvykydal)
+  Related: rhbz#1290858
+- hostname: fix accelerator collision (rvykydal)
+  Related: rhbz#1290858
+- hostname: don't set hostname in initrafms of target system (rvykydal)
+  Related: rhbz#1290858
+- hostname: set current hostname from target system hostname on demand
+  (rvykydal)
+  Related: rhbz#1290858
+- hostname: suggest current hostname for storage containers (rvykydal)
+  Related: rhbz#1290858
+- hostname: don't set target system static hostname to current hostname
+  (rvykydal)
+  Resolves: rhbz#1290858
+
 * Wed May 25 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.73-1
 - network: don't crash on devices with zero MAC address (rvykydal)
   Resolves: rhbz#1334632
