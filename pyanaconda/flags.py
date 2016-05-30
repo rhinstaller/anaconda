@@ -20,7 +20,7 @@
 import selinux
 import shlex
 import glob
-from pyanaconda.constants import SELINUX_DEFAULT, CMDLINE_APPEND
+from pyanaconda.constants import SELINUX_DEFAULT, CMDLINE_APPEND, ANACONDA_ENVIRON
 from collections import OrderedDict
 
 import logging
@@ -76,6 +76,8 @@ class Flags(object):
         self.nosave_logs = False
         # single language options
         self.singlelang = False
+        # current runtime environments
+        self.environs = [ANACONDA_ENVIRON]
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!

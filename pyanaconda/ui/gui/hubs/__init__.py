@@ -114,7 +114,7 @@ class Hub(GUIObject, common.Hub):
             selectors = []
             for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
                 # Check if this spoke is to be shown in the supported environments
-                if not any(spokeClass.should_run(environ, self.data) for environ in self._environs):
+                if not any(spokeClass.should_run(environ, self.data) for environ in flags.environs):
                     continue
 
                 # Create the new spoke and populate its UI with whatever data.
