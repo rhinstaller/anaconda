@@ -1497,10 +1497,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         log.debug("network: apply ksdata %s", self.data.network)
 
         if self.networking_changed:
-            log.debug("network spoke (apply) refresh payload")
-            from pyanaconda.packaging import payloadMgr
-            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                     fallback=not anaconda_flags.automatedInstall)
+            if ANACONDA_ENVIRON in anaconda_flags.environs:
+                log.debug("network spoke (apply) refresh payload")
+                from pyanaconda.packaging import payloadMgr
+                payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                                         fallback=not anaconda_flags.automatedInstall)
+            else:
+                log.debug("network spoke (apply), payload refresh skipped (running outside of installation environment)")
             self.networking_changed = False
         else:
             log.debug("network spoke (apply), no changes detected")
