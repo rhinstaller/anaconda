@@ -496,9 +496,6 @@ class Hub(object, metaclass=ABCMeta):
         self.paths = {}
         self._spokes = {}
 
-        # spokes for which environments this hub should collect?
-        self._environs = [ANACONDA_ENVIRON]
-
     @abstractproperty
     def data(self):
         pass
