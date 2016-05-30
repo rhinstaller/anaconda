@@ -437,7 +437,7 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: GUI, not adding connection %s, already in list", uuid)
             return False
         dev_cfg = DeviceConfiguration(con_uuid=uuid)
-        if network.is_libvirt_device(dev_cfg.get_iface()):
+        if network.is_libvirt_device(dev_cfg.get_iface() or ""):
             log.debug("network: GUI, not adding %s", dev_cfg.get_iface())
             return False
         if dev_cfg.setting_value("connection", "read-only"):
