@@ -18,7 +18,7 @@
 #
 
 
-from pyanaconda.flags import can_touch_runtime_system
+from pyanaconda.flags import can_touch_runtime_system, flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
@@ -30,6 +30,7 @@ from pyanaconda import nm
 
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
+from pyanaconda.constants import ANACONDA_ENVIRON
 
 import logging
 log = logging.getLogger("anaconda")
@@ -250,9 +251,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
         if self._apply:
             self._apply = False
-            from pyanaconda.packaging import payloadMgr
-            payloadMgr.restartThread(self.storage, self.data, self.payload,
-                                     self.instclass, checkmount=False)
+            if ANACONDA_ENVIRON in flags.environs:
+                from pyanaconda.packaging import payloadMgr
+                payloadMgr.restartThread(self.storage, self.data, self.payload,
+                                         self.instclass, checkmount=False)
 
     def _update_network_data(self):
         hostname = self.data.network.hostname

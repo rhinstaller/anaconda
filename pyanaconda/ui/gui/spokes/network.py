@@ -39,6 +39,7 @@ from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.iutil import startProgram
+from pyanaconda.constants import ANACONDA_ENVIRON
 
 from pyanaconda import network
 from pyanaconda import nm
@@ -1502,10 +1503,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # if installation media or hdd aren't used and settings have changed
         # try if source is available
         if self.data.method.method not in ["cdrom", "harddrive"] and self.networking_changed:
-            log.debug("network spoke (apply) refresh payload")
-            from pyanaconda.packaging import payloadMgr
-            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                     fallback=not anaconda_flags.automatedInstall)
+            if ANACONDA_ENVIRON in anaconda_flags.environs:
+                log.debug("network spoke (apply) refresh payload")
+                from pyanaconda.packaging import payloadMgr
+                payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                                         fallback=not anaconda_flags.automatedInstall)
+            else:
+                log.debug("network spoke (apply), payload refresh skipped (running outside of installation environment)")
             self.networking_changed = False
         else:
             log.debug("network spoke (apply), no changes detected")
