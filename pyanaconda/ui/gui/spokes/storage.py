@@ -266,6 +266,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._back_clicked = False
         self.autopart_missing_passphrase = False
         self.disks_errors = []
+        self._update_disks_timer_id = None
 
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so
@@ -534,8 +535,23 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._last_clicked_overview = self._cur_clicked_overview
         self._cur_clicked_overview = overview
 
-    def refresh(self):
-        self._back_clicked = False
+    def _start_update_disks_timer(self):
+        self._stop_update_disks_timer()
+        self._update_disks_timer_id = GLib.timeout_add_seconds(30, self._refresh_storage)
+
+    def _stop_update_disks_timer(self):
+        if self._update_disks_timer_id is not None:
+            GLib.source_remove(self._update_disks_timer_id)
+        self._update_disks_timer_id = None
+
+    def _refresh_storage(self):
+        try_populate_devicetree(self.storage.devicetree)
+        self._update_disks()
+
+    def _update_disks(self):
+        """ Update the UI to account for current disk set. """
+        self.local_disks_box.set_sensitive(False)
+        self.advanced_disks_box.set_sensitive(False)
 
         self.disks = getDisks(self.storage.devicetree)
 
@@ -547,15 +563,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # unhide previously hidden disks so that they don't look like being
         # empty (because of all child devices hidden)
         self._unhide_disks()
-
-        self.autopart = self.data.autopart.autopart
-        self.autoPartType = self.data.autopart.type
-        if self.autoPartType is None:
-            self.autoPartType = AUTOPART_TYPE_LVM
-        self.encrypted = self.data.autopart.encrypted
-        self.passphrase = self.data.autopart.passphrase
-
-        self._previous_autopart = self.autopart
 
         # First, remove all non-button children.
         for child in self.localOverviews + self.advancedOverviews:
@@ -574,7 +581,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # of them, we do not display them in the box by default.  Instead, only
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
-        for name in self.data.ignoredisk.onlyuse:
+        # XXX Include onlyuse and currently selected disks since some
+        #     selected (advanced) disks might not yet be in onyluse.
+        for name in set(self.data.ignoredisk.onlyuse + self.selected_disks):
             if name not in disk_names:
                 continue
             obj = self.storage.devicetree.get_device_by_name(name, hidden=True)
@@ -592,18 +601,40 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             name = overview.get_property("name")
             overview.set_chosen(name in self.selected_disks)
 
+        self._update_summary()
+
+        self.local_disks_box.set_sensitive(True)
+        self.advanced_disks_box.set_sensitive(True)
+        return True
+
+    def refresh(self):
+        self._stop_update_disks_timer()
+        self._back_clicked = False
+
+        self.autopart = self.data.autopart.autopart
+        self.autoPartType = self.data.autopart.type
+        if self.autoPartType is None:
+            self.autoPartType = AUTOPART_TYPE_LVM
+        self.encrypted = self.data.autopart.encrypted
+        self.passphrase = self.data.autopart.passphrase
+
+        self._previous_autopart = self.autopart
+
+        # update the disk selectors, &c
+        self._update_disks()
+
         # if encrypted is specified in kickstart, select the encryptionCheckbox in the GUI
         if self.encrypted:
             self._encrypted.set_active(True)
 
         self._customPart.set_active(not self.autopart)
 
-        self._update_summary()
-
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details.</a>"))
         elif self.warnings:
             self.set_warning(_("Warning checking storage configuration.  <a href=\"\">Click for details.</a>"))
+
+        self._start_update_disks_timer()
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -907,6 +938,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # We can't exit early if it looks like nothing has changed because the
         # user might want to change settings presented in the dialogs shown from
         # within this method.
+        self._stop_update_disks_timer()
 
         # Do not enter this method multiple times if user clicking multiple times
         # on back button
@@ -963,6 +995,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.set_error(_("There was a problem with your disk selection. "
                              "Click here for details."))
             self._unhide_disks()
+            self._start_update_disks_timer()
             self._back_clicked = False
             return
 
@@ -982,6 +1015,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 # User either hit cancel on the dialog or closed it via escape,
                 # there was no formatting done.
                 self._back_clicked = False
+                self._start_update_disks_timer()
                 return
 
         # even if they're not doing autopart, setting autopart.encrypted
@@ -1025,6 +1059,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             elif rc == RESPONSE_CANCEL:
                 # A cancel button was clicked on one of the dialogs.  Stay on this
                 # spoke.  Generally, this is because the user wants to add more disks.
+                self._start_update_disks_timer()
                 self._back_clicked = False
                 return
             elif rc == RESPONSE_MODIFY_SW:
