@@ -22,6 +22,7 @@
 
 import os
 import sys
+from subprocess import CalledProcessError
 
 from pyanaconda import constants
 from pyanaconda import iutil
@@ -228,15 +229,21 @@ class RPMOSTreePayload(ArchivePayload):
         mainctx.pop_thread_default()
 
     def prepareMountTargets(self, storage):
+        """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
         varroot = iutil.getTargetPhysicalRoot() + '/ostree/deploy/' + ostreesetup.osname + '/var'
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        binds = [(varroot,
-                  iutil.getSysroot() + '/var'),
-                 (iutil.getSysroot() + '/usr', None)]
+        binds = [(varroot, iutil.getSysroot() + '/var'),
+                 (iutil.getSysroot() + '/usr', None),
+                 (iutil.getTargetPhysicalRoot(), iutil.getSysroot() + "/sysroot"),
+                 (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
+
+        # Bind mount the other filesystems from /mnt/sysimage to the ostree root
+        for path in ["/dev", "/dev/pts", "/dev/shm", "/proc", "/run", "/sys", "/sys/fs/selinux"]:
+            binds += [(iutil.getTargetPhysicalRoot()+path, iutil.getSysroot()+path)]
 
         for (src, dest) in binds:
             self._safeExecWithRedirect("mount",
@@ -245,15 +252,6 @@ class RPMOSTreePayload(ArchivePayload):
             if dest is None:
                 self._safeExecWithRedirect("mount",
                                            ["--bind", "-o", "remount,ro", src, src])
-
-        # We previously bind mounted /mnt/sysimage to
-        # /mnt/sysimage/.../sysroot, but this caused issues with mount
-        # path canonicalization.  Instead, directly mount the physical
-        # device at two different paths.
-        dest = iutil.getSysroot() + "/sysroot"
-        self._safeExecWithRedirect("mount",
-                                   [storage.rootDevice.format.device, dest])
-        self._internal_mounts.append(dest)
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
@@ -272,7 +270,10 @@ class RPMOSTreePayload(ArchivePayload):
         super(RPMOSTreePayload, self).unsetup()
 
         for mount in reversed(self._internal_mounts):
-            umount(mount)
+            try:
+                umount(mount)
+            except CalledProcessError as e:
+                log.debug("unmounting %s failed: %s", str(e))
 
     def recreateInitrds(self):
         # For rpmostree payloads, we're replicating an initramfs from
@@ -315,13 +316,15 @@ class RPMOSTreePayload(ArchivePayload):
             os.rename(boot_grub2_cfg, target_grub_cfg)
             os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
-        # OSTree owns the bootloader configuration, so here we give it
-        # the argument list we computed from storage, architecture and
-        # such.
-        set_kargs_args = ["admin", "instutil", "set-kargs"]
-        set_kargs_args.extend(self.storage.bootloader.boot_args)
-        set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
-        self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
+        # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
+        if not flags.dirInstall:
+            # OSTree owns the bootloader configuration, so here we give it
+            # the argument list we computed from storage, architecture and
+            # such.
+            set_kargs_args = ["admin", "instutil", "set-kargs"]
+            set_kargs_args.extend(self.storage.bootloader.boot_args)
+            set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
+            self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
 
     def writeStorageEarly(self):
         pass
