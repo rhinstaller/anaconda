@@ -224,6 +224,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 ndata.noipv6 = False
 
             network.update_settings_with_ksdata(devname, ndata)
+            network.update_onboot_value(devname, ndata.onboot, ksdata=None, root_path="")
 
             if ndata._apply:
                 self._apply = True

@@ -51,7 +51,7 @@ class FedoraBaseInstallClass(BaseInstallClass):
             except (nm.UnknownDeviceError, nm.PropertyNotFoundError):
                 continue
             if link_up:
-                network.update_onboot_value(dev, "yes", ksdata)
+                network.update_onboot_value(dev, True, ksdata=ksdata)
                 break
 
     def __init__(self):
