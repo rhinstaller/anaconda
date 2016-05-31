@@ -58,7 +58,7 @@ class RHELBaseInstallClass(BaseInstallClass):
         # ignore wireless (its ifcfgs would need to be handled differently)
         if nm.nm_device_type_is_wifi(dev):
             return
-        network.update_onboot_value(dev, "yes", ksdata)
+        network.update_onboot_value(dev, True, ksdata=ksdata)
 
     def __init__(self):
         BaseInstallClass.__init__(self)

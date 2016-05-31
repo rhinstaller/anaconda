@@ -466,7 +466,7 @@ def _get_ip_setting_values_from_ksdata(networkdata):
 
 def update_settings_with_ksdata(devname, networkdata):
     new_values = _get_ip_setting_values_from_ksdata(networkdata)
-    new_values.append(['connection', 'autoconnect', networkdata.onboot, None])
+    new_values.append(['connection', 'autoconnect', False, 'b'])
     uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
     nm.nm_update_settings_of_device(devname, new_values)
     return uuid
@@ -1521,21 +1521,44 @@ def has_some_wired_autoconnect_device():
             return True
     return False
 
-def update_onboot_value(devname, value, ksdata):
-    """Update onboot value in ifcfg files and ksdata"""
+def update_onboot_value(devname, value, ksdata=None, root_path=None):
+    """Update onboot value in ifcfg files and optionally ksdata
+
+    By default ifcfg files on target system root are modified.
+
+    :param devname: name of device
+    :type devname: str
+    :param value: value of onboot setting
+    :type value: bool
+    :param ksdata: optional ksdata to be modified accordingly
+    :type ksdata: kickstart data structure
+    :param root_path: optional root path for ifcfg files,
+                      target system root by default
+    :type root_path: str
+
+    """
     log.debug("network: setting ONBOOT value of %s to %s", devname, value)
-    ifcfg_path = find_ifcfg_file_of_device(devname, root_path=iutil.getSysroot())
+    if root_path is None:
+        root_path = iutil.getSysroot()
+    if value:
+        ifcfg_value = 'yes'
+    else:
+        ifcfg_value = 'no'
+
+    ifcfg_path = find_ifcfg_file_of_device(devname, root_path=root_path)
     if not ifcfg_path:
         log.debug("network: can't find ifcfg file of %s", devname)
         return
     ifcfg = IfcfgFile(ifcfg_path)
     ifcfg.read()
-    ifcfg.set(('ONBOOT', 'yes'))
+    ifcfg.set(('ONBOOT', ifcfg_value))
     ifcfg.write()
-    for nd in ksdata.network.network:
-        if nd.device == devname:
-            nd.onboot = True
-            break
+
+    if ksdata:
+        for nd in ksdata.network.network:
+            if nd.device == devname:
+                nd.onboot = value
+                break
 
 def is_using_team_device():
     return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
