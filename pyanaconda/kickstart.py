@@ -19,7 +19,7 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
-from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
+from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES

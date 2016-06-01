@@ -114,6 +114,14 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
     def storage(self):
         pass
 
+    @abstractproperty
+    def payload(self):
+        pass
+
+    @abstractproperty
+    def instclass(self):
+        pass
+
     def __init__(self):
         self._device = None
         self._current_iso_path = None
