@@ -574,10 +574,16 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._update_summary()
 
+        self._check_problems()
+
+    def _check_problems(self):
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details.</a>"))
+            return True
         elif self.warnings:
             self.set_warning(_("Warning checking storage configuration.  <a href=\"\">Click for details.</a>"))
+            return True
+        return False
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -695,7 +701,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if len(self.disks) == 0:
             self.set_warning(_("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation."))
         elif not anySelected:
-            self.set_warning(_("No disks selected; please select at least one disk to install to."))
+            # There may be an underlying reason that no disks were selected, give them priority.
+            if not self._check_problems():
+                self.set_warning(_("No disks selected; please select at least one disk to install to."))
         else:
             self.clear_info()
 
