@@ -1241,11 +1241,19 @@ def setOnboot(ksdata):
             log.warning("network: set ONBOOT: --device %s does not exist", network_data.device)
             continue
 
+        if network_data.onboot:
+            # We need to handle "no" -> "yes" change by changing ifcfg file instead of the NM connection
+            # so the device does not get autoactivated (BZ #1261864)
+            if not update_onboot_value(devname, network_data.onboot, root_path=""):
+                continue
+        else:
+            try:
+                nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
+            except (nm.SettingsNotFoundError, nm.UnknownDeviceError) as e:
+                log.debug("setOnboot: %s", e)
+                continue
+
         updated_devices.append(devname)
-        try:
-            nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
-        except (nm.SettingsNotFoundError, nm.UnknownDeviceError) as e:
-            log.debug("setOnboot: %s", e)
     return updated_devices
 
 def apply_kickstart(ksdata):
@@ -1329,7 +1337,7 @@ def networkInitialize(ksdata):
     # value is set here.
     devnames = setOnboot(ksdata)
     if devnames:
-        msg = "setting real kickstart ONBOOT value for devices %s" % devnames
+        msg = "real kickstart ONBOOT value set for devices %s" % devnames
         log.debug("network: %s", msg)
         logIfcfgFiles(msg)
 
@@ -1534,6 +1542,8 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
     :param root_path: optional root path for ifcfg files,
                       target system root by default
     :type root_path: str
+    :returns: True if the value was updated, False otherwise
+    :rtype: bool
 
     """
     log.debug("network: setting ONBOOT value of %s to %s", devname, value)
@@ -1547,7 +1557,7 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
     ifcfg_path = find_ifcfg_file_of_device(devname, root_path=root_path)
     if not ifcfg_path:
         log.debug("network: can't find ifcfg file of %s", devname)
-        return
+        return False
     ifcfg = IfcfgFile(ifcfg_path)
     ifcfg.read()
     ifcfg.set(('ONBOOT', ifcfg_value))
@@ -1558,6 +1568,7 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
             if nd.device == devname:
                 nd.onboot = value
                 break
+    return True
 
 def is_using_team_device():
     return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
