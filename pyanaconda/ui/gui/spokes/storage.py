@@ -51,6 +51,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
+from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageChecker
@@ -237,7 +238,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.encrypted = False
         self.passphrase = ""
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
-
         self.autopart_missing_passphrase = False
         self.disks_errors = []
 
@@ -263,7 +263,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._last_clicked_overview = None
         self._cur_clicked_overview = None
-        self._last_selected_disks = None
+        self._last_selected_disks = []
 
         self._grabObjects()
 
@@ -823,11 +823,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
 
     def _unhide_disks(self):
-        if self._last_selected_disks:
-            for disk in self.disks:
-                if disk.name not in self.selected_disks and \
-                   disk.name not in self._last_selected_disks:
-                    self.storage.devicetree.unhide(disk)
+        for disk in self.disks:
+            if disk.name not in self.selected_disks and \
+               disk.name not in self._last_selected_disks:
+                self.storage.devicetree.unhide(disk)
 
     def _remove_nonexistant_partitions(self):
         for partition in self.storage.partitions[:]:
@@ -1156,3 +1155,33 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._update_disk_list()
         self._update_summary()
+
+    # This callback is for the button that has anaconda go back and rescan the
+    # disks to pick up whatever changes the user made outside our control.
+    def on_refresh_clicked(self, *args):
+        dialog = RefreshDialog(self.data, self.storage)
+        ignoreEscape(dialog.window)
+        with self.main_window.enlightbox(dialog.window):
+            rc = dialog.run()
+            dialog.window.destroy()
+
+        if rc == 1:
+            # User hit OK on the dialog, indicating they stayed on the dialog
+            # until rescanning completed.
+            on_disk_storage.dispose_snapshot()
+            self.refresh()
+            return
+        elif rc != 2:
+            # User either hit cancel on the dialog or closed it via escape, so
+            # there was no rescanning done.
+            # NOTE: rc == 2 means the user clicked on the link that takes them
+            # back to the hub.
+            return
+
+        on_disk_storage.dispose_snapshot()
+
+        # Can't use this spoke's on_back_clicked method as that will try to
+        # save the right hand side, which is no longer valid.  The user must
+        # go back and select their disks all over again since whatever they
+        # did on the shell could have changed what disks are available.
+        NormalSpoke.on_back_clicked(self, None)
