@@ -207,21 +207,41 @@ def ensure_dir(d):
     """make sure the given directory exists."""
     subprocess.check_call(["mkdir", "-p", d])
 
-def move_files(files, destdir):
+def move_files(files, destdir, basedir):
     """move files into destdir (iff they're not already under destdir)"""
-    ensure_dir(destdir)
     for f in files:
         if f.startswith(destdir):
             continue
-        subprocess.call(["mv", "-f", f, destdir])
+        dest = destdir+"/"+dest_strip(f, basedir)
+        ensure_dir(os.path.dirname(dest))
+        subprocess.call(["mv", "-f", f, dest])
 
-def copy_files(files, destdir):
+def dest_strip(dest, basedir):
+    """strip a base directory plus kernel version from a path"""
+    # Strip the basedir and any leftover leading /'s
+    dest = dest[len(basedir):]
+    while dest.startswith('/'):
+        dest = dest[1:]
+
+    # Look for a leading directory that is a version number
+    if "/" in dest and fnmatch.fnmatch(dest, "*.ko*") and dest[0].isdigit():
+        # Drop the leading directory
+        dest = "/".join(dest.split('/')[1:])
+
+        if dest.startswith("kernel/"):
+            dest = "/".join(dest.split('/')[1:])
+
+    return dest
+
+def copy_files(files, destdir, basedir):
     """copy files into destdir (iff they're not already under destdir)"""
-    ensure_dir(destdir)
     for f in files:
         if f.startswith(destdir):
             continue
-        subprocess.call(["cp", "-a", f, destdir])
+
+        dest = destdir+"/"+dest_strip(f, basedir)
+        ensure_dir(os.path.dirname(dest))
+        subprocess.call(["cp", "-a", f, dest])
 
 def append_line(filename, line):
     """simple helper to append a line to a file"""
@@ -295,10 +315,10 @@ def grab_driver_files(outdir="/updates"):
     """
     modules = list(iter_files(outdir+'/lib/modules',"*.ko*"))
     firmware = list(iter_files(outdir+'/lib/firmware'))
-    copy_files(modules, MODULE_UPDATES_DIR)
-    copy_files(firmware, FIRMWARE_UPDATES_DIR)
-    move_files(modules, outdir+MODULE_UPDATES_DIR)
-    move_files(firmware, outdir+FIRMWARE_UPDATES_DIR)
+    copy_files(modules, MODULE_UPDATES_DIR, outdir+'/lib/modules')
+    copy_files(firmware, FIRMWARE_UPDATES_DIR, outdir+'/lib/firmware')
+    move_files(modules, outdir+MODULE_UPDATES_DIR, outdir+'/lib/modules')
+    move_files(firmware, outdir+FIRMWARE_UPDATES_DIR, outdir+'/lib/firmware')
     return [os.path.basename(m).split('.ko')[0] for m in modules]
 
 def load_drivers(modnames):

@@ -34,6 +34,21 @@ def makefile(path):
 def makefiles(*paths):
     return [makefile(p) for p in paths]
 
+def listfiles(path):
+    path = os.path.normpath(path)
+
+    # This could be a list comprehension, or it could be readable
+    for dirpath, _dirname, filenames in os.walk(path):
+        for filename in filenames:
+            # Strip "path" from dirname so that the paths are relative to path.
+            # If dirname != path, add one to the length to keep the slash
+            # in path/subdir.
+            if dirpath == path:
+                prefix = ''
+            else:
+                prefix = dirpath[len(path)+1:] + '/'
+            yield prefix + filename
+
 class FileTestCaseBase(unittest.TestCase):
     def setUp(self):
         self.tmpdir = tempfile.mkdtemp(prefix="test_driver_updates.")
@@ -59,9 +74,9 @@ class TestCopyFiles(FileTestCaseBase):
         """copy_file: copy files into destdir, leaving existing contents"""
         files = self.makefiles("src/file1", "src/subdir/file2")
         self.makefiles("dest/file3")
-        copy_files(files, self.destdir)
-        result = set(os.listdir(self.destdir))
-        self.assertEqual(result, set(["file1", "file2", "file3"]))
+        copy_files(files, self.destdir, self.srcdir)
+        result = set(listfiles(self.destdir))
+        self.assertEqual(result, set(["file1", "subdir/file2", "file3"]))
 
     def test_overwrite(self):
         """copy_file: overwrite files in destdir if they have the same name"""
@@ -70,8 +85,8 @@ class TestCopyFiles(FileTestCaseBase):
             outf.write("srcfile")
         with open(dest, 'w') as outf:
             outf.write("destfile")
-        copy_files([src], self.destdir)
-        self.assertEqual(os.listdir(self.destdir), ["file1"])
+        copy_files([src], self.destdir, self.srcdir)
+        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
         self.assertEqual(open(dest).read(), "srcfile")
 
     def test_samefile(self):
@@ -79,15 +94,23 @@ class TestCopyFiles(FileTestCaseBase):
         (dest,) = self.makefiles("dest/file1")
         with open(dest, 'w') as outf:
             outf.write("destfile")
-        copy_files([dest], self.destdir)
-        self.assertEqual(os.listdir(self.destdir), ["file1"])
+        copy_files([dest], self.destdir, "src")
+        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
         self.assertEqual(open(dest).read(), "destfile")
 
     def test_copy_to_parent(self):
         """copy_file: skip files in subdirs of destdir"""
         files = self.makefiles("dest/subdir/file1")
-        copy_files(files, self.destdir)
+        copy_files(files, self.destdir, "src")
         self.assertEqual(list(iter_files(self.destdir)), files)
+
+    def test_copy_kernel(self):
+        """copy_file: strip leading module directories"""
+        files = self.makefiles("src/lib/modules/3.2.1-900.fc47.x86_64/kernel/subdir/module.ko",
+                               "src/lib/modules/3.2.1-900.fc47.x86_64/kernel/other.ko.xz")
+        copy_files(files, self.destdir, self.srcdir+"/lib/modules")
+        result = set(listfiles(self.destdir))
+        self.assertEqual(result, set(["subdir/module.ko", "other.ko.xz"]))
 
 class TestIterFiles(FileTestCaseBase):
     def test_basic(self):
@@ -108,8 +131,8 @@ class TestMoveFiles(FileTestCaseBase):
     def test_basic(self):
         """move_files: move files to destdir"""
         files = self.makefiles("src/file1", "src/subdir/file2")
-        move_files(files, self.destdir)
-        self.assertEqual(set(os.listdir(self.destdir)), set(["file1", "file2"]))
+        move_files(files, self.destdir, self.srcdir)
+        self.assertEqual(set(listfiles(self.destdir)), set(["file1", "subdir/file2"]))
         self.assertEqual(list(iter_files(self.srcdir)), [])
 
     def test_overwrite(self):
@@ -119,8 +142,8 @@ class TestMoveFiles(FileTestCaseBase):
             outf.write("srcfile")
         with open(dest, 'w') as outf:
             outf.write("destfile")
-        move_files([src], self.destdir)
-        self.assertEqual(os.listdir(self.destdir), ["file1"])
+        move_files([src], self.destdir, self.srcdir)
+        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
         self.assertEqual(open(dest).read(), "srcfile")
         self.assertEqual(list(iter_files(self.srcdir)), [])
 
@@ -129,14 +152,14 @@ class TestMoveFiles(FileTestCaseBase):
         (dest,) = self.makefiles("dest/file1")
         with open(dest, 'w') as outf:
             outf.write("destfile")
-        move_files([dest], self.destdir)
-        self.assertEqual(os.listdir(self.destdir), ["file1"])
+        move_files([dest], self.destdir, self.srcdir)
+        self.assertEqual(list(listfiles(self.destdir)), ["file1"])
         self.assertEqual(open(dest).read(), "destfile")
 
     def test_move_to_parent(self):
         """move_files: leave files alone if they're in a subdir of destdir"""
         files = set(self.makefiles("dest/subdir/file1", "dest/file2"))
-        move_files(files, self.destdir)
+        move_files(files, self.destdir, self.srcdir)
         self.assertEqual(set(iter_files(self.destdir)), files)
 
 class TestAppendLine(FileTestCaseBase):
@@ -234,7 +257,7 @@ class TestSaveRepo(FileTestCaseBase):
         repo = find_repos(self.srcdir)[0]
         makefile(repo+'/fake-something.rpm')
         saved = save_repo(repo, target=self.destdir)
-        self.assertEqual(set(os.listdir(saved)), set(["fake-something.rpm"]))
+        self.assertEqual(set(listfiles(saved)), set(["fake-something.rpm"]))
         self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
 
 from driver_updates import mount, umount, mounted
@@ -381,7 +404,7 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
         moddir = outdir + "/lib/modules/%s/kernel/" % os.uname()[2]
         fwdir = outdir + "/lib/firmware/"
         modules = makefiles(moddir+"net/funk.ko", moddir+"fs/lolfs.ko.xz")
-        firmware = makefiles(fwdir+"funk.fw")
+        firmware = makefiles(fwdir+"funk.fw", fwdir+"fs/lolfs.fw")
         makefiles(outdir+"/usr/bin/monkey", outdir+"/other/dir/blah.ko")
         mod_upd_dir = self.tmpdir+'/module-updates'
         fw_upd_dir = self.tmpdir+'/fw-updates'
@@ -391,17 +414,17 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
                                  FIRMWARE_UPDATES_DIR=fw_upd_dir):
             modnames = grab_driver_files(outdir)
         self.assertEqual(set(modnames), set(["funk", "lolfs"]))
-        modfiles = set(['funk.ko', 'lolfs.ko.xz'])
-        fwfiles = set(['funk.fw'])
+        modfiles = set(['net/funk.ko', 'fs/lolfs.ko.xz'])
+        fwfiles = set(['funk.fw', 'fs/lolfs.fw'])
         # modules/firmware are *not* in their old locations
         self.assertEqual([f for f in modules+firmware if os.path.exists(f)], [])
         # modules are in the system's updates dir
-        self.assertEqual(set(os.listdir(mod_upd_dir)), modfiles)
+        self.assertEqual(set(listfiles(mod_upd_dir)), modfiles)
         # modules are also in outdir's updates dir
-        self.assertEqual(set(os.listdir(outdir+'/'+mod_upd_dir)), modfiles)
+        self.assertEqual(set(listfiles(outdir+'/'+mod_upd_dir)), modfiles)
         # repeat for firmware
-        self.assertEqual(set(os.listdir(fw_upd_dir)), fwfiles)
-        self.assertEqual(set(os.listdir(outdir+'/'+fw_upd_dir)), fwfiles)
+        self.assertEqual(set(listfiles(fw_upd_dir)), fwfiles)
+        self.assertEqual(set(listfiles(outdir+'/'+fw_upd_dir)), fwfiles)
 
 class LoadDriversTestCase(unittest.TestCase):
     @mock.patch("driver_updates.subprocess.call")
