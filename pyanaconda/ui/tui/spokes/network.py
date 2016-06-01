@@ -241,6 +241,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def apply(self):
         """Apply all of our settings."""
         self._update_network_data()
+        log.debug("network: apply ksdata %s", self.data.network)
 
         if self._apply:
             self._apply = False

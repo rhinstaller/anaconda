@@ -674,11 +674,6 @@ def ksdata_from_ifcfg(devname, uuid=None):
         # wifi from kickstart is not supported yet
         return None
 
-    if not uuid:
-        # Find ifcfg file for the device.
-        # If the device is active, use uuid of its active connection.
-        uuid = nm.nm_device_active_con_uuid(devname)
-
     if uuid:
         ifcfg_path = find_ifcfg_file([("UUID", uuid)])
     else:
