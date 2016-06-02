@@ -424,7 +424,12 @@ class KeyboardSpoke(NormalSpoke):
         store.remove(itr)
 
     def _refresh_switching_info(self):
-        if self.data.keyboard.switch_options:
+        if flags.flags.usevnc:
+            self._layoutSwitchLabel.set_text(_("Keyboard layouts are not "
+                                               "supported when using VNC.\n"
+                                               "However the settings will be used "
+                                               "after the installation."))
+        elif self.data.keyboard.switch_options:
             first_option = self.data.keyboard.switch_options[0]
             desc = self._xkl_wrapper.get_switch_opt_description(first_option)
 
