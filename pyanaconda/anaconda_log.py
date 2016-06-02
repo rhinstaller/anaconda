@@ -179,6 +179,13 @@ class AnacondaLog:
                             autoLevel=True)
         self.forwardToSyslog(packaging_logger)
 
+        # Create the dnf logger and link it to packaging
+        dnf_logger = logging.getLogger("dnf")
+        dnf_logger.setLevel(logging.DEBUG)
+        self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
+                            minLevel=logging.NOTSET)
+        self.forwardToSyslog(dnf_logger)
+
         # Create the sensitive information logger
         # * the sensitive-info.log file is not copied to the installed
         # system, as it might contain sensitive information that
