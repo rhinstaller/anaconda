@@ -46,14 +46,17 @@ from pyanaconda.iutil import ProxyString, ProxyStringError, ipmi_abort
 log = logging.getLogger("packaging")
 
 import dnf
+import dnf.logging
 import dnf.exceptions
 import dnf.repo
 import dnf.callback
 import rpm
+import librepo
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
+DNF_LIBREPO_LOG = '/tmp/dnf.librepo.log'
 DOWNLOAD_MPOINTS = {'/tmp',
                     '/',
                     '/var/tmp',
@@ -408,10 +411,6 @@ class DNFPayload(packaging.PackagePayload):
         conf.cachedir = DNF_CACHE_DIR
         conf.pluginconfpath = DNF_PLUGINCONF_DIR
         conf.logdir = '/tmp/'
-        # disable console output completely:
-        conf.debuglevel = 0
-        conf.errorlevel = 0
-        self._base.logging.setup_from_dnf_conf(conf)
 
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = pyanaconda.iutil.getSysroot()
@@ -450,6 +449,14 @@ class DNFPayload(packaging.PackagePayload):
         # 2. Installs aren't reproducible due to weak deps. failing silently.
         if self.data.packages.excludeWeakdeps:
             conf.install_weak_deps = False
+
+        # Setup librepo logging
+        librepo.log_set_file(DNF_LIBREPO_LOG)
+
+        # Increase dnf log level to custom DDEBUG level
+        # Do this here to prevent import side-effects in anaconda_log
+        dnf_logger = logging.getLogger("dnf")
+        dnf_logger.setLevel(dnf.logging.DDEBUG)
 
     @property
     def _download_space(self):
