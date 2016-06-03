@@ -1159,13 +1159,16 @@ def write_sysconfig_network(rootpath, overwrite=False):
     return True
 
 def write_network_config(storage, ksdata, instClass, rootpath):
-    write_hostname(rootpath, ksdata, overwrite=flags.livecdInstall)
+    # overwrite previous settings for LiveCD or liveimg installations
+    overwrite = flags.livecdInstall or ksdata.method.method == "liveimg"
+
+    write_hostname(rootpath, ksdata, overwrite=overwrite)
     set_hostname(ksdata.network.hostname)
-    write_sysconfig_network(rootpath, overwrite=flags.livecdInstall)
+    write_sysconfig_network(rootpath, overwrite=overwrite)
     disableIPV6(rootpath)
     copyIfcfgFiles(rootpath)
     copyDhclientConfFiles(rootpath)
-    copyFileToPath("/etc/resolv.conf", rootpath, overwrite=flags.livecdInstall)
+    copyFileToPath("/etc/resolv.conf", rootpath, overwrite=overwrite)
     instClass.setNetworkOnbootDefault(ksdata)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
