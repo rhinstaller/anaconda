@@ -1,6 +1,14 @@
 #!/bin/bash
 # anaconda-generator: generate services needed for anaconda operation
 
+# only run in the Anaconda installation environment
+ANACONDA_TARGET="/lib/systemd/system/anaconda.target"
+CURRENT_DEFAULT_TARGET=$(readlink /etc/systemd/system/default.target)
+
+if [ "$ANACONDA_TARGET" != "$CURRENT_DEFAULT_TARGET" ]; then
+    exit 0
+fi
+
 # set up dirs
 systemd_dir=/lib/systemd/system
 target_dir=$systemd_dir/anaconda.target.wants
