@@ -324,10 +324,10 @@ class StorageSpoke(NormalTUISpoke):
 
             if self.data.zerombr.zerombr:
                 # unformatted DASDs
-                unformatted += make_unformatted_dasd_list([d for d in self.data.ignoredisk.onlyuse])
+                unformatted += make_unformatted_dasd_list([d.name for d in getDisks(self.storage.devicetree)])
             if self.data.clearpart.cdl:
                 # LDL DASDs
-                ldl += [d for d in self.data.ignoredisk.onlyuse if is_ldl_dasd(d)]
+                ldl += [d for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
             # combine into one nice list
             to_format = list(set(unformatted + ldl))
         else:
@@ -361,9 +361,13 @@ class StorageSpoke(NormalTUISpoke):
                 continue
 
         # need to make devicetree aware of disk changes
-        threadMgr.add(AnacondaThread(name=THREAD_STORAGE, target=storageInitialize,
-                                     args=(self.storage, self.data, self.storage.devicetree.protectedDevNames)))
-        self._initialize()
+        self.storage.devicetree.populate()
+        if not flags.automatedInstall:
+            # reinit storage
+            threadMgr.add(AnacondaThread(name=THREAD_STORAGE, target=storageInitialize,
+                                         args=(self.storage, self.data, self.storage.devicetree.protectedDevNames)))
+            # update the summary screen with the changes
+            self._initialize()
 
     def apply(self):
         self.autopart = self.data.autopart.autopart
