@@ -681,14 +681,14 @@ def _add_slave_connection(slave_type, slave, master, activate, values=None):
 
 def ksdata_from_ifcfg(devname, uuid=None):
 
-    if devname not in nm.nm_devices():
-        return None
-
-    if nm.nm_device_is_slave(devname):
-        return None
-    if nm.nm_device_type_is_wifi(devname):
-        # wifi from kickstart is not supported yet
-        return None
+    if devname in nm.nm_devices():
+        # virtual devices (bond, vlan, ...) not activated in installer
+        # are not created so guard these checks
+        if nm.nm_device_is_slave(devname):
+            return None
+        if nm.nm_device_type_is_wifi(devname):
+            # wifi from kickstart is not supported yet
+            return None
 
     if uuid:
         ifcfg_path = find_ifcfg_file([("UUID", uuid)])
@@ -706,19 +706,24 @@ def ksdata_from_ifcfg(devname, uuid=None):
     if not nd:
         return None
 
-    if nm.nm_device_type_is_ethernet(devname):
-        nd.device = devname
-    elif nm.nm_device_type_is_wifi(devname):
-        nm.device = ""
-    elif nm.nm_device_type_is_bond(devname):
-        nd.device = devname
-    elif nm.nm_device_type_is_team(devname):
-        nd.device = devname
-    elif nm.nm_device_type_is_bridge(devname):
-        nd.device = devname
-    elif nm.nm_device_type_is_vlan(devname):
-        if devname != default_ks_vlan_interface_name(nd.device, nd.vlanid):
-            nd.interfacename = devname
+    if devname in nm.nm_devices():
+        if nm.nm_device_type_is_ethernet(devname):
+            nd.device = devname
+        elif nm.nm_device_type_is_wifi(devname):
+            nm.device = ""
+        elif nm.nm_device_type_is_bond(devname):
+            nd.device = devname
+        elif nm.nm_device_type_is_team(devname):
+            nd.device = devname
+        elif nm.nm_device_type_is_bridge(devname):
+            nd.device = devname
+        elif nm.nm_device_type_is_vlan(devname):
+            _update_vlan_interfacename_ksdata(devname, nd)
+    else:
+        # virtual devices (bond, vlan, ...) not activated in installer
+        # are not created so look at ifcfg value instead of device property
+        if nd.vlanid:
+            _update_vlan_interfacename_ksdata(devname, nd)
 
     return nd
 
@@ -869,7 +874,9 @@ def find_ifcfg_file_of_device(devname, root_path=""):
     ifcfg_path = None
 
     if devname not in nm.nm_devices():
-        return None
+        # virtual devices (bond, vlan, ...) not activated in installer
+        # are not created so just go right to searching in ifcfgs
+        return find_ifcfg_file([("DEVICE", devname)])
 
     if nm.nm_device_type_is_wifi(devname):
         ssid = nm.nm_device_active_ssid(devname)
@@ -1513,6 +1520,10 @@ def status_message():
 
 def default_ks_vlan_interface_name(parent, vlanid):
     return "%s.%s" % (parent, vlanid)
+
+def _update_vlan_interfacename_ksdata(devname, ndata):
+    if devname != default_ks_vlan_interface_name(ndata.device, ndata.vlanid):
+        ndata.interfacename = devname
 
 def update_onboot_value(devname, value, ksdata=None, root_path=None):
     """Update onboot value in ifcfg files and optionally ksdata
