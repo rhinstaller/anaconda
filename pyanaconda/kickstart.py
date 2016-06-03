@@ -1519,6 +1519,8 @@ class RaidData(commands.raid.F25_RaidData):
         if self.chunk_size:
             kwargs["chunk_size"] = Size("%d KiB" % self.chunk_size)
 
+        add_fstab_swap = None
+
         # If we were given a pre-existing RAID to create a filesystem on,
         # we need to verify it exists and then schedule a new format action
         # to take place there.  Also, we only support a subset of all the
@@ -1532,7 +1534,7 @@ class RaidData(commands.raid.F25_RaidData):
             storage.devicetree.recursive_remove(device, remove_device=False)
             devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
-                storage.add_fstab_swap(device)
+                add_fstab_swap = device
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
@@ -1554,7 +1556,7 @@ class RaidData(commands.raid.F25_RaidData):
 
             storage.create_device(request)
             if ty == "swap":
-                storage.add_fstab_swap(request)
+                add_fstab_swap = request
 
         if self.encrypted:
             if self.passphrase and not storage.encryption_passphrase:
@@ -1579,7 +1581,16 @@ class RaidData(commands.raid.F25_RaidData):
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
+
+            if ty == "swap":
+                # swap is on the LUKS device instead of the parent device,
+                # override the device here
+                add_fstab_swap = luksdev
+
             storage.create_device(luksdev)
+
+        if add_fstab_swap:
+            storage.add_fstab_swap(add_fstab_swap)
 
 class RepoData(commands.repo.F21_RepoData):
     def __init__(self, *args, **kwargs):
