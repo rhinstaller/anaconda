@@ -1514,21 +1514,6 @@ def status_message():
 def default_ks_vlan_interface_name(parent, vlanid):
     return "%s.%s" % (parent, vlanid)
 
-def has_some_wired_autoconnect_device():
-    """Is there a wired network device with autoconnect?"""
-    for dev in nm.nm_devices():
-        if nm.nm_device_type_is_wifi(dev):
-            continue
-        try:
-            onboot = nm.nm_device_setting_value(dev, "connection", "autoconnect")
-        except nm.SettingsNotFoundError:
-            continue
-        # None means the setting was not found, which means NM is using
-        # default (True)
-        if onboot == True or onboot is None:
-            return True
-    return False
-
 def update_onboot_value(devname, value, ksdata=None, root_path=None):
     """Update onboot value in ifcfg files and optionally ksdata
 
