@@ -1504,6 +1504,8 @@ class RaidData(commands.raid.RHEL7_RaidData):
         kwargs["memberDevices"] = len(raidmems) - self.spares
         kwargs["totalDevices"] = len(raidmems)
 
+        add_fstab_swap = None
+
         # If we were given a pre-existing RAID to create a filesystem on,
         # we need to verify it exists and then schedule a new format action
         # to take place there.  Also, we only support a subset of all the
@@ -1517,7 +1519,7 @@ class RaidData(commands.raid.RHEL7_RaidData):
             removeExistingFormat(device, storage)
             devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
-                storage.addFstabSwap(device)
+                add_fstab_swap = device
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
                 raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -1539,7 +1541,7 @@ class RaidData(commands.raid.RHEL7_RaidData):
 
             storage.createDevice(request)
             if ty == "swap":
-                storage.addFstabSwap(request)
+                add_fstab_swap = request
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
@@ -1564,7 +1566,16 @@ class RaidData(commands.raid.RHEL7_RaidData):
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
                                      parents=request)
+
+            if ty == "swap":
+                # swap is on the LUKS device instead of the parent device,
+                # override the device here
+                add_fstab_swap = luksdev
+
             storage.createDevice(luksdev)
+
+        if add_fstab_swap:
+            storage.addFstabSwap(add_fstab_swap)
 
 class RepoData(commands.repo.RHEL7_RepoData):
     def __init__(self, *args, **kwargs):
