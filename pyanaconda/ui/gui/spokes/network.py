@@ -230,8 +230,9 @@ class DeviceConfiguration(object):
             iface = self.device.get_iface()
         elif self.con:
             iface = self.con.get_setting_connection().get_interface_name()
-            if not iface:
-                mac = self.con.get_setting_wired().get_mac_address()
+            wired_setting = self.con.get_setting_wired()
+            if not iface and wired_setting:
+                mac = wired_setting.get_mac_address()
                 if mac:
                     iface = nm.nm_hwaddr_to_device_name(mac)
         return iface
@@ -388,7 +389,8 @@ class NetworkControlBox(GObject.GObject):
         if self.dev_cfg(uuid=uuid):
             log.debug("network: GUI, not adding connection %s, already in list", uuid)
             return False
-        if con.get_setting_connection().get_read_only():
+        con_setting = con.get_setting_connection()
+        if con_setting and con_setting.get_read_only():
             log.debug("network: GUI, not adding read-only connection %s", uuid)
             return False
         dev_cfg = DeviceConfiguration(con=con)
@@ -399,7 +401,7 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
             return False
         if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
-            if con.get_setting_connection().get_master():
+            if con_setting and con_setting.get_master():
                 log.debug("network: GUI, not adding slave connection %s", uuid)
                 return False
         # Wireless settings are handled in scope of its device's dev_cfg
@@ -530,10 +532,11 @@ class NetworkControlBox(GObject.GObject):
 
     def _find_first_ap_setting(self, device, ap):
         for con in device.filter_connections(self.client.get_connections()):
-            if not con.get_setting_wireless().get_ssid():
-                # non-broadcast AP, we ignore these
+            wireless_setting = con.get_setting_wireless()
+            if not wireless_setting or not wireless_setting.get_ssid():
+                # setting is None or non-broadcast AP, we ignore these
                 return
-            if con.get_setting_wireless().get_ssid().get_data() == ap.get_ssid().get_data():
+            if wireless_setting.get_ssid().get_data() == ap.get_ssid().get_data():
                 return con
 
     def on_edit_connection(self, *args):
@@ -750,7 +753,8 @@ class NetworkControlBox(GObject.GObject):
             rc = ac.get_connection()
             # Getting of NMRemoteConnection can fail (None), isn't it a bug in NM?
             if rc:
-                if rc.get_setting_connection().get_read_only():
+                con_setting = rc.get_setting_connection()
+                if con_setting and con_setting.get_read_only():
                     log.debug("network: not adding read-only connection "
                               "(assuming iBFT) for device %s", device.get_iface())
                     return
@@ -764,7 +768,7 @@ class NetworkControlBox(GObject.GObject):
         if device.get_device_type() != NM.DeviceType.WIFI:
             cons = device.get_available_connections()
             for c in cons:
-                if not c.get_setting_connection().get_slave_type():
+                if c.get_setting_connection() and not c.get_setting_connection().get_slave_type():
                     con = c
             if len(cons) != 1:
                 log.warning("network: %s has unexpected number of connections: %s",
