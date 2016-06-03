@@ -56,7 +56,7 @@ class RHELBaseInstallClass(BaseInstallClass):
         self.setDefaultPartitioning(anaconda.storage)
 
     def setNetworkOnbootDefault(self, ksdata):
-        if network.has_some_wired_autoconnect_device():
+        if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
         # choose the device used during installation
         # (ie for majority of cases the one having the default route)
