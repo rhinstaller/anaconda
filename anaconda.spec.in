@@ -318,6 +318,37 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 03 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.75-1
+- Add a button to refresh the disk list. (dlehman)
+  Resolves: rhbz#1191305
+- Fix some residual issues of dasdfmt in text-mode. (sbueno+anaconda)
+  Resolves: rhbz#1259437
+- Only try to restart payload in the Anaconda environment (mkolman)
+  Related: rhbz#1270354
+- Make current runtime environment identifiers available via flags (mkolman)
+  Related: rhbz#1270354
+- network tui: do not activate device when setting its onboot value (rvykydal)
+  Resolves: rhbz#1261864
+- network tui: edit persistent configuration, not active connection (rvykydal)
+  Related: rhbz#1261864
+- network: add support for --no-activate kickstart opton (rvykydal)
+  Resolves: rhbz#1277975
+- More descriptive message on invalid username (kvalek)
+  Resolves: rhbz#1259284
+- Don't mark an empty string for translation. (clumens)
+  Related: rhbz#1255094
+- Update the disk summary on Ctrl-A (dshea)
+  Resolves: rhbz#1264958
+- Added PROGRESS_REPORT for retry messages (kvalek)
+  Resolves: rhbz#1255094
+- Handle unsupported disklabels. (dlehman)
+  Related: rhbz#1266199
+  Related: rhbz#1294081
+- network: fix filtering of libvirt devices (check for None values) (rvykydal)
+  Related: rhbz#1298444
+- NFS DDs installation now works correctly (japokorn)
+  Resolves: rhbz#1269915
+
 * Fri May 27 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.74-1
 - Print an error when the kickstart file is missing (bcl)
   Resolves: rhbz#1297380
