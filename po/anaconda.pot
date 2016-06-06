@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 24.13.4\n"
+"Project-Id-Version: anaconda 24.13.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-05-13 13:23-0400\n"
+"POT-Creation-Date: 2016-06-06 14:45-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,7 +551,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:245 pyanaconda/packaging/livepayload.py:182
-#: pyanaconda/packaging/dnfpayload.py:811
+#: pyanaconda/packaging/dnfpayload.py:817
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1247,11 +1247,18 @@ msgstr ""
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: pyanaconda/storage_utils.py:345
+#: pyanaconda/storage_utils.py:347
 #, python-format
 msgid ""
 "Encryption requested for LUKS device %s but no encryption key specified for "
 "this device."
+msgstr ""
+
+#: pyanaconda/storage_utils.py:362
+#, python-format
+msgid ""
+"%s is currently mounted and cannot be used for the installation. Please "
+"unmount it and retry."
 msgstr ""
 
 #: pyanaconda/vnc.py:74
@@ -1386,19 +1393,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:758
+#: pyanaconda/packaging/dnfpayload.py:764
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:776
+#: pyanaconda/packaging/dnfpayload.py:782
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:789
+#: pyanaconda/packaging/dnfpayload.py:795
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:802
+#: pyanaconda/packaging/dnfpayload.py:808
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -2065,8 +2072,8 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:113
 #: pyanaconda/ui/tui/spokes/software.py:125
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:558
-#: pyanaconda/ui/gui/spokes/software.py:307
-#: pyanaconda/ui/gui/spokes/software.py:312
+#: pyanaconda/ui/gui/spokes/software.py:310
+#: pyanaconda/ui/gui/spokes/software.py:315
 #: pyanaconda/ui/gui/spokes/source.py:602
 msgid "Nothing selected"
 msgstr ""
@@ -2136,22 +2143,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:111
-#: pyanaconda/ui/gui/spokes/software.py:288
+#: pyanaconda/ui/gui/spokes/software.py:291
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:115
-#: pyanaconda/ui/gui/spokes/software.py:291
+#: pyanaconda/ui/gui/spokes/software.py:294
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:117
-#: pyanaconda/ui/gui/spokes/software.py:294
+#: pyanaconda/ui/gui/spokes/software.py:297
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:124
-#: pyanaconda/ui/gui/spokes/software.py:301
+#: pyanaconda/ui/gui/spokes/software.py:304
 msgid "Custom software selected"
 msgstr ""
 
@@ -2828,46 +2835,46 @@ msgctxt "GUI|Spoke"
 msgid "_SOFTWARE SELECTION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:214
+#: pyanaconda/ui/gui/spokes/software.py:217
 #: pyanaconda/ui/gui/spokes/source.py:582
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:219
+#: pyanaconda/ui/gui/spokes/software.py:222
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:304
+#: pyanaconda/ui/gui/spokes/software.py:307
 msgid "Invalid environment specified in kickstart"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:317
+#: pyanaconda/ui/gui/spokes/software.py:320
 msgid "Selected environment is not valid"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:472
+#: pyanaconda/ui/gui/spokes/software.py:475
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:579
+#: pyanaconda/ui/gui/spokes/software.py:582
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:584
+#: pyanaconda/ui/gui/spokes/software.py:587
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:585
+#: pyanaconda/ui/gui/spokes/software.py:588
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:586
+#: pyanaconda/ui/gui/spokes/software.py:589
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
