@@ -35,14 +35,14 @@ while read dd; do
             info "Fetching RPM driverdisks from $dd directory"
 
             # Following variables are set by nfs_to_var:
-            local nfs="" server="" path="" options=""
+            local nfs="" server="" path="" options="" mntdir=""
             nfs_to_var "$dd"
 
             # Obtain mount directory and mount it
             # (new unique name is generated if not already mounted)
             mntdir=$(nfs_already_mounted "$server" "$path")
             if [ -z "$mntdir" ]; then
-                local mntdir="$(mkuniqdir /run nfs_mnt)"
+                mntdir="$(mkuniqdir /run nfs_mnt)"
                 mount_nfs "$nfs:$server:$path$(options:+:$options)" "$mntdir"
             fi
 
