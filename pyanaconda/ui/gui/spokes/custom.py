@@ -1552,7 +1552,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._setup_fstype_combo(device)
 
         # Set up the device type combo.
+        orig_device_type = self._get_current_device_type()
         device_type = self._setup_device_type_combo(device, device_name)
+
+        # If the device type did not change, run the signal handler anyway
+        # to update widgets for the new device
+        if orig_device_type == device_type:
+            self.on_device_type_changed(self._typeCombo)
 
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
                                            device_type != DEVICE_TYPE_BTRFS)
@@ -1586,7 +1592,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._populate_raid(get_raid_level(device))
         self._populate_container(device=use_dev)
-        # do this last in case this was set sensitive in on_device_type_changed
+
+        # do this last to override the decision made by on_device_type_changed if necessary
         if use_dev.exists or use_dev.type == "btrfs volume":
             fancy_set_sensitive(self._nameEntry, False)
 
