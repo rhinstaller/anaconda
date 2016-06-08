@@ -612,7 +612,7 @@ class FilterSpoke(NormalSpoke):
         # Include any disks selected in the initial storage spoke, plus any
         # selected in this filter UI.
         disks = [disk for disk in self.disks if disk.name in self.selected_disks]
-        free_space = self.storage.getFreeSpace(disks=disks)
+        free_space = self.storage.get_free_space(disks=disks)
 
         with self.main_window.enlightbox(dialog.window):
             dialog.refresh(disks, free_space, showRemove=False, setBoot=False)

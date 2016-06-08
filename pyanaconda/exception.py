@@ -274,7 +274,7 @@ def initExceptionHandling(anaconda):
                                 "_intf._currentAction._spokes[\"UserSpoke\"]._oldweak",
                                 "_intf.storage.bootloader.password",
                                 "_intf.storage.data",
-                                "_intf.storage.encryptionPassphrase",
+                                "_intf.storage.encryption_passphrase",
                                 "_bootloader.encrypted_password",
                                 "_bootloader.password",
                                 "payload._groups"],
