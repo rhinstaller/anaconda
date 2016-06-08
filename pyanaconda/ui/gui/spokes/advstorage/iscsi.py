@@ -34,6 +34,8 @@ from pyanaconda import nm
 from pyanaconda.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 from pyanaconda.network import check_ip_address
 
+from blivet.iscsi import iscsi
+
 __all__ = ["ISCSIDialog"]
 
 STYLE_NONE = 0
@@ -121,7 +123,7 @@ class ISCSIDialog(GUIObject):
     def __init__(self, data, storage):
         GUIObject.__init__(self, data)
         self.storage = storage
-        self.iscsi = self.storage.iscsi()
+        self.iscsi = iscsi
 
         self._discoveryError = None
         self._loginError = False
