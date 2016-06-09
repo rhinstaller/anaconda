@@ -47,7 +47,7 @@ class TextWidget(base.Widget):
         """
 
         base.Widget.render(self, width)
-        self.write(self._text, width=width)
+        self.write(self._text, width=width, wordwrap=True)
 
 class CenterWidget(base.Widget):
     """Class to handle horizontal centering of content."""
@@ -211,3 +211,28 @@ if __name__ == "__main__":
     c = ColumnWidget([(20, [t1, t2, t3]), (25, [t4, t5]), (15, [t1, t2, t3])], spacing=3)
     c.render(80)
     print(u"\n".join(c.get_lines()))
+
+
+    t6 = TextWidget("The rescue environment will now attempt "
+                    "to find your Linux installation and mount it under "
+                    "the directory : bla.  You can then make any changes "
+                    "required to your system.  Choose '1' to proceed with "
+                    "this step.\nYou can choose to mount your file "
+                    "systems read-only instead of read-write by choosing "
+                    "'2'.\nIf for some reason this process does not work "
+                    "choose '3' to skip directly to a shell.\n\n")
+    print(80*"-")
+    t6.render(80)
+    print(u"\n".join(t6.get_lines()))
+
+    t7 = TextWidget("Wrapping toooooooooooooooooooooooooooooooooooooooooooo"
+                    "oooooooooooooooooooooooooooooooooooooooooooooooooooooo long word.")
+    print(80*"-")
+    t7.render(80)
+    print(u"\n".join(t7.get_lines()))
+
+    t8 = TextWidget("Text that would be wrapped exactly at the screen width should"
+                    " have special test. This one.")
+    print(80*"-")
+    t8.render(80)
+    print(u"\n".join(t8.get_lines()))
