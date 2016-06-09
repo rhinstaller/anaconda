@@ -95,3 +95,41 @@ class RHELAtomicInstallClass(RHELBaseInstallClass):
                     autoreq.fstype = storage.defaultFSType
 
         storage.autoPartitionRequests = autorequests
+
+
+class RHEVInstallClass(RHELBaseInstallClass):
+    name = "Red Hat Enterprise Virtualization"
+    sortPriority = 21000
+    hidden = not productName.startswith(
+        ("RHEV", "Red Hat Enterprise Virtualization")
+    )
+
+    def configure(self, anaconda):
+        RHELBaseInstallClass.configure(self, anaconda)
+
+    def setDefaultPartitioning(self, storage):
+        autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
+                                 size=Size("6GiB"), thin=True,
+                                 grow=True, lv=True),
+                        PartSpec(mountpoint="/var",
+                                 fstype=storage.defaultFSType,
+                                 size=Size("15GiB"), thin=True, lv=True)]
+
+        bootreqs = platform.setDefaultPartitioning()
+        if bootreqs:
+            autorequests.extend(bootreqs)
+
+        disk_space = getAvailableDiskSpace(storage)
+        swp = swap.swapSuggestion(disk_space=disk_space)
+        autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
+                                     lv=True, encrypted=True))
+
+        for autoreq in autorequests:
+            if autoreq.fstype is None:
+                if autoreq.mountpoint == "/boot":
+                    autoreq.fstype = storage.defaultBootFSType
+                    autoreq.size = Size("1GiB")
+                else:
+                    autoreq.fstype = storage.defaultFSType
+
+        storage.autoPartitionRequests = autorequests
