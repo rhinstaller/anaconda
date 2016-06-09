@@ -27,6 +27,7 @@ import Queue
 import getpass
 import threading
 import functools
+from textwrap import wrap
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants, iutil
@@ -766,7 +767,7 @@ class Widget(object):
         else:
             self._cursor = (row + w.height, 0)
 
-    def write(self, text, row = None, col = None, width = None, block = False):
+    def write(self, text, row = None, col = None, width = None, block = False, wordwrap = False):
         """This method emulates typing machine writing to this widget's buffer.
 
            :param text: text to type
@@ -783,6 +784,9 @@ class Widget(object):
 
            :param block: when printing newline, start at column col (True) or at column 0 (False)
            :type block: boolean
+
+           :param wordwrap: wrap by words
+           :type wordwrap: boolean
            """
         if not text:
             return
@@ -805,6 +809,24 @@ class Widget(object):
 
         x = row
         y = col
+
+        if wordwrap:
+            lines = []
+            # Wrap each line separately
+            for line in text.split('\n'):
+                sublines = []
+                for subline in wrap(line, width):
+                    sublines.append(subline)
+                    if len(subline) < width:
+                        # line shorter than width will be wrapped by '\n' we add
+                        sublines.append('\n')
+                    # line with length == width will be wrapped by the width based
+                    # wrapping logic
+                # end of line will be wrapped by '\n' following the line in original text
+                if sublines and sublines[-1] == '\n':
+                    sublines.pop()
+                lines.append("".join(sublines))
+            text = '\n'.join(lines)
 
         # emulate typing machine
         for c in text:
