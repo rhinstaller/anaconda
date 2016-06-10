@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 10 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.77-1
+- Add wordwrap to text mode and use it by default (rvykydal)
+  Resolves: rhbz#1267881
+- Display storage errors that cause no disks to be selected (bcl)
+  Related: rhbz#1340240
+- Overwrite network files when using ks liveimg (bcl)
+  Resolves: rhbz#1342639
+
 * Wed Jun 08 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.76-1
 - Fix a covscan warning about fetch-driver-net (bcl)
   Related: rhbz#1269915
