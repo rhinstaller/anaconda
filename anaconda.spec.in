@@ -325,6 +325,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 10 2016 Brian C. Lane <bcl@redhat.com> - 25.17-1
+- Revert "Temporarily disable translations" (bcl)
+- Change where to look for the iscsi object (#1344131) (dshea)
+- Fix old blivet identifiers (#1343907) (dshea)
+- Fix a covscan warning about fetch-driver-net (#1269915) (bcl)
+- Fix crash when NM get_setting* methods return None (#1273497) (jkonecny)
+- Overwrite network files when using ks liveimg (#1342639) (bcl)
+- Stop using undocumented DNF logging API (bcl)
+- Use the LUKS device for encrypted swap on RAID (dshea)
+- Keep the subdir in driver disk update paths (dshea)
+- Warn about broken keyboard layout switching in VNC (#1274228) (jkonecny)
+- Make the anaconda-generator exit early outside of the installation
+  environment (#1289179) (mkolman)
+
 * Fri Jun 03 2016 Brian C. Lane <bcl@redhat.com> - 25.16-1
 - Add a button to refresh the disk list. (dlehman)
 - Only try to restart payload in the Anaconda environment (mkolman)
