@@ -1658,7 +1658,7 @@ class SshKey(commands.sshkey.F22_SshKey):
         for usr in self.sshUserList:
             users.setUserSshKey(usr.username, usr.key)
 
-class Timezone(commands.timezone.F18_Timezone):
+class Timezone(commands.timezone.RHEL7_Timezone):
     def __init__(self, *args):
         commands.timezone.F18_Timezone.__init__(self, *args)
 
