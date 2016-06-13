@@ -323,8 +323,6 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
 
     exns += verify_LUKS_devices_have_key(storage)
 
-    exns += check_mounted_partitions(storage)
-
     return exns
 
 
@@ -345,22 +343,6 @@ def verify_LUKS_devices_have_key(storage):
        not d.format.exists and \
        not d.format.hasKey):
         yield LUKSDeviceWithoutKeyError(_("Encryption requested for LUKS device %s but no encryption key specified for this device.") % (dev.name,))
-
-
-def check_mounted_partitions(storage):
-    """ Check the selected disks to make sure all their partitions are unmounted.
-
-        :rtype: generator of str
-        :returns: a generator of error messages, may yield no error messages
-    """
-    for disk in storage.disks:
-        if not disk.format:
-            continue
-
-        for part in disk.format.partitions:
-            if part.busy:
-                yield SanityError(_("%s is currently mounted and cannot be used for the "
-                                    "installation. Please unmount it and retry.") % part.path)
 
 
 def bound_size(size, device, old_size):
