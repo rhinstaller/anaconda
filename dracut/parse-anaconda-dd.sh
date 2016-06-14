@@ -15,8 +15,8 @@ for dd in $(getargs dd= inst.dd=); do
     case "$dd" in
         # plain 'dd'/'inst.dd': Engage interactive mode!
         dd|inst.dd) echo menu > /tmp/dd_interactive ;;
-        # network URLs: add to dd_net
-        http:*|https:*|ftp:*|nfs:*|nfs4:*) echo $dd >> /tmp/dd_net ;;
+        # network URLs: require net, add to dd_net
+        http:*|https:*|ftp:*|nfs:*|nfs4:*) set_neednet; echo $dd >> /tmp/dd_net ;;
         # disks: strip "cdrom:" or "hd:" and add to dd_disk
         cdrom:*|hd:*) echo ${dd#*:} >> /tmp/dd_disk ;;
         # images crammed into initrd: strip "file:" or "path:"
