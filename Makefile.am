@@ -132,7 +132,8 @@ install-buildrequires:
 	if ! [[ $$(uname -m) =~ s390x? ]]; then \
 		pkglist=$$(echo "$$pkglist" | grep -v s390utils) ; \
 	fi ; \
-	dnf install $$pkglist gettext-devel libtool
+	extra_pkgs="gettext-devel libtool glibc-langpack-en python3-pocketlint" \
+	dnf install $$pkglist $$extra_pkgs
 
 # Install all packages specified as Requires in the Anaconda specfile
 # -> installs packages needed to run Anaconda and the Anaconda unit tests
