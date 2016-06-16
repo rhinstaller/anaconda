@@ -817,8 +817,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # We default to the mirror list, and then if the method tells us
         # something different later, we can change it.
         self._protocolComboBox.set_active_id(PROTOCOL_MIRROR)
-        self._urlEntry.set_sensitive(False)
-        self._updateURLEntryCheck()
 
         if self.data.method.method == "url":
             self._networkButton.set_active(True)
@@ -837,7 +835,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._protocolComboBox.set_active_id(PROTOCOL_HTTP)
                 l = 0
 
-            self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
             self._updateURLEntryCheck()
             self._mirrorlistCheckbox.set_active(bool(self.data.method.mirrorlist))
@@ -847,12 +844,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._protocolComboBox.set_active_id(PROTOCOL_NFS)
 
             self._urlEntry.set_text("%s:%s" % (self.data.method.server, self.data.method.dir))
-            self._urlEntry.set_sensitive(True)
             self._updateURLEntryCheck()
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
         elif self.data.method.method == "harddrive":
             self._isoButton.set_active(True)
-            self._isoBox.set_sensitive(True)
             self._verifyIsoButton.set_sensitive(True)
 
             if self._currentIsoFile:
@@ -877,20 +872,34 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Setup the addon repos
         self._reset_repoStore()
 
+        # Some widgets get enabled/disabled/greyed out depending on
+        # how others are set up.  We can use the signal handlers to handle
+        # that condition here too. Start at the innermost pieces and work
+        # outwards
+
+        # First check the protocol combo in the network box
+        self.on_protocol_changed(self._protocolComboBox)
+
+        # Then simulate changes for the radio buttons, which may override the
+        # sensitivities set for the network box.
+        #
+        # Whichever radio button is selected should have gotten a signal
+        # already, but the ones that are not selected need a signal in order
+        # to disable the related box.
+        self.on_source_toggled(self._autodetectButton, self._autodetectBox)
+        self.on_source_toggled(self._isoButton, self._isoBox)
+        self.on_source_toggled(self._networkButton, self._networkBox)
+
+        # Lastly, if the stage2 image is mounted from an HDISO source, there's
+        # really no way we can tear down that source to allow the user to
+        # change it.  Thus, this entire portion of the spoke should be
+        # insensitive.
         if self.data.method.method == "harddrive" and \
            get_mount_device(constants.DRACUT_ISODIR) == get_mount_device(constants.DRACUT_REPODIR):
-            # If the stage2 image is mounted from an HDISO source, there's really
-            # no way we can tear down that source to allow the user to change it.
-            # Thus, this portion of the spoke should be insensitive.
             for widget in [self._autodetectButton, self._autodetectBox, self._isoButton,
                            self._isoBox, self._networkButton, self._networkBox]:
                 widget.set_sensitive(False)
                 widget.set_tooltip_text(_("The installation source is in use by the installer and cannot be changed."))
-        else:
-            # Then, some widgets get enabled/disabled/greyed out depending on
-            # how others are set up.  We can use the signal handlers to handle
-            # that condition here too.
-            self.on_protocol_changed(self._protocolComboBox)
 
         if not nm.nm_is_connected():
             self._networkButton.set_sensitive(False)
@@ -905,6 +914,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             # network button could be deativated from last visit
             self._networkButton.set_sensitive(True)
+
+        # Update the URL entry validation now that we're done messing with sensitivites
+        self._updateURLEntryCheck()
 
     def _setup_no_updates(self):
         """ Setup the state of the No Updates checkbox.
