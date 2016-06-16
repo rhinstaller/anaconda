@@ -405,6 +405,29 @@ class DNFPayload(packaging.PackagePayload):
             self.txID += 1
         return self.txID
 
+
+    def _configure_proxy(self):
+        """ Configure the proxy on the dnf.Base object."""
+        conf = self._base.conf
+
+        if hasattr(self.data.method, "proxy") and self.data.method.proxy:
+            try:
+                proxy = ProxyString(self.data.method.proxy)
+                conf.proxy = proxy.noauth_url
+                if proxy.username:
+                    conf.proxy_username = proxy.username
+                if proxy.password:
+                    conf.proxy_password = proxy.password
+                log.info("Using %s as proxy", self.data.method.proxy)
+            except ProxyStringError as e:
+                log.error("Failed to parse proxy for dnf configure %s: %s",
+                          self.data.method.proxy, e)
+        else:
+            # No proxy configured
+            conf.proxy = None
+            conf.proxy_username = None
+            conf.proxy_password = None
+
     def _configure(self):
         self._base = dnf.Base()
         conf = self._base.conf
@@ -423,18 +446,7 @@ class DNFPayload(packaging.PackagePayload):
         if self.data.packages.multiLib:
             conf.multilib_policy = "all"
 
-        if hasattr(self.data.method, "proxy") and self.data.method.proxy:
-            try:
-                proxy = ProxyString(self.data.method.proxy)
-                conf.proxy = proxy.noauth_url
-                if proxy.username:
-                    conf.proxy_username = proxy.username
-                if proxy.password:
-                    conf.proxy_password = proxy.password
-                log.info("Using %s as proxy", self.data.method.proxy)
-            except ProxyStringError as e:
-                log.error("Failed to parse proxy for dnf configure %s: %s",
-                          self.data.method.proxy, e)
+        self._configure_proxy()
 
         # Start with an empty comps so we can go ahead and use the environment
         # and group properties. Unset reposdir to ensure dnf has nothing it can
@@ -863,6 +875,7 @@ class DNFPayload(packaging.PackagePayload):
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self.txID = None
         self._base.reset(sack=True, repos=True)
+        self._configure_proxy()
 
     def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
