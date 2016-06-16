@@ -169,7 +169,7 @@ class ISCSIDialog(GUIObject):
         self._storeFilter.set_visible_column(1)
 
         self._initiatorEntry.set_text(self.iscsi.initiator)
-        self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
+        self._initiatorEntry.set_sensitive(not self.iscsi.initiator_set)
 
     @property
     def selectedNames(self):
@@ -199,7 +199,7 @@ class ISCSIDialog(GUIObject):
         # This needs to be in its own thread, not marked with gtk_action_* because it's
         # called from on_start_clicked, which is in the GTK main loop.  Those decorators
         # won't do anything special in that case.
-        if not self.iscsi.initiatorSet:
+        if not self.iscsi.initiator_set:
             self.iscsi.initiator = credentials.initiator
 
         # interfaces created here affect nodes that iscsi.discover would return
@@ -261,7 +261,7 @@ class ISCSIDialog(GUIObject):
     def _set_configure_sensitive(self, sensitivity):
         for child in self._configureGrid.get_children():
             if child == self._initiatorEntry:
-                self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
+                self._initiatorEntry.set_sensitive(not self.iscsi.initiator_set)
             elif child == self._bindCheckbox:
                 self._bindCheckbox.set_sensitive(sensitivity and self.iscsi.mode == "none")
             elif child != self._conditionNotebook:
