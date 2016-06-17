@@ -324,6 +324,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 17 2016 Brian C. Lane <bcl@redhat.com> - 25.18-1
+- Only use <> for markup (#1317297) (bcl)
+- Update iscsi dialog for Blivet 2.0 API change (bcl)
+- Use the signal handlers to set initial widget sensitivies (dshea)
+- Fix bad sensitivity on boxes in source spoke (jkonecny)
+- Fix install-buildrequires (bcl)
+- Added optional [/prefix] as pattern (kvalek)
+- Require network for network-based driver disks (dshea)
+- Add missing pkgs to install-buildrequires (#612) (phil)
+- Increase the required version of gettext (dshea)
+- Fix the name sensitivity in the custom spoke. (dshea)
+
 * Fri Jun 10 2016 Brian C. Lane <bcl@redhat.com> - 25.17-1
 - Revert "Temporarily disable translations" (bcl)
 - Change where to look for the iscsi object (#1344131) (dshea)
