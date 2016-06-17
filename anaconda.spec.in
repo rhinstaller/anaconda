@@ -318,6 +318,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 17 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.78-1
+- Use the RHEL 7 timezone kickstart command version (mkolman)
+  Resolves: rhbz#1312135
+- Use the signal handlers to set initial widget sensitivies (dshea)
+  Resolves: rhbz#1259742
+- Fix the name sensitivity in the custom spoke. (dshea)
+  Resolves: rhbz#1316269
+- Require network for network-based driver disks (dshea)
+  Resolves: rhbz#1261024
+
 * Fri Jun 10 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.77-1
 - Add wordwrap to text mode and use it by default (rvykydal)
   Resolves: rhbz#1267881

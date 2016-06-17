@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.76\n"
+"Project-Id-Version: anaconda 21.48.22.77\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-06-10 16:50-0700\n"
+"POT-Creation-Date: 2016-06-17 16:56-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1976,7 +1976,7 @@ msgid "Processing..."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:148
-#: pyanaconda/ui/gui/spokes/source.py:875
+#: pyanaconda/ui/gui/spokes/source.py:887
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
@@ -2333,97 +2333,97 @@ msgstr[1] ""
 msgid "The container is encrypted."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1483
+#: pyanaconda/ui/gui/spokes/custom.py:1489
 msgid ""
 "The space available to this mount point can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1485
+#: pyanaconda/ui/gui/spokes/custom.py:1491
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1539
+#: pyanaconda/ui/gui/spokes/custom.py:1546
 msgid ""
 "Error checking storage configuration.  <a href=\"\">Click for details</a> or "
 "press Done again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1541
+#: pyanaconda/ui/gui/spokes/custom.py:1548
 msgid ""
 "Warning checking storage configuration.  <a href=\"\">Click for details</a> "
 "or press Done again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1649
+#: pyanaconda/ui/gui/spokes/custom.py:1656
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1660
+#: pyanaconda/ui/gui/spokes/custom.py:1667
 msgid "Failed to add new device. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1665
+#: pyanaconda/ui/gui/spokes/custom.py:1672
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1776
+#: pyanaconda/ui/gui/spokes/custom.py:1783
 msgid "Device removal request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2007
+#: pyanaconda/ui/gui/spokes/custom.py:2014
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2037
+#: pyanaconda/ui/gui/spokes/custom.py:2044
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2184
+#: pyanaconda/ui/gui/spokes/custom.py:2191
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2190
+#: pyanaconda/ui/gui/spokes/custom.py:2197
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2271
+#: pyanaconda/ui/gui/spokes/custom.py:2278
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2276
+#: pyanaconda/ui/gui/spokes/custom.py:2283
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2281
-#: pyanaconda/ui/gui/spokes/custom.py:2306
+#: pyanaconda/ui/gui/spokes/custom.py:2288
+#: pyanaconda/ui/gui/spokes/custom.py:2313
 msgid "Automatic partitioning failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2520
+#: pyanaconda/ui/gui/spokes/custom.py:2527
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2528
+#: pyanaconda/ui/gui/spokes/custom.py:2535
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2528
+#: pyanaconda/ui/gui/spokes/custom.py:2535
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2603
+#: pyanaconda/ui/gui/spokes/custom.py:2610
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
@@ -2816,47 +2816,47 @@ msgstr ""
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:887
+#: pyanaconda/ui/gui/spokes/source.py:894
 msgid "You need to configure the network to use a network installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:946
+#: pyanaconda/ui/gui/spokes/source.py:956
 msgid "URL is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:950
+#: pyanaconda/ui/gui/spokes/source.py:960
 msgid "Invalid URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:967
+#: pyanaconda/ui/gui/spokes/source.py:977
 msgid "Protocol in URL does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:970
+#: pyanaconda/ui/gui/spokes/source.py:980
 msgid "NFS server is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:977
+#: pyanaconda/ui/gui/spokes/source.py:987
 msgid "Invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:980
+#: pyanaconda/ui/gui/spokes/source.py:990
 msgid "Remote directory is required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1001
+#: pyanaconda/ui/gui/spokes/source.py:1011
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1008
+#: pyanaconda/ui/gui/spokes/source.py:1018
 msgid "Empty repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1011
+#: pyanaconda/ui/gui/spokes/source.py:1021
 msgid "Invalid repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1017
+#: pyanaconda/ui/gui/spokes/source.py:1027
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
