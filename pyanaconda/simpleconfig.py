@@ -76,7 +76,7 @@ def write_tmpfile(filename, data):
         m = os.stat(filename).st_mode
     else:
         m = 0o0644
-    os.chmod(filename, m)
+    os.chmod(tmpf.name, m)
 
     # Move the temporary file over the top of the original
     os.rename(tmpf.name, filename)

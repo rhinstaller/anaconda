@@ -19,6 +19,7 @@
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.simpleconfig import simple_replace
 from pyanaconda import simpleconfig
+import os
 import unittest
 import tempfile
 
@@ -98,6 +99,23 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.write(testconfig.name)
             testconfig.flush()
             self.assertEqual(open(testconfig.name).read(), self.TEST_CONFIG)
+
+    def read_write__perms_test(self):
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
+            testconfig.write(self.TEST_CONFIG)
+            testconfig.flush()
+
+            # Change original file's permissions
+            os.chmod(testconfig.name, 0o0764)
+
+            scf = SimpleConfigFile()
+            scf.read(testconfig.name)
+            scf.write(testconfig.name)
+            testconfig.flush()
+
+            # Write uses a tmpfile and renames it in place
+            # Make sure the permissions are still 0764
+            self.assertEqual(os.stat(testconfig.name).st_mode, 0o100764)
 
     def write_new_keys_test(self):
         with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
