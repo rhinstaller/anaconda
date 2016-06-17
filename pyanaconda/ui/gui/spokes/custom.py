@@ -397,6 +397,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._updateSpaceDisplay()
         self._applyButton.set_sensitive(False)
 
+    def _get_container_names(self):
+        for data in self._containerStore:
+            yield data[0]
+
     @property
     def _current_page(self):
         # The current page is really a function of the current selector.
@@ -1947,7 +1951,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         disks = dialog.selected
         log.debug("new disks for %s: %s", device.name, [d.name for d in disks])
         if not disks:
-            self._error = "No disks selected. Keeping previous disk set."
+            self._error = _("No disks selected. Keeping previous disk set.")
             self.set_info(self._error)
             return
 
@@ -1967,7 +1971,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif old_encrypted and not new_encrypted:
             fancy_set_sensitive(self._encryptCheckbox, True)
 
-    def run_container_editor(self, container=None, name=None):
+    def run_container_editor(self, container=None, name=None, new_container=False):
         """ Run container edit dialog and return True if changes were made. """
         size = Size(0)
         size_policy = self._device_container_size
@@ -2005,18 +2009,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         name = dialog.name
         log.debug("new disks for %s: %s", name, [d.name for d in disks])
         if not disks:
-            self._error = "No disks selected. Not saving changes."
+            self._error = _("No disks selected. Not saving changes.")
             self.set_info(self._error)
+            log.error("No disks selected. Not saving changes.")
             return
 
         log.debug("new container name: %s", name)
-        if name != container_name and name in self._storage_playground.names:
+        if (name != container_name and name in self._storage_playground.names or
+            name in self._get_container_names() and new_container):
             self._error = _("Volume Group name %s is already in use. Not "
                             "saving changes.") % name
             self.set_info(self._error)
+            log.error("Volume group name %s already in use.", name)
             return
 
-        if (set(disks) != set(self._device_disks) or
+        if (new_container or
+            set(disks) != set(self._device_disks) or
             name != container_name or
             dialog.raid_level != self._device_container_raid_level or
             dialog.encrypted != self._device_container_encrypted or
@@ -2122,7 +2130,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 hostname = network.current_hostname()
             name = self._storage_playground.suggestContainerName(hostname=hostname)
             # user_changed_container flips to False if "cancel" picked
-            user_changed_container = self.run_container_editor(name=name)
+            user_changed_container = self.run_container_editor(name=name, new_container=True)
             for idx, data in enumerate(self._containerStore):
                 if user_changed_container and data[0] == new_text:
                     c = self._storage_playground.devicetree.getDeviceByName(self._device_container_name)
