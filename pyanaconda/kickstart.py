@@ -1660,7 +1660,7 @@ class SshKey(commands.sshkey.F22_SshKey):
 
 class Timezone(commands.timezone.RHEL7_Timezone):
     def __init__(self, *args):
-        commands.timezone.F18_Timezone.__init__(self, *args)
+        commands.timezone.RHEL7_Timezone.__init__(self, *args)
 
         self._added_chrony = False
         self._enabled_chrony = False
