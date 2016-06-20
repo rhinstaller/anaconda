@@ -1170,7 +1170,8 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     overwrite = flags.livecdInstall or ksdata.method.method == "liveimg"
 
     write_hostname(rootpath, ksdata, overwrite=overwrite)
-    set_hostname(ksdata.network.hostname)
+    if ksdata.network.hostname != DEFAULT_HOSTNAME:
+        set_hostname(ksdata.network.hostname)
     write_sysconfig_network(rootpath, overwrite=overwrite)
     disableIPV6(rootpath)
     copyIfcfgFiles(rootpath)
