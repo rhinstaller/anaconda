@@ -87,6 +87,9 @@ IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:' + \
                                r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,6}(?:[0-9a-fA-F]{1,4}))?::)' + \
                                r')'
 
+# IPv4 dotted-quad netmask validation
+IPV4_NETMASK_WITHOUT_ANCHORS = r'((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(((0|128|192|224|240|248|252|254)\.0\.0)|(255\.(((0|128|192|224|240|248|252|254)\.0)|255\.(0|128|192|224|240|248|252|254)))))'
+
 # Hostname validation
 # A hostname consists of sections separated by periods. Each of these sections
 # must be between 1 and 63 characters, contain only alphanumeric characters or
