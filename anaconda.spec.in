@@ -318,6 +318,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 24 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.79-1
+- Fix adding new VG in Custom spoke can't be applied (jkonecny)
+  Resolves: rhbz#1263715
+- Fix pylint errors in Timezone. (dshea)
+  Related: rhbz#1312135
+- hostname: don't set installer env hostname to localhost.localdomain
+  (rvykydal)
+  Related: rhbz#1290858
+- Add the nosave option to the boot option docs file (mkolman)
+  Related: rhbz#1285519
+
 * Fri Jun 17 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.78-1
 - Use the RHEL 7 timezone kickstart command version (mkolman)
   Resolves: rhbz#1312135
