@@ -324,6 +324,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 24 2016 Brian C. Lane <bcl@redhat.com> - 25.19-1
+- hostname: don't set installer env hostname to localhost.localdomain
+  (#1290858) (rvykydal)
+- hostname: add tooltip to Apply button (#1290858) (rvykydal)
+- hostname: fix accelerator collision (#1290858) (rvykydal)
+- hostname: don't set hostname in initrafms of target system (#1290858)
+  (rvykydal)
+- hostname: set current hostname from target system hostname on demand
+  (#1290858) (rvykydal)
+- hostname: suggest current hostname for storage containers (#1290858)
+  (rvykydal)
+- hostname: don't set target system static hostname to current hostname
+  (#1290858) (rvykydal)
+- network tui: do not activate device when setting its onboot value (#1261864)
+  (rvykydal)
+- network tui: edit persistent configuration, not active connection (#1261864)
+  (rvykydal)
+- network: validate netmask in tui (#1331054) (rvykydal)
+- Add wordwrap to text mode and use it by default (#1267881) (rvykydal)
+- Fix adding new VG in Custom spoke can't be applied (#1263715) (jkonecny)
+- Fix SimpleConfigFile file permissions (#1346364) (bcl)
+- Re-configure proxy when updateBaseRepo is called (#1332472) (bcl)
+
 * Fri Jun 17 2016 Brian C. Lane <bcl@redhat.com> - 25.18-1
 - Only use <> for markup (#1317297) (bcl)
 - Update iscsi dialog for Blivet 2.0 API change (bcl)
