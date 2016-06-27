@@ -27,8 +27,9 @@ import pwquality
 from pyanaconda.iutil import strip_accents
 from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
-from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
+from pyanaconda.regexes import GROUPLIST_FANCY_PARSE, USERNAME_VALID, PORTABLE_FS_CHARS
 import crypt
+from pyanaconda.i18n import _
 import re
 
 import logging
@@ -121,19 +122,28 @@ def validatePassword(pw, user="root", settings=None, minlen=None):
 
     return (valid, strength, message)
 
-def check_name(in_name):
-    in_name = in_name.replace(" ", "")
-    ign_cond = {r"^[\d]": "User name cannot start with a digit: ",
-                r"[^-_A-Za-z0-9]": "User name cannot contain any non-alphanumerical character: "}
+def check_name(name):
+    if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
+        return (False, _("User name is reserved for system: %s") % name)
 
-    for sys_name in os.listdir("/") + ["root", "home", "daemon", "system"]:
-        if in_name in sys_name:
-            return (False, "Username is reserved for system: %s" % sys_name)
+    if name.startswith("-"):
+        return (False, _("User name can't start with '-' character"))
 
-    for cond in ign_cond:
-        match = re.search(cond, in_name)
-        if match:
-            return (False, ign_cond[cond] + "'%s'" % match.group())
+    # Final '$' allowed for Samba
+    if name.endswith("$"):
+        sname = name[:-1]
+    else:
+        sname = name
+    match = re.search(r'[^' + PORTABLE_FS_CHARS + r']', sname)
+    if match:
+        return (False, _("User name cannot contain character: '%s'") % match.group())
+
+    if len(name) > 32:
+        return (False, _("User name must be shorter than 33 characters"))
+
+    # Check also with THE regexp to be sure
+    if not USERNAME_VALID.match(name):
+        return (False, None)
 
     return (True, None)
 

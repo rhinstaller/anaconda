@@ -21,12 +21,12 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.users import guess_username
+from pyanaconda.users import guess_username, check_name
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
-from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPLIST_SIMPLE_VALID
+from pyanaconda.regexes import GECOS_VALID, GROUPLIST_SIMPLE_VALID
 
 __all__ = ["UserSpoke"]
 
@@ -41,7 +41,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     edit_fields = [
         Entry("Create user", "_create", EditTUISpoke.CHECK, True),
         Entry("Fullname", "gecos", GECOS_VALID, lambda self, args: args._create),
-        Entry("Username", "name", USERNAME_VALID, lambda self, args: args._create),
+        Entry("Username", "name", check_name, lambda self, args: args._create),
         Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self, args: args._create),
         Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self, args: args._use_password and args._create),
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self, args: args._create),
@@ -68,10 +68,6 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def __init__(self, app, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass, "user")
-        self.dialog.wrong_input_message = _("You have provided an invalid user name.\n"
-                                            "Tip: Keep your user name shorter than 32 "
-                                            "characters and do not use spaces.\n")
-
         if self.data.user.userList:
             self.args = self.data.user.userList[0]
             self.args._create = True
@@ -131,11 +127,31 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         else:
             return _("User %s will be created") % self.data.user.userList[0].name
 
+    def input(self, args, key):
+        self.dialog.wrong_input_message = None
+        try:
+            field = self.visible_fields[int(key)-1]
+        except (ValueError, IndexError):
+            pass
+        else:
+            if field.attribute == "gecos":
+                self.dialog.wrong_input_message = _("Full name can't contain the ':' character")
+            elif field.attribute == "name":
+                # more granular message is returned by check_name
+                pass
+            elif field.attribute == "_groups":
+                self.dialog.wrong_input_message = _("Either a group name in the group list is invalid or groups are not separated by a comma")
+
+
+        return EditTUISpoke.input(self, args, key)
+
     def apply(self):
         if self.args.gecos and not self.args.name:
             username = guess_username(self.args.gecos)
-            if not USERNAME_VALID.match(username):
-                self.errors.append(_("Invalid user name: %s.\n") % username)
+            valid, msg = check_name(username)
+            if not valid:
+                self.errors.append(_("Invalid user name: %(user_name)s.\n%(error_message)s")
+                        % {"user_name": username, "error_message": msg})
             else:
                 self.args.name = guess_username(self.args.gecos)
 

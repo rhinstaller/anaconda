@@ -42,7 +42,8 @@ GECOS_VALID = re.compile(r'^[^:]*$')
 # a base expression without anchors, helpful for building other expressions
 # If the string is the right length to match "root", use a lookback expression
 # to make sure it isn't.
-_USERNAME_BASE = r'[a-zA-Z0-9._](([a-zA-Z0-9._-]{0,2})|([a-zA-Z0-9._-]{3}(?<!root))|([a-zA-Z0-9._-]{4,31})|([a-zA-Z0-9._-]{,30}\$))'
+PORTABLE_FS_CHARS = r'a-zA-Z0-9._-'
+_USERNAME_BASE = r'[a-zA-Z0-9._](([' + PORTABLE_FS_CHARS + r']{0,2})|([' + PORTABLE_FS_CHARS + r']{3}(?<!root))|([' + PORTABLE_FS_CHARS + r']{4,31})|([' + PORTABLE_FS_CHARS + r']{,30}\$))'
 
 USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
 GROUPNAME_VALID = USERNAME_VALID
