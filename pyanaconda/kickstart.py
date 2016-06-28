@@ -21,7 +21,7 @@
 from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
-from blivet.devices.lvm import LVMCacheRequest
+from blivet.devices.lvm import LVMCacheRequest, LVMThinLogicalVolumeDevice, LVMThinSnapShotDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs import swap as swap_lib
@@ -63,13 +63,12 @@ from pyanaconda.ui.common import collect
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
-from pyanaconda.storage_utils import device_matches
+from pyanaconda.storage_utils import device_matches, try_populate_devicetree
 from pyanaconda import screen_access
-
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
 from pykickstart.base import BaseHandler
-from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
@@ -1915,6 +1914,68 @@ class SkipX(commands.skipx.FC3_SkipX):
             desktop.runlevel = 3
             desktop.write()
 
+class Snapshot(commands.snapshot.RHEL7_Snapshot):
+    def setup(self, storage, ksdata, instClass):
+        """ Prepare the snapshot.
+
+            This will also do the checking of snapshot validity.
+        """
+        for snap_data in self.dataList():
+            snap_data.setup(storage, ksdata, instClass)
+
+    def execute(self, storage, ksdata, instClass):
+        """ Create ThinLV snapshot.
+
+            Blivet must be reset before creation of the snapshot. This is
+            required because the storage could be changed in post section.
+        """
+        try_populate_devicetree(storage.devicetree)
+        for snap_data in self.dataList():
+            snap_data.execute(storage, ksdata, instClass)
+
+class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
+    def __init__(self, *args, **kwargs):
+        commands.snapshot.RHEL7_SnapshotData.__init__(self, *args, **kwargs)
+        self.thin_snapshot = None
+
+    def setup(self, storage, ksdata, instClass):
+        """ Add ThinLV snapshot to Blivet model but do not create it.
+
+            This will plan snapshot creation on the end of the installation. This way
+            Blivet will do a validity checking for future snapshot.
+        """
+        log.debug("Snapshot name %s setup", self.name)
+        if not self.origin.count('/') == 1:
+            raise KickstartParseError(
+                        formatErrorMsg(self.lineno,
+                                       msg=_("Incorrectly specified origin of the snapshot."
+                                             " Use format \"VolGroup/LV_name\"")))
+        # modify the origin name to the proper DM naming
+        origin = self.origin.replace('-','--').replace('/','-')
+        origin_dev = storage.devicetree.getDeviceByName(origin)
+
+        if not isinstance(origin_dev, LVMThinLogicalVolumeDevice):
+            raise KickstartParseError(
+                        formatErrorMsg(self.lineno,
+                                       msg=(_("Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\""
+                                              " is not a valid thin LV device.") %
+                                            {"origin": self.origin,
+                                             "name": self.name})))
+
+        self.thin_snapshot = None
+        try:
+            self.thin_snapshot = LVMThinSnapShotDevice(name=self.name,
+                                                       parents=[origin_dev.pool],
+                                                       segType="thin",
+                                                       origin=origin_dev)
+        except ValueError as e:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=e))
+
+    def execute(self, storage, ksdata, instClass):
+        """ Execute an action for snapshot creation. """
+        log.debug("Snapshot name %s execute", self.name)
+        self.thin_snapshot.create()
+
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
@@ -2031,6 +2092,7 @@ commandMap = {
         "services": Services,
         "sshkey": SshKey,
         "skipx": SkipX,
+        "snapshot": Snapshot,
         "timezone": Timezone,
         "upgrade": Upgrade,
         "user": User,
@@ -2045,6 +2107,7 @@ dataMap = {
         "PartData": PartitionData,
         "RaidData": RaidData,
         "RepoData": RepoData,
+        "SnapshotData": SnapshotData,
         "VolGroupData": VolGroupData,
 }
 
@@ -2262,6 +2325,9 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.volgroup.execute(storage, ksdata, instClass)
     ksdata.logvol.execute(storage, ksdata, instClass)
     ksdata.btrfs.execute(storage, ksdata, instClass)
+    # setup snapshot here, that means add it to model and do the tests
+    # snapshot will be created on the end of the installation
+    ksdata.snapshot.setup(storage, ksdata, instClass)
     # also calls ksdata.bootloader.execute
     storage.setUpBootLoader()
 

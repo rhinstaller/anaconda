@@ -28,7 +28,7 @@ from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda import network
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, N_
 from pyanaconda import screen_access
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
@@ -70,6 +70,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # increment the counter as the
     # real joining step will be executed
     if willRunRealmd:
+        step_count += 1
+
+    if ksdata.snapshot:
         step_count += 1
 
     progress_init(step_count)
@@ -130,6 +133,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # write out the user interaction config file
     screen_access.sam.write_out_config_file()
+
+    if ksdata.snapshot:
+        with progress_report(N_("Creating snapshots")):
+            ksdata.snapshot.execute(storage, ksdata, instClass)
 
     progress_complete()
 
