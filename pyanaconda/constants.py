@@ -182,3 +182,8 @@ IPMI_FAILED   = 0xA         # installation hit an exception
 
 # X display number to use
 X_DISPLAY_NUMBER = 1
+
+# NTP server checking
+NTP_SERVER_OK = 0
+NTP_SERVER_NOK = 1
+NTP_SERVER_QUERY = 2
