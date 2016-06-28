@@ -188,3 +188,8 @@ PAYLOAD_STATUS_GROUP_MD = N_("Downloading group metadata...")
 
 # Window title text
 WINDOW_TITLE_TEXT = N_("Anaconda Installer")
+
+# NTP server checking
+NTP_SERVER_OK = 0
+NTP_SERVER_NOK = 1
+NTP_SERVER_QUERY = 2

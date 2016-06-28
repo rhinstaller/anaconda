@@ -58,10 +58,6 @@ import functools
 
 __all__ = ["DatetimeSpoke"]
 
-SERVER_OK = 0
-SERVER_NOK = 1
-SERVER_QUERY = 2
-
 SERVER_HOSTNAME = 0
 SERVER_POOL = 1
 SERVER_WORKING = 2
@@ -173,7 +169,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     @property
     def working_server(self):
         for row in self._serversStore:
-            if row[SERVER_WORKING] == SERVER_OK and row[SERVER_USE]:
+            if row[SERVER_WORKING] == constants.NTP_SERVER_OK and row[SERVER_USE]:
                 #server is checked and working
                 return row[SERVER_HOSTNAME]
 
@@ -195,9 +191,9 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     def _render_working(self, column, renderer, model, itr, user_data=None):
         value = model[itr][SERVER_WORKING]
 
-        if value == SERVER_QUERY:
+        if value == constants.NTP_SERVER_QUERY:
             return "dialog-question"
-        elif value == SERVER_OK:
+        elif value == constants.NTP_SERVER_OK:
             return "emblem-default"
         else:
             return "dialog-error"
@@ -289,8 +285,8 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def _set_server_ok_nok(self, itr, epoch_started):
         """
-        If the server is working, set its data to SERVER_OK, otherwise set its
-        data to SERVER_NOK.
+        If the server is working, set its data to NTP_SERVER_OK, otherwise set its
+        data to NTP_SERVER_NOK.
 
         :param itr: iterator of the $server's row in the self._serversStore
 
@@ -324,17 +320,17 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             if orig_hostname == actual_hostname:
                 if server_working:
                     set_store_value((self._serversStore,
-                                    itr, SERVER_WORKING, SERVER_OK))
+                                    itr, SERVER_WORKING, constants.NTP_SERVER_OK))
                 else:
                     set_store_value((self._serversStore,
-                                    itr, SERVER_WORKING, SERVER_NOK))
+                                    itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
         self._epoch_lock.release()
 
     @gtk_action_nowait
     def _refresh_server_working(self, itr):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 
-        self._serversStore.set_value(itr, SERVER_WORKING, SERVER_QUERY)
+        self._serversStore.set_value(itr, SERVER_WORKING, constants.NTP_SERVER_QUERY)
         threadMgr.add(AnacondaThread(prefix=constants.THREAD_NTP_SERVER_CHECK,
                                      target=self._set_server_ok_nok,
                                      args=(itr, self._epoch)))
@@ -348,7 +344,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         """
 
-        itr = self._serversStore.append([server, pool, SERVER_QUERY, True])
+        itr = self._serversStore.append([server, pool, constants.NTP_SERVER_QUERY, True])
 
         #do not block UI while starting thread (may take some time)
         self._refresh_server_working(itr)
@@ -390,7 +386,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             return
 
         self._serversStore.set_value(itr, SERVER_HOSTNAME, new_text)
-        self._serversStore.set_value(itr, SERVER_WORKING, SERVER_QUERY)
+        self._serversStore.set_value(itr, SERVER_WORKING, constants.NTP_SERVER_QUERY)
 
         self._refresh_server_working(itr)
 
