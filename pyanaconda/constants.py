@@ -108,6 +108,7 @@ THREAD_TIME_INIT = "AnaTimeInitThread"
 THREAD_DASDFMT = "AnaDasdfmtThread"
 THREAD_KEYBOARD_INIT = "AnaKeyboardThread"
 THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
+THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
 
 # Geolocation constants
 
