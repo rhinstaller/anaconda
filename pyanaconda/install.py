@@ -337,6 +337,12 @@ def doInstall(storage, payload, ksdata, instClass):
     post_install.append(Task("Run post-installation setup tasks", payload.postInstall))
     installation_queue.append(post_install)
 
+    # Create snapshot
+    if ksdata.snapshot:
+        snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
+        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, ksdata, instClass)))
+        installation_queue.append(snapshot_creation)
+
     # notify progress tracking about the number of steps
     progress_init(len(installation_queue))
     # log contents of the main task queue
