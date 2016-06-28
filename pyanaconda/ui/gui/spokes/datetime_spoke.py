@@ -315,7 +315,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 
         self._serversStore.set_value(itr, 1, SERVER_QUERY)
-        threadMgr.add(AnacondaThread(prefix="AnaNTPserver",
+        threadMgr.add(AnacondaThread(prefix=constants.THREAD_NTP_SERVER_CHECK,
                                      target=self._set_server_ok_nok,
                                      args=(itr, self._epoch)))
 
