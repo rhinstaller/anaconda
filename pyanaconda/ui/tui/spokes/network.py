@@ -273,37 +273,30 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             self.hostname_dialog.value = hostname
         network.update_hostname_data(self.data, hostname)
 
-class Fake_RE_IPV6(object):
-    def __init__(self, allow_prefix=False, whitelist=None):
-        self.whitelist = whitelist or []
-        self.allow_prefix = allow_prefix
-    def match(self, value):
-        if value in self.whitelist:
-            return True
-        addr, _slash, prefix = value.partition("/")
-        if prefix:
-            if not self.allow_prefix:
-                return False
-            try:
-                if not 1 <= int(prefix) <= 128:
-                    return False
-            except ValueError:
-                return False
-        return network.check_ip_address(addr, version=6)
+def check_ipv6_config(value):
+    if value in ["auto", "dhcp", "ignore"]:
+        return (True, None)
+    addr, _slash, prefix = value.partition("/")
+    if prefix:
+        try:
+            if not 1 <= int(prefix) <= 128:
+                return (False, None)
+        except ValueError:
+            return (False, None)
+    return check_ipv6_address(addr)
 
-class Fake_RE_Nameservers(object):
-    def __init__(self, separator):
-        self._separator = separator
+def check_ipv6_address(value):
+    return (network.check_ip_address(value, version=6), None)
 
-    def match(self, value):
-        addresses = [str.strip(i) for i in value.split(self._separator)]
-        if not addresses:
-            return False
+def check_nameservers(value):
+    addresses = [str.strip(i) for i in value.split(",")]
+    if not addresses:
+        return (False, None)
 
-        for ip in addresses:
-            if not network.check_ip_address(ip):
-                return False
-        return True
+    for ip in addresses:
+        if not network.check_ip_address(ip):
+            return (False, None)
+    return (True, None)
 
 class ConfigureNetworkSpoke(EditTUISpoke):
     """ Spoke to set various configuration options for net devices. """
@@ -317,10 +310,9 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_('IPv6 address[/prefix] or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to turn off')
               % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'}, "ipv6",
-              Fake_RE_IPV6(allow_prefix=True, whitelist=["auto", "dhcp", "ignore"]), True),
-        Entry(N_("IPv6 default gateway"), "ipv6gateway", Fake_RE_IPV6(), True),
-        Entry(N_("Nameservers (comma separated)"), "nameserver",
-              Fake_RE_Nameservers(separator=","), True),
+              check_ipv6_config, True),
+        Entry(N_("IPv6 default gateway"), "ipv6gateway", check_ipv6_address, True),
+        Entry(N_("Nameservers (comma separated)"), "nameserver", check_nameservers, True),
         Entry(N_("Connect automatically after reboot"), "onboot", EditTUISpoke.CHECK, True),
         Entry(N_("Apply configuration in installer"), "_apply", EditTUISpoke.CHECK, True),
     ]
