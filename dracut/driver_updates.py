@@ -343,29 +343,41 @@ def grab_driver_files(outdir="/updates"):
 
     return module_dict
 
-def load_drivers(moddict):
-    """run depmod and try to modprobe all the given module names."""
+def get_all_loaded_modules():
+    """parse /proc/modules for all loaded kernel modules"""
+    all_modules = []
+    with open("/proc/modules", "r") as modules:
+        for line in modules:
+            module_name = line.split(" ")[0]
+            all_modules.append(module_name)
+    return all_modules
 
+def load_drivers(moddict):
+    """load all drivers based on given aliases. In case the drivers are
+    already present in the kernel, replace them with the new ones.
+    """
     # Step 1: try to unload everything that's being replaced
     # Using the current depmod data, resolve all the aliases to a module name,
     # and pass those names to modprobe -r.
     # modprobe can probably handle the aliases themselves, but this reduces this
     # list so we don't have to worry as much about what the maximum command line
     # length is.
+
+    # save snapshot of currently installed modules
+    all_modules_org = get_all_loaded_modules()
     unload_modules = set()
-    for _modname, alias_list in moddict.items():
-        for alias in alias_list:
-            cmd = ["modprobe", "-R", alias]
-            try:
-                out = subprocess.check_output(cmd, stderr=DEVNULL)
-                if out:
-                    unload_modules.update(out.strip().split('\n'))
-            except subprocess.CalledProcessError:
-                pass
+    for modname in moddict.keys():
+        cmd = ["modprobe", "-R", modname]
+        try:
+            out = subprocess.check_output(cmd, stderr=DEVNULL)
+            if out:
+                unload_modules.update(out.strip().split('\n'))
+        except subprocess.CalledProcessError:
+            pass
 
     log.debug("unload drivers: %s", unload_modules)
     if unload_modules:
-        subprocess.call(["modprobe", "-a", "-r"] + list(unload_modules))
+        subprocess.call(["modprobe", "-r"] + list(unload_modules))
 
     # Step 2: Update the depmod data and try to load the new module list
     log.debug("load_drivers: %s", moddict.keys())
@@ -373,6 +385,15 @@ def load_drivers(moddict):
 
     if moddict:
         subprocess.call(["modprobe", "-a"] + list(moddict.keys()))
+
+    # get new snapshot of currently installed modules
+    all_modules_new = get_all_loaded_modules()
+    # compare snapshots and get modules removed from system due to dependencies
+    modules_to_add = set(all_modules_org) - set(all_modules_new)
+
+    # load all modules removed due to dependencies again
+    if modules_to_add:
+        subprocess.call(["modprobe", "-a"] + modules_to_add)
 
 # We *could* pass in "outdir" if we wanted to extract things somewhere else,
 # but right now the only use case is running inside the initramfs, so..
