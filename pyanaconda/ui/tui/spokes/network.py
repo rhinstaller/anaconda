@@ -344,7 +344,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
     def input(self, args, key):
         self.dialog.wrong_input_message = _("Bad format of the IP address")
         try:
-            field = self.edit_fields[int(key)-1]
+            field = self.visible_fields[int(key)-1]
         except (ValueError, IndexError):
             pass
         else:
