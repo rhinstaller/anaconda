@@ -398,7 +398,7 @@ class ExtractDriversTestCase(unittest.TestCase):
 
 class GrabDriverFilesTestCase(FileTestCaseBase):
     def test_basic(self):
-        """grab_driver_files: copy drivers into place, return module list"""
+        """grab_driver_files: copy drivers into place, return module+alias dict"""
         # create a bunch of fake extracted files
         outdir = self.tmpdir + '/extract-outdir'
         moddir = outdir + "/lib/modules/%s/kernel/" % os.uname()[2]
@@ -411,9 +411,11 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
         # use our updates dirs instead of the default updates dirs
         with mock.patch.multiple("driver_updates",
                                  MODULE_UPDATES_DIR=mod_upd_dir,
-                                 FIRMWARE_UPDATES_DIR=fw_upd_dir):
-            modnames = grab_driver_files(outdir)
-        self.assertEqual(set(modnames), set(["funk", "lolfs"]))
+                                 FIRMWARE_UPDATES_DIR=fw_upd_dir,
+                                 list_aliases=lambda _x: []):
+            moddict = grab_driver_files(outdir)
+
+        self.assertEqual(moddict, {"funk": [], "lolfs": []})
         modfiles = set(['net/funk.ko', 'fs/lolfs.ko.xz'])
         fwfiles = set(['funk.fw', 'fs/lolfs.fw'])
         # modules/firmware are *not* in their old locations
@@ -431,10 +433,22 @@ class LoadDriversTestCase(unittest.TestCase):
     def test_basic(self, call):
         """load_drivers: runs depmod and modprobes all named modules"""
         modnames = ['mod1', 'mod2']
-        load_drivers(modnames)
+        load_drivers({name: [name] for name in modnames})
         call.assert_has_calls([
             mock.call(["depmod", "-a"]),
             mock.call(["modprobe", "-a"] + modnames)
+        ])
+
+    @mock.patch("driver_updates.subprocess.call")
+    @mock.patch("driver_updates.subprocess.check_output", return_value="sorbet")
+    def test_basic_replace(self, check_output, call):
+        # "icecream" is the updated driver, replacing "sorbet"
+        # the check_output patch intercepts 'modprobe -R <alias>'
+        load_drivers({"icecream": ['pineapple', 'cherry', 'icecream']})
+        call.assert_call_calls([
+            mock.call(["modprobe", "-a", "-r", "sorbet"]),
+            mock.call(["depmod", "-a"]),
+            mock.call(["modprobe", "-a", "icecream"])
         ])
 
 from driver_updates import process_driver_disk
@@ -458,16 +472,15 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
             __enter__=mock.MagicMock(side_effect=self.fakemount), # mount
             __exit__=mock.MagicMock(return_value=None),           # umount
         )
-        self.modlist = []
+        self.moddict = {}
         # set up our patches
         patches = (
             mock.patch("driver_updates.mounted", return_value=mounted_ctx),
             mock.patch("driver_updates.find_repos", side_effect=self.frepo.get),
             mock.patch("driver_updates.find_isos", side_effect=self.fiso.get),
             mock.patch("driver_updates.extract_drivers", return_value=True),
-            mock.patch("driver_updates.load_drivers"),
             mock.patch('driver_updates.grab_driver_files',
-                                side_effect=lambda: self.modlist),
+                                side_effect=lambda: self.moddict),
         )
         self.mocks = {p.attribute:p.start() for p in patches}
         for p in patches: self.addCleanup(p.stop)
@@ -480,7 +493,6 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
         self.mocks['mounted'].assert_called_once_with(dev)
         self.mocks['extract_drivers'].assert_called_once_with(repos=self.frepo['/mnt/DD-1'])
         self.mocks['grab_driver_files'].assert_called_once_with()
-        self.mocks['load_drivers'].assert_called_once_with(self.modlist)
 
     def test_recursive(self):
         """process_driver_disk: recursively process .isos at toplevel"""
@@ -498,7 +510,6 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
         # we extracted drivers from the repo(s) in magic.iso
         self.mocks['extract_drivers'].assert_called_once_with(repos=self.frepo['/mnt/DD-2'])
         self.mocks['grab_driver_files'].assert_called_once_with()
-        self.mocks['load_drivers'].assert_called_once_with(self.modlist)
 
     def test_no_drivers(self):
         """process_driver_disk: don't run depmod etc. if no new drivers"""
@@ -506,7 +517,6 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
         self.mocks['extract_drivers'].return_value = False
         process_driver_disk(dev)
         self.assertFalse(self.mocks['grab_driver_files'].called)
-        self.assertFalse(self.mocks['load_drivers'].called)
 
 from driver_updates import process_driver_rpm
 class ProcessDriverRPMTestCase(unittest.TestCase):
@@ -514,14 +524,13 @@ class ProcessDriverRPMTestCase(unittest.TestCase):
         self.frepo = {
             '/tmp/fake': ['/mnt/DD-1'],
         }
-        self.modlist = []
+        self.moddict = {}
         # set up our patches
         patches = (
             mock.patch("driver_updates.find_repos", side_effect=self.frepo.get),
             mock.patch("driver_updates.extract_drivers", return_value=True),
-            mock.patch("driver_updates.load_drivers"),
             mock.patch('driver_updates.grab_driver_files',
-                                side_effect=lambda: self.modlist),
+                                side_effect=lambda: self.moddict),
         )
         self.mocks = {p.attribute:p.start() for p in patches}
         for p in patches: self.addCleanup(p.stop)
@@ -532,7 +541,6 @@ class ProcessDriverRPMTestCase(unittest.TestCase):
         process_driver_rpm(rpm)
         self.mocks['extract_drivers'].assert_called_once_with(repos=["/tmp/fake/driver.rpm"])
         self.mocks['grab_driver_files'].assert_called_once_with()
-        self.mocks['load_drivers'].assert_called_once_with(self.modlist)
 
 from driver_updates import finish, mark_finished, all_finished
 
@@ -677,3 +685,13 @@ class DeviceMenuTestCase(unittest.TestCase):
         line = match.pop(0)
         # the device name (at least) should be on this line
         self.assertIn(os.path.basename(dev.device), line)
+
+from driver_updates import list_aliases
+class ListAliasesTestCase(unittest.TestCase):
+    @mock.patch('driver_updates.subprocess.check_output', return_value="alias1\nalias2\n")
+    def test_basic(self, check_output):
+        modname = "fake_module"
+        alias_list = list_aliases(modname)
+
+        check_output.assert_called_once_with(["modinfo", "-F", "alias", modname])
+        self.assertEqual(alias_list, ["alias1", "alias2", modname])
