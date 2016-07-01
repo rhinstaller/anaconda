@@ -51,6 +51,7 @@ install() {
     inst_hook initqueue/online 20 "$moddir/fetch-driver-net.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-depmod.sh"
     inst "$moddir/driver_updates.py" "/bin/driver-updates"
+    inst "/usr/sbin/modinfo"
     inst_simple "$moddir/driver-updates@.service" "/etc/systemd/system/driver-updates@.service"
     # rpm configuration file (needed by dd_extract)
     inst "/usr/lib/rpm/rpmrc"
