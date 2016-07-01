@@ -1,0 +1,20 @@
+#! /bin/bash
+# Script to be run by anaconda-pre service before anaconda starts to gather
+# information about previous system state
+
+# where the resulting logs will be stored
+TARGET_DIRECTORY=/tmp/pre-anaconda-logs
+
+BOOT_OPTIONS_FILE=/proc/cmdline
+
+DEBUG_ENABLED=`cat $BOOT_OPTIONS_FILE | egrep -c "\<debug\>|\<inst\.debug\>"`
+
+# do not produce any logs unless debug is enabled
+[ $DEBUG_ENABLED == '0' ] && exit 0
+
+mkdir ${TARGET_DIRECTORY}
+
+lsblk -a >${TARGET_DIRECTORY}/block_devices.log
+dmesg -a >${TARGET_DIRECTORY}/kernel_ring_buffer.log
+
+lvmdump -d ${TARGET_DIRECTORY}/lvmdump
