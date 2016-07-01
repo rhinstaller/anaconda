@@ -307,32 +307,80 @@ def extract_drivers(drivers=None, repos=None, outdir="/updates",
 
     return new_drivers
 
+def list_aliases(module):
+    """
+    return a list of the aliases provided by a module file,
+    parsed from modinfo.
+    """
+    cmd = ["modinfo", "-F", "alias", module]
+    out = subprocess.check_output(cmd)
+
+    # Turn the output into a list, and add the module itself
+    out = out.strip()
+    if out:
+        alias_list = out.split("\n")
+    else:
+        alias_list = []
+
+    return alias_list + [module]
+
 def grab_driver_files(outdir="/updates"):
     """
     copy any modules/firmware we just extracted into the running system.
-    return a list of the names of any modules we just copied.
+    returns a dict: keys are module names, value are a list of aliases
+    provided by the module.
     """
     modules = list(iter_files(outdir+'/lib/modules',"*.ko*"))
     firmware = list(iter_files(outdir+'/lib/firmware'))
+
+    module_dict = {os.path.basename(m).split('.ko')[0]: list_aliases(m) for m in modules}
+
     copy_files(modules, MODULE_UPDATES_DIR, outdir+'/lib/modules')
     copy_files(firmware, FIRMWARE_UPDATES_DIR, outdir+'/lib/firmware')
     move_files(modules, outdir+MODULE_UPDATES_DIR, outdir+'/lib/modules')
     move_files(firmware, outdir+FIRMWARE_UPDATES_DIR, outdir+'/lib/firmware')
-    return [os.path.basename(m).split('.ko')[0] for m in modules]
 
-def load_drivers(modnames):
+    return module_dict
+
+def load_drivers(moddict):
     """run depmod and try to modprobe all the given module names."""
-    log.debug("load_drivers: %s", modnames)
+
+    # Step 1: try to unload everything that's being replaced
+    # Using the current depmod data, resolve all the aliases to a module name,
+    # and pass those names to modprobe -r.
+    # modprobe can probably handle the aliases themselves, but this reduces this
+    # list so we don't have to worry as much about what the maximum command line
+    # length is.
+    unload_modules = set()
+    for _modname, alias_list in moddict.iteritems():
+        for alias in alias_list:
+            cmd = ["modprobe", "-R", alias]
+            try:
+                out = subprocess.check_output(cmd, stderr=DEVNULL)
+                if out:
+                    unload_modules.update(out.strip().split('\n'))
+            except subprocess.CalledProcessError:
+                pass
+
+    log.debug("unload drivers: %s", unload_modules)
+    if unload_modules:
+        subprocess.call(["modprobe", "-a", "-r"] + list(unload_modules))
+
+    # Step 2: Update the depmod data and try to load the new module list
+    log.debug("load_drivers: %s", moddict.keys())
     subprocess.call(["depmod", "-a"])
-    subprocess.call(["modprobe", "-a"] + modnames)
+
+    if moddict:
+        subprocess.call(["modprobe", "-a"] + moddict.keys())
 
 # We *could* pass in "outdir" if we wanted to extract things somewhere else,
 # but right now the only use case is running inside the initramfs, so..
 def process_driver_disk(dev, interactive=False):
     try:
-        _process_driver_disk(dev, interactive=interactive)
+        return _process_driver_disk(dev, interactive=interactive)
     except (subprocess.CalledProcessError, IOError) as e:
         log.error("ERROR: %s", e)
+        return {}
 
 def _process_driver_disk(dev, interactive=False):
     """
@@ -344,8 +392,13 @@ def _process_driver_disk(dev, interactive=False):
 
     If interactive, ask the user which driver(s) to install from the repos,
     or ask which iso file to process (if no repos).
+
+    The return value is a dictionary with the new module names as keys, and
+    the value for each is a list of aliases for the module (including the
+    module itself).
     """
     log.info("Examining %s", dev)
+    modules = {}
     with mounted(dev) as mnt:
         repos = find_repos(mnt)
         isos = find_isos(mnt)
@@ -357,20 +410,22 @@ def _process_driver_disk(dev, interactive=False):
                 new_modules = extract_drivers(repos=repos)
             if new_modules:
                 modules = grab_driver_files()
-                load_drivers(modules)
         elif isos:
             if interactive:
                 isos = iso_menu(isos)
             for iso in isos:
-                process_driver_disk(iso, interactive=interactive)
+                modules.update(process_driver_disk(iso, interactive=interactive))
         else:
             print("=== No driver disks found in %s! ===\n" % dev)
 
+    return modules
+
 def process_driver_rpm(rpm):
     try:
-        _process_driver_rpm(rpm)
+        return _process_driver_rpm(rpm)
     except (subprocess.CalledProcessError, IOError) as e:
         log.error("ERROR: %s", e)
+        return {}
 
 def _process_driver_rpm(rpm):
     """
@@ -380,8 +435,9 @@ def _process_driver_rpm(rpm):
     log.info("Examining %s", rpm)
     new_modules = extract_drivers(repos=[rpm])
     if new_modules:
-        modules = grab_driver_files()
-        load_drivers(modules)
+        return grab_driver_files()
+    else:
+        return {}
 
 def mark_finished(user_request, topdir="/tmp"):
     log.debug("marking %s complete in %s", user_request, topdir)
@@ -623,6 +679,7 @@ def main(args):
 
     mode = args.pop(0)
 
+    update_drivers = {}
     if mode in ('--disk', '--net'):
         request, dev = args
 
@@ -631,11 +688,11 @@ def main(args):
         # This is relevant for both --disk and --net since --disk could be
         # pointing to files within the initramfs.
         if dev.endswith(".iso"):
-            process_driver_disk(dev)
+            update_drivers.update(process_driver_disk(dev))
         elif dev.endswith(".rpm"):
-            process_driver_rpm(dev)
+            update_drivers.update(process_driver_rpm(dev))
         else:
-            process_driver_disk(dev)
+            update_drivers.update(process_driver_disk(dev))
 
     elif mode == '--interactive':
         log.info("starting interactive mode")
@@ -643,7 +700,9 @@ def main(args):
         while True:
             dev = device_menu()
             if not dev: break
-            process_driver_disk(dev.pop().device, interactive=True)
+            update_drivers.update(process_driver_disk(dev.pop().device, interactive=True))
+
+    load_drivers(update_drivers)
 
     finish(request)
 
