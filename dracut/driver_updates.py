@@ -626,10 +626,17 @@ def main(args):
 
     if mode in ('--disk', '--net'):
         request, dev = args
+
+        # Guess whether this is an ISO or RPM based on the filename.
+        # If neither matches, assume it is a device node and processes as an ISO.
+        # This is relevant for both --disk and --net since --disk could be
+        # pointing to files within the initramfs.
         if dev.endswith(".iso"):
             process_driver_disk(dev)
-        else:
+        elif dev.endswith(".rpm"):
             process_driver_rpm(dev)
+        else:
+            process_driver_disk(dev)
 
     elif mode == '--interactive':
         log.info("starting interactive mode")
