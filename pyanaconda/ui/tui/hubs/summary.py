@@ -74,11 +74,27 @@ class SummaryHub(TUIHub):
 
         # Kickstart space check failure either stops the automated install or
         # raises an error when using cmdline mode.
+        #
+        # For non-cmdline, prompt for input but continue to treat it as an
+        # automated install. The spokes (in particular software selection,
+        # which expects an environment for interactive install) will continue
+        # to behave the same, so the user can hit 'b' at the prompt and ignore
+        # the warning.
         if flags.automatedInstall and self._checker and not self._checker.check():
             print(self._checker.error_message)
+            log.error(self._checker.error_message)
+
+            # Unset the checker so everything passes next time
+            self._checker = None
+
             if not flags.ksprompt:
-                log.error("CmdlineError: %s", self._checker.error_message)
-                raise CmdlineError(self._checker.error_message)
+                return None
+            else:
+                # TRANSLATORS: 'b' to begin installation
+                print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
+                        # TRANSLATORS: 'b' to begin installation
+                        C_("TUI|Spoke Navigation", "b")
+                        )
         elif flags.automatedInstall and not incompleteSpokes:
             # Space is ok and spokes are complete, continue
             self.close()
@@ -95,7 +111,8 @@ class SummaryHub(TUIHub):
         # input, flip off the automatedInstall flag -- this way installation
         # does not automatically proceed once all spokes are complete, and a
         # user must confirm they want to begin installation
-        flags.automatedInstall = False
+        if incompleteSpokes:
+            flags.automatedInstall = False
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
