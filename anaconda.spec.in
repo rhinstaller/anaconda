@@ -318,6 +318,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 08 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.80-1
+- Allow kickstart users to ignore the free space error (dshea)
+  Resolves: rhbz#1287308
+- Fix dhcpclass to work both via kickstart and the boot cmdline. (clumens)
+  Resolves: rhbz#1293051
+- Add support for device specification variants (mkolman)
+  Resolves: rhbz#1200833
+- Add NTP server configuration to the TUI (mkolman)
+  Resolves: rhbz#1269399
+- Move the NTP server checking constants to constants.py (mkolman)
+  Related: rhbz#1269399
+- Use a constant for the NTP check thread name prefix (mkolman)
+  Related: rhbz#1269399
+
 * Fri Jun 24 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.79-1
 - Fix adding new VG in Custom spoke can't be applied (jkonecny)
   Resolves: rhbz#1263715
