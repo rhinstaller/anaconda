@@ -324,6 +324,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 08 2016 Brian C. Lane <bcl@redhat.com> - 25.20-1
+- Allow kickstart users to ignore the free space error (dshea)
+- Stop kickstart when space check fails (bcl)
+- Service anaconda-nm-config is missing type oneshot (jkonecny)
+- Fix dhcpclass to work both via kickstart and the boot cmdline. (clumens)
+- network: handle also ifcfg files of not activated virtual devices (#1313173)
+  (rvykydal)
+- network: check onboot value in ksdata, not NM connections (#1313173)
+  (rvykydal)
+- network: do not activate device on kickstart --onboot="yes" (#1341636)
+  (rvykydal)
+
 * Fri Jun 24 2016 Brian C. Lane <bcl@redhat.com> - 25.19-1
 - hostname: don't set installer env hostname to localhost.localdomain
   (#1290858) (rvykydal)
