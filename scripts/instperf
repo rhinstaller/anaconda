@@ -9,7 +9,7 @@ import time
 #
 # name1:kB1,name2:kB2,...,name5:kB5
 def topProcesses():
-    output = Popen(["ps", "-eo", "comm,rss", "--sort", "-rss", "--no-headers"], stdout=PIPE).communicate()[0]
+    output = Popen(["ps", "-eo", "comm,rss", "--sort", "-rss", "--no-headers"], stdout=PIPE, universal_newlines=True).communicate()[0]
     top5 = output.split("\n")[:5]
     return ",".join("%s:%s" % (proc[0], proc[1]) for proc in (s.split() for s in top5))
 
