@@ -380,16 +380,42 @@ class Bootloader(commands.bootloader.RHEL7_Bootloader):
 
         storage.bootloader.disk_order = valid_disks
 
+        # When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
+        # 1) If present use first disk from driveorder parameter
+        # 2) If present and usable, use disk where /boot partition is placed
+        # 3) Use first disk from Blivet
         if self.bootDrive:
             matches = set(device_matches(self.bootDrive, devicetree=storage.devicetree, disks_only=True))
             if len(matches) > 1:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("More than one match found for given boot drive \"%s\".") % self.bootDrive))
+                raise KickstartValueError(
+                            formatErrorMsg(self.lineno,
+                                           msg=(_("More than one match found for given boot drive \"%s\".")
+                                                % self.bootDrive)))
             elif matches.isdisjoint(diskSet):
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Requested boot drive \"%s\" doesn't exist or cannot be used.") % self.bootDrive))
+                raise KickstartValueError(
+                            formatErrorMsg(self.lineno,
+                                           msg=(_("Requested boot drive \"%s\" doesn't exist or cannot be used.")
+                                                % self.bootDrive)))
+        elif len(self.driveorder) >= 1:
+            log.debug("Bootloader: use '%s' first disk from driveorder as boot drive",
+                      self.driveorder[0])
+            self.bootDrive = self.driveorder[0]
         else:
-            self.bootDrive = disk_names[0]
+            boot_drive = None
+            # Try to find /boot
+            for part in ksdata.partition.partitions:
+                if part.mountpoint == "/boot":
+                    device_match = device_matches(part.disk, devicetree=storage.devicetree)
+                    if len(device_match) == 1 and device_match[0] in disk_names:
+                        log.debug("Bootloader: use /boot partition '%s' as boot drive", device_match[0])
+                        boot_drive = device_match[0]
+                    break
+            else: # Nothing was found use first disk from Blivet
+                log.debug("Bootloader: fallback use first disk return from Blivet '%s' as boot drive",
+                          disk_names[0])
+                boot_drive = disk_names[0]
+
+            self.bootDrive = boot_drive
 
         drive = storage.devicetree.resolveDevice(self.bootDrive)
         storage.bootloader.stage1_disk = drive
