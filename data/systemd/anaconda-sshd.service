@@ -1,7 +1,8 @@
 [Unit]
 Description=OpenSSH server daemon
 Before=anaconda.target
-After=syslog.target network.target
+After=syslog.target network.target sshd-keygen.target
+Wants=sshd-keygen.target
 ConditionKernelCommandLine=|sshd
 ConditionKernelCommandLine=|inst.sshd
 ConditionKernelCommandLine=!inst.sshd=0
@@ -11,7 +12,6 @@ ConditionPathIsDirectory=|/sys/hypervisor/s390
 
 [Service]
 EnvironmentFile=/etc/sysconfig/sshd
-ExecStartPre=/usr/sbin/sshd-keygen
 ExecStartPre=/usr/sbin/handle-sshpw
 ExecStart=/usr/sbin/sshd -D $OPTIONS -f /etc/ssh/sshd_config.anaconda
 ExecReload=/bin/kill -HUP $MAINPID
