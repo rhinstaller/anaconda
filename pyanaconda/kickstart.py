@@ -19,6 +19,7 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
+from pyanaconda.threads import threadMgr
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMCacheRequest, LVMThinLogicalVolumeDevice, LVMThinSnapShotDevice
@@ -43,7 +44,7 @@ import os
 import os.path
 import tempfile
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE
 import shlex
 import sys
 import urlgrabber
@@ -65,8 +66,11 @@ from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.storage_utils import device_matches, try_populate_devicetree
 from pyanaconda import screen_access
-from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
-                                  KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
+from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
+                                  FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
+                                  KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
+                                  SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
+                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.base import BaseHandler
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
 from pykickstart.parser import KickstartParser
@@ -1915,23 +1919,79 @@ class SkipX(commands.skipx.FC3_SkipX):
             desktop.write()
 
 class Snapshot(commands.snapshot.RHEL7_Snapshot):
+    def _post_snapshots(self):
+        return filter(lambda snap: snap.when == SNAPSHOT_WHEN_POST_INSTALL, self.dataList())
+
+    def _pre_snapshots(self):
+        return filter(lambda snap: snap.when == SNAPSHOT_WHEN_PRE_INSTALL, self.dataList())
+
+    def has_snapshot(self, when):
+        """ Is snapshot with this `when` parameter contained in the list of snapshots?
+
+            :param when: `when` parameter from pykickstart which should be test for present.
+            :type when: One of the constants from `pykickstart.constants.SNAPSHOT_*`
+            :returns: True if snapshot with this `when` parameter is present,
+                      False otherwise.
+        """
+        return any(snap.when == when for snap in self.dataList())
+
     def setup(self, storage, ksdata, instClass):
-        """ Prepare the snapshot.
+        """ Prepare post installation snapshots.
 
             This will also do the checking of snapshot validity.
         """
-        for snap_data in self.dataList():
+        for snap_data in self._post_snapshots():
             snap_data.setup(storage, ksdata, instClass)
 
     def execute(self, storage, ksdata, instClass):
-        """ Create ThinLV snapshot.
+        """ Create ThinLV snapshot after post section stops.
 
             Blivet must be reset before creation of the snapshot. This is
             required because the storage could be changed in post section.
         """
-        try_populate_devicetree(storage.devicetree)
-        for snap_data in self.dataList():
-            snap_data.execute(storage, ksdata, instClass)
+        post_snapshots = self._post_snapshots()
+
+        if post_snapshots:
+            try_populate_devicetree(storage.devicetree)
+            for snap_data in post_snapshots:
+                log.debug("Snapshot: creating post-install snapshot %s", snap_data.name)
+                snap_data.execute(storage, ksdata, instClass)
+
+    def pre_setup(self, storage, ksdata, instClass):
+        """ Prepare pre installation snapshots.
+
+            This will also do the checking of snapshot validity.
+        """
+        pre_snapshots = self._pre_snapshots()
+
+        # wait for the storage to load devices
+        if pre_snapshots:
+            threadMgr.wait(THREAD_STORAGE)
+
+        for snap_data in pre_snapshots:
+            snap_data.setup(storage, ksdata, instClass)
+
+    def pre_execute(self, storage, ksdata, instClass):
+        """ Create ThinLV snapshot before installation starts.
+
+            This must be done before user can change anything
+        """
+        pre_snapshots = self._pre_snapshots()
+
+        if pre_snapshots:
+            threadMgr.wait(THREAD_STORAGE)
+
+            if (ksdata.clearpart.devices or ksdata.clearpart.drives or
+                ksdata.clearpart.type == CLEARPART_TYPE_ALL):
+                log.warning("Snapshot: \"clearpart\" command could erase pre-install snapshots!")
+            if ksdata.zerombr.zerombr:
+                log.warning("Snapshot: \"zerombr\" command could erase pre-install snapshots!")
+
+            for snap_data in pre_snapshots:
+                log.debug("Snapshot: creating pre-install snapshot %s", snap_data.name)
+                snap_data.execute(storage, ksdata, instClass)
+
+            try_populate_devicetree(storage.devicetree)
 
 class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
     def __init__(self, *args, **kwargs):
@@ -1944,15 +2004,16 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
             This will plan snapshot creation on the end of the installation. This way
             Blivet will do a validity checking for future snapshot.
         """
-        log.debug("Snapshot name %s setup", self.name)
         if not self.origin.count('/') == 1:
             raise KickstartParseError(
                         formatErrorMsg(self.lineno,
                                        msg=_("Incorrectly specified origin of the snapshot."
                                              " Use format \"VolGroup/LV_name\"")))
-        # modify the origin name to the proper DM naming
-        origin = self.origin.replace('-','--').replace('/','-')
+        # modify origin and snapshot name to the proper DM naming
+        snap_name = self.name.replace('-', '--')
+        origin = self.origin.replace('-', '--').replace('/', '-')
         origin_dev = storage.devicetree.getDeviceByName(origin)
+        log.debug("Snapshot: name %s has origin %s", self.name, origin_dev)
 
         if not isinstance(origin_dev, LVMThinLogicalVolumeDevice):
             raise KickstartParseError(
@@ -1962,6 +2023,10 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
                                             {"origin": self.origin,
                                              "name": self.name})))
 
+        if storage.devicetree.getDeviceByName("%s-%s" % (origin_dev.vg.name, snap_name)):
+            raise KickstartParseError(
+                        formatErrorMsg(self.lineno,
+                                       msg=(_("Snapshot %s already exists.") % self.name)))
         self.thin_snapshot = None
         try:
             self.thin_snapshot = LVMThinSnapShotDevice(name=self.name,
@@ -1973,7 +2038,6 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
 
     def execute(self, storage, ksdata, instClass):
         """ Execute an action for snapshot creation. """
-        log.debug("Snapshot name %s execute", self.name)
         self.thin_snapshot.create()
 
 class ZFCP(commands.zfcp.F14_ZFCP):
