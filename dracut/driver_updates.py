@@ -353,7 +353,7 @@ def load_drivers(moddict):
     # list so we don't have to worry as much about what the maximum command line
     # length is.
     unload_modules = set()
-    for _modname, alias_list in moddict.iteritems():
+    for _modname, alias_list in moddict.items():
         for alias in alias_list:
             cmd = ["modprobe", "-R", alias]
             try:
@@ -372,7 +372,7 @@ def load_drivers(moddict):
     subprocess.call(["depmod", "-a"])
 
     if moddict:
-        subprocess.call(["modprobe", "-a"] + moddict.keys())
+        subprocess.call(["modprobe", "-a"] + list(moddict.keys()))
 
 # We *could* pass in "outdir" if we wanted to extract things somewhere else,
 # but right now the only use case is running inside the initramfs, so..

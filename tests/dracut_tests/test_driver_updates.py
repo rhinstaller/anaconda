@@ -9,6 +9,7 @@ except ImportError:
 import os
 import tempfile
 import shutil
+import collections
 
 import sys
 sys.path.append(os.path.normpath(os.path.dirname(__file__)+'/../../dracut'))
@@ -433,10 +434,11 @@ class LoadDriversTestCase(unittest.TestCase):
     def test_basic(self, call):
         """load_drivers: runs depmod and modprobes all named modules"""
         modnames = ['mod1', 'mod2']
-        load_drivers({name: [name] for name in modnames})
+        moddict = collections.OrderedDict({name: [name] for name in modnames})
+        load_drivers(collections.OrderedDict(moddict))
         call.assert_has_calls([
             mock.call(["depmod", "-a"]),
-            mock.call(["modprobe", "-a"] + modnames)
+            mock.call(["modprobe", "-a"] + list(moddict.keys()))
         ])
 
     @mock.patch("driver_updates.subprocess.call")
@@ -445,7 +447,7 @@ class LoadDriversTestCase(unittest.TestCase):
         # "icecream" is the updated driver, replacing "sorbet"
         # the check_output patch intercepts 'modprobe -R <alias>'
         load_drivers({"icecream": ['pineapple', 'cherry', 'icecream']})
-        call.assert_call_calls([
+        call.assert_has_calls([
             mock.call(["modprobe", "-a", "-r", "sorbet"]),
             mock.call(["depmod", "-a"]),
             mock.call(["modprobe", "-a", "icecream"])
