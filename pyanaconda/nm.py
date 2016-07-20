@@ -367,7 +367,12 @@ def nm_device_is_slave(name):
     if active_con == "/":
         return False
 
-    master = _get_property(active_con, "Master", ".Connection.Active")
+    try:
+        master = _get_property(active_con, "Master", ".Connection.Active")
+    except UnknownMethodGetError:
+        # don't crash on obsolete ActiveConnection objects
+        return False
+
     return master and master != "/"
 
 def nm_device_hwaddress(name):
