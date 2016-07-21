@@ -726,6 +726,8 @@ def ksdata_from_ifcfg(devname, uuid=None):
         # are not created so look at ifcfg value instead of device property
         if nd.vlanid:
             _update_vlan_interfacename_ksdata(devname, nd)
+        else:
+            nd.device = devname
 
     return nd
 
