@@ -420,10 +420,10 @@ class Bootloader(commands.bootloader.RHEL7_Bootloader):
                                            msg=(_("Requested boot drive \"%s\" doesn't exist or cannot be used.")
                                                 % self.bootDrive)))
         # Take valid disk from --driveorder
-        elif len(self.driveorder) >= 1:
+        elif len(valid_disks) >= 1:
             log.debug("Bootloader: use '%s' first disk from driveorder as boot drive, dry run %s",
-                      self.driveorder[0], dry_run)
-            self.bootDrive = self.driveorder[0]
+                      valid_disks[0], dry_run)
+            self.bootDrive = valid_disks[0]
         else:
             # Try to find /boot
             #
