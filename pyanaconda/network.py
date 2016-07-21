@@ -1261,6 +1261,11 @@ def setOnboot(ksdata):
                 continue
 
         updated_devices.append(devname)
+
+        if network_data.bondslaves or network_data.teamslaves:
+            updated_slaves = update_slaves_onboot_value(devname, network_data.onboot)
+            updated_devices.extend(updated_slaves)
+
     return updated_devices
 
 def apply_kickstart(ksdata):
@@ -1523,6 +1528,49 @@ def default_ks_vlan_interface_name(parent, vlanid):
 def _update_vlan_interfacename_ksdata(devname, ndata):
     if devname != default_ks_vlan_interface_name(ndata.device, ndata.vlanid):
         ndata.interfacename = devname
+
+def update_slaves_onboot_value(devname, value):
+    """Update onboot value in ifcfg files of device slaves
+
+    :param devname: name of device
+    :type devname: str
+    :param value: value of onboot setting
+    :type value: bool
+    :returns: list of names of updated connections
+    :rtype: list of strings
+
+    """
+    retval = []
+    if value:
+        ifcfg_value = 'yes'
+    else:
+        ifcfg_value = 'no'
+
+    # Master can be identified by devname or uuid, find master uuid
+    try:
+        uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
+    except nm.UnknownDeviceError:
+        # Until activated, the device does not exist, so look in its ifcfg file
+        ifcfg_path = find_ifcfg_file_of_device(devname)
+        if not ifcfg_path:
+            log.debug("network: can't find ifcfg file of %s", devname)
+            return retval
+        ifcfg = IfcfgFile(ifcfg_path)
+        ifcfg.read()
+        uuid = ifcfg.get('UUID')
+
+    # Find and update ifcfg files of slaves
+    for filepath in _ifcfg_files(netscriptsDir):
+        ifcfg = IfcfgFile(filepath)
+        ifcfg.read()
+        master = ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER")
+        if master in (devname, uuid):
+            ifcfg.set(('ONBOOT', ifcfg_value))
+            ifcfg.write()
+            log.debug("network: setting ONBOOT value of slave %s to %s", filepath, value)
+            retval.append(ifcfg.get("NAME"))
+
+    return retval
 
 def update_onboot_value(devname, value, ksdata=None, root_path=None):
     """Update onboot value in ifcfg files and optionally ksdata
