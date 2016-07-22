@@ -225,6 +225,10 @@ class Spoke(object):
 
         self.visitedSinceApplied = True
 
+        # lists of callbacks to be called when the spoke is entered/exited by the user
+        self._entry_callbacks = [self.entry_logger]
+        self._exit_callbacks = [self.exit_logger]
+
     @abstractproperty
     def data(self):
         pass
@@ -335,23 +339,55 @@ class Spoke(object):
         """
         raise NotImplementedError
 
-    def entry_logger(self):
+    def entry(self):
+        """Called once the spoke is about to be displayed.
+
+        Once called all the callbacks specified in the entry_callbacks list
+        property will be called in the list order.
+        """
+        for callback in self.entry_callbacks:
+            callback(self)
+
+    @property
+    def entry_callbacks(self):
+        """List of callback to be called once the spoke is entered by the user.
+
+        Each callback is called with a single argument, the spoke instance.
+        """
+        return self._entry_callbacks
+
+    def exit(self):
+        """Called once the spoke is exited by the used.
+
+        Once called all the callbacks specified in the exit_callbacks list
+        property will be called in the list order.
+        """
+        for callback in self.exit_callbacks:
+            callback(self)
+
+    @property
+    def exit_callbacks(self):
+        """List of callback to be called once the spoke is exited by the user.
+
+        Each callback is called with a single argument, the spoke instance.
+        """
+        return self._exit_callbacks
+
+    def entry_logger(self, spoke_instance):
         """Log immediately before this spoke is about to be displayed on the
            screen.  Subclasses may override this method if they want to log
            more specific information, but an overridden method should finish
            by calling this method so the entry will be logged.
         """
-        log.debug("ENTER SPOKE LOG")
-        log.debug("Entered spoke: %s", self.__class__.__name__)
+        log.debug("Entered spoke: %s", spoke_instance.__class__.__name__)
 
-    def exit_logger(self):
+    def exit_logger(self, spoke_instance):
         """Log when a user leaves the spoke.  Subclasses may override this
            method if they want to log more specific information, but an
            overridden method should finish by calling this method so the
            exit will be logged.
         """
-        log.debug("EXIT SPOKE LOG")
-        log.debug("Left spoke: %s", self.__class__.__name__)
+        log.debug("Left spoke: %s", spoke_instance.__class__.__name__)
 
     # Initialization controller related code
     #
@@ -549,6 +585,10 @@ class Hub(object):
         self.paths = {}
         self._spokes = {}
 
+        # lists of callbacks to be called when the hub is entered/exited by the user
+        self._entry_callbacks = [self.entry_logger]
+        self._exit_callbacks = [self.exit_logger]
+
     @abstractproperty
     def data(self):
         pass
@@ -562,7 +602,41 @@ class Hub(object):
            name format string, directory name)"""
         self.paths[path_id] = paths
 
-    def entry_logger(self):
+    def entry(self):
+        """Called once the hub is about to be displayed.
+
+        Once called all the callbacks specified in the entry_callbacks list
+        property will be called in the list order.
+        """
+        for callback in self.entry_callbacks:
+            callback(self)
+
+    @property
+    def entry_callbacks(self):
+        """List of callback to be called once the hub is entered by the user.
+
+        Each callback is called with a single argument, the hub instance.
+        """
+        return self._entry_callbacks
+
+    def exit(self):
+        """Called once the hub is exited by the used.
+
+        Once called all the callbacks specified in the exit_callbacks list
+        property will be called in the list order.
+        """
+        for callback in self.exit_callbacks:
+            callback(self)
+
+    @property
+    def exit_callbacks(self):
+        """List of callback to be called once the hub is exited by the user.
+
+        Each callback is called with a single argument, the hub instance.
+        """
+        return self._exit_callbacks
+
+    def entry_logger(self, hub_instance):
         """Log immediately before this hub is about to be displayed on the
            screen.  Subclasses may override this method if they want to log
            more specific information, but an overridden method should finish
@@ -573,7 +647,7 @@ class Hub(object):
            and then coming back to the hub does not count as exiting and
            entering.
         """
-        log.debug("Entered hub: %s", self.__class__.__name__)
+        log.debug("Entered hub: %s", hub_instance.__class__.__name__)
 
     def _collectCategoriesAndSpokes(self):
         """This method is provided so that is can be overridden in a subclass
@@ -582,7 +656,7 @@ class Hub(object):
         """
         return collectCategoriesAndSpokes(self.paths, self.__class__, self.data.displaymode.displayMode)
 
-    def exit_logger(self):
+    def exit_logger(self, hub_instance):
         """Log when a user leaves the hub.  Subclasses may override this
            method if they want to log more specific information, but an
            overridden method should finish by calling this method so the
@@ -592,7 +666,7 @@ class Hub(object):
            user selects a spoke from the hub.  They are only exited when the
            continue or quit button is clicked on the hub.
         """
-        log.debug("Left hub: %s", self.__class__.__name__)
+        log.debug("Left hub: %s", hub_instance.__class__.__name__)
 
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
