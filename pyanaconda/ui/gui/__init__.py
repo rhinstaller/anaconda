@@ -848,7 +848,7 @@ class GraphicalUserInterface(UserInterface):
                     return
 
             self._currentAction.initialize()
-            self._currentAction.entry_logger()
+            self._currentAction.entry()
             self._currentAction.refresh()
 
             self._currentAction.window.set_beta(not self._isFinal)
@@ -1013,8 +1013,8 @@ class GraphicalUserInterface(UserInterface):
             self._on_continue_clicked(nextAction)
             return
 
-        self._currentAction.exit_logger()
-        nextAction.entry_logger()
+        self._currentAction.exit()
+        nextAction.entry()
 
         nextAction.refresh()
 
@@ -1039,7 +1039,7 @@ class GraphicalUserInterface(UserInterface):
             dialog.window.destroy()
 
         if rc == 1:
-            self._currentAction.exit_logger()
+            self._currentAction.exit()
             iutil.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
 

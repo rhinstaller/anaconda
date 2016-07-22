@@ -67,6 +67,8 @@ class App(object):
     STOP_MAINLOOP = False
     NOP = None
 
+    _current_screen = None
+
     def __init__(self, title, yes_or_no_question=None, width=80, queue_instance=None,
                  quit_message=None):
         """
@@ -269,6 +271,7 @@ class App(object):
 
         # get the screen from the top of the stack
         screen, args, newloop = self._screens[-1]
+        self.current_screen = screen
 
         # new mainloop is requested
         if newloop == self.START_MAINLOOP:
@@ -487,6 +490,35 @@ class App(object):
     def width(self):
         """Return the total width of screen space we have available."""
         return self._width
+
+    @property
+    def current_screen(self):
+        return App._current_screen
+
+    @current_screen.setter
+    def current_screen(self, new_screen):
+        # Why we are using App._current_screen and not self._current_screen ?
+        #
+        # There can actually be multiple App instances (the AskVNCSpoke for example
+        # has a different App instance than the SummaryHub), but there can still
+        # be only one screen displayed at once.
+        # So we use the class variable and simply track what screen is the last displayed
+        # regardless of App instance.
+
+        # is this a new screen or still the same one ?
+        if new_screen != App._current_screen:
+            # in some cases we run simple dialogs that are not full spokes
+            # and thus lack the entry() & exit() spoke methods, so we need to check
+            # for that
+
+            # "close" the previous screen (if any)
+            if App._current_screen and hasattr(App._current_screen, "exit"):
+                App._current_screen.exit()
+            # "enter" the new screen (if any)
+            if new_screen and hasattr(new_screen, "entry"):
+                new_screen.entry()
+
+        App._current_screen = new_screen
 
 class UIScreen(object):
     """Base class representing one TUI Screen.
