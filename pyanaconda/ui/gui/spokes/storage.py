@@ -414,7 +414,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         iscsi_data.port = dev_node.port
         # Bind interface to target
         if self.storage.iscsi.ifaces:
-            iscsi_data.iface = self.storage.iscsi.ifaces[device.iface]
+            iscsi_data.iface = self.storage.iscsi.ifaces[dev_node.iface]
 
         auth = dev_node.getAuth()
         if auth:
