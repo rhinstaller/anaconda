@@ -460,11 +460,22 @@ class Payload(object):
                 except URLGrabError as ex:
                     log.info("Error downloading 'treeinfo': %s", ex)
 
-                    # Don't retry if we got a 'HTTP Error 404' from both reponses
-                    # from curl (likely not to be a transient error), just move on.
-                    if "404" in str(e) and "404" in str(ex):
+                    # HTTP error
+                    if e.errno == ex.errno == 14:
+                        # Don't retry if we got a 'HTTP Error 404' from both reponses
+                        # from curl (likely not to be a transient error), just move on.
+                        if e.code == ex.code == 404:
+                            treeinfo = None
+                            log.error("got HTTP Error 404 when downloading [.]treeinfo files")
+                            break
+
+                    # Error number 2 is file not found from URLGrabber but curl error
+                    # can be raised instead
+                    # curl error code 37: A file given with FILE:// couldn't be opened.
+                    if ((e.errno == ex.errno == 2) or
+                        (e.errno == ex.errno == 14 and e.code == ex.code == 37)):
                         treeinfo = None
-                        log.error("got HTTP Error 404 when downloading [.]treeinfo files")
+                        log.error("local %s/[.]treeinfo file can't be found", url)
                         break
 
                     if retry_count < MAX_TREEINFO_DOWNLOAD_RETRIES:
