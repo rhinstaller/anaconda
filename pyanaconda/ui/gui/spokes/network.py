@@ -1497,7 +1497,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         log.debug("network: apply ksdata %s", self.data.network)
 
         if self.networking_changed:
-            if ANACONDA_ENVIRON in anaconda_flags.environs:
+            if ANACONDA_ENVIRON in anaconda_flags.environs and self.payload.needsNetwork:
                 log.debug("network spoke (apply) refresh payload")
                 from pyanaconda.packaging import payloadMgr
                 payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
@@ -1619,7 +1619,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._now_available = self.completed
 
         log.debug("network standalone spoke (apply) payload: %s completed: %s", self.payload.baseRepo, self._now_available)
-        if not self.payload.baseRepo and not self._initially_available and self._now_available:
+        if (not self.payload.baseRepo and not self._initially_available
+            and self._now_available and self.payload.needsNetwork):
             from pyanaconda.packaging import payloadMgr
             payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
                     fallback=not anaconda_flags.automatedInstall)
