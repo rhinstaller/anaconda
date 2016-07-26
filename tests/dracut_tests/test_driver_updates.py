@@ -448,7 +448,7 @@ class LoadDriversTestCase(unittest.TestCase):
         # the check_output patch intercepts 'modprobe -R <alias>'
         load_drivers({"icecream": ['pineapple', 'cherry', 'icecream']})
         call.assert_has_calls([
-            mock.call(["modprobe", "-a", "-r", "sorbet"]),
+            mock.call(["modprobe", "-r", "sorbet"]),
             mock.call(["depmod", "-a"]),
             mock.call(["modprobe", "-a", "icecream"])
         ])
