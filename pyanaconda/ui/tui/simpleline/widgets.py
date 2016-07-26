@@ -37,8 +37,7 @@ class TextWidget(base.Widget):
         self._text = text
 
     def render(self, width):
-        """Renders the text widget limited to width number of columns
-        (wraps to the next line when the text is longer).
+        """Renders the text widget limited to width number of columns (wraps to the next line when the text is longer).
 
         :param width: maximum width allocated to the string
         :type width: int
@@ -61,8 +60,7 @@ class CenterWidget(base.Widget):
         self._w = w
 
     def render(self, width):
-        """
-        Render the centered widget to internal buffer.
+        """Render the centered widget to internal buffer.
 
         :param width: maximum width the widget should use
         :type width: int
@@ -77,12 +75,12 @@ class ColumnWidget(base.Widget):
     def __init__(self, columns, spacing=0):
         """Create text columns
 
-           :param columns: list containing (column width, [list of widgets to put into this column])
-           :type columns: [(int, [...]), ...]
+        :param columns: list containing (column width, [list of widgets to put into this column])
+        :type columns: [(int, [...]), ...]
 
-           :param spacing: number of spaces to use between columns
-           :type spacing: int
-           """
+        :param spacing: number of spaces to use between columns
+        :type spacing: int
+        """
 
         base.Widget.__init__(self)
         self._spacing = spacing
@@ -100,7 +98,7 @@ class ColumnWidget(base.Widget):
 
         base.Widget.render(self, width)
 
-        # the lefmost empty column
+        # the leftmost empty column
         x = 0
 
         # iterate over tuples (column width, column content)
@@ -150,8 +148,10 @@ class CheckboxWidget(base.Widget):
         self._completed = completed
 
     def render(self, width):
-        """Render the widget to internal buffer. It should be max width
-           characters wide."""
+        """Render the widget to internal buffer.
+
+        It should be max width characters wide.
+        """
         base.Widget.render(self, width)
 
         if self.completed:

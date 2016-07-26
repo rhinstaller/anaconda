@@ -128,7 +128,7 @@ class YesNoDialog(tui.UIScreen):
         self._window.append(u"")
         return True
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         return _("Please respond '%(yes)s' or '%(no)s': ") % {
             # TRANSLATORS: 'yes' as positive reply
             "yes": C_('TUI|Spoke Navigation', 'yes'),

@@ -42,21 +42,21 @@ class UserInterface(object):
     def __init__(self, storage, payload, instclass):
         """Create a new UserInterface instance.
 
-           The arguments this base class accepts defines the API that interfaces
-           have to work with.  A UserInterface does not get free reign over
-           everything in the anaconda class, as that would be a big mess.
-           Instead, a UserInterface may count on the following:
+        The arguments this base class accepts defines the API that interfaces
+        have to work with.  A UserInterface does not get free reign over
+        everything in the anaconda class, as that would be a big mess.
+        Instead, a UserInterface may count on the following:
 
-           storage      -- An instance of storage.Storage.  This is useful for
-                           determining what storage devices are present and how
-                           they are configured.
-           payload      -- An instance of a packaging.Payload subclass.  This
-                           is useful for displaying and selecting packages to
-                           install, and in carrying out the actual installation.
-           instclass    -- An instance of a BaseInstallClass subclass.  This
-                           is useful for determining distribution-specific
-                           installation information like default package
-                           selections and default partitioning.
+        storage      -- An instance of storage.Storage.  This is useful for
+                        determining what storage devices are present and how
+                        they are configured.
+        payload      -- An instance of a packaging.Payload subclass.  This
+                        is useful for displaying and selecting packages to
+                        install, and in carrying out the actual installation.
+        instclass    -- An instance of a BaseInstallClass subclass.  This
+                        is useful for determining distribution-specific
+                        installation information like default package
+                        selections and default partitioning.
         """
         if self.__class__ is UserInterface:
             raise TypeError("UserInterface is an abstract class.")
@@ -78,44 +78,42 @@ class UserInterface(object):
 
     @classmethod
     def update_paths(cls, pathdict):
-        """Receives pathdict and appends it's contents to the current
-           class defined search path dictionary."""
+        """Receives pathdict and appends it's contents to the current class defined search path dictionary."""
         for k, v in pathdict.items():
             cls.paths.setdefault(k, [])
             cls.paths[k].extend(v)
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
-           This method must be provided by all subclasses.
+
+        This method must be provided by all subclasses.
         """
         raise NotImplementedError
 
     def run(self):
-        """Run the interface.  This should do little more than just pass
-           through to something else's run method, but is provided here in
-           case more is needed.  This method must be provided by all subclasses.
+        """Run the interface.
+
+        This should do little more than just pass through to something else's run method,
+        but is provided here in case more is needed.  This method must be provided by all subclasses.
         """
         raise NotImplementedError
 
     @property
     def meh_interface(self):
-        """
-        Returns an interface for exception handling (defined by python-meh's
-        AbstractIntf class).
-
-        """
+        """Returns an interface for exception handling (defined by python-meh's AbstractIntf class)."""
         raise NotImplementedError
 
     ###
     ### MESSAGE HANDLING METHODS
     ###
     def showError(self, message):
-        """Display an error dialog with the given message. There is no return
-           value. This method must be implemented by all UserInterface
-           subclasses.
+        """Display an error dialog with the given message.
 
-           In the code, this method should be used sparingly and only for
-           critical errors that anaconda cannot figure out how to recover from.
+        There is no return value. This method must be implemented by all UserInterface
+        subclasses.
+
+        In the code, this method should be used sparingly and only for
+        critical errors that anaconda cannot figure out how to recover from.
         """
         raise NotImplementedError
 
@@ -123,32 +121,31 @@ class UserInterface(object):
         raise NotImplementedError
 
     def showYesNoQuestion(self, message):
-        """Display a dialog with the given message that presents the user a yes
-           or no choice.  This method returns True if the yes choice is selected,
-           and False if the no choice is selected.  From here, anaconda can
-           figure out what to do next.  This method must be implemented by all
-           UserInterface subclasses.
+        """Display a dialog with the given message that presents the user a yes or no choice.
 
-           In the code, this method should be used sparingly and only for those
-           times where anaconda cannot make a reasonable decision.  We don't
-           want to overwhelm the user with choices.
+        This method returns True if the yes choice is selected,
+        and False if the no choice is selected.
+        From here, anaconda can figure out what to do next.
+        This method must be implemented by all UserInterface subclasses.
+
+        In the code, this method should be used sparingly and only for those
+        times where anaconda cannot make a reasonable decision.  We don't
+        want to overwhelm the user with choices.
         """
         raise NotImplementedError
 
     def _collectActionClasses(self, module_pattern_w_path, standalone_class):
-        """Collect all the Hub and Spoke classes which should be enqueued for
-           processing.
+        """Collect all the Hub and Spoke classes which should be enqueued for processing.
 
-           :param module_pattern_w_path: the full name patterns (pyanaconda.ui.gui.spokes.%s)
-                                         and directory paths to modules we are about to import
-           :type module_pattern_w_path: list of (string, string)
+        :param module_pattern_w_path: the full name patterns (pyanaconda.ui.gui.spokes.%s)
+                                      and directory paths to modules we are about to import
+        :type module_pattern_w_path: list of (string, string)
 
-           :param standalone_class: the parent type of Spokes we want to pick up
-           :type standalone_class: common.StandaloneSpoke based types
+        :param standalone_class: the parent type of Spokes we want to pick up
+        :type standalone_class: common.StandaloneSpoke based types
 
-           :return: list of Spoke classes with standalone_class as a parent
-           :rtype: list of Spoke classes
-
+        :return: list of Spoke classes with standalone_class as a parent
+        :rtype: list of Spoke classes
         """
         standalones = []
 
@@ -159,16 +156,15 @@ class UserInterface(object):
         return standalones
 
     def _orderActionClasses(self, spokes, hubs):
-        """Order all the Hub and Spoke classes which should be enqueued for
-           processing according to their pre/post dependencies.
+        """Order all the Hub and Spoke classes which should be enqueued for processing according to their pre/post dependencies.
 
-           :param spokes: the classes we are to about order according
-                          to the hub dependencies
-           :type spokes: list of Spoke instances
+        :param spokes: the classes we are to about order according
+                       to the hub dependencies
+        :type spokes: list of Spoke instances
 
-           :param hubs: the list of Hub classes we check to be in pre/postForHub
-                        attribute of Spokes to pick up
-           :type hubs: common.Hub based types
+        :param hubs: the list of Hub classes we check to be in pre/postForHub
+                     attribute of Spokes to pick up
+        :type hubs: common.Hub based types
         """
 
         actionClasses = []
