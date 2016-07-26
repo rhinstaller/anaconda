@@ -123,7 +123,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         # don't write the kickstart file to the installed system if this has
         # been disabled by the nosave option
         log.warning("Writing of the output kickstart to installed system has been disabled"
-                    " by the copy_kickstarts option.")
+                    " by the nosave option.")
     else:
         _writeKS(ksdata)
 
