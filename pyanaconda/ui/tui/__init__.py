@@ -89,8 +89,6 @@ class TextUserInterface(ui.UserInterface):
                             be translated to allow for change
                             of language.
         :type quitMessage: str
-
-
         """
 
         ui.UserInterface.__init__(self, storage, payload, instclass)
@@ -134,16 +132,17 @@ class TextUserInterface(ui.UserInterface):
         return self._meh_interface
 
     def _list_hubs(self):
-        """returns the list of hubs to use"""
+        """Returns the list of hubs to use."""
         return [SummaryHub]
 
     def _is_standalone(self, spoke):
-        """checks if the passed spoke is standalone"""
+        """Checks if the passed spoke is standalone."""
         return isinstance(spoke, StandaloneSpoke)
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
-           This method must be provided by all subclasses.
+
+        This method must be provided by all subclasses.
         """
         self._app = tui.App(self.productTitle, yes_or_no_question=YesNoDialog,
                             quit_message=self.quitMessage, queue_instance=hubQ.q)
@@ -165,7 +164,7 @@ class TextUserInterface(ui.UserInterface):
             obj = klass(self._app, data, self.storage, self.payload, self.instclass)
 
             # If we are doing a kickstart install, some standalone spokes
-            # could already be filled out.  In taht case, we do not want
+            # could already be filled out.  In that case, we do not want
             # to display them.
             if self._is_standalone(obj) and obj.completed:
                 del(obj)
@@ -181,9 +180,10 @@ class TextUserInterface(ui.UserInterface):
                 self._app.schedule_screen(obj)
 
     def run(self):
-        """Run the interface.  This should do little more than just pass
-           through to something else's run method, but is provided here in
-           case more is needed.  This method must be provided by all subclasses.
+        """Run the interface.
+
+        This should do little more than just pass through to something else's run method,
+        but is provided here in case more is needed.  This method must be provided by all subclasses.
         """
         return self._app.run()
 
@@ -191,9 +191,7 @@ class TextUserInterface(ui.UserInterface):
     ### MESSAGE HANDLING METHODS
     ###
     def _send_show_message(self, msg_fn, args, ret_queue):
-        """
-        Send message requesting to show some message dialog specified by the
-        message function.
+        """ Send message requesting to show some message dialog specified by the message function.
 
         :param msg_fn: message dialog function requested to be called
         :type msg_fn: a function taking the same number of arguments as is the
@@ -203,21 +201,18 @@ class TextUserInterface(ui.UserInterface):
         :param ret_queue: the queue which the return value of the message dialog
                           function should be put
         :type ret_queue: a queue.Queue instance
-
         """
 
         self._app.queue_instance.put((hubQ.HUB_CODE_SHOW_MESSAGE,
                                      [msg_fn, args, ret_queue]))
 
     def _handle_show_message(self, event, data):
-        """
-        Handler for the HUB_CODE_SHOW_MESSAGE message in the hubQ.
+        """Handler for the HUB_CODE_SHOW_MESSAGE message in the hubQ.
 
         :param event: event data
         :type event: (event_type, message_data)
         :param data: additional data
         :type data: any
-
         """
 
         # event_type, message_data
@@ -227,8 +222,7 @@ class TextUserInterface(ui.UserInterface):
         ret_queue.put(msg_fn(*args))
 
     def _show_message_in_main_thread(self, msg_fn, args):
-        """
-        If running in the main thread, run the message dialog function and
+        """ If running in the main thread, run the message dialog function and
         return its return value. If running in a non-main thread, request the
         message function to be called in the main thread.
 
@@ -237,7 +231,6 @@ class TextUserInterface(ui.UserInterface):
                       length of the args param
         :param args: arguments to be passed to the message dialog function
         :type args: any
-
         """
 
         if threadMgr.in_main_thread():
@@ -254,18 +247,19 @@ class TextUserInterface(ui.UserInterface):
             return ret_queue.get()
 
     def showError(self, message):
-        """Display an error dialog with the given message.  After this dialog
-           is displayed, anaconda will quit.  There is no return value.  This
-           method must be implemented by all UserInterface subclasses.
+        """Display an error dialog with the given message.
 
-           In the code, this method should be used sparingly and only for
-           critical errors that anaconda cannot figure out how to recover from.
+        After this dialog is displayed, anaconda will quit. There is no return value.
+        This method must be implemented by all UserInterface subclasses.
+
+        In the code, this method should be used sparingly and only for
+        critical errors that anaconda cannot figure out how to recover from.
         """
 
         return self._show_message_in_main_thread(self._showError, (message,))
 
     def _showError(self, message):
-        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
+        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD."""
 
         if flags.automatedInstall and not flags.ksprompt:
             log.error(message)
@@ -279,27 +273,28 @@ class TextUserInterface(ui.UserInterface):
         return self._show_message_in_main_thread(self._showDetailedError, (message, details))
 
     def _showDetailedError(self, message, details):
-        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
+        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD."""
         return self.showError(message + "\n\n" + details)
 
     def showYesNoQuestion(self, message):
-        """Display a dialog with the given message that presents the user a yes
-           or no choice.  This method returns True if the yes choice is selected,
-           and False if the no choice is selected.  From here, anaconda can
-           figure out what to do next.  This method must be implemented by all
-           UserInterface subclasses.
+        """Display a dialog with the given message that presents the user a yes or no choice.
 
-           In the code, this method should be used sparingly and only for those
-           times where anaconda cannot make a reasonable decision.  We don't
-           want to overwhelm the user with choices.
+        This method returns True if the yes choice is selected,
+        and False if the no choice is selected.  From here, anaconda can
+        figure out what to do next.  This method must be implemented by all
+        UserInterface subclasses.
 
-           When cmdline mode is active, the default will be to answer no.
+        In the code, this method should be used sparingly and only for those
+        times where anaconda cannot make a reasonable decision.  We don't
+        want to overwhelm the user with choices.
+
+        When cmdline mode is active, the default will be to answer no.
         """
 
         return self._show_message_in_main_thread(self._showYesNoQuestion, (message,))
 
     def _showYesNoQuestion(self, message):
-        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
+        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD."""
 
         if flags.automatedInstall and not flags.ksprompt:
             log.error(message)
