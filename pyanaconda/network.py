@@ -668,7 +668,7 @@ def ksdata_from_ifcfg(devname, uuid=None):
     if devname in nm.nm_devices():
         # virtual devices (bond, vlan, ...) not activated in installer
         # are not created so guard these checks
-        if nm.nm_device_is_slave(devname):
+        if nm.nm_device_is_slave(devname) and nm.nm_device_type_is_ethernet(devname):
             return None
         if nm.nm_device_type_is_wifi(devname):
             # wifi from kickstart is not supported yet
@@ -708,6 +708,8 @@ def ksdata_from_ifcfg(devname, uuid=None):
         # are not created so look at ifcfg value instead of device property
         if nd.vlanid:
             _update_vlan_interfacename_ksdata(devname, nd)
+        else:
+            nd.device = devname
 
     return nd
 
@@ -717,15 +719,14 @@ def ifcfg_to_ksdata(ifcfg, devname):
     handler = AnacondaKSHandler()
     kwargs = {}
 
-    # no network command for bond slaves
-    if ifcfg.get("MASTER"):
-        return None
-    # no network command for team slaves
-    if ifcfg.get("TEAM_MASTER"):
-        return None
-    # no network command for bridge slaves
-    if ifcfg.get("BRIDGE"):
-        return None
+    # no network command for non-virtual device slaves
+    if ifcfg.get("TYPE") not in ("Bond", "Team"):
+        if ifcfg.get("MASTER"):
+            return None
+        if ifcfg.get("TEAM_MASTER"):
+            return None
+        if ifcfg.get("BRIDGE"):
+            return None
 
     # ipv4 and ipv6
     if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT" ) == "no":
