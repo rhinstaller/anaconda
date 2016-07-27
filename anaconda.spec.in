@@ -318,6 +318,45 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 27 2016  <> - 21.48.22.81-1
+- network: don't activate bond/team devices regardless of --activate (rvykydal)
+  Resolves: rhbz#1358795
+- iscsi: fix getting iscsi target iface of bound target (rvykydal)
+  Resolves: rhbz#1359739
+- Clarify a nosave related log message (mkolman)
+  Related: rhbz#1285519
+- network: fix ksdata generating for for non-active virtual devices (rvykydal)
+  Related: rhbz#1321288
+- network: update kickstart data also with bond bridge slaves (rvykydal)
+  Related: rhbz#1321288
+- network: add support for bridge bond slaves (rvykydal)
+  Resolves: rhbz#1321288
+- Fix bootDrive driveorder fallback (jkonecny)
+  Related: rhbz#1355795
+- Fix bootloader when re-using existing /boot part (jkonecny)
+  Related: rhbz#1355795
+- fix style guide test false positive on username variable (rvykydal)
+  Related: rhbz#1350375
+- Store logs before anaconda starts (japokorn)
+  Resolves: rhbz#1255659
+- DD can now replace existing drivers (japokorn)
+  Related: rhbz#1101653
+- tui: use functions instead of fake REs for checking values (rvykydal)
+  Related: rhbz#1350375
+- tui: get proper index of entry we are handling in input (rvykydal)
+  Related: rhbz#1331054
+- tui: fix user name validity checking (rvykydal)
+  Related: rhbz#1259284
+  Resolves: rhbz#1350375
+- Change bootloader boot drive fallback (jkonecny)
+  Resolves: rhbz#1355795
+- Make it possible to disable sshd service from running. (sbueno+anaconda)
+  Resolves: rhbz#1262707
+- Attempt to unload modules updated by a driver disk (dshea)
+  Resolves: rhbz#1101653
+- Fix the processing of device nodes as driver disks (dshea)
+  Related: rhbz#1269915
+
 * Fri Jul 08 2016 Brian C. Lane <bcl@redhat.com> - 21.48.22.80-1
 - Allow kickstart users to ignore the free space error (dshea)
   Resolves: rhbz#1287308
