@@ -1091,6 +1091,10 @@ if __name__ == "__main__":
     # initialize the screen access manager before launching the UI
     from pyanaconda import screen_access
     screen_access.initSAM()
+    # try to open any existing config file
+    # (might be created by pre-anaconda helper tools, injected during image
+    # generation, etc.)
+    screen_access.sam.open_config_file()
 
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
