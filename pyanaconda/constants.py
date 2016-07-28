@@ -72,7 +72,8 @@ USEVNC = N_("Start VNC")
 USETEXT = N_("Use text mode")
 
 # Runlevel files
-RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
+TEXT_ONLY_TARGET = 'multi-user.target'
+GRAPHICAL_TARGET = 'graphical.target'
 
 # Network
 NETWORK_CONNECTION_TIMEOUT = 45  # in seconds
