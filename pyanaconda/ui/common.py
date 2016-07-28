@@ -31,6 +31,7 @@ from abc import ABCMeta, abstractproperty
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda.errors import RemovedModuleError
 from pyanaconda import lifecycle
+from pyanaconda import screen_access
 from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
 
 import logging
@@ -226,7 +227,7 @@ class Spoke(object):
         self.visitedSinceApplied = True
 
         # lists of callbacks to be called when the spoke is entered/exited by the user
-        self._entry_callbacks = [self.entry_logger]
+        self._entry_callbacks = [self.entry_logger, self._mark_screen_visited]
         self._exit_callbacks = [self.exit_logger]
 
     @abstractproperty
@@ -355,6 +356,10 @@ class Spoke(object):
         Each callback is called with a single argument, the spoke instance.
         """
         return self._entry_callbacks
+
+    def _mark_screen_visited(self, spoke_instance):
+        """Report the spoke screen as visited to the Spoke Access Manager."""
+        screen_access.sam.mark_screen_visited(spoke_instance.__class__.__name__)
 
     def exit(self):
         """Called once the spoke is exited by the used.
@@ -818,8 +823,18 @@ def collect_spokes(mask_paths, category):
     """
     spokes = []
     for mask, path in mask_paths:
-        spokes.extend(collect(mask, path,
-                      lambda obj: hasattr(obj, "category") and obj.category is not None and obj.category.__name__ == category))
+        candidate_spokes = (collect(mask, path,
+                            lambda obj: hasattr(obj, "category") and obj.category is not None and obj.category.__name__ == category))
+        # filter out any spokes from the candidates that have already been visited by the user before
+        # (eq. before Anaconda or Initial Setup started) and should not be visible again
+        visible_spokes = []
+        for candidate in candidate_spokes:
+            if screen_access.sam.get_screen_visited(candidate.__name__):
+                log.info("Spoke %s will not be displayed because it has already been visited before.",
+                         candidate.__name__)
+            else:
+                visible_spokes.append(candidate)
+        spokes.extend(visible_spokes)
 
     return spokes
 

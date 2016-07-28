@@ -492,17 +492,21 @@ class App(object):
 
     @property
     def current_screen(self):
+        """Get the currently visible TUI screen."""
         return App._current_screen
 
     @current_screen.setter
     def current_screen(self, new_screen):
-        # Why we are using App._current_screen and not self._current_screen ?
-        #
-        # There can actually be multiple App instances (the AskVNCSpoke for example
-        # has a different App instance than the SummaryHub), but there can still
-        # be only one screen displayed at once.
-        # So we use the class variable and simply track what screen is the last displayed
-        # regardless of App instance.
+        """Set the currently visible TUI screen.
+
+        Why are we using App._current_screen and not self._current_screen ?
+
+        There can actually be multiple App instances (the AskVNCSpoke for example
+        has a different App instance than the SummaryHub), but there can still
+        be only one screen displayed at once.
+        So we use the class variable and simply track what screen is the last displayed
+        regardless of App instance.
+        """
 
         # is this a new screen or still the same one ?
         if new_screen != App._current_screen:
