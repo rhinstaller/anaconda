@@ -28,6 +28,7 @@ from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda import network
+from pyanaconda import screen_access
 from pyanaconda.i18n import N_
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
@@ -128,6 +129,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
                     " by the copy_kickstarts option.")
     else:
         _writeKS(ksdata)
+
+    # write out the user interaction config file
+    screen_access.sam.write_out_config_file()
 
     progress_complete()
 
