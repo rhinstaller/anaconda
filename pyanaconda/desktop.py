@@ -18,7 +18,7 @@
 #
 
 import os
-from pyanaconda.constants import RUNLEVELS
+from pyanaconda.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda import iutil
 
 import logging
@@ -26,31 +26,35 @@ log = logging.getLogger("anaconda")
 
 class Desktop(object):
     def __init__(self):
-        self._runlevel = 3
+        self._default_target = TEXT_ONLY_TARGET
         self.desktop = None
 
     @property
-    def runlevel(self):
-        return self._runlevel
+    def default_target(self):
+        return self._default_target
 
-    @runlevel.setter
-    def runlevel(self, runlevel):
-        if int(runlevel) not in RUNLEVELS:
-            raise RuntimeError("Desktop::setDefaultRunLevel() - Must specify runlevel as one of %s" % RUNLEVELS.keys())
+    @default_target.setter
+    def default_target(self, target):
+        supported_targets = [TEXT_ONLY_TARGET, GRAPHICAL_TARGET]
+        if target not in supported_targets:
+            raise RuntimeError("Desktop::default_target - Must specify a systemd default target"
+                               "as one of %s" % supported_targets)
+        else:
+            log.debug("Setting systemd default target to: %s", target)
 
-        self._runlevel = runlevel
+        self._default_target = target
 
     def write(self):
+        """Write the desktop & default target settings to disk."""
         if self.desktop:
             with open(iutil.getSysroot() + "/etc/sysconfig/desktop", "w") as f:
                 f.write("DESKTOP=%s\n" % self.desktop)
 
         if not os.path.isdir(iutil.getSysroot() + '/etc/systemd/system'):
-            log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
+            log.warning("There is no /etc/systemd/system directory, cannot update default.target!")
             return
 
         default_target = iutil.getSysroot() + '/etc/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
-        os.symlink('/lib/systemd/system/%s' % RUNLEVELS[self.runlevel],
-                   default_target)
+        os.symlink('/lib/systemd/system/%s' % self.default_target, default_target)

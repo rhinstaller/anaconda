@@ -43,7 +43,7 @@ import os
 import os.path
 import tempfile
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 import shlex
 import requests
 import sys
@@ -1881,7 +1881,7 @@ class XConfig(commands.xconfig.F14_XConfig):
     def execute(self, *args):
         desktop = Desktop()
         if self.startX:
-            desktop.runlevel = 5
+            desktop.default_target = GRAPHICAL_TARGET
 
         if self.defaultdesktop:
             desktop.desktop = self.defaultdesktop
@@ -1893,7 +1893,7 @@ class SkipX(commands.skipx.FC3_SkipX):
     def execute(self, *args):
         if self.skipx:
             desktop = Desktop()
-            desktop.runlevel = 3
+            desktop.default_target = TEXT_ONLY_TARGET
             desktop.write()
 
 class ZFCP(commands.zfcp.F14_ZFCP):
