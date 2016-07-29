@@ -441,7 +441,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             # Make sure anaconda doesn't touch this device.
             part.protected = True
-            self.storage.config.protectedDevSpecs.append(part.name)
+            self.storage.config.protected_dev_specs.append(part.name)
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
