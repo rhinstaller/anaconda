@@ -17,12 +17,11 @@
 # Red Hat, Inc.
 #
 
-import re
 import os
 import copy
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
-from pyanaconda.users import cryptPassword, validatePassword, guess_username
+from pyanaconda.users import cryptPassword, validatePassword, guess_username, check_name
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -37,7 +36,7 @@ from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR, PASSWORD_WEAK_CONFIRM,\
         PASSWORD_WEAK_CONFIRM_WITH_ERROR, PASSWORD_DONE_TWICE,\
         PW_ASCII_CHARS, PASSWORD_ASCII
-from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
+from pyanaconda.regexes import GECOS_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
 
@@ -305,9 +304,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         self.add_check(self.confirm, self._checkPasswordEmpty)
 
-        # Allow empty usernames so the spoke can be exited without creating a user
-        self.add_re_check(self.username, re.compile(USERNAME_VALID.pattern + r'|^$'),
-                _("Invalid user name"))
+        self.add_check(self.username, self._checkUsername)
 
         self.add_re_check(self.fullname, GECOS_VALID, _("Full name cannot contain colon characters"))
 
@@ -589,6 +586,18 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             return _(PASSWORD_ASCII)
 
         return InputCheck.CHECK_OK
+
+    def _checkUsername(self, inputcheck):
+        name = self.get_input(inputcheck.input_obj)
+        # Allow empty usernames so the spoke can be exited without creating a user
+        if name == "":
+            return InputCheck.CHECK_OK
+
+        valid, msg = check_name(name)
+        if valid:
+            return InputCheck.CHECK_OK
+        else:
+            return msg or _("Invalid user name")
 
     def on_advanced_clicked(self, _button, data=None):
         """Handler for the Advanced.. button. It starts the Advanced dialog
