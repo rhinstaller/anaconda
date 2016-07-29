@@ -21,7 +21,7 @@ import os
 import copy
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
-from pyanaconda.users import cryptPassword, validatePassword, guess_username, check_name
+from pyanaconda.users import cryptPassword, validatePassword, guess_username, check_username
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -593,7 +593,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         if name == "":
             return InputCheck.CHECK_OK
 
-        valid, msg = check_name(name)
+        valid, msg = check_username(name)
         if valid:
             return InputCheck.CHECK_OK
         else:
