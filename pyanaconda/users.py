@@ -174,7 +174,7 @@ def check_name(name):
         return (False, _("User name is reserved for system: %s") % name)
 
     if name.startswith("-"):
-        return (False, _("User name can't start with '-' character"))
+        return (False, _("User name cannot start with '-' character"))
 
     # Final '$' allowed for Samba
     if name.endswith("$"):
