@@ -219,16 +219,38 @@ class Payload(object):
         urls = [repo.baseurl]
         if repo.mirrorlist:
             urls.extend(repo.mirrorlist)
+        return self._sourceNeedsNetwork(urls)
+
+    def _sourceNeedsNetwork(self, sources):
+        """ Return True if the source requires network.
+
+            :param sources: Source paths for testing
+            :type sources: list
+            :returns: True if any source requires network
+        """
         network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
-        for url in urls:
-            if any(url.startswith(p) for p in network_protocols):
+        for s in sources:
+            if any(s.startswith(p) for p in network_protocols):
+                log.debug("Source %s needs network for installation", s)
                 return True
 
+        log.debug("Source doesn't require network for installation")
         return False
 
     @property
     def needsNetwork(self):
-        return any(self._repoNeedsNetwork(r) for r in self.data.repo.dataList())
+        url = ""
+        if self.data.method.method == "nfs":
+            # NFS is always on network
+            return True
+        elif self.data.method.method == "url":
+            if self.data.url.url:
+                url = self.data.url.url
+            else:
+                url = self.data.url.mirrorlist
+
+        return (self._sourceNeedsNetwork([url]) or
+                any(self._repoNeedsNetwork(repo) for repo in self.data.repo.dataList()))
 
     def _resetMethod(self):
         self.data.method.method = ""
