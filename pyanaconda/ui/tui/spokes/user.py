@@ -24,7 +24,7 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.users import guess_username, check_name
+from pyanaconda.users import guess_username, check_username
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
@@ -40,7 +40,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     edit_fields = [
         Entry("Create user", "_create", EditTUISpoke.CHECK, True),
         Entry("Fullname", "gecos", GECOS_VALID, lambda self,args: args._create),
-        Entry("Username", "name", check_name, lambda self,args: args._create),
+        Entry("Username", "name", check_username, lambda self,args: args._create),
         Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self,args: args._create),
         Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self,args: args._use_password and args._create),
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self,args: args._create),
@@ -136,7 +136,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             if field.attribute == "gecos":
                 self.dialog.wrong_input_message = _("Full name can't contain the ':' character")
             elif field.attribute == "name":
-                # more granular message is returned by check_name
+                # more granular message is returned by check_username
                 pass
             elif field.attribute == "_groups":
                 self.dialog.wrong_input_message = _("Either a group name in the group list is invalid or groups are not separated by a comma")
@@ -147,7 +147,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def apply(self):
         if self.args.gecos and not self.args.name:
             username = guess_username(self.args.gecos)
-            valid, msg = check_name(username)
+            valid, msg = check_username(username)
             if not valid:
                 self.errors.append(_("Invalid user name: %(name)s.\n%(error_message)s")
                         % {"name": username, "error_message": msg})

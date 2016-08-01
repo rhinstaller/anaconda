@@ -169,12 +169,12 @@ def validatePassword(pw, user="root", settings=None, minlen=None):
 
     return (valid, strength, message)
 
-def check_name(name):
+def check_username(name):
     if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
         return (False, _("User name is reserved for system: %s") % name)
 
     if name.startswith("-"):
-        return (False, _("User name can't start with '-' character"))
+        return (False, _("User name cannot start with '-' character"))
 
     # Final '$' allowed for Samba
     if name.endswith("$"):
