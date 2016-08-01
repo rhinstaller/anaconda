@@ -435,7 +435,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # The / gets stripped off by payload.ISOImage
             self.data.method.dir = "/" + self._currentIsoFile
             if (old_source.method == "harddrive" and
-                self.storage.devicetree.resolveDevice(old_source.partition) == part and
+                self.storage.devicetree.resolve_device(old_source.partition) == part and
                 old_source.dir in [self._currentIsoFile, "/" + self._currentIsoFile]):
                 return False
 
@@ -516,10 +516,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._isoChooserButton.set_label(self._origIsoChooserButton)
                 self._isoChooserButton.set_use_underline(True)
 
-            if old_source.partition in self.storage.config.protectedDevSpecs:
-                self.storage.config.protectedDevSpecs.remove(old_source.partition)
+            if old_source.partition in self.storage.config.protected_dev_specs:
+                self.storage.config.protected_dev_specs.remove(old_source.partition)
 
-            dev = self.storage.devicetree.getDeviceByName(old_source.partition)
+            dev = self.storage.devicetree.get_device_by_name(old_source.partition)
             if dev:
                 dev.protected = False
 
@@ -782,7 +782,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         idx = 0
 
         if self.data.method.method == "harddrive":
-            methodDev = self.storage.devicetree.resolveDevice(self.data.method.partition)
+            methodDev = self.storage.devicetree.resolve_device(self.data.method.partition)
 
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
