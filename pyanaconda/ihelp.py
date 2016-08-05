@@ -117,7 +117,7 @@ def get_help_path(help_file, instclass):
 
         # the documentation files don't differentiate between 32bit and 64bit x86
         # and just use a "x86" suffix for both
-        if arch.isX86:
+        if arch.isX86():
             architecture = "x86"
         # the arm docks are the same as the x86 docs
         elif arch.isARM() or arch.isAARCH64():
