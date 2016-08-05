@@ -239,6 +239,7 @@ class Payload(object):
 
     @property
     def needsNetwork(self):
+        """ Test base and additional repositories if they require network. """
         url = ""
         if self.data.method.method == "nfs":
             # NFS is always on network
@@ -249,8 +250,14 @@ class Payload(object):
             else:
                 url = self.data.url.mirrorlist
 
-        return (self._sourceNeedsNetwork([url]) or
-                any(self._repoNeedsNetwork(repo) for repo in self.data.repo.dataList()))
+        if self._sourceNeedsNetwork([url]):
+            return True
+
+        for repo in self.data.repo.dataList():
+            if repo.enabled and self._repoNeedsNetwork(repo):
+                return True
+
+        return False
 
     def _resetMethod(self):
         self.data.method.method = ""
