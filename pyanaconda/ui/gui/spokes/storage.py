@@ -731,16 +731,17 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         updated = False
 
         if doformat:
-            unformatted = make_unformatted_dasd_list(getDisks(self.storage.devicetree))
+            unformatted = make_unformatted_dasd_list([d.name for d in getDisks(self.storage.devicetree)])
             if unformatted:
                 hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
                 for disk in unformatted:
                     try:
-                        format_dasd(disk.name)
+                        format_dasd(disk)
                         # call removeChildren function instead of simply
                         # removeDevice since the disk may have children in
                         # devicetree, e.g. /dev/dasdc may have /dev/dasdc1
-                        self.storage.devicetree._removeChildrenFromTree(disk)
+                        remove = self.storage.devicetree.getDeviceByName(disk)
+                        self.storage.devicetree._removeChildrenFromTree(remove)
                     except DasdFormatError as err:
                         # Log errors if formatting fails, but don't halt the installer
                         log.error(str(err))
