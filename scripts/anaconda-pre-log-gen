@@ -14,7 +14,7 @@ DEBUG_ENABLED=`cat $BOOT_OPTIONS_FILE | egrep -c "\<debug\>|\<inst\.debug\>"`
 
 mkdir ${TARGET_DIRECTORY}
 
-lsblk -a >${TARGET_DIRECTORY}/block_devices.log
-dmesg -a >${TARGET_DIRECTORY}/kernel_ring_buffer.log
+lsblk -a > ${TARGET_DIRECTORY}/block_devices.log
+dmesg > ${TARGET_DIRECTORY}/kernel_ring_buffer.log
 
 lvmdump -d ${TARGET_DIRECTORY}/lvmdump
