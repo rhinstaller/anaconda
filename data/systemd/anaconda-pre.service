@@ -9,14 +9,12 @@ Wants=rsyslog.service
 Wants=systemd-udev-settle.service
 Wants=NetworkManager.service
 Wants=plymouth-quit.service plymouth-quit-wait.service
-Wants=anaconda-direct.service anaconda.service
-Wants=anaconda-sshd.service
 Wants=zram.service
 Wants=systemd-logind.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/anaconda-pre-log-gen
+ExecStart=/usr/libexec/anaconda/anaconda-pre-log-gen
 StardardInput=tty
 StandardOutput=journal+console
 StandardError=journal+console
