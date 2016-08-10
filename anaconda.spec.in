@@ -318,6 +318,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 09 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.82-1
+- Fix needsNetwork() to test only enabled repositories (jkonecny)
+  Resolves: rhbz#1361213
+  Related: rhbz#1358788
+- Make sure unformatted DASDs are dasdfmted in ks. (sbueno+anaconda)
+  Resolves: rhbz#1359865
+- Fix architecutre selection for help content (mkolman)
+  Related: rhbz#1260880
+- Fix needsNetwork testing only additional repositories (jkonecny)
+  Related: rhbz#1358788
+- Fix retry to download local treeinfo file (jkonecny)
+  Related: rhbz#1270354
+- Rename function for better consistency (rvykydal)
+  Related: rhbz#1259284
+- Update error message for consistency (rvykydal)
+  Related: rhbz#1259284
+- Add more specific username check messages also to gui (rvykydal)
+  Related: rhbz#1259284
+  Resolves: rhbz#1360334
+- Fix restart payload only when repo needs network (jkonecny)
+  Resolves: rhbz#1358788
+
 * Wed Jul 27 2016  <> - 21.48.22.81-1
 - network: don't activate bond/team devices regardless of --activate (rvykydal)
   Resolves: rhbz#1358795
