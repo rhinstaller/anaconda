@@ -5,7 +5,11 @@ firstboot --enable
 
 %anaconda
 # Default password policies
-pwpolicy root --notstrict --minlen=0 --minquality=1 --nochanges --emptyok
-pwpolicy user --notstrict --minlen=0 --minquality=1 --nochanges --emptyok
-pwpolicy luks --notstrict --minlen=0 --minquality=1 --nochanges --emptyok
+pwpolicy root --notstrict --minlen=6 --minquality=1 --nochanges --emptyok
+pwpolicy user --notstrict --minlen=6 --minquality=1 --nochanges --emptyok
+pwpolicy luks --notstrict --minlen=6 --minquality=1 --nochanges --emptyok
+# NOTE: This applies only to *fully* interactive installations, partial kickstart
+#       installations use defaults specified in pyanaconda/pwpolicy.py.
+#       Automated kickstart installs simply ignore the password policy as the policy
+#       only applies to the UI, not for passwords specified in kickstart.
 %end
