@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 11 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.83-1
+- Fix PropertyNotFoundError PermHwAddress (jkonecny)
+  Resolves: rhbz#1364977
+- Fix screenshot taking logic (mkolman)
+  Resolves: rhbz#1327456
+- network: don't require gateway for static ipv4 config in TUI (rvykydal)
+  Resolves: rhbz#1365532
+
 * Tue Aug 09 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.82-1
 - Fix needsNetwork() to test only enabled repositories (jkonecny)
   Resolves: rhbz#1361213
