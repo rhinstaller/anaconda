@@ -34,9 +34,17 @@ class F22_PwPolicyData(BaseData):
         self.name = kwargs.get("name", "")
         self.minlen = kwargs.get("minlen", 8)
         self.minquality = kwargs.get("minquality", 50)
-        self.strict = kwargs.get("strict", True)
+        self.strict = kwargs.get("strict", False)
         self.changesok = kwargs.get("changesok", False)
         self.emptyok = kwargs.get("emptyok", True)
+
+        # The defaults specified above are used only for password input via the UI
+        # during a partial kickstart installations.
+        # Fully interactive installs (no kickstart is specified by the user)
+        # use the default set by the interactive defaults built-in kickstart file
+        # (data/interactive-defaults.ks).
+        # Automated kickstart installs simply ignore the password policy as the policy
+        # only applies to the UI, not for passwords specified in kickstart.
 
     def __eq__(self, y):
         if not y:
