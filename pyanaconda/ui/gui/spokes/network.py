@@ -633,12 +633,12 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
-            if self.spoke:
-                self.spoke.networking_changed = True
             network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection_async(con, device, None, None)
+        if self.spoke:
+            self.spoke.networking_changed = True
 
     def on_wireless_enabled(self, *args):
         switch = self.builder.get_object("device_wireless_off_switch")
