@@ -1,6 +1,6 @@
 # systemd/Makefile.am for anaconda
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2016  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -19,15 +19,16 @@ systemddir = $(prefix)/lib/systemd/system
 generatordir = $(prefix)/lib/systemd/system-generators
 
 dist_systemd_DATA = anaconda.service \
-		    anaconda-noshell.service \
-		    anaconda-direct.service \
-		    anaconda.target \
-		    anaconda-tmux@.service \
-		    anaconda-shell@.service \
-		    instperf.service \
-		    anaconda-sshd.service \
-		    anaconda-nm-config.service \
-		    zram.service
+                    anaconda-noshell.service \
+                    anaconda-direct.service \
+                    anaconda.target \
+                    anaconda-tmux@.service \
+                    anaconda-shell@.service \
+                    instperf.service \
+                    anaconda-sshd.service \
+                    anaconda-nm-config.service \
+                    anaconda-pre.service \
+                    zram.service
 
 dist_generator_SCRIPTS = anaconda-generator
 
