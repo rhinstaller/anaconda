@@ -25,7 +25,7 @@ from pyanaconda import nm
 class FedoraBaseInstallClass(BaseInstallClass):
     name = "Fedora"
     sortPriority = 10000
-    if productName.startswith("Red Hat "):          # pylint: disable=no-member
+    if not productName.startswith("Fedora"):          # pylint: disable=no-member
         hidden = True
 
     _l10n_domain = "anaconda"
