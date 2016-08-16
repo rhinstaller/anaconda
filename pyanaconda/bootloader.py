@@ -1783,6 +1783,12 @@ class EFIGRUB1(EFIBase, GRUB):
     stage2_bootable = False
     stage2_max_end_mb = None
 
+    _efi_binary = "\\grub.efi"
+
+    def __init__(self):
+        super(EFIGRUB1, self).__init__()
+        self.efi_dir = 'BOOT'
+
     #
     # configuration
     #
