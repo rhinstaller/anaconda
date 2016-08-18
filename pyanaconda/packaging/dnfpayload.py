@@ -135,7 +135,7 @@ def _pick_mpoint(df, download_size, install_size):
     return sorted(sufficients.items(), key=operator.itemgetter(1),
                   reverse=True)[0][0]
 
-class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
+class PayloadRPMDisplay(dnf.callback.TransactionProgress):
     def __init__(self, queue_instance):
         super(PayloadRPMDisplay, self).__init__()
         self._queue = queue_instance
