@@ -327,7 +327,7 @@ class StorageSpoke(NormalTUISpoke):
                 unformatted += make_unformatted_dasd_list([d.name for d in getDisks(self.storage.devicetree)])
             if self.data.clearpart.cdl:
                 # LDL DASDs
-                ldl += [d for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
+                ldl += [d.name for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
             # combine into one nice list
             to_format = list(set(unformatted + ldl))
         else:
