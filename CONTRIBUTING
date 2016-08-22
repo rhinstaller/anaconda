@@ -99,3 +99,63 @@ Pull Request Review
 Please note that there is a minimum review period of 24 hours for any patch. The purpose of this rule is to ensure that all interested parties have an opportunity to review every patch. When posting a patch before or after a holiday break it is important to extend this period as appropriate.
 
 All subsequent changes made to patches must be force-pushed to the PR branch before merging it into the main branch.
+
+Merging examples
+----------------
+
+Merging the Fedora ``devel`` branch back to the ``master`` branch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
+
+Checkout and pull the master branch:
+
+``git checkout master``
+``git pull``
+
+Merge the Fedora devel branch to the master branch:
+
+``git merge --no-ff f25-devel``
+
+Push the merge to the remote:
+
+``git push origin master``
+
+Merging a GitHub pull request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
+
+Press the green *Merge pull request* button on the pull request page.
+
+If the pull request has been opened for:
+- master
+- f25-release
+- rhel7-branch
+Then you are done.
+
+If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
+branch back to ``master`` once you merge your pull request (see "Merging the Fedora devel branch back to the master branch" above).
+
+Merging a topic branch manually
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(Fedora 25 is used as an example, don't forget to use appropriate Fedora version.)
+
+Let's say that there is a topic branch called "fix_foo_with_bar" that should be merged to a given Anaconda non-topic branch.
+
+Checkout the given target branch, pull it and merge your topic branch into it:
+
+``git checkout <target branch>``
+``git pull``
+``git merge --no-ff fix_foo_with_bar``
+
+Then push the merge to the remote:
+
+``git push origin <target branch>``
+
+If the <target branch> was one of:
+- master
+- f25-release
+- rhel7-branch
+Then you are done.
+
+If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
+branch back to ``master`` once you merge your pull request (see "Merging the Fedora devel branch back to the master branch" above).
