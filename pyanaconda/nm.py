@@ -20,7 +20,14 @@
 #
 
 from gi.repository import Gio, GLib
+
 from gi.repository import NetworkManager
+# Register the types so that the use in threads is safe
+NetworkManager.ActiveConnectionState # pylint: disable=pointless-statement
+NetworkManager.DeviceState # pylint: disable=pointless-statement
+NetworkManager.DeviceType # pylint: disable=pointless-statement
+NetworkManager.State # pylint: disable=pointless-statement
+
 import IPy
 import struct
 import socket
