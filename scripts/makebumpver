@@ -36,6 +36,9 @@ import sys
 import textwrap
 import urllib.request
 
+DEFAULT_ZANATA_GIT_BRANCH_ALIASES = {
+    "unstable": "master",
+}
 
 def run_program(*args):
     """Run a program with universal newlines on"""
@@ -105,6 +108,8 @@ class MakeBumpVer:
                             help="Skip all checks.")
         parser.add_argument("-d", "--debug", dest="debug", action="store_true", default=False,
                             help="Enable debug logging to stdout.")
+        parser.add_argument("--zanata-branch", dest="zanata_branch", metavar="BRANCH NAME",
+                            help="Zanata branch name (needed if different from git branch name & not present in default mappings).")
         parser.add_argument("--skip-zanata", dest="skip_zanata", action="store_true", default=False,
                             help="Skip checking Zanata config for branch name.")
         parser.add_argument("--skip-jenkins", dest="skip_jenkins", action="store_true", default=False,
@@ -584,10 +589,20 @@ class MakeBumpVer:
 
         version_re = re.compile("<project-version>(.*)</project-version>")
         ret = False
+
+        git_branch_name = self.git_branch
+        git_branch_aliases = DEFAULT_ZANATA_GIT_BRANCH_ALIASES
+        # If a Zanata branch name is provided from comand line
+        # then register it as an alias for the current Git branch.
+        if self.args.zanata_branch:
+            git_branch_aliases[self.git_branch] = self.args.zanata_branch
+        if self.git_branch in git_branch_aliases:
+            git_branch_name = git_branch_aliases[self.git_branch]
+
         with open(self.zanata_config, "r") as f:
             for line in f:
                 m = version_re.match(line.strip())
-                if m and m.group(1) == self.git_branch:
+                if m and m.group(1) == git_branch_name:
                     ret = True
                     break
                 elif m:
