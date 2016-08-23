@@ -53,7 +53,7 @@ from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
+from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape, really_hide
 from pyanaconda.ui.helpers import StorageChecker
 from pyanaconda.storage_utils import on_disk_storage
 
@@ -601,6 +601,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         mainViewport = self.builder.get_object("storageViewport")
         mainBox = self.builder.get_object("storageMainBox")
         mainBox.set_focus_vadjustment(mainViewport.get_vadjustment())
+
+        if not self.instclass.offerEncryption:
+            widget = self.builder.get_object("encryptionBox")
+            label = self.builder.get_object("encryptionLabel")
+            really_hide(widget)
+            really_hide(label)
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
                       target=self._initialize))

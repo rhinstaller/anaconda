@@ -293,6 +293,10 @@ class AutoPart(commands.autopart.RHEL7_AutoPart):
         instClass.setDefaultPartitioning(storage)
         storage.doAutoPart = True
 
+        if self.encrypted and not instClass.offerEncryption:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("Encrypted filesystems are not supported in this installation.")))
+
         if self.encrypted:
             storage.encryptedAutoPart = True
             storage.encryptionPassphrase = self.passphrase
@@ -1071,6 +1075,10 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
             if ty == "swap":
                 add_fstab_swap = request
 
+        if self.encrypted and not instClass.offerEncryption:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("Encrypted filesystems are not supported in this installation.")))
+
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
@@ -1388,6 +1396,10 @@ class PartitionData(commands.partition.RHEL7_PartData):
             if ty == "swap":
                 add_fstab_swap = request
 
+        if self.encrypted and not instClass.offerEncryption:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("Encrypted filesystems are not supported in this installation.")))
+
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
@@ -1577,6 +1589,10 @@ class RaidData(commands.raid.RHEL7_RaidData):
             storage.createDevice(request)
             if ty == "swap":
                 add_fstab_swap = request
+
+        if self.encrypted and not instClass.offerEncryption:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("Encrypted filesystems are not supported in this installation.")))
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:

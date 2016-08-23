@@ -52,6 +52,9 @@ class BaseInstallClass(object):
     # install the latest updates during installation source selection.
     installUpdates = True
 
+    # Do we want to present the option to encrypt devices?
+    offerEncryption = True
+
     _l10n_domain = None
 
     # The default filesystem type to use.  If None, we will use whatever

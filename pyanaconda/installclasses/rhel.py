@@ -77,6 +77,8 @@ class RHELAtomicInstallClass(RHELBaseInstallClass):
     sortPriority=21000
     hidden = not productName.startswith(("RHEL Atomic Host", "Red Hat Enterprise Linux Atomic"))
 
+    offerEncryption = False
+
     def configure(self, anaconda):
         RHELBaseInstallClass.configure(self, anaconda)
         # Atomic installations are always single language (#1235726)
