@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.82\n"
+"Project-Id-Version: anaconda 21.48.22.83\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-08-11 16:03-0400\n"
+"POT-Creation-Date: 2016-08-23 15:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -455,7 +455,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:269 pyanaconda/packaging/livepayload.py:170
-#: pyanaconda/packaging/yumpayload.py:1461
+#: pyanaconda/packaging/yumpayload.py:1462
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -874,12 +874,12 @@ msgstr ""
 msgid "New %(name)s %(version)s Installation"
 msgstr ""
 
-#: pyanaconda/pwpolicy.py:114
+#: pyanaconda/pwpolicy.py:122
 #, python-format
 msgid "policy name required for %s"
 msgstr ""
 
-#: pyanaconda/pwpolicy.py:123
+#: pyanaconda/pwpolicy.py:131
 #, python-format
 msgid "A %(command)s with the name %(policyName)s has already been defined."
 msgstr ""
@@ -1290,20 +1290,20 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1274
+#: pyanaconda/packaging/yumpayload.py:1275
 #, python-format
 msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1423
+#: pyanaconda/packaging/yumpayload.py:1424
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1458
+#: pyanaconda/packaging/yumpayload.py:1459
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1459
+#: pyanaconda/packaging/yumpayload.py:1460
 msgid "Installing"
 msgstr ""
 

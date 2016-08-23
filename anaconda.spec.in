@@ -318,6 +318,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 23 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.84-1
+- Ensure LDL DASDs formatted in text ks. (sbueno+anaconda)
+  Resolves: rhbz#1259437
+- Run cache hack after moving cache to mounted storage (bcl)
+  Resolves: rhbz#1287438
+- Fix reset payload only on network change (jkonecny)
+  Resolves: rhbz#1364367
+- Disable strict password quality checking for partial kickstart installations
+  (mkolman)
+  Related: rhbz#1360263
+- Fix anaconda-pre.service wasn't properly installed (jkonecny)
+  Related: rhbz#1255659
+
 * Thu Aug 11 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.83-1
 - Fix PropertyNotFoundError PermHwAddress (jkonecny)
   Resolves: rhbz#1364977
