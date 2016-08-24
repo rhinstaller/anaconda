@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 24 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.85-1
+- Check before removing repo specific caches (bcl)
+  Resolves: rhbz#1369698
+
 * Tue Aug 23 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.84-1
 - Ensure LDL DASDs formatted in text ks. (sbueno+anaconda)
   Resolves: rhbz#1259437
