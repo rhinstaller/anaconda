@@ -758,10 +758,7 @@ def _run_systemctl(command, service, root="/"):
     """
 
     args = [command, service]
-    if root != "/":
-        args += ["--root", root]
-
-    ret = execWithRedirect("systemctl", args)
+    ret = execWithRedirect("systemctl", args, root=root)
 
     return ret
 
