@@ -302,6 +302,8 @@ class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):
         commands.bootloader.F21_Bootloader.__init__(self, *args, **kwargs)
         self.location = "mbr"
+        self._useBackup = False
+        self._origBootDrive = None
 
     def parse(self, args):
         commands.bootloader.F21_Bootloader.parse(self, args)
@@ -316,9 +318,29 @@ class Bootloader(commands.bootloader.F21_Bootloader):
 
         return self
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata, instClass, dry_run=False):
+        """ Resolve and execute the bootloader installation.
+
+            :param storage: object storing storage-related information
+                            (disks, partitioning, bootloader, etc.)
+            :type storage: blivet.Blivet
+            :param payload: object storing packaging-related information
+            :type payload: pyanaconda.packaging.Payload
+            :param instclass: distribution-specific information
+            :type instclass: pyanaconda.installclass.BaseInstallClass
+            :param dry_run: flag if this is only dry run before the partitioning
+                            will be resolved
+            :type dry_run: bool
+        """
         if flags.imageInstall and blivet.arch.is_s390():
             self.location = "none"
+
+        if dry_run:
+            self._origBootDrive = self.bootDrive
+            self._useBackup = True
+        elif self._useBackup:
+            self.bootDrive = self._origBootDrive
+            self._useBackup = False
 
         if self.location == "none":
             location = None
@@ -363,7 +385,8 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         for drive in self.driveorder[:]:
             matches = device_matches(drive, devicetree=storage.devicetree, disks_only=True)
             if set(matches).isdisjoint(diskSet):
-                log.warning("requested drive %s in boot drive order doesn't exist or cannot be used", drive)
+                log.warning("requested drive %s in boot drive order doesn't exist or cannot be used",
+                            drive)
                 self.driveorder.remove(drive)
             else:
                 valid_disks.extend(matches)
@@ -371,7 +394,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         storage.bootloader.disk_order = valid_disks
 
         # When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
-        # 1) If present use first disk from driveorder parameter
+        # 1) If present first valid disk from driveorder parameter
         # 2) If present and usable, use disk where /boot partition is placed
         # 3) Use first disk from Blivet
         if self.bootDrive:
@@ -386,26 +409,37 @@ class Bootloader(commands.bootloader.F21_Bootloader):
                             formatErrorMsg(self.lineno,
                                            msg=(_("Requested boot drive \"%s\" doesn't exist or cannot be used.")
                                                 % self.bootDrive)))
-        elif len(self.driveorder) >= 1:
-            log.debug("Bootloader: use '%s' first disk from driveorder as boot drive",
-                      self.driveorder[0])
-            self.bootDrive = self.driveorder[0]
+        # Take valid disk from --driveorder
+        elif len(valid_disks) >= 1:
+            log.debug("Bootloader: use '%s' first disk from driveorder as boot drive, dry run %s",
+                      valid_disks[0], dry_run)
+            self.bootDrive = valid_disks[0]
         else:
-            boot_drive = None
             # Try to find /boot
-            for part in ksdata.partition.partitions:
-                if part.mountpoint == "/boot":
-                    device_match = deviceMatches(part.disk, devicetree=storage.devicetree)
-                    if len(device_match) == 1 and device_match[0] in disk_names:
-                        log.debug("Bootloader: use /boot partition '%s' as boot drive", device_match[0])
-                        boot_drive = device_match[0]
-                    break
-            else: # Nothing was found use first disk from Blivet
-                log.debug("Bootloader: fallback use first disk return from Blivet '%s' as boot drive",
-                          disk_names[0])
-                boot_drive = disk_names[0]
+            #
+            # This method is executed two times. Before and after partitioning.
+            # In the first run, the result is used for other partitioning but
+            # the second will be used.
+            try:
+                boot_dev = storage.mountpoints["/boot"]
+            except KeyError:
+                log.debug("Bootloader: /boot partition is not present, dry run %s", dry_run)
+            else:
+                boot_drive = ""
+                # Use disk ancestor
+                if boot_dev.disks:
+                    boot_drive =  boot_dev.disks[0].name
 
-            self.bootDrive = boot_drive
+                if boot_drive and boot_drive in disk_names:
+                    self.bootDrive = boot_drive
+                    log.debug("Bootloader: use /boot partition's disk '%s' as boot drive, dry run %s",
+                              boot_drive, dry_run)
+
+        # Nothing was found use first disk from Blivet
+        if not self.bootDrive:
+            log.debug("Bootloader: fallback use first disk return from Blivet '%s' as boot drive, dry run %s",
+                      disk_names[0], dry_run)
+            self.bootDrive = disk_names[0]
 
         drive = storage.devicetree.resolve_device(self.bootDrive)
         storage.bootloader.stage1_disk = drive
@@ -2210,7 +2244,7 @@ def doKickstartStorage(storage, ksdata, instClass):
     # snapshot free space now so that we know how much we had available
     storage.create_free_space_snapshot()
 
-    ksdata.bootloader.execute(storage, ksdata, instClass)
+    ksdata.bootloader.execute(storage, ksdata, instClass, dry_run=True)
     ksdata.autopart.execute(storage, ksdata, instClass)
     ksdata.reqpart.execute(storage, ksdata, instClass)
     ksdata.partition.execute(storage, ksdata, instClass)
