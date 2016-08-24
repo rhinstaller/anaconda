@@ -1577,7 +1577,8 @@ reposdir=%s
             # remove cache dirs of install-specific repos
             for repo in self._yum.repos.listEnabled():
                 if repo.name == BASE_REPO_NAME or repo.id.startswith("anaconda-"):
-                    shutil.rmtree(repo.cachedir)
+                    if os.path.isdir(repo.cachedir):
+                        shutil.rmtree(repo.cachedir)
 
         self._removeTxSaveFile()
 
