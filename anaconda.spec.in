@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 25 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.86-1
+- network: don't stumble upon new Device.Statistics NM dbus iface (rvykydal)
+  Resolves: rhbz#1370099
+
 * Wed Aug 24 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.85-1
 - Check before removing repo specific caches (bcl)
   Resolves: rhbz#1369698
