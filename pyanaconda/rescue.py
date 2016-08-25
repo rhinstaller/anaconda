@@ -26,7 +26,7 @@ from pyanaconda import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -298,7 +298,8 @@ class RootSpoke(NormalTUISpoke):
         try:
             keyid = int(key) - 1
         except ValueError:
-            if key.lower() == "c":
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED

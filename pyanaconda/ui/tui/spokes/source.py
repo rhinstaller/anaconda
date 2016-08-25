@@ -26,7 +26,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PackagePayload, payloadMgr
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.iutil import DataHolder
 
@@ -457,7 +457,8 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
         return True
 
     def input(self, args, key):
-        if key == "c":
+        # TRANSLATORS: 'c' to continue
+        if key.lower() == C_('TUI|Spoke Navigation', 'c'):
             self.apply()
             self.close()
             return key
