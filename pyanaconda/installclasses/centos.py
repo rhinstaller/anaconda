@@ -1,7 +1,7 @@
 #
-# fedora.py
+# centos.py
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2010  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,18 +22,25 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
-class FedoraBaseInstallClass(BaseInstallClass):
-    name = "Fedora"
+class RHELBaseInstallClass(BaseInstallClass):
+    name = "CentOS Linux"
     sortPriority = 10000
-    if not productName.startswith("Fedora"):          # pylint: disable=no-member
+    if not productName.startswith("CentOS"):          # pylint: disable=no-member
         hidden = True
+    defaultFS = "xfs"
 
-    _l10n_domain = "anaconda"
+    bootloaderTimeoutDefault = 5
 
-    efi_dir = "fedora"
+    ignoredPackages = ["ntfsprogs"]
 
-    help_placeholder = "FedoraPlaceholder.html"
-    help_placeholder_with_links = "FedoraPlaceholderWithLinks.html"
+    installUpdates = False
+
+    _l10n_domain = "comps"
+
+    efi_dir = "centos"
+
+    help_placeholder = "CentOSPlaceholder.html"
+    help_placeholder_with_links = "CentOSPlaceholder.html"
 
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
@@ -42,17 +49,16 @@ class FedoraBaseInstallClass(BaseInstallClass):
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
-        # choose first wired device having link
-        for dev in nm.nm_devices():
-            if nm.nm_device_type_is_wifi(dev):
-                continue
-            try:
-                link_up = nm.nm_device_carrier(dev)
-            except (nm.UnknownDeviceError, nm.PropertyNotFoundError):
-                continue
-            if link_up:
-                network.update_onboot_value(dev, True, ksdata=ksdata)
-                break
+        # choose the device used during installation
+        # (ie for majority of cases the one having the default route)
+        dev = network.default_route_device() \
+              or network.default_route_device(family="inet6")
+        if not dev:
+            return
+        # ignore wireless (its ifcfgs would need to be handled differently)
+        if nm.nm_device_type_is_wifi(dev):
+            return
+        network.update_onboot_value(dev, True, ksdata=ksdata)
 
     def __init__(self):
         BaseInstallClass.__init__(self)
