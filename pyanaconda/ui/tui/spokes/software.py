@@ -188,8 +188,8 @@ class SoftwareSpoke(NormalTUISpoke):
             keyid = int(key) - 1
         except ValueError:
             # TRANSLATORS: 'c' to continue
-            if key.lower() == C_("TUI|Spoke Navigation", "c") and \
-                    0 <= self._selection < len(self.payload.environments):
+            continue_requested = key.lower() == C_('TUI|Spoke Navigation', 'c')
+            if continue_requested and 0 <= self._selection < len(self.payload.environments):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
