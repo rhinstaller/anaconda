@@ -1675,12 +1675,16 @@ class GRUB2(GRUB):
         return ret
 
 class EFIBase(object):
+
+    def __init__(self):
+        self.efi_dir = None
+
     @property
     def _config_dir(self):
         efi_dir = self.efi_dir
         if flags.cmdline.get("force_efi_dir") is not None:
             efi_dir = flags.cmdline.get("force_efi_dir")
-        return "efi/EFI/%s" % (efi_dir,) # pylint: disable=no-member
+        return "efi/EFI/%s" % (efi_dir,)
 
     def efibootmgr(self, *args, **kwargs):
         if flags.imageInstall or flags.dirInstall:
