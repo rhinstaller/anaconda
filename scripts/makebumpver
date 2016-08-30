@@ -132,7 +132,7 @@ class MakeBumpVer:
             self.git_branch = fields[1]
 
         if len(fields) == 2 and fields[1].startswith('rhel'):
-            branch_pattern=r"^rhel(\d+)-(.*)"
+            branch_pattern = r"^rhel(\d+)-(.*)"
             m = re.match(branch_pattern, fields[1])
             if m:
                 return m.group(1)
@@ -236,7 +236,7 @@ class MakeBumpVer:
             return True
 
         bzentry = self._queryBug(bug)
-        ack_pattern=r"rhel-%s\.\d+\.\d+" % self.rhel
+        ack_pattern = r"rhel-%s\.\d+\.\d+" % self.rhel
         for f in bzentry.flags:
             if re.match(ack_pattern, f['name']) and f['status'] == '+':
                 return True
@@ -249,9 +249,9 @@ class MakeBumpVer:
     def _rpmLog(self, fixedIn):
         git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
         proc = run_program(['git', 'log', '--pretty=oneline', git_range])
-        lines = filter(lambda x: x.find('l10n: ') != 41 and \
-                                 x.find('Merge commit') != 41 and \
-                                 x.find('Merge branch') != 41,
+        lines = filter(lambda x: x.find('l10n: ') != 41 and
+                       x.find('Merge commit') != 41 and
+                       x.find('Merge branch') != 41,
                        proc[0].strip('\n').split('\n'))
 
         if self.ignore and self.ignore != '':
@@ -280,7 +280,7 @@ class MakeBumpVer:
                 m = re.search(r"\(#\d+(\,.*)*\)", summary)
                 if m:
                     fullbug = summary[m.start():m.end()]
-                    bugstr = summary[m.start()+2:m.end()-1]
+                    bugstr = summary[m.start() + 2:m.end() - 1]
 
                     bug = ''
                     for c in bugstr:
@@ -359,13 +359,11 @@ class MakeBumpVer:
                             print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
                             continue
 
-                        if valid and action == 'Resolves' and \
-                           (not self._isRHELBugInCorrectState(ckbug, commit,
-                                                              summary) or \
-                            not self._isRHELBugFixedInVersion(ckbug, commit,
-                                                              summary,
-                                                              fixedIn) or \
-                            not self._isRHELBugAcked(ckbug, commit, summary)):
+                        not_correct = not self._isRHELBugInCorrectState(ckbug, commit, summary)
+                        not_fixed = not self._isRHELBugFixedInVersion(ckbug, commit, summary, fixedIn)
+                        not_acked = not self._isRHELBugAcked(ckbug, commit, summary)
+
+                        if valid and action == 'Resolves' and (not_correct or not_fixed or not_acked):
                             bad = True
                         elif valid and action == 'Related':
                             # A related bug needs to have acks, and if it is the same as the summary
@@ -419,7 +417,7 @@ class MakeBumpVer:
 
         i = l.index('%changelog\n')
         top = l[:i]
-        bottom = l[i+1:]
+        bottom = l[i + 1:]
 
         f = open(self.spec, 'w')
         f.writelines(top)
@@ -484,8 +482,8 @@ class MakeBumpVer:
                         if job["name"] == targetJob:
                             ret = job["color"] == "blue"
                             break
-        except IOError as e:
-            log.error("Jenkins check failed: %s", e)
+        except IOError:
+            log.exception("Jenkins check failed.")
             return False
 
         return ret
