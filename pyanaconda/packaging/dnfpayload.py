@@ -270,7 +270,7 @@ class DNFPayload(packaging.PackagePayload):
            :type ksrepo: Kickstart RepoData object.
            :returns: None
         """
-        repo = dnf.repo.Repo(ksrepo.name, DNF_CACHE_DIR)
+        repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
         url = self._replace_vars(ksrepo.baseurl)
         mirrorlist = self._replace_vars(ksrepo.mirrorlist)
 
