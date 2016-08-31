@@ -440,6 +440,9 @@ class NetworkControlBox(GObject.GObject):
         if network.is_libvirt_device(dev_cfg.get_iface() or ""):
             log.debug("network: GUI, not adding %s", dev_cfg.get_iface())
             return False
+        if network.is_ibft_configured_device(dev_cfg.get_iface() or ""):
+            log.debug("network: GUI, not adding %s configured from iBFT", dev_cfg.get_iface())
+            return False
         if dev_cfg.setting_value("connection", "read-only"):
             log.debug("network: GUI, not adding read-only connection %s", uuid)
             return False
@@ -728,6 +731,9 @@ class NetworkControlBox(GObject.GObject):
         # (can be chopped off to IFNAMSIZ kernel limit)
         if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
+        if network.is_ibft_configured_device(device.get_iface() or ""):
+            log.debug("network: not adding connection for device %s configured from iBFT", device.get_iface())
+            return False
 
         try:
             read_only = nm.nm_device_setting_value(device.get_iface(), "connection", "read-only")

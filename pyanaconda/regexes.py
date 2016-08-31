@@ -141,3 +141,6 @@ REPO_NAME_VALID = re.compile(r'^[a-zA-Z0-9_.:-]+$')
 
 # Product Version string, just the starting numbers like 21 or 21.1
 VERSION_DIGITS = r'([\d.]+)'
+
+# Device with this name was configured from ibft (and renamed) by dracut
+IBFT_CONFIGURED_DEVICE_NAME = re.compile(r'^ibft\d+$')
