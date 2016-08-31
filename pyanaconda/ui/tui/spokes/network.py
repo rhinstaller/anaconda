@@ -73,6 +73,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         for name in devices:
             if name in self.supported_devices:
                 continue
+            if network.is_ibft_configured_device(name):
+                continue
             if nm.nm_device_type_is_ethernet(name):
                 # ignore slaves
                 if nm.nm_device_setting_value(name, "connection", "slave-type"):
@@ -258,6 +260,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
         self.data.network.network = []
         for i, name in enumerate(nm.nm_devices()):
+            if network.is_ibft_configured_device(name):
+                continue
             nd = network.ksdata_from_ifcfg(name)
             if not nd:
                 continue

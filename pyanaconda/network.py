@@ -43,7 +43,7 @@ from pyanaconda import nm
 from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
-from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1620,3 +1620,6 @@ def is_using_team_device():
 
 def is_libvirt_device(iface):
     return iface.startswith("virbr")
+
+def is_ibft_configured_device(iface):
+    return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
