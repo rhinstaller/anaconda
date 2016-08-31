@@ -238,6 +238,7 @@ class BootLoader(object):
     _trusted_boot = False
 
     def __init__(self):
+        super(BootLoader, self).__init__()
         self.boot_args = Arguments()
         self.dracut_args = Arguments()
 
@@ -1677,6 +1678,7 @@ class GRUB2(GRUB):
 class EFIBase(object):
 
     def __init__(self):
+        super(EFIBase, self).__init__()
         self.efi_dir = None
 
     @property
