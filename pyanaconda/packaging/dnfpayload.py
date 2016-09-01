@@ -135,25 +135,25 @@ def _pick_mpoint(df, download_size, install_size):
     return sorted(sufficients.items(), key=operator.itemgetter(1),
                   reverse=True)[0][0]
 
-class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
+class PayloadRPMDisplay(dnf.callback.TransactionProgress):
     def __init__(self, queue_instance):
         super(PayloadRPMDisplay, self).__init__()
         self._queue = queue_instance
         self._last_ts = None
         self.cnt = 0
 
-    def event(self, package, action, te_current, te_total, ts_current, ts_total):
+    def progress(self, package, action, ti_done, ti_total, ts_done, ts_total):
         # Process DNF actions, communicating with anaconda via the queue
         # A normal installation consists of 'install' messages followed by
         # the 'post' message.
-        if action == self.PKG_INSTALL and te_current == 0:
+        if action == self.PKG_INSTALL and ti_done == 0:
             # do not report same package twice
-            if self._last_ts == ts_current:
+            if self._last_ts == ts_done:
                 return
-            self._last_ts = ts_current
+            self._last_ts = ts_done
 
             msg = '%s.%s (%d/%d)' % \
-                (package.name, package.arch, ts_current, ts_total)
+                (package.name, package.arch, ts_done, ts_total)
             self.cnt += 1
             self._queue.put(('install', msg))
 
@@ -163,6 +163,12 @@ class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
             self._queue.put(('log', log_msg))
         elif action == self.TRANS_POST:
             self._queue.put(('post', None))
+
+    def error(self, message):
+        """ Report an error that occurred during the transaction. Message is a
+            string which describes the error.
+        """
+        self._queue.put(('error', message))
 
 class DownloadProgress(dnf.callback.DownloadProgress):
     def __init__(self):
@@ -816,16 +822,23 @@ class DNFPayload(packaging.PackagePayload):
         # When the installation works correctly it will get 'install' updates
         # followed by a 'post' message and then a 'quit' message.
         # If the installation fails it will send 'quit' without 'post'
-        while token not in ('post', 'quit'):
+        while token:
             if token == 'install':
                 msg = _("Installing %s") % msg
                 progressQ.send_message(msg)
             elif token == 'log':
                 log.info(msg)
+            elif token == 'post':
+                break # Installation finished successfully
+            elif token == 'quit':
+                msg = ("Payload error - 'quit' was received before 'post': %s" % msg)
+                raise packaging.PayloadError(msg)
+            elif token == 'error':
+                exc = packaging.PayloadInstallError("DNF error: %s" % msg)
+                if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
+                    log.error("Installation failed: %r", exc)
+                    _failure_limbo()
             (token, msg) = queue_instance.get()
-
-        if token == 'quit':
-            raise packaging.PayloadError("DNF error: %s" % msg)
 
         post_msg = (N_("Performing post-installation setup tasks"))
         progress_message(post_msg)
