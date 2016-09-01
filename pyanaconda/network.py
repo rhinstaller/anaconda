@@ -491,7 +491,9 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['team', 'interface-name', devname, 's'])
         values.append(['team', 'config', networkdata.teamconfig, 's'])
         for (slave, cfg) in networkdata.teamslaves:
-            svalues = [['team-port', 'config', cfg, 's']]
+            svalues = []
+            if cfg:
+                svalues.append(['team-port', 'config', cfg, 's'])
             suuid = _add_slave_connection('team', slave, devname, networkdata.activate, svalues)
             added_connections.append((suuid, slave))
         dev_spec = None
