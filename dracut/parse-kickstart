@@ -556,6 +556,8 @@ def ksnet_to_ifcfg(net, filename=None):
             ifcfg['BRIDGING_OPTS'] = " ".join(keyvalues)
 
         for i, slave in enumerate(net.bridgeslaves.split(","), 1):
+            if is_mac(slave):
+                slave = find_devname(slave)
             slave_ifcfg = {
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
