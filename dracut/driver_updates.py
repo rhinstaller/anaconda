@@ -262,7 +262,7 @@ def save_repo(repo, target="/run/install"):
     """copy a repo to the place where the installer will look for it later."""
     newdir = mkdir_seq(os.path.join(target, "DD-"))
     log.debug("save_repo: copying %s to %s", repo, newdir)
-    subprocess.call(["cp", "-arT", repo, newdir])
+    subprocess.call(["cp", "-ar", repo, newdir])
     return newdir
 
 def extract_drivers(drivers=None, repos=None, outdir="/updates",
