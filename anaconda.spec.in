@@ -318,6 +318,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 05 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.87-1
+- Drop T from cp command flags when copying driver disk RPMs (mkolman)
+  Resolves: rhbz#1269915
+- network: set onboot correctly for vlan on bond device in ks (rvykydal)
+  Related: rhbz#1234849
+- network: don't show ibft configured devices in UI (rvykydal)
+  Resolves: rhbz#1309661
+- Translate press-c-to-continue correctly in TUI (mkolman)
+  Resolves: rhbz#1364539
+- network: don't set empty team slave config for NM (rvykydal)
+  Related: rhbz#1254929
+
 * Thu Aug 25 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.86-1
 - network: don't stumble upon new Device.Statistics NM dbus iface (rvykydal)
   Resolves: rhbz#1370099
