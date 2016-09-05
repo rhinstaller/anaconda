@@ -235,7 +235,8 @@ def _get_object_iface_names(object_path):
 def _device_type_specific_interface(device):
     ifaces = _get_object_iface_names(device)
     for iface in ifaces:
-        if iface.startswith("org.freedesktop.NetworkManager.Device."):
+        if iface.startswith("org.freedesktop.NetworkManager.Device.") \
+           and iface != "org.freedesktop.NetworkManager.Device.Statistics":
             return iface
     return None
 
