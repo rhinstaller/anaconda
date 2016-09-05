@@ -343,6 +343,33 @@ def grab_driver_files(outdir="/updates"):
 
     return module_dict
 
+def net_intfs_by_modules(mods):
+    """get list of network interfaces which are depending on given kernel module"""
+    ret = set()
+    for mod in mods:
+        out = subprocess.check_output(["find-net-intfs-by-driver", mod])
+        ret.update([line.strip() for line in out.split('\n') if line])
+
+    log.debug("Found %s interfaces for %s mods", ret, mods)
+    return ret
+
+def list_net_intfs():
+    """return set of all network interfaces from system"""
+    return set(os.listdir("/sys/class/net"))
+
+def rm_net_intfs_for_unload(mods):
+    """clear dracut settings for interfaces which will be removed by
+       driver removal
+
+       return set of affected network interfaces
+    """
+    intfs_for_removal = net_intfs_by_modules(mods)
+    for intf in intfs_for_removal:
+        log.debug("Removing Dracut settings for interface %s before driver unload", intf)
+        subprocess.check_call(["anaconda-ifdown", intf])
+
+    return intfs_for_removal
+
 def get_all_loaded_modules():
     """parse /proc/modules for all loaded kernel modules"""
     all_modules = []
@@ -377,7 +404,13 @@ def load_drivers(moddict):
 
     log.debug("unload drivers: %s", unload_modules)
     if unload_modules:
+        net_intfs_unload = rm_net_intfs_for_unload(unload_modules)
+        pre_remove_intfs = list_net_intfs()
         subprocess.call(["modprobe", "-r"] + list(unload_modules))
+        intfs_removed = pre_remove_intfs - list_net_intfs()
+        if intfs_removed != net_intfs_unload:
+            log.error("ERROR: removed %s interfaces are not expected interfaces for removal %s",
+                      intfs_removed, net_intfs_unload)
 
     # Step 2: Update the depmod data and try to load the new module list
     log.debug("load_drivers: %s", moddict.keys())
