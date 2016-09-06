@@ -21,6 +21,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define gettextver 0.19.8
 %define pykickstartver 2.31-1
 %define dnfver 0.6.4
+%define dnfmaxver 2.0.0
 %define partedver 1.8.1
 %define pypartedver 2.5-2
 %define nmver 0.9.9.0-10.git20130906
@@ -81,7 +82,7 @@ The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
 Summary: Core of the Anaconda installer
-Requires: python3-dnf >= %{dnfver}
+Requires: python3-dnf >= %{dnfver}, python3-dnf < %{dnfmaxver}
 Requires: python3-blivet >= 1:2.1.2
 Requires: python3-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
@@ -324,6 +325,64 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 29 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 26.1-1
+- Fix a pylint no-member warning (mkolman)
+- Translate press-c-to-continue correctly in TUI (#1364539) (mkolman)
+- Fix bootDrive driveorder fallback (#1355795) (jkonecny)
+- Fix bootloader when re-using existing /boot part (#1355795) (jkonecny)
+- Add support for device specification variants (#1200833) (mkolman)
+- Revert "Update zanata.xml for f25-devel branch." (sbueno+anaconda)
+- Update zanata.xml for f25-devel branch. (sbueno+anaconda)
+- Add option to override efi_dir (phil)
+- efiboot: stderr= is not an option to efibootmgr (phil)
+- Fix EFI grub1 case (phil)
+- Make Fedora module not so grabby (phil)
+- Add centos module to pyanaconda (phil)
+- network: don't require gateway for static ipv4 config in TUI (#1365532)
+  (rvykydal)
+- Improve connection network change detection (jkonecny)
+- Revert "Revalidate source only if nm-con-ed change settings (#1270354)"
+  (jkonecny)
+- Fix anaconda-pre.service wasn't properly installed (#1255659) (jkonecny)
+- Rename function for better consistency (#1259284) (rvykydal)
+- Update error message for consistency (#1259284) (rvykydal)
+- Add more specific username check messages also to gui (#1360334) (rvykydal)
+- fix style guide test false positive on username variable (#1350375)
+  (rvykydal)
+- tui: use functions instead of fake REs for checking values (#1350375)
+  (rvykydal)
+- tui: get proper index of entry we are handling in input (#1331054) (rvykydal)
+- tui: fix user name validity checking (#1350375) (rvykydal)
+- More descriptive message on invalid username (kvalek)
+- Fix another pep8 name issue (jkonecny)
+- iscsi: fix getting iscsi target iface of bound target (#1359739) (rvykydal)
+- Fix needsNetwork testing only additional repositories (#1358788) (jkonecny)
+- Fix restart payload only when repo needs network (#1358788) (jkonecny)
+- Cleanup remaining runlevel references (mkolman)
+- Clarify a nosave related log message (mkolman)
+- Use Screen Access Manager (mkolman)
+- Add screen entry/exit callbacks (mkolman)
+- Add screen access manager (mkolman)
+- A simple formatting fix (mkolman)
+- Fix another blivet-2.0 pep8 error (jkonecny)
+- Quickfix of failing test (japokorn)
+- Some docstring refactoring & typo fixes for the TUI base classes (mkolman)
+- Add a file about contributing. (sbueno+anaconda)
+- Store logs before anaconda starts (#1255659) (japokorn)
+- DD can now replace existing drivers (#1101653) (japokorn)
+- Use the F25 timezone kickstart command version (mkolman)
+- Use sshd-keygen.target instead of hardcoded sshd-keygen script (jjelen)
+- Make it possible to disable sshd service from running. (#1262707)
+  (sbueno+anaconda)
+- Change bootloader boot drive fallback (jkonecny)
+- Fix of Python3x uncompatible commands (japokorn)
+- Add NTP server configuration to the TUI (#1269399) (mkolman)
+- Move the NTP server checking constants to constants.py (mkolman)
+- Use a constant for the NTP check thread name prefix (mkolman)
+- Fix another victim of the python 2->3 conversion. (#1354020) (dshea)
+- Attempt to unload modules updated by a driver disk (dshea)
+- Fix the processing of device nodes as driver disks (dshea)
+
 * Fri Jul 08 2016 Brian C. Lane <bcl@redhat.com> - 25.20-1
 - Allow kickstart users to ignore the free space error (dshea)
 - Stop kickstart when space check fails (bcl)

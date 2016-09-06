@@ -300,7 +300,8 @@ class RootSpoke(NormalTUISpoke):
         try:
             keyid = int(key) - 1
         except ValueError:
-            if key.lower() == "c":
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED

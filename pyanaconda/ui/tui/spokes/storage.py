@@ -39,7 +39,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT, DEFAULT_AUTOPART_TYPE
 from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.i18n import _, P_, N_
+from pyanaconda.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
@@ -275,7 +275,8 @@ class StorageSpoke(NormalTUISpoke):
                 self._update_disk_list(self.disks[keyid])
             return INPUT_PROCESSED
         except (ValueError, IndexError):
-            if key.lower() == "c":
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 if self.selected_disks:
                     # check selected disks to see if we have any unformatted DASDs
                     # if we're on s390x, since they need to be formatted before we
@@ -497,7 +498,8 @@ class AutoPartSpoke(NormalTUISpoke):
         try:
             keyid = int(key) - 1
         except ValueError:
-            if key.lower() == "c":
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage,
                                                 self.payload, self.instclass)
                 self.app.switch_screen_modal(newspoke)
@@ -548,7 +550,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         try:
             keyid = int(key) - 1
         except ValueError:
-            if key.lower() == "c":
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
