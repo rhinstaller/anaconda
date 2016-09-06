@@ -73,6 +73,7 @@ import fnmatch
 # because it breaks sometimes.
 if os.isatty(0):
     import readline # pylint:disable=unused-import
+import shutil
 
 from contextlib import contextmanager
 from logging.handlers import SysLogHandler
@@ -263,7 +264,23 @@ def save_repo(repo, target="/run/install"):
     """copy a repo to the place where the installer will look for it later."""
     newdir = mkdir_seq(os.path.join(target, "DD-"))
     log.debug("save_repo: copying %s to %s", repo, newdir)
-    subprocess.call(["cp", "-arT", repo, newdir])
+    # repo can be two sorts of stuff:
+    # - a path to directory containing rpm files
+    # -> in this case copy it's contents to target
+    # - a path to an RPM file
+    # -> in this case copy the file to destination
+    if os.path.isfile(repo):
+        shutil.copy2(repo, newdir)
+    elif os.path.isdir(repo):
+        for item in os.listdir(repo):
+            item_path = os.path.join(repo, item)
+            if os.path.isfile(item_path):
+                log.debug("copying %s to %s", item_path, newdir)
+                shutil.copy2(item_path, newdir)
+            else:
+                log.warning("DD repo content not a file: %s", item_path)
+    else:
+        log.error("ERROR: DD repository needs to be a file file or a directory: %s", repo)
     return newdir
 
 def extract_drivers(drivers=None, repos=None, outdir="/updates",
