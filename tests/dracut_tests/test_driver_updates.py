@@ -251,14 +251,68 @@ class TestFindRepos(FileTestCaseBase):
         self.assertEqual(len(repos),3)
 
 class TestSaveRepo(FileTestCaseBase):
-    def test_basic(self):
-        """save_repo: copies a directory to /run/install/DD-X"""
+    def test_folder_repo(self):
+        """save_repo: copies directory contents to /run/install/DD-X"""
         makerepo(self.srcdir)
         repo = find_repos(self.srcdir)[0]
-        makefile(repo+'/fake-something.rpm')
+        makefile(repo + '/repodata')
+        makefile(repo + '/fake-something1.rpm')
+        makefile(repo + '/fake-something2.rpm')
+        makefile(repo + '/fake-something3.rpm')
         saved = save_repo(repo, target=self.destdir)
-        self.assertEqual(set(listfiles(saved)), set(["fake-something.rpm"]))
+        expected_files = set(["fake-something1.rpm", "fake-something2.rpm", "fake-something3.rpm", "repodata"])
+        self.assertEqual(set(listfiles(saved)), expected_files)
         self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
+
+    def test_single_file(self):
+        """save_repo: copies a single file to /run/install/DD-X"""
+        makerepo(self.srcdir)
+        repo = find_repos(self.srcdir)[0]
+        file_path = makefile(repo + '/fake-something1.rpm')
+        makefile(repo + '/fake-something2.rpm')
+        makefile(repo + '/fake-something3.rpm')
+        saved = save_repo(file_path, target=self.destdir)
+        # check that only the single file was copied
+        self.assertEqual(set(listfiles(saved)), set(["fake-something1.rpm"]))
+        self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
+
+    def test_multiple_repo_folders(self):
+        """save_repo: copies directory contents to multiple /run/install/DD-X folders"""
+        # create multiple repos
+        repo_folder_1 = os.path.join(self.srcdir, "repo1")
+        repo_folder_2 = os.path.join(self.srcdir, "repo2")
+        repo_folder_3 = os.path.join(self.srcdir, "repo3")
+        makerepo(repo_folder_1)
+        makerepo(repo_folder_2)
+        makerepo(repo_folder_3)
+        repo1 = find_repos(repo_folder_1)[0]
+        repo2 = find_repos(repo_folder_2)[0]
+        repo3 = find_repos(repo_folder_3)[0]
+
+        # fill them with fake driver disk RPMs
+        for repo in [repo1, repo2, repo3]:
+            makefile(repo + '/repodata')
+            makefile(repo + '/fake-something1.rpm')
+            makefile(repo + '/fake-something2.rpm')
+            makefile(repo + '/fake-something3.rpm')
+
+        # copy their contents
+        # -> content of each repo should apprently end in a separate /run/install/DD-X folder
+        # -> we will attempt to copy the full content of the first two repos in full
+        #    and just a single RPM from the third repo
+        saved1 = save_repo(repo1, target=self.destdir)
+        saved2 = save_repo(repo2, target=self.destdir)
+        file_path = repo3 + "/fake-something2.rpm"
+        saved3 = save_repo(file_path, target=self.destdir)
+
+        # check that everything was copied correctly
+        full_copy_expected_files = set(["fake-something1.rpm", "fake-something2.rpm", "fake-something3.rpm", "repodata"])
+        self.assertEqual(set(listfiles(saved1)), full_copy_expected_files)
+        self.assertEqual(saved1, os.path.join(self.destdir, "DD-1"))
+        self.assertEqual(set(listfiles(saved2)), full_copy_expected_files)
+        self.assertEqual(saved2, os.path.join(self.destdir, "DD-2"))
+        self.assertEqual(set(listfiles(saved3)), set(["fake-something2.rpm"]))
+        self.assertEqual(saved3, os.path.join(self.destdir, "DD-3"))
 
 from driver_updates import mount, umount, mounted
 class MountTestCase(unittest.TestCase):
