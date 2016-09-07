@@ -214,7 +214,6 @@ def do_transaction(base, queue_instance):
     try:
         display = PayloadRPMDisplay(queue_instance)
         base.do_transaction(display=display)
-        base.close()
         exit_reason = "DNF quit"
     except BaseException as e:
         log.error('The transaction process has ended abruptly')
@@ -222,6 +221,7 @@ def do_transaction(base, queue_instance):
         import traceback
         exit_reason = str(e) + traceback.format_exc()
     finally:
+        base.close()
         queue_instance.put(('quit', str(exit_reason)))
 
 class DNFPayload(packaging.PackagePayload):
