@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.88-1
+- Revert "Show network spoke in the TUI reconfig mode (mkolman)"
+  Resolves: rhbz#1302165
+- Improved driver disk copying (mkolman)
+  Related: rhbz#1269915
+- network: adapt to ibft plugin being enabled by default in NM (rvykydal)
+  Resolves: rhbz#1371188
+
 * Mon Sep 05 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.87-1
 - Drop T from cp command flags when copying driver disk RPMs (mkolman)
   Resolves: rhbz#1269915
