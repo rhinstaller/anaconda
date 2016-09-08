@@ -36,6 +36,9 @@ import sys
 import textwrap
 import urllib.request
 
+DEFAULT_ZANATA_GIT_BRANCH_ALIASES = {
+    "F25-release": "f25",
+}
 
 def run_program(*args):
     """Run a program with universal newlines on"""
@@ -506,7 +509,12 @@ class MakeBumpVer:
         with open(self.zanata_config, "r") as f:
             for line in f:
                 m = version_re.match(line.strip())
-                if m and m.group(1) == self.git_branch:
+
+                # check if there is Zanata branch name override for this git branch and
+                # fall back to zanata branch name == git branch name if no override is found.
+                zanata_branch_name = DEFAULT_ZANATA_GIT_BRANCH_ALIASES.get(self.git_branch, self.git_branch)
+
+                if m and m.group(1) == zanata_branch_name:
                     ret = True
                     break
                 elif m:
