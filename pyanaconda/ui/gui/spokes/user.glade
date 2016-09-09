@@ -166,7 +166,7 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
-                        <signal name="changed" handler="password_changed" swapped="no"/>
+                        <signal name="changed" handler="on_password_changed" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_password-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Password</property>
@@ -184,6 +184,7 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <signal name="changed" handler="on_password_confirmation_changed" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_verifypassword-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Confirm Password</property>
@@ -233,7 +234,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="valign">center</property>
-                            <property name="value">2</property>
+                            <property name="value">0</property>
                             <property name="max_value">4</property>
                             <property name="mode">discrete</property>
                           </object>
