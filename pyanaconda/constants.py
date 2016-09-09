@@ -146,7 +146,12 @@ PASSWORD_WEAK_CONFIRM_WITH_ERROR = N_("You have provided a weak password: %s. Pr
 PASSWORD_ASCII = N_("The password you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts to login. Press Done to continue.")
 PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
 
-PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("Strong")]
+PASSWORD_STATUS_EMPTY = N_("Empty")
+PASSWORD_STATUS_TOO_SHORT = N_("Too short")
+PASSWORD_STATUS_WEAK = N_("Weak")
+PASSWORD_STATUS_FAIR = N_("Fair")
+PASSWORD_STATUS_GOOD = N_("Good")
+PASSWORD_STATUS_STRONG = N_("Strong")
 
 # the number of seconds we consider a noticeable freeze of the UI
 NOTICEABLE_FREEZE = 0.1

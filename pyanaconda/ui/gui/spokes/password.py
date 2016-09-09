@@ -31,9 +31,12 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
-        PASSWORD_STRENGTH_DESC, PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
+        PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
         PASSWORD_WEAK_CONFIRM, PASSWORD_WEAK_CONFIRM_WITH_ERROR, PASSWORD_DONE_TWICE,\
         PW_ASCII_CHARS, PASSWORD_ASCII
+
+import logging
+log = logging.getLogger("anaconda")
 
 __all__ = ["PasswordSpoke"]
 
@@ -91,8 +94,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._waiveASCIIClicks = 0
 
         # Password validation data
-        self._pwq_error = None
-        self._pwq_valid = True
+        self._pw_error_message = None
+        self._pw_score = 0
 
         self._kickstarted = self.data.rootpw.seen
         if self._kickstarted:
@@ -218,22 +221,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._waiveStrengthClicks = 0
         self._waiveASCIIClicks = 0
 
-        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, "root", minlen=self.policy.minlen)
-
-        if not pwtext:
-            val = 0
-        elif strength < 50:
-            val = 1
-        elif strength < 75:
-            val = 2
-        elif strength < 90:
-            val = 3
-        else:
-            val = 4
-        text = _(PASSWORD_STRENGTH_DESC[val])
-
-        self.pw_bar.set_value(val)
-        self.pw_label.set_text(text)
+        self._pw_score, status_text, _pw_quality, self._pw_error_message = validatePassword(pwtext,
+                                                                                            "root",
+                                                                                            minlen=self.policy.minlen,
+                                                                                            empty_ok=self.policy.emptyok)
+        self.pw_bar.set_value(self._pw_score)
+        self.pw_label.set_text(status_text)
 
     def _checkPasswordStrength(self, inputcheck):
         """Update the error message based on password strength.
@@ -249,19 +242,23 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
             return InputCheck.CHECK_OK
 
         # Check for validity errors
-        if (not self._pwq_valid) and (self._pwq_error):
-            return self._pwq_error
+        # pw score == 0 & errors from libpwquality
+        if not self._pw_score and self._pw_error_message:
+            return self._pw_error_message
 
         # use strength from policy, not bars
-        _valid, pwstrength, _error = validatePassword(pw, "root", minlen=self.policy.minlen)
+        _pw_score, _status_text, pw_quality, _error_message = validatePassword(pw,
+                                                                               "root",
+                                                                               minlen=self.policy.minlen,
+                                                                               empty_ok=self.policy.emptyok)
 
-        if pwstrength < self.policy.minquality:
+        if pw_quality < self.policy.minquality:
             # If Done has been clicked twice, waive the check
             if self._waiveStrengthClicks > 1:
                 return InputCheck.CHECK_OK
             elif self._waiveStrengthClicks == 1:
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
+                if self._pw_error_message:
+                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pw_error_message
                 else:
                     return _(PASSWORD_WEAK_CONFIRM)
             else:
@@ -271,8 +268,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
                 else:
                     done_msg = _(PASSWORD_DONE_TWICE)
 
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error + " " + done_msg
+                if self._pw_error_message:
+                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pw_error_message + " " + done_msg
                 else:
                     return _(PASSWORD_WEAK) % done_msg
         else:
