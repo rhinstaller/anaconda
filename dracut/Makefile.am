@@ -20,34 +20,36 @@
 dracutdir = $(prefix)/lib/dracut/modules.d/80$(PACKAGE_NAME)
 dist_dracut_SCRIPTS = module-setup.sh \
                       python-deps \
-		      anaconda-lib.sh \
-		      parse-anaconda-options.sh \
-		      parse-anaconda-repo.sh \
-		      parse-anaconda-kickstart.sh \
-		      parse-anaconda-net.sh \
-		      repo-genrules.sh \
-		      kickstart-genrules.sh \
-		      updates-genrules.sh \
-		      anaconda-ks-sendheaders.sh \
-		      anaconda-netroot.sh \
-		      anaconda-diskroot \
-		      anaconda-copy-ks.sh \
-		      anaconda-copy-cmdline.sh \
-		      anaconda-copy-dhclient.sh \
-		      anaconda-copy-s390ccwconf.sh \
-		      anaconda-ifcfg.sh \
-		      fetch-kickstart-net.sh \
-		      fetch-kickstart-disk \
-		      fetch-updates-disk \
-		      parse-kickstart \
-		      anaconda-modprobe.sh \
-		      save-initramfs.sh \
-		      anaconda-pre-shutdown.sh \
-		      parse-anaconda-dd.sh \
-		      fetch-driver-net.sh \
-		      driver-updates@.service \
-		      driver-updates-genrules.sh \
-		      anaconda-depmod.sh \
-		      driver_updates.py
+                      anaconda-lib.sh \
+                      parse-anaconda-options.sh \
+                      parse-anaconda-repo.sh \
+                      parse-anaconda-kickstart.sh \
+                      parse-anaconda-net.sh \
+                      repo-genrules.sh \
+                      kickstart-genrules.sh \
+                      updates-genrules.sh \
+                      anaconda-ks-sendheaders.sh \
+                      anaconda-netroot.sh \
+                      anaconda-diskroot \
+                      anaconda-copy-ks.sh \
+                      anaconda-copy-cmdline.sh \
+                      anaconda-copy-dhclient.sh \
+                      anaconda-copy-s390ccwconf.sh \
+                      anaconda-ifcfg.sh \
+                      fetch-kickstart-net.sh \
+                      fetch-kickstart-disk \
+                      fetch-updates-disk \
+                      parse-kickstart \
+                      anaconda-modprobe.sh \
+                      save-initramfs.sh \
+                      anaconda-pre-shutdown.sh \
+                      parse-anaconda-dd.sh \
+                      fetch-driver-net.sh \
+                      driver-updates@.service \
+                      driver-updates-genrules.sh \
+                      anaconda-depmod.sh \
+                      find-net-intfs-by-driver \
+                      anaconda-ifdown \
+                      driver_updates.py
 
 MAINTAINERCLEANFILES = Makefile.in
