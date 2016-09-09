@@ -426,7 +426,7 @@ def load_drivers(moddict):
 
     # load all modules removed due to dependencies again
     if modules_to_add:
-        subprocess.call(["modprobe", "-a"] + modules_to_add)
+        subprocess.call(["modprobe", "-a"] + list(modules_to_add))
 
 # We *could* pass in "outdir" if we wanted to extract things somewhere else,
 # but right now the only use case is running inside the initramfs, so..
