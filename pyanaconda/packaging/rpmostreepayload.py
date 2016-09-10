@@ -292,10 +292,11 @@ class RPMOSTreePayload(ArchivePayload):
         # However, we ignore the case where the remote already exists,
         # which occurs when the content itself provides the remote
         # config file.
-        sysroot = OSTree.Sysroot.new(self._sysroot_path)
+        sysroot_path = Gio.File.new_for_path(iutil.getSysroot())
+        sysroot = OSTree.Sysroot.new(sysroot_path)
         sysroot.load(cancellable)
         repo = sysroot.get_repo(None)[1]
-        repo.remote_change(Gio.File.new_for_path(iutil.getSysroot()),
+        repo.remote_change(sysroot_path,
                            OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
                            self.data.ostreesetup.remote, self.data.ostreesetup.url,
                            GLib.Variant('a{sv}', self._remoteOptions),
