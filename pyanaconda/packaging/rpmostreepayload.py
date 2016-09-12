@@ -48,7 +48,6 @@ class RPMOSTreePayload(ArchivePayload):
     def __init__(self, data):
         super(RPMOSTreePayload, self).__init__(data)
         self._remoteOptions = None
-        self._sysroot_path = None
         self._internal_mounts = []
 
     @property
@@ -143,9 +142,10 @@ class RPMOSTreePayload(ArchivePayload):
             ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
              "init-fs", iutil.getTargetPhysicalRoot()])
 
-        self._sysroot_path = Gio.File.new_for_path(iutil.getTargetPhysicalRoot())
-
-        sysroot = OSTree.Sysroot.new(self._sysroot_path)
+        # Here, we use the physical root as sysroot, because we haven't
+        # yet made a deployment.
+        sysroot_file = Gio.File.new_for_path(iutil.getTargetPhysicalRoot())
+        sysroot = OSTree.Sysroot.new(sysroot_file)
         sysroot.load(cancellable)
         repo = sysroot.get_repo(None)[1]
         # We don't support resuming from interrupted installs
@@ -292,11 +292,14 @@ class RPMOSTreePayload(ArchivePayload):
         # However, we ignore the case where the remote already exists,
         # which occurs when the content itself provides the remote
         # config file.
-        sysroot_path = Gio.File.new_for_path(iutil.getSysroot())
-        sysroot = OSTree.Sysroot.new(sysroot_path)
+
+        # Note here we use the deployment as sysroot, because it's
+        # that version of /etc that we want.
+        sysroot_file = Gio.File.new_for_path(iutil.getSysroot())
+        sysroot = OSTree.Sysroot.new(sysroot_file)
         sysroot.load(cancellable)
         repo = sysroot.get_repo(None)[1]
-        repo.remote_change(sysroot_path,
+        repo.remote_change(sysroot_file,
                            OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
                            self.data.ostreesetup.remote, self.data.ostreesetup.url,
                            GLib.Variant('a{sv}', self._remoteOptions),
