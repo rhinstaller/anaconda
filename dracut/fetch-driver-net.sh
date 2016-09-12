@@ -7,10 +7,11 @@ netif="$1"
 
 # No dd_net was requested - exit
 [ -f /tmp/dd_net ] || return 0
+DD_NET=$(cat /tmp/dd_net)
 
 . /lib/url-lib.sh
 
-while read dd; do
+for dd in $DD_NET; do
     # If we already fetched this URL, skip it
     grep -Fqx "$dd" /tmp/dd_net.done && continue
     # Otherwise try to fetch it
@@ -61,4 +62,4 @@ while read dd; do
             warn "Failed to fetch drivers from $dd. Processing of directories supported only by NFS."
         fi
     fi
-done < /tmp/dd_net
+done
