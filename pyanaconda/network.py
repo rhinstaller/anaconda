@@ -48,6 +48,8 @@ from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 
 from gi.repository import NetworkManager
+# Register the types so that the use in threads is safe
+NetworkManager.State # pylint: disable=pointless-statement
 
 import logging
 log = logging.getLogger("anaconda")
