@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 12 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.90-1
+- rhv: Adding rhv for installclasses (dougsland)
+  Resolves: rhbz#1337595
+
 * Mon Sep 12 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.89-1
 - Default policy should not allow empty passwords (mkolman)
   Related: rhbz#1365112
