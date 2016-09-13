@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.86\n"
+"Project-Id-Version: anaconda 21.48.22.88\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-09-05 08:35-0400\n"
+"POT-Creation-Date: 2016-09-12 22:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,20 +174,24 @@ msgstr ""
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:149 pyanaconda/ui/gui/spokes/lib/passphrase.py:124
+#: pyanaconda/constants.py:150
+msgid "Too short"
+msgstr ""
+
+#: pyanaconda/constants.py:151 pyanaconda/ui/gui/spokes/lib/passphrase.py:124
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:7
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:149 pyanaconda/ui/gui/spokes/lib/passphrase.py:127
+#: pyanaconda/constants.py:152 pyanaconda/ui/gui/spokes/lib/passphrase.py:127
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:149 pyanaconda/ui/gui/spokes/lib/passphrase.py:130
+#: pyanaconda/constants.py:153 pyanaconda/ui/gui/spokes/lib/passphrase.py:130
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:149 pyanaconda/ui/gui/spokes/lib/passphrase.py:133
+#: pyanaconda/constants.py:154 pyanaconda/ui/gui/spokes/lib/passphrase.py:133
 msgid "Strong"
 msgstr ""
 
@@ -1166,21 +1170,21 @@ msgstr ""
 msgid "LUKS device %s has no encryption key"
 msgstr ""
 
-#: pyanaconda/users.py:174
+#: pyanaconda/users.py:199
 #, python-format
 msgid "User name is reserved for system: %s"
 msgstr ""
 
-#: pyanaconda/users.py:177
+#: pyanaconda/users.py:202
 msgid "User name cannot start with '-' character"
 msgstr ""
 
-#: pyanaconda/users.py:186
+#: pyanaconda/users.py:211
 #, python-format
 msgid "User name cannot contain character: '%s'"
 msgstr ""
 
-#: pyanaconda/users.py:189
+#: pyanaconda/users.py:214
 msgid "User name must be shorter than 33 characters"
 msgstr ""
 
@@ -1282,15 +1286,15 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1229
+#: pyanaconda/packaging/__init__.py:1230
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1230
+#: pyanaconda/packaging/__init__.py:1231
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1231
+#: pyanaconda/packaging/__init__.py:1232
 msgid "No installation source available"
 msgstr ""
 
@@ -1654,69 +1658,69 @@ msgctxt "TUI|Spoke Navigation|Language Support"
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:48
+#: pyanaconda/ui/tui/spokes/network.py:47
 msgid "Network configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:112
+#: pyanaconda/ui/tui/spokes/network.py:111
 #, python-format
 msgid "Wired (%(interface_name)s) disconnected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:117
+#: pyanaconda/ui/tui/spokes/network.py:116
 #, python-format
 msgid "Wired (%(interface_name)s) connected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:129
+#: pyanaconda/ui/tui/spokes/network.py:128
 #, python-format
 msgid " IPv4 Address: %(addr)s Netmask: %(netmask)s Gateway: %(gateway)s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:131
+#: pyanaconda/ui/tui/spokes/network.py:130
 #, python-format
 msgid " DNS: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:138
+#: pyanaconda/ui/tui/spokes/network.py:137
 #, python-format
 msgid " IPv6 Address: %(addr)s/%(prefix)d\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:152
+#: pyanaconda/ui/tui/spokes/network.py:151
 #, python-format
 msgid "Host name: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:154
+#: pyanaconda/ui/tui/spokes/network.py:153
 #, python-format
 msgid "Current host name: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:166
+#: pyanaconda/ui/tui/spokes/network.py:165
 msgid "Set host name"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:168
+#: pyanaconda/ui/tui/spokes/network.py:167
 #, python-format
 msgid "Configure device %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:187
+#: pyanaconda/ui/tui/spokes/network.py:186
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:6
 #: pyanaconda/ui/gui/spokes/network.glade.h:51
 msgid "Host name"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:220
+#: pyanaconda/ui/tui/spokes/network.py:219
 msgid "Configuration not saved: netmask missing in static configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:238
+#: pyanaconda/ui/tui/spokes/network.py:237
 msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:280
+#: pyanaconda/ui/tui/spokes/network.py:279
 #: pyanaconda/ui/gui/spokes/network.py:1568
 #: pyanaconda/ui/gui/spokes/network.py:1587
 #: pyanaconda/ui/gui/spokes/network.py:1657
@@ -1725,56 +1729,56 @@ msgstr ""
 msgid "Host name is not valid: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:311
+#: pyanaconda/ui/tui/spokes/network.py:310
 msgid "Device configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:315
+#: pyanaconda/ui/tui/spokes/network.py:314
 #, python-format
 msgid "IPv4 address or %s for DHCP"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:317
+#: pyanaconda/ui/tui/spokes/network.py:316
 msgid "IPv4 netmask"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:318
+#: pyanaconda/ui/tui/spokes/network.py:317
 msgid "IPv4 gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:319
+#: pyanaconda/ui/tui/spokes/network.py:318
 #, python-format
 msgid ""
 "IPv6 address[/prefix] or %(auto)s for automatic, %(dhcp)s for DHCP, "
 "%(ignore)s to turn off"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:322
+#: pyanaconda/ui/tui/spokes/network.py:321
 msgid "IPv6 default gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:323
+#: pyanaconda/ui/tui/spokes/network.py:322
 msgid "Nameservers (comma separated)"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:324
+#: pyanaconda/ui/tui/spokes/network.py:323
 msgid "Connect automatically after reboot"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:325
+#: pyanaconda/ui/tui/spokes/network.py:324
 msgid "Apply configuration in installer"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:340
+#: pyanaconda/ui/tui/spokes/network.py:339
 #, python-format
 msgid "Configuring device %s."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:345
+#: pyanaconda/ui/tui/spokes/network.py:344
 msgid "Bad format of the IP address"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:352
+#: pyanaconda/ui/tui/spokes/network.py:351
 msgid "Bad format of the netmask"
 msgstr ""
 
@@ -2273,28 +2277,28 @@ msgid ""
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:160
+#: pyanaconda/ui/tui/spokes/__init__.py:161
 msgid ""
 "\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:177
+#: pyanaconda/ui/tui/spokes/__init__.py:178
 msgid ""
 "You have provided a password containing non-ASCII characters.\n"
 "You may not be able to switch between keyboard layouts to login.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:183
+#: pyanaconda/ui/tui/spokes/__init__.py:184
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:202
+#: pyanaconda/ui/tui/spokes/__init__.py:203
 msgid "You have provided an invalid value\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:315
+#: pyanaconda/ui/tui/spokes/__init__.py:316
 msgid "Password set."
 msgstr ""
 
@@ -2799,25 +2803,25 @@ msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:52
+#: pyanaconda/ui/gui/spokes/password.py:55
 msgctxt "GUI|Spoke"
 msgid "_ROOT PASSWORD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:99
-#: pyanaconda/ui/gui/spokes/password.py:100
+#: pyanaconda/ui/gui/spokes/password.py:102
+#: pyanaconda/ui/gui/spokes/password.py:103
 msgid "The password is set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:127
+#: pyanaconda/ui/gui/spokes/password.py:130
 msgid "Root password is set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:129
+#: pyanaconda/ui/gui/spokes/password.py:132
 msgid "Root account is disabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:131
+#: pyanaconda/ui/gui/spokes/password.py:134
 msgid "Root password is not set"
 msgstr ""
 
@@ -3152,7 +3156,7 @@ msgstr ""
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:623
+#: pyanaconda/ui/gui/spokes/user.py:616
 msgid "Invalid user name"
 msgstr ""
 

@@ -318,6 +318,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 12 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.89-1
+- Default policy should not allow empty passwords (mkolman)
+  Related: rhbz#1365112
+  Related: rhbz#1365032
+- Add unit tests for password quality checking (mkolman)
+  Related: rhbz#1365112
+  Related: rhbz#1365032
+- Fix password quality checking (mkolman)
+  Resolves: rhbz#1365112
+  Resolves: rhbz#1365032
+- dud: fix multiple inst.dd=http:// instances stalling in dracut (rvykydal)
+  Related: rhbz#1268792
+
 * Thu Sep 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.88-1
 - Revert "Show network spoke in the TUI reconfig mode (mkolman)"
   Resolves: rhbz#1302165
