@@ -147,20 +147,21 @@ class EditTUIDialog(NormalTUISpoke):
                 self.value = ""
                 return None
 
-            valid, strength, message = validatePassword(pw, user=None, minlen=self.policy.minlen)
+            pw_score, _status_text, pw_quality, error_message = validatePassword(pw, user=None, minlen=self.policy.minlen)
 
-            if not valid:
-                print(message)
+            # if the score is equal to 0 and we have an error message set
+            if not pw_score and error_message:
+                print(error_message)
                 return None
 
-            if strength < self.policy.minquality:
+            if pw_quality < self.policy.minquality:
                 if self.policy.strict:
                     done_msg = ""
                 else:
                     done_msg = _("\nWould you like to use it anyway?")
 
-                if message:
-                    error = _(PASSWORD_WEAK_WITH_ERROR) % message + " " + done_msg
+                if error_message:
+                    error = _(PASSWORD_WEAK_WITH_ERROR) % error_message + " " + done_msg
                 else:
                     error = _(PASSWORD_WEAK) % done_msg
 
