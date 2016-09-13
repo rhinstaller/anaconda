@@ -63,7 +63,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(quality, 0)
         self.assertIsNotNone(error_message)
         # also check a long-enough password, just in case
-        score, status, quality, error_message = validatePassword("12345567891", minlen=10, empty_ok=True)
+        score, status, quality, error_message = validatePassword("1234567891", minlen=10, empty_ok=True)
         self.assertEqual(score, 1)
         self.assertEqual(status, _(constants.PASSWORD_STATUS_WEAK))
         self.assertEqual(quality, 0)
