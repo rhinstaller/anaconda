@@ -24,9 +24,17 @@ def check_potfile(checkfile, potlist):
     global success
 
     potcheckfile = None
+
     if checkfile.endswith(".py"):
+        # Check whether the file should be ignored
+        # - there are some unhandled cases where this check returns false positives,
+        #   such as tests that just use the _() function to translate content of variables
+        #   without marking new strings for translation
+        # - so provide a way to skip the check in such a case
+        if subprocess.call(["grep", "-q", "^# ignore-check: potfiles", checkfile]) == 0:
+            return
         # Check whether the file imports the i18n module
-        if subprocess.call(["grep", "-q", "^from pyanaconda.i18n import", checkfile]) == 0:
+        elif subprocess.call(["grep", "-q", "^from pyanaconda.i18n import", checkfile]) == 0:
             potcheckfile = checkfile
     elif checkfile.endswith(".c"):
         # Check whether the file includes intl.h

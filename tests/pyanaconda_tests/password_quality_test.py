@@ -18,6 +18,14 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 
+# Ignore the potfiles check as it thinks we add translatable strings with _(),
+# but we just use it to translate the content of variables.
+#
+# TODO: remove the ignore-check once the potfile check is fixed
+#
+# ignore-check: potfiles
+
+
 from pyanaconda.users import validatePassword
 from pyanaconda import constants
 from pyanaconda.i18n import _
