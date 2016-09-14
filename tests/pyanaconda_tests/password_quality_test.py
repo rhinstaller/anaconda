@@ -138,12 +138,12 @@ class PasswordQuality(unittest.TestCase):
             self.assertEqual(quality, 52)
         self.assertIsNone(error_message)
 
-        # "----4naconda----" gives a quality of 80 on RHEL7
+        # "----4naconda----" gives a quality of 81 on RHEL7
         score, status, quality, error_message = validatePassword("----4naconda----")
         if ON_RHEL:
             self.assertEqual(score, 3)  # quality > 75 & < 90
             self.assertEqual(status, _(constants.PASSWORD_STATUS_GOOD))
-            self.assertEqual(quality, 80)
+            self.assertEqual(quality, 81)
         self.assertIsNone(error_message)
 
         # "?----4naconda----?" gives a quality of 100 on RHEL7
