@@ -50,6 +50,14 @@ driver-updates
     Pass inst.dd with no parameters and it will prompt the user for specific
     drivers to load using a simple text user interface.
 
+find-net-intfs-by-driver
+    Find all network interfaces which depend on the given driver (command
+    line argument), then return a list of the network interfaces.
+
+anaconda-ifdown
+    This script sets the interface down and removes all flags in dracut for
+    future re-setting. This is useful for replacing existing network drivers.
+
 parse-kickstart
     If the driverdisk command is present in the kickstart it will write
     out partitions to /tmp/dd_args_ks and network sources to the cmdline

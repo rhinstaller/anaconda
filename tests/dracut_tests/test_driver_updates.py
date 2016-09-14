@@ -484,7 +484,9 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
 
 class LoadDriversTestCase(unittest.TestCase):
     @mock.patch("driver_updates.subprocess.call")
-    def test_basic(self, call):
+    @mock.patch("driver_updates.rm_net_intfs_for_unload")
+    @mock.patch("driver_updates.list_net_intfs")
+    def test_basic(self, list_net_intfs, rm_net_intfs_for_unload, call):
         """load_drivers: runs depmod and modprobes all named modules"""
         modnames = ['mod1', 'mod2']
         load_drivers({name: [name] for name in modnames})
@@ -493,16 +495,48 @@ class LoadDriversTestCase(unittest.TestCase):
             mock.call(["modprobe", "-a"] + modnames)
         ])
 
+
     @mock.patch("driver_updates.subprocess.call")
     @mock.patch("driver_updates.subprocess.check_output", return_value="sorbet")
-    def test_basic_replace(self, check_output, call):
+    @mock.patch("driver_updates.rm_net_intfs_for_unload", return_value=set())
+    @mock.patch("driver_updates.list_net_intfs", return_value=set())
+    def test_basic_replace(self, list_net_intfs, rm_net_intfs_for_unload, check_output, call):
         # "icecream" is the updated driver, replacing "sorbet"
         # the check_output patch intercepts 'modprobe -R <alias>'
         load_drivers({"icecream": ['pineapple', 'cherry', 'icecream']})
-        call.assert_call_calls([
-            mock.call(["modprobe", "-a", "-r", "sorbet"]),
+        call.assert_has_calls([
+            mock.call(["modprobe", "-r", "sorbet"]),
             mock.call(["depmod", "-a"]),
             mock.call(["modprobe", "-a", "icecream"])
+        ])
+
+
+    @mock.patch("driver_updates.subprocess.call")
+    @mock.patch("driver_updates.subprocess.check_call")
+    @mock.patch("driver_updates.subprocess.check_output")
+    @mock.patch("driver_updates.list_net_intfs")
+    def test_interface_unload(self, list_net_intfs, check_output, check_call, call):
+        # mode is net mode, remove dracut configuration for interface,
+        # retrigger udev event
+        intfs = ["ens3", "", "ens3"]
+        patched_list_net = lambda: set(intfs.pop())
+        list_net_intfs.side_effect = patched_list_net
+
+        def patched_check_output(command, stderr=None):
+            if command[0] == "modprobe":
+                return "mod1"
+            elif command[0] == "find-net-intfs-by-driver":
+                return "ens3"
+        check_output.side_effect = patched_check_output
+
+        load_drivers({"mod1": ["mod1"]})
+        call.assert_has_calls([
+            mock.call(["modprobe", "-r", "mod1"]),
+            mock.call(["depmod", "-a"]),
+            mock.call(["modprobe", "-a", "mod1"]),
+        ])
+        check_call.assert_has_calls([
+            mock.call(["anaconda-ifdown", "ens3"])
         ])
 
 from driver_updates import process_driver_disk
