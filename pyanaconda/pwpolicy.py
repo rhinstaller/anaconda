@@ -21,6 +21,8 @@ from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
+from pyanaconda import constants
+
 import warnings
 from pyanaconda.i18n import _
 
@@ -32,7 +34,7 @@ class F22_PwPolicyData(BaseData):
     def __init__(self, *args, **kwargs):
         BaseData.__init__(self, *args, **kwargs)
         self.name = kwargs.get("name", "")
-        self.minlen = kwargs.get("minlen", 8)
+        self.minlen = kwargs.get("minlen", constants.PASSWORD_MIN_LEN)
         self.minquality = kwargs.get("minquality", 50)
         self.strict = kwargs.get("strict", False)
         self.changesok = kwargs.get("changesok", False)
