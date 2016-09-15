@@ -557,6 +557,9 @@ def ksnet_to_ifcfg(net, filename=None):
             ifcfg['BRIDGING_OPTS'] = " ".join(keyvalues)
 
         for i, slave in enumerate(net.bridgeslaves.split(","), 1):
+            # Handle virtual slaves created by preceding network commands (eg bond)
+            if update_virtual_slave_ifcfg(slave, setting="BRIDGE=%s" % dev):
+                continue
             slave_ifcfg = {
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
@@ -610,6 +613,21 @@ def write_ifcfg(filename, ifcfg):
         log.error("can't write %s: %s", filename, e)
         return False
     return True
+
+def update_virtual_slave_ifcfg(slave, setting):
+    update = False
+    filename = "/tmp/ifcfg/ifcfg-%s" % slave
+    if os.path.exists(filename):
+        with open(filename, "a+") as f:
+            # pylint: disable=redefined-outer-name
+            for line in f:
+                key, _sep, val = line.strip().partition("=")
+                if key == "TYPE" and val.strip('"') in ("Bond", "Team"):
+                    update = True
+            if update:
+                f.write("%s\n" % setting)
+                log.info("updated ifcfg %s with %s", filename, setting)
+    return update
 
 def process_kickstart(ksfile):
     handler = DracutHandler()
