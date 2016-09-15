@@ -249,7 +249,7 @@ class Payload(object):
         """
         network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
         for s in sources:
-            if any(s.startswith(p) for p in network_protocols):
+            if s and any(s.startswith(p) for p in network_protocols):
                 log.debug("Source %s needs network for installation", s)
                 return True
 
