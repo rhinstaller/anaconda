@@ -318,6 +318,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 15 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.91-1
+- Fix password length in the password policy (mkolman)
+  Related: rhbz#1365112
+  Related: rhbz#1365032
+- network: avoid registering GTypes from multiple threads (lkundrak)
+  Resolves: rhbz#1366271
+- Fix traceback when payload have None as url (jkonecny)
+  Resolves: rhbz#1371494
+- Add new Dracut test and fix another ones (jkonecny)
+  Related: rhbz#1101653
+- Fix bug when we add set to list (jkonecny)
+  Related: rhbz#1101653
+- Add new helper script files to build system (jkonecny)
+  Related: rhbz#1101653
+- Add new helper scripts to the README-dd documentation (jkonecny)
+  Related: rhbz#1101653
+- Fix driver unload is disabling network settings (jkonecny)
+  Related: rhbz#1101653
+
 * Mon Sep 12 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.90-1
 - rhv: Adding rhv for installclasses (dougsland)
   Resolves: rhbz#1337595
