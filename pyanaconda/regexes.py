@@ -140,7 +140,6 @@ REPO_NAME_VALID = re.compile(r'^[a-zA-Z0-9_.:-]+$')
 # Product Version string, just the starting numbers like 21 or 21.1
 VERSION_DIGITS = r'([\d.]+)'
 
-
 #Regexes to validate iSCSI Names according to RFC 3720 and RFC 3721
 #The conditions for iSCSI name used in the following regexes are
 #(https://tools.ietf.org/html/rfc3720#section-3.2.6.3.1 , https://tools.ietf.org/html/rfc3721#page-5 and http://standards.ieee.org/regauth/oui/tutorials/EUI64.html):
@@ -161,3 +160,6 @@ ISCSI_IQN_NAME_REGEX = re.compile(r'^iqn\.\d{4}-\d{2}((?<!-)\.(?!-)[a-zA-Z0-9\-]
 #2. For eui format:
 #    a. The format is "eui." followed by an EUI-64 identifier (16 ASCII-encoded hexadecimal digits).
 ISCSI_EUI_NAME_REGEX = re.compile(r'^eui\.[a-fA-F0-9]{16}$')
+
+# Device with this name was configured from ibft (and renamed) by dracut
+IBFT_CONFIGURED_DEVICE_NAME = re.compile(r'^ibft\d+$')
