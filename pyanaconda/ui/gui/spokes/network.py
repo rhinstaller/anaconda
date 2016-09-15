@@ -1702,13 +1702,19 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
 def _update_network_data(data, ncb):
     data.network.network = []
-    for dev_cfg in ncb.dev_cfgs:
+    for i, dev_cfg in enumerate(ncb.dev_cfgs):
         devname = dev_cfg.get_iface()
         nd = network.ksdata_from_ifcfg(devname, dev_cfg.get_uuid())
         if not nd:
             continue
         if devname in nm.nm_activated_devices():
             nd.activate = True
+        else:
+            # First network command defaults to --activate so we must
+            # use --no-activate explicitly to prevent the default
+            if i == 0:
+                nd.activate = False
+
         data.network.network.append(nd)
     hostname = ncb.hostname
     network.update_hostname_data(data, hostname)

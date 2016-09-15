@@ -1,2 +1,5 @@
 #!/bin/sh
-rm -f /etc/NetworkManager/conf.d/10-ibft-plugin.conf
+cat <<EOF > /etc/NetworkManager/conf.d/80-anaconda-no-ibft.conf
+[main]
+plugins+=no-ibft
+EOF

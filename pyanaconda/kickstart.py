@@ -1114,13 +1114,13 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
 
-class Network(commands.network.F24_Network):
+class Network(commands.network.F25_Network):
     def __init__(self, *args, **kwargs):
-        commands.network.F24_Network.__init__(self, *args, **kwargs)
+        commands.network.F25_Network.__init__(self, *args, **kwargs)
         self.packages = []
 
     def parse(self, args):
-        nd = commands.network.F24_Network.parse(self, args)
+        nd = commands.network.F25_Network.parse(self, args)
         setting_only_hostname = nd.hostname and len(args) <= 2
         if not setting_only_hostname:
             if not nd.device:

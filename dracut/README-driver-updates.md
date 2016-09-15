@@ -365,6 +365,16 @@ Here, roughly, is how `driver-updates` handles a DUD:
 5. If every item in `/tmp/dd_todo` is now also in `/tmp/dd_finished`,
    create `/tmp/dd.done` so dracut knows it can exit the initqueue.
 
+### Bash helper scripts called from driver_updates.py
+
+* anaconda-ifdown
+    * This script sets the interface down and removes all flags in dracut for
+      future re-setting. This is useful for replacing existing network drivers.
+
+* find-net-intfs-by-driver
+    * Find all network interfaces which depend on the given driver (command
+      line argument), then return a list of the network interfaces.
+
 ## pre-pivot: `anaconda-depmod.sh`
 
 If any drivers were installed or downloaded, run depmod on `$NEWROOT` so we can
