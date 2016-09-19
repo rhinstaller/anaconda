@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Find all devices which depend on input kernel driver.
+#
+# Author: Jiri Konecny
+#
+
+driver="$1"
+
+# List all interfaces in system
+for i in /sys/class/net/*/device/modalias; do
+    if [ -z $i ]; then
+        exit 0
+    fi
+    # Get kernel mods on which the interface is dependent
+    d=$(modprobe -R $(cat "$i"))
+
+    # Test if this is the mod we are looking for. If so return name of the interface.
+    if [[ " $d " == *\ $driver\ * ]]; then
+        intf=${i%%/device/modalias}
+        echo "${intf##*/}"
+    fi
+done

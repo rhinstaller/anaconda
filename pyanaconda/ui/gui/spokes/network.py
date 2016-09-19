@@ -400,6 +400,9 @@ class NetworkControlBox(GObject.GObject):
         if network.is_libvirt_device(dev_cfg.get_iface() or ""):
             log.debug("network: GUI, not adding %s", dev_cfg.get_iface())
             return False
+        if network.is_ibft_configured_device(dev_cfg.get_iface() or ""):
+            log.debug("network: GUI, not adding %s configured from iBFT", dev_cfg.get_iface())
+            return False
         if dev_cfg.get_device_type() not in self.supported_device_types:
             log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
             return False
@@ -737,6 +740,9 @@ class NetworkControlBox(GObject.GObject):
         # (can be chopped off to IFNAMSIZ kernel limit)
         if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
+        if network.is_ibft_configured_device(device.get_iface() or ""):
+            log.debug("network: not adding connection for device %s configured from iBFT", device.get_iface())
+            return False
 
         # Ignore devices with active read-only connections (created by NM for iBFT VLAN)
         ac = device.get_active_connection()
@@ -1702,13 +1708,19 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
 def _update_network_data(data, ncb):
     data.network.network = []
-    for dev_cfg in ncb.dev_cfgs:
+    for i, dev_cfg in enumerate(ncb.dev_cfgs):
         devname = dev_cfg.get_iface()
         nd = network.ksdata_from_ifcfg(devname, dev_cfg.get_uuid())
         if not nd:
             continue
         if devname in nm.nm_activated_devices():
             nd.activate = True
+        else:
+            # First network command defaults to --activate so we must
+            # use --no-activate explicitly to prevent the default
+            if i == 0:
+                nd.activate = False
+
         data.network.network.append(nd)
     hostname = ncb.hostname
     network.update_hostname_data(data, hostname)

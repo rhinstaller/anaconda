@@ -64,7 +64,7 @@ class ScreenAccessManager(object):
                 with open(config_path, "rt") as f:
                     self._config.read_file(f)
 
-    def write_out_config_file(self, config_path=iutil.getSysroot() + CONFIG_FILE_PATH):
+    def write_out_config_file(self, config_path=None):
         """Write the user interaction config file to persistent storage.
         - we always read the config file from the top level filesystem, as:
         -> on live media the file will be there
@@ -76,6 +76,9 @@ class ScreenAccessManager(object):
           Gnome Initial Setup) can use it
         -> therefore we always write the config file to the sysroot path
         """
+
+        if config_path is None:
+            config_path = iutil.getSysroot() + CONFIG_FILE_PATH
 
         with self._lock:
             new_config_file = not os.path.exists(config_path)

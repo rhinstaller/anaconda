@@ -51,6 +51,8 @@ install() {
     inst_hook pre-trigger 55 "$moddir/driver-updates-genrules.sh"
     inst_hook initqueue/online 20 "$moddir/fetch-driver-net.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-depmod.sh"
+    inst "$moddir/find-net-intfs-by-driver" "/bin/find-net-intfs-by-driver"
+    inst "$moddir/anaconda-ifdown" "/bin/anaconda-ifdown"
     inst "$moddir/driver_updates.py" "/bin/driver-updates"
     inst "/usr/sbin/modinfo"
     inst_simple "$moddir/driver-updates@.service" "/etc/systemd/system/driver-updates@.service"
