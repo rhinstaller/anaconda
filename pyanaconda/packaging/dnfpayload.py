@@ -221,6 +221,7 @@ def do_transaction(base, queue_instance):
         import traceback
         exit_reason = str(e) + traceback.format_exc()
     finally:
+        base.close()
         queue_instance.put(('quit', str(exit_reason)))
 
 class DNFPayload(packaging.PackagePayload):

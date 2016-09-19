@@ -73,6 +73,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         for name in devices:
             if name in self.supported_devices:
                 continue
+            if network.is_ibft_configured_device(name):
+                continue
             if nm.nm_device_type_is_ethernet(name):
                 # ignore slaves
                 if nm.nm_device_setting_value(name, "connection", "slave-type"):
@@ -257,12 +259,19 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         hostname = self.data.network.hostname
 
         self.data.network.network = []
-        for name in nm.nm_devices():
+        for i, name in enumerate(nm.nm_devices()):
+            if network.is_ibft_configured_device(name):
+                continue
             nd = network.ksdata_from_ifcfg(name)
             if not nd:
                 continue
             if name in nm.nm_activated_devices():
                 nd.activate = True
+            else:
+                # First network command defaults to --activate so we must
+                # use --no-activate explicitly to prevent the default
+                if i == 0:
+                    nd.activate = False
             self.data.network.network.append(nd)
 
         (valid, error) = network.sanityCheckHostname(self.hostname_dialog.value)

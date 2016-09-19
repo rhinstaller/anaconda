@@ -167,7 +167,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
 
         return "\n".join(dd_args)
 
-class Network(commands.network.F24_Network, DracutArgsMixin):
+class Network(commands.network.F25_Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -184,7 +184,8 @@ class Network(commands.network.F24_Network, DracutArgsMixin):
 
         # first 'network' line
         if len(self.network) == 1:
-            net.activate = True
+            if net.activate is None:
+                net.activate = True
             # Note that there may be no net.device and no ksdevice if inst.ks=file:/ks.cfg
             # If that is the case, fall into ksnet_to_dracut with net.device=None and let
             # it handle things.
@@ -498,7 +499,7 @@ def ksnet_to_ifcfg(net, filename=None):
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes",
+                            'ONBOOT' : "yes" if net.activate else "no",
                             'MASTER' : ifcfg['UUID'],
                             'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
@@ -520,7 +521,7 @@ def ksnet_to_ifcfg(net, filename=None):
                             'DEVICETYPE' : "TeamPort",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes",
+                            'ONBOOT' : "yes" if net.activate else "no",
                             'TEAM_MASTER' : dev,
 #                            'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
@@ -556,6 +557,9 @@ def ksnet_to_ifcfg(net, filename=None):
             ifcfg['BRIDGING_OPTS'] = " ".join(keyvalues)
 
         for i, slave in enumerate(net.bridgeslaves.split(","), 1):
+            # Handle virtual slaves created by preceding network commands (eg bond)
+            if update_virtual_slave_ifcfg(slave, setting="BRIDGE=%s" % dev):
+                continue
             slave_ifcfg = {
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
@@ -609,6 +613,21 @@ def write_ifcfg(filename, ifcfg):
         log.error("can't write %s: %s", filename, e)
         return False
     return True
+
+def update_virtual_slave_ifcfg(slave, setting):
+    update = False
+    filename = "/tmp/ifcfg/ifcfg-%s" % slave
+    if os.path.exists(filename):
+        with open(filename, "a+") as f:
+            # pylint: disable=redefined-outer-name
+            for line in f:
+                key, _sep, val = line.strip().partition("=")
+                if key == "TYPE" and val.strip('"') in ("Bond", "Team"):
+                    update = True
+            if update:
+                f.write("%s\n" % setting)
+                log.info("updated ifcfg %s with %s", filename, setting)
+    return update
 
 def process_kickstart(ksfile):
     handler = DracutHandler()

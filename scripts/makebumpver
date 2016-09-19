@@ -116,6 +116,8 @@ class MakeBumpVer:
                             help="Skip checking Jenkins for test results.")
         parser.add_argument("--dry-run", dest="dry_run", action="store_true", default=False,
                             help="Do not change any files, only run checks.")
+        parser.add_argument("-c", "--commit-and-tag", dest="commit_and_tag", action="store_true",
+                            help="Create and tag a release commit once bumping the Anaconda version.")
 
         # gather all unprocessed command line arguments
         parser.add_argument(nargs=argparse.REMAINDER, dest="unknown_arguments")
@@ -610,6 +612,24 @@ class MakeBumpVer:
 
         return ret
 
+    def _do_release_commit(self, new_version):
+        log.info("creating a tagged release commit")
+        commit_message = "New version - %s" % new_version
+        release_tag = "anaconda-%s-%s" % (new_version, self.new_release)
+        # stage configure.ac and the spec file
+        run_program(['git', 'add', self.configure, self.spec])
+        # log the changes that will be commited
+        proc = run_program(['git', 'diff', '--cached'])
+        #lines = commit_proc[0].strip('\n').split('\n')
+        log.info("changes to be commited:\n%s", proc[0])
+        # make the release commit
+        run_program(['git', 'commit', '-m', commit_message])
+        # tag the release
+        run_program(['git', 'tag', release_tag])
+        # log the commit message & tag
+        log.info("commit message: %s", commit_message)
+        log.info("tag: %s", release_tag)
+
     def run(self):
         if not self.skip_zanata and not self.check_zanata():
             sys.exit(1)
@@ -625,6 +645,10 @@ class MakeBumpVer:
         if not self.dry_run:
             self._writeNewConfigure(newVersion)
             self._writeNewSpec(newVersion, rpmlog)
+
+        # do a release commit and tag it with the appropriate tag
+        if self.args.commit_and_tag:
+            self._do_release_commit(newVersion)
 
 if __name__ == "__main__":
     mbv = MakeBumpVer()

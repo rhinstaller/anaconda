@@ -342,11 +342,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # Get parents of a multipath devices
             if isinstance(d, MultipathDevice):
                 for parent_dev in d.parents:
-                    if isinstance(parent_dev, iScsiDiskDevice) and not parent_dev.ibft:
+                    if (isinstance(parent_dev, iScsiDiskDevice)
+                        and not parent_dev.ibft
+                        and not parent_dev.offload):
                         iscsi_devices.append(parent_dev)
             # Add no-ibft iScsiDiskDevice. IBFT disks are added automatically so there is
             # no need to have them in KS.
-            elif isinstance(d, iScsiDiskDevice) and not d.ibft:
+            elif isinstance(d, iScsiDiskDevice) and not d.ibft and not d.offload:
                 iscsi_devices.append(d)
 
         if iscsi_devices:
