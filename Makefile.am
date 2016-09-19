@@ -75,6 +75,14 @@ po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	( cd $(srcdir) && zanata pull $(ZANATA_PULL_ARGS) )
 
+po-push:
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update
+	zanata push $(ZANATA_PUSH_ARGS)
+
+po-all:
+	$(MAKE) po-push
+	$(MAKE) po-pull
+
 # Try to fetch translations, but if that fails just keep going
 po-fallback:
 	-$(MAKE) po-pull
@@ -97,7 +105,12 @@ scratch-bumpver:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release:
-	$(MAKE) dist && $(MAKE) tag
+	$(MAKE) po-all
+	$(MAKE) dist
+
+release-and-tag:
+	$(MAKE) dist
+	$(MAKE) tag
 
 rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
