@@ -325,6 +325,49 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 19 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.2-1
+- Merge pull request #801 from rvykydal/f25-devel-rhbz-1309661 (rvykydal)
+- Merge pull request #802 from rvykydal/f25-devel-rhbz-1234849 (rvykydal)
+- Merge pull request #797 from jkonecny12/f25-dev-fix-text-repo-option-checker
+  (jkonecny)
+- Merge pull request #796 from jkonecny12/f25-dev-fix-net-when-dud-unload
+  (jkonecny)
+- Merge pull request #798 from rvykydal/f25-devel-rhbz-1371188 (rvykydal)
+- network: set onboot correctly for vlan on bond device in ks (#1234849)
+  (rvykydal)
+- network: don't show ibft configured devices in UI (#1309661) (rvykydal)
+- Merge pull request #765 from rvykydal/f25-devel-port-rhel-1325134-1252879
+  (rvykydal)
+- iscsi: don't generate kickstart iscsi commands for offload devices (#1252879)
+  (rvykydal)
+- iscsi: allow installing bootloader on offload iscsi disks (qla4xxx)
+  (#1325134) (rvykydal)
+- network: adapt to changed NM ibft plugin enablement configuration (#1371188)
+  (rvykydal)
+- Merge pull request #795 from rvykydal/f25-devel-rhbz-1268792 (rvykydal)
+- Merge pull request #794 from rvykydal/f25-devel-rhbz-1321288 (rvykydal)
+- Merge pull request #793 from rvykydal/f25-devel-rhbz-1358795 (rvykydal)
+- network: don't activate bond/team devices regardless of --activate (#1358795)
+  (rvykydal)
+- Merge pull request #771 from rvykydal/f25-devel-1277975-add-network-no-
+  activate-option (rvykydal)
+- Fix traceback when payload have None as url (#1371494) (jkonecny)
+- Add new Dracut test and fix another ones (#1101653) (jkonecny)
+- Fix bug when we add set to list (#1101653) (jkonecny)
+- Add new helper script files to build system (#1101653) (jkonecny)
+- Document new helper scripts to the DriverDisk README (#1101653) (jkonecny)
+- Fix driver unload is disabling network settings (#1101653) (jkonecny)
+- dud: fix multiple inst.dd=http:// instances stalling in dracut (#1268792)
+  (rvykydal)
+- network: fix ksdata generating for for non-active virtual devices (#1321288)
+  (rvykydal)
+- network: update kickstart data also with bond bridge slaves (#1321288)
+  (rvykydal)
+- network: add support for bridge bond slaves (#1321288) (rvykydal)
+- Merge pull request #790 from cgwalters/sam-evaluation (martin.kolman)
+- screen_access: Ensure we write config to real sysroot (walters)
+- network: add support for --no-activate kickstart opton (#1277975) (rvykydal)
+
 * Thu Sep 08 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.1-1
 - Update zanata.xml file for f25. (sbueno+anaconda)
 - Fix a small typo in makebumpver script. (sbueno+anaconda)
