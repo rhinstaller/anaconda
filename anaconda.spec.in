@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 20 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.92-1
+- Check /var/tmp directory before creating it (rvykydal)
+  Resolves: rhbz#1377761
+
 * Thu Sep 15 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.91-1
 - Fix password length in the password policy (mkolman)
   Related: rhbz#1365112
