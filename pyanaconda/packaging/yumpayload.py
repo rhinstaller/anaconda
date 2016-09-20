@@ -401,8 +401,10 @@ reposdir=%s
                 log.error(e)
 
         # Move the yum.cache to the new disk space to save memory
-        new_cache = iutil.getSysroot()+"/var/tmp/yum.cache"
-        os.makedirs(iutil.getSysroot()+"/var/tmp")
+        var_tmp = iutil.getSysroot()+"/var/tmp"
+        if not os.path.isdir(var_tmp):
+            os.makedirs(var_tmp)
+        new_cache = var_tmp+"/yum.cache"
         try:
             shutil.move(_yum_cache_dir, new_cache)
         except shutil.Error:
