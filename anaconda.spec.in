@@ -83,7 +83,7 @@ The anaconda package is a metapackage for the Anaconda installer.
 %package core
 Summary: Core of the Anaconda installer
 Requires: python3-dnf >= %{dnfver}, python3-dnf < %{dnfmaxver}
-Requires: python3-blivet >= 1:2.1.3
+Requires: python3-blivet >= 1:2.1.4
 Requires: python3-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libselinux-python3
@@ -325,6 +325,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 21 2016 Martin Kolman <mkolman@redhat.com> - 26.4-1
+- Fix NTP server list fetching when running in IS (#1374810) (mkolman)
+- rpmostreepayload: Clean up use of sysroot files a bit (walters)
+- rpmostreepayload: Fix remote handling to use correct sysroot (walters)
+
 * Mon Sep 19 2016 Martin Kolman <mkolman@redhat.com> - 26.3-1
 - network: set onboot correctly for vlan on bond device in ks (#1234849)
   (rvykydal)
