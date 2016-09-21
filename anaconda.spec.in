@@ -325,6 +325,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 21 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.3-1
+- Merge pull request #806 from M4rtinK/f25-devel-fix_tui_ntp_server_listing
+  (martin.kolman)
+- Fix NTP server list fetching when running in IS (#1374810) (mkolman)
+- Merge pull request #804 from rvykydal/f25-devel-cgwalters-rpmostree-fix-
+  remote (rvykydal)
+- rpmostreepayload: Clean up use of sysroot files a bit (walters)
+- rpmostreepayload: Fix remote handling to use correct sysroot (walters)
+
 * Mon Sep 19 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.2-1
 - Merge pull request #801 from rvykydal/f25-devel-rhbz-1309661 (rvykydal)
 - Merge pull request #802 from rvykydal/f25-devel-rhbz-1234849 (rvykydal)
