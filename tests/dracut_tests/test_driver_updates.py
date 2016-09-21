@@ -458,6 +458,24 @@ class LoadDriversTestCase(unittest.TestCase):
             mock.call(["modprobe", "-a", "icecream"])
         ])
 
+    @mock.patch("driver_updates.subprocess.call")
+    @mock.patch("driver_updates.subprocess.check_output", return_value="sorbet")
+    @mock.patch("driver_updates.rm_net_intfs_for_unload", return_value=set())
+    @mock.patch("driver_updates.list_net_intfs", return_value=set())
+    @mock.patch("driver_updates.get_all_loaded_modules")
+    def test_reload_module_dependencies(self, get_all_loaded_modules, list_net_intfs, rm_net_intfs_for_unload, check_output, call):
+        # "icecream" has module dependency "cornet" which will be unloaded because of
+        # dependencies and must be reload back
+        mod_dependencies=[["icecream", "cornet"], ["icecream"]]
+        get_all_loaded_modules.side_effect = lambda: mod_dependencies.pop(0)
+
+        load_drivers({"icecream": ['pineapple', 'cherry', 'icecream']})
+        call.assert_has_calls([
+            mock.call(["modprobe", "-r", "sorbet"]),
+            mock.call(["depmod", "-a"]),
+            mock.call(["modprobe", "-a", "icecream"]),
+            mock.call(["modprobe", "-a", "cornet"])
+        ])
 
     @mock.patch("driver_updates.subprocess.call")
     @mock.patch("driver_updates.subprocess.check_call")
