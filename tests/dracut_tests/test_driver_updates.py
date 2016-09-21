@@ -485,8 +485,7 @@ class LoadDriversTestCase(unittest.TestCase):
         # mode is net mode, remove dracut configuration for interface,
         # retrigger udev event
         intfs = ["ens3", "", "ens3"]
-        patched_list_net = lambda: set(intfs.pop())
-        list_net_intfs.side_effect = patched_list_net
+        list_net_intfs.side_effect = lambda: set(intfs.pop())
 
         def patched_check_output(command, stderr=None):
             if command[0] == "modprobe":
