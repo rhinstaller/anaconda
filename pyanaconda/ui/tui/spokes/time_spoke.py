@@ -73,7 +73,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         if constants.ANACONDA_ENVIRON in flags.environs:
             ntp_servers = self.data.timezone.ntpservers
         elif constants.FIRSTBOOT_ENVIRON in flags.environs:
-            ntp_servers = ntp.get_servers_from_config()
+            ntp_servers = ntp.get_servers_from_config()[1]  # returns a (NPT pools, NTP servers) tupple
         else:
             log.error("tui time spoke: unsupported environment configuration %s,"
                       "can't decide where to get initial NTP servers", flags.environs)
