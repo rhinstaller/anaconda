@@ -17,23 +17,28 @@ sys.path.append(os.path.normpath(os.path.dirname(__file__)+'/../../dracut'))
 from driver_updates import copy_files, move_files, iter_files, ensure_dir
 from driver_updates import append_line, mkdir_seq
 
+
 def touch(path):
     try:
         open(path, 'a')
     except IOError as e:
         if e.errno != 17: raise
 
+
 def makedir(path):
     ensure_dir(path)
     return path
+
 
 def makefile(path):
     makedir(os.path.dirname(path))
     touch(path)
     return path
 
+
 def makefiles(*paths):
     return [makefile(p) for p in paths]
+
 
 def listfiles(path):
     path = os.path.normpath(path)
@@ -50,6 +55,7 @@ def listfiles(path):
                 prefix = dirpath[len(path)+1:] + '/'
             yield prefix + filename
 
+
 class FileTestCaseBase(unittest.TestCase):
     def setUp(self):
         self.tmpdir = tempfile.mkdtemp(prefix="test_driver_updates.")
@@ -62,6 +68,7 @@ class FileTestCaseBase(unittest.TestCase):
     def makefiles(self, *paths):
         return [makefile(os.path.normpath(self.tmpdir+'/'+p)) for p in paths]
 
+
 class SelfTestCase(FileTestCaseBase):
     def test_makefiles(self):
         """check test helpers"""
@@ -69,6 +76,7 @@ class SelfTestCase(FileTestCaseBase):
         self.makefiles(*filepaths)
         for f in filepaths:
             self.assertTrue(os.path.exists(self.tmpdir+'/'+f))
+
 
 class TestCopyFiles(FileTestCaseBase):
     def test_basic(self):
@@ -113,6 +121,7 @@ class TestCopyFiles(FileTestCaseBase):
         result = set(listfiles(self.destdir))
         self.assertEqual(result, set(["subdir/module.ko", "other.ko.xz"]))
 
+
 class TestIterFiles(FileTestCaseBase):
     def test_basic(self):
         """iter_files: iterates over full paths to files under topdir"""
@@ -127,6 +136,7 @@ class TestIterFiles(FileTestCaseBase):
         goodfiles = set(self.makefiles("src/sub/file1.ko", "src/file2.ko.xz"))
         result = set(iter_files(self.tmpdir, pattern="*.ko*"))
         self.assertEqual(result, goodfiles)
+
 
 class TestMoveFiles(FileTestCaseBase):
     def test_basic(self):
@@ -163,6 +173,7 @@ class TestMoveFiles(FileTestCaseBase):
         move_files(files, self.destdir, self.srcdir)
         self.assertEqual(set(iter_files(self.destdir)), files)
 
+
 class TestAppendLine(FileTestCaseBase):
     def test_empty(self):
         """append_line: create file + append \\n when needed"""
@@ -181,6 +192,7 @@ class TestAppendLine(FileTestCaseBase):
         line = "this line contains a newline already\n"
         append_line(outfile, line)
         self.assertEqual(open(outfile).read(), '\n'.join(oldlines+[line]))
+
 
 from driver_updates import read_lines
 class TestReadLine(FileTestCaseBase):
@@ -210,6 +222,7 @@ class TestReadLine(FileTestCaseBase):
             append_line(filename, i)
         self.assertEqual(items, read_lines(filename))
 
+
 class TestMkdirSeq(FileTestCaseBase):
     def test_basic(self):
         """mkdir_seq: first dir ends with 1"""
@@ -225,6 +238,7 @@ class TestMkdirSeq(FileTestCaseBase):
         self.assertTrue(os.path.isdir(newdir))
         self.assertTrue(os.path.isdir(firstdir))
 
+
 from driver_updates import find_repos, save_repo, ARCH
 # As far as we know, this is what makes a valid repo: rhdd3 + rpms/`uname -m`/
 def makerepo(topdir, desc=None):
@@ -234,6 +248,7 @@ def makerepo(topdir, desc=None):
     with open(descfile, "w") as outf:
         outf.write(desc+"\n")
     makedir(topdir+'/rpms/'+ARCH)
+
 
 class TestFindRepos(FileTestCaseBase):
     def test_basic(self):
@@ -251,6 +266,7 @@ class TestFindRepos(FileTestCaseBase):
         repos = find_repos(self.tmpdir)
         self.assertEqual(len(repos),3)
 
+
 class TestSaveRepo(FileTestCaseBase):
     def test_basic(self):
         """save_repo: copies a directory to /run/install/DD-X"""
@@ -260,6 +276,7 @@ class TestSaveRepo(FileTestCaseBase):
         saved = save_repo(repo, target=self.destdir)
         self.assertEqual(set(listfiles(saved)), set(["fake-something.rpm"]))
         self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
+
 
 from driver_updates import mount, umount, mounted
 class MountTestCase(unittest.TestCase):
@@ -302,6 +319,7 @@ class MountTestCase(unittest.TestCase):
             self.assertEqual(mountpoint, mnt)
         mock_umount.assert_called_once_with(mnt)
 
+
 # NOTE: dd_list and dd_extract get tested pretty thoroughly in tests/dd_tests,
 # so this is a slightly higher-level test case
 from driver_updates import dd_list, dd_extract, Driver
@@ -319,9 +337,12 @@ fake_enhancement = Driver(
     description='This is enhancing the crap out of the installer.\n\nYeah.',
     repo=fake_module.repo
 )
+
+
 def dd_list_output(driver):
     out='{0.source}\n{0.name}\n{0.flags}\n{0.description}\n---\n'.format(driver)
     return out.encode('utf-8')
+
 
 class DDUtilsTestCase(unittest.TestCase):
     @mock.patch("driver_updates.subprocess.check_output")
@@ -353,6 +374,7 @@ class DDUtilsTestCase(unittest.TestCase):
         self.assertIn(outdir, cmd)
         self.assertIn("-blmf", cmd)
         self.assertTrue(cmd[0].endswith("dd_extract"))
+
 
 from driver_updates import extract_drivers, grab_driver_files, load_drivers
 
@@ -397,6 +419,7 @@ class ExtractDriversTestCase(unittest.TestCase):
         mock_append.assert_called_once_with(pkglist, fake_module.name)
         mock_save.assert_called_once_with(fake_module.repo)
 
+
 class GrabDriverFilesTestCase(FileTestCaseBase):
     def test_basic(self):
         """grab_driver_files: copy drivers into place, return module+alias dict"""
@@ -429,6 +452,7 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
         self.assertEqual(set(listfiles(fw_upd_dir)), fwfiles)
         self.assertEqual(set(listfiles(outdir+'/'+fw_upd_dir)), fwfiles)
 
+
 class LoadDriversTestCase(unittest.TestCase):
     @mock.patch("driver_updates.subprocess.call")
     @mock.patch("driver_updates.rm_net_intfs_for_unload")
@@ -442,7 +466,6 @@ class LoadDriversTestCase(unittest.TestCase):
             mock.call(["depmod", "-a"]),
             mock.call(["modprobe", "-a"] + list(moddict.keys()))
         ])
-
 
     @mock.patch("driver_updates.subprocess.call")
     @mock.patch("driver_updates.subprocess.check_output", return_value="sorbet")
@@ -503,6 +526,7 @@ class LoadDriversTestCase(unittest.TestCase):
         check_call.assert_has_calls([
             mock.call(["anaconda-ifdown", "ens3"])
         ])
+
 
 from driver_updates import process_driver_disk
 class ProcessDriverDiskTestCase(unittest.TestCase):
@@ -571,6 +595,7 @@ class ProcessDriverDiskTestCase(unittest.TestCase):
         process_driver_disk(dev)
         self.assertFalse(self.mocks['grab_driver_files'].called)
 
+
 from driver_updates import process_driver_rpm
 class ProcessDriverRPMTestCase(unittest.TestCase):
     def setUp(self):
@@ -594,6 +619,7 @@ class ProcessDriverRPMTestCase(unittest.TestCase):
         process_driver_rpm(rpm)
         self.mocks['extract_drivers'].assert_called_once_with(repos=["/tmp/fake/driver.rpm"])
         self.mocks['grab_driver_files'].assert_called_once_with()
+
 
 from driver_updates import finish, mark_finished, all_finished
 
@@ -637,6 +663,7 @@ class FinishedTestCase(FileTestCaseBase):
             finish(r, topdir=self.tmpdir)
         self.assertTrue(os.path.exists(done))
 
+
 from driver_updates import get_deviceinfo, DeviceInfo
 blkid_out = b'''\
 DEVNAME=/dev/sda2
@@ -671,6 +698,8 @@ devicelist = [
                LABEL='I\\x20\u262d\\x20COMMUNISM',
                UUID='6f16967e-0388-4276-bd8d-b88e5b217a55'),
 ]
+
+
 # also covers blkid, get_disk_labels, DeviceInfo
 class DeviceInfoTestCase(unittest.TestCase):
     @mock.patch('driver_updates.subprocess.check_output',return_value=blkid_out)
@@ -698,6 +727,7 @@ if sys.version_info.major == 3:
     from io import StringIO
 else:
     from io import BytesIO as StringIO
+
 
 from driver_updates import device_menu
 class DeviceMenuTestCase(unittest.TestCase):
@@ -738,6 +768,7 @@ class DeviceMenuTestCase(unittest.TestCase):
         line = match.pop(0)
         # the device name (at least) should be on this line
         self.assertIn(os.path.basename(dev.device), line)
+
 
 from driver_updates import list_aliases
 class ListAliasesTestCase(unittest.TestCase):
