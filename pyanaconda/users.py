@@ -155,7 +155,7 @@ def validatePassword(pw, user="root", settings=None, minlen=None, empty_ok=False
             validatePassword.pwqsettings.read_config()
         settings = validatePassword.pwqsettings
 
-    # if no passworld length is specified, then require use the Anaconda default minimal
+    # if no password length is specified, then require use the Anaconda default minimal
     # password length (6 characters at the moment)
     if minlen is None:
         minlen = PASSWORD_MIN_LEN

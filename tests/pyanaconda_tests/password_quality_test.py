@@ -18,6 +18,14 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 
+# Ignore the potfiles check as it thinks we add translatable strings with _(),
+# but we just use it to translate the content of variables.
+#
+# TODO: remove the ignore-check once the potfile check is fixed
+#
+# ignore-check: potfiles
+
+
 from pyanaconda.users import validatePassword
 from pyanaconda import constants
 from pyanaconda.i18n import _
@@ -63,7 +71,7 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(quality, 0)
         self.assertIsNotNone(error_message)
         # also check a long-enough password, just in case
-        score, status, quality, error_message = validatePassword("12345567891", minlen=10, empty_ok=True)
+        score, status, quality, error_message = validatePassword("1234567891", minlen=10, empty_ok=True)
         self.assertEqual(score, 1)
         self.assertEqual(status, _(constants.PASSWORD_STATUS_WEAK))
         self.assertEqual(quality, 0)
@@ -130,12 +138,12 @@ class PasswordQuality(unittest.TestCase):
             self.assertEqual(quality, 52)
         self.assertIsNone(error_message)
 
-        # "----4naconda----" gives a quality of 80 on RHEL7
+        # "----4naconda----" gives a quality of 81 on RHEL7
         score, status, quality, error_message = validatePassword("----4naconda----")
         if ON_RHEL:
             self.assertEqual(score, 3)  # quality > 75 & < 90
             self.assertEqual(status, _(constants.PASSWORD_STATUS_GOOD))
-            self.assertEqual(quality, 80)
+            self.assertEqual(quality, 81)
         self.assertIsNone(error_message)
 
         # "?----4naconda----?" gives a quality of 100 on RHEL7
