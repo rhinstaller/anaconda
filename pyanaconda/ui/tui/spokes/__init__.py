@@ -150,7 +150,8 @@ class EditTUIDialog(NormalTUISpoke):
             pw_score, _status_text, pw_quality, error_message = validatePassword(pw, user=None, minlen=self.policy.minlen)
 
             # if the score is equal to 0 and we have an error message set
-            if not pw_score and error_message:
+            # - ignore if the strict flag in the password policy == False
+            if not pw_score and error_message and self.policy.strict:
                 print(error_message)
                 return None
 
