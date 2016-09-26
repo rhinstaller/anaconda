@@ -243,7 +243,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         # Check for validity errors
         # pw score == 0 & errors from libpwquality
-        if not self._pw_score and self._pw_error_message:
+        # - ignore if the strict flag in the password policy == False
+        if not self._pw_score and self._pw_error_message and self.policy.strict:
             return self._pw_error_message
 
         # use strength from policy, not bars
