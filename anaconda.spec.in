@@ -318,6 +318,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 26 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.93-1
+- Accept any non-empty password in non-strict mode (mkolman)
+  Resolves: rhbz#1379323
+- Disable the potfile check on the password quality tests (mkolman)
+  Related: rhbz#1365112
+  Related: rhbz#1365032
+- Fix two trivial typos in the password checking code (mkolman)
+  Related: rhbz#1365112
+  Related: rhbz#1365032
+- Tweak lambda use in Dracut test (jkonecny)
+  Related: rhbz#1101653
+- Add Dracut test for reloading mod dependencies (jkonecny)
+  Related: rhbz#1101653
+
 * Tue Sep 20 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.92-1
 - Check /var/tmp directory before creating it (rvykydal)
   Resolves: rhbz#1377761
