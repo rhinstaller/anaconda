@@ -909,8 +909,6 @@ if __name__ == "__main__":
     log.info("anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
-    iutil.execWithRedirect("udevadm", ["control", "--env=ANACONDA=1"])
-
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
 

@@ -77,7 +77,6 @@ for mounted in reversed(open("/proc/mounts").readlines()):
        and live_install and not "live" in device:
         os.system("umount %s" % mountpoint)
 
-os.system("udevadm control --env=ANACONDA=1")
 os.system("udevadm trigger --subsystem-match block")
 os.system("udevadm settle")
 devicetree = DeviceTree(conf=storage_config)
@@ -86,4 +85,3 @@ devicetree.teardown_all()
 for name in devicetree.disk_images.keys():
     device = devicetree.get_device_by_name(name)
     device.deactivate(recursive=True)
-os.system("udevadm control --env=ANACONDA=0")
