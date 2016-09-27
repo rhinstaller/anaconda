@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import inspect, os, sys, time, site, signal
+import inspect, os, sys, site, signal
 import meh.ui.gui
 
 from contextlib import contextmanager
@@ -47,10 +47,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 __all__ = ["GraphicalUserInterface", "QuitDialog"]
-
-_screenshotIndex = 0
-_last_screenshot_timestamp = 0
-SCREENSHOT_DELAY = 1  # in seconds
 
 ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
 
@@ -159,10 +155,6 @@ class GUIObject(common.UIObject):
 
         self.builder.connect_signals(self)
 
-        # Keybinder from GI needs to be initialized before use
-        Keybinder.init()
-        Keybinder.bind("<Shift>Print", self._handlePrntScreen, [])
-
         self._automaticEntry = False
         self._autostepRunning = False
         self._autostepDone = False
@@ -184,42 +176,6 @@ class GUIObject(common.UIObject):
                 return testPath
 
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
-
-    def _handlePrntScreen(self, *args, **kwargs):
-        global _last_screenshot_timestamp
-        # as a single press of the assigned key generates
-        # multiple callbacks, we need to skip additional
-        # callbacks for some time once a screenshot is taken
-        if (time.time() - _last_screenshot_timestamp) >= SCREENSHOT_DELAY:
-            self.take_screenshot()
-            # start counting from the time the screenshot operation is done
-            _last_screenshot_timestamp = time.time()
-
-    def take_screenshot(self, name=None):
-        """Take a screenshot of the whole screen (works even with multiple displays)
-
-        :param name: optional name for the screenshot that will be appended to the filename,
-                     after the standard prefix & screenshot number
-        :type name: str or NoneType
-        """
-        global _screenshotIndex
-        # Make sure the screenshot directory exists.
-        iutil.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
-
-        if name is None:
-            screenshot_filename = "screenshot-%04d.png" % _screenshotIndex
-        else:
-            screenshot_filename = "screenshot-%04d-%s.png" % (_screenshotIndex, name)
-
-        fn = os.path.join(constants.SCREENSHOTS_DIRECTORY, screenshot_filename)
-
-        root_window = self.main_window.get_root_window()
-        pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
-                                            root_window.get_width(),
-                                            root_window.get_height())
-        pixbuf.savev(fn, 'png', [], [])
-        log.info("%s taken", screenshot_filename)
-        _screenshotIndex += 1
 
     @property
     def automaticEntry(self):
@@ -274,7 +230,7 @@ class GUIObject(common.UIObject):
             # as autostep is triggered just before leaving a screen,
             # we can safely take a screenshot of the "parent" object at once
             # without using idle_add
-            self.take_screenshot(self.__class__.__name__)
+            self.main_window.take_screenshot(self.__class__.__name__)
         self._doAutostep()
         # done
         self.autostepRunning = False
@@ -449,6 +405,12 @@ class MainWindow(Gtk.Window):
         self._language = None
         self.reapply_language()
 
+        # Keybinder from GI needs to be initialized before use
+        Keybinder.init()
+        Keybinder.bind("<Shift>Print", self._handle_print_screen, [])
+
+        self._screenshot_index = 0
+
     def _on_delete_event(self, widget, event, user_data=None):
         # Use the quit-clicked signal on the the current standalone, even if the
         # standalone is not currently displayed.
@@ -490,6 +452,15 @@ class MainWindow(Gtk.Window):
     @property
     def current_action(self):
         return self._current_action
+
+    @property
+    def current_window(self):
+        """Return the window that is currently visible on the screen.
+
+        Anaconda uses a window stack, so the currently visible window is the
+        one on the top of the stack.
+        """
+        return self._stack.get_visible_child()
 
     def _setVisibleChild(self, child):
         # Remove the F12 accelerator from the old window
@@ -631,6 +602,34 @@ class MainWindow(Gtk.Window):
 
         self._language = os.environ["LANG"]
         watch_children(self, self._on_child_added, self._language)
+
+    def _handle_print_screen(self, *args, **kwargs):
+        self.take_screenshot()
+
+    def take_screenshot(self, name=None):
+        """Take a screenshot of the whole screen (works even with multiple displays).
+
+        :param name: optional name for the screenshot that will be appended to the filename,
+                     after the standard prefix & screenshot number
+        :type name: str or NoneType
+        """
+        # Make sure the screenshot directory exists.
+        iutil.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
+
+        if name is None:
+            screenshot_filename = "screenshot-%04d.png" % self._screenshot_index
+        else:
+            screenshot_filename = "screenshot-%04d-%s.png" % (self._screenshot_index, name)
+
+        fn = os.path.join(constants.SCREENSHOTS_DIRECTORY, screenshot_filename)
+
+        root_window = self.current_window.get_window()
+        pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
+                                            root_window.get_width(),
+                                            root_window.get_height())
+        pixbuf.savev(fn, 'png', [], [])
+        log.info("%s taken", screenshot_filename)
+        self._screenshot_index += 1
 
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
