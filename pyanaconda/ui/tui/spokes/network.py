@@ -92,10 +92,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     @property
     def mandatory(self):
-        """ This spoke should only be necessary if we're using an installation
-            source that requires a network connection.
-        """
-        return self.data.method.method in ("url", "nfs")
+        # the network spoke should be mandatory only if it is running
+        # during the installation and if the installation source requires network
+        return ANACONDA_ENVIRON in flags.environs and self.payload.needsNetwork
 
     @property
     def status(self):
