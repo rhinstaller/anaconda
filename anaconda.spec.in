@@ -325,6 +325,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 27 2016 Martin Kolman <mkolman@redhat.com> - 26.6-1
+- Don't deactivate all storage in anaconda-cleanup. (#1225184) (dlehman)
+- Stop setting ANACONDA udev environment variable. (#1225184) (dlehman)
+
 * Tue Sep 27 2016 Martin Kolman <mkolman@redhat.com> - 26.5-1
 - Improved driver disk copying (#1269915) (mkolman)
 - Fix screenshot taking logic (#1327456) (mkolman)
