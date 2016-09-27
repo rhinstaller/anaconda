@@ -1116,6 +1116,7 @@ class PackagePayload(Payload):
             for line in f:
                 package = line.strip()
                 if package not in self.requiredPackages:
+                    log.info("DD: adding required package: %s", package)
                     self.requiredPackages.append(package)
         log.debug("required packages = %s", self.requiredPackages)
 
