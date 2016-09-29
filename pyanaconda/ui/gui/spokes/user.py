@@ -292,10 +292,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             # Policy is that a non-empty password is required
             self.usepassword.set_active(True)
 
-        if not self.policy.emptyok:
-            # User isn't allowed to change whether password is required or not
-            self.usepassword.set_sensitive(False)
-
         # Password checks, in order of importance:
         # - if a password is required, is one specified?
         # - if a password is specified and there is data in the confirm box, do they match?
