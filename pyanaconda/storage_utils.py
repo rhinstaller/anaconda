@@ -360,6 +360,10 @@ def check_mounted_partitions(storage):
             continue
 
         for part in disk.format.partitions:
+            part_dev = storage.devicetree.get_device_by_path(part.path)
+            if part_dev and part_dev.protected:
+                log.debug("Not checking protected %s for being mounted, assuming live image mount", part.path)
+                continue
             if part.busy:
                 yield SanityError(_("%s is currently mounted and cannot be used for the "
                                     "installation. Please unmount it and retry.") % part.path)
