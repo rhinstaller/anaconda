@@ -270,7 +270,7 @@ class DNFPayload(packaging.PackagePayload):
            :type ksrepo: Kickstart RepoData object.
            :returns: None
         """
-        repo = dnf.repo.Repo(ksrepo.name, DNF_CACHE_DIR)
+        repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
         url = self._replace_vars(ksrepo.baseurl)
         mirrorlist = self._replace_vars(ksrepo.mirrorlist)
 
@@ -534,7 +534,7 @@ class DNFPayload(packaging.PackagePayload):
             types.add('optional')
         exclude = self.data.packages.excludedList
         try:
-            self._base.group_install(grp, types, exclude=exclude)
+            self._base.group_install(grp.id, types, exclude=exclude)
         except dnf.exceptions.MarkingError as e:
             # dnf-1.1.9 raises this error when a package is missing from a group
             raise packaging.NoSuchPackage(str(e), required=True)
