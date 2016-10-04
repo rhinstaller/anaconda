@@ -1,5 +1,5 @@
 #
-# screen_access.py:  anaconda thread management
+# screen_access.py:  screen access management for the Anaconda UI
 #
 # Copyright (C) 2016
 # Red Hat, Inc.  All rights reserved.
