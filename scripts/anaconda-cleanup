@@ -11,7 +11,7 @@
     live install:
 
         - unmount everything under /media
-        - populate a devicetree and tear everything down
+        - populate a devicetree and tear down disk image stacks
 
 """
 import os
@@ -77,13 +77,13 @@ for mounted in reversed(open("/proc/mounts").readlines()):
        and live_install and not "live" in device:
         os.system("umount %s" % mountpoint)
 
-os.system("udevadm control --env=ANACONDA=1")
 os.system("udevadm trigger --subsystem-match block")
 os.system("udevadm settle")
 devicetree = DeviceTree(conf=storage_config)
 devicetree.populate(cleanup_only=True)
-devicetree.teardown_all()
 for name in devicetree.disk_images.keys():
     device = devicetree.get_device_by_name(name)
+    for leaf in devicetree.leaves:
+        if leaf.depends_on(device):
+            leaf.teardown(recursive=True)
     device.deactivate(recursive=True)
-os.system("udevadm control --env=ANACONDA=0")
