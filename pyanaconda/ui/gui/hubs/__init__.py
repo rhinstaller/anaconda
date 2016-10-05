@@ -29,6 +29,7 @@ from pyanaconda.product import distributionText
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
+from pyanaconda.errors import NonInteractiveError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -319,6 +320,10 @@ class Hub(GUIObject, common.Hub):
                     # went interactive.  Log that here.
                     if not spoke.completed:
                         log.info("kickstart installation stopped for info: %s", spoke.title.replace("_", ""))
+                        if self.data.displaymode.nonInteractive:
+                            log.debug("Non interactive installation failed on spoke %s",
+                                      spoke.title.replace("_", ""))
+                            raise NonInteractiveError("Non interactive installation failed")
 
                     # Spokes that were not initially ready got the execute call in
                     # _createBox skipped.  Now that it's become ready, do it.  Note

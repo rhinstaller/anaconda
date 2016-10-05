@@ -691,8 +691,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if len(self.disks) == 1 and not self.selected_disks:
             applyDiskSelection(self.storage, self.data, [self.disks[0].name])
 
-        self._ready = True
-        hubQ.send_ready(self.__class__.__name__, False)
+        # do not set ready in automated install before execute is run
+        if flags.automatedInstall:
+            self.execute()
+        else:
+            self._ready = True
+            hubQ.send_ready(self.__class__.__name__, False)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
