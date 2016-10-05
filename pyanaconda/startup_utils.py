@@ -1,5 +1,5 @@
 #
-# startup.py - code used during early startup with minimal dependencies
+# startup_utils.py - code used during early startup with minimal dependencies
 #
 # Copyright (C) 2014  Red Hat, Inc.
 #
@@ -17,8 +17,20 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.i18n import _
+
+import logging
+log = logging.getLogger("anaconda")
+stdoutLog = logging.getLogger("anaconda.stdout")
+
+import sys
+import time
 import imp
 
+from pyanaconda import iutil
+from pyanaconda import product
+from pyanaconda import constants
+from pyanaconda.flags import flags
 
 def module_exists(module_path):
     """Report is a given module exists in the current module import pth or not.
@@ -54,7 +66,6 @@ def module_exists(module_path):
     except ImportError:
         return False
 
-
 def get_anaconda_version_string():
     """Return a string describing current Anaconda version.
     If the current version can't be determined the string
@@ -76,3 +87,100 @@ def get_anaconda_version_string():
     else:
         return "unknown"
 
+def gtk_warning(title, reason):
+    """A simple warning dialog for use during early startup of the Anaconda GUI.
+
+    :param str title: title of the warning dialog
+    :param str reason: warning message
+
+    TODO: this should be abstracted out to some kind of a "warning API" + UI code
+          that shows the actual warning
+    """
+    import gi
+    gi.require_version("Gtk", "3.0")
+
+    from gi.repository import Gtk
+    dialog = Gtk.MessageDialog(type=Gtk.MessageType.ERROR,
+                               buttons=Gtk.ButtonsType.CLOSE,
+                               message_format=reason)
+    dialog.set_title(title)
+    dialog.run()
+    dialog.destroy()
+
+def check_memory(anaconda, options, display_mode=None):
+    from pyanaconda import isys
+
+    reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
+                      "install, but you only have %(total_ram)s MB on this machine.\n")
+    reason_graphical = _("The %(product_name)s graphical installer requires %(needed_ram)s "
+                         "MB of memory, but you only have %(total_ram)s MB\n.")
+
+    reboot_extra = _('\n'
+                     'Press [Enter] to reboot your system.\n')
+    livecd_title = _("Not enough RAM")
+    livecd_extra = _(" Try the text mode installer by running:\n\n"
+                     "'/usr/bin/liveinst -T'\n\n from a root terminal.")
+    nolivecd_extra = _(" Starting text mode.")
+
+    if options.rescue:
+        return
+
+    if not display_mode:
+        display_mode = anaconda.displayMode
+
+    reason = reason_strict
+    total_ram = int(isys.total_memory() / 1024)
+    needed_ram = int(isys.MIN_RAM)
+    graphical_ram = int(isys.MIN_GUI_RAM)
+
+    # count the squashfs.img in if it is kept in RAM
+    if not iutil.persistent_root_image():
+        needed_ram += isys.SQUASHFS_EXTRA_RAM
+        graphical_ram += isys.SQUASHFS_EXTRA_RAM
+
+    log.info("check_memory(): total:%s, needed:%s, graphical:%s",
+             total_ram, needed_ram, graphical_ram)
+
+    if not options.memcheck:
+        log.warning("CHECK_MEMORY DISABLED")
+        return
+
+    reason_args = {"product_name": product.productName,
+                   "needed_ram": needed_ram,
+                   "total_ram": total_ram}
+    if needed_ram > total_ram:
+        if options.liveinst:
+            # pylint: disable=logging-not-lazy
+            stdoutLog.warning(reason % reason_args)
+            gtk_warning(livecd_title, reason % reason_args)
+        else:
+            reason += reboot_extra
+            print(reason % reason_args)
+            print(_("The installation cannot continue and the system will be rebooted"))
+            print(_("Press ENTER to continue"))
+            input()
+
+        iutil.ipmi_report(constants.IPMI_ABORTED)
+        sys.exit(1)
+
+    # override display mode if machine cannot nicely run X
+    if display_mode not in ('t', 'c', 's') and not flags.usevnc:
+        needed_ram = graphical_ram
+        reason_args["needed_ram"] = graphical_ram
+        reason = reason_graphical
+
+        if needed_ram > total_ram:
+            if options.liveinst:
+                reason += livecd_extra
+                # pylint: disable=logging-not-lazy
+                stdoutLog.warning(reason % reason_args)
+                title = livecd_title
+                gtk_warning(title, reason % reason_args)
+                iutil.ipmi_report(constants.IPMI_ABORTED)
+                sys.exit(1)
+            else:
+                reason += nolivecd_extra
+                # pylint: disable=logging-not-lazy
+                stdoutLog.warning(reason % reason_args)
+                anaconda.displayMode = 't'
+                time.sleep(2)

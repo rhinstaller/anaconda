@@ -110,65 +110,6 @@ def exitHandler(rebootData, storage):
         else:  # reboot action is KS_REBOOT or None
             iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
-def startSpiceVDAgent():
-    status = iutil.execWithRedirect("spice-vdagent", [])
-
-    if status:
-        log.info("spice-vdagent exited with status %d", status)
-    else:
-        log.info("Started spice-vdagent.")
-
-def startX11():
-    import subprocess
-
-    # Start Xorg and wait for it become ready
-    iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
-                  ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
-                  "-nolisten", "tcp", "-dpi", "96",
-                  "-noreset"], output_redirect=subprocess.DEVNULL)
-
-# function to handle X startup special issues for anaconda
-def doStartupX11Actions():
-    """Start window manager"""
-    # When metacity actually connects to the X server is unknowable, but
-    # fortunately it doesn't matter. metacity does not need to be the first
-    # connection to Xorg, and if anaconda starts up before metacity, metacity
-    # will just take over and maximize the window and make everything right,
-    # fingers crossed.
-    # Add XDG_DATA_DIRS to the environment to pull in our overridden schema
-    # files.
-    datadir = os.environ.get('ANACONDA_DATADIR', '/usr/share/anaconda')
-    if 'XDG_DATA_DIRS' in os.environ:
-        xdg_data_dirs = datadir + '/window-manager:' + os.environ['XDG_DATA_DIRS']
-    else:
-        xdg_data_dirs = datadir + '/window-manager:/usr/share'
-
-    childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"],
-            env_add={'XDG_DATA_DIRS': xdg_data_dirs})
-    iutil.watchProcess(childproc, "metacity")
-
-def set_x_resolution(runres):
-    if runres and opts.display_mode == 'g' and not flags.usevnc:
-        try:
-            log.info("Setting the screen resolution to: %s.", runres)
-            iutil.execWithRedirect("xrandr",
-                                   ["-d", ":1", "-s", runres])
-        except RuntimeError:
-            log.error("The X resolution not set")
-            iutil.execWithRedirect("xrandr",
-                                   ["-d", ":1", "-q"])
-
-def doExtraX11Actions(runres):
-    """Perform X11 actions not related to startup"""
-
-    set_x_resolution(runres)
-
-    # Load the system-wide Xresources
-    iutil.execWithRedirect("xrdb",
-            ["-nocpp", "-merge", "/etc/X11/Xresources"])
-
-    startSpiceVDAgent()
-
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
     import gi.overrides
@@ -242,7 +183,8 @@ def getAnacondaVersionString():
 
 def parseArguments(argv=None, boot_cmdline=None):
     from pyanaconda.anaconda_argparse import getArgumentParser
-    ap = getArgumentParser(getAnacondaVersionString(), boot_cmdline)
+    ap = getArgumentParser(startup_utils.get_anaconda_version_string(),
+                           boot_cmdline)
 
     namespace = ap.parse_args(argv, boot_cmdline=boot_cmdline)
     return (namespace, ap.deprecated_bootargs)
@@ -311,270 +253,11 @@ def setupLoggingFromOpts(options):
         except ValueError:
             log.error("Could not setup remotelog with %s", options.remotelog)
 
-def gtk_warning(title, reason):
-    import gi
-    gi.require_version("Gtk", "3.0")
-
-    from gi.repository import Gtk
-    dialog = Gtk.MessageDialog(type=Gtk.MessageType.ERROR,
-                               buttons=Gtk.ButtonsType.CLOSE,
-                               message_format=reason)
-    dialog.set_title(title)
-    dialog.run()
-    dialog.destroy()
-
 # pylint: disable=redefined-outer-name
-def check_memory(anaconda, options, display_mode=None):
-    from pyanaconda import isys
-
-    reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
-                      "install, but you only have %(total_ram)s MB on this machine.\n")
-    reason_graphical = _("The %(product_name)s graphical installer requires %(needed_ram)s "
-                         "MB of memory, but you only have %(total_ram)s MB\n.")
-
-    reboot_extra = _('\n'
-                     'Press [Enter] to reboot your system.\n')
-    livecd_title = _("Not enough RAM")
-    livecd_extra = _(" Try the text mode installer by running:\n\n"
-                     "'/usr/bin/liveinst -T'\n\n from a root "
-                     "terminal.")
-    nolivecd_extra = _(" Starting text mode.")
-
-    if options.rescue:
-        return
-
-    if not display_mode:
-        display_mode = anaconda.displayMode
-
-    reason = reason_strict
-    total_ram = int(isys.total_memory() / 1024)
-    needed_ram = int(isys.MIN_RAM)
-    graphical_ram = int(isys.MIN_GUI_RAM)
-
-    # count the squashfs.img in if it is kept in RAM
-    if not iutil.persistent_root_image():
-        needed_ram += isys.SQUASHFS_EXTRA_RAM
-        graphical_ram += isys.SQUASHFS_EXTRA_RAM
-
-    log.info("check_memory(): total:%s, needed:%s, graphical:%s",
-             total_ram, needed_ram, graphical_ram)
-
-    if not options.memcheck:
-        log.warning("CHECK_MEMORY DISABLED")
-        return
-
-    reason_args = {"product_name": product.productName,
-                   "needed_ram": needed_ram,
-                   "total_ram": total_ram}
-    if needed_ram > total_ram:
-        if options.liveinst:
-            # pylint: disable=logging-not-lazy
-            stdoutLog.warning(reason % reason_args)
-            gtk_warning(livecd_title, reason % reason_args)
-        else:
-            reason += reboot_extra
-            print(reason % reason_args)
-            print(_("The installation cannot continue and the system will be rebooted"))
-            print(_("Press ENTER to continue"))
-            input()
-
-        iutil.ipmi_report(constants.IPMI_ABORTED)
-        sys.exit(1)
-
-    # override display mode if machine cannot nicely run X
-    if display_mode not in ('t', 'c', 's') and not flags.usevnc:
-        needed_ram = graphical_ram
-        reason_args["needed_ram"] = graphical_ram
-        reason = reason_graphical
-
-        if needed_ram > total_ram:
-            if options.liveinst:
-                reason += livecd_extra
-                # pylint: disable=logging-not-lazy
-                stdoutLog.warning(reason % reason_args)
-                title = livecd_title
-                gtk_warning(title, reason % reason_args)
-                iutil.ipmi_report(constants.IPMI_ABORTED)
-                sys.exit(1)
-            else:
-                reason += nolivecd_extra
-                # pylint: disable=logging-not-lazy
-                stdoutLog.warning(reason % reason_args)
-                anaconda.displayMode = 't'
-                time.sleep(2)
-
 def startDebugger(signum, frame):
     # pylint: disable=import-error
     import epdb
     epdb.serve(skip=1)
-
-# pylint: disable=redefined-outer-name
-def setupDisplay(anaconda, options, addons=None):
-    from pyanaconda.ui.tui.simpleline import App
-    from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
-    from pykickstart.constants import DISPLAY_MODE_TEXT
-    from pyanaconda.nm import nm_is_connected, nm_is_connecting
-    from blivet import arch
-
-    graphical_failed = 0
-    vncS = vnc.VncServer()          # The vnc Server object.
-    vncS.anaconda = anaconda
-
-    anaconda.displayMode = options.display_mode
-    anaconda.isHeadless = arch.is_s390()
-
-    if options.vnc:
-        flags.usevnc = True
-        anaconda.displayMode = 'g'
-        vncS.password = options.vncpassword
-
-        # Only consider vncconnect when vnc is a param
-        if options.vncconnect:
-            cargs = options.vncconnect.split(":")
-            vncS.vncconnecthost = cargs[0]
-            if len(cargs) > 1 and len(cargs[1]) > 0:
-                if len(cargs[1]) > 0:
-                    vncS.vncconnectport = cargs[1]
-
-    if options.xdriver:
-        anaconda.xdriver = options.xdriver
-        anaconda.writeXdriver(root="/")
-
-    if flags.rescue_mode:
-        return
-
-    if anaconda.ksdata.vnc.enabled:
-        flags.usevnc = True
-        anaconda.displayMode = 'g'
-
-        if vncS.password == "":
-            vncS.password = anaconda.ksdata.vnc.password
-
-        if vncS.vncconnecthost == "":
-            vncS.vncconnecthost = anaconda.ksdata.vnc.host
-
-        if vncS.vncconnectport == "":
-            vncS.vncconnectport = anaconda.ksdata.vnc.port
-
-    if anaconda.displayMode == "g":
-        import pkgutil
-        import pyanaconda.ui
-
-        mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
-        if "pyanaconda.ui.gui" not in mods:
-            stdoutLog.warning("Graphical user interface not available, falling back to text mode")
-            anaconda.displayMode = "t"
-            flags.usevnc = False
-            flags.vncquestion = False
-
-    # disable VNC over text question when not enough memory is available
-    if blivet.util.total_memory() < isys.MIN_GUI_RAM:
-        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)", blivet.util.total_memory(), isys.MIN_GUI_RAM)
-        flags.vncquestion = False
-
-    # disable VNC question if text mode is requested and this is a ks install
-    if anaconda.displayMode == 't' and flags.automatedInstall:
-        stdoutLog.warning("Not asking for VNC because of an automated install")
-        flags.vncquestion = False
-
-    # disable VNC question if we were explicitly asked for text in kickstart
-    if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
-        stdoutLog.warning("Not asking for VNC because text mode was explicitly asked for in kickstart")
-        flags.vncquestion = False
-
-    # disable VNC question if we don't have network
-    if not nm_is_connecting() and not nm_is_connected():
-        stdoutLog.warning("Not asking for VNC because we don't have a network")
-        flags.vncquestion = False
-
-    # disable VNC question if we don't have Xvnc
-    if not os.access('/usr/bin/Xvnc', os.X_OK):
-        stdoutLog.warning("Not asking for VNC because we don't have Xvnc")
-        flags.vncquestion = False
-
-    # Should we try to start Xorg?
-    want_x = anaconda.displayMode == 'g' and \
-             not (flags.preexisting_x11 or flags.usevnc)
-
-    # X on a headless (e.g. s390) system? Nonsense!
-    if want_x and anaconda.isHeadless:
-        stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
-        anaconda.displayMode = 't'
-        graphical_failed = 1
-        time.sleep(2)
-        want_x = False
-
-    # Is Xorg is actually available?
-    if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
-        stdoutLog.warning(_("Graphical installation is not available. "
-                            "Starting text mode."))
-        time.sleep(2)
-        anaconda.displayMode = 't'
-        want_x = False
-
-    if anaconda.displayMode == 't' and flags.vncquestion:
-        #we prefer vnc over text mode, so ask about that
-        message = _("Text mode provides a limited set of installation "
-                    "options. It does not offer custom partitioning for "
-                    "full control over the disk layout. Would you like "
-                    "to use VNC mode instead?")
-
-        app = App("VNC Question")
-        spoke = AskVNCSpoke(app, anaconda.ksdata, message=message)
-        app.schedule_screen(spoke)
-        app.run()
-
-        if anaconda.ksdata.vnc.enabled:
-            anaconda.displayMode = 'g'
-            flags.usevnc = True
-            vncS.password = anaconda.ksdata.vnc.password
-        else:
-            # user has explicitly specified text mode
-            flags.vncquestion = False
-
-    log.info("Display mode = %s", anaconda.displayMode)
-    check_memory(anaconda, options)
-
-    # check_memory may have changed the display mode
-    want_x = want_x and (anaconda.displayMode == "g")
-    if want_x:
-        try:
-            startX11()
-            doStartupX11Actions()
-        except (OSError, RuntimeError) as e:
-            log.warning("X startup failed: %s", e)
-            stdoutLog.warning("X startup failed, falling back to text mode")
-            anaconda.displayMode = 't'
-            graphical_failed = 1
-            time.sleep(2)
-
-        if not graphical_failed:
-            doExtraX11Actions(options.runres)
-
-    if anaconda.displayMode == 't' and graphical_failed and \
-         flags.vncquestion and not anaconda.ksdata.vnc.enabled:
-        app = App("VNC Question")
-        spoke = AskVNCSpoke(app, anaconda.ksdata)
-        app.schedule_screen(spoke)
-        app.run()
-
-        if anaconda.ksdata.vnc.enabled:
-            anaconda.displayMode = 'g'
-            flags.usevnc = True
-            vncS.password = anaconda.ksdata.vnc.password
-
-    # if they want us to use VNC do that now
-    if anaconda.displayMode == 'g' and flags.usevnc:
-        vncS.startServer()
-        doStartupX11Actions()
-
-    # with X running we can initialize the UI interface
-    anaconda.initInterface(addons)
-
-    anaconda.instClass.configure(anaconda)
-
-    # report if starting the GUI failed
-    anaconda.gui_startup_failed = bool(graphical_failed)
 
 def prompt_for_ssh():
     # Do some work here to get the ip addr / hostname to pass
@@ -661,6 +344,7 @@ if __name__ == "__main__":
     from pyanaconda.addons import collect_addon_paths
     from pyanaconda import geoloc
     from pyanaconda import iutil
+    from pyanaconda import startup_utils
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags, can_touch_runtime_system
@@ -704,7 +388,7 @@ if __name__ == "__main__":
             prompt_for_ssh()
             sys.exit(0)
 
-    log.info("%s %s", sys.argv[0], getAnacondaVersionString())
+    log.info("%s %s", sys.argv[0], startup_utils.get_anaconda_version_string())
     if os.path.exists("/tmp/updates"):
         log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
 
@@ -739,9 +423,11 @@ if __name__ == "__main__":
     from pyanaconda import kickstart
     from pyanaconda import ntp
     from pyanaconda import keyboard
+    from pyanaconda import display
+    from pyanaconda import startup_utils
     from pyanaconda.iutil import ProxyString, ProxyStringError
 
-    verdesc = "%s for %s %s" % (getAnacondaVersionString(),
+    verdesc = "%s for %s %s" % (startup_utils.get_anaconda_version_string(),
                                 product.productName, product.productVersion)
 
     logs_note = " * installation log files are stored in /tmp during the installation"
@@ -831,7 +517,7 @@ if __name__ == "__main__":
     anaconda.opts = opts
 
     # check memory, just the text mode for now:
-    check_memory(anaconda, opts, 't')
+    startup_utils.check_memory(anaconda, opts, 't')
 
     # Now that we've got arguments, do some extra processing.
     setupLoggingFromOpts(opts)
@@ -1095,7 +781,7 @@ if __name__ == "__main__":
     screen_access.sam.open_config_file()
 
     # now start the interface
-    setupDisplay(anaconda, opts, addon_paths)
+    display.setup_display(anaconda, opts, addon_paths)
     if anaconda.gui_startup_failed:
         # we need to reinitialize the locale if GUI startup failed,
         # as we might now be in text mode, which might not be able to display
