@@ -22,7 +22,7 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
-class RHELBaseInstallClass(BaseInstallClass):
+class CentOSBaseInstallClass(BaseInstallClass):
     name = "CentOS Linux"
     sortPriority = 10000
     if not productName.startswith("CentOS"):          # pylint: disable=no-member
