@@ -2433,7 +2433,7 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
 	}
 
         if (is_iface_activated(devicename)) {
-            if (!strcmp(loaderData->ipv4, "ibft")) {
+            if (loaderData->ipv4 != NULL && !strcmp(loaderData->ipv4, "ibft")) {
                 logMessage(INFO, "device %s is already activated by NM using iBFT", devicename);
             } else {
                 logMessage(INFO, "device %s is already activated", devicename);
