@@ -59,7 +59,7 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int anaconda_activated_some_device = 0;
+extern int anaconda_activated_some_device;
 
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP

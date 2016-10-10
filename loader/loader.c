@@ -127,6 +127,7 @@ uint64_t flags = LOADER_FLAGS_SELINUX;
 
 int num_link_checks = 5;
 int post_link_sleep = 0;
+int anaconda_activated_some_device = 0;
 
 static pid_t init_pid = 1;
 static int init_sig = SIGUSR1; /* default to shutdown=halt */
@@ -812,6 +813,10 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
     if (loaderData->ipv4 && loaderData->netmask) {
         flags |= LOADER_FLAGS_HAVE_CMSCONF;
+    }
+
+    if (loaderData->ipv4 || loaderData->ipv6) {
+        anaconda_activated_some_device = 1;
     }
 
     free(cfgfile);
