@@ -79,6 +79,45 @@ def ask_vnc_question(anaconda, vnc_server, message):
         flags.usevnc = True
         vnc_server.password = anaconda.ksdata.vnc.password
 
+def check_vnc_can_be_started(anaconda):
+    """Check if we can start VNC in the current environment.
+
+    :returns: if VNC can be started and list of possible reasons
+              why VNC can't be started
+    :rtype: (boot, list)
+    """
+
+    error_messages = []
+    vnc_startup_possible = True
+
+    # disable VNC over text question when not enough memory is available
+    if blivet.util.total_memory() < isys.MIN_GUI_RAM:
+        error_messages.append("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" %
+                              (blivet.util.total_memory(), isys.MIN_GUI_RAM))
+        vnc_startup_possible = False
+
+    # disable VNC question if text mode is requested and this is a ks install
+    if anaconda.tui_mode and flags.automatedInstall:
+        error_messages.append("Not asking for VNC because of an automated install")
+        vnc_startup_possible = False
+
+    # disable VNC question if we were explicitly asked for text in kickstart
+    if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+        error_messages.append("Not asking for VNC because text mode was explicitly asked for in kickstart")
+        vnc_startup_possible = False
+
+    # disable VNC question if we don't have network
+    if not nm_is_connecting() and not nm_is_connected():
+        error_messages.append("Not asking for VNC because we don't have a network")
+        vnc_startup_possible = False
+
+    # disable VNC question if we don't have Xvnc
+    if not os.access('/usr/bin/Xvnc', os.X_OK):
+        error_messages.append("Not asking for VNC because we don't have Xvnc")
+        vnc_startup_possible = False
+
+    return vnc_startup_possible, error_messages
+
 # X11
 
 def start_x11():
@@ -181,30 +220,14 @@ def setup_display(anaconda, options, addons=None):
             flags.usevnc = False
             flags.vncquestion = False
 
-    # disable VNC over text question when not enough memory is available
-    if blivet.util.total_memory() < isys.MIN_GUI_RAM:
-        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)", blivet.util.total_memory(), isys.MIN_GUI_RAM)
+    # check if VNC can be started
+    vnc_can_be_started, vnc_error_messages = check_vnc_can_be_started(anaconda)
+    if not vnc_can_be_started:
+        # VNC can't be started - disable the VNC question and log
+        # all the errors that prevented VNC from being started
         flags.vncquestion = False
-
-    # disable VNC question if text mode is requested and this is a ks install
-    if anaconda.tui_mode and flags.automatedInstall:
-        stdoutLog.warning("Not asking for VNC because of an automated install")
-        flags.vncquestion = False
-
-    # disable VNC question if we were explicitly asked for text in kickstart
-    if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
-        stdoutLog.warning("Not asking for VNC because text mode was explicitly asked for in kickstart")
-        flags.vncquestion = False
-
-    # disable VNC question if we don't have network
-    if not nm_is_connecting() and not nm_is_connected():
-        stdoutLog.warning("Not asking for VNC because we don't have a network")
-        flags.vncquestion = False
-
-    # disable VNC question if we don't have Xvnc
-    if not os.access('/usr/bin/Xvnc', os.X_OK):
-        stdoutLog.warning("Not asking for VNC because we don't have Xvnc")
-        flags.vncquestion = False
+        for error_message in vnc_error_messages:
+            stdoutLog.warning(error_message)
 
     # Should we try to start Xorg?
     want_x = anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc)
