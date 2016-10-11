@@ -22,6 +22,7 @@
 import os
 import subprocess
 import time
+import pkgutil
 
 from pyanaconda.i18n import _
 
@@ -35,8 +36,17 @@ from pyanaconda import vnc
 from pyanaconda.flags import flags
 from pyanaconda import isys
 from pyanaconda import startup_utils
+from pyanaconda.nm import nm_is_connected, nm_is_connecting
+
+from pyanaconda.ui.tui.simpleline import App
+from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
+
+# needed for checking if the pyanaconda.ui.gui modules are available
+import pyanaconda.ui
 
 import blivet
+
+from pykickstart.constants import DISPLAY_MODE_TEXT
 
 # Spice
 
@@ -57,9 +67,6 @@ def ask_vnc_question(anaconda, vnc_server, message):
     :param str message: a message to show to the user together
                         with the question
     """
-    from pyanaconda.ui.tui.simpleline import App
-    from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
-
     app = App("VNC Question")
     spoke = AskVNCSpoke(app, anaconda.ksdata, message)
     app.schedule_screen(spoke)
@@ -123,15 +130,11 @@ def do_extra_x11_actions(runres, display_mode):
 # general display startup
 
 def setup_display(anaconda, options, addons=None):
-    from pykickstart.constants import DISPLAY_MODE_TEXT
-    from pyanaconda.nm import nm_is_connected, nm_is_connecting
-    from blivet import arch
-
     vncS = vnc.VncServer()  # The vnc Server object.
     vncS.anaconda = anaconda
 
     anaconda.display_mode = options.display_mode
-    anaconda.isHeadless = arch.is_s390()
+    anaconda.isHeadless = blivet.arch.is_s390()
 
     if options.vnc:
         flags.usevnc = True
@@ -171,9 +174,6 @@ def setup_display(anaconda, options, addons=None):
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
     if anaconda.gui_mode:
-        import pkgutil
-        import pyanaconda.ui
-
         mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
         if "pyanaconda.ui.gui" not in mods:
             stdoutLog.warning("Graphical user interface not available, falling back to text mode")
