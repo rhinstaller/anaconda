@@ -21,7 +21,7 @@ from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")
-stdoutLog = logging.getLogger("anaconda.stdout")
+stdout_log = logging.getLogger("anaconda.stdout")
 
 import sys
 import time
@@ -82,7 +82,7 @@ def get_anaconda_version_string():
         # Ignore pylint not finding the version module, since thanks to automake
         # there's a good chance that version.py is not in the same directory as
         # the rest of pyanaconda.
-        from pyanaconda import version # pylint: disable=no-name-in-module
+        from pyanaconda import version  # pylint: disable=no-name-in-module
         return version.__version__
     else:
         return "unknown"
@@ -108,6 +108,14 @@ def gtk_warning(title, reason):
     dialog.destroy()
 
 def check_memory(anaconda, options, display_mode=None):
+    """Check is the system has enough RAM for installation.
+
+    :param anaconda: instance of the Anaconda class
+    :param options: command line/boot options
+    :param display_mode: a display mode to use for the check
+                         (graphical mode usually needs more RAM, etc.)
+    """
+
     from pyanaconda import isys
 
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
@@ -122,6 +130,7 @@ def check_memory(anaconda, options, display_mode=None):
                      "'/usr/bin/liveinst -T'\n\n from a root terminal.")
     nolivecd_extra = _(" Starting text mode.")
 
+    # skip the memory check in rescue mode
     if options.rescue:
         return
 
@@ -151,7 +160,7 @@ def check_memory(anaconda, options, display_mode=None):
     if needed_ram > total_ram:
         if options.liveinst:
             # pylint: disable=logging-not-lazy
-            stdoutLog.warning(reason % reason_args)
+            stdout_log.warning(reason % reason_args)
             gtk_warning(livecd_title, reason % reason_args)
         else:
             reason += reboot_extra
@@ -173,7 +182,7 @@ def check_memory(anaconda, options, display_mode=None):
             if options.liveinst:
                 reason += livecd_extra
                 # pylint: disable=logging-not-lazy
-                stdoutLog.warning(reason % reason_args)
+                stdout_log.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
                 iutil.ipmi_report(constants.IPMI_ABORTED)
@@ -181,6 +190,6 @@ def check_memory(anaconda, options, display_mode=None):
             else:
                 reason += nolivecd_extra
                 # pylint: disable=logging-not-lazy
-                stdoutLog.warning(reason % reason_args)
+                stdout_log.warning(reason % reason_args)
                 anaconda.display_mode = constants.DISPLAY_MODE_TUI
                 time.sleep(2)
