@@ -47,6 +47,31 @@ def start_spice_vd_agent():
     else:
         log.info("Started spice-vdagent.")
 
+# VNC
+
+def ask_vnc_question(anaconda, vnc_server, message):
+    """ Ask the user if TUI or GUI-over-VNC should be started.
+
+    :param anaconda: instance of the Anaconda class
+    :param vnc_server: instance of the VNC server object
+    :param str message: a message to show to the user together
+                        with the question
+    """
+    from pyanaconda.ui.tui.simpleline import App
+    from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
+
+    app = App("VNC Question")
+    spoke = AskVNCSpoke(app, anaconda.ksdata, message)
+    app.schedule_screen(spoke)
+    app.run()
+
+    if anaconda.ksdata.vnc.enabled:
+        if not anaconda.gui_mode:
+            log.info("VNC requested via VNC question, switching Anaconda to GUI mode.")
+        anaconda.display_mode = constants.DISPLAY_MODE_GUI
+        flags.usevnc = True
+        vnc_server.password = anaconda.ksdata.vnc.password
+
 # X11
 
 def start_x11():
@@ -98,22 +123,21 @@ def do_extra_x11_actions(runres, display_mode):
 # general display startup
 
 def setup_display(anaconda, options, addons=None):
-    from pyanaconda.ui.tui.simpleline import App
-    from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
     from pyanaconda.nm import nm_is_connected, nm_is_connecting
     from blivet import arch
 
-    graphical_failed = 0
-    vncS = vnc.VncServer()          # The vnc Server object.
+    vncS = vnc.VncServer()  # The vnc Server object.
     vncS.anaconda = anaconda
 
-    anaconda.displayMode = options.display_mode
+    anaconda.display_mode = options.display_mode
     anaconda.isHeadless = arch.is_s390()
 
     if options.vnc:
         flags.usevnc = True
-        anaconda.displayMode = 'g'
+        if not anaconda.gui_mode:
+            log.info("VNC requested via boot/CLI option, switching Anaconda to GUI mode.")
+            anaconda.display_mode = constants.DISPLAY_MODE_GUI
         vncS.password = options.vncpassword
 
         # Only consider vncconnect when vnc is a param
@@ -133,7 +157,9 @@ def setup_display(anaconda, options, addons=None):
 
     if anaconda.ksdata.vnc.enabled:
         flags.usevnc = True
-        anaconda.displayMode = 'g'
+        if not anaconda.gui_mode:
+            log.info("VNC requested via kickstart, switching Anaconda to GUI mode.")
+            anaconda.display_mode = constants.DISPLAY_MODE_GUI
 
         if vncS.password == "":
             vncS.password = anaconda.ksdata.vnc.password
@@ -144,14 +170,14 @@ def setup_display(anaconda, options, addons=None):
         if vncS.vncconnectport == "":
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
-    if anaconda.displayMode == "g":
+    if anaconda.gui_mode:
         import pkgutil
         import pyanaconda.ui
 
         mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
         if "pyanaconda.ui.gui" not in mods:
             stdoutLog.warning("Graphical user interface not available, falling back to text mode")
-            anaconda.displayMode = "t"
+            anaconda.display_mode = constants.DISPLAY_MODE_TUI
             flags.usevnc = False
             flags.vncquestion = False
 
@@ -161,7 +187,7 @@ def setup_display(anaconda, options, addons=None):
         flags.vncquestion = False
 
     # disable VNC question if text mode is requested and this is a ks install
-    if anaconda.displayMode == 't' and flags.automatedInstall:
+    if anaconda.tui_mode and flags.automatedInstall:
         stdoutLog.warning("Not asking for VNC because of an automated install")
         flags.vncquestion = False
 
@@ -181,13 +207,13 @@ def setup_display(anaconda, options, addons=None):
         flags.vncquestion = False
 
     # Should we try to start Xorg?
-    want_x = anaconda.displayMode == 'g' and not (flags.preexisting_x11 or flags.usevnc)
+    want_x = anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc)
 
     # X on a headless (e.g. s390) system? Nonsense!
     if want_x and anaconda.isHeadless:
         stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
-        anaconda.displayMode = 't'
-        graphical_failed = 1
+        anaconda.display_mode = constants.DISPLAY_MODE_TUI
+        anaconda.gui_startup_failed = True
         time.sleep(2)
         want_x = False
 
@@ -196,34 +222,34 @@ def setup_display(anaconda, options, addons=None):
         stdoutLog.warning(_("Graphical installation is not available. "
                             "Starting text mode."))
         time.sleep(2)
-        anaconda.displayMode = 't'
+        anaconda.display_mode = constants.DISPLAY_MODE_TUI
         want_x = False
 
-    if anaconda.displayMode == 't' and flags.vncquestion:
+    if anaconda.tui_mode and flags.vncquestion:
         #we prefer vnc over text mode, so ask about that
         message = _("Text mode provides a limited set of installation "
                     "options. It does not offer custom partitioning for "
                     "full control over the disk layout. Would you like "
                     "to use VNC mode instead?")
-
-        app = App("VNC Question")
-        spoke = AskVNCSpoke(app, anaconda.ksdata, message=message)
-        app.schedule_screen(spoke)
-        app.run()
-
-        if anaconda.ksdata.vnc.enabled:
-            anaconda.displayMode = 'g'
-            flags.usevnc = True
-            vncS.password = anaconda.ksdata.vnc.password
-        else:
+        ask_vnc_question(anaconda, vncS, message)
+        if not anaconda.ksdata.vnc.enabled:
             # user has explicitly specified text mode
             flags.vncquestion = False
 
-    log.info("Display mode = %s", anaconda.displayMode)
+
+
+    display_mode_name = constants.DISPLAY_MODE_NAMES.get(anaconda.display_mode)
+    if display_mode_name:
+        log.info("Display mode = %s", anaconda.display_mode)
+    elif anaconda.display_mode:
+        log.error("Unknown display mode: %s", anaconda.display_mode)
+    else:
+        log.error("Display mode not set!")
+
     startup_utils.check_memory(anaconda, options)
 
     # check_memory may have changed the display mode
-    want_x = want_x and (anaconda.displayMode == "g")
+    want_x = want_x and (anaconda.gui_mode)
     if want_x:
         try:
             start_x11()
@@ -231,33 +257,25 @@ def setup_display(anaconda, options, addons=None):
         except (OSError, RuntimeError) as e:
             log.warning("X startup failed: %s", e)
             stdoutLog.warning("X startup failed, falling back to text mode")
-            anaconda.displayMode = 't'
-            graphical_failed = 1
+            anaconda.display_mode = constants.DISPLAY_MODE_TUI
+            anaconda.gui_startup_failed = True
             time.sleep(2)
 
-        if not graphical_failed:
-            do_extra_x11_actions(options.runres, anaconda.displayMode)
+        if not anaconda.gui_startup_failed:
+            do_extra_x11_actions(options.runres, anaconda.display_mode)
 
-    if anaconda.displayMode == 't' and graphical_failed and flags.vncquestion and not anaconda.ksdata.vnc.enabled:
-        app = App("VNC Question")
-        spoke = AskVNCSpoke(app, anaconda.ksdata)
-        app.schedule_screen(spoke)
-        app.run()
-
-        if anaconda.ksdata.vnc.enabled:
-            anaconda.displayMode = 'g'
-            flags.usevnc = True
-            vncS.password = anaconda.ksdata.vnc.password
+    if anaconda.tui_mode and anaconda.gui_startup_failed and flags.vncquestion and not anaconda.ksdata.vnc.enabled:
+        message = _("X was unable to start on your machine. Would you like to start VNC to connect to "
+                    "this computer from another computer and perform a graphical installation or continue "
+                    "with a text mode installation?")
+        ask_vnc_question(anaconda, vncS, message)
 
     # if they want us to use VNC do that now
-    if anaconda.displayMode == 'g' and flags.usevnc:
+    if anaconda.gui_mode and flags.usevnc:
         vncS.startServer()
         do_startup_x11_actions()
 
     # with X running we can initialize the UI interface
     anaconda.initInterface(addons)
-
+    # and the install class
     anaconda.instClass.configure(anaconda)
-
-    # report if starting the GUI failed
-    anaconda.gui_startup_failed = bool(graphical_failed)

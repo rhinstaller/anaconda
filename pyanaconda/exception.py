@@ -292,10 +292,9 @@ def initExceptionHandling(anaconda):
         # anaconda-tb file
         conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
 
-    interactive = not anaconda.displayMode == 'c'
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        AnacondaReverseExceptionDump, anaconda.intf.tty_num,
-                                       anaconda.gui_initialized, interactive)
+                                       anaconda.gui_initialized, anaconda.interactive_mode)
     handler.install(anaconda)
 
     return conf

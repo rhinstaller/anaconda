@@ -126,7 +126,7 @@ def check_memory(anaconda, options, display_mode=None):
         return
 
     if not display_mode:
-        display_mode = anaconda.displayMode
+        display_mode = anaconda.display_mode
 
     reason = reason_strict
     total_ram = int(isys.total_memory() / 1024)
@@ -164,7 +164,7 @@ def check_memory(anaconda, options, display_mode=None):
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode not in ('t', 'c', 's') and not flags.usevnc:
+    if display_mode not in constants.TEXT_DISPLAY_MODES and not flags.usevnc:
         needed_ram = graphical_ram
         reason_args["needed_ram"] = graphical_ram
         reason = reason_graphical
@@ -182,5 +182,5 @@ def check_memory(anaconda, options, display_mode=None):
                 reason += nolivecd_extra
                 # pylint: disable=logging-not-lazy
                 stdoutLog.warning(reason % reason_args)
-                anaconda.displayMode = 't'
+                anaconda.display_mode = constants.DISPLAY_MODE_TUI
                 time.sleep(2)

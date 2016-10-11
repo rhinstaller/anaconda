@@ -462,7 +462,7 @@ if __name__ == "__main__":
             print(tmux_only_note)  # but not during kickstart installation
         # no need to tell users how to switch to text mode
         # if already in text mode
-        if opts.display_mode == 'g':
+        if opts.display_mode == constants.DISPLAY_MODE_TUI:
             print(text_mode_note)
         print(separate_attachements_note)
 
@@ -517,7 +517,7 @@ if __name__ == "__main__":
     anaconda.opts = opts
 
     # check memory, just the text mode for now:
-    startup_utils.check_memory(anaconda, opts, 't')
+    startup_utils.check_memory(anaconda, opts, display_mode=constants.DISPLAY_MODE_TUI)
 
     # Now that we've got arguments, do some extra processing.
     setupLoggingFromOpts(opts)
@@ -758,10 +758,10 @@ if __name__ == "__main__":
         locale_option = ksdata.lang.lang
     else:
         locale_option = None
-    localization.setup_locale_environment(locale_option, opts.display_mode != "g")
+    localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
 
     # Now that LANG is set, do something with it
-    localization.setup_locale(os.environ["LANG"], ksdata.lang, opts.display_mode != "g")
+    localization.setup_locale(os.environ["LANG"], ksdata.lang, text_mode=anaconda.tui_mode)
 
     import blivet
     blivet.enable_installer_mode()
@@ -787,20 +787,24 @@ if __name__ == "__main__":
         # as we might now be in text mode, which might not be able to display
         # the characters from our current locale
         log.warning("reinitializing locale due to failed attempt to start the GUI")
-        localization.setup_locale(os.environ["LANG"], ksdata.lang, anaconda.displayMode != "g")
+        localization.setup_locale(os.environ["LANG"], ksdata.lang, text_mode=anaconda.tui_mode)
 
     # we now know in which mode we are going to run so store the information
-    from pykickstart.constants import DISPLAY_MODE_GRAPHICAL, DISPLAY_MODE_CMDLINE, DISPLAY_MODE_TEXT
-    mode_char_to_const = {'g': DISPLAY_MODE_GRAPHICAL, 't': DISPLAY_MODE_TEXT, 'c': DISPLAY_MODE_CMDLINE}
-    ksdata.displaymode.displayMode = mode_char_to_const[anaconda.displayMode]
+    from pykickstart import constants as pykickstart_constants
+    display_mode_coversion_table = {
+        constants.DISPLAY_MODE_GUI: pykickstart_constants.DISPLAY_MODE_GRAPHICAL,
+        constants.DISPLAY_MODE_TUI: pykickstart_constants.DISPLAY_MODE_TEXT,
+        constants.DISPLAY_MODE_NONINTERACTIVE_TUI: pykickstart_constants.DISPLAY_MODE_CMDLINE
+    }
+    ksdata.displaymode.displayMode = display_mode_coversion_table[anaconda.display_mode]
 
     # if we're in text mode, the resulting system should be too
     # ...unless the kickstart specified otherwise
-    if anaconda.displayMode != 'g' and not anaconda.ksdata.xconfig.startX:
+    if anaconda.tui_mode and not anaconda.ksdata.xconfig.startX:
         anaconda.ksdata.skipx.skipx = True
 
     # Set flag to prompt for missing ks data
-    if anaconda.displayMode == 'c':
+    if not anaconda.interactive_mode:
         flags.ksprompt = False
 
     from pyanaconda.anaconda_argparse import name_path_pairs
@@ -843,7 +847,7 @@ if __name__ == "__main__":
         cleanPStore()
 
     # only install interactive exception handler in interactive modes
-    if ksdata.displaymode.displayMode != DISPLAY_MODE_CMDLINE or flags.debug:
+    if ksdata.displaymode.displayMode != pykickstart_constants.DISPLAY_MODE_CMDLINE or flags.debug:
         from pyanaconda import exception
         anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
