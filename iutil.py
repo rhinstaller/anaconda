@@ -1054,3 +1054,16 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
         errors.extend((src, dst, e.strerror))
     if errors:
         raise Error, errors
+
+def adjust_fraction(fraction):
+    """ Adjusts the fraction to the interval from 0.0 to 1.0.
+
+        Should be applied to a parameter of gtk.ProgressBar.set_fraction()
+        to ensure the correct value.
+    """
+    if fraction > 1.0:
+        return 1.0
+    elif fraction < 0.0:
+        return 0.0
+    else:
+        return float(fraction)
