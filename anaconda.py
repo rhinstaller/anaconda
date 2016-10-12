@@ -422,17 +422,7 @@ if __name__ == "__main__":
     flags.rescue_mode = opts.rescue
 
     if opts.liveinst:
-        from pyanaconda.screensaver import inhibit_screensaver
-        from pyanaconda import safe_dbus
-
-        flags.livecdInstall = True
-
-        try:
-            anaconda.dbus_session_connection = safe_dbus.get_new_session_connection()
-        except safe_dbus.DBusCallError as e:
-            log.info("Unable to connect to DBus session bus: %s", e)
-        else:
-            anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
+        startup_utils.live_startup(anaconda, opts)
     elif "LIVECMD" in os.environ:
         log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 

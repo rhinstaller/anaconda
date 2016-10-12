@@ -34,8 +34,10 @@ from pyanaconda import constants
 from pyanaconda import geoloc
 from pyanaconda import anaconda_log
 from pyanaconda import network
+from pyanaconda import safe_dbus
 from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
+from pyanaconda.screensaver import inhibit_screensaver
 
 import blivet
 
@@ -338,3 +340,18 @@ def print_startup_note(options):
         if options.display_mode == constants.DISPLAY_MODE_TUI:
             print(text_mode_note)
         print(separate_attachements_note)
+
+def live_startup(anaconda, options):
+    """Live environment startup tasks.
+
+    :param anaconda: instance of the Anaconda class
+    :param options: command line/boot options
+    """
+    flags.livecdInstall = True
+
+    try:
+        anaconda.dbus_session_connection = safe_dbus.get_new_session_connection()
+    except safe_dbus.DBusCallError as e:
+        log.info("Unable to connect to DBus session bus: %s", e)
+    else:
+        anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
