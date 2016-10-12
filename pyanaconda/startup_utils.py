@@ -32,6 +32,7 @@ from pyanaconda import product
 from pyanaconda import constants
 from pyanaconda import geoloc
 from pyanaconda import anaconda_log
+from pyanaconda import network
 from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
 
@@ -245,3 +246,42 @@ def setup_logging_from_options(options):
         except ValueError:
             log.error("Could not setup remotelog with %s", options.remotelog)
 
+def prompt_for_ssh():
+    """Prompt the user to ssh to the installation environment on the s390."""
+
+    # Do some work here to get the ip addr / hostname to pass
+    # to the user.
+    import socket
+
+    ip = network.getFirstRealIP()
+
+    if not ip:
+        stdout_log.error("No IP addresses found, cannot continue installation.")
+        iutil.ipmi_report(constants.IPMI_ABORTED)
+        sys.exit(1)
+
+    ipstr = ip
+
+    try:
+        hinfo = socket.gethostbyaddr(ipstr)
+    except socket.herror as e:
+        stdout_log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
+        name = network.getHostname()
+    else:
+        if len(hinfo) == 3:
+            name = hinfo[0]
+
+    if ip.find(':') != -1:
+        ipstr = "[%s]" % (ip,)
+
+    if (name is not None) and (not name.startswith('localhost')) and (ipstr is not None):
+        connxinfo = "%s (%s)" % (socket.getfqdn(name=name), ipstr,)
+    elif ipstr is not None:
+        connxinfo = "%s" % (ipstr,)
+    else:
+        connxinfo = None
+
+    if connxinfo:
+        stdout_log.info(_("Please ssh install@%s to begin the install."), connxinfo)
+    else:
+        stdout_log.info(_("Please ssh install@HOSTNAME to continue installation."))

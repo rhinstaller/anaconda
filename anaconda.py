@@ -232,44 +232,6 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
-def prompt_for_ssh():
-    # Do some work here to get the ip addr / hostname to pass
-    # to the user.
-    import socket
-
-    ip = network.getFirstRealIP()
-
-    if not ip:
-        stdoutLog.error("No IP addresses found, cannot continue installation.")
-        iutil.ipmi_report(constants.IPMI_ABORTED)
-        sys.exit(1)
-
-    ipstr = ip
-
-    try:
-        hinfo = socket.gethostbyaddr(ipstr)
-    except socket.herror as e:
-        stdoutLog.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
-        name = network.getHostname()
-    else:
-        if len(hinfo) == 3:
-            name = hinfo[0]
-
-    if ip.find(':') != -1:
-        ipstr = "[%s]" % (ip,)
-
-    if (name is not None) and (not name.startswith('localhost')) and (ipstr is not None):
-        connxinfo = "%s (%s)" % (socket.getfqdn(name=name), ipstr,)
-    elif ipstr is not None:
-        connxinfo = "%s" % (ipstr,)
-    else:
-        connxinfo = None
-
-    if connxinfo:
-        stdoutLog.info(_("Please ssh install@%s to begin the install."), connxinfo)
-    else:
-        stdoutLog.info(_("Please ssh install@HOSTNAME to continue installation."))
-
 def cleanPStore():
     """remove files stored in nonvolatile ram created by the pstore subsystem"""
 
@@ -357,7 +319,7 @@ if __name__ == "__main__":
     uname = os.uname()
     if uname[4] == 's390x':
         if 'TMUX' not in os.environ and 'ks' not in flags.cmdline and not flags.imageInstall:
-            prompt_for_ssh()
+            startup_utils.prompt_for_ssh()
             sys.exit(0)
 
     log.info("%s %s", sys.argv[0], startup_utils.get_anaconda_version_string())
