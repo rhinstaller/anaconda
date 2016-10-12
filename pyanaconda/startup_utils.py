@@ -31,7 +31,9 @@ from pyanaconda import iutil
 from pyanaconda import product
 from pyanaconda import constants
 from pyanaconda import geoloc
+from pyanaconda import anaconda_log
 from pyanaconda.flags import flags
+from pyanaconda.flags import can_touch_runtime_system
 
 def module_exists(module_path):
     """Report is a given module exists in the current module import pth or not.
@@ -211,3 +213,35 @@ def start_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
     # instantiate the geolocation module and start location data refresh
     geoloc.init_geolocation(provider_id=provider_id)
     geoloc.refresh()
+
+def setup_logging_from_options(options):
+    """Configure logging according to Anaconda command line/boot options.
+
+    :param options: Anaconda command line/boot options
+    """
+    if (options.debug or options.updateSrc) and not options.loglevel:
+        # debugging means debug logging if an explicit level hasn't been st
+        options.loglevel = "debug"
+
+    if options.loglevel and options.loglevel in anaconda_log.logLevelMap:
+        log.info("Switching logging level to %s", options.loglevel)
+        level = anaconda_log.logLevelMap[options.loglevel]
+        anaconda_log.logger.loglevel = level
+        anaconda_log.setHandlersLevel(log, level)
+        storage_log = logging.getLogger("storage")
+        anaconda_log.setHandlersLevel(storage_log, level)
+        packaging_log = logging.getLogger("packaging")
+        anaconda_log.setHandlersLevel(packaging_log, level)
+
+    if can_touch_runtime_system("syslog setup"):
+        if options.syslog:
+            anaconda_log.logger.updateRemote(options.syslog)
+
+    if options.remotelog:
+        try:
+            host, port = options.remotelog.split(":", 1)
+            port = int(port)
+            anaconda_log.logger.setup_remotelog(host, port)
+        except ValueError:
+            log.error("Could not setup remotelog with %s", options.remotelog)
+

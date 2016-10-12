@@ -226,33 +226,6 @@ def setupEnvironment():
     else:
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
 
-def setupLoggingFromOpts(options):
-    if (options.debug or options.updateSrc) and not options.loglevel:
-        # debugging means debug logging if an explicit level hasn't been st
-        options.loglevel = "debug"
-
-    if options.loglevel and options.loglevel in anaconda_log.logLevelMap:
-        log.info("Switching logging level to %s", options.loglevel)
-        level = anaconda_log.logLevelMap[options.loglevel]
-        anaconda_log.logger.loglevel = level
-        anaconda_log.setHandlersLevel(log, level)
-        storage_log = logging.getLogger("storage")
-        anaconda_log.setHandlersLevel(storage_log, level)
-        packaging_log = logging.getLogger("packaging")
-        anaconda_log.setHandlersLevel(packaging_log, level)
-
-    if can_touch_runtime_system("syslog setup"):
-        if options.syslog:
-            anaconda_log.logger.updateRemote(options.syslog)
-
-    if options.remotelog:
-        try:
-            host, port = options.remotelog.split(":", 1)
-            port = int(port)
-            anaconda_log.logger.setup_remotelog(host, port)
-        except ValueError:
-            log.error("Could not setup remotelog with %s", options.remotelog)
-
 # pylint: disable=redefined-outer-name
 def startDebugger(signum, frame):
     # pylint: disable=import-error
@@ -518,8 +491,8 @@ if __name__ == "__main__":
     # check memory, just the text mode for now:
     startup_utils.check_memory(anaconda, opts, display_mode=constants.DISPLAY_MODE_TUI)
 
-    # Now that we've got arguments, do some extra processing.
-    setupLoggingFromOpts(opts)
+    # Now that we've got command line/boot options, do some extra processing.
+    startup_utils.setup_logging_from_options(opts)
 
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
