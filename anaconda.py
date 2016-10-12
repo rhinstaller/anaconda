@@ -781,7 +781,7 @@ if __name__ == "__main__":
     screen_access.sam.open_config_file()
 
     # now start the interface
-    display.setup_display(anaconda, opts, addon_paths)
+    display.setup_display(anaconda, opts, addon_paths=addon_paths)
     if anaconda.gui_startup_failed:
         # we need to reinitialize the locale if GUI startup failed,
         # as we might now be in text mode, which might not be able to display

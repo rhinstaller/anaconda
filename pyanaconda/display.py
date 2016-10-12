@@ -184,7 +184,7 @@ def do_extra_x11_actions(runres, gui_mode):
 
 # general display startup
 
-def setup_display(anaconda, options, addons=None):
+def setup_display(anaconda, options, addon_paths=None):
     """Setup the display for the installation environment.
 
     :param anaconda: instance of the Anaconda class
@@ -320,6 +320,6 @@ def setup_display(anaconda, options, addons=None):
         do_startup_x11_actions()
 
     # with X running we can initialize the UI interface
-    anaconda.initInterface(addons)
+    anaconda.initInterface(addon_paths=addon_paths)
     # and the install class
     anaconda.instClass.configure(anaconda)
