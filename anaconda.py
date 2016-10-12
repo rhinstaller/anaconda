@@ -342,7 +342,6 @@ if __name__ == "__main__":
 
     from pyanaconda import constants
     from pyanaconda.addons import collect_addon_paths
-    from pyanaconda import geoloc
     from pyanaconda import iutil
     from pyanaconda import startup_utils
 
@@ -877,17 +876,7 @@ if __name__ == "__main__":
         use_geolocation = flags.cmdline.getbool('geoloc', True)
 
     if use_geolocation:
-        provider_id = constants.GEOLOC_DEFAULT_PROVIDER
-        # check if a provider was specified by an option
-        if opts.geoloc is not None:
-            parsed_id = geoloc.get_provider_id_from_option(opts.geoloc)
-            if parsed_id is None:
-                log.error('geoloc: wrong provider id specified: %s', opts.geoloc)
-            else:
-                provider_id = parsed_id
-        # instantiate the geolocation module and start location data refresh
-        geoloc.init_geolocation(provider_id=provider_id)
-        geoloc.refresh()
+        startup_utils.start_geolocation(provider_id=opts.geoloc)
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     if can_touch_runtime_system("start chronyd"):
