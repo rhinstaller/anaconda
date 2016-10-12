@@ -26,6 +26,7 @@ stdout_log = logging.getLogger("anaconda.stdout")
 import sys
 import time
 import imp
+import os
 
 from pyanaconda import iutil
 from pyanaconda import product
@@ -35,6 +36,8 @@ from pyanaconda import anaconda_log
 from pyanaconda import network
 from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
+
+import blivet
 
 def module_exists(module_path):
     """Report is a given module exists in the current module import pth or not.
@@ -296,3 +299,42 @@ def clean_pstore():
     an intervening reboot is needed.
     """
     iutil.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
+
+def print_startup_note(options):
+    """Print Anaconda version and short usage instructions.
+
+    Print Anaconda version and short usage instruction to the TTY where Anaconda is running.
+
+    :param options: command line/boot options
+    """
+    verdesc = "%s for %s %s" % (get_anaconda_version_string(),
+                                product.productName, product.productVersion)
+    logs_note = " * installation log files are stored in /tmp during the installation"
+    shell_and_tmux_note = " * shell is available on TTY2"
+    shell_only_note = " * shell is available on TTY2 and in second TMUX pane (ctrl+b, then press 2)"
+    tmux_only_note = " * shell is available in second TMUX pane (ctrl+b, then press 2)"
+    text_mode_note = " * if the graphical installation interface fails to start, try again with the\n"\
+                     "   inst.text bootoption to start text installation"
+    separate_attachements_note = " * when reporting a bug add logs from /tmp as separate text/plain attachments"
+
+    if product.isFinal:
+        print("anaconda %s started." % verdesc)
+    else:
+        print("anaconda %s (pre-release) started." % verdesc)
+
+    if not options.images and not options.dirinstall:
+        print(logs_note)
+        # no fancy stuff like TTYs on a s390...
+        if not blivet.arch.is_s390():
+            if "TMUX" in os.environ and os.environ.get("TERM") == "screen":
+                print(shell_and_tmux_note)
+            else:
+                print(shell_only_note)  # TMUX is not running
+        # ...but there is apparently TMUX during the manual installation on s390!
+        elif not options.ksfile:
+            print(tmux_only_note)  # but not during kickstart installation
+        # no need to tell users how to switch to text mode
+        # if already in text mode
+        if options.display_mode == constants.DISPLAY_MODE_TUI:
+            print(text_mode_note)
+        print(separate_attachements_note)
