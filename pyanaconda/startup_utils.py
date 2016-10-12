@@ -285,3 +285,14 @@ def prompt_for_ssh():
         stdout_log.info(_("Please ssh install@%s to begin the install."), connxinfo)
     else:
         stdout_log.info(_("Please ssh install@HOSTNAME to continue installation."))
+
+def clean_pstore():
+    """Remove files stored in nonvolatile ram created by the pstore subsystem.
+
+    Files in pstore are Linux (not distribution) specific, but we want to
+    make sure the entirety of them are removed so as to ensure that there
+    is sufficient free space on the flash part.  On some machines this will
+    take effect immediately, which is the best case.  Unfortunately on some,
+    an intervening reboot is needed.
+    """
+    iutil.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)

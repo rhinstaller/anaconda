@@ -232,16 +232,6 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
-def cleanPStore():
-    """remove files stored in nonvolatile ram created by the pstore subsystem"""
-
-    # files in pstore are linux (not distribution) specific, but we want to
-    # make sure the entirity of them are removed so as to ensure that there
-    # is sufficient free space on the flash part.  On some machines this will
-    # take effect immediately, which is the best case.  Unfortunately on some,
-    # an intervening reboot is needed."""
-    iutil.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
-
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
     # without importing random stuff and spamming stdout
@@ -778,7 +768,7 @@ if __name__ == "__main__":
         app.schedule_screen(spoke)
         app.run()
     else:
-        cleanPStore()
+        startup_utils.clean_pstore()
 
     # only install interactive exception handler in interactive modes
     if ksdata.displaymode.displayMode != pykickstart_constants.DISPLAY_MODE_CMDLINE or flags.debug:
