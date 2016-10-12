@@ -722,7 +722,12 @@ class efiBootloaderInfo(bootloaderInfo):
             rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
                                         stdout = "/dev/tty5",
                                         stderr = "/dev/tty5")
-            
+            # In multipath device, if it can install into one device, return 0
+            if isinstance(bootdev, MultipathDevice) and rc == 0:
+                msg = "efibootmgr succeeded to register a new boot entry for %s (a parent of multipath device %s)"
+                log.info(msg % (d.path, bootdev.name))
+                return 0
+
         # return last rc, the API doesn't provide anything better than this
         return rc
 
