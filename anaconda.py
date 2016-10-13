@@ -463,15 +463,6 @@ if __name__ == "__main__":
         except OSError:
             pass
 
-    # setup links required for all install types
-    for i in ("services", "protocols", "nsswitch.conf", "joe", "selinux",
-              "mke2fs.conf"):
-        try:
-            if os.path.exists("/mnt/runtime/etc/" + i):
-                os.symlink("../mnt/runtime/etc/" + i, "/etc/" + i)
-        except OSError:
-            pass
-
     log.info("anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
