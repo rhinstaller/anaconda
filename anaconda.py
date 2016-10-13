@@ -348,6 +348,7 @@ if __name__ == "__main__":
     # startup_utils, which import Blivet, without slowing down anything critical
     from pyanaconda import display
     from pyanaconda import startup_utils
+    from pyanaconda import rescue
     from pyanaconda.iutil import ProxyString, ProxyStringError
 
     # Print the usual "startup note" that contains Anaconda version
@@ -676,12 +677,7 @@ if __name__ == "__main__":
                                      args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
 
     if flags.rescue_mode:
-        from pyanaconda.ui.tui.simpleline import App
-        from pyanaconda.rescue import RescueMode
-        app = App("Rescue Mode")
-        spoke = RescueMode(app, anaconda.ksdata, anaconda.storage)
-        app.schedule_screen(spoke)
-        app.run()
+        rescue.start_rescue_mode_ui(anaconda)
     else:
         startup_utils.clean_pstore()
 
