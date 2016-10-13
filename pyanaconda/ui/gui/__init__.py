@@ -857,13 +857,20 @@ class GraphicalUserInterface(UserInterface):
             settings = Gtk.Settings.get_default()
             settings.set_property("gtk-font-name", "Cantarell")
 
+            # Get the path to the application data
+            data_path = os.environ.get("ANACONDA_DATA", "/usr/share/anaconda")
+            
             # Apply the application stylesheet
-            css_path = os.environ.get("ANACONDA_DATA", "/usr/share/anaconda")
-            css_path = os.path.join(css_path, "anaconda-gtk.css")
+            css_path = os.path.join(data_path, "anaconda-gtk.css")
             provider = Gtk.CssProvider()
             provider.load_from_path(css_path)
             Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+            # Add the application icons to the theme
+            icon_path = os.path.join(data_path, "pixmaps")
+            icon_theme = Gtk.IconTheme.get_default()
+            icon_theme.append_search_path(icon_path)
 
             # Apply the installclass stylesheet
             if self.instclass.stylesheet:

@@ -24,6 +24,7 @@ from pyanaconda.users import cryptPassword, validatePassword
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
+from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
 
@@ -109,6 +110,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.policy = self.data.anaconda.pwpolicy.get_policy("root")
         if not self.policy:
             self.policy = self.data.anaconda.PwPolicyData()
+
+        # set the visibility of the password entries
+        set_password_visibility(self.pw, False)
+        set_password_visibility(self.confirm, False)
 
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit
@@ -220,6 +225,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         # Update the password/confirm match check on changes to the main password field
         self._confirm_check.update_check_status()
+
+    def on_password_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a password entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
 
     def _checkPasswordStrength(self, inputcheck):
         """Update the error message based on password strength.
