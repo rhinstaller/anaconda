@@ -35,6 +35,7 @@ from pyanaconda import geoloc
 from pyanaconda import anaconda_log
 from pyanaconda import network
 from pyanaconda import safe_dbus
+from pyanaconda import kickstart
 from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
@@ -404,3 +405,51 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         ksdata.method.partition = os.path.normpath(device)
     else:
         log.error("Unknown method: %s", anaconda.methodstr)
+
+def parse_kickstart(options, addon_paths):
+    """Parse the input kickstart.
+
+    If we were given a kickstart file, parse (but do not execute) that now.
+    Otherwise, load in defaults from kickstart files shipped with the
+    installation media. Pick up any changes from interactive-defaults.ks
+    that would otherwise be covered by the dracut KS parser.
+
+    :param options: command line/boot options
+    :param dict addon_paths: addon paths dictionary
+    :returns: kickstart parsed to a data model
+    """
+    ksdata = None
+    if options.ksfile and not options.liveinst:
+        if not os.path.exists(options.ksfile):
+            stdout_log.error("Kickstart file %s is missing.", options.ksfile)
+            iutil.ipmi_report(constants.IPMI_ABORTED)
+            sys.exit(1)
+
+        flags.automatedInstall = True
+        flags.eject = False
+        ks_files = [options.ksfile]
+    elif os.path.exists("/run/install/ks.cfg") and not options.liveinst:
+        # this is to handle such cases where a user has pre-loaded a
+        # ks.cfg onto an OEMDRV labeled device
+        flags.automatedInstall = True
+        flags.eject = False
+        ks_files = ["/run/install/ks.cfg"]
+    else:
+        ks_files = ["/tmp/updates/interactive-defaults.ks",
+                    "/usr/share/anaconda/interactive-defaults.ks"]
+
+    for ks in ks_files:
+        if not os.path.exists(ks):
+            continue
+
+        kickstart.preScriptPass(ks)
+        log.info("Parsing kickstart: " + ks)
+        ksdata = kickstart.parseKickstart(ks)
+
+        # Only load the first defaults file we find.
+        break
+
+    if not ksdata:
+        ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
+
+    return ksdata

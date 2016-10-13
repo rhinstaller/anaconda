@@ -472,39 +472,7 @@ if __name__ == "__main__":
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.
-    ksdata = None
-    if opts.ksfile and not opts.liveinst:
-        if not os.path.exists(opts.ksfile):
-            stdoutLog.error("Kickstart file %s is missing.", opts.ksfile)
-            iutil.ipmi_report(constants.IPMI_ABORTED)
-            sys.exit(1)
-
-        flags.automatedInstall = True
-        flags.eject = False
-        ksFiles = [opts.ksfile]
-    elif os.path.exists("/run/install/ks.cfg") and not opts.liveinst:
-        # this is to handle such cases where a user has pre-loaded a
-        # ks.cfg onto an OEMDRV labeled device
-        flags.automatedInstall = True
-        flags.eject = False
-        ksFiles = ["/run/install/ks.cfg"]
-    else:
-        ksFiles = ["/tmp/updates/interactive-defaults.ks",
-                   "/usr/share/anaconda/interactive-defaults.ks"]
-
-    for ks in ksFiles:
-        if not os.path.exists(ks):
-            continue
-
-        kickstart.preScriptPass(ks)
-        log.info("Parsing kickstart: " + ks)
-        ksdata = kickstart.parseKickstart(ks)
-
-        # Only load the first defaults file we find.
-        break
-
-    if not ksdata:
-        ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
+    ksdata = startup_utils.parse_kickstart(opts, addon_paths)
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
