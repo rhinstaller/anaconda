@@ -27,6 +27,7 @@ import site
 
 coverage = None
 
+# setup code coverage monitoring
 proc_cmdline = open("/proc/cmdline", "r").read()
 proc_cmdline = proc_cmdline.split()
 if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
@@ -110,7 +111,8 @@ def exitHandler(rebootData, storage):
         else:  # reboot action is KS_REBOOT or None
             iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
-def setupPythonUpdates():
+def setup_python_updates():
+    """Setup updates to Anaconda Python files."""
     from distutils.sysconfig import get_python_lib
     import gi.overrides
 
@@ -159,6 +161,11 @@ def setupPythonUpdates():
         shutil.copyfile(rule, target)
 
 def symlink_updates(dest_dir, update_dir):
+    """Setup symlinks for the updates from the updates image.
+
+    :param str dest_dir: symlink target
+    :param str update_dir: symlink source (updates image content)
+    """
     contents = os.listdir(update_dir)
 
     for f in os.listdir(dest_dir):
@@ -173,15 +180,14 @@ def symlink_updates(dest_dir, update_dir):
                 continue
             os.symlink(dest_path, update_path)
 
-def getAnacondaVersionString():
-    # we are importing the startup module directly so that it can be replaced
-    # by updates image, if it was replaced before the updates image can be
-    # loaded, it could not be easily replaced
-    from pyanaconda import startup_utils
-    return startup_utils.get_anaconda_version_string()
+def parse_arguments(argv=None, boot_cmdline=None):
+    """Parse command line/boot options and arguments.
 
-
-def parseArguments(argv=None, boot_cmdline=None):
+    :param argv: command like arguments
+    :param boot_cmdline: boot options
+    :returns: namespace of parsed options and a list of deprecated
+              anaconda options that have been found
+    """
     from pyanaconda.anaconda_argparse import getArgumentParser
     ap = getArgumentParser(startup_utils.get_anaconda_version_string(),
                            boot_cmdline)
@@ -189,7 +195,8 @@ def parseArguments(argv=None, boot_cmdline=None):
     namespace = ap.parse_args(argv, boot_cmdline=boot_cmdline)
     return (namespace, ap.deprecated_bootargs)
 
-def setupPythonPath():
+def setup_python_path():
+    """Add items Anaconda needs to sys.path."""
     # First add our updates path
     sys.path.insert(0, '/tmp/updates/')
 
@@ -197,9 +204,12 @@ def setupPythonPath():
     # append ADDON_PATHS dirs at the end
     sys.path.extend(ADDON_PATHS)
 
-def setupEnvironment():
-    # This method is run before any threads are started, so this is the one
-    # point where it's ok to modify the environment.
+def setup_environment():
+    """Setup contents of os.environ according to Anaconda needs.
+
+    This method is run before any threads are started, so this is the one
+    point where it's ok to modify the environment.
+    """
     # pylint: disable=environment-modify
 
     # Silly GNOME stuff
@@ -227,7 +237,7 @@ def setupEnvironment():
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
 
 # pylint: disable=redefined-outer-name
-def startDebugger(signum, frame):
+def start_debugger(signum, frame):
     # pylint: disable=import-error
     import epdb
     epdb.serve(skip=1)
@@ -242,7 +252,7 @@ if __name__ == "__main__":
         import logging
         log = logging.getLogger("anaconda")
         log.addHandler(logging.StreamHandler(stream=sys.stdout))
-        parseArguments()
+        parse_arguments()
 
     print("Starting installer, one moment...")
 
@@ -254,8 +264,8 @@ if __name__ == "__main__":
         pass
 
     # this handles setting up updates for pypackages to minimize the set needed
-    setupPythonUpdates()
-    setupPythonPath()
+    setup_python_updates()
+    setup_python_path()
 
     # init threading before Gtk can do anything and before we start using threads
     # initThreading initializes the threadMgr instance, import it afterwards
@@ -272,7 +282,7 @@ if __name__ == "__main__":
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags, can_touch_runtime_system
-    (opts, depr) = parseArguments(boot_cmdline=flags.cmdline)
+    (opts, depr) = parse_arguments(boot_cmdline=flags.cmdline)
 
     if opts.images:
         flags.imageInstall = True
@@ -289,10 +299,10 @@ if __name__ == "__main__":
     network.setup_ifcfg_log()
 
     log = logging.getLogger("anaconda")
-    stdoutLog = logging.getLogger("anaconda.stdout")
+    stdout_log = logging.getLogger("anaconda.stdout")
 
     if os.geteuid() != 0:
-        stdoutLog.error("anaconda must be run as root.")
+        stdout_log.error("anaconda must be run as root.")
         sys.exit(1)
 
     # check if input kickstart should be saved
@@ -319,7 +329,7 @@ if __name__ == "__main__":
     # TODO: uncomment this when we're sure that we're doing the right thing
     # with flags.cmdline *everywhere* it appears...
     #for arg in depr:
-    #    stdoutLog.warn("Boot argument '%s' is deprecated. "
+    #    stdout_log.warn("Boot argument '%s' is deprecated. "
     #                   "In the future, use 'inst.%s'.", arg, arg)
 
     from pyanaconda import isys
@@ -327,12 +337,12 @@ if __name__ == "__main__":
     iutil.ipmi_report(constants.IPMI_STARTED)
 
     if (opts.images or opts.dirinstall) and opts.liveinst:
-        stdoutLog.error("--liveinst cannot be used with --images or --dirinstall")
+        stdout_log.error("--liveinst cannot be used with --images or --dirinstall")
         iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     if opts.images and opts.dirinstall:
-        stdoutLog.error("--images and --dirinstall cannot be used at the same time")
+        stdout_log.error("--images and --dirinstall cannot be used at the same time")
         iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
     elif opts.dirinstall:
@@ -369,7 +379,7 @@ if __name__ == "__main__":
     # function in isys.
     isys.installSyncSignalHandlers()
 
-    setupEnvironment()
+    setup_environment()
 
     # make sure we have /var/log soon, some programs fail to start without it
     iutil.mkdirChain("/var/log")
@@ -391,10 +401,10 @@ if __name__ == "__main__":
             # language setup hasn't happened yet.
             # pylint: disable=found-_-in-module-class
             iutil.execWithRedirect("zenity",
-                ["--error", "--title", _("Unable to create PID file"), "--text",
-                    _("Anaconda is unable to create %s because the file" +
-                      " already exists. Anaconda is already running, or a previous instance" +
-                      " of anaconda has crashed.") % pidfile.filename])
+                                   ["--error", "--title", _("Unable to create PID file"), "--text",
+                                   _("Anaconda is unable to create %s because the file" +
+                                   " already exists. Anaconda is already running, or a previous instance" +
+                                   " of anaconda has crashed.") % pidfile.filename])
         else:
             print("%s already exists, exiting" % pidfile.filename)
 
@@ -402,7 +412,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # add our own additional signal handlers
-    signal.signal(signal.SIGHUP, startDebugger)
+    signal.signal(signal.SIGHUP, start_debugger)
 
     anaconda.opts = opts
 
@@ -616,7 +626,7 @@ if __name__ == "__main__":
             image_count += 1
             flags.imageInstall = True
     except ValueError as e:
-        stdoutLog.error("error specifying image file: %s", e)
+        stdout_log.error("error specifying image file: %s", e)
         iutil.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
@@ -656,8 +666,7 @@ if __name__ == "__main__":
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
-    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass,
-            fallback=fallback)
+    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass, fallback=fallback)
 
     # check if geolocation should be enabled for this type of installation
     use_geolocation = True
@@ -682,8 +691,6 @@ if __name__ == "__main__":
         if not anaconda.ksdata.timezone.nontp:
             iutil.start_service("chronyd")
 
-    # FIXME:  This will need to be made cleaner once this file starts to take
-    # shape with the new UI code.
     anaconda._intf.setup(ksdata)
     anaconda._intf.run()
 
