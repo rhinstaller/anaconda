@@ -60,6 +60,7 @@ class Hub(GUIObject, common.Hub):
     """
 
     handles_autostep = True
+    _hubs_collection = []
 
     def __init__(self, data, storage, payload, instclass):
         """Create a new Hub instance.
@@ -90,6 +91,9 @@ class Hub(GUIObject, common.Hub):
         # mode, but if the user interacts with the hub, it will be
         # disabled again
         self._autoContinue = flags.automatedInstall
+
+        self._hubs_collection.append(self)
+        self.timeout_id = None
 
         self._incompleteSpokes = []
         self._inSpoke = False
@@ -316,20 +320,24 @@ class Hub(GUIObject, common.Hub):
                 # hub automatically.  Take into account the possibility the user is
                 # viewing a spoke right now, though.
                 if flags.automatedInstall:
+                    spoke_title = spoke.title.replace("_", "")
                     # Users might find it helpful to know why a kickstart install
                     # went interactive.  Log that here.
-                    if not spoke.completed:
-                        log.info("kickstart installation stopped for info: %s", spoke.title.replace("_", ""))
+                    if not spoke.completed and spoke.mandatory:
+                        log.info("kickstart installation stopped for info: %s", spoke_title)
                         if self.data.displaymode.nonInteractive:
-                            log.debug("Non interactive installation failed on spoke %s",
-                                      spoke.title.replace("_", ""))
-                            raise NonInteractiveError("Non interactive installation failed")
+                            log.debug("Non interactive installation failed on spoke %s", spoke_title)
+                            raise NonInteractiveError("Non interactive installation failed %s" %
+                                                          spoke_title)
+                    else:
+                        log.debug("kickstart installation, spoke %s is ready", spoke_title)
 
                     # Spokes that were not initially ready got the execute call in
                     # _createBox skipped.  Now that it's become ready, do it.  Note
                     # that we also provide a way to skip this processing (see comments
                     # communication.py) to prevent getting caught in a loop.
                     if not args[1] and spoke.changed and spoke.visitedSinceApplied:
+                        log.debug("execute spoke from event loop %s", spoke.title.replace("_", ""))
                         spoke.execute()
                         spoke.visitedSinceApplied = False
 
@@ -357,7 +365,14 @@ class Hub(GUIObject, common.Hub):
         GUIObject.refresh(self)
         self._createBox()
 
-        GLib.timeout_add(100, self._update_spokes)
+        for hub in Hub._hubs_collection:
+            if hub.timeout_id is not None:
+                log.debug("Disabling event loop for hub %s", hub.__class__.__name__)
+                GLib.source_remove(hub.timeout_id)
+                hub.timeout_id = None
+
+        log.debug("Starting event loop for hub %s", self.__class__.__name__)
+        self.timeout_id = GLib.timeout_add(100, self._update_spokes)
 
     ### SIGNAL HANDLERS
 
