@@ -355,3 +355,52 @@ def live_startup(anaconda, options):
         log.info("Unable to connect to DBus session bus: %s", e)
     else:
         anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
+
+def set_installation_method_from_anaconda_options(anaconda, ksdata):
+    """Set the installation method from Anaconda options.
+
+    This basically means to set the installation method from options provided
+    to Anaconda via command line/boot options.
+
+    :param anaconda: instance of the Anaconda class
+    :param ksdata: data model corresponding to the installation kickstart
+    """
+    if anaconda.methodstr.startswith("cdrom"):
+        ksdata.method.method = "cdrom"
+    elif anaconda.methodstr.startswith("nfs"):
+        ksdata.method.method = "nfs"
+        nfs_options, server, path = iutil.parseNfsUrl(anaconda.methodstr)
+        ksdata.method.server = server
+        ksdata.method.dir = path
+        ksdata.method.opts = nfs_options
+    elif anaconda.methodstr.startswith("hd:"):
+        ksdata.method.method = "harddrive"
+        url = anaconda.methodstr.split(":", 1)[1]
+        url_parts = url.split(":")
+        device = url_parts[0]
+        path = ""
+        if len(url_parts) == 2:
+            path = url_parts[1]
+        elif len(url_parts) == 3:
+            path = url_parts[2]
+
+        ksdata.method.partition = device
+        ksdata.method.dir = path
+    elif anaconda.methodstr.startswith("http") or anaconda.methodstr.startswith("ftp") or anaconda.methodstr.startswith("file"):
+        ksdata.method.method = "url"
+        ksdata.method.url = anaconda.methodstr
+        # installation source specified by bootoption
+        # overrides source set from kickstart;
+        # the kickstart might have specified a mirror list,
+        # so we need to clear it here if plain url source is provided
+        # by a bootoption, because having both url & mirror list
+        # set at once is not supported and breaks dnf in
+        # unpredictable ways
+        # FIXME: Is this still needed for dnf?
+        ksdata.method.mirrorlist = None
+    elif anaconda.methodstr.startswith("livecd"):
+        ksdata.method.method = "harddrive"
+        device = anaconda.methodstr.split(":", 1)[1]
+        ksdata.method.partition = os.path.normpath(device)
+    else:
+        log.error("Unknown method: %s", anaconda.methodstr)

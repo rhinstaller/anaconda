@@ -576,49 +576,9 @@ if __name__ == "__main__":
         ksdata.packages.multiLib = opts.multiLib
 
     # set ksdata.method based on anaconda.method if it isn't already set
+    # - anaconda.method is currently set by command line/boot options
     if anaconda.methodstr and not ksdata.method.seen:
-        if anaconda.methodstr.startswith("cdrom"):
-            ksdata.method.method = "cdrom"
-        elif anaconda.methodstr.startswith("nfs"):
-            ksdata.method.method = "nfs"
-            (nfsOptions, server, path) = iutil.parseNfsUrl(anaconda.methodstr)
-            ksdata.method.server = server
-            ksdata.method.dir = path
-            ksdata.method.opts = nfsOptions
-        elif anaconda.methodstr.startswith("hd:"):
-            ksdata.method.method = "harddrive"
-            url = anaconda.methodstr.split(":", 1)[1]
-            url_parts = url.split(":")
-            device = url_parts[0]
-            path = ""
-            if len(url_parts) == 2:
-                path = url_parts[1]
-            elif len(url_parts) == 3:
-                fstype = url_parts[1]   # XXX not used
-                path = url_parts[2]
-
-            ksdata.method.partition = device
-            ksdata.method.dir = path
-        elif anaconda.methodstr.startswith("http") or \
-             anaconda.methodstr.startswith("ftp") or \
-             anaconda.methodstr.startswith("file"):
-            ksdata.method.method = "url"
-            ksdata.method.url = anaconda.methodstr
-            # installation source specified by bootoption
-            # overrides source set from kickstart;
-            # the kickstart might have specified a mirror list,
-            # so we need to clear it here if plain url source is provided
-            # by a bootoption, because having both url & mirror list
-            # set at once is not supported and breaks dnf in
-            # unpredictable ways
-            # FIXME: Is this still needed for dnf?
-            ksdata.method.mirrorlist = None
-        elif anaconda.methodstr.startswith("livecd"):
-            ksdata.method.method = "harddrive"
-            device = anaconda.methodstr.split(":", 1)[1]
-            ksdata.method.partition = os.path.normpath(device)
-        else:
-            log.error("Unknown method: %s", anaconda.methodstr)
+        startup_utils.set_installation_method_from_anaconda_options(anaconda, ksdata)
 
     # Override the selinux state from kickstart if set on the command line
     if flags.selinux != constants.SELINUX_DEFAULT:
