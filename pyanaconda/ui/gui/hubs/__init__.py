@@ -28,8 +28,8 @@ from pyanaconda.product import distributionText
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
-from pyanaconda.errors import NonInteractiveError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -324,11 +324,7 @@ class Hub(GUIObject, common.Hub):
                     # Users might find it helpful to know why a kickstart install
                     # went interactive.  Log that here.
                     if not spoke.completed and spoke.mandatory:
-                        log.info("kickstart installation stopped for info: %s", spoke_title)
-                        if self.data.displaymode.nonInteractive:
-                            log.debug("Non interactive installation failed on spoke %s", spoke_title)
-                            raise NonInteractiveError("Non interactive installation failed %s" %
-                                                          spoke_title)
+                        autoinstall_stopped("User interaction required on spoke %s" % spoke_title)
                     else:
                         log.debug("kickstart installation, spoke %s is ready", spoke_title)
 
