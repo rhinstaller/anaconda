@@ -29,6 +29,7 @@ from flags import flags
 from iw_gui import *
 from constants import *
 import language
+from iutil import adjust_fraction
 
 import logging
 log = logging.getLogger("anaconda")
@@ -51,6 +52,7 @@ class InstallProgressWindow (InstallWindow):
         return self.progress.get_fraction()
     def set_fraction(self, pct):
         cur = self.get_fraction()
+        pct = adjust_fraction(pct)
         if pct - cur > self._updateChange:
             self.progress.set_fraction(pct)
             if self._showPercentage:

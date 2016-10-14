@@ -473,7 +473,7 @@ class ProgressWindow:
         # only update widget if we've changed by 5% or our timeout has
         # expired
         curval = self.progress.get_fraction()
-        newval = float (amount) / self.total
+        newval = iutil.adjust_fraction(float(amount) / self.total)
         then = self.lastUpdate
         now = time.time()
         if newval < 0.998:
