@@ -59,7 +59,7 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int anaconda_activated_some_device = 0;
+extern int anaconda_activated_some_device;
 
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP
@@ -2433,7 +2433,7 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
 	}
 
         if (is_iface_activated(devicename)) {
-            if (!strcmp(loaderData->ipv4, "ibft")) {
+            if (loaderData->ipv4 != NULL && !strcmp(loaderData->ipv4, "ibft")) {
                 logMessage(INFO, "device %s is already activated by NM using iBFT", devicename);
             } else {
                 logMessage(INFO, "device %s is already activated", devicename);
