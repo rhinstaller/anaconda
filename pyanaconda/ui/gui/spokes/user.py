@@ -30,6 +30,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
+from pyanaconda.ui.communication import hubQ
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
@@ -101,6 +102,8 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # Validate the group input box
         self.add_check(self._tGroups, self._validateGroups)
+        # Send ready signal to main event loop
+        hubQ.send_ready(self.__class__.__name__, False)
 
     def refresh(self):
         if self._user.homedir:
@@ -154,6 +157,9 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # ''.split(',') returns [''] instead of [], which is not what we want
         self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",") if g]
+
+        # Send ready signal to main event loop
+        hubQ.send_ready(self.__class__.__name__, False)
 
     def run(self):
         self.window.show()

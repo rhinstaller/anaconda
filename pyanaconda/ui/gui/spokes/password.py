@@ -27,6 +27,7 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
+from pyanaconda.ui.communication import hubQ
 
 from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
         PASSWORD_STRENGTH_DESC, PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
@@ -115,6 +116,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         set_password_visibility(self.pw, False)
         set_password_visibility(self.confirm, False)
 
+        # Send ready signal to main event loop
+        hubQ.send_ready(self.__class__.__name__, False)
+
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit
         for check in self.checks:
@@ -157,6 +161,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         self.pw.set_placeholder_text("")
         self.confirm.set_placeholder_text("")
+
+        # Send ready signal to main event loop
+        hubQ.send_ready(self.__class__.__name__, False)
 
     @property
     def completed(self):
