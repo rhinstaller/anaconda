@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from pyanaconda.i18n import _, C_
+from pyanaconda.flags import flags
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
@@ -299,6 +300,9 @@ class ErrorHandler(object):
 
         if not self.ui:
             raise exn
+
+        if not flags.ksprompt:
+            raise NonInteractiveError("Non interactive installation failed: %s" % exn)
 
         _map = {"PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,
