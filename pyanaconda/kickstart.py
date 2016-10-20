@@ -59,7 +59,7 @@ from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
 from pyanaconda.i18n import _
-from pyanaconda.ui.common import collect
+from pyanaconda.iutil import collect
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData

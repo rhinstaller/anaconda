@@ -2,7 +2,7 @@
 
 import os, sys
 
-from pyanaconda.ui.common import collect
+from pyanaconda.iutil import collect
 
 # FIXME: Storage tests don't want to work right now, so they are disabled while
 # I debug them so we can get useful data from other tests.
