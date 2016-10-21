@@ -1,6 +1,6 @@
-# data/Makefile.am for anaconda
+# pixmaps/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2016  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -14,16 +14,10 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
 
-SUBDIRS = command-stubs liveinst systemd post-scripts pixmaps window-manager
-
-CLEANFILES = *~
-
-dist_pkgdata_DATA          = interactive-defaults.ks \
-			     tmux.conf \
-			     anaconda-gtk.css
-
-helpdir               = $(datadir)/$(PACKAGE_NAME)
-dist_help_DATA        = anaconda_options.txt
-
+pixmapsdir = $(datadir)/$(PACKAGE_NAME)/pixmaps
+dist_pixmaps_DATA = anaconda-password-show-off.svg anaconda-password-show-on.svg
 MAINTAINERCLEANFILES = Makefile.in
