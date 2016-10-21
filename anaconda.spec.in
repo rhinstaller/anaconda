@@ -223,6 +223,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 21 2016  <> - 13.21.255-1
+- Keep symlinks to thin_* tools in /sbin (mkolman)
+  Resolves: rhbz#1350296
+- network: fix static ipv6 config with static gateway (rvykydal)
+  Resolves: rhbz#1177984
+- Run efibootmgr for only one device in multipath (jkonecny)
+  Resolves: rhbz#1346725
+- Adjust the fraction of the progress bar (vponcova)
+  Resolves: rhbz#1324706
+- network: take into account NICs activated in linuxrc.s390 (rvykydal)
+  Resolves: rhbz#1329171
+  Related: rhbz#1329171
+- network: don't crash on network devices configured in linuxrc.s390 (rvykydal)
+  Resolves: rhbz#1329171
+
 * Mon Apr 11 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.254-1
 - Revert "Always write splashimage to grub.cfg on UEFI (bcl)"
   Related: rhbz#1325971
