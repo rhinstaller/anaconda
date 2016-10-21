@@ -133,6 +133,7 @@ bumpver: po-pull
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
+	rm $(srcdir)/po/{main,extra}.pot
 	zanata push $(ZANATA_PUSH_ARGS)
 
 # Install all packages specified as BuildRequires in the Anaconda specfile
