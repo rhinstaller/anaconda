@@ -147,6 +147,12 @@ PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
 
 PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("Strong")]
 
+PASSWORD_HIDE = N_("Hide password.")
+PASSWORD_SHOW = N_("Show password.")
+
+PASSWORD_HIDE_ICON = "anaconda-password-show-off"
+PASSWORD_SHOW_ICON = "anaconda-password-show-on"
+
 # the number of seconds we consider a noticeable freeze of the UI
 NOTICEABLE_FREEZE = 0.1
 
