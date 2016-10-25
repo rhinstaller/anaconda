@@ -324,6 +324,41 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 25 2016 Martin Kolman <mkolman@redhat.com> - 26.9-1
+- Move the collect() function to iutil (mkolman)
+- Update messiness level (mkolman)
+- PEP8 and general refactoring for the main anaconda.py (mkolman)
+- Move kickstart file parsing code to startup_utils (mkolman)
+- Don't directly import items from anaconda_log (mkolman)
+- Remove old useless code (mkolman)
+- Move the rescue ui startup code to the rescue module (mkolman)
+- Move set-installation-method-from-anaconda code to startup_utils (mkolman)
+- Move the live startup code to startup_utils (mkolman)
+- Move code printing the startup note to startup_utils (mkolman)
+- Move the pstore cleanup function to startup_utils (mkolman)
+- Move the prompt_for_ssh function to startup_utils (mkolman)
+- Move logging setup to startup_utils (mkolman)
+- Move the geolocation startup code to a separate function (mkolman)
+- Unify addons path variable name (mkolman)
+- PEP 8 for startup_utils.py (mkolman)
+- PEP 8 for display.py (mkolman)
+- Move VNC startup checking to a separate function (mkolman)
+- Move imports to the top of the file in display.py (mkolman)
+- Refactor display mode handling (mkolman)
+- Move display setup & startup tasks out of anaconda.py (mkolman)
+- Remove main and extra Zanata pot files on master (jkonecny)
+- Remove main and extra pot files before zanata push (jkonecny)
+- Don't send intermediate pot files to zanata (gh#791) (awilliam)
+- Improve message to be clearer in rescue.py (jkonecny)
+- Add option to show password in password field (vponcova)
+- Generate a list of DASDs in GUI storage spoke. (#1378338) (sbueno+anaconda)
+- Echoing 4de0ec44bdf0f68545bb55bb5fea00464b65fcab May as well include the SL
+  file (riehecky)
+- Fixup class name for CentOS install class (riehecky)
+- Fix a typo in SAM file header (mkolman)
+- Skip live image on usb when checking storage for mounted partitions
+  (#1369786) (rvykydal)
+
 * Mon Oct 03 2016 Martin Kolman <mkolman@redhat.com> - 26.8-1
 - Fix network spoke being incorrectly marked as mandatory (#1374864) (mkolman)
 
