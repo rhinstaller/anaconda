@@ -142,6 +142,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/ui/tui/spokes/Makefile
                  pyanaconda/ui/tui/Makefile
                  data/post-scripts/Makefile
+                 data/pixmaps/Makefile
                  tests/Makefile
                  utils/Makefile
                  utils/dd/Makefile])

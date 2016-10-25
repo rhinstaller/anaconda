@@ -46,7 +46,7 @@ uninstall-hook:
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
 ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
-ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
+ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
@@ -133,6 +133,7 @@ bumpver: po-pull
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
+	rm $(srcdir)/po/{main,extra}.pot
 	zanata push $(ZANATA_PUSH_ARGS)
 
 # Install all packages specified as BuildRequires in the Anaconda specfile

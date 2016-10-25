@@ -26,7 +26,7 @@ from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget, App
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
 from pyanaconda.storage_utils import try_populate_devicetree
@@ -342,9 +342,10 @@ class RescueMountSpoke(NormalTUISpoke):
                 if flags.automatedInstall:
                     log.info("System has been mounted under: %s", iutil.getSysroot())
                 else:
-                    text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\nIf "
-                                        "you would like to make your system the root "
-                                        "environment, run the command:\n\n\tchroot %(mountpoint)s\n")
+                    text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
+                                        "If you would like to make the root of your system the "
+                                        "root of the active system, run the command:\n\n"
+                                        "\tchroot %(mountpoint)s\n")
                                         % {"mountpoint": iutil.getSysroot()} )
                     self._window.append(text)
                 rootmounted = True
@@ -447,3 +448,12 @@ class RescueMountSpoke(NormalTUISpoke):
     def indirect(self):
         return True
 
+def start_rescue_mode_ui(anaconda):
+    """Start the rescue mode TUI.
+
+    :param anaconda: instance of the Anaconda class
+    """
+    app = App("Rescue Mode")
+    spoke = RescueMode(app, anaconda.ksdata, anaconda.storage)
+    app.schedule_screen(spoke)
+    app.run()

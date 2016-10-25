@@ -147,6 +147,12 @@ PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
 
 PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("Strong")]
 
+PASSWORD_HIDE = N_("Hide password.")
+PASSWORD_SHOW = N_("Show password.")
+
+PASSWORD_HIDE_ICON = "anaconda-password-show-off"
+PASSWORD_SHOW_ICON = "anaconda-password-show-on"
+
 # the number of seconds we consider a noticeable freeze of the UI
 NOTICEABLE_FREEZE = 0.1
 
@@ -194,3 +200,22 @@ WINDOW_TITLE_TEXT = N_("Anaconda Installer")
 NTP_SERVER_OK = 0
 NTP_SERVER_NOK = 1
 NTP_SERVER_QUERY = 2
+
+DISPLAY_MODE_GUI = "g"
+DISPLAY_MODE_TUI = "t"
+DISPLAY_MODE_NONINTERACTIVE_TUI = "c"
+
+DISPLAY_MODE_NAMES = {
+    DISPLAY_MODE_GUI: "GUI",
+    DISPLAY_MODE_TUI: "TUI",
+    DISPLAY_MODE_NONINTERACTIVE_TUI: "noninteractive TUI",
+}
+
+TEXT_DISPLAY_MODES = {
+    DISPLAY_MODE_TUI,
+    DISPLAY_MODE_NONINTERACTIVE_TUI
+}
+
+NON_INTERACTIVE_DISPLAY_MODES = {
+    DISPLAY_MODE_NONINTERACTIVE_TUI
+}

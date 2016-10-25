@@ -29,7 +29,7 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
-from pyanaconda.ui.gui.utils import blockedHandler
+from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
@@ -326,6 +326,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._advanced = AdvancedUserDialog(self._user, self.data)
         self._advanced.initialize()
 
+        # set the visibility of the password entries
+        set_password_visibility(self.pw, False)
+        set_password_visibility(self.confirm, False)
+
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit
         for check in self.checks:
@@ -439,6 +443,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         # Update the password/confirm match check on changes to the main password field
         self._confirm_check.update_check_status()
+
+    def on_password_icon_clicked(self, entry, icon_pos, event):
+        """Called by Gtk callback when the icon of a password entry is clicked."""
+        set_password_visibility(entry, not entry.get_visibility())
 
     def on_username_set_by_user(self, editable, data=None):
         """Called by Gtk on user-driven changes to the username field.

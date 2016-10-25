@@ -41,7 +41,7 @@ class Anaconda(object):
         self.canReIPL = False
         self.desktop = desktop.Desktop()
         self.dir = None
-        self.displayMode = None
+        self._display_mode = None
         self.gui_startup_failed = False
         self.id = None
         self._instClass = None
@@ -176,6 +176,44 @@ class Anaconda(object):
 
         return self._storage
 
+    @property
+    def display_mode(self):
+        return self._display_mode
+
+    @property
+    def interactive_mode(self):
+        return self._display_mode not in constants.NON_INTERACTIVE_DISPLAY_MODES
+
+    @display_mode.setter
+    def display_mode(self, new_mode):
+        new_mode_name = constants.DISPLAY_MODE_NAMES.get(new_mode)
+        if new_mode_name:
+            if self._display_mode:
+                old_mode = self._display_mode
+                old_mode_name = constants.DISPLAY_MODE_NAMES.get(old_mode)
+                log.debug("changing display mode from %s(%s) to %s(%s)",
+                          old_mode_name, old_mode, new_mode_name, new_mode)
+            else:
+                log.debug("setting display mode to %s(%s)", new_mode_name, new_mode)
+            self._display_mode = new_mode
+        else:  # unknown mode name - ignore & log an error
+            log.error("tried to set an unknown display mode name: %s", new_mode)
+
+    @property
+    def gui_mode(self):
+        """Report if Anaconda should run with the GUI."""
+        return self._display_mode == constants.DISPLAY_MODE_GUI
+
+    @property
+    def tui_mode(self):
+        """Report if Anaconda should run with the TUI."""
+        return self._display_mode == constants.DISPLAY_MODE_TUI
+
+    @property
+    def noninteractive_tui_mode(self):
+        """Report if Anaconda should run with noninteractive TUI."""
+        return self._display_mode == constants.DISPLAY_MODE_NONINTERACTIVE_TUI
+
     def dumpState(self):
         from meh import ExceptionInfo
         from meh.dump import ReverseExceptionDump
@@ -215,7 +253,7 @@ class Anaconda(object):
         if self._intf:
             raise RuntimeError("Second attempt to initialize the InstallInterface")
 
-        if self.displayMode == 'g':
+        if self.gui_mode:
             from pyanaconda.ui.gui import GraphicalUserInterface
             # Run the GUI in non-fullscreen mode, so live installs can still
             # use the window manager
@@ -226,7 +264,8 @@ class Anaconda(object):
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
                                                      ui_subdir="gui")
-        elif self.displayMode in ['t', 'c']: # text and command line are the same
+        elif self.tui_mode or self.noninteractive_tui_mode:
+            # TUI and noninteractive TUI are the same in this regard
             from pyanaconda.ui.tui import TextUserInterface
             self._intf = TextUserInterface(self.storage, self.payload,
                                            self.instClass)
@@ -234,8 +273,13 @@ class Anaconda(object):
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
                                                      ui_subdir="tui")
+        elif not self.display_mode:
+            raise RuntimeError("Display mode not set.")
         else:
-            raise RuntimeError("Unsupported displayMode: %s" % self.displayMode)
+            # this should generally never happen, as display_mode now won't let
+            # and invalid value to be set, but let's leave it here just in case
+            # something ultra crazy happens
+            raise RuntimeError("Unsupported display mode: %s" % self.display_mode)
 
         if addon_paths:
             self._intf.update_paths(addon_paths)

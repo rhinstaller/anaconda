@@ -28,7 +28,9 @@ from contextlib import contextmanager
 
 from pyanaconda.threads import threadMgr, AnacondaThread
 
-from pyanaconda.constants import NOTICEABLE_FREEZE
+from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE,\
+    PASSWORD_SHOW, PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
+
 import queue
 import time
 import threading
@@ -583,3 +585,18 @@ def unwatch_children(widget, callback, user_data=None):
     if isinstance(widget, Gtk.Container):
         for child in widget.get_children():
             unwatch_children(child, callback, user_data)
+
+def set_password_visibility(entry, visible):
+    """Make the password in/visible."""
+    position = Gtk.EntryIconPosition.SECONDARY
+
+    if visible:
+        icon = PASSWORD_HIDE_ICON
+        text = PASSWORD_HIDE
+    else:
+        icon = PASSWORD_SHOW_ICON
+        text = PASSWORD_SHOW
+
+    entry.set_visibility(visible)
+    entry.set_icon_from_icon_name(position, icon)
+    entry.set_icon_tooltip_text(position, text)
