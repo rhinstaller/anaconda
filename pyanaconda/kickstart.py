@@ -59,7 +59,7 @@ from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
 from pyanaconda.i18n import _
-from pyanaconda.ui.common import collect
+from pyanaconda.iutil import collect
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -81,7 +81,7 @@ log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
-from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel, DEFAULT_LEVEL
+from pyanaconda import anaconda_log
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -1100,19 +1100,19 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, *args):
-        if logger.loglevel == DEFAULT_LEVEL:
+        if anaconda_log.logger.loglevel == anaconda_log.DEFAULT_LEVEL:
             # not set from the command line
-            level = logLevelMap[self.level]
-            logger.loglevel = level
-            setHandlersLevel(log, level)
-            setHandlersLevel(storage_log, level)
+            level = anaconda_log.logLevelMap[self.level]
+            anaconda_log.logger.loglevel = level
+            anaconda_log.setHandlersLevel(log, level)
+            anaconda_log.setHandlersLevel(storage_log, level)
 
-        if logger.remote_syslog == None and len(self.host) > 0:
+        if anaconda_log.logger.remote_syslog is None and len(self.host) > 0:
             # not set from the command line, ok to use kickstart
             remote_server = self.host
             if self.port:
-                remote_server = "%s:%s" %(self.host, self.port)
-            logger.updateRemote(remote_server)
+                remote_server = "%s:%s" % (self.host, self.port)
+            anaconda_log.logger.updateRemote(remote_server)
 
 class Network(commands.network.F25_Network):
     def __init__(self, *args, **kwargs):

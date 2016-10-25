@@ -26,7 +26,7 @@ from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget, App
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
 from pyanaconda.storage_utils import try_populate_devicetree
@@ -448,3 +448,12 @@ class RescueMountSpoke(NormalTUISpoke):
     def indirect(self):
         return True
 
+def start_rescue_mode_ui(anaconda):
+    """Start the rescue mode TUI.
+
+    :param anaconda: instance of the Anaconda class
+    """
+    app = App("Rescue Mode")
+    spoke = RescueMode(app, anaconda.ksdata, anaconda.storage)
+    app.schedule_screen(spoke)
+    app.run()

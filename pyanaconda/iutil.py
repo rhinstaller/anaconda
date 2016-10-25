@@ -33,6 +33,9 @@ from urllib.parse import quote, unquote
 import gettext
 import signal
 import sys
+import imp
+import types
+import inspect
 
 import requests
 from requests_file import FileAdapter
@@ -47,6 +50,7 @@ from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED
 from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
 from pyanaconda.regexes import URL_PARSE
+from pyanaconda.errors import RemovedModuleError
 
 from pyanaconda.i18n import _
 
@@ -1395,3 +1399,141 @@ def touch(file_path):
     # even when the path points to dirrectory
     if not os.path.exists(file_path):
         os.mknod(file_path)
+
+def collect(module_pattern, path, pred):
+    """Traverse the directory (given by path), import all files as a module
+       module_pattern % filename and find all classes within that match
+       the given predicate.  This is then returned as a list of classes.
+
+       It is suggested you use collect_categories or collect_spokes instead of
+       this lower-level method.
+
+       :param module_pattern: the full name pattern (pyanaconda.ui.gui.spokes.%s)
+                              we want to assign to imported modules
+       :type module_pattern: string
+
+       :param path: the directory we are picking up modules from
+       :type path: string
+
+       :param pred: function which marks classes as good to import
+       :type pred: function with one argument returning True or False
+    """
+
+    retval = []
+    try:
+        contents = os.listdir(path)
+    # when the directory "path" does not exist
+    except OSError:
+        return []
+
+    for module_file in contents:
+        if (not module_file.endswith(".py")) and \
+           (not module_file.endswith(".so")):
+            continue
+
+        if module_file == "__init__.py":
+            continue
+
+        try:
+            mod_name = module_file[:module_file.rindex(".")]
+        except ValueError:
+            mod_name = module_file
+
+        mod_info = None
+        module = None
+        module_path = None
+
+        try:
+            imp.acquire_lock()
+            (fo, module_path, module_flags) = imp.find_module(mod_name, [path])
+            module = sys.modules.get(module_pattern % mod_name)
+
+            # do not load module if any module with the same name
+            # is already imported
+            if not module:
+                # try importing the module the standard way first
+                # uses sys.path and the module's full name!
+                try:
+                    __import__(module_pattern % mod_name)
+                    module = sys.modules[module_pattern % mod_name]
+
+                # if it fails (package-less addon?) try importing single file
+                # and filling up the package structure voids
+                except ImportError:
+                    # prepare dummy modules to prevent RuntimeWarnings
+                    module_parts = (module_pattern % mod_name).split(".")
+
+                    # remove the last name as it will be inserted by the import
+                    module_parts.pop()
+
+                    # make sure all "parent" modules are in sys.modules
+                    for l in range(len(module_parts)):
+                        module_part_name = ".".join(module_parts[:l+1])
+                        if module_part_name not in sys.modules:
+                            module_part = types.ModuleType(module_part_name)
+                            module_part.__path__ = [path]
+                            sys.modules[module_part_name] = module_part
+
+                    # load the collected module
+                    module = imp.load_module(module_pattern % mod_name,
+                                             fo, module_path, module_flags)
+
+
+            # get the filenames without the extensions so we can compare those
+            # with the .py[co]? equivalence in mind
+            # - we do not have to care about files without extension as the
+            #   condition at the beginning of the for loop filters out those
+            # - module_flags[0] contains the extension of the module imp found
+            candidate_name = module_path[:module_path.rindex(module_flags[0])]
+            loaded_name, loaded_ext = module.__file__.rsplit(".", 1)
+
+            # restore the extension dot eaten by split
+            loaded_ext = "." + loaded_ext
+
+            # do not collect classes when the module is already imported
+            # from different path than we are traversing
+            # this condition checks the module name without file extension
+            if candidate_name != loaded_name:
+                continue
+
+            # if the candidate file is .py[co]? and the loaded is not (.so)
+            # skip the file as well
+            if module_flags[0].startswith(".py") and not loaded_ext.startswith(".py"):
+                continue
+
+            # if the candidate file is not .py[co]? and the loaded is
+            # skip the file as well
+            if not module_flags[0].startswith(".py") and loaded_ext.startswith(".py"):
+                continue
+
+        except RemovedModuleError:
+            # collected some removed module
+            continue
+
+        except ImportError as imperr:
+            # pylint: disable=unsupported-membership-test
+            if module_path and "pyanaconda" in module_path:
+                # failure when importing our own module:
+                raise
+            log.error("Failed to import module %s from path %s in collect: %s", mod_name, module_path, imperr)
+            continue
+        finally:
+            imp.release_lock()
+
+            if mod_info and mod_info[0]: # pylint: disable=unsubscriptable-object
+                mod_info[0].close() # pylint: disable=unsubscriptable-object
+
+        p = lambda obj: inspect.isclass(obj) and pred(obj)
+
+        # if __all__ is defined in the module, use it
+        if not hasattr(module, "__all__"):
+            members = inspect.getmembers(module, p)
+        else:
+            members = [(name, getattr(module, name))
+                       for name in module.__all__
+                       if p(getattr(module, name))]
+
+        for (_name, val) in members:
+            retval.append(val)
+
+    return retval
