@@ -22,6 +22,7 @@ gi.require_version("BlockDev", "1.0")
 
 from gi.repository import BlockDev as blockdev
 
+from blivet import zfcp
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
@@ -42,7 +43,7 @@ class ZFCPDialog(GUIObject):
     def __init__(self, data, storage):
         GUIObject.__init__(self, data)
         self.storage = storage
-        self.zfcp = self.storage.zfcp()
+        self.zfcp = zfcp.zFCP()
 
         self._discoveryError = None
 
@@ -142,7 +143,7 @@ class ZFCPDialog(GUIObject):
         """
         # attempt to add the device
         try:
-            self.zfcp.addFCP(args[0], args[1], args[2])
+            self.zfcp.add_fcp(args[0], args[1], args[2])
             self._update_devicetree = True
         except ValueError as e:
             self._discoveryError = str(e)
