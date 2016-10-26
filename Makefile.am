@@ -49,7 +49,7 @@ ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
+MOCKCHROOT ?= fedora-25-$(shell uname -m)
 
 COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
