@@ -125,7 +125,7 @@ def _pick_mpoint(df, download_size, install_size):
                    if ((key != root_mpoint and val > requested)
                    or val > requested_root) and reasonable_mpoint(key)}
     log.debug('Input mount points: %s', df)
-    log.debug('Estimated size: download %s & install %s', requested,
+    log.info('Estimated size: download %s & install %s', requested,
               (requested_root - requested))
     log.info('Sufficient mountpoints found: %s', sufficients)
 
@@ -513,7 +513,7 @@ class DNFPayload(packaging.PackagePayload):
         df_map = _df_map()
         mpoint = _pick_mpoint(df_map, download_size, install_size)
         if mpoint is None:
-            msg = "Not enough disk space to download the packages."
+            msg = ("Not enough disk space to download the packages; size %s." % download_size)
             raise packaging.PayloadError(msg)
 
         pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
@@ -683,9 +683,9 @@ class DNFPayload(packaging.PackagePayload):
 
         try:
             if self._base.resolve():
-                log.debug("checking dependencies: success.")
+                log.info("checking dependencies: success")
             else:
-                log.debug("empty transaction")
+                log.info("empty transaction")
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
