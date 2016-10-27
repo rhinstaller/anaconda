@@ -40,6 +40,7 @@ class SoftwareSpoke(NormalTUISpoke):
           :parts: 3
     """
     title = N_("Software selection")
+    helpFile = "SoftwareSpoke.txt"
     category = SoftwareCategory
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -262,7 +263,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 return INPUT_PROCESSED
             else:
-                return key
+                return super(SoftwareSpoke, self).input(args, key)
 
         # Process the environment selection
         if args is None:

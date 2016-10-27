@@ -55,6 +55,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
           :parts: 3
     """
     title = N_("Installation source")
+    helpFile = "SourceSpoke.txt"
     category = SoftwareCategory
 
     _protocols = (N_("Closest mirror"), "http://", "https://", "ftp://", "nfs")
@@ -167,7 +168,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         try:
             num = int(key)
         except ValueError:
-            return key
+            return super(SourceSpoke, self).input(args, key)
 
         if args == 3:
             # network install
@@ -407,7 +408,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
         except (IndexError, ValueError):
             # either the input was not a number or
             # we don't have the disk for the given number
-            return key
+            return super(SelectDeviceSpoke, self).input(args, key)
 
     # Override Spoke.apply
     def apply(self):
@@ -463,7 +464,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
             self.close()
             return True
         except (IndexError, ValueError):
-            return key
+            return super(SelectISOSpoke, self).input(args, key)
 
     @property
     def indirect(self):
