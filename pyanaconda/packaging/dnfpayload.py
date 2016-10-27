@@ -113,27 +113,47 @@ def _paced(fn):
         return fn(self, *args)
     return paced_fn
 
-def _pick_mpoint(df, download_size, install_size):
+def _pick_mpoint(df, download_size, install_size, download_only):
     def reasonable_mpoint(mpoint):
         return mpoint in DOWNLOAD_MPOINTS
 
     requested = download_size
     requested_root = requested + install_size
     root_mpoint = pyanaconda.iutil.getSysroot()
-    sufficients = {key : val for (key, val) in df.items()
-                   # for root we need to take in count both download and install size
-                   if ((key != root_mpoint and val > requested)
-                   or val > requested_root) and reasonable_mpoint(key)}
     log.debug('Input mount points: %s', df)
     log.info('Estimated size: download %s & install %s', requested,
               (requested_root - requested))
-    log.info('Sufficient mountpoints found: %s', sufficients)
 
-    if not len(sufficients):
+    # Find sufficient mountpoint to download and install packages.
+    sufficients = {key : val for (key, val) in df.items()
+                   if ((key != root_mpoint and val > requested) or val > requested_root)
+                      and reasonable_mpoint(key)}
+
+    # If no sufficient mountpoints for download and install were found and we are looking
+    # for download mountpoint only, ignore install size and try to find mountpoint just
+    # to download packages. This fallback is required when user skipped space check.
+    if not sufficients and download_only:
+        sufficients = {key : val for (key, val) in df.items()
+                       if val > requested and reasonable_mpoint(key)}
+        if sufficients:
+            log.info('Sufficient mountpoint for download only found: %s', sufficients)
+    elif sufficients:
+        log.info('Sufficient mountpoints found: %s', sufficients)
+
+    if not sufficients:
+        log.debug("No sufficient mountpoints found")
         return None
-    # default to the biggest one:
-    return sorted(sufficients.items(), key=operator.itemgetter(1),
-                  reverse=True)[0][0]
+
+    sorted_mpoints = sorted(sufficients.items(), key=operator.itemgetter(1),
+                            reverse=True)
+
+    # try to pick something else than root mountpoint for downloading
+    if download_only and len(sorted_mpoints) >= 2 and sorted_mpoints[0][0] == root_mpoint:
+        return sorted_mpoints[1][0]
+    else:
+        # default to the biggest one:
+        return sorted_mpoints[0][0]
+
 
 class PayloadRPMDisplay(dnf.callback.TransactionProgress):
     def __init__(self, queue_instance):
@@ -511,11 +531,12 @@ class DNFPayload(packaging.PackagePayload):
         download_size = self._download_space
         install_size = self._spaceRequired()
         df_map = _df_map()
-        mpoint = _pick_mpoint(df_map, download_size, install_size)
+        mpoint = _pick_mpoint(df_map, download_size, install_size, download_only=True)
         if mpoint is None:
             msg = ("Not enough disk space to download the packages; size %s." % download_size)
             raise packaging.PayloadError(msg)
 
+        log.info("Mountpoint %s picked as download location", mpoint)
         pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
@@ -633,7 +654,7 @@ class DNFPayload(packaging.PackagePayload):
             if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
                 valid_points[root_mpoint + new_key] = val.format.free_space_estimate(val.size)
 
-        m_point = _pick_mpoint(valid_points, download_size, size)
+        m_point = _pick_mpoint(valid_points, download_size, size, download_only=False)
         if not m_point or m_point == root_mpoint:
             # download and install to the same mount point
             size = size + download_size
