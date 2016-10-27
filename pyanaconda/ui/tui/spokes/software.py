@@ -22,7 +22,7 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import DependencyError, PackagePayload, payloadMgr
+from pyanaconda.packaging import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
 from pyanaconda.i18n import N_, _, C_
 
 from pyanaconda.constants import THREAD_PAYLOAD
@@ -48,9 +48,12 @@ class SoftwareSpoke(NormalTUISpoke):
         self._tx_id = None
         self._selection = None
         self.environment = None
+        self._addons_selection = set()
+        self.addons = set()
 
         # for detecting later whether any changes have been made
         self._origEnv = None
+        self._origAddons = set()
 
         # are we taking values (package list) from a kickstart file?
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
@@ -90,13 +93,47 @@ class SoftwareSpoke(NormalTUISpoke):
         # Source is changing, invalidate the software selection and clear the
         # errors
         self._selection = None
+        self._addons_selection = set()
         self.errors = []
 
     def _payload_finished(self):
         self.environment = self.data.packages.environment
+        self.addons = self._get_selected_addons()
 
     def _payload_error(self):
         self.errors = [payloadMgr.error]
+
+    def _get_environment(self, selection):
+        """ Return the selected environment or None.
+            Selection can be None during kickstart installation.
+        """
+        if selection is not None and 0 <= selection < len(self.payload.environments):
+            return self.payload.environments[selection]
+        else:
+            return None
+
+    def _get_environment_id(self, environment):
+        """ Return the id of the selected environment or None. """
+        if environment is None:
+            return None
+        try:
+            return self.payload.environmentId(environment)
+        except NoSuchGroup:
+            return None
+
+    def _get_available_addons(self, environment_id):
+        """ Return all add-ons of the specific environment. """
+        addons = []
+
+        if environment_id in self.payload.environmentAddons:
+            for addons_list in self.payload.environmentAddons[environment_id]:
+                addons.extend(addons_list)
+
+        return addons
+
+    def _get_selected_addons(self):
+        """ Return selected add-ons. """
+        return {group.name for group in self.payload.data.packages.groupList}
 
     @property
     def showable(self):
@@ -134,7 +171,7 @@ class SoftwareSpoke(NormalTUISpoke):
         """
         processingDone = self.ready and not self.errors and self.txid_valid
 
-        if flags.automatedInstall:
+        if flags.automatedInstall or self._kickstarted:
             return processingDone and self.payload.baseRepo and self.data.packages.seen
         else:
             return processingDone and self.payload.baseRepo and self.environment is not None
@@ -154,18 +191,32 @@ class SoftwareSpoke(NormalTUISpoke):
             return True
 
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
-
-        # put a title above the list and some space below it
-        self._window.append(TextWidget(_("Base environment")))
-        self._window.append(TextWidget(""))
-
-        environments = self.payload.environments
-
         displayed = []
-        for env in environments:
-            name = self.payload.environmentDescription(env)[0]
 
-            displayed.append(CheckboxWidget(title="%s" % name, completed=(environments.index(env) == self._selection)))
+        # Display the environments
+        if args is None:
+            environments = self.payload.environments
+            length = len(environments)
+            msg = _("Base environment")
+
+            for env in environments:
+                name = self.payload.environmentDescription(env)[0]
+                selected = environments.index(env) == self._selection
+                displayed.append(CheckboxWidget(title="%s" % name, completed=selected))
+
+        # Display the add-ons
+        else:
+            length = len(args)
+
+            if length > 0:
+                msg = _("Add-ons for selected environment")
+            else:
+                msg = _("No add-ons to select.")
+
+            for addon_id in args:
+                name = self.payload.groupDescription(addon_id)[0]
+                selected = addon_id in self._addons_selection
+                displayed.append(CheckboxWidget(title="%s" % name, completed=selected))
 
         def _prep(i, w):
             """ Do some format magic for display. """
@@ -173,13 +224,16 @@ class SoftwareSpoke(NormalTUISpoke):
             return ColumnWidget([(4, [num]), (None, [w])], 1)
 
         # split list of DE's into two columns
-        mid = len(environments) / 2
+        mid = length / 2
         left = [_prep(i, w) for i, w in enumerate(displayed) if i <= mid]
         right = [_prep(i, w) for i, w in enumerate(displayed) if i > mid]
 
         cw = ColumnWidget([(38, left), (38, right)], 2)
-        self._window.append(cw)
 
+        self._window.append(TextWidget(msg))
+        self._window.append(TextWidget(""))
+        self._window.append(cw)
+        self._window.append(TextWidget(""))
         return True
 
     def input(self, args, key):
@@ -188,16 +242,45 @@ class SoftwareSpoke(NormalTUISpoke):
             keyid = int(key) - 1
         except ValueError:
             # TRANSLATORS: 'c' to continue
-            continue_requested = key.lower() == C_('TUI|Spoke Navigation', 'c')
-            if continue_requested and 0 <= self._selection < len(self.payload.environments):
-                self.apply()
-                self.close()
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
+
+                # No environment was selected, close
+                if self._selection is None:
+                    self.close()
+
+                # The environment was selected, switch screen
+                elif args is None:
+                    # Get addons for the selected environment
+                    environment = self._get_environment(self._selection)
+                    environment_id = self._get_environment_id(environment)
+                    addons = self._get_available_addons(environment_id)
+
+                    # Switch the screen
+                    self.app.switch_screen(self, addons)
+
+                # The addons were selected, apply and close
+                else:
+                    self.apply()
+                    self.close()
+
                 return INPUT_PROCESSED
             else:
                 return key
 
-        if 0 <= keyid < len(self.payload.environments):
-            self._selection = keyid
+        # Process the environment selection
+        if args is None:
+            if 0 <= keyid < len(self.payload.environments):
+                self._selection = keyid
+
+        # Process the addons selection
+        else:
+            if 0 <= keyid < len(args):
+                addon = args[keyid]
+                if addon not in self._addons_selection:
+                    self._addons_selection.add(addon)
+                else:
+                    self._addons_selection.remove(addon)
+
         return INPUT_PROCESSED
 
     @property
@@ -209,40 +292,45 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def apply(self):
         """ Apply our selections """
-        self._apply()
-
         # no longer using values from kickstart
         self._kickstarted = False
         self.data.packages.seen = True
+        # _apply depends on a value of _kickstarted
+        self._apply()
 
     def _apply(self):
         """ Private apply. """
-        # self._selection can be None during kickstart installation
-        if self._selection is not None and 0 <= self._selection < len(self.payload.environments):
-            self.environment = self.payload.environments[self._selection]
-        else:
-            self.environment = None
-            return
+        self.environment = self._get_environment(self._selection)
+        self.addons = self._addons_selection if self.environment is not None else set()
 
         changed = False
 
-        # Not a kickstart with packages, setup the selected environment
+        # Not a kickstart with packages, setup the selected environment and addons
         if not self._kickstarted:
-            if not self._origEnv:
-                # nothing selected before, select the environment
+
+            # Changed the environment or addons, clear and setup
+            if not self._origEnv \
+                    or self._origEnv != self.environment \
+                    or set(self._origAddons) != set(self.addons):
+
+                self.payload.data.packages.packageList = []
+                self.data.packages.groupList = []
                 self.payload.selectEnvironment(self.environment)
-                changed = True
-            elif self._origEnv != self.environment:
-                # environment changed, clear the list of packages and select the new
-                # one
-                self.payload.data.packages.groupList = []
-                self.payload.selectEnvironment(self.environment)
+
+                environment_id = self._get_environment_id(self.environment)
+                available_addons = self._get_available_addons(environment_id)
+
+                for addon_id in available_addons:
+                    if addon_id in self.addons:
+                        self.payload.selectGroup(addon_id)
+
                 changed = True
 
             self._origEnv = self.environment
+            self._origAddons = set(self.addons)
 
         # Check the software selection
-        if changed:
+        if changed or self._kickstarted:
             threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
                                          target=self.checkSoftwareSelection))
 
