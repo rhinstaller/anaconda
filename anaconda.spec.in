@@ -325,6 +325,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 28 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.6-1
+- Merge pull request #847 from snbueno/1384532-v02 (snbueno)
+- Merge pull request #845 from poncovka/f25-devel-tui_software_group_selection
+  (vponcova)
+- tui: Add software group selection (vponcova)
+- Merge pull request #844 from jkonecny12/f25-dev-fix-space_check_skip
+  (jkonecny)
+- Merge pull request #839 from jkonecny12/f25-dev-improve-logging (jkonecny)
+- Instantiate the zFCP object ourselves now. (#1384532) (sbueno+anaconda)
+- Fix the way DASD list is determined. (#1384532) (sbueno+anaconda)
+- Add tests for payload location picking (#1328151) (jkonecny)
+- Fix picking mountpoint for package download (#1328151) (jkonecny)
+- Merge pull request #842 from jkonecny12/f25-dev-rm-zanata-main-extra-pot
+  (jkonecny)
+- Remove main and extra pot files before zanata push (jkonecny)
+- Don't send intermediate pot files to zanata (gh#791) (awilliam)
+- Merge pull request #831 from poncovka/f25-devel-show_password_option
+  (vponcova)
+- Improve packaging logs without DEBUG logging (jkonecny)
+- Add option to show password in password field (vponcova)
+
 * Thu Oct 13 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.5-1
 - Merge pull request #824 from snbueno/1378338 (snbueno)
 - Generate a list of DASDs in GUI storage spoke. (#1378338) (sbueno+anaconda)
