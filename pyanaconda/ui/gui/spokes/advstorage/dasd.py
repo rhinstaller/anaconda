@@ -42,7 +42,8 @@ class DASDDialog(GUIObject):
     def __init__(self, data, storage):
         GUIObject.__init__(self, data)
         self.storage = storage
-        self.dasd = self.storage.dasd
+        self.dasd = [d for d in self.storage.devices if d.type == "dasd"]
+        self.dasd.sort(key=lambda d: d.name)
 
         self._discoveryError = None
 
