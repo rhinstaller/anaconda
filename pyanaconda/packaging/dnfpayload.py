@@ -852,7 +852,7 @@ class DNFPayload(packaging.PackagePayload):
             elif token == 'post':
                 break # Installation finished successfully
             elif token == 'quit':
-                msg = ("Payload error - 'quit' was received before 'post': %s" % msg)
+                msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
                 raise packaging.PayloadError(msg)
             elif token == 'error':
                 exc = packaging.PayloadInstallError("DNF error: %s" % msg)
