@@ -26,6 +26,7 @@ import threading
 
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
+from pyanaconda.constants import DisplayModes
 from pyanaconda import iutil
 from pyanaconda import addons
 
@@ -42,6 +43,7 @@ class Anaconda(object):
         self.desktop = desktop.Desktop()
         self.dir = None
         self._display_mode = None
+        self._interactive_mode = True
         self.gui_startup_failed = False
         self.id = None
         self._instClass = None
@@ -180,39 +182,53 @@ class Anaconda(object):
     def display_mode(self):
         return self._display_mode
 
-    @property
-    def interactive_mode(self):
-        return self._display_mode not in constants.NON_INTERACTIVE_DISPLAY_MODES
-
     @display_mode.setter
     def display_mode(self, new_mode):
-        new_mode_name = constants.DISPLAY_MODE_NAMES.get(new_mode)
-        if new_mode_name:
+        if isinstance(new_mode, DisplayModes):
             if self._display_mode:
                 old_mode = self._display_mode
-                old_mode_name = constants.DISPLAY_MODE_NAMES.get(old_mode)
-                log.debug("changing display mode from %s(%s) to %s(%s)",
-                          old_mode_name, old_mode, new_mode_name, new_mode)
+                log.debug("changing display mode from %s to %s",
+                          old_mode.value, new_mode.value)
             else:
-                log.debug("setting display mode to %s(%s)", new_mode_name, new_mode)
+                log.debug("setting display mode to %s", new_mode.value)
             self._display_mode = new_mode
         else:  # unknown mode name - ignore & log an error
-            log.error("tried to set an unknown display mode name: %s", new_mode)
+            log.error("tried to set an unknown display mode name: %s", new_mode.value)
+
+    @property
+    def interactive_mode(self):
+        return self._interactive_mode
+
+    @interactive_mode.setter
+    def interactive_mode(self, value):
+        if self._interactive_mode != value:
+            self._interactive_mode = value
+            if value:
+                log.debug("working in interative mode")
+            else:
+                log.debug("working in noninteractive mode")
 
     @property
     def gui_mode(self):
         """Report if Anaconda should run with the GUI."""
-        return self._display_mode == constants.DISPLAY_MODE_GUI
+        return self._display_mode == DisplayModes.GUI
+
+    @property
+    def noninteractive_gui_mode(self):
+        """Report if Anaconda should run with noninteractive GUI."""
+        return (self._display_mode == DisplayModes.GUI
+                and not self._interactive_mode)
 
     @property
     def tui_mode(self):
         """Report if Anaconda should run with the TUI."""
-        return self._display_mode == constants.DISPLAY_MODE_TUI
+        return self._display_mode == DisplayModes.TUI
 
     @property
     def noninteractive_tui_mode(self):
         """Report if Anaconda should run with noninteractive TUI."""
-        return self._display_mode == constants.DISPLAY_MODE_NONINTERACTIVE_TUI
+        return (self._display_mode == DisplayModes.TUI
+                and not self._interactive_mode)
 
     def dumpState(self):
         from meh import ExceptionInfo

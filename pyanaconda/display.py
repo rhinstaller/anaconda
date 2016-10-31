@@ -80,7 +80,7 @@ def ask_vnc_question(anaconda, vnc_server, message):
     if anaconda.ksdata.vnc.enabled:
         if not anaconda.gui_mode:
             log.info("VNC requested via VNC question, switching Anaconda to GUI mode.")
-        anaconda.display_mode = constants.DISPLAY_MODE_GUI
+        anaconda.display_mode = constants.DisplayModes.GUI
         flags.usevnc = True
         vnc_server.password = anaconda.ksdata.vnc.password
 
@@ -196,13 +196,14 @@ def setup_display(anaconda, options, addon_paths=None):
     vnc_server.anaconda = anaconda
 
     anaconda.display_mode = options.display_mode
+    anaconda.interactive_mode = not options.noninteractive
     anaconda.isHeadless = blivet.arch.is_s390()
 
     if options.vnc:
         flags.usevnc = True
         if not anaconda.gui_mode:
             log.info("VNC requested via boot/CLI option, switching Anaconda to GUI mode.")
-            anaconda.display_mode = constants.DISPLAY_MODE_GUI
+            anaconda.display_mode = constants.DisplayModes.GUI
         vnc_server.password = options.vncpassword
 
         # Only consider vncconnect when vnc is a param
@@ -224,7 +225,7 @@ def setup_display(anaconda, options, addon_paths=None):
         flags.usevnc = True
         if not anaconda.gui_mode:
             log.info("VNC requested via kickstart, switching Anaconda to GUI mode.")
-            anaconda.display_mode = constants.DISPLAY_MODE_GUI
+            anaconda.display_mode = constants.DisplayModes.GUI
 
         if vnc_server.password == "":
             vnc_server.password = anaconda.ksdata.vnc.password
@@ -239,7 +240,7 @@ def setup_display(anaconda, options, addon_paths=None):
         mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
         if "pyanaconda.ui.gui" not in mods:
             stdout_log.warning("Graphical user interface not available, falling back to text mode")
-            anaconda.display_mode = constants.DISPLAY_MODE_TUI
+            anaconda.display_mode = constants.DisplayModes.TUI
             flags.usevnc = False
             flags.vncquestion = False
 
@@ -258,7 +259,7 @@ def setup_display(anaconda, options, addon_paths=None):
     # X on a headless (e.g. s390) system? Nonsense!
     if want_x and anaconda.isHeadless:
         stdout_log.warning(_("DISPLAY variable not set. Starting text mode."))
-        anaconda.display_mode = constants.DISPLAY_MODE_TUI
+        anaconda.display_mode = constants.DisplayModes.TUI
         anaconda.gui_startup_failed = True
         time.sleep(2)
         want_x = False
@@ -268,7 +269,7 @@ def setup_display(anaconda, options, addon_paths=None):
         stdout_log.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
         time.sleep(2)
-        anaconda.display_mode = constants.DISPLAY_MODE_TUI
+        anaconda.display_mode = constants.DisplayModes.TUI
         want_x = False
 
     if anaconda.tui_mode and flags.vncquestion:
@@ -282,7 +283,7 @@ def setup_display(anaconda, options, addon_paths=None):
             # user has explicitly specified text mode
             flags.vncquestion = False
 
-    display_mode_name = constants.DISPLAY_MODE_NAMES.get(anaconda.display_mode)
+    display_mode_name = anaconda.display_mode.value
     if display_mode_name:
         log.info("Display mode = %s", anaconda.display_mode)
     elif anaconda.display_mode:
@@ -301,7 +302,7 @@ def setup_display(anaconda, options, addon_paths=None):
         except (OSError, RuntimeError) as e:
             log.warning("X startup failed: %s", e)
             stdout_log.warning("X startup failed, falling back to text mode")
-            anaconda.display_mode = constants.DISPLAY_MODE_TUI
+            anaconda.display_mode = constants.DisplayModes.TUI
             anaconda.gui_startup_failed = True
             time.sleep(2)
 
