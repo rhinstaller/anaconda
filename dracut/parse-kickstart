@@ -515,7 +515,7 @@ def ksnet_to_ifcfg(net, filename=None):
         ifcfg['NAME'] = "Team connection %s" % dev
         ifcfg['TEAM_CONFIG'] = net.teamconfig
 
-        for i, (slave, cfg) in enumerate(net.teamslaves):
+        for i, (slave, cfg) in enumerate(net.teamslaves, 1):
             slave_ifcfg = {
                             'DEVICE': slave,
                             'DEVICETYPE' : "TeamPort",
