@@ -30,7 +30,7 @@ import errno
 import glob
 import traceback
 import blivet.errors
-from pyanaconda.errors import CmdlineError
+from pyanaconda.errors import NonInteractiveError
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.threads import threadMgr
@@ -107,6 +107,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
             sys.exit(0)
         elif isinstance(value, blivet.errors.UnusableConfigurationError):
             sys.exit(0)
+        elif isinstance(value, NonInteractiveError):
+            sys.exit(0)
         else:
             super(AnacondaExceptionHandler, self).handleException(dump_info)
             return False
@@ -158,8 +160,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
             # X not running (Gtk cannot be initialized)
             if threadMgr.in_main_thread():
                 log.debug("In the main thread, running exception handler")
-                if issubclass(ty, CmdlineError) or not self._interactive:
-                    if issubclass(ty, CmdlineError):
+                if issubclass(ty, NonInteractiveError) or not self._interactive:
+                    if issubclass(ty, NonInteractiveError):
                         cmdline_error_msg = _("\nThe installation was stopped due to "
                                               "incomplete spokes detected while running "
                                               "in non-interactive cmdline mode. Since there "

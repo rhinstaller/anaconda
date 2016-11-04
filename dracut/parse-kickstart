@@ -214,14 +214,20 @@ class Network(commands.network.F25_Network, DracutArgsMixin):
 
         return netline
 
-class DisplayMode(commands.displaymode.FC3_DisplayMode, DracutArgsMixin):
+class DisplayMode(commands.displaymode.F26_DisplayMode, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
+        ret = ""
         if self.displayMode == DISPLAY_MODE_CMDLINE:
-            return "inst.cmdline"
+            ret = "inst.cmdline"
         elif self.displayMode == DISPLAY_MODE_TEXT:
-            return "inst.text"
+            ret = "inst.text"
         elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
-            return "inst.graphical"
+            ret = "inst.graphical"
+
+        if self.nonInteractive:
+            ret += " inst.noninteractive"
+
+        return ret
 
 class Bootloader(commands.bootloader.F21_Bootloader, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):

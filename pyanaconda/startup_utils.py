@@ -183,7 +183,7 @@ def check_memory(anaconda, options, display_mode=None):
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode not in constants.TEXT_DISPLAY_MODES and not flags.usevnc:
+    if display_mode != constants.DisplayModes.TUI and not flags.usevnc:
         needed_ram = graphical_ram
         reason_args["needed_ram"] = graphical_ram
         reason = reason_graphical
@@ -201,7 +201,7 @@ def check_memory(anaconda, options, display_mode=None):
                 reason += nolivecd_extra
                 # pylint: disable=logging-not-lazy
                 stdout_log.warning(reason % reason_args)
-                anaconda.display_mode = constants.DISPLAY_MODE_TUI
+                anaconda.display_mode = constants.DisplayModes.TUI
                 time.sleep(2)
 
 def start_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
@@ -338,7 +338,7 @@ def print_startup_note(options):
             print(tmux_only_note)  # but not during kickstart installation
         # no need to tell users how to switch to text mode
         # if already in text mode
-        if options.display_mode == constants.DISPLAY_MODE_TUI:
+        if options.display_mode == constants.DisplayModes.TUI:
             print(text_mode_note)
         print(separate_attachements_note)
 

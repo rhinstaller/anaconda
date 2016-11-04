@@ -418,7 +418,7 @@ if __name__ == "__main__":
     anaconda.opts = opts
 
     # check memory, just the text mode for now:
-    startup_utils.check_memory(anaconda, opts, display_mode=constants.DISPLAY_MODE_TUI)
+    startup_utils.check_memory(anaconda, opts, display_mode=constants.DisplayModes.TUI)
 
     # Now that we've got command line/boot options, do some extra processing.
     startup_utils.setup_logging_from_options(opts)
@@ -602,11 +602,11 @@ if __name__ == "__main__":
     # we now know in which mode we are going to run so store the information
     from pykickstart import constants as pykickstart_constants
     display_mode_coversion_table = {
-        constants.DISPLAY_MODE_GUI: pykickstart_constants.DISPLAY_MODE_GRAPHICAL,
-        constants.DISPLAY_MODE_TUI: pykickstart_constants.DISPLAY_MODE_TEXT,
-        constants.DISPLAY_MODE_NONINTERACTIVE_TUI: pykickstart_constants.DISPLAY_MODE_CMDLINE
+        constants.DisplayModes.GUI: pykickstart_constants.DISPLAY_MODE_GRAPHICAL,
+        constants.DisplayModes.TUI: pykickstart_constants.DISPLAY_MODE_TEXT
     }
     ksdata.displaymode.displayMode = display_mode_coversion_table[anaconda.display_mode]
+    ksdata.displaymode.nonInteractive = not anaconda.interactive_mode
 
     # if we're in text mode, the resulting system should be too
     # ...unless the kickstart specified otherwise

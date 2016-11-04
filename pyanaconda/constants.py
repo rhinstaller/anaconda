@@ -21,6 +21,8 @@
 import string # pylint: disable=deprecated-module
 from pyanaconda.i18n import N_
 
+from enum import Enum
+
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
 
@@ -201,21 +203,7 @@ NTP_SERVER_OK = 0
 NTP_SERVER_NOK = 1
 NTP_SERVER_QUERY = 2
 
-DISPLAY_MODE_GUI = "g"
-DISPLAY_MODE_TUI = "t"
-DISPLAY_MODE_NONINTERACTIVE_TUI = "c"
-
-DISPLAY_MODE_NAMES = {
-    DISPLAY_MODE_GUI: "GUI",
-    DISPLAY_MODE_TUI: "TUI",
-    DISPLAY_MODE_NONINTERACTIVE_TUI: "noninteractive TUI",
-}
-
-TEXT_DISPLAY_MODES = {
-    DISPLAY_MODE_TUI,
-    DISPLAY_MODE_NONINTERACTIVE_TUI
-}
-
-NON_INTERACTIVE_DISPLAY_MODES = {
-    DISPLAY_MODE_NONINTERACTIVE_TUI
-}
+# Display modes
+class DisplayModes(Enum):
+    GUI = "GUI"
+    TUI = "TUI"

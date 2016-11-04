@@ -41,7 +41,7 @@ class CommandVersionTestCase(BaseTestCase):
         """Test that anaconda uses the right versions of kickstart commands"""
         from pykickstart import commands
         # place here unsupported commands, these commands will be skipped
-        ignore_cmd_list = [commands.displaymode.F26_DisplayMode]
+        ignore_cmd_list = []
 
         for (commandName, commandObj) in self._commandMap.items():
             pykickstartClass = self.handler.commands[commandName].__class__

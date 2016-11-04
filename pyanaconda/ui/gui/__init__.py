@@ -32,6 +32,7 @@ gi.require_version("GObject", "2.0")
 
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
 
+from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_
 from pyanaconda.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product, iutil, constants
@@ -40,6 +41,7 @@ from pyanaconda import threads
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once, unbusyCursor
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
+from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda import ihelp
 import os.path
 
@@ -805,9 +807,13 @@ class GraphicalUserInterface(UserInterface):
         # If we are doing a kickstart install, some standalone spokes
         # could already be filled out.  In that case, we do not want
         # to display them.
-        if self._is_standalone(obj) and obj.completed:
-            del(obj)
-            return None
+        if self._is_standalone(obj):
+            if obj.completed:
+                del(obj)
+                return None
+            elif flags.automatedInstall:
+                autoinstall_stopped("User interaction required on standalone spoke %s" %
+                                    obj.__class__.__name__)
 
         # Use connect_after so classes can add actions before we change screens
         obj.window.connect_after("continue-clicked", self._on_continue_clicked)

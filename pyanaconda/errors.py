@@ -17,10 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from pyanaconda.i18n import _, C_
+from pyanaconda.flags import flags
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
-           "MediaMountError", "ScriptError", "CmdlineError",
+           "MediaMountError", "ScriptError", "CmdlineError", "NonInteractiveError",
            "errorHandler"]
 
 class InvalidImageSizeError(Exception):
@@ -47,7 +48,10 @@ class ScriptError(Exception):
         self.lineno = lineno
         self.details = details
 
-class CmdlineError(Exception):
+class NonInteractiveError(Exception):
+    pass
+
+class CmdlineError(NonInteractiveError):
     pass
 
 class RemovedModuleError(ImportError):
@@ -296,6 +300,9 @@ class ErrorHandler(object):
 
         if not self.ui:
             raise exn
+
+        if not flags.ksprompt:
+            raise NonInteractiveError("Non interactive installation failed: %s" % exn)
 
         _map = {"PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,

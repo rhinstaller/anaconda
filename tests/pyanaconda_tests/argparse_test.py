@@ -19,6 +19,7 @@
 
 from pyanaconda import anaconda_argparse
 from pyanaconda.flags import BootArgs
+from pyanaconda.constants import DisplayModes
 import unittest
 
 class ArgparseTest(unittest.TestCase):
@@ -29,21 +30,28 @@ class ArgparseTest(unittest.TestCase):
 
     def display_mode_test(self):
         opts, _deprecated = self._parseCmdline(['--cmdline'])
-        self.assertEqual(opts.display_mode, 'c')
+        self.assertEqual(opts.display_mode, DisplayModes.TUI)
+        self.assertTrue(opts.noninteractive)
 
         opts, _deprecated = self._parseCmdline(['--graphical'])
-        self.assertEqual(opts.display_mode, 'g')
+        self.assertEqual(opts.display_mode, DisplayModes.GUI)
+        self.assertFalse(opts.noninteractive)
 
         opts, _deprecated = self._parseCmdline(['--text'])
-        self.assertEqual(opts.display_mode, 't')
+        self.assertEqual(opts.display_mode, DisplayModes.TUI)
+        self.assertFalse(opts.noninteractive)
+
+        opts, _deprecated = self._parseCmdline(['--noninteractive'])
+        self.assertTrue(opts.noninteractive)
 
         # Test the default
         opts, _deprecated = self._parseCmdline([])
-        self.assertEqual(opts.display_mode, 'g')
+        self.assertEqual(opts.display_mode, DisplayModes.GUI)
+        self.assertFalse(opts.noninteractive)
 
         # console=whatever in the boot args defaults to --text
         opts, _deprecated = self._parseCmdline([], boot_cmdline=BootArgs("console=/dev/ttyS0"))
-        self.assertEqual(opts.display_mode, 't')
+        self.assertEqual(opts.display_mode, DisplayModes.TUI)
 
     def selinux_test(self):
         from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
