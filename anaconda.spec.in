@@ -324,6 +324,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 04 2016 Martin Kolman <mkolman@redhat.com> - 26.10-1
+- F26_DisplayMode was added by non-interactive mode (jkonecny)
+- Fix pyanaconda tests for display mode (jkonecny)
+- Fix parse-dracut to support new kickstart displaymode (jkonecny)
+- Add boot option inst.noninteractive to the docs (jkonecny)
+- Abort installation when Playload exc rise in a NonInteractive mode (jkonecny)
+- Support non interactive mode in standalone spokes (jkonecny)
+- Non-interactive mode support for Password and User spokes (jkonecny)
+- Raise NonInteractive exception in Hubs event loop (jkonecny)
+- Raise exception for noninteractive mode in Hub (jkonecny)
+- Add new pykickstart noninteractive mode (jkonecny)
+- Disable bad kickstart command on F25 (jkonecny)
+- Improve DNF error message to be more understandable (jkonecny)
+- tui: Add software group selection (vponcova)
+- use blivet iSCSI singleton directly in storage spoke (awilliam)
+- Correct deviceLinks to device_links (blivet renamed it) (awilliam)
+- Instantiate the zFCP object ourselves now. (#1384532) (sbueno+anaconda)
+- Fix the way DASD list is determined. (#1384532) (sbueno+anaconda)
+- Add tests for payload location picking (#1328151) (jkonecny)
+- Fix picking mountpoint for package download (#1328151) (jkonecny)
+- Improve packaging logs without DEBUG logging (jkonecny)
+
 * Tue Oct 25 2016 Martin Kolman <mkolman@redhat.com> - 26.9-1
 - Move the collect() function to iutil (mkolman)
 - Update messiness level (mkolman)
