@@ -27,8 +27,28 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+from pyanaconda.flags import flags
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui.utils import timed_action
+from pyanaconda.errors import NonInteractiveError
+
+import logging
+log = logging.getLogger("anaconda")
+
+
+def autoinstall_stopped(reason):
+    """ Reaction on stop of automatic kickstart installation
+
+        Log why the installation stopped and raise the NonInteractiveError in
+        non interactive mode.
+
+        :param data: Kickstart data object.
+        :param reason: Why the automatic kickstart installation stopped.
+    """
+    log.info("kickstart installation stopped for info: %s", reason)
+    if not flags.ksprompt:
+        raise NonInteractiveError("Non interactive installation failed: %s" % reason)
+
 
 class GUIInputCheck(InputCheck):
     """ Add timer awareness to an InputCheck.

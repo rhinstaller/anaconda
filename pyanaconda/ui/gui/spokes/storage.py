@@ -66,6 +66,7 @@ from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError
 from blivet.platform import platform
+from blivet.iscsi import iscsi
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -352,7 +353,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 iscsi_devices.append(d)
 
         if iscsi_devices:
-            self.data.iscsiname.iscsiname = self.storage.iscsi.initiator
+            self.data.iscsiname.iscsiname = iscsi.initiator
             # Remove the old iscsi data information and generate new one
             self.data.iscsi.iscsi = []
             for device in iscsi_devices:
@@ -415,8 +416,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         iscsi_data.target = dev_node.name
         iscsi_data.port = dev_node.port
         # Bind interface to target
-        if self.storage.iscsi.ifaces:
-            iscsi_data.iface = self.storage.iscsi.ifaces[dev_node.iface]
+        if iscsi.ifaces:
+            iscsi_data.iface = iscsi.ifaces[dev_node.iface]
 
         auth = dev_node.getAuth()
         if auth:
@@ -690,8 +691,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if len(self.disks) == 1 and not self.selected_disks:
             applyDiskSelection(self.storage, self.data, [self.disks[0].name])
 
-        self._ready = True
-        hubQ.send_ready(self.__class__.__name__, False)
+        # do not set ready in automated install before execute is run
+        if flags.automatedInstall:
+            self.execute()
+        else:
+            self._ready = True
+            hubQ.send_ready(self.__class__.__name__, False)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
