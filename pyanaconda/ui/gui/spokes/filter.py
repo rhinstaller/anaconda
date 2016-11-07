@@ -146,7 +146,7 @@ class FilterPage(object):
         # identifier, but blivet doesn't expose that in any useful way and I don't
         # want to go asking udev.  Instead, we dig around in the deviceLinks and
         # default to the name if we can't figure anything else out.
-        for link in disk.deviceLinks:
+        for link in disk.device_links:
             if "by-path" in link:
                 lastSlash = link.rindex("/")+1
                 return link[lastSlash:]
@@ -380,7 +380,7 @@ class OtherPage(FilterPage):
         elif filterBy == self.SEARCH_TYPE_INTERCONNECT:
             return device.bus == self._icCombo.get_active_text()
         elif filterBy == self.SEARCH_TYPE_ID:
-            for link in device.deviceLinks:
+            for link in device.device_links:
                 if "by-path" in link:
                     return self._idEntry.get_text().strip() in link
 
