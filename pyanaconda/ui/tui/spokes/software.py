@@ -229,11 +229,8 @@ class SoftwareSpoke(NormalTUISpoke):
         right = [_prep(i, w) for i, w in enumerate(displayed) if i > mid]
 
         cw = ColumnWidget([(38, left), (38, right)], 2)
+        self._window += [TextWidget(msg), "", cw, ""]
 
-        self._window.append(TextWidget(msg))
-        self._window.append(TextWidget(""))
-        self._window.append(cw)
-        self._window.append(TextWidget(""))
         return True
 
     def input(self, args, key):

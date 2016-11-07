@@ -18,6 +18,8 @@
 #
 
 # pylint: disable=wildcard-import
-from pyanaconda.ui.tui.simpleline.base import *
-# pylint: disable=wildcard-import
 from pyanaconda.ui.tui.simpleline.widgets import *
+# pylint: disable=wildcard-import
+from pyanaconda.ui.tui.simpleline.prompt import *
+# pylint: disable=wildcard-import
+from pyanaconda.ui.tui.simpleline.base import *

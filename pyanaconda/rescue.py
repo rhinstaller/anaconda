@@ -26,7 +26,7 @@ from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget, App
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget, App, Prompt
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
 from pyanaconda.storage_utils import try_populate_devicetree
@@ -141,7 +141,7 @@ class RescueMode(NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
-        return _("Please make a selection from the above:  ")
+        return Prompt()
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
@@ -289,11 +289,12 @@ class RootSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
-        return _("Please make your selection from the above list.\nPress '%(continue)s' "
-                 "to continue after you have made your selection.  ") % {
+        return Prompt(
+                 _("Please make your selection from the above list.\n"
+                   "Press '%(continue)s' to continue after you have made your selection") % {
                      # TRANSLATORS:'c' to continue
                      'continue': C_('TUI|Root Selection', 'c'),
-                 }
+                   })
 
     def input(self, args, key):
         """Move along home."""
@@ -433,7 +434,7 @@ class RescueMountSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
-        return _("Please press [Enter] to get a shell. ")
+        return Prompt(_("Please press %s to get a shell") % Prompt.ENTER)
 
     def input(self, args, key):
         """Move along home."""

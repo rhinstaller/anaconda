@@ -97,7 +97,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         right = [_prep(i, w) for i, w in enumerate(displayed) if i > 2*middle]
 
         c = ColumnWidget([(24, left), (24, center), (24, right)], 3)
-        self._window.append(c)
+        self._window += [c, ""]
 
         return True
 
@@ -125,15 +125,12 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             return key
 
     def prompt(self, args=None):
-        """ Override default prompt with a custom prompt. """
-        return _("Please select language support to install.\n['%(back)s' to return to language list, '%(continue)s' to continue, '%(quit)s' to quit]: ") % {
-            # TRANSLATORS: 'b' to go back
-            'back': C_('TUI|Spoke Navigation|Language Support', 'b'),
-            # TRANSLATORS:'c' to continue
-            'continue': C_('TUI|Spoke Navigation|Language Support', 'c'),
-            # TRANSLATORS:'q' to quit
-            'quit': C_('TUI|Spoke Navigation|Language Support', 'q')
-        }
+        """ Customize default prompt. """
+        prompt = NormalTUISpoke.prompt(self, args)
+        prompt.set_message(_("Please select language support to install"))
+        # TRANSLATORS: 'b' to go back
+        prompt.add_option(C_("TUI|Spoke Navigation|Language Support", "b"), _("to return to language list"))
+        return prompt
 
     def apply(self):
         """ Store the selected langsupport locales """
