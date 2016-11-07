@@ -325,6 +325,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 07 2016 Martin Kolman <mkolman@redhat.com> - 25.20.7-1
+- Merge pull request #857 from snbueno/1335046-f25 (martin.kolman)
+- Bump required Blivet version (#1378156) (mkolman)
+- Merge pull request #862 from jkonecny12/f25-dev-fix-iscsi-timeout (jkonecny)
+- Merge pull request #850 from AdamWill/iscsi-node-auth (jkonecny)
+- Fix bad exception handling from blivet in iscsi (#1378156) (jkonecny)
+- iSCSI: adjust to change in blivet auth info (#1378156) (awilliam)
+- Add some error checking when users don't provide input for DASD devices.
+  (sbueno+anaconda)
+- Add some error checking when users don't provide input for zFCP devices.
+  (sbueno+anaconda)
+- Merge pull request #846 from jkonecny12/f25-rel-fix-mock (jkonecny)
+- Merge pull request #849 from AdamWill/iscsi-singleton (jkonecny)
+- Merge pull request #848 from AdamWill/device-links (jkonecny)
+- use blivet iSCSI singleton directly in storage spoke (awilliam)
+- Correct deviceLinks to device_links (blivet renamed it) (awilliam)
+- Change mock from Rawhide to Fedora 25 (jkonecny)
+
 * Fri Oct 28 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 25.20.6-1
 - Merge pull request #847 from snbueno/1384532-v02 (snbueno)
 - Merge pull request #845 from poncovka/f25-devel-tui_software_group_selection
