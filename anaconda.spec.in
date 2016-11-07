@@ -223,7 +223,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
-* Fri Oct 21 2016  <> - 13.21.255-1
+* Mon Nov 07 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.256-1
+- Fix the basis for percentage-based growth of LVs. (dlehman)
+  Resolves: rhbz#1383817
+
+* Fri Oct 21 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.255-1
 - Keep symlinks to thin_* tools in /sbin (mkolman)
   Resolves: rhbz#1350296
 - network: fix static ipv6 config with static gateway (rvykydal)
