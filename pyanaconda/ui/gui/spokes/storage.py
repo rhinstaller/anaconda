@@ -419,14 +419,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if iscsi.ifaces:
             iscsi_data.iface = iscsi.ifaces[dev_node.iface]
 
-        auth = dev_node.getAuth()
-        if auth:
-            if auth.username and auth.password:
-                iscsi_data.user = auth.username
-                iscsi_data.password = auth.password
-            if auth.reverse_username and auth.reverse_password:
-                iscsi_data.user_in = auth.reverse_username
-                iscsi_data.password_in = auth.reverse_password
+        if dev_node.username and dev_node.password:
+            iscsi_data.user = dev_node.username
+            iscsi_data.password = dev_node.password
+        if dev_node.r_username and dev_node.r_password:
+            iscsi_data.user_in = dev_node.r_username
+            iscsi_data.password_in = dev_node.r_password
         return iscsi_data
 
     @property
