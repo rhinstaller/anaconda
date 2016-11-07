@@ -148,6 +148,11 @@ class ZFCPDialog(GUIObject):
         except ValueError as e:
             self._discoveryError = str(e)
             return
+        except TypeError as e:
+            # this happens when a user doesn't pass any input, so pass a more
+            # informative error str back
+            self._discoveryError = "You must enter values for the device."
+            return
 
     def on_entry_activated(self, entry, user_data=None):
         # When an entry is activated, press the discover or retry button
