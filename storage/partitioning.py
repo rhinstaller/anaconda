@@ -1817,12 +1817,13 @@ def growLVM(storage):
                 Percentages for thin volumes are relative to the free space in
                 the pool -- not the whole vg.
             """
+            orig_free = free
             for lv in lvs:
                 if not lv.req_grow or not lv.req_percent:
                     continue
 
                 portion = (lv.req_percent * 0.01)
-                grow = portion * free
+                grow = portion * orig_free
                 new_size = lv.req_size + grow
                 if lv.req_max_size and new_size > lv.req_max_size:
                     grow -= (new_size - lv.req_max_size)
