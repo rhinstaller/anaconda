@@ -325,6 +325,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 08 2016 Martin Kolman <mkolman@redhat.com> - 25.20.8-1
+- Merge pull request #863 from AdamWill/relax-blivet-dep (martin.kolman)
+- Relax blivet dependency to >= 2.1.6-3 (awilliam)
+
 * Mon Nov 07 2016 Martin Kolman <mkolman@redhat.com> - 25.20.7-1
 - Merge pull request #857 from snbueno/1335046-f25 (martin.kolman)
 - Bump required Blivet version (#1378156) (mkolman)
