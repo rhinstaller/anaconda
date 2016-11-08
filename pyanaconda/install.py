@@ -130,8 +130,17 @@ def doConfiguration(storage, payload, ksdata, instClass):
     else:
         _writeKS(ksdata)
 
-    # write out the user interaction config file
-    screen_access.sam.write_out_config_file()
+    # Write out the user interaction config file.
+    #
+    # But make sure it's not written out in the image and directory installation mode,
+    # as that might result in spokes being inadvertedly hidden when the actual installation
+    # startes from the generate image or directory contents.
+    if flags.flags.imageInstall:
+        log.info("Not writing out user interaction config file due to image install mode.")
+    elif flags.flags.dirInstall:
+        log.info("Not writing out user interaction config file due to directory install mode.")
+    else:
+        screen_access.sam.write_out_config_file()
 
     progress_complete()
 

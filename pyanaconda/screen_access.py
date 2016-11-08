@@ -41,6 +41,7 @@ from threading import RLock
 
 from pyanaconda import startup_utils
 from pyanaconda import iutil
+from pyanaconda.flags import can_touch_runtime_system
 
 
 class ScreenAccessManager(object):
@@ -56,10 +57,20 @@ class ScreenAccessManager(object):
         self._lock = RLock()
         self._config = ConfigParser(delimiters=("="), comment_prefixes=("#"))
 
-    def open_config_file(self, config_path=CONFIG_FILE_PATH):
+    def open_config_file(self, config_path=None):
         """Try to open an existing config file."""
         with self._lock:
-            if os.path.exists(config_path):
+            # Don't load the user interaction config from
+            # default path if no path is specified in image or
+            # directory installation modes.
+            # The config would be taken from the host system,
+            # which is certainly not what we would want to happen.
+            # But load the config if a path is specified,
+            # so that it is possible to hide spokes in
+            # image and directory installation modes.
+            if config_path is None and can_touch_runtime_system(touch_live=True):
+                config_path = CONFIG_FILE_PATH
+            if config_path and os.path.exists(config_path):
                 log.info("parsing existing user interaction config file in %s", config_path)
                 with open(config_path, "rt") as f:
                     self._config.read_file(f)
