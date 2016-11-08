@@ -136,6 +136,11 @@ class DASDDialog(GUIObject):
         except blockdev.S390Error as err:
             self._discoveryError = str(err)
             return
+        except TypeError as err:
+            # this happens when a user doesn't pass any input, so pass a more
+            # informative error str back
+            self._discoveryError = "You must enter values for the device."
+            return
 
     def on_device_entry_activate(self, entry, user_data=None):
         # If the user hit Enter while the start button is displayed, activate
