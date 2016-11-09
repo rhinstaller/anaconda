@@ -32,7 +32,7 @@ import traceback
 import blivet.errors
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
+from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED, DisplayModes
 from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
@@ -72,7 +72,7 @@ class AnacondaReverseExceptionDump(ReverseExceptionDump):
 
 class AnacondaExceptionHandler(ExceptionHandler):
 
-    def __init__(self, confObj, intfClass, exnClass, tty_num, gui_lock, interactive):
+    def __init__(self, confObj, intfClass, exnClass, tty_num, gui_lock, interactive, display_mode):
         """
         :see: python-meh's ExceptionHandler
         :param tty_num: the number of tty the interface is running on
@@ -83,6 +83,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         self._gui_lock = gui_lock
         self._intf_tty_num = tty_num
         self._interactive = interactive
+        self._display_mode = display_mode
 
     def _main_loop_handleException(self, dump_info):
         """
@@ -160,27 +161,24 @@ class AnacondaExceptionHandler(ExceptionHandler):
             # X not running (Gtk cannot be initialized)
             if threadMgr.in_main_thread():
                 log.debug("In the main thread, running exception handler")
-                if issubclass(ty, NonInteractiveError) or not self._interactive:
-                    if issubclass(ty, NonInteractiveError):
-                        cmdline_error_msg = _("\nThe installation was stopped due to "
-                                              "incomplete spokes detected while running "
-                                              "in non-interactive cmdline mode. Since there "
-                                              "cannot be any questions in cmdline mode, "
-                                              "edit your kickstart file and retry "
-                                              "installation.\nThe exact error message is: "
-                                              "\n\n%s.\n\nThe installer will now terminate.") % str(value)
-                    else:
-                        cmdline_error_msg = _("\nRunning in cmdline mode, no interactive debugging "
-                                              "allowed.\nThe exact error message is: "
-                                              "\n\n%s.\n\nThe installer will now terminate.") % str(value)
-
-                    # since there is no UI in cmdline mode and it is completely
-                    # non-interactive, we can't show a message window asking the user
-                    # to acknowledge the error; instead, print the error out and sleep
-                    # for a few seconds before exiting the installer
-                    print(cmdline_error_msg)
-                    time.sleep(10)
-                    sys.exit(1)
+                if self._display_mode == DisplayModes.NUI:
+                    self.handleNonInteractiveException(
+                        _("\nUnexpected error has occurred."
+                          "\nFailed!"))
+                elif issubclass(ty, NonInteractiveError):
+                    self.handleNonInteractiveException(
+                        _("\nThe installation was stopped due to "
+                          "incomplete spokes detected while running "
+                          "in non-interactive cmdline mode. Since there "
+                          "cannot be any questions in cmdline mode, "
+                          "edit your kickstart file and retry "
+                          "installation.\nThe exact error message is: "
+                          "\n\n%s.\n\nThe installer will now terminate.") % str(value))
+                elif not self._interactive:
+                    self.handleNonInteractiveException(
+                        _("\nRunning in cmdline mode, no interactive debugging "
+                          "allowed.\nThe exact error message is: "
+                          "\n\n%s.\n\nThe installer will now terminate.") % str(value))
                 else:
                     print("\nAn unknown error has occured, look at the "
                            "/tmp/anaconda-tb* file(s) for more details")
@@ -196,6 +194,15 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 hubQ.send_exception((exc_info.type,
                                      exc_info.value,
                                      exc_info.stack))
+
+    def handleNonInteractiveException(self, msg):
+        # since there is no UI in cmdline mode and it is completely
+        # non-interactive, we can't show a message window asking the user
+        # to acknowledge the error; instead, print the error out and sleep
+        # for a few seconds before exiting the installer
+        time.sleep(10)
+        print(msg)
+        sys.exit(1)
 
     def postWriteHook(self, dump_info):
         anaconda = dump_info.object
@@ -296,7 +303,8 @@ def initExceptionHandling(anaconda):
 
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        AnacondaReverseExceptionDump, anaconda.intf.tty_num,
-                                       anaconda.gui_initialized, anaconda.interactive_mode)
+                                       anaconda.gui_initialized, anaconda.interactive_mode,
+                                       anaconda.display_mode)
     handler.install(anaconda)
 
     return conf

@@ -207,3 +207,4 @@ NTP_SERVER_QUERY = 2
 class DisplayModes(Enum):
     GUI = "GUI"
     TUI = "TUI"
+    NUI = "NUI"

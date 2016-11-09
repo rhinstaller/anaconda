@@ -1,4 +1,4 @@
-# Copyright (C) 2011, 2012  Red Hat, Inc.
+# Copyright (C) 2011  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -12,11 +12,12 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-SUBDIRS = categories gui lib tui nui validators
+#
+# Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
 
 MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = $(srcdir)/*.py
+validatorsdir        = $(pkgpyexecdir)/ui/validators
+validators_PYTHON    = $(srcdir)/*.py

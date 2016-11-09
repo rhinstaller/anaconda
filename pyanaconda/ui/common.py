@@ -21,6 +21,7 @@ from abc import ABCMeta, abstractproperty
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda import screen_access
+from pyanaconda.flags import flags
 from pyanaconda.iutil import collect
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
@@ -113,22 +114,7 @@ class FirstbootSpokeMixIn(object):
            It might be called multiple times, with or without (None)
            the data argument.
         """
-
-        if environment == ANACONDA_ENVIRON:
-            return True
-        elif environment == FIRSTBOOT_ENVIRON and data is None:
-            # cannot decide, stay in the game and let another call with data
-            # available (will come) decide
-            return True
-        elif environment == FIRSTBOOT_ENVIRON and \
-                data and data.firstboot.firstboot == FIRSTBOOT_RECONFIG:
-            # generally run spokes in firstboot only if doing reconfig, spokes
-            # that should run even if not doing reconfig should override this
-            # method
-            return True
-        else:
-            return False
-
+        return check_environment_firstboot(data)
 
 class FirstbootOnlySpokeMixIn(object):
     """This MixIn class marks Spokes as usable for Firstboot."""
@@ -143,14 +129,7 @@ class FirstbootOnlySpokeMixIn(object):
            It might be called multiple times, with or without (None)
            the data argument.
         """
-
-        if environment == FIRSTBOOT_ENVIRON:
-            # firstboot only spokes should run in firstboot by default, spokes
-            # that should run even if not doing reconfig should override this
-            # method
-            return True
-        else:
-            return False
+        return check_environment_firstboot_only(data)
 
 class Spoke(object, metaclass=ABCMeta):
     """A Spoke is a single configuration screen.  There are several different
@@ -680,3 +659,32 @@ def collectCategoriesAndSpokes(paths, klass, displaymode):
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
 
     return ret
+
+def check_environment_firstboot(data, anaconda_check=True, firstboot_check=True, firstboot_data_check=True):
+    """Returns true if it is the expected environment."""
+
+    if ANACONDA_ENVIRON in flags.environs and anaconda_check:
+        return True
+    elif FIRSTBOOT_ENVIRON in flags.environs and firstboot_check:
+        if data is None:
+            # cannot decide, stay in the game and let another call with data
+            # available (will come) decide
+            return True
+        elif data.firstboot.firstboot == FIRSTBOOT_RECONFIG and firstboot_data_check:
+            # generally run spokes in firstboot only if doing reconfig, spokes
+            # that should run even if not doing reconfig should override this
+            # method
+            return True
+
+        return False
+
+def check_environment_firstboot_only(data, firstboot_check=True):
+    """Returns true if it is the expected environment."""
+
+    if FIRSTBOOT_ENVIRON in flags.environs and firstboot_check:
+        # firstboot only spokes should run in firstboot by default, spokes
+        # that should run even if not doing reconfig should override this
+        # method
+        return True
+    else:
+        return False

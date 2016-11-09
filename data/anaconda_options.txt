@@ -14,6 +14,11 @@ text
 Force text mode installation. This also implies that the installed system will boot up in text mode
 instead of to the graphical login screen.
 
+noui
+Force installation with no user interface. This mode is noninteractive and provides minimum information
+about the installation. All options must be specified either in a kickstart file or on the command line.
+If all required options are not specified or correct, the installation will terminate immediately.
+
 proxy
 Use the given proxy settings when performing an installation from a HTTP/HTTPS/FTP source.
 The PROXY_URL can be specified like this: [PROTOCOL://][USERNAME[:PASSWORD]@]HOST[:PORT]
