@@ -61,8 +61,10 @@ class BaseInstallClass(object):
     # help
     help_folder = "/usr/share/anaconda/help"
     help_main_page = "Installation_Guide.xml"
+    help_main_page_plain_text = "Installation_Guide.txt"
     help_placeholder = None
     help_placeholder_with_links = None
+    help_placeholder_plain_text = None
 
     # path to the installclass stylesheet, if any
     stylesheet = None

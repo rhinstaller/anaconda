@@ -16,11 +16,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda import ihelp
+from pyanaconda.constants_text import INPUT_PROCESSED, INPUT_DISCARDED
 from pyanaconda.ui.tui import simpleline as tui
-from pyanaconda.ui.tui.tuiobject import TUIObject
+from pyanaconda.ui.tui.tuiobject import TUIObject, HelpScreen
 from pyanaconda.ui import common
 
-from pyanaconda.i18n import _, C_, N_
+from pyanaconda.i18n import _, N_
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
@@ -102,17 +104,23 @@ class TUIHub(TUIObject, common.Hub):
         try:
             number = int(key)
             self.app.switch_screen_with_return(self._keys[number])
-            return None
+            return INPUT_PROCESSED
 
         except (ValueError, KeyError):
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
             # TRANSLATORS: 'c' to continue
-            if key == C_('TUI|Spoke Navigation', 'c'):
+            if key == tui.Prompt.CONTINUE:
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
-                        return False
+                        return INPUT_DISCARDED
+            # TRANSLATORS: 'h' to help
+            elif key == tui.Prompt.HELP:
+                if self.has_help:
+                    help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
+                    self.app.switch_screen_modal(HelpScreen(self.app, help_path))
+                    return INPUT_PROCESSED
             return key
 
     def prompt(self, args=None):
@@ -131,5 +139,8 @@ class TUIHub(TUIObject, common.Hub):
 
         if self._spoke_count == 1:
             prompt.add_option("1", _("to enter the %(spoke_title)s spoke") % list(self._spokes.values())[0].title)
+
+        if self.has_help:
+            prompt.add_help_option()
 
         return prompt

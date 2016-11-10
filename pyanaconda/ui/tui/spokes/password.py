@@ -30,6 +30,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
           :parts: 3
     """
     title = N_("Root password")
+    helpFile = "PasswordSpoke.txt"
     category = UserSettingsCategory
 
     def __init__(self, app, data, storage, payload, instclass):

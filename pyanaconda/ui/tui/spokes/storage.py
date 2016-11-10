@@ -67,6 +67,7 @@ class StorageSpoke(NormalTUISpoke):
           :parts: 3
     """
     title = N_("Installation Destination")
+    helpFile = "StorageSpoke.txt"
     category = SystemCategory
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -306,7 +307,7 @@ class StorageSpoke(NormalTUISpoke):
                     self.close()
                 return INPUT_PROCESSED
             else:
-                return key
+                return super(StorageSpoke, self).input(args, key)
 
     def run_dasdfmt(self, to_format):
         """
@@ -507,7 +508,7 @@ class AutoPartSpoke(NormalTUISpoke):
                 self.close()
                 return INPUT_PROCESSED
             else:
-                return key
+                return super(AutoPartSpoke, self).input(args, key)
 
         if 0 <= keyid < len(self.parttypelist):
             self.clearPartType = PARTTYPES[self.parttypelist[keyid]]
@@ -556,7 +557,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
                 self.close()
                 return INPUT_PROCESSED
             else:
-                return key
+                return super(PartitionSchemeSpoke, self).input(args, key)
 
         if 0 <= keyid < len(self.partschemes):
             self._selection = keyid

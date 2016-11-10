@@ -47,6 +47,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
           :parts: 3
     """
     title = N_("Network configuration")
+    helpFile = "NetworkSpoke.txt"
     category = SystemCategory
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -180,7 +181,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         try:
             num = int(key)
         except ValueError:
-            return key
+            return super(NetworkSpoke, self).input(args, key)
 
         if num == 1:
             # set hostname

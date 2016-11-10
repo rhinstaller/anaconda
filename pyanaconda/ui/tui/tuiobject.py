@@ -18,6 +18,7 @@
 #
 import sys
 from pyanaconda import iutil, constants
+from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.ui import common
 from pyanaconda.ui.tui import simpleline as tui
@@ -155,11 +156,50 @@ class YesNoDialog(tui.UIScreen):
         """The response can be True (yes), False (no) or None (no response)."""
         return self._response
 
+
+class HelpScreen(tui.UIScreen):
+    """Screen to display a help message."""
+
+    title = N_("Help")
+
+    def __init__(self, app, help_path):
+        """
+        :param app: the running application reference
+        :type app: instance of App class
+
+        :param help_path: help file name
+        :type help_path: str
+        """
+        tui.UIScreen.__init__(self, app)
+        self.help_path = help_path
+
+    def refresh(self, args=None):
+        """ Show the help. """
+        tui.UIScreen.refresh(self, args)
+        help_message = _("The help is not available.")
+
+        if self.help_path:
+            with open(self.help_path, 'r') as f:
+                help_message = f.read()
+
+        self._window += [tui.TextWidget(help_message), ""]
+        return True
+
+    def input(self, args, key):
+        """ Handle user input. """
+        self.close()
+        return INPUT_PROCESSED
+
+    def prompt(self, args=None):
+        return tui.Prompt(_("Press %s to return") % tui.Prompt.ENTER)
+
+
 class TUIObject(tui.UIScreen, common.UIObject):
     """Base class for Anaconda specific TUI screens. Implements the
     common pyanaconda.ui.common.UIObject interface"""
 
     title = u"Default title"
+    helpFile = None
 
     def __init__(self, app, data):
         tui.UIScreen.__init__(self, app)
@@ -168,6 +208,10 @@ class TUIObject(tui.UIScreen, common.UIObject):
     @property
     def showable(self):
         return True
+
+    @property
+    def has_help(self):
+        return self.helpFile is not None
 
     def refresh(self, args=None):
         """Put everything to display into self.window list."""

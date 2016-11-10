@@ -104,7 +104,7 @@ class AskVNCSpoke(NormalTUISpoke):
                 else:
                     sys.exit(1)
         else:
-            return key
+            return super(AskVNCSpoke, self).input(args, key)
 
     def apply(self):
         self.data.vnc.enabled = self._usevnc

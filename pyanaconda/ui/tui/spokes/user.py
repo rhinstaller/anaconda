@@ -36,6 +36,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
           :parts: 3
     """
     title = N_("User creation")
+    helpFile = "UserSpoke.txt"
     category = UserSettingsCategory
 
     edit_fields = [
@@ -142,8 +143,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             elif field.attribute == "_groups":
                 self.dialog.wrong_input_message = _("Either a group name in the group list is invalid or groups are not separated by a comma")
 
-
-        return EditTUISpoke.input(self, args, key)
+        return super(UserSpoke, self).input(args, key)
 
     def apply(self):
         if self.args.gecos and not self.args.name:
