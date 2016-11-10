@@ -42,11 +42,11 @@ class ErrorDialog(tui.UIScreen):
     def refresh(self, args=None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
-        self._window.append(tui.CenterWidget(text))
+        self._window += [tui.CenterWidget(text), ""]
         return True
 
     def prompt(self, args=None):
-        return _("Press Enter to exit.")
+        return tui.Prompt(_("Press %s to exit") % tui.Prompt.ENTER)
 
     def input(self, args, key):
         """This dialog is closed by any input.
@@ -75,8 +75,7 @@ class PasswordDialog(tui.UIScreen):
     def refresh(self, args=None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
-        self._window.append(tui.CenterWidget(text))
-        self._window.append(u"")
+        self._window += [tui.CenterWidget(text), ""]
         return True
 
     def prompt(self, args=None):
@@ -124,17 +123,16 @@ class YesNoDialog(tui.UIScreen):
     def refresh(self, args=None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
-        self._window.append(tui.CenterWidget(text))
-        self._window.append(u"")
+        self._window += [tui.CenterWidget(text), ""]
         return True
 
     def prompt(self, args=None):
-        return _("Please respond '%(yes)s' or '%(no)s': ") % {
+        return tui.Prompt(_("Please respond '%(yes)s' or '%(no)s'") % {
             # TRANSLATORS: 'yes' as positive reply
             "yes": C_('TUI|Spoke Navigation', 'yes'),
             # TRANSLATORS: 'no' as negative reply
             "no": C_('TUI|Spoke Navigation', 'no')
-        }
+        })
 
     def input(self, args, key):
         # TRANSLATORS: 'yes' as positive reply

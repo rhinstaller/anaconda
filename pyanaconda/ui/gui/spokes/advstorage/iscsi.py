@@ -35,6 +35,7 @@ from pyanaconda.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 from pyanaconda.network import check_ip_address
 
 from blivet.iscsi import iscsi
+from blivet.safe_dbus import SafeDBusError
 
 __all__ = ["ISCSIDialog"]
 
@@ -219,8 +220,8 @@ class ISCSIDialog(GUIObject):
                                                         password=credentials.password,
                                                         r_username=credentials.rUsername,
                                                         r_password=credentials.rPassword)
-        except IOError as e:
-            self._discoveryError = str(e)
+        except SafeDBusError as e:
+            self._discoveryError = str(e).split(':')[-1]
             return
 
         if len(self._discoveredNodes) == 0:

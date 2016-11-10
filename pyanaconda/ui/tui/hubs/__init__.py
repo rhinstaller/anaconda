@@ -91,7 +91,7 @@ class TUIHub(TUIObject, common.Hub):
         right = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 0]
 
         c = tui.ColumnWidget([(39, left), (39, right)], 2)
-        self._window.append(c)
+        self._window += [c, ""]
 
         return True
 
@@ -127,16 +127,9 @@ class TUIHub(TUIObject, common.Hub):
                  to skip further input processing
         :rtype: str|None
         """
+        prompt = super(TUIHub, self).prompt(args)
+
         if self._spoke_count == 1:
-            return _(u"  Please make your choice from [ '1' to enter the %(spoke_title)s spoke | '%(quit)s' to quit |\n"
-                     "  '%(continue)s' to continue | '%(refresh)s' to refresh]: ") % {
-                         'spoke_title': list(self._spokes.values())[0].title,
-                         # TRANSLATORS: 'q' to quit
-                         'quit': C_('TUI|Spoke Navigation', 'q'),
-                         # TRANSLATORS:'c' to continue
-                         'continue': C_('TUI|Spoke Navigation', 'c'),
-                         # TRANSLATORS:'r' to refresh
-                         'refresh': C_('TUI|Spoke Navigation', 'r')
-                     }
-        else:
-            return super(TUIHub, self).prompt(args)
+            prompt.add_option("1", _("to enter the %(spoke_title)s spoke") % list(self._spokes.values())[0].title)
+
+        return prompt

@@ -296,6 +296,8 @@ class DNFPayload(packaging.PackagePayload):
 
         if url and url.startswith("nfs://"):
             (server, path) = url[6:].split(":", 1)
+            # DNF is dynamically creating properties which seems confusing for Pylint here
+            # pylint: disable=no-member
             mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, repo.name)
             self._setupNFS(mountpoint, server, path, None)
 

@@ -21,7 +21,7 @@ import logging
 log = logging.getLogger("anaconda")
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, Prompt
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
 from pyanaconda import ntp
@@ -233,7 +233,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         choices = [_prep(i, w) for i, w in enumerate(text)]
 
         displayed = ColumnWidget([(78, choices)], 1)
-        self._window.append(displayed)
+        self._window += [displayed, ""]
 
         return True
 
@@ -281,7 +281,7 @@ class TimeZoneSpoke(NormalTUISpoke):
         # so whatever
         self._regions = list(timezone.get_all_regions_and_timezones().keys())
         self._timezones = dict((k, sorted(v)) for k, v in timezone.get_all_regions_and_timezones().items())
-        self._lower_regions = [r.lower() for r in self._timezones]
+        self._lower_regions = [r.lower() for r in self._regions]
 
         self._zones = ["%s/%s" % (region, z) for region in self._timezones for z in self._timezones[region]]
         # for lowercase lookup
@@ -314,7 +314,7 @@ class TimeZoneSpoke(NormalTUISpoke):
         right = [_prep(i, w) for i, w in enumerate(displayed) if i > 2 * middle]
 
         c = ColumnWidget([(24, left), (24, center), (24, right)], 3)
-        self._window.append(c)
+        self._window += [c, ""]
 
         return True
 
@@ -367,12 +367,12 @@ class TimeZoneSpoke(NormalTUISpoke):
             return INPUT_PROCESSED
 
     def prompt(self, args=None):
-        return _("Please select the timezone.\nUse numbers or type names directly ['%(back)s' to region list, '%(quit)s' to quit]: ") % {
-            # TRANSLATORS: 'b' to go back
-            'back': C_('TUI|Spoke Navigation|Time Settings', 'b'),
-            # TRANSLATORS:'q' to quit
-            'quit': C_('TUI|Spoke Navigation|Time Settings', 'q')
-        }
+        """ Customize default prompt. """
+        prompt = NormalTUISpoke.prompt(self, args)
+        prompt.set_message(_("Please select the timezone. Use numbers or type names directly"))
+        # TRANSLATORS: 'b' to go back
+        prompt.add_option(C_('TUI|Spoke Navigation|Time Settings', 'b'), _("back to region list"))
+        return prompt
 
     def apply(self):
         self.data.timezone.timezone = self._selection
@@ -421,7 +421,7 @@ class NTPServersSpoke(NormalTUISpoke):
         choices = [_prep(i, w) for i, w in enumerate(text)]
 
         displayed = ColumnWidget([(78, choices)], 1)
-        self._window.append(displayed)
+        self._window += [displayed, ""]
 
         return True
 
@@ -471,7 +471,7 @@ class AddNTPServerSpoke(EditTUIDialog):
     def prompt(self, args=None):
         # the title is enough, no custom prompt is needed
         if self.value is None:  # first run or nothing entered
-            return _("Enter an NTP server address and press Enter\n")
+            return Prompt(_("Enter an NTP server address and press %s") % Prompt.ENTER)
 
         # an NTP server address has been entered
         self._new_ntp_server = self.value

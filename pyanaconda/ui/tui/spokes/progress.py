@@ -28,6 +28,7 @@ from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
+from pyanaconda.ui.tui.simpleline.prompt import Prompt
 
 __all__ = ["ProgressSpoke"]
 
@@ -138,7 +139,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         return True
 
     def prompt(self, args=None):
-        return(_("\tInstallation complete.  Press Enter to quit"))
+        return Prompt(_("Installation complete. Press %s to quit") % Prompt.ENTER)
 
     def input(self, args, key):
         # There is nothing to do here, just raise to exit the spoke
