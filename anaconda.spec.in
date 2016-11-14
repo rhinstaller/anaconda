@@ -281,7 +281,7 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %exclude %{_prefix}/libexec/anaconda/dd_*
-%{python3_sitearch}/pyanaconda/*
+%{python3_sitearch}/pyanaconda
 %exclude %{python3_sitearch}/pyanaconda/rescue.py*
 %exclude %{python3_sitearch}/pyanaconda/__pycache__/rescue.*
 %exclude %{python3_sitearch}/pyanaconda/ui/gui/*
