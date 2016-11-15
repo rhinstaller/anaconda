@@ -49,7 +49,10 @@ ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
+MOCKCHROOT ?= fedora-$(shell echo "$(GIT_BRANCH)" | sed \
+						-e 's/^f//' \
+						-e 's/\(master\|unstable\)/rawhide/'\
+						)-$(shell uname -m)
 
 COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
