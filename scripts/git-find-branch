@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# git-find-branch - We need to have branch specific decision which will be
+#                   based on the main development branches. This script
+#                   will get nearest main branch and return it for others.
+#
+# Copyright (C) 2016  Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
+#
+#
+# There are two ways how find parent branch of this project:
+#
+# 1) When environment variable ANACONDA_TARGET_BRANCH is set, use this
+#    variable as output without any checks. This is for automated tests
+#    mainly.
+# 2) Find all interesting branches for us from Git. Find nearest parent
+#    of checkout branch by comparing nearest commit which is on tested and
+#    checkout branch.
+#
+# Output of this script is name of the nearest base branch without the
+# `-*` suffix.
+#
+#
+# WARNING!
+# This won't work without a merge commit! Git doesn't have any information
+# which branch is the parent without the merge commit, tips of both branches
+# are pointing to the same commit.
+#
+
+
+function compare_commits_by_date() {
+    local time1=$(git show -s --format=%ct $1)
+    local time2=$(git show -s --format=%ct $2)
+
+    if [[ ${time1} -gt ${time2} ]]; then
+        return 1
+    elif [[ ${time1} -lt ${time2} ]]; then
+        return -1
+    else
+        return 0
+    fi
+}
+
+function strip_branch_name {
+    echo ${1%%-*}
+}
+
+# If ANACONDA_TARGET_BRANCH environment variable is set-up use this variable
+# instead
+if [[ "${ANACONDA_TARGET_BRANCH}" != "" ]]; then
+    echo "$(strip_branch_name ${ANACONDA_TARGET_BRANCH})"
+    exit 0
+fi
+
+ACTUAL_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+REMOTE=$(git remote -v | grep "rhinstaller/anaconda.git" | head -n 1 | cut -f 1)
+
+# Find existing Fedora branches
+FED_BRANCHES=$(git branch -a | egrep "${REMOTE}/f[[:digit:]]*-(devel|branch|release)$" | cut -d '/' -f 3)
+# Find existing RHEL branches
+RHEL_BRANCHES=$(git branch -a | egrep "${REMOTE}/rhel[[:digit:]]*-branch$" | cut -d '/' -f 3)
+
+BRANCHES="unstable master ${FED_BRANCHES} ${RHEL_BRANCHES}"
+
+nearest_branch=""
+nearest_br_commit=""
+# Find latest common commit on actual branch and all our branches
+for tested_branch in ${BRANCHES}; do
+    commit="$(git merge-base ${ACTUAL_BRANCH} ${REMOTE}/${tested_branch})"
+    if [[ "${commit}" == "" ]]; then
+        continue
+    elif [[ "${nearest_branch}" == "" ]]; then
+        nearest_branch=${tested_branch}
+        nearest_br_commit="$(git merge-base ${ACTUAL_BRANCH} ${REMOTE}/${tested_branch})"
+    else
+        compare_commits_by_date ${commit} ${nearest_br_commit}
+        if [[ $? -eq 1 ]]; then
+            nearest_branch=${tested_branch}
+            nearest_br_commit="${commit}"
+        fi
+    fi
+done
+
+# Something bad happened
+if [[ "${nearest_branch}" == "" ]]; then
+    echo "Error branch can't be found" >&2
+    exit 1
+fi
+
+echo $(strip_branch_name ${nearest_branch})
