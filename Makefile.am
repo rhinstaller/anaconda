@@ -25,11 +25,11 @@ EXTRA_DIST = COPYING .coveragerc
 # This is needed for make distcheck.
 EXTRA_DIST += $(srcdir)/translation-canary/xgettext_werror.sh
 
-MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
-                       depcomp install-sh ltmain.sh missing ABOUT-NLS \
-                       INSTALL aclocal.m4 configure *.pyc py-compile \
-		       m4/* po/Makefile.in.in po/Rules-quot \
-		       test-driver
+MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
+						depcomp install-sh ltmain.sh missing ABOUT-NLS \
+						INSTALL aclocal.m4 configure *.pyc zanata.xml.in \
+						py-compile m4/* po/Makefile.in.in po/Rules-quot \
+						test-driver
 
 CLEANFILES = *~
 
@@ -49,7 +49,10 @@ ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
+MOCKCHROOT ?= fedora-$(shell echo "$(GIT_BRANCH)" | sed \
+						-e 's/^f//' \
+						-e 's/\(master\|unstable\)/rawhide/'\
+						)-$(shell uname -m)
 
 COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site

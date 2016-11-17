@@ -38,6 +38,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
           :parts: 3
     """
     title = N_("Language settings")
+    helpFile = "LangSupportSpoke.txt"
     category = LocalizationCategory
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -122,7 +123,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.app.switch_screen(self, None)
             return True
         else:
-            return key
+            return super(LangSpoke, self).input(args, key)
 
     def prompt(self, args=None):
         """ Customize default prompt. """

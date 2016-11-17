@@ -71,7 +71,7 @@ def _get_best_help_file(help_folder, help_file):
         log.warning("no help content found for file %s", help_file)
         return None
 
-def get_help_path(help_file, instclass):
+def get_help_path(help_file, instclass, plain_text=False):
     """
     Return the full path for the given help file name,
     if the help file path does not exist a fallback path is returned.
@@ -88,7 +88,12 @@ def get_help_path(help_file, instclass):
 
     :param help_file: help file name
     :type help_file: str or NoneType
+
     :param instclass: current install class instance
+
+    :param plain_text: should we find the help in plain text?
+    :type plain_text: bool
+
     :return str: full path to the help file requested or to a placeholder
     """
     # help l10n handling
@@ -98,19 +103,29 @@ def get_help_path(help_file, instclass):
         if help_path is not None:
             return help_path
 
+    # setup the fallback files
+    if not plain_text:
+        main_page = instclass.help_main_page
+        placeholder = instclass.help_placeholder
+        placeholder_with_links = instclass.help_placeholder_with_links
+    else:
+        main_page = instclass.help_main_page_plain_text
+        placeholder = instclass.help_placeholder_plain_text
+        placeholder_with_links = instclass.help_placeholder_plain_text
+
     # the screen did not have a helpFile defined or the defined help file
     # does not exist, so next try to check if we can find the main page
     # of the installation guide and use it instead
-    help_path = _get_best_help_file(instclass.help_folder, instclass.help_main_page)
+    help_path = _get_best_help_file(instclass.help_folder, main_page)
     if help_path is not None:
         return help_path
 
     # looks like the installation guide is not available, so just return
     # a placeholder page, which should be always present
     if flags.livecdInstall:
-        return _get_best_help_file(instclass.help_folder, instclass.help_placeholder_with_links)
+        return _get_best_help_file(instclass.help_folder, placeholder_with_links)
     else:
-        return _get_best_help_file(instclass.help_folder, instclass.help_placeholder)
+        return _get_best_help_file(instclass.help_folder, placeholder)
 
 def start_yelp(help_path):
     """

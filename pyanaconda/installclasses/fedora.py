@@ -33,6 +33,7 @@ class FedoraBaseInstallClass(BaseInstallClass):
     efi_dir = "fedora"
 
     help_placeholder = "FedoraPlaceholder.html"
+    help_placeholder_plain_text = "FedoraPlaceholder.txt"
     help_placeholder_with_links = "FedoraPlaceholderWithLinks.html"
 
     def configure(self, anaconda):

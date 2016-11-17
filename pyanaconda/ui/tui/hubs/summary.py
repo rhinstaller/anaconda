@@ -35,6 +35,7 @@ class SummaryHub(TUIHub):
           :parts: 3
     """
     title = N_("Installation")
+    helpFile = "SummaryHub.txt"
 
     def __init__(self, app, data, storage, payload, instclass):
         super(SummaryHub, self).__init__(app, data, storage, payload, instclass)
@@ -117,9 +118,9 @@ class SummaryHub(TUIHub):
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
-        prompt = Prompt()
-        prompt.add_quit_option()
-        prompt.add_refresh_option()
+        prompt = super(SummaryHub, self).prompt(args)
+        # this screen cannot be closed
+        prompt.remove_option(Prompt.CONTINUE)
         # TRANSLATORS: 'b' to begin installation
         prompt.add_option(C_("TUI|Spoke Navigation", "b"), _("to begin installation"))
         return prompt

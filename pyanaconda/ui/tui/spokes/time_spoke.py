@@ -49,6 +49,7 @@ __all__ = ["TimeSpoke"]
 
 class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     title = N_("Time settings")
+    helpFile = "DateTimeSpoke.txt"
     category = LocalizationCategory
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -242,7 +243,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         try:
             num = int(key)
         except ValueError:
-            return key
+            return super(TimeSpoke, self).input(args, key)
 
         if num == 1:
             # set timezone
@@ -429,7 +430,7 @@ class NTPServersSpoke(NormalTUISpoke):
         try:
             num = int(key)
         except ValueError:
-            return key
+            return super(NTPServersSpoke, self).input(args, key)
 
         if num == 1:
             # add an NTP server
@@ -521,7 +522,7 @@ class RemoveNTPServerSpoke(NormalTUISpoke):
         try:
             num = int(key)
         except ValueError:
-            return key
+            return super(RemoveNTPServerSpoke, self).input(args, key)
 
         # we expect a number corresponding to one of the NTP servers
         # in the listing - the server corresponding to the number will be
