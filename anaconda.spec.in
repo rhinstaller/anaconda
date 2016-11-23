@@ -325,6 +325,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 23 2016 Martin Kolman <mkolman@redhat.com> - 26.14-1
+- Changed the required version of BlockDev to 2.0. (vponcova)
+- Remove auto generated documentation (mkolman)
+- Fix generated zanata.xml from https unstable branch (jkonecny)
+- Don't crash if the UIC file can't be written (#1375702) (mkolman)
+
 * Wed Nov 23 2016 Martin Kolman <mkolman@redhat.com> - 26.13-1
 - Fix calling of can_touch_runtime_system function (jkonecny)
 - fix formating a bit (gitDeveloper)
