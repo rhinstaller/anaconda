@@ -67,7 +67,7 @@ if [[ "${ANACONDA_TARGET_BRANCH}" != "" ]]; then
 fi
 
 ACTUAL_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
-REMOTE=$(git remote -v | grep "rhinstaller/anaconda.git" | head -n 1 | cut -f 1)
+REMOTE=$(git remote -v | grep "rhinstaller/anaconda" | head -n 1 | cut -f 1)
 
 # Find existing Fedora branches
 FED_BRANCHES=$(git branch -a | egrep "${REMOTE}/f[[:digit:]]*-(devel|branch|release)$" | cut -d '/' -f 3)
