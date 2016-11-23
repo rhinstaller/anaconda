@@ -80,6 +80,7 @@ po-pull:
 
 po-push:
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
+	rm $(srcdir)/po/{main,extra}.pot
 	zanata push $(ZANATA_PUSH_ARGS)
 
 po-all:
