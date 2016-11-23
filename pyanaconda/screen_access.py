@@ -95,12 +95,15 @@ class ScreenAccessManager(object):
 
         with self._lock:
             new_config_file = not os.path.exists(config_path)
-            with open(config_path, "wt") as f:
-                if new_config_file:
-                    # we are creating a new file, so add a header that it was created by Anaconda,
-                    # including its version number
-                    f.write(self._get_new_config_header())
-                self._config.write(f)
+            try:
+                with open(config_path, "wt") as f:
+                    if new_config_file:
+                        # we are creating a new file, so add a header that it was created by Anaconda,
+                        # including its version number
+                        f.write(self._get_new_config_header())
+                    self._config.write(f)
+            except OSError:
+                log.exception("Can't write user interaction config file.")
 
     def _get_new_config_header(self):
         """Generate a header for use when Anaconda generates the user interaction config file.

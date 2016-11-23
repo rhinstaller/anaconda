@@ -25,7 +25,7 @@ from pyanaconda.i18n import _
 import threading
 
 import gi
-gi.require_version("BlockDev", "1.0")
+gi.require_version("BlockDev", "2.0")
 
 from gi.repository import BlockDev as blockdev
 
