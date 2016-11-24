@@ -2109,7 +2109,7 @@ debuglevel=6
                 repo.mirrorlist = []
                 repo.cost = None
 
-            line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
+            line = "repo --name=\"%s\" " % (repo.name or repo.id)
 
             if repo.baseurl:
                 line += " --baseurl=%s" % repo.anacondaBaseURLs[0]
