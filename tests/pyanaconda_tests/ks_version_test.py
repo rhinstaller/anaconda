@@ -39,6 +39,9 @@ class BaseTestCase(unittest.TestCase):
 class CommandVersionTestCase(BaseTestCase):
     def commands_test(self):
         """Test that anaconda uses the right versions of kickstart commands"""
+        # This is prepared ground for ignoring newer commands from pykickstart
+        # before they are implemented in Anaconda
+        # pylint: disable=unused-variable
         from pykickstart import commands
         # place here unsupported commands, these commands will be skipped
         ignore_cmd_list = []
