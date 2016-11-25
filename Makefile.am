@@ -31,7 +31,7 @@ MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
-CLEANFILES = *~
+CLEANFILES = *~ utils/mock-out.cfg
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
@@ -48,11 +48,17 @@ ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcfile $(srcdir)/po/anaconda.pot --push-type source --force
 
+DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
+				-e 's/^f//' \
+				-e 's/master/rawhide/')
+ARCH_NAME ?= $(shell uname -m)
+
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= fedora-$(shell echo "$(GIT_BRANCH)" | sed \
-						-e 's/^f//' \
-						-e 's/master/rawhide/'\
-						)-$(shell uname -m)
+
+MOCK_CONF_TEMPLATE ?= $(srcdir)/utils/mock-template.cfg
+MOCK_CONF_OUT ?= $(srcdir)/utils/mock-out.cfg
+
+MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
 
 COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
@@ -166,7 +172,7 @@ install-test-requires: install-buildrequires install-requires
 		    lorax mock parallel rpm-ostree virt-install pykickstart spin-kickstarts  \
 		    python3-rpmfluff python3-mock python3-pocketlint python3-nose-testconfig \
 		    python3-sphinx_rtd_theme libvirt-python3 python3-lxml python3-dogtail    \
-		    qemu-img
+		    qemu-img nosync.x86_64 nosync.i686
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
@@ -194,7 +200,32 @@ runglade:
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
 
+isolated-ci: rc-release
+# Add our daily build repositories in the mock config file
+	sed -e "s/@DISTRO@/$(DIST_NAME)/" -e "s/@ARCH@/$(ARCH_NAME)/" $(MOCK_CONF_TEMPLATE) > $(MOCK_CONF_OUT)
+	@-rm -f tests/error_occured
+	mock -r $(MOCK_CONF_OUT) --scrub all || exit 1
+# Install missing dependencies for running make install-test-requires
+	mock -r $(MOCK_CONF_OUT) -i dnf python3 git || exit 1
+	mock -r $(MOCK_CONF_OUT) --copyin $(srcdir) /root/anaconda || exit 1
+	mock -r $(MOCK_CONF_OUT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
+	mock -r $(MOCK_CONF_OUT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
+	mock -r $(MOCK_CONF_OUT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
+	@mock -r $(MOCK_CONF_OUT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
+	@mock -r $(MOCK_CONF_OUT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
+	@-rm -rf $(srcdir)/result
+	@cp -r "$$(mock -r $(MOCK_CONF_OUT) -p)/result" $(srcdir)
+	@if [ -f tests/error_occured ]; then \
+		echo "TEST FAILED"; \
+		status=$$(cat tests/error_occured); \
+		rm tests/error_occured; \
+		exit $$status; \
+	fi
+
 ci: rc-release
+	$(MAKE) bare-ci
+
+bare-ci:
 	@rm -f tests/test-suite.log.*
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
