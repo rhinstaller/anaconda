@@ -15,7 +15,7 @@ Wants=systemd-logind.service
 [Service]
 Type=oneshot
 ExecStart=/usr/libexec/anaconda/anaconda-pre-log-gen
-StardardInput=tty
+StandardInput=tty
 StandardOutput=journal+console
 StandardError=journal+console
 TimeoutSec=0
