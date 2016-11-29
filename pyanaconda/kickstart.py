@@ -717,10 +717,14 @@ class Firewall(commands.firewall.F20_Firewall):
             iutil.execInSysroot(cmd, args)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
-    def setup(self, *args):
-        # firstboot should be disabled by default after kickstart installations
-        if flags.automatedInstall and not self.seen:
-            self.firstboot = FIRSTBOOT_SKIP
+    def setup(self, ksdata, instClass):
+        if not self.seen:
+            if flags.automatedInstall:
+                # firstboot should be disabled by default after kickstart installations
+                self.firstboot = FIRSTBOOT_SKIP
+            elif instClass.firstboot and not self.firstboot:
+                # if nothing is specified, use the installclass default for firstboot
+                self.firstboot = instClass.firstboot
 
     def execute(self, *args):
         action = iutil.enable_service

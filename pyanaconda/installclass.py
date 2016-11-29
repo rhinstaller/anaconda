@@ -35,6 +35,8 @@ log = logging.getLogger("anaconda")
 
 from pyanaconda.kickstart import getAvailableDiskSpace
 
+from pykickstart.constants import FIRSTBOOT_DEFAULT
+
 class BaseInstallClass(object):
     # default to not being hidden
     hidden = False
@@ -71,6 +73,9 @@ class BaseInstallClass(object):
 
     # comps environment id to select by default
     defaultPackageEnvironment = None
+
+    # state firstboot should be in unless something special happens
+    firstboot = FIRSTBOOT_DEFAULT
 
     @property
     def l10n_domain(self):
