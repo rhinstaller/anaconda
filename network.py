@@ -291,8 +291,12 @@ class NetworkDevice(IfcfgFile):
             if (isinstance(d, storage.devices.iScsiDiskDevice) and
                 rootdev.dependsOn(d)):
                 if d.nic == "default" or ":" in d.nic:
-                    if self.iface == ifaceForHostIP(d.host_address):
-                        return True
+                    if getattr(d, 'ibft', False):
+                        if self.get("BOOTPROTO") == "ibft":
+                            return True
+                    else:
+                        if self.iface == ifaceForHostIP(d.host_address):
+                            return True
                 elif d.nic == self.iface:
                     return True
 
@@ -914,86 +918,97 @@ BOOTPROTO=ibft
                 return True
         return False
 
+    def ibftIfaces(self):
+        ifaces = []
+        for devname, device in self.netdevices.items():
+            if device.get("BOOTPROTO") == "ibft":
+                ifaces.append(devname)
+        return ifaces
+
     # get a kernel cmdline string for dracut needed for access to host host
     def dracutSetupArgs(self, networkStorageDevice):
         netargs=set()
 
         if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
-            nic = ifaceForHostIP(networkStorageDevice.host_address)
-            if not nic:
+            if getattr(networkStorageDevice, 'ibft', False):
+                nics = self.ibftIfaces()
+            else:
+                nics = [ifaceForHostIP(networkStorageDevice.host_address)]
+            if not nics:
                 return ""
         else:
-            nic = networkStorageDevice.nic
+            nics = [networkStorageDevice.nic]
 
-        if nic not in self.netdevices.keys():
-            log.error('Unknown network interface: %s' % nic)
-            return ""
+        for nic in nics:
+            if nic not in self.netdevices.keys():
+                log.error('Unknown network interface: %s' % nic)
+                return ""
 
-        dev = self.netdevices[nic]
+            dev = self.netdevices[nic]
 
-        if dev.get('BOOTPROTO') == 'ibft':
-            netargs.add("ip=ibft")
-        elif networkStorageDevice.host_address:
-            if self.hostname:
-                hostname = self.hostname
-            else:
-                hostname = ""
-
-            # if using ipv6
-            if ':' in networkStorageDevice.host_address:
-                if dev.get('DHCPV6C') == "yes":
-                    # XXX combination with autoconf not yet clear,
-                    # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
-                    netargs.add("ip=%s:dhcp6" % nic)
-                elif dev.get('IPV6_AUTOCONF') == "yes":
-                    netargs.add("ip=%s:auto6" % nic)
-                elif dev.get('IPV6ADDR'):
-                    ipaddr = "[%s]" % dev.get('IPV6ADDR')
-                    if dev.get('IPV6_DEFAULTGW'):
-                        gateway = "[%s]" % dev.get('IPV6_DEFAULTGW')
-                    else:
-                        gateway = ""
-                    netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
-                               dev.get('PREFIX'), hostname, nic))
-            else:
-                if dev.get('bootproto').lower() == 'dhcp':
-                    netargs.add("ip=%s:dhcp" % nic)
+            if dev.get('BOOTPROTO') == 'ibft':
+                netargs.add("ip=ibft")
+            elif networkStorageDevice.host_address:
+                if self.hostname:
+                    hostname = self.hostname
                 else:
-                    if dev.get('GATEWAY'):
-                        gateway = dev.get('GATEWAY')
+                    hostname = ""
+
+                # if using ipv6
+                if ':' in networkStorageDevice.host_address:
+                    if dev.get('DHCPV6C') == "yes":
+                        # XXX combination with autoconf not yet clear,
+                        # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
+                        netargs.add("ip=%s:dhcp6" % nic)
+                    elif dev.get('IPV6_AUTOCONF') == "yes":
+                        netargs.add("ip=%s:auto6" % nic)
+                    elif dev.get('IPV6ADDR'):
+                        ipaddr = "[%s]" % dev.get('IPV6ADDR')
+                        if dev.get('IPV6_DEFAULTGW'):
+                            gateway = "[%s]" % dev.get('IPV6_DEFAULTGW')
+                        else:
+                            gateway = ""
+                        netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
+                                dev.get('PREFIX'), hostname, nic))
+                else:
+                    if dev.get('bootproto').lower() == 'dhcp':
+                        netargs.add("ip=%s:dhcp" % nic)
                     else:
-                        gateway = ""
+                        if dev.get('GATEWAY'):
+                            gateway = dev.get('GATEWAY')
+                        else:
+                            gateway = ""
 
-                    netmask = dev.get('netmask')
-                    prefix  = dev.get('prefix')
-                    if not netmask and prefix:
-                        netmask = isys.prefix2netmask(int(prefix))
+                        netmask = dev.get('netmask')
+                        prefix  = dev.get('prefix')
+                        if not netmask and prefix:
+                            netmask = isys.prefix2netmask(int(prefix))
 
-                    netargs.add("ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
-                               gateway, netmask, hostname, nic))
+                        netargs.add("ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
+                                gateway, netmask, hostname, nic))
 
-        # ifname= prevents dracut from renaming the devices configured with ip=ibft
-        # to ibftX on installed system
-        hwaddr = dev.get("HWADDR")
-        if hwaddr:
-            netargs.add("ifname=%s:%s" % (nic, hwaddr.lower()))
-        # For vlan devices configured in ibft we need to bind name of the parent
-        if dev.get('BOOTPROTO') == 'ibft' and dev.get("TYPE") == "Vlan":
-            parent_nic = nic.split(".")[0]
-            parent_dev = self.netdevices[parent_nic]
-            parent_hwaddr = parent_dev.get("HWADDR")
-            netargs.add("ifname=%s:%s" % (parent_nic, parent_hwaddr.lower()))
+            # ifname= prevents dracut from renaming the devices configured with ip=ibft
+            # to ibftX on installed system
+            hwaddr = dev.get("HWADDR")
+            if hwaddr:
+                netargs.add("ifname=%s:%s" % (nic, hwaddr.lower()))
+            # For vlan devices configured in ibft we need to bind name of the parent
+            if dev.get('BOOTPROTO') == 'ibft' and dev.get("TYPE") == "Vlan":
+                parent_nic = nic.split(".")[0]
+                parent_dev = self.netdevices[parent_nic]
+                parent_hwaddr = parent_dev.get("HWADDR")
+                netargs.add("ifname=%s:%s" % (parent_nic, parent_hwaddr.lower()))
 
-        nettype = dev.get("NETTYPE")
-        subchannels = dev.get("SUBCHANNELS")
-        if iutil.isS390() and nettype and subchannels:
-            znet = "rd_ZNET=%s,%s" % (nettype, subchannels)
+            nettype = dev.get("NETTYPE")
+            subchannels = dev.get("SUBCHANNELS")
+            if iutil.isS390() and nettype and subchannels:
+                znet = "rd_ZNET=%s,%s" % (nettype, subchannels)
 
-            options = dev.get("OPTIONS").strip("'\"")
-            if options:
-                options = filter(lambda x: x != '', options.split(' '))
-                znet += ",%s" % (','.join(options))
-            netargs.add(znet)
+                options = dev.get("OPTIONS").strip("'\"")
+                if options:
+                    options = filter(lambda x: x != '', options.split(' '))
+                    znet += ",%s" % (','.join(options))
+                netargs.add(znet)
 
         return netargs
 
