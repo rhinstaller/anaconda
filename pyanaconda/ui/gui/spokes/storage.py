@@ -397,6 +397,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
+        except Exception as e:
+            log.error("unexpected storage error: %s", e)
+            StorageChecker.errors = str(e).split("\n")
+            hubQ.send_message(self.__class__.__name__, _("Unexpected storage error"))
+            raise e
         else:
             if self.autopart or (flags.automatedInstall and (self.data.autopart.autopart or self.data.partition.seen)):
                 # run() executes StorageChecker.checkStorage in a seperate threat
