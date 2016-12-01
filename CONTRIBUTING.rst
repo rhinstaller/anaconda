@@ -1,3 +1,6 @@
+Contribution guidelines
+=======================
+
 How to Contribute to the Anaconda Installer (the short version)
 ----------------------------------------------------------------
 
