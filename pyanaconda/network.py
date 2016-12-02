@@ -482,8 +482,8 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['bond', 'interface-name', devname, 's'])
         options = bond_options_ksdata_to_dbus(networkdata.bondopts)
         values.append(['bond', 'options', options, 'a{ss}'])
-        for slave in networkdata.bondslaves.split(","):
-            suuid = _add_slave_connection('bond', slave, devname, networkdata.activate)
+        for i, slave in enumerate(networkdata.bondslaves.split(","), 1):
+            suuid = _add_slave_connection('bond', i, slave, devname, networkdata.activate)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "team"
@@ -492,11 +492,11 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['connection', 'id', devname, 's'])
         values.append(['team', 'interface-name', devname, 's'])
         values.append(['team', 'config', networkdata.teamconfig, 's'])
-        for (slave, cfg) in networkdata.teamslaves:
+        for i, (slave, cfg) in enumerate(networkdata.teamslaves, 1):
             svalues = []
             if cfg:
                 svalues.append(['team-port', 'config', cfg, 's'])
-            suuid = _add_slave_connection('team', slave, devname, networkdata.activate, svalues)
+            suuid = _add_slave_connection('team', i, slave, devname, networkdata.activate, svalues)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "vlan"
@@ -527,8 +527,8 @@ def add_connection_for_ksdata(networkdata, devname):
                 log.error("Invalid bridge option %s", opt)
                 continue
             values.append(['bridge', key, int(value), 'u'])
-        for slave in networkdata.bridgeslaves.split(","):
-            suuid = _add_slave_connection('bridge', slave, devname, networkdata.activate)
+        for i, slave in enumerate(networkdata.bridgeslaves.split(","), 1):
+            suuid = _add_slave_connection('bridge', i, slave, devname, networkdata.activate)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "infiniband"
@@ -636,10 +636,9 @@ def _get_s390_settings(devname):
 
     return cfg
 
-def _add_slave_connection(slave_type, slave, master, activate, values=None):
+def _add_slave_connection(slave_type, slave_idx, slave, master, activate, values=None):
     values = values or []
-    #slave_name = "%s slave %d" % (devname, slave_idx)
-    slave_name = slave
+    slave_name = "%s slave %d" % (master, slave_idx)
 
     suuid =  str(uuid4())
     # assume ethernet, TODO: infiniband, wifi, vlan
@@ -656,10 +655,6 @@ def _add_slave_connection(slave_type, slave, master, activate, values=None):
             nm.nm_disconnect_device(slave)
         except nm.DeviceNotActiveError:
             pass
-    # remove ifcfg file
-    ifcfg_path = find_ifcfg_file_of_device(slave)
-    if ifcfg_path and os.access(ifcfg_path, os.R_OK):
-        os.unlink(ifcfg_path)
 
     nm.nm_add_connection(values)
 
