@@ -545,13 +545,14 @@ def ksnet_to_ifcfg(net, filename=None):
         ifcfg['NAME'] = "Bridge connection %s" % dev
 
         options = {}
-        for opt in net.bridgeopts.split(","):
-            key, _, value = opt.partition("=")
-            if not value:
-                log.error("Invalid bridge option %s", opt)
-                continue
-            key = key.replace('-', '_')
-            options[key] = value
+        if net.bridgeopts:
+            for opt in net.bridgeopts.split(","):
+                key, _, value = opt.partition("=")
+                if not value:
+                    log.error("Invalid bridge option %s", opt)
+                    continue
+                key = key.replace('-', '_')
+                options[key] = value
         stp = options.pop("stp", None)
         if stp:
             ifcfg['STP'] = stp
