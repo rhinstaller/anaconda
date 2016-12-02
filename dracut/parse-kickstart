@@ -624,7 +624,7 @@ def update_virtual_slave_ifcfg(slave, setting):
     update = False
     filename = "/tmp/ifcfg/ifcfg-%s" % slave
     if os.path.exists(filename):
-        with open(filename, "a+") as f:
+        with open(filename, "r+") as f:
             # pylint: disable=redefined-outer-name
             for line in f:
                 key, _sep, val = line.strip().partition("=")
