@@ -165,6 +165,12 @@ class AnacondaCallback:
             s = to_unicode(_("<b>Installing %(pkgStr)s</b> (%(size)s)\n")) \
                     % {'pkgStr': pkgStr, 'size': size_string(hdr['size'])}
             summary = to_unicode(gettext.ldgettext("redhat-dist", hdr['summary'] or ""))
+
+            # summary should not contain these characters
+            if any(c in summary for c in ('<', '>')):
+                log.warning("Package %s has an invalid summary: %s" % (pkgStr, summary))
+                summary = ""
+
             s += summary.strip()
             self.progress.set_label(s)
 
