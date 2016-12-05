@@ -191,7 +191,7 @@ def doInstall(storage, payload, ksdata, instClass):
         progress_init(steps)
 
     with progress_report(N_("Setting up the installation environment")):
-        ksdata.firstboot.setup(storage, ksdata, instClass)
+        ksdata.firstboot.setup(ksdata, instClass)
         ksdata.addons.setup(storage, ksdata, instClass, payload)
 
     storage.update_ksdata()  # this puts custom storage info into ksdata
