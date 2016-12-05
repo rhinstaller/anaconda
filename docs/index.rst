@@ -12,22 +12,14 @@ Contents:
    :maxdepth: 1
 
    intro
-   release
    boot-options
    kickstart
+   How to contribute <contributing>
    commit-log
+   release
    driverdisc
    iscsi
    multipath
-   Kickstart Tests <kickstart-tests>
-   modules
+   list-harddrives
+   User interaction config spec <user-interaction-config-file-spec>
    Testing <testing>
-   tests/modules
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

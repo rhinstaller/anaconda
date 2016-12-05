@@ -76,6 +76,14 @@ RHEL_BRANCHES=$(git branch -a | egrep "${REMOTE}/rhel[[:digit:]]*-branch$" | cut
 
 BRANCHES="unstable master ${FED_BRANCHES} ${RHEL_BRANCHES}"
 
+if [[ -z "${REMOTE}" ]]; then
+    echo "Error: remote branch can't be used!" >&2
+    exit 1
+elif [[ -z "${ACTUAL_BRANCH}" ]]; then
+    echo "Error: actual branch can't be resolved!" >&2
+    exit 2
+fi
+
 nearest_branch=""
 nearest_br_commit=""
 # Find latest common commit on actual branch and all our branches
