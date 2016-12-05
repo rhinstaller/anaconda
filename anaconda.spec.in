@@ -325,6 +325,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 05 2016 Martin Kolman <mkolman@redhat.com> - 26.15-1
+- Don't pass storage to firstboot.setup() (mkolman)
+- RTD fixes (mkolman)
+- Catch ValueError from LVM part in Blivet library (jkonecny)
+- Handle unexpected storage exception from blivet (jkonecny)
+- Add sudo to test requires (jkonecny)
+- network: fix network --noipv4 in %%pre (rvykydal)
+- fix typo in systemd service keyword (mail)
+- Fix pylint issue in ks_version_test (jkonecny)
+- Move Anaconda tests to mock (jkonecny)
+- Add checks to git-find-branch script (jkonecny)
+- Remove intermediate pot files in po-push (mkolman)
+- Allow install classes to set alternate states for firstboot/initial-setup
+  (riehecky)
+
 * Wed Nov 23 2016 Martin Kolman <mkolman@redhat.com> - 26.14-1
 - Changed the required version of BlockDev to 2.0. (vponcova)
 - Remove auto generated documentation (mkolman)
