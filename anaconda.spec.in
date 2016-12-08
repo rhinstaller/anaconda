@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Dec 08 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.258-1
+- Fix invalid characters in an installed package summary (vponcova)
+  Resolves: rhbz#1324706
+
 * Mon Nov 28 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.257-1
 - Fix wrong attribute of AnacondaYumRepo (vponcova)
   Resolves: rhbz#1395076
