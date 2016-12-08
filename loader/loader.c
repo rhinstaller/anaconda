@@ -813,11 +813,15 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
     if (loaderData->ipv4 && loaderData->netmask) {
         flags |= LOADER_FLAGS_HAVE_CMSCONF;
-    }
-
-    if (loaderData->ipv4 || loaderData->ipv6) {
         anaconda_activated_some_device = 1;
     }
+
+#ifdef ENABLE_IPV6
+    if (loaderData->ipv6info_set) {
+        flags |= LOADER_FLAGS_HAVE_CMSCONF;
+        anaconda_activated_some_device = 1;
+    }
+#endif
 
     free(cfgfile);
     g_strfreev(lines);
@@ -2139,8 +2143,10 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
     }
-    if (hasGraphicalOverride())
+    if (hasGraphicalOverride()) {
         flags |= LOADER_FLAGS_EARLY_NETWORKING;
+        logMessage(INFO, "early networking required for graphical override");
+    }
     set_fw_search_path(&loaderData, "/lib/firmware/updates:/firmware:/lib/firmware");
     start_fw_loader(&loaderData);
 
