@@ -168,6 +168,13 @@ class Payload(object):
         """
         pass
 
+    @property
+    def handlesBootloaderConfiguration(self):
+        """ Some payload types (e.g. ostree) may control the bootloader directly, rather
+            than having Anaconda do it.
+        """
+        return False
+
     def reset(self):
         """ Reset the instance, not including ksdata. """
         pass
