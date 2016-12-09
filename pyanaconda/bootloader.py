@@ -2428,7 +2428,8 @@ def writeSysconfigKernel(storage, version, instClass):
         f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
-def writeBootLoaderFinal(storage, payload, instClass, ksdata):
+def writeBootLoaderFinal(storage, payload, instClass, ksdata,
+                         generate_config=True):
     """ Do the final write of the bootloader. """
 
     # set up dracut/fips boot args
@@ -2436,7 +2437,10 @@ def writeBootLoaderFinal(storage, payload, instClass, ksdata):
     storage.bootloader.set_boot_args(storage=storage,
                                      payload=payload)
     try:
-        storage.bootloader.write()
+        if generate_config:
+            storage.bootloader.write()
+        else:
+            storage.bootloader.install()
     except BootLoaderError as e:
         log.error("bootloader.write failed: %s", e)
         if errorHandler.cb(e) == ERROR_RAISE:
@@ -2463,7 +2467,8 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         if storage.bootloader.skip_bootloader:
             log.info("skipping boot loader install per user request")
             return
-        writeBootLoaderFinal(storage, payload, instClass, ksdata)
+        writeBootLoaderFinal(storage, payload, instClass, ksdata,
+                             generate_config=False)
         return
 
     # get a list of installed kernel packages
