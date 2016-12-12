@@ -1127,6 +1127,18 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
+echo "Creating lvm.conf"
+cat > $DEST/etc/lvm/lvm.conf <<EOF
+# We need to override the paths to the thin_* executables
+# as they need to be in /usr/sbin due to image build script
+# and loader limitations.
+global {
+thin_check_executable="/usr/sbin/thin_check"
+thin_dump_executable="/usr/sbin/thin_dump"
+thin_repair_executable="/usr/sbin/thin_repair"
+}
+EOF
+
 echo "Creating /etc/skel"
 # libuser needs this when it creates sshpw users
 mkdir -p $DEST/etc/skel
