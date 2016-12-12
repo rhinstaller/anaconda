@@ -2358,8 +2358,9 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
 
-    if ((is_nm_connected() == TRUE) &&
-        (loaderData->netDev != NULL) && (loaderData->netDev_set == 1)) {
+    if (is_nm_connected() == TRUE &&
+         ((loaderData->netDev != NULL && loaderData->netDev_set == 1)
+          || FL_HAVE_CMSCONF(flags))) {
         if (anaconda_activated_some_device) {
             return 0;
         } else {
