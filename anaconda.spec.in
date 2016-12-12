@@ -223,6 +223,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Dec 12 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.259-1
+- network: don't reactivate devices from linuxrc.s390 for early networking
+  (rvykydal)
+  Resolves: rhbz#1329171
+- Create lvm.conf with thin_* path overrides (mkolman)
+  Resolves: rhbz#1350296
+
 * Thu Dec 08 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.258-1
 - Fix invalid characters in an installed package summary (vponcova)
   Resolves: rhbz#1324706

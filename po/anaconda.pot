@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.257\n"
+"Project-Id-Version: anaconda 13.21.258\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-12-08 15:14+0100\n"
+"POT-Creation-Date: 2016-12-12 13:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,8 +38,8 @@ msgstr ""
 #: loader/kickstart.c:530 loader/kickstart.c:576 loader/kickstart.c:592
 #: loader/lang.c:114 loader/lang.c:373 loader/loader.c:444 loader/loader.c:480
 #: loader/loader.c:520 loader/loader.c:538 loader/loader.c:555
-#: loader/loader.c:592 loader/loader.c:1278 loader/loader.c:1307
-#: loader/loader.c:1522 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:592 loader/loader.c:1282 loader/loader.c:1311
+#: loader/loader.c:1526 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/net.c:616 loader/net.c:1000
 #: loader/net.c:1877 loader/net.c:1901 loader/net.c:2286 loader/net.c:2305
@@ -482,7 +482,7 @@ msgstr ""
 #: loader/hdinstall.c:117 loader/hdinstall.c:327 loader/hdinstall.c:442
 #: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kickstart.c:308
 #: loader/lang.c:114 loader/loader.c:444 loader/loader.c:555
-#: loader/loader.c:1278 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:1282 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:142 loader/urlinstall.c:164
@@ -3493,7 +3493,7 @@ msgstr ""
 #: loader/driverdisk.c:602 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:521 loader/loader.c:538
-#: loader/loader.c:1522 loader/loader.c:1555 loader/net.c:616
+#: loader/loader.c:1526 loader/loader.c:1559 loader/net.c:616
 #: loader/net.c:1000 loader/net.c:2286 loader/net.c:2305
 #: loader/nfsinstall.c:91 loader/urls.c:268 storage/__init__.py:167
 #: storage/devicetree.py:94 textw/constants_text.py:52
@@ -3841,114 +3841,114 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1274
+#: loader/loader.c:1278
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1307
+#: loader/loader.c:1311
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1308
+#: loader/loader.c:1312
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1374
+#: loader/loader.c:1378
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1375
+#: loader/loader.c:1379
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1514
+#: loader/loader.c:1518
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1515
+#: loader/loader.c:1519
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1517
+#: loader/loader.c:1521
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1519
+#: loader/loader.c:1523
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1554
+#: loader/loader.c:1558
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1554
+#: loader/loader.c:1558
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1555
+#: loader/loader.c:1559
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1556
+#: loader/loader.c:1560
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1788
+#: loader/loader.c:1792
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1790
+#: loader/loader.c:1794
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1794
+#: loader/loader.c:1798
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1795
+#: loader/loader.c:1799
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1796
+#: loader/loader.c:1800
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:2086
+#: loader/loader.c:2090
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2233
+#: loader/loader.c:2239
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2237
+#: loader/loader.c:2243
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2237
+#: loader/loader.c:2243
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2237
+#: loader/loader.c:2243
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2604
+#: loader/loader.c:2610
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2606
+#: loader/loader.c:2612
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4162,7 +4162,7 @@ msgstr ""
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2569 loader/net.c:2573
+#: loader/net.c:2570 loader/net.c:2574
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
