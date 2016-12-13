@@ -238,17 +238,25 @@ class RPMOSTreePayload(ArchivePayload):
                  (iutil.getTargetPhysicalRoot(), iutil.getSysroot() + "/sysroot"),
                  (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
 
-        # Bind mount the other filesystems from /mnt/sysimage to the ostree root
-        for path in ["/dev", "/dev/pts", "/dev/shm", "/proc", "/run", "/sys", "/sys/fs/selinux"]:
+        # Bind mount filesystems from /mnt/sysimage to the ostree root; perhaps
+        # in the future consider `mount --move` to make the output of `findmnt`
+        # not induce blindness.
+        for path in ["/dev", "/proc", "/run", "/sys"]:
             binds += [(iutil.getTargetPhysicalRoot()+path, iutil.getSysroot()+path)]
 
         for (src, dest) in binds:
-            self._safeExecWithRedirect("mount",
-                                       ["--bind", src, dest if dest else src])
-            self._internal_mounts.append(dest if dest else src)
-            if dest is None:
+            is_ro_bind = dest is None
+            if is_ro_bind:
+                self._safeExecWithRedirect("mount",
+                                           ["--bind", src, src])
                 self._safeExecWithRedirect("mount",
                                            ["--bind", "-o", "remount,ro", src, src])
+            else:
+                # Recurse for non-ro binds so we pick up sub-mounts
+                # like /sys/firmware/efi/efivars.
+                self._safeExecWithRedirect("mount",
+                                           ["--rbind", src, dest])
+            self._internal_mounts.append(src if is_ro_bind else dest)
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
