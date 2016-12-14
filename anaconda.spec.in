@@ -325,6 +325,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 14 2016 Martin Kolman <mkolman@redhat.com> - 26.16-1
+- rpmostreepayload: Rework binds to be recursive (walters)
+- Let DNF do its own substitutions (riehecky)
+- Bump Blivet version due to systemd-udev dependency (mkolman)
+- Don't log "Invalid bridge option" when network has no --bridgeopts.
+  (rvykydal)
+- Fix updating of bridge slave which is bond. (rvykydal)
+
 * Mon Dec 05 2016 Martin Kolman <mkolman@redhat.com> - 26.15-1
 - Don't pass storage to firstboot.setup() (mkolman)
 - RTD fixes (mkolman)
