@@ -20,7 +20,6 @@
 import os
 
 from blivet.size import Size
-import blivet.arch
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.progress import progressQ, progress_message
@@ -50,6 +49,8 @@ import dnf.logging
 import dnf.exceptions
 import dnf.repo
 import dnf.callback
+import dnf.conf.parser
+import dnf.conf.substitutions
 import rpm
 import librepo
 
@@ -274,13 +275,10 @@ class DNFPayload(packaging.PackagePayload):
 
             Currently supports $releasever and $basearch
         """
-        if not url:
-            return url
+        if url:
+            return dnf.conf.parser.substitute(url, self._base.conf.substitutions)
 
-        url = url.replace("$releasever", self._base.conf.releasever)
-        url = url.replace("$basearch", blivet.arch.get_arch())
-
-        return url
+        return None
 
 
     def _add_repo(self, ksrepo):
@@ -467,6 +465,8 @@ class DNFPayload(packaging.PackagePayload):
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = pyanaconda.iutil.getSysroot()
         conf.prepend_installroot('persistdir')
+
+        self._base.conf.substitutions.update_from_etc(conf.installroot)
 
         # NSS won't survive the forking we do to shield out chroot during
         # transaction, disable it in RPM:
