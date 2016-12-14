@@ -325,6 +325,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 14 2016 Martin Kolman <mkolman@redhat.com> - 25.20.9-1
+- rpmostreepayload: Rework binds to be recursive (walters)
+- Merge pull request #876 from jkonecny12/f25-dev-fix-can-touch-runtime-call
+  (jkonecny)
+- Fix calling of can_touch_runtime_system function (jkonecny)
+- Merge pull request #864 from M4rtinK/f25-devel-no_uic_on_image_dir_install
+  (martin.kolman)
+- Fix user interaction config handling in image & directory install modes
+  (#1379106) (mkolman)
+
 * Tue Nov 08 2016 Martin Kolman <mkolman@redhat.com> - 25.20.8-1
 - Merge pull request #863 from AdamWill/relax-blivet-dep (martin.kolman)
 - Relax blivet dependency to >= 2.1.6-3 (awilliam)
