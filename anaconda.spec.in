@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Dec 15 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.260-1
+- Fix ppc image being too big againagainagainagainagain (sbueno+anaconda)
+  Resolves: rhbz#1405089
+
 * Mon Dec 12 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.259-1
 - network: don't reactivate devices from linuxrc.s390 for early networking
   (rvykydal)
