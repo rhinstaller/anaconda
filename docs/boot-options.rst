@@ -195,6 +195,18 @@ The header is of the form:
 
 .. [#serial] as read from ``/sys/class/dmi/id/product_serial``
 
+.. inst.ksstrict:
+
+inst.ksstrict
+^^^^^^^^^^^^^^
+
+With this option, all warnings from reading the kickstart file will be
+treated as errors. They will be printed on the output and the installation
+will terminate immediately.
+
+By default, the warnings are printed to logs and the installation
+continues.
+
 Network Options
 ---------------
 

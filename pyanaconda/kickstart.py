@@ -48,6 +48,8 @@ import shlex
 import requests
 import sys
 import pykickstart.commands as commands
+import warnings
+import time
 from pyanaconda import keyboard
 from pyanaconda import ntp
 from pyanaconda import timezone
@@ -2145,7 +2147,7 @@ def preScriptPass(f):
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
 
-def parseKickstart(f):
+def parseKickstart(f, strict_mode=False):
     # preprocessing the kickstart file has already been handled in initramfs.
 
     addon_paths = collect_addon_paths(ADDON_PATHS)
@@ -2161,13 +2163,53 @@ def parseKickstart(f):
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
 
+    kswarnings = []
+    ksmodule = "pykickstart"
+    kscategories = (UserWarning, SyntaxWarning, DeprecationWarning)
+    showwarning = warnings.showwarning
+
+    def ksshowwarning(message, category, filename, lineno, file=None, line=None):
+        # Print the warning with default function.
+        showwarning(message, category, filename, lineno, file, line)
+        # Collect pykickstart warnings.
+        if ksmodule in filename and issubclass(category, kscategories):
+            kswarnings.append(message)
+
     try:
-        ksparser.readKickstart(f)
+        # Process warnings differently in this part.
+        with warnings.catch_warnings():
+
+            # Set up the warnings module.
+            warnings.showwarning = ksshowwarning
+
+            for category in kscategories:
+                warnings.filterwarnings(action="always", module=ksmodule, category=category)
+
+            # Parse the kickstart file.
+            ksparser.readKickstart(f)
+
+            # Process pykickstart warnings in the strict mode:
+            if strict_mode and kswarnings:
+                raise KickstartError("Please modify your kickstart file to fix the warnings "
+                                     "or remove the `ksstrict` option.")
+
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
-        print(e)
+        log.error(e)
+
+        # Print kickstart warnings in the strict mode.
+        if strict_mode and kswarnings:
+            print(_("\nSome warnings occurred during reading the kickstart file:"))
+            for w in kswarnings:
+                print(str(w).strip())
+
+        # Print an error and terminate.
+        print(_("\nAn error occurred during reading the kickstart file:"
+                "\n%s\n\nThe installer will now terminate.") % str(e).strip())
+
         iutil.ipmi_report(IPMI_ABORTED)
+        time.sleep(10)
         sys.exit(1)
 
     return handler
