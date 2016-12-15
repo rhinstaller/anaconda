@@ -510,6 +510,26 @@ EOF
 
         # We may have removed the most last time, but it still wasn't enough! (#1303855)
         rm -rf $MBD_DIR/firmware/brcm
+
+        # Gotta keep beating that dead horse (#1405089)
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/scsi/be2iscsi/be2iscsi.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/scsi/bnx2i/bnx2i.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/scsi/bnx2fc/bnx2fc.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/ata/sata_nv.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/igbvf/igbvf.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/bnx2.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/qla3xxx.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/i40e/i40e.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/bnxt/bnxt_en.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/i40evf/i40evf.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/can/sja1000
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/can/can-dev.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/net/can/usb
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/uwb.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/wlp/wlp.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/i1480u-wlp/i1480u-wlp.ko
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/dfu
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/i1480-est.ko
     fi
 
     # clean up leftover cruft
