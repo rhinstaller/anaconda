@@ -1537,3 +1537,29 @@ def collect(module_pattern, path, pred):
             retval.append(val)
 
     return retval
+
+def item_counter(item_count):
+    """A generator for easy counting of items.
+
+    :param int item_count: number of items
+
+    The general idea is to initialize the generator with the number
+    of items and then activating it every time an item is being
+    processed.
+
+    The generator produces strings in the <index>/<item count> format,
+    for example:
+    1/20
+    2/20
+    3/20
+    And so on.
+
+    Such strings can be easily used to add a current/total counter
+    to log messages when tasks and task queues are processed.
+    """
+    if item_count < 0:
+        raise ValueError("Item count can't be negative.")
+    index = 1
+    while index <= item_count:
+        yield "%d/%d" % (index, item_count)
+        index += 1

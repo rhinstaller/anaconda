@@ -817,3 +817,26 @@ class MiscTests(unittest.TestCase):
             self.assertEqual(os.stat(file_path).st_size, 0)
         finally:
             shutil.rmtree(test_dir)
+
+    def item_counter_test(self):
+        """Test the item_counter generator."""
+        # normal usage
+        counter = iutil.item_counter(3)
+        self.assertEqual(next(counter), "1/3")
+        self.assertEqual(next(counter), "2/3")
+        self.assertEqual(next(counter), "3/3")
+        with self.assertRaises(StopIteration):
+            next(counter)
+        # zero items
+        counter = iutil.item_counter(0)
+        with self.assertRaises(StopIteration):
+            next(counter)
+        # one item
+        counter = iutil.item_counter(1)
+        self.assertEqual(next(counter), "1/1")
+        with self.assertRaises(StopIteration):
+            next(counter)
+        # negative item count
+        counter = iutil.item_counter(-1)
+        with self.assertRaises(ValueError):
+            next(counter)
