@@ -530,6 +530,8 @@ EOF
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/i1480u-wlp/i1480u-wlp.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/dfu
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/i1480-est.ko
+        rm -rf $MBD_DIR/firmware/3com
+        rm -rf $MBD_DIR/firmware/bnx2
     fi
 
     # clean up leftover cruft
