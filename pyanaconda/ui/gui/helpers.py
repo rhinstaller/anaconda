@@ -20,6 +20,9 @@
 # This file contains abstract base classes that are specific to GUI
 # functionality. See also pyanaconda.ui.helpers.
 
+import logging
+log = logging.getLogger("anaconda")
+
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 import gi
@@ -30,11 +33,10 @@ from gi.repository import Gtk
 from pyanaconda.flags import flags
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui.utils import timed_action
+from pyanaconda.i18n import _
+from pyanaconda.users import validatePassword
 from pyanaconda.errors import NonInteractiveError
-
-import logging
-log = logging.getLogger("anaconda")
-
+from pyanaconda import constants
 
 def autoinstall_stopped(reason):
     """ Reaction on stop of automatic kickstart installation
@@ -48,7 +50,6 @@ def autoinstall_stopped(reason):
     log.info("kickstart installation stopped for info: %s", reason)
     if not flags.ksprompt:
         raise NonInteractiveError("Non interactive installation failed: %s" % reason)
-
 
 class GUIInputCheck(InputCheck):
     """ Add timer awareness to an InputCheck.
@@ -179,6 +180,10 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         # Store the previous status to avoid setting the info bar to the same
         # message multiple times
         self._prev_status = None
+        self._waive_clicks = 0
+        self._waive_ASCII_clicks = 0
+        self._policy = None
+        self._input_enabled = True
 
     def set_status(self, inputcheck):
         """Update the warning with the input validation error from the first
@@ -209,6 +214,125 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     def window(self):
         pass
 
+    @property
+    def input(self):
+        """Input to be checked.
+
+        Content of the input field, etc.
+
+        :returns: input to be checked
+        :rtype: str
+        """
+        return None
+
+    @property
+    def input_confirmation(self):
+        """Content of the input confirmation field.
+
+        Note that not all spokes might have a password confirmation field.
+
+        :returns: content of the password confirmation field
+        :rtype: str
+        """
+        pass
+
+    @property
+    def input_enabled(self):
+        """Is the input we are checking enabled ?
+
+        For example on the User spoke it is possible to disable the password input field.
+
+        :returns: is the input we are checking enabled
+        :rtype: bool
+        """
+        return self._input_enabled
+
+    @input_enabled.setter
+    def input_enabled(self, value):
+        self._input_enabled = value
+
+    @property
+    def input_kickstarted(self):
+        """Reports if the input was initialized from kickstart.
+
+        :returns: if the input was initialized from kickstart
+        :rtype: bool
+        """
+        return False
+
+    @property
+    def input_username(self):
+        """A username corresponding to the input (if any).
+
+        :returns: username corresponding to the input or None
+        :rtype: str on None
+        """
+        return None
+
+    def set_input_score(self, score):
+        """Set input quality score.
+
+        :param int score: input quality score
+        """
+        pass
+
+    def set_input_status(self, status_message):
+        """Set input quality status message.
+
+        :param str status: input quality status message
+        """
+        pass
+
+    @property
+    def waive_clicks(self):
+        """Number of waive clicks the user has done to override an input check.
+
+        :returns: number of waive clicks
+        :rtype: int
+        """
+        return self._waive_clicks
+
+    @waive_clicks.setter
+    def waive_clicks(self, clicks):
+        """Set number of waive clicks.
+
+        :param int clicks: number of waive clicks
+        """
+        self._waive_clicks = clicks
+
+    @property
+    def waive_ASCII_clicks(self):
+        """Number of waive clicks the user has done to override the ASCII input check.
+
+        :returns: number of ASCII check waive clicks
+        :rtype: int
+        """
+        return self._waive_ASCII_clicks
+
+    @waive_ASCII_clicks.setter
+    def waive_ASCII_clicks(self, clicks):
+        """Set number of ASCII check waive clicks.
+
+        :param int clicks: number of ASCII check waive clicks
+        """
+        self._waive_ASCII_clicks = clicks
+
+    @property
+    def policy(self):
+        """Input checking policy.
+
+        :returns: the input checking policy
+        """
+        return self._policy
+
+    @policy.setter
+    def policy(self, input_policy):
+        """Set the input checking policy.
+
+        :param input_policy: the input checking policy
+        """
+        self._policy = input_policy
+
     @abstractmethod
     def on_back_clicked(self, window):
         """Check whether the input validation checks allow the spoke to be exited.
@@ -218,9 +342,117 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
            and if it succeeded, run NormalSpoke.on_back_clicked.
         """
         failed_check = next(self.failed_checks, None)
-
         if failed_check:
             failed_check.input_obj.grab_focus()
             return False
         else:
             return True
+
+    def check_password_confirm(self, inputcheck):
+        """If the user has entered confirmation data, check whether it matches the password."""
+        # Skip the check if no password is required
+        if (not self.input_enabled) or self.input_kickstarted:
+            result = InputCheck.CHECK_OK
+        elif self.input_confirmation and (self.input != self.input_confirmation):
+            result = _(constants.PASSWORD_CONFIRM_ERROR_GUI)
+        else:
+            result = InputCheck.CHECK_OK
+
+        return result
+
+    def check_password_empty(self, inputcheck):
+        """Check whether a password has been specified at all.
+
+           This check is used for both the password and the confirmation.
+        """
+        # If the password was set by kickstart, skip the strength check
+        # pylint: disable=no-member
+        if self.input_kickstarted and not self.policy.changesok:
+            return InputCheck.CHECK_OK
+
+        # Skip the check if no password is required
+        if (not self.input_enabled) or self.input_kickstarted:
+            return InputCheck.CHECK_OK
+        # Also skip the check if the policy says that an empty password is fine
+        # pylint: disable=no-member
+        elif self.policy.emptyok:
+            return InputCheck.CHECK_OK
+        elif not self.get_input(inputcheck.input_obj):
+            # pylint: disable=no-member
+            if self.policy.strict:
+                return _(constants.PASSWORD_EMPTY_ERROR)
+            else:
+                if self.waive_clicks > 1:
+                    return InputCheck.CHECK_OK
+                else:
+                    return "%s %s" % (_(constants.PASSWORD_EMPTY_ERROR), _(constants.PASSWORD_DONE_TWICE))
+        else:
+            return InputCheck.CHECK_OK
+
+    def check_user_password_strength(self, inputcheck):
+        """Update the error message based on password strength.
+
+           The password strength check can be waived by pressing "Done" twice. This
+           is controlled through the self.waive_clicks counter. The counter
+           is set in on_back_clicked, which also re-runs this check manually.
+         """
+        pw = self.input
+
+        # Don't run any check if the password is empty - there is a dedicated check for that
+        if not pw:
+            return InputCheck.CHECK_OK
+
+        # determine the password strength
+        # pylint: disable=no-member
+        pw_check_result = validatePassword(pw,
+                                           self.input_username,
+                                           minlen=self.policy.minlen,
+                                           empty_ok=self.policy.emptyok)
+        pw_score, status_text, pw_quality, error_message = pw_check_result
+        self.set_input_score(pw_score)
+        self.set_input_status(status_text)
+
+        # Skip the check if no password is required
+        if not self.input_enabled or self.input_kickstarted:
+            return InputCheck.CHECK_OK
+
+        # pylint: disable=no-member
+        if pw_quality < self.policy.minquality or not pw_score or not pw:
+            # If Done has been clicked twice, waive the check
+            if self.waive_clicks > 1:
+                return InputCheck.CHECK_OK
+            elif self.waive_clicks == 1:
+                if error_message:
+                    return _(constants.PASSWORD_WEAK_CONFIRM_WITH_ERROR) % error_message
+                else:
+                    return _(constants.PASSWORD_WEAK_CONFIRM)
+            else:
+                # non-strict allows done to be clicked twice
+                # pylint: disable=no-member
+                if self.policy.strict:
+                    done_msg = ""
+                else:
+                    done_msg = _(constants.PASSWORD_DONE_TWICE)
+
+                if error_message:
+                    return _(constants.PASSWORD_WEAK_WITH_ERROR) % error_message + " " + done_msg
+                else:
+                    return _(constants.PASSWORD_WEAK) % done_msg
+        else:
+            return InputCheck.CHECK_OK
+
+    def check_password_ASCII(self, inputcheck):
+        """Set an error message if the password contains non-ASCII characters.
+
+           Like the password strength check, this check can be bypassed by
+           pressing Done twice.
+        """
+        # If Done has been clicked, waive the check
+        if self.waive_ASCII_clicks > 0:
+            return InputCheck.CHECK_OK
+
+        password = self.get_input(inputcheck.input_obj)
+        if password and any(char not in constants.PW_ASCII_CHARS for char in password):
+            return _(constants.PASSWORD_ASCII)
+
+        return InputCheck.CHECK_OK
