@@ -25,7 +25,7 @@ import os.path
 import subprocess
 import unicodedata
 # Used for ascii_lowercase, ascii_uppercase constants
-import string # pylint: disable=deprecated-module
+import string  # pylint: disable=deprecated-module
 import shutil
 import tempfile
 import re
@@ -128,7 +128,7 @@ def setSysroot(path):
     _sysroot = path
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        env_prune=None, env_add=None, reset_handlers=True, reset_lang=True, **kwargs):
+                 env_prune=None, env_add=None, reset_handlers=True, reset_lang=True, **kwargs):
     """ Start an external program and return the Popen object.
 
         The root and reset_handlers arguments are handled by passing a
@@ -218,6 +218,7 @@ def startX(argv, output_redirect=None):
     """
     # Use a list so the value can be modified from the handler function
     x11_started = [False]
+
     def sigusr1_handler(num, frame):
         log.debug("X server has signalled a successful start.")
         x11_started[0] = True
@@ -243,7 +244,7 @@ def startX(argv, output_redirect=None):
         signal.alarm(60)
 
         childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
-                preexec_fn=sigusr1_preexec)
+                                 preexec_fn=sigusr1_preexec)
         watchProcess(childproc, argv[0])
 
         # Wait for SIGUSR1
@@ -257,7 +258,7 @@ def startX(argv, output_redirect=None):
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
-        binary_output=False, filter_stderr=False):
+                 binary_output=False, filter_stderr=False):
     """ Run an external program, log the output and return it to the caller
 
         NOTE/WARNING: UnicodeDecodeError will be raised if the output of the of the
@@ -280,7 +281,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             stderr = subprocess.STDOUT
 
         proc = startProgram(argv, root=root, stdin=stdin, stdout=subprocess.PIPE, stderr=stderr,
-                env_prune=env_prune)
+                            env_prune=env_prune)
 
         (output_string, err_string) = proc.communicate()
         if not binary_output:
@@ -356,7 +357,7 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
 
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
-            log_output=log_output, binary_output=binary_output)[0]
+                        log_output=log_output, binary_output=binary_output)[0]
 
 def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False):
     """ Run an external program and capture standard out and err.
@@ -376,7 +377,7 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
 
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
-            filter_stderr=filter_stderr)[1]
+                        filter_stderr=filter_stderr)[1]
 
 def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
     """ Run an external program and capture standard out and err as binary data.
@@ -453,10 +454,10 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
                 # Check for successful exit
                 if self._proc.returncode < 0:
                     raise OSError("process '%s' was killed by signal %s" %
-                            (self._argv, -self._proc.returncode))
+                                  (self._argv, -self._proc.returncode))
                 elif self._proc.returncode > 0:
                     raise OSError("process '%s' exited with status %s" %
-                            (self._argv, self._proc.returncode))
+                                  (self._argv, self._proc.returncode))
                 raise StopIteration
 
             return line.strip()
@@ -608,7 +609,7 @@ def watchProcessGLib():
     _watch_process_glib = True
     for child_pid in _forever_pids:
         _forever_pids[child_pid][1] = GLib.child_watch_add(child_pid, _watch_process_cb,
-                _forever_pids[child_pid])
+                                                           _forever_pids[child_pid])
 
 def unwatchProcess(proc):
     """Unwatch a process watched by watchProcess.
@@ -694,8 +695,8 @@ def get_active_console(dev="console"):
     return dev
 
 def isConsoleOnVirtualTerminal(dev="console"):
-    console = get_active_console(dev)          # e.g. 'tty1', 'ttyS0', 'hvc1'
-    consoletype = console.rstrip('0123456789') # remove the number
+    console = get_active_console(dev)           # e.g. 'tty1', 'ttyS0', 'hvc1'
+    consoletype = console.rstrip('0123456789')  # remove the number
     return consoletype == 'tty'
 
 def reIPL(ipldev):
@@ -738,11 +739,11 @@ def add_po_path(directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
     for d in os.listdir(directory):
-        if not os.path.isdir("%s/%s" %(directory, d)):
+        if not os.path.isdir("%s/%s" % (directory, d)):
             continue
-        if not os.path.exists("%s/%s/LC_MESSAGES" %(directory, d)):
+        if not os.path.exists("%s/%s/LC_MESSAGES" % (directory, d)):
             continue
-        for basename in os.listdir("%s/%s/LC_MESSAGES" %(directory, d)):
+        for basename in os.listdir("%s/%s/LC_MESSAGES" % (directory, d)):
             if not basename.endswith(".mo"):
                 continue
             log.info("setting %s as translation source for %s", directory, basename[:-3])
@@ -989,8 +990,8 @@ def strip_accents(s):
     :rtype: str
 
     """
-    return ''.join((c for c in unicodedata.normalize('NFD', s)
-                      if unicodedata.category(c) != 'Mn'))
+    return ''.join(c for c in unicodedata.normalize('NFD', s)
+                   if unicodedata.category(c) != 'Mn')
 
 def cmp_obj_attrs(obj1, obj2, attr_list):
     """ Compare attributes of 2 objects for changes
@@ -1255,7 +1256,7 @@ def xprogressive_delay():
     """
     counter = 1
     while True:
-        yield 0.25*(2**counter)
+        yield 0.25 * (2 ** counter)
         counter += 1
 
 def get_platform_groupid():
@@ -1468,7 +1469,7 @@ def collect(module_pattern, path, pred):
 
                     # make sure all "parent" modules are in sys.modules
                     for l in range(len(module_parts)):
-                        module_part_name = ".".join(module_parts[:l+1])
+                        module_part_name = ".".join(module_parts[:l + 1])
                         if module_part_name not in sys.modules:
                             module_part = types.ModuleType(module_part_name)
                             module_part.__path__ = [path]
@@ -1477,7 +1478,6 @@ def collect(module_pattern, path, pred):
                     # load the collected module
                     module = imp.load_module(module_pattern % mod_name,
                                              fo, module_path, module_flags)
-
 
             # get the filenames without the extensions so we can compare those
             # with the .py[co]? equivalence in mind
@@ -1520,8 +1520,8 @@ def collect(module_pattern, path, pred):
         finally:
             imp.release_lock()
 
-            if mod_info and mod_info[0]: # pylint: disable=unsubscriptable-object
-                mod_info[0].close() # pylint: disable=unsubscriptable-object
+            if mod_info and mod_info[0]:  # pylint: disable=unsubscriptable-object
+                mod_info[0].close()  # pylint: disable=unsubscriptable-object
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 
