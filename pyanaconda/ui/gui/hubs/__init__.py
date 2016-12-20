@@ -399,7 +399,7 @@ class Hub(GUIObject, common.Hub):
 
         # Enter the spoke
         self._inSpoke = True
-        spoke.entry()
+        spoke.entered.emit(spoke)
         spoke.refresh()
         self.main_window.enterSpoke(spoke)
 
@@ -422,7 +422,7 @@ class Hub(GUIObject, common.Hub):
             spoke.execute()
             spoke.visitedSinceApplied = False
 
-        spoke.exit()
+        spoke.exited.emit(spoke)
 
         self._inSpoke = False
 
