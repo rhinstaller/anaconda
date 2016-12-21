@@ -80,25 +80,30 @@ class SummaryHub(TUIHub):
         # which expects an environment for interactive install) will continue
         # to behave the same, so the user can hit 'b' at the prompt and ignore
         # the warning.
-        if flags.automatedInstall and self._checker and not self._checker.check():
-            print(self._checker.error_message)
-            log.error(self._checker.error_message)
+        if flags.automatedInstall and not incompleteSpokes:
 
-            # Unset the checker so everything passes next time
-            self._checker = None
+            # Check the available space.
+            if self._checker and not self._checker.check():
 
-            if not flags.ksprompt:
-                return None
+                # Space is not ok.
+                print(self._checker.error_message)
+                log.error(self._checker.error_message)
+
+                # Unset the checker so everything passes next time.
+                self._checker = None
+
+                if not flags.ksprompt:
+                    return None
+                else:
+                    # TRANSLATORS: 'b' to begin installation
+                    print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
+                            # TRANSLATORS: 'b' to begin installation
+                            C_("TUI|Spoke Navigation", "b")
+                            )
             else:
-                # TRANSLATORS: 'b' to begin installation
-                print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
-                        # TRANSLATORS: 'b' to begin installation
-                        C_("TUI|Spoke Navigation", "b")
-                        )
-        elif flags.automatedInstall and not incompleteSpokes:
-            # Space is ok and spokes are complete, continue
-            self.close()
-            return None
+                # Space is ok and spokes are complete, continue.
+                self.close()
+                return None
 
         # cmdline mode and incomplete spokes raises and error
         if not flags.ksprompt and incompleteSpokes:
