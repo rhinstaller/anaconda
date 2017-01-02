@@ -27,6 +27,7 @@ from collections import namedtuple
 from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
 from blivet.fcoe import has_fcoe
+from blivet.iscsi import iscsi
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
@@ -536,6 +537,9 @@ class FilterSpoke(NormalSpoke):
 
         if not has_fcoe():
             self.builder.get_object("addFCOEButton").destroy()
+
+        if not iscsi.available:
+            self.builder.get_object("addISCSIButton").destroy()
 
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
