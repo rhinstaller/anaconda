@@ -32,6 +32,11 @@ kickstart
 Gives the local file path to use for kickstart. Normally only used when running anaconda
 from the cmdline.  This option is not supported for live installations.
 
+ksstrict
+With this option, all warnings from reading the kickstart file will be treated as errors.
+They will be printed on the output and the installation will terminate immediately. By default,
+the warnings are printed to logs and the installation continues.
+
 rescue
 Start the rescue environment instead of installation.  This option is not supported for
 live installations.
