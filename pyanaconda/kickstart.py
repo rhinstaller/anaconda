@@ -280,7 +280,6 @@ class AutoPart(commands.autopart.F21_AutoPart):
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        instClass.setDefaultPartitioning(storage)
         storage.do_autopart = True
 
         if self.encrypted:
