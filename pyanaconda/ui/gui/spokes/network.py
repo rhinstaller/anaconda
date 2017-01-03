@@ -118,8 +118,8 @@ class CellRendererSignal(Gtk.CellRendererPixbuf):
     __gproperties__ = {
         "signal": (GObject.TYPE_UINT,
                    "Signal", "Signal",
-                   0, GObject.G_MAXUINT, 0,
-                   GObject.PARAM_READWRITE),
+                   0, GLib.MAXUINT, 0,
+                   GObject.ParamFlags.READWRITE),
     }
 
     def __init__(self):
@@ -172,8 +172,8 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
     __gproperties__ = {
         "security": (GObject.TYPE_UINT,
                    "Security", "Security",
-                   0, GObject.G_MAXUINT, 0,
-                   GObject.PARAM_READWRITE),
+                   0, GLib.MAXUINT, 0,
+                   GObject.ParamFlags.READWRITE),
     }
 
     def __init__(self):
@@ -243,9 +243,9 @@ class DeviceConfiguration(object):
 class NetworkControlBox(GObject.GObject):
 
     __gsignals__ = {
-        "nm-state-changed": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, []),
-        "device-state-changed": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, [str, int, int, int]),
-        "apply-hostname": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, []),
+        "nm-state-changed": (GObject.SignalFlags.RUN_LAST, GObject.TYPE_NONE, []),
+        "device-state-changed": (GObject.SignalFlags.RUN_LAST, GObject.TYPE_NONE, [str, int, int, int]),
+        "apply-hostname": (GObject.SignalFlags.RUN_LAST, GObject.TYPE_NONE, []),
     }
 
     supported_device_types = [
