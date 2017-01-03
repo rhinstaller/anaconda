@@ -72,6 +72,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def initialize(self):
         EditTUISpoke.initialize(self)
+        self.initialize_start()
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
@@ -90,6 +91,9 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
         self._ready = True
+
+        # report that the source spoke has been initialized
+        self.initialize_done()
 
     def _payload_error(self):
         self._error = True

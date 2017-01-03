@@ -67,6 +67,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def initialize(self):
         # Start a thread to wait for the payload and run the first, automatic
         # dependency check
+        self.initialize_start()
         super(SoftwareSpoke, self).initialize()
         threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER,
             target=self._initialize))
@@ -89,6 +90,14 @@ class SoftwareSpoke(NormalTUISpoke):
 
         # Apply the initial selection
         self._apply()
+
+        # Wait for the software selection thread that might be started by _apply().
+        # We are already running in a thread, so it should not needlessly block anything
+        # and only like this we can be sure we are really initialized.
+        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+
+        # report that the software spoke has been initialized
+        self.initialize_done()
 
     def _payload_start(self):
         # Source is changing, invalidate the software selection and clear the

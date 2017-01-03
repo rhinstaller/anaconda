@@ -246,6 +246,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         # Create a new UserData object to store this spoke's state
         # as well as the state of the advanced user dialog.
@@ -338,6 +339,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # set the visibility of the password entries
         set_password_visibility(self.pw, False)
         set_password_visibility(self.confirm, False)
+
+        # report that we are done
+        self.initialize_done()
 
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit

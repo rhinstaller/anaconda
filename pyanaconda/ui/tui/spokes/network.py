@@ -59,11 +59,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         self._apply = False
 
     def initialize(self):
+        self.initialize_start()
         self._load_new_devices()
 
         EditTUISpoke.initialize(self)
         if not self.data.network.seen:
             self._update_network_data()
+        self.initialize_done()
 
     def _load_new_devices(self):
         devices = nm.nm_devices()
