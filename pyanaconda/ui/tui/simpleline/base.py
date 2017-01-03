@@ -518,11 +518,11 @@ class App(object):
             # for that
 
             # "close" the previous screen (if any)
-            if App._current_screen and hasattr(App._current_screen, "exit"):
-                App._current_screen.exit()
+            if App._current_screen and hasattr(App._current_screen, "exited"):
+                App._current_screen.exited.emit(App._current_screen)
             # "enter" the new screen (if any)
-            if new_screen and hasattr(new_screen, "entry"):
-                new_screen.entry()
+            if new_screen and hasattr(new_screen, "entered"):
+                new_screen.entered.emit(new_screen)
 
         App._current_screen = new_screen
 
