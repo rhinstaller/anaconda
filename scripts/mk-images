@@ -532,6 +532,9 @@ EOF
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/uwb/i1480/i1480-est.ko
         rm -rf $MBD_DIR/firmware/3com
         rm -rf $MBD_DIR/firmware/bnx2
+        rm -rf $MBD_DIR/firmware/rtl_nic
+        rm -rf $MBD_DIR/firmware/kaweth
+        rm -f $MBD_DIR/firmware/iwlwifi-*.ucode
     fi
 
     # clean up leftover cruft
