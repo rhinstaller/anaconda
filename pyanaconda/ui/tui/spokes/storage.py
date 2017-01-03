@@ -449,6 +449,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
+        self.initialize_start()
 
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
@@ -472,6 +473,9 @@ class StorageSpoke(NormalTUISpoke):
 
         self._update_summary()
         self._ready = True
+
+        # report that the storage spoke has been initialized
+        self.initialize_done()
 
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here. """

@@ -24,6 +24,7 @@ from gi.repository import GLib
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_
 from pyanaconda.product import distributionText
+from pyanaconda import lifecycle
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
@@ -196,6 +197,13 @@ class Hub(GUIObject, common.Hub):
             # category's title in the wrong place.
             if len(selectors) % 2:
                 row += 1
+
+        # initialization of all expected spokes has been started, so notify the controller
+        hub_controller = lifecycle.get_controller_by_name(self.__class__.__name__)
+        if hub_controller:
+            hub_controller.all_modules_added()
+        else:
+            log.error("Initialization controller for hub %s expected but missing.", self.__class__.__name__)
 
         spokeArea = self.window.get_spoke_area()
         viewport = Gtk.Viewport()

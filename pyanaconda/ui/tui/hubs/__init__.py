@@ -18,11 +18,15 @@
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
+from pyanaconda import lifecycle
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui import common
 
 from pyanaconda.i18n import _, C_, N_
+
+import logging
+log = logging.getLogger("anaconda")
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
@@ -73,6 +77,14 @@ class TUIHub(TUIObject, common.Hub):
                 self._spoke_count += 1
                 self._keys[self._spoke_count] = spoke
                 self._spokes[spokeClass.__name__] = spoke
+
+        if self._spoke_count:
+            # initialization of all expected spokes has been started, so notify the controller
+            hub_controller = lifecycle.get_controller_by_name(self.__class__.__name__)
+            if hub_controller:
+                hub_controller.all_modules_added()
+            else:
+                log.error("Initialization controller for hub %s expected but missing.", self.__class__.__name__)
 
         # only schedule the hub if it has some spokes
         return self._spoke_count != 0

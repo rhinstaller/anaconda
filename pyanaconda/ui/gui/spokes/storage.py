@@ -585,6 +585,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         self.local_disks_box = self.builder.get_object("local_disks_box")
         self.specialized_disks_box = self.builder.get_object("specialized_disks_box")
@@ -661,6 +662,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
+
+        # report that the storage spoke has been initialized
+        self.initialize_done()
 
     def _update_summary(self):
         """ Update the summary based on the UI. """

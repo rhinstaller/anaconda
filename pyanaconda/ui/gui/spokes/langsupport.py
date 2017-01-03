@@ -59,6 +59,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         self._selected_locales = set()
 
     def initialize(self):
+        self.initialize_start()
         self._languageStore = self.builder.get_object("languageStore")
         self._languageEntry = self.builder.get_object("languageEntry")
         self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
@@ -95,6 +96,9 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         highlightedRenderer = self.builder.get_object("highlightedRenderer")
         override_cell_property(highlightedColumn, highlightedRenderer,
                 "icon-name", self._render_lang_highlighted)
+
+        # report that we are done
+        self.initialize_done()
 
     def apply(self):
         # store only additional langsupport locales

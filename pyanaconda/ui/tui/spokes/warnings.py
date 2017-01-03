@@ -40,6 +40,7 @@ class WarningsSpoke(StandaloneTUISpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneTUISpoke.__init__(self, *args, **kwargs)
+        self.initialize_start()
 
         self._message = _("This hardware (or a combination thereof) is not "
                           "supported by Red Hat.  For more information on "
@@ -49,6 +50,8 @@ class WarningsSpoke(StandaloneTUISpoke):
         self._unsupported = productName.startswith("Red Hat ") and \
                             is_unsupported_hw() and \
                             not self.data.unsupportedhardware.unsupported_hardware
+
+        self.initialize_done()
 
     @property
     def completed(self):
