@@ -223,6 +223,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 03 2017 Radek Vykydal <rvykydal@redhat.com> - 13.21.262-1
+- Remove more firmware from ppc image (rvykydal)
+  Related: rhbz#1405089
+  Resolves: rhbz#1405089
+
 * Fri Dec 16 2016 Radek Vykydal <rvykydal@redhat.com> - 13.21.261-1
 - Remove 3com and bnx2 firmware to meet ppc64 image limit (rvykydal)
   Related: rhbz#1405089
