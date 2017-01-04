@@ -79,6 +79,7 @@ from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 import sys
+from enum import Enum
 
 import logging
 log = logging.getLogger("anaconda")
@@ -94,6 +95,11 @@ RESPONSE_QUIT = 4
 DASD_FORMAT_NO_CHANGE = -1
 DASD_FORMAT_REFRESH = 1
 DASD_FORMAT_RETURN_TO_HUB = 2
+
+class PartitioningMethod(Enum):
+    AUTO = "auto"
+    CUSTOM = "custom"
+    BLIVET_GUI = "blivet-gui"
 
 class InstallOptionsDialogBase(GUIObject):
     uiFile = "spokes/storage.glade"
@@ -294,11 +300,44 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._grabObjects()
 
+        self._autoPart.connect("toggled", self._method_radio_button_toggled)
+        self._customPart.connect("toggled", self._method_radio_button_toggled)
+        self._blivetGuiPart.connect("toggled", self._method_radio_button_toggled)
+
+        self._last_partitioning_method = self._get_selected_partitioning_method()
+
     def _grabObjects(self):
+        self._autoPart = self.builder.get_object("autopartRadioButton")
         self._customPart = self.builder.get_object("customRadioButton")
         self._blivetGuiPart = self.builder.get_object("blivetguiRadioButton")
         self._encrypted = self.builder.get_object("encryptionCheckbox")
         self._reclaim = self.builder.get_object("reclaimCheckbox")
+
+    def _get_selected_partitioning_method(self):
+        """Return partitioning method according to which method selection radio button is currently active."""
+        if self._autoPart.get_active():
+            return PartitioningMethod.AUTO
+        elif self._customPart.get_active():
+            return PartitioningMethod.CUSTOM
+        else:
+            return PartitioningMethod.BLIVET_GUI
+
+    def _method_radio_button_toggled(self, radio_button):
+        """Triggered when one of the partitioning method radio buttons is toggled."""
+        # is this a change from the last used method ?
+        method_changed = self._get_selected_partitioning_method() != self._last_partitioning_method
+        # are there any actions planned ?
+        actions_planned = self.storage.devicetree.actions.find()
+        if actions_planned:
+            if method_changed:
+                # clear any existing messages from the info bar
+                # - this generally means various storage related error warnings
+                self.clear_info()
+                self.set_warning(_("Partitioning method changed - planned storage configuration changes will be cancelled."))
+            else:
+                self.clear_info()
+                # reinstate any errors that should be shown to the user
+                self._check_problems()
 
     def apply(self):
         applyDiskSelection(self.storage, self.data, self.selected_disks)
@@ -957,13 +996,31 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if self._last_selected_disks:
             disk_selection_changed = (self._last_selected_disks != set(self.selected_disks))
 
+        # We aren't (yet?) ready to support storage configuration to be done partially
+        # in the custom spoke and in the Blivet GUI spoke. There are some storage configuration
+        # one tool can create and the other might not understand, so detect that the user
+        # switched from on to to the other and reset storage configuration to the "clean"
+        # initial storage configuration snapshot in such a case.
+        partitioning_method_changed = False
+        current_partitioning_method = self._get_selected_partitioning_method()
+        if self._last_partitioning_method != current_partitioning_method:
+            log.info("Partitioning method changed from %s to %s.",
+                     self._last_partitioning_method.value,
+                     current_partitioning_method.value)
+            log.info("Rolling back planed storage configuration changes.")
+            partitioning_method_changed = True
+            self._last_partitioning_method = current_partitioning_method
+
         # remember the disk selection for future decisions
         self._last_selected_disks = set(self.selected_disks)
 
-        if disk_selection_changed:
+        if disk_selection_changed or partitioning_method_changed:
             # Changing disk selection is really, really complicated and has
             # always been causing numerous hard bugs. Let's not play the hero
             # game and just revert everything and start over again.
+            #
+            # Same thing for switching between different storage configuration
+            # methods (auto/custom/blivet-gui), at least for now.
             on_disk_storage.reset_to_snapshot(self.storage)
             self.disks = getDisks(self.storage.devicetree)
         else:
