@@ -208,6 +208,7 @@ def availableClasses(showHidden=False):
 
     # sort by sort order first, then by install class name
     lst.sort(key=lambda x: (x[1], x[0][0]))
+    log.info('Install classes: %r', lst)
     for (item, _) in lst:
         if showHidden:
             allClasses_hidden += [item]
