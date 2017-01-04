@@ -301,6 +301,9 @@ class SoftwareSpoke(NormalTUISpoke):
         self.environment = self._get_environment(self._selection)
         self.addons = self._addons_selection if self.environment is not None else set()
 
+        if not self.environment:
+            return
+
         changed = False
 
         # Not a kickstart with packages, setup the selected environment and addons
