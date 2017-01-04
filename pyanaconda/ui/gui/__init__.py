@@ -702,11 +702,11 @@ class GraphicalUserInterface(UserInterface):
             return
 
         # Get the primary monitor dimensions in pixels and mm from Gdk
-        primary = screen.get_primary_monitor()
-        monitor_geometry = screen.get_monitor_geometry(primary)
-        monitor_scale = screen.get_monitor_scale_factor(primary)
-        monitor_width_mm = screen.get_monitor_width_mm(primary)
-        monitor_height_mm = screen.get_monitor_height_mm(primary)
+        primary_monitor = display.get_primary_monitor()
+        monitor_geometry = primary_monitor.get_geometry()
+        monitor_scale = primary_monitor.get_scale_factor()
+        monitor_width_mm = primary_monitor.get_width_mm()
+        monitor_height_mm = primary_monitor.get_height_mm()
 
         # Sometimes gdk returns 0 for physical widths and heights
         if monitor_height_mm == 0 or monitor_width_mm == 0:

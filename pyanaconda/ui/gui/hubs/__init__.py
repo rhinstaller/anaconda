@@ -199,7 +199,7 @@ class Hub(GUIObject, common.Hub):
 
             col = 0
             for selector in selectors:
-                selector.set_margin_left(12)
+                selector.set_margin_start(12)
                 grid.attach(selector, col, row, 1, 1)
                 col = int(not col)
                 if col == 0:
