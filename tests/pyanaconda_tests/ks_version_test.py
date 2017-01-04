@@ -36,6 +36,7 @@ class BaseTestCase(unittest.TestCase):
 # Verify that each kickstart command in anaconda uses the correct version of
 # that command as provided by pykickstart.  That is, if there's an FC3 and an
 # F10 version of a command, make sure anaconda >= F10 uses the F10 version.
+@unittest.skip("Pykickstart versions are not relevant for Fedora 25")
 class CommandVersionTestCase(BaseTestCase):
     def commands_test(self):
         """Test that anaconda uses the right versions of kickstart commands"""
