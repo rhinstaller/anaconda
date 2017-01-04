@@ -40,8 +40,15 @@ class BaseTestCase(unittest.TestCase):
 class CommandVersionTestCase(BaseTestCase):
     def commands_test(self):
         """Test that anaconda uses the right versions of kickstart commands"""
+        from pykickstart import commands
+        # place here unsupported commands, these commands will be skipped
+        ignore_cmd_list = [commands.displaymode.F26_DisplayMode]
+
         for (commandName, commandObj) in self._commandMap.items():
             pykickstartClass = self.handler.commands[commandName].__class__
+            if pykickstartClass in ignore_cmd_list:
+                # Skip unsupported DisplayMode command on F25
+                continue
             self.assertIsInstance(commandObj(), pykickstartClass)
 
 # Do the same thing as CommandVersionTestCase, but for data objects.
