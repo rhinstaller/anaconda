@@ -158,7 +158,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         choices = [_prep(i, w) for i, w in enumerate(text)]
 
         displayed = ColumnWidget([(78, choices)], 1)
-        self._window.append(displayed)
+        self._window += [displayed, ""]
 
         return True
 
@@ -384,7 +384,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
             choices = [_prep(i, w) for i, w in enumerate(devices)]
 
             displayed = ColumnWidget([(78, choices)], 1)
-            self._window.append(displayed)
+            self._window += [displayed, ""]
 
         else:
             message = _("No mountable devices found")
@@ -442,7 +442,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
             choices = [_prep(i, w) for i, w in enumerate(isos)]
 
             displayed = ColumnWidget([(78, choices)], 1)
-            self._window.append(displayed)
+            self._window += [displayed, ""]
         else:
             message = _("No *.iso files found in device root folder")
             self._window += [TextWidget(message), ""]

@@ -171,7 +171,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         # make everything presentable on screen
         choices = [_prep(i, w) for i, w in enumerate(text)]
         displayed = ColumnWidget([(78, choices)], 1)
-        self._window.append(displayed)
+        self._window += [displayed, ""]
 
         return True
 

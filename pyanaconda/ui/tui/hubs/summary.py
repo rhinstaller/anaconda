@@ -19,6 +19,7 @@
 
 from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
 from pyanaconda.ui.tui.hubs import TUIHub
+from pyanaconda.ui.tui.simpleline import Prompt
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
 from pyanaconda.i18n import N_, _, C_
@@ -116,14 +117,12 @@ class SummaryHub(TUIHub):
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
-        return _("  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to begin installation |\n  '%(refresh)s' to refresh]: ") % {
-            # TRANSLATORS: 'q' to quit
-            'quit': C_('TUI|Spoke Navigation', 'q'),
-            # TRANSLATORS: 'b' to begin installation
-            'begin': C_('TUI|Spoke Navigation', 'b'),
-            # TRANSLATORS: 'r' to refresh
-            'refresh': C_('TUI|Spoke Navigation', 'r')
-        }
+        prompt = Prompt()
+        prompt.add_quit_option()
+        prompt.add_refresh_option()
+        # TRANSLATORS: 'b' to begin installation
+        prompt.add_option(C_("TUI|Spoke Navigation", "b"), _("to begin installation"))
+        return prompt
 
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
