@@ -440,12 +440,18 @@ class Payload(object):
                 self.verbose_errors.append(err_msg)
                 response = None
         if response:
+            # get the treeinfo contents
+            text = response.text
+
+            # close the response
+            response.close()
+
             # write the local treeinfo file
             with open("/tmp/.treeinfo", "w") as f:
-                f.write(response.text)
+                f.write(text)
 
             # and also return the treeinfo contents as a string
-            return response.text
+            return text
         else:
             return None
 
