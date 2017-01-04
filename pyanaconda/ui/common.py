@@ -347,7 +347,7 @@ class Spoke(object, metaclass=ABCMeta):
            more specific information, but an overridden method should finish
            by calling this method so the entry will be logged.
         """
-        log.debug("Entered spoke: %s", spoke_instance.__class__.__name__)
+        log.debug("Entered spoke: %s", spoke_instance)
 
     def exit_logger(self, spoke_instance):
         """Log when a user leaves the spoke.  Subclasses may override this
@@ -355,7 +355,7 @@ class Spoke(object, metaclass=ABCMeta):
            overridden method should finish by calling this method so the
            exit will be logged.
         """
-        log.debug("Left spoke: %s", spoke_instance.__class__.__name__)
+        log.debug("Left spoke: %s", spoke_instance)
 
     def finished(self):
         """Called when exiting the Summary Hub
@@ -364,6 +364,15 @@ class Spoke(object, metaclass=ABCMeta):
         installation. This method is optional.
         """
         pass
+
+
+    def __repr__(self):
+        """Return the class name as representation.
+
+        Returning the class name should be enough the uniquely identify a spoke.
+        """
+        return self.__class__.__name__
+
 
 # Inherit abstract methods from Spoke
 # pylint: disable=abstract-method
@@ -541,7 +550,7 @@ class Hub(object, metaclass=ABCMeta):
            and then coming back to the hub does not count as exiting and
            entering.
         """
-        log.debug("Entered hub: %s", hub_instance.__class__.__name__)
+        log.debug("Entered hub: %s", hub_instance)
 
     def _collectCategoriesAndSpokes(self):
         """This method is provided so that is can be overridden in a subclass
@@ -560,7 +569,14 @@ class Hub(object, metaclass=ABCMeta):
            user selects a spoke from the hub.  They are only exited when the
            continue or quit button is clicked on the hub.
         """
-        log.debug("Left hub: %s", hub_instance.__class__.__name__)
+        log.debug("Left hub: %s", hub_instance)
+
+    def __repr__(self):
+        """Return the class name as representation.
+
+        Returning the class name should be enough the uniquely identify a hub.
+        """
+        return self.__class__.__name__
 
 def collect_spokes(mask_paths, category):
     """Return a list of all spoke subclasses that should appear for a given
