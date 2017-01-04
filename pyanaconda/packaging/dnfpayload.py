@@ -366,8 +366,8 @@ class DNFPayload(packaging.PackagePayload):
             log.info("skipping core group due to %%packages --nocore; system may not be complete")
         else:
             try:
-                self._select_group('core', required=True)
-                log.info("selected group: core")
+                self._select_group('minimal-environment', required=True)
+                log.info("selected group: minimal-environment")
             except packaging.NoSuchGroup as e:
                 self._miss(e)
 
