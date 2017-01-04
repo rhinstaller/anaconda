@@ -142,8 +142,8 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
                 dev.protected = False
             # the hdd iso cleanup function might be run multiple times,
             # so make sure the partition still is in the list of protected devices
-            if part in self.storage.config.protectedDevSpecs:
-                self.storage.config.protectedDevSpecs.remove(part)
+            if part in self.storage.config.protected_dev_specs:
+                self.storage.config.protected_dev_specs.remove(part)
 
     def set_source_hdd_iso(self, device, iso_path):
         """ Switch to the HDD ISO install source
@@ -163,7 +163,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         # protect current device
         if device:
             device.protected = True
-            self.storage.config.protectedDevSpecs.append(device.name)
+            self.storage.config.protected_dev_specs.append(device.name)
 
         self.data.method.method = "harddrive"
         self.data.method.partition = partition

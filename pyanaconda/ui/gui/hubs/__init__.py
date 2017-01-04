@@ -199,7 +199,7 @@ class Hub(GUIObject, common.Hub):
 
             col = 0
             for selector in selectors:
-                selector.set_margin_left(12)
+                selector.set_margin_start(12)
                 grid.attach(selector, col, row, 1, 1)
                 col = int(not col)
                 if col == 0:
@@ -399,7 +399,7 @@ class Hub(GUIObject, common.Hub):
 
         # Enter the spoke
         self._inSpoke = True
-        spoke.entry()
+        spoke.entered.emit(spoke)
         spoke.refresh()
         self.main_window.enterSpoke(spoke)
 
@@ -422,7 +422,7 @@ class Hub(GUIObject, common.Hub):
             spoke.execute()
             spoke.visitedSinceApplied = False
 
-        spoke.exit()
+        spoke.exited.emit(spoke)
 
         self._inSpoke = False
 

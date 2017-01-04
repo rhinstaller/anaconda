@@ -444,7 +444,7 @@ def parse_kickstart(options, addon_paths):
 
         kickstart.preScriptPass(ks)
         log.info("Parsing kickstart: " + ks)
-        ksdata = kickstart.parseKickstart(ks)
+        ksdata = kickstart.parseKickstart(ks, options.ksstrict)
 
         # Only load the first defaults file we find.
         break

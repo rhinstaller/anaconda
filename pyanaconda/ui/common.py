@@ -22,6 +22,7 @@ from abc import ABCMeta, abstractproperty
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda import screen_access
 from pyanaconda.iutil import collect
+from pyanaconda.isignal import Signal
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
 
@@ -215,9 +216,15 @@ class Spoke(object, metaclass=ABCMeta):
 
         self.visitedSinceApplied = True
 
-        # lists of callbacks to be called when the spoke is entered/exited by the user
-        self._entry_callbacks = [self.entry_logger, self._mark_screen_visited]
-        self._exit_callbacks = [self.exit_logger]
+        # entry and exit signals
+        # - get the hub instance as a single argument
+        self.entered = Signal()
+        self.exited = Signal()
+
+        # connect default callbacks for the signals
+        self.entered.connect(self.entry_logger)
+        self.entered.connect(self._mark_screen_visited)
+        self.exited.connect(self.exit_logger)
 
     @abstractproperty
     def data(self):
@@ -329,43 +336,10 @@ class Spoke(object, metaclass=ABCMeta):
         """
         raise NotImplementedError
 
-    def entry(self):
-        """Called once the spoke is about to be displayed.
-
-        Once called all the callbacks specified in the entry_callbacks list
-        property will be called in the list order.
-        """
-        for callback in self.entry_callbacks:
-            callback(self)
-
-    @property
-    def entry_callbacks(self):
-        """List of callback to be called once the spoke is entered by the user.
-
-        Each callback is called with a single argument, the spoke instance.
-        """
-        return self._entry_callbacks
 
     def _mark_screen_visited(self, spoke_instance):
         """Report the spoke screen as visited to the Spoke Access Manager."""
         screen_access.sam.mark_screen_visited(spoke_instance.__class__.__name__)
-
-    def exit(self):
-        """Called once the spoke is exited by the used.
-
-        Once called all the callbacks specified in the exit_callbacks list
-        property will be called in the list order.
-        """
-        for callback in self.exit_callbacks:
-            callback(self)
-
-    @property
-    def exit_callbacks(self):
-        """List of callback to be called once the spoke is exited by the user.
-
-        Each callback is called with a single argument, the spoke instance.
-        """
-        return self._exit_callbacks
 
     def entry_logger(self, spoke_instance):
         """Log immediately before this spoke is about to be displayed on the
@@ -534,9 +508,14 @@ class Hub(object, metaclass=ABCMeta):
         self.paths = {}
         self._spokes = {}
 
-        # lists of callbacks to be called when thehub is entered/exited by the user
-        self._entry_callbacks = [self.entry_logger]
-        self._exit_callbacks = [self.exit_logger]
+        # entry and exit signals
+        # - get the hub instance as a single argument
+        self.entered = Signal()
+        self.exited = Signal()
+
+        # connect the default callbacks
+        self.entered.connect(self.entry_logger)
+        self.exited.connect(self.exit_logger)
 
     @abstractproperty
     def data(self):
@@ -550,40 +529,6 @@ class Hub(object, metaclass=ABCMeta):
         """Update the paths attribute with list of tuples in the form (module
            name format string, directory name)"""
         self.paths[path_id] = paths
-
-    def entry(self):
-        """Called once the hub is about to be displayed.
-
-        Once called all the callbacks specified in the entry_callbacks list
-        property will be called in the list order.
-        """
-        for callback in self.entry_callbacks:
-            callback(self)
-
-    @property
-    def entry_callbacks(self):
-        """List of callback to be called once the hub is entered by the user.
-
-        Each callback is called with a single argument, the hub instance.
-        """
-        return self._entry_callbacks
-
-    def exit(self):
-        """Called once the hub is exited by the used.
-
-        Once called all the callbacks specified in the exit_callbacks list
-        property will be called in the list order.
-        """
-        for callback in self.exit_callbacks:
-            callback(self)
-
-    @property
-    def exit_callbacks(self):
-        """List of callback to be called once the hub is exited by the user.
-
-        Each callback is called with a single argument, the hub instance.
-        """
-        return self._exit_callbacks
 
     def entry_logger(self, hub_instance):
         """Log immediately before this hub is about to be displayed on the
