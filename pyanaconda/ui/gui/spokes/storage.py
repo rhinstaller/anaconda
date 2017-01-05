@@ -644,8 +644,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if self.encrypted:
             self._encrypted.set_active(True)
 
-        self._customPart.set_active(not self.autopart)
-
         self._update_summary()
 
         self._check_problems()
