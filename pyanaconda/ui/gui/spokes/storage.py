@@ -74,6 +74,7 @@ from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants, iutil, isys
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage_utils import on_disk_storage
+from pyanaconda.screen_access import sam
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
@@ -303,6 +304,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._autoPart.connect("toggled", self._method_radio_button_toggled)
         self._customPart.connect("toggled", self._method_radio_button_toggled)
         self._blivetGuiPart.connect("toggled", self._method_radio_button_toggled)
+
+        # hide radio buttons for spokes that have been marked as visited by the
+        # user interaction config file
+        if sam.get_screen_visited("CustomPartitioningSpoke"):
+            self._customPart.set_visible(False)
+            self._customPart.set_no_show_all(True)
+        if sam.get_screen_visited("BlivetGuiSpoke"):
+            self._blivetGuiPart.set_visible(False)
+            self._blivetGuiPart.set_no_show_all(True)
 
         self._last_partitioning_method = self._get_selected_partitioning_method()
 
