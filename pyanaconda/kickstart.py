@@ -282,6 +282,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
+        refreshAutoSwapSize(storage)
         storage.do_autopart = True
 
         if self.encrypted:
