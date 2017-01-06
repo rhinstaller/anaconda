@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import copy
 import os, sys
+import sysconfig
 from modulefinder import ModuleFinder
 from distutils.sysconfig import get_python_lib, get_config_var, get_makefile_filename, get_config_h_filename
 
@@ -52,6 +53,16 @@ deps = []
 scripts = copy.copy(sys.argv[1:])
 scripts.append(os.path.join(libdir,'site.py'))
 scripts.append(os.path.join(libdir,'sysconfig.py'))
+# platform-specific sysconfigdata module, needed by sysconfig, not
+# detected by ModuleFinder - RHBZ #1409177, Python #29113
+# this will only work and is only needed on Python 3.6+, so hedge it
+try:
+    sysconfmod = os.path.join(libdir, sysconfig._get_sysconfigdata_name() + '.py')
+    if os.path.exists(sysconfmod):
+        scripts.append(sysconfmod)
+except AttributeError:
+    # _get_sysconfigdata_name won't exist on older Pythons
+    pass
 
 while scripts:
     script = scripts.pop()
