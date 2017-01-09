@@ -325,6 +325,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 09 2017 Martin Kolman <mkolman@redhat.com> - 26.18-1
+- Always refresh the size of swap before autopartitioning. (vponcova)
+- Run the space check only if the spokes are complete (#1403505) (vponcova)
+- Ignore result directory with logs from tests (jkonecny)
+- Disable pylint no-member error for re.MULTILINE (jkonecny)
+- Fix nosetests to use newest python3 (jkonecny)
+- Disable the button if iscsi is not available (#1401263) (vponcova)
+- Include Python 3.6 sysconfigdata module in initramfs (#1409177) (awilliam)
+- Nicer __repr__ for hubs and spokes (mkolman)
+- Close the .treeinfo file after the retrieve. (vponcova)
+
 * Wed Jan 04 2017 Martin Kolman <mkolman@redhat.com> - 26.17-1
 - Fix a GTK Widget related deprecation warning (mkolman)
 - Fix GTK screen/display related deprecation warnings (mkolman)
