@@ -70,6 +70,9 @@ class MakeBumpVer:
             config_ac = f.read()
 
         # get current package name, version & bug reporting email from configure.ac in case they are needed
+        #
+        # It looks like false positive raised on python 3.6
+        # pylint: disable=no-member
         regexp = re.compile(r"AC_INIT\(\[(.*)\], \[(.*)\], \[(.*)\]\)", flags=re.MULTILINE)
         values = re.search(regexp, config_ac).groups()
         current_name = values[0]

@@ -135,12 +135,17 @@ def main():
         sys.exit(1)
 
     # Parse the username and password
+    #
+    # It looks like false positive raised on python 3.6
+    # pylint: disable=no-member
     m = re.search('^username=(.*)$', stdin, flags=re.MULTILINE)
     if not m:
         print("Unable to determine github username")
         sys.exit(1)
     username = m.group(1)
 
+    # It looks like false positive raised on python 3.6
+    # pylint: disable=no-member
     m = re.search('^password=(.*)$', stdin, flags=re.MULTILINE)
     if not m:
         print("Unable to determine github password")
