@@ -456,10 +456,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
 
-        if flags.automatedInstall and not self.storage.root_device:
-            msg = _("Kickstart insufficient")
-        elif threadMgr.get(constants.THREAD_DASDFMT):
+        if threadMgr.get(constants.THREAD_DASDFMT):
             msg = _("Formatting DASDs")
+        elif flags.automatedInstall and not self.storage.root_device:
+            msg = _("Kickstart insufficient")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
