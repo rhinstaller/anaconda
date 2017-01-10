@@ -44,6 +44,140 @@
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
+                <child>
+                  <object class="GtkBox" id="BlivetGuiBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">6</property>
+                    <property name="margin_right">6</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkViewport" id="BlivetGuiViewport">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="BottomBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">6</property>
+                    <property name="margin_right">6</property>
+                    <child>
+                      <object class="GtkBox" id="BottomLeftButtonBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkButton" id="summary_button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="focus_on_click">False</property>
+                            <property name="receives_default">True</property>
+                            <property name="halign">start</property>
+                            <property name="relief">none</property>
+                            <property name="use_underline">True</property>
+                            <property name="xalign">0</property>
+                            <signal name="clicked" handler="on_summary_button_clicked" swapped="no"/>
+                            <child>
+                              <object class="GtkLabel" id="summary_label">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="use_underline">True</property>
+                                <attributes>
+                                  <attribute name="underline" value="True"/>
+                                  <attribute name="foreground" value="#00000000ffff"/>
+                                </attributes>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="BottomRightButtonBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkButton" id="undoLastActionButton">
+                            <property name="label" translatable="yes" context="GUI|Blivet Gui Partitioning">_Undo last action</property>
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="halign">end</property>
+                            <property name="valign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="use_underline">True</property>
+                            <signal name="clicked" handler="on_undo_action_button_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="resetAllButton">
+                            <property name="label" translatable="yes" context="GUI|Blivet Gui Partitioning">_Reset All</property>
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="halign">end</property>
+                            <property name="valign">start</property>
+                            <property name="hexpand">True</property>
+                            <property name="use_underline">True</property>
+                            <signal name="clicked" handler="on_reset_button_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
