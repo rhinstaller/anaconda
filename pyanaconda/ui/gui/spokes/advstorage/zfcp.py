@@ -20,12 +20,15 @@
 import gi
 gi.require_version("BlockDev", "2.0")
 
-from gi.repository import BlockDev as blockdev
+from gi.repository import GLib, BlockDev as blockdev
 
 from blivet import zfcp
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.regexes import DASD_DEVICE_NUMBER, ZFCP_WWPN_NUMBER, ZFCP_LUN_NUMBER
+from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda import constants
 
 __all__ = ["ZFCPDialog"]
 
@@ -57,10 +60,13 @@ class ZFCPDialog(GUIObject):
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
         self._retryButton = self.builder.get_object("retryButton")
+        self._errorLabel = self.builder.get_object("deviceErrorLabel")
 
         self._deviceEntry = self.builder.get_object("deviceEntry")
         self._wwpnEntry = self.builder.get_object("wwpnEntry")
         self._lunEntry = self.builder.get_object("lunEntry")
+
+        self._spinner = self.builder.get_object("waitSpinner")
 
     def refresh(self):
         self._deviceEntry.set_text("")
@@ -78,8 +84,9 @@ class ZFCPDialog(GUIObject):
 
     def _set_configure_sensitive(self, sensitivity):
         """ Set entries to a given sensitivity. """
-        for child in self._configureGrid.get_children():
-            child.set_sensitive(sensitivity)
+        self._deviceEntry.set_sensitive(sensitivity)
+        self._wwpnEntry.set_sensitive(sensitivity)
+        self._lunEntry.set_sensitive(sensitivity)
 
     def on_start_clicked(self, *args):
         """ Go through the process of validating entry contents and then
@@ -89,52 +96,84 @@ class ZFCPDialog(GUIObject):
         self._startButton.hide()
         self._cancelButton.set_sensitive(False)
         self._okButton.set_sensitive(False)
-
-        self._conditionNotebook.set_current_page(1)
         self._set_configure_sensitive(False)
-        self._deviceEntry.set_sensitive(False)
-
         self._conditionNotebook.set_current_page(1)
-        # below really, really is ugly and needs to be re-factored, but this
-        # should give a good base idea as far as expected behavior should go
-        try:
-            device = blockdev.s390.sanitize_dev_input(self._deviceEntry.get_text())
-            wwpn = blockdev.s390.zfcp_sanitize_wwpn_input(self._wwpnEntry.get_text())
-            lun = blockdev.s390.zfcp_sanitize_lun_input(self._lunEntry.get_text())
-        except blockdev.S390Error as err:
-            _config_error = str(err)
-            self.builder.get_object("deviceErrorLabel").set_text(_config_error)
+
+        # Initialize.
+        config_error = None
+        device = None
+        wwpn = None
+        lun = None
+
+        # Get the input.
+        device_name = self._deviceEntry.get_text().strip()
+        wwpn_name = self._wwpnEntry.get_text().strip()
+        lun_name = self._lunEntry.get_text().strip()
+
+        # Check the input.
+        if not DASD_DEVICE_NUMBER.match(device_name):
+            config_error = "Incorrect format of the given device number."
+        elif not ZFCP_WWPN_NUMBER.match(wwpn_name):
+            config_error = "Incorrect format of the given WWPN number."
+        elif not ZFCP_LUN_NUMBER.match(lun_name):
+            config_error = "Incorrect format of the given LUN number."
+        else:
+            try:
+                # Get the full ids.
+                device = blockdev.s390.sanitize_dev_input(device_name)
+                wwpn = blockdev.s390.zfcp_sanitize_wwpn_input(wwpn_name)
+                lun = blockdev.s390.zfcp_sanitize_lun_input(lun_name)
+            except (blockdev.S390Error, ValueError) as err:
+                config_error = str(err)
+
+        # Process the configuration error.
+        if config_error:
+            self._errorLabel.set_text(config_error)
             self._conditionNotebook.set_current_page(2)
+            self._set_configure_sensitive(True)
+            self._cancelButton.set_sensitive(True)
+        # Start the discovery.
+        else:
+            # Discover.
+            self._spinner.start()
+            threadMgr.add(AnacondaThread(name=constants.THREAD_ZFCP_DISCOVER,
+                                         target=self._discover,
+                                         args=(device, wwpn, lun)))
 
-        spinner = self.builder.get_object("waitSpinner")
-        spinner.start()
-
-        self._discover(device, wwpn, lun)
-        self._check_discover()
+            # Periodically call the check till it is done.
+            GLib.timeout_add(250, self._check_discover)
 
     @gtk_action_nowait
     def _check_discover(self, *args):
         """ After the zFCP discover thread runs, check to see whether a valid
             device was discovered. Display an error message if not.
-        """
 
-        spinner = self.builder.get_object("waitSpinner")
-        spinner.stop()
+            If the discover is not done, return True to indicate that the check
+            has to be run again, otherwise check the discovery and return False.
+        """
+        # Discovery is not done, return True.
+        if threadMgr.get(constants.THREAD_ZFCP_DISCOVER):
+            return True
+
+        # Discovery has finished, run the check.
+        self._spinner.stop()
 
         if self._discoveryError:
             # Failure, display a message and leave the user on the dialog so
             # they can try again (or cancel)
-            self.builder.get_object("deviceErrorLabel").set_text(self._discoveryError)
+            self._errorLabel.set_text(self._discoveryError)
             self._discoveryError = None
+
             self._conditionNotebook.set_current_page(2)
             self._set_configure_sensitive(True)
         else:
             # Great success. Just return to the advanced storage window and let the
             # UI update with the newly-added device
             self.window.response(1)
-            return True
+            return False
 
         self._cancelButton.set_sensitive(True)
+        # Discovery and the check have finished, return False.
         return False
 
     def _discover(self, *args):
@@ -147,12 +186,6 @@ class ZFCPDialog(GUIObject):
             self._update_devicetree = True
         except ValueError as e:
             self._discoveryError = str(e)
-            return
-        except TypeError as e:
-            # this happens when a user doesn't pass any input, so pass a more
-            # informative error str back
-            self._discoveryError = "You must enter values for the device."
-            return
 
     def on_entry_activated(self, entry, user_data=None):
         # When an entry is activated, press the discover or retry button
