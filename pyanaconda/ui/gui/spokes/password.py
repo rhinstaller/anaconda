@@ -55,6 +55,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
         # place holders for the text boxes
         self.pw = self.builder.get_object("pw")
         self.confirm = self.builder.get_object("confirmPW")
@@ -98,6 +99,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__, False)
+
+        # report that we are done
+        self.initialize_done()
 
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit

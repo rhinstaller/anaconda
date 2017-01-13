@@ -321,6 +321,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOFTWARE_WATCHER,
                       target=self._initialize))
 
@@ -341,6 +342,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # we should do dependency solving here.
         if not self._error:
             self._apply()
+
+        # report that software spoke initialization has been completed
+        self.initialize_done()
 
     def _parseEnvironments(self):
         # Set all of the add-on selection states to the default

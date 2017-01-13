@@ -23,6 +23,7 @@ from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda import screen_access
 from pyanaconda.iutil import collect
 from pyanaconda.isignal import Signal
+from pyanaconda import lifecycle
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
 
@@ -365,6 +366,48 @@ class Spoke(object, metaclass=ABCMeta):
         """
         pass
 
+    # Initialization controller related code
+    #
+    # - initialization_controller
+    # -> The controller for this spokes and all others on the given hub.
+    # -> The controller has the init_done signal that can be used to trigger
+    #    actions that should happen once all spokes on the given Hub have
+    #    finished initialization.
+    # -> If there is no Hub (standalone spoke) the property is None
+    #
+    # - initialize_start()
+    # -> Should be called when Spoke initialization is started.
+    # -> Needs to be called explicitly, if we called it for every spoke by default
+    #    then any spoke that does not call initialize_done() would prevent the
+    #    controller form ever triggering the init_done signal.
+    #
+    # - initialize_done()
+    # -> Must be called by every spoke that calls initialize_start() or else the init_done
+    #    signal will never be emitted.
+
+    @property
+    def initialization_controller(self):
+        # standalone spokes don't have a category
+        if self.category:
+            return lifecycle.get_controller_by_category(category_name=self.category.__name__)
+        else:
+            return None
+
+    def initialize_start(self):
+        # get the correct controller for this spoke
+        spoke_controller = self.initialization_controller
+        # check if there actually is a controller for this spoke, there might not be one
+        # if this is a standalone spoke
+        if spoke_controller:
+            spoke_controller.module_init_start(self)
+
+    def initialize_done(self):
+        # get the correct controller for this spoke
+        spoke_controller = self.initialization_controller
+        # check if there actually is a controller for this spoke, there might not be one
+        # if this is a standalone spoke
+        if spoke_controller:
+            spoke_controller.module_init_done(self)
 
     def __repr__(self):
         """Return the class name as representation.
@@ -628,6 +671,7 @@ def collectCategoriesAndSpokes(paths, klass, displaymode):
        :return: dictionary mapping category class to list of spoke classes
        :rtype: dictionary[category class] -> [ list of spoke classes ]
     """
+
     ret = {}
     # Collect all the categories this hub displays, then collect all the
     # spokes belonging to all those categories.
@@ -639,5 +683,17 @@ def collectCategoriesAndSpokes(paths, klass, displaymode):
                             key=lambda c: c.sortOrder)
     for c in categories:
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
+
+    # As we now have a list of all categories this hub holds we can now register it's controller.
+    # We need the list of categories so that spokes can find out which controller they should use
+    # based on their category.
+    category_names = set()
+    for c in categories:
+        category_names.add(c.__name__)
+
+    # We have gathered all known category names and more are not expected to be added,
+    # so we can now add an initialization controller, which needs the final list
+    # of categories for the given hub.
+    lifecycle.add_controller(klass.__name__, category_names)
 
     return ret
