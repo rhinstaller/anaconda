@@ -47,6 +47,7 @@ class AskVNCSpoke(NormalTUISpoke):
     def __init__(self, app, data, storage=None, payload=None,
                  instclass=None, message=""):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.initialize_start()
 
         # The TUI hasn't been initialized with the message handlers yet. Add an
         # exception message handler so that the TUI exits if anything goes wrong
@@ -55,6 +56,7 @@ class AskVNCSpoke(NormalTUISpoke):
         self._message = message
         self._choices = (_(USEVNC), _(USETEXT))
         self._usevnc = False
+        self.initialize_done()
 
     @property
     def indirect(self):

@@ -643,6 +643,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         self._grabObjects()
 
@@ -663,8 +664,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoNameWarningBox = self.builder.get_object("repoNameWarningBox")
         self._repoNameWarningLabel = self.builder.get_object("repoNameWarningLabel")
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
-
         # Register listeners for payload events
         payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
         payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)
@@ -672,6 +671,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
         payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
         payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+
+        # Start the thread last so that we are sure initialize_done() is really called only
+        # after all initialization has been done.
+        threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
 
     def _payload_refresh(self):
         hubQ.send_not_ready("SoftwareSelectionSpoke")
@@ -766,6 +769,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         while not self.ready:
             time.sleep(1)
         hubQ.send_ready(self.__class__.__name__, False)
+
+        # report that the source spoke has been initialized
+        self.initialize_done()
 
     def refresh(self):
         NormalSpoke.refresh(self)

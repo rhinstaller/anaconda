@@ -456,10 +456,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
 
-        if flags.automatedInstall and not self.storage.root_device:
-            msg = _("Kickstart insufficient")
-        elif threadMgr.get(constants.THREAD_DASDFMT):
+        if threadMgr.get(constants.THREAD_DASDFMT):
             msg = _("Formatting DASDs")
+        elif flags.automatedInstall and not self.storage.root_device:
+            msg = _("Kickstart insufficient")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
@@ -621,6 +621,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         self.local_disks_box = self.builder.get_object("local_disks_box")
         self.specialized_disks_box = self.builder.get_object("specialized_disks_box")
@@ -701,6 +702,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, False)
+
+        # report that the storage spoke has been initialized
+        self.initialize_done()
 
     def _update_summary(self):
         """ Update the summary based on the UI. """

@@ -20,11 +20,8 @@
 
 import unittest
 
-from threading import Lock
-
 from pyanaconda.install_tasks import Task
 from pyanaconda.install_tasks import TaskQueue
-from pyanaconda.install_tasks import synchronized
 
 class InstallTasksTestCase(unittest.TestCase):
 
@@ -372,43 +369,3 @@ class InstallTasksTestCase(unittest.TestCase):
         self.assertEqual(self._test_variable1, 3)
         self.assertEqual(self._test_variable2, 2)
         self.assertEqual(self._test_variable3, 1)
-
-    def synchronized_decorator_test(self):
-        """Check that the @synchronized decorator works correctly."""
-
-        # The @synchronized decorator work on methods of classes
-        # that provide self._lock with Lock or RLock instance.
-        class LockableClass(object):
-            def __init__(self):
-                self._lock = Lock()
-
-            def test_method(self):
-                lock_state = self._lock.locked()
-                return lock_state
-
-            @synchronized
-            def sync_test_method(self):
-                lock_state = self._lock.locked()
-                return lock_state
-
-        lockable = LockableClass()
-        self.assertFalse(lockable.test_method())
-        self.assertTrue(lockable.sync_test_method())
-
-        # The @synchronized decorator does not work on classes without self._lock.
-        class NotLockableClass(object):
-            @synchronized
-            def sync_test_method(self):
-                return "Hello world!"
-
-        not_lockable = NotLockableClass()
-        with self.assertRaises(AttributeError):
-            not_lockable.sync_test_method()
-
-        # It also does not work on functions.
-        @synchronized
-        def test_function():
-            return "Hello world!"
-
-        with self.assertRaises(TypeError):
-            test_function()

@@ -36,7 +36,7 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT, DEFAULT_AUTOPART_TYPE
+from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, DEFAULT_AUTOPART_TYPE
 from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_, N_, C_
@@ -111,7 +111,7 @@ class StorageSpoke(NormalTUISpoke):
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready and not (threadMgr.get(THREAD_STORAGE_WATCHER) or threadMgr.get(THREAD_DASDFMT))
+        return self._ready and not threadMgr.get(THREAD_STORAGE_WATCHER)
 
     @property
     def mandatory(self):
@@ -421,6 +421,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
+        self.initialize_start()
 
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
@@ -444,6 +445,9 @@ class StorageSpoke(NormalTUISpoke):
 
         self._update_summary()
         self._ready = True
+
+        # report that the storage spoke has been initialized
+        self.initialize_done()
 
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here.
