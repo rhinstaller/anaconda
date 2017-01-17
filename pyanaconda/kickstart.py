@@ -27,6 +27,7 @@ from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
+from blivet.formats.fs import XFS
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
 from blivet.errors import PartitioningError
@@ -1956,6 +1957,9 @@ class Snapshot(commands.snapshot.RHEL7_Snapshot):
             for snap_data in post_snapshots:
                 log.debug("Snapshot: creating post-install snapshot %s", snap_data.name)
                 snap_data.execute(storage, ksdata, instClass)
+                if isinstance(snap_data.thin_snapshot.format, XFS):
+                    log.debug("Generating new UUID for XFS snapshot")
+                    snap_data.thin_snapshot.format.regenerate_uuid()
 
     def pre_setup(self, storage, ksdata, instClass):
         """ Prepare pre installation snapshots.
