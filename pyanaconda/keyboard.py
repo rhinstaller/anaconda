@@ -48,9 +48,9 @@ LOCALED_IFACE = "org.freedesktop.locale1"
 
 # should match and parse strings like 'cz' or 'cz (qwerty)' regardless of white
 # space
-LAYOUT_VARIANT_RE = re.compile(r'^\s*([/\w]+)\s*' # layout plus
-                               r'(?:(?:\(\s*([-\w]+)\s*\))' # variant in parentheses
-                               r'|(?:$))\s*') # or nothing
+LAYOUT_VARIANT_RE = re.compile(r'^\s*([/\w]+)\s*'  # layout plus
+                               r'(?:(?:\(\s*([-\w]+)\s*\))'  # variant in parentheses
+                               r'|(?:$))\s*')  # or nothing
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
@@ -295,7 +295,7 @@ def activate_keyboard(keyboard):
         valid_keymap = _try_to_load_keymap(keyboard.vc_keymap)
         if not valid_keymap:
             log.error("'%s' is not a valid VConsole keymap, not loading",
-                        keyboard.vc_keymap)
+                      keyboard.vc_keymap)
             keyboard.vc_keymap = None
         else:
             # activate VConsole keymap and get converted layout and variant
@@ -603,4 +603,3 @@ class LocaledWrapper(object):
         self.set_layouts(orig_layouts_variants)
 
         return ret
-

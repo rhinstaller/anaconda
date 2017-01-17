@@ -245,10 +245,10 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
 def initExceptionHandling(anaconda):
     file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
-                "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
-                "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
-                "/tmp/lvm.log", iutil.getSysroot() + "/root/install.log",
-                "/proc/cmdline"]
+                 "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
+                 "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
+                 "/tmp/lvm.log", iutil.getSysroot() + "/root/install.log",
+                 "/proc/cmdline"]
 
     if os.path.exists("/tmp/syslog"):
         file_list.extend(["/tmp/syslog"])
