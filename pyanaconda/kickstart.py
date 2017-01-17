@@ -26,6 +26,7 @@ from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogical
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.formats import get_format
+from blivet.formats.fs import XFS
 from blivet.partitioning import do_partitioning
 from blivet.partitioning import grow_lvm
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
@@ -2033,6 +2034,9 @@ class SnapshotData(commands.snapshot.F26_SnapshotData):
     def execute(self, storage, ksdata, instClass):
         """ Execute an action for snapshot creation. """
         self.thin_snapshot.create()
+        if isinstance(self.thin_snapshot.format, XFS):
+            log.debug("Generating new UUID for XFS snapshot")
+            self.thin_snapshot.format.reset_uuid()
 
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
