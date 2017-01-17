@@ -86,7 +86,7 @@ class RPMOSTreePayload(ArchivePayload):
             if requested == 0:
                 percent = 0.0
             else:
-                percent = (fetched*1.0 / requested) * 100
+                percent = (fetched * 1.0 / requested) * 100
 
             progressQ.send_message("Receiving objects: %d%% (%d/%d) %s" % (percent, fetched, requested, formatted_bytes))
         else:
@@ -139,8 +139,8 @@ class RPMOSTreePayload(ArchivePayload):
 
         # Initialize the filesystem - this will create the repo as well
         self._safeExecWithRedirect("ostree",
-            ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
-             "init-fs", iutil.getTargetPhysicalRoot()])
+                                   ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
+                                   "init-fs", iutil.getTargetPhysicalRoot()])
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
@@ -191,8 +191,8 @@ class RPMOSTreePayload(ArchivePayload):
         repo.remote_delete(self.data.ostreesetup.remote, None)
 
         self._safeExecWithRedirect("ostree",
-            ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
-             "os-init", ostreesetup.osname])
+                                   ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
+                                   "os-init", ostreesetup.osname])
 
         admin_deploy_args = ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
                              "deploy", "--os=" + ostreesetup.osname]
@@ -242,7 +242,7 @@ class RPMOSTreePayload(ArchivePayload):
         # in the future consider `mount --move` to make the output of `findmnt`
         # not induce blindness.
         for path in ["/dev", "/proc", "/run", "/sys"]:
-            binds += [(iutil.getTargetPhysicalRoot()+path, iutil.getSysroot()+path)]
+            binds += [(iutil.getTargetPhysicalRoot() + path, iutil.getSysroot() + path)]
 
         for (src, dest) in binds:
             is_ro_bind = dest is None
