@@ -163,3 +163,23 @@ ISCSI_EUI_NAME_REGEX = re.compile(r'^eui\.[a-fA-F0-9]{16}$')
 
 # Device with this name was configured from ibft (and renamed) by dracut
 IBFT_CONFIGURED_DEVICE_NAME = re.compile(r'^ibft\d+$')
+
+# Regex to validate a DASD device number (full or partial).
+#
+# A DASD number has the format n.n.hhhh, where n is any decimal
+# digit and h any hexadecimal digit, e.g., 0.0.abcd, 0.0.002A.
+#
+# The partial form of the DASD number is missing hexadecimal digits,
+# e.g., 0.0.b, or missing a bus number, e.g., 0012. The minimal
+# partial number contains a single digit. For example a.
+DASD_DEVICE_NUMBER = re.compile(r'^(?:[0-9]\.[0-9]\.|\.|)[0-9A-Fa-f]{1,4}$')
+
+# Regex to validate the Logical Unit Number (LUN).
+# The LUN is a 16 digit hexadecimal value padded with zeroes to the right,
+# for example 0x4010403300000000.
+ZFCP_LUN_NUMBER = re.compile(r'^(?:0x|)[0-9A-Fa-f]{1,16}$')
+
+# Regex to validate the Worldwide Port Name (WWPN).
+# The WWPN is a 16 digit hexadecimal number prefixed with 0x,
+# for example 0x5005076303000104.
+ZFCP_WWPN_NUMBER = re.compile(r'^(?:0x|)[0-9A-Fa-f]{16}$')

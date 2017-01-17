@@ -109,9 +109,11 @@ THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
 THREAD_DATE_TIME = "AnaDateTimeThread"
 THREAD_TIME_INIT = "AnaTimeInitThread"
 THREAD_DASDFMT = "AnaDasdfmtThread"
+THREAD_DASD_DISCOVER = "AnaDasdDiscoverThread"
 THREAD_KEYBOARD_INIT = "AnaKeyboardThread"
 THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
 THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
+THREAD_ZFCP_DISCOVER = "AnaZfcpDiscoverThread"
 
 # Geolocation constants
 
