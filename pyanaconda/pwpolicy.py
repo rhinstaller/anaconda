@@ -35,10 +35,10 @@ class F22_PwPolicyData(BaseData):
         BaseData.__init__(self, *args, **kwargs)
         self.name = kwargs.get("name", "")
         self.minlen = kwargs.get("minlen", constants.PASSWORD_MIN_LEN)
-        self.minquality = kwargs.get("minquality", 50)
+        self.minquality = kwargs.get("minquality", 1)
         self.strict = kwargs.get("strict", False)
         self.changesok = kwargs.get("changesok", False)
-        self.emptyok = kwargs.get("emptyok", False)
+        self.emptyok = kwargs.get("emptyok", True)
 
         # The defaults specified above are used only for password input via the UI
         # during a partial kickstart installations.
