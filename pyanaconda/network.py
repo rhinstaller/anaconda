@@ -648,9 +648,7 @@ def _add_slave_connection(slave_type, slave, master, activate, values=None):
     values.append(['connection', 'slave-type', slave_type, 's'])
     values.append(['connection', 'master', master, 's'])
     values.append(['connection', 'type', '802-3-ethernet', 's'])
-    mac = nm.nm_device_perm_hwaddress(slave)
-    mac = [int(b, 16) for b in mac.split(":")]
-    values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
+    values.append(['connection', 'interface-name', slave, 's'])
 
     # disconnect slaves
     if activate:
