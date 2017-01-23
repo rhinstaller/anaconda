@@ -1296,6 +1296,9 @@ reposdir=%s
         else:
             self._selectYumGroup("core")
 
+        # Select the base group by default. It might be excluded later.
+        self._selectYumGroup("base")
+
         env = None
 
         if self.data.packages.default and self.environments:
