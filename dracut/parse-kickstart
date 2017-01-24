@@ -380,6 +380,8 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         # NOTE: does dracut actually support wireless? (do we care?)
         log.error("'%s': dracut doesn't support wireless networks",
                       " ".join(args))
+    if net.bridgeslaves:
+        line.append("bridge=%s:%s" % (net.device, net.bridgeslaves))
 
     return " ".join(line)
 
