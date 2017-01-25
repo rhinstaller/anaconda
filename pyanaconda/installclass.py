@@ -115,6 +115,9 @@ class BaseInstallClass(object):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
         anaconda.bootloader.boot_args.update(self.bootloaderExtraArgs)
 
+        # The default partitioning should be always set.
+        self.setDefaultPartitioning(anaconda.storage)
+
     # sets default ONBOOT values and updates ksdata accordingly
     def setNetworkOnbootDefault(self, ksdata):
         pass
