@@ -560,7 +560,7 @@ def ksnet_to_ifcfg(net, filename=None):
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes",
+                            'ONBOOT' : "yes" if net.activate else "no",
                             'BRIDGE' : dev,
                             'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
