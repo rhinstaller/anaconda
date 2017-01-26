@@ -799,7 +799,11 @@ def nm_device_setting_value(name, key1, key2):
     else:
         settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    settings = proxy.GetSettings()
+    try:
+        settings = proxy.GetSettings()
+    except Exception as e:
+        log.debug("nm_device_setting_value: %s", e)
+        raise SettingsNotFoundError(name)
     try:
         value = settings[key1][key2]
     except KeyError:
