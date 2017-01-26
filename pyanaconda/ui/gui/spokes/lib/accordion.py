@@ -24,7 +24,6 @@
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
-from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.storage_utils import AUTOPART_CHOICES
 
 from gi.repository.AnacondaWidgets import MountpointSelector
@@ -263,7 +262,7 @@ class UnknownPage(Page):
 # of this class will be packed into the Accordion first and then when the new installation
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
-    def __init__(self, title, createClickedCB, autopartTypeChangedCB, partitionsToReuse=True):
+    def __init__(self, title, createClickedCB, autopartTypeChangedCB, defaultAutopartType, partitionsToReuse=True):
         # pylint: disable=super-init-not-called,non-parent-init-called
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
@@ -329,7 +328,7 @@ class CreateNewPage(Page):
 
         for item in (AUTOPART_CHOICES):
             itr = store.append([_(item[0]), item[1]])
-            if item[1] == DEFAULT_AUTOPART_TYPE:
+            if item[1] == defaultAutopartType:
                 default = itr
 
         combo.set_margin_left(18)

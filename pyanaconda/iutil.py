@@ -1242,3 +1242,7 @@ def touch(file_path):
     # even when the path points to dirrectory
     if not os.path.exists(file_path):
         os.mknod(file_path)
+
+def firstNotNone(iterable):
+    """Return the first item that is not None."""
+    return next((item for item in iterable if item is not None), None)

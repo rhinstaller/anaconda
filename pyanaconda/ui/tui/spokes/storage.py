@@ -21,7 +21,7 @@
 # Some of the code here is copied from pyanaconda/ui/gui/spokes/storage.py
 # which has the same license and authored by David Lehman <dlehman@redhat.com>
 #
-
+from pyanaconda.iutil import firstNotNone
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -37,12 +37,12 @@ from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list, is_l
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT, DEFAULT_AUTOPART_TYPE
+from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 
-from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
+from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartValueError
 
 from collections import OrderedDict
@@ -92,6 +92,10 @@ class StorageSpoke(NormalTUISpoke):
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
             self.data.autopart.autopart = True
+
+        # Set the default partitioning scheme.
+        self.default_autopart_type = firstNotNone((self.data.autopart.type,
+                                                   self.instclass.default_autopart_type))
 
     @property
     def completed(self):
@@ -290,8 +294,8 @@ class StorageSpoke(NormalTUISpoke):
                         # proceed.
                         return None
 
-                    newspoke = AutoPartSpoke(self.app, self.data, self.storage,
-                                             self.payload, self.instclass)
+                    newspoke = AutoPartSpoke(self.app, self.data, self.storage, self.payload,
+                                             self.instclass, self.default_autopart_type)
                     self.app.switch_screen_modal(newspoke)
                     self.apply()
                     self.execute()
@@ -376,7 +380,7 @@ class StorageSpoke(NormalTUISpoke):
         self.data.clearpart.drives = self.selected_disks[:]
 
         if self.data.autopart.type is None:
-            self.data.autopart.type = AUTOPART_TYPE_LVM
+            self.data.autopart.type = self.default_autopart_type
 
         if self.autopart:
             self.clearPartType = CLEARPART_TYPE_ALL
@@ -474,10 +478,11 @@ class AutoPartSpoke(NormalTUISpoke):
     title = N_("Autopartitioning Options")
     category = SystemCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, app, data, storage, payload, instclass, default_autopart_type):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.clearPartType = self.data.clearpart.type
         self.parttypelist = sorted(PARTTYPES.keys())
+        self.default_autopart_type = default_autopart_type
 
     @property
     def indirect(self):
@@ -521,8 +526,8 @@ class AutoPartSpoke(NormalTUISpoke):
         except ValueError:
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
-                newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage,
-                                                self.payload, self.instclass)
+                newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage, self.payload,
+                                                self.instclass, self.default_autopart_type)
                 self.app.switch_screen_modal(newspoke)
                 self.apply()
                 self.close()
@@ -540,13 +545,13 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     title = N_("Partition Scheme Options")
     category = SystemCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, app, data, storage, payload, instclass, default_autopart_type):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.partschemes = OrderedDict()
-        pre_select = self.data.autopart.type or DEFAULT_AUTOPART_TYPE
+
         for i, item in enumerate(AUTOPART_CHOICES):
             self.partschemes[item[0]] = item[1]
-            if item[1] == pre_select:
+            if item[1] == default_autopart_type:
                 self._selection = i
 
     @property

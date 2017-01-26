@@ -24,6 +24,7 @@ from blivet.partspec import PartSpec
 from blivet.platform import platform
 from blivet.devicelibs import swap
 from blivet.size import Size
+from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 
 
 class OvirtBaseInstallClass(BaseInstallClass):
@@ -32,6 +33,7 @@ class OvirtBaseInstallClass(BaseInstallClass):
     hidden = not productName.startswith("oVirt")
 
     efi_dir = "centos"
+    default_autopart_type = AUTOPART_TYPE_LVM_THINP
 
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)

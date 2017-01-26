@@ -35,7 +35,7 @@ from pyanaconda.i18n import _, N_, CP_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
-from pyanaconda.iutil import lowerASCII
+from pyanaconda.iutil import lowerASCII, firstNotNone
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda import isys
@@ -153,6 +153,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._hidden_disks = []
         self._fs_types = []             # list of supported fstypes
         self._free_space = Size(0)
+        self._default_autopart_type = None
 
         self._device_size_text = None
         self._device_disks = []
@@ -273,6 +274,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Unfortunately, we have to narrow them down a little bit more because
         # this list will include things like PVs and RAID members.
         self._fsStore.clear()
+
+        # Set the default partitioning scheme.
+        self._default_autopart_type = firstNotNone((self.data.autopart.type,
+                                                    self.instclass.default_autopart_type))
 
         # Connect viewport scrolling with accordion focus events
         self._accordion.set_focus_hadjustment(self._partitionsViewport.get_hadjustment())
@@ -501,6 +506,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = CreateNewPage(translated_new_install_name(),
                                  self.on_create_clicked,
                                  self._change_autopart_type,
+                                 self._default_autopart_type,
                                  partitionsToReuse=bool(ui_roots) or bool(unused_devices))
             self._accordion.addPage(page, cb=self.on_page_clicked)
 

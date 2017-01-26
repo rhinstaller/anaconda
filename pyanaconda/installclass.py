@@ -34,6 +34,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda.kickstart import getAvailableDiskSpace
+from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
 
 class BaseInstallClass(object):
     # default to not being hidden
@@ -57,6 +58,10 @@ class BaseInstallClass(object):
     # The default filesystem type to use.  If None, we will use whatever
     # Blivet uses by default.
     defaultFS = None
+
+    # The default partitioning scheme to use for autopartitioning.
+    # It has to be always set.
+    default_autopart_type = DEFAULT_AUTOPART_TYPE
 
     # help
     help_folder = "/usr/share/anaconda/help"
