@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.92\n"
+"Project-Id-Version: anaconda 21.48.22.93\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2016-09-26 15:12-0400\n"
+"POT-Creation-Date: 2017-01-30 11:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -811,60 +811,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1432 pyanaconda/ui/gui/spokes/custom.py:552
+#: pyanaconda/network.py:1430 pyanaconda/ui/gui/spokes/custom.py:552
 #: pyanaconda/ui/gui/spokes/network.py:306
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1436
+#: pyanaconda/network.py:1434
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1438
+#: pyanaconda/network.py:1436
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1459
+#: pyanaconda/network.py:1457
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1462
+#: pyanaconda/network.py:1460
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1465
+#: pyanaconda/network.py:1463
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1469
+#: pyanaconda/network.py:1467
 #, python-format
 msgid "Team %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1473
+#: pyanaconda/network.py:1471
 #, python-format
 msgid "Bridge %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1479
+#: pyanaconda/network.py:1477
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1496
+#: pyanaconda/network.py:1494
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1499
+#: pyanaconda/network.py:1497
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1502 pyanaconda/ui/gui/spokes/network.glade.h:45
+#: pyanaconda/network.py:1500 pyanaconda/ui/gui/spokes/network.glade.h:45
 msgid "No network devices available"
 msgstr ""
 
@@ -5687,7 +5687,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: /home/sbueno/scm/anaconda/data/liveinst/console.apps/liveinst:5
+#: /home/rvykydal/build/git/rvykydal/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 

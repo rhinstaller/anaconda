@@ -318,6 +318,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 30 2017  Radek Vykydal <rvykydal@redhat.com> - 21.48.22.94-1
+- network: bind slave connections to DEVICE, not HWADDR (rvykydal)
+  Related: rhbz#1373360
+- Catch race-condition error reading from in-memory connection being removed
+  (rvykydal)
+  Related: rhbz#1373360
+- Allow setting up bridge for fetching isntaller image from kickstart
+  (rvykydal)
+  Resolves: rhbz#1373360
+
 * Mon Sep 26 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22.93-1
 - Accept any non-empty password in non-strict mode (mkolman)
   Resolves: rhbz#1379323
