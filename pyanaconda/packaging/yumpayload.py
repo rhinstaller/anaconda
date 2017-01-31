@@ -40,9 +40,11 @@ import os
 import shutil
 import sys
 import time
+import hashlib
 from pyanaconda.iutil import execReadlines
 from pyanaconda.simpleconfig import simple_replace
 from functools import wraps
+from urlgrabber.grabber import URLGrabber, URLGrabError
 
 import logging
 log = logging.getLogger("packaging")
@@ -181,6 +183,9 @@ class YumPayload(PackagePayload):
         self._base_repo = None
         self._base_repo_lock = threading.RLock()
 
+        # save repomd metadata
+        self._repoMD_list = []
+
         self.reset()
 
     def reset(self, root=None, releasever=None):
@@ -203,9 +208,20 @@ class YumPayload(PackagePayload):
         self._writeYumConfig()
         self._setup = True
 
+    def postSetup(self):
+        """Save repomd.xml files for later test for availability."""
+        self._repoMD_list = []
+        for repoID in self.repos:
+            repo = self.getRepo(repoID)
+            with _yum_lock:
+                repoMD = RepoMDMetaHash(self, repo)
+                repoMD.storeRepoMDHash()
+                self._repoMD_list.append(repoMD)
+
     def unsetup(self):
         super(YumPayload, self).unsetup()
         self._setup = False
+        self._repoMD_list = []
 
     def _resetYum(self, root=None, keep_cache=False, releasever=None, cache_dir=_yum_cache_dir):
         """ Delete and recreate the payload's YumBase instance.
@@ -216,6 +232,8 @@ class YumPayload(PackagePayload):
         """
         if root is None:
             root = self._root_dir
+
+        self._repoMD_list = []
 
         with _yum_lock:
             if self._yum:
@@ -512,6 +530,14 @@ reposdir=%s
             return self.getRepo(repo_id).enabled
         except RepoError:
             return super(YumPayload, self).isRepoEnabled(repo_id)
+
+    def verifyAvailableRepositories(self):
+        """Verify availability of repositories."""
+        for repo in self._repoMD_list:
+            if not repo.verifyRepoMD():
+                log.debug("Can't reach repo %s", repo.id)
+                return False
+        return True
 
     @refresh_base_repo()
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
@@ -1611,3 +1637,69 @@ reposdir=%s
         # Make sure yum is really done and gone and lets go of the yum.log
         self._yum.close()
         del self._yum
+
+class RepoMDMetaHash(object):
+    """Class that holds hash of a repomd.xml file content from a repository.
+    This class can test availability of this repository by comparing hashes.
+    """
+    def __init__(self, payload, repo):
+        self._repoId = repo.id
+        self._method = payload.data.method.method
+        self._urls = repo.urls
+        self._repomd_hash = ""
+
+    @property
+    def repoMDHash(self):
+        """Return MD5 hash of the repomd.xml file stored."""
+        return self._repomd_hash
+
+    @property
+    def id(self):
+        """Name of the repository."""
+        return self._repoId
+
+    def storeRepoMDHash(self):
+        """Download and store hash of the repomd.xml file content."""
+        repomd = self._downloadRepoMD(self._method)
+        self._repomd_hash = self._calculateHash(repomd)
+
+    def verifyRepoMD(self):
+        """Download and compare with stored repomd.xml file."""
+        new_repomd = self._downloadRepoMD(self._method)
+        new_repomd_hash = self._calculateHash(new_repomd)
+        return new_repomd_hash == self._repomd_hash
+
+    def _calculateHash(self, data):
+        m = hashlib.md5()
+        m.update(data)
+        return m.digest()
+
+    def _downloadRepoMD(self, method):
+        ugopts = {"ssl_verify_peer": not flags.noverifyssl,
+                  "ssl_verify_host": not flags.noverifyssl}
+        proxies = {}
+        repomd = ""
+
+        if hasattr(method, "proxy"):
+            proxy_url = method.proxy
+            try:
+                proxy = ProxyString(proxy_url)
+                proxies = {"http": proxy.url,
+                           "https": proxy.url}
+            except ProxyStringError as e:
+                log.info("Failed to parse proxy for test if repo available %s: %s",
+                         proxy_url, e)
+
+        ug = URLGrabber()
+
+        # Test all urls for this repo. If any of these is working it is enough.
+        for url in self._urls:
+            try:
+                repomd = ug.urlread("%s/repodata/repomd.xml" % url,
+                                    limit=50000, copy_local=True,
+                                    proxies=proxies, **ugopts)
+                break
+            except URLGrabError as e:
+                log.debug("Can't download new repomd.xml from %s. Error: %s", url, e)
+
+        return repomd
