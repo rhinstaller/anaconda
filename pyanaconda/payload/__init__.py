@@ -307,6 +307,19 @@ class Payload(object):
         if repo:
             repo.enabled = False
 
+    def verifyAvailableRepositories(self):
+        """Verify availability of existing repositories.
+
+        This method tests if URL links from active repositories can be reached.
+        It is useful when network settings is changed so that we can verify if repositories
+        are still reachable.
+
+        This method should be overriden.
+        """
+        log.debug("Install method %s is not able to verify availability",
+                  self.__class__.__name__)
+        return False
+
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
@@ -815,6 +828,14 @@ class PackagePayload(Payload):
                 log.warning("Could not add %s to groups, not a list.", groupid)
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
+
+    def postSetup(self):
+        """Run specific payload post-configuration tasks on the end of
+        the restartThread call.
+
+        This method could be overriden.
+        """
+        pass
 
     @property
     def kernelPackages(self):
@@ -1418,6 +1439,9 @@ class PayloadManager(object):
             self._setState(self.STATE_ERROR)
             payload.unsetup()
             return
+
+        # run payload specific post configuration tasks
+        payload.postSetup()
 
         self._setState(self.STATE_FINISHED)
 

@@ -20,9 +20,17 @@
 import os
 
 from blivet.size import Size
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.progress import progressQ, progress_message
+from pyanaconda.iutil import ProxyString, ProxyStringError, ipmi_abort, requests_session
+from pyanaconda import constants
+
+import pyanaconda.errors as errors
+import pyanaconda.iutil
+import pyanaconda.localization
+import pyanaconda.payload as payload
 
 import configparser
 import collections
@@ -30,17 +38,12 @@ import itertools
 import logging
 import multiprocessing
 import operator
-from pyanaconda import constants
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
-import pyanaconda.errors as errors
-import pyanaconda.iutil
-import pyanaconda.localization
-import pyanaconda.payload as payload
+import hashlib
 import shutil
 import sys
 import time
 import threading
-from pyanaconda.iutil import ProxyString, ProxyStringError, ipmi_abort
+from requests.exceptions import RequestException
 
 log = logging.getLogger("packaging")
 
@@ -71,6 +74,9 @@ REPO_DIRS = ['/etc/yum.repos.d',
              '/tmp/updates/anaconda.repos.d',
              '/tmp/product/anaconda.repos.d']
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
+
+from pyanaconda.product import productName, productVersion
+USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 # Bonus to required free space which depends on block size and rpm database size estimation.
 # Every file could be aligned to fragment size so 4KiB * number_of_files should be a worst
@@ -287,10 +293,14 @@ class DNFPayload(payload.PackagePayload):
         # of repos or that iterate over the repos.
         self._repos_lock = threading.RLock()
 
+        # save repomd metadata
+        self._repoMD_list = []
+
     def unsetup(self):
         super(DNFPayload, self).unsetup()
         self._base = None
         self._configure()
+        self._repoMD_list = []
 
     def _replace_vars(self, url):
         """ Replace url variables with their values
@@ -933,6 +943,14 @@ class DNFPayload(payload.PackagePayload):
         except (dnf.exceptions.RepoError, KeyError):
             return super(DNFPayload, self).isRepoEnabled(repo_id)
 
+    def verifyAvailableRepositories(self):
+        """Verify availability of repositories."""
+        for repo in self._repoMD_list:
+            if not repo.verify_repoMD():
+                log.debug("Can't reach repo %s", repo.id)
+                return False
+        return True
+
     def languageGroups(self):
         locales = [self.data.lang.lang] + self.data.lang.addsupport
         match_fn = pyanaconda.localization.langcode_matches_locale
@@ -958,6 +976,7 @@ class DNFPayload(payload.PackagePayload):
         self.txID = None
         self._base.reset(sack=True, repos=True)
         self._configure_proxy()
+        self._repoMD_list = []
 
     def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
@@ -1100,6 +1119,18 @@ class DNFPayload(payload.PackagePayload):
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
 
+    def postSetup(self):
+        """Perform post-setup tasks.
+
+        Save repomd hash to test if the repositories can be reached.
+        """
+        self._repoMD_list = []
+        for repoID in self.repos:
+            repo = self.getRepo(repoID)
+            repoMD = RepoMDMetaHash(self, repo)
+            repoMD.store_repoMD_hash()
+            self._repoMD_list.append(repoMD)
+
     def postInstall(self):
         """ Perform post-installation tasks. """
         # Write selected kickstart repos to target system
@@ -1125,3 +1156,73 @@ class DNFPayload(payload.PackagePayload):
 
     def writeStorageLate(self):
         pass
+
+class RepoMDMetaHash(object):
+    """Class that holds hash of a repomd.xml file content from a repository.
+    This class can test availability of this repository by comparing hashes.
+    """
+    def __init__(self, dnf_payload, repo):
+        self._repoId = repo.id
+        self._method = dnf_payload.data.method.method
+        self._urls = repo.baseurl
+        self._repomd_hash = ""
+
+    @property
+    def repoMD_hash(self):
+        """Return MD5 hash of the repomd.xml file stored."""
+        return self._repomd_hash
+
+    @property
+    def id(self):
+        """Name of the repository."""
+        return self._repoId
+
+    def store_repoMD_hash(self):
+        """Download and store hash of the repomd.xml file content."""
+        repomd = self._download_repoMD(self._method)
+        self._repomd_hash = self._calculate_hash(repomd)
+
+    def verify_repoMD(self):
+        """Download and compare with stored repomd.xml file."""
+        new_repomd = self._download_repoMD(self._method)
+        new_repomd_hash = self._calculate_hash(new_repomd)
+        return new_repomd_hash == self._repomd_hash
+
+    def _calculate_hash(self, data):
+        m = hashlib.md5()
+        m.update(data.encode('ascii', 'backslashreplace'))
+        return m.digest()
+
+    def _download_repoMD(self, method):
+        proxies = {}
+        repomd = ""
+        headers = {"user-agent": USER_AGENT}
+        sslverify = not flags.noverifyssl
+
+        if hasattr(method, "proxy"):
+            proxy_url = method.proxy
+            try:
+                proxy = ProxyString(proxy_url)
+                proxies = {"http": proxy.url,
+                           "https": proxy.url}
+            except ProxyStringError as e:
+                log.info("Failed to parse proxy for test if repo available %s: %s",
+                         proxy_url, e)
+
+        session = requests_session()
+
+        # Test all urls for this repo. If any of these is working it is enough.
+        for url in self._urls:
+            try:
+                result = session.get("%s/repodata/repomd.xml" % url, headers=headers,
+                                     proxies=proxies, verify=sslverify)
+                if result.ok:
+                    repomd = result.text
+                    break
+                else:
+                    log.debug("Server returned %i code when downloading repomd", result.status_code)
+                    continue
+            except RequestException as e:
+                log.debug("Can't download new repomd.xml from %s. Error: %s", url, e)
+
+        return repomd
