@@ -426,16 +426,21 @@ reposdir=%s
     #           knowledge of the yum internals or, better yet, some convenience
     #           functions for multi-threaded applications
     def release(self):
-        from yum.packageSack import MetaSack
+        """Release package sacks and close their connections to the database."""
         with _yum_lock:
-            log.debug("deleting package sacks")
-            if hasattr(self._yum, "_pkgSack"):
-                self._yum._pkgSack = None
+            # Check if the meta package sack was created.
+            if self._yum._pkgSack is not None:
 
-            self._yum.repos.pkgSack = MetaSack()
+                # Drop cached data in every sack.
+                self._yum.pkgSack.dropCachedData()
 
-            for repo in self._yum.repos.repos.values():
-                repo._sack = None
+                # Close every sack.
+                for sack in self._yum.pkgSack.sacks.values():
+                    sack.close()
+                    del sack
+
+                # Close the meta sack.
+                del self._yum.pkgSack
 
     def deleteYumTS(self):
         with _yum_lock:
@@ -1380,6 +1385,9 @@ reposdir=%s
         with _yum_lock:
             log.info("%d packages selected totalling %s",
                      len(self._yum.tsInfo.getMembers()), self.spaceRequired)
+
+        # Release the package sacks.
+        self.release()
 
     def _select_kernel_package(self):
         kernels = self.kernelPackages
