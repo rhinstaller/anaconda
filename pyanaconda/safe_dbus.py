@@ -49,7 +49,7 @@ def get_new_system_connection():
 
     return Gio.DBusConnection.new_for_address_sync(
         Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM, None),
-        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
+        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT |
         Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
         None, None)
 
@@ -80,7 +80,7 @@ def get_new_session_connection():
     try:
         connection = Gio.DBusConnection.new_for_address_sync(
             Gio.dbus_address_get_for_bus_sync(Gio.BusType.SESSION, None),
-            Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
+            Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT |
             Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
             None, None)
     except GLib.GError as gerr:
@@ -95,7 +95,7 @@ def get_new_session_connection():
     return connection
 
 def call_sync(service, obj_path, iface, method, args,
-                   connection=None):
+              connection=None):
     """
     Safely call a given method on a given object of a given service over DBus
     passing given arguments. If a connection is given, it is used, otherwise a
@@ -135,13 +135,11 @@ def call_sync(service, obj_path, iface, method, args,
                                    None, Gio.DBusCallFlags.NONE,
                                    DEFAULT_DBUS_TIMEOUT, None)
     except GLib.GError as gerr:
-        msg = "Failed to call %s method on %s with %s arguments: %s" % \
-                       (method, obj_path, args, gerr.message)
+        msg = "Failed to call %s method on %s with %s arguments: %s" % (method, obj_path, args, gerr.message)
         raise DBusCallError(msg)
 
     if ret is None:
-        msg = "No return from %s method on %s with %s arguments" % \
-                       (method, obj_path, args)
+        msg = "No return from %s method on %s with %s arguments" % (method, obj_path, args)
         raise DBusCallError(msg)
 
     return ret.unpack()

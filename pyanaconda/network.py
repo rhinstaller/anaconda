@@ -88,7 +88,7 @@ def check_ip_address(address, version=None):
             ipaddress.IPv4Address(address)
         elif version == 6:
             ipaddress.IPv6Address(address)
-        elif not version: # any of those
+        elif not version:  # any of those
             ipaddress.ip_address(address)
         else:
             log.error("IP version %s is not supported", version)
@@ -167,7 +167,7 @@ def prefix2netmask(prefix):
             _bytes.append(255)
             prefix -= 8
         else:
-            _bytes.append(256 - 2**(8-prefix))
+            _bytes.append(256 - 2 ** (8 - prefix))
             prefix = 0
     netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
@@ -422,7 +422,7 @@ def _get_ip_setting_values_from_ksdata(networkdata):
         if networkdata.gateway:
             gateway4 = nm.nm_ipv4_to_dbus_int(networkdata.gateway)
         else:
-            gateway4 = 0 # will be ignored by NetworkManager
+            gateway4 = 0  # will be ignored by NetworkManager
         prefix4 = netmask2prefix(networkdata.netmask)
         values.append(["ipv4", "addresses", [[addr4, prefix4, gateway4]], "aau"])
 
@@ -578,7 +578,7 @@ def add_connection_for_ksdata(networkdata, devname):
                 values.append(['802-3-ethernet', 's390-nettype', s390cfg['NETTYPE'], 's'])
             if s390cfg['OPTIONS']:
                 opts = s390cfg['OPTIONS'].split(" ")
-                opts_dict = {k:v for k,v in (o.split("=") for o in opts)}
+                opts_dict = {k: v for k, v in (o.split("=") for o in opts)}
                 values.append(['802-3-ethernet', 's390-options', opts_dict, 'a{ss}'])
 
         dev_spec = devname
@@ -626,7 +626,7 @@ def _get_s390_settings(devname):
         'SUBCHANNELS': '',
         'NETTYPE': '',
         'OPTIONS': ''
-        }
+    }
 
     subchannels = []
     for symlink in sorted(glob.glob("/sys/class/net/%s/device/cdev[0-9]*" % devname)):
@@ -782,10 +782,8 @@ def ifcfg_to_ksdata(ifcfg, devname):
             if ifcfg.get('GATEWAY0'):
                 kwargs["gateway"] = ifcfg.get('GATEWAY0')
 
-
     # ipv6
-    if (not ifcfg.get('IPV6INIT') or
-        ifcfg.get('IPV6INIT') == "no"):
+    if (not ifcfg.get('IPV6INIT') or ifcfg.get('IPV6INIT') == "no"):
         kwargs["noipv6"] = True
     else:
         if ifcfg.get('IPV6_AUTOCONF') in ("yes", ""):
@@ -930,7 +928,7 @@ def find_ifcfg_file_of_device(devname, root_path=""):
     return ifcfg_path
 
 def find_ifcfg_file(values, root_path=""):
-    for filepath in _ifcfg_files(os.path.normpath(root_path+netscriptsDir)):
+    for filepath in _ifcfg_files(os.path.normpath(root_path + netscriptsDir)):
         ifcfg = IfcfgFile(filepath)
         ifcfg.read()
         for key, value in values:
@@ -1035,7 +1033,7 @@ def ifaceForHostIP(host):
     return routeInfo[routeInfo.index("dev") + 1]
 
 def default_route_device(family="inet"):
-    routes = iutil.execWithCapture("ip", [ "-f", family, "route", "show"])
+    routes = iutil.execWithCapture("ip", ["-f", family, "route", "show"])
     if not routes:
         log.debug("Could not get default %s route device", family)
         return None
@@ -1178,8 +1176,7 @@ def autostartFCoEDevices(rootpath, storage, ksdata):
 
 def usedByFCoE(iface, storage):
     for d in storage.devices:
-        if (isinstance(d, FcoeDiskDevice) and
-            d.nic == iface):
+        if (isinstance(d, FcoeDiskDevice) and d.nic == iface):
             return True
     return False
 
@@ -1423,7 +1420,7 @@ def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEO
     devices = set(devices)
     i = 0
     log.debug("waiting for connection of devices %s for iscsi", devices)
-    while  i < timeout:
+    while i < timeout:
         if not devices - set(nm.nm_activated_devices()):
             return True
         i += 1
@@ -1528,8 +1525,7 @@ def status_message():
                         devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
                     elif nm.nm_device_type_is_vlan(devname):
                         devlist.append("%s" % devname)
-                msg = _("Connected: %(list_of_interface_names)s") \
-                      % {"list_of_interface_names": ", ".join(devlist)}
+                msg = _("Connected: %(list_of_interface_names)s") % {"list_of_interface_names": ", ".join(devlist)}
         else:
             msg = _("Not connected")
 

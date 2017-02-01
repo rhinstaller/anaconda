@@ -244,7 +244,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         args = ["--update", "--nostart"] + shlex.split(self.authconfig)
 
         if not flags.automatedInstall and \
-           (os.path.exists(iutil.getSysroot() + "/lib64/security/pam_fprintd.so") or \
+           (os.path.exists(iutil.getSysroot() + "/lib64/security/pam_fprintd.so") or
             os.path.exists(iutil.getSysroot() + "/lib/security/pam_fprintd.so")):
             args += ["--enablefingerprint"]
 
@@ -261,7 +261,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
             fmt = blivet.formats.get_format(self.fstype)
             if not fmt or fmt.type is None:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("autopart fstype of %s is invalid.") % self.fstype))
+                                          msg=_("autopart fstype of %s is invalid.") % self.fstype))
 
         return retval
 
@@ -278,7 +278,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
                 storage.set_default_boot_fstype(self.fstype)
             except ValueError:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Settings default fstype to %s failed.") % self.fstype))
+                                          msg=_("Settings default fstype to %s failed.") % self.fstype))
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
@@ -311,12 +311,12 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         commands.bootloader.F21_Bootloader.parse(self, args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("GRUB2 does not support installation to a partition.")))
+                                      msg=_("GRUB2 does not support installation to a partition.")))
 
         if self.isCrypted and isinstance(get_bootloader(), GRUB2):
             if not self.password.startswith("grub.pbkdf2."):
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg="GRUB2 encrypted password must be in grub.pbkdf2 format."))
+                                          msg="GRUB2 encrypted password must be in grub.pbkdf2 format."))
 
         return self
 
@@ -402,15 +402,13 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         if self.bootDrive:
             matches = set(device_matches(self.bootDrive, devicetree=storage.devicetree, disks_only=True))
             if len(matches) > 1:
-                raise KickstartParseError(
-                            formatErrorMsg(self.lineno,
-                                           msg=(_("More than one match found for given boot drive \"%s\".")
-                                                % self.bootDrive)))
+                raise KickstartParseError(formatErrorMsg(self.lineno,
+                                          msg=(_("More than one match found for given boot drive \"%s\".")
+                                               % self.bootDrive)))
             elif matches.isdisjoint(diskSet):
-                raise KickstartParseError(
-                            formatErrorMsg(self.lineno,
-                                           msg=(_("Requested boot drive \"%s\" doesn't exist or cannot be used.")
-                                                % self.bootDrive)))
+                raise KickstartParseError(formatErrorMsg(self.lineno,
+                                          msg=(_("Requested boot drive \"%s\" doesn't exist or cannot be used.")
+                                               % self.bootDrive)))
         # Take valid disk from --driveorder
         elif len(valid_disks) >= 1:
             log.debug("Bootloader: use '%s' first disk from driveorder as boot drive, dry run %s",
@@ -430,7 +428,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
                 boot_drive = ""
                 # Use disk ancestor
                 if boot_dev.disks:
-                    boot_drive =  boot_dev.disks[0].name
+                    boot_drive = boot_dev.disks[0].name
 
                 if boot_drive and boot_drive in disk_names:
                     self.bootDrive = boot_drive
@@ -529,12 +527,12 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
         else:
             try:
                 request = storage.new_btrfs(name=name,
-                                       subvol=self.subvol,
-                                       mountpoint=self.mountpoint,
-                                       metadata_level=self.metaDataLevel,
-                                       data_level=self.dataLevel,
-                                       parents=members,
-                                       create_options=self.mkfsopts)
+                                            subvol=self.subvol,
+                                            mountpoint=self.mountpoint,
+                                            metadata_level=self.metaDataLevel,
+                                            data_level=self.dataLevel,
+                                            parents=members,
+                                            create_options=self.mkfsopts)
             except BTRFSValueError as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -551,8 +549,7 @@ class Realm(commands.realm.F19_Realm):
             return
 
         try:
-            argv = ["discover", "--verbose"] + \
-                    self.discover_options + [self.join_realm]
+            argv = ["discover", "--verbose"] + self.discover_options + [self.join_realm]
             output = iutil.execWithCapture("realm", argv, filter_stderr=True)
         except OSError:
             # TODO: A lousy way of propagating what will usually be
@@ -589,8 +586,7 @@ class Realm(commands.realm.F19_Realm):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["join", "--install", iutil.getSysroot(), "--verbose"] + \
-               pw_args + self.join_args
+        argv = ["join", "--install", iutil.getSysroot(), "--verbose"] + pw_args + self.join_args
         rc = -1
         try:
             rc = iutil.execWithRedirect("realm", argv)
@@ -610,8 +606,8 @@ class ClearPart(commands.clearpart.F21_ClearPart):
 
         if self.disklabel and self.disklabel not in platform.disklabel_types:
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("Disklabel \"%s\" given in clearpart command is not "
-                          "supported on this platform.") % self.disklabel))
+                                      msg=_("Disklabel \"%s\" given in clearpart command is not "
+                                      "supported on this platform.") % self.disklabel))
 
         # Do any glob expansion now, since we need to have the real list of
         # disks available before the execute methods run.
@@ -652,7 +648,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         if self.disklabel:
             if not platform.set_default_disklabel_type(self.disklabel):
                 log.warning("%s is not a supported disklabel type on this platform. "
-                         "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
+                            "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
 
         storage.clear_partitions()
 
@@ -694,8 +690,7 @@ class Firewall(commands.firewall.F20_Firewall):
         else:
             args += ["--enabled"]
 
-        if "ssh" not in self.services and "ssh" not in self.remove_services \
-            and "22:tcp" not in self.ports:
+        if "ssh" not in self.services and "ssh" not in self.remove_services and "22:tcp" not in self.ports:
             args += ["--service=ssh"]
 
         for dev in self.trusts:
@@ -711,7 +706,7 @@ class Firewall(commands.firewall.F20_Firewall):
             args += ["--service=%s" % (service,)]
 
         cmd = "/usr/bin/firewall-offline-cmd"
-        if not os.path.exists(iutil.getSysroot()+cmd):
+        if not os.path.exists(iutil.getSysroot() + cmd):
             if self.enabled:
                 msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
                 raise KickstartError(msg)
@@ -768,7 +763,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
                 drives.extend(matched)
             else:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
+                                          msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
 
         self.ignoredisk = drives
 
@@ -779,7 +774,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
                 drives.extend(matched)
             else:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
+                                          msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
 
         self.onlyuse = drives
 
@@ -806,13 +801,11 @@ class Iscsi(commands.iscsi.F17_Iscsi):
 
         try:
             blivet.iscsi.iscsi.add_target(tg.ipaddr, tg.port, tg.user,
-                                            tg.password, tg.user_in,
-                                            tg.password_in,
-                                            target=tg.target,
-                                            iface=tg.iface)
-            log.info("added iscsi target %s at %s via %s", tg.target,
-                                                           tg.ipaddr,
-                                                           tg.iface)
+                                          tg.password, tg.user_in,
+                                          tg.password_in,
+                                          target=tg.target,
+                                          iface=tg.iface)
+            log.info("added iscsi target %s at %s via %s", tg.target, tg.ipaddr, tg.iface)
         except (IOError, ValueError) as e:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -880,7 +873,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                 size = Size("%d MiB" % self.size)
             except ValueError:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg="The size \"%s\" is invalid." % self.size))
+                                          msg="The size \"%s\" is invalid." % self.size))
 
         if self.thin_pool:
             self.mountpoint = ""
@@ -917,7 +910,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
         if not self.format:
             if not self.name:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("logvol --noformat must also use the --name= option.")))
+                                          msg=_("logvol --noformat must also use the --name= option.")))
 
             dev = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
             if not dev:
@@ -966,14 +959,14 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
         # Now get a format to hold a lot of these extra values.
         fmt = get_format(ty,
-                        mountpoint=self.mountpoint,
-                        label=self.label,
-                        fsprofile=self.fsprofile,
-                        create_options=self.mkfsopts,
-                        mountopts=self.fsopts)
+                         mountpoint=self.mountpoint,
+                         label=self.label,
+                         fsprofile=self.fsprofile,
+                         create_options=self.mkfsopts,
+                         mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" file system type is not supported.") % ty))
+                                      msg=_("The \"%s\" file system type is not supported.") % ty))
 
         add_fstab_swap = None
         # If we were given a pre-existing LV to create a filesystem on, we need
@@ -1048,16 +1041,16 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
             try:
                 request = storage.new_lv(fmt=fmt,
-                                    name=self.name,
-                                    parents=parents,
-                                    size=size,
-                                    thin_pool=self.thin_pool,
-                                    thin_volume=self.thin_volume,
-                                    grow=self.grow,
-                                    maxsize=maxsize,
-                                    percent=self.percent,
-                                    cache_request=cache_request,
-                                    **pool_args)
+                                         name=self.name,
+                                         parents=parents,
+                                         size=size,
+                                         thin_pool=self.thin_pool,
+                                         thin_volume=self.thin_volume,
+                                         grow=self.grow,
+                                         maxsize=maxsize,
+                                         percent=self.percent,
+                                         cache_request=cache_request,
+                                         **pool_args)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -1078,19 +1071,19 @@ class LogVolData(commands.logvol.F23_LogVolData):
             if self.preexist:
                 luksformat = fmt
                 device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
-                                          cipher=self.cipher,
-                                          escrow_cert=cert,
-                                          add_backup_passphrase=self.backuppassphrase)
+                                           cipher=self.cipher,
+                                           escrow_cert=cert,
+                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
                 request.format = get_format("luks", passphrase=self.passphrase,
-                                           cipher=self.cipher,
-                                           escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase,
-                                           min_luks_entropy=MIN_CREATE_ENTROPY)
+                                            cipher=self.cipher,
+                                            escrow_cert=cert,
+                                            add_backup_passphrase=self.backuppassphrase,
+                                            min_luks_entropy=MIN_CREATE_ENTROPY)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
@@ -1251,7 +1244,7 @@ class PartitionData(commands.partition.F23_PartData):
                 size = Size("%d MiB" % self.size)
             except ValueError:
                 raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("The size \"%s\" is invalid.") % self.size))
+                                          msg=_("The size \"%s\" is invalid.") % self.size))
 
         # If this specified an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
@@ -1294,15 +1287,15 @@ class PartitionData(commands.partition.F23_PartData):
 
         # Now get a format to hold a lot of these extra values.
         kwargs["fmt"] = get_format(ty,
-           mountpoint=self.mountpoint,
-           label=self.label,
-           fsprofile=self.fsprofile,
-           mountopts=self.fsopts,
-           create_options=self.mkfsopts,
-           size=size)
+                                   mountpoint=self.mountpoint,
+                                   label=self.label,
+                                   fsprofile=self.fsprofile,
+                                   mountopts=self.fsopts,
+                                   create_options=self.mkfsopts,
+                                   size=size)
         if not kwargs["fmt"].type:
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" file system type is not supported.") % ty))
+                                      msg=_("The \"%s\" file system type is not supported.") % ty))
 
         # If we were given a specific disk to create the partition on, verify
         # that it exists first.  If it doesn't exist, see if it exists with
@@ -1412,20 +1405,20 @@ class PartitionData(commands.partition.F23_PartData):
             if self.onPart:
                 luksformat = kwargs["fmt"]
                 device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
-                                          cipher=self.cipher,
-                                          escrow_cert=cert,
-                                          add_backup_passphrase=self.backuppassphrase,
-                                          min_luks_entropy=MIN_CREATE_ENTROPY)
+                                           cipher=self.cipher,
+                                           escrow_cert=cert,
+                                           add_backup_passphrase=self.backuppassphrase,
+                                           min_luks_entropy=MIN_CREATE_ENTROPY)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
                 request.format = get_format("luks", passphrase=self.passphrase,
-                                           cipher=self.cipher,
-                                           escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase,
-                                           min_luks_entropy=MIN_CREATE_ENTROPY)
+                                            cipher=self.cipher,
+                                            escrow_cert=cert,
+                                            add_backup_passphrase=self.backuppassphrase,
+                                            min_luks_entropy=MIN_CREATE_ENTROPY)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
@@ -1485,8 +1478,7 @@ class RaidData(commands.raid.F25_RaidData):
         else:
             if self.fstype != "":
                 ty = self.fstype
-            elif self.mountpoint == "/boot" and \
-                 "mdarray" in storage.bootloader.stage2_device_types:
+            elif self.mountpoint == "/boot" and "mdarray" in storage.bootloader.stage2_device_types:
                 ty = storage.default_boot_fstype
             else:
                 ty = storage.default_fstype
@@ -1540,11 +1532,11 @@ class RaidData(commands.raid.F25_RaidData):
 
         # Now get a format to hold a lot of these extra values.
         kwargs["fmt"] = get_format(ty,
-           label=self.label,
-           fsprofile=self.fsprofile,
-           mountpoint=self.mountpoint,
-           mountopts=self.fsopts,
-           create_options=self.mkfsopts)
+                                   label=self.label,
+                                   fsprofile=self.fsprofile,
+                                   mountpoint=self.mountpoint,
+                                   mountopts=self.fsopts,
+                                   create_options=self.mkfsopts)
         if not kwargs["fmt"].type:
             raise KickstartParseError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
@@ -1605,18 +1597,18 @@ class RaidData(commands.raid.F25_RaidData):
             if self.preexist:
                 luksformat = kwargs["fmt"]
                 device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
-                                          cipher=self.cipher,
-                                          escrow_cert=cert,
-                                          add_backup_passphrase=self.backuppassphrase)
+                                           cipher=self.cipher,
+                                           escrow_cert=cert,
+                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
                 request.format = get_format("luks", passphrase=self.passphrase,
-                                           cipher=self.cipher,
-                                           escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase)
+                                            cipher=self.cipher,
+                                            escrow_cert=cert,
+                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
@@ -1687,7 +1679,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             return
 
         try:
-            selinux_cfg = SimpleConfigFile(iutil.getSysroot()+"/etc/selinux/config")
+            selinux_cfg = SimpleConfigFile(iutil.getSysroot() + "/etc/selinux/config")
             selinux_cfg.read()
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
@@ -1762,7 +1754,7 @@ class Timezone(commands.timezone.F25_Timezone):
         # write out timezone configuration
         if not timezone.is_valid_timezone(self.timezone):
             # this should never happen, but for pity's sake
-            log.warning("Timezone %s set in kickstart is not valid, falling "\
+            log.warning("Timezone %s set in kickstart is not valid, falling "
                         "back to default (America/New_York).", self.timezone)
             self.timezone = "America/New_York"
 
@@ -1876,8 +1868,8 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
         else:
             try:
                 request = storage.new_vg(parents=pvs,
-                                    name=self.vgname,
-                                    pe_size=pesize)
+                                         name=self.vgname,
+                                         pe_size=pesize)
             except (StorageError, ValueError) as e:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -1996,50 +1988,50 @@ class AnacondaSection(Section):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
-        "auth": Authconfig,
-        "authconfig": Authconfig,
-        "autopart": AutoPart,
-        "btrfs": BTRFS,
-        "bootloader": Bootloader,
-        "clearpart": ClearPart,
-        "eula": Eula,
-        "fcoe": Fcoe,
-        "firewall": Firewall,
-        "firstboot": Firstboot,
-        "group": Group,
-        "ignoredisk": IgnoreDisk,
-        "iscsi": Iscsi,
-        "iscsiname": IscsiName,
-        "keyboard": Keyboard,
-        "lang": Lang,
-        "logging": Logging,
-        "logvol": LogVol,
-        "network": Network,
-        "part": Partition,
-        "partition": Partition,
-        "raid": Raid,
-        "realm": Realm,
-        "reqpart": ReqPart,
-        "rootpw": RootPw,
-        "selinux": SELinux,
-        "services": Services,
-        "sshkey": SshKey,
-        "skipx": SkipX,
-        "timezone": Timezone,
-        "upgrade": Upgrade,
-        "user": User,
-        "volgroup": VolGroup,
-        "xconfig": XConfig,
-        "zfcp": ZFCP,
+    "auth": Authconfig,
+    "authconfig": Authconfig,
+    "autopart": AutoPart,
+    "btrfs": BTRFS,
+    "bootloader": Bootloader,
+    "clearpart": ClearPart,
+    "eula": Eula,
+    "fcoe": Fcoe,
+    "firewall": Firewall,
+    "firstboot": Firstboot,
+    "group": Group,
+    "ignoredisk": IgnoreDisk,
+    "iscsi": Iscsi,
+    "iscsiname": IscsiName,
+    "keyboard": Keyboard,
+    "lang": Lang,
+    "logging": Logging,
+    "logvol": LogVol,
+    "network": Network,
+    "part": Partition,
+    "partition": Partition,
+    "raid": Raid,
+    "realm": Realm,
+    "reqpart": ReqPart,
+    "rootpw": RootPw,
+    "selinux": SELinux,
+    "services": Services,
+    "sshkey": SshKey,
+    "skipx": SkipX,
+    "timezone": Timezone,
+    "upgrade": Upgrade,
+    "user": User,
+    "volgroup": VolGroup,
+    "xconfig": XConfig,
+    "zfcp": ZFCP,
 }
 
 dataMap = {
-        "BTRFSData": BTRFSData,
-        "LogVolData": LogVolData,
-        "PartData": PartitionData,
-        "RaidData": RaidData,
-        "RepoData": RepoData,
-        "VolGroupData": VolGroupData,
+    "BTRFSData": BTRFSData,
+    "LogVolData": LogVolData,
+    "PartData": PartitionData,
+    "RaidData": RaidData,
+    "RepoData": RepoData,
+    "VolGroupData": VolGroupData,
 }
 
 superclass = returnClassForVersion()

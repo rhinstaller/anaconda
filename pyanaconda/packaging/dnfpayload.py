@@ -96,7 +96,7 @@ def _df_map():
         val = items[1]
         if not key.startswith('/'):
             continue
-        structured[key] = Size(int(val)*1024)
+        structured[key] = Size(int(val) * 1024)
 
     # Add /var/tmp/ if this is a directory or image installation
     if flags.dirInstall or flags.imageInstall:
@@ -123,19 +123,17 @@ def _pick_mpoint(df, download_size, install_size, download_only):
     root_mpoint = pyanaconda.iutil.getSysroot()
     log.debug('Input mount points: %s', df)
     log.info('Estimated size: download %s & install %s', requested,
-              (requested_root - requested))
+             (requested_root - requested))
 
     # Find sufficient mountpoint to download and install packages.
-    sufficients = {key : val for (key, val) in df.items()
-                   if ((key != root_mpoint and val > requested) or val > requested_root)
-                      and reasonable_mpoint(key)}
+    sufficients = {key: val for (key, val) in df.items()
+                   if ((key != root_mpoint and val > requested) or val > requested_root) and reasonable_mpoint(key)}
 
     # If no sufficient mountpoints for download and install were found and we are looking
     # for download mountpoint only, ignore install size and try to find mountpoint just
     # to download packages. This fallback is required when user skipped space check.
     if not sufficients and download_only:
-        sufficients = {key : val for (key, val) in df.items()
-                       if val > requested and reasonable_mpoint(key)}
+        sufficients = {key: val for (key, val) in df.items() if val > requested and reasonable_mpoint(key)}
         if sufficients:
             log.info('Sufficient mountpoint for download only found: %s', sufficients)
     elif sufficients:
@@ -145,8 +143,7 @@ def _pick_mpoint(df, download_size, install_size, download_only):
         log.debug("No sufficient mountpoints found")
         return None
 
-    sorted_mpoints = sorted(sufficients.items(), key=operator.itemgetter(1),
-                            reverse=True)
+    sorted_mpoints = sorted(sufficients.items(), key=operator.itemgetter(1), reverse=True)
 
     # try to pick something else than root mountpoint for downloading
     if download_only and len(sorted_mpoints) >= 2 and sorted_mpoints[0][0] == root_mpoint:
@@ -205,7 +202,7 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         downloaded = Size(sum(self.downloads.values()))
         vals = {
             'downloaded'  : downloaded,
-            'percent'     : int(100 * downloaded/self.total_size),
+            'percent'     : int(100 * downloaded / self.total_size),
             'total_files' : self.total_files,
             'total_size'  : self.total_size
         }
@@ -279,7 +276,6 @@ class DNFPayload(packaging.PackagePayload):
             return dnf.conf.parser.substitute(url, self._base.conf.substitutions)
 
         return None
-
 
     def _add_repo(self, ksrepo):
         """Add a repo to the dnf repo object
@@ -431,7 +427,6 @@ class DNFPayload(packaging.PackagePayload):
         else:
             self.txID += 1
         return self.txID
-
 
     def _configure_proxy(self):
         """ Configure the proxy on the dnf.Base object."""
@@ -853,7 +848,7 @@ class DNFPayload(packaging.PackagePayload):
             elif token == 'log':
                 log.info(msg)
             elif token == 'post':
-                break # Installation finished successfully
+                break  # Installation finished successfully
             elif token == 'quit':
                 msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
                 raise packaging.PayloadError(msg)

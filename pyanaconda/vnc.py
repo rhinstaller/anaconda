@@ -54,9 +54,9 @@ def shutdownServer():
 class VncServer:
 
     def __init__(self, root="/", ip=None, name=None,
-                password="", vncconnecthost="",
-                vncconnectport="", log_file="/tmp/vncserver.log",
-                pw_file="/tmp/vncpassword"):
+                 password="", vncconnecthost="",
+                 vncconnectport="", log_file="/tmp/vncserver.log",
+                 pw_file="/tmp/vncpassword"):
         self.root = root
         self.ip = ip
         self.name = name
@@ -83,7 +83,8 @@ class VncServer:
         with open(self.pw_file, "wb") as pw_file:
             # the -f option makes sure vncpasswd does not ask for the password again
             rc = iutil.execWithRedirect("vncpasswd", ["-f"],
-                    stdin=r, stdout=pw_file, binary_output=True, log_output=False)
+                                        stdin=r, stdout=pw_file,
+                                        binary_output=True, log_output=False)
 
             os.close(r)
             os.close(w)
@@ -120,9 +121,10 @@ class VncServer:
             log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
 
         if self.name is not None and not self.name.startswith('localhost'):
-            self.connxinfo = "%s:%s (%s:%s)" % \
-                    (socket.getfqdn(name=self.name), constants.X_DISPLAY_NUMBER,
-                     ipstr, constants.X_DISPLAY_NUMBER)
+            self.connxinfo = "%s:%s (%s:%s)" % (socket.getfqdn(name=self.name),
+                                                constants.X_DISPLAY_NUMBER,
+                                                ipstr,
+                                                constants.X_DISPLAY_NUMBER)
             host = self.name
         elif ipstr is not None:
             self.connxinfo = "%s:%s" % (ipstr, constants.X_DISPLAY_NUMBER)
@@ -159,10 +161,10 @@ class VncServer:
         else:
             hostarg = self.vncconnecthost
 
-        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s" % constants.X_DISPLAY_NUMBER, "-connect", hostarg]
+        vncconfigcommand = [self.root + "/usr/bin/vncconfig", "-display", ":%s" % constants.X_DISPLAY_NUMBER, "-connect", hostarg]
 
         for _i in range(maxTries):
-            vncconfp = iutil.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
+            vncconfp = iutil.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # vncconfig process
             err = vncconfp.communicate()[1].decode("utf-8")
 
             if err == '':
@@ -186,7 +188,7 @@ class VncServer:
 
         self.log.info(_("Attempting to start vncconfig"))
 
-        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-nowin", "-display", ":%s" % constants.X_DISPLAY_NUMBER]
+        vncconfigcommand = [self.root + "/usr/bin/vncconfig", "-nowin", "-display", ":%s" % constants.X_DISPLAY_NUMBER]
 
         # Use startProgram to run vncconfig in the background
         iutil.startProgram(vncconfigcommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
@@ -196,7 +198,7 @@ class VncServer:
 
         We dont really have to do anything for the server to listen :)
         """
-        if self.connxinfo != None:
+        if self.connxinfo is not None:
             self.log.info(_("Please manually connect your vnc client to %s to begin the install."), self.connxinfo)
         else:
             self.log.info(_("Please manually connect your vnc client to IP-ADDRESS:%s "
@@ -246,13 +248,13 @@ class VncServer:
         # Lets tell the user what we are going to do.
         if self.vncconnecthost != "":
             self.log.warning(_("\n\nYou chose to connect to a listening vncviewer. \n"
-                                "This does not require a password to be set.  If you \n"
-                                "set a password, it will be used in case the connection \n"
-                                "to the vncviewer is unsuccessful\n\n"))
+                               "This does not require a password to be set.  If you \n"
+                               "set a password, it will be used in case the connection \n"
+                               "to the vncviewer is unsuccessful\n\n"))
         elif self.password == "":
             self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
-                                "You can use the vncpassword=PASSWORD boot option\n"
-                                "if you would like to secure the server.\n\n"))
+                               "You can use the vncpassword=PASSWORD boot option\n"
+                               "if you would like to secure the server.\n\n"))
         elif self.password != "":
             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
         else:

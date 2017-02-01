@@ -97,8 +97,8 @@ def setup_kexec(extra_args=None):
             return
 
     # Copy the kernel and initrd to /tmp/
-    shutil.copy2(getSysroot()+boot_info.kernel, "/tmp/vmlinuz-kexec-reboot")
-    shutil.copy2(getSysroot()+boot_info.initrd, "/tmp/initrd-kexec-reboot")
+    shutil.copy2(getSysroot() + boot_info.kernel, "/tmp/vmlinuz-kexec-reboot")
+    shutil.copy2(getSysroot() + boot_info.initrd, "/tmp/initrd-kexec-reboot")
 
     append = "root=%s %s" % (boot_info.root, boot_info.args)
     args = ["--initrd", "/tmp/initrd-kexec-reboot", "--append", append, "-l", "/tmp/vmlinuz-kexec-reboot"]

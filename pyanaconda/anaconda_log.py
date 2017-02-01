@@ -95,7 +95,7 @@ class _AnacondaLogFixer(object):
         # hassle of having an init. If _stream is not set, then stream was
         # never set on the StreamHandler object, so accessing it in that case
         # is supposed to be an error.
-        self._stream = WriteProxy(value) # pylint: disable=attribute-defined-outside-init
+        self._stream = WriteProxy(value)  # pylint: disable=attribute-defined-outside-init
 
 
 class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
@@ -112,7 +112,7 @@ class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
 
     def emit(self, record):
         original_msg = record.msg
-        record.msg = '%s: %s' %(self.tag, original_msg)
+        record.msg = '%s: %s' % (self.tag, original_msg)
         SysLogHandler.emit(self, record)
         record.msg = original_msg
 
@@ -199,32 +199,32 @@ class AnacondaLog:
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
         # log.
-        stdoutLogger = logging.getLogger("anaconda.stdout")
-        stdoutLogger.setLevel(logging.INFO)
+        stdout_logger = logging.getLogger("anaconda.stdout")
+        stdout_logger.setLevel(logging.INFO)
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
-        self.addFileHandler(sys.stdout, stdoutLogger,
+        self.addFileHandler(sys.stdout, stdout_logger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
         # Stderr logger
-        stderrLogger = logging.getLogger("anaconda.stderr")
-        stderrLogger.setLevel(logging.INFO)
-        self.addFileHandler(sys.stderr, stderrLogger,
+        stderr_logger = logging.getLogger("anaconda.stderr")
+        stderr_logger.setLevel(logging.INFO)
+        self.addFileHandler(sys.stderr, stderr_logger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler(self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
-                        fmtStr=ENTRY_FORMAT,
-                        autoLevel=False):
+                       fmtStr=ENTRY_FORMAT,
+                       autoLevel=False):
         try:
             if isinstance(dest, str):
-                logfileHandler = AnacondaFileHandler(dest)
+                logfile_handler = AnacondaFileHandler(dest)
             else:
-                logfileHandler = AnacondaStreamHandler(dest)
+                logfile_handler = AnacondaStreamHandler(dest)
 
-            logfileHandler.setLevel(minLevel)
-            logfileHandler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
-            autoSetLevel(logfileHandler, autoLevel)
-            addToLogger.addHandler(logfileHandler)
+            logfile_handler.setLevel(minLevel)
+            logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
+            autoSetLevel(logfile_handler, autoLevel)
+            addToLogger.addHandler(logfile_handler)
         except IOError:
             pass
 
@@ -235,23 +235,23 @@ class AnacondaLog:
             # don't clutter up the system logs when doing an image install
             return
 
-        syslogHandler = AnacondaSyslogHandler(
+        syslog_handler = AnacondaSyslogHandler(
             '/dev/log',
             ANACONDA_SYSLOG_FACILITY,
             logr.name)
-        syslogHandler.setLevel(logging.DEBUG)
-        logr.addHandler(syslogHandler)
+        syslog_handler.setLevel(logging.DEBUG)
+        logr.addHandler(syslog_handler)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
-                      file=sys.stderr, line=None):
+                    file=sys.stderr, line=None):
         """ Make sure messages sent through python's warnings module get logged.
 
             The warnings mechanism is used by some libraries we use,
             notably pykickstart.
         """
         self.anaconda_logger.warning("%s", warnings.formatwarning(
-                message, category, filename, lineno, line))
+                                     message, category, filename, lineno, line))
 
     def setup_remotelog(self, host, port):
         remotelog = AnacondaSocketHandler(host, port)
@@ -270,11 +270,11 @@ class AnacondaLog:
         Requires updating rsyslogd config and restarting rsyslog
         """
 
-        TEMPLATE = "*.* @@%s\n"
+        template = "*.* @@%s\n"
 
         self.remote_syslog = remote_syslog
         with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
-            forward_line = TEMPLATE % remote_syslog
+            forward_line = template % remote_syslog
             cfgfile.write(forward_line)
         self.restartSyslog()
 
@@ -282,7 +282,7 @@ class AnacondaLog:
         """Setup virtio rsyslog logging.
         """
 
-        TEMPLATE = "*.* %s;anaconda_syslog\n"
+        template = "*.* %s;anaconda_syslog\n"
 
         vport = flags.cmdline.get('virtiolog') or self.VIRTIO_PORT
 
@@ -290,7 +290,7 @@ class AnacondaLog:
             return
 
         with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
-            cfgfile.write(TEMPLATE % (vport,))
+            cfgfile.write(template % (vport,))
         self.restartSyslog()
 
 

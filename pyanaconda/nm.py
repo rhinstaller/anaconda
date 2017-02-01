@@ -700,7 +700,7 @@ def _settings_for_hwaddr(hwaddr):
        :rtype: list
     """
     return _find_settings(hwaddr, '802-3-ethernet', 'mac-address',
-            format_value=lambda ba: ":".join("%02X" % b for b in ba))
+                          format_value=lambda ba: ":".join("%02X" % b for b in ba))
 
 def _find_settings(value, key1, key2, format_value=lambda x: x):
     """Return list of object paths of settings having given value of key1, key2 setting

@@ -19,7 +19,7 @@
 #
 import os
 import shlex
-import string # pylint: disable=deprecated-module
+import string  # pylint: disable=deprecated-module
 import tempfile
 from pyanaconda.iutil import upperASCII
 
@@ -37,7 +37,7 @@ def quote(s, always=False):
                 break
         else:
             return s
-    return '"'+s.replace('"', '\\"')+'"'
+    return '"' + s.replace('"', '\\"') + '"'
 
 def find_comment(s):
     """ Look for a # comment outside of a quoted string.
@@ -67,7 +67,8 @@ def write_tmpfile(filename, data):
     # Create a temporary in the same directory as the target file to ensure
     # the new file is on the same filesystem
     tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False,
-            dir=os.path.dirname(filename) or '.', prefix="." + os.path.basename(filename))
+                                       dir=os.path.dirname(filename) or '.',
+                                       prefix="." + os.path.basename(filename))
     tmpf.write(data)
     tmpf.close()
 
@@ -218,7 +219,7 @@ def simple_replace(fname, keys, add=True, add_comment="# Added by Anaconda"):
     """
     # Helper to return the line or the first matching key's string
     def _replace(l):
-        r = [s for k,s in keys if l.startswith(k)]
+        r = [s for k, s in keys if l.startswith(k)]
         if r:
             return r[0]
         else:
@@ -230,9 +231,9 @@ def simple_replace(fname, keys, add=True, add_comment="# Added by Anaconda"):
 
     # Add any strings that weren't already in the file
     if add:
-        append = [s for k,s in keys if not any(l.startswith(k) for l in lines)]
+        append = [s for k, s in keys if not any(l.startswith(k) for l in lines)]
         if append:
             lines += [add_comment]
             lines += append
 
-    write_tmpfile(fname, "\n".join(lines)+"\n")
+    write_tmpfile(fname, "\n".join(lines) + "\n")

@@ -187,8 +187,8 @@ class BootArgs(OrderedDict):
                     result = False
                 else:
                     result = True
-            elif a == 'no'+arg:
-                result = False # XXX: should noarg=off -> True?
+            elif a == 'no' + arg:
+                result = False  # XXX: should noarg=off -> True?
         return result
 
 def can_touch_runtime_system(msg, touch_live=False):
@@ -222,4 +222,3 @@ def can_touch_runtime_system(msg, touch_live=False):
     return True
 
 flags = Flags()
-

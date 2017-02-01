@@ -69,9 +69,9 @@ def findFirstIsoImage(path):
 
         log.debug("Reading .discinfo")
         f = open("/mnt/install/cdimage/.discinfo")
-        f.readline() # skip timestamp
-        f.readline() # skip release description
-        discArch = f.readline().strip() # read architecture
+        f.readline()  # skip timestamp
+        f.readline()  # skip release description
+        discArch = f.readline().strip()  # read architecture
         f.close()
 
         log.debug("discArch = %s", discArch)
@@ -135,8 +135,8 @@ def opticalInstallMedia(devicetree):
     # Search for devices identified as cdrom along with any other
     # device that has an iso9660 filesystem. This will catch USB media
     # created from ISO images.
-    for dev in set([d for d in devicetree.devices if d.type == "cdrom"] + \
-            [d for d in devicetree.devices if d.format.type == "iso9660"]):
+    for dev in set([d for d in devicetree.devices if d.type == "cdrom"] +
+                   [d for d in devicetree.devices if d.format.type == "iso9660"]):
         if not dev.controllable:
             continue
 

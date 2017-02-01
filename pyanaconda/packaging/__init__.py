@@ -70,7 +70,7 @@ from blivet.platform import platform
 from blivet import set_sysroot
 
 from pyanaconda.product import productName, productVersion
-USER_AGENT = "%s (anaconda)/%s" %(productName, productVersion)
+USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 from distutils.version import LooseVersion
 
@@ -174,7 +174,7 @@ class Payload(object):
 
     def prepareMountTargets(self, storage):
         """Run when physical storage is mounted, but other mount points may
-        not exist.  Used by the RPMOSTreePayload subclass. 
+        not exist.  Used by the RPMOSTreePayload subclass.
         """
         pass
 
@@ -191,7 +191,6 @@ class Payload(object):
         """
         device_size = format_class.get_required_size(self.spaceRequired)
         return device_size.round_to_nearest(Size("1 MiB"))
-
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
@@ -423,8 +422,7 @@ class Payload(object):
             # is on the server.
             #
             # Server returned HTTP 404 code -> no need to try again
-            if (ret_code[0] is not None and ret_code[0] == 404 and
-                ret_code[1] is not None and ret_code[1] == 404):
+            if (ret_code[0] is not None and ret_code[0] == 404 and ret_code[1] is not None and ret_code[1] == 404):
                 response = None
                 log.error("Got HTTP 404 Error when downloading [.]treeinfo files")
                 break
@@ -594,7 +592,7 @@ class Payload(object):
     def _copyDriverDiskFiles(self):
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
-        for f in glob(DD_FIRMWARE+"/*"):
+        for f in glob(DD_FIRMWARE + "/*"):
             try:
                 shutil.copyfile(f, "%s/lib/firmware/" % iutil.getSysroot())
             except IOError as e:
@@ -918,8 +916,7 @@ class PackagePayload(Payload):
                     method.dir = method.dir[1:]
         # Check to see if the device is already mounted, in which case
         # we don't need to mount it again
-        elif method.method == "cdrom" and \
-             blivet.util.get_mount_paths(device.path):
+        elif method.method == "cdrom" and blivet.util.get_mount_paths(device.path):
             return
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
@@ -943,8 +940,7 @@ class PackagePayload(Payload):
                 devspec = method.partition
                 needmount = True
                 # See if we used this method for stage2, thus dracut left it
-                if isodev and method.partition and method.partition in isodev \
-                and DRACUT_ISODIR in device:
+                if isodev and method.partition and method.partition in isodev and DRACUT_ISODIR in device:
                     # Everything should be setup
                     url = "file://" + DRACUT_REPODIR
                     needmount = False
@@ -1101,8 +1097,8 @@ class PackagePayload(Payload):
                 break
 
             # Run createrepo if there are rpms and no repodata
-            if not os.path.isdir(repo+"/repodata"):
-                rpms = glob(repo+"/*rpm")
+            if not os.path.isdir(repo + "/repodata"):
+                rpms = glob(repo + "/*rpm")
                 if not rpms:
                     continue
                 log.info("Running createrepo on %s", repo)
@@ -1111,7 +1107,7 @@ class PackagePayload(Payload):
             repo_name = "DD-%d" % dir_num
             if repo_name not in self.addOns:
                 ks_repo = self.data.RepoData(name=repo_name,
-                                             baseurl="file://"+repo,
+                                             baseurl="file://" + repo,
                                              enabled=True)
                 self.addRepo(ks_repo)
 
@@ -1135,10 +1131,10 @@ class PackagePayload(Payload):
         # DRACUT_ISODIR if dracut did the mount.
         dev = blivet.util.get_mount_device(INSTALL_TREE)
         if dev:
-            return dev[len(ISO_DIR)+1:]
+            return dev[len(ISO_DIR) + 1:]
         dev = blivet.util.get_mount_device(DRACUT_ISODIR)
         if dev:
-            return dev[len(DRACUT_ISODIR)+1:]
+            return dev[len(DRACUT_ISODIR) + 1:]
         return None
 
     ###
@@ -1311,7 +1307,7 @@ class PayloadManager(object):
 
         # Launch a new thread so that this method can return immediately
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
-            args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+                                     args=(storage, ksdata, payload, instClass, fallback, checkmount)))
 
     def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
         # Wait for the old thread to finish
@@ -1319,7 +1315,7 @@ class PayloadManager(object):
 
         # Start a new payload thread
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._runThread,
-            args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+                                     args=(storage, ksdata, payload, instClass, fallback, checkmount)))
 
     def _setState(self, event_id):
         # Update the current state
