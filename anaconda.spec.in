@@ -318,6 +318,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 02 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.95-1
+- Close connections to the yum database (vponcova)
+  Resolves: rhbz#1362427
+- network: fix --activate for bridge slaves configured via %%pre ks (rvykydal)
+  Resolves: rhbz#1416655
+- network: activate bridge for first network command in ks via %%pre (rvykydal)
+  Resolves: rhbz#1416655
+- network: unify slave connection names for ks %%pre with ks and gui (rvykydal)
+  Resolves: rhbz#1416655
+- network: respect --activate value for bridge from kickstart (rvykydal)
+  Resolves: rhbz#1416687
+
 * Mon Jan 30 2017  Radek Vykydal <rvykydal@redhat.com> - 21.48.22.94-1
 - network: bind slave connections to DEVICE, not HWADDR (rvykydal)
   Related: rhbz#1373360
