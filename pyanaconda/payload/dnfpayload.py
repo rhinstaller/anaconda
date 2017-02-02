@@ -90,6 +90,7 @@ def _failure_limbo():
     while True:
         time.sleep(10000)
 
+
 def _df_map():
     """Return (mountpoint -> size available) mapping."""
     output = pyanaconda.iutil.execWithCapture('df', ['--output=target,avail'])
@@ -110,6 +111,7 @@ def _df_map():
         structured["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
     return structured
 
+
 def _paced(fn):
     """Execute `fn` no more often then every 2 seconds."""
     def paced_fn(self, *args):
@@ -119,6 +121,7 @@ def _paced(fn):
         self.last_time = now
         return fn(self, *args)
     return paced_fn
+
 
 def _pick_mpoint(df, download_size, install_size, download_only):
     def reasonable_mpoint(mpoint):
@@ -219,10 +222,11 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
                 self._queue.put(('done', None))
 
     def error(self, message):
-        """ Report an error that occurred during the transaction. Message is a
-            string which describes the error.
+        """Report an error that occurred during the transaction. Message is a
+        string which describes the error.
         """
         self._queue.put(('error', message))
+
 
 class DownloadProgress(dnf.callback.DownloadProgress):
     def __init__(self):
@@ -261,6 +265,7 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         self.total_files = total_files
         self.total_size = Size(total_size)
 
+
 def do_transaction(base, queue_instance):
     # Execute the DNF transaction and catch any errors. An error doesn't
     # always raise a BaseException, so presence of 'quit' without a preceeding
@@ -277,6 +282,7 @@ def do_transaction(base, queue_instance):
     finally:
         base.close()
         queue_instance.put(('quit', str(exit_reason)))
+
 
 class DNFPayload(payload.PackagePayload):
     def __init__(self, data):
@@ -303,14 +309,14 @@ class DNFPayload(payload.PackagePayload):
         self._repoMD_list = []
 
     def _replace_vars(self, url):
-        """ Replace url variables with their values
+        """Replace url variables with their values.
 
-            :param url: url string to do replacement on
-            :type url:  string
-            :returns:   string with variables substituted
-            :rtype:     string or None
+        :param url: url string to do replacement on
+        :type url:  string
+        :returns:   string with variables substituted
+        :rtype:     string or None
 
-            Currently supports $releasever and $basearch
+        Currently supports $releasever and $basearch.
         """
         if url:
             return dnf.conf.parser.substitute(url, self._base.conf.substitutions)
@@ -318,11 +324,11 @@ class DNFPayload(payload.PackagePayload):
         return None
 
     def _add_repo(self, ksrepo):
-        """Add a repo to the dnf repo object
+        """Add a repo to the dnf repo object.
 
-           :param ksrepo: Kickstart Repository to add
-           :type ksrepo: Kickstart RepoData object.
-           :returns: None
+        :param ksrepo: Kickstart Repository to add
+        :type ksrepo: Kickstart RepoData object.
+        :returns: None
         """
         repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
         url = self._replace_vars(ksrepo.baseurl)
@@ -388,11 +394,11 @@ class DNFPayload(payload.PackagePayload):
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist)
 
     def addRepo(self, ksrepo):
-        """Add a repo to dnf and kickstart repo lists
+        """Add a repo to dnf and kickstart repo lists.
 
-           :param ksrepo: Kickstart Repository to add
-           :type ksrepo: Kickstart RepoData object.
-           :returns: None
+        :param ksrepo: Kickstart Repository to add
+        :type ksrepo: Kickstart RepoData object.
+        :returns: None
         """
         self._add_repo(ksrepo)
         super(DNFPayload, self).addRepo(ksrepo)
@@ -469,7 +475,7 @@ class DNFPayload(payload.PackagePayload):
         return self.txID
 
     def _configure_proxy(self):
-        """ Configure the proxy on the dnf.Base object."""
+        """Configure the proxy on the dnf.Base object."""
         conf = self._base.conf
 
         if hasattr(self.data.method, "proxy") and self.data.method.proxy:
@@ -753,9 +759,9 @@ class DNFPayload(payload.PackagePayload):
                  len(self._base.transaction), self.spaceRequired)
 
     def setUpdatesEnabled(self, state):
-        """ Enable or Disable the repos used to update closest mirror.
+        """Enable or Disable the repos used to update closest mirror.
 
-            :param bool state: True to enable updates, False to disable.
+        :param bool state: True to enable updates, False to disable.
         """
         self._updates_enabled = state
 
@@ -791,7 +797,7 @@ class DNFPayload(payload.PackagePayload):
         return (env.ui_name, env.ui_description)
 
     def environmentId(self, environment):
-        """ Return environment id for the environment specified by id or name."""
+        """Return environment id for the environment specified by id or name."""
         env = self._base.comps.environment_by_pattern(environment)
         if env is None:
             raise payload.NoSuchGroup(environment)
@@ -824,14 +830,14 @@ class DNFPayload(payload.PackagePayload):
         return any(grp for grp in env.option_ids if grp.name == grpid and grp.default)
 
     def groupDescription(self, grpid):
-        """ Return name/description tuple for the group specified by id. """
+        """Return name/description tuple for the group specified by id."""
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
             raise payload.NoSuchGroup(grpid)
         return (grp.ui_name, grp.ui_description)
 
     def groupId(self, group_name):
-        """ Translate group name to group ID.
+        """Translate group name to group ID.
 
         :param group_name: Valid identifier for group specification.
         :returns: Group ID.
@@ -934,7 +940,7 @@ class DNFPayload(payload.PackagePayload):
             log.warning("Can't delete nonexistent download location: %s", self._download_location)
 
     def getRepo(self, repo_id):
-        """ Return the yum repo object. """
+        """Return the yum repo object."""
         return self._base.repos[repo_id]
 
     def isRepoEnabled(self, repo_id):
@@ -1069,11 +1075,11 @@ class DNFPayload(payload.PackagePayload):
                     self.disableRepo(id_)
 
     def _writeDNFRepo(self, repo, repo_path):
-        """ Write a repo object to a DNF repo.conf file
+        """Write a repo object to a DNF repo.conf file.
 
-            :param repo: DNF repository object
-            :param string repo_path: Path to write the repo to
-            :raises: PayloadSetupError if the repo doesn't have a url
+        :param repo: DNF repository object
+        :param string repo_path: Path to write the repo to
+        :raises: PayloadSetupError if the repo doesn't have a url
         """
         with open(repo_path, "w") as f:
             f.write("[%s]\n" % repo.id)
@@ -1132,7 +1138,7 @@ class DNFPayload(payload.PackagePayload):
             self._repoMD_list.append(repoMD)
 
     def postInstall(self):
-        """ Perform post-installation tasks. """
+        """Perform post-installation tasks."""
         # Write selected kickstart repos to target system
         for ks_repo in (ks for ks in (self.getAddOnRepo(r) for r in self.addOns) if ks.install):
             if ks_repo.baseurl.startswith("nfs://"):
@@ -1156,6 +1162,7 @@ class DNFPayload(payload.PackagePayload):
 
     def writeStorageLate(self):
         pass
+
 
 class RepoMDMetaHash(object):
     """Class that holds hash of a repomd.xml file content from a repository.
