@@ -32,7 +32,6 @@
                   --proxyPassword
                     - drop the use of a file for proxy and ftp auth info
                 - specified via KS as a URL
-
 """
 
 import ConfigParser
@@ -120,8 +119,7 @@ class YumLock(object):
             log.log(LOGLVL_LOCK, "gave up _yum_lock for %s", threading.currentThread().name)
 
 def refresh_base_repo(cond_fn=None):
-    """
-    Function returning decorator for methods that invalidate base repo.
+    """Function returning decorator for methods that invalidate base repo.
     After the method has been run the base repo will be refreshed
 
     :param cond_fn: condition function telling if base repo should be
@@ -131,11 +129,9 @@ def refresh_base_repo(cond_fn=None):
     While the method runs the base_repo is set to None.
     """
     def decorator(method):
-        """
-        Decorator for methods that invalidate base repo cache.
+        """Decorator for methods that invalidate base repo cache.
 
         :param method: decorated method of the YumPayload class
-
         """
         @wraps(method)
         def inner_method(yum_payload, *args, **kwargs):
@@ -159,15 +155,13 @@ _yum_installer_langpack_conf = "/tmp/yum.pluginconf.d/langpacks.conf"
 _yum_target_langpack_conf = "/etc/yum/pluginconf.d/langpacks.conf"
 
 class YumPayload(PackagePayload):
-    """ A YumPayload installs packages onto the target system using yum.
+    """A YumPayload installs packages onto the target system using yum.
 
-        User-defined (aka: addon) repos exist both in ksdata and in yum. They
-        are the only repos in ksdata.repo. The repos we find in the yum config
-        only exist in yum. Lastly, the base repo exists in yum and in
-        ksdata.method.
+    User-defined (aka: addon) repos exist both in ksdata and in yum. They
+    are the only repos in ksdata.repo. The repos we find in the yum config
+    only exist in yum. Lastly, the base repo exists in yum and in
+    ksdata.method.
     """
-
-
     def __init__(self, data):
         if rpm is None or yum is None:
             raise PayloadError("unsupported payload type")
@@ -189,7 +183,7 @@ class YumPayload(PackagePayload):
         self.reset()
 
     def reset(self, root=None, releasever=None):
-        """ Reset this instance to its initial (unconfigured) state. """
+        """Reset this instance to its initial (unconfigured) state."""
 
         super(YumPayload, self).reset()
         # This value comes from a default install of the x86_64 Fedora 18.  It
@@ -224,11 +218,11 @@ class YumPayload(PackagePayload):
         self._repoMD_list = []
 
     def _resetYum(self, root=None, keep_cache=False, releasever=None, cache_dir=_yum_cache_dir):
-        """ Delete and recreate the payload's YumBase instance.
+        """Delete and recreate the payload's YumBase instance.
 
-            Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
-            NOTE:  This is enforced by tests/pylint/preconf.py.  If the name
-            of this method changes, change it there too.
+        Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
+        NOTE:  This is enforced by tests/pylint/preconf.py.  If the name
+        of this method changes, change it there too.
         """
         if root is None:
             root = self._root_dir
@@ -286,7 +280,7 @@ class YumPayload(PackagePayload):
                      iutil.getSysroot()+_yum_target_langpack_conf)
 
     def _writeYumConfig(self, cache_dir=_yum_cache_dir):
-        """ Write out anaconda's main yum configuration file. """
+        """Write out anaconda's main yum configuration file."""
         buf = """
 [main]
 cachedir=%s
@@ -336,11 +330,11 @@ reposdir=%s
             self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
 
     def _writeYumRepo(self, repo, repo_path):
-        """ Write a repo object to a yum repo.conf file
+        """Write a repo object to a yum repo.conf file
 
-            :param repo: Yum repository object
-            :param string repo_path: Path to write the repo to
-            :raises: PayloadSetupError if the repo doesn't have a url
+        :param repo: Yum repository object
+        :param string repo_path: Path to write the repo to
+        :raises: PayloadSetupError if the repo doesn't have a url
         """
         with open(repo_path, "w") as f:
             f.write("[%s]\n" % repo.id)
@@ -398,13 +392,13 @@ reposdir=%s
                 f.write("enablegroups=0\n")
 
     def _writeInstallConfig(self):
-        """ Write out the yum config that will be used to install packages.
+        """Write out the yum config that will be used to install packages.
 
-            Write out repo config files for all enabled repos, then
-            create a new YumBase instance with the new filesystem tree as its
-            install root.
+        Write out repo config files for all enabled repos, then
+        create a new YumBase instance with the new filesystem tree as its
+        install root.
 
-            This needs to be called from inside a yum_lock
+        This needs to be called from inside a yum_lock.
         """
         self._repos_dir = "/tmp/yum.repos.d"
         if not os.path.isdir(self._repos_dir):
@@ -483,17 +477,17 @@ reposdir=%s
 
     @property
     def baseRepo(self):
-        """ Return the current base repo id
-            :returns: repo id or None
+        """Return the current base repo id.
 
-            Methods that change (or could change) the base_repo
-            need to be decorated with @refresh_base_repo
+        :returns: repo id or None
+
+        NOTE: Methods that change (or could change) the base_repo
+              need to be decorated with @refresh_base_repo.
         """
         return self._base_repo
 
     def _refreshBaseRepo(self):
-        """ Examine the enabled repos and update _base_repo
-        """
+        """Examine the enabled repos and update _base_repo."""
         with _yum_lock:
             for repo_name in BASE_REPO_NAMES:
                 if repo_name in self.repos and \
@@ -518,14 +512,14 @@ reposdir=%s
                 return False
 
     def getRepo(self, repo_id):
-        """ Return the yum repo object. """
+        """Return the yum repo object."""
         with _yum_lock:
             repo = self._yum.repos.getRepo(repo_id)
 
         return repo
 
     def isRepoEnabled(self, repo_id):
-        """ Return True if repo is enabled. """
+        """Return True if repo is enabled."""
         try:
             return self.getRepo(repo_id).enabled
         except RepoError:
@@ -541,16 +535,16 @@ reposdir=%s
 
     @refresh_base_repo()
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
-        """ Update the base repo based on self.data.method.
+        """Update the base repo based on self.data.method.
 
-            - Tear down any previous base repo devices, symlinks, &c.
-            - Reset the YumBase instance.
-            - Try to convert the new method to a base repo.
-            - If that fails, we'll use whatever repos yum finds in the config.
-            - Set up addon repos.
-            - Filter out repos that don't make sense to have around.
-            - Get metadata for all enabled repos, disabling those for which the
-              retrieval fails.
+        - Tear down any previous base repo devices, symlinks, &c.
+        - Reset the YumBase instance.
+        - Try to convert the new method to a base repo.
+        - If that fails, we'll use whatever repos yum finds in the config.
+        - Set up addon repos.
+        - Filter out repos that don't make sense to have around.
+        - Get metadata for all enabled repos, disabling those for which the
+          retrieval fails.
         """
         log.info("configuring base repo")
 
@@ -728,7 +722,7 @@ reposdir=%s
 
     @refresh_base_repo()
     def _configureAddOnRepo(self, repo):
-        """ Configure a single ksdata repo. """
+        """Configure a single ksdata repo."""
         url = repo.baseurl
         if url and url.startswith("nfs://"):
             # Let the assignment throw ValueError for bad NFS urls from kickstart
@@ -777,17 +771,17 @@ reposdir=%s
             self.data.repo.dataList().append(ks_repo)
 
     def _getAddons(self, baseurl, proxy_url, sslverify):
-        """ Check the baseurl or mirrorlist for a repository, see if it has any
-            valid addon repos and if so, return a list of (repo name, repo URL).
+        """Check the baseurl or mirrorlist for a repository, see if it has any
+        valid addon repos and if so, return a list of (repo name, repo URL).
 
-            :param baseurl: url of the repo
-            :type baseurl: string
-            :param proxy_url: Full URL of optional proxy or ""
-            :type proxy_url: string
-            :param sslverify: True if SSL certificate should be varified
-            :type sslverify: bool
-            :returns: list of tuples of addons (id, name, url)
-            :rtype: list of tuples
+        :param baseurl: url of the repo
+        :type baseurl: string
+        :param proxy_url: Full URL of optional proxy or ""
+        :type proxy_url: string
+        :param sslverify: True if SSL certificate should be varified
+        :type sslverify: bool
+        :returns: list of tuples of addons (id, name, url)
+        :rtype: list of tuples
         """
         retval = []
 
@@ -823,7 +817,7 @@ reposdir=%s
         return retval
 
     def _getRepoMetadata(self, yumrepo):
-        """ Retrieve repo metadata if we don't already have it. """
+        """Retrieve repo metadata if we don't already have it."""
         # And try to grab its metadata.  We do this here so it can be done
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
@@ -845,14 +839,14 @@ reposdir=%s
                 log.error("failed to get groups for repo %s", yumrepo.id)
 
     def _replaceVars(self, url):
-        """ Replace url variables with their values
+        """Replace url variables with their values.
 
-            :param url: url string to do replacement on
-            :type url:  string
-            :returns:   string with variables substituted
-            :rtype:     string or None
+        :param url: url string to do replacement on
+        :type url:  string
+        :returns:   string with variables substituted
+        :rtype:     string or None
 
-            Currently supports $releasever and $basearch
+        Currently supports $releasever and $basearch.
         """
         if not url:
             return url
@@ -864,7 +858,7 @@ reposdir=%s
         return url
 
     def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
-        """ Add a yum repo to the YumBase instance. """
+        """Add a yum repo to the YumBase instance."""
         needsAdding = True
 
         # First, delete any pre-existing repo with the same name.
@@ -924,7 +918,7 @@ reposdir=%s
 
     @refresh_base_repo(lambda s, r_id: r_id.name in BASE_REPO_NAMES)
     def addRepo(self, newrepo):
-        """ Add a ksdata repo. """
+        """Add a ksdata repo."""
         log.debug("adding new repo %s", newrepo.name)
         self._addYumRepo(newrepo.name, newrepo.baseurl, newrepo.mirrorlist, newrepo.proxy)   # FIXME: handle MetadataError
         super(YumPayload, self).addRepo(newrepo)
@@ -938,7 +932,7 @@ reposdir=%s
 
     @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def removeRepo(self, repo_id):
-        """ Remove a repo as specified by id. """
+        """Remove a repo as specified by id."""
         log.debug("removing repo %s", repo_id)
 
         # if this is an NFS repo, we'll want to unmount the NFS mount after
@@ -961,7 +955,7 @@ reposdir=%s
 
     @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def enableRepo(self, repo_id):
-        """ Enable a repo as specified by id. """
+        """Enable a repo as specified by id."""
         log.debug("enabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:
@@ -970,7 +964,7 @@ reposdir=%s
 
     @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def disableRepo(self, repo_id):
-        """ Disable a repo as specified by id. """
+        """Disable a repo as specified by id."""
         log.debug("disabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:
@@ -985,7 +979,7 @@ reposdir=%s
     ###
     @property
     def environments(self):
-        """ List of environment ids. """
+        """List of environment ids."""
         environments = []
         yum_groups = self._yumGroups
         if yum_groups:
@@ -1038,7 +1032,7 @@ reposdir=%s
         return False
 
     def environmentDescription(self, environmentid):
-        """ Return name/description tuple for the environment specified by id. """
+        """Return name/description tuple for the environment specified by id."""
         groups = self._yumGroups
         if not groups:
             return (environmentid, environmentid)
@@ -1052,7 +1046,7 @@ reposdir=%s
             return (environment.ui_name, environment.ui_description)
 
     def environmentId(self, environment):
-        """ Return environment id for the environment specified by id or name."""
+        """Return environment id for the environment specified by id or name."""
         groups = self._yumGroups
         if not groups:
             return environment
@@ -1110,7 +1104,7 @@ reposdir=%s
     ###
     @property
     def _yumGroups(self):
-        """ yum.comps.Comps instance. """
+        """yum.comps.Comps instance."""
         if not self._setup:
             return []
 
@@ -1126,7 +1120,7 @@ reposdir=%s
 
     @property
     def groups(self):
-        """ List of group ids. """
+        """List of group ids."""
         groups = []
         yum_groups = self._yumGroups
         if yum_groups:
@@ -1153,7 +1147,7 @@ reposdir=%s
         return list(lang_groups)
 
     def groupDescription(self, groupid):
-        """ Return name/description tuple for the group specified by id. """
+        """Return name/description tuple for the group specified by id."""
         groups = self._yumGroups
         if not groups:
             return (groupid, groupid)
@@ -1238,8 +1232,8 @@ reposdir=%s
     def _selectYumPackage(self, pkgid, required=False):
         """Mark a package for installation.
 
-           pkgid - The name of a package to be installed.  This could include
-                   a version or architecture component.
+        pkgid - The name of a package to be installed.  This could include
+                a version or architecture component.
         """
         log.debug("select package %s", pkgid)
         with _yum_lock:
@@ -1251,8 +1245,8 @@ reposdir=%s
     def _deselectYumPackage(self, pkgid):
         """Mark a package to be excluded from installation.
 
-           pkgid - The name of a package to be excluded.  This could include
-                   a version or architecture component.
+        pkgid - The name of a package to be excluded.  This could include
+                a version or architecture component.
         """
         log.debug("deselect package %s", pkgid)
         with _yum_lock:
@@ -1263,7 +1257,7 @@ reposdir=%s
     ###
     @property
     def spaceRequired(self):
-        """ The total disk space (Size) required for the current selection. """
+        """The total disk space (Size) required for the current selection."""
         return self._space_required
 
     def calculateSpaceNeeds(self):
@@ -1313,9 +1307,9 @@ reposdir=%s
                 time.sleep(100000)
 
     def _applyYumSelections(self):
-        """ Apply the selections in ksdata to yum.
+        """Apply the selections in ksdata to yum.
 
-            This follows the same ordering/pattern as kickstart.py.
+        This follows the same ordering/pattern as kickstart.py.
         """
         if self.data.packages.nocore:
             log.info("skipping core group due to %%packages --nocore; system may not be complete")
@@ -1447,7 +1441,7 @@ reposdir=%s
             self._handleMissing(e)
 
     def preInstall(self, packages=None, groups=None):
-        """ Perform pre-installation tasks. """
+        """Perform pre-installation tasks."""
         super(YumPayload, self).preInstall(packages, groups)
         progressQ.send_message(_("Starting package installation process"))
 
@@ -1473,15 +1467,14 @@ reposdir=%s
                 while True:
                     time.sleep(100000)
 
-
     def install(self):
-        """ Install the payload.
+        """Install the payload.
 
-            This writes out the yum transaction and then uses a Process thread
-            to execute it in a totally separate process.
+        This writes out the yum transaction and then uses a Process thread
+        to execute it in a totally separate process.
 
-            It monitors the status of the install and logs debug info, updates
-            the progress meter and cleans up when it is done.
+        It monitors the status of the install and logs debug info, updates
+        the progress meter and cleans up when it is done.
         """
         progress_map = {
             "PROGRESS_PREP"    : _("Preparing transaction from installation source"),
@@ -1596,7 +1589,7 @@ reposdir=%s
             log.error("failed to write out yum.conf: %s", e)
 
     def postInstall(self):
-        """ Perform post-installation tasks. """
+        """Perform post-installation tasks."""
         with _yum_lock:
             # clean up repo tmpdirs
             self._yum.cleanPackages()
@@ -1640,7 +1633,7 @@ reposdir=%s
 
 class RepoMDMetaHash(object):
     """Class that holds hash of a repomd.xml file content from a repository.
-    This class can test availability of this repository by comparing hashes.
+    This class is used to test availability of this repository by comparing hashes.
     """
     def __init__(self, payload, repo):
         self._repoId = repo.id
