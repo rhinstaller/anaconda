@@ -452,6 +452,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self.encrypted = kwargs.pop("encrypted", False)
         self.exists = kwargs.pop("exists", False)
 
+        offerEncryption = kwargs.pop("offerEncryption", True)
+
         self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
         self.size = kwargs.pop("size", Size(0))
 
@@ -492,7 +494,10 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             itr = model.iter_next(itr)
 
         # XXX how will this be related to the device encryption setting?
-        self._encryptCheckbutton.set_active(self.encrypted)
+        self._encryptCheckbutton.set_active(offerEncryption and self.encrypted)
+
+        if not offerEncryption:
+            really_hide(self._encryptCheckbutton)
 
         # set up the raid level combo
         # XXX how will this be related to the device raid level setting?

@@ -278,6 +278,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._accordion.set_focus_hadjustment(self._partitionsViewport.get_hadjustment())
         self._accordion.set_focus_vadjustment(self._partitionsViewport.get_vadjustment())
 
+        if not self.instclass.offerEncryption:
+            really_hide(self._encryptCheckbox)
+
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
     def _initialize(self):
@@ -1990,6 +1993,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  name=container_name,
                                  raid_level=self._device_container_raid_level,
                                  encrypted=self._device_container_encrypted,
+                                 offerEncryption=self.instclass.offerEncryption,
                                  size_policy=size_policy,
                                  size=size,
                                  disks=self._clearpartDevices,
