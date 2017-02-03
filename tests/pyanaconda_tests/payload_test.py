@@ -1,7 +1,7 @@
 #
 # Authors: Jiri Konecny <jkonecny@redhat.com>
 #
-## Copyright (C) 2015  Red Hat, Inc.
+## Copyright (C) 2017  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -21,6 +21,13 @@
 from pyanaconda.payload import dnfpayload
 from blivet.size import Size
 import unittest
+import tempfile
+import os
+import hashlib
+import shutil
+
+from pyanaconda.payload.dnfpayload import RepoMDMetaHash
+
 
 class PickLocation(unittest.TestCase):
     def pick_download_location_test(self):
@@ -74,3 +81,70 @@ class PickLocation(unittest.TestCase):
         mpoint = dnfpayload._pick_mpoint(df_map, download_size, install_size, False)
 
         self.assertEqual(mpoint, None)
+
+
+class DummyRepo(object):
+    def __init__(self):
+        self.id = "anaconda"
+        self.baseurl = []
+
+
+class DummyPayload(object):
+    def __init__(self):
+        class DummyMethod(object):
+            def __init__(self):
+                self.method = None
+
+        class DummyData(object):
+            def __init__(self):
+                self.method = DummyMethod()
+
+        self.data = DummyData()
+
+
+class DNFPayloadMDCheckTests(unittest.TestCase):
+    def setUp(self):
+        self._content_repomd = """
+Content of the repomd.xml file
+
+or it should be. Nah it's just a test!
+"""
+        self._temp_dir = tempfile.mkdtemp(suffix="pyanaconda_tests")
+        os.makedirs(os.path.join(self._temp_dir, "repodata"))
+        self._md_file = os.path.join(self._temp_dir, "repodata", "repomd.xml")
+        with open(self._md_file, 'w') as f:
+            f.write(self._content_repomd)
+        self._dummyRepo = DummyRepo()
+        self._dummyRepo.baseurl = ["file://" + self._temp_dir]
+
+    def tearDown(self):
+        # remove the testing directory
+        shutil.rmtree(self._temp_dir)
+
+    def download_file_repomd_test(self):
+        """Test if we can download repomd.xml with file:// successfully."""
+        m = hashlib.md5()
+        m.update(self._content_repomd.encode('ascii', 'backslashreplace'))
+        reference_digest = m.digest()
+
+        r = RepoMDMetaHash(DummyPayload(), self._dummyRepo)
+        r.store_repoMD_hash()
+
+        self.assertEqual(r.repoMD_hash, reference_digest)
+
+    def verify_repo_test(self):
+        """Test verification method."""
+        r = RepoMDMetaHash(DummyPayload(), self._dummyRepo)
+        r.store_repoMD_hash()
+
+        # test if repomd comparision works properly
+        self.assertTrue(r.verify_repoMD())
+
+        # test if repomd change will be detected
+        with open(self._md_file, 'a') as f:
+            f.write("This should not be here!")
+        self.assertFalse(r.verify_repoMD())
+
+        # test correct behavior when the repo file won't be available
+        os.remove(self._md_file)
+        self.assertFalse(r.verify_repoMD())
