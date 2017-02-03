@@ -178,6 +178,15 @@ For example:
 * client address: ``192.168.122.100``
 * kickstart file: ``nfs:192.168.122.1:/kickstart/192.168.122.100-kickstart``
 
+.. inst.ks.all:
+
+inst.ks.all
+^^^^^^^^^^^
+
+All locations of type http, https or ftp specified with inst.ks will be used
+sequentially one by one until the kickstart file is fetched. Other locations
+will be ignored.
+
 .. inst.ks.sendmac:
 
 inst.ks.sendmac
