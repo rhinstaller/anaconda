@@ -392,11 +392,11 @@ def _get_ip_setting_values_from_ksdata(networkdata):
     # ipv4 settings
     if networkdata.noipv4:
         method4 = "disabled"
+    elif networkdata.bootProto == "static":
+        method4 = "manual"
     else:
         method4 = "auto"
-        if networkdata.bootProto == "static":
-            method4 = "manual"
-        values.append(["ipv4", "method", method4, "s"])
+    values.append(["ipv4", "method", method4, "s"])
 
     if method4 == "manual":
         addr4 = nm.nm_ipv4_to_dbus_int(networkdata.ip)
