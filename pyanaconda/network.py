@@ -277,7 +277,8 @@ def dumpMissingDefaultIfcfgs():
     rv = []
 
     for devname in nm.nm_devices():
-        if not nm.nm_device_type_is_ethernet(devname):
+        if not nm.nm_device_type_is_ethernet(devname) \
+           and not nm.nm_device_type_is_infiniband(devname):
             continue
 
         try:
@@ -693,6 +694,8 @@ def ksdata_from_ifcfg(devname, uuid=None):
 
     if devname in nm.nm_devices():
         if nm.nm_device_type_is_ethernet(devname):
+            nd.device = devname
+        elif nm.nm_device_type_is_infiniband(devname):
             nd.device = devname
         elif nm.nm_device_type_is_wifi(devname):
             nm.device = ""
@@ -1455,7 +1458,8 @@ def status_message():
 
             if len(nonslaves) == 1:
                 devname = nonslaves[0]
-                if nm.nm_device_type_is_ethernet(devname):
+                if nm.nm_device_type_is_ethernet(devname) \
+                   or nm.nm_device_type_is_infiniband(devname):
                     msg = _("Wired (%(interface_name)s) connected") \
                           % {"interface_name": devname}
                 elif nm.nm_device_type_is_wifi(devname):
@@ -1481,7 +1485,8 @@ def status_message():
             elif len(nonslaves) > 1:
                 devlist = []
                 for devname in nonslaves:
-                    if nm.nm_device_type_is_ethernet(devname):
+                    if nm.nm_device_type_is_ethernet(devname) \
+                       or nm.nm_device_type_is_infiniband(devname):
                         devlist.append("%s" % devname)
                     elif nm.nm_device_type_is_wifi(devname):
                         devlist.append("%s" % ssids[devname])

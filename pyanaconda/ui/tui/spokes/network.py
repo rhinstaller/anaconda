@@ -73,7 +73,8 @@ class NetworkSpoke(EditTUISpoke):
                 continue
             if network.is_ibft_configured_device(name):
                 continue
-            if nm.nm_device_type_is_ethernet(name):
+            if nm.nm_device_type_is_ethernet(name) \
+               or nm.nm_device_type_is_infiniband(name):
                 # ignore slaves
                 if nm.nm_device_setting_value(name, "connection", "slave-type"):
                     continue
