@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.94\n"
+"Project-Id-Version: anaconda 21.48.22.95\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-02-02 15:36+0100\n"
+"POT-Creation-Date: 2017-02-07 16:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -459,7 +459,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:269 pyanaconda/packaging/livepayload.py:170
-#: pyanaconda/packaging/yumpayload.py:1472
+#: pyanaconda/packaging/yumpayload.py:1491
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1286,15 +1286,15 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1230
+#: pyanaconda/packaging/__init__.py:1245
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1231
+#: pyanaconda/packaging/__init__.py:1246
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1232
+#: pyanaconda/packaging/__init__.py:1247
 msgid "No installation source available"
 msgstr ""
 
@@ -1313,20 +1313,20 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1282
+#: pyanaconda/packaging/yumpayload.py:1302
 #, python-format
 msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1434
+#: pyanaconda/packaging/yumpayload.py:1454
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1469
+#: pyanaconda/packaging/yumpayload.py:1488
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1470
+#: pyanaconda/packaging/yumpayload.py:1489
 msgid "Installing"
 msgstr ""
 
@@ -1721,10 +1721,10 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:279
-#: pyanaconda/ui/gui/spokes/network.py:1568
-#: pyanaconda/ui/gui/spokes/network.py:1587
-#: pyanaconda/ui/gui/spokes/network.py:1657
-#: pyanaconda/ui/gui/spokes/network.py:1673
+#: pyanaconda/ui/gui/spokes/network.py:1571
+#: pyanaconda/ui/gui/spokes/network.py:1590
+#: pyanaconda/ui/gui/spokes/network.py:1660
+#: pyanaconda/ui/gui/spokes/network.py:1676
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""

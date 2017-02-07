@@ -318,6 +318,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 07 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.96-1
+- Add unit test for RepoMDMetaHash object (jkonecny)
+  Related: rhbz#1373449
+- Make the comments in payload and yumpayload consistent (jkonecny)
+  Related: rhbz#1373449
+- Fix Anaconda forces payload restart when network (not)change (jkonecny)
+  Resolves: rhbz#1358778
+  Resolves: rhbz#1373449
+- network: index team slave connection names starting with 1 (rvykydal)
+  Resolves: rhbz#1401403
+- network: fix --noipv4 via %%pre (rvykydal)
+  Resolves: rhbz#1418289
+
 * Thu Feb 02 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.95-1
 - Close connections to the yum database (vponcova)
   Resolves: rhbz#1362427
