@@ -2,7 +2,7 @@
 # network.py - network configuration install data
 #
 # Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
-#               2008, 2009
+#               2008, 2009, 2017
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import gi
-gi.require_version("NetworkManager", "1.0")
+gi.require_version("NM", "1.0")
 
-from gi.repository import NetworkManager
+from gi.repository import NM
 
 import shutil
 from pyanaconda import iutil
@@ -1464,9 +1464,9 @@ def status_message():
     msg = _("Unknown")
 
     state = nm.nm_state()
-    if state == NetworkManager.State.CONNECTING:
+    if state == NM.State.CONNECTING:
         msg = _("Connecting...")
-    elif state == NetworkManager.State.DISCONNECTING:
+    elif state == NM.State.DISCONNECTING:
         msg = _("Disconnecting...")
     else:
         active_devs = [d for d in nm.nm_activated_devices()
