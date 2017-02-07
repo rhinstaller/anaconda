@@ -50,7 +50,7 @@ from collections import OrderedDict
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["StorageSpoke", "AutoPartSpoke"]
+__all__ = ["StorageSpoke"]
 
 CLEARALL = N_("Use All Space")
 CLEARLINUX = N_("Replace Existing Linux system(s)")
