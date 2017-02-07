@@ -453,13 +453,13 @@ def ksnet_to_ifcfg(net, filename=None):
         if net.ipv6 == 'dhcp':
             ifcfg['DHCPV6C'] = "yes"
             ifcfg['IPV6_AUTOCONF'] = "no"
-            if net.ipv6gateway:
-                ifcfg['IPV6_DEFAULTGW'] = net.ipv6gateway
         elif net.ipv6 == 'auto':
             ifcfg['IPV6_AUTOCONF'] = "yes" # NOTE: redundant (this is the default)
         elif ':' in net.ipv6:
             ifcfg['IPV6ADDR'] = net.ipv6
             ifcfg['IPV6_AUTOCONF'] = "no"
+            if net.ipv6gateway:
+                ifcfg['IPV6_DEFAULTGW'] = net.ipv6gateway
 
     # misc stuff
     if net.mtu:
@@ -502,12 +502,12 @@ def ksnet_to_ifcfg(net, filename=None):
 
         for i, slave in enumerate(net.bondslaves.split(","), 1):
             slave_ifcfg = {
+                            'DEVICE': slave,
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
                             'ONBOOT' : "yes" if net.activate else "no",
                             'MASTER' : ifcfg['UUID'],
-                            'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
             add_s390_settings(slave, slave_ifcfg)
             slave_filename = TMPDIR+"/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
@@ -529,7 +529,6 @@ def ksnet_to_ifcfg(net, filename=None):
                             'UUID' : str(uuid.uuid4()),
                             'ONBOOT' : "yes" if net.activate else "no",
                             'TEAM_MASTER' : dev,
-#                            'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
             if cfg:
                 slave_ifcfg['TEAM_PORT_CONFIG'] = cfg
@@ -568,12 +567,12 @@ def ksnet_to_ifcfg(net, filename=None):
             if update_virtual_slave_ifcfg(slave, setting="BRIDGE=%s" % dev):
                 continue
             slave_ifcfg = {
+                            'DEVICE': slave,
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
-                            'ONBOOT' : "yes",
+                            'ONBOOT' : "yes" if net.activate else "no",
                             'BRIDGE' : dev,
-                            'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
             slave_filename = TMPDIR+"/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of bridge %s", slave_filename, slave, dev)

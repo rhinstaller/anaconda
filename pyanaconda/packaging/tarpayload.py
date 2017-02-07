@@ -74,11 +74,10 @@ class TarPayload(ArchivePayload):
 
         # Strip out vmlinuz- from the names
         return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                key=functools.cmp_to_key(versionCmp))
+                      key=functools.cmp_to_key(versionCmp))
 
     def install(self):
         try:
             self.archive.extractall(path=iutil.getSysroot())
         except (tarfile.ExtractError, tarfile.CompressionError) as e:
             log.error("extracting tar archive %s: %s", self.image_file, e)
-

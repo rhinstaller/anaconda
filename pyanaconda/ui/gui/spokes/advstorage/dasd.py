@@ -20,11 +20,14 @@
 import gi
 gi.require_version("BlockDev", "2.0")
 
-from gi.repository import BlockDev as blockdev
+from gi.repository import GLib, BlockDev as blockdev
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.regexes import DASD_DEVICE_NUMBER
+from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda import constants
 
 __all__ = ["DASDDialog"]
 
@@ -57,6 +60,7 @@ class DASDDialog(GUIObject):
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
         self._retryButton = self.builder.get_object("retryButton")
+        self._errorLabel = self.builder.get_object("deviceErrorLabel")
 
         self._deviceEntry = self.builder.get_object("deviceEntry")
 
@@ -82,65 +86,90 @@ class DASDDialog(GUIObject):
         """
         # First update widgets
         self._startButton.hide()
-        self._cancelButton.set_sensitive(False)
         self._okButton.set_sensitive(False)
-
+        self._cancelButton.set_sensitive(False)
+        self._deviceEntry.set_sensitive(False)
         self._conditionNotebook.set_current_page(1)
 
-        try:
-            device = blockdev.s390.sanitize_dev_input(self._deviceEntry.get_text())
-        except ValueError as e:
-            _config_error = str(e)
-            self.builder.get_object("deviceErrorLabel").set_text(_config_error)
-            self._conditionNotebook.set_current_page(2)
-            self._configureGrid.set_sensitive(True)
+        # Initialize.
+        config_error = None
+        device = None
+        device_name = self._deviceEntry.get_text().strip()
+
+        # Check the format of the given device name.
+        if not DASD_DEVICE_NUMBER.match(device_name):
+            config_error = "Incorrect format of the given device number."
+        else:
+            try:
+                # Get full device name.
+                device = blockdev.s390.sanitize_dev_input(device_name)
+            except (blockdev.S390Error, ValueError) as e:
+                config_error = str(e)
+
+        # Process the configuration error.
+        if config_error:
+            self._errorLabel.set_text(config_error)
+            self._deviceEntry.set_sensitive(True)
             self._cancelButton.set_sensitive(True)
-            return
+            self._conditionNotebook.set_current_page(2)
+        # Run the discovery.
+        else:
+            # Discover.
+            self._spinner.start()
+            threadMgr.add(AnacondaThread(name=constants.THREAD_DASD_DISCOVER,
+                                         target=self._discover,
+                                         args=(device,)))
 
-        self._spinner.start()
-
-        self._discover(device)
-        self._check_discover()
+            # Periodically call the check till it is done.
+            GLib.timeout_add(250, self._check_discover)
 
     @gtk_action_nowait
     def _check_discover(self):
         """ After the DASD discover thread runs, check to see whether a valid
             device was discovered. Display an error message if not.
-        """
 
+            If the discover is not done, return True to indicate that the check
+            has to be run again, otherwise check the discovery and return False.
+        """
+        # Discovery is not done, return True.
+        if threadMgr.get(constants.THREAD_DASD_DISCOVER):
+            return True
+
+        # Discovery has finished, run the check.
         self._spinner.stop()
 
         if self._discoveryError:
             # Failure, display a message and leave the user on the dialog so
             # they can try again (or cancel)
-            self.builder.get_object("deviceErrorLabel").set_text(self._discoveryError)
+            self._errorLabel.set_text(self._discoveryError)
             self._discoveryError = None
+
+            self._deviceEntry.set_sensitive(True)
             self._conditionNotebook.set_current_page(2)
         else:
             # Great success. Since DASDs go under local disks, update dialog to
             # show users that's where they'll be
-            self._conditionNotebook.set_current_page(3)
             self._okButton.set_sensitive(True)
+            self._conditionNotebook.set_current_page(3)
 
         self._cancelButton.set_sensitive(True)
+        # Discovery and the check have finished, return False.
         return False
 
     def _discover(self, device):
         """ Given the configuration options from a user, attempt to discover
             a DASD device. This includes searching black-listed devices.
         """
-        # attempt to add the device
+        # Attempt to add the device.
         try:
-            blockdev.s390.dasd_online(device)
-            self._update_devicetree = True
+            # If the device does not exist, dasd_online will return False,
+            # otherwise an exception will be raised.
+            if not blockdev.s390.dasd_online(device):
+                self._discoveryError = "The device could not be switched online. It may not exist."
+            else:
+                self._update_devicetree = True
         except blockdev.S390Error as err:
             self._discoveryError = str(err)
-            return
-        except TypeError as err:
-            # this happens when a user doesn't pass any input, so pass a more
-            # informative error str back
-            self._discoveryError = "You must enter values for the device."
-            return
 
     def on_device_entry_activate(self, entry, user_data=None):
         # If the user hit Enter while the start button is displayed, activate

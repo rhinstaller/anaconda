@@ -112,7 +112,7 @@ class LiveImagePayload(ImagePayload):
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:
-                mnt_stat = os.statvfs(iutil.getSysroot()+mnt)
+                mnt_stat = os.statvfs(iutil.getSysroot() + mnt)
                 dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
@@ -143,7 +143,7 @@ class LiveImagePayload(ImagePayload):
         # file system boundaries
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/etc/machine-id", INSTALL_TREE+"/", iutil.getSysroot()]
+                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", iutil.getSysroot()]
         try:
             rc = iutil.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
@@ -183,12 +183,12 @@ class LiveImagePayload(ImagePayload):
         super(LiveImagePayload, self).postInstall()
 
         # Make sure the new system has a machine-id, it won't boot without it
-        if not os.path.exists(iutil.getSysroot()+"/etc/machine-id"):
+        if not os.path.exists(iutil.getSysroot() + "/etc/machine-id"):
             iutil.execInSysroot("systemd-machine-id-setup", [])
 
     @property
     def spaceRequired(self):
-        return Size(iutil.getDirSize("/")*1024)
+        return Size(iutil.getDirSize("/") * 1024)
 
     def _updateKernelVersionList(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
@@ -232,8 +232,7 @@ class DownloadProgress(object):
         if pct == self._pct:
             return
         self._pct = pct
-        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % \
-                {"url" : self.url, "pct" : pct})
+        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % {"url": self.url, "pct": pct})
 
     def end(self, bytes_read):
         """ Download complete
@@ -241,8 +240,7 @@ class DownloadProgress(object):
             :param bytes_read: Bytes read so far
             :type bytes_read:  int
         """
-        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % \
-                {"url" : self.url, "pct" : 100})
+        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % {"url": self.url, "pct": 100})
 
 class LiveImageKSPayload(LiveImagePayload):
     """ Install using a live filesystem image from the network """
@@ -250,7 +248,7 @@ class LiveImageKSPayload(LiveImagePayload):
         super(LiveImageKSPayload, self).__init__(*args, **kwargs)
         self._min_size = 0
         self._proxies = {}
-        self.image_path = iutil.getSysroot()+"/disk.img"
+        self.image_path = iutil.getSysroot() + "/disk.img"
 
     @property
     def is_tarfile(self):
@@ -389,7 +387,7 @@ class LiveImageKSPayload(LiveImagePayload):
             sha256 = hashlib.sha256()
             with open(self.image_path, "rb") as f:
                 while True:
-                    data = f.read(1024*1024)
+                    data = f.read(1024 * 1024)
                     if not data:
                         break
                     sha256.update(data)
@@ -417,12 +415,12 @@ class LiveImageKSPayload(LiveImagePayload):
                 raise exn
 
         # Nothing more to mount
-        if not os.path.exists(INSTALL_TREE+"/LiveOS"):
+        if not os.path.exists(INSTALL_TREE + "/LiveOS"):
             self._updateKernelVersionList()
             return
 
         # Mount the first .img in the directory on INSTALL_TREE
-        img_files = glob.glob(INSTALL_TREE+"/LiveOS/*.img")
+        img_files = glob.glob(INSTALL_TREE + "/LiveOS/*.img")
         if img_files:
             # move the mount to IMAGE_DIR
             os.makedirs(IMAGE_DIR, 0o755)
@@ -438,7 +436,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
-            img_file = IMAGE_DIR+"/LiveOS/"+os.path.basename(sorted(img_files)[0])
+            img_file = IMAGE_DIR+"/LiveOS/" + os.path.basename(sorted(img_files)[0])
             rc = blivet.util.mount(img_file, INSTALL_TREE, fstype="auto", options="ro")
             if rc != 0:
                 log.error("mount error (%s) with %s", rc, img_file)
@@ -509,7 +507,7 @@ class LiveImageKSPayload(LiveImagePayload):
         """
         super(LiveImageKSPayload, self).postInstall()
 
-        if os.path.exists(IMAGE_DIR+"/LiveOS"):
+        if os.path.exists(IMAGE_DIR + "/LiveOS"):
             blivet.util.umount(IMAGE_DIR)
 
         if os.path.exists(self.image_path) and not self.data.method.url.startswith("file://"):
@@ -525,7 +523,7 @@ class LiveImageKSPayload(LiveImagePayload):
         if self._min_size:
             return Size(self._min_size)
         else:
-            return Size(1024*1024*1024)
+            return Size(1024 * 1024 * 1024)
 
     @property
     def kernelVersionList(self):
@@ -539,4 +537,4 @@ class LiveImageKSPayload(LiveImagePayload):
 
             # Strip out vmlinuz- from the names
             return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                    key=functools.cmp_to_key(versionCmp))
+                          key=functools.cmp_to_key(versionCmp))

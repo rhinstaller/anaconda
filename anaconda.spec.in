@@ -23,7 +23,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define dnfver 2.0.0
 %define partedver 1.8.1
 %define pypartedver 2.5-2
-%define nmver 0.9.9.0-10.git20130906
+%define nmver 1.0
 %define dbusver 1.2.3
 %define mehver 0.23-1
 %define firewalldver 0.3.5-1
@@ -120,7 +120,7 @@ Requires: openssh
 Requires: isomd5sum >= %{isomd5sum}
 Requires: createrepo_c
 Requires: NetworkManager >= %{nmver}
-Requires: NetworkManager-glib >= %{nmver}
+Requires: NetworkManager-libnm >= %{nmver}
 Requires: NetworkManager-team
 Requires: dhclient
 Requires: kbd

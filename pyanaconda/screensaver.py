@@ -49,9 +49,9 @@ def inhibit_screensaver(connection):
 
     try:
         inhibit_id = safe_dbus.call_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
-                SCREENSAVER_INHIBIT_METHOD, GLib.Variant('(ss)',
-                    (SCREENSAVER_APPLICATION, SCREENSAVER_REASON)),
-                connection)
+                                         SCREENSAVER_INHIBIT_METHOD, GLib.Variant('(ss)',
+                                         (SCREENSAVER_APPLICATION, SCREENSAVER_REASON)),
+                                         connection)
         return inhibit_id[0]
     except safe_dbus.DBusCallError as e:
         log.info("Unable to inhibit the screensaver: %s", e)
@@ -70,6 +70,6 @@ def uninhibit_screensaver(connection, inhibit_id):
 
     try:
         safe_dbus.call_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
-                SCREENSAVER_UNINHIBIT_METHOD, GLib.Variant('(u)', (inhibit_id,)), connection)
+                            SCREENSAVER_UNINHIBIT_METHOD, GLib.Variant('(u)', (inhibit_id,)), connection)
     except safe_dbus.DBusCallError as e:
         log.info("Unable to uninhibit the screensaver: %s", e)

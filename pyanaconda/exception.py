@@ -147,12 +147,10 @@ class AnacondaExceptionHandler(ExceptionHandler):
             if not self._gui_lock.acquire(False):
                 # the graphical interface is running, don't crash it by
                 # running another one potentially from a different thread
-                log.debug("Gtk running, queuing exception handler to the "
-                         "main loop")
+                log.debug("Gtk running, queuing exception handler to the main loop")
                 GLib.idle_add(self._main_loop_handleException, dump_info)
             else:
-                log.debug("Gtk not running, starting Gtk and running "
-                         "exception handler in it")
+                log.debug("Gtk not running, starting Gtk and running exception handler in it")
                 self._main_loop_handleException(dump_info)
 
         except (RuntimeError, ImportError, ValueError):
@@ -183,12 +181,11 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     sys.exit(1)
                 else:
                     print("\nAn unknown error has occured, look at the "
-                           "/tmp/anaconda-tb* file(s) for more details")
+                          "/tmp/anaconda-tb* file(s) for more details")
                     # in the main thread, run exception handler
                     self._main_loop_handleException(dump_info)
             else:
-                log.debug("In a non-main thread, sending a message with "
-                         "exception data")
+                log.debug("In a non-main thread, sending a message with exception data")
                 # not in the main thread, just send message with exception
                 # data and let message handler run the exception handler in
                 # the main thread
@@ -238,8 +235,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         termios.tcsetattr(si, termios.TCSADRAIN, attr)
 
         print("\nEntering debugger...")
-        print("Use 'continue' command to quit the debugger and get back to "\
-              "the main window")
+        print("Use 'continue' command to quit the debugger and get back to the main window")
         import pdb
         pdb.post_mortem(exc_info.stack)
 
@@ -248,17 +244,17 @@ class AnacondaExceptionHandler(ExceptionHandler):
             iutil.vtActivate(self._intf_tty_num)
 
 def initExceptionHandling(anaconda):
-    fileList = ["/tmp/anaconda.log", "/tmp/packaging.log",
-                "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
-                "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
-                "/tmp/lvm.log", iutil.getSysroot() + "/root/install.log",
-                "/proc/cmdline"]
+    file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
+                 "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
+                 "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
+                 "/tmp/lvm.log", iutil.getSysroot() + "/root/install.log",
+                 "/proc/cmdline"]
 
     if os.path.exists("/tmp/syslog"):
-        fileList.extend(["/tmp/syslog"])
+        file_list.extend(["/tmp/syslog"])
 
     if anaconda.opts and anaconda.opts.ksfile:
-        fileList.extend([anaconda.opts.ksfile])
+        file_list.extend([anaconda.opts.ksfile])
 
     conf = Config(programName="anaconda",
                   programVersion=startup_utils.get_anaconda_version_string(),
@@ -281,7 +277,7 @@ def initExceptionHandling(anaconda):
                                 "_bootloader.password",
                                 "payload._groups"],
                   localSkipList=["passphrase", "password", "_oldweak", "_password", "try_passphrase"],
-                  fileList=fileList)
+                  file_list=file_list)
 
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
@@ -289,7 +285,7 @@ def initExceptionHandling(anaconda):
     conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
     conf.register_callback("addons", list_addons_callback, attchmnt_only=False)
 
-    if "/tmp/syslog" not in fileList:
+    if "/tmp/syslog" not in file_list:
         # no syslog, grab output from journalctl and put it also to the
         # anaconda-tb file
         conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)

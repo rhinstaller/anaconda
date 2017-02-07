@@ -314,8 +314,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             obj = cls()
 
             # btrfs is always handled by on_device_type_changed
-            supported_fs = (obj.type != "btrfs" and
-                            obj.type != "tmpfs" and
+            supported_fs = (obj.type not in ("btrfs", "tmpfs", "ntfs") and
                             obj.supported and obj.formattable and
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))

@@ -45,7 +45,7 @@ productStamp = config.get("Main", "UUID")
 productVersion = config.get("Main", "Version")
 
 if not productArch and productStamp.index(".") != -1:           # pylint: disable=no-member
-    productArch = productStamp[productStamp.index(".")+1:]      # pylint: disable=no-member
+    productArch = productStamp[productStamp.index(".") + 1:]      # pylint: disable=no-member
 if productVersion == "development":
     productVersion = "rawhide"
 
@@ -54,5 +54,4 @@ def distributionText():
              {"productName": productName, "productVersion": productVersion}
 
 def translated_new_install_name():
-    return _("New %(name)s %(version)s Installation") % \
-        {"name" : productName, "version" : productVersion}
+    return _("New %(name)s %(version)s Installation") % {"name": productName, "version": productVersion}

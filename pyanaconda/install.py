@@ -64,7 +64,7 @@ def _writeKS(ksdata):
     # Clear out certain sensitive information that kickstart doesn't have a
     # way of representing encrypted.
     for obj in [ksdata.autopart] + ksdata.logvol.dataList() + \
-               ksdata.partition.dataList() + ksdata.raid.dataList():
+                ksdata.partition.dataList() + ksdata.raid.dataList():
         obj.passphrase = ""
 
     # Make it so only root can read - could have passwords

@@ -609,7 +609,6 @@ class HostipGeoIPProvider(GeolocationBackend):
             log.debug("Geoloc: Unable to decode Hostip JSON:\n%s", e)
 
 
-
 class GoogleWiFiLocationProvider(GeolocationBackend):
     """The Google WiFi location service provider"""
 

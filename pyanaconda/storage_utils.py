@@ -76,8 +76,7 @@ MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used 
                            "BIOS Boot": N_("The BIOS boot partition is required to enable booting\n"
                                            "from GPT-partitioned disks on BIOS hardware."),
                            "PReP Boot": N_("The PReP boot partition is required as part of the\n"
-                                           "boot loader configuration on some PPC platforms.")
-                            }
+                                           "boot loader configuration on some PPC platforms.")}
 
 AUTOPART_CHOICES = ((N_("Standard Partition"), AUTOPART_TYPE_PLAIN),
                     (N_("Btrfs"), AUTOPART_TYPE_BTRFS),
@@ -184,15 +183,13 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
 
     if root:
         if root.size < Size("250 MiB"):
-            exns.append(
-               SanityWarning(_("Your root partition is less than 250 "
-                              "megabytes which is usually too small to "
-                              "install %s.") % (productName,)))
+            exns.append(SanityWarning(_("Your root partition is less than 250 "
+                                        "megabytes which is usually too small to "
+                                        "install %s.") % (productName,)))
     else:
-        exns.append(
-           SanityError(_("You have not defined a root partition (/), "
-                        "which is required for installation of %s "
-                        "to continue.") % (productName,)))
+        exns.append(SanityError(_("You have not defined a root partition (/), "
+                                  "which is required for installation of %s "
+                                  "to continue.") % (productName,)))
 
     # Prevent users from installing on s390x with (a) no /boot volume, (b) the
     # root volume on LVM, and (c) the root volume not restricted to a single
@@ -203,46 +200,40 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     # care.  --dcantrell
     if arch.is_s390() and '/boot' not in storage.mountpoints and root:
         if root.type == 'lvmlv' and not root.single_pv:
-            exns.append(
-               SanityError(_("This platform requires /boot on a dedicated "
-                            "partition or logical volume.  If you do not "
-                            "want a /boot volume, you must place / on a "
-                            "dedicated non-LVM partition.")))
+            exns.append(SanityError(_("This platform requires /boot on a dedicated "
+                                      "partition or logical volume.  If you do not "
+                                      "want a /boot volume, you must place / on a "
+                                      "dedicated non-LVM partition.")))
 
     # FIXME: put a check here for enough space on the filesystems. maybe?
 
     for (mount, size) in checkSizes:
         if mount in filesystems and filesystems[mount].size < size:
-            exns.append(
-               SanityWarning(_("Your %(mount)s partition is less than "
-                              "%(size)s which is lower than recommended "
-                              "for a normal %(productName)s install.")
-                            % {'mount': mount, 'size': size,
-                               'productName': productName}))
+            exns.append(SanityWarning(_("Your %(mount)s partition is less than "
+                                        "%(size)s which is lower than recommended "
+                                        "for a normal %(productName)s install.")
+                                      % {'mount': mount, 'size': size, 'productName': productName}))
 
     # storage.mountpoints is a property that returns a new dict each time, so
     # iterating over it is thread-safe.
     for (mount, device) in filesystems.items():
         problem = filesystems[mount].check_size()
         if problem < 0:
-            exns.append(
-               SanityError(_("Your %(mount)s partition is too small for %(format)s formatting "
-                            "(allowable size is %(minSize)s to %(maxSize)s)")
-                          % {"mount": mount, "format": device.format.name,
-                             "minSize": device.min_size, "maxSize": device.max_size}))
+            exns.append(SanityError(_("Your %(mount)s partition is too small for %(format)s formatting "
+                                      "(allowable size is %(minSize)s to %(maxSize)s)")
+                        % {"mount": mount, "format": device.format.name,
+                           "minSize": device.min_size, "maxSize": device.max_size}))
         elif problem > 0:
-            exns.append(
-               SanityError(_("Your %(mount)s partition is too large for %(format)s formatting "
-                            "(allowable size is %(minSize)s to %(maxSize)s)")
-                          % {"mount":mount, "format": device.format.name,
-                             "minSize": device.min_size, "maxSize": device.max_size}))
+            exns.append(SanityError(_("Your %(mount)s partition is too large for %(format)s formatting "
+                                      "(allowable size is %(minSize)s to %(maxSize)s)")
+                        % {"mount": mount, "format": device.format.name,
+                           "minSize": device.min_size, "maxSize": device.max_size}))
 
     if storage.bootloader and not storage.bootloader.skip_bootloader:
         stage1 = storage.bootloader.stage1_device
         if not stage1:
-            exns.append(
-               SanityError(_("No valid boot loader target device found. "
-                            "See below for details.")))
+            exns.append(SanityError(_("No valid boot loader target device found. "
+                                      "See below for details.")))
             pe = _platform.stage1_missing_error
             if pe:
                 exns.append(SanityError(_(pe)))
@@ -274,49 +265,43 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
                     break
 
             if missing:
-                exns.append(
-                   SanityError(_("Your BIOS-based system needs a special "
-                                "partition to boot from a GPT disk label. "
-                                "To continue, please create a 1MiB "
-                                "'biosboot' type partition.")))
+                exns.append(SanityError(_("Your BIOS-based system needs a special "
+                                          "partition to boot from a GPT disk label. "
+                                          "To continue, please create a 1MiB "
+                                          "'biosboot' type partition.")))
 
     if not swaps:
         installed = util.total_memory()
         required = Size("%s MiB" % (min_ram + isys.NO_SWAP_EXTRA_RAM))
 
         if installed < required:
-            exns.append(
-               SanityError(_("You have not specified a swap partition.  "
-                            "%(requiredMem)s of memory is required to continue installation "
-                            "without a swap partition, but you only have %(installedMem)s.")
-                          % {"requiredMem": required,
-                             "installedMem": installed}))
+            exns.append(SanityError(_("You have not specified a swap partition.  "
+                                      "%(requiredMem)s of memory is required to continue installation "
+                                      "without a swap partition, but you only have %(installedMem)s.")
+                        % {"requiredMem": required,
+                           "installedMem": installed}))
         else:
-            exns.append(
-               SanityWarning(_("You have not specified a swap partition.  "
-                              "Although not strictly required in all cases, "
-                              "it will significantly improve performance "
-                              "for most installations.")))
+            exns.append(SanityWarning(_("You have not specified a swap partition.  "
+                                        "Although not strictly required in all cases, "
+                                        "it will significantly improve performance "
+                                        "for most installations.")))
     no_uuid = [s for s in swaps if s.format.exists and not s.format.uuid]
     if no_uuid:
-        exns.append(
-           SanityWarning(_("At least one of your swap devices does not have "
-                          "a UUID, which is common in swap space created "
-                          "using older versions of mkswap. These devices "
-                          "will be referred to by device path in "
-                          "/etc/fstab, which is not ideal since device "
-                          "paths can change under a variety of "
-                          "circumstances. ")))
+        exns.append(SanityWarning(_("At least one of your swap devices does not have "
+                                    "a UUID, which is common in swap space created "
+                                    "using older versions of mkswap. These devices "
+                                    "will be referred to by device path in "
+                                    "/etc/fstab, which is not ideal since device "
+                                    "paths can change under a variety of "
+                                    "circumstances. ")))
 
     for (mountpoint, dev) in filesystems.items():
         if mountpoint in mustbeonroot:
-            exns.append(
-               SanityError(_("This mount point is invalid.  The %s directory must "
-                            "be on the / file system.") % mountpoint))
+            exns.append(SanityError(_("This mount point is invalid.  The %s directory must "
+                                      "be on the / file system.") % mountpoint))
 
         if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linux_native):
-            exns.append(
-               SanityError(_("The mount point %s must be on a linux file system.") % mountpoint))
+            exns.append(SanityError(_("The mount point %s must be on a linux file system.") % mountpoint))
 
     if storage.root_device and storage.root_device.format.exists:
         e = storage.must_format(storage.root_device)
@@ -342,12 +327,9 @@ def verify_LUKS_devices_have_key(storage):
 
     """
 
-    for dev in (d for d in storage.devices if \
-       d.format.type == "luks" and \
-       not d.format.exists and \
-       not d.format.has_key):
-        yield LUKSDeviceWithoutKeyError(_("Encryption requested for LUKS device %s but no encryption key specified for this device.") % (dev.name,))
-
+    for dev in (d for d in storage.devices if d.format.type == "luks" and not d.format.exists and not d.format.has_key):
+        yield LUKSDeviceWithoutKeyError(_("Encryption requested for LUKS device %s but no"
+                                          "encryption key specified for this device.") % (dev.name,))
 
 def check_mounted_partitions(storage):
     """ Check the selected disks to make sure all their partitions are unmounted.
