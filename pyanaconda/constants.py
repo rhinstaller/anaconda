@@ -181,6 +181,9 @@ CMDLINE_APPEND = ["modprobe.blacklist", "ifname"]
 
 DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
 
+# Filesystems which are not supported by Anaconda
+UNSUPPORTED_FILESYSTEMS = ("btrfs", "ntfs", "tmpfs")
+
 # Default to these units when reading user input when no units given
 SIZE_UNITS_DEFAULT = "MiB"
 
