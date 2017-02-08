@@ -127,6 +127,15 @@ inst.stage2
 This specifies the location to fetch only the installer runtime image;
 packages will be ignored. Otherwise the same as `inst.repo`_.
 
+.. inst.stage2.all:
+
+inst.stage2.all
+^^^^^^^^^^^^^^^
+
+All locations of type http, https or ftp specified with inst.stage2 will
+be used sequentially one by one until the image is fetched. Other locations
+will be ignored.
+
 inst.dd
 ^^^^^^^
 

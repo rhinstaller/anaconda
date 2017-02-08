@@ -101,6 +101,46 @@ anaconda_live_root_dir() {
     anaconda_mount_sysroot $img
 }
 
+anaconda_net_root() {
+    local repo="$1"
+    info "anaconda: fetching stage2 from $repo"
+
+    # Try to get the local path to stage2 from treeinfo.
+    treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
+        stage2=$(config_get stage2 mainimage < $treeinfo)
+
+    # No treeinfo available.
+    [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
+
+    # Use the default local path to stage2.
+    if [ -z "$treeinfo" -o -z "$stage2" ]; then
+        warn "can't find installer main image path in .treeinfo"
+        stage2="images/install.img"
+    fi
+
+    # Fetch the stage2.
+    if runtime=$(fetch_url $repo/$stage2) \
+        || runtime=$(fetch_url $repo/LiveOS/squashfs.img); then
+
+        info "anaconda: successfully fetched stage2 from $repo"
+
+        # NOTE: Should be the same as anaconda_auto_updates()
+        updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
+        [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
+        [ -n "$updates" ] && unpack_updates_img $updates /updates
+
+        product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
+        [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
+        [ -n "$product" ] && unpack_updates_img $product /updates
+
+        anaconda_mount_sysroot $runtime
+        return 0
+    fi
+
+    warn "anaconda: failed to fetch stage2 from $repo"
+    return 1
+}
+
 anaconda_mount_sysroot() {
     local img="$1"
     if [ -e "$img" ]; then
@@ -227,6 +267,24 @@ online_netdevs() {
     for netif in /tmp/net.*.did-setup; do
         netif=${netif#*.}; netif=${netif%.*}
         [ -d "/sys/class/net/$netif" ] && echo $netif
+    done
+}
+
+# Filter locations that are http, https or ftp urls.
+get_urls() {
+    local locations="${1}"
+    local location
+
+    # Filter locations.
+    for location in $locations; do
+        case "${location%%:*}" in
+            http|https|ftp)
+                echo "$location"
+            ;;
+            *)
+                warn "anaconda: this location will be ignored: $location"
+            ;;
+        esac
     done
 }
 

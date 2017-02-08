@@ -64,27 +64,18 @@ case $repo in
         fi
     ;;
     http*|ftp*)
-        . /lib/url-lib.sh
-        info "anaconda fetching installer from $repo"
-        treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
-          stage2=$(config_get stage2 mainimage < $treeinfo)
-        [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
-        if [ -z "$treeinfo" -o -z "$stage2" ]; then
-            warn "can't find installer mainimage path in .treeinfo"
-            stage2="images/install.img"
-        fi
-        if runtime=$(fetch_url $repo/$stage2) || runtime=$(fetch_url $repo/LiveOS/squashfs.img); then
-            # NOTE: Should be the same as anaconda_auto_updates()
-            updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
-            [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
-            [ -n "$updates" ] && unpack_updates_img $updates /updates
-            product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
-            [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
-            [ -n "$product" ] && unpack_updates_img $product /updates
-            anaconda_mount_sysroot $runtime
-        else
-            warn "Could not retrieve stage2 image from $repo using $netif"
-        fi
+        info "anaconda: stage2 locations are: $repo"
+        anaconda_net_root "$repo"
+    ;;
+    urls)
+        # Use the locations from the file.
+        # We will try them one by one until we succeed.
+        locations="$(</tmp/stage2_urls)"
+        info "anaconda: stage2 locations are: $locations"
+
+        for repo in $locations; do
+            anaconda_net_root "$repo" && break
+        done
     ;;
     *)
         warn "unknown network repo URL: $repo"

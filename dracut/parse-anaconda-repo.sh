@@ -11,15 +11,31 @@ arg="repo"
 # default to using repo, but if we have stage2=, use that
 [ -n "$stage2" ] && arg="stage2" && repo="$stage2"
 
+# Clear the file for multiple stage2 urls.
+rm -f /tmp/stage2_urls
+
+# Is the option for multiple stage2 urls enabled?
+getargbool 0 inst.stage2.all && repo="urls"
+
 if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
     case "$repotype" in
         http|https|ftp|nfs|nfs4|nfsiso)
-            set_neednet; root="anaconda-net:$repo" ;;
+            root="anaconda-net:$repo"
+            set_neednet
+        ;;
+        urls)
+            root="anaconda-net:urls"
+            locations="$(getargs stage2= inst.stage2=)"
+            get_urls "$locations" >/tmp/stage2_urls
+            set_neednet
+        ;;
         hd|cd|cdrom)
-            [ -n "$rest" ] && root="anaconda-disk:$rest" ;;
+            [ -n "$rest" ] && root="anaconda-disk:$rest"
+        ;;
         *)
-            warn "Invalid value for 'inst.$arg': $repo" ;;
+            warn "Invalid value for 'inst.$arg': $repo"
+        ;;
     esac
 fi
 
