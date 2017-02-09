@@ -47,6 +47,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
+# Define constants that will be used within the FilterWindow class
+# for the variable device_data
+UDEV_DATA = 0
+VISIBLE_IN_UI = 1
+ACTIVE_IN_UI = 2
+DEVICE_MUTABILITY = 3
 DEVICE_COL = 4
 MODEL_COL = 5
 CAPACITY_COL = 6
@@ -100,6 +106,7 @@ totalDevices = 0
 selectedDevices = 0
 totalSize = 0
 selectedSize = 0
+talliedDevices =[]
 
 # These are global so they can be accessed from all Callback objects.  The
 # basic callback defines its membership as anything that doesn't pass the
@@ -128,8 +135,27 @@ class Callbacks(object):
         self.sizeLabel = self.xml.get_widget("sizeLabel")
         self.sizeLabel.connect("realize", self.update)
 
-    def addToUI(self, tuple):
+    def addToUI(self, device_data):
         pass
+
+    def incrementDeviceCount(self, device_data):
+        """Update the selected and total device counts when a device is added."""
+        global totalDevices, totalSize
+        global selectedDevices, selectedSize
+        global talliedDevices
+
+        # Check to be sure this device has not already been counted
+        if device_data[UDEV_DATA]["name"] in talliedDevices or device_data[UDEV_DATA]["DEVNAME"] in talliedDevices:
+            return
+
+        talliedDevices.append(device_data[UDEV_DATA]["name"])
+
+        totalDevices += 1
+        totalSize += device_data[UDEV_DATA]["XXX_SIZE"]
+
+        if device_data[ACTIVE_IN_UI]:
+            selectedDevices += 1
+            selectedSize += device_data[UDEV_DATA]["XXX_SIZE"]
 
     def deviceToggled(self, set, device):
         global selectedDevices, totalDevices
@@ -203,12 +229,41 @@ class MPathCallbacks(FilteredCallbacks):
         self.interconnectEntry.connect("changed", lambda entry: self.model.get_model().refilter())
         self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
 
-    def addToUI(self, tuple):
-        if not tuple[VENDOR_COL] in self._vendors:
-            self._vendors.append(tuple[VENDOR_COL])
+    def addToUI(self, device_data):
+        if not device_data[VENDOR_COL] in self._vendors:
+            self._vendors.append(device_data[VENDOR_COL])
 
-        if not tuple[INTERCONNECT_COL] in self._interconnects:
-            self._interconnects.append(tuple[INTERCONNECT_COL])
+        if not device_data[INTERCONNECT_COL] in self._interconnects:
+            self._interconnects.append(device_data[INTERCONNECT_COL])
+
+    def incrementDeviceCount(self, device_data):
+        """Updates the selected and total device count taking into account the possibility
+        that a non-multipath device can turn into a multipath device thereby not
+        incrementing the device count.
+        """
+        global totalDevices, totalSize
+        global selectedDevices, selectedSize
+        global talliedDevices
+
+        # Check to be sure this device has not already been counted
+        if device_data[UDEV_DATA]["name"] in talliedDevices:
+            return
+
+        # If the mpath member is already in the list, add the mpath device name
+        if device_data[UDEV_DATA]["DEVNAME"] in talliedDevices:
+            talliedDevices.append(device_data[UDEV_DATA]["name"])
+            return
+
+        # If neither the mpath device nor the mpath member exist, add both and increment
+        talliedDevices.append(device_data[UDEV_DATA]["name"])
+        talliedDevices.append(device_data[UDEV_DATA]["DEVNAME"])
+
+        totalDevices += 1
+        totalSize += device_data[UDEV_DATA]["XXX_SIZE"]
+
+        if device_data[ACTIVE_IN_UI]:
+            selectedDevices += 1
+            selectedSize += device_data[UDEV_DATA]["XXX_SIZE"]
 
     def isMember(self, info):
         return info and isMultipath(info)
@@ -286,7 +341,7 @@ class OtherCallbacks(MPathCallbacks):
         self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
 
     def isMember(self, info):
-        return info and isOther(info)
+        return info and isOther(info) and not isMultipath(info)
 
 class SearchCallbacks(FilteredCallbacks):
     def __init__(self, *args, **kwargs):
@@ -310,6 +365,11 @@ class SearchCallbacks(FilteredCallbacks):
         self.targetEntry.connect("changed", lambda entry: self.model.get_model().refilter())
         self.LUNEntry.connect("changed", lambda entry: self.model.get_model().refilter())
         self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+
+    # Search window shows all devices, do not let it double count them
+    def incrementDeviceCount(self, device_data):
+        """Override the method to never increment device counts when simply searching in the UI."""
+        return
 
     def isMember(self, info):
         return True
@@ -458,51 +518,78 @@ class FilterWindow(InstallWindow):
 
         writeMultipathConf(friendly_names=True)
         if os.path.exists("/etc/multipath.conf"):
-            (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
+            (new_singlepaths, mpath_conf, new_partitions) = identifyMultipaths(new_disks)
         else:
             new_singlepaths = new_disks
-            new_mpaths = []
+            mpath_conf = []
 
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                                     new_singlepaths)
 
-        # The end result of the loop below is that mpaths is a list of lists of
-        # components, just like new_mpaths.  That's what populate expects.
+        # mpaths is a list of multipath devices where each multipath device is represented
+        # by a list of udev dictionaries which each describe a member of the mpath device
+        # EG: [[{sda_udev_dict}, {sdb_udev_dict}], [{sdd_udev_dict}, {sde_udev_dict}]]
+        # This is the data structure expected by the populate method
         mpaths = []
-        for mp in new_mpaths:
+        # mpath_conf: a data structure that is a list of lists describing the mpath
+        #             devices from the multipath config file; structure is equivalent
+        #             to that of mpaths shown above
+        # mpath_device: represents one element from mpath_conf whose own list
+        #               elements are udev dictionaries describing the members of
+        #               multipath devices in the multipath config file
+        for mpath_device in mpath_conf:
             old_mpaths = []
             is_new_multipath = False
 
-            for d in mp:
+            # mpath_member: a udev dictionary describing a block device that is a
+            #               member of a configured mpath device
+            for mpath_member in mpath_device:
                 # If any of the multipath components are in the nonraids cache,
                 # remove them from the UI store.
-                if d in self._cachedDevices:
-                    self.depopulate(d)
+                if mpath_member in self._cachedDevices:
+                    self.depopulate(mpath_member)
 
-                # Check whether this device is part of an existing multipath,
-                # but as part of a different set of members
-                if d in self._cachedMPathMembers and hasattr(self._cachedMPaths, d["name"]):
-                    if self._cachedMPaths[d["name"]] != mp:
-                        old_mpaths.append(mp)
+                # self._cachedMPathMembers (subclass of the NameCache class)
+                #   list of udev dictionaries for each block device that is a member
+                #   of a multipath device
+                #   [ {udev_dict}, {udev_dict}, {udev_dict}]
+                #   The NameCache class is a custom created "magic class" whose internals
+                #   change the syntax for lookups and iteration.
+
+                # self._cachedMPaths
+                #   dictionary that contains an entry for each block device shown
+                #   in the UI before the current multipath config file was read
+                #   { sdX :[{udev_dict}, {udev_dict}], sdY: [{udev_dict}, {udev_dict}]}
+
+                # Check for the member device in the UI caches
+                if mpath_member in self._cachedMPathMembers and \
+                   mpath_member["name"] in self._cachedMPaths:
+                    # Check if the former multipath device has changed and has not
+                    # been added to the old_mpaths list
+                    if self._cachedMPaths[mpath_member["name"]] != mpath_device and \
+                       self._cachedMPaths[mpath_member["name"]] not in old_mpaths:
+                        old_mpaths.append(self._cachedMPaths[mpath_member["name"]])
                         is_new_multipath = True
 
                 # Check whether this is a new device
-                if d not in self._cachedMPathMembers:
+                if mpath_member not in self._cachedMPathMembers:
                     is_new_multipath = True
 
-            for omp in old_mpaths:
-                # Clean up the caches
-                for d in omp:
-                    del self._cachedMPathMembers[self._cachedMPathMembers.index(d)]
-                    del self._cachedMPaths[d["name"]]
-                self.depopulate(d)
+            # Remove multipath devices from the UI caches if they changed in the
+            # multipath config file that was read into mpath_conf
+            for cached_mpath_device in old_mpaths:
+                # Check for each member device in the caches
+                for mpath_member in cached_mpath_device:
+                    del self._cachedMPathMembers[self._cachedMPathMembers.index(mpath_member["name"])]
+                    del self._cachedMPaths[mpath_member["name"]]
+                self.depopulate(mpath_member)
 
             if is_new_multipath:
-                mpaths.append(mp)
+                mpaths.append(mpath_device)
 
                 # Add the multipath to the cache
-                for d in mp:
-                    self._cachedMPaths[d["name"]] = mp
+                for mpath_member in mpath_device:
+                    self._cachedMPaths[mpath_member["name"]] = mpath_device
 
         nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
@@ -515,8 +602,7 @@ class FilterWindow(InstallWindow):
         self._cachedDevices.extend(nonraids)
         self._cachedRaidDevices.extend(raids)
 
-        # And then we need to do the same list flattening trick here as in
-        # getScreen.
+        # And then we need to do the same list flattening trick here as in getScreen.
         lst = list(itertools.chain(*mpaths))
         self._cachedMPathMembers.extend(lst)
 
@@ -704,32 +790,24 @@ class FilterWindow(InstallWindow):
         for row in self.store:
             if row[4] == component['DEVNAME']:
                 self.store.remove(row.iter)
-                return
+            # Also check for mpath devices to depopulate if they have been updated
+            elif 'ID_MPATH_NAME' in component and row[4] == component['ID_MPATH_NAME']:
+                self.store.remove(row.iter)
+        return
 
     def populate(self, nonraids, mpaths, raids, activeByDefault=False):
-        def _addTuple(tuple):
+        def _addDeviceData(device_data):
             global totalDevices, totalSize
             global selectedDevices, selectedSize
-            added = False
 
-            self.store.append(None, tuple)
+            self.store.append(None, device_data)
 
+            # for each page in the notebook, check to see if each existing device should
+            # be added to the user interface and added to the device tally
             for pg in self.pages:
-                if pg.cb.isMember(tuple[0]):
-                    added = True
-                    pg.cb.addToUI(tuple)
-
-            # Only update the size label if this device was added to any pages.
-            # This prevents situations where we're only displaying the basic
-            # filter that has one disk, but there are several advanced disks
-            # in the store that cannot be seen.
-            if added:
-                totalDevices += 1
-                totalSize += tuple[0]["XXX_SIZE"]
-
-                if tuple[2]:
-                    selectedDevices += 1
-                    selectedSize += tuple[0]["XXX_SIZE"]
+                if pg.cb.isMember(device_data[UDEV_DATA]):
+                    pg.cb.addToUI(device_data)
+                    pg.cb.incrementDeviceCount(device_data)
 
         def _isProtected(info):
             protectedNames = map(udev_resolve_devspec, self.anaconda.protected)
@@ -757,6 +835,8 @@ class FilterWindow(InstallWindow):
             else:
                 return False
 
+        # Entry point to the code that runs when the FilterWindow GUI is opened
+        # within the anaconda installer
         for d in nonraids:
             # It is possible that an md fwraid array has already been activated
             # from here or the basic storage path. Since isRAID really
@@ -788,11 +868,11 @@ class FilterWindow(InstallWindow):
             else:
                 ident = udev_device_get_wwid(d)
 
-            tuple = (d, True, _active(d), _isProtected(d), name,
+            device_data = (d, True, _active(d), _isProtected(d), name,
                      partedDevice.model, long(d["XXX_SIZE"]),
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), ident, "", "", "", "")
-            _addTuple(tuple)
+            _addDeviceData(device_data)
 
         if raids and flags.dmraid:
             # isw/imsm is handled by mdadm -- not dmraid/pyblock
@@ -833,10 +913,10 @@ class FilterWindow(InstallWindow):
                         "sysfs_path": sysfs_path}
 
                 model = "BIOS RAID set (%s)" % rs.rs.set_type
-                tuple = (data, True, _active(data), _isProtected(data), rs.name,
+                device_data = (data, True, _active(data), _isProtected(data), rs.name,
                          model, long(size), "", "", "", "",
                          "\n".join(members), "", "", "")
-                _addTuple(tuple)
+                _addDeviceData(device_data)
 
             # handle imsm/isw separately without pyblock/dmraid
             mduuids = set()
@@ -907,8 +987,9 @@ class FilterWindow(InstallWindow):
             # We use a copy here, so as to not modify the original udev info
             # dict as that would break NameCache matching
             data = mpath[0].copy()
+            # This will swap the device name (eg: sda) for the mpath name (eg: mpatha)
             data["name"] = udev_device_get_multipath_name(mpath[0])
-            tuple = (data, True, _active(data), _isProtected(data),
+            device_data = (data, True, _active(data), _isProtected(data),
                      udev_device_get_multipath_name(mpath[0]), model,
                      long(mpath[0]["XXX_SIZE"]),
                      udev_device_get_vendor(mpath[0]),
@@ -916,7 +997,7 @@ class FilterWindow(InstallWindow):
                      udev_device_get_serial(mpath[0]),
                      udev_device_get_wwid(mpath[0]),
                      paths, "", "", "")
-            _addTuple(tuple)
+            _addDeviceData(device_data)
 
     def split_list(self, pred, lst):
         pos = []
