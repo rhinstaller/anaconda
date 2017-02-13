@@ -21,8 +21,9 @@ from blivet.devices import LUKSDevice
 from blivet.osinstall import mount_existing_system, find_existing_installations
 
 from pyanaconda import iutil
-from pyanaconda.constants import ANACONDA_CLEANUP
+from pyanaconda.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.constants_text import INPUT_PROCESSED
+from pyanaconda.threads import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
@@ -131,6 +132,7 @@ class RescueMode(NormalTUISpoke):
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
+        threadMgr.wait(THREAD_STORAGE)
 
         for f in ["services", "protocols", "group", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf"]:
@@ -183,10 +185,6 @@ class RescueMode(NormalTUISpoke):
             # decrypt any luks devices
             self._unlock_devices()
 
-            # this sleep may look pointless, but it seems necessary, in
-            # order for some task to complete; otherwise no existing
-            # installations are discovered. IOW, this is a hack.
-            time.sleep(2)
             # attempt to find previous installations
             roots = find_existing_installations(self.storage.devicetree)
             if len(roots) == 1:
@@ -248,6 +246,11 @@ class RescueMode(NormalTUISpoke):
                                               parents=[device],
                                               exists=True)
                         self.storage.devicetree._add_device(luks_dev)
+
+                        # Wait for the device.
+                        # Otherwise, we could get a message about no Linux partitions.
+                        time.sleep(2)
+
                         try_populate_devicetree(self.storage.devicetree)
                         unlocked = True
                         # try to use the same passhprase for other devices
@@ -456,5 +459,6 @@ def start_rescue_mode_ui(anaconda):
     """
     app = App("Rescue Mode")
     spoke = RescueMode(app, anaconda.ksdata, anaconda.storage)
+    spoke.initialize()
     app.schedule_screen(spoke)
     app.run()
