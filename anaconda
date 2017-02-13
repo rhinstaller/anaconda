@@ -267,6 +267,8 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Network
     ap.add_argument("--proxy", metavar='PROXY_URL', help=help_parser.help_text("proxy"))
+    ap.add_argument("--waitfornet", metavar="TIMEOUT_IN_SECONDS",
+            help=help_parser.help_text("waitfornet"))
 
     # Method of operation
     ap.add_argument("-d", "--debug", dest="debug", action="store_true",
@@ -1197,9 +1199,26 @@ if __name__ == "__main__":
     blivet.enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
-    from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
+    from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread, wait_for_connected_NM
 
     networkInitialize(ksdata)
+    # If required by user, wait for connection before starting the installation.
+    if opts.waitfornet:
+        try:
+            timeout = int(opts.waitfornet)
+        except ValueError as e:
+            log.warning("invalid inst.waitfornet option value: %s",
+                    opts.waitfornet)
+        else:
+            if timeout > 0:
+                log.info("network: waiting for network connection (timeout=%d)",
+                        timeout)
+                wait_for_connected_NM(timeout=timeout)
+            else:
+                log.warning("invalid inst.waitfornet option value: %s",
+                        opts.waitfornet)
+
+    # In any case do some actions only after NM finishes its connecting.
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
 
     # now start the interface
