@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.95\n"
+"Project-Id-Version: anaconda 21.48.22.96\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-02-07 16:23+0100\n"
+"POT-Creation-Date: 2017-02-13 15:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -811,60 +811,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1432 pyanaconda/ui/gui/spokes/custom.py:552
+#: pyanaconda/network.py:1456 pyanaconda/ui/gui/spokes/custom.py:552
 #: pyanaconda/ui/gui/spokes/network.py:306
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1436
+#: pyanaconda/network.py:1460
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1438
+#: pyanaconda/network.py:1462
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1459
+#: pyanaconda/network.py:1484
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1462
+#: pyanaconda/network.py:1487
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1465
+#: pyanaconda/network.py:1490
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1469
+#: pyanaconda/network.py:1494
 #, python-format
 msgid "Team %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1473
+#: pyanaconda/network.py:1498
 #, python-format
 msgid "Bridge %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1479
+#: pyanaconda/network.py:1504
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1496
+#: pyanaconda/network.py:1522
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1499
+#: pyanaconda/network.py:1525
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1502 pyanaconda/ui/gui/spokes/network.glade.h:45
+#: pyanaconda/network.py:1528 pyanaconda/ui/gui/spokes/network.glade.h:45
 msgid "No network devices available"
 msgstr ""
 
@@ -1557,7 +1557,7 @@ msgstr ""
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:581 anaconda:526
+#: pyanaconda/ui/tui/simpleline/base.py:581 anaconda:528
 msgid "Press ENTER to continue"
 msgstr ""
 
@@ -1662,65 +1662,65 @@ msgstr ""
 msgid "Network configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:111
+#: pyanaconda/ui/tui/spokes/network.py:112
 #, python-format
 msgid "Wired (%(interface_name)s) disconnected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:116
+#: pyanaconda/ui/tui/spokes/network.py:117
 #, python-format
 msgid "Wired (%(interface_name)s) connected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:128
+#: pyanaconda/ui/tui/spokes/network.py:129
 #, python-format
 msgid " IPv4 Address: %(addr)s Netmask: %(netmask)s Gateway: %(gateway)s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:130
+#: pyanaconda/ui/tui/spokes/network.py:131
 #, python-format
 msgid " DNS: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:137
+#: pyanaconda/ui/tui/spokes/network.py:138
 #, python-format
 msgid " IPv6 Address: %(addr)s/%(prefix)d\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:151
+#: pyanaconda/ui/tui/spokes/network.py:152
 #, python-format
 msgid "Host name: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:153
+#: pyanaconda/ui/tui/spokes/network.py:154
 #, python-format
 msgid "Current host name: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:165
+#: pyanaconda/ui/tui/spokes/network.py:166
 msgid "Set host name"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:167
+#: pyanaconda/ui/tui/spokes/network.py:168
 #, python-format
 msgid "Configure device %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:186
+#: pyanaconda/ui/tui/spokes/network.py:187
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:6
 #: pyanaconda/ui/gui/spokes/network.glade.h:51
 msgid "Host name"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:219
+#: pyanaconda/ui/tui/spokes/network.py:220
 msgid "Configuration not saved: netmask missing in static configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:237
+#: pyanaconda/ui/tui/spokes/network.py:238
 msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:279
+#: pyanaconda/ui/tui/spokes/network.py:280
 #: pyanaconda/ui/gui/spokes/network.py:1571
 #: pyanaconda/ui/gui/spokes/network.py:1590
 #: pyanaconda/ui/gui/spokes/network.py:1660
@@ -1729,56 +1729,56 @@ msgstr ""
 msgid "Host name is not valid: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:310
+#: pyanaconda/ui/tui/spokes/network.py:311
 msgid "Device configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:314
+#: pyanaconda/ui/tui/spokes/network.py:315
 #, python-format
 msgid "IPv4 address or %s for DHCP"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:316
+#: pyanaconda/ui/tui/spokes/network.py:317
 msgid "IPv4 netmask"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:317
+#: pyanaconda/ui/tui/spokes/network.py:318
 msgid "IPv4 gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:318
+#: pyanaconda/ui/tui/spokes/network.py:319
 #, python-format
 msgid ""
 "IPv6 address[/prefix] or %(auto)s for automatic, %(dhcp)s for DHCP, "
 "%(ignore)s to turn off"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:321
+#: pyanaconda/ui/tui/spokes/network.py:322
 msgid "IPv6 default gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:322
+#: pyanaconda/ui/tui/spokes/network.py:323
 msgid "Nameservers (comma separated)"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:323
+#: pyanaconda/ui/tui/spokes/network.py:324
 msgid "Connect automatically after reboot"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:324
+#: pyanaconda/ui/tui/spokes/network.py:325
 msgid "Apply configuration in installer"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:339
+#: pyanaconda/ui/tui/spokes/network.py:340
 #, python-format
 msgid "Configuring device %s."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:344
+#: pyanaconda/ui/tui/spokes/network.py:345
 msgid "Bad format of the IP address"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:351
+#: pyanaconda/ui/tui/spokes/network.py:352
 msgid "Bad format of the netmask"
 msgstr ""
 
@@ -5696,14 +5696,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:478
+#: anaconda:480
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:480
+#: anaconda:482
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5711,17 +5711,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:483
+#: anaconda:485
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:485
+#: anaconda:487
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:486
+#: anaconda:488
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5730,35 +5730,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:489
+#: anaconda:491
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:525
+#: anaconda:527
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda:644
+#: anaconda:646
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:652
+#: anaconda:654
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:660
+#: anaconda:662
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:756
+#: anaconda:758
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:758
+#: anaconda:760
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 

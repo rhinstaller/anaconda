@@ -318,6 +318,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 13 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.97-1
+- Add inst.waitfornet option (rvykydal)
+  Resolves: rhbz#1315160
+- Add support for IPoIB in tui (rvykydal)
+  Resolves: rhbz#1366935
+
 * Tue Feb 07 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.96-1
 - Add unit test for RepoMDMetaHash object (jkonecny)
   Related: rhbz#1373449
