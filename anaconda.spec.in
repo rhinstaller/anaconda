@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 13 2017 Radek Vykydal <rvykydal@redhat.com> - 13.21.263-1
+- network: don't reactivate devices from linuxrc.s390 in loader only for IPv6
+  (rvykydal)
+  Resolves: rhbz#1421039
+  Related: rhbz#1329171
+
 * Tue Jan 03 2017 Radek Vykydal <rvykydal@redhat.com> - 13.21.262-1
 - Remove more firmware from ppc image (rvykydal)
   Related: rhbz#1405089
