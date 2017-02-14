@@ -522,6 +522,14 @@ inst.noshell
 
 Do not put a shell on tty2 during install.
 
+.. inst.notmux:
+
+inst.notmux
+^^^^^^^^^^^
+
+Do not use tmux during install. This allows for output to get generated without
+terminal control characters and is really meant for non-interactive uses.
+
 .. inst.syslog:
 
 inst.syslog
