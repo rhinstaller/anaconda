@@ -71,24 +71,49 @@ case $repo in
     ;;
     http*|ftp*)
         . /lib/url-lib.sh
-        info "anaconda fetching installer from $repo"
-        treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
-          stage2=$(config_get stage2 mainimage < $treeinfo)
-        [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
-        if [ -z "$treeinfo" -o -z "$stage2" ]; then
-            warn "can't find installer mainimage path in .treeinfo"
-            stage2="LiveOS/squashfs.img"
-        fi
-        if runtime=$(fetch_url $repo/$stage2); then
-            # NOTE: Should be the same as anaconda_auto_updates()
-            updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
-            [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
-            [ -n "$updates" ] && unpack_updates_img $updates /updates
-            product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
-            [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
-            [ -n "$product" ] && unpack_updates_img $product /updates
-            /sbin/dmsquash-live-root $runtime
-        fi
+
+        # Use the location from the variable.
+        locations="$repo"
+
+        # Or use the locations from the file.
+        # We will try them one by one until we succeed.
+        [ -f /tmp/stage2_urls ] && locations="$(</tmp/stage2_urls)"
+
+        # Try to fetch stage2.
+        info "anaconda: stage2 locations are $locations"
+
+        for repo in $locations; do
+            info "anaconda: fetching stage2 from $repo"
+
+            # Try to get the local path to stage2 from treeinfo.
+            treeinfo=$(fetch_url $repo/.treeinfo 2> /tmp/treeinfo_err) && \
+                stage2=$(config_get stage2 mainimage < $treeinfo)
+
+            # No treeinfo available.
+            [ -z "$treeinfo" ] && debug_msg $(cat /tmp/treeinfo_err)
+
+            # Use the default local path to stage2.
+            if [ -z "$treeinfo" -o -z "$stage2" ]; then
+                warn "can't find installer mainimage path in .treeinfo"
+                stage2="LiveOS/squashfs.img"
+            fi
+
+            # Fetch the stage2.
+            if runtime=$(fetch_url $repo/$stage2); then
+                info "anaconda: successfully fetched stage2 from $repo"
+                # NOTE: Should be the same as anaconda_auto_updates()
+                updates=$(fetch_url $repo/images/updates.img 2> /tmp/updates_err)
+                [ -z "$updates" ] && debug_msg $(cat /tmp/updates_err)
+                [ -n "$updates" ] && unpack_updates_img $updates /updates
+                product=$(fetch_url $repo/images/product.img 2> /tmp/product_err)
+                [ -z "$product" ] && debug_msg $(cat /tmp/product_err)
+                [ -n "$product" ] && unpack_updates_img $product /updates
+                /sbin/dmsquash-live-root $runtime
+                break
+            else
+                warn "anaconda: failed to fetch stage2 from $repo"
+            fi
+          done
     ;;
     *)
         warn "unknown network repo URL: $repo"

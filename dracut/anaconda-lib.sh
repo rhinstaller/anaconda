@@ -220,6 +220,28 @@ online_netdevs() {
     done
 }
 
+# Are all given locations only http, https or ftp urls?
+# Then succeed, otherwise fail.
+are_urls() {
+    local locations="${1}"
+    local location
+
+    # No locations, failure.
+    [ -z "$locations" ] && return 1
+
+    # Check all locations.
+    for location in $locations; do
+        case "${location%%:*}" in
+            http|https|ftp) continue ;;
+            # Another type, failure.
+            *) return 1 ;;
+        esac
+    done
+
+    # Success.
+    return 0
+}
+
 # This is where we actually run the kickstart. Whee!
 # We can't just add udev rules (we'll miss devices that are already active),
 # and we can't just run the scripts manually (we'll miss devices that aren't

@@ -88,6 +88,9 @@ the space character (' ').
 This specifies the location to fetch only the installer runtime image;
 packages will be ignored. Otherwise the same as <<inst.repo,`inst.repo`>>.
 
+If there are specified multiple locations (only http, https or ftp), they
+will be used sequentially one by one until the image is fetched.
+
 === inst.dd ===
 This specifies the location for driver rpms. May be specified multiple times.
 Locations may be specified using any of the formats allowed for
@@ -104,6 +107,9 @@ Kickstart
 Give the location of a kickstart file to be used to automate the install.
 Locations may be specified using any of the formats allowed for
 <<inst.repo,`inst.repo`>>.
+
+If there are specified multiple locations (only http, https or ftp), they
+will be used sequentially one by one until the kickstart file is fetched.
 
 For any format the `<path>` component defaults to `/ks.cfg` if it is omitted.
 

@@ -11,10 +11,25 @@ arg="repo"
 # default to using repo, but if we have stage2=, use that
 [ -n "$stage2" ] && arg="stage2" && repo="$stage2"
 
+# Clean.
+rm -f /tmp/stage2_urls
+
 if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
     case "$repotype" in
         http|https|ftp|nfs|nfs4|nfsiso)
+            # Save inst.stage2 urls to the file /tmp/stage2_urls.
+            # If all given inst.stage2 locations are urls, we will
+            # enable multiple fetching. Otherwise, we will try only
+            # the last location, if it is an url.
+            locations="$(getargs stage2= inst.stage2=)"
+
+            if are_urls "$locations"; then
+                echo "$locations" > /tmp/stage2_urls
+            elif are_urls "$stage2"; then
+                echo "$stage2" > /tmp/stage2_urls
+            fi
+
             set_neednet; root="anaconda-net:$repo" ;;
         hd|cd|cdrom)
             [ -n "$rest" ] && root="anaconda-disk:$rest" ;;
