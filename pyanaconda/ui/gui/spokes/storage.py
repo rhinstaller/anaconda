@@ -41,6 +41,7 @@
 
 from gi.repository import Gdk, GLib, AnacondaWidgets
 
+from pyanaconda.iutil import firstNotNone
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.gui import GUIObject
@@ -72,7 +73,7 @@ from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants, iutil, isys
 from pyanaconda.bootloader import BootLoaderError
 
-from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
+from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartValueError
 
 import sys
@@ -234,7 +235,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.applyOnSkip = True
 
         self._ready = False
-        self.autoPartType = None
         self.encrypted = False
         self.passphrase = ""
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
@@ -251,7 +251,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.autopart.autopart = True
 
         self.autopart = self.data.autopart.autopart
-        self.autoPartType = None
+        self.default_autopart_type = firstNotNone((self.data.autopart.type,
+                                                   self.instclass.default_autopart_type))
         self.clearPartType = CLEARPART_TYPE_NONE
 
         if arch.isS390() and (self.data.zerombr.zerombr or self.data.clearpart.cdl):
@@ -275,7 +276,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def apply(self):
         applyDiskSelection(self.storage, self.data, self.selected_disks)
         self.data.autopart.autopart = self.autopart
-        self.data.autopart.type = self.autoPartType
+        self.data.autopart.type = self.default_autopart_type
         self.data.autopart.encrypted = self.encrypted
         self.data.autopart.passphrase = self.passphrase
 
@@ -527,9 +528,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._unhide_disks()
 
         self.autopart = self.data.autopart.autopart
-        self.autoPartType = self.data.autopart.type
-        if self.autoPartType is None:
-            self.autoPartType = AUTOPART_TYPE_LVM
         self.encrypted = self.data.autopart.encrypted
         self.passphrase = self.data.autopart.passphrase
 

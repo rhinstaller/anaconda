@@ -752,6 +752,18 @@ class MiscTests(unittest.TestCase):
         for d, r in dirs:
             self.assertEquals(iutil.parent_dir(d), r)
 
+    def first_not_none_test(self):
+        self.assertEquals(iutil.firstNotNone([]), None)
+        self.assertEquals(iutil.firstNotNone([None, None, None]), None)
+
+        self.assertEquals(iutil.firstNotNone([1, None, None]), 1)
+        self.assertEquals(iutil.firstNotNone([None, 2, None]), 2)
+        self.assertEquals(iutil.firstNotNone([None, None, 3]), 3)
+
+        self.assertEquals(iutil.firstNotNone([0, None, None]), 0)
+        self.assertEquals(iutil.firstNotNone([1, 2, 3]), 1)
+        self.assertEquals(iutil.firstNotNone([None, 2, 3]), 2)
+
 class EncryptPasswordTests(unittest.TestCase):
     def encrypt_password_test(self):
         """ Test the encrypt_password function"""

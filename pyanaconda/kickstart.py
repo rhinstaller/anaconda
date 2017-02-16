@@ -290,7 +290,7 @@ class AutoPart(commands.autopart.RHEL7_AutoPart):
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        instClass.setDefaultPartitioning(storage)
+        refreshAutoSwapSize(storage)
         storage.doAutoPart = True
 
         if self.encrypted:

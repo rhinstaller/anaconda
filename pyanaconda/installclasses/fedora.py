@@ -37,7 +37,6 @@ class FedoraBaseInstallClass(BaseInstallClass):
 
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
-        BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
