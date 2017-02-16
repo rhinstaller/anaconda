@@ -110,9 +110,13 @@ class DasdFormatDialog(GUIObject):
         self._ok_button.set_sensitive(False)
         self._notebook.set_current_page(1)
 
+        # Format dasds and update the storage.
+        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT, target=self.run_format, args=()))
+
+    def run_format(self):
+        """Run the dasd formatting and update the storage."""
         # Loop through all of our unformatted DASDs and format them
-        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
-                                target=self.run_dasdfmt, args=(self._epoch,)))
+        self.run_dasdfmt(self._epoch)
 
         # Need to make devicetree aware of storage change
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
