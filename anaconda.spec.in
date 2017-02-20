@@ -318,6 +318,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 20 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.98-1
+- Lock empty root password during kickstart installation (mkolman)
+  Resolves: rhbz#1383656
+- Enable multiple inst.stage2 urls (vponcova)
+  Resolves: rhbz#1391724
+- Enable multiple inst.ks urls (vponcova)
+  Resolves: rhbz#1391724
+- tui: AutoPartSpoke should not be discovered by a hub (vponcova)
+  Related: rhbz#1380767
+- Enable to define the autopart type in an install class (vponcova)
+  Resolves: rhbz#1380767
+- Always set the default partitioning (vponcova)
+  Resolves: rhbz#1380767
+
 * Mon Feb 13 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.97-1
 - Add inst.waitfornet option (rvykydal)
   Resolves: rhbz#1315160

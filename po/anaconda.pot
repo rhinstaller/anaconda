@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.96\n"
+"Project-Id-Version: anaconda 21.48.22.97\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-02-13 15:38+0100\n"
+"POT-Creation-Date: 2017-02-20 16:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -446,7 +446,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:199 pyanaconda/kickstart.py:2198
+#: pyanaconda/install.py:199 pyanaconda/kickstart.py:2207
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -747,26 +747,26 @@ msgstr ""
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1832
+#: pyanaconda/kickstart.py:1841
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1837
+#: pyanaconda/kickstart.py:1846
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1843
+#: pyanaconda/kickstart.py:1852
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1853
+#: pyanaconda/kickstart.py:1862
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -774,23 +774,23 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1860
+#: pyanaconda/kickstart.py:1869
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1865
+#: pyanaconda/kickstart.py:1874
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1868
+#: pyanaconda/kickstart.py:1877
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1921
+#: pyanaconda/kickstart.py:1930
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
@@ -811,9 +811,9 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1456 pyanaconda/ui/gui/spokes/custom.py:552
+#: pyanaconda/network.py:1456 pyanaconda/ui/gui/spokes/custom.py:558
 #: pyanaconda/ui/gui/spokes/network.py:306
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:61
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:60
 msgid "Unknown"
 msgstr ""
 
@@ -958,9 +958,9 @@ msgstr ""
 #: pyanaconda/ui/tui/hubs/__init__.py:137
 #: pyanaconda/ui/tui/simpleline/base.py:459
 #: pyanaconda/ui/tui/simpleline/base.py:636
-#: pyanaconda/ui/tui/spokes/storage.py:270
-#: pyanaconda/ui/tui/spokes/storage.py:523
-#: pyanaconda/ui/tui/spokes/storage.py:575
+#: pyanaconda/ui/tui/spokes/storage.py:274
+#: pyanaconda/ui/tui/spokes/storage.py:528
+#: pyanaconda/ui/tui/spokes/storage.py:580
 #: pyanaconda/ui/tui/spokes/source.py:461
 #: pyanaconda/ui/tui/spokes/software.py:154
 msgctxt "TUI|Spoke Navigation"
@@ -1350,7 +1350,7 @@ msgstr ""
 msgid "Deployment complete: %s"
 msgstr ""
 
-#: pyanaconda/ui/helpers.py:95 pyanaconda/ui/tui/spokes/storage.py:431
+#: pyanaconda/ui/helpers.py:95 pyanaconda/ui/tui/spokes/storage.py:435
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1371,7 +1371,7 @@ msgid "SOFTWARE"
 msgstr ""
 
 #: pyanaconda/ui/categories/system.py:32
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:166
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:165
 msgid "SYSTEM"
 msgstr ""
 
@@ -1818,55 +1818,55 @@ msgstr ""
 msgid "Installation Destination"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:119
-#: pyanaconda/ui/gui/spokes/storage.py:427
+#: pyanaconda/ui/tui/spokes/storage.py:123
+#: pyanaconda/ui/gui/spokes/storage.py:428
 msgid "No disks selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:129
-#: pyanaconda/ui/gui/spokes/storage.py:439
+#: pyanaconda/ui/tui/spokes/storage.py:133
+#: pyanaconda/ui/gui/spokes/storage.py:440
 msgid "Error checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:131
-#: pyanaconda/ui/gui/spokes/storage.py:441
+#: pyanaconda/ui/tui/spokes/storage.py:135
+#: pyanaconda/ui/gui/spokes/storage.py:442
 msgid "Warning checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:134
-#: pyanaconda/ui/gui/spokes/storage.py:443
+#: pyanaconda/ui/tui/spokes/storage.py:138
+#: pyanaconda/ui/gui/spokes/storage.py:444
 msgid "Automatic partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:136
-#: pyanaconda/ui/gui/spokes/storage.py:445
+#: pyanaconda/ui/tui/spokes/storage.py:140
+#: pyanaconda/ui/gui/spokes/storage.py:446
 msgid "Custom partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:172
-#: pyanaconda/ui/gui/spokes/storage.py:702
+#: pyanaconda/ui/tui/spokes/storage.py:176
+#: pyanaconda/ui/gui/spokes/storage.py:700
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:174
-#: pyanaconda/ui/gui/spokes/storage.py:706
+#: pyanaconda/ui/tui/spokes/storage.py:178
+#: pyanaconda/ui/gui/spokes/storage.py:704
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:189
+#: pyanaconda/ui/tui/spokes/storage.py:193
 #: pyanaconda/ui/tui/spokes/source.py:376
 #: pyanaconda/ui/gui/spokes/source.py:679
-#: pyanaconda/ui/gui/spokes/storage.py:653
+#: pyanaconda/ui/gui/spokes/storage.py:651
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:210
+#: pyanaconda/ui/tui/spokes/storage.py:214
 msgid "Select all"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:337
+#: pyanaconda/ui/tui/spokes/storage.py:341
 msgid ""
 "The following unformatted or LDL DASDs have been detected on your system. "
 "You can choose to format them now with dasdfmt or cancel to leave them "
@@ -1874,7 +1874,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:342
+#: pyanaconda/ui/tui/spokes/storage.py:346
 msgid ""
 "Warning: All storage changes made using the installer will be lost when you "
 "choose to format.\n"
@@ -1882,37 +1882,37 @@ msgid ""
 "Proceed to run dasdfmt?\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:357
+#: pyanaconda/ui/tui/spokes/storage.py:361
 #: pyanaconda/ui/gui/spokes/lib/dasdfmt.py:94
 #, python-format
 msgid "Formatting /dev/%s. This may take a moment."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:410
+#: pyanaconda/ui/tui/spokes/storage.py:414
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:415
-#: pyanaconda/ui/tui/spokes/storage.py:427
+#: pyanaconda/ui/tui/spokes/storage.py:419
+#: pyanaconda/ui/tui/spokes/storage.py:431
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:474
+#: pyanaconda/ui/tui/spokes/storage.py:478
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:500
+#: pyanaconda/ui/tui/spokes/storage.py:505
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:540
+#: pyanaconda/ui/tui/spokes/storage.py:545
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:564
+#: pyanaconda/ui/tui/spokes/storage.py:569
 msgid "Select a partition scheme configuration."
 msgstr ""
 
@@ -2385,7 +2385,7 @@ msgstr ""
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:356
+#: pyanaconda/ui/gui/spokes/custom.py:361
 #, python-format
 msgctxt "GUI|Custom Partitioning"
 msgid "%d _storage device selected"
@@ -2393,57 +2393,57 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:508
+#: pyanaconda/ui/gui/spokes/custom.py:514
 #, python-format
 msgid ""
 "When you create mount points for your %(name)s %(version)s installation, "
 "you'll be able to view their details here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:662
+#: pyanaconda/ui/gui/spokes/custom.py:668
 #, python-format
 msgid ""
 "/boot/efi must be on a device of type %(oneFsType)s or %(anotherFsType)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:666
+#: pyanaconda/ui/gui/spokes/custom.py:672
 #, python-format
 msgid "%(fs)s must be on a device of type %(type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:669
-#: pyanaconda/ui/gui/spokes/custom.py:671
+#: pyanaconda/ui/gui/spokes/custom.py:675
+#: pyanaconda/ui/gui/spokes/custom.py:677
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:673
+#: pyanaconda/ui/gui/spokes/custom.py:679
 msgid "You must create a new file system on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:678
+#: pyanaconda/ui/gui/spokes/custom.py:684
 #, python-format
 msgid "Device does not support RAID level selection %s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:786
+#: pyanaconda/ui/gui/spokes/custom.py:792
 msgid "Device resize request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:859
+#: pyanaconda/ui/gui/spokes/custom.py:865
 msgid "Device reformat request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1225
+#: pyanaconda/ui/gui/spokes/custom.py:1231
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1383
+#: pyanaconda/ui/gui/spokes/custom.py:1389
 msgid "No disks assigned"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1389
+#: pyanaconda/ui/gui/spokes/custom.py:1395
 #, python-format
 msgctxt "GUI|Custom Partitioning|Devices"
 msgid " and %d other"
@@ -2451,109 +2451,109 @@ msgid_plural " and %d others"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1450
+#: pyanaconda/ui/gui/spokes/custom.py:1456
 msgid "The container is encrypted."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1493
+#: pyanaconda/ui/gui/spokes/custom.py:1499
 msgid ""
 "The space available to this mount point can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1495
+#: pyanaconda/ui/gui/spokes/custom.py:1501
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1550
+#: pyanaconda/ui/gui/spokes/custom.py:1556
 msgid ""
 "Error checking storage configuration.  <a href=\"\">Click for details</a> or "
 "press Done again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1552
+#: pyanaconda/ui/gui/spokes/custom.py:1558
 msgid ""
 "Warning checking storage configuration.  <a href=\"\">Click for details</a> "
 "or press Done again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1660
+#: pyanaconda/ui/gui/spokes/custom.py:1666
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1671
+#: pyanaconda/ui/gui/spokes/custom.py:1677
 msgid "Failed to add new device. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1676
+#: pyanaconda/ui/gui/spokes/custom.py:1682
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1787
+#: pyanaconda/ui/gui/spokes/custom.py:1793
 msgid "Device removal request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1954
+#: pyanaconda/ui/gui/spokes/custom.py:1960
 msgid "No disks selected. Keeping previous disk set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2012
+#: pyanaconda/ui/gui/spokes/custom.py:2018
 msgid "No disks selected. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2020
+#: pyanaconda/ui/gui/spokes/custom.py:2026
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2052
+#: pyanaconda/ui/gui/spokes/custom.py:2058
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2199
+#: pyanaconda/ui/gui/spokes/custom.py:2205
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2205
+#: pyanaconda/ui/gui/spokes/custom.py:2211
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2286
+#: pyanaconda/ui/gui/spokes/custom.py:2292
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2291
+#: pyanaconda/ui/gui/spokes/custom.py:2297
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2296
-#: pyanaconda/ui/gui/spokes/custom.py:2321
+#: pyanaconda/ui/gui/spokes/custom.py:2302
+#: pyanaconda/ui/gui/spokes/custom.py:2327
 msgid "Automatic partitioning failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2535
+#: pyanaconda/ui/gui/spokes/custom.py:2541
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2543
+#: pyanaconda/ui/gui/spokes/custom.py:2549
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2543
+#: pyanaconda/ui/gui/spokes/custom.py:2549
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2618
+#: pyanaconda/ui/gui/spokes/custom.py:2624
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
@@ -2990,11 +2990,11 @@ msgstr ""
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:115
+#: pyanaconda/ui/gui/spokes/storage.py:116
 msgid "Please wait... software metadata still loading."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:116
+#: pyanaconda/ui/gui/spokes/storage.py:117
 #, python-format
 msgid ""
 "Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
@@ -3002,12 +3002,12 @@ msgid ""
 "%(software)s</b> for software and <b>%(swap)s</b> for swap space."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:166
+#: pyanaconda/ui/gui/spokes/storage.py:167
 #, python-format
 msgid "%s The disks you've selected have the following amounts of free space:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:174
+#: pyanaconda/ui/gui/spokes/storage.py:175
 #, python-format
 msgid ""
 "<b>You don't have enough space available to install %s</b>.  You can shrink "
@@ -3015,14 +3015,14 @@ msgid ""
 "adjust your partitions on your own in the custom partitioning interface."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:198
+#: pyanaconda/ui/gui/spokes/storage.py:199
 #, python-format
 msgid ""
 "  You don't have enough space available to install <b>%(product)s</b>, even "
 "if you used all of the free space available on the selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:208
+#: pyanaconda/ui/gui/spokes/storage.py:209
 #, python-format
 msgid ""
 "<b>You don't have enough space available to install %(productName)s</b>, "
@@ -3031,41 +3031,41 @@ msgid ""
 "install a smaller version of <b>%(productName)s</b>, or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:229
+#: pyanaconda/ui/gui/spokes/storage.py:230
 msgctxt "GUI|Spoke"
 msgid "INSTALLATION _DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:347
+#: pyanaconda/ui/gui/spokes/storage.py:348
 msgid "Saving storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:351
+#: pyanaconda/ui/gui/spokes/storage.py:352
 msgid "Passphrase for autopart encryption not specified."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:360
-#: pyanaconda/ui/gui/spokes/storage.py:372
+#: pyanaconda/ui/gui/spokes/storage.py:361
+#: pyanaconda/ui/gui/spokes/storage.py:373
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:432
-#: pyanaconda/ui/gui/spokes/storage.py:736
-#: pyanaconda/ui/gui/spokes/storage.py:755
+#: pyanaconda/ui/gui/spokes/storage.py:433
+#: pyanaconda/ui/gui/spokes/storage.py:734
+#: pyanaconda/ui/gui/spokes/storage.py:753
 msgid "Formatting DASDs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:581
+#: pyanaconda/ui/gui/spokes/storage.py:579
 msgid ""
 "Error checking storage configuration.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:584
+#: pyanaconda/ui/gui/spokes/storage.py:582
 msgid ""
 "Warning checking storage configuration.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:627
+#: pyanaconda/ui/gui/spokes/storage.py:625
 #, python-format
 msgid ""
 "FCP device %(hba_id)s\n"
@@ -3073,68 +3073,68 @@ msgid ""
 "LUN %(lun)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:637
+#: pyanaconda/ui/gui/spokes/storage.py:635
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:684
+#: pyanaconda/ui/gui/spokes/storage.py:682
 #, python-format
 msgid "%(count)d disk selected; %(capacity)s capacity; %(free)s free"
 msgid_plural "%(count)d disks selected; %(capacity)s capacity; %(free)s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:797
+#: pyanaconda/ui/gui/spokes/storage.py:795
 msgid ""
 "You have chosen to skip boot loader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:899
+#: pyanaconda/ui/gui/spokes/storage.py:897
 msgid "There was a problem with your disk selection. Click here for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1074
+#: pyanaconda/ui/gui/spokes/storage.py:1072
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1094
+#: pyanaconda/ui/gui/spokes/storage.py:1092
 msgid ""
 "The following errors were encountered when checking your disk selection. You "
 "can modify your selection or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1099
-#: pyanaconda/ui/gui/spokes/storage.py:1120
+#: pyanaconda/ui/gui/spokes/storage.py:1097
+#: pyanaconda/ui/gui/spokes/storage.py:1118
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1100
+#: pyanaconda/ui/gui/spokes/storage.py:1098
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Disk Selection"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1115
+#: pyanaconda/ui/gui/spokes/storage.py:1113
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1121
+#: pyanaconda/ui/gui/spokes/storage.py:1119
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1135
+#: pyanaconda/ui/gui/spokes/storage.py:1133
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1139
+#: pyanaconda/ui/gui/spokes/storage.py:1137
 msgid "_OK"
 msgstr ""
 
@@ -3173,32 +3173,32 @@ msgid ""
 "Please select which nodes you wish to log into:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:157
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:156
 msgid "DATA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:278
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:277
 #, python-format
 msgid ""
 "You haven't created any mount points for your %(product)s %(version)s "
 "installation yet.  You can:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:287
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:286
 msgid "_Click here to create them automatically."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:312
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:311
 msgid "Create new mount points by clicking the '+' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:320
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:319
 msgid ""
 "Or, assign new mount points to existing partitions after selecting them "
 "below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:325
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:324
 msgid "_New mount points will use the following partitioning scheme:"
 msgstr ""
 
