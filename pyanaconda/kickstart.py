@@ -1647,8 +1647,17 @@ class ReqPart(commands.reqpart.RHEL7_ReqPart):
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
-        if not self.password and not flags.automatedInstall:
+        if flags.automatedInstall and not self.password and not self.seen:
+            # Lock the root password if during an installation with kickstart
+            # the root password is empty & not specififed as empty in the kickstart
+            # (seen == False) via the rootpw command.
+            # Note that kickstart is actually the only way to specify an empty
+            # root password - we don't allow that via the UI.
             self.lock = True
+        elif not flags.automatedInstall and not self.password:
+            # Also lock the root password if it was not set during interactive installation.
+            self.lock = True
+
 
         algo = getPassAlgo(ksdata.authconfig.authconfig)
         users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
