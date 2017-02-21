@@ -375,6 +375,33 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
             netargs.add("team=%s:%s" % (devname,
                                         ",".join(dev for dev, _cfg in slaves)))
 
+        if ifcfg.get("TYPE") == "Vlan":
+            physdev_spec = ifcfg.get("PHYSDEV")
+            physdev = None
+            if physdev_spec in nm.nm_devices():
+                physdev = physdev_spec
+                ifcfg_path = find_ifcfg_file_of_device(physdev)
+                if ifcfg_path:
+                    ifcfg = IfcfgFile(ifcfg_path)
+                    ifcfg.read()
+                else:
+                    log.debug("network: can't find ifcfg of vlan parent %s", physdev)
+            # physical device can be specified by connection uuid (eg from nm-c-e)
+            else:
+                ifcfg_path = find_ifcfg_file([("UUID", physdev_spec)])
+                if ifcfg_path:
+                    ifcfg = IfcfgFile(ifcfg_path)
+                    ifcfg.read()
+                    # On s390 with net.ifnames=0 there is no DEVICE
+                    physdev = ifcfg.get("DEVICE") or ifcfg.get("NAME")
+
+            if physdev:
+                netargs.add("vlan=%s:%s" % (devname, physdev))
+            else:
+                log.warning("network: can't find parent of vlan device %s specified by %s",
+                             devname, physdev_spec)
+
+    # For vlan ifcfg now refers to the physical device file
     nettype = ifcfg.get("NETTYPE")
     subchannels = ifcfg.get("SUBCHANNELS")
     if blivet.arch.isS390() and nettype and subchannels:
