@@ -60,7 +60,6 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.i18n import _
 from pyanaconda.payload import payloadMgr
-from pyanaconda import isys
 
 import logging
 import copy
@@ -70,9 +69,8 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
     errors = []
     warnings = []
 
-    def __init__(self, min_ram=isys.MIN_RAM, mainSpokeClass="StorageSpoke"):
+    def __init__(self, mainSpokeClass="StorageSpoke"):
         self._mainSpokeClass = mainSpokeClass
-        self._min_ram = min_ram
 
     @abstractproperty
     def storage(self):
@@ -83,21 +81,19 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
                                      target=self.checkStorage))
 
     def checkStorage(self):
-        from pyanaconda.storage_utils import sanity_check, SanityError, SanityWarning
+        from pyanaconda.storage_utils import storage_checker
 
         threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
 
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
-        exns = sanity_check(self.storage, min_ram=self._min_ram)
-        errors = [str(exn) for exn in exns if isinstance(exn, SanityError)]
-        warnings = [str(exn) for exn in exns if isinstance(exn, SanityWarning)]
-        (StorageCheckHandler.errors, StorageCheckHandler.warnings) = (errors, warnings)
+
+        report = storage_checker.check(self.storage)
+        self.errors = report.errors
+        self.warnings = report.warnings
+
         hubQ.send_ready(self._mainSpokeClass, True)
-        for e in StorageCheckHandler.errors:
-            self.log.error(e)
-        for w in StorageCheckHandler.warnings:
-            self.log.warning(w)
+        report.log(self.log)
 
 class SourceSwitchHandler(object, metaclass=ABCMeta):
     """ A class that can be used as a mixin handling

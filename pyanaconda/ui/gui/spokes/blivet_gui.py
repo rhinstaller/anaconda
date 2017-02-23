@@ -31,7 +31,6 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.i18n import _, CN_, C_
-from pyanaconda import isys
 from pyanaconda.bootloader import BootLoaderError
 
 from blivetgui import osinstall
@@ -87,7 +86,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self.button_reset = None
         self.button_undo = None
 
-        StorageCheckHandler.__init__(self, min_ram=isys.MIN_GUI_RAM)
+        StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
     def initialize(self):

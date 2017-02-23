@@ -71,7 +71,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
-from pyanaconda import constants, iutil, isys
+from pyanaconda import constants, iutil
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.screen_access import sam
@@ -262,7 +262,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     title = CN_("GUI|Spoke", "INSTALLATION _DESTINATION")
 
     def __init__(self, *args, **kwargs):
-        StorageCheckHandler.__init__(self, min_ram=isys.MIN_GUI_RAM)
+        StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
 
