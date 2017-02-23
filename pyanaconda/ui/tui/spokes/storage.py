@@ -27,7 +27,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
-from pyanaconda.storage_utils import AUTOPART_CHOICES, sanity_check, SanityError, SanityWarning
+from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker
 
 from blivet import arch, storageInitialize
 from blivet.size import Size
@@ -433,16 +433,11 @@ class StorageSpoke(NormalTUISpoke):
             self.data.bootloader.bootDrive = ""
         else:
             print(_("Checking storage configuration..."))
-            exns = sanity_check(self.storage)
-            errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
-            warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
-            (self.errors, self.warnings) = (errors, warnings)
-            for e in self.errors:
-                log.error(e)
-                print(e)
-            for w in self.warnings:
-                log.warning(w)
-                print(w)
+            report = storage_checker.check(self.storage)
+            print("\n".join(report.all_errors))
+            report.log(log)
+            self.errors = report.errors
+            self.warnings = report.warnings
         finally:
             resetCustomStorageData(self.data)
             self._ready = True

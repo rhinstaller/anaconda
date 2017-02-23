@@ -38,7 +38,6 @@ from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_
 from pyanaconda.iutil import lowerASCII, firstNotNone
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
-from pyanaconda import isys
 from pyanaconda import network
 
 from blivet import devicefactory
@@ -62,14 +61,13 @@ from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice
 
-from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart
+from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
+    verify_luks_devices_have_key
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
-from pyanaconda.storage_utils import SanityError, SanityWarning, LUKSDeviceWithoutKeyError
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.storage_utils import filter_unsupported_disklabel_devices
-from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -139,7 +137,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     title = N_("MANUAL PARTITIONING")
 
     def __init__(self, data, storage, payload, instclass):
-        StorageCheckHandler.__init__(self, min_ram=isys.MIN_GUI_RAM)
+        StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
         self._back_already_clicked = False
@@ -2273,7 +2271,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _do_autopart(self):
         """Helper function for on_create_clicked.
            Assumes a non-final context in which at least some errors
-           discovered by sanity_check are not considered fatal because they
+           discovered by storage checker are not considered fatal because they
            will be dealt with later.
 
            Note: There are never any non-existent devices around when this runs.
@@ -2315,16 +2313,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._storage_playground.doAutoPart = False
             log.debug("finished automatic partitioning")
 
-        exns = storage_utils.sanity_check(self._storage_playground, min_ram=isys.MIN_GUI_RAM)
-        errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
-        warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
-        for error in errors:
-            log.error(error.message)
-        for warning in warnings:
-            log.warning(warning.message)
+        report = storage_checker.check(self._storage_playground,
+                                       skip=(verify_luks_devices_have_key,))
+        report.log(log)
 
-        if errors:
-            messages = "\n".join(error.message for error in errors)
+        if report.errors:
+            messages = "\n".join(report.errors)
             log.error("doAutoPartition failed: %s", messages)
             self._reset_storage()
             self._error = messages
