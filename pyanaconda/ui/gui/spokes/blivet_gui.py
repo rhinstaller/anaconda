@@ -27,7 +27,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.helpers import StorageChecker
+from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.i18n import _, CN_, C_
@@ -42,7 +42,7 @@ log = logging.getLogger("anaconda")
 # export only the spoke, no helper functions, classes or constants
 __all__ = ["BlivetGuiSpoke"]
 
-class BlivetGuiSpoke(NormalSpoke, StorageChecker):
+class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     ### class attributes defined by API ###
 
     # list all top-level objects from the .glade file that should be exposed
@@ -87,7 +87,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageChecker):
         self.button_reset = None
         self.button_undo = None
 
-        StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
+        StorageCheckHandler.__init__(self, min_ram=isys.MIN_GUI_RAM)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
     def initialize(self):
@@ -161,8 +161,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageChecker):
 
     def _do_check(self):
         self.clear_errors()
-        StorageChecker.errors = []
-        StorageChecker.warnings = []
+        StorageCheckHandler.errors = []
+        StorageCheckHandler.warnings = []
 
         # We can't overwrite the main Storage instance because all the other
         # spokes have references to it that would get invalidated, but we can
@@ -178,10 +178,10 @@ class BlivetGuiSpoke(NormalSpoke, StorageChecker):
             self.storage.set_up_bootloader()
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            StorageCheckHandler.errors = str(e).split("\n")
             self.data.bootloader.bootDrive = ""
 
-        StorageChecker.checkStorage(self)
+        StorageCheckHandler.checkStorage(self)
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))

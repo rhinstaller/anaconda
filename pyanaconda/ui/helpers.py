@@ -65,7 +65,7 @@ from pyanaconda import isys
 import logging
 import copy
 
-class StorageChecker(object, metaclass=ABCMeta):
+class StorageCheckHandler(object, metaclass=ABCMeta):
     log = logging.getLogger("anaconda")
     errors = []
     warnings = []
@@ -92,11 +92,11 @@ class StorageChecker(object, metaclass=ABCMeta):
         exns = sanity_check(self.storage, min_ram=self._min_ram)
         errors = [str(exn) for exn in exns if isinstance(exn, SanityError)]
         warnings = [str(exn) for exn in exns if isinstance(exn, SanityWarning)]
-        (StorageChecker.errors, StorageChecker.warnings) = (errors, warnings)
+        (StorageCheckHandler.errors, StorageCheckHandler.warnings) = (errors, warnings)
         hubQ.send_ready(self._mainSpokeClass, True)
-        for e in StorageChecker.errors:
+        for e in StorageCheckHandler.errors:
             self.log.error(e)
-        for w in StorageChecker.warnings:
+        for w in StorageCheckHandler.warnings:
             self.log.warning(w)
 
 class SourceSwitchHandler(object, metaclass=ABCMeta):

@@ -80,7 +80,7 @@ from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.helpers import StorageChecker
+from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import update_selector_from_device, Accordion, Page, CreateNewPage, UnknownPage
@@ -137,7 +137,7 @@ def ui_storage_logged(func):
 
     return decorated
 
-class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
+class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     """
        .. inheritance-diagram:: CustomPartitioningSpoke
           :parts: 3
@@ -160,7 +160,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     MIN_SIZE_ENTRY = Size("1 MiB")
 
     def __init__(self, data, storage, payload, instclass):
-        StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
+        StorageCheckHandler.__init__(self, min_ram=isys.MIN_GUI_RAM)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
         self._back_already_clicked = False
@@ -1627,8 +1627,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _do_check(self):
         self.clear_errors()
-        StorageChecker.errors = []
-        StorageChecker.warnings = []
+        StorageCheckHandler.errors = []
+        StorageCheckHandler.warnings = []
 
         # We can't overwrite the main Storage instance because all the other
         # spokes have references to it that would get invalidated, but we can
@@ -1644,10 +1644,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.storage.set_up_bootloader()
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            StorageCheckHandler.errors = str(e).split("\n")
             self.data.bootloader.bootDrive = ""
 
-        StorageChecker.checkStorage(self)
+        StorageCheckHandler.checkStorage(self)
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
