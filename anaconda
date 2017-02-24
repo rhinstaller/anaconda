@@ -1247,6 +1247,7 @@ if __name__ == "__main__":
     # Set minimal ram size to the storage checker.
     from pyanaconda.storage_utils import storage_checker
     storage_checker.add_constraint("min_ram", isys.MIN_GUI_RAM if anaconda.displayMode == 'g' else isys.MIN_RAM)
+    anaconda.instClass.setStorageChecker(storage_checker)
 
     from pyanaconda.anaconda_argparse import name_path_pairs
 
