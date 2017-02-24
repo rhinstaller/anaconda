@@ -1537,6 +1537,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def initialize(self):
         register_secret_agent(self)
         NormalSpoke.initialize(self)
+        self.initialize_start()
         self.network_control_box.initialize()
         if not can_touch_runtime_system("hide hint to use network configuration in DE"):
             self.builder.get_object("network_config_vbox").set_no_show_all(True)
@@ -1547,6 +1548,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if not self.data.network.seen:
             _update_network_data(self.data, self.network_control_box)
+
+        # report that we are done
+        self.initialize_done()
 
     def refresh(self):
         NormalSpoke.refresh(self)

@@ -61,6 +61,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
         # place holders for the text boxes
         self.pw = self.builder.get_object("pw")
         self.confirm = self.builder.get_object("confirmPW")
@@ -114,6 +115,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.policy = self.data.anaconda.pwpolicy.get_policy("root")
         if not self.policy:
             self.policy = self.data.anaconda.PwPolicyData()
+
+        # report that we are done
+        self.initialize_done()
 
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit

@@ -34,7 +34,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUIDialog.__init__(self, app, data, storage, payload, instclass, "root")
+        self.initialize_start()
         self._password = None
+        self.initialize_done()
 
     @property
     def completed(self):

@@ -36,6 +36,7 @@ from urllib import quote, unquote
 import signal
 import crypt
 import random
+import functools
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
@@ -1246,3 +1247,21 @@ def touch(file_path):
 def firstNotNone(iterable):
     """Return the first item that is not None."""
     return next((item for item in iterable if item is not None), None)
+
+def synchronized(wrapped):
+    """A locking decorator for methods.
+
+    The decorator is only intended for methods and the class providing
+    the method also needs to have a Lock/RLock instantiated in self._lock.
+
+    The decorator prevents the wrapped method from being executed until
+    self._lock can be acquired. Once available, it acquires the lock and
+    prevents other decorated methods & other users of self._lock from
+    executing until the wrapped method finishes running.
+    """
+
+    @functools.wraps(wrapped)
+    def _wrapper(self, *args, **kwargs):
+        with self._lock:
+            return wrapped(self, *args, **kwargs)
+    return _wrapper

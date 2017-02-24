@@ -70,6 +70,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def initialize(self):
         EditTUISpoke.initialize(self)
+        self.initialize_start()
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
@@ -93,6 +94,9 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             self._protocols.pop()
 
         self._ready = True
+
+        # report that the source spoke has been initialized
+        self.initialize_done()
 
     def _downloading_package_md(self):
         # Reset the error state from previous payloads

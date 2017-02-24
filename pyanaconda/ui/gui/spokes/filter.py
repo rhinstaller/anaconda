@@ -517,6 +517,7 @@ class FilterSpoke(NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         self.pages = [SearchPage(self.storage, self.builder),
                       MultipathPage(self.storage, self.builder),
@@ -535,6 +536,9 @@ class FilterSpoke(NormalSpoke):
 
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
+
+        # report that we are done
+        self.initialize_done()
 
     def _real_ancestors(self, disk):
         # Return a list of all the ancestors of a disk, but remove the disk

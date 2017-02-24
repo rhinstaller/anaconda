@@ -101,6 +101,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         return model[itr][3]
 
     def initialize(self):
+        self.initialize_start()
         self._languageStore = self.builder.get_object("languageStore")
         self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
         self._languageEntry = self.builder.get_object("languageEntry")
@@ -175,6 +176,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         self._set_lang(locales[0])
         localization.setup_locale(locales[0], self.data.lang)
         self._select_locale(self.data.lang.lang)
+
+        # report that we are done
+        self.initialize_done()
 
     def _retranslate_one(self, widgetName, context=None):
         widget = self.builder.get_object(widgetName)

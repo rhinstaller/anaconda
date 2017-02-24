@@ -67,6 +67,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def __init__(self, app, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass, "user")
+        self.initialize_start()
         if self.data.user.userList:
             self.args = self.data.user.userList[0]
             self.args._create = True
@@ -81,6 +82,8 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         self.args._password = ""
 
         self.errors = []
+
+        self.initialize_done()
 
     def refresh(self, args = None):
         self.args._admin = "wheel" in self.args.groups

@@ -65,6 +65,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         return False
 
     def initialize(self):
+        self.initialize_start()
         # We get the initial NTP servers (if any):
         # - from kickstart when running inside of Anaconda
         #   during the installation
@@ -87,6 +88,10 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
             # check if the newly added NTP servers work fine
             self._check_ntp_servers_async(self._ntp_servers.keys())
+
+        # we assume that the NTP spoke is initialized enough even if some NTP
+        # server check threads might still be running
+        self.initialize_done()
 
     def _check_ntp_servers_async(self, servers):
         """Asynchronously check if given NTP servers appear to be working.

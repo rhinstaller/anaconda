@@ -260,6 +260,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
         self._grabObjects()
 
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
@@ -302,6 +303,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._fs_types.append(obj.name)
 
         actions.fire()
+
+        # report that the custom spoke has been initialized
+        self.initialize_done()
 
     @property
     def _clearpartDevices(self):

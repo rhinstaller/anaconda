@@ -234,6 +234,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         if self.data.user.userList:
             self._user = self.data.user.userList[0]
@@ -327,6 +328,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._advanced = AdvancedUserDialog(self._user, self._groupDict,
                                             self.data)
         self._advanced.initialize()
+
+        # report that we are done
+        self.initialize_done()
 
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit

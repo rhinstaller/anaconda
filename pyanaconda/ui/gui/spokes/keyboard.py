@@ -322,6 +322,7 @@ class KeyboardSpoke(NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
 
         # set X keyboard defaults
         # - this needs to be done early in spoke initialization so that
@@ -382,6 +383,9 @@ class KeyboardSpoke(NormalSpoke):
         self._add_dialog.wait_initialize()
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
+
+        # report that the keyboard spoke initialization has been completed
+        self.initialize_done()
 
     def refresh(self):
         NormalSpoke.refresh(self)

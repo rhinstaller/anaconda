@@ -41,6 +41,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.initialize_start()
 
         self._langs = [localization.get_english_name(lang)
                         for lang in localization.get_available_translations()]
@@ -49,6 +50,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._locales = dict((lang, localization.get_language_locales(lang))
                                 for lang in self._langs_and_locales.values())
         self._selected = self.data.lang.lang
+        self.initialize_done()
 
     @property
     def completed(self):

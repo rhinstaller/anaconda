@@ -403,6 +403,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
+        self.initialize_start()
         self._daysStore = self.builder.get_object("days")
         self._monthsStore = self.builder.get_object("months")
         self._yearsStore = self.builder.get_object("years")
@@ -509,6 +510,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             threadMgr.wait(constants.THREAD_TIME_INIT)
 
         hubQ.send_ready(self.__class__.__name__, False)
+
+        # report that we are done
+        self.initialize_done()
 
     @property
     def status(self):
