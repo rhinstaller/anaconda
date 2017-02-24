@@ -281,7 +281,8 @@ def save_repo(repo, target="/run/install"):
             else:
                 log.warning("DD repo content not a file: %s", item_path)
     else:
-        log.error("ERROR: DD repository needs to be a file file or a directory: %s", repo)
+        log.error("ERROR: DD repository needs to be a file or a directory: %s",
+                  repo)
     return newdir
 
 def extract_drivers(drivers=None, repos=None, outdir="/updates",
