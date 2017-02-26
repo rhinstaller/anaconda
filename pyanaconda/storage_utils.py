@@ -37,6 +37,7 @@ from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
+from blivet.devicefactory import get_device_type
 
 from pyanaconda.i18n import _, N_
 from pyanaconda import isys
@@ -168,6 +169,13 @@ def verify_root(storage, constraints, report_error, report_warning):
         if e:
             report_error(e)
 
+    if storage.rootDevice and constraints["root_device_types"]:
+        device_type = get_device_type(storage.rootDevice)
+        device_types = constraints["root_device_types"]
+        if device_type not in device_types:
+            report_error(_("Your root partition must be on a device of type: %s.")
+                         % ", ".join(DEVICE_TEXT_MAP[t] for t in device_types))
+
 
 def verify_partition_sizes(storage, constraints, report_error, report_warning):
     """ Verify the minimal and required partition sizes.
@@ -186,6 +194,12 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
                              "for a normal %(productName)s install.")
                            % {'mount': mount, 'size': size,
                               'productName': productName})
+
+    for (mount, size) in constraints["req_partition_sizes"].items():
+        if mount in filesystems and filesystems[mount].size < size:
+            report_error(_("Your %(mount)s partition is less than "
+                           "%(size)s which is lower than required.")
+                         % {'mount': mount, 'size': size})
 
 
 def verify_partition_format_sizes(storage, constraints, report_error, report_warning):
@@ -340,10 +354,26 @@ def verify_mountpoints_on_root(storage, constraints, report_error, report_warnin
     """
     filesystems = storage.mountpoints
 
-    for (mountpoint, dev) in filesystems.items():
+    for mountpoint in filesystems:
         if mountpoint in constraints["must_be_on_root"]:
             report_error(_("This mount point is invalid. The %s directory must "
                            "be on the / file system.") % mountpoint)
+
+
+def verify_mountpoints_not_on_root(storage, constraints, report_error, report_warning):
+    """ Verify mountpoints not on the root.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
+
+    for mountpoint in constraints["must_not_be_on_root"]:
+        if mountpoint not in filesystems:
+            report_error(_("Your %s must be on a separate partition or LV.")
+                         % mountpoint)
 
 
 def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_warning):
@@ -574,6 +604,10 @@ class StorageChecker(object):
             '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
         })
 
+        self.add_new_constraint("root_device_types", set())
+        self.add_new_constraint("req_partition_sizes", dict())
+        self.add_new_constraint("must_not_be_on_root", set())
+
     def set_default_checks(self):
         """Set the default checks."""
         self.checks = list()
@@ -586,6 +620,7 @@ class StorageChecker(object):
         self.add_check(verify_swap_uuid)
         self.add_check(verify_mountpoints_on_linuxfs)
         self.add_check(verify_mountpoints_on_root)
+        self.add_check(verify_mountpoints_not_on_root)
         self.add_check(verify_luks_devices_have_key)
 
 
