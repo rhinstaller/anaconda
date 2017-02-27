@@ -21,13 +21,14 @@
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
-from pyanaconda.users import validatePassword, cryptPassword
+from pyanaconda.users import validatePassword, cryptPassword, PasswordCheckRequest
 import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import N_, _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PW_ASCII_CHARS
 from pyanaconda.constants import PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR
+from pyanaconda.constants import NAME_OF_PASSWORD, NAME_OF_PASSWORD_PLURAL
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
            "StandaloneSpoke", "NormalTUISpoke"]
@@ -139,7 +140,7 @@ class EditTUIDialog(NormalTUISpoke):
                         " it a second time to continue."))
                 return None
             if (pw != confirm):
-                print(_(PASSWORD_CONFIRM_ERROR_TUI))
+                print(_(PASSWORD_CONFIRM_ERROR_TUI) % {"passwords": _(NAME_OF_PASSWORD_PLURAL)})
                 return None
 
             # If an empty password was provided, unset the value
@@ -147,24 +148,26 @@ class EditTUIDialog(NormalTUISpoke):
                 self.value = ""
                 return None
 
-            pw_score, _status_text, pw_quality, error_message = validatePassword(pw, user=None, minlen=self.policy.minlen)
+            request = PasswordCheckRequest(password=pw, username=None, minimum_length=self.policy.minlen)
+            result = validatePassword(request)
 
             # if the score is equal to 0 and we have an error message set
-            # - ignore if the strict flag in the password policy == False
-            if not pw_score and error_message and self.policy.strict:
-                print(error_message)
+            if not result.password_score and result.error_message:
+                print(result.error_message)
                 return None
 
-            if pw_quality < self.policy.minquality:
+            if result.password_quality < self.policy.minquality:
                 if self.policy.strict:
                     done_msg = ""
                 else:
                     done_msg = _("\nWould you like to use it anyway?")
 
-                if error_message:
-                    error = _(PASSWORD_WEAK_WITH_ERROR) % error_message + " " + done_msg
+                if result.error_message:
+                    main_message = _(PASSWORD_WEAK_WITH_ERROR) % {"password": _(NAME_OF_PASSWORD),
+                                                                  "error_message": result.error_message}
+                    error = main_message + " " + done_msg
                 else:
-                    error = _(PASSWORD_WEAK) % done_msg
+                    error = _(PASSWORD_WEAK) % {"password": _(NAME_OF_PASSWORD)} + " " + done_msg
 
                 if not self.policy.strict:
                     question_window = YesNoDialog(self._app, error)

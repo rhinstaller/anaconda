@@ -146,6 +146,7 @@
                 <property name="invisible_char">●</property>
                 <property name="width_chars">32</property>
                 <signal name="activate" handler="on_entry_activated" swapped="no"/>
+                <signal name="changed" handler="on_passphrase_confirmation_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>

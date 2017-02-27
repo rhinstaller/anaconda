@@ -26,8 +26,7 @@ import os.path
 from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
-from pyanaconda.constants import PASSWORD_MIN_LEN, PASSWORD_STATUS_EMPTY, PASSWORD_STATUS_TOO_SHORT
-from pyanaconda.constants import PASSWORD_STATUS_WEAK, PASSWORD_STATUS_FAIR, PASSWORD_STATUS_GOOD, PASSWORD_STATUS_STRONG
+from pyanaconda import constants
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import USERNAME_VALID, PORTABLE_FS_CHARS
 from pyanaconda.i18n import _
@@ -35,6 +34,7 @@ import re
 
 import logging
 log = logging.getLogger("anaconda")
+
 
 def createLuserConf(instPath, algoname='sha512'):
     """ Writes a libuser.conf for instPath.
@@ -112,87 +112,122 @@ def cryptPassword(password, algo=None):
 
     return cryptpw
 
-def validatePassword(pw, user="root", settings=None, minlen=None, empty_ok=False):
+class PwqualitySettingsCache(object):
+    """Cache for libpwquality settings used for password validation.
+
+    Libpwquality settings instantiation is probably not exactly cheap
+    and we might need the settings for checking every password (even when
+    it is being typed by the user) so it makes sense to cache the objects
+    for reuse. As there might be multiple active policies for different
+    passwords we need to be able to cache multiple policies based on
+    minimum password length, as we don't input anything else to libpwquality
+    than minimum password length and the password itself.
+    """
+    def __init__(self):
+        self._pwq_settings = {}
+
+    def get_settings_by_minlen(self, minlen):
+        settings = self._pwq_settings.get(minlen)
+        if settings is None:
+            settings = pwquality.PWQSettings()
+            settings.read_config()
+            settings.minlen = minlen
+            self._pwq_settings[minlen] = settings
+        return settings
+
+pwquality_settings_cache = PwqualitySettingsCache()
+
+def validatePassword(check_request):
     """Check the quality of a password.
 
-       This function does three things: given a password and an optional
-       username, it will tell if this password can be used at all, how
-       strong the password is on a scale of 1-100, and, if the password is
-       unusable, why it is unusuable.
+       This function does this:
+       - given a password and an optional parameters
+       - it will tell if this password can be used at all (score >0)
+       - how strong the password approximately is on a scale of 1-100
+       - and, if the password is unusable, why it is unusable.
 
        This function uses libpwquality to check the password strength.
-       pwquality will raise a PWQError on a weak password, which, honestly,
-       is kind of dumb behavior. A weak password isn't exceptional, it's what
-       we're asking about! Anyway, this function does not raise PWQError. If
-       the password fails the PWQSettings conditions, the first member of the
-       return tuple will be False and the second member of the tuple will be 0.
+       Pwquality will raise a PWQError on a weak password but this function does
+       not pass that forward.
+       If the password fails the PWQSettings conditions, the score will be set to 0
+       and the error message will contain the reason why the password is bad.
 
-       :param pw: the password to check
-       :type pw: string
+       :param check_request: a password check request wrapper
+       :type check_request: a PasswordCheckRequest instance
+       :returns: a password check result wrapper
+       :rtype: a PasswordCheckResult instance
 
-       :param user: the username for which the password is being set. If no
+       The check_request has the following properties:
+
+       * password - the password to be checked
+
+       * username - the username for which the password is being set. If no
                     username is provided, "root" will be used. Use user=None
                     to disable the username check.
-       :type user: string
 
-       :param settings: an optional PWQSettings object
-       :type settings: pwquality.PWQSettings
-       :param int minlen: Minimum acceptable password length. If not passed,
-                          use the default length from PASSWORD_MIN_LEN
-
-       :returns: A tuple containing (bool(valid), int(score), str(message))
-       :rtype: tuple
+       * minimum_length - Minimum acceptable password length.
+       * empty_ok - If the password can be empty.
+       * pwquality_settings - an optional PWQSettings object
     """
 
     length_ok = False
     error_message = None
     pw_quality = 0
-
-    if settings is None:
-        # Generate a default PWQSettings once and save it as a member of this function
-        if not hasattr(validatePassword, "pwqsettings"):
-            validatePassword.pwqsettings = pwquality.PWQSettings()
-            validatePassword.pwqsettings.read_config()
-        settings = validatePassword.pwqsettings
-
-    # if no password length is specified, then require use the Anaconda default minimal
-    # password length (6 characters at the moment)
-    if minlen is None:
-        minlen = PASSWORD_MIN_LEN
+    if check_request.pwquality_settings:
+        # the request supplies its own pwquality settings
+        settings = check_request.pwquality_settings
+    else:
+        # use default settings for current minlen
+        settings = pwquality_settings_cache.get_settings_by_minlen(check_request.minimum_length)
 
     try:
-        pw_quality = settings.check(pw, None, user)
+        # lets run the password through libpwquality
+        pw_quality = settings.check(check_request.password, None, check_request.username)
     except pwquality.PWQError as e:
         # Leave valid alone here: the password is weak but can still
         # be accepted.
         # PWQError values are built as a tuple of (int, str)
         error_message = e.args[1]
 
-    if empty_ok:
+    if check_request.empty_ok:
         # if we are OK with empty passwords, then empty passwords are also fine length wise
-        length_ok = len(pw) >= minlen or not pw
+        length_ok = len(check_request.password) >= check_request.minimum_length or not check_request.password
     else:
-        length_ok = len(pw) >= minlen
+        length_ok = len(check_request.password) >= check_request.minimum_length
 
-    if not pw and not empty_ok:
-        pw_score = 0
-        status_text = _(PASSWORD_STATUS_EMPTY)
+    if not check_request.password:
+        if check_request.empty_ok:
+            pw_score = 1
+        else:
+            pw_score = 0
+        status_text = _(constants.PASSWORD_STATUS_EMPTY)
     elif not length_ok:
         pw_score = 0
-        status_text = _(PASSWORD_STATUS_TOO_SHORT)
-    elif pw_quality < 50:
+        status_text = _(constants.PASSWORD_STATUS_TOO_SHORT)
+        # If the password is too short replace the libpwquality error
+        # message with a generic "password is too short" message.
+        # This is because the error messages returned by libpwquality
+        # for short passwords don't make much sense.
+        error_message = _(constants.PASSWORD_TOO_SHORT) % {"password": check_request.name_of_password}
+    elif error_message:
         pw_score = 1
-        status_text = _(PASSWORD_STATUS_WEAK)
-    elif pw_quality < 75:
+        status_text = _(constants.PASSWORD_STATUS_WEAK)
+    elif pw_quality < 30:
         pw_score = 2
-        status_text = _(PASSWORD_STATUS_FAIR)
-    elif pw_quality < 90:
+        status_text = _(constants.PASSWORD_STATUS_FAIR)
+    elif pw_quality < 70:
         pw_score = 3
-        status_text = _(PASSWORD_STATUS_GOOD)
+        status_text = _(constants.PASSWORD_STATUS_GOOD)
     else:
         pw_score = 4
-        status_text = _(PASSWORD_STATUS_STRONG)
-    return pw_score, status_text, pw_quality, error_message
+        status_text = _(constants.PASSWORD_STATUS_STRONG)
+
+    return PasswordCheckResult(check_request=check_request,
+                               password_score=pw_score,
+                               status_text=status_text,
+                               password_quality=pw_quality,
+                               error_message=error_message,
+                               length_ok=length_ok)
 
 def check_username(name):
     if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
@@ -235,8 +270,195 @@ def guess_username(fullname):
     username = strip_accents(username).encode("utf-8")
     return username
 
+
+class PasswordCheckRequest(object):
+    """A wrapper for a password check request.
+
+    This in general means the password to be checked as well as its validation criteria
+    such as minimum length, if it can be empty, etc.
+    """
+
+    def __init__(self, password,
+                 username='root',
+                 minimum_length=None,
+                 empty_ok=False,
+                 pwquality_settings=None,
+                 name_of_password=None
+                 ):
+
+        # use default minimal password lenght
+        # if it is not set
+        if minimum_length is None:
+            minimum_length = constants.PASSWORD_MIN_LEN
+        # just use "password" if no password name is specified
+        if name_of_password is None:
+            name_of_password = _(constants.NAME_OF_PASSWORD)
+
+        self._password = password
+        self._username = username
+        self._minimum_length = minimum_length
+        self._empty_ok = empty_ok
+        self._pwquality_settings = pwquality_settings
+        self._name_of_password = name_of_password
+
+    @property
+    def password(self):
+        """Password string to be checked.
+
+        :returns: password string for the check
+        :rtype: str
+        """
+        return self._password
+
+    @property
+    def username(self):
+        """The username for which the password is being set.
+
+        If no username is provided, "root" will be used.
+        Use username=None to disable the username check.
+
+        :returns: username corresponding to the password
+        :rtype: str or None
+        """
+        return self._username
+
+    @property
+    def minimum_length(self):
+        """Minimum password length.
+
+        If not set the Anaconda-wide default is used (6 characters).
+
+        :returns: minimum password length
+        :rtype: int
+        """
+        return self._minimum_length
+
+    @property
+    def empty_ok(self):
+        """Reports if an empty password is considered acceptable.
+
+        By default empty passwords are not considered acceptable.
+
+        :returns: if empty passwords are acceptable
+        :rtype: bool
+        """
+        return self._empty_ok
+
+    @property
+    def pwquality_settings(self):
+        """Settings for libpwquality (if any).
+
+        :returns: libpwquality settings
+        :rtype: pwquality settings object or None
+        """
+        return self._pwquality_settings
+
+    @property
+    def name_of_password(self):
+        """Specifies how should the password be called in error messages.
+
+        In some cases we are checking a "password", but at other times it
+        might be a "passphrase", etc.
+
+        :returns: name of the password
+        :rtype: str
+        """
+        return self._name_of_password
+
+
+class PasswordCheckResult(object):
+    """A wrapper for results for a password check."""
+
+    def __init__(self,
+                 check_request,
+                 password_score,
+                 status_text,
+                 password_quality,
+                 error_message,
+                 length_ok):
+        self._check_request = check_request
+        self._password_score = password_score
+        self._status_text = status_text
+        self._password_quality = password_quality
+        self._error_message = error_message
+        self._length_ok = length_ok
+
+    @property
+    def check_request(self):
+        """The check request used to generate this check result object.
+
+        Can be used to get the password text and checking parameters
+        for this password check result.
+
+        :returns: the password check request that triggered this password check result
+        :rtype: a PasswordCheckRequest instance
+        """
+
+        return self._check_request
+
+    @property
+    def password_score(self):
+        """A high-level integer score indicating password quality.
+
+        Goes from 0 (invalid password) to 4 (valid & very strong password).
+        Mainly used to drive the password quality indicator in the GUI.
+        """
+        return self._password_score
+
+    @property
+    def status_text(self):
+        """A short overall status message describing the password.
+
+        Generally something like "Good.", "Too short.", "Empty.", etc.
+
+        :rtype: short status message
+        :rtype: str
+        """
+        return self._status_text
+
+    @property
+    def password_quality(self):
+        """More fine grained integer indicator describing password strength.
+
+        This basically exports the quality score assigned by libpwquality to the password,
+        which goes from 0 (unacceptable password) to 100 (strong password).
+
+        Note of caution though about using the password quality value - it is intended
+        mainly for on-line password strength hints, not for long-term stability,
+        even just because password dictionary updates and other peculiarities of password
+        strength judging.
+
+        :returns: password quality value as reported by libpwquality
+        :rtype: int
+        """
+        return self._password_quality
+
+    @property
+    def error_message(self):
+        """Option error message describing white the password is bad in detail.
+
+        Mostly direct error output from libpwquality supplied when libpwquality
+        rejects the password. There is currently only non-pwquality error message
+        which is returned when the password is too short, overriding error messages
+        from libpwquality which become confusing in such a case.
+
+        :returns: why the password is bad (provided it is bad) or None
+        :rtype: str or None
+        """
+        return self._error_message
+
+    @property
+    def length_ok(self):
+        """Reports if the password is long enough.
+
+        :returns: if the password is long enough
+        :rtype: bool
+        """
+        return self._length_ok
+
+
 class Users:
-    def __init__ (self):
+    def __init__(self):
         self.admin = libuser.admin()
 
     def _prepareChroot(self, root):

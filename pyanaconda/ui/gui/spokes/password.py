@@ -22,18 +22,12 @@
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
-from pyanaconda.users import cryptPassword, validatePassword
+from pyanaconda.users import cryptPassword
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
-from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
+from pyanaconda.ui.gui.helpers import GUISpokePasswordCheckHandler
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.helpers import InputCheck
-
-from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
-        PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
-        PASSWORD_WEAK_CONFIRM, PASSWORD_WEAK_CONFIRM_WITH_ERROR, PASSWORD_DONE_TWICE,\
-        PW_ASCII_CHARS, PASSWORD_ASCII
 
 import logging
 log = logging.getLogger("anaconda")
@@ -41,7 +35,7 @@ log = logging.getLogger("anaconda")
 __all__ = ["PasswordSpoke"]
 
 
-class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
+class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandler):
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"
@@ -56,7 +50,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
-        GUISpokeInputCheckHandler.__init__(self)
+        GUISpokePasswordCheckHandler.__init__(self)
         self._kickstarted = False
 
     def initialize(self):
@@ -72,31 +66,13 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         # - How strong is the password?
         # - Does the password contain non-ASCII characters?
         # - Is there any data in the confirm box?
-        self.add_check(self.pw, self._checkPasswordEmpty)
-
-        # The password confirmation needs to be checked whenever either of the password
-        # fields change. Separate checks are created for each field so that edits on either
-        # will trigger a new check and so that the last edited field will get focus when
-        # Done is clicked. The checks are saved here so that either check can trigger the
-        # other check in order to reset the status on both when either field is changed.
-        # The check_data field is used as a flag to prevent infinite recursion.
-        self._confirm_check = self.add_check(self.confirm, self._checkPasswordConfirm)
-        self._password_check = self.add_check(self.pw, self._checkPasswordConfirm)
+        self._confirm_check = self.add_check(self.confirm, self.check_password_confirm)
 
         # Keep a reference for these checks, since they have to be manually run for the
         # click Done twice check.
-        self._pwStrengthCheck = self.add_check(self.pw, self._checkPasswordStrength)
-        self._pwASCIICheck = self.add_check(self.pw, self._checkPasswordASCII)
-
-        self.add_check(self.confirm, self._checkPasswordEmpty)
-
-        # Counters for checks that ask the user to click Done to confirm
-        self._waiveStrengthClicks = 0
-        self._waiveASCIIClicks = 0
-
-        # Password validation data
-        self._pw_error_message = None
-        self._pw_score = 0
+        self._pwEmptyCheck = self.add_check(self.pw, self.check_password_empty)
+        self._pwStrengthCheck = self.add_check(self.pw, self.check_password_strength)
+        self._pwASCIICheck = self.add_check(self.pw, self.check_password_ASCII)
 
         self._kickstarted = self.data.rootpw.seen
         if self._kickstarted:
@@ -139,8 +115,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def mandatory(self):
-        return not any(user for user in self.data.user.userList
-                            if "wheel" in user.groups)
+        return not any(user for user in self.data.user.userList if "wheel" in user.groups)
 
     def apply(self):
         pw = self.pw.get_text()
@@ -171,147 +146,65 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         return not (self.completed and flags.automatedInstall
                     and self.data.rootpw.seen)
 
-    def _checkPasswordEmpty(self, inputcheck):
-        """Check whether a password has been specified at all."""
+    @property
+    def input(self):
+        return self.pw.get_text()
 
-        # If the password was set by kickstart, skip this check
-        if self._kickstarted and not self.policy.changesok:
-            return InputCheck.CHECK_OK
+    @property
+    def input_confirmation(self):
+        return self.confirm.get_text()
 
-        if not self.get_input(inputcheck.input_obj):
-            if inputcheck.input_obj == self.pw:
-                return _(PASSWORD_EMPTY_ERROR)
-            else:
-                return _(PASSWORD_CONFIRM_ERROR_GUI)
-        else:
-            return InputCheck.CHECK_OK
+    @property
+    def input_kickstarted(self):
+        return self.data.rootpw.seen
 
-    def _checkPasswordConfirm(self, inputcheck):
-        """Check whether the password matches the confirmation data."""
+    @property
+    def input_username(self):
+        return "root"
 
-        pw = self.pw.get_text()
-        confirm = self.confirm.get_text()
+    def set_input_score(self, score):
+        self.pw_bar.set_value(score)
 
-        # Skip the check if no password is required
-        if (not pw and not confirm) and self._kickstarted:
-            result = InputCheck.CHECK_OK
-        elif confirm and (pw != confirm):
-            result = _(PASSWORD_CONFIRM_ERROR_GUI)
-        else:
-            result = InputCheck.CHECK_OK
+    def set_input_status(self, status_message):
+        self.pw_label.set_text(status_message)
 
-        # If the check succeeded, reset the status of the other check object
-        # Disable the current check to prevent a cycle
-        inputcheck.enabled = False
-        if result == InputCheck.CHECK_OK:
-            if inputcheck == self._confirm_check:
-                self._password_check.update_check_status()
-            else:
-                self._confirm_check.update_check_status()
-        inputcheck.enabled = True
+    def on_password_changed(self, editable, data=None):
+        self._password_or_confirmation_changed()
 
-        return result
+    def on_password_confirmation_changed(self, editable, data=None):
+        self._password_or_confirmation_changed()
 
-    def _updatePwQuality(self, editable=None, data=None):
-        """Update the password quality information.
+    def _password_or_confirmation_changed(self):
+        """One of the password input fields changed.
 
-           This function is called by the ::changed signal handler on the
-           password field.
+        Reset the waive counters and check that both passwords are still the same.
         """
-
-        pwtext = self.pw.get_text()
 
         # Reset the counters used for the "press Done twice" logic
-        self._waiveStrengthClicks = 0
-        self._waiveASCIIClicks = 0
+        self.waive_clicks = 0
+        self.waive_ASCII_clicks = 0
 
-        self._pw_score, status_text, _pw_quality, self._pw_error_message = validatePassword(pwtext,
-                                                                                            "root",
-                                                                                            minlen=self.policy.minlen,
-                                                                                            empty_ok=self.policy.emptyok)
-        self.pw_bar.set_value(self._pw_score)
-        self.pw_label.set_text(status_text)
-
-    def _checkPasswordStrength(self, inputcheck):
-        """Update the error message based on password strength.
-
-           Convert the strength set by _updatePwQuality into an error message.
-        """
-
-        pw = self.pw.get_text()
-        confirm = self.confirm.get_text()
-
-        # Skip the check if no password is required
-        if (not pw and not confirm) and self._kickstarted:
-            return InputCheck.CHECK_OK
-
-        # Check for validity errors
-        # pw score == 0 & errors from libpwquality
-        # - ignore if the strict flag in the password policy == False
-        if not self._pw_score and self._pw_error_message and self.policy.strict:
-            return self._pw_error_message
-
-        # use strength from policy, not bars
-        _pw_score, _status_text, pw_quality, _error_message = validatePassword(pw,
-                                                                               "root",
-                                                                               minlen=self.policy.minlen,
-                                                                               empty_ok=self.policy.emptyok)
-
-        if pw_quality < self.policy.minquality:
-            # If Done has been clicked twice, waive the check
-            if self._waiveStrengthClicks > 1:
-                return InputCheck.CHECK_OK
-            elif self._waiveStrengthClicks == 1:
-                if self._pw_error_message:
-                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pw_error_message
-                else:
-                    return _(PASSWORD_WEAK_CONFIRM)
-            else:
-                # non-strict allows done to be clicked twice
-                if self.policy.strict:
-                    done_msg = ""
-                else:
-                    done_msg = _(PASSWORD_DONE_TWICE)
-
-                if self._pw_error_message:
-                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pw_error_message + " " + done_msg
-                else:
-                    return _(PASSWORD_WEAK) % done_msg
-        else:
-            return InputCheck.CHECK_OK
-
-    def _checkPasswordASCII(self, inputcheck):
-        """Set an error message if the password contains non-ASCII characters.
-
-           Like the password strength check, this check can be bypassed by
-           pressing Done twice.
-        """
-
-        # If Done has been clicked, waive the check
-        if self._waiveASCIIClicks > 0:
-            return InputCheck.CHECK_OK
-
-        password = self.get_input(inputcheck.input_obj)
-        if password and any(char not in PW_ASCII_CHARS for char in password):
-            return _(PASSWORD_ASCII)
-
-        return InputCheck.CHECK_OK
+        # Update the password/confirm match check on changes to the main password field
+        self._confirm_check.update_check_status()
 
     def on_back_clicked(self, button):
         # If the failed check is for password strength or non-ASCII
         # characters, add a click to the counter and check again
         failed_check = next(self.failed_checks_with_message, None)
-        if not self.policy.strict and failed_check == self._pwStrengthCheck:
-            self._waiveStrengthClicks += 1
-            self._pwStrengthCheck.update_check_status()
-        elif failed_check == self._pwASCIICheck:
-            self._waiveASCIIClicks += 1
+        if not self.policy.strict:
+            if failed_check == self._pwStrengthCheck:
+                self.waive_clicks += 1
+                self._pwStrengthCheck.update_check_status()
+            elif failed_check == self._pwEmptyCheck:
+                self.waive_clicks += 1
+                self._pwEmptyCheck.update_check_status()
+            elif failed_check:  # no failed checks -> failed_check == None
+                failed_check.update_check_status()
+        # A failing ASCII check does not mean the password is weak,
+        # so the waive logic for it should be always available.
+        if failed_check == self._pwASCIICheck:
+            self.waive_ASCII_clicks += 1
             self._pwASCIICheck.update_check_status()
 
-        # If neither the password nor the confirm field are set, skip the checks
-        if (not self.pw.get_text()) and (not self.confirm.get_text()):
-            for check in self.checks:
-                check.enabled = False
-
-        if GUISpokeInputCheckHandler.on_back_clicked(self, button):
+        if GUISpokePasswordCheckHandler.on_back_clicked(self, button):
             NormalSpoke.on_back_clicked(self, button)

@@ -26,7 +26,7 @@
 # ignore-check: potfiles
 
 
-from pyanaconda.users import validatePassword
+from pyanaconda.users import validatePassword, PasswordCheckRequest
 from pyanaconda import constants
 from pyanaconda.i18n import _
 import unittest
@@ -39,133 +39,125 @@ ON_RHEL = platform.dist()[0] == "redhat"
 class PasswordQuality(unittest.TestCase):
     def password_empty_test(self):
         """Check if quality of an empty password is reported correctly."""
-        score, status, quality, error_message = validatePassword("")
-        self.assertEqual(score, 0)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_EMPTY))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("")
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 0)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
         # empty password should override password-too-short messages
-        score, status, quality, error_message = validatePassword("", minlen=10)
-        self.assertEqual(score, 0)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_EMPTY))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("", minimum_length=10)
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 0)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
 
     def password_empty_ok_test(self):
         """Check if the empty_ok flag works correctly."""
-        score, status, quality, error_message = validatePassword("", empty_ok=True)
-        self.assertEqual(score, 1)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_WEAK))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("", empty_ok=True)
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 1)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
         # empty_ok should override password length
-        score, status, quality, error_message = validatePassword("", minlen=10, empty_ok=True)
-        self.assertEqual(score, 1)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_WEAK))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("", minimum_length=10, empty_ok=True)
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 1)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
         # non-empty passwords that are too short should still get a score of 0 & the "too short" message
-        score, status, quality, error_message = validatePassword("123", minlen=10, empty_ok=True)
-        self.assertEqual(score, 0)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("123", minimum_length=10, empty_ok=True)
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 0)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
         # also check a long-enough password, just in case
-        score, status, quality, error_message = validatePassword("1234567891", minlen=10, empty_ok=True)
-        self.assertEqual(score, 1)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_WEAK))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("1234567891", minimum_length=10, empty_ok=True)
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 1)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_WEAK))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
 
     def password_length_test(self):
         """Check if minimal password length is checked properly."""
         # first check if the default minimal password length is checked correctly
         # (should be 6 characters at the moment)
-        score, status, _quality, _error_message = validatePassword("123")
-        self.assertEqual(score, 0)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        score, status, _quality, _error_message = validatePassword("123456")
-        self.assertGreater(score, 0)
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_EMPTY))
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        request = PasswordCheckRequest("123")
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 0)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        request = PasswordCheckRequest("123456")
+        result = validatePassword(request)
+        self.assertGreater(result.password_score, 0)
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
 
         # check if setting password length works correctly
-        score, status, _quality, _error_message = validatePassword("12345", minlen=10)
-        self.assertEqual(score, 0)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        score, status, _quality, _error_message = validatePassword("1234567891", minlen=10)
-        self.assertGreater(score, 0)
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        request = PasswordCheckRequest("12345", minimum_length=10)
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 0)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        request = PasswordCheckRequest("1234567891", minimum_length=10)
+        result = validatePassword(request)
+        self.assertGreater(result.password_score, 0)
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
 
     def password_quality_test(self):
         """Check if libpwquality gives reasonable numbers & score is assigned correctly."""
         # " " should give score 0 (<6 chars) & quality 0
-        score, status, quality, error_message = validatePassword(" ")
-        self.assertEqual(score, 0)
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest(" ")
+        result = validatePassword(request)
+        self.assertEqual(result.password_score, 0)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
 
         # "anaconda" is a dictionary word
-        score, status, quality, error_message = validatePassword("anaconda")
-        self.assertGreater(score, 0)
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_EMPTY))
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("anaconda")
+        result = validatePassword(request)
+        self.assertGreater(result.password_score, 0)
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
 
         # "jelenovipivonelej" is a palindrome
-        score, status, quality, error_message = validatePassword("jelenovipivonelej")
-        self.assertGreater(score, 0)
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_EMPTY))
-        self.assertNotEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        self.assertEqual(quality, 0)
-        self.assertIsNotNone(error_message)
+        request = PasswordCheckRequest("jelenovipivonelej")
+        result = validatePassword(request)
+        self.assertGreater(result.password_score, 0)
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_EMPTY))
+        self.assertNotEqual(result.status_text, _(constants.PASSWORD_STATUS_TOO_SHORT))
+        self.assertEqual(result.password_quality, 0)
+        self.assertIsNotNone(result.error_message)
 
-        # "4naconda-" gives a quality of 27 on RHEL7
-        score, status, quality, error_message = validatePassword("4naconda-")
+        # "4naconda-" gives reasonable quality (76) on RHEL7
+        request = PasswordCheckRequest("4naconda-")
+        result = validatePassword(request)
         if ON_RHEL:
-            self.assertEqual(score, 1)  # quality < 50
-            self.assertEqual(status, _(constants.PASSWORD_STATUS_WEAK))
-            self.assertEqual(quality, 27)
-        self.assertIsNone(error_message)
-
-        # "4naconda----" gives a quality of 52 on RHEL7
-        score, status, quality, error_message = validatePassword("4naconda----")
-        if ON_RHEL:
-            self.assertEqual(score, 2)  # quality > 50 & < 75
-            self.assertEqual(status, _(constants.PASSWORD_STATUS_FAIR))
-            self.assertEqual(quality, 52)
-        self.assertIsNone(error_message)
-
-        # "----4naconda----" gives a quality of 81 on RHEL7
-        score, status, quality, error_message = validatePassword("----4naconda----")
-        if ON_RHEL:
-            self.assertEqual(score, 3)  # quality > 75 & < 90
-            self.assertEqual(status, _(constants.PASSWORD_STATUS_GOOD))
-            self.assertEqual(quality, 81)
-        self.assertIsNone(error_message)
+            self.assertEqual(result.password_score, 4)
+            self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_STRONG))
+            self.assertEqual(result.password_quality, 76)
+        self.assertIsNone(result.error_message)
 
         # "?----4naconda----?" gives a quality of 100 on RHEL7
-        score, status, quality, error_message = validatePassword("?----4naconda----?")
+        request = PasswordCheckRequest("?----4naconda----?")
+        result = validatePassword(request)
         # this should (hopefully) give quality 100 everywhere
-        self.assertEqual(score, 4)  # quality > 90
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_STRONG))
-        self.assertEqual(quality, 100)
-        self.assertIsNone(error_message)
+        self.assertEqual(result.password_score, 4)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_STRONG))
+        self.assertEqual(result.password_quality, 100)
+        self.assertIsNone(result.error_message)
 
         # a long enough strong password with minlen set
-        score, status, quality, error_message = validatePassword("?----4naconda----?", minlen=10)
+        request = PasswordCheckRequest("?----4naconda----??!!", minimum_length=10)
+        result = validatePassword(request)
         # this should (hopefully) give quality 100 everywhere
-        self.assertEqual(score, 4)  # quality > 90
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_STRONG))
-        self.assertEqual(quality, 100)
-        self.assertIsNone(error_message)
-
-        # minimum password length overrides strong passwords for score and status
-        score, status, quality, error_message = validatePassword("?----4naconda----?", minlen=30)
-        # this should (hopefully) give quality 100 everywhere
-        self.assertEqual(score, 0)  # too short
-        self.assertEqual(status, _(constants.PASSWORD_STATUS_TOO_SHORT))
-        self.assertEqual(quality, 100)  # independent on password length
-        self.assertIsNone(error_message)
+        self.assertEqual(result.password_score, 4)
+        self.assertEqual(result.status_text, _(constants.PASSWORD_STATUS_STRONG))
+        self.assertEqual(result.password_quality, 100)
+        self.assertIsNone(result.error_message)
