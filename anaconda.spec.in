@@ -318,6 +318,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 27 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.99-1
+- Improved password quality checking (mkolman)
+  Resolves: rhbz#1380277
+  Resolves: rhbz#1383718
+  Resolves: rhbz#1356975
+- Use correct default password quality value (mkolman)
+  Related: rhbz#1380277
+  Related: rhbz#1383718
+- Use initialization controller for spoke initialization (mkolman)
+  Related: rhbz#1380224
+- Add module initialization controller (mkolman)
+  Resolves: rhbz#1380224
+- Add the synchronized decorator (mkolman)
+  Related: rhbz#1380224
+- Add a signal/slot implementation (mkolman)
+  Related: rhbz#1380224
+
 * Mon Feb 20 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.98-1
 - Lock empty root password during kickstart installation (mkolman)
   Resolves: rhbz#1383656
