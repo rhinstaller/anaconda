@@ -328,7 +328,7 @@ def verify_LUKS_devices_have_key(storage):
     """
 
     for dev in (d for d in storage.devices if d.format.type == "luks" and not d.format.exists and not d.format.has_key):
-        yield LUKSDeviceWithoutKeyError(_("Encryption requested for LUKS device %s but no"
+        yield LUKSDeviceWithoutKeyError(_("Encryption requested for LUKS device %s but no "
                                           "encryption key specified for this device.") % (dev.name,))
 
 def check_mounted_partitions(storage):

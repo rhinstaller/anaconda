@@ -223,6 +223,6 @@ should expect that it is the first or last tool working with the configuration f
 Links
 -----
 
-[0] https://docs.python.org/3/library/configparser.html
-[1] https://developer.gnome.org/glib/stable/glib-Key-value-file-parser.html
-[2] https://rhinstaller.github.io/anaconda-addon-development-guide/
+* [0] https://docs.python.org/3/library/configparser.html
+* [1] https://developer.gnome.org/glib/stable/glib-Key-value-file-parser.html
+* [2] https://rhinstaller.github.io/anaconda-addon-development-guide/
