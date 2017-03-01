@@ -37,7 +37,7 @@ import hashlib
 import glob
 import functools
 
-from pyanaconda.packaging import ImagePayload, PayloadSetupError, PayloadInstallError
+from pyanaconda.payload import ImagePayload, PayloadSetupError, PayloadInstallError
 
 from pyanaconda.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
@@ -53,7 +53,7 @@ from blivet.size import Size
 import blivet.util
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.i18n import _
-from pyanaconda.packaging import versionCmp
+from pyanaconda.payload import versionCmp
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """

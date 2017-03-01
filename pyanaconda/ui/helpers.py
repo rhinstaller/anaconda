@@ -59,7 +59,7 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.i18n import _
-from pyanaconda.packaging import payloadMgr
+from pyanaconda.payload import payloadMgr
 from pyanaconda import isys
 
 import logging
