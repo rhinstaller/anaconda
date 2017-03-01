@@ -66,6 +66,7 @@ from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_ad
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.storage_utils import device_matches
+from pyanaconda import screen_access
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
@@ -736,6 +737,9 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
         if self.firstboot == FIRSTBOOT_SKIP:
             action = iutil.disable_service
+            # Also tell the screen access manager, so that the fact that post installation tools
+            # should be disabled propagates to the user interaction config file.
+            screen_access.sam.post_install_tools_disabled = True
 
         # enable/disable the Initial Setup service (if its unit is installed)
         if unit_exists:
