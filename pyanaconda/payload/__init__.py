@@ -693,19 +693,19 @@ class Payload(object):
         self._copyDriverDiskFiles()
 
     def writeStorageEarly(self):
-        """Some packaging payloads require that the storage configuration be
-           written out before doing installation.  Right now, this is basically
-           just the dnfpayload.  Payloads should only implement one of these
-           methods by overriding the unneeded one with a pass.
+        """Some payloads require that the storage configuration be written out
+           before doing installation.  Right now, this is basically just the
+           dnfpayload.  Payloads should only implement one of these methods
+           by overriding the unneeded one with a pass.
         """
         if not flags.dirInstall:
             self.storage.write()
 
     def writeStorageLate(self):
-        """Some packaging payloads require that the storage configuration be
-           written out after doing installation.  Right now, this is basically
-           every payload except for dnf.  Payloads should only implement one of
-           these methods by overriding the unneeded one with a pass.
+        """Some payloads require that the storage configuration be written out
+           after doing installation.  Right now, this is basically every payload
+           except for dnf.  Payloads should only implement one of these methods
+           by overriding the unneeded one with a pass.
         """
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
             set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
@@ -1293,7 +1293,7 @@ class PayloadManager(object):
 
            :param blivet.Blivet storage: The blivet storage instance
            :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
-           :param packaging.Payload payload: The payload instance
+           :param payload.Payload payload: The payload instance
            :param installclass.BaseInstallClass instClass: The install class instance
            :param bool fallback: Whether to fall back to the default repo in case of error
            :param bool checkmount: Whether to check for valid mounted media

@@ -73,8 +73,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageChecker):
         :param storage: object storing storage-related information
                         (disks, partitioning, bootloader, etc.)
         :type storage: blivet.Blivet
-        :param payload: object storing packaging-related information
-        :type payload: pyanaconda.packaging.Payload
+        :param payload: object storing payload-related information
+        :type payload: pyanaconda.payload.Payload
         :param instclass: distribution-specific information
         :type instclass: pyanaconda.installclass.BaseInstallClass
 

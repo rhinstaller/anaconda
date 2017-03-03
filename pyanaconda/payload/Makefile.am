@@ -1,4 +1,4 @@
-# packaging/Makefile.am for anaconda
+# payload/Makefile.am for anaconda
 #
 # Copyright (C) 2012  Red Hat, Inc.
 #
@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-packagingdir = $(pkgpyexecdir)/packaging
-packaging_PYTHON = $(srcdir)/*.py
+payloaddir = $(pkgpyexecdir)/payload
+payload_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

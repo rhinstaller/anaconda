@@ -40,7 +40,7 @@ class FileSystemSpaceChecker(object):
 
            Attributes:
 
-           payload  -- An instance of a packaging.Payload subclass.
+           payload  -- An instance of a payload.Payload subclass.
            storage  -- An instance of storage.Storage.
         """
         self.payload = payload

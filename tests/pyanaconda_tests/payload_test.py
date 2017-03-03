@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.packaging import dnfpayload
+from pyanaconda.payload import dnfpayload
 from blivet.size import Size
 import unittest
 

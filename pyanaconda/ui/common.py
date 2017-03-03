@@ -202,7 +202,7 @@ class Spoke(object, metaclass=ABCMeta):
            storage      -- An instance of storage.Storage.  This is useful for
                            determining what storage devices are present and how
                            they are configured.
-           payload      -- An instance of a packaging.Payload subclass.  This
+           payload      -- An instance of a payload.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
            instclass    -- An instance of a BaseInstallClass subclass.  This
@@ -545,7 +545,7 @@ class Hub(object, metaclass=ABCMeta):
            storage      -- An instance of storage.Storage.  This is useful for
                            determining what storage devices are present and how
                            they are configured.
-           payload      -- An instance of a packaging.Payload subclass.  This
+           payload      -- An instance of a payload.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
            instclass    -- An instance of a BaseInstallClass subclass.  This

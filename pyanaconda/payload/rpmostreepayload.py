@@ -40,7 +40,7 @@ from blivet.util import umount
 import logging
 log = logging.getLogger("anaconda")
 
-from pyanaconda.packaging import ArchivePayload, PayloadInstallError
+from pyanaconda.payload import ArchivePayload, PayloadInstallError
 import pyanaconda.errors as errors
 
 class RPMOSTreePayload(ArchivePayload):

@@ -635,7 +635,7 @@ if __name__ == "__main__":
         anaconda.storage.setup_disk_images()
 
     from blivet.osinstall import storage_initialize
-    from pyanaconda.packaging import payloadMgr
+    from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
 
     if not flags.dirInstall:

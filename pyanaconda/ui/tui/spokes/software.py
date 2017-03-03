@@ -22,7 +22,7 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
+from pyanaconda.payload import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
 from pyanaconda.i18n import N_, _, C_
 
 from pyanaconda.constants import THREAD_PAYLOAD
