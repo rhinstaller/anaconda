@@ -234,6 +234,15 @@ def makerepo(topdir, desc=None):
         outf.write(desc+"\n")
     makedir(topdir+'/rpms/'+ARCH)
 
+
+def makerepodata(topdir):
+    makedir(topdir + '/repodata/')
+    makefile(topdir + '/repodata/repomd.xml')
+    makefile(topdir + '/repodata/filelists.xml.gz')
+    makefile(topdir + '/repodata/primary.xml.gz')
+    makefile(topdir + '/repodata/other.xml.gz')
+
+
 class TestFindRepos(FileTestCaseBase):
     def test_basic(self):
         """find_repos: return RPM dir if a valid repo is found"""
@@ -255,12 +264,16 @@ class TestSaveRepo(FileTestCaseBase):
         """save_repo: copies directory contents to /run/install/DD-X"""
         makerepo(self.srcdir)
         repo = find_repos(self.srcdir)[0]
-        makefile(repo + '/repodata')
+        makerepodata(repo)
         makefile(repo + '/fake-something1.rpm')
         makefile(repo + '/fake-something2.rpm')
         makefile(repo + '/fake-something3.rpm')
         saved = save_repo(repo, target=self.destdir)
-        expected_files = set(["fake-something1.rpm", "fake-something2.rpm", "fake-something3.rpm", "repodata"])
+        expected_files = set(["fake-something1.rpm", "fake-something2.rpm",
+                              "fake-something3.rpm", "repodata/repomd.xml",
+                              "repodata/filelists.xml.gz",
+                              "repodata/primary.xml.gz",
+                              "repodata/other.xml.gz"])
         self.assertEqual(set(listfiles(saved)), expected_files)
         self.assertEqual(saved, os.path.join(self.destdir, "DD-1"))
 

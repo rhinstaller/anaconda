@@ -271,15 +271,19 @@ def save_repo(repo, target="/run/install"):
     if os.path.isfile(repo):
         shutil.copy2(repo, newdir)
     elif os.path.isdir(repo):
-        for item in os.listdir(repo):
-            item_path = os.path.join(repo, item)
-            if os.path.isfile(item_path):
-                log.debug("copying %s to %s", item_path, newdir)
-                shutil.copy2(item_path, newdir)
-            else:
-                log.warning("WARNING: DD repo content not a file: %s", item_path)
+        for root, dirs, files in os.walk(repo):
+            dest_path = os.path.join(newdir, os.path.relpath(root, repo))
+            for file in files:
+                item_path = os.path.join(repo, root, file)
+                log.debug("copying %s to %s", item_path, dest_path)
+                shutil.copy2(item_path, dest_path)
+            for dir in dirs:
+                item_path = os.path.join(dest_path, dir)
+                log.debug("creating %s", item_path)
+                os.mkdir(item_path)
     else:
-        log.error("ERROR: DD repository needs to be a file file or a directory: %s", repo)
+        log.error("ERROR: DD repository needs to be a file or a directory: %s",
+                  repo)
     return newdir
 
 def extract_drivers(drivers=None, repos=None, outdir="/updates",
