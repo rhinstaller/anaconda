@@ -146,17 +146,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageChecker):
 
         pass
 
-    def execute(self):
-        """
-        The excecute method that is called when the spoke is left. It is
-        supposed to do all changes to the runtime environment according to
-        the values set in the GUI elements.
-
-        """
-
-        # nothing to do here
-        pass
-
     @property
     def indirect(self):
         return True
