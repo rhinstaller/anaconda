@@ -273,12 +273,12 @@ def save_repo(repo, target="/run/install"):
     elif os.path.isdir(repo):
         for root, dirs, files in os.walk(repo):
             dest_path = os.path.join(newdir, os.path.relpath(root, repo))
-            for file in files:
-                item_path = os.path.join(repo, root, file)
+            for file_name in files:
+                item_path = os.path.join(repo, root, file_name)
                 log.debug("copying %s to %s", item_path, dest_path)
                 shutil.copy2(item_path, dest_path)
-            for dir in dirs:
-                item_path = os.path.join(dest_path, dir)
+            for dir_name in dirs:
+                item_path = os.path.join(dest_path, dir_name)
                 log.debug("creating %s", item_path)
                 os.mkdir(item_path)
     else:
