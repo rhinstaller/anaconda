@@ -318,6 +318,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 06 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.100-1
+- Fix Driver Disc documentation (jkonecny)
+  Related: rhbz#1377233
+- Support DD rpm loading from local disk device (jkonecny)
+  Resolves: rhbz#1377233
+- Fix a Pylint warning (mkolman)
+  Related: rhbz#1425760
+- Remove redundant help content generation code (mkolman)
+  Resolves: rhbz#1428787
+- network: create dracut arguments for iSCSI root accessed via vlan (rvykydal)
+  Resolves: rhbz#1374003
+- Add support for RHVH custom storage checking (vponcova)
+  Related: rhbz#1412151
+- Enable the install class to customize the storage checking (vponcova)
+  Resolves: rhbz#1412151
+- Replace sanity check with more advanced storage checker (vponcova)
+  Related: rhbz#1412151
+- Rename StorageChecker to StorageCheckHandler (vponcova)
+  Related: rhbz#1412151
+- Perform recursive copying of driver disk RPM repo contents (esyr)
+  Resolves: rhbz#1425760
+- Fix a typo in an error message (esyr)
+  Related: rhbz#1425760
+- Don't block gui during dasd formating (vponcova)
+  Resolves: rhbz#1335465
+- rhev: add /home /tmp /var/log /var/log/audit (dougsland)
+  Resolves: rhbz#1422952
+- Increase verbosity of lvmdump in pre logging script (jkonecny)
+  Related: rhbz#1255659
+
 * Mon Feb 27 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.99-1
 - Improved password quality checking (mkolman)
   Resolves: rhbz#1380277
