@@ -37,6 +37,7 @@ from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
+from blivet.devicefactory import get_device_type
 
 from pyanaconda.i18n import _, N_
 from pyanaconda import isys
@@ -140,113 +141,148 @@ def ui_storage_logger():
     yield
     storage_log.removeFilter(storage_filter)
 
-class SanityException(Exception):
-    pass
 
-class SanityError(SanityException):
-    pass
+def verify_root(storage, constraints, report_error, report_warning):
+    """ Verify the root.
 
-class SanityWarning(SanityException):
-    pass
-
-class LUKSDeviceWithoutKeyError(SanityError):
-    pass
-
-def sanity_check(storage, min_ram=isys.MIN_RAM):
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
     """
-    Run a series of tests to verify the storage configuration.
-
-    This function is called at the end of partitioning so that
-    we can make sure you don't have anything silly (like no /,
-    a really small /, etc).
-
-    :param storage: an instance of the :class:`blivet.Blivet` class to check
-    :param min_ram: minimum RAM (in MiB) needed for the installation with swap
-                    space available
-    :rtype: a list of SanityExceptions
-    :return: a list of accumulated errors and warnings
-
-    """
-
-    exns = []
-
-    checkSizes = [('/usr', Size("250 MiB")), ('/tmp', Size("50 MiB")), ('/var', Size("384 MiB")),
-                  ('/home', Size("100 MiB")), ('/boot', Size("200 MiB"))]
-    mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
-    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
-
-    filesystems = storage.mountpoints
     root = storage.fsset.rootDevice
-    swaps = storage.fsset.swapDevices
 
     if root:
-        if root.size < Size("250 MiB"):
-            exns.append(
-               SanityWarning(_("Your root partition is less than 250 "
-                              "megabytes which is usually too small to "
-                              "install %s.") % (productName,)))
+        if root.size < constraints["min_root"]:
+            report_warning(_("Your root partition is less than %(size)s "
+                             "which is usually too small to install "
+                             "%(product)s.")
+                           % {'size': constraints["min_root"],
+                              'product': productName})
     else:
-        exns.append(
-           SanityError(_("You have not defined a root partition (/), "
-                        "which is required for installation of %s "
-                        "to continue.") % (productName,)))
+        report_error(_("You have not defined a root partition (/), "
+                       "which is required for installation of %s"
+                       " to continue.") % (productName,))
 
-    # FIXME: put a check here for enough space on the filesystems. maybe?
+    if storage.rootDevice and storage.rootDevice.format.exists:
+        e = storage.mustFormat(storage.rootDevice)
+        if e:
+            report_error(e)
 
-    for (mount, size) in checkSizes:
+    if storage.rootDevice and constraints["root_device_types"]:
+        device_type = get_device_type(storage.rootDevice)
+        device_types = constraints["root_device_types"]
+        if device_type not in device_types:
+            report_error(_("Your root partition must be on a device of type: %s.")
+                         % ", ".join(DEVICE_TEXT_MAP[t] for t in device_types))
+
+
+def verify_partition_sizes(storage, constraints, report_error, report_warning):
+    """ Verify the minimal and required partition sizes.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
+
+    for (mount, size) in constraints["min_partition_sizes"].items():
         if mount in filesystems and filesystems[mount].size < size:
-            exns.append(
-               SanityWarning(_("Your %(mount)s partition is less than "
-                              "%(size)s which is lower than recommended "
-                              "for a normal %(productName)s install.")
-                            % {'mount': mount, 'size': size,
-                               'productName': productName}))
+            report_warning(_("Your %(mount)s partition is less than "
+                             "%(size)s which is lower than recommended "
+                             "for a normal %(productName)s install.")
+                           % {'mount': mount, 'size': size,
+                              'productName': productName})
+
+    for (mount, size) in constraints["req_partition_sizes"].items():
+        if mount in filesystems and filesystems[mount].size < size:
+            report_error(_("Your %(mount)s partition is less than "
+                           "%(size)s which is lower than required.")
+                         % {'mount': mount, 'size': size})
+
+
+def verify_partition_format_sizes(storage, constraints, report_error, report_warning):
+    """ Verify that the size of the device is allowed by the format used.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
 
     for (mount, device) in filesystems.items():
         problem = filesystems[mount].checkSize()
         if problem < 0:
-            exns.append(
-               SanityError(_("Your %(mount)s partition is too small for %(format)s formatting "
-                            "(allowable size is %(minSize)s to %(maxSize)s)")
-                          % {"mount": mount, "format": device.format.name,
-                             "minSize": device.minSize, "maxSize": device.maxSize}))
+            report_error(_("Your %(mount)s partition is too small for "
+                           "%(format)s formatting (allowable size is "
+                           "%(minSize)s to %(maxSize)s)")
+                         % {"mount": mount, "format": device.format.name,
+                            "minSize": device.minSize, "maxSize": device.maxSize})
         elif problem > 0:
-            exns.append(
-               SanityError(_("Your %(mount)s partition is too large for %(format)s formatting "
-                            "(allowable size is %(minSize)s to %(maxSize)s)")
-                          % {"mount":mount, "format": device.format.name,
-                             "minSize": device.minSize, "maxSize": device.maxSize}))
+            report_warning(_("Your %(mount)s partition is too large for "
+                             "%(format)s formatting (allowable size is "
+                             "%(minSize)s to %(maxSize)s)")
+                           % {"mount": mount, "format": device.format.name,
+                              "minSize": device.minSize, "maxSize": device.maxSize})
+
+
+def verify_bootloader(storage, constraints, report_error, report_warning):
+    """ Verify that the size of the device is allowed by the format used.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
 
     if storage.bootloader and not storage.bootloader.skip_bootloader:
         stage1 = storage.bootloader.stage1_device
         if not stage1:
-            exns.append(
-               SanityError(_("No valid boot loader target device found. "
-                            "See below for details.")))
+            report_error(_("No valid boot loader target device found. "
+                           "See below for details."))
             pe = _platform.stage1MissingError
             if pe:
-                exns.append(SanityError(_(pe)))
+                report_error(_(pe))
         else:
             storage.bootloader.is_valid_stage1_device(stage1)
-            exns.extend(SanityError(msg) for msg in storage.bootloader.errors)
-            exns.extend(SanityWarning(msg) for msg in storage.bootloader.warnings)
+            for msg in storage.bootloader.errors:
+                report_error(msg)
+
+            for msg in storage.bootloader.warnings:
+                report_warning(msg)
 
         stage2 = storage.bootloader.stage2_device
         if stage1 and not stage2:
-            exns.append(SanityError(_("You have not created a bootable partition.")))
+            report_error(_("You have not created a bootable partition."))
         else:
             storage.bootloader.is_valid_stage2_device(stage2)
-            exns.extend(SanityError(msg) for msg in storage.bootloader.errors)
-            exns.extend(SanityWarning(msg) for msg in storage.bootloader.warnings)
-            if not storage.bootloader.check():
-                exns.extend(SanityError(msg) for msg in storage.bootloader.errors)
+            for msg in storage.bootloader.errors:
+                report_error(msg)
 
-        #
-        # check that GPT boot disk on BIOS system has a BIOS boot partition
-        #
-        if _platform.weight(fstype="biosboot") and \
-           stage1 and stage1.isDisk and \
-           getattr(stage1.format, "labelType", None) == "gpt":
+            for msg in storage.bootloader.warnings:
+                report_warning(msg)
+
+            if not storage.bootloader.check():
+                for msg in storage.bootloader.errors:
+                    report_error(msg)
+
+
+def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
+    """ Verify that GPT boot disk on BIOS system has a BIOS boot partition.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    if storage.bootloader and not storage.bootloader.skip_bootloader:
+        stage1 = storage.bootloader.stage1_device
+
+        if _platform.weight(fstype="biosboot") and stage1 and stage1.isDisk \
+                and getattr(stage1.format, "labelType", None) == "gpt":
+
             missing = True
             for part in [p for p in storage.partitions if p.disk == stage1]:
                 if part.format.type == "biosboot":
@@ -254,77 +290,345 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
                     break
 
             if missing:
-                exns.append(
-                   SanityError(_("Your BIOS-based system needs a special "
-                                "partition to boot from a GPT disk label. "
-                                "To continue, please create a 1MiB "
-                                "'biosboot' type partition.")))
+                report_error(_("Your BIOS-based system needs a special "
+                               "partition to boot from a GPT disk label. "
+                               "To continue, please create a 1MiB "
+                               "'biosboot' type partition."))
+
+
+def verify_swap(storage, constraints, report_error, report_warning):
+    """ Verify the existence of swap.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    swaps = storage.fsset.swapDevices
 
     if not swaps:
         installed = util.total_memory()
-        required = Size("%s MiB" % (min_ram + isys.NO_SWAP_EXTRA_RAM))
+        required = Size("%s MiB" % (constraints["min_ram"] + isys.NO_SWAP_EXTRA_RAM))
 
         if installed < required:
-            exns.append(
-               SanityError(_("You have not specified a swap partition.  "
-                            "%(requiredMem)s of memory is required to continue installation "
-                            "without a swap partition, but you only have %(installedMem)s.")
-                          % {"requiredMem": required,
-                             "installedMem": installed}))
+            report_error(_("You have not specified a swap partition. "
+                           "%(requiredMem)s of memory is required to continue "
+                           "installation without a swap partition, but you only "
+                           "have %(installedMem)s.")
+                         % {"requiredMem": required, "installedMem": installed})
         else:
-            exns.append(
-               SanityWarning(_("You have not specified a swap partition.  "
-                              "Although not strictly required in all cases, "
-                              "it will significantly improve performance "
-                              "for most installations.")))
+            report_warning(_("You have not specified a swap partition. "
+                             "Although not strictly required in all cases, "
+                             "it will significantly improve performance "
+                             "for most installations."))
+
+
+def verify_swap_uuid(storage, constraints, report_error, report_warning):
+    """ Verify swap uuid.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    swaps = storage.fsset.swapDevices
     no_uuid = [s for s in swaps if s.format.exists and not s.format.uuid]
+
     if no_uuid:
-        exns.append(
-           SanityWarning(_("At least one of your swap devices does not have "
-                          "a UUID, which is common in swap space created "
-                          "using older versions of mkswap. These devices "
-                          "will be referred to by device path in "
-                          "/etc/fstab, which is not ideal since device "
-                          "paths can change under a variety of "
-                          "circumstances. ")))
+        report_warning(_("At least one of your swap devices does not have "
+                         "a UUID, which is common in swap space created "
+                         "using older versions of mkswap. These devices "
+                         "will be referred to by device path in "
+                         "/etc/fstab, which is not ideal since device "
+                         "paths can change under a variety of "
+                         "circumstances. "))
+
+
+def verify_mountpoints_on_root(storage, constraints, report_error, report_warning):
+    """ Verify mountpoints on the root.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
+
+    for mountpoint in filesystems:
+        if mountpoint in constraints["must_be_on_root"]:
+            report_error(_("This mount point is invalid. The %s directory must "
+                           "be on the / file system.") % mountpoint)
+
+
+def verify_mountpoints_not_on_root(storage, constraints, report_error, report_warning):
+    """ Verify mountpoints not on the root.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
+
+    for mountpoint in constraints["must_not_be_on_root"]:
+        if mountpoint not in filesystems:
+            report_error(_("Your %s must be on a separate partition or LV.")
+                         % mountpoint)
+
+
+def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_warning):
+    """ Verify mountpoints on linuxfs.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    filesystems = storage.mountpoints
 
     for (mountpoint, dev) in filesystems.items():
-        if mountpoint in mustbeonroot:
-            exns.append(
-               SanityError(_("This mount point is invalid.  The %s directory must "
-                            "be on the / file system.") % mountpoint))
-
-        if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linuxNative):
-            exns.append(
-               SanityError(_("The mount point %s must be on a linux file system.") % mountpoint))
-
-    if storage.rootDevice and storage.rootDevice.format.exists:
-        e = storage.mustFormat(storage.rootDevice)
-        if e:
-            exns.append(SanityError(e))
-
-    exns += verify_LUKS_devices_have_key(storage)
-
-    return exns
+        if mountpoint in constraints["must_be_on_linuxfs"] \
+                and (not dev.format.mountable or not dev.format.linuxNative):
+            report_error(_("The mount point %s must be on a linux file system.") % mountpoint)
 
 
-def verify_LUKS_devices_have_key(storage):
-    """
-    Verify that all non-existant LUKS devices have some way of obtaining
-    a key.
+def verify_luks_devices_have_key(storage, constraints, report_error, report_warning):
+    """ Verify that all non-existant LUKS devices have some way of obtaining a key.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
 
     Note: LUKS device creation will fail without a key.
-
-    :rtype: generator of str
-    :returns: a generator of error messages, may yield no error messages
-
     """
+    devices = (d for d in storage.devices
+               if d.format.type == "luks"
+               and not d.format.exists
+               and not d.format.hasKey)
 
-    for dev in (d for d in storage.devices if \
-       d.format.type == "luks" and \
-       not d.format.exists and \
-       not d.format.hasKey):
-        yield LUKSDeviceWithoutKeyError(_("LUKS device %s has no encryption key") % (dev.name,))
+    for dev in devices:
+        report_error(_("LUKS device %s has no encryption key") % (dev.name,))
+
+
+class StorageCheckerReport(object):
+    """Class for results of the storage checking."""
+
+    def __init__(self):
+        self.info = list()
+        self.errors = list()
+        self.warnings = list()
+
+    @property
+    def all_errors(self):
+        """Return a list of errors and warnings."""
+        return self.errors + self.warnings
+
+    @property
+    def success(self):
+        """Success, if no errors and warnings were reported."""
+        return not self.failure
+
+    @property
+    def failure(self):
+        """Failure, if some errors or warnings were reported."""
+        return bool(self.errors or self.warnings)
+
+    def add_info(self, msg):
+        """ Add an error message.
+
+        :param str msg: an info message
+        """
+        self.info.append(msg)
+
+    def add_error(self, msg):
+        """ Add an error message.
+
+        :param str msg: an error message
+        """
+        self.add_info("Found sanity error: %s" % msg)
+        self.errors.append(msg)
+
+    def add_warning(self, msg):
+        """ Add a warning message.
+
+        :param str msg: a warning message
+        """
+        self.add_info("Found sanity warning: %s" % msg)
+        self.warnings.append(msg)
+
+    def log(self, logger, error=True, warning=True, info=True):
+        """ Log the messages.
+
+        :param logger: an instance of logging.Logger
+        :param bool error: should we log the error messages?
+        :param bool warning: should we log the warning messages?
+        :param bool info: should we log the info messages?
+        """
+        if info:
+            map(logger.debug, self.info)
+
+        if error:
+            map(logger.error, self.errors)
+
+        if warning:
+            map(logger.warning, self.warnings)
+
+
+class StorageChecker(object):
+    """Class for advanced storage checking."""
+
+    def __init__(self):
+        self.checks = list()
+        self.constraints = dict()
+
+    def add_check(self, callback):
+        """ Add a callback for storage checking.
+
+        :param callback: a check for the storage checking
+        :type callback: a function with arguments (storage, constraints,
+        report_error, report_warning), where storage is an instance of the
+        storage to check, constraints is a dictionary of constraints and
+        report_error and report_warning are functions for reporting messages.
+        """
+        self.checks.append(callback)
+
+    def remove_check(self, callback):
+        """ Remove a callback for storage checking.
+
+        :param callback: a check for the storage checking
+        """
+        if callback in self.checks:
+            self.checks.remove(callback)
+
+    def add_new_constraint(self, name, value):
+        """ Add a new constraint for storage checking.
+
+        KeyError will be raised if the constraint already exists.
+
+        :param str name: a name of the new constraint
+        :param value: a value of the constraint
+        """
+        if name in self.constraints:
+            raise KeyError("The constraint %s already exists.", name)
+
+        self.constraints[name] = value
+
+    def add_constraint(self, name, value):
+        """ Add a constraint for storage checking that will override
+        the existing one.
+
+        KeyError will be raised if the constraint does not exist.
+
+        :param str name: a name of the existing constraint
+        :param value: a value of the constraint
+        """
+        if name not in self.constraints:
+            raise KeyError("The constraint %s does not exist.", name)
+
+        self.constraints[name] = value
+
+    def update_constraint(self, name, value):
+        """ Update a constraint for storage checking if the
+        constraint is a dictionary or a set.
+
+        AttributeError will be raised, if the constraint
+        does not have the update method.
+
+        KeyError will be raised, if the constraint does
+        not exists.
+
+        :param str name: a name of the constraint
+        :param value: a value of the constraint (set or dictionary)
+        """
+        self.constraints[name].update(value)
+
+    def check(self, storage, constraints=None, skip=None):
+        """ Run a series of tests to verify the storage configuration.
+
+        This function is called at the end of partitioning so that we can make
+        sure you don't have anything silly (like no /, a really small /, etc).
+
+        :param storage: an instance of the :class:`blivet.Blivet` class to check
+        :param constraints: an dictionary of constraints that will be used by
+               checks or None if we want to use the storage checker's constraints
+        :param skip: a collection of checks we want to skip or None if we don't
+               want to skip any
+        :return an instance of StorageCheckerReport with reported errors and warnings
+        """
+        if constraints is None:
+            constraints = self.constraints
+
+        # Report the constraints.
+        result = StorageCheckerReport()
+        result.add_info("Storage check started with constraints %s."
+                        % constraints)
+
+        # Process checks.
+        for check in self.checks:
+            # Skip this check.
+            if skip and check in skip:
+                result.add_info("Skipped sanity check %s." % check.__name__)
+                continue
+
+            # Run the check.
+            result.add_info("Run sanity check %s." % check.__name__)
+            check(storage, constraints, result.add_error, result.add_warning)
+
+        # Report the result.
+        if result.success:
+            result.add_info("Storage check finished with success.")
+        else:
+            result.add_info("Storage check finished with failure(s).")
+
+        return result
+
+    def set_default_constraints(self):
+        """Set the default constraints needed by default checks."""
+        self.constraints = dict()
+        self.add_new_constraint("min_ram", isys.MIN_RAM)
+        self.add_new_constraint("min_root", Size("250 MiB"))
+        self.add_new_constraint("min_partition_sizes", {
+            '/usr': Size("250 MiB"),
+            '/tmp': Size("50 MiB"),
+            '/var': Size("384 MiB"),
+            '/home': Size("100 MiB"),
+            '/boot': Size("200 MiB")
+        })
+
+        self.add_new_constraint("must_be_on_linuxfs", {
+            '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
+        })
+
+        self.add_new_constraint("must_be_on_root", {
+            '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
+        })
+
+        self.add_new_constraint("root_device_types", set())
+        self.add_new_constraint("req_partition_sizes", dict())
+        self.add_new_constraint("must_not_be_on_root", set())
+
+    def set_default_checks(self):
+        """Set the default checks."""
+        self.checks = list()
+        self.add_check(verify_root)
+        self.add_check(verify_partition_sizes)
+        self.add_check(verify_partition_format_sizes)
+        self.add_check(verify_bootloader)
+        self.add_check(verify_gpt_biosboot)
+        self.add_check(verify_swap)
+        self.add_check(verify_swap_uuid)
+        self.add_check(verify_mountpoints_on_linuxfs)
+        self.add_check(verify_mountpoints_on_root)
+        self.add_check(verify_mountpoints_not_on_root)
+        self.add_check(verify_luks_devices_have_key)
+
+
+# Setup the storage checker.
+storage_checker = StorageChecker()
+storage_checker.set_default_constraints()
+storage_checker.set_default_checks()
+
 
 def try_populate_devicetree(devicetree):
     """

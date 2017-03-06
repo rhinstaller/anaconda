@@ -25,6 +25,7 @@ from blivet.platform import platform
 from blivet.devicelibs import swap
 from blivet.size import Size
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
+from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 
 
 class OvirtBaseInstallClass(BaseInstallClass):
@@ -64,6 +65,23 @@ class OvirtBaseInstallClass(BaseInstallClass):
                     autoreq.fstype = storage.defaultFSType
 
         storage.autoPartitionRequests = autorequests
+
+    def setStorageChecker(self, storage_checker):
+        # / needs to be thin LV
+        storage_checker.add_constraint("root_device_types", {
+            DEVICE_TYPE_LVM_THINP
+        })
+
+        # /var must be on a separate LV or partition
+        storage_checker.update_constraint("must_not_be_on_root", {
+            '/var'
+        })
+
+        # /var must be at least 10GB, /boot must be at least 1GB
+        storage_checker.update_constraint("req_partition_sizes", {
+            '/var': Size("10 GiB"),
+            '/boot': Size("1 GiB")
+        })
 
     def __init__(self):
         BaseInstallClass.__init__(self)

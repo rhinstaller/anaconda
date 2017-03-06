@@ -123,6 +123,12 @@ class BaseInstallClass(object):
         # The default partitioning should be always set.
         self.setDefaultPartitioning(anaconda.storage)
 
+    def setStorageChecker(self, storage_checker):
+        # Update constraints and add or remove some checks in
+        # the storage checker to customize the storage sanity
+        # checking.
+        pass
+
     # sets default ONBOOT values and updates ksdata accordingly
     def setNetworkOnbootDefault(self, ksdata):
         pass
