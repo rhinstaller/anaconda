@@ -328,6 +328,274 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 06 2017 Martin Kolman <mkolman@redhat.com> - 26.21.1-1
+- We should not have pyanaconda submodules on PYTHONPATH (vponcova)
+- Lock empty root password during kickstart installation (#1383656) (mkolman)
+- Use system Python when running Anaconda (mkolman)
+- Remove unused false positives for pylint (vtrefny)
+- Fix pylint error in BlivetGUI spoke (vtrefny)
+- Fix tests by renaming packaging to payload (jkonecny)
+- Rescue mode should wait for the storage and luks devices (#1376638) (vponcova)
+
+* Mon Feb 27 2017 Martin Kolman <mkolman@redhat.com> - 26.21-1
+- Add blivet-gui as requirement for the GUI package (vtrefny)
+- Add a bottom bar to the Blivet GUI spoke (mkolman)
+- Hide storage config spokes marked by SAM as visited (mkolman)
+- Keep last used partitioning method selected (mkolman)
+- Rollback planned storage changes if partitioning method changes (mkolman)
+- Add blivet-gui spoke (vpodzime)
+- docs: fix formating a bit for Links (Frodox)
+- Fix a typo (mkolman)
+- Polish unsupported filesystems in the custom spoke (jkonecny)
+
+* Tue Feb 07 2017 Martin Kolman <mkolman@redhat.com> - 26.20-1
+- Update dracut test for network --ipv6gateway (rvykydal)
+- Correctly propagate --ipv6gateway to ifcfg files(#1170845) (mkolman)
+- network: respect --activate value for bridge from kickstart (rvykydal)
+- network: fix --activate for bridge slaves configured via %%pre ks (rvykydal)
+- network: activate bridge for first network command in ks via %%pre (rvykydal)
+- network: unify slave connection names for ks %%pre with ks and gui (rvykydal)
+- network: bind slave connections to DEVICE, not HWADDR (#1373360) (rvykydal)
+- Do not allow creating ntfs filesystem in custom spoke (vtrefny)
+- Various minor formatting fixes (mkolman)
+- PEP8 and refactoring for packaging (mkolman)
+- PEP8 and refactoring for vnc.py (mkolman)
+- PEP8 and refactoring for storage_utils.py (mkolman)
+- PEP8 and refactoring for network.py (mkolman)
+- PEP8 and refactoring for kickstart.py (mkolman)
+- PEP8 and refactoring for image.py (mkolman)
+- Cosmetic PEP8 and refactoring for flags.py (mkolman)
+- PEP8 and refactoring for exception.py (mkolman)
+- PEP8 and refactoring for bootloader.py (mkolman)
+- PEP8 and refactoring for anaconda_log.py (mkolman)
+- Validate dasd and zfcp user input (#1335092) (vponcova)
+- network: use introspection data from libnm instead of libnm-glib (lkundrak)
+
+* Mon Jan 16 2017 Martin Kolman <mkolman@redhat.com> - 26.19-1
+- Use initialization controller for spoke initialization (mkolman)
+- Add module initialization controller (mkolman)
+- Fix link to the documentation in the README file (jkonecny)
+- There is no thread for dasd formatting in tui. (vponcova)
+- Move the (mkolman)
+- Fix the status of the StorageSpoke for dasd formatting (#1274596) (vponcova)
+
+* Mon Jan 09 2017 Martin Kolman <mkolman@redhat.com> - 26.18-1
+- Always refresh the size of swap before autopartitioning. (vponcova)
+- Run the space check only if the spokes are complete (#1403505) (vponcova)
+- Ignore result directory with logs from tests (jkonecny)
+- Disable pylint no-member error for re.MULTILINE (jkonecny)
+- Fix nosetests to use newest python3 (jkonecny)
+- Disable the button if iscsi is not available (#1401263) (vponcova)
+- Include Python 3.6 sysconfigdata module in initramfs (#1409177) (awilliam)
+- Nicer __repr__ for hubs and spokes (mkolman)
+- Close the .treeinfo file after the retrieve. (vponcova)
+
+* Wed Jan 04 2017 Martin Kolman <mkolman@redhat.com> - 26.17-1
+- Fix a GTK Widget related deprecation warning (mkolman)
+- Fix GTK screen/display related deprecation warnings (mkolman)
+- Fix GObject and GLib deprecation warnings (mkolman)
+- Fix selection of no software environment (#1400045) (vponcova)
+- Use signals for Spoke & Hub entry/exit callbacks (mkolman)
+- Fix the name of StorageDiscoveryConfig attribute (#1395350) (vponcova)
+- Iutil PEP8 & formatting fixes (mkolman)
+- Add inst.ksstrict option to show kickstart warnings as errors. (vponcova)
+- Use the structured installation task classes (mkolman)
+- Improved password quality checking (mkolman)
+- Add unit tests for password quality checking (mkolman)
+- Use Enum for password status constants (mkolman)
+- Use a sane unified password checking policy (mkolman)
+- Add install task processing classes and unit tests (mkolman)
+- Add a signal/slot implementation (mkolman)
+- Set correctly the default partitioning. (vponcova)
+
+* Wed Dec 14 2016 Martin Kolman <mkolman@redhat.com> - 26.16-1
+- rpmostreepayload: Rework binds to be recursive (walters)
+- Let DNF do its own substitutions (riehecky)
+- Bump Blivet version due to systemd-udev dependency (mkolman)
+- Don't log "Invalid bridge option" when network has no --bridgeopts.
+  (rvykydal)
+- Fix updating of bridge slave which is bond. (rvykydal)
+
+* Mon Dec 05 2016 Martin Kolman <mkolman@redhat.com> - 26.15-1
+- Don't pass storage to firstboot.setup() (mkolman)
+- RTD fixes (mkolman)
+- Catch ValueError from LVM part in Blivet library (jkonecny)
+- Handle unexpected storage exception from blivet (jkonecny)
+- Add sudo to test requires (jkonecny)
+- network: fix network --noipv4 in %%pre (rvykydal)
+- fix typo in systemd service keyword (mail)
+- Fix pylint issue in ks_version_test (jkonecny)
+- Move Anaconda tests to mock (jkonecny)
+- Add checks to git-find-branch script (jkonecny)
+- Remove intermediate pot files in po-push (mkolman)
+- Allow install classes to set alternate states for firstboot/initial-setup
+  (riehecky)
+
+* Wed Nov 23 2016 Martin Kolman <mkolman@redhat.com> - 26.14-1
+- Changed the required version of BlockDev to 2.0. (vponcova)
+- Remove auto generated documentation (mkolman)
+- Fix generated zanata.xml from https unstable branch (jkonecny)
+- Don't crash if the UIC file can't be written (#1375702) (mkolman)
+
+* Wed Nov 23 2016 Martin Kolman <mkolman@redhat.com> - 26.13-1
+- Fix calling of can_touch_runtime_system function (jkonecny)
+- fix formating a bit (gitDeveloper)
+- Fix zanata.xml.in in substitution variables (mkolman)
+
+* Thu Nov 17 2016 Martin Kolman <mkolman@redhat.com> - 26.12-1
+- Mock chroot environment is chosed by a git branch (jkonecny)
+- Set Zanata branch from git-find-branch script (jkonecny)
+- Add git-find-branch script for finding parent branch (jkonecny)
+- fix pykickstart docks link (gitDeveloper)
+- aarch64 now has kexec-tools (pbrobinson)
+- Resolve directory ownership (mkolman)
+- Fix user interaction config handling in image & directory install modes
+  (#1379106) (mkolman)
+- tui: Available help system (vponcova)
+- network: index team slave connection names starting with 1 (rvykydal)
+
+* Thu Nov 10 2016 Martin Kolman <mkolman@redhat.com> - 26.11-1
+- Relax blivet dependency to >= 2.1.6-3 (awilliam)
+- Bump required Blivet version (#1378156) (mkolman)
+- Fix bad exception handling from blivet in iscsi (#1378156) (jkonecny)
+- tui: New class for prompt (vponcova)
+- iSCSI: adjust to change in blivet auth info (#1378156) (awilliam)
+- Disable false positive pylint error (jkonecny)
+- Add some error checking when users don't provide input for DASD devices.
+  (sbueno+anaconda)
+- Add some error checking when users don't provide input for zFCP devices.
+  (sbueno+anaconda)
+- Fix tui timezone region selection by name (vponcova)
+
+* Fri Nov 04 2016 Martin Kolman <mkolman@redhat.com> - 26.10-1
+- F26_DisplayMode was added by non-interactive mode (jkonecny)
+- Fix pyanaconda tests for display mode (jkonecny)
+- Fix parse-dracut to support new kickstart displaymode (jkonecny)
+- Add boot option inst.noninteractive to the docs (jkonecny)
+- Abort installation when Playload exc rise in a NonInteractive mode (jkonecny)
+- Support non interactive mode in standalone spokes (jkonecny)
+- Non-interactive mode support for Password and User spokes (jkonecny)
+- Raise NonInteractive exception in Hubs event loop (jkonecny)
+- Raise exception for noninteractive mode in Hub (jkonecny)
+- Add new pykickstart noninteractive mode (jkonecny)
+- Disable bad kickstart command on F25 (jkonecny)
+- Improve DNF error message to be more understandable (jkonecny)
+- tui: Add software group selection (vponcova)
+- use blivet iSCSI singleton directly in storage spoke (awilliam)
+- Correct deviceLinks to device_links (blivet renamed it) (awilliam)
+- Instantiate the zFCP object ourselves now. (#1384532) (sbueno+anaconda)
+- Fix the way DASD list is determined. (#1384532) (sbueno+anaconda)
+- Add tests for payload location picking (#1328151) (jkonecny)
+- Fix picking mountpoint for package download (#1328151) (jkonecny)
+- Improve packaging logs without DEBUG logging (jkonecny)
+
+* Tue Oct 25 2016 Martin Kolman <mkolman@redhat.com> - 26.9-1
+- Move the collect() function to iutil (mkolman)
+- Update messiness level (mkolman)
+- PEP8 and general refactoring for the main anaconda.py (mkolman)
+- Move kickstart file parsing code to startup_utils (mkolman)
+- Don't directly import items from anaconda_log (mkolman)
+- Remove old useless code (mkolman)
+- Move the rescue ui startup code to the rescue module (mkolman)
+- Move set-installation-method-from-anaconda code to startup_utils (mkolman)
+- Move the live startup code to startup_utils (mkolman)
+- Move code printing the startup note to startup_utils (mkolman)
+- Move the pstore cleanup function to startup_utils (mkolman)
+- Move the prompt_for_ssh function to startup_utils (mkolman)
+- Move logging setup to startup_utils (mkolman)
+- Move the geolocation startup code to a separate function (mkolman)
+- Unify addons path variable name (mkolman)
+- PEP 8 for startup_utils.py (mkolman)
+- PEP 8 for display.py (mkolman)
+- Move VNC startup checking to a separate function (mkolman)
+- Move imports to the top of the file in display.py (mkolman)
+- Refactor display mode handling (mkolman)
+- Move display setup & startup tasks out of anaconda.py (mkolman)
+- Remove main and extra Zanata pot files on master (jkonecny)
+- Remove main and extra pot files before zanata push (jkonecny)
+- Don't send intermediate pot files to zanata (gh#791) (awilliam)
+- Improve message to be clearer in rescue.py (jkonecny)
+- Add option to show password in password field (vponcova)
+- Generate a list of DASDs in GUI storage spoke. (#1378338) (sbueno+anaconda)
+- Echoing 4de0ec44bdf0f68545bb55bb5fea00464b65fcab May as well include the SL
+  file (riehecky)
+- Fixup class name for CentOS install class (riehecky)
+- Fix a typo in SAM file header (mkolman)
+- Skip live image on usb when checking storage for mounted partitions
+  (#1369786) (rvykydal)
+
+* Mon Oct 03 2016 Martin Kolman <mkolman@redhat.com> - 26.8-1
+- Fix network spoke being incorrectly marked as mandatory (#1374864) (mkolman)
+
+* Fri Sep 30 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 26.7-1
+- Increse python3-blivet version to 1:2.1.5 (jkonecny)
+- Fix dnf.repo.Repo now requires dnf.conf.Conf (jkonecny)
+- Provides compatibility with DNF-2.0 (jmracek)
+
+* Tue Sep 27 2016 Martin Kolman <mkolman@redhat.com> - 26.6-1
+- Don't deactivate all storage in anaconda-cleanup. (#1225184) (dlehman)
+- Stop setting ANACONDA udev environment variable. (#1225184) (dlehman)
+
+* Tue Sep 27 2016 Martin Kolman <mkolman@redhat.com> - 26.5-1
+- Improved driver disk copying (#1269915) (mkolman)
+- Fix screenshot taking logic (#1327456) (mkolman)
+- Change blank lines to pep8 for Dracut DUD test (jkonecny)
+- Tweak lambda use in Dracut test (jkonecny)
+- Add Dracut test for reloading mod dependencies (jkonecny)
+
+* Wed Sep 21 2016 Martin Kolman <mkolman@redhat.com> - 26.4-1
+- Fix NTP server list fetching when running in IS (#1374810) (mkolman)
+- rpmostreepayload: Clean up use of sysroot files a bit (walters)
+- rpmostreepayload: Fix remote handling to use correct sysroot (walters)
+
+* Mon Sep 19 2016 Martin Kolman <mkolman@redhat.com> - 26.3-1
+- network: set onboot correctly for vlan on bond device in ks (#1234849)
+  (rvykydal)
+- network: don't show ibft configured devices in UI (#1309661) (rvykydal)
+- iscsi: don't generate kickstart iscsi commands for offload devices (#1252879)
+  (rvykydal)
+- iscsi: allow installing bootloader on offload iscsi disks (qla4xxx)
+  (#1325134) (rvykydal)
+- network: adapt to changed NM ibft plugin enablement configuration (#1371188)
+  (rvykydal)
+- network: don't activate bond/team devices regardless of --activate (#1358795)
+  (rvykydal)
+- Fix traceback when payload have None as url (#1371494) (jkonecny)
+- Add new Dracut test and fix another ones (#1101653) (jkonecny)
+- Fix bug when we add set to list (#1101653) (jkonecny)
+- Add new helper script files to build system (#1101653) (jkonecny)
+- Document new helper scripts to the DriverDisk README (#1101653) (jkonecny)
+- Fix driver unload is disabling network settings (#1101653) (jkonecny)
+- dud: fix multiple inst.dd=http:// instances stalling in dracut (#1268792)
+  (rvykydal)
+- network: fix ksdata generating for for non-active virtual devices (#1321288)
+  (rvykydal)
+- network: update kickstart data also with bond bridge slaves (#1321288)
+  (rvykydal)
+- network: add support for bridge bond slaves (#1321288) (rvykydal)
+- screen_access: Ensure we write config to real sysroot (walters)
+- Add release commit support to makebumpver (mkolman)
+- Makefile improvements for separate release commits & tarball creation
+  (mkolman)
+- network: add support for --no-activate kickstart opton (#1277975) (rvykydal)
+- fixup! Add base.close() after base.do_transaction (RhBug:1313240) (jmracek)
+- Add base.close() after base.do_transaction (RhBug:1313240) (jmracek)
+
+* Tue Sep 06 2016 Martin Kolman <mkolman@redhat.com> - 26.2-1
+- Add git merging examples to the contribution guidelines (mkolman)
+- network: don't stumble upon new Device.Statistics NM dbus iface (#1370099)
+  (rvykydal)
+- Current Anaconda is not compatible with DNF 2.0.0 (jkonecny)
+- Filter out all merge commits from the changelog (mkolman)
+- Make it possible to override Zanata branch name (mkolman)
+- Switch to argparse & autodetect name, version and bug email address (mkolman)
+- Fix multi-inheritance (phil)
+- Fix replacement of deprecated DNF method (jkonecny)
+- Replace deprecated method of DNF (jmracek)
+- Static checker recommended improvements (mkolman)
+- Fix replacement of deprecated DNF method (jkonecny)
+- Replace deprecated method of DNF (jmracek)
+
 * Mon Aug 29 2016 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 26.1-1
 - Fix a pylint no-member warning (mkolman)
 - Translate press-c-to-continue correctly in TUI (#1364539) (mkolman)
