@@ -43,9 +43,21 @@ class OvirtBaseInstallClass(BaseInstallClass):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
                                  size=Size("6GiB"), thin=True,
                                  grow=True, lv=True),
+                        PartSpec(mountpoint="/home",
+                                 fstype=storage.defaultFSType,
+                                 size=Size("1GiB"), thin=True, lv=True),
+                        PartSpec(mountpoint="/tmp",
+                                 fstype=storage.defaultFSType,
+                                 size=Size("1GiB"), thin=True, lv=True),
                         PartSpec(mountpoint="/var",
                                  fstype=storage.defaultFSType,
-                                 size=Size("15GiB"), thin=True, lv=True)]
+                                 size=Size("15GiB"), thin=True, lv=True),
+                        PartSpec(mountpoint="/var/log",
+                                 fstype=storage.defaultFSType,
+                                 size=Size("8GiB"), thin=True, lv=True),
+                        PartSpec(mountpoint="/var/log/audit",
+                                 fstype=storage.defaultFSType,
+                                 size=Size("2GiB"), thin=True, lv=True)]
 
         bootreqs = platform.setDefaultPartitioning()
         if bootreqs:
