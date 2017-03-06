@@ -328,6 +328,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 06 2017 Martin Kolman <mkolman@redhat.com> - 26.22-1
+- We should not have pyanaconda submodules on PYTHONPATH (vponcova)
+- Lock empty root password during kickstart installation (#1383656) (mkolman)
+- Use system Python when running Anaconda (mkolman)
+- Remove unused false positives for pylint (vtrefny)
+- Fix pylint error in BlivetGUI spoke (vtrefny)
+- Fix tests by renaming packaging to payload (jkonecny)
+- Rescue mode should wait for the storage and luks devices (#1376638)
+  (vponcova)
+
 * Mon Feb 27 2017 Martin Kolman <mkolman@redhat.com> - 26.21-1
 - Add blivet-gui as requirement for the GUI package (vtrefny)
 - Add a bottom bar to the Blivet GUI spoke (mkolman)
