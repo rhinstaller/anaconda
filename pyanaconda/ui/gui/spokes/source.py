@@ -46,7 +46,7 @@ from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PackagePayload, payloadMgr
+from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda import constants
 from pyanaconda import nm
@@ -1228,7 +1228,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._updateURLEntryCheck()
 
     def _update_payload_repos(self):
-        """ Change the packaging repos to match the new edits
+        """ Change the payload repos to match the new edits
 
             This will add new repos to the addon repo list, remove
             ones that were removed and update any changes made to

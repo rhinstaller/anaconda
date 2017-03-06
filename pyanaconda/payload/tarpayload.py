@@ -34,7 +34,7 @@ except ImportError:
     log.error("import of tarfile failed")
     tarfile = None
 
-from pyanaconda.packaging import ArchivePayload, PayloadError, versionCmp
+from pyanaconda.payload import ArchivePayload, PayloadError, versionCmp
 from pyanaconda import iutil
 
 # TarPayload is not yet fully implemented

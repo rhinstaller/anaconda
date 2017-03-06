@@ -35,7 +35,7 @@ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 import pyanaconda.errors as errors
 import pyanaconda.iutil
 import pyanaconda.localization
-import pyanaconda.packaging as packaging
+import pyanaconda.payload as payload
 import shutil
 import sys
 import time
@@ -208,16 +208,16 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         }
         progressQ.send_message(msg % vals)
 
-    def end(self, payload, status, err_msg):
-        nevra = str(payload)
+    def end(self, dnf_payload, status, err_msg):
+        nevra = str(dnf_payload)
         if status is dnf.callback.STATUS_OK:
-            self.downloads[nevra] = payload.download_size
+            self.downloads[nevra] = dnf_payload.download_size
             self._update()
             return
         log.warning("Failed to download '%s': %d - %s", nevra, status, err_msg)
 
-    def progress(self, payload, done):
-        nevra = str(payload)
+    def progress(self, dnf_payload, done):
+        nevra = str(dnf_payload)
         self.downloads[nevra] = done
         self._update()
 
@@ -242,9 +242,9 @@ def do_transaction(base, queue_instance):
         base.close()
         queue_instance.put(('quit', str(exit_reason)))
 
-class DNFPayload(packaging.PackagePayload):
+class DNFPayload(payload.PackagePayload):
     def __init__(self, data):
-        packaging.PackagePayload.__init__(self, data)
+        payload.PackagePayload.__init__(self, data)
 
         self._base = None
         self._download_location = None
@@ -343,7 +343,7 @@ class DNFPayload(packaging.PackagePayload):
         try:
             self._base.repos[repo.id].load()
         except dnf.exceptions.RepoError as e:
-            raise packaging.MetadataError(e)
+            raise payload.MetadataError(e)
 
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist)
 
@@ -364,7 +364,7 @@ class DNFPayload(packaging.PackagePayload):
             try:
                 self._select_group('core', required=True)
                 log.info("selected group: core")
-            except packaging.NoSuchGroup as e:
+            except payload.NoSuchGroup as e:
                 self._miss(e)
 
         env = None
@@ -380,7 +380,7 @@ class DNFPayload(packaging.PackagePayload):
             try:
                 self._select_environment(env, excludedGroups)
                 log.info("selected env: %s", env)
-            except packaging.NoSuchGroup as e:
+            except payload.NoSuchGroup as e:
                 self._miss(e)
 
         for group in self.data.packages.groupList:
@@ -394,14 +394,14 @@ class DNFPayload(packaging.PackagePayload):
             try:
                 self._select_group(group.name, default=default, optional=optional)
                 log.info("selected group: %s", group.name)
-            except packaging.NoSuchGroup as e:
+            except payload.NoSuchGroup as e:
                 self._miss(e)
 
         for pkg_name in set(self.data.packages.packageList) - set(self.data.packages.excludedList):
             try:
                 self._install_package(pkg_name)
                 log.info("selected package: '%s'", pkg_name)
-            except packaging.NoSuchPackage as e:
+            except payload.NoSuchPackage as e:
                 self._miss(e)
 
         self._select_kernel_package()
@@ -411,14 +411,14 @@ class DNFPayload(packaging.PackagePayload):
             try:
                 self._install_package(pkg_name, required=True)
                 log.debug("selected required package: %s", pkg_name)
-            except packaging.NoSuchPackage as e:
+            except payload.NoSuchPackage as e:
                 self._miss(e)
 
         for group in self.requiredGroups:
             try:
                 self._select_group(group, required=True)
                 log.debug("selected required group: %s", group)
-            except packaging.NoSuchGroup as e:
+            except payload.NoSuchGroup as e:
                 self._miss(e)
 
     def _bump_tx_id(self):
@@ -508,7 +508,7 @@ class DNFPayload(packaging.PackagePayload):
         try:
             return self._base.install(pkg_name)
         except dnf.exceptions.MarkingError:
-            raise packaging.NoSuchPackage(pkg_name, required=required)
+            raise payload.NoSuchPackage(pkg_name, required=required)
 
     def _miss(self, exn):
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
@@ -531,7 +531,7 @@ class DNFPayload(packaging.PackagePayload):
         mpoint = _pick_mpoint(df_map, download_size, install_size, download_only=True)
         if mpoint is None:
             msg = ("Not enough disk space to download the packages; size %s." % download_size)
-            raise packaging.PayloadError(msg)
+            raise payload.PayloadError(msg)
 
         log.info("Mountpoint %s picked as download location", mpoint)
         pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
@@ -544,7 +544,7 @@ class DNFPayload(packaging.PackagePayload):
     def _select_group(self, group_id, default=True, optional=False, required=False):
         grp = self._base.comps.group_by_pattern(group_id)
         if grp is None:
-            raise packaging.NoSuchGroup(group_id, required=required)
+            raise payload.NoSuchGroup(group_id, required=required)
         types = {'mandatory'}
         if default:
             types.add('default')
@@ -555,7 +555,7 @@ class DNFPayload(packaging.PackagePayload):
             self._base.group_install(grp.id, types, exclude=exclude)
         except dnf.exceptions.MarkingError as e:
             # dnf-1.1.9 raises this error when a package is missing from a group
-            raise packaging.NoSuchPackage(str(e), required=True)
+            raise payload.NoSuchPackage(str(e), required=True)
         except dnf.exceptions.CompsError as e:
             # DNF raises this when it is already selected
             log.debug(e)
@@ -572,7 +572,7 @@ class DNFPayload(packaging.PackagePayload):
         for kernel in kernels:
             try:
                 self._install_package(kernel)
-            except packaging.NoSuchPackage:
+            except payload.NoSuchPackage:
                 log.info('kernel: no such package %s', kernel)
             else:
                 log.info('kernel: selected %s', kernel)
@@ -687,7 +687,7 @@ class DNFPayload(packaging.PackagePayload):
     def _isGroupVisible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
-            raise packaging.NoSuchGroup(grpid)
+            raise payload.NoSuchGroup(grpid)
         return grp.visible
 
     def _groupHasInstallableMembers(self, grpid):
@@ -707,7 +707,7 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
-            raise packaging.DependencyError(msg)
+            raise payload.DependencyError(msg)
 
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.spaceRequired)
@@ -747,20 +747,20 @@ class DNFPayload(packaging.PackagePayload):
     def environmentDescription(self, environmentid):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise packaging.NoSuchGroup(environmentid)
+            raise payload.NoSuchGroup(environmentid)
         return (env.ui_name, env.ui_description)
 
     def environmentId(self, environment):
         """ Return environment id for the environment specified by id or name."""
         env = self._base.comps.environment_by_pattern(environment)
         if env is None:
-            raise packaging.NoSuchGroup(environment)
+            raise payload.NoSuchGroup(environment)
         return env.id
 
     def environmentGroups(self, environmentid, optional=True):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise packaging.NoSuchGroup(environmentid)
+            raise payload.NoSuchGroup(environmentid)
         group_ids = (id_.name for id_ in env.group_ids)
         option_ids = (id_.name for id_ in env.option_ids)
         if optional:
@@ -771,13 +771,13 @@ class DNFPayload(packaging.PackagePayload):
     def environmentHasOption(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise packaging.NoSuchGroup(environmentid)
+            raise payload.NoSuchGroup(environmentid)
         return grpid in (id_.name for id_ in env.option_ids)
 
     def environmentOptionIsDefault(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise packaging.NoSuchGroup(environmentid)
+            raise payload.NoSuchGroup(environmentid)
 
         # Look for a group in the optionlist that matches the group_id and has
         # default set
@@ -787,7 +787,7 @@ class DNFPayload(packaging.PackagePayload):
         """ Return name/description tuple for the group specified by id. """
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
-            raise packaging.NoSuchGroup(grpid)
+            raise payload.NoSuchGroup(grpid)
         return (grp.ui_name, grp.ui_description)
 
     def gatherRepoMetadata(self):
@@ -810,7 +810,7 @@ class DNFPayload(packaging.PackagePayload):
         try:
             self.checkSoftwareSelection()
             self._download_location = self._pick_download_location()
-        except packaging.PayloadError as e:
+        except payload.PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 log.error("Installation failed: %r", e)
                 _failure_limbo()
@@ -823,7 +823,7 @@ class DNFPayload(packaging.PackagePayload):
             self._base.download_packages(pkgs_to_download, progress)
         except dnf.exceptions.DownloadError as e:
             msg = 'Failed to download the following packages: %s' % str(e)
-            exc = packaging.PayloadInstallError(msg)
+            exc = payload.PayloadInstallError(msg)
             if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                 log.error("Installation failed: %r", exc)
                 _failure_limbo()
@@ -851,9 +851,9 @@ class DNFPayload(packaging.PackagePayload):
                 break  # Installation finished successfully
             elif token == 'quit':
                 msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
-                raise packaging.PayloadError(msg)
+                raise payload.PayloadError(msg)
             elif token == 'error':
-                exc = packaging.PayloadInstallError("DNF error: %s" % msg)
+                exc = payload.PayloadInstallError("DNF error: %s" % msg)
                 if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                     log.error("Installation failed: %r", exc)
                     _failure_limbo()
@@ -950,7 +950,7 @@ class DNFPayload(packaging.PackagePayload):
                     name=constants.BASE_REPO_NAME, baseurl=url,
                     mirrorlist=mirrorlist, noverifyssl=not sslverify, proxy=proxy)
                 self._add_repo(base_ksrepo)
-            except (packaging.MetadataError, packaging.PayloadError) as e:
+            except (payload.MetadataError, payload.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           method.method, url)
                 log.error("reason for repo removal: %s", e)
@@ -983,9 +983,9 @@ class DNFPayload(packaging.PackagePayload):
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl)
             # one of these must be set to create new repo
             if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.name in self._base.repos):
-                raise packaging.PayloadSetupError("Repository %s has no mirror or baseurl set "
-                                                  "and is not one of the pre-defined repositories"
-                                                  % ksrepo.name)
+                raise payload.PayloadSetupError("Repository %s has no mirror or baseurl set "
+                                                "and is not one of the pre-defined repositories"
+                                                % ksrepo.name)
 
             self._add_repo(ksrepo)
 
@@ -1023,7 +1023,7 @@ class DNFPayload(packaging.PackagePayload):
             else:
                 f.close()
                 os.unlink(repo_path)
-                raise packaging.PayloadSetupError("repo %s has no baseurl, mirrorlist or metalink", repo.id)
+                raise payload.PayloadSetupError("repo %s has no baseurl, mirrorlist or metalink", repo.id)
 
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)
@@ -1068,7 +1068,7 @@ class DNFPayload(packaging.PackagePayload):
             try:
                 log.info("Writing %s.repo to target system.", repo.id)
                 self._writeDNFRepo(repo, repo_path)
-            except packaging.PayloadSetupError as e:
+            except payload.PayloadSetupError as e:
                 log.error(e)
 
         super(DNFPayload, self).postInstall()
