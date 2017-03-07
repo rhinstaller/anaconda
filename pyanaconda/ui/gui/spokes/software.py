@@ -71,8 +71,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._tx_id = None
         self._selectFlag = False
 
-        self.excludedGroups = []
-
         self._environmentListBox = self.builder.get_object("environmentListBox")
         self._addonListBox = self.builder.get_object("addonListBox")
 
@@ -343,12 +341,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # report that software spoke initialization has been completed
         self.initialize_done()
 
-    def _parseEnvironments(self):
-        # Set all of the add-on selection states to the default
-        self._addonStates = {}
-        for grp in self.payload.groups:
-            self._addonStates[grp] = self._ADDON_DEFAULT
-
     @gtk_action_wait
     def _first_refresh(self):
         self.refresh()
@@ -567,10 +559,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         with blockedHandler(button, self.on_checkbox_toggled):
             button.set_active(new_btn_val)
-
-        if new_btn_val:
-            if group in self.excludedGroups:
-                self.excludedGroups.remove(group)
 
         self._mark_addon_selection(group, new_btn_val)
 
