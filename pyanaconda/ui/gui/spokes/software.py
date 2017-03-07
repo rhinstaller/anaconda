@@ -65,7 +65,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._tx_id = None
         self._selectFlag = False
 
-        self.selectedGroups = []
         self.excludedGroups = []
 
         self._environmentListBox = self.builder.get_object("environmentListBox")
@@ -161,14 +160,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _apply(self):
         if self.environment and not (flags.automatedInstall and self.data.packages.seen):
             addons = self._get_selected_addons()
-            for group in addons:
-                if group not in self.selectedGroups:
-                    self.selectedGroups.append(group)
 
             self._selectFlag = False
             self.payload.data.packages.groupList = []
             self.payload.selectEnvironment(self.environment)
-            for group in self.selectedGroups:
+            log.debug("Environment selected for installation: %s", self.environment)
+            log.debug("Groups selected for installation: %s", addons)
+            for group in addons:
                 self.payload.selectGroup(group)
 
             # And then save these values so we can check next time.
@@ -449,7 +447,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _get_selected_addons(self):
         retval = []
-
         addons = self._allAddons()
 
         for (ndx, row) in enumerate(self._addonListBox.get_children()):
@@ -463,6 +460,19 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 retval.append(addons[ndx])
 
         return retval
+
+    def _mark_addon_selection(self, grpid, selected):
+        # Mark selection or return its state to the default state
+        if selected:
+            if self.payload.environmentOptionIsDefault(self.environment, grpid):
+                self._addonStates[grpid] = self._ADDON_DEFAULT
+            else:
+                self._addonStates[grpid] = self._ADDON_SELECTED
+        else:
+            if not self.payload.environmentOptionIsDefault(self.environment, grpid):
+                self._addonStates[grpid] = self._ADDON_DEFAULT
+            else:
+                self._addonStates[grpid] = self._ADDON_DESELECTED
 
     def _clear_listbox(self, listbox):
         for child in listbox.get_children():
@@ -494,14 +504,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         button.set_active(True)
         button.handler_unblock_by_func(self.on_radio_button_toggled)
 
-        # Remove all the groups that were selected by the previously
-        # selected environment.
-        if self.environment:
-            for groupid in self.payload.environmentGroups(self.environment):
-                if groupid in self.selectedGroups:
-                    self.selectedGroups.remove(groupid)
-
-        # Then mark the clicked environment as selected and update the screen.
+        # Mark the clicked environment as selected and update the screen.
         self.environment = self.payload.environments[row.get_index()]
         self.refreshAddons()
         self._addonListBox.show_all()
@@ -515,22 +518,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
         addons = self._allAddons()
         group = addons[row.get_index()]
 
-        wasActive = group in self.selectedGroups
+        new_btn_val = not button.get_active()
 
         button.handler_block_by_func(self.on_checkbox_toggled)
-        button.set_active(not wasActive)
+        button.set_active(new_btn_val)
         button.handler_unblock_by_func(self.on_checkbox_toggled)
 
-        if wasActive:
-            self.selectedGroups.remove(group)
-            self._addonStates[group] = self._ADDON_DESELECTED
-        else:
-            self.selectedGroups.append(group)
-
+        if new_btn_val:
             if group in self.excludedGroups:
                 self.excludedGroups.remove(group)
 
-            self._addonStates[group] = self._ADDON_SELECTED
+        self._mark_addon_selection(group, new_btn_val)
 
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:
