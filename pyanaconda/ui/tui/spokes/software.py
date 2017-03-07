@@ -236,9 +236,11 @@ class SoftwareSpoke(NormalTUISpoke):
         """ Depsolving """
         try:
             self.payload.checkSoftwareSelection()
-        except DependencyError:
+        except DependencyError as e:
+            self.errors = [str(e)]
             self._tx_id = None
         else:
+            self.errors = []
             self._tx_id = self.payload.txID
 
     @property
