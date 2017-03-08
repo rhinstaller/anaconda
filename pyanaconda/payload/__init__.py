@@ -313,6 +313,24 @@ class Payload(object):
     def languageGroups(self):
         return []
 
+    def selectedGroups(self):
+        """Return list of selected group names from kickstart.
+
+        NOTE:
+        This group names can be mix of group IDs and other valid identifiers.
+        If you want group IDs use `selectedGroupsIDs` instead.
+
+        :return: list of group names in a format specified by a kickstart file.
+        """
+        return [grp.name for grp in self.data.packages.groupList]
+
+    def selectedGroupsIDs(self):
+        """Return list of IDs for selected groups.
+
+        Implementation depends on a specific payload class.
+        """
+        return self.selectedGroups()
+
     def groupSelected(self, groupid):
         return Group(groupid) in self.data.packages.groupList
 
@@ -1199,7 +1217,27 @@ class PackagePayload(Payload):
     def groups(self):
         raise NotImplementedError()
 
+    def selectedGroupsIDs(self):
+        """Return list of selected group IDs.
+
+        :return: List of selected group IDs.
+        :raise PayloadError: If translation is not supported by payload.
+        """
+        try:
+            ret = []
+            for grp in self.selectedGroups():
+                ret.append(self.groupId(grp))
+                return ret
+        # Translation feature is not implemented for this payload.
+        except NotImplementedError:
+            raise PayloadError(("Can't translate group names to group ID - "
+                                "Group translation is not implemented for %s payload." % self))
+
     def groupDescription(self, groupid):
+        raise NotImplementedError()
+
+    def groupId(self, group):
+        """Return group id for translation of groups from a kickstart file."""
         raise NotImplementedError()
 
 class PayloadManager(object):
