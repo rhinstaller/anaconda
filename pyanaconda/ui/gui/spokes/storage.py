@@ -785,7 +785,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.builder.get_object("summary_button_revealer").set_reveal_child(anySelected)
         self.builder.get_object("local_untouched_label_revealer").set_reveal_child(anySelected)
         self.builder.get_object("special_untouched_label_revealer").set_reveal_child(anySelected)
-        self.builder.get_object("other_options_label").set_sensitive(anySelected)
         self.builder.get_object("other_options_grid").set_sensitive(anySelected)
 
         if len(self.disks) == 0:
