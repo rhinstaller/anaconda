@@ -294,7 +294,7 @@ class LiveImageKSPayload(LiveImagePayload):
         if not os.path.exists(self.data.method.url[7:]):
             return "file does not exist: %s" % self.data.method.url
 
-        self._min_size = os.stat(self.data.method.url[7:])[stat.ST_SIZE] * 3
+        self._min_size = os.stat(self.data.method.url[7:]).st_blocks * 512 * 3
         return None
 
     def setup(self, storage, instClass):
