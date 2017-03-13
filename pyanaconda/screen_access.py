@@ -219,7 +219,7 @@ class ScreenAccessManager(object):
     def get_screen_option_changed(self, screen_name, option_name):
         """Report if the given option on the specified screen has been changed by the user.
 
-        If the screen or option is unknown or if it syntax is incorrect then the option
+        If the screen or option is unknown or if its syntax is incorrect then the option
         is reported as not changed.
 
         :param str screen_name: name of the screen
