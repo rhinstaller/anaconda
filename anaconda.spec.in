@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 13 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.101-1
+- Mock can now be set more easily by CI (jkonecny)
+  Resolves: rhbz#1430728
+
 * Mon Mar 06 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.100-1
 - Fix Driver Disc documentation (jkonecny)
   Related: rhbz#1377233
