@@ -49,7 +49,12 @@ ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 INSTALLATION_GUIDE_REPO_URL = git://git.fedorahosted.org/git/docs/install-guide.git
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= rhel-7.3-candidate-$(shell uname -m)
+
+# You can set these variables from CI to test new RHEL version
+MOCK_NAME ?= rhel-7.4-candidate
+MOCK_ARCH ?= $(shell uname -m)
+
+MOCKCHROOT ?= $(MOCK_NAME)-$(MOCK_ARCH)
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
