@@ -133,6 +133,12 @@ class BaseInstallClass(object):
     def setNetworkOnbootDefault(self, ksdata):
         pass
 
+    def filterSupportedLangs(self, ksdata, langs):
+        return langs
+
+    def filterSupportedLocales(self, ksdata, lang, locales):
+        return locales
+
     def __init__(self):
         pass
 

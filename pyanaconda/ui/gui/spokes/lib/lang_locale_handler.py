@@ -62,7 +62,9 @@ class LangLocaleHandler(object):
                                "pixbuf", self._render_lang_selected)
 
         # fill the list with available translations
-        for lang in localization.get_available_translations():
+        langs = localization.get_available_translations()
+        langs = self._filter_languages(langs)
+        for lang in langs:
             self._add_language(self._languageStore,
                                localization.get_native_name(lang),
                                localization.get_english_name(lang), lang)
@@ -105,7 +107,17 @@ class LangLocaleHandler(object):
         else:
             return None
 
+    def _filter_languages(self, langs):
+        """Override this method with a valid implementation"""
+
+        raise NotImplementedError()
+
     def _add_language(self, store, native, english, lang):
+        """Override this method with a valid implementation"""
+
+        raise NotImplementedError()
+
+    def _filter_locales(self, lang, locales):
         """Override this method with a valid implementation"""
 
         raise NotImplementedError()
@@ -145,6 +157,7 @@ class LangLocaleHandler(object):
 
         self._localeStore.clear()
         locales = localization.get_language_locales(lang)
+        locales = self._filter_locales(lang, locales)
         for locale in locales:
             self._add_locale(self._localeStore,
                              localization.get_native_name(locale),
