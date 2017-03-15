@@ -32,6 +32,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import gtk_action_wait, escape_markup
 from pyanaconda.ui.categories.software import SoftwareCategory
+from pyanaconda.packaging import PayloadError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -65,9 +66,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._tx_id = None
         self._selectFlag = False
 
-        self.selectedGroups = []
-        self.excludedGroups = []
-
         self._environmentListBox = self.builder.get_object("environmentListBox")
         self._addonListBox = self.builder.get_object("addonListBox")
 
@@ -96,6 +94,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # list with no radio buttons ticked
         self._fakeRadio = Gtk.RadioButton(group=None)
         self._fakeRadio.set_active(True)
+
+        # are we taking values (group list) from a kickstart file?
+        self._kickstarted = flags.automatedInstall and self.data.packages.seen
 
     # Payload event handlers
     def _downloading_package_md(self):
@@ -159,16 +160,21 @@ class SoftwareSelectionSpoke(NormalSpoke):
         hubQ.send_message(self.__class__.__name__, payloadMgr.error)
 
     def _apply(self):
-        if self.environment and not (flags.automatedInstall and self.data.packages.seen):
+        # Environment needs to be set during a GUI installation, but is not required
+        # for a kickstart install (even partial)
+        if not self.environment:
+            log.debug("Environment is not set, skip user packages settings")
+            return
+
+        if not self._kickstarted:
             addons = self._get_selected_addons()
-            for group in addons:
-                if group not in self.selectedGroups:
-                    self.selectedGroups.append(group)
 
             self._selectFlag = False
             self.payload.data.packages.groupList = []
             self.payload.selectEnvironment(self.environment)
-            for group in self.selectedGroups:
+            log.debug("Environment selected for installation: %s", self.environment)
+            log.debug("Groups selected for installation: %s", addons)
+            for group in addons:
                 self.payload.selectGroup(group)
 
             # And then save these values so we can check next time.
@@ -181,6 +187,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
                                      target=self.checkSoftwareSelection))
 
     def apply(self):
+        # user changed groups or/and environment, it is no longer kickstarted
+        if self.environment:
+            self._kickstarted = False
+
         self._apply()
 
     def checkSoftwareSelection(self):
@@ -214,7 +224,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 return self.environment_valid
             # if we don't have environment we need to at least have the %packages
             # section in kickstart
-            elif flags.automatedInstall and self.data.packages.seen:
+            elif self._kickstarted:
                 return True
             # no environment and no %packages section -> manual intervention is needed
             else:
@@ -269,7 +279,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # kickstart installation
         if flags.automatedInstall:
-            if self.data.packages.seen:
+            if self._kickstarted:
                 # %packages section is present in kickstart but environment is not set
                 if self.environment is None:
                     return _("Custom software selected")
@@ -302,7 +312,20 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        if not flags.automatedInstall or not self.data.packages.seen:
+        # Select groups which should be selected by kickstart
+        try:
+            for group in self.payload.selectedGroupsIDs():
+                if self.environment and self.payload.environmentOptionIsDefault(self.environment, group):
+                    self._addonStates[group] = self._ADDON_DEFAULT
+                else:
+                    self._addonStates[group] = self._ADDON_SELECTED
+        except PayloadError as e:
+            # Group translation is not supported
+            log.warning(e)
+            # It's better to have all or nothing selected from kickstart
+            self._addonStates = {}
+
+        if not self._kickstarted:
             # having done all the slow downloading, we need to do the first refresh
             # of the UI here so there's an environment selected by default.  This
             # happens inside the main thread by necessity.  We can't do anything
@@ -319,12 +342,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # report that software spoke initialization has been completed
         self.initialize_done()
-
-    def _parseEnvironments(self):
-        # Set all of the add-on selection states to the default
-        self._addonStates = {}
-        for grp in self.payload.groups:
-            self._addonStates[grp] = self._ADDON_DEFAULT
 
     @gtk_action_wait
     def _first_refresh(self):
@@ -449,7 +466,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _get_selected_addons(self):
         retval = []
-
         addons = self._allAddons()
 
         for (ndx, row) in enumerate(self._addonListBox.get_children()):
@@ -463,6 +479,19 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 retval.append(addons[ndx])
 
         return retval
+
+    def _mark_addon_selection(self, grpid, selected):
+        # Mark selection or return its state to the default state
+        if selected:
+            if self.payload.environmentOptionIsDefault(self.environment, grpid):
+                self._addonStates[grpid] = self._ADDON_DEFAULT
+            else:
+                self._addonStates[grpid] = self._ADDON_SELECTED
+        else:
+            if not self.payload.environmentOptionIsDefault(self.environment, grpid):
+                self._addonStates[grpid] = self._ADDON_DEFAULT
+            else:
+                self._addonStates[grpid] = self._ADDON_DESELECTED
 
     def _clear_listbox(self, listbox):
         for child in listbox.get_children():
@@ -494,14 +523,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         button.set_active(True)
         button.handler_unblock_by_func(self.on_radio_button_toggled)
 
-        # Remove all the groups that were selected by the previously
-        # selected environment.
-        if self.environment:
-            for groupid in self.payload.environmentGroups(self.environment):
-                if groupid in self.selectedGroups:
-                    self.selectedGroups.remove(groupid)
-
-        # Then mark the clicked environment as selected and update the screen.
+        # Mark the clicked environment as selected and update the screen.
         self.environment = self.payload.environments[row.get_index()]
         self.refreshAddons()
         self._addonListBox.show_all()
@@ -515,22 +537,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         addons = self._allAddons()
         group = addons[row.get_index()]
 
-        wasActive = group in self.selectedGroups
+        new_btn_val = not button.get_active()
 
         button.handler_block_by_func(self.on_checkbox_toggled)
-        button.set_active(not wasActive)
+        button.set_active(new_btn_val)
         button.handler_unblock_by_func(self.on_checkbox_toggled)
 
-        if wasActive:
-            self.selectedGroups.remove(group)
-            self._addonStates[group] = self._ADDON_DESELECTED
-        else:
-            self.selectedGroups.append(group)
-
-            if group in self.excludedGroups:
-                self.excludedGroups.remove(group)
-
-            self._addonStates[group] = self._ADDON_SELECTED
+        self._mark_addon_selection(group, new_btn_val)
 
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:

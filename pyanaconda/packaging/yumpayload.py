@@ -1165,6 +1165,25 @@ reposdir=%s
 
             return (group.ui_name, group.ui_description)
 
+    def groupId(self, group_name):
+        """Translate group name to group ID.
+
+        :param group_name: Valid identifier for group specification.
+        :returns: Group ID.
+        :raise NoSuchGroup: If group_name doesn't exists.
+        :raise PayloadError: When Yum's groups are not available.
+        """
+        groups = self._yumGroups
+        if not groups:
+            raise PayloadError("Yum's groups are not available")
+
+        with _yum_lock:
+            if not groups.has_group(group_name):
+                raise NoSuchGroup(group_name)
+
+            group = groups.return_group(group_name)
+            return group.groupid
+
     def _isGroupVisible(self, groupid):
         groups = self._yumGroups
         if not groups:
