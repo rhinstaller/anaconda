@@ -26,13 +26,14 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
+from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.i18n import N_, _
 from pyanaconda import network
 from pyanaconda import nm
 
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS, IPV4_NETMASK_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.constants import ANACONDA_ENVIRON
+from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 
 import logging
 log = logging.getLogger("anaconda")
@@ -42,18 +43,23 @@ import re
 __all__ = ["NetworkSpoke"]
 
 
-class NetworkSpoke(EditTUISpoke):
+class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     """ Spoke used to configure network settings. """
     title = N_("Network configuration")
     category = SystemCategory
 
     def __init__(self, app, data, storage, payload, instclass):
+        FirstbootSpokeMixIn.__init__(self)
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.hostname_dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass)
         self.hostname_dialog.value = self.data.network.hostname
         self.supported_devices = []
         self.errors = []
-        self._apply = False
+        if FIRSTBOOT_ENVIRON in flags.environs:
+            # apply network setting changes at once when running in Initial Setup
+            self._apply = True
+        else:
+            self._apply = False
 
     def initialize(self):
         self.initialize_start()
@@ -322,10 +328,18 @@ class ConfigureNetworkSpoke(EditTUISpoke):
               % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'}, "ipv6",
               check_ipv6_config, True),
         Entry(N_("IPv6 default gateway"), "ipv6gateway", check_ipv6_address, True),
-        Entry(N_("Nameservers (comma separated)"), "nameserver", check_nameservers, True),
+        Entry(N_("Nameservers (comma separated)"), "nameserver", check_nameservers, True)
+    ]
+
+    # The following fields only really make sense when the Network spoke is running
+    # in Anaconda during the installation.
+    anaconda_specific_fields = [
         Entry(N_("Connect automatically after reboot"), "onboot", EditTUISpoke.CHECK, True),
         Entry(N_("Apply configuration in installer"), "_apply", EditTUISpoke.CHECK, True),
     ]
+
+    if ANACONDA_ENVIRON in flags.environs:
+        edit_fields.extend(anaconda_specific_fields)
 
     def __init__(self, app, data, storage, payload, instclass, ndata):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -334,7 +348,12 @@ class ConfigureNetworkSpoke(EditTUISpoke):
             self.args.ip = "dhcp"
         if self.args.noipv6:
             self.args.ipv6 = "ignore"
-        self.args._apply = False
+
+        if FIRSTBOOT_ENVIRON in flags.environs:
+            # apply network setting changes at once when running in Initial Setup
+            self.args._apply = True
+        else:
+            self.args._apply = False
 
     def refresh(self, args=None):
         """ Refresh window. """
