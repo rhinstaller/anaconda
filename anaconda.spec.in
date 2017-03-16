@@ -328,6 +328,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 16 2017 Martin Kolman <mkolman@redhat.com> - 27.2-1
+- Correction of some typographic mistakes in documentation. (rludva)
+- Fix bullet point formatting in contribution guidelines (mkolman)
+- Propagate firstboot --disable to Screen Access Manager (mkolman)
+- util: Add script to capture logs (riehecky)
+- Fix a typo (mkolman)
+- Correction of some typographic mistakes in documentation. (rludva)
+- Enhance git-find-branch script (jkonecny)
+- Improve how storage configuration settings are displayed (mkolman)
+- util: Add script to capture logs (riehecky)
+- Propagate firstboot --disable to Screen Access Manager (mkolman)
+
 * Mon Mar 06 2017 Martin Kolman <mkolman@redhat.com> - 27.1-1
 - We should not have pyanaconda submodules on PYTHONPATH (vponcova)
 - Lock empty root password during kickstart installation (#1383656) (mkolman)
