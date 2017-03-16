@@ -40,7 +40,7 @@ import shutil
 import sys
 import time
 import hashlib
-from pyanaconda.iutil import execReadlines
+from pyanaconda.iutil import execReadlines, ipmi_abort
 from pyanaconda.simpleconfig import simple_replace
 from functools import wraps
 from urlgrabber.grabber import URLGrabber, URLGrabError
@@ -66,7 +66,7 @@ except ImportError:
     yum = None
 
 from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, \
-                                 LOGLVL_LOCK, IPMI_ABORTED
+                                 LOGLVL_LOCK
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -1560,7 +1560,7 @@ reposdir=%s
             exn = PayloadInstallError(str(e))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 progressQ.send_quit(1)
-                iutil.ipmi_report(IPMI_ABORTED)
+                ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
         finally:
             # log the contents of the scriptlet logfile if any
@@ -1580,7 +1580,7 @@ reposdir=%s
             exn = PayloadInstallError("\n".join(install_errors))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 progressQ.send_quit(1)
-                iutil.ipmi_report(IPMI_ABORTED)
+                ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
     def writeMultiLibConfig(self):

@@ -566,7 +566,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if rc == 0:
             # Quit.
-            iutil.ipmi_report(constants.IPMI_ABORTED)
+            iutil.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
         elif rc == 1:
             # Send the user to the installation source spoke.
