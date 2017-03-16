@@ -441,18 +441,27 @@ reposdir=%s
         """Release package sacks and close their connections to the database."""
         with _yum_lock:
             # Check if the meta package sack was created.
-            if self._yum._pkgSack is not None:
+            if self._yum._pkgSack is None:
+                return
 
+            try:
                 # Drop cached data in every sack.
                 self._yum.pkgSack.dropCachedData()
 
                 # Close every sack.
                 for sack in self._yum.pkgSack.sacks.values():
-                    sack.close()
-                    del sack
+                    try:
+                        sack.close()
+                        del sack
+                    except RepoError as error:
+                        log.warn("The payload sack could not be closed: %s", error)
 
                 # Close the meta sack.
                 del self._yum.pkgSack
+
+            except RepoError as error:
+                # Do not propagate the repo exceptions.
+                log.warn("The payload could not be released: %s", error)
 
     def deleteYumTS(self):
         with _yum_lock:
@@ -1417,6 +1426,9 @@ reposdir=%s
             else:
                 for msg in msgs:
                     log.warning(msg)
+
+                # Release the package sacks.
+                self.release()
 
                 raise DependencyError(msgs)
 

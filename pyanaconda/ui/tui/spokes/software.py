@@ -27,7 +27,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import DependencyError, PackagePayload
 from pyanaconda.i18n import N_, _, C_
 
-from pyanaconda.constants import THREAD_PAYLOAD
+from pyanaconda.constants import THREAD_PAYLOAD, THREAD_SOFTWARE_WATCHER
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE
 from pyanaconda.constants_text import INPUT_PROCESSED
 
@@ -53,10 +53,35 @@ class SoftwareSpoke(NormalTUISpoke):
         # are we taking values (package list) from a kickstart file?
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
 
+        # No default selection, since custom software is selected.
+        if self._kickstarted:
+            self._selection = None
+
+    def initialize(self):
+        """Initialize the software spoke."""
+        # Report that the software spoke will be initialized.
+        self.initialize_start()
+        super(SoftwareSpoke, self).initialize()
+
+        # Run the initialization.
+        threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER, target=self._initialize))
+
+    def _initialize(self):
+        """Custom initialization."""
+        threadMgr.wait(THREAD_PAYLOAD)
+
+        # Apply the initial selection.
+        self.apply()
+
+        # Wait for the software selection thread.
+        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+
+        # Report that the software spoke has been initialized.
+        self.initialize_done()
+
     @property
     def showable(self):
         return isinstance(self.payload, PackagePayload)
-
 
     @property
     def status(self):
@@ -69,14 +94,6 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Installation source not set up")
         if not self.txid_valid:
             return _("Source changed - please verify")
-
-        ## FIXME:
-        # quite ugly, but env isn't getting set to gnome (or anything) by
-        # default, and it really should be so we can maintain consistency
-        # with graphical behavior
-        if self._selection >= 0 and not self.environment \
-                and not flags.automatedInstall:
-            self.apply()
 
         if not self.environment:
             # Ks installs with %packages will have an env selected, unless
@@ -98,7 +115,7 @@ class SoftwareSpoke(NormalTUISpoke):
         """
         processingDone = self.ready and not self.errors and self.txid_valid
 
-        if flags.automatedInstall:
+        if self._selection is None:
             return processingDone and self.payload.baseRepo and self.data.packages.seen
         else:
             return processingDone and self.payload.baseRepo and self.environment is not None
@@ -151,8 +168,7 @@ class SoftwareSpoke(NormalTUISpoke):
             keyid = int(key) - 1
         except ValueError:
             # TRANSLATORS: 'c' to continue
-            continue_requested = key.lower() == C_('TUI|Spoke Navigation', 'c')
-            if continue_requested and 0 <= self._selection < len(self.payload.environments):
+            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
@@ -167,16 +183,24 @@ class SoftwareSpoke(NormalTUISpoke):
     def ready(self):
         """ If we're ready to move on. """
         return (not threadMgr.get(THREAD_PAYLOAD) and
-                not threadMgr.get(THREAD_CHECK_SOFTWARE))
+                not threadMgr.get(THREAD_CHECK_SOFTWARE) and
+                not threadMgr.get(THREAD_SOFTWARE_WATCHER))
 
     def apply(self):
         """ Apply our selections """
-        self._apply()
+        # Apply our selection if we made any, otherwise we
+        # should continue to use the custom software selection.
+        if self._selection is not None \
+                and 0 <= self._selection < len(self.payload.environments):
 
-        # no longer using values from kickstart
-        self._kickstarted = False
-        self.data.packages.seen = True
+            # Apply the selections.
+            self._apply()
 
+            # No longer using values from kickstart.
+            self._kickstarted = False
+            self.data.packages.seen = True
+
+        # Check the software selection.
         threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
                                      target=self.checkSoftwareSelection))
 
@@ -212,9 +236,11 @@ class SoftwareSpoke(NormalTUISpoke):
         """ Depsolving """
         try:
             self.payload.checkSoftwareSelection()
-        except DependencyError:
+        except DependencyError as e:
+            self.errors = [str(e)]
             self._tx_id = None
         else:
+            self.errors = []
             self._tx_id = self.payload.txID
 
     @property
