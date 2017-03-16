@@ -29,6 +29,7 @@ from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda.i18n import _
+from pyanaconda import screen_access
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kexec import setup_kexec
@@ -126,6 +127,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
                     " by the nosave option.")
     else:
         _writeKS(ksdata)
+
+    # write out the user interaction config file
+    screen_access.sam.write_out_config_file()
 
     progress_complete()
 
