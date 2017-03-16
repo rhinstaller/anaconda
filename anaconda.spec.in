@@ -318,6 +318,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 16 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.102-1
+- Add support for kickstart %%onerror scripts (clumens)
+  Resolves: rhbz#1412538
+- Fix partial kickstart software selection in GUI (jkonecny)
+  Related: rhbz#1404158
+- Show the network spoke in Initial Setup TUI (mkolman)
+  Resolves: rhbz#1302165
+- yum: Always release payload and catch raised exceptions. (vponcova)
+  Related: rhbz#979307
+- tui: Treat dependency errors as errors in the software spoke (vponcova)
+  Resolves: rhbz#979307
+- tui: Properly initialize the software spoke. (vponcova)
+  Related: rhbz#1371229
+- Propagate firstboot --disable to Screen Access Manager (mkolman)
+  Related: rhbz#1422867
+- Use Screen Access Manager (mkolman)
+  Related: rhbz#1422867
+- Add screen entry/exit callbacks (mkolman)
+  Related: rhbz#1422867
+- Add screen access manager (mkolman)
+  Resolves: rhbz#1422867
+- Removed unused code in the Software spoke (jkonecny)
+  Related: rhbz#1404158
+- Fix selection logic in Software spoke (jkonecny)
+  Resolves: rhbz#1404158
+- Support --nohome option in the autopartitioning (vponcova)
+  Resolves: rhbz#663099
+- tui: Remember the custom software selection (vponcova)
+  Resolves: rhbz#1371229
+
 * Mon Mar 13 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.101-1
 - Mock can now be set more easily by CI (jkonecny)
   Resolves: rhbz#1430728
