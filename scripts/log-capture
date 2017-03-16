@@ -1,0 +1,43 @@
+#!/bin/bash
+
+date=$(date +%F_%R)
+OUTDIR=/tmp/LogCapture-${date}
+ARCHIVE=${1:/tmp/log-capture.tar.bz2}
+
+_to_log() { local OutputFile=$(tr ' /' '_' <<<"$@"); $@ >${OUTDIR}/${OutputFile}; }
+
+mkdir -p ${OUTDIR}
+cd ${OUTDIR}
+
+if [[ ! -f ks.cfg ]];then
+  echo "No /tmp/ks.cfg present" > ${OUTDIR}/ks.cfg
+fi
+
+_to_log cat /mnt/sysimage/root/anaconda-ks.cfg
+_to_log date
+_to_log dmesg
+_to_log dmidecode
+_to_log lspci -vvnn
+_to_log fdisk -cul
+_to_log ls -lR /dev
+_to_log dmsetup ls --tree
+_to_log lvm pvs
+_to_log lvm vgs
+_to_log lvm lvs
+_to_log cat /proc/mdstat
+_to_log cat /proc/partitions
+_to_log mount
+_to_log df -h
+_to_log cat /proc/meminfo
+_to_log cat /proc/cpuinfo
+_to_log ps axf
+_to_log lsof
+_to_log ip -s li
+_to_log ip a
+_to_log ip r
+
+cp /tmp/*.log ${OUTDIR}
+
+tar cfa ${ARCHIVE} ${OUTDIR}
+
+echo -e "\nFinished gathering data\nUpload ${ARCHIVE} to another system\n"

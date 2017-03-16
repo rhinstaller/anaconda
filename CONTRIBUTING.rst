@@ -5,10 +5,12 @@ How to Contribute to the Anaconda Installer (the short version)
 ----------------------------------------------------------------
 
 a) I want to contribute to the upstream Anaconda Installer (used in Fedora):
+
 - open a pull request for the ``<next Fedora number>-devel`` branch (f25-devel, etc.)
 - check the *Commit Messages* section below for how to format your commit messages
 
 b) I want to contribute to the RHEL Anaconda installer:
+
 - open a pull request for the ``<RHEL number>-branch``  branch (rhel7-branch, etc.)
 - check the *Commits for RHEL Branches* section below for how to format your commit messages
 
@@ -18,6 +20,7 @@ Anaconda Installer Branching Policy (the long version)
 -------------------------------------------------------
 
 The basic premise is that there are the following branches:
+
 - master
 - unstable
 - <next fedora number>-release
@@ -29,6 +32,7 @@ The ``unstable`` branch is used for making periodic Anaconda releases for Rawhid
 
 Concerning current RHEL branches, they are too divergent to integrate into this scheme. Thus, commits are merged onto, and builds are done on the RHEL branches.
 In this case, two pull requests will very likely be needed:
+
 - one for the ``rhel<number>-branch``
 - one for the ``master`` or ``<fedora number>-devel`` branch (if the change is not RHEL only)
 
@@ -36,14 +40,17 @@ Releases
 ---------
 
 For specific Fedora version, the release process is as follows:
+
 - ``<next Fedora number>-devel`` is merged onto ``<next Fedora number>-release``
 - a release commit is made (which bumps version in spec file) & tagged
 
 Concerning Fedora Rawhide, the release process is (very) slightly different:
+
 - master is merged onto the unstable branch
 - a release commit is made (which bumps version in spec file) & tagged
 
 Concerning the ``<next Fedora number>`` branches (which could also be called ``next stable release`` if we wanted to decouple our versioning from Fedora in the future):
+
 - work which goes into the next Fedora goes to ``<next Fedora number>-devel``, which is periodically merged back to ``master``
 - this way we can easily see what was developed in which Fedora timeframe and possibly due to given Fedora testing phase feedback (bugfixes, etc.)
 - stuff we *don't* want to go to the next Fedora (too cutting edge, etc.) goes only to ``master`` branch
@@ -59,11 +66,13 @@ Example for the F25 cycle
 - f25-release
 
 This would continue until F25 is released, after which we:
+
 - drop the f25-devel branch
 - keep f25-release as an inactive record of the f25 cycle
 - branch f26-devel and f26-release from the master branch
 
 This will result in the following branches for the F26 cycle:
+
 - master
 - unstable
 - f26-devel
@@ -130,9 +139,11 @@ Merging a GitHub pull request
 Press the green *Merge pull request* button on the pull request page.
 
 If the pull request has been opened for:
+
 - master
 - f25-release
 - rhel7-branch
+
 Then you are done.
 
 If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
@@ -155,9 +166,11 @@ Then push the merge to the remote:
 ``git push origin <target branch>``
 
 If the <target branch> was one of:
+
 - master
 - f25-release
 - rhel7-branch
+
 Then you are done.
 
 If the pull request has been opened for the ``f25-devel`` branch, then you also need to merge the ``f25-devel``
