@@ -426,6 +426,7 @@ def _get_ip_setting_values_from_ksdata(networkdata):
         method4 = "auto"
     values.append(["ipv4", "method", method4, "s"])
 
+    addresses4 = []
     if method4 == "manual":
         addr4 = nm.nm_ipv4_to_dbus_int(networkdata.ip)
         if networkdata.gateway:
@@ -433,7 +434,9 @@ def _get_ip_setting_values_from_ksdata(networkdata):
         else:
             gateway4 = 0 # will be ignored by NetworkManager
         prefix4 = netmask2prefix(networkdata.netmask)
-        values.append(["ipv4", "addresses", [[addr4, prefix4, gateway4]], "aau"])
+        addresses4 = [[addr4, prefix4, gateway4]]
+
+    values.append(["ipv4", "addresses", addresses4, "aau"])
 
     # ipv6 settings
     if networkdata.noipv6:
@@ -449,6 +452,7 @@ def _get_ip_setting_values_from_ksdata(networkdata):
             method6 = "manual"
     values.append(["ipv6", "method", method6, "s"])
 
+    addresses6 = []
     if method6 == "manual":
         addr6, _slash, prefix6 = networkdata.ipv6.partition("/")
         if prefix6:
@@ -460,7 +464,8 @@ def _get_ip_setting_values_from_ksdata(networkdata):
             gateway6 = nm.nm_ipv6_to_dbus_ay(networkdata.ipv6gateway)
         else:
             gateway6 = [0] * 16
-        values.append(["ipv6", "addresses", [(addr6, prefix6, gateway6)], "a(ayuay)"])
+        addresses6 = [(addr6, prefix6, gateway6)]
+    values.append(["ipv6", "addresses", addresses6, "a(ayuay)"])
 
     # nameservers
     nss4 = []
