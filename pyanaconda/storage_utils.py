@@ -326,17 +326,25 @@ def verify_swap(storage, constraints, report_error, report_warning):
         installed = util.total_memory()
         required = Size("%s MiB" % (constraints["min_ram"] + isys.NO_SWAP_EXTRA_RAM))
 
-        if installed < required:
-            report_error(_("You have not specified a swap partition. "
-                           "%(requiredMem)s of memory is required to continue "
-                           "installation without a swap partition, but you only "
-                           "have %(installedMem)s.")
-                         % {"requiredMem": required, "installedMem": installed})
+        if not constraints["swap_is_recommended"]:
+            if installed < required:
+                report_warning(_("You have not specified a swap partition. "
+                                 "%(requiredMem)s of memory is recommended to continue "
+                                 "installation without a swap partition, but you only "
+                                 "have %(installedMem)s.")
+                               % {"requiredMem": required, "installedMem": installed})
         else:
-            report_warning(_("You have not specified a swap partition. "
-                             "Although not strictly required in all cases, "
-                             "it will significantly improve performance "
-                             "for most installations."))
+            if installed < required:
+                report_error(_("You have not specified a swap partition. "
+                               "%(requiredMem)s of memory is required to continue "
+                               "installation without a swap partition, but you only "
+                               "have %(installedMem)s.")
+                             % {"requiredMem": required, "installedMem": installed})
+            else:
+                report_warning(_("You have not specified a swap partition. "
+                                 "Although not strictly required in all cases, "
+                                 "it will significantly improve performance "
+                                 "for most installations."))
 
 
 def verify_swap_uuid(storage, constraints, report_error, report_warning):
@@ -625,6 +633,8 @@ class StorageChecker(object):
         self.add_new_constraint("must_be_on_root", {
             '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
         })
+
+        self.add_new_constraint("swap_is_recommended", True)
 
     def set_default_checks(self):
         """Set the default checks."""

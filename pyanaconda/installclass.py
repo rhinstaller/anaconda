@@ -127,15 +127,30 @@ class BaseInstallClass(object):
     def customizeDefaultPartitioning(self, storage, data):
         # Customize the default partitioning with kickstart data.
         skipped_mountpoints = set()
+        skipped_fstypes = set()
 
-        # Create a set of mountpoints to remove from autorequests.
-        # Add /home to the set if --nohome is selected.
-        if data.autopart.autopart and data.autopart.nohome:
-            skipped_mountpoints.add("/home")
+        # Create sets of mountpoints and fstypes to remove from autorequests.
+        if data.autopart.autopart:
+            # Remove /home if --nohome is selected.
+            if data.autopart.nohome:
+                skipped_mountpoints.add("/home")
+
+            # Remove /boot if --noboot is selected.
+            if data.autopart.noboot:
+                skipped_mountpoints.add("/boot")
+
+            # Remove swap if --noswap is selected.
+            if data.autopart.noswap:
+                skipped_fstypes.add("swap")
+
+                # Swap will not be recommended by the storage checker.
+                from pyanaconda.storage_utils import storage_checker
+                storage_checker.add_constraint("swap_is_recommended", False)
 
         # Skip mountpoints we want to remove.
         storage.autopart_requests = [req for req in storage.autopart_requests
-                                     if req.mountpoint not in skipped_mountpoints]
+                                     if req.mountpoint not in skipped_mountpoints
+                                     and req.fstype not in skipped_fstypes]
 
     def configure(self, anaconda):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
