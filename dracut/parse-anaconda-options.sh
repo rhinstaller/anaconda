@@ -129,6 +129,15 @@ getargbool 0 vnc inst.vnc && warn "anaconda requiring network for vnc" && set_ne
 
 # Driver Update Disk
 warn_renamed_arg "dd" "inst.dd"
+# Net may be needed 
+if dd=$(getarg dd inst.dd); then
+    if [ -n "$dd" ]; then
+        case $dd in
+            http*|ftp*|nfs*)
+                set_neednet
+        esac
+    fi
+fi
 
 # re-read the commandline args
 unset CMDLINE
