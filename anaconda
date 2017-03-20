@@ -1271,9 +1271,6 @@ if __name__ == "__main__":
         iutil.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
-    if image_count:
-        anaconda.storage.setupDiskImages()
-
     from blivet import storageInitialize
     from pyanaconda.packaging import payloadMgr
     from pyanaconda.timezone import time_initialize
