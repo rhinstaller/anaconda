@@ -25,6 +25,7 @@ __all__ = ["TextWidget", "ColumnWidget", "CheckboxWidget", "CenterWidget"]
 
 from pyanaconda.i18n import _
 from pyanaconda.ui.tui.simpleline import base
+from textwrap import fill
 
 class TextWidget(base.Widget):
     """Class to handle wrapped text output."""
@@ -36,7 +37,7 @@ class TextWidget(base.Widget):
         """
 
         base.Widget.__init__(self)
-        self._text = text
+        self._text = fill(text, 80)
 
     def render(self, width):
         """Renders the text widget limited to width number of columns
