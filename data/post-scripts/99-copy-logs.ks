@@ -24,4 +24,6 @@ else
     [ -e /run/install/ks.cfg ] && cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
 fi
 
+[ -e /run/install/ks.cfg ] && cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
+
 %end
