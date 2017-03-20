@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 20 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.103-1
+- network tui: fix changing ipv4 config from static to dhcp (rvykydal)
+  Resolves: rhbz#1432886
+
 * Thu Mar 16 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.102-1
 - Add support for kickstart %%onerror scripts (clumens)
   Resolves: rhbz#1412538
