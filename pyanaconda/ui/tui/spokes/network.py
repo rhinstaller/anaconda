@@ -236,6 +236,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
             network.update_settings_with_ksdata(devname, ndata)
             network.update_onboot_value(devname, ndata.onboot, ksdata=None, root_path="")
+            network.logIfcfgFiles("settings of %s updated in tui" % devname)
 
             if ndata._apply:
                 self._apply = True
@@ -305,13 +306,11 @@ def check_ipv6_address(value):
     return (network.check_ip_address(value, version=6), None)
 
 def check_nameservers(value):
-    addresses = [str.strip(i) for i in value.split(",")]
-    if not addresses:
-        return (False, None)
-
-    for ip in addresses:
-        if not network.check_ip_address(ip):
-            return (False, None)
+    if value.strip():
+        addresses = [str.strip(i) for i in value.split(",")]
+        for ip in addresses:
+            if not network.check_ip_address(ip):
+                return (False, None)
     return (True, None)
 
 class ConfigureNetworkSpoke(EditTUISpoke):
