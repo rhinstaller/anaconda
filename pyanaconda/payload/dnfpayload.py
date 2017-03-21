@@ -158,6 +158,7 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
         super(PayloadRPMDisplay, self).__init__()
         self._queue = queue_instance
         self._last_ts = None
+        self._postinst_phase = False
         self.cnt = 0
 
     def progress(self, package, action, ti_done, ti_total, ts_done, ts_total):
@@ -179,8 +180,37 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
             nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
             log_msg = "Installed: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
             self._queue.put(('log', log_msg))
+
         elif action == self.TRANS_POST:
             self._queue.put(('post', None))
+            log_msg = "Post installation setup phase started."
+            self._queue.put(('log', log_msg))
+            self._postinst_phase = True
+
+        elif action == self.PKG_SCRIPTLET:
+            # Log the exact package nevra, build time and checksum
+            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
+            log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
+            self._queue.put(('log', log_msg))
+
+            # only show progress in UI for post-installation scriptlets
+            if self._postinst_phase:
+                msg = '%s.%s' % (package.name, package.arch)
+                #self.cnt += 1
+                self._queue.put(('configure', msg))
+
+        elif action == self.PKG_VERIFY:
+            msg = '%s.%s (%d/%d)' % (package.name, package.arch, ts_done, ts_total)
+            self._queue.put(('verify', msg))
+
+            # Log the exact package nevra, build time and checksum
+            nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
+            log_msg = "Verifying: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
+            self._queue.put(('log', log_msg))
+
+            # Once the last package is verified the transaction is over
+            if ts_done == ts_total:
+                self._queue.put(('done', None))
 
     def error(self, message):
         """ Report an error that occurred during the transaction. Message is a
@@ -845,9 +875,18 @@ class DNFPayload(payload.PackagePayload):
             if token == 'install':
                 msg = _("Installing %s") % msg
                 progressQ.send_message(msg)
+            elif token == 'configure':
+                msg = _("Configuring %s") % msg
+                progressQ.send_message(msg)
+            elif token == 'verify':
+                msg = _("Verifying %s") % msg
+                progressQ.send_message(msg)
             elif token == 'log':
                 log.info(msg)
             elif token == 'post':
+                msg = (N_("Performing post-installation setup tasks"))
+                progressQ.send_message(msg)
+            elif token == 'done':
                 break  # Installation finished successfully
             elif token == 'quit':
                 msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
@@ -859,8 +898,6 @@ class DNFPayload(payload.PackagePayload):
                     _failure_limbo()
             (token, msg) = queue_instance.get()
 
-        post_msg = (N_("Performing post-installation setup tasks"))
-        progress_message(post_msg)
         process.join()
         self._base.close()
         if os.path.exists(self._download_location):
