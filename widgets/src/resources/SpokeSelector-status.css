@@ -4,13 +4,13 @@
 }
 
 /* If the spoke is incomplete, display the text in red */
-AnacondaSpokeSelector:inconsistent #anaconda-spoke-selector-status {
+AnacondaSpokeSelector:indeterminate #anaconda-spoke-selector-status {
     color: #cc1a1a;
 }
 
 /* If the spoke is both incomplete and insensitive, let the insensitive
  * color take precedence
  */
-AnacondaSpokeSelector:insensitive:inconsistent #anaconda-spoke-selector-status {
+AnacondaSpokeSelector:disabled:indeterminate #anaconda-spoke-selector-status {
     color: inherit;
 }

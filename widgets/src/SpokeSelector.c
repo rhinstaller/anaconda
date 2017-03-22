@@ -66,7 +66,7 @@
  * </listitem>
  * </itemizedlist>
  * <para>
- * In addition, the :inconsistent pseudo-class can be used to select
+ * In addition, the :indeterminate pseudo-class can be used to select
  * selectors that are in an error state.
  * </para>
  * </refsect2>

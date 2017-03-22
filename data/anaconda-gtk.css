@@ -184,9 +184,9 @@ AnacondaSpokeSelector:selected:focus {
 @define-color anaconda_internal_element_color #888a85;
 @define-color anaconda_insensitive_borders shade(@anaconda_internal_element_color, 1.37);
 
-AnacondaMountpointSelector:insensitive,
-AnacondaDiskOverview:insensitive,
-AnacondaSpokeSelector:insensitive {
+AnacondaMountpointSelector:disabled,
+AnacondaDiskOverview:disabled,
+AnacondaSpokeSelector:disabled {
     background-color: @anaconda_insensitive_bg_color;
     color: @anaconda_insensitive_fg_color;
     border-color: @anaconda_insensitive_borders;
