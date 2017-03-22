@@ -19,6 +19,10 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
+import gi
+gi.require_version("Gkbd", "3.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gkbd, Gdk, Gtk
 

@@ -24,6 +24,12 @@
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.constants import NOTICEABLE_FREEZE
+
+import gi
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
+gi.require_version("GLib", "2.0")
+
 from gi.repository import Gdk, Gtk, GLib
 import Queue
 import time

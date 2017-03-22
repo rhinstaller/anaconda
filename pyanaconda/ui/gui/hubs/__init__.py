@@ -18,6 +18,8 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
+import gi
+gi.require_version("GLib", "2.0")
 
 from gi.repository import GLib
 
@@ -102,6 +104,9 @@ class Hub(GUIObject, common.Hub):
         self._spokeAutostepIndex = 0
 
     def _createBox(self):
+        gi.require_version("Gtk", "3.0")
+        gi.require_version("AnacondaWidgets", "3.0")
+
         from gi.repository import Gtk, AnacondaWidgets
         from pyanaconda.ui.gui.utils import setViewportBackground
 
@@ -345,6 +350,7 @@ class Hub(GUIObject, common.Hub):
     ### SIGNAL HANDLERS
 
     def _on_spoke_clicked(self, selector, event, spoke):
+        gi.require_version("Gdk", "3.0")
         from gi.repository import Gdk
 
         # This handler only runs for these two kinds of events, and only for

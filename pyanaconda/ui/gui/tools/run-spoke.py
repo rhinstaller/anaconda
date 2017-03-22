@@ -9,6 +9,9 @@ import gi.overrides
 for p in os.environ.get("ANACONDA_WIDGETS_OVERRIDES", "").split(":"):
     gi.overrides.__path__.insert(0, p)
 
+import gi
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gtk
 
 import ctypes

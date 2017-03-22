@@ -22,6 +22,12 @@
 import logging
 log = logging.getLogger("anaconda")
 
+import gi
+gi.require_version("GLib", "2.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
+gi.require_version("TimezoneMap", "1.0")
+
 from gi.repository import GLib, Gdk, Gtk, TimezoneMap
 
 from pyanaconda.ui.communication import hubQ

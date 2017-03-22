@@ -19,8 +19,13 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 
-from gi.repository import Gio, GLib
+import gi
+gi.require_version("GLib", "2.0")
+gi.require_version("Gio", "2.0")
+gi.require_version("NM", "1.0")
+gi.require_version("NetworkManager", "1.0")
 
+from gi.repository import Gio, GLib
 from gi.repository import NetworkManager
 # Register the types so that the use in threads is safe
 NetworkManager.ActiveConnectionState # pylint: disable=pointless-statement
