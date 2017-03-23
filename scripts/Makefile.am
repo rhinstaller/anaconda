@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
-dist_scripts_SCRIPTS = upd-updates run-anaconda anaconda-yum zramswapon zramswapoff zram-stats anaconda-pre-log-gen
+dist_scripts_SCRIPTS = upd-updates run-anaconda anaconda-yum zramswapon zramswapoff zram-stats anaconda-pre-log-gen log-capture
 dist_noinst_SCRIPTS  = upd-kernel makeupdates
 
 dist_bin_SCRIPTS = analog anaconda-cleanup instperf anaconda-disable-nm-ibft-plugin
