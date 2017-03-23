@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 23 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.104-1
+- util: Add script to capture logs (riehecky)
+  Resolves: rhbz#1431313
+
 * Mon Mar 20 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.103-1
 - network tui: fix changing ipv4 config from static to dhcp (rvykydal)
   Resolves: rhbz#1432886
