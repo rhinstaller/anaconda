@@ -412,11 +412,14 @@ class MainWindow(Gtk.Window):
         overlayed_widget.set_from_pixbuf(self._transparent_base.scale_simple(
             overlay_allocation.width, overlay_allocation.height, GdkPixbuf.InterpType.NEAREST))
 
+        # The image's size needs to be recalculated.
+        minimal, requested = overlayed_widget.get_preferred_size()
+
         # Set the allocation for the overlayed image to the full size of the GtkOverlay
         allocation.x = 0
         allocation.y = 0
-        allocation.width = overlay_allocation.width
-        allocation.height = overlay_allocation.height
+        allocation.width = max(minimal.width, min(overlay_allocation.width, requested.width))
+        allocation.height = max(minimal.height, max(overlay_allocation.height, requested.height))
 
         return True
 
