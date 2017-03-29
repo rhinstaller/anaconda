@@ -57,7 +57,7 @@ from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
-from pyanaconda.ui.helpers import StorageChecker
+from pyanaconda.ui.helpers import StorageCheckHandler
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
@@ -71,7 +71,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
-from pyanaconda import constants, iutil, isys
+from pyanaconda import constants, iutil
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.screen_access import sam
@@ -245,7 +245,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
 
         self._add_modify_watcher(label)
 
-class StorageSpoke(NormalSpoke, StorageChecker):
+class StorageSpoke(NormalSpoke, StorageCheckHandler):
     """
        .. inheritance-diagram:: StorageSpoke
           :parts: 3
@@ -262,7 +262,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     title = CN_("GUI|Spoke", "INSTALLATION _DESTINATION")
 
     def __init__(self, *args, **kwargs):
-        StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
+        StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
 
@@ -381,7 +381,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     @gtk_action_nowait
     def execute(self):
         # Spawn storage execution as a separate thread so there's no big delay
-        # going back from this spoke to the hub while StorageChecker.run runs.
+        # going back from this spoke to the hub while StorageCheckHandler.run runs.
         # Yes, this means there's a thread spawning another thread.  Sorry.
         threadMgr.add(AnacondaThread(name=constants.THREAD_EXECUTE_STORAGE,
                                      target=self._doExecute))
@@ -424,7 +424,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         if flags.automatedInstall and self.data.autopart.encrypted and not self.data.autopart.passphrase:
             self.autopart_missing_passphrase = True
-            StorageChecker.errors = [_("Passphrase for autopart encryption not specified.")]
+            StorageCheckHandler.errors = [_("Passphrase for autopart encryption not specified.")]
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
             return
@@ -433,7 +433,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py
         except (StorageError, KickstartParseError, ValueError) as e:
             log.error("storage configuration failed: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
             self.data.ignoredisk.drives = []
@@ -445,17 +445,17 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             applyDiskSelection(self.storage, self.data, self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
         except Exception as e:
             log.error("unexpected storage error: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Unexpected storage error"))
             raise e
         else:
             if self.autopart or (flags.automatedInstall and (self.data.autopart.autopart or self.data.partition.seen)):
-                # run() executes StorageChecker.checkStorage in a seperate threat
+                # run() executes StorageCheckHandler.checkStorage in a seperate thread
                 self.run()
         finally:
             resetCustomStorageData(self.data)
