@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 29 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.105-1
+- gui: show supported locales on Atomic Host installs (jlebon)
+  Resolves: rhbz#1429576
+- Specify unit for reserved space in VG (vpodzime)
+  Resolves: rhbz#1260887
+- Add support for --chunksize raid kickstart option (vtrefny)
+  Resolves: rhbz#1332316
+
 * Thu Mar 23 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.104-1
 - util: Add script to capture logs (riehecky)
   Resolves: rhbz#1431313
