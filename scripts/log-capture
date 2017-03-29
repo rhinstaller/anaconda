@@ -1,24 +1,39 @@
 #!/bin/bash
 
 date=$(date +%F_%R)
-OUTDIR=/tmp/LogCapture-${date}
-ARCHIVE=${1:/tmp/log-capture.tar.bz2}
+OUTDIR=/tmp/log-capture-${date}
+ARCHIVE=${1-/tmp/log-capture.tar.bz2}
 
 _to_log() { local OutputFile=$(tr ' /' '_' <<<"$@"); $@ >${OUTDIR}/${OutputFile}; }
 
 mkdir -p ${OUTDIR}
 cd ${OUTDIR}
 
-if [[ ! -f ks.cfg ]];then
-  echo "No /tmp/ks.cfg present" > ${OUTDIR}/ks.cfg
+if [[ ! -f /tmp/ks.cfg ]];then
+  echo "# No /tmp/ks.cfg present" > ${OUTDIR}/ks.cfg
+else
+    _to_log cat /mnt/sysimage/root/ks.cfg
 fi
 
-_to_log cat /mnt/sysimage/root/anaconda-ks.cfg
+# the /mnt/sysimage/root/anaconda-ks.cfg file
+# might not yet exist when this script is called
+if [[ ! -f  /mnt/sysimage/root/anaconda-ks.cfg ]];then
+    echo "# No /mnt/sysimage/root/anaconda-ks.cfg" > ${OUTDIR}/anaconda-ks.cfg
+else
+    _to_log cat /mnt/sysimage/root/anaconda-ks.cfg
+fi
+
 _to_log date
 _to_log dmesg
 _to_log dmidecode
 _to_log lspci -vvnn
-_to_log fdisk -cul
+
+# run fdisk -l on all disks
+for DEV_NAME in $(list-harddrives | cut -d " " -f 1)
+do
+    _to_log fdisk -l /dev/${DEV_NAME}
+done
+
 _to_log ls -lR /dev
 _to_log dmsetup ls --tree
 _to_log lvm pvs
