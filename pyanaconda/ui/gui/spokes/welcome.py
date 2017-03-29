@@ -229,11 +229,17 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         self._languageEntry.set_text("")
         self._languageStoreFilter.refilter()
 
+    def _filter_languages(self, langs):
+        return self.instclass.filterSupportedLangs(self.data, langs)
+
     def _add_language(self, store, native, english, lang):
         native_span = '<span lang="%s">%s</span>' % \
                 (escape_markup(lang),
                  escape_markup(native))
         store.append([native_span, english, lang, False])
+
+    def _filter_locales(self, lang, locales):
+        return self.instclass.filterSupportedLocales(self.data, lang, locales)
 
     def _add_locale(self, store, native, locale):
         native_span = '<span lang="%s">%s</span>' % \
