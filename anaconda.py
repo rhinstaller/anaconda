@@ -617,6 +617,16 @@ if __name__ == "__main__":
     if not anaconda.interactive_mode:
         flags.ksprompt = False
 
+    # Set minimal ram size to the storage checker.
+    if anaconda.display_mode == constants.DisplayModes.GUI:
+        min_ram = isys.MIN_GUI_RAM
+    else:
+        min_ram = isys.MIN_RAM
+
+    from pyanaconda.storage_utils import storage_checker
+    storage_checker.add_constraint("min_ram", min_ram)
+    anaconda.instClass.setStorageChecker(storage_checker)
+
     from pyanaconda.anaconda_argparse import name_path_pairs
 
     image_count = 0

@@ -268,7 +268,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
 
     def execute(self, storage, ksdata, instClass):
         from blivet.autopart import do_autopart
-        from pyanaconda.storage_utils import sanity_check
+        from pyanaconda.storage_utils import storage_checker
 
         if not self.autopart:
             return
@@ -297,9 +297,11 @@ class AutoPart(commands.autopart.F21_AutoPart):
             storage.autopart_type = self.type
 
         do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
-        errors = sanity_check(storage)
-        if errors:
-            raise PartitioningError("autopart failed:\n" + "\n".join(str(error) for error in errors))
+        report = storage_checker.check(storage)
+        report.log(log)
+
+        if report.failure:
+            raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
 
 class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):
