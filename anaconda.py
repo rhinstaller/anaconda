@@ -361,6 +361,7 @@ if __name__ == "__main__":
     from pyanaconda import display
     from pyanaconda import startup_utils
     from pyanaconda import rescue
+    from pyanaconda import geoloc
     from pyanaconda.iutil import ProxyString, ProxyStringError
 
     # Print the usual "startup note" that contains Anaconda version
@@ -696,19 +697,14 @@ if __name__ == "__main__":
     fallback = not (flags.automatedInstall and ksdata.method.method)
     payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass, fallback=fallback)
 
-    # check if geolocation should be enabled for this type of installation
-    use_geolocation = True
-    if flags.imageInstall or flags.dirInstall or flags.automatedInstall:
-        use_geolocation = False
-    # and also check if it was not disabled by boot option
-    else:
-        # flags.cmdline.getbool is used as it handles values such as
-        # 0, no, off and also nogeoloc as False
-        # and other values or geoloc not being present as True
-        use_geolocation = flags.cmdline.getbool('geoloc', True)
+    # initialize the geolocation singleton
+    geoloc.init_geolocation(geoloc_option=opts.geoloc,
+                            options_override=opts.geoloc_use_with_ks,
+                            install_class_override=anaconda.instClass.use_geolocation_with_kickstart)
 
-    if use_geolocation:
-        startup_utils.start_geolocation(provider_id=opts.geoloc)
+    # start geolocation lookup if enabled
+    if geoloc.geoloc.enabled:
+        geoloc.geoloc.refresh()
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     if can_touch_runtime_system("start chronyd"):

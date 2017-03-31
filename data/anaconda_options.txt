@@ -167,6 +167,10 @@ Configure geolocation usage in Anaconda. Geolocation is used to pre-set language
 The following values for PROVIDER_ID are supported: 0 - disable geolocation, "provider_fedora_geoip"
 - use the Fedora GeoIP API (default) and "provider_hostip" - use the Hostip.info GeoIP API.
 
+geoloc-use-with-ks
+Enable geolocation even during a kickstart installation (both partial and fully automatic).
+Otherwise geolocation is only enabled during a fully interactive installation.
+
 nomount
 Don't automatically mount any installed Linux partitions in rescue mode.
 

@@ -33,7 +33,6 @@ import os
 from pyanaconda import iutil
 from pyanaconda import product
 from pyanaconda import constants
-from pyanaconda import geoloc
 from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import safe_dbus
@@ -205,23 +204,6 @@ def check_memory(anaconda, options, display_mode=None):
                 stdout_log.warning(reason % reason_args)
                 anaconda.display_mode = constants.DisplayModes.TUI
                 time.sleep(2)
-
-def start_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
-    """Start an asynchronous geolocation attempt.
-
-    The data from geolocation is used to pre-select installation language and timezone.
-
-    :param str provider_id: geolocation provider id
-    """
-    # check if the provider id is valid
-    parsed_id = geoloc.get_provider_id_from_option(provider_id)
-    if parsed_id is None:
-        log.error('geoloc: wrong provider id specified: %s', provider_id)
-    else:
-        provider_id = parsed_id
-    # instantiate the geolocation module and start location data refresh
-    geoloc.init_geolocation(provider_id=provider_id)
-    geoloc.refresh()
 
 def setup_logging_from_options(options):
     """Configure logging according to Anaconda command line/boot options.

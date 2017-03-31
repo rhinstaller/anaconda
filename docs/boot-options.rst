@@ -368,6 +368,14 @@ language and time zone.
 ``inst.geoloc=provider_hostip``
     Use the Hostip.info GeoIP API.
 
+.. inst.geoloc-use-with-ks
+
+inst.geoloc-use-with-ks
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Enable geolocation even during a kickstart installation (both partial and fully automatic).
+Otherwise geolocation is only enabled during a fully interactive installation.
+
 .. inst.keymap:
 
 inst.keymap
