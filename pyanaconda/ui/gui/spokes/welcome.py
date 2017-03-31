@@ -69,8 +69,10 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # Skip timezone and keyboard default setting for kickstart installs.
         # The user may have provided these values via kickstart and if not, we
-        # need to prompt for them.
-        if flags.flags.automatedInstall:
+        # need to prompt for them. But do continue if geolocation-with-kickstart
+        # is enabled.
+
+        if flags.flags.automatedInstall and not geoloc.geolocation_enabled:
             return
 
         geoloc_timezone = geoloc.get_timezone()
@@ -78,10 +80,19 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if geoloc_timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
+            log.info("using timezone determined by geolocation")
             self.data.timezone.timezone = geoloc_timezone
+            # Either this is an interactive install and timezone.seen propagates
+            # from the interactive default kickstart, or this is a kickstart
+            # install where the user explicitly requested geolocation to be used.
+            # So set timezone.seen to True, so that the user isn't forced to
+            # enter the Date & Time spoke to acknowledge the timezone detected
+            # by geolocation before continuing the installation.
+            self.data.timezone.seen = True
         elif loc_timezones and not self.data.timezone.timezone:
             # no data is provided by Geolocation, try to get timezone from the
             # current language
+            log.info("geolocation not finished in time, using default timezone")
             self.data.timezone.timezone = loc_timezones[0]
 
     @property
