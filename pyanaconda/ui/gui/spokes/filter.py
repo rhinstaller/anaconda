@@ -33,7 +33,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
 from pyanaconda.storage_utils import try_populate_devicetree, on_disk_storage
 
-from pyanaconda.ui.lib.disks import getDisks
+from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection
 from pyanaconda.ui.gui.utils import timed_action
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
@@ -506,13 +506,7 @@ class FilterSpoke(NormalSpoke):
         return None
 
     def apply(self):
-        onlyuse = self.selected_disks[:]
-        for disk in [d for d in self.storage.disks if d.name in onlyuse]:
-            onlyuse.extend([d.name for d in disk.ancestors
-                                        if d.name not in onlyuse])
-
-        self.data.ignoredisk.onlyuse = onlyuse
-        self.data.clearpart.drives = self.selected_disks[:]
+        applyDiskSelection(self.storage, self.data, self.selected_disks)
 
         # some disks may have been added in this spoke, we need to recreate the
         # snapshot of on-disk storage
