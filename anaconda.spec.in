@@ -318,6 +318,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 03 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.106-1
+- Pylint fixes (rvykydal)
+  Related: rhbz#1429576
+- Make 64-bit kernel on 32-bit firmware work for x86 efi machines (pjones)
+  Resolves: rhbz#1310779
+
 * Wed Mar 29 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.105-1
 - gui: show supported locales on Atomic Host installs (jlebon)
   Resolves: rhbz#1429576
