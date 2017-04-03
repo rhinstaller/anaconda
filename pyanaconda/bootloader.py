@@ -1388,7 +1388,7 @@ class GRUB2(GRUB):
 
     """
     name = "GRUB2"
-    packages = ["grub2"]
+    packages = ["grub2-pc", "grub2-tools"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
     _passwd_file = "user.cfg"
@@ -1662,12 +1662,26 @@ class GRUB2(GRUB):
         return ret
 
 class EFIGRUB(GRUB2):
-    packages = ["grub2-efi", "efibootmgr", "shim"]
+    _packages32 = ["grub2-efi.i686", "shim.i686"]
+    _packages64 = ["grub2-efi", "shim.x86_64"]
+    _packages_common = ["efibootmgr"]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
     stage2_bootable = False
 
-    _efi_binary = "\\shim.efi"
+    _is_32bit_firmware = False
+
+    @property
+    def _efi_binary(self):
+        if self._is_32bit_firmware:
+            return "\\shimia32.efi"
+        return "\\shimx64.efi"
+
+    @property
+    def packages(self):
+        if self._is_32bit_firmware:
+            return self._packages32 + self._packages_common
+        return self._packages64 + self._packages_common
 
     @property
     def _config_dir(self):
@@ -1676,6 +1690,15 @@ class EFIGRUB(GRUB2):
     def __init__(self):
         super(EFIGRUB, self).__init__()
         self.efi_dir = 'BOOT'
+
+        try:
+            f = open("/sys/firmware/efi/fw_platform_size", "r")
+            value = f.readline().strip()
+        except IOError:
+            log.info("Reading /sys/firmware/efi/fw_platform_size failed, defaulting to 64-bit install.")
+            value = '64'
+        if value == '32':
+            self._is_32bit_firmware = True
 
     def efibootmgr(self, *args, **kwargs):
         if flags.imageInstall or flags.dirInstall:
@@ -1770,8 +1793,10 @@ class EFIGRUB(GRUB2):
 
 class Aarch64EFIGRUB(EFIGRUB):
     _serial_consoles = ["ttyAMA", "ttyS"]
+    _efi_binary = "\\shimaa64.efi"
 
 class MacEFIGRUB(EFIGRUB):
+    packages = [ "grub2-tools-efi", "mactel-boot" ]
     def mactel_config(self):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
