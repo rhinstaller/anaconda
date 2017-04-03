@@ -27,7 +27,6 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import iutil
 from pyanaconda.kickstart import getAvailableDiskSpace
-from pyanaconda.flags import flags
 from blivet.partspec import PartSpec
 from blivet.platform import platform
 from blivet.devicelibs import swap
@@ -155,7 +154,7 @@ class RHELAtomicInstallClass(RHELBaseInstallClass):
                                         ["--prefix", os.path.join(repo, "tmp"),
                                          "--list-archive"]):
             line = self._strip_codeset_and_modifier(line)
-            (lang, territory) = line.split('_')
+            (lang, _) = line.split('_')
             if lang not in self.localemap:
                 self.localemap[lang] = [line]
             else:
