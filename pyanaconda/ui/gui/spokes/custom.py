@@ -89,6 +89,11 @@ from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, 
 from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList, timed_action
 from pyanaconda.ui.categories.system import SystemCategory
 
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("AnacondaWidgets", "3.0")
+
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 

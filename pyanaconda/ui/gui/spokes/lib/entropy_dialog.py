@@ -22,6 +22,10 @@
 import time
 import math
 
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("GLib", "2.0")
+
 from gi.repository import Gtk, GLib
 
 from pyanaconda.i18n import P_

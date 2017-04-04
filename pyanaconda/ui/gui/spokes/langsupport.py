@@ -19,6 +19,9 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
+import gi
+gi.require_version("Pango", "1.0")
+gi.require_version("Gdk", "3.0")
 
 from gi.repository import Pango, Gdk
 from pyanaconda.flags import flags

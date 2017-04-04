@@ -19,6 +19,8 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #                    Chris Lumens <clumens@redhat.com>
 #
+import gi
+gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 

@@ -31,6 +31,11 @@ and various modifications of keyboard layouts settings.
 
 import threading
 import gettext
+
+import gi
+gi.require_version("GdkX11", "3.0")
+gi.require_version("Xkl", "1.0")
+
 from gi.repository import GdkX11, Xkl
 from collections import namedtuple
 

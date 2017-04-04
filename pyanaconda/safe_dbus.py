@@ -20,8 +20,13 @@
 
 """Module providing thread-safe and mainloop-safe DBus operations."""
 
-import os
+import gi
+gi.require_version("GLib", "2.0")
+gi.require_version("Gio", "2.0")
+
 from gi.repository import GLib, Gio
+
+import os
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"

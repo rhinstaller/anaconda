@@ -465,6 +465,9 @@ def setupLoggingFromOpts(options):
         anaconda_log.logger.updateRemote(options.syslog)
 
 def gtk_warning(title, reason):
+    import gi
+    gi.require_version("Gtk", "3.0")
+
     from gi.repository import Gtk
     dialog = Gtk.MessageDialog(type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.CLOSE,
