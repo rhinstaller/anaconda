@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 04 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.107-1
+- Gtk: Add gi.require_version to specify versions. (vponcova)
+  Resolves: rhbz#1433943
+- Use the function we already have for applying disk selection (rvykydal)
+  Related: rhbz#1412022
+- Ignore disks labeled OEMDRV (rvykydal)
+  Resolves: rhbz#1412022
+
 * Mon Apr 03 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.106-1
 - Pylint fixes (rvykydal)
   Related: rhbz#1429576
