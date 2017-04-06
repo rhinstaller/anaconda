@@ -34,6 +34,7 @@ from pyanaconda.i18n import _, CN_, C_
 from pyanaconda.bootloader import BootLoaderError
 
 from blivetgui import osinstall
+from blivetgui.config import config
 
 import logging
 log = logging.getLogger("anaconda")
@@ -109,6 +110,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self.label_actions = self.builder.get_object("summary_label")
         self.button_reset = self.builder.get_object("resetAllButton")
         self.button_undo = self.builder.get_object("undoLastActionButton")
+
+        config.default_fstype = self._storage.default_fstype
 
         self.blivetgui = osinstall.BlivetGUIAnaconda(self.client, self, box)
 
