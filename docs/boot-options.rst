@@ -299,7 +299,7 @@ ifname
 inst.dhcpclass
 ^^^^^^^^^^^^^^
 
-Set the DHCP vendor class identifier [#dhcpd]. Defaults to ``anaconda-$(uname -srm)``.
+Set the DHCP vendor class identifier [#dhcpd]_. Defaults to ``anaconda-$(uname -srm)``.
 
 .. [#dhcpd] ISC ``dhcpd`` will see this value as "option vendor-class-identifier".
 
