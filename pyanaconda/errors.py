@@ -34,8 +34,8 @@ class MissingImageError(Exception):
     pass
 
 class MediaMountError(Exception):
-    def __init__(self, device):
-        Exception.__init__(self)
+    def __init__(self, message, device):
+        Exception.__init__(self, message)
         self.device = device
 
 class MediaUnmountError(Exception):
