@@ -724,7 +724,11 @@ def _find_settings(value, key1, key2, format_value=lambda x: x):
     connections = proxy.ListConnections()
     for con in connections:
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        settings = proxy.GetSettings()
+        try:
+            settings = proxy.GetSettings()
+        except GLib.GError as e:
+            log.debug("Exception raised in _find_settings: %s", e)
+            continue
         try:
             v = settings[key1][key2]
         except KeyError:
@@ -761,7 +765,7 @@ def nm_get_all_settings():
             settings = proxy.GetSettings()
         except GLib.GError as e:
             # The connection may be deleted asynchronously by NM
-            log.debug("nm_get_all_settings: %s", e)
+            log.debug("Exception raised in nm_get_all_settings: %s", e)
             continue
         retval.append(settings)
 
