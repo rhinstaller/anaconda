@@ -240,14 +240,25 @@ class DeviceConfiguration(object):
             self.device_type = self._setting_device_type(self.con_uuid)
 
         if not self.con_uuid:
-            if self.device_type != NetworkManager.DeviceType.WIFI:
-                try:
-                    uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
-                    settings = nm.nm_get_settings(uuid, "connection", "uuid")
-                    if settings and 'slave-type' not in settings[0]['connection']:
-                        self.con_uuid = uuid
-                except nm.SettingsNotFoundError:
-                    log.debug("network: can't find connection for device %s", device.get_iface())
+            if self.device_type == NetworkManager.DeviceType.WIFI:
+                return
+            try:
+                uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
+            except nm.SettingsNotFoundError:
+                log.debug("network: can't find connection for device %s", device.get_iface())
+                uuid = None
+            except nm.MultipleSettingsFoundError:
+                # Can happen when activating device in initramfs and reconfiguring it via kickstart
+                # without activation.
+                # Expose the ifcfg (target system) configuration in UI.
+                uuid = network.find_ifcfg_uuid_of_device(device.get_iface())
+                log.debug("network: multiple connections found for device %s, using %s",
+                            device.get_iface(), uuid)
+
+            if uuid:
+                settings = nm.nm_get_settings(uuid, "connection", "uuid")
+                if settings and 'slave-type' not in settings[0]['connection']:
+                    self.con_uuid = uuid
 
     def _setting_device_type(self, uuid):
         settings = nm.nm_get_settings(uuid, "connection", "uuid")
@@ -734,26 +745,28 @@ class NetworkControlBox(GObject.GObject):
         if device.get_device_type() not in self.supported_device_types:
             return
         if network.is_libvirt_device(device.get_iface()):
-            log.debug("network: not adding %s", device.get_iface())
+            log.debug("network: GUI, not adding %s", device.get_iface())
             return
         # ignore fcoe vlan devices
         # (can be chopped off to IFNAMSIZ kernel limit)
         if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
         if network.is_ibft_configured_device(device.get_iface() or ""):
-            log.debug("network: not adding connection for device %s configured from iBFT", device.get_iface())
+            log.debug("network: GUI, not adding connection for device %s configured from iBFT", device.get_iface())
             return False
 
         try:
             read_only = nm.nm_device_setting_value(device.get_iface(), "connection", "read-only")
             if read_only:
-                log.debug("network: not adding read-only connection for device %s", device.get_iface())
+                log.debug("network: GUI, not adding read-only connection for device %s", device.get_iface())
                 return
             con_uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
             dev_cfg = self.dev_cfg(uuid=con_uuid)
         except (nm.UnknownDeviceError, nm.UnknownMethodGetError) as e:
             log.error(e)
             return
+        except nm.MultipleSettingsFoundError:
+            dev_cfg = None
         except nm.SettingsNotFoundError:
             # wireless devices
             dev_cfg = None

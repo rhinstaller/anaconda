@@ -1141,7 +1141,7 @@ class Network(commands.network.RHEL7_Network):
             if not nd.device:
                 ksdevice = flags.cmdline.get('ksdevice')
                 if ksdevice:
-                    log.info('network: setting %s from ksdevice for missing kickstart --device')
+                    log.info('network: setting %s from ksdevice for missing kickstart --device', ksdevice)
                     nd.device = ksdevice
                 else:
                     log.info('network: setting "link" for missing --device specification in kickstart')

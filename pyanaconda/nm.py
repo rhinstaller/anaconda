@@ -78,6 +78,11 @@ class SettingsNotFoundError(ValueError):
     def __str__(self):
         return self.__repr__()
 
+class MultipleSettingsFoundError(ValueError):
+    """Too many NMRemoteConnection objects were found"""
+    def __str__(self):
+        return self.__repr__()
+
 class UnknownMethodGetError(Exception):
     """Object does not have Get, most probably being invalid"""
     def __str__(self):
@@ -808,10 +813,13 @@ def nm_device_setting_value(name, key1, key2):
        :raise UnknownDeviceError: if device is not found
        :raise SettingsNotFoundError: if settings were not found
                                            (eg for "wlan0")
+       :raise MultipleSettingsFoundError: if multiple settings were found
     """
     settings_paths = _device_settings(name)
     if not settings_paths:
         raise SettingsNotFoundError(name)
+    elif len(settings_paths) > 1:
+        raise MultipleSettingsFoundError(name)
     else:
         settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
@@ -969,6 +977,37 @@ def nm_delete_connection(uuid):
     proxy = _get_proxy(object_path=settings_paths[0], interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     proxy.Delete()
 
+
+def nm_update_settings(uuid, new_values):
+    """Update settings of connection given by uuid.
+
+       The type of value is determined from existing settings of device.
+       If setting for key1, key2 does not exist, default_type_str is used or
+       if None, the type is inferred from the value supplied (string and bool only).
+
+       :param uuid: uuid of the connection
+       :type name: str
+       :param new_values: list of settings with new values and its types
+                          [[key1, key2, value, default_type_str]]
+                          key1: first-level key of setting (eg "connection")
+                          key2: second-level key of setting (eg "uuid")
+                          value: new value
+                          default_type_str: dbus type of new value to be used
+                                            if the setting does not already exist;
+                                            if None, the type is inferred from
+                                            value (string and bool only)
+       :type new_values: [[key1, key2, value, default_type_str], ...]
+                         key1: str
+                         key2: str
+                         value:
+                         default_type_str: str
+       :raise SettingsNotFoundError: if settings were not found (eg for "wlan0")
+    """
+    settings_paths = _find_settings(uuid, "connection", "uuid")
+    if not settings_paths:
+        raise SettingsNotFoundError(uuid)
+    return _update_settings(settings_paths[0], new_values)
+
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
 
@@ -995,10 +1034,13 @@ def nm_update_settings_of_device(name, new_values):
        :raise UnknownDeviceError: if device is not found
        :raise SettingsNotFoundError: if settings were not found
                                            (eg for "wlan0")
+       :raise MultipleSettingsFoundError: if multiple settings were found
     """
     settings_paths = _device_settings(name)
     if not settings_paths:
         raise SettingsNotFoundError(name)
+    elif len(settings_paths) > 1:
+        raise MultipleSettingsFoundError(name)
     else:
         settings_path = settings_paths[0]
     return _update_settings(settings_path, new_values)
