@@ -230,6 +230,11 @@ class Anaconda(object):
         return (self._display_mode == DisplayModes.TUI
                 and not self._interactive_mode)
 
+    @property
+    def nui_mode(self):
+        """Report if Anaconda should run with the NUI."""
+        return self._display_mode == DisplayModes.NUI
+
     def dumpState(self):
         from meh import ExceptionInfo
         from meh.dump import ReverseExceptionDump
@@ -289,6 +294,15 @@ class Anaconda(object):
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
                                                      ui_subdir="tui")
+        elif self.nui_mode:
+            # Run the NUI mode
+            from pyanaconda.ui.nui import NoneUserInterface
+            self._intf = NoneUserInterface(self.storage, self.payload,
+                                           self.instClass)
+
+            # needs to be refreshed now we know if gui or tui will take place
+            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
+                                                     ui_subdir="nui")
         elif not self.display_mode:
             raise RuntimeError("Display mode not set.")
         else:

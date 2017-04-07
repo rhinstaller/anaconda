@@ -199,6 +199,11 @@ def setup_display(anaconda, options, addon_paths=None):
     anaconda.interactive_mode = not options.noninteractive
     anaconda.isHeadless = blivet.arch.is_s390()
 
+    if anaconda.nui_mode:
+        flags.automatedInstall = True
+        flags.ksprompt = False
+        anaconda.interactive_mode = False
+
     if options.vnc:
         flags.usevnc = True
         if not anaconda.gui_mode:
