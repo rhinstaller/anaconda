@@ -305,6 +305,10 @@ class ErrorHandler(object):
         rc = ERROR_RAISE
 
         if not self.ui:
+            # While Pylint thinks something else, this should be likely OK
+            # for an exception handler.
+            #
+            # pylint: disable=misplaced-bare-raise
             raise
 
         _map = {"PartitioningError": self._partitionErrorHandler,
