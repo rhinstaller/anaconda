@@ -146,7 +146,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         """
 
-        pass
+        self._set_new_swaps()
 
     @property
     def indirect(self):
@@ -199,6 +199,12 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     def activate_action_buttons(self, activate):
         self.button_undo.set_sensitive(activate)
         self.button_reset.set_sensitive(activate)
+
+    def _set_new_swaps(self):
+        new_swaps = [d for d in self._storage_playground.devices if d.direct and
+                     not d.format.exists and not d.partitioned and d.format.type == "swap"]
+
+        self.storage.set_fstab_swaps(new_swaps)
 
     ### handlers ###
     def on_info_bar_clicked(self, *args):
