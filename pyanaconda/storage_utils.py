@@ -488,13 +488,16 @@ class StorageCheckerReport(object):
         :param bool info: should we log the info messages?
         """
         if info:
-            map(logger.debug, self.info)
+            for msg in self.info:
+                logger.debug(msg)
 
         if error:
-            map(logger.error, self.errors)
+            for msg in self.errors:
+                logger.error(msg)
 
         if warning:
-            map(logger.warning, self.warnings)
+            for msg in self.warnings:
+                logger.warning(msg)
 
 
 class StorageChecker(object):
