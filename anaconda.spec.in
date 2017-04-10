@@ -318,6 +318,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 10 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.108-1
+- Gtk: Fix css selectors. (vponcova)
+  Resolves: rhbz#1439766
+- Gtk: Set CSS names on all of the anaconda classes. (dshea)
+  Resolves: rhbz#1439766
+- Gtk: Fix deprecated pseudo-classes. (vponcova)
+  Resolves: rhbz#1433943
+- Gtk: Fix warnings in anaconda widgets. (dshea)
+  Resolves: rhbz#1433943
+- Gtk: Calculate the preferred size of the image. (vponcova)
+  Resolves: rhbz#1433943
+
 * Tue Apr 04 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.107-1
 - Gtk: Add gi.require_version to specify versions. (vponcova)
   Resolves: rhbz#1433943
