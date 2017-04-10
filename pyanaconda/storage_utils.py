@@ -403,7 +403,7 @@ def verify_luks_devices_have_key(storage, constraints, report_error, report_warn
     devices = (d for d in storage.devices
                if d.format.type == "luks"
                and not d.format.exists
-               and not d.format.hasKey)
+               and not d.format.has_key)
 
     for dev in devices:
         report_error(_("Encryption requested for LUKS device %s but no "
