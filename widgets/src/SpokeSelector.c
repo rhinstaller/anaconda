@@ -66,7 +66,7 @@
  * </listitem>
  * </itemizedlist>
  * <para>
- * In addition, the :inconsistent pseudo-class can be used to select
+ * In addition, the :indeterminate pseudo-class can be used to select
  * selectors that are in an error state.
  * </para>
  * </refsect2>
@@ -103,6 +103,7 @@ static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEven
 
 static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     object_class->set_property = anaconda_spoke_selector_set_property;
     object_class->get_property = anaconda_spoke_selector_get_property;
@@ -164,6 +165,8 @@ static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass
                                                         G_PARAM_READWRITE));
 
     g_type_class_add_private(object_class, sizeof(AnacondaSpokeSelectorPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaSpokeSelector");
 }
 
 /**
@@ -274,7 +277,7 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     g_signal_connect(spoke, "focus-out-event", G_CALLBACK(anaconda_spoke_selector_focus_changed), NULL);
 
     /* Set "hand" cursor shape when over the selector */
-    spoke->priv->cursor = gdk_cursor_new(GDK_HAND2);
+    spoke->priv->cursor = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_HAND2);
     g_signal_connect(spoke, "realize", G_CALLBACK(anaconda_spoke_selector_realize), NULL);
 
     /* Create the grid. */

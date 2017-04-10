@@ -135,6 +135,7 @@ static gboolean anaconda_disk_overview_focus_changed(GtkWidget *widget, GdkEvent
 
 static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     object_class->set_property = anaconda_disk_overview_set_property;
     object_class->get_property = anaconda_disk_overview_get_property;
@@ -240,6 +241,8 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
                                                         G_PARAM_READWRITE));
 
     g_type_class_add_private(object_class, sizeof(AnacondaDiskOverviewPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaDiskOverview");
 }
 
 /**
@@ -321,7 +324,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     g_signal_connect(widget, "focus-out-event", G_CALLBACK(anaconda_disk_overview_focus_changed), NULL);
 
     /* Set "hand" cursor shape when over the selector */
-    widget->priv->cursor = gdk_cursor_new(GDK_HAND2);
+    widget->priv->cursor = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_HAND2);
     g_signal_connect(widget, "realize", G_CALLBACK(anaconda_disk_overview_realize), NULL);
 
     /* Set some properties. */

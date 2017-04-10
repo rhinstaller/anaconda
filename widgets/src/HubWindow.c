@@ -101,8 +101,11 @@ G_DEFINE_TYPE_WITH_CODE(AnacondaHubWindow, anaconda_hub_window, ANACONDA_TYPE_BA
 
 static void anaconda_hub_window_class_init(AnacondaHubWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     g_type_class_add_private(object_class, sizeof(AnacondaHubWindowPrivate));
+
+    gtk_widget_class_set_css_name(widget_class, "AnacondaHubWindow");
 }
 
 /**
