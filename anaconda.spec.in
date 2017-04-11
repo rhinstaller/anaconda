@@ -328,6 +328,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 11 2017 Martin Kolman <mkolman@redhat.com> - 26.21.3-1
+- Hide options based on storage configuration method (#1439519) (mkolman)
+- Catch exception when reading from in-memory connection being removed
+  (#1439051) (rvykydal)
+- docs/boot-options.rst: Fix #dhcpd anchor (mopsfelder)
+- docs/boot-options.rst: Remove trailing spaces (mopsfelder)
+- Fix logging of the storage checker report. (vponcova)
+- Fix a property name of luks devices in storage checking (#1439411) (vponcova)
+- Bump required version for blivet-gui (vtrefny)
+- Use newly created swaps after the installation (#1439729) (vtrefny)
+- Set default FS type for blivet-gui (#1439581) (vtrefny)
+
 * Wed Apr 05 2017 Martin Kolman <mkolman@redhat.com> - 26.21.2-1
 - Display progress for the post installation phase (mkolman)
 - Enable the install class to customize the storage checking (vponcova)
