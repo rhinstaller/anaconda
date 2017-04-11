@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -74,8 +74,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">6</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell Bold 10"/>
                   <attribute name="weight" value="bold"/>
@@ -91,9 +91,9 @@
               <object class="GtkLabel" id="need_space_desc_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Here we'll describe how much space is needed for the current software selection.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 11"/>
                 </attributes>
@@ -117,8 +117,8 @@
                   <object class="GtkLabel" id="need_space_disk_free_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">disk free</property>
+                    <property name="xalign">1</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell Bold 11"/>
                       <attribute name="weight" value="bold"/>
@@ -133,9 +133,9 @@
                   <object class="GtkLabel" id="need_space_disk_free_desc_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Free space available for use.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 11"/>
                     </attributes>
@@ -149,8 +149,8 @@
                   <object class="GtkLabel" id="need_space_fs_free_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">fs free</property>
+                    <property name="xalign">1</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell Bold 11"/>
                       <attribute name="weight" value="bold"/>
@@ -165,9 +165,9 @@
                   <object class="GtkLabel" id="need_space_fs_free_desc_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Free space unavailable but reclaimable from existing partitions.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 11"/>
                     </attributes>
@@ -188,9 +188,9 @@
               <object class="GtkLabel" id="need_space_options_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Here we'll describe what your options are.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 11"/>
                 </attributes>
@@ -289,8 +289,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">6</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -305,9 +305,9 @@
               <object class="GtkLabel" id="no_space_desc_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Here we'll describe how much space is needed for the current software selection.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 11"/>
                 </attributes>
@@ -331,8 +331,8 @@
                   <object class="GtkLabel" id="no_space_disk_free_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">disk free</property>
+                    <property name="xalign">1</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                     </attributes>
@@ -346,9 +346,9 @@
                   <object class="GtkLabel" id="no_space_disk_free_desc_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Free space available for use.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 11"/>
                     </attributes>
@@ -362,8 +362,8 @@
                   <object class="GtkLabel" id="no_space_fs_free_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">fs free</property>
+                    <property name="xalign">1</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 11"/>
                       <attribute name="weight" value="bold"/>
@@ -378,9 +378,9 @@
                   <object class="GtkLabel" id="no_space_fs_free_desc_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Free space unavailable but reclaimable from existing partitions.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 11"/>
                     </attributes>
@@ -401,9 +401,9 @@
               <object class="GtkLabel" id="no_space_options_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Here we'll describe what your options are.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 11"/>
                 </attributes>
@@ -503,8 +503,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">18</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Device Selection</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="font-desc" value="Cantarell Bold 12"/>
                                   <attribute name="weight" value="bold"/>
@@ -522,9 +522,9 @@
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">18</property>
                                 <property name="margin_right">18</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Select the device(s) you'd like to install to.  They will be left untouched until you click on the main menu's "Begin Installation" button.</property>
                                 <property name="wrap">True</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="font-desc" value="Cantarell 12"/>
                                 </attributes>
@@ -541,9 +541,9 @@
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">18</property>
                                 <property name="margin_top">18</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Local Standard Disks</property>
                                 <property name="track_visited_links">False</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="font-desc" value="Cantarell Bold 10"/>
                                   <attribute name="weight" value="bold"/>
@@ -605,8 +605,8 @@
                                     <property name="can_focus">False</property>
                                     <property name="no_show_all">True</property>
                                     <property name="margin_right">18</property>
-                                    <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Disks left unselected here will not be touched.</property>
+                                    <property name="xalign">1</property>
                                     <attributes>
                                       <attribute name="font-desc" value="Cantarell Italic 10"/>
                                     </attributes>
@@ -624,9 +624,9 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">18</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Specialized &amp; Network Disks</property>
                                 <property name="track_visited_links">False</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="font-desc" value="Cantarell Bold 10"/>
                                   <attribute name="weight" value="bold"/>
@@ -745,8 +745,8 @@
                                     <property name="can_focus">False</property>
                                     <property name="no_show_all">True</property>
                                     <property name="margin_right">18</property>
-                                    <property name="xalign">1</property>
                                     <property name="label" translatable="yes">Disks left unselected here will not be touched.</property>
+                                    <property name="xalign">1</property>
                                     <attributes>
                                       <attribute name="font-desc" value="Cantarell Italic 10"/>
                                     </attributes>
@@ -772,8 +772,8 @@
                                   <object class="GtkLabel" id="label10">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Storage Configuration</property>
+                                    <property name="xalign">0</property>
                                     <attributes>
                                       <attribute name="font-desc" value="Cantarell Bold 12"/>
                                       <attribute name="weight" value="bold"/>
@@ -786,93 +786,20 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label11">
+                                  <object class="GtkBox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="margin_top">6</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Encryption</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">3</property>
-                                    <property name="width">3</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="autopartRadioButton">
-                                    <property name="label" translatable="yes" context="GUI|Storage">A_utomatic</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="active">True</property>
-                                    <property name="draw_indicator">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="customRadioButton">
-                                    <property name="label" translatable="yes" context="GUI|Storage">_Custom</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="draw_indicator">True</property>
-                                    <property name="group">autopartRadioButton</property>
-                                    <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="blivetguiRadioButton">
-                                    <property name="label" translatable="yes" context="GUI|Storage">A_dvanced Custom (Blivet-GUI)</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="draw_indicator">True</property>
-                                    <property name="group">autopartRadioButton</property>
-                                    <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">2</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox" id="box1">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="spacing">6</property>
+                                    <property name="homogeneous">True</property>
                                     <child>
-                                      <object class="GtkCheckButton" id="encryptionCheckbox">
+                                      <object class="GtkRadioButton" id="autopartRadioButton">
+                                        <property name="label" translatable="yes" context="GUI|Storage">A_utomatic</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="xalign">0</property>
+                                        <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <child>
-                                          <object class="GtkLabel" id="label13">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes" context="GUI|Storage">_Encrypt my data.</property>
-                                            <property name="use_underline">True</property>
-                                          </object>
-                                        </child>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -881,14 +808,17 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkLabel" id="label3">
+                                      <object class="GtkRadioButton" id="customRadioButton">
+                                        <property name="label" translatable="yes" context="GUI|Storage">_Custom</property>
                                         <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">You'll set a passphrase next.</property>
-                                        <attributes>
-                                          <attribute name="style" value="italic"/>
-                                          <attribute name="foreground" value="#88888a8a8585"/>
-                                        </attributes>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="active">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">autopartRadioButton</property>
+                                        <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -896,28 +826,161 @@
                                         <property name="position">1</property>
                                       </packing>
                                     </child>
+                                    <child>
+                                      <object class="GtkRadioButton" id="blivetguiRadioButton">
+                                        <property name="label" translatable="yes" context="GUI|Storage">A_dvanced Custom (Blivet-GUI)</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="active">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">autopartRadioButton</property>
+                                        <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
-                                    <property name="top_attach">4</property>
-                                    <property name="width">3</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkCheckButton" id="reclaimCheckbox">
-                                    <property name="label" translatable="yes" context="GUI|Storage">I would like to _make additional space available.</property>
+                                  <object class="GtkRevealer" id="reclaim_checkbox_revealer">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="draw_indicator">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="transition_type">crossfade</property>
+                                    <property name="reveal_child">True</property>
+                                    <child>
+                                      <object class="GtkCheckButton" id="reclaimCheckbox">
+                                        <property name="label" translatable="yes" context="GUI|Storage">I would like to _make additional space available.</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">2</property>
-                                    <property name="width">2</property>
                                   </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkRevealer" id="encryption_revealer">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="transition_type">crossfade</property>
+                                    <property name="reveal_child">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="encryptionBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">3</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label11">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="margin_top">3</property>
+                                            <property name="label" translatable="yes">Encryption</property>
+                                            <property name="xalign">0</property>
+                                            <attributes>
+                                              <attribute name="weight" value="bold"/>
+                                            </attributes>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkBox" id="box1">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="spacing">6</property>
+                                            <child>
+                                              <object class="GtkCheckButton" id="encryptionCheckbox">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">False</property>
+                                                <property name="margin_top">3</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="xalign">0</property>
+                                                <property name="draw_indicator">True</property>
+                                                <child>
+                                                  <object class="GtkLabel" id="label13">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">False</property>
+                                                    <property name="label" translatable="yes" context="GUI|Storage">_Encrypt my data.</property>
+                                                    <property name="use_underline">True</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkLabel" id="label3">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="margin_top">3</property>
+                                                <property name="label" translatable="yes">You'll set a passphrase next.</property>
+                                                <attributes>
+                                                  <attribute name="style" value="italic"/>
+                                                  <attribute name="foreground" value="#88888a8a8585"/>
+                                                </attributes>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <placeholder/>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">3</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
                                 </child>
                                 <child>
                                   <placeholder/>
@@ -933,9 +996,6 @@
                                 <property name="fill">True</property>
                                 <property name="position">8</property>
                               </packing>
-                            </child>
-                            <child>
-                              <placeholder/>
                             </child>
                           </object>
                         </child>
@@ -978,13 +1038,13 @@
                           <object class="GtkButton" id="summary_button">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="focus_on_click">False</property>
                             <property name="receives_default">True</property>
                             <property name="no_show_all">True</property>
                             <property name="halign">start</property>
                             <property name="hexpand">True</property>
                             <property name="relief">none</property>
                             <property name="use_underline">True</property>
-                            <property name="focus_on_click">False</property>
                             <property name="xalign">0</property>
                             <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
                             <child>
@@ -1017,13 +1077,13 @@
                           <object class="GtkButton" id="refresh_button">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="focus_on_click">False</property>
                             <property name="receives_default">True</property>
                             <property name="no_show_all">True</property>
                             <property name="halign">end</property>
                             <property name="hexpand">False</property>
                             <property name="relief">none</property>
                             <property name="use_underline">True</property>
-                            <property name="focus_on_click">False</property>
                             <property name="xalign">0</property>
                             <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
                             <child>
