@@ -80,7 +80,7 @@ from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
                                  OnErrorScriptSection, TracebackScriptSection, Section
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, F27
 
 from pyanaconda import anaconda_logging
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_stderr_logger, get_blivet_logger, get_anaconda_root_logger
@@ -799,9 +799,9 @@ class Group(commands.group.F12_Group):
             except ValueError as e:
                 group_log.warning(str(e))
 
-class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
+class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
     def parse(self, args):
-        retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
+        retval = commands.ignoredisk.F14_IgnoreDisk.parse(self, args)
 
         # See comment in ClearPart.parse
         drives = []
@@ -1869,7 +1869,7 @@ class Timezone(commands.timezone.F25_Timezone):
                 except ntp.NTPconfigError as ntperr:
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
-class User(commands.user.F19_User):
+class User(commands.user.F24_User):
     def execute(self, storage, ksdata, instClass, users):
         algo = getPassAlgo(ksdata.authconfig.authconfig)
 
@@ -2166,13 +2166,19 @@ class F27_InstallClass(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_option("--name", dest="name", required=True, type="string")
+        op = KSOptionParser(prog="installclass", version=F27, description="""
+                            Require the specified install class to be used for
+                            the installation. Otherwise, the best available
+                            install class will be used.""")
+
+        op.add_argument("--name", dest="name", required=True, type=str,
+                        version=F27, help="""
+                        Name of the required install class.""")
         return op
 
     def parse(self, args):
-        (opts, _) = self.op.parse_args(args=args, lineno=self.lineno)
-        self.set_to_self(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(ns)
         return self
 
 class AnacondaSectionHandler(BaseHandler):
