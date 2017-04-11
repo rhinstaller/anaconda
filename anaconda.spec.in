@@ -20,7 +20,7 @@ Source0: %{name}-%{version}.tar.bz2
 
 %define gettextver 0.19.8
 %define pykickstartver 2.32-1
-%define dnfver 2.0.0
+%define dnfver 2.2.0
 %define partedver 1.8.1
 %define pypartedver 2.5-2
 %define nmver 1.0
@@ -39,7 +39,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define libtimezonemapver 0.4.1-2
 %define helpver 22.1-1
 %define libblockdevver 2.1
-%define blivetguiver 2.1.0
+%define blivetguiver 2.1.2
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
