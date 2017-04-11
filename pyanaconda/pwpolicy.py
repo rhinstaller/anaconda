@@ -20,6 +20,7 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
+from pykickstart.version import F22
 
 import warnings
 from pyanaconda.core.i18n import _
@@ -105,24 +106,44 @@ class F22_PwPolicy(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_option("--minlen", type="int")
-        op.add_option("--minquality", type="int")
-        op.add_option("--strict", action="store_true")
-        op.add_option("--notstrict", dest="strict", action="store_false")
-        op.add_option("--changesok", action="store_true")
-        op.add_option("--nochanges", dest="changesok", action="store_false")
-        op.add_option("--emptyok", action="store_true")
-        op.add_option("--notempty", dest="emptyok", action="store_false")
+        op = KSOptionParser(prog="pwpolicy", version=F22, description="""
+                            Set the policy to use for the named password
+                            entry.""")
+
+        op.add_argument("--minlen", type=int, version=F22, help="""
+                        Name of the password entry, currently supported
+                        values are: root, user and luks""")
+        op.add_argument("--minquality", type=int, version=F22, help="""
+                        Minimum libpwquality to consider good. When using
+                        ``--strict`` it will not allow passwords with a
+                        quality lower than this.""")
+        op.add_argument("--strict", action="store_true", version=F22, help="""
+                        Strict password enforcement. Passwords not meeting
+                        the ``--minquality`` level will not be allowed.""")
+        op.add_argument("--notstrict", dest="strict", action="store_false",
+                        version=F22, help="""
+                        Passwords not meeting the ``--minquality`` level
+                        will be allowed after Done is clicked twice.""")
+        op.add_argument("--changesok", action="store_true", version=F22,
+                        help="""Allow empty password.""")
+        op.add_argument("--nochanges", dest="changesok", action="store_false",
+                        version=F22, help="""
+                        Do not allow UI to be used to change the password/user
+                        if it has been set in the kickstart.""")
+        op.add_argument("--emptyok", action="store_true", version=F22, help="""
+                        Allow empty password.""")
+        op.add_argument("--notempty", dest="emptyok", action="store_false",
+                        version=F22, help="""
+                        Don't allow an empty password.""")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("policy name required for %s") % "pwpolicy"))
 
         pd = self.handler.PwPolicyData()
-        self._setToObj(self.op, opts, pd)
+        self.set_to_obj(ns, pd)
         pd.lineno = self.lineno
         pd.name = extra[0]
 
