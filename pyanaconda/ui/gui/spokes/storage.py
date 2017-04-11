@@ -321,7 +321,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._customPart = self.builder.get_object("customRadioButton")
         self._blivetGuiPart = self.builder.get_object("blivetguiRadioButton")
         self._encrypted = self.builder.get_object("encryptionCheckbox")
+        self._encryption_revealer = self.builder.get_object("encryption_revealer")
         self._reclaim = self.builder.get_object("reclaimCheckbox")
+        self._reclaim_revealer = self.builder.get_object("reclaim_checkbox_revealer")
 
     def _get_selected_partitioning_method(self):
         """Return partitioning method according to which method selection radio button is currently active."""
@@ -334,6 +336,20 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def _method_radio_button_toggled(self, radio_button):
         """Triggered when one of the partitioning method radio buttons is toggled."""
+
+        # Hide the encryption checkbox for Blivet GUI storage configuration,
+        # as Blivet GUI handles encryption per encrypted device, not globally.
+        if self._get_selected_partitioning_method() == PartitioningMethod.BLIVET_GUI:
+            self._encryption_revealer.set_reveal_child(False)
+        else:
+            self._encryption_revealer.set_reveal_child(True)
+
+        # Hide the reclaim space checkbox if automatic storage configuration is not used.
+        if self._get_selected_partitioning_method() == PartitioningMethod.AUTO:
+            self._reclaim_revealer.set_reveal_child(True)
+        else:
+            self._reclaim_revealer.set_reveal_child(False)
+
         # is this a change from the last used method ?
         method_changed = self._get_selected_partitioning_method() != self._last_partitioning_method
         # are there any actions planned ?

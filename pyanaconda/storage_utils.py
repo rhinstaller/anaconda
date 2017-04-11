@@ -403,7 +403,7 @@ def verify_luks_devices_have_key(storage, constraints, report_error, report_warn
     devices = (d for d in storage.devices
                if d.format.type == "luks"
                and not d.format.exists
-               and not d.format.hasKey)
+               and not d.format.has_key)
 
     for dev in devices:
         report_error(_("Encryption requested for LUKS device %s but no "
@@ -488,13 +488,16 @@ class StorageCheckerReport(object):
         :param bool info: should we log the info messages?
         """
         if info:
-            map(logger.debug, self.info)
+            for msg in self.info:
+                logger.debug(msg)
 
         if error:
-            map(logger.error, self.errors)
+            for msg in self.errors:
+                logger.error(msg)
 
         if warning:
-            map(logger.warning, self.warnings)
+            for msg in self.warnings:
+                logger.warning(msg)
 
 
 class StorageChecker(object):
