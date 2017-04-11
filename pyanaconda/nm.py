@@ -757,7 +757,12 @@ def nm_get_all_settings():
     connections = proxy.ListConnections()
     for con in connections:
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        settings = proxy.GetSettings()
+        try:
+            settings = proxy.GetSettings()
+        except Exception as e:
+            # The connection may be deleted asynchronously by NM
+            log.debug("nm_get_all_settings: %s", e)
+            continue
         retval.append(settings)
 
     return retval
