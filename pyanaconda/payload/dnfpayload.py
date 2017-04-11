@@ -820,6 +820,18 @@ class DNFPayload(payload.PackagePayload):
             raise payload.NoSuchGroup(grpid)
         return (grp.ui_name, grp.ui_description)
 
+    def groupId(self, group):
+        """Translate group name to group ID.
+
+        :param group_name: Valid identifier for group specification.
+        :returns: Group ID or empty string if nothing is found.
+        :raise NoSuchGroup: If group_name doesn't exists.
+        """
+        grp = self._base.comps.group_by_pattern(group)
+        if grp is None:
+            raise payload.NoSuchGroup(group)
+        return grp.id
+
     def gatherRepoMetadata(self):
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
