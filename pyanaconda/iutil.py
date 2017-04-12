@@ -37,6 +37,7 @@ import signal
 import crypt
 import random
 import functools
+from distutils import spawn
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED
@@ -179,6 +180,13 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
 
     if env_add:
         env.update(env_add)
+
+    # Try to find absolute path of the executable so we prevent possible
+    # deadlock on strerror called from fork from thread (rhbz#1411407)
+    if not argv[0].startswith('/') and (not target_root or target_root == '/'):
+        exec_path = spawn.find_executable(argv[0])
+        if exec_path != None:
+            argv[0] = exec_path
 
     return subprocess.Popen(argv,
                             stdin=stdin,
