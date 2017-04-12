@@ -85,7 +85,7 @@ instclass = DefaultInstall()
 app = App("TEST HARNESS", yes_or_no_question = YesNoDialog)
 
 payload = YumPayload(ksdata)
-payload.setup(storage)
+payload.setup(storage, instclass)
 payload.install_log = sys.stdout
 
 spoke = spokeClass(app, ksdata, storage, payload, instclass)

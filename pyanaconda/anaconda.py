@@ -146,9 +146,11 @@ class Anaconda(object):
            stat.S_ISBLK(os.stat("/run/initramfs/livedev")[stat.ST_MODE]):
             specs.append(os.readlink("/run/initramfs/livedev"))
 
+        # pylint: disable=unsubscriptable-object
         if self.methodstr and self.methodstr.startswith("hd:"):
             specs.append(self.methodstr[3:].split(":", 3)[0])
 
+        # pylint: disable=unsubscriptable-object
         if self.stage2 and self.stage2.startswith("hd:"):
             specs.append(self.stage2[3:].split(":", 3)[0])
 

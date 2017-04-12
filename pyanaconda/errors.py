@@ -34,8 +34,8 @@ class MissingImageError(Exception):
     pass
 
 class MediaMountError(Exception):
-    def __init__(self, device):
-        Exception.__init__(self)
+    def __init__(self, message, device):
+        Exception.__init__(self, message)
         self.device = device
 
 class MediaUnmountError(Exception):
@@ -305,6 +305,10 @@ class ErrorHandler(object):
         rc = ERROR_RAISE
 
         if not self.ui:
+            # While Pylint thinks something else, this should be likely OK
+            # for an exception handler.
+            #
+            # pylint: disable=misplaced-bare-raise
             raise
 
         _map = {"PartitioningError": self._partitionErrorHandler,

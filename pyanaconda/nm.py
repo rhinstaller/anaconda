@@ -131,9 +131,11 @@ def _get_property(object_path, prop, interface_name_suffix=""):
     try:
         prop = proxy.Get('(ss)', interface_name, prop)
     except GLib.GError as e:
+        # pylint: disable=unsupported-membership-test
         if ("org.freedesktop.DBus.Error.AccessDenied" in e.message or
             "org.freedesktop.DBus.Error.InvalidArgs" in e.message):
             return None
+        # pylint: disable=unsupported-membership-test
         elif "org.freedesktop.DBus.Error.UnknownMethod" in e.message:
             raise UnknownMethodGetError
         else:
@@ -270,6 +272,7 @@ def nm_device_property(name, prop):
     try:
         device = proxy.GetDeviceByIpIface('(s)', name)
     except GLib.GError as e:
+        # pylint: disable=unsupported-membership-test
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
@@ -853,6 +856,7 @@ def nm_disconnect_device(name):
     try:
         device = proxy.GetDeviceByIpIface('(s)', name)
     except GLib.GError as e:
+        # pylint: disable=unsupported-membership-test
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
@@ -861,6 +865,7 @@ def nm_disconnect_device(name):
     try:
         device_proxy.Disconnect()
     except GLib.GError as e:
+        # pylint: disable=unsupported-membership-test
         if "org.freedesktop.NetworkManager.Device.NotActive" in e.message:
             raise DeviceNotActiveError(name, e)
         raise
@@ -935,6 +940,7 @@ def nm_add_connection(values):
     try:
         connection = proxy.AddConnection('(a{sa{sv}})', settings)
     except GLib.GError as e:
+        # pylint: disable=unsupported-membership-test
         if "bond.options: invalid option" in e.message:
             raise BondOptionsError(e)
         raise

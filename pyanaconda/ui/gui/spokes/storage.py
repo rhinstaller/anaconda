@@ -66,7 +66,7 @@ from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
 from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, MultipathDevice
+from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib

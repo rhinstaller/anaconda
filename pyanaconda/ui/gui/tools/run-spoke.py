@@ -97,7 +97,7 @@ storage.reset()
 instclass = DefaultInstall()
 
 payload = YumPayload(ksdata)
-payload.setup(storage)
+payload.setup(storage, instclass)
 
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 spoke = spokeClass(ksdata, storage, payload, instclass)

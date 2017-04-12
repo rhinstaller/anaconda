@@ -109,7 +109,7 @@ class IntlLoggingChecker(LoggingChecker):
                 copyargs = copy(node.args)
                 copyargs[0] = astroid.Const(formatstr)
                 copynode.args = copyargs
-                LoggingChecker.visit_callfunc(self, copynode)
+                LoggingChecker.visit_call(self, copynode)
 
     def __init__(self, *args, **kwargs):
         LoggingChecker.__init__(self, *args, **kwargs)
