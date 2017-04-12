@@ -318,6 +318,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 12 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.109-1
+- Update 64bit grub2 support to reflect packages as they actually landed
+  (pjones)
+  Related: rhbz#1310779
+- Fix potential bugs reported by Pylint 1.6 (mkolman)
+  Related: rhbz#1440190
+- Fix unused variables and imports (mkolman)
+  Related: rhbz#1440190
+- Disable Pylint false positives (mkolman)
+  Related: rhbz#1440190
+- Fix Pylint LoggingChecker usage (mkolman)
+  Resolves: rhbz#1440190
+- Call subprocess.Popen with absolute path to a binary (rvykydal)
+  Resolves: rhbz#1411407
+
 * Mon Apr 10 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.108-1
 - Gtk: Fix css selectors. (vponcova)
   Resolves: rhbz#1439766
