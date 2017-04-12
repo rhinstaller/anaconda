@@ -336,6 +336,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def _method_radio_button_toggled(self, radio_button):
         """Triggered when one of the partitioning method radio buttons is toggled."""
+        # Run only for an active radio button.
+        if not radio_button.get_active():
+            return
 
         # Hide the encryption checkbox for Blivet GUI storage configuration,
         # as Blivet GUI handles encryption per encrypted device, not globally.
