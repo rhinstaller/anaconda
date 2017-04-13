@@ -1030,16 +1030,32 @@ def get_team_slaves(master_specs):
 
 def ibftIface():
     iface = ""
-    ipopt = flags.cmdline.get('ip')
+    ipopts = flags.cmdline.get('ip')
     # Examples (dhcp, static):
     # ibft0:dhcp
     # 10.34.102.244::10.34.102.54:255.255.255.0::ibft0:none
-    if ipopt:
-        for item in ipopt.split(":"):
-            if item.startswith('ibft'):
-                iface = item
-                break
+    if ipopts:
+        for ipopt in ipopts.split(" "):
+            for item in ipopt.split(":"):
+                if item.startswith('ibft'):
+                    iface = item
+                    break
     return iface
+
+def hostname_from_cmdline(cmdline):
+    # legacy hostname= option
+    hostname = flags.cmdline.get('hostname', "")
+    # ip= option
+    ipopts = flags.cmdline.get('ip')
+    # Example (2 options):
+    # ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none
+    if ipopts:
+        for ipopt in ipopts.split(" "):
+            try:
+                hostname = ipopt.split(':')[4]
+            except IndexError:
+                pass
+    return hostname
 
 def ifaceForHostIP(host):
     route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
@@ -1375,8 +1391,10 @@ def networkInitialize(ksdata):
         log.debug("network: %s", msg)
         logIfcfgFiles(msg)
 
+    # initialize ksdata hostname
     if ksdata.network.hostname is None:
-        update_hostname_data(ksdata, DEFAULT_HOSTNAME)
+        hostname = hostname_from_cmdline(flags.cmdline) or DEFAULT_HOSTNAME
+        update_hostname_data(ksdata, hostname)
 
 def _get_ntp_servers_from_dhcp(ksdata):
     """Check if some NTP servers were returned from DHCP and set them
