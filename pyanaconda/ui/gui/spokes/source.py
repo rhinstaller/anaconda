@@ -639,7 +639,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Connect scroll events on the viewport with focus events on the box
         mainViewport = self.builder.get_object("mainViewport")
         mainBox = self.builder.get_object("mainBox")
-        mainBox.set_focus_vadjustment(mainViewport.get_vadjustment())
+        mainBox.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(mainViewport))
 
     def initialize(self):
         NormalSpoke.initialize(self)
