@@ -200,6 +200,13 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         self.data.method.method = "cdrom"
 
+    def set_source_hmc(self):
+        """ Switch to install source via HMC """
+        # clean any old HDD ISO sources
+        self._clean_hdd_iso()
+
+        self.data.method.method = "hmc"
+
     def set_source_closest_mirror(self):
         """ Switch to the closest mirror install source """
         # clean any old HDD ISO sources

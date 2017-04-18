@@ -176,6 +176,13 @@ when_any_cdrom_appears() {
       >> $rulesfile
 }
 
+when_any_hmcdrv_appears() {
+    local dev="hmcdrv"
+    local cmd="/sbin/initqueue --settled --onetime --name $dev $*"
+    printf 'KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd" \
+      >> $rulesfile
+}
+
 plymouth_running() {
     type plymouth >/dev/null 2>&1 && plymouth --ping 2>/dev/null
 }
@@ -258,6 +265,7 @@ run_kickstart() {
     # Figure out whether we need to retry disk/net stuff
     case "$root" in
         anaconda-net:*)   do_net=1 ;;
+        anaconda-hmc)     do_disk=1 ;;
         anaconda-disk:*)  do_disk=1 ;;
         anaconda-auto-cd) do_disk=1 ;;
     esac
