@@ -394,7 +394,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             :rtype: bool
         """
         import copy
-
         old_source = copy.deepcopy(self.data.method)
 
         if self._autodetectButton.get_active():
@@ -407,6 +406,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 # XXX maybe we should always redo it for cdrom in case they
                 #     switched disks
                 return False
+        elif self._hmcButton.get_active():
+            self.data.method.method = "hmc"
         elif self._isoButton.get_active():
             # If the user didn't select a partition (not sure how that would
             # happen) or didn't choose a directory (more likely), then return
@@ -570,6 +571,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
             return _("Local media")
+        elif self.data.method.method == "hmc":
+            return _("Local media via SE/HMC")
         elif self.data.method.method == "harddrive":
             if not self._currentIsoFile:
                 return _("Error setting up ISO file")
@@ -584,6 +587,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._autodetectBox = self.builder.get_object("autodetectBox")
         self._autodetectDeviceLabel = self.builder.get_object("autodetectDeviceLabel")
         self._autodetectLabel = self.builder.get_object("autodetectLabel")
+        self._hmcButton = self.builder.get_object("hmcRadioButton")
         self._isoButton = self.builder.get_object("isoRadioButton")
         self._isoBox = self.builder.get_object("isoBox")
         self._networkButton = self.builder.get_object("networkRadioButton")
@@ -651,6 +655,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # want to let me pass in user data.
         # See also: https://bugzilla.gnome.org/show_bug.cgi?id=727919
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
+        self._hmcButton.connect("toggled", self.on_source_toggled, None)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
         self._networkButton.connect("toggled", self._updateURLEntryCheck)
@@ -716,8 +721,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        added = False
-
         # If there's no fallback mirror to use, we should just disable that option
         # in the UI.
         if not self.payload.mirrorEnabled:
@@ -741,16 +744,18 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self._cdrom:
             fire_gtk_action(self._autodetectDeviceLabel.set_text, _("Device: %s") % self._cdrom.name)
             fire_gtk_action(self._autodetectLabel.set_text, _("Label: %s") % (getattr(self._cdrom.format, "label", "") or ""))
-            added = True
+
+            # These UI elements default to not being showable.  If optical install
+            # media were found, mark them to be shown.
+            gtk_call_once(self._autodetectBox.set_no_show_all, False)
+            gtk_call_once(self._autodetectButton.set_no_show_all, False)
 
         if self.data.method.method == "harddrive":
             self._currentIsoFile = self.payload.ISOImage
 
-        # These UI elements default to not being showable.  If optical install
-        # media were found, mark them to be shown.
-        if added:
-            gtk_call_once(self._autodetectBox.set_no_show_all, False)
-            gtk_call_once(self._autodetectButton.set_no_show_all, False)
+        # Enable the SE/HMC option.
+        if flags.hmc:
+            gtk_call_once(self._hmcButton.set_no_show_all, False)
 
         # Add the mirror manager URL in as the default for HTTP and HTTPS.
         # We'll override this later in the refresh() method, if they've already
@@ -859,6 +864,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             else:
                 self._isoChooserButton.set_label("")
             self._isoChooserButton.set_use_underline(False)
+        elif self.data.method.method == "hmc":
+            self._hmcButton.set_active(True)
         else:
             # No method was given in advance, so now we need to make a sensible
             # guess.  Go with autodetected media if that was provided, and then
@@ -891,6 +898,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # already, but the ones that are not selected need a signal in order
         # to disable the related box.
         self.on_source_toggled(self._autodetectButton, self._autodetectBox)
+        self.on_source_toggled(self._hmcButton, None)
         self.on_source_toggled(self._isoButton, self._isoBox)
         self.on_source_toggled(self._networkButton, self._networkBox)
 
@@ -901,7 +909,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "harddrive" and \
            get_mount_device(constants.DRACUT_ISODIR) == get_mount_device(constants.DRACUT_REPODIR):
             for widget in [self._autodetectButton, self._autodetectBox, self._isoButton,
-                           self._isoBox, self._networkButton, self._networkBox]:
+                           self._isoBox, self._networkButton, self._networkBox, self._hmcButton]:
                 widget.set_sensitive(False)
                 widget.set_tooltip_text(_("The installation source is in use by the installer and cannot be changed."))
 
@@ -1069,7 +1077,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # the newly enabled button as well as the previously enabled (now
         # disabled) button.
         enabled = button.get_active()
-        relatedBox.set_sensitive(enabled)
+
+        if relatedBox:
+            relatedBox.set_sensitive(enabled)
+
         self._setup_no_updates()
 
     def on_back_clicked(self, button):

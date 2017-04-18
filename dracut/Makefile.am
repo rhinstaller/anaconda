@@ -31,6 +31,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       anaconda-ks-sendheaders.sh \
                       anaconda-netroot.sh \
                       anaconda-diskroot \
+                      anaconda-hmcroot \
                       anaconda-copy-ks.sh \
                       anaconda-copy-cmdline.sh \
                       anaconda-copy-dhclient.sh \

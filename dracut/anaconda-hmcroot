@@ -1,0 +1,24 @@
+#!/bin/bash
+# anaconda-hmcroot:
+# Provide access to the root on the USB/DVD drive of the SE/HMC of System z hardware.
+
+command -v info >/dev/null || . /lib/dracut-lib.sh
+command -v anaconda_live_root_dir >/dev/null || . /lib/anaconda-lib.sh
+
+# Debug.
+debug_msg "Trying SE/HMC access with $1."
+
+# Do we already have a root device?
+# Then do not run again.
+[ -e "/dev/root" ] && exit 1
+
+# Do we have SE/HMC file access?
+if /usr/sbin/lshmc ; then
+    info "Anaconda using SE/HMC file access to root."
+    /usr/bin/hmcdrvfs $repodir || warn "Couldn't mount /dev/hmcdrv"
+    anaconda_live_root_dir $repodir
+else
+    debug_msg "No SE/HMC access to files."
+    exit 1
+fi
+
