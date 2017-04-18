@@ -28,12 +28,13 @@ from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda import network
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, N_
 from pyanaconda import screen_access
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
+from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 import logging
 import blivet
 log = logging.getLogger("anaconda")
@@ -70,6 +71,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # increment the counter as the
     # real joining step will be executed
     if willRunRealmd:
+        step_count += 1
+
+    if ksdata.snapshot and ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_POST_INSTALL):
         step_count += 1
 
     progress_init(step_count)
@@ -130,6 +134,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # write out the user interaction config file
     screen_access.sam.write_out_config_file()
+
+    if ksdata.snapshot and ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_POST_INSTALL):
+        with progress_report(N_("Creating snapshots")):
+            ksdata.snapshot.execute(storage, ksdata, instClass)
 
     progress_complete()
 
