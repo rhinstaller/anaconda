@@ -68,6 +68,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._ready = False
         self._error = False
         self._cdrom = None
+        self._hmc = False
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
@@ -89,6 +90,10 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         elif not flags.automatedInstall:
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
+        # Enable the SE/HMC option.
+        if flags.hmc:
+            self._hmc = True
+
         self._ready = True
 
         # report that the source spoke has been initialized
@@ -106,6 +111,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             return _("NFS server %s") % method.server
         elif method.method == "cdrom":
             return _("Local media")
+        elif method.method == "hmc":
+            return _("Local media via SE/HMC")
         elif method.method == "harddrive":
             if not method.dir:
                 return _("Error setting up software source")
@@ -160,6 +167,9 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             self._container.add(TextWidget(_("local ISO file")), self._set_iso_install_source)
             self._container.add(TextWidget(_("Network")), self._set_network_install_source)
 
+            if self._hmc:
+                self._container.add(TextWidget(_("SE/HMC")), self._set_hmc_install_source)
+
         self.window.add_with_separator(self._container)
 
     # Set installation source callbacks
@@ -167,6 +177,11 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     def _set_cd_install_source(self, data):
         self.set_source_cdrom()
         self.payload.install_device = self._cdrom
+        self.apply()
+        self.close()
+
+    def _set_hmc_install_source(self, data):
+        self.set_source_hmc()
         self.apply()
         self.close()
 
@@ -205,7 +220,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def input(self, args, key):
         """ Handle the input; this decides the repo source. """
-
         if not self._container.process_user_input(key):
             return super(SourceSpoke, self).input(args, key)
 

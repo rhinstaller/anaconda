@@ -19,4 +19,8 @@ case "$root" in
     # HACK: anaconda demands that CDROMs be mounted at /mnt/install/source
     ln -s repo /run/install/source
   ;;
+  anaconda-hmc)
+    when_any_hmcdrv_appears \
+        anaconda-hmcroot \$env{DEVNAME}
+  ;;
 esac
