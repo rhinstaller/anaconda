@@ -759,7 +759,7 @@ def nm_get_all_settings():
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
         try:
             settings = proxy.GetSettings()
-        except Exception as e:
+        except GLib.GError as e:
             # The connection may be deleted asynchronously by NM
             log.debug("nm_get_all_settings: %s", e)
             continue
