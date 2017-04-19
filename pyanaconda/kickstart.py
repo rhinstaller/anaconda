@@ -254,9 +254,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             log.error("Error running %s %s: %s", cmd, args, msg)
 
-class AutoPart(commands.autopart.F21_AutoPart):
+class AutoPart(commands.autopart.F26_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F21_AutoPart.parse(self, args)
+        retval = commands.autopart.F26_AutoPart.parse(self, args)
 
         if self.fstype:
             fmt = blivet.formats.get_format(self.fstype)
