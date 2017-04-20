@@ -318,6 +318,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 20 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.110-1
+- Adapt to treeinfo format change (variants -> addons) (rvykydal)
+  Resolves: rhbz#1437510
+- network: fix setting hostname via boot options (rvykydal)
+  Resolves: rhbz#1441337
+- Bump version of Pykickstart and Blivet (jkonecny)
+  Related: rhbz#1113207
+- Add XFS uuid changer (jkonecny)
+  Related: rhbz#1113207
+- Support --when parameter in snapshot (jkonecny)
+  Related: rhbz#1113207
+- Add snapshot support (jkonecny)
+  Resolves: rhbz#1113207
+
 * Wed Apr 12 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.109-1
 - Update 64bit grub2 support to reflect packages as they actually landed
   (pjones)
