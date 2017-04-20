@@ -220,6 +220,8 @@ GtkWidget *anaconda_mountpoint_selector_new() {
 
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     GtkStyleContext *context;
+    GError *err = NULL;
+    GdkPixbuf *pixbuf = NULL;
 
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
@@ -240,14 +242,23 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_set_column_spacing(GTK_GRID(mountpoint->priv->grid), 12);
     gtk_widget_set_margin_start(GTK_WIDGET(mountpoint->priv->grid), 30);
 
-    /* Create the icon.  We don't need to check if it returned NULL since
-     * gtk_image_new_from_resource will just display a broken image icon in that
-     * case.  That's good enough error notification.
+    /* Create the icon. Unfortunately, function gtk_image_new_from_resource does not
+     * work for some reason, so we should use gdk_pixbuf_new_from_resource instead.
      */
     if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
-        mountpoint->priv->arrow = gtk_image_new_from_resource(ANACONDA_RESOURCE_PATH "right-arrow-icon.png");
+        pixbuf = gdk_pixbuf_new_from_resource(ANACONDA_RESOURCE_PATH "right-arrow-icon.png", &err);
     else
-        mountpoint->priv->arrow = gtk_image_new_from_resource(ANACONDA_RESOURCE_PATH "left-arrow-icon.png");
+        pixbuf = gdk_pixbuf_new_from_resource(ANACONDA_RESOURCE_PATH "left-arrow-icon.png", &err);
+
+    if (!pixbuf) {
+        fprintf(stderr, "could not create icon: %s\n", err->message);
+        g_error_free(err);
+    }
+    else {
+        mountpoint->priv->arrow = gtk_image_new_from_pixbuf(pixbuf);
+        g_object_unref(pixbuf);
+    }
+
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
     gtk_widget_set_name(mountpoint->priv->arrow, "anaconda-mountpoint-arrow");
 
