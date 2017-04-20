@@ -181,7 +181,7 @@ SCREENSHOTS_DIRECTORY = "/tmp/anaconda-screenshots"
 SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
 
 # cmdline arguments that append instead of overwrite
-CMDLINE_APPEND = ["modprobe.blacklist", "ifname"]
+CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 
 DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
 
