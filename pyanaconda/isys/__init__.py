@@ -118,6 +118,8 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     if not tz:
         tz = pytz.UTC
 
+    time.tzset()
+
     # get the right values
     now = datetime.datetime.now(tz)
     year = year if year is not None else now.year
