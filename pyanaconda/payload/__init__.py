@@ -1387,6 +1387,11 @@ class PayloadManager(object):
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
                                      args=(storage, ksdata, payload, instClass, fallback, checkmount)))
 
+    @property
+    def running(self):
+        """Is the payload thread running right now?"""
+        return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
+
     def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
         # Wait for the old thread to finish
         threadMgr.wait(THREAD_PAYLOAD)
