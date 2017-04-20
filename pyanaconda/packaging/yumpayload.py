@@ -814,8 +814,9 @@ reposdir=%s
             return retval
 
         section = "variant-%s" % variant
-        if c.has_section(section) and c.has_option(section, "variants"):
-            validAddons = c.get(section, "variants").split(",")
+        # rhbz#1437510 - .treeinfo format change
+        if c.has_section(section) and c.has_option(section, "addons"):
+            validAddons = c.get(section, "addons").split(",")
         else:
             return retval
         log.debug("Addons found: %s", validAddons)
