@@ -32,8 +32,8 @@ from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS, IPV4_NETMASK_WITHOU
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.constants import ANACONDA_ENVIRON
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 import re
 
@@ -71,7 +71,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         devices = nm.nm_devices()
         intf_dumped = network.dumpMissingDefaultIfcfgs()
         if intf_dumped:
-            log.debug("network: dumped interfaces: %s", intf_dumped)
+            log.debug("dumped interfaces: %s", intf_dumped)
 
         for name in devices:
             if name in self.supported_devices:
@@ -84,7 +84,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                     if nm.nm_device_setting_value(name, "connection", "slave-type"):
                         continue
                 except nm.MultipleSettingsFoundError as e:
-                    log.debug("network: TUI, %s during initialization", e)
+                    log.debug("%s during initialization", e)
                 self.supported_devices.append(name)
 
     @property
@@ -204,13 +204,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 try:
                     uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
                 except nm.SettingsNotFoundError:
-                    log.debug("network: can't find any connection for %s", devname)
+                    log.debug("can't find any connection for %s", devname)
                     return INPUT_PROCESSED
                 except nm.MultipleSettingsFoundError:
-                    log.debug("network: multiple non-ifcfg connections found for %s, using %s", devname, uuid)
+                    log.debug("multiple non-ifcfg connections found for %s, using %s", devname, uuid)
                     return INPUT_PROCESSED
 
-                log.debug("network: dumping ifcfg file for in-memory connection %s", devname)
+                log.debug("dumping ifcfg file for in-memory connection %s", devname)
                 nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
                 ndata = network.ksdata_from_ifcfg(devname)
 
@@ -252,7 +252,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def apply(self):
         """Apply all of our settings."""
         self._update_network_data()
-        log.debug("network: apply ksdata %s", self.data.network)
+        log.debug("apply ksdata %s", self.data.network)
 
         if self._apply:
             self._apply = False

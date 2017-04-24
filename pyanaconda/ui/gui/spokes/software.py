@@ -35,8 +35,8 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, gtk_action_wait, escape_markup
 from pyanaconda.ui.categories.software import SoftwareCategory
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 import sys, copy
 

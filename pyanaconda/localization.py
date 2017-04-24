@@ -30,8 +30,8 @@ import io
 from pyanaconda import constants
 from pyanaconda.iutil import upcase_first_letter, setenv, execWithRedirect
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 LOCALE_CONF_FILE_PATH = "/etc/locale.conf"
 

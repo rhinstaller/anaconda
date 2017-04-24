@@ -60,8 +60,8 @@ from pyanaconda.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group
 
-import logging
-log = logging.getLogger("packaging")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from blivet.errors import StorageError
 import blivet.util

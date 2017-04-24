@@ -17,8 +17,8 @@
 # Red Hat, Inc.
 #
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, Prompt

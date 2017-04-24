@@ -251,7 +251,7 @@ if __name__ == "__main__":
         # this much (redirect any log messages to stdout) to get rid of the
         # harmless but annoying "no handlers found" message on stdout
         import logging
-        log = logging.getLogger("anaconda")
+        log = logging.getLogger("anaconda.main")
         log.addHandler(logging.StreamHandler(stream=sys.stdout))
         parse_arguments()
 
@@ -299,7 +299,7 @@ if __name__ == "__main__":
     from pyanaconda import network
     network.setup_ifcfg_log()
 
-    log = logging.getLogger("anaconda")
+    log = logging.getLogger("anaconda.main")
     stdout_log = logging.getLogger("anaconda.stdout")
 
     if os.geteuid() != 0:

@@ -31,8 +31,8 @@ import sys
 import site
 import queue
 import meh.ui.text
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 def exception_msg_handler(event, data):
     """

@@ -80,11 +80,35 @@ from pykickstart.sections import NullSection, PackageSection, PostScriptSection,
 from pykickstart.version import returnClassForVersion
 
 import logging
-log = logging.getLogger("anaconda")
-stderrLog = logging.getLogger("anaconda.stderr")
-storage_log = logging.getLogger("blivet")
-stdoutLog = logging.getLogger("anaconda.stdout")
 from pyanaconda import anaconda_logging
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+stderrLog = logging.getLogger("anaconda.stderr")
+stdoutLog = logging.getLogger("anaconda.stdout")
+storage_log = logging.getLogger("blivet")
+
+# kickstart parsing and kickstart script
+script_log = log.getChild("script")
+parsing_log = log.getChild("parsing")
+
+# command specific loggers
+authconfig_log = log.getChild("kickstart.authconfig")
+bootloader_log = log.getChild("kickstart.bootloader")
+user_log = log.getChild("kickstart.user")
+group_log = log.getChild("kickstart.group")
+clearpart_log = log.getChild("kickstart.clearpart")
+autopart_log = log.getChild("kickstart.autopart")
+logvol_log = log.getChild("kickstart.logvol")
+iscsi_log = log.getChild("kickstart.iscsi")
+fcoe_log = log.getChild("kickstart.fcoe")
+zfcp_log = log.getChild("kickstart.zfcp")
+network_log = log.getChild("kickstart.network")
+selinux_log = log.getChild("kickstart.selinux")
+timezone_log = log.getChild("kickstart.timezone")
+realm_log = log.getChild("kickstart.realm")
+escrow_log = log.getChild("kickstart.escrow")
+upgrade_log = log.getChild("kickstart.upgrade")
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -132,7 +156,7 @@ class AnacondaKSScript(KSScript):
                                         root=scriptRoot)
 
         if rc != 0:
-            log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
+            script_log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
             if self.errorOnFail:
                 err = ""
                 with open(messages, "r") as fp:
@@ -165,7 +189,7 @@ def getEscrowCertificate(escrowCerts, url):
         msg = _("Escrow certificate %s requires the network.") % url
         raise KickstartError(msg)
 
-    log.info("escrow: downloading %s", url)
+    escrow_log.info("escrow: downloading %s", url)
 
     try:
         request = iutil.requests_session().get(url, verify=True)
@@ -252,7 +276,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         try:
             iutil.execInSysroot(cmd, args)
         except RuntimeError as msg:
-            log.error("Error running %s %s: %s", cmd, args, msg)
+            authconfig_log.error("Error running %s %s: %s", cmd, args, msg)
 
 class AutoPart(commands.autopart.F26_AutoPart):
     def parse(self, args):
@@ -290,7 +314,7 @@ class AutoPart(commands.autopart.F26_AutoPart):
 
         do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         report = storage_checker.check(storage)
-        report.log(log)
+        report.log(autopart_log)
 
         if report.failure:
             raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
@@ -329,6 +353,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
                             will be resolved
             :type dry_run: bool
         """
+
         if flags.imageInstall and blivet.arch.is_s390():
             self.location = "none"
 
@@ -382,8 +407,8 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         for drive in self.driveorder[:]:
             matches = device_matches(drive, devicetree=storage.devicetree, disks_only=True)
             if set(matches).isdisjoint(diskSet):
-                log.warning("requested drive %s in boot drive order doesn't exist or cannot be used",
-                            drive)
+                bootloader_log.warning("requested drive %s in boot drive order doesn't exist or cannot be used",
+                                       drive)
                 self.driveorder.remove(drive)
             else:
                 valid_disks.extend(matches)
@@ -406,7 +431,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
                                                % self.bootDrive)))
         # Take valid disk from --driveorder
         elif len(valid_disks) >= 1:
-            log.debug("Bootloader: use '%s' first disk from driveorder as boot drive, dry run %s",
+            bootloader_log.debug("Bootloader: use '%s' first disk from driveorder as boot drive, dry run %s",
                       valid_disks[0], dry_run)
             self.bootDrive = valid_disks[0]
         else:
@@ -418,7 +443,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
             try:
                 boot_dev = storage.mountpoints["/boot"]
             except KeyError:
-                log.debug("Bootloader: /boot partition is not present, dry run %s", dry_run)
+                bootloader_log.debug("Bootloader: /boot partition is not present, dry run %s", dry_run)
             else:
                 boot_drive = ""
                 # Use disk ancestor
@@ -427,12 +452,12 @@ class Bootloader(commands.bootloader.F21_Bootloader):
 
                 if boot_drive and boot_drive in disk_names:
                     self.bootDrive = boot_drive
-                    log.debug("Bootloader: use /boot partition's disk '%s' as boot drive, dry run %s",
+                    bootloader_log.debug("Bootloader: use /boot partition's disk '%s' as boot drive, dry run %s",
                               boot_drive, dry_run)
 
         # Nothing was found use first disk from Blivet
         if not self.bootDrive:
-            log.debug("Bootloader: fallback use first disk return from Blivet '%s' as boot drive, dry run %s",
+            bootloader_log.debug("Bootloader: fallback use first disk return from Blivet '%s' as boot drive, dry run %s",
                       disk_names[0], dry_run)
             self.bootDrive = disk_names[0]
 
@@ -561,14 +586,14 @@ class Realm(commands.realm.F19_Realm):
         if not lines:
             return
         self.discovered = lines.pop(0).strip()
-        log.info("Realm discovered: %s", self.discovered)
+        realm_log.info("Realm discovered: %s", self.discovered)
         for line in lines:
             parts = line.split(":", 1)
             if len(parts) == 2 and parts[0].strip() == "required-package":
                 self.packages.append(parts[1].strip())
 
-        log.info("Realm %s needs packages %s",
-                 self.discovered, ", ".join(self.packages))
+        realm_log.info("Realm %s needs packages %s",
+                       self.discovered, ", ".join(self.packages))
 
     def execute(self, *args):
         if not self.discovered:
@@ -589,7 +614,7 @@ class Realm(commands.realm.F19_Realm):
             pass
 
         if rc == 0:
-            log.info("Joined realm %s", self.join_realm)
+            realm_log.info("Joined realm %s", self.join_realm)
 
 
 class ClearPart(commands.clearpart.F21_ClearPart):
@@ -642,8 +667,8 @@ class ClearPart(commands.clearpart.F21_ClearPart):
 
         if self.disklabel:
             if not platform.set_default_disklabel_type(self.disklabel):
-                log.warning("%s is not a supported disklabel type on this platform. "
-                            "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
+                clearpart_log.warning("%s is not a supported disklabel type on this platform. "
+                                      "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
 
         storage.clear_partitions()
 
@@ -656,14 +681,14 @@ class Fcoe(commands.fcoe.F13_Fcoe):
                     msg=_("NIC \"%s\" given in fcoe command does not exist.") % fc.nic))
 
         if fc.nic in (info[0] for info in blivet.fcoe.fcoe.nics):
-            log.info("Kickstart fcoe device %s already added from EDD, ignoring", fc.nic)
+            fcoe_log.info("Kickstart fcoe device %s already added from EDD, ignoring", fc.nic)
         else:
             msg = blivet.fcoe.fcoe.add_san(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
             if not msg:
                 msg = "Succeeded."
                 blivet.fcoe.fcoe.added_nics.append(fc.nic)
 
-            log.info("adding FCoE SAN on %s: %s", fc.nic, msg)
+            fcoe_log.info("adding FCoE SAN on %s: %s", fc.nic, msg)
 
         return fc
 
@@ -747,7 +772,7 @@ class Group(commands.group.F12_Group):
             try:
                 users.createGroup(grp.name, **kwargs)
             except ValueError as e:
-                log.warning(str(e))
+                group_log.warning(str(e))
 
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
@@ -803,7 +828,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
                                           tg.password_in,
                                           target=tg.target,
                                           iface=tg.iface)
-            log.info("added iscsi target %s at %s via %s", tg.target, tg.ipaddr, tg.iface)
+            iscsi_log.info("added iscsi target %s at %s via %s", tg.target, tg.ipaddr, tg.iface)
         except (IOError, ValueError) as e:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -1014,7 +1039,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
                     if profile:
                         pool_args["profile"] = profile
                     else:
-                        log.warning("No matching profile for %s found in LVM configuration", self.profile)
+                        logvol_log.warning("No matching profile for %s found in LVM configuration", self.profile)
                 if self.metadata_size:
                     pool_args["metadatasize"] = Size("%d MiB" % self.metadata_size)
                 if self.chunk_size:
@@ -1123,10 +1148,10 @@ class Network(commands.network.F25_Network):
             if not nd.device:
                 ksdevice = flags.cmdline.get('ksdevice')
                 if ksdevice:
-                    log.info('network: setting %s from ksdevice for missing kickstart --device', ksdevice)
+                    network_log.info('setting %s from ksdevice for missing kickstart --device', ksdevice)
                     nd.device = ksdevice
                 else:
-                    log.info('network: setting "link" for missing --device specification in kickstart')
+                    network_log.info('setting "link" for missing --device specification in kickstart')
                     nd.device = "link"
         return nd
 
@@ -1682,7 +1707,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             # Use the defaults set by the installed (or not) selinux package
             return
         elif self.selinux not in selinux_states:
-            log.error("unknown selinux state: %s", self.selinux)
+            selinux_log.error("unknown selinux state: %s", self.selinux)
             return
 
         try:
@@ -1691,7 +1716,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
         except IOError as msg:
-            log.error("Error setting selinux mode: %s", msg)
+            selinux_log.error("Error setting selinux mode: %s", msg)
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
@@ -1721,7 +1746,7 @@ class Timezone(commands.timezone.F25_Timezone):
                     can_touch_runtime_system("stop NTP service"):
                 ret = iutil.stop_service(NTP_SERVICE)
                 if ret != 0:
-                    log.error("Failed to stop NTP service")
+                    timezone_log.error("Failed to stop NTP service")
 
             if self._added_chrony and NTP_PACKAGE in ksdata.packages.packageList:
                 ksdata.packages.packageList.remove(NTP_PACKAGE)
@@ -1742,7 +1767,7 @@ class Timezone(commands.timezone.F25_Timezone):
                     can_touch_runtime_system("start NTP service"):
                 ret = iutil.start_service(NTP_SERVICE)
                 if ret != 0:
-                    log.error("Failed to start NTP service")
+                    timezone_log.error("Failed to start NTP service")
 
             if not NTP_PACKAGE in ksdata.packages.packageList:
                 ksdata.packages.packageList.append(NTP_PACKAGE)
@@ -1761,8 +1786,8 @@ class Timezone(commands.timezone.F25_Timezone):
         # write out timezone configuration
         if not timezone.is_valid_timezone(self.timezone):
             # this should never happen, but for pity's sake
-            log.warning("Timezone %s set in kickstart is not valid, falling "
-                        "back to default (America/New_York).", self.timezone)
+            timezone_log.warning("Timezone %s set in kickstart is not valid, falling "
+                                 "back to default (America/New_York).", self.timezone)
             self.timezone = "America/New_York"
 
         timezone.write_timezone_config(self, iutil.getSysroot())
@@ -1772,22 +1797,22 @@ class Timezone(commands.timezone.F25_Timezone):
             chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
             pools, servers = ntp.internal_to_pools_and_servers(self.ntpservers)
             if os.path.exists(chronyd_conf_path):
-                log.debug("Modifying installed chrony configuration")
+                timezone_log.debug("Modifying installed chrony configuration")
                 try:
                     ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
                 except ntp.NTPconfigError as ntperr:
-                    log.warning("Failed to save NTP configuration: %s", ntperr)
+                    timezone_log.warning("Failed to save NTP configuration: %s", ntperr)
             # use chrony conf file from installation environment when
             # chrony is not installed (chrony conf file is missing)
             else:
-                log.debug("Creating chrony configuration based on the "
-                          "configuration from installation environment")
+                timezone_log.debug("Creating chrony configuration based on the "
+                                   "configuration from installation environment")
                 try:
                     ntp.save_servers_to_config(pools, servers,
                                                conf_file_path=ntp.NTP_CONFIG_FILE,
                                                out_file_path=chronyd_conf_path)
                 except ntp.NTPconfigError as ntperr:
-                    log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
+                    timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
 class User(commands.user.F19_User):
     def execute(self, storage, ksdata, instClass, users):
@@ -1805,7 +1830,7 @@ class User(commands.user.F19_User):
             try:
                 users.createUser(usr.name, **kwargs)
             except ValueError as e:
-                log.warning(str(e))
+                user_log.warning(str(e))
 
 class VolGroup(commands.volgroup.F21_VolGroup):
     def execute(self, storage, ksdata, instClass):
@@ -1914,7 +1939,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
         try:
             blivet.zfcp.zfcp.add_fcp(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError as e:
-            log.warning(str(e))
+            zfcp_log.warning(str(e))
 
         return fcp
 
@@ -1926,7 +1951,7 @@ class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
     # a kickstart, warn the user and exit.
     def parse(self, args):
-        log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
+        upgrade_log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
         sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup."))
         iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
@@ -2195,7 +2220,7 @@ def parseKickstart(f, strict_mode=False):
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
-        log.error(e)
+        parsing_log.error(e)
 
         # Print kickstart warnings in the strict mode.
         if strict_mode and kswarnings:
@@ -2235,10 +2260,10 @@ def runPostScripts(scripts):
     if len(postScripts) == 0:
         return
 
-    log.info("Running kickstart %%post script(s)")
+    script_log.info("Running kickstart %%post script(s)")
     for script in postScripts:
         script.run(iutil.getSysroot())
-    log.info("All kickstart %%post script(s) have been run")
+    script_log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):
     preScripts = [s for s in scripts if s.type == KS_SCRIPT_PRE]
@@ -2246,13 +2271,13 @@ def runPreScripts(scripts):
     if len(preScripts) == 0:
         return
 
-    log.info("Running kickstart %%pre script(s)")
+    script_log.info("Running kickstart %%pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
     for script in preScripts:
         script.run("/")
 
-    log.info("All kickstart %%pre script(s) have been run")
+    script_log.info("All kickstart %%pre script(s) have been run")
 
 def runPreInstallScripts(scripts):
     preInstallScripts = [s for s in scripts if s.type == KS_SCRIPT_PREINSTALL]
@@ -2260,18 +2285,18 @@ def runPreInstallScripts(scripts):
     if len(preInstallScripts) == 0:
         return
 
-    log.info("Running kickstart %%pre-install script(s)")
+    script_log.info("Running kickstart %%pre-install script(s)")
 
     for script in preInstallScripts:
         script.run("/")
 
-    log.info("All kickstart %%pre-install script(s) have been run")
+    script_log.info("All kickstart %%pre-install script(s) have been run")
 
 def runTracebackScripts(scripts):
-    log.info("Running kickstart %%traceback script(s)")
+    script_log.info("Running kickstart %%traceback script(s)")
     for script in filter(lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/")
-    log.info("All kickstart %%traceback script(s) have been run")
+    script_log.info("All kickstart %%traceback script(s) have been run")
 
 def resetCustomStorageData(ksdata):
     for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:

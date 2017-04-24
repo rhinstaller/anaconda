@@ -53,8 +53,8 @@ from blivet.devicelibs import btrfs
 from blivet.devicelibs import mdraid
 from blivet.devicelibs import raid
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "

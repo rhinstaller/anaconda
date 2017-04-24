@@ -111,8 +111,10 @@ import time
 from pyanaconda import network
 
 import logging
-log = logging.getLogger("anaconda")
 slog = logging.getLogger("sensitive-info")
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
@@ -133,7 +135,6 @@ def init_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
 
     :param provider_id: specifies what geolocation backend to use
     """
-
     global location_info_instance
     location_info_instance = LocationInfo(provider_id=provider_id)
 

@@ -33,8 +33,8 @@ import crypt
 from pyanaconda.i18n import _
 import re
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 def getPassAlgo(authconfigStr):
     """ Reads the auth string and returns a string indicating our desired

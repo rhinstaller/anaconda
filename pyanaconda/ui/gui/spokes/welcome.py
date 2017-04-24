@@ -39,8 +39,8 @@ from pyanaconda.i18n import _, C_
 from pyanaconda.iutil import is_unsupported_hw, ipmi_abort
 from pyanaconda.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["WelcomeLanguageSpoke"]
 

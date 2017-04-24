@@ -39,8 +39,8 @@ gi.require_version("GLib", "2.0")
 
 from gi.repository import GLib
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 LOCALED_SERVICE = "org.freedesktop.locale1"
 LOCALED_OBJECT_PATH = "/org/freedesktop/locale1"
