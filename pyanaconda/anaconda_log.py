@@ -32,6 +32,10 @@ ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
 
+# the Anaconda log uses structured logging
+ANACONDA_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(log_prefix)s: %(message)s"
+ANACONDA_SYSLOG_FORMAT = "anaconda: %(log_prefix)s: %(message)s"
+
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
 STORAGE_LOG_FILE = "/tmp/storage.log"
