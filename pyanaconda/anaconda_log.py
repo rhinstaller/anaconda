@@ -243,13 +243,16 @@ class AnacondaLog:
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler(self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
                        fmtStr=ENTRY_FORMAT,
-                       autoLevel=False):
+                       autoLevel=False,
+                       log_filter=None):
         try:
             if isinstance(dest, str):
                 logfile_handler = AnacondaFileHandler(dest)
             else:
                 logfile_handler = AnacondaStreamHandler(dest)
 
+            if log_filter:
+                logfile_handler.addFilter(log_filter)
             logfile_handler.setLevel(minLevel)
             logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
             autoSetLevel(logfile_handler, autoLevel)
