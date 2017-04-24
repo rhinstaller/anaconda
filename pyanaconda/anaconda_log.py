@@ -111,10 +111,13 @@ class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
         SysLogHandler.__init__(self, address, facility)
 
     def emit(self, record):
-        original_msg = record.msg
-        record.msg = '%s: %s' % (self.tag, original_msg)
-        SysLogHandler.emit(self, record)
-        record.msg = original_msg
+        if self.tag:
+            original_msg = record.msg
+            record.msg = '%s: %s' % (self.tag, original_msg)
+            SysLogHandler.emit(self, record)
+            record.msg = original_msg
+        else:
+            SysLogHandler.emit(self, record)
 
     def mapPriority(self, levelName):
         """Map the priority level to a syslog level """
@@ -254,18 +257,29 @@ class AnacondaLog:
         except IOError:
             pass
 
-    def forwardToSyslog(self, logr):
+    def forwardToSyslog(self, logr, log_formatter=None, log_filter=None):
         """Forward everything that goes in the logger to the syslog daemon.
         """
         if flags.imageInstall or flags.dirInstall:
             # don't clutter up the system logs when doing an image install
             return
 
+        # Don't add syslog tag if custom formatter is in use.
+        # This also means that custom formatters need to make sure they
+        # add the tag correctly themselves.
+        if log_formatter:
+            tag = None
+        else:
+            tag = logr.name
         syslog_handler = AnacondaSyslogHandler(
             '/dev/log',
             ANACONDA_SYSLOG_FACILITY,
-            logr.name)
+            tag=tag)
         syslog_handler.setLevel(logging.DEBUG)
+        if log_filter:
+            syslog_handler.addFilter(log_filter)
+        if log_formatter:
+            syslog_handler.setFormatter(log_formatter)
         logr.addHandler(syslog_handler)
 
     # pylint: disable=redefined-builtin
