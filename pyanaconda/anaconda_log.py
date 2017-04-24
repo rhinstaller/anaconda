@@ -130,6 +130,25 @@ class AnacondaFileHandler(_AnacondaLogFixer, logging.FileHandler):
 class AnacondaStreamHandler(_AnacondaLogFixer, logging.StreamHandler):
     pass
 
+class AnacondaPrefixFilter(logging.Filter):
+    """Add a log_prefix field, which is based on the name property,
+    but without the "anaconda." prefix.
+
+    Also if name is equal to "anaconda", generally meaning some sort of
+    general (or miss-directed) log message, set the log_prefix to "misc".
+    """
+
+    def filter(self, record):
+        record.log_prefix = ""
+        if record.name:
+            # messages going to the generic "anaconda" logger get the log prefix "misc"
+            if record.name == "anaconda":
+                record.log_prefix = "misc"
+            elif record.name.startswith("anaconda."):
+                # drop "anaconda." from the log prefix
+                record.log_prefix = record.name[9:]
+        return True
+
 class AnacondaLog:
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
     VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
@@ -148,7 +167,9 @@ class AnacondaLog:
         self.anaconda_logger = logging.getLogger("anaconda")
         self.anaconda_logger.propagate = False
         self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
-                            minLevel=logging.DEBUG)
+                            minLevel=logging.DEBUG,
+                            fmtStr=ANACONDA_ENTRY_FORMAT,
+                            log_filter=AnacondaPrefixFilter())
         warnings.showwarning = self.showwarning
 
         # Create the storage logger.
@@ -160,7 +181,12 @@ class AnacondaLog:
         # Set the common parameters for anaconda and storage loggers.
         for logr in [self.anaconda_logger, storage_logger]:
             logr.setLevel(logging.DEBUG)
-            self.forwardToSyslog(logr)
+
+        # forward both logs to syslog
+        self.forwardToSyslog(self.anaconda_logger,
+                             log_filter=AnacondaPrefixFilter(),
+                             log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+        self.forwardToSyslog(storage_logger)
 
         # External program output log
         program_logger = logging.getLogger("program")
