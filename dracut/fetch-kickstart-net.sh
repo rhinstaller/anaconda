@@ -71,13 +71,16 @@ else
     newjob=$hookdir/initqueue/fetch-ks-${netif}.sh
 fi
 
+# We need extra quotation marks to safely iterate over locations in a job.
+quoted_locations="$(for l in $locations; do printf '"%s" ' "$l" ; done)"
+
 # Create a new job.
 cat > $newjob <<__EOT__
 . /lib/url-lib.sh
 . /lib/anaconda-lib.sh
 info "anaconda: kickstart locations are $locations"
 
-for kickstart in $locations; do
+for kickstart in $quoted_locations; do
     info "anaconda: fetching kickstart from \$kickstart"
 
     if fetch_url "\$kickstart" /tmp/ks.cfg; then
