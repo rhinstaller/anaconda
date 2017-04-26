@@ -69,6 +69,9 @@ class BaseInstallClass(object):
     help_placeholder = None
     help_placeholder_with_links = None
 
+    # geolocation
+    use_geolocation_with_kickstart = False
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:

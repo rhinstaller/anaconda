@@ -343,6 +343,8 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Geolocation
     ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))
+    ap.add_argument("--geoloc-use-with-ks", action="store_true", default=False,
+                    help=help_parser.help_text("geoloc-use-with-ks"))
 
     # Kickstart and log saving
     # - use a custom action to convert the values of the nosave option into appropriate flags
@@ -1321,28 +1323,13 @@ if __name__ == "__main__":
     payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass,
             fallback=fallback)
 
-    # check if geolocation should be enabled for this type of installation
-    use_geolocation = True
-    if flags.imageInstall or flags.dirInstall or flags.automatedInstall:
-        use_geolocation = False
-    # and also check if it was not disabled by boot option
-    else:
-        # flags.cmdline.getbool is used as it handles values such as
-        # 0, no, off and also nogeoloc as False
-        # and other values or geoloc not being present as True
-        use_geolocation = flags.cmdline.getbool('geoloc', True)
+    # check if geolocation should be enabled for this installation run
+    geoloc.set_geolocation_enabled(options_override=opts.geoloc_use_with_ks,
+                                   install_class_override=anaconda.instClass.use_geolocation_with_kickstart)
 
-    if use_geolocation:
-        provider_id = constants.GEOLOC_DEFAULT_PROVIDER
-        # check if a provider was specified by an option
-        if opts.geoloc is not None:
-            parsed_id = geoloc.get_provider_id_from_option(opts.geoloc)
-            if parsed_id is None:
-                log.error('geoloc: wrong provider id specified: %s', opts.geoloc)
-            else:
-                provider_id = parsed_id
-        # instantiate the geolocation module and start location data refresh
-        geoloc.init_geolocation(provider_id=provider_id)
+    # start geolocation if enabled
+    if geoloc.geolocation_enabled:
+        geoloc.init_geolocation(geoloc_option_value=opts.geoloc)
         geoloc.refresh()
 
     # setup ntp servers and start NTP daemon if not requested otherwise

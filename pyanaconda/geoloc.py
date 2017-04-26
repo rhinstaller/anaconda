@@ -115,13 +115,82 @@ slog = logging.getLogger("sensitive-info")
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
+from pyanaconda.flags import flags
 
+geolocation_enabled = False
 location_info_instance = None
 refresh_condition = threading.Condition()
 refresh_in_progress = False
 
 
-def init_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
+def set_geolocation_enabled(options_override, install_class_override):
+    """Check if geolocation can be used during this installation run.
+
+    And set the geolocation_enabled module attribute accordingly.
+
+    The result is based on current installation type - fully interactive vs
+    fully or partially automated kickstart installation and on the state of the
+    "geoloc*" boot/CLI options.
+
+    By default geolocation is not enabled during a kickstart based installation,
+    unless the geoloc_use_with_ks boot/CLI option is used or the Install Class
+    indicates geolocation should be used with kickstart.
+
+    Also the geoloc boot/CLI option can be used to make sure geolocation
+    will not be used during an installation, like this:
+
+    inst.geoloc=0
+
+    :param bool options_override: use with kickstart due to CLI/boot option override
+    :param bool install_class_override: use with kickstart due to install class override
+    """
+    use_geolocation = True
+
+    # don't use geolocation during image and directory installation
+    if flags.imageInstall or flags.dirInstall:
+        log.info("Geolocation is disabled for image or directory installation.")
+        use_geolocation = False
+    # don't use geolocation during kickstart installation unless explicitly
+    # requested by the user
+    elif flags.automatedInstall:
+        # check for use-with-kickstart overrides
+        if options_override or install_class_override:
+            use_geolocation = True
+        else:
+            # otherwise disable geolocation during a kickstart installation
+            use_geolocation = False
+
+    # and also check if geolocation was not disabled by boot or command like option
+    if not flags.cmdline.getbool('geoloc', True):
+        # flags.cmdline.getbool is used as it handles values such as
+        # 0, no, off and also nogeoloc as False
+        # and other values or geoloc not being present as True
+        use_geolocation = False
+
+    # log the end result
+    if use_geolocation:
+        if flags.automatedInstall:
+            if options_override:
+                log.info("Geolocation is enabled during kickstart installation due to use of the "
+                         "geoloc-use-with-ks option.")
+            if install_class_override:
+                log.info("Geolocation is enabled during kickstart installation due to "
+                         "install class override.")
+        else:
+            log.info("Geolocation is enabled.")
+    else:
+        if flags.imageInstall or flags.dirInstall:
+            log.info("Geolocation is disabled for image or directory installation.")
+        elif flags.automatedInstall:
+            log.info("Geolocation is disabled due to automated kickstart based installation.")
+        if not flags.cmdline.getbool('geoloc', True):
+            log.info("Geolocation is disabled by the geoloc option.")
+
+    global geolocation_enabled
+    geolocation_enabled = use_geolocation
+
+
+def init_geolocation(geoloc_option_value):
     """Prepare the geolocation module for handling geolocation queries.
     This method sets-up the GeoLocation instance with the given
     geolocation_provider (or using the default one if no provider
@@ -129,8 +198,17 @@ def init_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
     execute any queries by itself, you need to call refresh()
     to do that.
 
-    :param provider_id: specifies what geolocation backend to use
+    :param geoloc_option_value: provider id as specified by CLI/Boot option (if any)
+    :type geoloc_option_value: str or None
     """
+    provider_id = constants.GEOLOC_DEFAULT_PROVIDER
+    # check if a provider was specified by an option
+    if geoloc_option_value is not None:
+        parsed_id = get_provider_id_from_option(geoloc_option_value)
+        if parsed_id is None:
+            log.error('geoloc: wrong provider id specified: %s', geoloc_option_value)
+        else:
+            provider_id = parsed_id
 
     global location_info_instance
     location_info_instance = LocationInfo(provider_id=provider_id)
