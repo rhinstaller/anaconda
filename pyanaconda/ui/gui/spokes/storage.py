@@ -37,12 +37,13 @@
 """
 
 import gi
+gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("GLib", "2.0")
 gi.require_version("AnacondaWidgets", "3.3")
 gi.require_version("BlockDev", "2.0")
 
-from gi.repository import Gdk, GLib, AnacondaWidgets
+from gi.repository import Gdk, GLib, AnacondaWidgets, Gtk
 from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.communication import hubQ
@@ -336,6 +337,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def _method_radio_button_toggled(self, radio_button):
         """Triggered when one of the partitioning method radio buttons is toggled."""
+        # Run only for an active radio button.
+        if not radio_button.get_active():
+            return
 
         # Hide the encryption checkbox for Blivet GUI storage configuration,
         # as Blivet GUI handles encryption per encrypted device, not globally.
@@ -694,12 +698,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # See also https://bugzilla.gnome.org/show_bug.cgi?id=744721
         localViewport = self.builder.get_object("localViewport")
         specializedViewport = self.builder.get_object("specializedViewport")
-        self.local_disks_box.set_focus_hadjustment(localViewport.get_hadjustment())
-        self.specialized_disks_box.set_focus_hadjustment(specializedViewport.get_hadjustment())
+        self.local_disks_box.set_focus_hadjustment(Gtk.Scrollable.get_hadjustment(localViewport))
+        self.specialized_disks_box.set_focus_hadjustment(Gtk.Scrollable.get_hadjustment(specializedViewport))
 
         mainViewport = self.builder.get_object("storageViewport")
         mainBox = self.builder.get_object("storageMainBox")
-        mainBox.set_focus_vadjustment(mainViewport.get_vadjustment())
+        mainBox.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(mainViewport))
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
                       target=self._initialize))

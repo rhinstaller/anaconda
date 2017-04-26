@@ -291,19 +291,16 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_label_set_text_with_mnemonic(GTK_LABEL(spoke->priv->title_label), _(DEFAULT_TITLE));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->title_label), GTK_JUSTIFY_LEFT);
     gtk_label_set_mnemonic_widget(GTK_LABEL(spoke->priv->title_label), GTK_WIDGET(spoke));
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    /* gtk+ did a garbage job of "deprecating" GtkMisc, so keep using it for now */
-    gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 1);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(spoke->priv->title_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(spoke->priv->title_label), 1.0);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->title_label), FALSE);
     gtk_widget_set_name(spoke->priv->title_label, "anaconda-spoke-selector-title");
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(_(DEFAULT_STATUS));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->status_label), GTK_JUSTIFY_LEFT);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(spoke->priv->status_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(spoke->priv->status_label), 0.0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);

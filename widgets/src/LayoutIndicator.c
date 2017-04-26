@@ -231,9 +231,8 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
     gtk_label_set_max_width_chars(self->priv->layout_label, DEFAULT_LABEL_MAX_CHAR_WIDTH);
     gtk_label_set_width_chars(self->priv->layout_label, DEFAULT_LABEL_MAX_CHAR_WIDTH);
     gtk_label_set_ellipsize(self->priv->layout_label, PANGO_ELLIPSIZE_END);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(self->priv->layout_label), 0.0, 0.5);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(self->priv->layout_label, 0.0);
+    gtk_label_set_yalign(self->priv->layout_label, 0.5);
     gtk_widget_set_name(GTK_WIDGET(self->priv->layout_label), "anaconda-layout-label");
 
     /* initialize the label with the current layout name */
