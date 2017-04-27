@@ -318,6 +318,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 27 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.111-1
+- Adapt to treeinfo addon section format change (rvykydal)
+  Related: rhbz#1437510
+- Make geolocation with kickstart possible (mkolman)
+  Resolves: rhbz#1358331
+- Show or hide the content of the expander (vponcova)
+  Resolves: rhbz#1441733
+- Fix a typo in anaconda-pre.service (mkolman)
+  Resolves: rhbz#1421246
+
 * Thu Apr 20 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.110-1
 - Adapt to treeinfo format change (variants -> addons) (rvykydal)
   Resolves: rhbz#1437510

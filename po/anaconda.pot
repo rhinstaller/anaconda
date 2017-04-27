@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.109\n"
+"Project-Id-Version: anaconda 21.48.22.110\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-04-20 15:59+0200\n"
+"POT-Creation-Date: 2017-04-27 15:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1432,7 +1432,7 @@ msgid "SOFTWARE"
 msgstr ""
 
 #: pyanaconda/ui/categories/system.py:32
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:169
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:180
 msgid "SYSTEM"
 msgstr ""
 
@@ -1618,7 +1618,7 @@ msgstr ""
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:617 anaconda:531
+#: pyanaconda/ui/tui/simpleline/base.py:617 anaconda:533
 msgid "Press ENTER to continue"
 msgstr ""
 
@@ -3222,7 +3222,7 @@ msgstr ""
 msgid "Invalid user name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.py:213
+#: pyanaconda/ui/gui/spokes/welcome.py:224
 #, python-format
 msgid "WELCOME TO %(name)s %(version)s."
 msgstr ""
@@ -3235,32 +3235,32 @@ msgid ""
 "Please select which nodes you wish to log into:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:160
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:171
 msgid "DATA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:282
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:293
 #, python-format
 msgid ""
 "You haven't created any mount points for your %(product)s %(version)s "
 "installation yet.  You can:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:291
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:302
 msgid "_Click here to create them automatically."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:316
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:327
 msgid "Create new mount points by clicking the '+' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:324
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:335
 msgid ""
 "Or, assign new mount points to existing partitions after selecting them "
 "below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:329
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:340
 msgid "_New mount points will use the following partitioning scheme:"
 msgstr ""
 
@@ -5745,14 +5745,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:483
+#: anaconda:485
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:485
+#: anaconda:487
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5760,17 +5760,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:488
+#: anaconda:490
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:490
+#: anaconda:492
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:491
+#: anaconda:493
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5779,35 +5779,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:494
+#: anaconda:496
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:530
+#: anaconda:532
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda:649
+#: anaconda:651
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:657
+#: anaconda:659
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:665
+#: anaconda:667
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:761
+#: anaconda:763
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:763
+#: anaconda:765
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
