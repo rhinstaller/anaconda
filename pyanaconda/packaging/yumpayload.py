@@ -822,7 +822,7 @@ reposdir=%s
         log.debug("Addons found: %s", validAddons)
 
         for addon in validAddons:
-            addonSection = "variant-%s" % addon
+            addonSection = "addon-%s" % addon
             if not c.has_section(addonSection) or c.get(addonSection, "type") != "addon" or not c.has_option(addonSection, "repository"):
                 continue
 
