@@ -214,6 +214,14 @@ NTP_SERVER_OK = 0
 NTP_SERVER_NOK = 1
 NTP_SERVER_QUERY = 2
 
+# Storage checker constraints
+STORAGE_MIN_RAM = "min_ram"
+STORAGE_MIN_ROOT = "min_root"
+STORAGE_MIN_PARTITION_SIZES = "min_partition_sizes"
+STORAGE_MUST_BE_ON_LINUXFS = "must_be_on_linuxfs"
+STORAGE_MUST_BE_ON_ROOT = "must_be_on_root"
+STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
+
 # Display modes
 class DisplayModes(Enum):
     GUI = "GUI"

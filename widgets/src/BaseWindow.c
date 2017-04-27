@@ -359,13 +359,8 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Create the name label. */
     win->priv->name_label = gtk_label_new(_(DEFAULT_WINDOW_NAME));
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    /*
-     * GtkMisc is deprecated, but if you don't set the GtkMisc properties then they
-     * still default to everything being centered. A+ work everyone.
-     */
-    gtk_misc_set_alignment(GTK_MISC(win->priv->name_label), 0, 0);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(win->priv->name_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(win->priv->name_label), 0.0);
     gtk_widget_set_hexpand(win->priv->name_label, TRUE);
     gtk_widget_set_name(win->priv->name_label, "anaconda-name-label");
 
@@ -373,18 +368,16 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Create the distribution label. */
     win->priv->distro_label = gtk_label_new(_(DEFAULT_DISTRIBUTION));
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(win->priv->distro_label), 0, 0);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(win->priv->distro_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(win->priv->distro_label), 0.0);
     gtk_widget_set_name(win->priv->distro_label, "anaconda-distro-label");
 
     win->priv->orig_distro = g_strdup(DEFAULT_DISTRIBUTION);
 
     /* Create the beta label. */
     win->priv->beta_label = gtk_label_new(_(DEFAULT_BETA));
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(win->priv->beta_label), 0, 0);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(win->priv->beta_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(win->priv->beta_label), 0.0);
     gtk_widget_set_no_show_all(win->priv->beta_label, TRUE);
     gtk_widget_set_name(win->priv->beta_label, "anaconda-beta-label");
 

@@ -39,7 +39,8 @@ from blivet.devicefactory import DEVICE_TYPE_DISK
 
 from pyanaconda.i18n import _, N_
 from pyanaconda import isys
-from pyanaconda.constants import productName
+from pyanaconda.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, \
+    STORAGE_MUST_BE_ON_LINUXFS, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, STORAGE_MIN_RAM
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
@@ -154,11 +155,11 @@ def verify_root(storage, constraints, report_error, report_warning):
     root = storage.fsset.root_device
 
     if root:
-        if root.size < constraints["min_root"]:
+        if root.size < constraints[STORAGE_MIN_ROOT]:
             report_warning(_("Your root partition is less than %(size)s "
                              "which is usually too small to install "
                              "%(product)s.")
-                           % {'size': constraints["min_root"],
+                           % {'size': constraints[STORAGE_MIN_ROOT],
                               'product': productName})
     else:
         report_error(_("You have not defined a root partition (/), "
@@ -208,7 +209,7 @@ def verify_partition_sizes(storage, constraints, report_error, report_warning):
     """
     filesystems = storage.mountpoints
 
-    for (mount, size) in constraints["min_partition_sizes"].items():
+    for (mount, size) in constraints[STORAGE_MIN_PARTITION_SIZES].items():
         if mount in filesystems and filesystems[mount].size < size:
             report_warning(_("Your %(mount)s partition is less than "
                              "%(size)s which is lower than recommended "
@@ -324,9 +325,9 @@ def verify_swap(storage, constraints, report_error, report_warning):
 
     if not swaps:
         installed = util.total_memory()
-        required = Size("%s MiB" % (constraints["min_ram"] + isys.NO_SWAP_EXTRA_RAM))
+        required = Size("%s MiB" % (constraints[STORAGE_MIN_RAM] + isys.NO_SWAP_EXTRA_RAM))
 
-        if not constraints["swap_is_recommended"]:
+        if not constraints[STORAGE_SWAP_IS_RECOMMENDED]:
             if installed < required:
                 report_warning(_("You have not specified a swap partition. "
                                  "%(requiredMem)s of memory is recommended to continue "
@@ -377,7 +378,7 @@ def verify_mountpoints_on_root(storage, constraints, report_error, report_warnin
     :param report_warning: a function for warning reporting
     """
     for mountpoint in storage.mountpoints:
-        if mountpoint in constraints["must_be_on_root"]:
+        if mountpoint in constraints[STORAGE_MUST_BE_ON_ROOT]:
             report_error(_("This mount point is invalid. The %s directory must "
                            "be on the / file system.") % mountpoint)
 
@@ -393,7 +394,7 @@ def verify_mountpoints_on_linuxfs(storage, constraints, report_error, report_war
     filesystems = storage.mountpoints
 
     for (mountpoint, dev) in filesystems.items():
-        if mountpoint in constraints["must_be_on_linuxfs"] \
+        if mountpoint in constraints[STORAGE_MUST_BE_ON_LINUXFS] \
                 and (not dev.format.mountable or not dev.format.linux_native):
             report_error(_("The mount point %s must be on a linux file system.") % mountpoint)
 
@@ -619,9 +620,9 @@ class StorageChecker(object):
     def set_default_constraints(self):
         """Set the default constraints needed by default checks."""
         self.constraints = dict()
-        self.add_new_constraint("min_ram", isys.MIN_RAM)
-        self.add_new_constraint("min_root", Size("250 MiB"))
-        self.add_new_constraint("min_partition_sizes", {
+        self.add_new_constraint(STORAGE_MIN_RAM, isys.MIN_RAM)
+        self.add_new_constraint(STORAGE_MIN_ROOT, Size("250 MiB"))
+        self.add_new_constraint(STORAGE_MIN_PARTITION_SIZES, {
             '/usr': Size("250 MiB"),
             '/tmp': Size("50 MiB"),
             '/var': Size("384 MiB"),
@@ -629,15 +630,15 @@ class StorageChecker(object):
             '/boot': Size("200 MiB")
         })
 
-        self.add_new_constraint("must_be_on_linuxfs", {
+        self.add_new_constraint(STORAGE_MUST_BE_ON_LINUXFS, {
             '/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib'
         })
 
-        self.add_new_constraint("must_be_on_root", {
+        self.add_new_constraint(STORAGE_MUST_BE_ON_ROOT, {
             '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
         })
 
-        self.add_new_constraint("swap_is_recommended", True)
+        self.add_new_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
 
     def set_default_checks(self):
         """Set the default checks."""
