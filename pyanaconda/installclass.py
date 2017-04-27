@@ -34,7 +34,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda.kickstart import getAvailableDiskSpace
-
+from pyanaconda.constants import STORAGE_SWAP_IS_RECOMMENDED
 from pykickstart.constants import FIRSTBOOT_DEFAULT
 
 class BaseInstallClass(object):
@@ -145,7 +145,7 @@ class BaseInstallClass(object):
 
                 # Swap will not be recommended by the storage checker.
                 from pyanaconda.storage_utils import storage_checker
-                storage_checker.add_constraint("swap_is_recommended", False)
+                storage_checker.add_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
 
         # Skip mountpoints we want to remove.
         storage.autopart_requests = [req for req in storage.autopart_requests
