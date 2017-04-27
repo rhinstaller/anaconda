@@ -25,8 +25,9 @@ screens handling languages or locales configuration.
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Pango", "1.0")
+gi.require_version("GdkPixbuf", "2.0")
 
-from gi.repository import Gtk, Pango
+from gi.repository import Gtk, Pango, GdkPixbuf
 
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
@@ -54,11 +55,17 @@ class LangLocaleHandler(object):
         self._localeSelection = None
 
         self._arrow = None
+        self._right_arrow = None
+        self._left_arrow = None
 
     def initialize(self):
-        # Render an arrow for the chosen language
-        self._right_arrow = Gtk.Image.new_from_resource("/org/fedoraproject/anaconda/widgets/right-arrow-icon.png")
-        self._left_arrow = Gtk.Image.new_from_resource("/org/fedoraproject/anaconda/wdigets/left-arrow-icon.png")
+        # Load arrows from resources. Unfortunately, Gtk.Image.new_from_resource does not
+        # work for some reason, so we should use GdkPixbuf.Pixbuf.new_from_resource instead.
+        resource_path = "/org/fedoraproject/anaconda/widgets/"
+        self._right_arrow = GdkPixbuf.Pixbuf.new_from_resource(resource_path + "right-arrow-icon.png")
+        self._left_arrow = GdkPixbuf.Pixbuf.new_from_resource(resource_path + "left-arrow-icon.png")
+
+        # Render an arrow for the chosen language.
         override_cell_property(self._langSelectedColumn, self._langSelectedRenderer,
                                "pixbuf", self._render_lang_selected)
 
@@ -102,7 +109,7 @@ class LangLocaleHandler(object):
             _arrow = self._left_arrow
 
         if sel_itr and lang_store[sel_itr][2] == model[itr][2]:
-            return _arrow.get_pixbuf()
+            return _arrow
         else:
             return None
 

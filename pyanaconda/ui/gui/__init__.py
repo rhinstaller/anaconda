@@ -853,7 +853,6 @@ class GraphicalUserInterface(UserInterface):
                     return
 
             self._currentAction.initialize()
-            self._currentAction.entered.emit(self._currentAction)
             self._currentAction.refresh()
 
             self._currentAction.window.set_beta(not self._isFinal)
@@ -895,6 +894,8 @@ class GraphicalUserInterface(UserInterface):
                             STYLE_PROVIDER_PRIORITY_UPDATES)
 
             self.mainWindow.setCurrentAction(self._currentAction)
+            # the window corresponding to the ection should now be visible to the user
+            self._currentAction.entered.emit(self._currentAction)
 
             # Do this at the last possible minute.
             unbusyCursor()
@@ -1026,13 +1027,14 @@ class GraphicalUserInterface(UserInterface):
             return
 
         self._currentAction.exited.emit(self._currentAction)
-        nextAction.entered.emit(nextAction)
 
         nextAction.refresh()
 
         # Do this last.  Setting up curAction could take a while, and we want
         # to leave something on the screen while we work.
         self.mainWindow.setCurrentAction(nextAction)
+        # the new spoke should be now visible, trigger the entered signal
+        nextAction.entered.emit(nextAction)
         self._currentAction = nextAction
         self._actions.pop(0)
 

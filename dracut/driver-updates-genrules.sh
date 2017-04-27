@@ -14,24 +14,31 @@ else
     DD_OEMDRV="LABEL=OEMDRV"
 fi
 
-DD_DISK=""
+DD_DISKS=""
 if [ -f /tmp/dd_disk ]; then
-    DD_DISK=$(cat /tmp/dd_disk)
+    DD_DISKS=$(cat /tmp/dd_disk)
 else
     debug_msg "/tmp/dd_disk file was not created"
 fi
 
 # Run driver-updates for LABEL=OEMDRV and any other requested disk/image
-for dd in $DD_OEMDRV $DD_DISK; do
+for dd in $DD_OEMDRV $DD_DISKS; do
     # ..is this actually a disk image that already exists inside initramfs?
     if [ -f $dd ]; then
         # if so, no need to wait for udev - add it to initqueue now
         initqueue --onetime --name dd_initrd \
             driver-updates --disk $dd $dd
+    # otherwise, tell udev to do driver-updates when the device appears
     else
-        # otherwise, tell udev to do driver-updates when the device appears
-        when_diskdev_appears "$(disk_to_dev_path $dd)" \
-            driver-updates --disk $dd \$devnode
+        # this is a disk with path to specific RPM file on it
+        if [ "${dd##*.}" = "rpm" ]; then
+            splitsep ":" "$dd" dd_type dd_dev dd_path
+            when_diskdev_appears "$(disk_to_dev_path $dd_type)" \
+                driver-updates --disk $dd \$devnode $dd_dev
+        else
+            when_diskdev_appears "$(disk_to_dev_path $dd)" \
+                driver-updates --disk $dd \$devnode
+        fi
     fi
 done
 

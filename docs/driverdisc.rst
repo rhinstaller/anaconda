@@ -19,7 +19,7 @@ Devices which can contain DDs
 -----------------------------
 
 The best place to save your DriverDisc to is USB flash device. We also support
-(or plan to) IDE and SATA block devices with or without partitions, DriverDisc
+IDE and SATA block devices with or without partitions, DriverDisc
 image stored on block device, initrd overlay (see documentation below) and for
 special cases even network retrieval of DriverDisc image.
 

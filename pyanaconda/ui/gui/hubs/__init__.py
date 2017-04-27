@@ -407,9 +407,10 @@ class Hub(GUIObject, common.Hub):
 
         # Enter the spoke
         self._inSpoke = True
-        spoke.entered.emit(spoke)
         spoke.refresh()
         self.main_window.enterSpoke(spoke)
+        # the new spoke should be now visible, trigger the entered signal
+        spoke.entered.emit(spoke)
 
     def spoke_done(self, spoke):
         # Ignore if not in a spoke

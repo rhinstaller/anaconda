@@ -820,6 +820,19 @@ class DNFPayload(payload.PackagePayload):
             raise payload.NoSuchGroup(grpid)
         return (grp.ui_name, grp.ui_description)
 
+    def groupId(self, group_name):
+        """ Translate group name to group ID.
+
+        :param group_name: Valid identifier for group specification.
+        :returns: Group ID.
+        :raise NoSuchGroup: If group_name doesn't exists.
+        :raise PayloadError: When Yum's groups are not available.
+        """
+        grp = self._base.comps.group_by_pattern(group_name)
+        if grp is None:
+            raise payload.NoSuchGroup(group_name)
+        return grp.id
+
     def gatherRepoMetadata(self):
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
