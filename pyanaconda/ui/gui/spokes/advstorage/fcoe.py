@@ -17,6 +17,8 @@
 # Red Hat, Inc.
 #
 
+from blivet.fcoe import fcoe
+
 from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
@@ -41,7 +43,7 @@ class FCoEDialog(GUIObject):
         self._addError = None
 
         self.storage = storage
-        self.fcoe = self.storage.fcoe()
+        self.fcoe = fcoe
         self._update_devicetree = False
 
         self._addButton = self.builder.get_object("addButton")
@@ -85,7 +87,7 @@ class FCoEDialog(GUIObject):
 
     def _add(self):
         try:
-            self._addError = self.fcoe.addSan(self.nic, self.use_dcb, self.use_auto_vlan)
+            self._addError = self.fcoe.add_san(self.nic, self.use_dcb, self.use_auto_vlan)
         except (IOError, OSError) as e:
             self._addError = str(e)
 
