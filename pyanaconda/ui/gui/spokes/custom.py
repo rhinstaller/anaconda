@@ -225,7 +225,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # Connect partitionsNotebook focus events to scrolling in the parent viewport
         partitionsNotebookViewport = self.builder.get_object("partitionsNotebookViewport")
-        self._partitionsNotebook.set_focus_vadjustment(partitionsNotebookViewport.get_vadjustment())
+        self._partitionsNotebook.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(partitionsNotebookViewport))
 
         self._pageLabel = self.builder.get_object("pageLabel")
 
@@ -298,8 +298,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._partitionsViewport.add(self._accordion)
 
         # Connect viewport scrolling with accordion focus events
-        self._accordion.set_focus_hadjustment(self._partitionsViewport.get_hadjustment())
-        self._accordion.set_focus_vadjustment(self._partitionsViewport.get_vadjustment())
+        self._accordion.set_focus_hadjustment(Gtk.Scrollable.get_hadjustment(self._partitionsViewport))
+        self._accordion.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(self._partitionsViewport))
 
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 

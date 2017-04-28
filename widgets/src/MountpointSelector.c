@@ -220,6 +220,8 @@ GtkWidget *anaconda_mountpoint_selector_new() {
 
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     GtkStyleContext *context;
+    GError *err = NULL;
+    GdkPixbuf *pixbuf = NULL;
 
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
@@ -240,14 +242,23 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_set_column_spacing(GTK_GRID(mountpoint->priv->grid), 12);
     gtk_widget_set_margin_start(GTK_WIDGET(mountpoint->priv->grid), 30);
 
-    /* Create the icon.  We don't need to check if it returned NULL since
-     * gtk_image_new_from_resource will just display a broken image icon in that
-     * case.  That's good enough error notification.
+    /* Create the icon. Unfortunately, function gtk_image_new_from_resource does not
+     * work for some reason, so we should use gdk_pixbuf_new_from_resource instead.
      */
     if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
-        mountpoint->priv->arrow = gtk_image_new_from_resource(ANACONDA_RESOURCE_PATH "right-arrow-icon.png");
+        pixbuf = gdk_pixbuf_new_from_resource(ANACONDA_RESOURCE_PATH "right-arrow-icon.png", &err);
     else
-        mountpoint->priv->arrow = gtk_image_new_from_resource(ANACONDA_RESOURCE_PATH "left-arrow-icon.png");
+        pixbuf = gdk_pixbuf_new_from_resource(ANACONDA_RESOURCE_PATH "left-arrow-icon.png", &err);
+
+    if (!pixbuf) {
+        fprintf(stderr, "could not create icon: %s\n", err->message);
+        g_error_free(err);
+    }
+    else {
+        mountpoint->priv->arrow = gtk_image_new_from_pixbuf(pixbuf);
+        g_object_unref(pixbuf);
+    }
+
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
     gtk_widget_set_name(mountpoint->priv->arrow, "anaconda-mountpoint-arrow");
 
@@ -256,10 +267,8 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
 
     /* Create the name label. */
     mountpoint->priv->name_label = gtk_label_new(_(DEFAULT_NAME));
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    /* gtk+ did a garbage job of "deprecating" GtkMisc, so keep using it for now */
-    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(mountpoint->priv->name_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(mountpoint->priv->name_label), 0.0);
     gtk_label_set_ellipsize(GTK_LABEL(mountpoint->priv->name_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(mountpoint->priv->name_label), 25);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->name_label), TRUE);
@@ -267,16 +276,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Create the size label. */
     mountpoint->priv->size_label = gtk_label_new(_(DEFAULT_SIZE));
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->size_label), 0, 0.5);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(mountpoint->priv->size_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(mountpoint->priv->size_label), 0.5);
     gtk_widget_set_name(mountpoint->priv->size_label, "anaconda-mountpoint-size-label");
 
     /* Create the mountpoint label. */
     mountpoint->priv->mountpoint_label = gtk_label_new(DEFAULT_MOUNTPOINT);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->mountpoint_label), 0, 0);
-G_GNUC_END_IGNORE_DEPRECATIONS
+    gtk_label_set_xalign(GTK_LABEL(mountpoint->priv->mountpoint_label), 0.0);
+    gtk_label_set_yalign(GTK_LABEL(mountpoint->priv->mountpoint_label), 0.0);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);
     gtk_widget_set_name(mountpoint->priv->mountpoint_label, "anaconda-mountpoint-label");
 

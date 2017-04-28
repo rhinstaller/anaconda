@@ -114,9 +114,12 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
 
     """
 
+    utc = pytz.UTC
     # If no timezone is set, use UTC
     if not tz:
-        tz = pytz.UTC
+        tz = utc
+
+    time.tzset()
 
     # get the right values
     now = datetime.datetime.now(tz)
@@ -130,7 +133,10 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     set_date = tz.localize(datetime.datetime(year, month, day, hour, minute, second))
 
     # Calculate the number of seconds between this time and timestamp 0
-    epoch = tz.localize(datetime.datetime.fromtimestamp(0))
+    # see pytz docs, search for "Converting between timezones"
+    # pylint bug here: https://github.com/PyCQA/pylint/issues/1104
+    # pylint: disable=no-value-for-parameter
+    epoch = utc.localize(datetime.datetime.utcfromtimestamp(0)).astimezone(tz)
     timestamp = (set_date - epoch).total_seconds()
 
     set_system_time(int(timestamp))

@@ -77,11 +77,13 @@ from distutils.version import LooseVersion
 REPO_NOT_SET = False
 MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
+
 def versionCmp(v1, v2):
-    """ Compare two version number strings. """
+    """Compare two version number strings."""
     firstVersion = LooseVersion(v1)
     secondVersion = LooseVersion(v2)
     return (firstVersion > secondVersion) - (firstVersion < secondVersion)
+
 
 ###
 ### ERROR HANDLING
@@ -89,21 +91,27 @@ def versionCmp(v1, v2):
 class PayloadError(Exception):
     pass
 
+
 class MetadataError(PayloadError):
     pass
 
+
 class NoNetworkError(PayloadError):
     pass
+
 
 # setup
 class PayloadSetupError(PayloadError):
     pass
 
+
 class ImageMissingError(PayloadSetupError):
     pass
 
+
 class ImageDirectoryMountError(PayloadSetupError):
     pass
+
 
 # software selection
 class NoSuchGroup(PayloadError):
@@ -113,23 +121,29 @@ class NoSuchGroup(PayloadError):
         self.adding = adding
         self.required = required
 
+
 class NoSuchPackage(PayloadError):
     def __init__(self, package, required=False):
         PayloadError.__init__(self, package)
         self.package = package
         self.required = required
 
+
 class DependencyError(PayloadError):
     pass
+
 
 # installation
 class PayloadInstallError(PayloadError):
     pass
 
+
 class Payload(object):
-    """ Payload is an abstract class for OS install delivery methods. """
+    """Payload is an abstract class for OS install delivery methods."""
     def __init__(self, data):
-        """ data is a kickstart.AnacondaKSHandler class
+        """Initialize Payload class
+
+        :param data: This param is a kickstart.AnacondaKSHandler class.
         """
         if self.__class__ is Payload:
             raise TypeError("Payload is an abstract class")
@@ -145,31 +159,31 @@ class Payload(object):
         self._session = requests_session()
 
     def setup(self, storage, instClass):
-        """ Do any payload-specific setup. """
+        """Do any payload-specific setup."""
         self.storage = storage
         self.instclass = instClass
         self.verbose_errors = []
 
     def unsetup(self):
-        """ Invalidate a previously setup paylaod. """
+        """Invalidate a previously setup payload."""
         self.storage = None
         self.instclass = None
 
     def preStorage(self):
-        """ Do any payload-specific work necessary before writing the storage
-            configuration.  This method need not be provided by all payloads.
+        """Do any payload-specific work necessary before writing the storage
+        configuration.  This method need not be provided by all payloads.
         """
         pass
 
     def release(self):
-        """ Release any resources in use by this object, but do not do final
-            cleanup.  This is useful for dealing with payload backends that do
-            not get along well with multithreaded programs.
+        """Release any resources in use by this object, but do not do final
+        cleanup.  This is useful for dealing with payload backends that do
+        not get along well with multithreaded programs.
         """
         pass
 
     def reset(self):
-        """ Reset the instance, not including ksdata. """
+        """Reset the instance, not including ksdata."""
         pass
 
     def prepareMountTargets(self, storage):
@@ -179,15 +193,15 @@ class Payload(object):
         pass
 
     def requiredDeviceSize(self, format_class):
-        """ We need to provide information how big device is required to have successful
-            installation. ``format_class`` should be filesystem format
-            class for the **root** filesystem this class carry information about
-            metadata size.
+        """We need to provide information how big device is required to have successful
+        installation. ``format_class`` should be filesystem format
+        class for the **root** filesystem this class carry information about
+        metadata size.
 
-            :param format_class: Class of the filesystem format.
-            :type format_class: Class which inherits :class:`blivet.formats.fs.FS`
-            :returns: Size of the device with given filesystem format.
-            :rtype: :class:`blivet.size.Size`
+        :param format_class: Class of the filesystem format.
+        :type format_class: Class which inherits :class:`blivet.formats.fs.FS`
+        :returns: Size of the device with given filesystem format.
+        :rtype: :class:`blivet.size.Size`
         """
         device_size = format_class.get_required_size(self.spaceRequired)
         return device_size.round_to_nearest(Size("1 MiB"))
@@ -197,25 +211,23 @@ class Payload(object):
     ###
     @property
     def addOns(self):
-        """ A list of addon repo identifiers. """
+        """A list of addon repo identifiers."""
         return [r.name for r in self.data.repo.dataList()]
 
     @property
     def baseRepo(self):
-        """
-        Get the identifier of the current base repo. or None
-        """
+        """Get the identifier of the current base repo or None."""
         return None
 
     @property
     def mirrorEnabled(self):
         """Is the closest/fastest mirror option enabled?  This does not make
-           sense for those payloads that do not support this concept.
+        sense for those payloads that do not support this concept.
         """
         return True
 
     def isRepoEnabled(self, repo_id):
-        """ Return True if repo is enabled. """
+        """Return True if repo is enabled."""
         repo = self.getAddOnRepo(repo_id)
         if repo:
             return repo.enabled
@@ -223,7 +235,7 @@ class Payload(object):
             return False
 
     def getAddOnRepo(self, repo_id):
-        """ Return a ksdata Repo instance matching the specified repo id. """
+        """Return a ksdata Repo instance matching the specified repo id."""
         repo = None
         for r in self.data.repo.dataList():
             if r.name == repo_id:
@@ -233,18 +245,18 @@ class Payload(object):
         return repo
 
     def _repoNeedsNetwork(self, repo):
-        """ Returns True if the ksdata repo requires networking. """
+        """Returns True if the ksdata repo requires networking."""
         urls = [repo.baseurl]
         if repo.mirrorlist:
             urls.extend(repo.mirrorlist)
         return self._sourceNeedsNetwork(urls)
 
     def _sourceNeedsNetwork(self, sources):
-        """ Return True if the source requires network.
+        """Return True if the source requires network.
 
-            :param sources: Source paths for testing
-            :type sources: list
-            :returns: True if any source requires network
+        :param sources: Source paths for testing
+        :type sources: list
+        :returns: True if any source requires network
         """
         network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
         for s in sources:
@@ -257,6 +269,7 @@ class Payload(object):
 
     @property
     def needsNetwork(self):
+        """Test base and additional repositories if they require network."""
         url = ""
         if self.data.method.method == "nfs":
             # NFS is always on network
@@ -271,7 +284,7 @@ class Payload(object):
                 any(self._repoNeedsNetwork(repo) for repo in self.data.repo.dataList()))
 
     def updateBaseRepo(self, fallback=True, checkmount=True):
-        """ Update the base repository from ksdata.method. """
+        """Update the base repository from ksdata.method."""
         pass
 
     def gatherRepoMetadata(self):
@@ -279,11 +292,11 @@ class Payload(object):
 
     def addRepo(self, newrepo):
         """Add the repo given by the pykickstart Repo object newrepo to the
-           system.  The repo will be automatically enabled and its metadata
-           fetched.
+        system.  The repo will be automatically enabled and its metadata
+        fetched.
 
-           Duplicate repos will not raise an error.  They should just silently
-           take the place of the previous value.
+        Duplicate repos will not raise an error.  They should just silently
+        take the place of the previous value.
         """
         # Add the repo to the ksdata so it'll appear in the output ks file.
         self.data.repo.dataList().append(newrepo)
@@ -307,11 +320,43 @@ class Payload(object):
         if repo:
             repo.enabled = False
 
+    def verifyAvailableRepositories(self):
+        """Verify availability of existing repositories.
+
+        This method tests if URL links from active repositories can be reached.
+        It is useful when network settings is changed so that we can verify if repositories
+        are still reachable.
+
+        This method should be overriden.
+        """
+        log.debug("Install method %s is not able to verify availability",
+                  self.__class__.__name__)
+        return False
+
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
     def languageGroups(self):
         return []
+
+    def selectedGroups(self):
+        """Return list of selected group names from kickstart.
+
+        NOTE:
+        This group names can be mix of group IDs and other valid identifiers.
+        If you want group IDs use `selectedGroupsIDs` instead.
+
+        :return: list of group names in a format specified by a kickstart file.
+        """
+        return [grp.name for grp in self.data.packages.groupList]
+
+
+    def selectedGroupsIDs(self):
+        """Return list of IDs for selected groups.
+
+        Implementation depends on a specific payload class.
+        """
+        return self.selectedGroups()
 
     def groupSelected(self, groupid):
         return Group(groupid) in self.data.packages.groupList
@@ -355,28 +400,28 @@ class Payload(object):
     ###
     @property
     def spaceRequired(self):
-        """ The total disk space (Size) required for the current selection. """
+        """The total disk space (Size) required for the current selection."""
         raise NotImplementedError()
 
     @property
     def kernelVersionList(self):
-        """ An iterable of the kernel versions installed by the payload. """
+        """An iterable of the kernel versions installed by the payload."""
         raise NotImplementedError()
 
     ##
     ## METHODS FOR TREE VERIFICATION
     ##
     def _getTreeInfo(self, url, proxy_url, sslverify):
-        """ Retrieve treeinfo and return the path to the local file.
+        """Retrieve treeinfo and return the path to the local file.
 
-            :param baseurl: url of the repo
-            :type baseurl: string
-            :param proxy_url: Optional full proxy URL of or ""
-            :type proxy_url: string
-            :param sslverify: True if SSL certificate should be verified
-            :type sslverify: bool
-            :returns: Path to retrieved .treeinfo file or None
-            :rtype: string or None
+        :param baseurl: url of the repo
+        :type baseurl: string
+        :param proxy_url: Optional full proxy URL of or ""
+        :type proxy_url: string
+        :param sslverify: True if SSL certificate should be verified
+        :type sslverify: bool
+        :returns: Path to retrieved .treeinfo file or None
+        :rtype: string or None
         """
         if not url:
             return None
@@ -468,7 +513,7 @@ class Payload(object):
         return (result, result.status_code)
 
     def _getReleaseVersion(self, url):
-        """ Return the release version of the tree at the specified URL. """
+        """Return the release version of the tree at the specified URL."""
         try:
             version = re.match(VERSION_DIGITS, productVersion).group(1)
         except AttributeError:
@@ -502,7 +547,7 @@ class Payload(object):
     ##
     @staticmethod
     def _setupDevice(device, mountpoint):
-        """ Prepare an install CD/DVD for use as a package source. """
+        """Prepare an install CD/DVD for use as a package source."""
         log.info("setting up device %s and mounting on %s", device.name, mountpoint)
         # Is there a symlink involved?  If so, let's get the actual path.
         # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
@@ -533,7 +578,7 @@ class Payload(object):
 
     @staticmethod
     def _setupNFS(mountpoint, server, path, options):
-        """ Prepare an NFS directory for use as a package source. """
+        """Prepare an NFS directory for use as a package source."""
         log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
         if os.path.ismount(mountpoint):
             dev = blivet.util.get_mount_device(mountpoint)
@@ -566,19 +611,19 @@ class Payload(object):
     ### METHODS FOR INSTALLING THE PAYLOAD
     ###
     def preInstall(self, packages=None, groups=None):
-        """ Perform pre-installation tasks. """
+        """Perform pre-installation tasks."""
         iutil.mkdirChain(iutil.getSysroot() + "/root")
 
         self._writeModuleBlacklist()
 
     def install(self):
-        """ Install the payload. """
+        """Install the payload."""
         raise NotImplementedError()
 
     def _writeModuleBlacklist(self):
-        """ Copy modules from modprobe.blacklist=<module> on cmdline to
-            /etc/modprobe.d/anaconda-blacklist.conf so that modules will
-            continue to be blacklisted when the system boots.
+        """Copy modules from modprobe.blacklist=<module> on cmdline to
+        /etc/modprobe.d/anaconda-blacklist.conf so that modules will
+        continue to be blacklisted when the system boots.
         """
         if "modprobe.blacklist" not in flags.cmdline:
             return
@@ -612,12 +657,12 @@ class Payload(object):
                 #           prevent boot on some systems
 
     def recreateInitrds(self):
-        """ Recreate the initrds by calling new-kernel-pkg
+        """Recreate the initrds by calling new-kernel-pkg
 
-            This needs to be done after all configuration files have been
-            written, since dracut depends on some of them.
+        This needs to be done after all configuration files have been
+        written, since dracut depends on some of them.
 
-            :returns: None
+        :returns: None
         """
         if not os.path.exists(iutil.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
@@ -638,8 +683,9 @@ class Payload(object):
                                      "-f", "/boot/initramfs-%s.img" % kernel,
                                     kernel])
 
+
     def _setDefaultBootTarget(self):
-        """ Set the default systemd target for the system. """
+        """Set the default systemd target for the system."""
         if not os.path.exists(iutil.getSysroot() + "/etc/systemd/system"):
             log.error("systemd is not installed -- can't set default target")
             return
@@ -682,7 +728,7 @@ class Payload(object):
         return args
 
     def postInstall(self):
-        """ Perform post-installation tasks. """
+        """Perform post-installation tasks."""
 
         # set default systemd target
         self._setDefaultBootTarget()
@@ -694,18 +740,18 @@ class Payload(object):
 
     def writeStorageEarly(self):
         """Some payloads require that the storage configuration be written out
-           before doing installation.  Right now, this is basically just the
-           dnfpayload.  Payloads should only implement one of these methods
-           by overriding the unneeded one with a pass.
+        before doing installation.  Right now, this is basically just the
+        dnfpayload.  Payloads should only implement one of these methods
+        by overriding the unneeded one with a pass.
         """
         if not flags.dirInstall:
             self.storage.write()
 
     def writeStorageLate(self):
         """Some payloads require that the storage configuration be written out
-           after doing installation.  Right now, this is basically every payload
-           except for dnf.  Payloads should only implement one of these methods
-           by overriding the unneeded one with a pass.
+        after doing installation.  Right now, this is basically every payload
+        except for dnf.  Payloads should only implement one of these methods
+        by overriding the unneeded one with a pass.
         """
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
             set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
@@ -713,10 +759,11 @@ class Payload(object):
         if not flags.dirInstall:
             self.storage.write()
 
+
 # Inherit abstract methods from Payload
 # pylint: disable=abstract-method
 class ImagePayload(Payload):
-    """ An ImagePayload installs an OS image to the target system. """
+    """An ImagePayload installs an OS image to the target system."""
 
     def __init__(self, data):
         if self.__class__ is ImagePayload:
@@ -724,10 +771,11 @@ class ImagePayload(Payload):
 
         Payload.__init__(self, data)
 
+
 # Inherit abstract methods from ImagePayload
 # pylint: disable=abstract-method
 class ArchivePayload(ImagePayload):
-    """ An ArchivePayload unpacks source archives onto the target system. """
+    """An ArchivePayload unpacks source archives onto the target system."""
 
     def __init__(self, data):
         if self.__class__ is ArchivePayload:
@@ -735,8 +783,9 @@ class ArchivePayload(ImagePayload):
 
         ImagePayload.__init__(self, data)
 
+
 class PackagePayload(Payload):
-    """ A PackagePayload installs a set of packages onto the target system. """
+    """A PackagePayload installs a set of packages onto the target system."""
 
     DEFAULT_REPOS = [productName.split('-')[0].lower(), "rawhide"]          # pylint: disable=no-member
 
@@ -797,6 +846,14 @@ class PackagePayload(Payload):
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
 
+    def postSetup(self):
+        """Run specific payload post-configuration tasks on the end of
+        the restartThread call.
+
+        This method could be overriden.
+        """
+        pass
+
     @property
     def kernelPackages(self):
         if "kernel" in self.data.packages.excludedList:
@@ -853,7 +910,7 @@ class PackagePayload(Payload):
         self.reset_install_device()
 
     def reset_install_device(self):
-        """ Unmount the previous base repo and reset the install_device """
+        """Unmount the previous base repo and reset the install_device."""
         # cdrom: install_device.teardown (INSTALL_TREE)
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE
@@ -1082,8 +1139,7 @@ class PackagePayload(Payload):
         raise NotImplementedError()
 
     def addDriverRepos(self):
-        """ Add driver repositories and packages
-        """
+        """Add driver repositories and packages."""
         # Drivers are loaded by anaconda-dracut, their repos are copied
         # into /run/install/DD-X where X is a number starting at 1. The list of
         # packages that were selected is in /run/install/dd_packages
@@ -1124,7 +1180,7 @@ class PackagePayload(Payload):
 
     @property
     def ISOImage(self):
-        """ The location of a mounted ISO repo, or None. """
+        """The location of a mounted ISO repo, or None."""
         if not self.data.method.method == "harddrive":
             return None
         # This could either be mounted to INSTALL_TREE or on
@@ -1199,29 +1255,52 @@ class PackagePayload(Payload):
     def groups(self):
         raise NotImplementedError()
 
+    def selectedGroupsIDs(self):
+        """ Return list of selected group IDs.
+
+        :return: List of selected group IDs.
+        :raise PayloadError: If translation is not supported by payload.
+        """
+        try:
+            ret = []
+            for grp in self.selectedGroups():
+                ret.append(self.groupId(grp))
+            return ret
+        # Translation feature is not implemented for this payload.
+        except NotImplementedError:
+            raise PayloadError(("Can't translate group names to group ID - "
+                                "Group translation is not implemented for %s payload." % self))
+        except PayloadError as ex:
+            raise PayloadError(("Can't translate group names to group ID - %s", str(ex)))
+
     def groupDescription(self, groupid):
         raise NotImplementedError()
+
+    def groupId(self, group_name):
+        """Return group id for translation of groups from a kickstart file."""
+        raise NotImplementedError()
+
 
 class PayloadManager(object):
     """Framework for starting and watching the payload thread.
 
-       This class defines several states, and events can be triggered upon
-       reaching a state. Depending on whether a state has already been reached
-       when a listener is added, the event code may be run in either the
-       calling thread or the payload thread. The event code will block the
-       payload thread regardless, so try not to run anything that takes a long
-       time.
+    This class defines several states, and events can be triggered upon
+    reaching a state. Depending on whether a state has already been reached
+    when a listener is added, the event code may be run in either the
+    calling thread or the payload thread. The event code will block the
+    payload thread regardless, so try not to run anything that takes a long
+    time.
 
-       All states except STATE_ERROR are expected to happen linearly, and adding
-       a listener for a state that has already been reached or passed will
-       immediately trigger that listener. For example, if the payload thread is
-       currently in STATE_GROUP_MD, adding a listener for STATE_NETWORK will
-       immediately run the code being added for STATE_NETWORK.
+    All states except STATE_ERROR are expected to happen linearly, and adding
+    a listener for a state that has already been reached or passed will
+    immediately trigger that listener. For example, if the payload thread is
+    currently in STATE_GROUP_MD, adding a listener for STATE_NETWORK will
+    immediately run the code being added for STATE_NETWORK.
 
-       The payload thread data should be accessed using the payloadMgr object,
-       and the running thread can be accessed using threadMgr with the
-       THREAD_PAYLOAD constant, if you need to wait for it or something. The
-       thread should be started using payloadMgr.restartThread.
+    The payload thread data should be accessed using the payloadMgr object,
+    and the running thread can be accessed using threadMgr with the
+    THREAD_PAYLOAD constant, if you need to wait for it or something. The
+    thread should be started using payloadMgr.restartThread.
     """
 
     STATE_START = 0
@@ -1261,8 +1340,8 @@ class PayloadManager(object):
     def addListener(self, event_id, func):
         """Add a listener for an event.
 
-           :param int event_id: The event to listen for, one of the EVENT_* constants
-           :param function func: An object to call when the event is reached
+        :param int event_id: The event to listen for, one of the EVENT_* constants
+        :param function func: An object to call when the event is reached
         """
 
         # Check that the event_id is valid
@@ -1286,19 +1365,18 @@ class PayloadManager(object):
     def restartThread(self, storage, ksdata, payload, instClass, fallback=False, checkmount=True):
         """Start or restart the payload thread.
 
-           This method starts a new thread to restart the payload thread, so
-           this method's return is not blocked by waiting on the previous payload
-           thread. If there is already a payload thread restart pending, this method
-           has no effect.
+        This method starts a new thread to restart the payload thread, so
+        this method's return is not blocked by waiting on the previous payload
+        thread. If there is already a payload thread restart pending, this method
+        has no effect.
 
-           :param blivet.Blivet storage: The blivet storage instance
-           :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
-           :param payload.Payload payload: The payload instance
-           :param installclass.BaseInstallClass instClass: The install class instance
-           :param bool fallback: Whether to fall back to the default repo in case of error
-           :param bool checkmount: Whether to check for valid mounted media
+        :param blivet.Blivet storage: The blivet storage instance
+        :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
+        :param payload.Payload payload: The payload instance
+        :param installclass.BaseInstallClass instClass: The install class instance
+        :param bool fallback: Whether to fall back to the default repo in case of error
+        :param bool checkmount: Whether to check for valid mounted media
         """
-
         log.debug("Restarting payload thread")
 
         # If a restart thread is already running, don't start a new one
@@ -1308,6 +1386,11 @@ class PayloadManager(object):
         # Launch a new thread so that this method can return immediately
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
                                      args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+
+    @property
+    def running(self):
+        """Is the payload thread running right now?"""
+        return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
 
     def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
         # Wait for the old thread to finish
@@ -1378,7 +1461,11 @@ class PayloadManager(object):
             payload.unsetup()
             return
 
+        # run payload specific post configuration tasks
+        payload.postSetup()
+
         self._setState(self.STATE_FINISHED)
+
 
 # Initialize the PayloadManager instance
 payloadMgr = PayloadManager()
