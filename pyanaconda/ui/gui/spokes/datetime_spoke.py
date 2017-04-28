@@ -53,6 +53,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 import datetime
 import re
 import threading
+import time
 import locale as locale_mod
 import functools
 
@@ -611,6 +612,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if is_valid_timezone(self.data.timezone.timezone):
             self._tzmap.set_timezone(self.data.timezone.timezone)
+            time.tzset()
 
         self._update_datetime()
 
@@ -992,9 +994,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 offset = -float(city[3:])
 
             self._tzmap.set_selected_offset(offset)
+            time.tzset()
         else:
             # we don't want the timezone-changed signal to be emitted
             self._tzmap.set_timezone(timezone)
+            time.tzset()
 
         # update "old" values
         self._old_city = city
