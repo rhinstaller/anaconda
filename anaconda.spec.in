@@ -328,6 +328,38 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 28 2017 Martin Kolman <mkolman@redhat.com> - 26.21.4-1
+- Use `time.tzset()` to apply timezone changes when we can (awilliam)
+- Tweak epoch definition to fix system clock setting (#1433560) (awilliam)
+- make anaconda working back again with tmux2.4 (pallotron)
+- Trigger the entered signal only once the screen is shown (#1443011) (mkolman)
+- Use constants in storage checker constraints. (vponcova)
+- Optimize payload thread restart on network change (jkonecny)
+- Add unit test for RepoMDMetaHash object (#1373449) (jkonecny)
+- Make the formating in payload consistent (#1373449) (jkonecny)
+- Fix Anaconda forces payload restart when network (not)change (#1373449)
+  (jkonecny)
+- Gtk: Fix creating images from resources. (vponcova)
+- Fix partial kickstart software selection in GUI (#1404158) (jkonecny)
+- Removed unused code in the Software spoke (#1404158) (jkonecny)
+- Fix selection logic in Software spoke (#1404158) (jkonecny)
+- Fix Driver Disc documentation (#1377233) (jkonecny)
+- Support DD rpm loading from local disk device (#1377233) (jkonecny)
+- Gtk: Replace deprecated get_misc_set_alignment in widgets. (vponcova)
+- Gtk: Replace deprecated Gtk.Viewport.get_v/hadjustment. (vponcova)
+- Gtk: Replace deprecated methods. (vponcova)
+- Set the info bar only once if the partitioning method changes. (vponcova)
+- Catch race-condition error reading from in-memory connection being removed
+  (#1373360) (rvykydal)
+- Fix pylint issue Catching too general exception Exception (jkonecny)
+- network tui: fix changing ipv4 config from static to dhcp (#1432886)
+  (rvykydal)
+- Allow setting up bridge for fetching installer image from kickstart
+  (#1373360) (rvykydal)
+- Support --noboot and --noswap options in autopartitioning (#1220866)
+  (vponcova)
+- Support --nohome option in the autopartitioning (vponcova)
+
 * Tue Apr 11 2017 Martin Kolman <mkolman@redhat.com> - 26.21.3-1
 - Hide options based on storage configuration method (#1439519) (mkolman)
 - Catch exception when reading from in-memory connection being removed
