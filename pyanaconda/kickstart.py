@@ -1086,6 +1086,11 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
 
+            if not storage.encryptionPassphrase:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("Passphrase for encrypted device not specified.")))
+
+
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
                 luksformat = fmt
@@ -1403,6 +1408,10 @@ class PartitionData(commands.partition.RHEL7_PartData):
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
 
+            if not storage.encryptionPassphrase:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("Passphrase for encrypted device not specified.")))
+
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.onPart:
                 luksformat = kwargs["fmt"]
@@ -1595,6 +1604,10 @@ class RaidData(commands.raid.RHEL7_RaidData):
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
+
+            if not storage.encryptionPassphrase:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("Passphrase for encrypted device not specified.")))
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
