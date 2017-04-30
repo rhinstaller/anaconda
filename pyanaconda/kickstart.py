@@ -1558,6 +1558,9 @@ class RaidData(commands.raid.F25_RaidData):
 
         add_fstab_swap = None
 
+        if self.chunk_size:
+            kwargs["chunk_size"] = Size("%d KiB" % self.chunk_size)
+
         # If we were given a pre-existing RAID to create a filesystem on,
         # we need to verify it exists and then schedule a new format action
         # to take place there.  Also, we only support a subset of all the
