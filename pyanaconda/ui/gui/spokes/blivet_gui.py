@@ -118,6 +118,11 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         # this needs to be done when the spoke is already "realized"
         self.entered.connect(self.blivetgui.ui_refresh)
 
+        # set up keyboard shurtcuts for blivet-gui (and unset them after
+        # user lefts the spoke)
+        self.entered.connect(self.blivetgui.set_keyboard_shortcuts)
+        self.exited.connect(self.blivetgui.unset_keyboard_shortcuts)
+
         self.initialize_done()
 
     def refresh(self):
