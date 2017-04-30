@@ -115,6 +115,9 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         self.blivetgui = osinstall.BlivetGUIAnaconda(self.client, self, box)
 
+        # this needs to be done when the spoke is already "realized"
+        self.entered.connect(self.blivetgui.ui_refresh)
+
         self.initialize_done()
 
     def refresh(self):
