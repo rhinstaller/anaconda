@@ -100,8 +100,19 @@ class Accordion(Gtk.Box):
         return None
 
     def _on_expanded(self, obj, cb=None):
+        # Get the content of the expander.
+        child = obj.get_child()
+
+        if child:
+            # The expander is not expanded yet.
+            is_expanded = not obj.get_expanded()
+            # Show or hide the child.
+            # We need to set this manually because of a gtk bug:
+            # https://bugzilla.gnome.org/show_bug.cgi?id=776937
+            child.set_visible(is_expanded)
+
         if cb:
-            cb(obj.get_child())
+            cb(child)
 
     def _activate_selector(self, selector, activate, show_arrow):
         selector.set_chosen(activate)
