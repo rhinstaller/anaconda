@@ -753,7 +753,15 @@ def device_name_is_disk(device_name, devicetree=None, refresh_udev_cache=False):
                 # so we cache it in this non-elegant way.
                 # An unfortunate side effect of this is that udev devices that show up after
                 # this function is called for the first time will not be taken into account.
-                udev_device_dict_cache = {udev.device_get_name(d): d for d in udev.get_devices()}
+                udev_device_dict_cache = dict()
+
+                for d in udev.get_devices():
+                    # Add the device name to the cache.
+                    udev_device_dict_cache[udev.device_get_name(d)] = d
+                    # If the device is md, add the md name as well.
+                    if udev.device_is_md(d) and udev.device_get_md_name(d):
+                        udev_device_dict_cache[udev.device_get_md_name(d)] = d
+
             udev_device = udev_device_dict_cache.get(device_name)
             return udev_device and udev.device_is_realdisk(udev_device)
         else:
@@ -832,5 +840,8 @@ def device_matches(spec, devicetree=None, disks_only=False):
         # but we don't want that ending up in the list.
         if dev_name and dev_name not in matches:
             matches.append(dev_name)
+
+    log.debug("%s matches %s for devicetree=%s and disks_only=%s",
+              spec, matches, devicetree, disks_only)
 
     return matches

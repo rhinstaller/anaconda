@@ -89,7 +89,8 @@ def applyDiskSelection(storage, data, use_names):
     onlyuse = use_names[:]
     for disk in (d for d in storage.disks if d.name in onlyuse):
         onlyuse.extend(d.name for d in disk.ancestors
-                       if d.name not in onlyuse)
+                       if d.name not in onlyuse
+                       and d.isDisk)
 
     data.ignoredisk.onlyuse = onlyuse
     data.clearpart.drives = use_names[:]
