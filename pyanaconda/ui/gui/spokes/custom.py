@@ -526,7 +526,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         ui_roots = []
         for root in self._storage_playground.roots:
-            root_devices = chain(root.swaps, root.mounts.values())
+            root_devices = list(chain(root.swaps, root.mounts.values()))
             # Don't make a page if none of the root's devices are left.
             # Also, only include devices in an old page if the format is intact.
             if not any(d for d in root_devices if d in all_devices and d.disks and
