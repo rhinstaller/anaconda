@@ -328,6 +328,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 09 2017 Martin Kolman <mkolman@redhat.com> - 26.21.6-1
+- Bump Pykickstart version (mkolman)
+
 * Fri May 05 2017 Martin Kolman <mkolman@redhat.com> - 26.21.5-1
 - Make some missed adjustments to blivet API changes. (#1440134) (dlehman)
 - Bump required version for blivet-gui (vtrefny)
