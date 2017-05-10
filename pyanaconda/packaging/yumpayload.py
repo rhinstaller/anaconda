@@ -427,7 +427,6 @@ reposdir=%s
         releasever = self._yum.conf.yumvar['releasever']
         log.debug("setting releasever to previous value of %s", releasever)
         self._resetYum(root=iutil.getSysroot(), keep_cache=True, releasever=releasever, cache_dir=new_cache)
-        self._yumCacheDirHack()
         self.gatherRepoMetadata()
 
         # trigger setup of self._yum.config
