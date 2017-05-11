@@ -318,6 +318,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 11 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.113-1
+- network: handle multiple connections for one device better (rvykydal)
+  Resolves: rhbz#1444887
+- network: catch exception when reading in-memory connection being removed
+  (rvykydal)
+  Related: rhbz#1444887
+- Compare empty confirmation field against input (mkolman)
+  Resolves: rhbz#1438832
+
 * Tue May 09 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.112-1
 - Properly iterate over kickstart locations in a job (vponcova)
   Resolves: rhbz#1443485
