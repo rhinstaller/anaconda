@@ -74,7 +74,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         devices = nm.nm_devices()
         intf_dumped = network.dumpMissingDefaultIfcfgs()
         if intf_dumped:
-            log.debug("Dumped interfaces: %s", intf_dumped)
+            log.debug("network: dumped interfaces: %s", intf_dumped)
 
         for name in devices:
             if name in self.supported_devices:
@@ -84,8 +84,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             if nm.nm_device_type_is_ethernet(name) \
                or nm.nm_device_type_is_infiniband(name):
                 # ignore slaves
-                if nm.nm_device_setting_value(name, "connection", "slave-type"):
-                    continue
+                try:
+                    if nm.nm_device_setting_value(name, "connection", "slave-type"):
+                        continue
+                except nm.MultipleSettingsFoundError as e:
+                    log.debug("network: TUI, %s during initialization", e)
                 self.supported_devices.append(name)
 
     @property
@@ -201,19 +204,20 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             devname = self.supported_devices[num-2]
             ndata = network.ksdata_from_ifcfg(devname)
             if not ndata:
+                # There is no ifcfg file for the device.
+                # Make sure there is just one connection for the device.
                 try:
-                    nm.nm_device_setting_value(devname, "connection", "uuid")
+                    uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
                 except nm.SettingsNotFoundError:
-                    pass
-                else:
-                    log.debug("network: dumping ifcfg file for in-memory connection %s", devname)
-                    nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
-                    ndata = network.ksdata_from_ifcfg(devname)
+                    log.debug("network: can't find any connection for %s", devname)
+                    return INPUT_PROCESSED
+                except nm.MultipleSettingsFoundError:
+                    log.debug("network: multiple non-ifcfg connections found for %s, using %s", devname, uuid)
+                    return INPUT_PROCESSED
 
-            if not ndata:
-                log.debug("network: can't find any connection for %s", devname)
-                #self.errors.append(_("Configuration of device not found"))
-                return INPUT_PROCESSED
+                log.debug("network: dumping ifcfg file for in-memory connection %s", devname)
+                nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
+                ndata = network.ksdata_from_ifcfg(devname)
 
             newspoke = ConfigureNetworkSpoke(self.app, self.data, self.storage,
                                     self.payload, self.instclass, ndata)
@@ -234,13 +238,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             else:
                 ndata.noipv6 = False
 
-            network.update_settings_with_ksdata(devname, ndata)
+            uuid = network.update_settings_with_ksdata(devname, ndata)
             network.update_onboot_value(devname, ndata.onboot, ksdata=None, root_path="")
             network.logIfcfgFiles("settings of %s updated in tui" % devname)
 
             if ndata._apply:
                 self._apply = True
-                uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
                 try:
                     nm.nm_activate_device_connection(devname, uuid)
                 except (nm.UnmanagedDeviceError, nm.UnknownConnectionError):
