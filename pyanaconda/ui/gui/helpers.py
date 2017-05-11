@@ -181,7 +181,7 @@ class GUIInputCheckHandler(InputCheckHandler):
         # Skip the check if no password is required
         if (not self.input_enabled) or self.input_kickstarted:
             result = InputCheck.CHECK_OK
-        elif self.input_confirmation and (self.input != self.input_confirmation):
+        elif self.input != self.input_confirmation:
             result = _(constants.PASSWORD_CONFIRM_ERROR_GUI) % {"passwords": self.name_of_input_plural}
         else:
             result = InputCheck.CHECK_OK
