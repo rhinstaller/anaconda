@@ -461,6 +461,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._radioButton24h = self.builder.get_object("timeFormatRB")
         self._amPmRevealer = self.builder.get_object("amPmRevealer")
 
+        # Set the entry completions.
+        # The text_column property needs to be set here. If we set
+        # it in the glade file, the completion doesn't show text.
+        region_completion = self.builder.get_object("regionCompletion")
+        region_completion.set_text_column(0)
+
+        city_completion = self.builder.get_object("cityCompletion")
+        city_completion.set_text_column(0)
+
         # create widgets for displaying/configuring date
         day_box, self._dayCombo, day_label = _new_date_field_box(self._daysFilter)
         self._dayCombo.connect("changed", self.on_day_changed)
