@@ -1960,9 +1960,6 @@ class Snapshot(commands.snapshot.RHEL7_Snapshot):
             for snap_data in post_snapshots:
                 log.debug("Snapshot: creating post-install snapshot %s", snap_data.name)
                 snap_data.execute(storage, ksdata, instClass)
-                if isinstance(snap_data.thin_snapshot.format, XFS):
-                    log.debug("Generating new UUID for XFS snapshot")
-                    snap_data.thin_snapshot.format.regenerate_uuid()
 
     def pre_setup(self, storage, ksdata, instClass):
         """ Prepare pre installation snapshots.
@@ -2046,6 +2043,9 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
     def execute(self, storage, ksdata, instClass):
         """ Execute an action for snapshot creation. """
         self.thin_snapshot.create()
+        if isinstance(self.thin_snapshot.format, XFS):
+            log.debug("Generating new UUID for XFS snapshot")
+            self.thin_snapshot.format.regenerate_uuid()
 
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
