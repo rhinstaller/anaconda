@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 15 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.114-1
+- Show the text of completions in the datetime spoke. (vponcova)
+  Related: rhbz#1447984
+- Look higher for the combobox associated with an entry (dshea)
+  Resolves: rhbz#1447984
+- Fix the addon handlers for the checkbox (vponcova)
+  Resolves: rhbz#1448187
+
 * Thu May 11 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.113-1
 - network: handle multiple connections for one device better (rvykydal)
   Resolves: rhbz#1444887

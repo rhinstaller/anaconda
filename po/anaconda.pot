@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.112\n"
+"Project-Id-Version: anaconda 21.48.22.113\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-05-11 15:59+0200\n"
+"POT-Creation-Date: 2017-05-15 15:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1994,8 +1994,8 @@ msgid "Time settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:189
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:527
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:533
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:536
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:542
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -2143,7 +2143,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:123
 #: pyanaconda/ui/tui/spokes/software.py:104
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:535
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:544
 #: pyanaconda/ui/gui/spokes/software.py:294
 #: pyanaconda/ui/gui/spokes/software.py:302
 #: pyanaconda/ui/gui/spokes/source.py:575
@@ -2624,33 +2624,33 @@ msgctxt "GUI|Spoke"
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:515
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:524
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:529
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:538
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:700
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:714
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:896
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:709
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:723
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:905
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:27
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:702
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:711
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:895
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:898
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:720
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:904
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:907
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1045
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1059
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1049
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1063
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2923,24 +2923,24 @@ msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:555
+#: pyanaconda/ui/gui/spokes/software.py:571
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:560
+#: pyanaconda/ui/gui/spokes/software.py:576
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:561
+#: pyanaconda/ui/gui/spokes/software.py:577
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:562
+#: pyanaconda/ui/gui/spokes/software.py:578
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
