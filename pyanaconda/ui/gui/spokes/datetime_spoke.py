@@ -406,6 +406,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._update_datetime_timer_id = None
         self._start_updating_timer_id = None
         self._tz = None
+        self._block_on_ntp_switched = False
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -1062,51 +1063,86 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _show_no_ntp_server_warning(self):
         self.set_warning(_("You have no working NTP server configured"))
 
+    def _show_failed_ntp_start_warning(self):
+        self.set_warning(_("NTP service failed to start."))
+
+    def _show_failed_ntp_stop_warning(self):
+        self.set_warning(_("NTP service failed to stop."))
+
     def on_ntp_switched(self, switch, *args):
-        if switch.get_active():
-            #turned ON
-            if not flags.can_touch_runtime_system("start NTP service"):
-                #cannot touch runtime system, not much to do here
-                return
+        # The handler is blocked if we had to reset the switch.
+        # Unfortunately, handler_block_by_func does not work.
+        if self._block_on_ntp_switched:
+            self._block_on_ntp_switched = False
+            return
 
-            if not nm.nm_is_connected():
-                self._show_no_network_warning()
-                switch.set_active(False)
-                return
-            else:
-                self.clear_info()
+        # Clear warning messages.
+        self.clear_info()
 
-                working_server = self._config_dialog.working_server
-                if working_server is None:
-                    self._show_no_ntp_server_warning()
-                else:
-                    #we need a one-time sync here, because chronyd would not change
-                    #the time as drastically as we need
-                    ntp.one_time_sync_async(working_server)
+        # Try to set NTP.
+        enable = switch.get_active()
 
-            ret = iutil.start_service(NTP_SERVICE)
-            self._set_date_time_setting_sensitive(False)
-
-            #if starting chronyd failed and chronyd is not running,
-            #set switch back to OFF
-            if (ret != 0) and not iutil.service_running(NTP_SERVICE):
-                switch.set_active(False)
-
+        if enable:
+            server = self._config_dialog.working_server
+            done = self._enable_ntp(server)
         else:
-            #turned OFF
-            if not flags.can_touch_runtime_system("stop NTP service"):
-                #cannot touch runtime system, nothing to do here
-                return
+            done = self._disable_ntp()
 
-            self._set_date_time_setting_sensitive(True)
-            ret = iutil.stop_service(NTP_SERVICE)
+        # Or reset the switch with a blocked handler.
+        if not done:
+            self._block_on_ntp_switched = True
+            switch.set_active(not enable)
+            return
 
-            #if stopping chronyd failed and chronyd is running,
-            #set switch back to ON
-            if (ret != 0) and iutil.service_running(NTP_SERVICE):
-                switch.set_active(True)
+        # Enable or disable the datetime settings.
+        self._set_date_time_setting_sensitive(not enable)
 
-            self.clear_info()
+    def _enable_ntp(self, server):
+        # Can we touch the runtime system?
+        if not flags.can_touch_runtime_system("start NTP service"):
+            # Cannot touch runtime system, not much to do here.
+            return False
+
+        # Do we have a network?
+        if not nm.nm_is_connected():
+            self._show_no_network_warning()
+            return False
+
+        # Do we have a ntp server?
+        if server is None:
+            self._show_no_ntp_server_warning()
+        else:
+            # We need a one-time sync here, because chronyd would
+            # not change the time as drastically as we need.
+            ntp.one_time_sync_async(server)
+
+        # Start a ntp service.
+        ret = iutil.start_service(NTP_SERVICE)
+
+        # Have it failed to start?
+        if ret != 0 and not iutil.service_running(NTP_SERVICE):
+            self._show_failed_ntp_start_warning()
+            return False
+
+        # NTP is enabled.
+        return True
+
+    def _disable_ntp(self):
+        # Can we touch the runtime system?
+        if not flags.can_touch_runtime_system("stop NTP service"):
+            # Cannot touch runtime system, nothing to do here.
+            return False
+
+        # Stop a ntp service.
+        ret = iutil.stop_service(NTP_SERVICE)
+
+        # Have it failed to stop?
+        if (ret != 0) and iutil.service_running(NTP_SERVICE):
+            self._show_failed_ntp_stop_warning()
+            return False
+
+        # NTP is disabled.
+        return True
 
     def on_ntp_config_clicked(self, *args):
         self._config_dialog.refresh()
