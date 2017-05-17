@@ -734,14 +734,14 @@ class NetworkControlBox(GObject.GObject):
         if device.get_device_type() not in self.supported_device_types:
             return
         if network.is_libvirt_device(device.get_iface()):
-            log.debug("network: not adding %s", device.get_iface())
+            log.debug("network: GUI, not adding %s", device.get_iface())
             return
         # ignore fcoe vlan devices
         # (can be chopped off to IFNAMSIZ kernel limit)
         if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
         if network.is_ibft_configured_device(device.get_iface() or ""):
-            log.debug("network: not adding connection for device %s configured from iBFT", device.get_iface())
+            log.debug("network: GUI, not adding connection for device %s configured from iBFT", device.get_iface())
             return False
 
         # Ignore devices with active read-only connections (created by NM for iBFT VLAN)
@@ -752,11 +752,11 @@ class NetworkControlBox(GObject.GObject):
             if rc:
                 con_setting = rc.get_setting_connection()
                 if con_setting and con_setting.get_read_only():
-                    log.debug("network: not adding read-only connection "
+                    log.debug("network: GUI, not adding read-only connection "
                               "(assuming iBFT) for device %s", device.get_iface())
                     return
                 else:
-                    log.debug("network: can't get remote connection of active connection "
+                    log.debug("network: GUI, can't get remote connection of active connection "
                             "of device %s", device.get_iface())
 
         # Find the connection for the device (assuming existence of single ifcfg actually)
@@ -764,12 +764,21 @@ class NetworkControlBox(GObject.GObject):
         # Wifi connections are stored in wifi tab combobox
         if device.get_device_type() != NM.DeviceType.WIFI:
             cons = device.get_available_connections()
+            ifcfg_uuid = None
+            if not cons:
+                log.debug("network: GUI, no connection when adding device %s", device.get_iface())
+            if len(cons) > 1:
+                log.debug("network: GUI, %s has multiple connections: %s",
+                          device.get_iface(), [c.get_uuid() for c in cons])
+                # Can happen when activating device in initramfs and reconfiguring it via kickstart
+                # without activation.
+                # Expose the ifcfg (target system) configuration in UI.
+                ifcfg_uuid = network.find_ifcfg_uuid_of_device(device.get_iface())
+
             for c in cons:
                 if c.get_setting_connection() and not c.get_setting_connection().get_slave_type():
-                    con = c
-            if len(cons) != 1:
-                log.warning("network: %s has unexpected number of connections: %s",
-                             device.get_iface(), [c.get_uuid() for c in cons])
+                    if not ifcfg_uuid or c.get_uuid() == ifcfg_uuid:
+                        con = c
 
         if con and self.dev_cfg(uuid=con.get_uuid()):
             # If we already have a connection for the device
