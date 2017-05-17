@@ -905,8 +905,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else: # network button could be deativated from last visit
             self._networkButton.set_sensitive(True)
 
-        # Update the URL entry validation now that we're done messing with sensitivites
-        self._updateURLEntryCheck()
+            # Update the URL entry validation now that we're done messing with sensitivities.
+            # It will clear any previous messages.
+            self._updateURLEntryCheck()
 
 
     def _setup_no_updates(self):
