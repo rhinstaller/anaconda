@@ -220,11 +220,11 @@ class RPMOSTreePayload(ArchivePayload):
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        self._binds = [(iutil.getTargetPhysicalRoot(),
-                  iutil.getSysroot() + '/sysroot'),
-                 (varroot,
-                  iutil.getSysroot() + '/var'),
-                 (iutil.getSysroot() + '/usr', None)]
+        self._binds = [(iutil.getTargetPhysicalRoot(), iutil.getSysroot() + '/sysroot'),
+                       (iutil.getSysroot() + '/usr', None)]
+        # https://github.com/ostreedev/ostree/issues/855
+        if storage.mountpoints.get("/var") is None:
+            self._binds.append((varroot, iutil.getSysroot() + '/var'))
 
         for (src, dest) in self._binds:
             self._safeExecWithRedirect("mount",
