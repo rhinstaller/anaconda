@@ -221,10 +221,13 @@ class RPMOSTreePayload(ArchivePayload):
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        self._binds = [(varroot, iutil.getSysroot() + '/var'),
-                       (iutil.getSysroot() + '/usr', None),
+        self._binds = [(iutil.getSysroot() + '/usr', None),
                        (iutil.getTargetPhysicalRoot(), iutil.getSysroot() + "/sysroot"),
                        (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
+
+        # https://github.com/ostreedev/ostree/issues/855
+        if storage.mountpoints.get("/var") is None:
+            binds.append((varroot, iutil.getSysroot() + '/var'))
 
         # Bind mount filesystems from /mnt/sysimage to the ostree root; perhaps
         # in the future consider `mount --move` to make the output of `findmnt`
