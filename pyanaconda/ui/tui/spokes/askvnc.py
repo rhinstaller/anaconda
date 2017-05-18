@@ -126,6 +126,7 @@ class VNCPassSpoke(NormalTUISpoke):
         else:
             self._message = _("Please provide VNC password (must be six to eight characters long).\n"
                               "You will have to type it twice. Leave blank for no password")
+        self._app = app
 
     @property
     def indirect(self):
@@ -143,8 +144,8 @@ class VNCPassSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         """Override prompt as password typing is special."""
-        p1 = getpass.getpass(_("Password: "))
-        p2 = getpass.getpass(_("Password (confirm): "))
+        p1 = self._app.simpleline_getpass(_("Password: "))
+        p2 = self._app.simpleline_getpass(_("Password (confirm): "))
 
         if p1 != p2:
             print(_("Passwords do not match!"))
