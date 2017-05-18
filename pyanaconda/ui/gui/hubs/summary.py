@@ -65,7 +65,7 @@ class SummaryHub(Hub):
         # Add a continue-clicked handler
         self.window.connect("continue-clicked", self._on_continue_clicked)
 
-    def _on_continue_clicked(self, win, user_data=None):
+    def _on_continue_clicked(self, window, user_data=None):
         """Call finished method of spokes when leaving the hub.
         """
         for spoke in sorted(self._spokes.values(), key=lambda x: x.__class__.__name__):

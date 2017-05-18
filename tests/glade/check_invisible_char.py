@@ -18,7 +18,7 @@
 from gladecheck import GladeTest
 
 class CheckInvisibleChar(GladeTest):
-    def checkGlade(self, tree):
+    def checkGlade(self, glade_tree):
         """
         Check that the invisible_char in glade files is actually a char.
 
@@ -26,7 +26,7 @@ class CheckInvisibleChar(GladeTest):
         """
 
         # Only look for entries with an invisible_char property
-        for entry in tree.xpath("//object[@class='GtkEntry' and ./property[@name='invisible_char']]"):
+        for entry in glade_tree.xpath("//object[@class='GtkEntry' and ./property[@name='invisible_char']]"):
             # Check the contents of the invisible_char property
             invis = entry.xpath("./property[@name='invisible_char']")[0]
             self.assertEqual(len(invis.text), 1,

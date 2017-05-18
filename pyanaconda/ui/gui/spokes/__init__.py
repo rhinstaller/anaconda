@@ -40,7 +40,7 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
         # Add a continue-clicked handler to save the data before leaving the window
         self.window.connect("continue-clicked", self._on_continue_clicked)
 
-    def _on_continue_clicked(self, win, user_data=None):
+    def _on_continue_clicked(self, window, user_data=None):
         self.apply()
 
     def _doPostAutostep(self):
@@ -67,7 +67,7 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
         # content for the current spoke
         ihelp.start_yelp(ihelp.get_help_path(self.helpFile, self.instclass))
 
-    def on_back_clicked(self, window):
+    def on_back_clicked(self, button):
         # Notify the hub that we're finished.
         # The hub will be the current-action of the main window.
         self.main_window.current_action.spoke_done(self)

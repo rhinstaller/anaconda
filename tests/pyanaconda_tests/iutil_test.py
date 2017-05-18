@@ -853,12 +853,12 @@ class MiscTests(unittest.TestCase):
                 self._lock = Lock()
 
             def test_method(self):
-                lock_state = self._lock.locked()
+                lock_state = self._lock.locked()  # pylint: disable=no-member
                 return lock_state
 
             @synchronized
             def sync_test_method(self):
-                lock_state = self._lock.locked()
+                lock_state = self._lock.locked()  # pylint: disable=no-member
                 return lock_state
 
         lockable = LockableClass()

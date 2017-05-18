@@ -334,7 +334,7 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         self._policy = input_policy
 
     @abstractmethod
-    def on_back_clicked(self, window):
+    def on_back_clicked(self, button):
         """Check whether the input validation checks allow the spoke to be exited.
 
            Unlike NormalSpoke.on_back_clicked, this function returns a boolean value.

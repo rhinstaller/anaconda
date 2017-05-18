@@ -18,27 +18,27 @@ from collections import Counter
 from gladecheck import GladeTest
 
 class CheckValidity(GladeTest):
-    def checkGlade(self, tree):
+    def checkGlade(self, glade_tree):
         """Check for common glade validity errors"""
         # Check for duplicate IDs
         # Build a Counter from a list of all ids and extract the ones with count > 1
         # Fun fact: glade uses <col id="<number>"> in GtkListStore data, so ids
         # aren't actually unique and getting an object with a particular ID
         # isn't as simple as document.getElementById. Only check the IDs on objects.
-        for glade_id in [c for c in Counter(tree.xpath(".//object/@id")).most_common() \
+        for glade_id in [c for c in Counter(glade_tree.xpath(".//object/@id")).most_common() \
                 if c[1] > 1]:
             raise AssertionError("%s: ID %s appears %d times" %
-                    (tree.getroot().base, glade_id[0], glade_id[1]))
+                    (glade_tree.getroot().base, glade_id[0], glade_id[1]))
 
         # Check for ID references
         # mnemonic_widget properties and action-widget elements need to refer to
         # valid object ids.
-        for mnemonic_widget in tree.xpath(".//property[@name='mnemonic_widget']"):
-            self.assertTrue(tree.xpath(".//object[@id='%s']" % mnemonic_widget.text),
+        for mnemonic_widget in glade_tree.xpath(".//property[@name='mnemonic_widget']"):
+            self.assertTrue(glade_tree.xpath(".//object[@id='%s']" % mnemonic_widget.text),
                     msg="mnemonic_widget reference to invalid ID %s at line %d of %s" %
                         (mnemonic_widget.text, mnemonic_widget.sourceline, mnemonic_widget.base))
 
-        for action_widget in tree.xpath(".//action-widget"):
-            self.assertTrue(tree.xpath(".//object[@id='%s']" % action_widget.text),
+        for action_widget in glade_tree.xpath(".//action-widget"):
+            self.assertTrue(glade_tree.xpath(".//object[@id='%s']" % action_widget.text),
                 msg="action-widget reference to invalid ID %s at line %d of %s" %
                         (action_widget.text, action_widget.sourceline, action_widget.base))

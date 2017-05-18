@@ -358,7 +358,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 error = "Failed to download %s, file doesn't exist" % self.data.method.url
                 log.error(error)
 
-    def preInstall(self, *args, **kwargs):
+    def preInstall(self, packages=None, groups=None):
         """ Get image and loopback mount it.
 
             This is called after partitioning is setup, we now have space to

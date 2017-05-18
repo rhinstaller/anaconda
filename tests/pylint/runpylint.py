@@ -8,8 +8,11 @@ class AnacondaLintConfig(PocketLintConfig):
     def __init__(self):
         PocketLintConfig.__init__(self)
 
-        self.falsePositives = [ FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from BaseException: GError$"),
-                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from BaseException: S390Error$"),
+        self.falsePositives = [ FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: GError$"),
+                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: S390Error$"),
+
+                                # TODO: Should be fixed with https://github.com/PyCQA/astroid/pull/433
+                                FalsePositive(r"^E1129.*: Context manager 'lock' doesn't implement __enter__ and __exit__.$"),
 
                                 # XXX: This is temporary until koji has python3 versions.
                                 FalsePositive(r"^E0401.*: Unable to import 'koji'$"),
