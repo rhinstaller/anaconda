@@ -290,8 +290,8 @@ class Payload(object):
     def gatherRepoMetadata(self):
         pass
 
-    def addRepo(self, newrepo):
-        """Add the repo given by the pykickstart Repo object newrepo to the
+    def addRepo(self, ksrepo):
+        """Add the repo given by the pykickstart Repo object ksrepo to the
         system.  The repo will be automatically enabled and its metadata
         fetched.
 
@@ -299,7 +299,7 @@ class Payload(object):
         take the place of the previous value.
         """
         # Add the repo to the ksdata so it'll appear in the output ks file.
-        self.data.repo.dataList().append(newrepo)
+        self.data.repo.dataList().append(ksrepo)
 
     def removeRepo(self, repo_id):
         repos = self.data.repo.dataList()
@@ -1225,10 +1225,10 @@ class PackagePayload(Payload):
     def environmentAddons(self):
         return self._environmentAddons
 
-    def _isGroupVisible(self, grp):
+    def _isGroupVisible(self, grpid):
         raise NotImplementedError()
 
-    def _groupHasInstallableMembers(self, grp):
+    def _groupHasInstallableMembers(self, grpid):
         raise NotImplementedError()
 
     def _refreshEnvironmentAddons(self):
@@ -1273,7 +1273,7 @@ class PackagePayload(Payload):
         except PayloadError as ex:
             raise PayloadError(("Can't translate group names to group ID - %s", str(ex)))
 
-    def groupDescription(self, groupid):
+    def groupDescription(self, grpid):
         raise NotImplementedError()
 
     def groupId(self, group_name):

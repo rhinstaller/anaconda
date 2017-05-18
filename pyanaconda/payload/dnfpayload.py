@@ -248,15 +248,15 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         }
         progressQ.send_message(msg % vals)
 
-    def end(self, dnf_payload, status, err_msg):
+    def end(self, dnf_payload, status, msg):  # pylint: disable=arguments-differ
         nevra = str(dnf_payload)
         if status is dnf.callback.STATUS_OK:
             self.downloads[nevra] = dnf_payload.download_size
             self._update()
             return
-        log.warning("Failed to download '%s': %d - %s", nevra, status, err_msg)
+        log.warning("Failed to download '%s': %d - %s", nevra, status, msg)
 
-    def progress(self, dnf_payload, done):
+    def progress(self, dnf_payload, done):  # pylint: disable=arguments-differ
         nevra = str(dnf_payload)
         self.downloads[nevra] = done
         self._update()

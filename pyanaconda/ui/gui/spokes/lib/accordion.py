@@ -485,9 +485,6 @@ class Page(BasePage):
 
 
 class UnknownPage(BasePage):
-    def __init__(self, title):
-        # For this type of page, there's only one place to store members.
-        super().__init__(title)
 
     def add_selector(self, device, cb, mountpoint=""):
         accordion = self.get_ancestor(Accordion)

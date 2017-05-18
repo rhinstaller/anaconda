@@ -554,7 +554,7 @@ class MakeBumpVer:
         opener = urllib.request.build_opener(proxies)
         try:
             with closing(opener.open(self.jenkins)) as f:
-                contents = f.readlines()
+                contents = f.readlines()  # pylint: disable=no-member
 
                 try:
                     j = json.loads(contents[0])
