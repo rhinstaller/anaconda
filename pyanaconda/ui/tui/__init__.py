@@ -124,6 +124,11 @@ class TextUserInterface(ui.UserInterface):
     }
 
     @property
+    def simpleline_app(self):
+        """Provide access the the simpline App instance."""
+        return self._app
+
+    @property
     def tty_num(self):
         return 1
 
