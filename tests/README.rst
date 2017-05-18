@@ -15,7 +15,7 @@ Executing the tests can be done with::
 
 To run a single test do::
 
-    make TESTS=install/run_install_test.sh check
+    make TESTS=install/nosetests.sh check
 
 See `tests/Makefile.am` for possible values. Alternatively you can try::
 

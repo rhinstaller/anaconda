@@ -241,8 +241,7 @@ bare-ci:
 	@mv *rpm repo
 	@createrepo_c -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=install/run_install_test.sh \
-		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ PYTHONUSERBASE=$(USER_SITE_BASE) check
+		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@cat tests/test-suite.log.* > tests/test-suite.log
 	@rm -f tests/test-suite.log.*
 	@rm -rf $(USER_SITE_BASE)
