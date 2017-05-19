@@ -165,11 +165,24 @@ class Anaconda(object):
         if not self._storage:
             import blivet
             self._storage = blivet.Blivet(ksdata=self.ksdata)
-
-            if self.instClass.defaultFS:
-                self._storage.setDefaultFSType(self.instClass.defaultFS)
+            self._setDefaultFSType(self._storage)
 
         return self._storage
+
+    def _setDefaultFSType(self, storage):
+        fstype = None
+
+        # Get the default fstype from a kickstart file.
+        if self.ksdata.autopart.autopart and self.ksdata.autopart.fstype:
+            fstype = self.ksdata.autopart.fstype
+        # Or from an install class.
+        elif self.instClass.defaultFS:
+            fstype = self.instClass.defaultFS
+
+        # Set the default fstype.
+        if fstype:
+            storage.setDefaultFSType(fstype)
+            storage.setDefaultBootFSType(fstype)
 
     def dumpState(self):
         from meh import ExceptionInfo
