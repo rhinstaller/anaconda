@@ -644,6 +644,15 @@ if __name__ == "__main__":
     if image_count:
         anaconda.storage.setup_disk_images()
 
+    # Ignore disks labeled OEMDRV
+    from pyanaconda.storage_utils import device_matches
+    matched = device_matches("LABEL=OEMDRV", disks_only=True)
+    for oemdrv_disk in matched:
+        if oemdrv_disk not in ksdata.ignoredisk.ignoredisk:
+            ksdata.ignoredisk.ignoredisk.append(oemdrv_disk)
+            log.info("Adding disk %s labeled OEMDRV to ignored disks",
+                    oemdrv_disk)
+
     from blivet.osinstall import storage_initialize
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
