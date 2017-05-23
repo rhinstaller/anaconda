@@ -406,6 +406,34 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
     else:
         log.error("Unknown method: %s", anaconda.methodstr)
 
+def add_kickstart_snippets_from_image(main_ks_candidate_paths, output_ks):
+    """Add kicstart snippets from image drop-down directory into main ks"""
+    ks_snippets = []
+    for main_ks in main_ks_candidate_paths:
+        if not os.path.exists(main_ks):
+            continue
+
+        prepend_dir = constants.KICKSTART_PREPEND_DROPDIR_PATH
+        prepend_snippets = [os.path.join(prepend_dir, file)
+                         for file in sorted(os.listdir(prepend_dir))]
+        append_dir = constants.KICKSTART_APPEND_DROPDIR_PATH
+        append_snippets = [os.path.join(append_dir, file)
+                           for file in sorted(os.listdir(append_dir))]
+
+        ks_snippets.extend(prepend_snippets)
+        ks_snippets.append(main_ks)
+        ks_snippets.extend(append_snippets)
+
+        with open(output_ks, "w") as f_out:
+            for ks in ks_snippets:
+                with open(ks, "r") as f_ks:
+                    f_out.write(f_ks.read())
+
+        # Only use the first main kickstart file we find.
+        break
+
+    return ks_snippets
+
 def parse_kickstart(options, addon_paths):
     """Parse the input kickstart.
 
@@ -438,16 +466,14 @@ def parse_kickstart(options, addon_paths):
         ks_files = ["/tmp/updates/interactive-defaults.ks",
                     "/usr/share/anaconda/interactive-defaults.ks"]
 
-    for ks in ks_files:
-        if not os.path.exists(ks):
-            continue
+    merged_ks = "/run/install/ks-merged.cfg"
+    merged_files = add_kickstart_snippets_from_image(ks_files, merged_ks)
+    log.info("Concatenated kickstart files: %s into %s", merged_files,
+            merged_ks)
 
-        kickstart.preScriptPass(ks)
-        log.info("Parsing kickstart: " + ks)
-        ksdata = kickstart.parseKickstart(ks, options.ksstrict)
-
-        # Only load the first defaults file we find.
-        break
+    kickstart.preScriptPass(merged_ks)
+    log.info("Parsing kickstart: " + merged_ks)
+    ksdata = kickstart.parseKickstart(merged_ks, options.ksstrict)
 
     if not ksdata:
         ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
