@@ -752,9 +752,13 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
         if self.firstboot == FIRSTBOOT_SKIP:
             action = "disable"
-            # Also tell the screen access manager, so that the fact that post installation tools
-            # should be disabled propagates to the user interaction config file.
-            screen_access.sam.post_install_tools_disabled = True
+
+            if self.seen:
+                # Also tell the screen access manager, so that the fact that post installation tools
+                # should be disabled propagates to the user interaction config file,
+                # But only to this if explicitely requested through the "firstboot --disable/--disabled"
+                # command in kickstart.
+                screen_access.sam.post_install_tools_disabled = True
 
         # enable/disable the Initial Setup service (if its unit is installed)
         if unit_exists:
