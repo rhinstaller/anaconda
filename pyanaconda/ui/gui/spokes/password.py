@@ -143,8 +143,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
 
     @property
     def sensitive(self):
+        # The spoke cannot be entered if root password was set in the kickstart
+        # and the root password policy doesn't allow changes.
         return not (self.completed and flags.automatedInstall
-                    and self.data.rootpw.seen)
+                    and self.data.rootpw.seen and not self.policy.changesok)
 
     @property
     def input(self):
