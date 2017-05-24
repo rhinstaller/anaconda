@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.113\n"
+"Project-Id-Version: anaconda 21.48.22.114\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-05-15 15:11+0200\n"
+"POT-Creation-Date: 2017-05-24 16:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -818,19 +818,19 @@ msgstr ""
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2017
+#: pyanaconda/kickstart.py:2014
 msgid ""
 "Incorrectly specified origin of the snapshot. Use format \"VolGroup/LV_name\""
 msgstr ""
 
-#: pyanaconda/kickstart.py:2028
+#: pyanaconda/kickstart.py:2025
 #, python-format
 msgid ""
 "Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\" is not a valid thin "
 "LV device."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2036
+#: pyanaconda/kickstart.py:2033
 #, python-format
 msgid "Snapshot %s already exists."
 msgstr ""
@@ -1994,8 +1994,8 @@ msgid "Time settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:189
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:536
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:542
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:537
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:543
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -2143,7 +2143,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:123
 #: pyanaconda/ui/tui/spokes/software.py:104
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:544
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:545
 #: pyanaconda/ui/gui/spokes/software.py:294
 #: pyanaconda/ui/gui/spokes/software.py:302
 #: pyanaconda/ui/gui/spokes/source.py:575
@@ -2624,34 +2624,42 @@ msgctxt "GUI|Spoke"
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:524
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:525
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:538
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:539
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:709
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:723
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:905
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:710
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:724
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:906
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:27
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:711
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:720
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:904
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:907
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:712
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:721
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:905
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:908
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1059
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1060
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1063
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1064
 msgid "You have no working NTP server configured"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1067
+msgid "NTP service failed to start."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1070
+msgid "NTP service failed to stop."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.py:486
@@ -3011,43 +3019,43 @@ msgstr ""
 msgid "You need to configure the network to use a network installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:966
+#: pyanaconda/ui/gui/spokes/source.py:967
 msgid "URL is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:970
+#: pyanaconda/ui/gui/spokes/source.py:971
 msgid "Invalid URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:987
+#: pyanaconda/ui/gui/spokes/source.py:988
 msgid "Protocol in URL does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:990
+#: pyanaconda/ui/gui/spokes/source.py:991
 msgid "NFS server is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:997
+#: pyanaconda/ui/gui/spokes/source.py:998
 msgid "Invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1000
+#: pyanaconda/ui/gui/spokes/source.py:1001
 msgid "Remote directory is required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1021
+#: pyanaconda/ui/gui/spokes/source.py:1022
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1028
+#: pyanaconda/ui/gui/spokes/source.py:1029
 msgid "Empty repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1031
+#: pyanaconda/ui/gui/spokes/source.py:1032
 msgid "Invalid repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1037
+#: pyanaconda/ui/gui/spokes/source.py:1038
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 

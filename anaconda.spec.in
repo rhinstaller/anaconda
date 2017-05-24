@@ -318,6 +318,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 24 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.115-1
+- Show a no network warning for network installation source. (vponcova)
+  Related: rhbz#1418604
+- Show warnings about enabling the network time (vponcova)
+  Resolves: rhbz#1418604
+- Fix generating UUID even for pre snapshots (jkonecny)
+  Related: rhbz#1113207
+
 * Mon May 15 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.114-1
 - Show the text of completions in the datetime spoke. (vponcova)
   Related: rhbz#1447984
