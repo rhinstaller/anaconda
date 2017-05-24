@@ -31,7 +31,7 @@ MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
-CLEANFILES = *~ utils/mock-out.cfg
+CLEANFILES = *~ $(MOCK_CONF_OUT)
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
@@ -52,10 +52,11 @@ DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
 				-e 's/master/rawhide/')
 ARCH_NAME ?= $(shell uname -m)
+DIST_FULL_NAME = $(shell echo "$(DIST_NAME)" | sed -re 's/^[0-9]+/fedora/')
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 
-MOCK_CONF_TEMPLATE ?= $(srcdir)/utils/mock-template.cfg
+MOCK_CONF_TEMPLATE ?= $(srcdir)/utils/mock-$(DIST_FULL_NAME)-template.cfg
 MOCK_CONF_OUT ?= $(srcdir)/utils/mock-out.cfg
 
 MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
