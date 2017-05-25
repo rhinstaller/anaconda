@@ -87,6 +87,7 @@ class App(object):
         self._width = width
         self.quit_question = yes_or_no_question
         self.quit_message = quit_message or N_(u"Do you really want to quit?")
+        self.simpleline_getpass = getpass.getpass
 
         # async control queue
         if queue_instance:
@@ -145,7 +146,7 @@ class App(object):
         """
 
         if hidden:
-            data = getpass.getpass(prompt)
+            data = self.simpleline_getpass(prompt)
         else:
             widget = TextWidget(str(prompt))
             widget.render(self.width)

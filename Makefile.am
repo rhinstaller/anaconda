@@ -31,7 +31,7 @@ MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
-CLEANFILES = *~ utils/mock-out.cfg
+CLEANFILES = *~ $(MOCK_CONF_OUT)
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
@@ -52,10 +52,11 @@ DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
 				-e 's/master/rawhide/')
 ARCH_NAME ?= $(shell uname -m)
+DIST_FULL_NAME = $(shell echo "$(DIST_NAME)" | sed -re 's/^[0-9]+/fedora/')
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 
-MOCK_CONF_TEMPLATE ?= $(srcdir)/utils/mock-template.cfg
+MOCK_CONF_TEMPLATE ?= $(srcdir)/utils/mock-$(DIST_FULL_NAME)-template.cfg
 MOCK_CONF_OUT ?= $(srcdir)/utils/mock-out.cfg
 
 MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
@@ -126,6 +127,10 @@ rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
 	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(PWD) || exit 1
 	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(PWD) || exit 1
+
+test-install: rc-release
+	mock -r $(MOCKCHROOT) --scrub all || exit 1
+	mock -r $(MOCKCHROOT) --install $(PWD)/anaconda-*$(ARCH_NAME).rpm
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -201,7 +206,7 @@ runglade:
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
 
-isolated-ci: rc-release
+isolated-ci: test-install
 # Add our daily build repositories in the mock config file
 	sed -e "s/@DISTRO@/$(DIST_NAME)/" -e "s/@ARCH@/$(ARCH_NAME)/" $(MOCK_CONF_TEMPLATE) > $(MOCK_CONF_OUT)
 	@-rm -f tests/error_occured
@@ -223,7 +228,7 @@ isolated-ci: rc-release
 		exit $$status; \
 	fi
 
-ci: rc-release
+ci: test-install
 	$(MAKE) bare-ci
 
 bare-ci:
@@ -241,8 +246,7 @@ bare-ci:
 	@mv *rpm repo
 	@createrepo_c -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=install/run_install_test.sh \
-		TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ PYTHONUSERBASE=$(USER_SITE_BASE) check
+		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@cat tests/test-suite.log.* > tests/test-suite.log
 	@rm -f tests/test-suite.log.*
 	@rm -rf $(USER_SITE_BASE)

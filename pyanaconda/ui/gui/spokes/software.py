@@ -533,9 +533,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self._tx_id == self.payload.txID
 
     # Signal handlers
-    def on_checkbox_toggled(self, button, row):
-        row.activate()
-
     def on_radio_button_toggled(self, radio, row):
         # If the radio button toggled to inactive, don't reactivate the row
         if not radio.get_active():
@@ -560,24 +557,38 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.refreshAddons()
         self._addonListBox.show_all()
 
+    def on_checkbox_toggled(self, button, row):
+        # Select the addon. The button is already toggled.
+        self._select_addon_at_row(row, button.get_active())
+
     def on_addon_activated(self, listbox, row):
+        # Skip the separator.
         box = row.get_children()[0]
         if isinstance(box, Gtk.Separator):
             return
 
-        # GUI selections means that packages are no longer coming from kickstart
+        # Select the addon. The button is not toggled yet.
+        button = box.get_children()[0]
+        self._select_addon_at_row(row, not button.get_active())
+
+    def _select_addon_at_row(self, row, is_selected):
+        # GUI selections means that packages are no longer coming from kickstart.
         self._kickstarted = False
 
+        # Activate the row.
+        with blockedHandler(row.get_parent(), self.on_addon_activated):
+            row.activate()
+
+        # Activate the button.
+        box = row.get_children()[0]
         button = box.get_children()[0]
+        with blockedHandler(button, self.on_checkbox_toggled):
+            button.set_active(is_selected)
+
+        # Mark the selection.
         addons = self._allAddons()
         group = addons[row.get_index()]
-
-        new_btn_val = not button.get_active()
-
-        with blockedHandler(button, self.on_checkbox_toggled):
-            button.set_active(new_btn_val)
-
-        self._mark_addon_selection(group, new_btn_val)
+        self._mark_addon_selection(group, is_selected)
 
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:
