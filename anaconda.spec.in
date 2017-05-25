@@ -328,6 +328,31 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 25 2017 Martin Kolman <mkolman@redhat.com> - 27.9-1
+- Add support for DNF-2.5.0 (jkonecny)
+- Fix simpleline_getpass related Pylint warning (mkolman)
+- Provide access to simpleline App instance (mkolman)
+- Make it possible to use a custom getpass() (mkolman)
+- Set the default filesystem type from a kickstart file (vponcova)
+- Adapt to our new daily builds of Anaconda (jkonecny)
+- Provide access to simpleline App instance (mkolman)
+- Make it possible to use a custom getpass() (mkolman)
+- Perform recursive copying of driver disk RPM repo contents (esyr)
+- network: fix setting hostname via boot options (#1441337) (rvykydal)
+- Fix a typo in an error message (esyr)
+- Use the function we already have for applying disk selection (#1412022)
+  (rvykydal)
+- Ignore disks labeled OEMDRV (#1412022) (rvykydal)
+- network: create dracut arguments for iSCSI root accessed via vlan (#1374003)
+  (rvykydal)
+- Test if Anaconda can be installed inside of mock (jkonecny)
+- Remove run_install_test test (jkonecny)
+- rpmostreepayload: Handle /var as a user-specified mountpoint (walters)
+- Fix the addon handlers for the checkbox (#1451754) (vponcova)
+- Show the text of completions in the datetime spoke. (vponcova)
+- Use new daily-blivet copr builds (jkonecny)
+- Prevent TUI from crashing with a single spoke on a hub (mkolman)
+
 * Tue May 09 2017 Martin Kolman <mkolman@redhat.com> - 27.8-1
 - Bump Pykickstart version (mkolman)
 
