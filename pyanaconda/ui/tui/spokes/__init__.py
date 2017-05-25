@@ -151,12 +151,7 @@ class EditTUIDialog(NormalTUISpoke):
             request = PasswordCheckRequest(password=pw, username=None, minimum_length=self.policy.minlen)
             result = validatePassword(request)
 
-            # if the score is equal to 0 and we have an error message set
-            if not result.password_score and result.error_message:
-                print(result.error_message)
-                return None
-
-            if result.password_quality < self.policy.minquality:
+            if result.password_quality < self.policy.minquality or not result.password_score:
                 if self.policy.strict:
                     done_msg = ""
                 else:
