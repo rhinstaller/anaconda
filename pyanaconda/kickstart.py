@@ -273,16 +273,8 @@ class AutoPart(commands.autopart.F26_AutoPart):
         if not self.autopart:
             return
 
-        if self.fstype:
-            try:
-                storage.set_default_fstype(self.fstype)
-                storage.set_default_boot_fstype(self.fstype)
-            except ValueError:
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                                          msg=_("Settings default fstype to %s failed.") % self.fstype))
-
-        # sets up default autopartitioning.  use clearpart separately
-        # if you want it
+        # Sets up default autopartitioning. Use clearpart separately if you want it.
+        # The filesystem type is already set in the storage.
         refreshAutoSwapSize(storage)
         storage.do_autopart = True
 

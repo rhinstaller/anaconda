@@ -261,7 +261,8 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         self.downloads[nevra] = done
         self._update()
 
-    def start(self, total_files, total_size):
+    # TODO: Remove pylint disable after DNF-2.5.0 will arrive in Fedora
+    def start(self, total_files, total_size, total_drpms=0): # pylint: disable=arguments-differ
         self.total_files = total_files
         self.total_size = Size(total_size)
 

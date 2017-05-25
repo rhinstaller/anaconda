@@ -159,22 +159,11 @@ class Anaconda(object):
             import blivet
             import blivet.arch
 
-            import gi
-            gi.require_version("BlockDev", "2.0")
-
-            from gi.repository import BlockDev as blockdev
             self._storage = blivet.Blivet(ksdata=self.ksdata)
-
-            if self.instClass.defaultFS:
-                self._storage.set_default_fstype(self.instClass.defaultFS)
+            self._set_default_fstype(self._storage)
 
             if blivet.arch.is_s390():
-                # want to make sure s390 plugin is loaded
-                if "s390" not in blockdev.get_available_plugin_names():
-                    plugin = blockdev.PluginSpec()
-                    plugin.name = blockdev.Plugin.S390
-                    plugin.so_name = None
-                    blockdev.reinit([plugin], reload=False)
+                self._load_plugin_s390()
 
         return self._storage
 
@@ -229,6 +218,37 @@ class Anaconda(object):
         """Report if Anaconda should run with noninteractive TUI."""
         return (self._display_mode == DisplayModes.TUI
                 and not self._interactive_mode)
+
+    def _set_default_fstype(self, storage):
+        fstype = None
+
+        # Get the default fstype from a kickstart file.
+        if self.ksdata.autopart.autopart and self.ksdata.autopart.fstype:
+            fstype = self.ksdata.autopart.fstype
+        # Or from an install class.
+        elif self.instClass.defaultFS:
+            fstype = self.instClass.defaultFS
+
+        # Set the default fstype.
+        if fstype:
+            storage.set_default_fstype(fstype)
+            storage.set_default_boot_fstype(fstype)
+
+    def _load_plugin_s390(self):
+        # Make sure s390 plugin is loaded.
+        import gi
+        gi.require_version("BlockDev", "2.0")
+        from gi.repository import BlockDev as blockdev
+
+        # Is the plugin loaded? We are done then.
+        if "s390" in blockdev.get_available_plugin_names():
+            return
+
+        # Otherwise, load the plugin.
+        plugin = blockdev.PluginSpec()
+        plugin.name = blockdev.Plugin.S390
+        plugin.so_name = None
+        blockdev.reinit([plugin], reload=False)
 
     def dumpState(self):
         from meh import ExceptionInfo
