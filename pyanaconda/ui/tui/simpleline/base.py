@@ -87,7 +87,7 @@ class App(object):
         self._width = width
         self.quit_question = yes_or_no_question
         self.quit_message = quit_message or N_(u"Do you really want to quit?")
-        self._custom_getpass = None
+        self.simpleline_getpass = getpass.getpass
 
         # async control queue
         if queue_instance:
@@ -128,17 +128,6 @@ class App(object):
         if not event in self._handlers:
             self._handlers[event] = []
         self._handlers[event].append((callback, data))
-
-    @property
-    def simpleline_getpass(self):
-        if self._custom_getpass is None:
-            return getpass.getpass
-        else:
-            return self._custom_getpass
-
-    @simpleline_getpass.setter
-    def simpleline_getpass(self, new_getpass):
-        self._custom_getpass = new_getpass
 
     def _thread_input(self, queue_instance, prompt, hidden):
         """This method is responsible for interruptible user input.
