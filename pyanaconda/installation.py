@@ -34,7 +34,7 @@ from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
-from pyanaconda.install_tasks import Task, TaskQueue
+from pyanaconda.installation_tasks import Task, TaskQueue
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
