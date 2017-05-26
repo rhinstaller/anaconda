@@ -166,9 +166,11 @@ class AnacondaLog:
         self.loglevel = DEFAULT_LEVEL
         self.remote_syslog = None
         # Rename the loglevels so they are the same as in syslog.
-        logging.addLevelName(logging.WARNING, "WARN")
+        logging.addLevelName(logging.CRITICAL, "CRT")
         logging.addLevelName(logging.ERROR, "ERR")
-        logging.addLevelName(logging.CRITICAL, "CRIT")
+        logging.addLevelName(logging.WARNING, "WRN")
+        logging.addLevelName(logging.INFO, "INF")
+        logging.addLevelName(logging.DEBUG, "DBG")
 
         # Create the base of the logger hierarchy.
         # Disable propagation to the parent logger, since the root logger is
