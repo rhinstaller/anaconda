@@ -111,7 +111,7 @@ RepoChecks = namedtuple("RepoChecks", ["name_check", "url_check", "proxy_check"]
 class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
-    uiFile = "spokes/source.glade"
+    uiFile = "spokes/installation_source.glade"
 
     def __init__(self, data, proxy_url):
         GUIObject.__init__(self, data)

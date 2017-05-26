@@ -146,7 +146,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                       "addImage", "removeImage", "settingsImage",
                       "mountPointCompletion", "mountPointStore", "fileSystemStore"]
     mainWidgetName = "customStorageWindow"
-    uiFile = "spokes/custom.glade"
+    uiFile = "spokes/custom_storage.glade"
     helpFile = "CustomSpoke.xml"
 
     category = SystemCategory
