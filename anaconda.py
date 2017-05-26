@@ -189,7 +189,7 @@ def parse_arguments(argv=None, boot_cmdline=None):
     :returns: namespace of parsed options and a list of deprecated
               anaconda options that have been found
     """
-    from pyanaconda.anaconda_argparse import getArgumentParser
+    from pyanaconda.argument_parsing import getArgumentParser
     ap = getArgumentParser(startup_utils.get_anaconda_version_string(),
                            boot_cmdline)
 
@@ -633,7 +633,7 @@ if __name__ == "__main__":
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
     anaconda.instClass.setStorageChecker(storage_checker)
 
-    from pyanaconda.anaconda_argparse import name_path_pairs
+    from pyanaconda.argument_parsing import name_path_pairs
 
     image_count = 0
     try:

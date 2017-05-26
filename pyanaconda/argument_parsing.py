@@ -1,5 +1,5 @@
 #
-# anaconda_argparse.py: option parsing for anaconda (CLI and boot args)
+# argument_parsing.py: option parsing for anaconda (CLI and boot args)
 #
 # Copyright (C) 2012 Red Hat, Inc.  All rights reserved.
 #
