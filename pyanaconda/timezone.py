@@ -30,7 +30,7 @@ from collections import OrderedDict
 from pyanaconda import iutil
 from pyanaconda.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from blivet import arch
 
 from pyanaconda.anaconda_loggers import get_module_logger

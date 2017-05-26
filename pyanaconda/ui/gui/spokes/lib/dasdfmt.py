@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once
 from pyanaconda import constants

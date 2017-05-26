@@ -28,7 +28,7 @@ from pyanaconda import ntp
 from pyanaconda import constants
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.flags import flags
 
 from collections import OrderedDict

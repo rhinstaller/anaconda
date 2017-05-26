@@ -1,5 +1,5 @@
 #
-# threads.py:  anaconda thread management
+# threading.py:  anaconda thread management
 #
 # Copyright (C) 2012
 # Red Hat, Inc.  All rights reserved.

@@ -61,7 +61,7 @@ class ProgressHub(Hub):
 
     def _do_configuration(self, widget=None, reenable_ransom=True):
         from pyanaconda.install import doConfiguration
-        from pyanaconda.threads import threadMgr, AnacondaThread
+        from pyanaconda.threading import threadMgr, AnacondaThread
 
         assert self._configurationDone == False
 
@@ -253,7 +253,7 @@ class ProgressHub(Hub):
 
     def refresh(self):
         from pyanaconda.install import doInstall
-        from pyanaconda.threads import threadMgr, AnacondaThread
+        from pyanaconda.threading import threadMgr, AnacondaThread
 
         Hub.refresh(self)
 

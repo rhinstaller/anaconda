@@ -25,7 +25,7 @@ gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
 from pyanaconda import constants
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.storage_utils import try_populate_devicetree

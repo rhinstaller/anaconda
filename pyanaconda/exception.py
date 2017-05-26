@@ -33,7 +33,7 @@ import blivet.errors
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
 from pyanaconda import startup_utils
@@ -359,7 +359,7 @@ f%s(msg, non_ascii)
     msg = "NOTABUG: testing exception handling"
 
     # raise exception from a separate thread
-    from pyanaconda.threads import AnacondaThread
+    from pyanaconda.threading import AnacondaThread
     threadMgr.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
                                  target=raise_exception,
                                  args=(msg, non_ascii)))

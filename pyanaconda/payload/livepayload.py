@@ -51,7 +51,7 @@ from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.i18n import _
 from pyanaconda.payload import versionCmp
 

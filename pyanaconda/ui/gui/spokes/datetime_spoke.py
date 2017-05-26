@@ -48,7 +48,7 @@ from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda import constants
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 import datetime
 import re

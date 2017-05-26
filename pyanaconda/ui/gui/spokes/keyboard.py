@@ -35,7 +35,7 @@ from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.iutil import strip_accents
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.iutil import have_word_match
 
 import locale as locale_mod

@@ -55,7 +55,7 @@ from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group

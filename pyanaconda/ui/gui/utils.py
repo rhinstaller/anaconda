@@ -26,7 +26,7 @@ from gi.repository import Gdk, Gtk, GLib
 
 from contextlib import contextmanager
 
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE,\
     PASSWORD_SHOW, PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON

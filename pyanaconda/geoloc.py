@@ -115,7 +115,7 @@ log = get_module_logger(__name__)
 slog = get_sensitive_info_logger()
 
 from pyanaconda import constants
-from pyanaconda.threads import AnacondaThread, threadMgr
+from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 
 location_info_instance = None
