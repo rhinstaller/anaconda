@@ -27,7 +27,6 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.iutil import execWithRedirect, ipmi_abort
 from pyanaconda.flags import can_touch_runtime_system
-import getpass
 import sys
 
 def exception_msg_handler_and_exit(event, data):
