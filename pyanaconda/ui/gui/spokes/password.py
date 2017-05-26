@@ -39,7 +39,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"
-    focusWidgetName = "pw"
+    # Don't focus on the password entry field by default as is some cases
+    # a password might have been set in kickstart and focusing on the password
+    # filed might clear it (& hide the "password is set" message).
+    # Also there is logic in place that should focus the password entry field if
+    # password is *not* set in kickstart.
+    focusWidgetName = "passwordWindow"
     uiFile = "spokes/password.glade"
     helpFile = "PasswordSpoke.xml"
 
@@ -51,7 +56,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         GUISpokePasswordCheckHandler.__init__(self)
-        self._kickstarted = False
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -74,8 +78,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
         self._pwStrengthCheck = self.add_check(self.pw, self.check_password_strength)
         self._pwASCIICheck = self.add_check(self.pw, self.check_password_ASCII)
 
-        self._kickstarted = self.data.rootpw.seen
-        if self._kickstarted:
+        if self.input_kickstarted:
             self.pw.set_placeholder_text(_("The password is set."))
             self.confirm.set_placeholder_text(_("The password is set."))
 
@@ -100,7 +103,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
         for check in self.checks:
             check.enabled = True
 
-        self.pw.grab_focus()
+        # Notify the input checking mixin that the screen is about to be entered.
+        self.inputs_about_to_be_displayed()
+
+        if not self.input_kickstarted:
+            self.pw.grab_focus()
         self.pw.emit("changed")
         self.confirm.emit("changed")
 
@@ -120,22 +127,21 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
     def apply(self):
         pw = self.pw.get_text()
 
-        # value from the kickstart changed
-        self.data.rootpw.seen = False
-        self._kickstarted = False
+        if self.input_changed or self.initial_input_confirmation_changed:
+            # value from the kickstart changed
+            self.data.rootpw.seen = False
+            self.data.rootpw.lock = False
 
-        self.data.rootpw.lock = False
-
-        if not pw:
-            self.data.rootpw.password = ''
-            self.data.rootpw.isCrypted = False
-            return
-
-        self.data.rootpw.password = cryptPassword(pw)
-        self.data.rootpw.isCrypted = True
-
-        self.pw.set_placeholder_text("")
-        self.confirm.set_placeholder_text("")
+            # the root password has apparently been cleared
+            if not pw and not self.input_kickstarted:
+                self.data.rootpw.password = ''
+                self.data.rootpw.isCrypted = False
+                return
+        # only replace password in kickstart if there actually
+        # is one set
+        if pw:
+            self.data.rootpw.password = cryptPassword(pw)
+            self.data.rootpw.isCrypted = True
 
     @property
     def completed(self):
@@ -181,6 +187,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokePasswordCheckHandl
 
         Reset the waive counters and check that both passwords are still the same.
         """
+        # unset any placeholder texts if any input filed was used
+        # by the user, as that effectively clears the password
+        # set in kickstart
+        if self.input_changed or self.initial_input_confirmation_changed:
+            self.pw.set_placeholder_text("")
+            self.confirm.set_placeholder_text("")
 
         # Reset the counters used for the "press Done twice" logic
         self.waive_clicks = 0
