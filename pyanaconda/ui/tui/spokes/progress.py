@@ -110,7 +110,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         return True
 
     def refresh(self, args=None):
-        from pyanaconda.install import doInstall, doConfiguration
+        from pyanaconda.installation import doInstall, doConfiguration
         from pyanaconda.threading import threadMgr, AnacondaThread
 
         # We print this here because we don't really use the window object

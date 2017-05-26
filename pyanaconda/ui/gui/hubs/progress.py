@@ -60,7 +60,7 @@ class ProgressHub(Hub):
         self._rnotes_id = None
 
     def _do_configuration(self, widget=None, reenable_ransom=True):
-        from pyanaconda.install import doConfiguration
+        from pyanaconda.installation import doConfiguration
         from pyanaconda.threading import threadMgr, AnacondaThread
 
         assert self._configurationDone == False
@@ -252,7 +252,7 @@ class ProgressHub(Hub):
             self._rnotesPages = itertools.cycle([rnotes_start])
 
     def refresh(self):
-        from pyanaconda.install import doInstall
+        from pyanaconda.installation import doInstall
         from pyanaconda.threading import threadMgr, AnacondaThread
 
         Hub.refresh(self)
