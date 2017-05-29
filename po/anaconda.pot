@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.114\n"
+"Project-Id-Version: anaconda 21.48.22.115\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-05-24 16:04+0200\n"
+"POT-Creation-Date: 2017-05-29 15:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -474,7 +474,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:211 pyanaconda/kickstart.py:2350
+#: pyanaconda/install.py:211 pyanaconda/kickstart.py:2346
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -527,274 +527,269 @@ msgstr ""
 msgid "autopart fstype of %s is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:295
-#, python-format
-msgid "Settings default fstype to %s failed."
-msgstr ""
-
-#: pyanaconda/kickstart.py:330
+#: pyanaconda/kickstart.py:322
 msgid "GRUB2 does not support installation to a partition."
 msgstr ""
 
-#: pyanaconda/kickstart.py:423
+#: pyanaconda/kickstart.py:415
 #, python-format
 msgid "More than one match found for given boot drive \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:428
+#: pyanaconda/kickstart.py:420
 #, python-format
 msgid "Requested boot drive \"%s\" doesn't exist or cannot be used."
 msgstr ""
 
-#: pyanaconda/kickstart.py:502
+#: pyanaconda/kickstart.py:494
 #, python-format
 msgid ""
 "Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"Btrfs\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:507
+#: pyanaconda/kickstart.py:499
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Btrfs volume specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:520
+#: pyanaconda/kickstart.py:512
 msgid ""
 "Btrfs volume defined without any member devices.  Either specify member "
 "devices or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:529 pyanaconda/kickstart.py:903
-#: pyanaconda/kickstart.py:1492
+#: pyanaconda/kickstart.py:521 pyanaconda/kickstart.py:899
+#: pyanaconda/kickstart.py:1488
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
 
-#: pyanaconda/kickstart.py:544
+#: pyanaconda/kickstart.py:536
 #, python-format
 msgid "Btrfs volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:628
+#: pyanaconda/kickstart.py:620
 #, python-format
 msgid ""
 "Disklabel \"%s\" given in clearpart command is not supported on this "
 "platform."
 msgstr ""
 
-#: pyanaconda/kickstart.py:640
+#: pyanaconda/kickstart.py:632
 #, python-format
 msgid "Disk \"%s\" given in clearpart command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:653
+#: pyanaconda/kickstart.py:645
 #, python-format
 msgid "Device \"%s\" given in clearpart device list does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:680
+#: pyanaconda/kickstart.py:672
 #, python-format
 msgid "NIC \"%s\" given in fcoe command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:731
+#: pyanaconda/kickstart.py:723
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:782 pyanaconda/kickstart.py:793
+#: pyanaconda/kickstart.py:778 pyanaconda/kickstart.py:789
 #, python-format
 msgid "Disk \"%s\" given in ignoredisk command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:806
+#: pyanaconda/kickstart.py:802
 #, python-format
 msgid ""
 "Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target "
 "is not up."
 msgstr ""
 
-#: pyanaconda/kickstart.py:816
+#: pyanaconda/kickstart.py:812
 msgid ""
 "iscsi --iface must be specified (binding used) either for all targets or for "
 "none"
 msgstr ""
 
-#: pyanaconda/kickstart.py:909
+#: pyanaconda/kickstart.py:905
 #, python-format
 msgid ""
 "No volume group exists with the name \"%s\".  Specify volume groups before "
 "logical volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:916
+#: pyanaconda/kickstart.py:912
 msgid "Cache PVs must belong to the same VG as the cached LV"
 msgstr ""
 
-#: pyanaconda/kickstart.py:923
+#: pyanaconda/kickstart.py:919
 #, python-format
 msgid ""
 "No thin pool exists with the name \"%s\". Specify thin pools before thin "
 "volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:931
+#: pyanaconda/kickstart.py:927
 msgid "logvol --noformat must also use the --name= option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:936 pyanaconda/kickstart.py:1006
+#: pyanaconda/kickstart.py:932 pyanaconda/kickstart.py:1002
 #, python-format
 msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:947 pyanaconda/kickstart.py:956
-#: pyanaconda/kickstart.py:1016 pyanaconda/kickstart.py:1284
-#: pyanaconda/kickstart.py:1293 pyanaconda/kickstart.py:1376
+#: pyanaconda/kickstart.py:943 pyanaconda/kickstart.py:952
+#: pyanaconda/kickstart.py:1012 pyanaconda/kickstart.py:1280
+#: pyanaconda/kickstart.py:1289 pyanaconda/kickstart.py:1372
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:970
+#: pyanaconda/kickstart.py:966
 #, python-format
 msgid ""
 "Logical volume name \"%(logvol)s\" is already in use in volume group "
 "\"%(volgroup)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:977
+#: pyanaconda/kickstart.py:973
 #, python-format
 msgid ""
 "No size given for logical volume \"%s\".  Use one of --useexisting, --size, "
 "or --percent."
 msgstr ""
 
-#: pyanaconda/kickstart.py:980
+#: pyanaconda/kickstart.py:976
 #, python-format
 msgid ""
 "Logical volume size \"%(logvolSize)s\" must be larger than the volume group "
 "extent size of \"%(extentSize)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:984
+#: pyanaconda/kickstart.py:980
 msgid "Percentage must be between 0 and 100."
 msgstr ""
 
-#: pyanaconda/kickstart.py:995 pyanaconda/kickstart.py:1312
-#: pyanaconda/kickstart.py:1545
+#: pyanaconda/kickstart.py:991 pyanaconda/kickstart.py:1308
+#: pyanaconda/kickstart.py:1541
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1155 pyanaconda/kickstart.py:1159
+#: pyanaconda/kickstart.py:1151 pyanaconda/kickstart.py:1155
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1184
+#: pyanaconda/kickstart.py:1180
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1219
+#: pyanaconda/kickstart.py:1215
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1230 pyanaconda/kickstart.py:1467
+#: pyanaconda/kickstart.py:1226 pyanaconda/kickstart.py:1463
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1241 pyanaconda/kickstart.py:1477
+#: pyanaconda/kickstart.py:1237 pyanaconda/kickstart.py:1473
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1261
+#: pyanaconda/kickstart.py:1257
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1268
+#: pyanaconda/kickstart.py:1264
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1273 pyanaconda/kickstart.py:1367
+#: pyanaconda/kickstart.py:1269 pyanaconda/kickstart.py:1363
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1327 pyanaconda/kickstart.py:1341
+#: pyanaconda/kickstart.py:1323 pyanaconda/kickstart.py:1337
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1330
+#: pyanaconda/kickstart.py:1326
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1337
+#: pyanaconda/kickstart.py:1333
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1350
+#: pyanaconda/kickstart.py:1346
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1499
+#: pyanaconda/kickstart.py:1495
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1504
+#: pyanaconda/kickstart.py:1500
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1527
+#: pyanaconda/kickstart.py:1523
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1532
+#: pyanaconda/kickstart.py:1528
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1566
+#: pyanaconda/kickstart.py:1562
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1575
+#: pyanaconda/kickstart.py:1571
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1855
+#: pyanaconda/kickstart.py:1851
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1860
+#: pyanaconda/kickstart.py:1856
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1866
+#: pyanaconda/kickstart.py:1862
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1876
+#: pyanaconda/kickstart.py:1872
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -802,40 +797,40 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1883
+#: pyanaconda/kickstart.py:1879
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1888
+#: pyanaconda/kickstart.py:1884
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1891
+#: pyanaconda/kickstart.py:1887
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2014
+#: pyanaconda/kickstart.py:2010
 msgid ""
 "Incorrectly specified origin of the snapshot. Use format \"VolGroup/LV_name\""
 msgstr ""
 
-#: pyanaconda/kickstart.py:2025
+#: pyanaconda/kickstart.py:2021
 #, python-format
 msgid ""
 "Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\" is not a valid thin "
 "LV device."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2033
+#: pyanaconda/kickstart.py:2029
 #, python-format
 msgid "Snapshot %s already exists."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2069
+#: pyanaconda/kickstart.py:2065
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
@@ -2338,28 +2333,28 @@ msgid ""
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:163
+#: pyanaconda/ui/tui/spokes/__init__.py:158
 msgid ""
 "\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:182
+#: pyanaconda/ui/tui/spokes/__init__.py:177
 msgid ""
 "You have provided a password containing non-ASCII characters.\n"
 "You may not be able to switch between keyboard layouts to login.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:188
+#: pyanaconda/ui/tui/spokes/__init__.py:183
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:207
+#: pyanaconda/ui/tui/spokes/__init__.py:202
 msgid "You have provided an invalid value\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:320
+#: pyanaconda/ui/tui/spokes/__init__.py:315
 msgid "Password set."
 msgstr ""
 

@@ -318,6 +318,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 29 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.116-1
+- Allow nonstrict behaviour for all passwords in tui (vponcova)
+  Resolves: rhbz#1450326
+- Fix setting errors and warnings in the StorageCheckHandler (vponcova)
+  Resolves: rhbz#1453130
+- Mark post inst tools as disabled only if firstboot --disable is used
+  (mkolman)
+  Resolves: rhbz#1448940
+- Set the default filesystem type from a kickstart file (vponcova)
+  Resolves: rhbz#1449099
+
 * Wed May 24 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.115-1
 - Show a no network warning for network installation source. (vponcova)
   Related: rhbz#1418604
