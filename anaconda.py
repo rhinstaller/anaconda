@@ -577,9 +577,15 @@ if __name__ == "__main__":
     blivet.enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
-    from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
+    from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread, wait_for_connected_NM
 
     networkInitialize(ksdata)
+    # If required by user, wait for connection before starting the installation.
+    if opts.waitfornet:
+        log.info("network: waiting for connectivity requested by inst.waitfornet=%d", opts.waitfornet)
+        wait_for_connected_NM(timeout=opts.waitfornet)
+
+    # In any case do some actions only after NM finishes its connecting.
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
 
     # initialize the screen access manager before launching the UI
