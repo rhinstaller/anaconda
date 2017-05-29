@@ -286,16 +286,8 @@ class AutoPart(commands.autopart.RHEL7_AutoPart):
         if not self.autopart:
             return
 
-        if self.fstype:
-            try:
-                storage.setDefaultFSType(self.fstype)
-                storage.setDefaultBootFSType(self.fstype)
-            except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Settings default fstype to %s failed.") % self.fstype))
-
-        # sets up default autopartitioning.  use clearpart separately
-        # if you want it
+        # Sets up default autopartitioning. Use clearpart separately if you want it.
+        # The filesystem type is already set in the storage.
         refreshAutoSwapSize(storage)
         storage.doAutoPart = True
 
