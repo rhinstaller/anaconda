@@ -1538,36 +1538,50 @@ def _get_ntp_servers_from_dhcp(ksdata):
         # no NTP servers were specified, add those from DHCP
         ksdata.timezone.ntpservers = hostnames
 
-def _wait_for_connecting_NM():
-    """If NM is in connecting state, wait for connection.
+def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False):
+    """Wait for NM being connected.
 
-       :return: ``True`` NM has got connection otherwise ``False``
-       :rtype: bool
+    If only_connecting is set, wait only if NM is in connecting state and
+    return immediately after leaving this state (regardless of the new state).
+    Used to wait for dhcp configuration in progress.
+
+    :param timeout: timeout in seconds
+    :type timeout: int
+    :parm only_connecting: wait only for the result of NM being connecting
+    :type only_connecting: bool
+    :return: NM is connected
+    :rtype: bool
     """
 
     if nm.nm_is_connected():
         return True
 
-    if nm.nm_is_connecting():
-        log.debug("waiting for connecting NM (dhcp?)")
+    if only_connecting:
+        if nm.nm_is_connecting():
+            log.debug("network: waiting for connecting NM (dhcp in progress?), timeout=%d", timeout)
+        else:
+            return False
     else:
-        return False
+        log.debug("network: waiting for connected NM, timeout=%d", timeout)
 
     i = 0
-    while nm.nm_is_connecting() and i < constants.NETWORK_CONNECTION_TIMEOUT:
+    while i < timeout:
         i += constants.NETWORK_CONNECTED_CHECK_INTERVAL
         time.sleep(constants.NETWORK_CONNECTED_CHECK_INTERVAL)
         if nm.nm_is_connected():
-            log.debug("connected, waited %d seconds", i)
+            log.debug("network: NM connected, waited %d seconds", i)
             return True
+        elif only_connecting:
+            if not nm.nm_is_connecting():
+                break
 
-    log.debug("not connected, waited %d of %d secs", i, constants.NETWORK_CONNECTION_TIMEOUT)
+    log.debug("network: NM not connected, waited %d seconds", i)
     return False
 
 def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEOUT):
     devices = set(devices)
     i = 0
-    log.debug("waiting for connection of devices %s for iscsi", devices)
+    log.debug("network: waiting for connection of devices %s for iscsi", devices)
     while i < timeout:
         if not devices - set(nm.nm_activated_devices()):
             return True
@@ -1576,10 +1590,14 @@ def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEO
     return False
 
 def wait_for_connecting_NM_thread(ksdata):
-    """This function is called from a thread which is run at startup
-    to wait for Network Manager to connect."""
-    # connection (e.g. auto default dhcp) is activated by NM service
-    connected = _wait_for_connecting_NM()
+    """Wait for connecting NM in thread, do some work and signal connectivity.
+
+    This function is called from a thread which is run at startup to wait for
+    NetworkManager being in connecting state (eg getting IP from DHCP). When NM
+    leaves connecting state do some actions and signal new state if NM becomes
+    connected.
+    """
+    connected = wait_for_connected_NM(only_connecting=True)
     if connected:
         _get_ntp_servers_from_dhcp(ksdata)
     with network_connected_condition:
