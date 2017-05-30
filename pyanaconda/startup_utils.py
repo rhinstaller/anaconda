@@ -19,8 +19,8 @@
 #
 from pyanaconda.i18n import _
 
-import logging
-stdout_log = logging.getLogger("anaconda.stdout")
+from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, get_packaging_logger
+stdout_log = get_stdout_logger()
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -237,9 +237,9 @@ def setup_logging_from_options(options):
         level = anaconda_logging.logLevelMap[options.loglevel]
         anaconda_logging.logger.loglevel = level
         anaconda_logging.setHandlersLevel(log, level)
-        storage_log = logging.getLogger("storage")
+        storage_log = get_storage_logger()
         anaconda_logging.setHandlersLevel(storage_log, level)
-        packaging_log = logging.getLogger("packaging")
+        packaging_log = get_packaging_logger()
         anaconda_logging.setHandlersLevel(packaging_log, level)
 
     if can_touch_runtime_system("syslog setup"):

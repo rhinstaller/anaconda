@@ -46,7 +46,7 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
 log = get_module_logger(__name__)
 
 sysconfigDir = "/etc/sysconfig"
@@ -66,12 +66,12 @@ def setup_ifcfg_log():
     # Setup special logging for ifcfg NM interface
     from pyanaconda import anaconda_logging
     global ifcfglog
-    logger = logging.getLogger("ifcfg")
+    logger = get_ifcfg_logger()
     logger.setLevel(logging.DEBUG)
     anaconda_logging.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
     anaconda_logging.logger.forwardToSyslog(logger)
 
-    ifcfglog = logging.getLogger("ifcfg")
+    ifcfglog = get_ifcfg_logger()
 
 def check_ip_address(address, version=None):
     """

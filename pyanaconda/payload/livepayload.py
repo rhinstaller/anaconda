@@ -44,8 +44,8 @@ from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
 
 from pyanaconda import iutil
 
-import logging
-log = logging.getLogger("packaging")
+from pyanaconda.anaconda_loggers import get_packaging_logger
+log = get_packaging_logger()
 
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.progress import progressQ

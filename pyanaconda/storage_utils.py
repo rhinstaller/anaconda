@@ -48,7 +48,7 @@ from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
 import logging
 
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 log = get_module_logger(__name__)
 
 # TODO: all those constants and mappings should go to blivet
@@ -139,7 +139,7 @@ class UIStorageFilter(logging.Filter):
 def ui_storage_logger():
     """Context manager that applies the UIStorageFilter for its block"""
 
-    storage_log = logging.getLogger("blivet")
+    storage_log = get_blivet_logger()
     storage_filter = UIStorageFilter()
     storage_log.addFilter(storage_filter)
     yield

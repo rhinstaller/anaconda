@@ -79,14 +79,13 @@ from pykickstart.sections import NullSection, PackageSection, PostScriptSection,
                                  OnErrorScriptSection, TracebackScriptSection
 from pykickstart.version import returnClassForVersion
 
-import logging
 from pyanaconda import anaconda_logging
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_stderr_logger, get_blivet_logger
 log = get_module_logger(__name__)
 
-stderrLog = logging.getLogger("anaconda.stderr")
-stdoutLog = logging.getLogger("anaconda.stdout")
-storage_log = logging.getLogger("blivet")
+stderrLog = get_stderr_logger()
+stdoutLog = get_stdout_logger()
+storage_log = get_blivet_logger()
 
 # kickstart parsing and kickstart script
 script_log = log.getChild("script")

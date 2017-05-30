@@ -291,16 +291,16 @@ if __name__ == "__main__":
         flags.dirInstall = True
 
     # Set up logging as early as possible.
-    import logging
     from pyanaconda import anaconda_logging
+    from pyanaconda import anaconda_loggers
     anaconda_logging.init()
     anaconda_logging.logger.setupVirtio()
 
     from pyanaconda import network
     network.setup_ifcfg_log()
 
-    log = logging.getLogger("anaconda.main")
-    stdout_log = logging.getLogger("anaconda.stdout")
+    log = anaconda_loggers.get_main_logger()
+    stdout_log = anaconda_loggers.get_stdout_logger()
 
     if os.geteuid() != 0:
         stdout_log.error("anaconda must be run as root.")

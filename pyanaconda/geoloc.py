@@ -110,11 +110,9 @@ import threading
 import time
 from pyanaconda import network
 
-import logging
-slog = logging.getLogger("sensitive-info")
-
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_sensitive_info_logger
 log = get_module_logger(__name__)
+slog = get_sensitive_info_logger()
 
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
