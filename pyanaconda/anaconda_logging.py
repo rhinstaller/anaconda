@@ -27,6 +27,7 @@ import warnings
 import wrapt
 
 from pyanaconda.flags import flags
+from pyanaconda import constants
 
 DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
@@ -181,7 +182,7 @@ class AnacondaLog:
         warnings.showwarning = self.showwarning
 
         # Create the storage logger.
-        storage_logger = logging.getLogger("blivet")
+        storage_logger = logging.getLogger(constants.LOGGER_BLIVET)
         storage_logger.propagate = False
         self.addFileHandler(STORAGE_LOG_FILE, storage_logger,
                             minLevel=logging.DEBUG)
@@ -197,7 +198,7 @@ class AnacondaLog:
         self.forwardToSyslog(storage_logger)
 
         # External program output log
-        program_logger = logging.getLogger("program")
+        program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
         program_logger.propagate = False
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
@@ -205,7 +206,7 @@ class AnacondaLog:
         self.forwardToSyslog(program_logger)
 
         # Create the packaging logger.
-        packaging_logger = logging.getLogger("packaging")
+        packaging_logger = logging.getLogger(constants.LOGGER_PACKAGING)
         packaging_logger.setLevel(logging.DEBUG)
         packaging_logger.propagate = False
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
@@ -214,7 +215,7 @@ class AnacondaLog:
         self.forwardToSyslog(packaging_logger)
 
         # Create the dnf logger and link it to packaging
-        dnf_logger = logging.getLogger("dnf")
+        dnf_logger = logging.getLogger(constants.LOGGER_DNF)
         dnf_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
@@ -224,7 +225,7 @@ class AnacondaLog:
         # * the sensitive-info.log file is not copied to the installed
         # system, as it might contain sensitive information that
         # should not be persistently stored by default
-        sensitive_logger = logging.getLogger("sensitive-info")
+        sensitive_logger = logging.getLogger(constants.LOGGER_SENSITIVE_INFO)
         sensitive_logger.propagate = False
         self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger,
                             minLevel=logging.DEBUG)
@@ -233,14 +234,14 @@ class AnacondaLog:
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
         # log.
-        stdout_logger = logging.getLogger("anaconda.stdout")
+        stdout_logger = logging.getLogger(constants.LOGGER_STDOUT)
         stdout_logger.setLevel(logging.INFO)
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
         self.addFileHandler(sys.stdout, stdout_logger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
         # Stderr logger
-        stderr_logger = logging.getLogger("anaconda.stderr")
+        stderr_logger = logging.getLogger(constants.LOGGER_STDERR)
         stderr_logger.setLevel(logging.INFO)
         self.addFileHandler(sys.stderr, stderr_logger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
