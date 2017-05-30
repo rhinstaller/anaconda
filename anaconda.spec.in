@@ -318,6 +318,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 30 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.117-1
+- Root checking fixes password for password from kickstart (mkolman)
+  Related: rhbz#1356966
+- Improve the GUI password checker (mkolman)
+  Related: rhbz#1356966
+- Respect changesok policy on root password spoke (mkolman)
+  Resolves: rhbz#1356966
+- Update translations of password checking strings (rvykydal)
+  Resolves: rhbz#1383911
+
 * Mon May 29 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.116-1
 - Allow nonstrict behaviour for all passwords in tui (vponcova)
   Resolves: rhbz#1450326
