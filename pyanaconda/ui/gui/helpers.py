@@ -52,6 +52,8 @@ class GUIInputCheckHandler(InputCheckHandler):
         super(GUIInputCheckHandler, self).__init__()
         self._policy = None
         self._input_enabled = True
+        self._initial_input = None
+        self._initial_input_confirmation = None
 
     @property
     def policy(self):
@@ -124,6 +126,42 @@ class GUIInputCheckHandler(InputCheckHandler):
         """
         pass
 
+    def inputs_about_to_be_displayed(self):
+        """Notify the checker that the input fields are about to be displayed.
+
+        This method should be called when input fields (the input and input confirmation)
+        are about to be displayed to the user. This can correspond to switching to a new spoke
+        or a passphrase dialog being displayed.
+        """
+        # record the initial content of the entry fields so that we can detect changes
+        # from the initial state
+        self._initial_input = self.input
+        self._initial_input_confirmation = self.input_confirmation
+
+    @property
+    def input_changed(self):
+        """Report if content of the input field changed compared to the initial state.
+
+        Initial state == state when the screen was entered & before the user could
+        influence the input field content.
+
+        Changing content of the field and then returning the field back to original state
+        is considered as not-changed.
+        """
+        return self.input != self._initial_input
+
+    @property
+    def initial_input_confirmation_changed(self):
+        """Report if content of the input confirmation field changed compared to the initial state.
+
+        Initial state == state when the screen was entered & before the user could
+        influence the input field content.
+
+        Changing content of the field and then returning the field back to original state
+        is considered as not-changed.
+        """
+        return self.input_confirmation != self._initial_input_confirmation
+
     @property
     def name_of_input(self):
         """Name of the input to be used called in warnings and error messages.
@@ -179,7 +217,7 @@ class GUIInputCheckHandler(InputCheckHandler):
     def check_password_confirm(self, inputcheck):
         """If the user has entered confirmation data, check whether it matches the password."""
         # Skip the check if no password is required
-        if (not self.input_enabled) or self.input_kickstarted:
+        if not self.input_enabled or self.input_kickstarted and not self.policy.changesok:
             result = InputCheck.CHECK_OK
         elif self.input != self.input_confirmation:
             result = _(constants.PASSWORD_CONFIRM_ERROR_GUI) % {"passwords": self.name_of_input_plural}
@@ -217,7 +255,7 @@ class GUIInputCheckHandler(InputCheckHandler):
         self.set_input_status(result.status_text)
 
         # Skip the check if no password is required
-        if not self.input_enabled or self.input_kickstarted:
+        if not self.input_enabled or self.input_kickstarted and not self.policy.changesok:
             return InputCheck.CHECK_OK
 
         # pylint: disable=no-member
@@ -397,12 +435,9 @@ class GUISpokePasswordCheckHandler(GUISpokeInputCheckHandler):
         """
         # If the password was set by kickstart, skip the check.
         # pylint: disable=no-member
-        if self.input_kickstarted and not self.policy.changesok:
+        if not self.input_enabled or self.input_kickstarted and not self.policy.changesok:
             return InputCheck.CHECK_OK
 
-        # Skip the check if no password is required
-        if (not self.input_enabled) or self.input_kickstarted:
-            return InputCheck.CHECK_OK
         # Also skip the check if the policy says that an empty password is fine
         # and non-empty password is not required by the screen.
         # pylint: disable=no-member
