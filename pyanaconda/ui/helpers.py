@@ -89,8 +89,10 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
 
         report = storage_checker.check(self.storage)
-        self.errors = report.errors
-        self.warnings = report.warnings
+        # Storage spoke and custom spoke communicate errors via StorageCheckHandler,
+        # so we need to set errors and warnings class attributes here.
+        StorageCheckHandler.errors = report.errors
+        StorageCheckHandler.warnings = report.warnings
 
         hubQ.send_ready(self._mainSpokeClass, True)
         report.log(self.log)
