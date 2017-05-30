@@ -537,7 +537,7 @@ class DNFPayload(payload.PackagePayload):
         librepo.log_set_file(DNF_LIBREPO_LOG)
 
         # Increase dnf log level to custom DDEBUG level
-        # Do this here to prevent import side-effects in anaconda_log
+        # Do this here to prevent import side-effects in anaconda_logging
         dnf_logger = logging.getLogger("dnf")
         dnf_logger.setLevel(dnf.logging.DDEBUG)
 

@@ -59,7 +59,7 @@ import logging
 log = logging.getLogger("anaconda")
 program_log = logging.getLogger("program")
 
-from pyanaconda.anaconda_log import program_log_lock
+from pyanaconda.anaconda_logging import program_log_lock
 
 from pykickstart.constants import KS_SCRIPT_ONERROR
 

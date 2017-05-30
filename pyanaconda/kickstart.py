@@ -84,7 +84,7 @@ log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
-from pyanaconda import anaconda_log
+from pyanaconda import anaconda_logging
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -1097,19 +1097,19 @@ class LogVolData(commands.logvol.F23_LogVolData):
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, *args):
-        if anaconda_log.logger.loglevel == anaconda_log.DEFAULT_LEVEL:
+        if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
             # not set from the command line
-            level = anaconda_log.logLevelMap[self.level]
-            anaconda_log.logger.loglevel = level
-            anaconda_log.setHandlersLevel(log, level)
-            anaconda_log.setHandlersLevel(storage_log, level)
+            level = anaconda_logging.logLevelMap[self.level]
+            anaconda_logging.logger.loglevel = level
+            anaconda_logging.setHandlersLevel(anaconda_logging, level)
+            anaconda_logging.setHandlersLevel(storage_log, level)
 
-        if anaconda_log.logger.remote_syslog is None and len(self.host) > 0:
+        if anaconda_logging.logger.remote_syslog is None and len(self.host) > 0:
             # not set from the command line, ok to use kickstart
             remote_server = self.host
             if self.port:
                 remote_server = "%s:%s" % (self.host, self.port)
-            anaconda_log.logger.updateRemote(remote_server)
+            anaconda_logging.logger.updateRemote(remote_server)
 
 class Network(commands.network.F25_Network):
     def __init__(self, *args, **kwargs):

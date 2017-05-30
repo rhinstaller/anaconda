@@ -39,8 +39,8 @@ from blivet.size import Size
 from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
-    from pyanaconda import anaconda_log
-    anaconda_log.init()
+    from pyanaconda import anaconda_logging
+    anaconda_logging.init()
 
 from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
 from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD

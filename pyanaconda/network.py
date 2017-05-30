@@ -63,12 +63,12 @@ network_connected_condition = threading.Condition()
 
 def setup_ifcfg_log():
     # Setup special logging for ifcfg NM interface
-    from pyanaconda import anaconda_log
+    from pyanaconda import anaconda_logging
     global ifcfglog
     logger = logging.getLogger("ifcfg")
     logger.setLevel(logging.DEBUG)
-    anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-    anaconda_log.logger.forwardToSyslog(logger)
+    anaconda_logging.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
+    anaconda_logging.logger.forwardToSyslog(logger)
 
     ifcfglog = logging.getLogger("ifcfg")
 

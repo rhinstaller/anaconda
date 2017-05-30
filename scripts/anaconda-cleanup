@@ -35,8 +35,8 @@ for dev in os.listdir(sys_class_block):
 from pyanaconda.flags import flags
 flags.imageInstall = True
 
-import pyanaconda.anaconda_log
-pyanaconda.anaconda_log.init()
+import pyanaconda.anaconda_logging
+pyanaconda.anaconda_logging.init()
 
 from blivet.blivet import StorageDiscoveryConfig
 from blivet.devicetree import DeviceTree

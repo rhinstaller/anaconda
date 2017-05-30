@@ -292,9 +292,9 @@ if __name__ == "__main__":
 
     # Set up logging as early as possible.
     import logging
-    from pyanaconda import anaconda_log
-    anaconda_log.init()
-    anaconda_log.logger.setupVirtio()
+    from pyanaconda import anaconda_logging
+    anaconda_logging.init()
+    anaconda_logging.logger.setupVirtio()
 
     from pyanaconda import network
     network.setup_ifcfg_log()

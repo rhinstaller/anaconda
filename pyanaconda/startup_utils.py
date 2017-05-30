@@ -32,7 +32,7 @@ from pyanaconda import iutil
 from pyanaconda import product
 from pyanaconda import constants
 from pyanaconda import geoloc
-from pyanaconda import anaconda_log
+from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
@@ -230,25 +230,25 @@ def setup_logging_from_options(options):
         # debugging means debug logging if an explicit level hasn't been st
         options.loglevel = "debug"
 
-    if options.loglevel and options.loglevel in anaconda_log.logLevelMap:
+    if options.loglevel and options.loglevel in anaconda_logging.logLevelMap:
         log.info("Switching logging level to %s", options.loglevel)
-        level = anaconda_log.logLevelMap[options.loglevel]
-        anaconda_log.logger.loglevel = level
-        anaconda_log.setHandlersLevel(log, level)
+        level = anaconda_logging.logLevelMap[options.loglevel]
+        anaconda_logging.logger.loglevel = level
+        anaconda_logging.setHandlersLevel(log, level)
         storage_log = logging.getLogger("storage")
-        anaconda_log.setHandlersLevel(storage_log, level)
+        anaconda_logging.setHandlersLevel(storage_log, level)
         packaging_log = logging.getLogger("packaging")
-        anaconda_log.setHandlersLevel(packaging_log, level)
+        anaconda_logging.setHandlersLevel(packaging_log, level)
 
     if can_touch_runtime_system("syslog setup"):
         if options.syslog:
-            anaconda_log.logger.updateRemote(options.syslog)
+            anaconda_logging.logger.updateRemote(options.syslog)
 
     if options.remotelog:
         try:
             host, port = options.remotelog.split(":", 1)
             port = int(port)
-            anaconda_log.logger.setup_remotelog(host, port)
+            anaconda_logging.logger.setup_remotelog(host, port)
         except ValueError:
             log.error("Could not setup remotelog with %s", options.remotelog)
 
