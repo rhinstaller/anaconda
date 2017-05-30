@@ -214,24 +214,39 @@ class RPMOSTreePayload(ArchivePayload):
         mainctx.pop_thread_default()
 
     def prepareMountTargets(self, storage):
+        """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
         varroot = iutil.getTargetPhysicalRoot() + '/ostree/deploy/' + ostreesetup.osname + '/var'
 
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
-        self._binds = [(iutil.getTargetPhysicalRoot(),
-                  iutil.getSysroot() + '/sysroot'),
-                 (varroot,
-                  iutil.getSysroot() + '/var'),
-                 (iutil.getSysroot() + '/usr', None)]
+        self._binds = [(iutil.getSysroot() + '/usr', None),
+                       (iutil.getTargetPhysicalRoot(), iutil.getSysroot() + "/sysroot"),
+                       (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
+
+        # https://github.com/ostreedev/ostree/issues/855
+        if storage.mountpoints.get("/var") is None:
+            binds.append((varroot, iutil.getSysroot() + '/var'))
+
+        # Bind mount filesystems from /mnt/sysimage to the ostree root; perhaps
+        # in the future consider `mount --move` to make the output of `findmnt`
+        # not induce blindness.
+        for path in ["/dev", "/proc", "/run", "/sys"]:
+            self._binds += [(iutil.getTargetPhysicalRoot()+path, iutil.getSysroot()+path)]
 
         for (src, dest) in self._binds:
-            self._safeExecWithRedirect("mount",
-                                       ["--bind", src, dest if dest else src])
-            if dest is None:
+            is_ro_bind = dest is None
+            if is_ro_bind:
                 self._safeExecWithRedirect("mount",
-                                           ["--bind", "-o", "ro", src, src])
+                                           ["--bind", src, src])
+                self._safeExecWithRedirect("mount",
+                                           ["--bind", "-o", "remount,ro", src, src])
+            else:
+                # Recurse for non-ro binds so we pick up sub-mounts
+                # like /sys/firmware/efi/efivars.
+                self._safeExecWithRedirect("mount",
+                                           ["--rbind", src, dest])
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
@@ -286,14 +301,15 @@ class RPMOSTreePayload(ArchivePayload):
             os.rename(boot_grub2_cfg, target_grub_cfg)
             os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
-
-        # OSTree owns the bootloader configuration, so here we give it
-        # the argument list we computed from storage, architecture and
-        # such.
-        set_kargs_args = ["admin", "instutil", "set-kargs"]
-        set_kargs_args.extend(self.storage.bootloader.boot_args)
-        set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
-        self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
+        # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
+        if not flags.dirInstall:
+            # OSTree owns the bootloader configuration, so here we give it
+            # the argument list we computed from storage, architecture and
+            # such.
+            set_kargs_args = ["admin", "instutil", "set-kargs"]
+            set_kargs_args.extend(self.storage.bootloader.boot_args)
+            set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
+            self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
 
     def preShutdown(self):
         # A crude hack for 7.2; forcibly recursively unmount

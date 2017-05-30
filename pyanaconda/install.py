@@ -251,27 +251,10 @@ def doInstall(storage, payload, ksdata, instClass):
 
     if write_storage_late and not flags.flags.dirInstall:
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
-            blivet.setSysroot(iutil.getTargetPhysicalRoot(),
-                              iutil.getSysroot())
-
-            # Now that we have the FS layout in the target, umount
-            # things that were in the legacy sysroot, and put them in
-            # the target root, except for the physical /.  First,
-            # unmount all target filesystems.
-            storage.umountFilesystems()
-
-            # Explicitly mount the root on the physical sysroot
-            rootmnt = storage.mountpoints.get('/')
-            rootmnt.setup()
-            rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
-
-            payload.prepareMountTargets(storage)
-
-            # Everything else goes in the target root, including /boot
-            # since the bootloader code will expect to find /boot
-            # inside the chroot.
-            storage.mountFilesystems(skipRoot=True)
-        storage.write()
+            blivet.setSysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
+            payload.prepareMountTargets(self.storage)
+        if not flags.dirInstall:
+            storage.write()
 
     # Do bootloader.
     if willInstallBootloader:
