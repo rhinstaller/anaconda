@@ -78,7 +78,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 continue
             if network.is_ibft_configured_device(name):
                 continue
-            if nm.nm_device_type_is_ethernet(name):
+            if network.device_type_is_supported_wired(name):
                 # ignore slaves
                 try:
                     if nm.nm_device_setting_value(name, "connection", "slave-type"):
