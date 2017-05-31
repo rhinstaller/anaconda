@@ -363,9 +363,7 @@ def dumpMissingDefaultIfcfgs():
     rv = []
 
     for devname in nm.nm_devices():
-        # for each ethernet device
-        # FIXME add more types (infiniband, bond...?)
-        if not nm.nm_device_type_is_ethernet(devname):
+        if not device_type_is_supported_wired(devname):
             continue
 
         if find_ifcfg_file_of_device(devname):
@@ -817,7 +815,7 @@ def ksdata_from_ifcfg(devname, uuid=None):
         return None
 
     if devname in nm.nm_devices():
-        if nm.nm_device_type_is_ethernet(devname):
+        if device_type_is_supported_wired(devname):
             nd.device = devname
         elif nm.nm_device_type_is_wifi(devname):
             nm.device = ""
@@ -1653,7 +1651,7 @@ def status_message():
 
             if len(nonslaves) == 1:
                 devname = nonslaves[0]
-                if nm.nm_device_type_is_ethernet(devname):
+                if device_type_is_supported_wired(devname):
                     msg = _("Wired (%(interface_name)s) connected") \
                           % {"interface_name": devname}
                 elif nm.nm_device_type_is_wifi(devname):
@@ -1683,7 +1681,7 @@ def status_message():
             elif len(nonslaves) > 1:
                 devlist = []
                 for devname in nonslaves:
-                    if nm.nm_device_type_is_ethernet(devname):
+                    if device_type_is_supported_wired(devname):
                         devlist.append("%s" % devname)
                     elif nm.nm_device_type_is_wifi(devname):
                         devlist.append("%s" % ssids[devname])
@@ -1803,3 +1801,6 @@ def is_libvirt_device(iface):
 
 def is_ibft_configured_device(iface):
     return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
+
+def device_type_is_supported_wired(name):
+    return nm.nm_device_type_is_ethernet(name) or nm.nm_device_type_is_infiniband(name)
