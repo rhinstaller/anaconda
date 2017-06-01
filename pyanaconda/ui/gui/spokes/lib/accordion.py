@@ -33,8 +33,8 @@ gi.require_version("Gtk", "3.0")
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
            "new_selector_from_device", "update_selector_from_device",
@@ -485,9 +485,6 @@ class Page(BasePage):
 
 
 class UnknownPage(BasePage):
-    def __init__(self, title):
-        # For this type of page, there's only one place to store members.
-        super().__init__(title)
 
     def add_selector(self, device, cb, mountpoint=""):
         accordion = self.get_ancestor(Accordion)

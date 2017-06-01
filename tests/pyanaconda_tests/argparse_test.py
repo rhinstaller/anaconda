@@ -17,14 +17,14 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda import anaconda_argparse
+from pyanaconda import argument_parsing
 from pyanaconda.flags import BootArgs
 from pyanaconda.constants import DisplayModes
 import unittest
 
 class ArgparseTest(unittest.TestCase):
     def _parseCmdline(self, argv, version="", boot_cmdline=None):
-        ap = anaconda_argparse.getArgumentParser(version, boot_cmdline)
+        ap = argument_parsing.getArgumentParser(version, boot_cmdline)
         opts = ap.parse_args(argv, boot_cmdline=boot_cmdline)
         return (opts, ap.deprecated_bootargs)
 

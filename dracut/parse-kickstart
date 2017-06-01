@@ -168,13 +168,14 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
         return "\n".join(dd_args)
 
 class Network(commands.network.F25_Network, DracutArgsMixin):
-    def dracut_args(self, args, lineno, net):
+    def dracut_args(self, args, lineno, obj):
         '''
         NOTE: The first 'network' line get special treatment:
             * '--activate' is always enabled
             * '--device' is optional (defaults to the 'ksdevice=' boot arg)
             * the device gets brought online in initramfs
         '''
+        net = obj
         netline = None
 
         # Setting only hostname in kickstart

@@ -1,5 +1,5 @@
 #
-# anaconda_argparse.py: option parsing for anaconda (CLI and boot args)
+# argument_parsing.py: option parsing for anaconda (CLI and boot args)
 #
 # Copyright (C) 2012 Red Hat, Inc.  All rights reserved.
 #
@@ -33,8 +33,8 @@ from pyanaconda.flags import flags as flags_instance
 
 from pyanaconda.constants import DisplayModes
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 # Help text formatting constants
 
@@ -403,6 +403,23 @@ def getArgumentParser(version_string, boot_cmdline=None):
 
     # Network
     ap.add_argument("--proxy", metavar='PROXY_URL', help=help_parser.help_text("proxy"))
+
+    class SetWaitfornet(Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            value = None
+            try:
+                ivalue = int(values)
+            except ValueError:
+                pass
+            else:
+                if ivalue > 0:
+                    value = ivalue
+            if value is None:
+                value = 0
+            setattr(namespace, self.dest, value)
+
+    ap.add_argument("--waitfornet", dest="waitfornet", metavar="TIMEOUT_IN_SECONDS",
+                    action=SetWaitfornet, help=help_parser.help_text("waitfornet"))
 
     # Method of operation
     ap.add_argument("-d", "--debug", dest="debug", action="store_true",

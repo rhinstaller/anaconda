@@ -25,8 +25,8 @@ from pyanaconda.localization import find_best_locale_match
 from pyanaconda.constants import DEFAULT_LANG
 from pyanaconda.iutil import startProgram
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 yelp_process = None
 

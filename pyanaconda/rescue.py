@@ -23,7 +23,7 @@ from blivet.osinstall import mount_existing_system, find_existing_installations
 from pyanaconda import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
@@ -38,8 +38,8 @@ import os
 import shutil
 import time
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["RescueMode", "RootSpoke", "RescueMountSpoke"]
 

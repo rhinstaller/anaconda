@@ -53,8 +53,8 @@ from uuid import uuid4
 from dbus.mainloop.glib import DBusGMainLoop
 DBusGMainLoop(set_as_default=True)
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 NM._80211ApFlags = getattr(NM, "80211ApFlags")
 NM._80211ApSecurityFlags = getattr(NM, "80211ApSecurityFlags")
@@ -390,42 +390,42 @@ class NetworkControlBox(GObject.GObject):
     def add_connection_to_list(self, con):
         uuid = con.get_uuid()
         if self.dev_cfg(uuid=uuid):
-            log.debug("network: GUI, not adding connection %s, already in list", uuid)
+            log.debug("not adding connection %s, already in list", uuid)
             return False
         con_setting = con.get_setting_connection()
         if con_setting and con_setting.get_read_only():
-            log.debug("network: GUI, not adding read-only connection %s", uuid)
+            log.debug("not adding read-only connection %s", uuid)
             return False
         dev_cfg = DeviceConfiguration(con=con)
         if network.is_libvirt_device(dev_cfg.get_iface() or ""):
-            log.debug("network: GUI, not adding %s", dev_cfg.get_iface())
+            log.debug("not adding %s", dev_cfg.get_iface())
             return False
         if network.is_ibft_configured_device(dev_cfg.get_iface() or ""):
-            log.debug("network: GUI, not adding %s configured from iBFT", dev_cfg.get_iface())
+            log.debug("not adding %s configured from iBFT", dev_cfg.get_iface())
             return False
         if dev_cfg.get_device_type() not in self.supported_device_types:
-            log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
+            log.debug("not adding connection %s of unsupported type", uuid)
             return False
         if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
             if con_setting and con_setting.get_master():
-                log.debug("network: GUI, not adding slave connection %s", uuid)
+                log.debug("not adding slave connection %s", uuid)
                 return False
         # Wireless settings are handled in scope of its device's dev_cfg
         if dev_cfg.get_device_type() == NM.DeviceType.WIFI:
-            log.debug("network: GUI, not adding wireless connection %s", uuid)
+            log.debug("not adding wireless connection %s", uuid)
             return False
         existing_dev_cfg = self.dev_cfg(iface=dev_cfg.get_iface())
         if existing_dev_cfg:
             if existing_dev_cfg.con:
-                log.debug("network: GUI, not adding connection %s, already have %s for device %s",
+                log.debug("not adding connection %s, already have %s for device %s",
                           uuid, existing_dev_cfg.get_uuid(), existing_dev_cfg.device.get_iface())
                 return False
             else:
-                log.debug("network: GUI, attaching connection %s to device %s",
+                log.debug("attaching connection %s to device %s",
                           uuid, existing_dev_cfg.device.get_iface())
                 existing_dev_cfg.con = con
         else:
-            log.debug("network: GUI, adding connection %s", uuid)
+            log.debug("adding connection %s", uuid)
             self.add_dev_cfg(dev_cfg)
         return True
 
@@ -491,7 +491,7 @@ class NetworkControlBox(GObject.GObject):
         ap, ssid_target = combobox.get_model().get(itr, 0, 1)
         self.selected_ap = ap
 
-        log.info("network: selected access point: %s", ssid_target)
+        log.info("selected access point: %s", ssid_target)
 
         cons = ap.filter_connections(device.filter_connections(self.client.get_connections()))
         if cons:
@@ -508,7 +508,7 @@ class NetworkControlBox(GObject.GObject):
                 s_wireless = NM.SettingWireless.new()
                 s_wireless.set_property('ssid', ap.get_ssid())
                 s_wireless.set_property('mode', 'infrastructure')
-                log.debug("network: adding connection for WPA-Enterprise AP %s", ssid_target)
+                log.debug("adding connection for WPA-Enterprise AP %s", ssid_target)
                 con.add_setting(s_con)
                 con.add_setting(s_wireless)
                 persistent = True
@@ -561,7 +561,7 @@ class NetworkControlBox(GObject.GObject):
             ssid = self.selected_ap.get_ssid().get_data()
             con = self._find_first_ap_setting(device, self.selected_ap)
             if not con:
-                log.debug("network: on_edit_connection: connection for ap %s not found", self.selected_ap)
+                log.debug("on_edit_connection: connection for ap %s not found", self.selected_ap)
                 return
             # 871132 auto activate wireless connection after editing if it is not
             # already activated (assume entering secrets)
@@ -569,12 +569,12 @@ class NetworkControlBox(GObject.GObject):
             activate = (con, device, condition)
         else:
             if not con:
-                log.debug("network: on_edit_connection: connection for device %s not found", device.get_iface())
+                log.debug("on_edit_connection: connection for device %s not found", device.get_iface())
                 if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
                     # Create default connection for the device and run nm-c-e on it
                     default_con = self._default_eth_con(device.get_iface(), autoconnect=False)
                     persistent = False
-                    log.info("network: creating new connection for %s device", dev_cfg.get_iface())
+                    log.info("creating new connection for %s device", dev_cfg.get_iface())
                     self.client.add_connection_async(default_con, persistent, None,
                             self._default_connection_added_cb, activate)
                 return
@@ -585,14 +585,14 @@ class NetworkControlBox(GObject.GObject):
                 settings_changed = lambda: settings != con.to_dbus(NM.ConnectionSerializationFlags.ALL)
                 activate = (con, device, settings_changed)
 
-        log.info("network: configuring connection %s device %s ssid %s",
+        log.info("configuring connection %s device %s ssid %s",
                  con.get_uuid(), dev_cfg.get_iface(), ssid)
         self._run_nmce(con.get_uuid(), activate)
 
     def _default_connection_added_cb(self, client, result, activate):
         con = client.add_connection_finish(result)
         uuid = con.get_setting_connection().get_uuid()
-        log.info("network: configuring new connection %s", uuid)
+        log.info("configuring new connection %s", uuid)
         self._run_nmce(uuid, activate)
 
     def _run_nmce(self, uuid, activate):
@@ -619,7 +619,7 @@ class NetworkControlBox(GObject.GObject):
         if not self._running_nmce:
             return False
 
-        log.debug("network: killing running nm-c-e %s: %s", self._running_nmce.pid, msg)
+        log.debug("killing running nm-c-e %s: %s", self._running_nmce.pid, msg)
         self._running_nmce.kill()
         self._running_nmce = None
         return True
@@ -660,21 +660,21 @@ class NetworkControlBox(GObject.GObject):
         device = dev_cfg.device
         con = dev_cfg.con
 
-        log.info("network: device %s switched %s", dev_cfg.get_iface(), "on" if active else "off")
+        log.info("device %s switched %s", dev_cfg.get_iface(), "on" if active else "off")
 
         if dev_cfg.get_device_type() == NM.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
         else:
             if active:
                 if not con:
-                    log.debug("network: on_device_off_toggled: no connection for %s",
+                    log.debug("on_device_off_toggled: no connection for %s",
                                dev_cfg.get_iface())
                     return
 
                 self.client.activate_connection_async(con, device, None, None)
             else:
                 if not device:
-                    log.debug("network: on_device_off_toggled: no device for %s", dev_cfg.get_iface())
+                    log.debug("on_device_off_toggled: no device for %s", dev_cfg.get_iface())
                     return
                 device.disconnect(None)
 
@@ -706,7 +706,7 @@ class NetworkControlBox(GObject.GObject):
         self.emit("apply-hostname")
 
     def add_device(self, ty):
-        log.info("network: adding device of type %s", ty)
+        log.info("adding device of type %s", ty)
         self.kill_nmce(msg="Add device button clicked")
         proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty], reset_lang=False)
         self._running_nmce = proc
@@ -721,7 +721,7 @@ class NetworkControlBox(GObject.GObject):
         return model[itr][DEVICES_COLUMN_OBJECT]
 
     def add_dev_cfg(self, dev_cfg):
-        log.debug("network: GUI, device configuration added: connection %s device %s",
+        log.debug("device configuration added: connection %s device %s",
                      dev_cfg.get_uuid(), dev_cfg.get_iface())
         self.dev_cfg_store.append([
             self._dev_icon_name(dev_cfg),
@@ -734,14 +734,14 @@ class NetworkControlBox(GObject.GObject):
         if device.get_device_type() not in self.supported_device_types:
             return
         if network.is_libvirt_device(device.get_iface()):
-            log.debug("network: not adding %s", device.get_iface())
+            log.debug("not adding %s", device.get_iface())
             return
         # ignore fcoe vlan devices
         # (can be chopped off to IFNAMSIZ kernel limit)
         if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
         if network.is_ibft_configured_device(device.get_iface() or ""):
-            log.debug("network: not adding connection for device %s configured from iBFT", device.get_iface())
+            log.debug("not adding connection for device %s configured from iBFT", device.get_iface())
             return False
 
         # Ignore devices with active read-only connections (created by NM for iBFT VLAN)
@@ -752,11 +752,11 @@ class NetworkControlBox(GObject.GObject):
             if rc:
                 con_setting = rc.get_setting_connection()
                 if con_setting and con_setting.get_read_only():
-                    log.debug("network: not adding read-only connection "
+                    log.debug("not adding read-only connection "
                               "(assuming iBFT) for device %s", device.get_iface())
                     return
                 else:
-                    log.debug("network: can't get remote connection of active connection "
+                    log.debug("can't get remote connection of active connection "
                             "of device %s", device.get_iface())
 
         # Find the connection for the device (assuming existence of single ifcfg actually)
@@ -764,12 +764,21 @@ class NetworkControlBox(GObject.GObject):
         # Wifi connections are stored in wifi tab combobox
         if device.get_device_type() != NM.DeviceType.WIFI:
             cons = device.get_available_connections()
+            ifcfg_uuid = None
+            if not cons:
+                log.debug("no connection when adding device %s", device.get_iface())
+            if len(cons) > 1:
+                log.debug("%s has multiple connections: %s",
+                          device.get_iface(), [c.get_uuid() for c in cons])
+                # Can happen when activating device in initramfs and reconfiguring it via kickstart
+                # without activation.
+                # Expose the ifcfg (target system) configuration in UI.
+                ifcfg_uuid = network.find_ifcfg_uuid_of_device(device.get_iface())
+
             for c in cons:
                 if c.get_setting_connection() and not c.get_setting_connection().get_slave_type():
-                    con = c
-            if len(cons) != 1:
-                log.warning("network: %s has unexpected number of connections: %s",
-                             device.get_iface(), [c.get_uuid() for c in cons])
+                    if not ifcfg_uuid or c.get_uuid() == ifcfg_uuid:
+                        con = c
 
         if con and self.dev_cfg(uuid=con.get_uuid()):
             # If we already have a connection for the device
@@ -790,7 +799,7 @@ class NetworkControlBox(GObject.GObject):
         Register callback on properties (IP address, gateway...) of these ipX-config
         objects when they are created.
         """
-        log.debug("network: %s object changed", args[1])
+        log.debug("%s object changed", args[1])
         self.on_device_config_changed(device)
         if args[1] == IPV4_CONFIG:
             config = device.props.ip4_config
@@ -866,7 +875,7 @@ class NetworkControlBox(GObject.GObject):
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        log.debug("network: GUI, device removed: %s", device.get_iface())
+        log.debug("device removed: %s", device.get_iface())
         if self.spoke:
             self.spoke.networking_changed = True
         dev_cfg = self.dev_cfg(device=device)
@@ -1269,7 +1278,7 @@ def _try_disconnect(obj, callback):
         obj.disconnect_by_func(callback)
     except TypeError as e:
         if not "nothing connected" in str(e):
-            log.debug("network: %s", e)
+            log.debug("%s", e)
 
 class SecretAgentDialog(GUIObject):
     builderObjects = ["secret_agent_dialog"]
@@ -1359,7 +1368,7 @@ class SecretAgent(dbus.service.Object):
         if uid != 0:
             raise NotAuthorizedException("UID %d not authorized" % uid)
 
-        log.debug("network: secrets requested path '%s' setting '%s' hints '%s' new %d",
+        log.debug("secrets requested path '%s' setting '%s' hints '%s' new %d",
                   connection_path, setting_name, str(hints), flags)
         if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
             return
@@ -1512,7 +1521,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
-        log.debug("network: apply ksdata %s", self.data.network)
+        log.debug("apply ksdata %s", self.data.network)
 
         # if installation media or hdd aren't used and settings have changed
         # try if source is available
@@ -1657,7 +1666,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
 
-        log.debug("network: apply ksdata %s", self.data.network)
+        log.debug("apply ksdata %s", self.data.network)
 
         self._now_available = self.completed
 

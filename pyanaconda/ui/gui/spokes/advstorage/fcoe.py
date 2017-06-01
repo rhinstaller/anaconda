@@ -20,7 +20,7 @@
 from blivet.fcoe import fcoe
 
 from pyanaconda import constants
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait
 from pyanaconda.storage_utils import try_populate_devicetree

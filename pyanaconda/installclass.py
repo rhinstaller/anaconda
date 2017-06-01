@@ -30,8 +30,8 @@ from blivet.autopart import swap_suggestion
 from blivet.platform import platform
 from blivet.size import Size
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.constants import STORAGE_SWAP_IS_RECOMMENDED

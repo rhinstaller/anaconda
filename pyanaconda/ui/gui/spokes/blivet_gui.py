@@ -36,8 +36,8 @@ from pyanaconda.bootloader import BootLoaderError
 from blivetgui import osinstall
 from blivetgui.config import config
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 # export only the spoke, no helper functions, classes or constants
 __all__ = ["BlivetGuiSpoke"]

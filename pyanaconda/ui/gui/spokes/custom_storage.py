@@ -38,7 +38,7 @@ from pykickstart.constants import CLEARPART_TYPE_NONE
 
 from pyanaconda.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
-from pyanaconda.threads import AnacondaThread, threadMgr
+from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
 from pyanaconda.constants import SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS
 from pyanaconda.iutil import lowerASCII
@@ -99,8 +99,8 @@ from pyanaconda.ui.categories.system import SystemCategory
 from functools import wraps
 from itertools import chain
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["CustomPartitioningSpoke"]
 
@@ -146,7 +146,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                       "addImage", "removeImage", "settingsImage",
                       "mountPointCompletion", "mountPointStore", "fileSystemStore"]
     mainWidgetName = "customStorageWindow"
-    uiFile = "spokes/custom.glade"
+    uiFile = "spokes/custom_storage.glade"
     helpFile = "CustomSpoke.xml"
 
     category = SystemCategory

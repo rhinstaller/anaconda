@@ -303,6 +303,17 @@ Set the DHCP vendor class identifier [#dhcpd]_. Defaults to ``anaconda-$(uname -
 
 .. [#dhcpd] ISC ``dhcpd`` will see this value as "option vendor-class-identifier".
 
+.. inst.waitfornet:
+
+inst.waitfornet
+^^^^^^^^^^^^^^^
+
+``inst.waitfornet=<TIMEOUT_IN_SECONDS>``
+    Wait for network connectivity at the beginning of the second stage of
+    installation (after switchroot from early initramfs stage when the installer
+    process is run).
+
+
 Console / Display Options
 -------------------------
 

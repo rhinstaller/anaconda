@@ -44,14 +44,14 @@ from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
 
 from pyanaconda import iutil
 
-import logging
-log = logging.getLogger("packaging")
+from pyanaconda.anaconda_loggers import get_packaging_logger
+log = get_packaging_logger()
 
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.i18n import _
 from pyanaconda.payload import versionCmp
 
@@ -358,7 +358,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 error = "Failed to download %s, file doesn't exist" % self.data.method.url
                 log.error(error)
 
-    def preInstall(self, *args, **kwargs):
+    def preInstall(self, packages=None, groups=None):
         """ Get image and loopback mount it.
 
             This is called after partitioning is setup, we now have space to

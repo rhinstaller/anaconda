@@ -35,7 +35,6 @@ import pyanaconda.payload as payload
 import configparser
 import collections
 import itertools
-import logging
 import multiprocessing
 import operator
 import hashlib
@@ -45,7 +44,9 @@ import time
 import threading
 from requests.exceptions import RequestException
 
-log = logging.getLogger("packaging")
+
+from pyanaconda.anaconda_loggers import get_packaging_logger, get_dnf_logger
+log = get_packaging_logger()
 
 import dnf
 import dnf.logging
@@ -248,15 +249,15 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         }
         progressQ.send_message(msg % vals)
 
-    def end(self, dnf_payload, status, err_msg):
+    def end(self, dnf_payload, status, msg):  # pylint: disable=arguments-differ
         nevra = str(dnf_payload)
         if status is dnf.callback.STATUS_OK:
             self.downloads[nevra] = dnf_payload.download_size
             self._update()
             return
-        log.warning("Failed to download '%s': %d - %s", nevra, status, err_msg)
+        log.warning("Failed to download '%s': %d - %s", nevra, status, msg)
 
-    def progress(self, dnf_payload, done):
+    def progress(self, dnf_payload, done):  # pylint: disable=arguments-differ
         nevra = str(dnf_payload)
         self.downloads[nevra] = done
         self._update()
@@ -537,8 +538,8 @@ class DNFPayload(payload.PackagePayload):
         librepo.log_set_file(DNF_LIBREPO_LOG)
 
         # Increase dnf log level to custom DDEBUG level
-        # Do this here to prevent import side-effects in anaconda_log
-        dnf_logger = logging.getLogger("dnf")
+        # Do this here to prevent import side-effects in anaconda_logging
+        dnf_logger = get_dnf_logger()
         dnf_logger.setLevel(dnf.logging.DDEBUG)
 
     @property

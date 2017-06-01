@@ -25,8 +25,8 @@ from pyanaconda.i18n import N_, _
 from pyanaconda.iutil import is_unsupported_hw
 from pyanaconda.product import productName
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["WarningsSpoke"]
 

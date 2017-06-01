@@ -56,16 +56,16 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda import constants
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.i18n import _
 from pyanaconda.payload import payloadMgr
+from pyanaconda.anaconda_loggers import get_module_logger
 
-import logging
 import copy
 
 class StorageCheckHandler(object, metaclass=ABCMeta):
-    log = logging.getLogger("anaconda")
+    log = get_module_logger(__name__)
     errors = []
     warnings = []
 
@@ -89,8 +89,10 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
 
         report = storage_checker.check(self.storage)
-        self.errors = report.errors
-        self.warnings = report.warnings
+        # Storage spoke and custom spoke communicate errors via StorageCheckHandler,
+        # so we need to set errors and warnings class attributes here.
+        StorageCheckHandler.errors = report.errors
+        StorageCheckHandler.warnings = report.warnings
 
         hubQ.send_ready(self._mainSpokeClass, True)
         report.log(self.log)

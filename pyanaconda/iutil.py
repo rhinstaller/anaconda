@@ -55,11 +55,10 @@ from pyanaconda.errors import RemovedModuleError
 
 from pyanaconda.i18n import _
 
-import logging
-log = logging.getLogger("anaconda")
-program_log = logging.getLogger("program")
-
-from pyanaconda.anaconda_log import program_log_lock
+from pyanaconda.anaconda_logging import program_log_lock
+from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger
+log = get_module_logger(__name__)
+program_log = get_program_logger()
 
 from pykickstart.constants import KS_SCRIPT_ONERROR
 

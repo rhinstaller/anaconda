@@ -26,8 +26,9 @@ from gi.repository import Gio, GLib
 from gi.repository import NM
 import struct
 import socket
-import logging
-log = logging.getLogger("anaconda")
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -64,6 +65,11 @@ class PropertyNotFoundError(ValueError):
 
 class SettingsNotFoundError(ValueError):
     """Settings NMRemoteConnection object was not found"""
+    def __str__(self):
+        return self.__repr__()
+
+class MultipleSettingsFoundError(ValueError):
+    """Too many NMRemoteConnection objects were found"""
     def __str__(self):
         return self.__repr__()
 
@@ -724,7 +730,11 @@ def _find_settings(value, key1, key2, format_value=lambda x: x):
     connections = proxy.ListConnections()
     for con in connections:
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        settings = proxy.GetSettings()
+        try:
+            settings = proxy.GetSettings()
+        except GLib.GError as e:
+            log.debug("Exception raised in _find_settings: %s", e)
+            continue
         try:
             v = settings[key1][key2]
         except KeyError:
@@ -761,7 +771,7 @@ def nm_get_all_settings():
             settings = proxy.GetSettings()
         except GLib.GError as e:
             # The connection may be deleted asynchronously by NM
-            log.debug("nm_get_all_settings: %s", e)
+            log.debug("Exception raised in nm_get_all_settings: %s", e)
             continue
         retval.append(settings)
 
@@ -781,12 +791,14 @@ def nm_device_setting_value(name, key1, key2):
                 by NM
        :rtype: unpacked GDBus variant or None
        :raise UnknownDeviceError: if device is not found
-       :raise SettingsNotFoundError: if settings were not found
-                                           (eg for "wlan0")
+       :raise SettingsNotFoundError: if settings were not found (eg for "wlan0")
+       :raise MultipleSettingsFoundError: if multiple settings were found
     """
     settings_paths = _device_settings(name)
     if not settings_paths:
         raise SettingsNotFoundError(name)
+    elif len(settings_paths) > 1:
+        raise MultipleSettingsFoundError(name)
     else:
         settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
@@ -899,6 +911,36 @@ def nm_add_connection(values):
         raise
     return connection
 
+def nm_update_settings(uuid, new_values):
+    """Update settings of connection given by uuid.
+
+       The type of value is determined from existing settings of device.
+       If setting for key1, key2 does not exist, default_type_str is used or
+       if None, the type is inferred from the value supplied (string and bool only).
+
+       :param uuid: uuid of the connection
+       :type name: str
+       :param new_values: list of settings with new values and its types
+                          [[key1, key2, value, default_type_str]]
+                          key1: first-level key of setting (eg "connection")
+                          key2: second-level key of setting (eg "uuid")
+                          value: new value
+                          default_type_str: dbus type of new value to be used
+                                            if the setting does not already exist;
+                                            if None, the type is inferred from
+                                            value (string and bool only)
+       :type new_values: [[key1, key2, value, default_type_str], ...]
+                         key1: str
+                         key2: str
+                         value:
+                         default_type_str: str
+       :raise SettingsNotFoundError: if settings were not found (eg for "wlan0")
+    """
+    settings_paths = _find_settings(uuid, "connection", "uuid")
+    if not settings_paths:
+        raise SettingsNotFoundError(uuid)
+    return _update_settings(settings_paths[0], new_values)
+
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
 
@@ -929,10 +971,13 @@ def nm_update_settings_of_device(name, new_values):
        :raise UnknownDeviceError: if device is not found
        :raise SettingsNotFoundError: if settings were not found
                                      (eg for "wlan0")
+       :raise MultipleSettingsFoundError: if multiple settings were found
     """
     settings_paths = _device_settings(name)
     if not settings_paths:
         raise SettingsNotFoundError(name)
+    elif len(settings_paths) > 1:
+        raise MultipleSettingsFoundError(name)
     else:
         settings_path = settings_paths[0]
     return _update_settings(settings_path, new_values)

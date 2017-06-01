@@ -17,8 +17,8 @@
 # Red Hat, Inc.
 #
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, Prompt
@@ -28,7 +28,7 @@ from pyanaconda import ntp
 from pyanaconda import constants
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.flags import flags
 
 from collections import OrderedDict
@@ -485,7 +485,7 @@ class AddNTPServerSpoke(EditTUIDialog):
         self.apply()
         self.close()
 
-    def input(self, entry, key):
+    def input(self, args, key):
         # we accept any string as NTP server address, as we do an automatic
         # working/not-working check on the address later
         self.value = key

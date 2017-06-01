@@ -18,7 +18,7 @@
 from gladecheck import GladeTest
 
 class CheckFormatString(GladeTest):
-    def checkGlade(self, tree):
+    def checkGlade(self, glade_tree):
         """Reject translatable format string in glade.
 
            Since format substitution is language-dependent, gettext is unable
@@ -29,7 +29,7 @@ class CheckFormatString(GladeTest):
            glade.
         """
         # Check any property with translatable="yes"
-        for translatable in tree.xpath(".//*[@translatable='yes']"):
+        for translatable in glade_tree.xpath(".//*[@translatable='yes']"):
             # Look for % followed by an open parenthesis (indicating %(name)
             # style substitution), one of the python format conversion flags
             # (#0- +hlL), or one of the python conversion types 

@@ -20,8 +20,8 @@
 # This file contains abstract base classes that are specific to GUI
 # functionality. See also pyanaconda.ui.helpers.
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from abc import ABCMeta, abstractproperty, abstractmethod
 
@@ -334,7 +334,7 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         self._policy = input_policy
 
     @abstractmethod
-    def on_back_clicked(self, window):
+    def on_back_clicked(self, button):
         """Check whether the input validation checks allow the spoke to be exited.
 
            Unlike NormalSpoke.on_back_clicked, this function returns a boolean value.

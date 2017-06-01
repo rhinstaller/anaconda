@@ -30,14 +30,14 @@ from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda import screen_access
 from pyanaconda.i18n import N_
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
-from pyanaconda.install_tasks import Task, TaskQueue
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.installation_tasks import Task, TaskQueue
 
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class WriteResolvConfTask(Task):
     """Custom task subclass for handling the resolv.conf copy task.

@@ -26,8 +26,8 @@ import blivet.util
 import blivet.arch
 from blivet.errors import FSError
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 _arch = blivet.arch.get_arch()
 

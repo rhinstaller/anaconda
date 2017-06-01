@@ -481,7 +481,7 @@ class FilterSpoke(NormalSpoke):
     builderObjects = ["diskStore", "filterWindow",
                       "searchModel", "multipathModel", "otherModel", "zModel"]
     mainWidgetName = "filterWindow"
-    uiFile = "spokes/filter.glade"
+    uiFile = "spokes/advanced_storage.glade"
     helpFile = "FilterSpoke.xml"
 
     category = SystemCategory

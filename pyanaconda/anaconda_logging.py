@@ -1,8 +1,9 @@
 #
-# anaconda_log.py: Support for logging to multiple destinations with log
-# levels.
+# anaconda_logging.py: Support for logging to multiple destinations with log
+#                      levels - basically an extension to the Python logging
+#                      module with Anaconda specififc enhancements.
 #
-# Copyright (C) 2000, 2001, 2002, 2005  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2000, 2001, 2002, 2005, 2017  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,11 +27,16 @@ import warnings
 import wrapt
 
 from pyanaconda.flags import flags
+from pyanaconda import constants
 
 DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
+
+# the Anaconda log uses structured logging
+ANACONDA_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(log_prefix)s: %(message)s"
+ANACONDA_SYSLOG_FORMAT = "anaconda: %(log_prefix)s: %(message)s"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
@@ -111,14 +117,17 @@ class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
         SysLogHandler.__init__(self, address, facility)
 
     def emit(self, record):
-        original_msg = record.msg
-        record.msg = '%s: %s' % (self.tag, original_msg)
-        SysLogHandler.emit(self, record)
-        record.msg = original_msg
+        if self.tag:
+            original_msg = record.msg
+            record.msg = '%s: %s' % (self.tag, original_msg)
+            SysLogHandler.emit(self, record)
+            record.msg = original_msg
+        else:
+            SysLogHandler.emit(self, record)
 
-    def mapPriority(self, level):
+    def mapPriority(self, levelName):
         """Map the priority level to a syslog level """
-        return self.levelMap.get(level, SysLogHandler.mapPriority(self, level))
+        return self.levelMap.get(levelName, SysLogHandler.mapPriority(self, levelName))
 
 class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
     def makePickle(self, record):
@@ -130,6 +139,25 @@ class AnacondaFileHandler(_AnacondaLogFixer, logging.FileHandler):
 class AnacondaStreamHandler(_AnacondaLogFixer, logging.StreamHandler):
     pass
 
+class AnacondaPrefixFilter(logging.Filter):
+    """Add a log_prefix field, which is based on the name property,
+    but without the "anaconda." prefix.
+
+    Also if name is equal to "anaconda", generally meaning some sort of
+    general (or miss-directed) log message, set the log_prefix to "misc".
+    """
+
+    def filter(self, record):
+        record.log_prefix = ""
+        if record.name:
+            # messages going to the generic "anaconda" logger get the log prefix "misc"
+            if record.name == "anaconda":
+                record.log_prefix = "misc"
+            elif record.name.startswith("anaconda."):
+                # drop "anaconda." from the log prefix
+                record.log_prefix = record.name[9:]
+        return True
+
 class AnacondaLog:
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
     VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
@@ -138,9 +166,11 @@ class AnacondaLog:
         self.loglevel = DEFAULT_LEVEL
         self.remote_syslog = None
         # Rename the loglevels so they are the same as in syslog.
-        logging.addLevelName(logging.WARNING, "WARN")
+        logging.addLevelName(logging.CRITICAL, "CRT")
         logging.addLevelName(logging.ERROR, "ERR")
-        logging.addLevelName(logging.CRITICAL, "CRIT")
+        logging.addLevelName(logging.WARNING, "WRN")
+        logging.addLevelName(logging.INFO, "INF")
+        logging.addLevelName(logging.DEBUG, "DBG")
 
         # Create the base of the logger hierarchy.
         # Disable propagation to the parent logger, since the root logger is
@@ -148,11 +178,13 @@ class AnacondaLog:
         self.anaconda_logger = logging.getLogger("anaconda")
         self.anaconda_logger.propagate = False
         self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
-                            minLevel=logging.DEBUG)
+                            minLevel=logging.DEBUG,
+                            fmtStr=ANACONDA_ENTRY_FORMAT,
+                            log_filter=AnacondaPrefixFilter())
         warnings.showwarning = self.showwarning
 
         # Create the storage logger.
-        storage_logger = logging.getLogger("blivet")
+        storage_logger = logging.getLogger(constants.LOGGER_BLIVET)
         storage_logger.propagate = False
         self.addFileHandler(STORAGE_LOG_FILE, storage_logger,
                             minLevel=logging.DEBUG)
@@ -160,10 +192,15 @@ class AnacondaLog:
         # Set the common parameters for anaconda and storage loggers.
         for logr in [self.anaconda_logger, storage_logger]:
             logr.setLevel(logging.DEBUG)
-            self.forwardToSyslog(logr)
+
+        # forward both logs to syslog
+        self.forwardToSyslog(self.anaconda_logger,
+                             log_filter=AnacondaPrefixFilter(),
+                             log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+        self.forwardToSyslog(storage_logger)
 
         # External program output log
-        program_logger = logging.getLogger("program")
+        program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
         program_logger.propagate = False
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
@@ -171,7 +208,7 @@ class AnacondaLog:
         self.forwardToSyslog(program_logger)
 
         # Create the packaging logger.
-        packaging_logger = logging.getLogger("packaging")
+        packaging_logger = logging.getLogger(constants.LOGGER_PACKAGING)
         packaging_logger.setLevel(logging.DEBUG)
         packaging_logger.propagate = False
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
@@ -180,7 +217,7 @@ class AnacondaLog:
         self.forwardToSyslog(packaging_logger)
 
         # Create the dnf logger and link it to packaging
-        dnf_logger = logging.getLogger("dnf")
+        dnf_logger = logging.getLogger(constants.LOGGER_DNF)
         dnf_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
@@ -190,7 +227,7 @@ class AnacondaLog:
         # * the sensitive-info.log file is not copied to the installed
         # system, as it might contain sensitive information that
         # should not be persistently stored by default
-        sensitive_logger = logging.getLogger("sensitive-info")
+        sensitive_logger = logging.getLogger(constants.LOGGER_SENSITIVE_INFO)
         sensitive_logger.propagate = False
         self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger,
                             minLevel=logging.DEBUG)
@@ -199,14 +236,14 @@ class AnacondaLog:
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
         # log.
-        stdout_logger = logging.getLogger("anaconda.stdout")
+        stdout_logger = logging.getLogger(constants.LOGGER_STDOUT)
         stdout_logger.setLevel(logging.INFO)
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
         self.addFileHandler(sys.stdout, stdout_logger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
         # Stderr logger
-        stderr_logger = logging.getLogger("anaconda.stderr")
+        stderr_logger = logging.getLogger(constants.LOGGER_STDERR)
         stderr_logger.setLevel(logging.INFO)
         self.addFileHandler(sys.stderr, stderr_logger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
@@ -214,13 +251,16 @@ class AnacondaLog:
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler(self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
                        fmtStr=ENTRY_FORMAT,
-                       autoLevel=False):
+                       autoLevel=False,
+                       log_filter=None):
         try:
             if isinstance(dest, str):
                 logfile_handler = AnacondaFileHandler(dest)
             else:
                 logfile_handler = AnacondaStreamHandler(dest)
 
+            if log_filter:
+                logfile_handler.addFilter(log_filter)
             logfile_handler.setLevel(minLevel)
             logfile_handler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
             autoSetLevel(logfile_handler, autoLevel)
@@ -228,18 +268,29 @@ class AnacondaLog:
         except IOError:
             pass
 
-    def forwardToSyslog(self, logr):
+    def forwardToSyslog(self, logr, log_formatter=None, log_filter=None):
         """Forward everything that goes in the logger to the syslog daemon.
         """
         if flags.imageInstall or flags.dirInstall:
             # don't clutter up the system logs when doing an image install
             return
 
+        # Don't add syslog tag if custom formatter is in use.
+        # This also means that custom formatters need to make sure they
+        # add the tag correctly themselves.
+        if log_formatter:
+            tag = None
+        else:
+            tag = logr.name
         syslog_handler = AnacondaSyslogHandler(
             '/dev/log',
             ANACONDA_SYSLOG_FACILITY,
-            logr.name)
+            tag=tag)
         syslog_handler.setLevel(logging.DEBUG)
+        if log_filter:
+            syslog_handler.addFilter(log_filter)
+        if log_formatter:
+            syslog_handler.setFormatter(log_formatter)
         logr.addHandler(syslog_handler)
 
     # pylint: disable=redefined-builtin

@@ -41,8 +41,8 @@ from blivet import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class serial_opts(object):
     def __init__(self):
@@ -140,8 +140,8 @@ class Arguments(OrderedSet):
         self.discard(key)
         super(Arguments, self).add(key)
 
-    def update(self, other):
-        for key in other:
+    def update(self, sequence):
+        for key in sequence:
             self.discard(key)
             self.add(key)
 
@@ -1412,18 +1412,15 @@ class GRUB2(GRUB):
                           raid.RAID5, raid.RAID6, raid.RAID10]
     stage2_raid_metadata = ["0", "0.90", "1.0", "1.2"]
 
+    # XXX we probably need special handling for raid stage1 w/ gpt disklabel
+    #     since it's unlikely there'll be a bios boot partition on each disk
+
     @property
     def stage2_format_types(self):
         if productName.startswith("Red Hat "):              # pylint: disable=no-member
             return ["xfs", "ext4", "ext3", "ext2", "btrfs"]
         else:
             return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
-
-    def __init__(self):
-        super(GRUB2, self).__init__()
-
-    # XXX we probably need special handling for raid stage1 w/ gpt disklabel
-    #     since it's unlikely there'll be a bios boot partition on each disk
 
     #
     # grub-related conveniences
@@ -2335,9 +2332,6 @@ class EXTLINUX(BootLoader):
                 os.symlink("../boot/%s" % self._config_file, etc_extlinux)
             except OSError as e:
                 log.warning("failed to create /etc/extlinux.conf symlink: %s", e)
-
-    def write_config(self):
-        super(EXTLINUX, self).write_config()
 
     #
     # installation

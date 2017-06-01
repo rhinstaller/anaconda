@@ -68,7 +68,7 @@ from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError
 from blivet.platform import platform
 from blivet.iscsi import iscsi
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
@@ -83,8 +83,8 @@ from pykickstart.errors import KickstartParseError
 import sys
 from enum import Enum
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["StorageSpoke"]
 

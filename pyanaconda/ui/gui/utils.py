@@ -26,7 +26,7 @@ from gi.repository import Gdk, Gtk, GLib
 
 from contextlib import contextmanager
 
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE,\
     PASSWORD_SHOW, PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
@@ -36,8 +36,8 @@ import time
 import threading
 import functools
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 # any better idea how to create a unique, distinguishable object that cannot be
 # confused with anything else?

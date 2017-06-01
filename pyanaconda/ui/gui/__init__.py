@@ -36,7 +36,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_
 from pyanaconda.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product, iutil, constants
-from pyanaconda import threads
+from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once, unbusyCursor
@@ -45,8 +45,8 @@ from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda import ihelp
 import os.path
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["GraphicalUserInterface", "QuitDialog"]
 
@@ -837,7 +837,7 @@ class GraphicalUserInterface(UserInterface):
             log.error("Unhandled exception caught, waiting for python-meh to "\
                       "exit")
 
-            threads.threadMgr.wait_for_error_threads()
+            anaconda_threading.threadMgr.wait_for_error_threads()
             sys.exit(1)
 
         try:
@@ -954,7 +954,7 @@ class GraphicalUserInterface(UserInterface):
     ###
     ### SIGNAL HANDLING METHODS
     ###
-    def _on_continue_clicked(self, win, user_data=None):
+    def _on_continue_clicked(self, window, user_data=None):
         # Autostep needs to be triggered just before switching to the next screen
         # (or before quiting the installation if there are no more screens) to be consistent
         # in both fully automatic kickstart installation and for installation with an incomplete
@@ -970,12 +970,12 @@ class GraphicalUserInterface(UserInterface):
                 self._currentAction.autostep()
                 return
 
-        if not win.get_may_continue() or win != self._currentAction.window:
+        if not window.get_may_continue() or window != self._currentAction.window:
             return
 
         # The continue button may still be clickable between this handler finishing
         # and the next window being displayed, so turn the button off.
-        win.set_may_continue(False)
+        window.set_may_continue(False)
 
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
@@ -1075,9 +1075,9 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
 
         self._lightbox_func = lightbox_func
 
-    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
+    def mainExceptionWindow(self, text, exnFile, *args, **kwargs):
         meh_intf = meh.ui.gui.GraphicalIntf()
-        exc_window = meh_intf.mainExceptionWindow(text, exn_file)
+        exc_window = meh_intf.mainExceptionWindow(text, exnFile)
         exc_window.main_window.set_decorated(False)
 
         self._lightbox_func()

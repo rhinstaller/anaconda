@@ -24,9 +24,8 @@ from pyanaconda.ui.tui.tuiobject import TUIObject, HelpScreen
 from pyanaconda.ui import common
 
 from pyanaconda.i18n import _, N_
-
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.

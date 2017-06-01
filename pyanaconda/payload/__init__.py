@@ -39,8 +39,8 @@ from blivet.size import Size
 from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
-    from pyanaconda import anaconda_log
-    anaconda_log.init()
+    from pyanaconda import anaconda_logging
+    anaconda_logging.init()
 
 from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
 from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
@@ -55,13 +55,13 @@ from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group
 
-import logging
-log = logging.getLogger("packaging")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from blivet.errors import StorageError
 import blivet.util
@@ -290,8 +290,8 @@ class Payload(object):
     def gatherRepoMetadata(self):
         pass
 
-    def addRepo(self, newrepo):
-        """Add the repo given by the pykickstart Repo object newrepo to the
+    def addRepo(self, ksrepo):
+        """Add the repo given by the pykickstart Repo object ksrepo to the
         system.  The repo will be automatically enabled and its metadata
         fetched.
 
@@ -299,7 +299,7 @@ class Payload(object):
         take the place of the previous value.
         """
         # Add the repo to the ksdata so it'll appear in the output ks file.
-        self.data.repo.dataList().append(newrepo)
+        self.data.repo.dataList().append(ksrepo)
 
     def removeRepo(self, repo_id):
         repos = self.data.repo.dataList()
@@ -1225,10 +1225,10 @@ class PackagePayload(Payload):
     def environmentAddons(self):
         return self._environmentAddons
 
-    def _isGroupVisible(self, grp):
+    def _isGroupVisible(self, grpid):
         raise NotImplementedError()
 
-    def _groupHasInstallableMembers(self, grp):
+    def _groupHasInstallableMembers(self, grpid):
         raise NotImplementedError()
 
     def _refreshEnvironmentAddons(self):
@@ -1273,7 +1273,7 @@ class PackagePayload(Payload):
         except PayloadError as ex:
             raise PayloadError(("Can't translate group names to group ID - %s", str(ex)))
 
-    def groupDescription(self, groupid):
+    def groupDescription(self, grpid):
         raise NotImplementedError()
 
     def groupId(self, group_name):

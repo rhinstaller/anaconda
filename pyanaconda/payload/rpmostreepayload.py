@@ -37,8 +37,8 @@ from gi.repository import Gio
 from blivet.size import Size
 from blivet.util import umount
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from pyanaconda.payload import ArchivePayload, PayloadInstallError
 import pyanaconda.errors as errors
