@@ -721,7 +721,7 @@ class NetworkControlBox(GObject.GObject):
         return model[itr][DEVICES_COLUMN_OBJECT]
 
     def add_dev_cfg(self, dev_cfg):
-        log.debug("GUI, device configuration added: connection %s device %s",
+        log.debug("device configuration added: connection %s device %s",
                      dev_cfg.get_uuid(), dev_cfg.get_iface())
         self.dev_cfg_store.append([
             self._dev_icon_name(dev_cfg),
@@ -734,14 +734,14 @@ class NetworkControlBox(GObject.GObject):
         if device.get_device_type() not in self.supported_device_types:
             return
         if network.is_libvirt_device(device.get_iface()):
-            log.debug("GUI, not adding %s", device.get_iface())
+            log.debug("not adding %s", device.get_iface())
             return
         # ignore fcoe vlan devices
         # (can be chopped off to IFNAMSIZ kernel limit)
         if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
         if network.is_ibft_configured_device(device.get_iface() or ""):
-            log.debug("GUI, not adding connection for device %s configured from iBFT", device.get_iface())
+            log.debug("not adding connection for device %s configured from iBFT", device.get_iface())
             return False
 
         # Ignore devices with active read-only connections (created by NM for iBFT VLAN)
@@ -752,11 +752,11 @@ class NetworkControlBox(GObject.GObject):
             if rc:
                 con_setting = rc.get_setting_connection()
                 if con_setting and con_setting.get_read_only():
-                    log.debug("GUI, not adding read-only connection "
+                    log.debug("not adding read-only connection "
                               "(assuming iBFT) for device %s", device.get_iface())
                     return
                 else:
-                    log.debug("GUI, can't get remote connection of active connection "
+                    log.debug("can't get remote connection of active connection "
                             "of device %s", device.get_iface())
 
         # Find the connection for the device (assuming existence of single ifcfg actually)
@@ -766,9 +766,9 @@ class NetworkControlBox(GObject.GObject):
             cons = device.get_available_connections()
             ifcfg_uuid = None
             if not cons:
-                log.debug("GUI, no connection when adding device %s", device.get_iface())
+                log.debug("no connection when adding device %s", device.get_iface())
             if len(cons) > 1:
-                log.debug("GUI, %s has multiple connections: %s",
+                log.debug("%s has multiple connections: %s",
                           device.get_iface(), [c.get_uuid() for c in cons])
                 # Can happen when activating device in initramfs and reconfiguring it via kickstart
                 # without activation.
@@ -875,7 +875,7 @@ class NetworkControlBox(GObject.GObject):
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        log.debug("GUI, device removed: %s", device.get_iface())
+        log.debug("device removed: %s", device.get_iface())
         if self.spoke:
             self.spoke.networking_changed = True
         dev_cfg = self.dev_cfg(device=device)
