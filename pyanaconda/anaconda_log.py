@@ -116,9 +116,9 @@ class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
         SysLogHandler.emit(self, record)
         record.msg = original_msg
 
-    def mapPriority(self, level):
+    def mapPriority(self, levelName):
         """Map the priority level to a syslog level """
-        return self.levelMap.get(level, SysLogHandler.mapPriority(self, level))
+        return self.levelMap.get(levelName, SysLogHandler.mapPriority(self, levelName))
 
 class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
     def makePickle(self, record):

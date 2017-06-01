@@ -154,7 +154,8 @@ class EditTUIDialog(NormalTUISpoke):
         self.value = None
         return True
 
-    def prompt(self, entry=None):
+    def prompt(self, args=None):
+        entry = args
         if not entry:
             return None
 
@@ -216,7 +217,9 @@ class EditTUIDialog(NormalTUISpoke):
                 "enter": tui.Prompt.ENTER
             })
 
-    def input(self, entry, key):
+    def input(self, args, key):
+        entry = args
+
         if callable(entry.aux):
             valid, err_msg = entry.aux(key)
             if not valid:
@@ -242,7 +245,8 @@ class OneShotEditTUIDialog(EditTUIDialog):
        the value is read
     """
 
-    def prompt(self, entry=None):
+    def prompt(self, args=None):
+        entry = args
         ret = None
 
         if entry:

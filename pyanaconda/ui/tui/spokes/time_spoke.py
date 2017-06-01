@@ -485,7 +485,7 @@ class AddNTPServerSpoke(EditTUIDialog):
         self.apply()
         self.close()
 
-    def input(self, entry, key):
+    def input(self, args, key):
         # we accept any string as NTP server address, as we do an automatic
         # working/not-working check on the address later
         self.value = key
