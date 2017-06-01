@@ -1846,6 +1846,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             factory.configure()
 
         self._remove_empty_parents(device)
+        log.debug("Removed device %s.", device.name)
 
     def _show_mountpoint(self, page=None, mountpoint=None):
         if not self._initialized:
@@ -1870,6 +1871,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if member.get_property("mountpoint").lower() == mountpoint.lower():
                 self.on_selector_clicked(member)
                 break
+
+    def _is_device_shared(self, dev):
+        """Is the device shared between pages?"""
+        found = False
+
+        for page in self._accordion.allPages:
+            for member in page.members:
+                if dev == member._device:
+                    # Found for the second time?
+                    if found:
+                        return True
+
+                    # Found for the fist time.
+                    found = True
+                    break
+
+        return False
 
     def on_remove_clicked(self, button):
         # Nothing displayed on the RHS?  Nothing to remove.
@@ -1917,6 +1935,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             if dialog.deleteAll:
                 for dev in (s._device for s in page.members):
+                    # Skip the device if it is shared with other installations.
+                    if self._is_device_shared(dev):
+                        log.debug("Shared device %s will be skipped.", dev.name)
+                        continue
+
                     self._destroy_device(dev)
             else:
                 self._destroy_device(device)
