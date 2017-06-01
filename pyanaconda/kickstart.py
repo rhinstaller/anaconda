@@ -1925,7 +1925,7 @@ class Keyboard(commands.keyboard.F18_Keyboard):
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
     # a kickstart, warn the user and exit.
-    def parse(self, *args):
+    def parse(self, args):
         log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
         sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup."))
         iutil.ipmi_report(IPMI_ABORTED)

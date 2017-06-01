@@ -26,10 +26,10 @@ from gladecheck import GladeTest
 PW_ID_INDICATORS = ("pw", "password", "passwd", "passphrase")
 
 class CheckPwVisibility(GladeTest):
-    def checkGlade(self, tree):
+    def checkGlade(self, glade_tree):
         """Check that password GtkEntries have the visibility set to False"""
 
-        for entry in tree.xpath("//object[@class='GtkEntry']"):
+        for entry in glade_tree.xpath("//object[@class='GtkEntry']"):
             entry_id = entry.attrib.get("id", "UNKNOWN ID")
             visibility_props = entry.xpath("./property[@name='visibility']")
 

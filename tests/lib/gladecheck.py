@@ -69,10 +69,10 @@ class GladeTest(unittest.TestCase, metaclass=ABCMeta):
         self.translated_trees = {}
 
     @abstractmethod
-    def checkGlade(self, tree):
+    def checkGlade(self, glade_tree):
         """Check a parsed glade file.
 
-           :param etree.ElementTree tree: The parsed glade file
+           :param etree.ElementTree glade_tree: The parsed glade file
         """
         pass
 
