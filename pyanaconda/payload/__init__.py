@@ -39,8 +39,8 @@ from blivet.size import Size
 from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
-    from pyanaconda import anaconda_log
-    anaconda_log.init()
+    from pyanaconda import anaconda_logging
+    anaconda_logging.init()
 
 from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
 from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
@@ -55,13 +55,13 @@ from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group
 
-import logging
-log = logging.getLogger("packaging")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from blivet.errors import StorageError
 import blivet.util

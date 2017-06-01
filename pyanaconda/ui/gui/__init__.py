@@ -36,7 +36,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_
 from pyanaconda.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product, iutil, constants
-from pyanaconda import threads
+from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once, unbusyCursor
@@ -45,8 +45,8 @@ from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda import ihelp
 import os.path
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["GraphicalUserInterface", "QuitDialog"]
 
@@ -837,7 +837,7 @@ class GraphicalUserInterface(UserInterface):
             log.error("Unhandled exception caught, waiting for python-meh to "\
                       "exit")
 
-            threads.threadMgr.wait_for_error_threads()
+            anaconda_threading.threadMgr.wait_for_error_threads()
             sys.exit(1)
 
         try:

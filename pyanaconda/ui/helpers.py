@@ -56,16 +56,16 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda import constants
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.i18n import _
 from pyanaconda.payload import payloadMgr
+from pyanaconda.anaconda_loggers import get_module_logger
 
-import logging
 import copy
 
 class StorageCheckHandler(object, metaclass=ABCMeta):
-    log = logging.getLogger("anaconda")
+    log = get_module_logger(__name__)
     errors = []
     warnings = []
 

@@ -226,3 +226,15 @@ STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
 class DisplayModes(Enum):
     GUI = "GUI"
     TUI = "TUI"
+
+# Loggers
+LOGGER_MAIN = "anaconda.main"
+LOGGER_STDOUT = "anaconda.stdout"
+LOGGER_STDERR = "anaconda.stdout"
+LOGGER_PROGRAM = "program"
+LOGGER_STORAGE = "storage"
+LOGGER_PACKAGING = "packaging"
+LOGGER_DNF = "dnf"
+LOGGER_BLIVET = "blivet"
+LOGGER_IFCFG = "ifcfg"
+LOGGER_SENSITIVE_INFO = "sensitive_info"

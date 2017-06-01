@@ -26,8 +26,9 @@ from gi.repository import Gio, GLib
 from gi.repository import NM
 import struct
 import socket
-import logging
-log = logging.getLogger("anaconda")
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 from pyanaconda.flags import flags, can_touch_runtime_system

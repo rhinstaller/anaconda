@@ -23,7 +23,7 @@ import sys
 import queue
 import getpass
 import threading
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants, iutil
 from pyanaconda.i18n import _, N_, C_

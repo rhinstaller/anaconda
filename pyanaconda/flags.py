@@ -23,8 +23,8 @@ import glob
 from pyanaconda.constants import SELINUX_DEFAULT, CMDLINE_APPEND, ANACONDA_ENVIRON
 from collections import OrderedDict
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 # A lot of effort, but it only allows a limited set of flags to be referenced
 class Flags(object):

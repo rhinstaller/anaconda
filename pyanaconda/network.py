@@ -34,6 +34,7 @@ import ipaddress
 from uuid import uuid4
 import itertools
 import glob
+import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice
@@ -45,8 +46,8 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
+log = get_module_logger(__name__)
 
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
@@ -63,14 +64,14 @@ network_connected_condition = threading.Condition()
 
 def setup_ifcfg_log():
     # Setup special logging for ifcfg NM interface
-    from pyanaconda import anaconda_log
+    from pyanaconda import anaconda_logging
     global ifcfglog
-    logger = logging.getLogger("ifcfg")
+    logger = get_ifcfg_logger()
     logger.setLevel(logging.DEBUG)
-    anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-    anaconda_log.logger.forwardToSyslog(logger)
+    anaconda_logging.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
+    anaconda_logging.logger.forwardToSyslog(logger)
 
-    ifcfglog = logging.getLogger("ifcfg")
+    ifcfglog = get_ifcfg_logger()
 
 def check_ip_address(address, version=None):
     """
@@ -304,7 +305,7 @@ def ensure_single_initramfs_connections():
 
             ifcfg_path = find_ifcfg_file_of_device(dev_name)
             if not ifcfg_path:
-                log.error("network: multiple settings but no ifcfg for %s", dev_name)
+                log.error("multiple settings but no ifcfg for %s", dev_name)
                 continue
 
             # Handle only ifcfgs created from boot options in initramfs
@@ -340,9 +341,9 @@ def ensure_active_ifcfg_connection_for_device(ifcfg_path, dev_name, only_replace
             try:
                 nm.nm_activate_device_connection(dev_name, con_uuid)
             except nm.UnknownConnectionError as e:
-                log.warning("network: can't activate connection %s on %s: %s",
+                log.warning("can't activate connection %s on %s: %s",
                             con_uuid, dev_name, e)
-    log.debug("network: ensure active ifcfg connection for %s (%s -> %s): %s",
+    log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
                dev_name, active_con_uuid, con_uuid, msg)
 
 def ifcfg_is_from_kickstart(ifcfg_path):
@@ -371,14 +372,14 @@ def dumpMissingDefaultIfcfgs():
         try:
             uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
         except nm.SettingsNotFoundError:
-            log.debug("network: no ifcfg file for %s", devname)
+            log.debug("no ifcfg file for %s", devname)
             continue
         except nm.MultipleSettingsFoundError as e:
             if not nm.nm_device_is_slave(devname):
-                log.debug("network: %s while checking missing ifcfgs, device %s", e, devname)
+                log.debug("%s while checking missing ifcfgs, device %s", e, devname)
             continue
         nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
-        log.debug("network: dumping ifcfg file for %s from default autoconnection %s", devname, uuid)
+        log.debug("dumping ifcfg file for %s from default autoconnection %s", devname, uuid)
         rv.append(devname)
 
     return rv
@@ -473,7 +474,7 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
                     ifcfg = IfcfgFile(ifcfg_path)
                     ifcfg.read()
                 else:
-                    log.debug("network: can't find ifcfg of vlan parent %s", physdev)
+                    log.debug("can't find ifcfg of vlan parent %s", physdev)
             # physical device can be specified by connection uuid (eg from nm-c-e)
             else:
                 ifcfg_path = find_ifcfg_file([("UUID", physdev_spec)])
@@ -486,7 +487,7 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
             if physdev:
                 netargs.add("vlan=%s:%s" % (devname, physdev))
             else:
-                log.warning("network: can't find parent of vlan device %s specified by %s",
+                log.warning("can't find parent of vlan device %s specified by %s",
                              devname, physdev_spec)
 
     # For vlan ifcfg now refers to the physical device file
@@ -576,7 +577,7 @@ def update_settings_with_ksdata(devname, networkdata):
         uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
     except nm.MultipleSettingsFoundError as e:
         uuid = find_ifcfg_uuid_of_device(devname)
-        log.debug("network: %s for %s, using %s", e, devname, uuid)
+        log.debug("%s for %s, using %s", e, devname, uuid)
     new_values = _get_ip_setting_values_from_ksdata(networkdata)
     new_values.append(['connection', 'autoconnect', False, 'b'])
     nm.nm_update_settings(uuid, new_values)
@@ -723,7 +724,7 @@ def _bound_hwaddr_of_device(devname):
                 if mac.upper() == hwaddr.upper():
                     return hwaddr.upper()
                 else:
-                    log.warning("network: ifname=%s does not match device's hwaddr %s", ifname, hwaddr)
+                    log.warning("ifname=%s does not match device's hwaddr %s", ifname, hwaddr)
     return None
 
 # We duplicate this in dracut/parse-kickstart
@@ -969,7 +970,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
             teamconfig = nm.nm_device_setting_value(devname, "team", "config")
         except nm.MultipleSettingsFoundError as e:
             teamconfig = None
-            log.debug("network: %s while looking for team device config", e)
+            log.debug("%s while looking for team device config", e)
         if teamconfig:
             nd.teamconfig = teamconfig
 
@@ -1033,7 +1034,7 @@ def find_ifcfg_file_of_device(devname, root_path=""):
                 # has neither DEVICE nor HWADDR (#1249750)
                 ifcfg_path = find_ifcfg_file([("NAME", devname)], root_path)
             else:
-                log.debug("network: ifcfg file for %s not found", devname)
+                log.debug("ifcfg file for %s not found", devname)
 
     return ifcfg_path
 
@@ -1044,7 +1045,7 @@ def find_ifcfg_uuid_of_device(devname):
         ifcfg.read()
         uuid = ifcfg.get('UUID')
     else:
-        log.debug("network: can't find ifcfg file of %s", devname)
+        log.debug("can't find ifcfg file of %s", devname)
         uuid = None
     return uuid
 
@@ -1122,7 +1123,7 @@ def get_team_slaves(master_specs):
                 slaves.append((devname, cfg))
             else:
                 uuid = settings["connection"].get("uuid")
-                log.debug("network: can't get team slave device name of %s", uuid)
+                log.debug("can't get team slave device name of %s", uuid)
 
     return slaves
 
@@ -1289,11 +1290,11 @@ def disable_ipv6_on_target_system(rootpath):
                 try:
                     ipv6_method = nm.nm_device_setting_value(devname, "ipv6", "method")
                 except nm.MultipleSettingsFoundError as e:
-                    log.debug("network: %s when getting ipv6 method of %s", e, devname)
+                    log.debug("%s when getting ipv6 method of %s", e, devname)
                     ipv6_method = None
                 if ipv6_method != "ignore":
                     return
-    log.info('network: disabling ipv6 on target system')
+    log.info('disabling ipv6 on target system')
     cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
     with open(cfgfile, "a") as f:
         f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
@@ -1388,7 +1389,7 @@ def setOnboot(ksdata):
 
         devname = get_device_name(network_data)
         if not devname:
-            log.warning("network: set ONBOOT: --device %s does not exist", network_data.device)
+            log.warning("set ONBOOT: --device %s does not exist", network_data.device)
             continue
 
         devices_to_update = [devname]
@@ -1441,7 +1442,7 @@ def apply_kickstart(ksdata):
 
         dev_name = get_device_name(network_data)
         if not dev_name:
-            log.warning("network: apply kickstart: --device %s does not exist", network_data.device)
+            log.warning("apply kickstart: --device %s does not exist", network_data.device)
             continue
 
         ifcfg_path = find_ifcfg_file_of_device(dev_name)
@@ -1456,21 +1457,21 @@ def apply_kickstart(ksdata):
         applied_devices.append(dev_name)
         if ifcfg_path:
             # if the device was already configured in initramfs update the settings
-            log.debug("network: pre kickstart - updating settings of device %s", dev_name)
+            log.debug("pre kickstart - updating settings of device %s", dev_name)
             con_uuid = update_settings_with_ksdata(dev_name, network_data)
             added_connections = [(con_uuid, dev_name)]
         else:
-            log.debug("network: pre kickstart - adding connection for %s", dev_name)
+            log.debug("pre kickstart - adding connection for %s", dev_name)
             # Virtual devices (eg vlan, bond) return dev_name == None
             added_connections = add_connection_for_ksdata(network_data, dev_name)
 
         if network_data.activate:
             for con_uuid, dev_name in added_connections:
                 try:
-                    log.debug("network: pre kickstart - activating connection %s for %s", con_uuid, dev_name)
+                    log.debug("pre kickstart - activating connection %s for %s", con_uuid, dev_name)
                     nm.nm_activate_device_connection(dev_name, con_uuid)
                 except (nm.UnknownConnectionError, nm.UnknownDeviceError) as e:
-                    log.warning("network: pre kickstart: can't activate connection %s on %s: %s",
+                    log.warning("pre kickstart: can't activate connection %s on %s: %s",
                                 con_uuid, dev_name, e)
     return applied_devices
 
@@ -1478,36 +1479,36 @@ def networkInitialize(ksdata):
     if not can_touch_runtime_system("networkInitialize", touch_live=True):
         return
 
-    log.debug("network: devices found %s", nm.nm_devices())
+    log.debug("devices found %s", nm.nm_devices())
     logIfcfgFiles("network initialization")
 
-    log.debug("network: ensure single initramfs connections")
+    log.debug("ensure single initramfs connections")
     devnames = ensure_single_initramfs_connections()
     if devnames:
         msg = "single connection ensured for devices %s" % devnames
-        log.debug("network: %s", msg)
+        log.debug("%s", msg)
         logIfcfgFiles(msg)
-    log.debug("network: apply kickstart")
+    log.debug("apply kickstart")
     devnames = apply_kickstart(ksdata)
     if devnames:
         msg = "kickstart pre section applied for devices %s" % devnames
-        log.debug("network: %s", msg)
+        log.debug("%s", msg)
         logIfcfgFiles(msg)
-    log.debug("network: create missing ifcfg files")
+    log.debug("create missing ifcfg files")
     devnames = dumpMissingDefaultIfcfgs()
     if devnames:
         msg = "missing ifcfgs created for devices %s" % devnames
-        log.debug("network: %s", msg)
+        log.debug("%s", msg)
         logIfcfgFiles(msg)
 
     # For kickstart network --activate option we set ONBOOT=yes
     # in dracut to get devices activated by NM. The real network --onboot
     # value is set here.
-    log.debug("network: set real ONBOOT value")
+    log.debug("set real ONBOOT value")
     devnames = setOnboot(ksdata)
     if devnames:
         msg = "real kickstart ONBOOT value set for devices %s" % devnames
-        log.debug("network: %s", msg)
+        log.debug("%s", msg)
         logIfcfgFiles(msg)
 
     # initialize ksdata hostname
@@ -1556,30 +1557,30 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
 
     if only_connecting:
         if nm.nm_is_connecting():
-            log.debug("network: waiting for connecting NM (dhcp in progress?), timeout=%d", timeout)
+            log.debug("waiting for connecting NM (dhcp in progress?), timeout=%d", timeout)
         else:
             return False
     else:
-        log.debug("network: waiting for connected NM, timeout=%d", timeout)
+        log.debug("waiting for connected NM, timeout=%d", timeout)
 
     i = 0
     while i < timeout:
         i += constants.NETWORK_CONNECTED_CHECK_INTERVAL
         time.sleep(constants.NETWORK_CONNECTED_CHECK_INTERVAL)
         if nm.nm_is_connected():
-            log.debug("network: NM connected, waited %d seconds", i)
+            log.debug("NM connected, waited %d seconds", i)
             return True
         elif only_connecting:
             if not nm.nm_is_connecting():
                 break
 
-    log.debug("network: NM not connected, waited %d seconds", i)
+    log.debug("NM not connected, waited %d seconds", i)
     return False
 
 def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEOUT):
     devices = set(devices)
     i = 0
-    log.debug("network: waiting for connection of devices %s for iscsi", devices)
+    log.debug("waiting for connection of devices %s for iscsi", devices)
     while i < timeout:
         if not devices - set(nm.nm_activated_devices()):
             return True
@@ -1675,7 +1676,7 @@ def status_message():
                         vlanid = nm.nm_device_setting_value(devname, "vlan", "id")
                     except nm.MultipleSettingsFoundError as e:
                         parent = vlanid = None
-                        log.debug("network: %s when looking for vlan settings of %s", e, devname)
+                        log.debug("%s when looking for vlan settings of %s", e, devname)
                     msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
                           % {"interface_name": devname, "parent_device": parent, "vlanid": vlanid}
             elif len(nonslaves) > 1:
@@ -1736,7 +1737,7 @@ def update_slaves_onboot_value(devname, value):
             return retval
     except nm.MultipleSettingsFoundError as e:
         uuid = None
-        log.debug("network: %s when updating onboot value of slave %s", e, devname)
+        log.debug("%s when updating onboot value of slave %s", e, devname)
 
     # Find and update ifcfg files of slaves
     for filepath in _ifcfg_files(netscriptsDir):
@@ -1746,7 +1747,7 @@ def update_slaves_onboot_value(devname, value):
         if master in (devname, uuid):
             ifcfg.set(('ONBOOT', ifcfg_value))
             ifcfg.write()
-            log.debug("network: setting ONBOOT value of slave %s to %s", filepath, value)
+            log.debug("setting ONBOOT value of slave %s to %s", filepath, value)
             retval.append(ifcfg.get("NAME"))
 
     return retval
@@ -1769,7 +1770,7 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
     :rtype: bool
 
     """
-    log.debug("network: setting ONBOOT value of %s to %s", devname, value)
+    log.debug("setting ONBOOT value of %s to %s", devname, value)
     if root_path is None:
         root_path = iutil.getSysroot()
     if value:
@@ -1779,7 +1780,7 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
 
     ifcfg_path = find_ifcfg_file_of_device(devname, root_path=root_path)
     if not ifcfg_path:
-        log.debug("network: can't find ifcfg file of %s", devname)
+        log.debug("can't find ifcfg file of %s", devname)
         return False
     ifcfg = IfcfgFile(ifcfg_path)
     ifcfg.read()

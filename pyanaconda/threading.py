@@ -1,5 +1,5 @@
 #
-# threads.py:  anaconda thread management
+# threading.py:  anaconda thread management
 #
 # Copyright (C) 2012
 # Red Hat, Inc.  All rights reserved.
@@ -17,8 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-import logging
-log = logging.getLogger("anaconda")
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 import threading
 

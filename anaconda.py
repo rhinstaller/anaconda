@@ -189,7 +189,7 @@ def parse_arguments(argv=None, boot_cmdline=None):
     :returns: namespace of parsed options and a list of deprecated
               anaconda options that have been found
     """
-    from pyanaconda.anaconda_argparse import getArgumentParser
+    from pyanaconda.argument_parsing import getArgumentParser
     ap = getArgumentParser(startup_utils.get_anaconda_version_string(),
                            boot_cmdline)
 
@@ -251,7 +251,7 @@ if __name__ == "__main__":
         # this much (redirect any log messages to stdout) to get rid of the
         # harmless but annoying "no handlers found" message on stdout
         import logging
-        log = logging.getLogger("anaconda")
+        log = logging.getLogger("anaconda.main")
         log.addHandler(logging.StreamHandler(stream=sys.stdout))
         parse_arguments()
 
@@ -270,9 +270,9 @@ if __name__ == "__main__":
 
     # init threading before Gtk can do anything and before we start using threads
     # initThreading initializes the threadMgr instance, import it afterwards
-    from pyanaconda.threads import initThreading, AnacondaThread
+    from pyanaconda.threading import initThreading, AnacondaThread
     initThreading()
-    from pyanaconda.threads import threadMgr
+    from pyanaconda.threading import threadMgr
 
     from pyanaconda.i18n import _
 
@@ -291,16 +291,16 @@ if __name__ == "__main__":
         flags.dirInstall = True
 
     # Set up logging as early as possible.
-    import logging
-    from pyanaconda import anaconda_log
-    anaconda_log.init()
-    anaconda_log.logger.setupVirtio()
+    from pyanaconda import anaconda_logging
+    from pyanaconda import anaconda_loggers
+    anaconda_logging.init()
+    anaconda_logging.logger.setupVirtio()
 
     from pyanaconda import network
     network.setup_ifcfg_log()
 
-    log = logging.getLogger("anaconda")
-    stdout_log = logging.getLogger("anaconda.stdout")
+    log = anaconda_loggers.get_main_logger()
+    stdout_log = anaconda_loggers.get_stdout_logger()
 
     if os.geteuid() != 0:
         stdout_log.error("anaconda must be run as root.")
@@ -633,7 +633,7 @@ if __name__ == "__main__":
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
     anaconda.instClass.setStorageChecker(storage_checker)
 
-    from pyanaconda.anaconda_argparse import name_path_pairs
+    from pyanaconda.argument_parsing import name_path_pairs
 
     image_count = 0
     try:

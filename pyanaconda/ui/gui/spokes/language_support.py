@@ -33,8 +33,8 @@ from pyanaconda import localization
 
 import re
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["LangsupportSpoke"]
 
@@ -51,7 +51,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "langsupportWindow"]
     mainWidgetName = "langsupportWindow"
     focusWidgetName = "languageEntry"
-    uiFile = "spokes/langsupport.glade"
+    uiFile = "spokes/language_support.glade"
     helpFile = "LangSupportSpoke.xml"
 
     category = LocalizationCategory

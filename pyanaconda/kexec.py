@@ -24,8 +24,8 @@ from collections import namedtuple
 from pyanaconda.iutil import getSysroot, execReadlines, execWithRedirect
 from pyanaconda.simpleconfig import unquote
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class GrubbyInfoError(Exception):
     pass

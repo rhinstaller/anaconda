@@ -22,7 +22,7 @@ gi.require_version("GLib", "2.0")
 
 from gi.repository import GLib
 
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
 

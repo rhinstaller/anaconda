@@ -30,11 +30,11 @@ from collections import OrderedDict
 from pyanaconda import iutil
 from pyanaconda.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from blivet import arch
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 # The following zones are not in pytz.common_timezones and
 # Etc category in pytz.all_timezones includes some more,

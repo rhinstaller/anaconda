@@ -17,8 +17,8 @@
 # Red Hat, Inc.
 #
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 import gi
 gi.require_version("GLib", "2.0")
@@ -48,7 +48,7 @@ from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda import constants
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 
 import datetime
 import re

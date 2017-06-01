@@ -20,7 +20,7 @@
 from pyanaconda import ui
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.spokes import StandaloneSpoke
@@ -31,8 +31,8 @@ import sys
 import site
 import queue
 import meh.ui.text
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 def exception_msg_handler(event, data):
     """

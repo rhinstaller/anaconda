@@ -28,9 +28,11 @@ from pyanaconda.i18n import _, P_
 from pyanaconda.ui.tui.simpleline import App
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
 
-import logging
-log = logging.getLogger("anaconda")
-stdoutLog = logging.getLogger("anaconda.stdout")
+from pyanaconda.anaconda_loggers import get_stdout_logger
+stdoutLog = get_stdout_logger()
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 XVNC_BINARY_NAME = "Xvnc"
 
@@ -67,7 +69,7 @@ class VncServer:
         self.pw_file = pw_file
         self.connxinfo = None
         self.anaconda = None
-        self.log = logging.getLogger("anaconda.stdout")
+        self.log = get_stdout_logger()
 
         self.desktop = _("%(productName)s %(productVersion)s installation")\
                        % {'productName': product.productName,

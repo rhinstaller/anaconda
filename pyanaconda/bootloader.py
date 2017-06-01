@@ -41,8 +41,8 @@ from blivet import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class serial_opts(object):
     def __init__(self):

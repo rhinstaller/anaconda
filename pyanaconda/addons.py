@@ -21,13 +21,13 @@ __all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
 
 import os
 import functools
-import logging
 from pykickstart.sections import Section
 
 from pyanaconda.progress import progress_message
 from pyanaconda.i18n import N_
 
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 PLACEHOLDER_NAME = "ADDON_placeholder"
 

@@ -32,8 +32,8 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class Hub(GUIObject, common.Hub):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of

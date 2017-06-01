@@ -26,7 +26,7 @@ from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda import constants, iutil
 
 from pyanaconda.ui.communication import hubQ
@@ -35,8 +35,8 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, gtk_action_wait, escape_markup
 from pyanaconda.ui.categories.software import SoftwareCategory
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 import sys, copy
 
@@ -49,7 +49,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     """
     builderObjects = ["addonStore", "environmentStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
-    uiFile = "spokes/software.glade"
+    uiFile = "spokes/software_selection.glade"
     helpFile = "SoftwareSpoke.xml"
 
     category = SoftwareCategory

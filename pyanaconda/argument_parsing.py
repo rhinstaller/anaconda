@@ -1,5 +1,5 @@
 #
-# anaconda_argparse.py: option parsing for anaconda (CLI and boot args)
+# argument_parsing.py: option parsing for anaconda (CLI and boot args)
 #
 # Copyright (C) 2012 Red Hat, Inc.  All rights reserved.
 #
@@ -33,8 +33,8 @@ from pyanaconda.flags import flags as flags_instance
 
 from pyanaconda.constants import DisplayModes
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 # Help text formatting constants
 

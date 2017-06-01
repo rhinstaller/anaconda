@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once
 from pyanaconda import constants
@@ -29,8 +29,8 @@ gi.require_version("BlockDev", "2.0")
 
 from gi.repository import BlockDev as blockdev
 
-import logging
-log = logging.getLogger("anaconda")
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["DasdFormatDialog"]
 

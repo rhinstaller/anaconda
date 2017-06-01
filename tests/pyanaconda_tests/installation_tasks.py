@@ -20,8 +20,8 @@
 
 import unittest
 
-from pyanaconda.install_tasks import Task
-from pyanaconda.install_tasks import TaskQueue
+from pyanaconda.installation_tasks import Task
+from pyanaconda.installation_tasks import TaskQueue
 
 class InstallTasksTestCase(unittest.TestCase):
 

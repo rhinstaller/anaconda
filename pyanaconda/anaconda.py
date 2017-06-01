@@ -30,9 +30,11 @@ from pyanaconda.constants import DisplayModes
 from pyanaconda import iutil
 from pyanaconda import addons
 
-import logging
-log = logging.getLogger("anaconda")
-stdoutLog = logging.getLogger("anaconda.stdout")
+from pyanaconda.anaconda_loggers import get_stdout_logger
+stdoutLog = get_stdout_logger()
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 class Anaconda(object):
     def __init__(self):

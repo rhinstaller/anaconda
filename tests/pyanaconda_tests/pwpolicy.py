@@ -24,7 +24,7 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         import sys
 
-        sys.modules["anaconda_log"] = Mock()
+        sys.modules["anaconda_logging"] = Mock()
         sys.modules["block"] = Mock()
 
         from pyanaconda import kickstart
