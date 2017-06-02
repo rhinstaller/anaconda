@@ -233,19 +233,6 @@ class RPMOSTreePayload(ArchivePayload):
                 self._safeExecWithRedirect("mount",
                                            ["--bind", "-o", "ro", src, src])
 
-        # Now, ensure that all other potential mount point directories such as
-        # (/home) are created.  We run through the full tmpfiles here in order
-        # to also allow Anaconda and %post scripts to write to directories like
-        # /root.  We don't iterate *all* tmpfiles because we don't have the
-        # matching NSS configuration inside Anaconda, and we can't "chroot" to
-        # get it because that would require mounting the API filesystems in the
-        # target.
-        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media', 'spool/mail'):
-            self._safeExecWithRedirect("systemd-tmpfiles",
-                                       ["--create", "--boot", "--root=" + iutil.getSysroot(),
-                                        "--prefix=/var/" + varsubdir])
-
     def recreateInitrds(self, force=False):
         # For rpmostree payloads, we're replicating an initramfs from
         # a compose server, and should never be regenerating them
@@ -294,6 +281,19 @@ class RPMOSTreePayload(ArchivePayload):
         set_kargs_args.extend(self.storage.bootloader.boot_args)
         set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
         self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
+
+        # Now, ensure that all other potential mount point directories such as
+        # (/home) are created.  We run through the full tmpfiles here in order
+        # to also allow Anaconda and %post scripts to write to directories like
+        # /root.  We don't iterate *all* tmpfiles because we don't have the
+        # matching NSS configuration inside Anaconda, and we can't "chroot" to
+        # get it because that would require mounting the API filesystems in the
+        # target.
+        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
+                          'usrlocal', 'mnt', 'media', 'spool/mail'):
+            self._safeExecWithRedirect("systemd-tmpfiles",
+                                       ["--create", "--boot", "--root=" + iutil.getSysroot(),
+                                        "--prefix=/var/" + varsubdir])
 
     def preShutdown(self):
         # A crude hack for 7.2; forcibly recursively unmount
