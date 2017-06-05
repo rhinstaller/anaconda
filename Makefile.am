@@ -206,7 +206,7 @@ runglade:
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
 
-isolated-ci: test-install
+isolated-ci: rc-release
 # Add our daily build repositories in the mock config file
 	sed -e "s/@DISTRO@/$(DIST_NAME)/" -e "s/@ARCH@/$(ARCH_NAME)/" $(MOCK_CONF_TEMPLATE) > $(MOCK_CONF_OUT)
 	@-rm -f tests/error_occured
@@ -228,7 +228,7 @@ isolated-ci: test-install
 		exit $$status; \
 	fi
 
-ci: test-install
+ci: rc-release
 	$(MAKE) bare-ci
 
 bare-ci:
