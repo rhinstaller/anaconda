@@ -41,6 +41,9 @@ def get_module_logger(module_name):
         module_name = module_name[11:]
     return logging.getLogger("anaconda.%s" % module_name)
 
+def get_anaconda_root_logger():
+    return logging.getLogger(constants.LOGGER_ANACONDA_ROOT)
+
 def get_main_logger():
     return logging.getLogger(constants.LOGGER_MAIN)
 
