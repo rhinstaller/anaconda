@@ -146,7 +146,7 @@ class App(object):
         """
 
         if hidden:
-            data = self.simpleline_getpass(prompt)
+            data = self.simpleline_getpass = prompt
         else:
             widget = TextWidget(str(prompt))
             widget.render(self.width)
