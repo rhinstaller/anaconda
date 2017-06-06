@@ -228,6 +228,7 @@ class DisplayModes(Enum):
     TUI = "TUI"
 
 # Loggers
+LOGGER_ANACONDA_ROOT = "anaconda"
 LOGGER_MAIN = "anaconda.main"
 LOGGER_STDOUT = "anaconda.stdout"
 LOGGER_STDERR = "anaconda.stdout"
