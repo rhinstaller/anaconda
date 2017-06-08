@@ -318,6 +318,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 08 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.118-1
+- rpmostreepayload: [rhel7only] Move tmpfiles to after mount setup (walters)
+  Resolves: rhbz#1459623
+- rpmostreepayload: Handle /var as a user-specified mountpoint (walters)
+  Resolves: rhbz#1459623
+
 * Tue May 30 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.117-1
 - Root checking fixes password for password from kickstart (mkolman)
   Related: rhbz#1356966
