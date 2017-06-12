@@ -355,7 +355,7 @@ class ConfirmDeleteDialog(GUIObject):
             rootName = rootName.replace("_", "__")
         self._removeAll.set_label(
                 C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                    "Delete _all other file systems in the %s root as well.")
+                    "Delete _all file systems which are only used by %s.")
                 % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 
