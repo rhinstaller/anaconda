@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.117\n"
+"Project-Id-Version: anaconda 21.48.22.118\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-06-08 16:52+0200\n"
+"POT-Creation-Date: 2017-06-12 13:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2550,66 +2550,66 @@ msgstr ""
 msgid "Device removal request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1967
+#: pyanaconda/ui/gui/spokes/custom.py:1990
 msgid "No disks selected. Keeping previous disk set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2025
+#: pyanaconda/ui/gui/spokes/custom.py:2048
 msgid "No disks selected. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2033
+#: pyanaconda/ui/gui/spokes/custom.py:2056
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2065
+#: pyanaconda/ui/gui/spokes/custom.py:2088
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2212
+#: pyanaconda/ui/gui/spokes/custom.py:2235
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2218
+#: pyanaconda/ui/gui/spokes/custom.py:2241
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2299
+#: pyanaconda/ui/gui/spokes/custom.py:2322
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2304
+#: pyanaconda/ui/gui/spokes/custom.py:2327
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2309
-#: pyanaconda/ui/gui/spokes/custom.py:2330
+#: pyanaconda/ui/gui/spokes/custom.py:2332
+#: pyanaconda/ui/gui/spokes/custom.py:2353
 msgid "Automatic partitioning failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2544
+#: pyanaconda/ui/gui/spokes/custom.py:2567
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2552
+#: pyanaconda/ui/gui/spokes/custom.py:2575
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2552
+#: pyanaconda/ui/gui/spokes/custom.py:2575
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2627
+#: pyanaconda/ui/gui/spokes/custom.py:2650
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
@@ -3349,7 +3349,7 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:358
 #, python-format
 msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
-msgid "Delete _all other file systems in the %s root as well."
+msgid "Delete _all file systems which are only used by %s."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:368

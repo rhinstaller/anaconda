@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 12 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.119-1
+- Delete file systems used only by a given installation (vponcova)
+  Resolves: rhbz#1453097
+
 * Thu Jun 08 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.118-1
 - rpmostreepayload: [rhel7only] Move tmpfiles to after mount setup (walters)
   Resolves: rhbz#1459623
