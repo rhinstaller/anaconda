@@ -30,6 +30,7 @@ from blivet import udev
 from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.platform import platform as _platform
+from blivet.autopart import swap_suggestion
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -348,6 +349,20 @@ def verify_swap(storage, constraints, report_error, report_warning):
                                  "Although not strictly required in all cases, "
                                  "it will significantly improve performance "
                                  "for most installations."))
+
+    else:
+        swap_space = sum((device.size for device in swaps), Size(0))
+        disk_space = sum((device.size for device in storage.mountpoints.values()), Size(0))
+        recommended = swap_suggestion(disk_space=disk_space, quiet=True)
+
+        log.debug("Total swap space: %s", swap_space)
+        log.debug("Used disk space: %s", disk_space)
+        log.debug("Recommended swaps space: %s", recommended)
+
+        if swap_space < recommended:
+            report_warning(_("Your swap space is less than %(size)s "
+                             "which is lower than recommended.")
+                           % {"size": recommended})
 
 
 def verify_swap_uuid(storage, constraints, report_error, report_warning):
