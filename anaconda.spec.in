@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 13 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.120-1
+- Update translations (ljanda)
+  Related: rhbz#1383911
+
 * Mon Jun 12 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.119-1
 - Delete file systems used only by a given installation (vponcova)
   Resolves: rhbz#1453097
