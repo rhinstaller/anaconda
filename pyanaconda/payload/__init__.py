@@ -34,6 +34,7 @@ import threading
 import re
 import functools
 import time
+from collections import OrderedDict, namedtuple
 
 from blivet.size import Size
 from pyanaconda.iutil import requests_session
@@ -45,6 +46,7 @@ if __name__ == "__main__":
 from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
 from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_PAYLOAD_RESTART
+from pyanaconda.constants import PayloadRequirementType
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
@@ -137,6 +139,127 @@ class DependencyError(PayloadError):
 class PayloadInstallError(PayloadError):
     pass
 
+PayloadRequirementReason = namedtuple('PayloadRequirementReason', ['reason', 'strong'])
+
+class PayloadRequirement(object):
+    """An object to store a payload requirement with info about its reasons.
+
+    For each requirement multiple reasons together with their strength
+    can be stored in this object using the add_reason method.
+    A reason should be just a string with description (ie for tracking purposes).
+    Strength is a boolean flag that can be used to indicate whether missing the
+    requirement should be considered fatal. Strength of the requirement is
+    given by strength of all its reasons.
+    """
+    def __init__(self, req_id, reasons=None):
+        self._id = req_id
+        self._reasons = reasons or []
+
+    @property
+    def id(self):
+        """Identifier of the requirement (eg a package name)"""
+        return self._id
+
+    @property
+    def reasons(self):
+        """List of reasons for the requirement"""
+        return [reason for reason, strong in self._reasons]
+
+    @property
+    def strong(self):
+        """Strength of the requirement (ie should it be considered fatal?)"""
+        return any(strong for reason, strong in self._reasons)
+
+    def add_reason(self, reason, strong=False):
+        """Adds a reason to the requirement with optional strength of the reason"""
+        self._reasons.append(PayloadRequirementReason(reason, strong))
+
+    def __str__(self):
+        return "PayloadRequirement(id=%s, reasons=%s, strong=%s)" % (self.id, self.reasons, self.strong)
+
+    def __repr__(self):
+        return 'PayloadRequirement(id=%s, reasons=%s)' % (self.id, self._reasons)
+
+
+class PayloadRequirements(object):
+    """A container for payload requirements imposed by installed functionality.
+
+    Stores names of packages and groups required by used installer features,
+    together with descriptions of reasons why the object is required and if the
+    requirement is strong. Not satisfying strong requirement would be fatal for
+    installation.
+    """
+
+    def __init__(self):
+        self._reqs = {}
+        for req_type in PayloadRequirementType:
+            self._reqs[req_type] = OrderedDict()
+
+    def add_packages(self, package_names, reason, strong=True):
+        """Add packages required for the reason.
+
+        If a package is already required, the new reason will be
+        added and the strength of the requirement will be updated.
+
+        :param package_names: names of packages to be added
+        :type package_names: list of str
+        :param reason: description of reason for adding the packages
+        :type reason: str
+        :param strong: is the requirement strong (ie is not satisfying it fatal?)
+        :type strong: bool
+        """
+        self._add(PayloadRequirementType.package, package_names, reason, strong)
+
+    def add_groups(self, group_ids, reason, strong=True):
+        """Add groups required for the reason.
+
+        If a group is already required, the new reason will be
+        added and the strength of the requirement will be updated.
+
+        :param group_ids: ids of groups to be added
+        :type group_ids: list of str
+        :param reason: descripiton of reason for adding the groups
+        :type reason: str
+        :param strong: is the requirement strong
+        :type strong: bool
+        """
+        self._add(PayloadRequirementType.group, group_ids, reason, strong)
+
+    def _add(self, req_type, ids, reason, strong):
+        if not ids:
+            log.debug("no %s requirement added for %s", req_type.value, reason)
+        reqs = self._reqs[req_type]
+        for r_id in ids:
+            if r_id not in reqs:
+                reqs[r_id] = PayloadRequirement(r_id)
+            reqs[r_id].add_reason(reason, strong)
+            log.debug("added %s requirement '%s' for %s, strong=%s",
+                      req_type.value, r_id, reason, strong)
+
+    @property
+    def packages(self):
+        """List of package requirements.
+
+        return: list of package requirements
+        rtype: list of PayloadRequirement
+        """
+        return list(self._reqs[PayloadRequirementType.package].values())
+
+    @property
+    def groups(self):
+        """List of group requirements.
+
+        return: list of group requirements
+        rtype: list of PayloadRequirement
+        """
+        return list(self._reqs[PayloadRequirementType.group].values())
+
+    def __str__(self):
+        r = []
+        for req_type in PayloadRequirementType:
+            for rid, req in self._reqs[req_type].items():
+                r.append((req_type.value, rid, req))
+        return str(r)
 
 class Payload(object):
     """Payload is an abstract class for OS install delivery methods."""
@@ -157,6 +280,9 @@ class Payload(object):
         self.verbose_errors = []
 
         self._session = requests_session()
+
+        # Additional packages required by installer based on used features
+        self.requirements = PayloadRequirements()
 
     def setup(self, storage, instClass):
         """Do any payload-specific setup."""
@@ -610,11 +736,13 @@ class Payload(object):
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
     ###
-    def preInstall(self, packages=None, groups=None):
+    def preInstall(self):
         """Perform pre-installation tasks."""
         iutil.mkdirChain(iutil.getSysroot() + "/root")
 
         self._writeModuleBlacklist()
+
+        log.info("Installation requirements: %s", self.requirements)
 
     def install(self):
         """Install the payload."""
@@ -797,9 +925,6 @@ class PackagePayload(Payload):
         self.install_device = None
         self._rpm_macros = []
 
-        self.requiredPackages = []
-        self.requiredGroups = []
-
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
         # consisting of lists of add-on group IDs. The first list is the add-ons specific
@@ -807,7 +932,7 @@ class PackagePayload(Payload):
         # environment.
         self._environmentAddons = {}
 
-    def preInstall(self, packages=None, groups=None):
+    def preInstall(self):
         super(PackagePayload, self).preInstall()
 
         # Set rpm-specific options
@@ -838,11 +963,7 @@ class PackagePayload(Payload):
         # Add platform specific group
         groupid = iutil.get_platform_groupid()
         if groupid and groupid in self.groups:
-            if isinstance(groups, list):
-                log.info("Adding platform group %s", groupid)
-                groups.append(groupid)
-            else:
-                log.warning("Could not add %s to groups, not a list.", groupid)
+            self.requirements.add_groups([groupid], reason="platform")
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
 
@@ -1173,10 +1294,7 @@ class PackagePayload(Payload):
         with open("/run/install/dd_packages", "r") as f:
             for line in f:
                 package = line.strip()
-                if package not in self.requiredPackages:
-                    log.info("DD: adding required package: %s", package)
-                    self.requiredPackages.append(package)
-        log.debug("required packages = %s", self.requiredPackages)
+                self.requirements.add_packages([package], reason="driver disk")
 
     @property
     def ISOImage(self):

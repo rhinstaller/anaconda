@@ -27,6 +27,7 @@ import hashlib
 import shutil
 
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
+from pyanaconda.payload import PayloadRequirements
 
 
 class PickLocation(unittest.TestCase):
@@ -148,3 +149,69 @@ or it should be. Nah it's just a test!
         # test correct behavior when the repo file won't be available
         os.remove(self._md_file)
         self.assertFalse(r.verify_repoMD())
+
+class  PayloadRequirementsTestCase(unittest.TestCase):
+
+    def requirements_test(self):
+        """Check that requirements work correctly."""
+
+        ### requirements are ordered by adding
+        reqs = PayloadRequirements()
+        reqs.add_packages(["p1"], "reason1")
+        reqs.add_packages(["p3"], "reason2")
+        reqs.add_packages(["p2"], "reason3")
+        reqs.add_packages(["p2", "p3", "p4"], "reason4")
+
+        package_reqs = [(req.id, req.reasons, req.strong) for
+                         req in reqs.packages]
+
+        self.assertEqual(package_reqs,
+                [("p1", ["reason1"], True),
+                 ("p3", ["reason2", "reason4"], True),
+                 ("p2", ["reason3", "reason4"], True),
+                 ("p4", ["reason4"], True)])
+
+
+        ### reasons are not merged, just appended
+        reqs = PayloadRequirements()
+        reqs.add_packages(["p1"], "reason1")
+        reqs.add_packages(["p1"], "reason1")
+
+        package_reqs = [(req.id, req.reasons, req.strong) for
+                         req in reqs.packages]
+        self.assertEqual(package_reqs,
+                [("p1", ["reason1", "reason1"], True)])
+
+
+        ### strength of a package requirement is merged (ORed)
+        reqs = PayloadRequirements()
+        # default is strong
+        reqs.add_packages(["p1"], "reason1")
+        package_reqs = [(req.id, req.reasons, req.strong) for
+                         req in reqs.packages]
+        self.assertEqual(package_reqs,
+                [("p1", ["reason1"], True)])
+        # a strong req will be always strong
+        reqs.add_packages(["p1"], "reason2", strong=False)
+        package_reqs = [(req.id, req.reasons, req.strong) for
+                         req in reqs.packages]
+        self.assertEqual(package_reqs,
+                [("p1", ["reason1", "reason2"], True)])
+
+        # weak can become strong
+        reqs = PayloadRequirements()
+        reqs.add_packages(["p1"], "reason1", strong=False)
+        reqs.add_packages(["p1"], "reason2")
+        package_reqs = [(req.id, req.reasons, req.strong) for
+                         req in reqs.packages]
+        self.assertEqual(package_reqs,
+                [("p1", ["reason1", "reason2"], True)])
+
+        ### no group requirements yet
+        self.assertEqual(reqs.groups, [])
+        # let's add some group requirement
+        reqs.add_groups(["g1"], "reason")
+        group_reqs = [(req.id, req.reasons, req.strong) for
+                         req in reqs.groups]
+        self.assertEqual(group_reqs,
+                [("g1", ["reason"], True)])
