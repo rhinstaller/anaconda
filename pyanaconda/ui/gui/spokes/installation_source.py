@@ -58,7 +58,7 @@ __all__ = ["SourceSpoke"]
 
 BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
 
-# These need to match the IDs in protocolComboBox and repoProtocolComboBox in source.glade.
+# These need to match the IDs in protocolComboBox and repoProtocolComboBox in installation_source.glade.
 PROTOCOL_HTTP = 'http'
 PROTOCOL_HTTPS = 'https'
 PROTOCOL_FTP = 'ftp'
@@ -224,7 +224,7 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
-    uiFile = "spokes/source.glade"
+    uiFile = "spokes/installation_source.glade"
 
     def __init__(self, data):
         GUIObject.__init__(self, data)
@@ -303,7 +303,7 @@ class MediaCheckDialog(GUIObject):
 class IsoChooser(GUIObject):
     builderObjects = ["isoChooserDialog", "isoFilter"]
     mainWidgetName = "isoChooserDialog"
-    uiFile = "spokes/source.glade"
+    uiFile = "spokes/installation_source.glade"
 
     def __init__(self, data):
         GUIObject.__init__(self, data)
@@ -368,7 +368,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     """
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
-    uiFile = "spokes/source.glade"
+    uiFile = "spokes/installation_source.glade"
     helpFile = "SourceSpoke.xml"
 
     category = SoftwareCategory
