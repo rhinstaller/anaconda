@@ -379,6 +379,10 @@ def dumpMissingDefaultIfcfgs():
                 log.debug("%s while checking missing ifcfgs, device %s", e, devname)
             continue
         nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
+        nm.nm_update_settings_of_device(devname, [['connection', 'interface-name', devname, None]])
+        if not _bound_hwaddr_of_device(devname):
+            nm.nm_update_settings_of_device(devname, [['802-3-ethernet', 'mac-address', [], None]])
+
         log.debug("dumping ifcfg file for %s from default autoconnection %s", devname, uuid)
         rv.append(devname)
 
