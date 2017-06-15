@@ -310,6 +310,7 @@ def doInstall(storage, payload, ksdata, instClass):
         payload.requirements.add_packages(ksdata.authconfig.packages, reason="authconfig")
         payload.requirements.add_packages(ksdata.firewall.packages, reason="firewall")
         payload.requirements.add_packages(ksdata.network.packages, reason="network")
+        payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)
 
         if willInstallBootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
