@@ -35,6 +35,7 @@ from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 from pyanaconda.install_tasks import Task, TaskQueue
+from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 import logging
 log = logging.getLogger("anaconda")
 
@@ -336,6 +337,12 @@ def doInstall(storage, payload, ksdata, instClass):
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
     post_install.append(Task("Run post-installation setup tasks", payload.postInstall))
     installation_queue.append(post_install)
+
+    # Create snapshot
+    if ksdata.snapshot and ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_POST_INSTALL):
+        snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
+        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, ksdata, instClass)))
+        installation_queue.append(snapshot_creation)
 
     # notify progress tracking about the number of steps
     progress_init(len(installation_queue))
