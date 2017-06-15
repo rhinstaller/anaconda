@@ -328,6 +328,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 15 2017 Martin Kolman <mkolman@redhat.com> - 26.21.9-1
+- Bump version of Pykickstart and Blivet (#1113207) (jkonecny)
+- Add XFS uuid changer (#1113207) (jkonecny)
+- Support --when parameter in snapshot (#1113207) (jkonecny)
+- Add snapshot support (#1113207) (jkonecny)
+
 * Tue Jun 13 2017 Martin Kolman <mkolman@redhat.com> - 26.21.8-1
 - Show warning if swap is smaller then recommended (#1290360) (vponcova)
 - Disable test-install in Makefile (jkonecny)
