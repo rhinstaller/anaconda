@@ -453,7 +453,6 @@ class DNFPayload(payload.PackagePayload):
                 self._miss(e)
 
         self._select_kernel_package()
-        self._select_langpacks()
 
         for req in self.requirements.packages:
             ignore_msgs = []
@@ -636,20 +635,21 @@ class DNFPayload(payload.PackagePayload):
         else:
             log.error('kernel: failed to select a kernel from %s', kernels)
 
-    def _select_langpacks(self):
+    def langpacks(self):
         # get all available languages in repos
         available_langpacks = self._base.sack.query().available() \
             .filter(name__glob="langpacks-*")
         alangs = [p.name.split('-', 1)[1] for p in available_langpacks]
 
+        langpacks = []
         # add base langpacks into transaction
         for lang in [self.data.lang.lang] + self.data.lang.addsupport:
             loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
             if not loc:
                 log.warning("Selected lang %s does not match any available langpack", lang)
                 continue
-            log.info("Installing langpacks-%s", loc)
-            self._base.install("langpacks-" + loc)
+            langpacks.append("langpacks-" + loc)
+        return langpacks
 
     def _sync_metadata(self, dnf_repo):
         try:

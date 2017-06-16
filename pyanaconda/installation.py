@@ -315,6 +315,7 @@ def doInstall(storage, payload, ksdata, instClass):
         if willInstallBootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
         payload.requirements.add_groups(payload.languageGroups(), reason="language groups")
+        payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
         payload.preInstall()
 
     pre_install.append(Task("Find additional packages & run preInstall()", run_pre_install))
