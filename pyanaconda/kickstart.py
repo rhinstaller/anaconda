@@ -19,7 +19,7 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
