@@ -18,56 +18,62 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.errors import ScriptError, errorHandler
-from pyanaconda.threads import threadMgr
-from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
-from blivet.devices import LUKSDevice
-from blivet.devices.lvm import LVMCacheRequest, LVMThinLogicalVolumeDevice, LVMThinSnapShotDevice
-from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-from blivet.devicelibs import swap as swap_lib
-from blivet.formats import getFormat
-from blivet.formats.fs import XFS
-from blivet.partitioning import doPartitioning
-from blivet.partitioning import growLVM
-from blivet.errors import PartitioningError
-from blivet.size import Size
-from blivet import udev
-from blivet.platform import platform
-import blivet.iscsi
-import blivet.fcoe
-import blivet.zfcp
-import blivet.arch
-
 import glob
-from pyanaconda import iutil
 import os
 import os.path
-import tempfile
-from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE
-from contextlib import contextmanager
 import shlex
 import sys
+import tempfile
 import urlgrabber
+
+import blivet.arch
+import blivet.fcoe
+import blivet.iscsi
+import blivet.zfcp
+
 import pykickstart.commands as commands
+
+from contextlib import contextmanager
+
+from pyanaconda import iutil
 from pyanaconda import keyboard
-from pyanaconda import ntp
-from pyanaconda import timezone
-from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from pyanaconda import localization
 from pyanaconda import network
 from pyanaconda import nm
-from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.users import getPassAlgo
-from pyanaconda.desktop import Desktop
-from pyanaconda.i18n import _
-from pyanaconda.ui.common import collect
+from pyanaconda import ntp
+from pyanaconda import screen_access
+from pyanaconda import timezone
+
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE
+from pyanaconda.desktop import Desktop
+from pyanaconda.errors import ScriptError, errorHandler
+from pyanaconda.flags import flags, can_touch_runtime_system
+from pyanaconda.i18n import _
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
+from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage_utils import device_matches, try_populate_devicetree
-from pyanaconda import screen_access
+from pyanaconda.threads import threadMgr
+from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
+from pyanaconda.ui.common import collect
+from pyanaconda.users import getPassAlgo
+
+from blivet import udev
+
+from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
+from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+from blivet.devicelibs import swap as swap_lib
+from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
+from blivet.devices import LUKSDevice
+from blivet.devices.lvm import LVMCacheRequest, LVMThinLogicalVolumeDevice, LVMThinSnapShotDevice
+from blivet.errors import PartitioningError
+from blivet.formats.fs import XFS
+from blivet.formats import getFormat
+from blivet.partitioning import doPartitioning, growLVM
+from blivet.platform import platform
+from blivet.size import Size
+
 from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
@@ -78,8 +84,7 @@ from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueErr
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
-                                 OnErrorScriptSection, TracebackScriptSection
-from pykickstart.sections import Section
+                                 OnErrorScriptSection, TracebackScriptSection, Section
 from pykickstart.version import returnClassForVersion, RHEL7
 
 import logging
