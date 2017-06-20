@@ -165,6 +165,9 @@ class AnacondaKSScript(KSScript):
                 with open(messages, "r") as fp:
                     err = "".join(fp.readlines())
 
+                # Show error dialog even for non-interactive
+                flags.ksprompt = True
+
                 errorHandler.cb(ScriptError(self.lineno, err))
                 iutil.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)

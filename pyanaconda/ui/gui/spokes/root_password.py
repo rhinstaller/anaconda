@@ -202,11 +202,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
             elif failed_check == self._pwEmptyCheck:
                 self.waive_clicks += 1
                 self._pwEmptyCheck.update_check_status()
+            elif failed_check == self._pwASCIICheck:
+                self.waive_ASCII_clicks += 1
+                self._pwASCIICheck.update_check_status()
             elif failed_check:  # no failed checks -> failed_check == None
                 failed_check.update_check_status()
-        elif failed_check == self._pwASCIICheck:
-            self.waive_ASCII_clicks += 1
-            self._pwASCIICheck.update_check_status()
 
         if GUISpokeInputCheckHandler.on_back_clicked(self, button):
             NormalSpoke.on_back_clicked(self, button)
