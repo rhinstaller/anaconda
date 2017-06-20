@@ -239,6 +239,17 @@ class RPMOSTreePayload(ArchivePayload):
         # per-machine.
         pass
 
+    def dracutSetupArgs(self):
+        # Override this as it does `import rpm` which can make the
+        # rpmdb incorrectly before we've set up the /var mount point;
+        # https://bugzilla.redhat.com/show_bug.cgi?id=1462979
+        return []
+
+    def _setDefaultBootTarget(self):
+        # Also override this; the boot target is set in the treecompose,
+        # and it also does an `import rpm`
+        pass
+
     def postInstall(self):
         super(RPMOSTreePayload, self).postInstall()
 
