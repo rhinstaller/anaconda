@@ -73,7 +73,7 @@ from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
                                   SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.base import BaseHandler
-from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
@@ -2005,7 +2005,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
             Blivet will do a validity checking for future snapshot.
         """
         if not self.origin.count('/') == 1:
-            raise KickstartParseError(
+            raise KickstartError(
                         formatErrorMsg(self.lineno,
                                        msg=_("Incorrectly specified origin of the snapshot."
                                              " Use format \"VolGroup/LV_name\"")))
@@ -2016,7 +2016,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
         log.debug("Snapshot: name %s has origin %s", self.name, origin_dev)
 
         if not isinstance(origin_dev, LVMThinLogicalVolumeDevice):
-            raise KickstartParseError(
+            raise KickstartError(
                         formatErrorMsg(self.lineno,
                                        msg=(_("Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\""
                                               " is not a valid thin LV device.") %
@@ -2024,7 +2024,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
                                              "name": self.name})))
 
         if storage.devicetree.getDeviceByName("%s-%s" % (origin_dev.vg.name, snap_name)):
-            raise KickstartParseError(
+            raise KickstartError(
                         formatErrorMsg(self.lineno,
                                        msg=(_("Snapshot %s already exists.") % self.name)))
         self.thin_snapshot = None
@@ -2034,7 +2034,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
                                                        segType="thin",
                                                        origin=origin_dev)
         except ValueError as e:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=e))
+            raise KickstartError(formatErrorMsg(self.lineno, msg=e))
 
     def execute(self, storage, ksdata, instClass):
         """ Execute an action for snapshot creation. """
