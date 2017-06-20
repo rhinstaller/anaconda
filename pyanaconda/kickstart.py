@@ -46,6 +46,7 @@ import os.path
 import tempfile
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE
+from contextlib import contextmanager
 import shlex
 import sys
 import urlgrabber
@@ -87,6 +88,17 @@ stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
 from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel, DEFAULT_LEVEL
+
+@contextmanager
+def check_kickstart_error():
+    try:
+        yield
+    except KickstartError as e:
+        # We do not have an interface here yet, so we cannot use our error
+        # handling callback.
+        print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
+        sys.exit(1)
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -2271,14 +2283,8 @@ def preScriptPass(f):
     # generates an included file that has commands for later.
     ksparser = AnacondaPreParser(AnacondaKSHandler())
 
-    try:
+    with check_kickstart_error():
         ksparser.readKickstart(f)
-    except KickstartError as e:
-        # We do not have an interface here yet, so we cannot use our error
-        # handling callback.
-        print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
@@ -2299,14 +2305,8 @@ def parseKickstart(f):
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
 
-    try:
+    with check_kickstart_error():
         ksparser.readKickstart(f)
-    except KickstartError as e:
-        # We do not have an interface here yet, so we cannot use our error
-        # handling callback.
-        print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
     return handler
 
