@@ -304,6 +304,8 @@ class DNFPayload(payload.PackagePayload):
         # save repomd metadata
         self._repoMD_list = []
 
+        self.requirements.set_apply_callback(self._apply_requirements)
+
     def unsetup(self):
         super(DNFPayload, self).unsetup()
         self._base = None
@@ -454,6 +456,7 @@ class DNFPayload(payload.PackagePayload):
 
         self._select_kernel_package()
 
+    def _apply_requirements(self, requirements):
         for req in self.requirements.packages:
             ignore_msgs = []
             if req.id in self.instclass.ignoredPackages:
@@ -475,6 +478,8 @@ class DNFPayload(payload.PackagePayload):
                            req.id, req.reasons)
             except payload.NoSuchGroup as e:
                 self._miss(e)
+
+        return True
 
     def _bump_tx_id(self):
         if self.txID is None:
@@ -754,6 +759,7 @@ class DNFPayload(payload.PackagePayload):
         self._bump_tx_id()
         self._base.reset(goal=True)
         self._apply_selections()
+        self.requirements.apply()
 
         try:
             if self._base.resolve():

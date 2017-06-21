@@ -27,7 +27,7 @@ import hashlib
 import shutil
 
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
-from pyanaconda.payload import PayloadRequirements
+from pyanaconda.payload import PayloadRequirements, PayloadRequirementsMissingApply
 
 
 class PickLocation(unittest.TestCase):
@@ -215,3 +215,34 @@ class  PayloadRequirementsTestCase(unittest.TestCase):
                          req in reqs.groups]
         self.assertEqual(group_reqs,
                 [("g1", ["reason"], True)])
+
+        ### applying requirements
+        reqs = PayloadRequirements()
+        self.assertTrue(reqs.empty)
+        # no requirements, so all requirements were applied
+        self.assertTrue(reqs.applied)
+        # no callback was assigned yet
+        # calling apply without callback set raises exception
+        with self.assertRaises(PayloadRequirementsMissingApply):
+            reqs.apply()
+        # apply callback gets one argument: requirements instance
+        def cb(requirements):
+            return requirements is reqs
+        # set the apply callback
+        reqs.set_apply_callback(cb)
+        # BTW, applied is still true
+        self.assertTrue(reqs.applied)
+        reqs.add_packages(["p1"], "reason1", strong=False)
+        self.assertEqual(reqs.empty, False)
+        # a package has been added, applied is False
+        self.assertFalse(reqs.applied)
+        # after calling apply, applied becomes True
+        self.assertTrue(reqs.apply())
+        self.assertTrue(reqs.applied)
+        # applied becomes False after adding a requirement even when it adds the
+        # same object (package "p1"). The reason is that the updated requirement
+        # may became strong so the application may be different.
+        reqs.add_packages(["p1"], "reason2")
+        self.assertFalse(reqs.applied)
+        self.assertTrue(reqs.apply())
+        self.assertTrue(reqs.applied)

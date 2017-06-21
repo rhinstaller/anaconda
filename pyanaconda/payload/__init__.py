@@ -181,6 +181,9 @@ class PayloadRequirement(object):
         return 'PayloadRequirement(id=%s, reasons=%s)' % (self.id, self._reasons)
 
 
+class PayloadRequirementsMissingApply(Exception):
+    pass
+
 class PayloadRequirements(object):
     """A container for payload requirements imposed by installed functionality.
 
@@ -191,6 +194,8 @@ class PayloadRequirements(object):
     """
 
     def __init__(self):
+        self._apply_called_for_all_requirements = True
+        self._apply_cb = None
         self._reqs = {}
         for req_type in PayloadRequirementType:
             self._reqs[req_type] = OrderedDict()
@@ -233,6 +238,7 @@ class PayloadRequirements(object):
             if r_id not in reqs:
                 reqs[r_id] = PayloadRequirement(r_id)
             reqs[r_id].add_reason(reason, strong)
+            self._apply_called_for_all_requirements = False
             log.debug("added %s requirement '%s' for %s, strong=%s",
                       req_type.value, r_id, reason, strong)
 
@@ -253,6 +259,52 @@ class PayloadRequirements(object):
         rtype: list of PayloadRequirement
         """
         return list(self._reqs[PayloadRequirementType.group].values())
+
+    def set_apply_callback(self, callback):
+        """Set the callback for applying requirements.
+
+        The callback will be called by apply() method.
+        param callback: callback function to be called by apply() method
+        type callback: a function taking one argument (requirements object)
+        """
+        self._apply_cb = callback
+
+    def apply(self):
+        """Apply requirements using callback function.
+
+        Calls the callback supplied via set_apply_callback() method. If no
+        callback was set, an axception is raised.
+
+        return: return value of the callback
+        rtype: type of the callback return value
+        raise PayloadRequirementsMissingApply: if there is no callback set
+
+        """
+        if self._apply_cb:
+            self._apply_called_for_all_requirements = True
+            rv = self._apply_cb(self)
+            log.debug("apply with result %s called on requirements %s", rv, self)
+            return rv
+        else:
+            raise PayloadRequirementsMissingApply
+
+    @property
+    def applied(self):
+        """Was all requirements applied?
+
+        return: Was apply called for all current requirements?
+        rtype: bool
+        """
+        return self.empty or self._apply_called_for_all_requirements
+
+    @property
+    def empty(self):
+        """Are requirements empty?
+
+        return: True if there are no requirements, else False
+        rtype: bool
+        """
+        return not any(self._reqs.values())
 
     def __str__(self):
         r = []
@@ -745,7 +797,6 @@ class Payload(object):
 
         self._writeModuleBlacklist()
 
-        log.info("Installation requirements: %s", self.requirements)
 
     def install(self):
         """Install the payload."""
@@ -868,6 +919,10 @@ class Payload(object):
         #   kickstart should handle this before we get here
 
         self._copyDriverDiskFiles()
+
+        log.info("Installation requirements: %s", self.requirements)
+        if not self.requirements.applied:
+            log.info("Some of the requirements were not applied.")
 
     def writeStorageEarly(self):
         """Some payloads require that the storage configuration be written out
