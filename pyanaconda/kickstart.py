@@ -19,7 +19,7 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
-from pyanaconda.threads import threadMgr
+from pyanaconda.threading import threadMgr
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
@@ -164,6 +164,9 @@ class AnacondaKSScript(KSScript):
                 err = ""
                 with open(messages, "r") as fp:
                     err = "".join(fp.readlines())
+
+                # Show error dialog even for non-interactive
+                flags.ksprompt = True
 
                 errorHandler.cb(ScriptError(self.lineno, err))
                 iutil.ipmi_report(IPMI_ABORTED)
