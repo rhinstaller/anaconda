@@ -328,6 +328,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 21 2017 Martin Kolman <mkolman@redhat.com> - 27.15-1
+- Honor --erroronfail kickstart option in cmdline mode (rvykydal)
+- Fix import from a renamed module (#1462538) (vponcova)
+- Fix the 'non-ASCII characters in password' checks (#1413813) (awilliam)
+- Move mock config files to slaves (jkonecny)
+
 * Thu Jun 15 2017 Martin Kolman <mkolman@redhat.com> - 27.14-1
 - Bump version of Pykickstart and Blivet (#1113207) (jkonecny)
 - Add XFS uuid changer (#1113207) (jkonecny)
