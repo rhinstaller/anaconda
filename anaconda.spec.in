@@ -318,6 +318,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 21 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.121-1
+- rpmostreepayload: Stub out payload methods which use `import rpm` (walters)
+  Related: rhbz#1462979
+
 * Tue Jun 13 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.120-1
 - Update translations (ljanda)
   Related: rhbz#1383911
