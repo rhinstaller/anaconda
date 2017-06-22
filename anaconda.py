@@ -719,9 +719,11 @@ if __name__ == "__main__":
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
+    from pyanaconda.kickstart import check_kickstart_error
     if ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_PRE_INSTALL):
-        ksdata.snapshot.pre_setup(anaconda.storage, ksdata, anaconda.instClass)
-        ksdata.snapshot.pre_execute(anaconda.storage, ksdata, anaconda.instClass)
+        with check_kickstart_error():
+            ksdata.snapshot.pre_setup(anaconda.storage, ksdata, anaconda.instClass)
+            ksdata.snapshot.pre_execute(anaconda.storage, ksdata, anaconda.instClass)
 
     anaconda._intf.setup(ksdata)
     anaconda._intf.run()

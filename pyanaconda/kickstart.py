@@ -35,6 +35,8 @@ import blivet.zfcp
 
 import pykickstart.commands as commands
 
+from contextlib import contextmanager
+
 from pyanaconda import iutil, keyboard, localization, network, nm, ntp, screen_access, timezone
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
@@ -106,6 +108,17 @@ timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 escrow_log = log.getChild("kickstart.escrow")
 upgrade_log = log.getChild("kickstart.upgrade")
+
+@contextmanager
+def check_kickstart_error():
+    try:
+        yield
+    except KickstartError as e:
+        # We do not have an interface here yet, so we cannot use our error
+        # handling callback.
+        print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
+        sys.exit(1)
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -2289,14 +2302,8 @@ def preScriptPass(f):
     # generates an included file that has commands for later.
     ksparser = AnacondaPreParser(AnacondaKSHandler())
 
-    try:
+    with check_kickstart_error():
         ksparser.readKickstart(f)
-    except KickstartError as e:
-        # We do not have an interface here yet, so we cannot use our error
-        # handling callback.
-        print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
