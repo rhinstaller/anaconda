@@ -1297,12 +1297,12 @@ def disable_ipv6_on_target_system(rootpath):
                     ipv6_method = None
                 if ipv6_method != "ignore":
                     return
-    log.info('network: disabling ipv6 on target system')
-    cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
-    with open(cfgfile, "a") as f:
-        f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
-        f.write("net.ipv6.conf.all.disable_ipv6=1\n")
-        f.write("net.ipv6.conf.default.disable_ipv6=1\n")
+        log.info('network: disabling ipv6 on target system')
+        cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
+        with open(cfgfile, "a") as f:
+            f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
+            f.write("net.ipv6.conf.all.disable_ipv6=1\n")
+            f.write("net.ipv6.conf.default.disable_ipv6=1\n")
 
 # sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
 def autostartFCoEDevices(rootpath, storage, ksdata):
