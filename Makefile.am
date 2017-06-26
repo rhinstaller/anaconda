@@ -213,10 +213,14 @@ isolated-ci: test-install
 	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
 	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
 	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
-	@mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
-	@mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
-	@-rm -rf $(srcdir)/result
-	@cp -r "$$(mock -r $(MOCKCHROOT) -p)/result" $(srcdir)
+	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
+
+	-rm -rf $(srcdir)/result
+	cp -r "$$(mock -r $(MOCKCHROOT) -p)/result" $(srcdir)
+# Move builders logs
+	mv $(srcdir)/*.log $(srcdir)/result/
+	-mv $(srcdir)/result/test-suite.log.* $(srcdir)/result/test-suite.log
 	@if [ -f tests/error_occured ]; then \
 		echo "TEST FAILED"; \
 		status=$$(cat tests/error_occured); \

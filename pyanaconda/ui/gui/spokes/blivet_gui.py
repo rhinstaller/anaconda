@@ -61,7 +61,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     # title of the spoke (will be displayed on the hub)
     title = CN_("GUI|Spoke", "_BLIVET-GUI PARTITIONING")
 
-    helpFile = "BlivetGuiSpoke.xml"
+    helpFile = "blivet-gui/index.page"
 
     ### methods defined by API ###
     def __init__(self, data, storage, payload, instclass):
