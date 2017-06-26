@@ -31,7 +31,7 @@ MAINTAINERCLEANFILES =	Makefile.in config.guess config.h.in config.sub \
 						py-compile m4/* po/Makefile.in.in po/Rules-quot \
 						test-driver
 
-CLEANFILES = *~ $(MOCK_CONF_OUT)
+CLEANFILES = *~
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
@@ -52,12 +52,8 @@ DIST_NAME ?= $(shell echo "$(GIT_BRANCH)" | sed \
 				-e 's/^f//' \
 				-e 's/master/rawhide/')
 ARCH_NAME ?= $(shell uname -m)
-DIST_FULL_NAME = $(shell echo "$(DIST_NAME)" | sed -re 's/^[0-9]+/fedora/')
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-
-MOCK_CONF_TEMPLATE ?= $(srcdir)/utils/mock-$(DIST_FULL_NAME)-template.cfg
-MOCK_CONF_OUT ?= $(srcdir)/utils/mock-out.cfg
 
 MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
 
@@ -97,6 +93,8 @@ po-all:
 # Try to fetch translations, but if that fails just keep going
 po-fallback:
 	-$(MAKE) po-pull
+
+
 
 scratch:
 	$(MAKE) ARCHIVE_TAG=HEAD dist
@@ -206,21 +204,23 @@ runglade:
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
 
-isolated-ci: rc-release
-# Add our daily build repositories in the mock config file
-	sed -e "s/@DISTRO@/$(DIST_NAME)/" -e "s/@ARCH@/$(ARCH_NAME)/" $(MOCK_CONF_TEMPLATE) > $(MOCK_CONF_OUT)
+isolated-ci: test-install
 	@-rm -f tests/error_occured
-	mock -r $(MOCK_CONF_OUT) --scrub all || exit 1
+	mock -r $(MOCKCHROOT) --scrub all || exit 1
 # Install missing dependencies for running make install-test-requires
-	mock -r $(MOCK_CONF_OUT) -i dnf python3 git || exit 1
-	mock -r $(MOCK_CONF_OUT) --copyin $(srcdir) /root/anaconda || exit 1
-	mock -r $(MOCK_CONF_OUT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
-	mock -r $(MOCK_CONF_OUT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
-	mock -r $(MOCK_CONF_OUT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
-	@mock -r $(MOCK_CONF_OUT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
-	@mock -r $(MOCK_CONF_OUT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
-	@-rm -rf $(srcdir)/result
-	@cp -r "$$(mock -r $(MOCK_CONF_OUT) -p)/result" $(srcdir)
+	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
+	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
+	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
+
+	-rm -rf $(srcdir)/result
+	cp -r "$$(mock -r $(MOCKCHROOT) -p)/result" $(srcdir)
+# Move builders logs
+	mv $(srcdir)/*.log $(srcdir)/result/
+	-mv $(srcdir)/result/test-suite.log.* $(srcdir)/result/test-suite.log
 	@if [ -f tests/error_occured ]; then \
 		echo "TEST FAILED"; \
 		status=$$(cat tests/error_occured); \
@@ -228,7 +228,7 @@ isolated-ci: rc-release
 		exit $$status; \
 	fi
 
-ci: rc-release
+ci: test-install
 	$(MAKE) bare-ci
 
 bare-ci:

@@ -46,6 +46,7 @@ import os.path
 import tempfile
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
+from contextlib import contextmanager
 import shlex
 import requests
 import sys
@@ -89,6 +90,17 @@ stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
 from pyanaconda import anaconda_log
+
+@contextmanager
+def check_kickstart_error():
+    try:
+        yield
+    except KickstartError as e:
+        # We do not have an interface here yet, so we cannot use our error
+        # handling callback.
+        print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
+        sys.exit(1)
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -141,6 +153,9 @@ class AnacondaKSScript(KSScript):
                 err = ""
                 with open(messages, "r") as fp:
                     err = "".join(fp.readlines())
+
+                # Show error dialog even for non-interactive
+                flags.ksprompt = True
 
                 errorHandler.cb(ScriptError(self.lineno, err))
                 iutil.ipmi_report(IPMI_ABORTED)
@@ -2266,14 +2281,8 @@ def preScriptPass(f):
     # generates an included file that has commands for later.
     ksparser = AnacondaPreParser(AnacondaKSHandler())
 
-    try:
+    with check_kickstart_error():
         ksparser.readKickstart(f)
-    except KickstartError as e:
-        # We do not have an interface here yet, so we cannot use our error
-        # handling callback.
-        print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
