@@ -221,18 +221,24 @@ class Anaconda(object):
 
     def _set_default_fstype(self, storage):
         fstype = None
+        boot_fstype = None
 
         # Get the default fstype from a kickstart file.
         if self.ksdata.autopart.autopart and self.ksdata.autopart.fstype:
             fstype = self.ksdata.autopart.fstype
+            boot_fstype = self.ksdata.autopart.fstype
         # Or from an install class.
         elif self.instClass.defaultFS:
             fstype = self.instClass.defaultFS
+            boot_fstype = None
 
         # Set the default fstype.
         if fstype:
             storage.set_default_fstype(fstype)
-            storage.set_default_boot_fstype(fstype)
+
+        # Set the default boot fstype.
+        if boot_fstype:
+            storage.set_default_boot_fstype(boot_fstype)
 
     def _load_plugin_s390(self):
         # Make sure s390 plugin is loaded.
