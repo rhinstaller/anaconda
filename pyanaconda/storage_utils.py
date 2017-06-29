@@ -31,7 +31,6 @@ from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats
 from blivet.formats.fs import FS
-from blivet.platform import platform as _platform
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -45,6 +44,7 @@ from pyanaconda.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, STORA
     STORAGE_MUST_BE_ON_LINUXFS, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, STORAGE_MIN_RAM
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.storage.autopart import swap_suggestion
+from pyanaconda.platform import platform as _platform
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -302,7 +302,7 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
     if storage.bootloader and not storage.bootloader.skip_bootloader:
         stage1 = storage.bootloader.stage1_device
 
-        if _platform.weight(fstype="biosboot") and stage1 and stage1.is_disk \
+        if arch.is_x86() and not arch.is_efi() and stage1 and stage1.is_disk \
                 and getattr(stage1.format, "labelType", None) == "gpt":
 
             missing = True

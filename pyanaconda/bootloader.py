@@ -36,7 +36,7 @@ from blivet.fcoe import fcoe
 import pyanaconda.network
 from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.nm import nm_device_hwaddress
-from blivet import platform
+from pyanaconda import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
 

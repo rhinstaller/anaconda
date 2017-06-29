@@ -46,6 +46,7 @@ from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.iutil import collect
+from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
@@ -64,7 +65,6 @@ from blivet.errors import PartitioningError, StorageError, BTRFSValueError
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
-from blivet.platform import platform
 from blivet.size import Size, KiB
 
 from pykickstart.base import BaseHandler, KickstartCommand

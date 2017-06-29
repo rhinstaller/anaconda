@@ -44,6 +44,7 @@ from pyanaconda.constants import SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
+from pyanaconda.platform import platform
 from pyanaconda import network
 
 from blivet import devicefactory
@@ -62,7 +63,6 @@ from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
-from blivet.platform import platform
 
 from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.osinstall import find_existing_installations, Root

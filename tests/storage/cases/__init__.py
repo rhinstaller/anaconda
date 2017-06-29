@@ -26,6 +26,7 @@ blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
 
 from pyanaconda.storage.osinstall import InstallerStorage
+from pyanaconda import platform as _platform
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.installclass import factory
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
@@ -48,7 +49,7 @@ class TestCase(object):
        desc         -- A description of what this test is supposed to be
                        testing.
        name         -- An identifying string given to this TestCase.
-       platforms    -- A list of blivet.platform.Platform subclasses that this
+       platforms    -- A list of pyanaconda.platform.Platform subclasses that this
                        TestCase is valid for.  This TestCase will only run on
                        matching platforms.  If the list is empty, it is assumed
                        to be valid for all platforms.
@@ -67,7 +68,7 @@ class TestCase(object):
         successes = 0
         failures = 0
 
-        if self.platforms and blivet.platform.get_platform().__class__.__name__ not in self.platforms:
+        if self.platforms and _platform.get_platform().__class__.__name__ not in self.platforms:
             print("Test %s skipped:  not valid for this platform" % self.name, file=sys.stderr)
             return
 
