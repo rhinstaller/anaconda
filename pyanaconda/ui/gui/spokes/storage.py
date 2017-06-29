@@ -62,7 +62,6 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
-from blivet import autopart
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError
@@ -74,6 +73,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants, iutil
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.screen_access import sam
 
