@@ -170,8 +170,21 @@ class RPMOSTreePayload(ArchivePayload):
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
 
+        pull_opts = {'refs': GLib.Variant('as', [ostreesetup.ref])}
+        # If we're doing a kickstart, we can at least use the content as a reference:
+        # See <https://github.com/rhinstaller/anaconda/issues/1117>
+        # The first path here is used by <https://pagure.io/fedora-lorax-templates>
+        # and the second by <https://github.com/projectatomic/rpm-ostree-toolbox/>
+        if OSTree.check_version(2017, 8):
+            for path in ['/ostree/repo', '/run/install/repo']:
+                if os.path.isdir(path):
+                    pull_opts['localcache-repos'] = GLib.Variant('as', [path])
+                    break
+
         try:
-            repo.pull(ostreesetup.remote, [ostreesetup.ref], 0, progress, cancellable)
+            repo.pull_with_options(ostreesetup.remote,
+                                   GLib.Variant('a{sv}', pull_opts),
+                                   progress, cancellable)
         except GLib.GError as e:
             exn = PayloadInstallError("Failed to pull from repository: %s" % e)
             log.error(str(exn))
@@ -180,6 +193,7 @@ class RPMOSTreePayload(ArchivePayload):
                 iutil.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
+        log.info("ostree pull: " + (progress.get_status() or ""))
         progressQ.send_message(_("Preparing deployment of %s") % (ostreesetup.ref, ))
 
         # Now that we have the data pulled, delete the remote for now.
