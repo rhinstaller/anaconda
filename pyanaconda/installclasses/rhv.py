@@ -27,6 +27,8 @@ from blivet.size import Size
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 
+__all__ = ["OvirtBaseInstallClass", "RHEVInstallClass"]
+
 
 class OvirtBaseInstallClass(BaseInstallClass):
     name = "oVirt Node Next"
