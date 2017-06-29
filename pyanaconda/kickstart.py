@@ -48,12 +48,13 @@ from pyanaconda.i18n import _
 from pyanaconda.iutil import collect
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import device_matches, try_populate_devicetree
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from pyanaconda.users import getPassAlgo
 
-from blivet import autopart, udev
+from blivet import udev
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
@@ -305,7 +306,6 @@ class AutoPart(commands.autopart.F26_AutoPart):
         return retval
 
     def execute(self, storage, ksdata, instClass):
-        from blivet.autopart import do_autopart
         from pyanaconda.storage_utils import storage_checker
 
         if not self.autopart:
@@ -326,7 +326,7 @@ class AutoPart(commands.autopart.F26_AutoPart):
         if self.type is not None:
             storage.autopart_type = self.type
 
-        do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
+        autopart.do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         report = storage_checker.check(storage)
         report.log(autopart_log)
 
@@ -1725,8 +1725,6 @@ class RepoData(commands.repo.F27_RepoData):
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
-        from blivet.autopart import do_reqpart
-
         if not self.reqpart:
             return
 
@@ -1743,7 +1741,7 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 
             reqs += bootPartitions
 
-        do_reqpart(storage, reqs)
+        autopart.do_reqpart(storage, reqs)
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
