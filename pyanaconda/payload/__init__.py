@@ -1561,7 +1561,7 @@ class PayloadManager(object):
         thread. If there is already a payload thread restart pending, this method
         has no effect.
 
-        :param blivet.Blivet storage: The blivet storage instance
+        :param pyanaconda.storage.InstallerStorage storage: The blivet storage instance
         :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
         :param payload.Payload payload: The payload instance
         :param installclass.BaseInstallClass instClass: The install class instance

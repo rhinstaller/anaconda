@@ -94,7 +94,7 @@ def applyDiskSelection(storage, data, use_names):
 def checkDiskSelection(storage, selected_disks):
     """ Return a list of errors related to a proposed disk selection.
 
-        :param :class:`blivet.Blivet` storage: storage data
+        :param :class:`pyanaconda.storage.InstallerStorage` storage: storage data
         :param selected_disks: names of proposed selected disks
         :type selected_disks: list of str
         :returns: a list of error messages
