@@ -22,6 +22,9 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
+__all__ = ["RHELBaseInstallClass"]
+
+
 class RHELBaseInstallClass(BaseInstallClass):
     name = "Red Hat Enterprise Linux"
     sortPriority = 10000
