@@ -173,6 +173,17 @@ class InstallClassFactory(object):
         self._visible_classes = []
         self._paths = []
 
+    def get_install_class_by_name(self, name):
+        """Return an instance of an install class with a requested name."""
+        for install_class in self.classes:
+            if install_class.name == name:
+                log.info("Using the requested install class %s.",
+                         self._get_class_description(install_class))
+
+                return install_class()
+
+        raise RuntimeError("Unable to find the install class %s.", name)
+
     def get_best_install_class(self):
         """Return the instance of the best found install class.
 

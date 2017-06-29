@@ -50,6 +50,20 @@ pwpolicy <name> [--minlen=LENGTH] [--minquality=QUALITY] [--strict|notstrict] [-
         Do not allow UI to be used to change the password/user if it has been set in
         the kickstart.
 
+
+installclass
+============
+
+installclass --name=<name>
+
+    Require the specified install class to be used for the installation.
+    Otherwise, the best available install class will be used.
+
+    --name
+
+        Name of the required install class.
+
+
 The defaults for interactive installations are set in the /usr/share/anaconda/interactive-defaults.ks
 file provided by Anaconda. If a product, such as Fedora Workstation, wishes to override them
 then a product.img needs to be created with a new version of the file included.
