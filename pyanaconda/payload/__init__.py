@@ -53,6 +53,7 @@ from pyanaconda.i18n import _, N_
 
 from pyanaconda import iutil
 from pyanaconda import isys
+from pyanaconda.platform import platform
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
@@ -68,7 +69,6 @@ log = get_module_logger(__name__)
 from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
-from blivet.platform import platform
 from blivet import set_sysroot
 
 from pyanaconda.product import productName, productVersion

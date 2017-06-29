@@ -32,6 +32,7 @@ import re
 
 from pyanaconda.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.iutil import lowerASCII
+from pyanaconda.platform import platform
 from pyanaconda.storage_utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
@@ -40,7 +41,6 @@ from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_sho
 from pyanaconda.i18n import _, N_, CN_
 
 from blivet.size import Size
-from blivet.platform import platform
 from blivet.formats import get_format
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import SIZE_POLICY_MAX
