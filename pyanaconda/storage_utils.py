@@ -606,7 +606,7 @@ class StorageChecker(object):
         This function is called at the end of partitioning so that we can make
         sure you don't have anything silly (like no /, a really small /, etc).
 
-        :param storage: an instance of the :class:`blivet.Blivet` class to check
+        :param storage: an instance of the :class:`pyanaconda.storage.InstallerStorage` class to check
         :param constraints: an dictionary of constraints that will be used by
                checks or None if we want to use the storage checker's constraints
         :param skip: a collection of checks we want to skip or None if we don't
@@ -751,14 +751,14 @@ def try_populate_devicetree(devicetree):
     return
 
 class StorageSnapshot(object):
-    """R/W snapshot of storage (i.e. a :class:`blivet.Blivet` instance)"""
+    """R/W snapshot of storage (i.e. a :class:`pyanaconda.storage.InstallerStorage` instance)"""
 
     def __init__(self, storage=None):
         """
         Create new instance of the class
 
         :param storage: if given, its snapshot is created
-        :type storage: :class:`blivet.Blivet`
+        :type storage: :class:`pyanaconda.storage.InstallerStorage`
         """
         if storage:
             self._storage_snap = storage.copy()
@@ -793,7 +793,7 @@ class StorageSnapshot(object):
         """
         Reset storage to snapshot (**modifies :param:`storage` in place**)
 
-        :param storage: :class:`blivet.Blivet` instance to reset to the created snapshot
+        :param storage: :class:`pyanaconda.storage.InstallerStorage` instance to reset to the created snapshot
         :param bool dispose: whether to dispose the snapshot after reset or not
         :raises ValueError: if no snapshot is available (was not created before)
         """

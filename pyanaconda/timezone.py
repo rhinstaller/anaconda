@@ -59,7 +59,7 @@ def time_initialize(timezone, storage, bootloader):
     Guess is done by searching for bootable ntfs devices.
 
     :param timezone: ksdata.timezone object
-    :param storage: blivet.Blivet instance
+    :param storage: pyanaconda.storage.InstallerStorage instance
     :param bootloader: bootloader.Bootloader instance
 
     """

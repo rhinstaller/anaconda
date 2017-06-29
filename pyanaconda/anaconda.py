@@ -166,10 +166,10 @@ class Anaconda(object):
     @property
     def storage(self):
         if not self._storage:
-            import blivet
+            from pyanaconda.storage.osinstall import InstallerStorage
             import blivet.arch
 
-            self._storage = blivet.Blivet(ksdata=self.ksdata)
+            self._storage = InstallerStorage(ksdata=self.ksdata)
             self._set_default_fstype(self._storage)
 
             if blivet.arch.is_s390():
