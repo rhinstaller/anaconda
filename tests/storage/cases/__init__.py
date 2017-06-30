@@ -27,7 +27,7 @@ blivet.util.set_up_logging()
 blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
 
-from pyanaconda.installclass import DefaultInstall
+from pyanaconda.installclass import factory
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
 from pykickstart.errors import KickstartError
 
@@ -205,7 +205,7 @@ class TestCaseComponent(object):
             parser = AnacondaKSParser(AnacondaKSHandler())
             parser.readKickstartFromString(self.ks)
 
-            instClass = DefaultInstall()
+            instClass = factory.get_best_install_class()
 
             doKickstartStorage(self._blivet, parser.handler, instClass)
             self._blivet.updateKSData()

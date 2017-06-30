@@ -12,7 +12,7 @@ if len(sys.argv)<2:
 from pyanaconda import anaconda_log
 anaconda_log.init()
 
-from pyanaconda.installclass import DefaultInstall
+from pyanaconda.installclass import factory
 from blivet import Blivet
 from pyanaconda.threads import initThreading
 from pyanaconda.packaging.yumpayload import YumPayload
@@ -81,7 +81,7 @@ print("Running %s %s from %s" % (spokeText, spokeClass, spokeModule))
 ksdata = makeVersion()
 storage = Blivet(ksdata=ksdata)
 storage.reset()
-instclass = DefaultInstall()
+instclass = factory.get_best_install_class()
 app = App("TEST HARNESS", yes_or_no_question = YesNoDialog)
 
 payload = YumPayload(ksdata)
