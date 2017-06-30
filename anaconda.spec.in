@@ -39,7 +39,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define libtimezonemapver 0.4.1-2
 %define helpver 22.1-1
 %define libblockdevver 2.1
-%define blivetguiver 2.1.4
+%define blivetguiver 2.1.5-2
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -184,7 +184,7 @@ Requires: NetworkManager-wifi
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
 Requires: python3-gobject-base
-Requires: blivet-gui >= %{blivetguiver}
+Requires: blivet-gui-runtime >= %{blivetguiver}
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
