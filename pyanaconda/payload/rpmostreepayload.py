@@ -314,15 +314,18 @@ class RPMOSTreePayload(ArchivePayload):
         # And finally, do a nonrecursive bind for the sysroot
         self._setupInternalBindmount("/", dest="/sysroot", recurse=False)
 
-        # Now, ensure that all other potential mount point directories such as
-        # (/home) are created.  We run through the full tmpfiles here in order
-        # to also allow Anaconda and %post scripts to write to directories like
-        # /root.  We don't iterate *all* tmpfiles because we don't have the
-        # matching NSS configuration inside Anaconda, and we can't "chroot" to
-        # get it because that would require mounting the API filesystems in the
-        # target.
+        # Explicitly make this one, since systemd-tmpfiles doesn't have a
+        # --prefix-only=/var/lib.  We rely on 80-setfilecons.ks to set the
+        # label correctly.
+        iutil.mkdirChain(iutil.getSysroot() + '/var/lib')
+        # %post scripts might want to write to e.g. `/srv`, `/root`,
+        # `/usr/local`, etc. The /var/lib/rpm symlink is also critical for
+        # having e.g. `rpm -qa` work in %post. We don't iterate *all* tmpfiles
+        # because we don't have the matching NSS configuration inside Anaconda,
+        # and we can't "chroot" to get it because that would require mounting
+        # the API filesystems in the target.
         for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media', 'spool/mail'):
+                          'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
             self._safeExecWithRedirect("systemd-tmpfiles",
                                        ["--create", "--boot", "--root=" + iutil.getSysroot(),
                                         "--prefix=/var/" + varsubdir])
