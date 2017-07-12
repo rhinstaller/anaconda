@@ -248,7 +248,6 @@ class RPMOSTreePayload(ArchivePayload):
         # Set up bind mounts as if we've booted the target system, so
         # that %post script work inside the target.
         binds = [(iutil.getSysroot() + '/usr', None),
-                 (iutil.getTargetPhysicalRoot(), iutil.getSysroot() + "/sysroot"),
                  (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
 
         # https://github.com/ostreedev/ostree/issues/855
@@ -274,6 +273,12 @@ class RPMOSTreePayload(ArchivePayload):
                 self._safeExecWithRedirect("mount",
                                            ["--rbind", src, dest])
             self._internal_mounts.append(src if is_ro_bind else dest)
+
+        # And finally, do a nonrecursive bind for the sysroot
+        self._safeExecWithRedirect("mount",
+                                   ["--bind", iutil.getTargetPhysicalRoot(),
+                                    iutil.getSysroot() + "/sysroot"])
+        self._internal_mounts.append(iutil.getSysroot() + "/sysroot")
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
