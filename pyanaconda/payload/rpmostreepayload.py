@@ -239,46 +239,80 @@ class RPMOSTreePayload(ArchivePayload):
 
         mainctx.pop_thread_default()
 
+    def _setupInternalBindmount(self, src, dest=None,
+                                src_physical=True,
+                                bind_ro=False,
+                                recurse=True):
+        """Internal API for setting up bind mounts between the physical root and
+           sysroot, also ensures we track them in self._internal_mounts so we can
+           cleanly unmount them.
+
+           :param src: Source path, will be prefixed with physical or sysroot
+           :param dest: Destination, will be prefixed with sysroot (defaults to same as src)
+           :param src_physical: Prefix src with physical root
+           :param bind_ro: Make mount read-only
+           :param recurse: Use --rbind to recurse, otherwise plain --bind
+        """
+        # Default to the same basename
+        if dest is None:
+            dest = src
+        # Almost all of our mounts go from physical to sysroot
+        if src_physical:
+            src = iutil.getTargetPhysicalRoot() + src
+        else:
+            src = iutil.getSysroot() + src
+        # Canonicalize dest to the full path
+        dest = iutil.getSysroot() + dest
+        if bind_ro:
+            self._safeExecWithRedirect("mount",
+                                       ["--bind", src, src])
+            self._safeExecWithRedirect("mount",
+                                       ["--bind", "-o", "remount,ro", src, src])
+        else:
+            # Recurse for non-ro binds so we pick up sub-mounts
+            # like /sys/firmware/efi/efivars.
+            if recurse:
+                bindopt = '--rbind'
+            else:
+                bindopt = '--bind'
+            self._safeExecWithRedirect("mount",
+                                       [bindopt, src, dest])
+        self._internal_mounts.append(src if bind_ro else dest)
+
     def prepareMountTargets(self, storage):
         """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
-        varroot = iutil.getTargetPhysicalRoot() + '/ostree/deploy/' + ostreesetup.osname + '/var'
+        # Currently, blivet sets up mounts in the physical root.
+        # We used to unmount them and remount them in the sysroot, but
+        # since 664ef7b43f9102aa9332d0db5b7d13f8ece436f0 we now just set up
+        # bind mounts.
 
-        # Set up bind mounts as if we've booted the target system, so
-        # that %post script work inside the target.
-        binds = [(iutil.getSysroot() + '/usr', None),
-                 (iutil.getTargetPhysicalRoot() + "/boot", iutil.getSysroot() + "/boot")]
+        # Make /usr readonly like ostree does at runtime normally
+        self._setupInternalBindmount('/usr', bind_ro=True, src_physical=False)
 
+        # Explicitly do API mounts; some of these may be tracked by blivet, but
+        # we'll skip them below.
+        api_mounts = ["/dev", "/proc", "/run", "/sys"]
+        for path in api_mounts:
+            self._setupInternalBindmount(path)
+
+        # Handle mounts like /boot, and any admin-specified points like
+        # /home (really /var/home) or /var
+        for mount in storage.mountpoints:
+            if mount == '/' or mount in api_mounts:
+                continue
+            self._setupInternalBindmount(mount)
+
+        # If the admin didn't specify a mount for /var, we need
+        # to do the default ostree one.
         # https://github.com/ostreedev/ostree/issues/855
+        varroot = '/ostree/deploy/' + ostreesetup.osname + '/var'
         if storage.mountpoints.get("/var") is None:
-            binds.append((varroot, iutil.getSysroot() + '/var'))
-
-        # Bind mount filesystems from /mnt/sysimage to the ostree root; perhaps
-        # in the future consider `mount --move` to make the output of `findmnt`
-        # not induce blindness.
-        for path in ["/dev", "/proc", "/run", "/sys"]:
-            binds += [(iutil.getTargetPhysicalRoot() + path, iutil.getSysroot() + path)]
-
-        for (src, dest) in binds:
-            is_ro_bind = dest is None
-            if is_ro_bind:
-                self._safeExecWithRedirect("mount",
-                                           ["--bind", src, src])
-                self._safeExecWithRedirect("mount",
-                                           ["--bind", "-o", "remount,ro", src, src])
-            else:
-                # Recurse for non-ro binds so we pick up sub-mounts
-                # like /sys/firmware/efi/efivars.
-                self._safeExecWithRedirect("mount",
-                                           ["--rbind", src, dest])
-            self._internal_mounts.append(src if is_ro_bind else dest)
+            self._setupInternalBindmount(varroot, dest='/var', recurse=False)
 
         # And finally, do a nonrecursive bind for the sysroot
-        self._safeExecWithRedirect("mount",
-                                   ["--bind", iutil.getTargetPhysicalRoot(),
-                                    iutil.getSysroot() + "/sysroot"])
-        self._internal_mounts.append(iutil.getSysroot() + "/sysroot")
+        self._setupInternalBindmount("/", dest="/sysroot", recurse=False)
 
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
