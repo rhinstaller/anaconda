@@ -60,7 +60,7 @@ def makeFStab(instPath=""):
     except IOError as e:
         log.info("failed to write /etc/fstab: %s", e)
 
-def run_shell():
+def run_shell(reboot=False):
     """Launch a shell."""
     if flags.imageInstall:
         print(_("Run %s to unmount the system when you are finished.")
@@ -77,7 +77,7 @@ def run_shell():
             print(_("Unable to find /bin/bash to execute!  Not starting shell."))
             time.sleep(5)
 
-    if not flags.imageInstall:
+    if reboot:
         iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
     else:
         return None
@@ -122,13 +122,13 @@ class RescueMode(NormalTUISpoke):
     # always. This is independent of any hub(s), so pass in some fake data
     def __init__(self, app, data, storage=None, payload=None, instclass=None):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        if flags.automatedInstall:
-            self._ro = data.rescue.romount
-        else:
-            self._ro = False
-
         self._root = None
         self._choices = (_("Continue"), _("Read-only mount"), _("Skip to shell"), ("Quit (Reboot)"))
+        self._reboot = True
+        if flags.imageInstall:
+            self._reboot = False
+        if flags.automatedInstall and self.data.reboot.action not in [KS_REBOOT, KS_SHUTDOWN]:
+            self._reboot = False
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
@@ -139,10 +139,16 @@ class RescueMode(NormalTUISpoke):
             try:
                 os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
             except OSError:
-                pass
+                log.debug("Failed to create symlink for /mnt/runtime/etc/%s", f)
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
+        if self.data.rescue.seen:
+            if self.data.rescue.nomount:
+                run_shell(self._reboot)
+            else:
+                self.mount_root(self.data.rescue.romount)
+            return None
         return Prompt()
 
     def refresh(self, args=None):
@@ -179,35 +185,39 @@ class RescueMode(NormalTUISpoke):
                 iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
         elif keyid == 2:
             # skip to/run shell
-            run_shell()
+            run_shell(self._reboot)
         elif (keyid == 1 or keyid == 0):
             # user chose 0 (continue/rw-mount) or 1 (ro-mount)
-            # decrypt any luks devices
-            self._unlock_devices()
-
-            # attempt to find previous installations
-            roots = find_existing_installations(self.storage.devicetree)
-            if len(roots) == 1:
-                self._root = roots[0]
-            elif len(roots) > 1:
-                # have to prompt user for which root to mount
-                rootspoke = RootSpoke(self.app, self.data, self.storage,
-                            self.payload, self.instclass, roots)
-                self.app.switch_screen_modal(rootspoke)
-                self._root = rootspoke.root
-
-            # if only one root detected, or user has chosen which root
-            # to mount, go ahead and do that
-            newspoke = RescueMountSpoke(self.app, self.data,
-                        self.storage, self.payload, self.instclass, keyid, self._root)
-            self.app.switch_screen_modal(newspoke)
-            self.close()
+            self.mount_root(readonly=bool(keyid))
         else:
             # user entered some invalid number choice
             return key
 
 
         return INPUT_PROCESSED
+
+    def mount_root(self, readonly):
+        # decrypt any luks devices
+        self._unlock_devices()
+
+        # attempt to find previous installations
+        roots = find_existing_installations(self.storage.devicetree)
+        if len(roots) == 1:
+            self._root = roots[0]
+        elif len(roots) > 1:
+            # have to prompt user for which root to mount
+            rootspoke = RootSpoke(self.app, self.data, self.storage,
+                                  self.payload, self.instclass, roots)
+            self.app.switch_screen_modal(rootspoke)
+            self._root = rootspoke.root
+
+        # if only one root detected, or user has chosen which root
+        # to mount, go ahead and do that
+        newspoke = RescueMountSpoke(self.app, self.data,
+                                    self.storage, self.payload, self.instclass,
+                                    readonly, self._root, self._reboot)
+        self.app.switch_screen_modal(newspoke)
+        self.close()
 
     def apply(self):
         """Move along home."""
@@ -329,12 +339,13 @@ class RescueMountSpoke(NormalTUISpoke):
     # 1 = continue/rw-mount, 2 = ro-mount
     title = N_("Rescue Mount")
 
-    def __init__(self, app, data, storage, payload, instclass, selection, root):
+    def __init__(self, app, data, storage, payload, instclass, readonly, root, reboot):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
 
-        self.readOnly = selection
+        self.readOnly = readonly
         # root to mount
         self._root = root
+        self._reboot = reboot
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
@@ -429,23 +440,18 @@ class RescueMountSpoke(NormalTUISpoke):
         return True
 
     def apply(self):
-        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
-
-        if not flags.automatedInstall or not self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-            run_shell()
+        pass
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
+        if self.data.rescue.seen:
+            run_shell(self._reboot)
+            return None
         return Prompt(_("Please press %s to get a shell") % Prompt.ENTER)
 
     def input(self, args, key):
         """Move along home."""
-        run_shell()
-
-        if not flags.imageInstall:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
-
+        run_shell(self._reboot)
         return INPUT_PROCESSED
 
     @property
