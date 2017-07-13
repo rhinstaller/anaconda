@@ -304,6 +304,8 @@ class DNFPayload(payload.PackagePayload):
         # save repomd metadata
         self._repoMD_list = []
 
+        self.requirements.set_apply_callback(self._apply_requirements)
+
     def unsetup(self):
         super(DNFPayload, self).unsetup()
         self._base = None
@@ -453,21 +455,31 @@ class DNFPayload(payload.PackagePayload):
                 self._miss(e)
 
         self._select_kernel_package()
-        self._select_langpacks()
 
-        for pkg_name in self.requiredPackages:
-            try:
-                self._install_package(pkg_name, required=True)
-                log.debug("selected required package: %s", pkg_name)
-            except payload.NoSuchPackage as e:
-                self._miss(e)
+    def _apply_requirements(self, requirements):
+        for req in self.requirements.packages:
+            ignore_msgs = []
+            if req.id in self.instclass.ignoredPackages:
+                ignore_msgs.append("IGNORED by install class %s" % self.instclass)
+            if req.id in self.data.packages.excludedList:
+                ignore_msgs.append("IGNORED because excluded")
+            if not ignore_msgs:
+                try:
+                    self._install_package(req.id, required=req.strong)
+                except payload.NoSuchPackage as e:
+                    self._miss(e)
+            log.debug("selected package: %s, requirement for %s %s",
+                       req.id, req.reasons, ", ".join(ignore_msgs))
 
-        for group in self.requiredGroups:
+        for req in self.requirements.groups:
             try:
-                self._select_group(group, required=True)
-                log.debug("selected required group: %s", group)
+                self._select_group(req.id, required=req.strong)
+                log.debug("selected group: %s, requirement for %s",
+                           req.id, req.reasons)
             except payload.NoSuchGroup as e:
                 self._miss(e)
+
+        return True
 
     def _bump_tx_id(self):
         if self.txID is None:
@@ -628,20 +640,21 @@ class DNFPayload(payload.PackagePayload):
         else:
             log.error('kernel: failed to select a kernel from %s', kernels)
 
-    def _select_langpacks(self):
+    def langpacks(self):
         # get all available languages in repos
         available_langpacks = self._base.sack.query().available() \
             .filter(name__glob="langpacks-*")
         alangs = [p.name.split('-', 1)[1] for p in available_langpacks]
 
+        langpacks = []
         # add base langpacks into transaction
         for lang in [self.data.lang.lang] + self.data.lang.addsupport:
             loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
             if not loc:
                 log.warning("Selected lang %s does not match any available langpack", lang)
                 continue
-            log.info("Installing langpacks-%s", loc)
-            self._base.install("langpacks-" + loc)
+            langpacks.append("langpacks-" + loc)
+        return langpacks
 
     def _sync_metadata(self, dnf_repo):
         try:
@@ -746,6 +759,7 @@ class DNFPayload(payload.PackagePayload):
         self._bump_tx_id()
         self._base.reset(goal=True)
         self._apply_selections()
+        self.requirements.apply()
 
         try:
             if self._base.resolve():
@@ -968,14 +982,7 @@ class DNFPayload(payload.PackagePayload):
             for locale in locales:
                 if match_fn(lang, locale):
                     gids.add(gid)
-        log.info('languageGroups: %s', gids)
         return list(gids)
-
-    def preInstall(self, packages=None, groups=None):
-        super(DNFPayload, self).preInstall(packages, groups)
-        if packages:
-            self.requiredPackages += packages
-        self.requiredGroups = groups
 
     def reset(self):
         super(DNFPayload, self).reset()
