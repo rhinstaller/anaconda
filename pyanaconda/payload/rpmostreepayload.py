@@ -176,7 +176,7 @@ class RPMOSTreePayload(ArchivePayload):
         # The first path here is used by <https://pagure.io/fedora-lorax-templates>
         # and the second by <https://github.com/projectatomic/rpm-ostree-toolbox/>
         if OSTree.check_version(2017, 8):
-            for path in ['/ostree/repo', '/run/install/repo']:
+            for path in ['/ostree/repo', '/run/install/repo/content/repo']:
                 if os.path.isdir(path):
                     pull_opts['localcache-repos'] = GLib.Variant('as', [path])
                     break
