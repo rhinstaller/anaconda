@@ -218,47 +218,46 @@ class Rescue(object):
     # TODO separate running post scripts?
     def mount_root(self):
         """Mounts selected root and runs scripts."""
+        # mount root fs
         try:
-            rootmounted = False
-            # mount root fs
             mount_existing_system(self._storage.fsset, self.root.device, read_only=self.ro)
             log.info("System has been mounted under: %s", iutil.getSysroot())
-
-            rootmounted = True
-            # now turn on swap
-            if not flags.imageInstall or not self.ro:
-                try:
-                    self._storage.turn_on_swap()
-                except StorageError:
-                    log.error("Error enabling swap.")
-
-            # turn on selinux also
-            if flags.selinux:
-                # we have to catch the possible exception, because we
-                # support read-only mounting
-                try:
-                    fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
-                    fd.close()
-                except IOError:
-                    log.warning("Cannot touch %s/.autorelabel", iutil.getSysroot())
-
-            # set a libpath to use mounted fs
-            libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
-            mounted = list(map(lambda dir: "/mnt/sysimage%s" % dir, libdirs))
-            iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
-
-            # do we have bash?
-            try:
-                if os.access("/usr/bin/bash", os.R_OK):
-                    os.symlink("/usr/bin/bash", "/bin/bash")
-            except OSError:
-                pass
-        except (OSError, StorageError) as e:
+        except StorageError as e:
             log.error("Mounting system under %s failed: %s", iutil.getSysroot(), e)
             self.status = RescueModeStatus.MOUNT_FAILED
             return False
 
-        if rootmounted and not self.ro:
+        # turn on swap
+        if not flags.imageInstall or not self.ro:
+            try:
+                self._storage.turn_on_swap()
+            except StorageError:
+                log.error("Error enabling swap.")
+
+        # turn on selinux also
+        if flags.selinux:
+            # we have to catch the possible exception, because we
+            # support read-only mounting
+            try:
+                fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
+                fd.close()
+            except IOError as e:
+                log.warning("Error turning on selinux: %s", e)
+
+        # set a libpath to use mounted fs
+        libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
+        mounted = ["/mnt/sysimage%s" % ldir for ldir in libdirs]
+        iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
+
+        # do we have bash?
+        try:
+            if os.access("/usr/bin/bash", os.R_OK):
+                os.symlink("/usr/bin/bash", "/bin/bash")
+        except OSError as e:
+            log.error("Error symlinking bash: %s", e)
+
+        # make resolv.conf in chroot
+        if not self.ro:
             self._storage.make_mtab()
             try:
                 makeResolvConf(iutil.getSysroot())
@@ -269,9 +268,8 @@ class Rescue(object):
         makeFStab()
 
         # run %post if we've mounted everything
-        if rootmounted and not self.ro and flags.automatedInstall:
-            if self._scripts:
-                runPostScripts(self._scripts)
+        if not self.ro and self._scripts:
+            runPostScripts(self._scripts)
 
         self.status = RescueModeStatus.MOUNTED
         return True
