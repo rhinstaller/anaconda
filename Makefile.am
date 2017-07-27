@@ -205,28 +205,7 @@ runglade:
 	glade ${GLADE_FILE}
 
 isolated-ci: test-install
-	@-rm -f tests/error_occured
-	mock -r $(MOCKCHROOT) --scrub all || exit 1
-# Install missing dependencies for running make install-test-requires
-	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
-	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
-	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
-
-	-rm -rf $(srcdir)/result
-	cp -r "$$(mock -r $(MOCKCHROOT) -p)/result" $(srcdir)
-# Move builders logs
-	mv $(srcdir)/*.log $(srcdir)/result/
-	-mv $(srcdir)/result/test-suite.log.* $(srcdir)/result/test-suite.log
-	@if [ -f tests/error_occured ]; then \
-		echo "TEST FAILED"; \
-		status=$$(cat tests/error_occured); \
-		rm tests/error_occured; \
-		exit $$status; \
-	fi
+	$(MAKE) isolated-test
 
 ci: test-install
 	$(MAKE) bare-ci
@@ -251,6 +230,30 @@ bare-ci:
 	@rm -f tests/test-suite.log.*
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
+
+isolated-test:
+	@-rm -f tests/error_occured
+	mock -r $(MOCKCHROOT) --scrub all || exit 1
+# Install missing dependencies for running make install-test-requires
+	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
+	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
+	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
+
+	-rm -rf $(srcdir)/result
+	cp -r "$$(mock -r $(MOCKCHROOT) -p)/result" $(srcdir)
+# Move builders logs
+	-mv $(srcdir)/*.log $(srcdir)/result/
+	-mv $(srcdir)/result/test-suite.log.* $(srcdir)/result/test-suite.log
+	@if [ -f tests/error_occured ]; then \
+		echo "TEST FAILED"; \
+		status=$$(cat tests/error_occured); \
+		rm tests/error_occured; \
+		exit $$status; \
+	fi
 
 test-gui:
 	@rm -f tests/test-suite.log

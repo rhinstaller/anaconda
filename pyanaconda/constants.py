@@ -239,3 +239,7 @@ LOGGER_DNF = "dnf"
 LOGGER_BLIVET = "blivet"
 LOGGER_IFCFG = "ifcfg"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
+
+class PayloadRequirementType(Enum):
+    package = "package"
+    group = "group"

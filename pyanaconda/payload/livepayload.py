@@ -98,9 +98,9 @@ class LiveImagePayload(ImagePayload):
         except OSError:
             pass
 
-    def preInstall(self, packages=None, groups=None):
+    def preInstall(self):
         """ Perform pre-installation tasks. """
-        super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
+        super(LiveImagePayload, self).preInstall()
         progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
 
     def progress(self):
@@ -358,7 +358,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 error = "Failed to download %s, file doesn't exist" % self.data.method.url
                 log.error(error)
 
-    def preInstall(self, packages=None, groups=None):
+    def preInstall(self):
         """ Get image and loopback mount it.
 
             This is called after partitioning is setup, we now have space to

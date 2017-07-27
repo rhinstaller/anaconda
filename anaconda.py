@@ -190,8 +190,9 @@ def parse_arguments(argv=None, boot_cmdline=None):
               anaconda options that have been found
     """
     from pyanaconda.argument_parsing import getArgumentParser
-    ap = getArgumentParser(startup_utils.get_anaconda_version_string(),
-                           boot_cmdline)
+    from pyanaconda.startup_utils import get_anaconda_version_string
+
+    ap = getArgumentParser(get_anaconda_version_string(), boot_cmdline)
 
     namespace = ap.parse_args(argv, boot_cmdline=boot_cmdline)
     return (namespace, ap.deprecated_bootargs)

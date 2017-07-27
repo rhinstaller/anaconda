@@ -305,17 +305,19 @@ def doInstall(storage, payload, ksdata, instClass):
         # anaconda requires storage packages in order to make sure the target
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
-        packages = storage.packages + ksdata.realm.packages
-        packages += ksdata.authconfig.packages + ksdata.firewall.packages + ksdata.network.packages
+        payload.requirements.add_packages(storage.packages, reason="storage")
+        payload.requirements.add_packages(ksdata.realm.packages, reason="realm")
+        payload.requirements.add_packages(ksdata.authconfig.packages, reason="authconfig")
+        payload.requirements.add_packages(ksdata.firewall.packages, reason="firewall")
+        payload.requirements.add_packages(ksdata.network.packages, reason="network")
+        payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)
 
         if willInstallBootloader:
-            packages += storage.bootloader.packages
+            payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
+        payload.requirements.add_groups(payload.languageGroups(), reason="language groups")
+        payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
+        payload.preInstall()
 
-        # don't try to install packages from the install class' ignored list and the
-        # explicitly excluded ones (user takes the responsibility)
-        packages = [p for p in packages
-                    if p not in instClass.ignoredPackages and p not in ksdata.packages.excludedList]
-        payload.preInstall(packages=packages, groups=payload.languageGroups())
     pre_install.append(Task("Find additional packages & run preInstall()", run_pre_install))
     installation_queue.append(pre_install)
 
