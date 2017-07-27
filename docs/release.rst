@@ -54,38 +54,42 @@ In that case just ignore all section that require you to be an Anaconda maintain
     ./autogen
     ./configure
 
-# create tarball
-make release
+7. create tarball
 
-7. copy tarball to SOURCES
+::
+
+   make release
+
+8. copy tarball to SOURCES
 
 ::
 
     cp anaconda-*.tar.bz2 ~/rpmbuild/SOURCES/
 
-8. create SRPM
+9. create SRPM
 
 
 ::
 
     rpmbuild -bs --nodeps anaconda.spec
 
-9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
+10. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
 
 ::
 
     cd <some folder>
     fedpkg clone anaconda
+    cd anaconda
     fedpkg switch-branch master
     git pull
 
-10. switch to Fedora distgit folder and import the SRPM
+11. switch to Fedora distgit folder and import the SRPM
 
 ::
 
     fedpkg import ~/rpmbuild/SRPMS/anaconda-<version>.src.rpm
 
-11. this will stage a commit, check it's content and commit
+12. this will stage a commit, check it's content and commit
 
  - the header should be: ``New version <version number>``
  - content of the commit message should be the same as the changelog in the spec for the given version
@@ -94,13 +98,13 @@ make release
 
   git commit
 
-12. push the update
+13. push the update
 
 ::
 
     fedpkg push
 
-13. start the build
+14. start the build
 
 ::
 
