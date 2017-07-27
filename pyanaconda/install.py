@@ -253,24 +253,9 @@ def doInstall(storage, payload, ksdata, instClass):
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
             blivet.setSysroot(iutil.getTargetPhysicalRoot(),
                               iutil.getSysroot())
-
-            # Now that we have the FS layout in the target, umount
-            # things that were in the legacy sysroot, and put them in
-            # the target root, except for the physical /.  First,
-            # unmount all target filesystems.
-            storage.umountFilesystems()
-
-            # Explicitly mount the root on the physical sysroot
-            rootmnt = storage.mountpoints.get('/')
-            rootmnt.setup()
-            rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
-
+            # Note this changed for RHEL 7.5; see comments in rpmostreepayload.py.
             payload.prepareMountTargets(storage)
 
-            # Everything else goes in the target root, including /boot
-            # since the bootloader code will expect to find /boot
-            # inside the chroot.
-            storage.mountFilesystems(skipRoot=True)
         storage.write()
 
     # Do bootloader.

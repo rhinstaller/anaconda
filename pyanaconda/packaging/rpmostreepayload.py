@@ -48,7 +48,7 @@ class RPMOSTreePayload(ArchivePayload):
         super(RPMOSTreePayload, self).__init__(data)
 
         self._base_remote_args = None
-        self._binds = []
+        self._internal_mounts = []
         self._sysroot_path = None
 
     @property
@@ -166,8 +166,21 @@ class RPMOSTreePayload(ArchivePayload):
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
 
+        pull_opts = {'refs': GLib.Variant('as', [ostreesetup.ref])}
+        # If we're doing a kickstart, we can at least use the content as a reference:
+        # See <https://github.com/rhinstaller/anaconda/issues/1117>
+        # The first path here is used by <https://pagure.io/fedora-lorax-templates>
+        # and the second by <https://github.com/projectatomic/rpm-ostree-toolbox/>
+        if OSTree.check_version(2017, 8):
+            for path in ['/ostree/repo', '/install/ostree/repo']:
+                if os.path.isdir(path + '/objects'):
+                    pull_opts['localcache-repos'] = GLib.Variant('as', [path])
+                    break
+
         try:
-            repo.pull(ostreesetup.remote, [ostreesetup.ref], 0, progress, cancellable)
+            repo.pull_with_options(ostreesetup.remote,
+                                   GLib.Variant('a{sv}', pull_opts),
+                                   progress, cancellable)
         except GLib.GError as e:
             exn = PayloadInstallError("Failed to pull from repository: %s" % e)
             log.error(str(exn))
@@ -176,6 +189,7 @@ class RPMOSTreePayload(ArchivePayload):
                 iutil.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
+        log.info("ostree pull: " + (progress.get_status() or ""))
         progressQ.send_message(_("Preparing deployment of %s") % (ostreesetup.ref, ))
 
         self._safeExecWithRedirect("ostree",
@@ -213,25 +227,102 @@ class RPMOSTreePayload(ArchivePayload):
 
         mainctx.pop_thread_default()
 
+    def _setupInternalBindmount(self, src, dest=None,
+                                src_physical=True,
+                                bind_ro=False,
+                                recurse=True):
+        """Internal API for setting up bind mounts between the physical root and
+           sysroot, also ensures we track them in self._internal_mounts so we can
+           cleanly unmount them.
+
+           :param src: Source path, will be prefixed with physical or sysroot
+           :param dest: Destination, will be prefixed with sysroot (defaults to same as src)
+           :param src_physical: Prefix src with physical root
+           :param bind_ro: Make mount read-only
+           :param recurse: Use --rbind to recurse, otherwise plain --bind
+        """
+        # Default to the same basename
+        if dest is None:
+            dest = src
+        # Almost all of our mounts go from physical to sysroot
+        if src_physical:
+            src = iutil.getTargetPhysicalRoot() + src
+        else:
+            src = iutil.getSysroot() + src
+        # Canonicalize dest to the full path
+        dest = iutil.getSysroot() + dest
+        if bind_ro:
+            self._safeExecWithRedirect("mount",
+                                       ["--bind", src, src])
+            self._safeExecWithRedirect("mount",
+                                       ["--bind", "-o", "remount,ro", src, src])
+        else:
+            # Recurse for non-ro binds so we pick up sub-mounts
+            # like /sys/firmware/efi/efivars.
+            if recurse:
+                bindopt = '--rbind'
+            else:
+                bindopt = '--bind'
+            self._safeExecWithRedirect("mount",
+                                       [bindopt, src, dest])
+        self._internal_mounts.append(src if bind_ro else dest)
+
     def prepareMountTargets(self, storage):
         ostreesetup = self.data.ostreesetup
 
-        varroot = iutil.getTargetPhysicalRoot() + '/ostree/deploy/' + ostreesetup.osname + '/var'
+        # NOTE: This is different from Fedora. There, since since
+        # 664ef7b43f9102aa9332d0db5b7d13f8ece436f0 blivet now only sets up
+        # mounts in the physical root, and we set up bind mounts. But in RHEL7
+        # we tear down and set up the mounts in the sysroot, so this code
+        # doesn't need to do as much.
 
-        # Set up bind mounts as if we've booted the target system, so
-        # that %post script work inside the target.
-        self._binds = [(iutil.getTargetPhysicalRoot(), iutil.getSysroot() + '/sysroot'),
-                       (iutil.getSysroot() + '/usr', None)]
-        # https://github.com/ostreedev/ostree/issues/855
+        # Now that we have the FS layout in the target, umount
+        # things that were in the physical sysroot, and put them in
+        # the target root, *except* for the physical /.
+        storage.umountFilesystems()
+
+        # Explicitly mount the root on the physical sysroot, since that's
+        # how ostree works.
+        rootmnt = storage.mountpoints.get('/')
+        rootmnt.setup()
+        rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
+
+        # Everything else goes in the target root, including /boot
+        # since the bootloader code will expect to find /boot
+        # inside the chroot.
+        storage.mountFilesystems(skipRoot=True)
+
+        # We're done with blivet mounts; now set up binds as ostree does it at
+        # runtime.  We start with /usr being read-only.
+        self._setupInternalBindmount('/usr', bind_ro=True, src_physical=False)
+
+        # Handle /var; if the admin didn't specify a mount for /var, we need to
+        # do the default ostree one. See also
+        # <https://github.com/ostreedev/ostree/issues/855>.
+        varroot = '/ostree/deploy/' + ostreesetup.osname + '/var'
         if storage.mountpoints.get("/var") is None:
-            self._binds.append((varroot, iutil.getSysroot() + '/var'))
+            self._setupInternalBindmount(varroot, dest='/var', recurse=False)
 
-        for (src, dest) in self._binds:
-            self._safeExecWithRedirect("mount",
-                                       ["--bind", src, dest if dest else src])
-            if dest is None:
-                self._safeExecWithRedirect("mount",
-                                           ["--bind", "-o", "ro", src, src])
+        self._setupInternalBindmount("/", dest="/sysroot", recurse=False)
+
+        # Now that we have /var, start filling in any directories that may be
+        # required later there. We explicitly make /var/lib, since
+        # systemd-tmpfiles doesn't have a --prefix-only=/var/lib. We rely on
+        # 80-setfilecons.ks to set the label correctly.
+        iutil.mkdirChain(iutil.getSysroot() + '/var/lib')
+        # Next, run tmpfiles to make subdirectories of /var. We need this for
+        # both mounts like /home (really /var/home) and %post scripts might
+        # want to write to e.g. `/srv`, `/root`, `/usr/local`, etc. The
+        # /var/lib/rpm symlink is also critical for having e.g. `rpm -qa` work
+        # in %post. We don't iterate *all* tmpfiles because we don't have the
+        # matching NSS configuration inside Anaconda, and we can't "chroot" to
+        # get it because that would require mounting the API filesystems in the
+        # target.
+        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
+                          'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
+            self._safeExecWithRedirect("systemd-tmpfiles",
+                                       ["--create", "--boot", "--root=" + iutil.getSysroot(),
+                                        "--prefix=/var/" + varsubdir])
 
     def recreateInitrds(self, force=False):
         # For rpmostree payloads, we're replicating an initramfs from
@@ -312,6 +403,6 @@ class RPMOSTreePayload(ArchivePayload):
         # on inside either blivet (or systemd?) that's causing mounts inside
         # /mnt/sysimage/ostree/deploy/$x/sysroot/ostree/deploy
         # which is not what we want.
-        for (src, dest) in reversed(self._binds):
+        for path in reversed(self._internal_mounts):
             # Also intentionally ignore errors here
-            iutil.execWithRedirect("umount", ['-R', dest if dest else src])
+            iutil.execWithRedirect("umount", ['-R', path])
