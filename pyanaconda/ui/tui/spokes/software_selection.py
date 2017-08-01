@@ -20,7 +20,6 @@
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
 from pyanaconda.i18n import N_, _, C_
@@ -28,7 +27,10 @@ from pyanaconda.i18n import N_, _, C_
 from pyanaconda.constants import THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE
 from pyanaconda.constants import THREAD_SOFTWARE_WATCHER
-from pyanaconda.constants_text import INPUT_PROCESSED
+
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, ColumnWidget, CheckboxWidget
 
 __all__ = ["SoftwareSpoke"]
 
@@ -39,12 +41,12 @@ class SoftwareSpoke(NormalTUISpoke):
        .. inheritance-diagram:: SoftwareSpoke
           :parts: 3
     """
-    title = N_("Software selection")
     helpFile = "SoftwareSpoke.txt"
     category = SoftwareCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Software selection")
         self.errors = []
         self._tx_id = None
         self._selection = None
@@ -70,7 +72,7 @@ class SoftwareSpoke(NormalTUISpoke):
         self.initialize_start()
         super(SoftwareSpoke, self).initialize()
         threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER,
-            target=self._initialize))
+                                     target=self._initialize))
 
     def _initialize(self):
         threadMgr.wait(THREAD_PAYLOAD)
@@ -194,11 +196,8 @@ class SoftwareSpoke(NormalTUISpoke):
 
         if not self.payload.baseRepo:
             message = TextWidget(_("Installation source needs to be set up first."))
-            self._window.append(message)
-
-            # add some more space below
-            self._window.append(TextWidget(""))
-            return True
+            self.window.add_with_separator(message)
+            return
 
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
         displayed = []
@@ -239,9 +238,8 @@ class SoftwareSpoke(NormalTUISpoke):
         right = [_prep(i, w) for i, w in enumerate(displayed) if i > mid]
 
         cw = ColumnWidget([(38, left), (38, right)], 2)
-        self._window += [TextWidget(msg), "", cw, ""]
-
-        return True
+        self.window.add_with_separator(TextWidget(msg))
+        self.window.add_with_separator(cw)
 
     def input(self, args, key):
         """ Handle the input; this chooses the desktop environment. """
@@ -263,14 +261,14 @@ class SoftwareSpoke(NormalTUISpoke):
                     addons = self._get_available_addons(environment_id)
 
                     # Switch the screen
-                    self.app.switch_screen(self, addons)
+                    ScreenHandler.replace_screen(self, addons)
 
                 # The addons were selected, apply and close
                 else:
                     self.apply()
                     self.close()
 
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             else:
                 return super(SoftwareSpoke, self).input(args, key)
 
@@ -287,8 +285,9 @@ class SoftwareSpoke(NormalTUISpoke):
                     self._addons_selection.add(addon)
                 else:
                     self._addons_selection.remove(addon)
+            self.redraw()
 
-        return INPUT_PROCESSED
+        return InputState.PROCESSED
 
     @property
     def ready(self):
@@ -343,7 +342,6 @@ class SoftwareSpoke(NormalTUISpoke):
         if changed or self._kickstarted:
             threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
                                          target=self.checkSoftwareSelection))
-
 
     def checkSoftwareSelection(self):
         """ Depsolving """

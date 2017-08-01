@@ -18,14 +18,19 @@
 #
 from pyanaconda import ihelp
 from pyanaconda import lifecycle
-from pyanaconda.constants_text import INPUT_PROCESSED, INPUT_DISCARDED
-from pyanaconda.ui.tui import simpleline as tui
-from pyanaconda.ui.tui.tuiobject import TUIObject, HelpScreen
+from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui import common
+
+from simpleline.render.adv_widgets import HelpScreen
+from simpleline.render.prompt import Prompt
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, ColumnWidget
 
 from pyanaconda.i18n import _, N_
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
@@ -35,49 +40,57 @@ class TUIHub(TUIObject, common.Hub):
        :param categories: list all the spoke categories to be displayed in this Hub
        :type categories: list of strings
 
-       :param title: title for this Hub
-       :type title: str
+
 
        .. inheritance-diagram:: TUIHub
           :parts: 3
     """
 
     categories = []
-    title = N_("Default HUB title")
 
-    def __init__(self, app, data, storage, payload, instclass):
-        TUIObject.__init__(self, app, data)
+    def __init__(self, data, storage, payload, instclass):
+        TUIObject.__init__(self, data)
         common.Hub.__init__(self, storage, payload, instclass)
+        self.title = N_("Default HUB title")
 
         self._spokes = {}     # holds spokes referenced by their class name
         self._keys = {}       # holds spokes referenced by their user input key
         self._spoke_count = 0
 
-    def setup(self, environment="anaconda"):
+        # we want user input
+        self.input_required = True
+
+    def setup(self, args="anaconda"):
+        environment = args
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
 
-        for c in sorted(categories, key=lambda c: c.title):
+        for c in sorted(categories, key=lambda i: i.title):
 
-            for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
-                # Check if this spoke is to be shown in anaconda
-                if not spokeClass.should_run(environment, self.data):
-                    continue
+            hub_spokes = []
+            for spoke_class in cats_and_spokes[c]:
+                # Do the checks for the spoke and create the spoke
+                if spoke_class.should_run(environment, self.data):
+                    spoke = spoke_class(self.data, self.storage, self.payload, self.instclass)
 
-                spoke = spokeClass(self.app, self.data, self.storage, self.payload, self.instclass)
+                    if spoke.showable:
+                        spoke.initialize()
+                    else:
+                        log.warning("Spoke %s initialization failure!", spoke.__class__.__name__)
+                        del spoke
+                        continue
 
-                if spoke.showable:
-                    spoke.initialize()
-                else:
-                    del spoke
-                    continue
+                    if spoke.indirect:
+                        continue
 
-                if spoke.indirect:
-                    continue
+                    hub_spokes.append(spoke)
+
+            # sort created spokes and add them to result structures
+            for spoke in sorted(hub_spokes, key=lambda s: s.title):
 
                 self._spoke_count += 1
                 self._keys[self._spoke_count] = spoke
-                self._spokes[spokeClass.__name__] = spoke
+                self._spokes[spoke.__class__.__name__] = spoke
 
         if self._spoke_count:
             # initialization of all expected spokes has been started, so notify the controller
@@ -91,22 +104,20 @@ class TUIHub(TUIObject, common.Hub):
         return self._spoke_count != 0
 
     def refresh(self, args=None):
-        """This methods fills the self._window list by all the objects
+        """This methods fills the self.window list by all the objects
         we want shown on this screen. Title and Spokes mostly."""
         TUIObject.refresh(self, args)
 
         def _prep(i, w):
-            number = tui.TextWidget("%2d)" % i)
-            return tui.ColumnWidget([(3, [number]), (None, [w])], 1)
+            number = TextWidget("%2d)" % i)
+            return ColumnWidget([(3, [number]), (None, [w])], 1)
 
         # split spokes to two columns
         left = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 1]
         right = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 0]
 
-        c = tui.ColumnWidget([(39, left), (39, right)], 2)
-        self._window += [c, ""]
-
-        return True
+        c = ColumnWidget([(39, left), (39, right)], 2)
+        self.window.add_with_separator(c)
 
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
@@ -114,24 +125,25 @@ class TUIHub(TUIObject, common.Hub):
 
         try:
             number = int(key)
-            self.app.switch_screen_with_return(self._keys[number])
-            return INPUT_PROCESSED
+            ScreenHandler.push_screen(self._keys[number])
+            return InputState.PROCESSED
 
         except (ValueError, KeyError):
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
             # TRANSLATORS: 'c' to continue
-            if key == tui.Prompt.CONTINUE:
+            if key == Prompt.CONTINUE:
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
-                        return INPUT_DISCARDED
+                        return InputState.DISCARDED
             # TRANSLATORS: 'h' to help
-            elif key == tui.Prompt.HELP:
+            elif key == Prompt.HELP:
                 if self.has_help:
                     help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
-                    self.app.switch_screen_modal(HelpScreen(self.app, help_path))
-                    return INPUT_PROCESSED
+                    ScreenHandler.push_screen_modal(HelpScreen(help_path))
+                    self.redraw()
+                    return InputState.PROCESSED
             return key
 
     def prompt(self, args=None):

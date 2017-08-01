@@ -22,17 +22,21 @@ from blivet.osinstall import mount_existing_system, find_existing_installations
 
 from pyanaconda import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP, THREAD_STORAGE
-from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget, App, Prompt
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
 from pyanaconda.storage_utils import try_populate_devicetree
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+
+from simpleline import App
+from simpleline.render.adv_widgets import YesNoDialog, PasswordDialog
+from simpleline.render.prompt import Prompt
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, ColumnWidget, CheckboxWidget
 
 import os
 import shutil
@@ -355,33 +359,32 @@ class Rescue(object):
 
 class RescueModeSpoke(NormalTUISpoke):
     """UI offering mounting existing installation roots in rescue mode."""
-    title = N_("Rescue")
 
     # If it acts like a spoke and looks like a spoke, is it a spoke? Not
     # always. This is independent of any hub(s), so pass in some fake data
-    def __init__(self, app, rescue):
-        NormalTUISpoke.__init__(self, app, data=None, storage=None, payload=None, instclass=None)
+    def __init__(self, rescue):
+        NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
+        self.title = N_("Rescue")
         self._choices = (_("Continue"), _("Read-only mount"), _("Skip to shell"), ("Quit (Reboot)"))
         self._rescue = rescue
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
-        self._window += [TextWidget(_("The rescue environment will now attempt "
-                         "to find your Linux installation and mount it under "
-                         "the directory : %s.  You can then make any changes "
-                         "required to your system.  Choose '1' to proceed with "
-                         "this step.\nYou can choose to mount your file "
-                         "systems read-only instead of read-write by choosing "
-                         "'2'.\nIf for some reason this process does not work "
-                         "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())), ""]
+        msg = _("The rescue environment will now attempt "
+                "to find your Linux installation and mount it under "
+                "the directory : %s.  You can then make any changes "
+                "required to your system.  Choose '1' to proceed with "
+                "this step.\nYou can choose to mount your file "
+                "systems read-only instead of read-write by choosing "
+                "'2'.\nIf for some reason this process does not work "
+                "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())
+        self.window.add_with_separator(TextWidget(msg))
 
         for idx, choice in enumerate(self._choices):
             number = TextWidget("%2d)" % (idx + 1))
             c = ColumnWidget([(3, [number]), (None, [TextWidget(choice)])], 1)
-            self._window += [c, ""]
-
-        return True
+            self.window.add_with_separator(c)
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
@@ -394,6 +397,7 @@ class RescueModeSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         """Override any input so we can launch rescue mode."""
+        keyid = None
         try:
             keyid = int(key) - 1
         except ValueError:
@@ -401,8 +405,9 @@ class RescueModeSpoke(NormalTUISpoke):
 
         if keyid == 3:
             # quit/reboot
-            d = YesNoDialog(self.app, _(self.app.quit_message))
-            self.app.switch_screen_modal(d)
+            d = YesNoDialog(_(u"Do you really want to quit?"))
+            ScreenHandler.push_screen_modal(d)
+            self.redraw()
             if d.answer:
                 self._rescue.reboot = True
                 self._rescue.finish()
@@ -420,7 +425,7 @@ class RescueModeSpoke(NormalTUISpoke):
             # user entered some invalid number choice
             return key
 
-        return INPUT_PROCESSED
+        return InputState.PROCESSED
 
     def _mount_root(self):
         # decrypt all luks devices
@@ -428,14 +433,15 @@ class RescueModeSpoke(NormalTUISpoke):
         found_roots = self._rescue.get_found_root_infos()
         if len(found_roots) > 1:
             # have to prompt user for which root to mount
-            rootspoke = RootSelectionSpoke(self.app, found_roots)
-            self.app.switch_screen_modal(rootspoke)
-            self._rescue.select_root(rootspoke.selection)
+            root_spoke = RootSelectionSpoke(found_roots)
+            ScreenHandler.push_screen_modal(root_spoke)
+            self.redraw()
+            self._rescue.select_root(root_spoke.selection)
         self._rescue.mount_root()
 
     def _show_result_and_prompt_for_shell(self):
-        newspoke = RescueStatusAndShellSpoke(self.app, self._rescue)
-        self.app.switch_screen_modal(newspoke)
+        new_spoke = RescueStatusAndShellSpoke(self._rescue)
+        ScreenHandler.push_screen_modal(new_spoke)
         self.close()
 
     def _unlock_devices(self):
@@ -444,13 +450,14 @@ class RescueModeSpoke(NormalTUISpoke):
         Returns true if all devices were unlocked.
         """
         try_passphrase = None
+        passphrase = None
         for device_name in self._rescue.get_locked_device_names():
             skip = False
             unlocked = False
             while not (skip or unlocked):
                 if try_passphrase is None:
-                    p = PasswordDialog(self.app, device_name)
-                    self.app.switch_screen_modal(p)
+                    p = PasswordDialog(device_name)
+                    ScreenHandler.push_screen_modal(p)
                     if p.answer:
                         passphrase = p.answer.strip()
                 else:
@@ -472,10 +479,10 @@ class RescueModeSpoke(NormalTUISpoke):
 
 class RescueStatusAndShellSpoke(NormalTUISpoke):
     """UI displaying status of rescue mode mount and prompt for shell."""
-    title = N_("Rescue Shell")
 
-    def __init__(self, app, rescue):
-        NormalTUISpoke.__init__(self, app, data=None, storage=None, payload=None, instclass=None)
+    def __init__(self, rescue):
+        NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
+        self.title = N_("Rescue Shell")
         self._rescue = rescue
 
     @property
@@ -488,6 +495,8 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
         umount_msg = _("Run %s to unmount the system when you are finished.") % ANACONDA_CLEANUP
         exit_reboot_msg = _("When finished, please exit from the shell and your "
                             "system will reboot.\n")
+        text = None
+
         if self._rescue.mount:
             status = self._rescue.status
             if status == RescueModeStatus.MOUNTED:
@@ -520,8 +529,8 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                 finish_msg = ""
             text = TextWidget(_("Not mounting the system.\n") + finish_msg)
 
-        self._window.append(text)
-        return True
+        self.window.add(text)
+        return InputState.PROCESSED
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
@@ -539,7 +548,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
         """Move along home."""
         self._rescue.run_shell()
         self._rescue.finish()
-        return INPUT_PROCESSED
+        return InputState.PROCESSED
 
     def apply(self):
         pass
@@ -547,10 +556,10 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
 
 class RootSelectionSpoke(NormalTUISpoke):
     """UI for selection of installed system root to be mounted."""
-    title = N_("Root Selection")
 
-    def __init__(self, app, roots):
-        NormalTUISpoke.__init__(self, app, data=None, storage=None, payload=None, instclass=None)
+    def __init__(self, roots):
+        NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
+        self.title = N_("Root Selection")
         self._roots = roots
         self._selection = 0
 
@@ -562,15 +571,13 @@ class RootSelectionSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         message = _("The following installations were discovered on your system.\n")
-        self._window += [TextWidget(message), ""]
+        self.window.add_with_separator(TextWidget(message))
 
         for i, root_desc in enumerate(self._roots):
             root_name, root_device_path = root_desc
             box = CheckboxWidget(title="%i) %s on %s" % (i + 1, _(root_name), root_device_path),
                                  completed=(self._selection == i))
-            self._window += [box, ""]
-
-        return True
+            self.window.add_with_separator(box)
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
@@ -590,13 +597,14 @@ class RootSelectionSpoke(NormalTUISpoke):
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             else:
                 return key
 
         if 0 <= keyid < len(self._roots):
             self._selection = keyid
-        return INPUT_PROCESSED
+        self.redraw()
+        return InputState.PROCESSED
 
     @property
     def selection(self):
@@ -627,7 +635,7 @@ def start_rescue_mode_ui(anaconda):
 
     # We still want to choose from multiple roots, or unlock encrypted devices
     # if needed, so we run UI even for kickstarts (automated install).
-    app = App("Rescue Mode")
-    spoke = RescueModeSpoke(app, rescue)
-    app.schedule_screen(spoke)
-    app.run()
+    App.initialize()
+    spoke = RescueModeSpoke(rescue)
+    ScreenHandler.schedule_screen(spoke)
+    App.run()

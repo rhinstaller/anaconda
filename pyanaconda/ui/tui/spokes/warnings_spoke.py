@@ -18,30 +18,31 @@
 #
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
-from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.i18n import N_, _
 
 from pyanaconda.iutil import is_unsupported_hw
 from pyanaconda.product import productName
 
+from simpleline.render.widgets import TextWidget
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["WarningsSpoke"]
+
 
 class WarningsSpoke(StandaloneTUISpoke):
     """
        .. inheritance-diagram:: WarningsSpoke
           :parts: 3
     """
-    title = N_("Warnings")
-
     preForHub = SummaryHub
     priority = 0
 
     def __init__(self, *args, **kwargs):
         StandaloneTUISpoke.__init__(self, *args, **kwargs)
+        self.title = N_("Warnings")
         self.initialize_start()
 
         self._message = _("This hardware (or a combination thereof) is not "
@@ -63,9 +64,7 @@ class WarningsSpoke(StandaloneTUISpoke):
     def refresh(self, args=None):
         StandaloneTUISpoke.refresh(self, args)
 
-        self._window += [TextWidget(self._message), ""]
-
-        return True
+        self.window.add_with_separator(TextWidget(self._message))
 
     # Override Spoke.apply
     def apply(self):

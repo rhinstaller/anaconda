@@ -21,7 +21,6 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.i18n import N_, _, C_
@@ -32,9 +31,12 @@ from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_STORAGE_WATCHER
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR, DRACUT_REPODIR
 from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
-from pyanaconda.constants_text import INPUT_PROCESSED
 
 from pyanaconda.ui.helpers import SourceSwitchHandler
+
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, ColumnWidget
 
 from blivet.util import get_mount_device, get_mount_paths
 
@@ -47,13 +49,13 @@ log = get_module_logger(__name__)
 
 __all__ = ["SourceSpoke"]
 
+
 class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Spoke used to customize the install source repo.
 
        .. inheritance-diagram:: SourceSpoke
           :parts: 3
     """
-    title = N_("Installation source")
     helpFile = "SourceSpoke.txt"
     category = SoftwareCategory
 
@@ -62,9 +64,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     # default to 'closest mirror', as done in the GUI
     _selection = 1
 
-    def __init__(self, app, data, storage, payload, instclass):
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        EditTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
+        self.title = N_("Installation source")
         self._ready = False
         self._error = False
         self._cdrom = None
@@ -144,13 +147,13 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         if self.data.method.method == "harddrive" and \
            get_mount_device(DRACUT_ISODIR) == get_mount_device(DRACUT_REPODIR):
             message = _("The installation source is in use by the installer and cannot be changed.")
-            self._window += [TextWidget(message), ""]
+            self.window.add_with_separator(TextWidget(message))
             return True
 
         if args == 3:
             text = [TextWidget(_(p)) for p in self._protocols]
         else:
-            self._window += [TextWidget(_("Choose an installation source type."))]
+            self.window.add(TextWidget(_("Choose an installation source type.")))
             text = [TextWidget(m) for m in _methods]
 
         def _prep(i, w):
@@ -162,9 +165,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         choices = [_prep(i, w) for i, w in enumerate(text)]
 
         displayed = ColumnWidget([(78, choices)], 1)
-        self._window += [displayed, ""]
-
-        return True
+        self.window.add_with_separator(displayed)
 
     def input(self, args, key):
         """ Handle the input; this decides the repo source. """
@@ -181,36 +182,36 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                 self.set_source_closest_mirror()
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             elif self._selection in range(2, 5):
                 # preliminary URL source switch
                 self.set_source_url()
-                newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
-                                          self.payload, self.instclass, self._selection)
-                self.app.switch_screen_modal(newspoke)
+                new_spoke = SpecifyRepoSpoke(self.data, self.storage,
+                                             self.payload, self.instclass, self._selection)
+                ScreenHandler.push_screen_modal(new_spoke)
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             elif self._selection == 5:
                 # nfs
                 # preliminary NFS source switch
                 self.set_source_nfs()
-                newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
-                                        self.payload, self.instclass, self._selection, self._error)
-                self.app.switch_screen_modal(newspoke)
+                new_spoke = SpecifyNFSRepoSpoke(self.data, self.storage,
+                                                self.payload, self.instclass, self._selection, self._error)
+                ScreenHandler.push_screen_modal(new_spoke)
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
         elif num == 2:
             # local ISO file (HDD ISO)
             self._selection = num
-            newspoke = SelectDeviceSpoke(self.app, self.data,
-                    self.storage, self.payload,
-                    self.instclass)
-            self.app.switch_screen_modal(newspoke)
+            new_spoke = SelectDeviceSpoke(self.data,
+                                          self.storage, self.payload,
+                                          self.instclass)
+            ScreenHandler.push_screen_modal(new_spoke)
             self.apply()
             self.close()
-            return INPUT_PROCESSED
+            return InputState.PROCESSED
         else:
             # mounted ISO
             if num == 1:
@@ -219,10 +220,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                 self.payload.install_device = self._cdrom
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             else:
-                self.app.switch_screen(self, num)
-        return INPUT_PROCESSED
+                ScreenHandler.replace_screen(self, num)
+        return InputState.PROCESSED
 
     @property
     def ready(self):
@@ -243,26 +244,27 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         self._error = False
 
         payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                checkmount=False)
+                                 checkmount=False)
+
 
 class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Specify the repo URL here if closest mirror not selected. """
-    title = N_("Specify Repo Options")
     category = SoftwareCategory
 
     edit_fields = [
         Entry(N_("Repo URL"), "url", re.compile(".*$"), True)
         ]
 
-    def __init__(self, app, data, storage, payload, instclass, selection):
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass, selection):
+        EditTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
+        self.title = N_("Specify Repo Options")
         self.selection = selection
         self.args = self.data.method
 
     def refresh(self, args=None):
         """ Refresh window. """
-        return EditTUISpoke.refresh(self, args)
+        EditTUISpoke.refresh(self, args)
 
     @property
     def indirect(self):
@@ -270,7 +272,6 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def apply(self):
         """ Apply all of our changes. """
-        url = None
         if self.selection == 2 and not self.args.url.startswith("http://"):
             url = "http://" + self.args.url
         elif self.selection == 3 and not self.args.url.startswith("https://"):
@@ -283,9 +284,9 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
             url = self.args.url
         self.set_source_url(url)
 
+
 class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Specify server and mount opts here if NFS selected. """
-    title = N_("Specify Repo Options")
     category = SoftwareCategory
 
     edit_fields = [
@@ -293,9 +294,10 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
         Entry(N_("NFS mount options"), "opts", re.compile(".*$"), True)
     ]
 
-    def __init__(self, app, data, storage, payload, instclass, selection, error):
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass, selection, error):
+        EditTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
+        self.title = N_("Specify Repo Options")
         self.selection = selection
         self._error = error
 
@@ -306,7 +308,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def refresh(self, args=None):
         """ Refresh window. """
-        return EditTUISpoke.refresh(self, args)
+        EditTUISpoke.refresh(self, args)
 
     @property
     def indirect(self):
@@ -330,13 +332,14 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
         opts = self.args.opts or ""
         self.set_source_nfs(opts)
 
+
 class SelectDeviceSpoke(NormalTUISpoke):
     """ Select device containing the install source ISO file. """
-    title = N_("Select device containing the ISO file")
     category = SoftwareCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Select device containing the ISO file")
         self._currentISOFile = None
         self._mountable_devices = self._get_mountable_devices()
         self._device = None
@@ -371,8 +374,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
             # so that the user can refresh until it is done
             # TODO: refresh once the thread is done ?
             message = _(PAYLOAD_STATUS_PROBING_STORAGE)
-            self._window += [TextWidget(message), ""]
-            return True
+            self.window.add_with_separator(TextWidget(message))
 
         # check if there are any mountable devices
         if self._mountable_devices:
@@ -388,12 +390,11 @@ class SelectDeviceSpoke(NormalTUISpoke):
             choices = [_prep(i, w) for i, w in enumerate(devices)]
 
             displayed = ColumnWidget([(78, choices)], 1)
-            self._window += [displayed, ""]
+            self.window.add_with_separator(displayed)
 
         else:
             message = _("No mountable devices found")
-            self._window += [TextWidget(message), ""]
-        return True
+            self.window.add_with_separator(TextWidget(message))
 
     def input(self, args, key):
         try:
@@ -402,12 +403,12 @@ class SelectDeviceSpoke(NormalTUISpoke):
             num = int(key)
             device = self._mountable_devices[num-1][0]  # get the device object
             self._device = device
-            newspoke = SelectISOSpoke(self.app, self.data,
-                                      self.storage, self.payload,
-                                      self.instclass, device)
-            self.app.switch_screen_modal(newspoke)
+            new_spoke = SelectISOSpoke(self.data,
+                                       self.storage, self.payload,
+                                       self.instclass, device)
+            ScreenHandler.push_screen_modal(new_spoke)
             self.close()
-            return True
+            return InputState.PROCESSED
         except (IndexError, ValueError):
             # either the input was not a number or
             # we don't have the disk for the given number
@@ -417,14 +418,15 @@ class SelectDeviceSpoke(NormalTUISpoke):
     def apply(self):
         pass
 
+
 class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Select an ISO to use as install source. """
-    title = N_("Select an ISO to use as install source")
     category = SoftwareCategory
 
-    def __init__(self, app, data, storage, payload, instclass, device):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass, device):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
+        self.title = N_("Select an ISO to use as install source")
         self.selection = None
         self.args = self.data.method
         self._device = device
@@ -446,26 +448,24 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
             choices = [_prep(i, w) for i, w in enumerate(isos)]
 
             displayed = ColumnWidget([(78, choices)], 1)
-            self._window += [displayed, ""]
+            self.window.add_with_separator(displayed)
         else:
             message = _("No *.iso files found in device root folder")
-            self._window += [TextWidget(message), ""]
-
-        return True
+            self.window.add_with_separator(TextWidget(message))
 
     def input(self, args, key):
         # TRANSLATORS: 'c' to continue
         if key.lower() == C_('TUI|Spoke Navigation', 'c'):
             self.apply()
             self.close()
-            return key
+            return InputState.PROCESSED
         try:
             num = int(key)
             # get the ISO path
             self._current_iso_path = self._isos[num-1]
             self.apply()
             self.close()
-            return True
+            return InputState.PROCESSED
         except (IndexError, ValueError):
             return super(SelectISOSpoke, self).input(args, key)
 

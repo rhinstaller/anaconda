@@ -30,12 +30,12 @@ from pyanaconda.regexes import GECOS_VALID, GROUPLIST_SIMPLE_VALID
 
 __all__ = ["UserSpoke"]
 
+
 class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     """
        .. inheritance-diagram:: UserSpoke
           :parts: 3
     """
-    title = N_("User creation")
     helpFile = "UserSpoke.txt"
     category = UserSettingsCategory
 
@@ -66,9 +66,10 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         else:
             return False
 
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass, "user")
+        EditTUISpoke.__init__(self, data, storage, payload, instclass, "user")
+        self.title = N_("User creation")
         self.initialize_start()
         if self.data.user.userList:
             self.args = self.data.user.userList[0]
@@ -95,7 +96,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         while self.errors:
             print(self.errors.pop())
 
-        return EditTUISpoke.refresh(self, args)
+        EditTUISpoke.refresh(self, args)
 
     @property
     def completed(self):

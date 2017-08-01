@@ -22,6 +22,8 @@ from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.ui import common
 from pyanaconda.ui.tui import simpleline as tui
+from simpleline.render.screen import UIScreen
+
 
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""
@@ -194,16 +196,16 @@ class HelpScreen(tui.UIScreen):
         return tui.Prompt(_("Press %s to return") % tui.Prompt.ENTER)
 
 
-class TUIObject(tui.UIScreen, common.UIObject):
+class TUIObject(UIScreen, common.UIObject):
     """Base class for Anaconda specific TUI screens. Implements the
     common pyanaconda.ui.common.UIObject interface"""
 
-    title = u"Default title"
     helpFile = None
 
-    def __init__(self, app, data):
-        tui.UIScreen.__init__(self, app)
+    def __init__(self, data):
+        UIScreen.__init__(self)
         common.UIObject.__init__(self, data)
+        self.title = u"Default title"
 
     @property
     def showable(self):
@@ -215,4 +217,4 @@ class TUIObject(tui.UIScreen, common.UIObject):
 
     def refresh(self, args=None):
         """Put everything to display into self.window list."""
-        tui.UIScreen.refresh(self, args)
+        UIScreen.refresh(self, args)

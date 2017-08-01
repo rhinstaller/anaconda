@@ -17,25 +17,28 @@
 # Red Hat, Inc.
 #
 
+import re
 
+from pyanaconda import network
+from pyanaconda import nm
 from pyanaconda.flags import can_touch_runtime_system, flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.i18n import N_, _
-from pyanaconda import network
-from pyanaconda import nm
 
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS, IPV4_NETMASK_WITHOUT_ANCHORS
-from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.constants import ANACONDA_ENVIRON
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, ColumnWidget
+
 log = get_module_logger(__name__)
 
-import re
 
 __all__ = ["NetworkSpoke"]
 
@@ -46,13 +49,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
        .. inheritance-diagram:: NetworkSpoke
           :parts: 3
     """
-    title = N_("Network configuration")
     helpFile = "NetworkSpoke.txt"
     category = SystemCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.hostname_dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        EditTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Network configuration")
+        self.hostname_dialog = OneShotEditTUIDialog(data, storage, payload, instclass)
         self.hostname_dialog.value = self.data.network.hostname
         self.supported_devices = []
         self.errors = []
@@ -154,15 +157,15 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         EditTUISpoke.refresh(self, args)
 
         summary = self._summary_text()
-        self._window += [TextWidget(summary), ""]
+        self.window.add_with_separator(TextWidget(summary))
         hostname = _("Host Name: %s\n") % self.data.network.hostname
-        self._window += [TextWidget(hostname), ""]
+        self.window.add_with_separator(TextWidget(hostname))
         current_hostname = _("Current host name: %s\n") % network.current_hostname()
-        self._window += [TextWidget(current_hostname), ""]
+        self.window.add_with_separator(TextWidget(current_hostname))
 
         # if we have any errors, display them
         while len(self.errors) > 0:
-            self._window += [TextWidget(self.errors.pop()), ""]
+            self.window.add_with_separator(TextWidget(self.errors.pop()))
 
         def _prep(i, w):
             """ Mangle our text to make it look pretty on screen. """
@@ -177,9 +180,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         # make everything presentable on screen
         choices = [_prep(i, w) for i, w in enumerate(text)]
         displayed = ColumnWidget([(78, choices)], 1)
-        self._window += [displayed, ""]
-
-        return True
+        self.window.add_with_separator(displayed)
 
     def input(self, args, key):
         """ Handle the input. """
@@ -190,10 +191,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
         if num == 1:
             # set hostname
-            self.app.switch_screen_modal(self.hostname_dialog, Entry(_("Host Name"),
-                                "hostname", re.compile(".*$"), True))
+            entry = Entry(_("Host Name"), "hostname", re.compile(".*$"), True)
+            ScreenHandler.push_screen_modal(self.hostname_dialog, entry)
+            self.redraw()
             self.apply()
-            return INPUT_PROCESSED
+            return InputState.PROCESSED
         elif 2 <= num <= len(self.supported_devices) + 1:
             # configure device
             devname = self.supported_devices[num-2]
@@ -202,21 +204,22 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 # There is no ifcfg file for the device.
                 # Make sure there is just one connection for the device.
                 try:
-                    uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
+                    nm.nm_device_setting_value(devname, "connection", "uuid")
                 except nm.SettingsNotFoundError:
                     log.debug("can't find any connection for %s", devname)
-                    return INPUT_PROCESSED
+                    return InputState.PROCESSED
                 except nm.MultipleSettingsFoundError:
-                    log.debug("multiple non-ifcfg connections found for %s, using %s", devname, uuid)
-                    return INPUT_PROCESSED
+                    log.debug("multiple non-ifcfg connections found for %s", devname)
+                    return InputState.PROCESSED
 
                 log.debug("dumping ifcfg file for in-memory connection %s", devname)
                 nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
                 ndata = network.ksdata_from_ifcfg(devname)
 
-            newspoke = ConfigureNetworkSpoke(self.app, self.data, self.storage,
-                                    self.payload, self.instclass, ndata)
-            self.app.switch_screen_modal(newspoke)
+            new_spoke = ConfigureNetworkSpoke(self.data, self.storage,
+                                              self.payload, self.instclass, ndata)
+            ScreenHandler.push_screen_modal(new_spoke)
+            self.redraw()
 
             if ndata.ip == "dhcp":
                 ndata.bootProto = "dhcp"
@@ -225,7 +228,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 ndata.bootProto = "static"
                 if not ndata.netmask:
                     self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
-                    return INPUT_PROCESSED
+                    return InputState.PROCESSED
 
             if ndata.ipv6 == "ignore":
                 ndata.noipv6 = True
@@ -245,7 +248,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                     self.errors.append(_("Can't apply configuration, device activation failed."))
 
             self.apply()
-            return INPUT_PROCESSED
+            return InputState.PROCESSED
         else:
             return key
 
@@ -288,6 +291,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             self.hostname_dialog.value = hostname
         network.update_hostname_data(self.data, hostname)
 
+
 def check_ipv6_config(value):
     if value in ["auto", "dhcp", "ignore"]:
         return (True, None)
@@ -300,8 +304,10 @@ def check_ipv6_config(value):
             return (False, None)
     return check_ipv6_address(addr)
 
+
 def check_ipv6_address(value):
     return (network.check_ip_address(value, version=6), None)
+
 
 def check_nameservers(value):
     if value.strip():
@@ -311,9 +317,9 @@ def check_nameservers(value):
                 return (False, None)
     return (True, None)
 
+
 class ConfigureNetworkSpoke(EditTUISpoke):
     """ Spoke to set various configuration options for net devices. """
-    title = N_("Device configuration")
     category = "network"
 
     edit_fields = [
@@ -330,8 +336,9 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         Entry(N_("Apply configuration in installer"), "_apply", EditTUISpoke.CHECK, True),
     ]
 
-    def __init__(self, app, data, storage, payload, instclass, ndata):
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass, ndata):
+        EditTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Device configuration")
         self.args = ndata
         if self.args.bootProto == "dhcp":
             self.args.ip = "dhcp"
@@ -343,8 +350,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         """ Refresh window. """
         EditTUISpoke.refresh(self, args)
         message = _("Configuring device %s.") % self.args.device
-        self._window += [TextWidget(message), ""]
-        return True
+        self.window.add_with_separator(TextWidget(message))
 
     def input(self, args, key):
         self.dialog.wrong_input_message = _("Bad format of the IP address")

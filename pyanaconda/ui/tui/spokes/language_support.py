@@ -19,11 +19,15 @@
 
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda import localization
 from pyanaconda.i18n import N_, _, C_
+
+from simpleline.render.widgets import TextWidget, ColumnWidget
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+
 
 class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
@@ -37,20 +41,20 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: LangSpoke
           :parts: 3
     """
-    title = N_("Language settings")
     helpFile = "LangSupportSpoke.txt"
     category = LocalizationCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Language settings")
         self.initialize_start()
 
         self._langs = [localization.get_english_name(lang)
-                        for lang in localization.get_available_translations()]
+                       for lang in localization.get_available_translations()]
         self._langs_and_locales = dict((localization.get_english_name(lang), lang)
-                                for lang in localization.get_available_translations())
+                                       for lang in localization.get_available_translations())
         self._locales = dict((lang, localization.get_language_locales(lang))
-                                for lang in self._langs_and_locales.values())
+                             for lang in self._langs_and_locales.values())
         self._selected = self.data.lang.lang
         self.initialize_done()
 
@@ -82,10 +86,10 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         if args:
-            self._window += [TextWidget(_("Available locales"))]
+            self.window.add(TextWidget(_("Available locales")))
             displayed = [TextWidget(localization.get_english_name(z)) for z in args]
         else:
-            self._window += [TextWidget(_("Available languages"))]
+            self.window.add(TextWidget(_("Available languages")))
             displayed = [TextWidget(z) for z in self._langs]
 
         def _prep(i, w):
@@ -100,9 +104,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         right = [_prep(i, w) for i, w in enumerate(displayed) if i > 2*middle]
 
         c = ColumnWidget([(24, left), (24, center), (24, right)], 3)
-        self._window += [c, ""]
-
-        return True
+        self.window.add_with_separator(c)
 
     def input(self, args, key):
         """ Handle user input. """
@@ -115,15 +117,15 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 self.apply()
                 self.close()
             else:
-                self.app.switch_screen(self, self._locales[self._langs_and_locales[self._langs[keyid]]])
-            return True
+                ScreenHandler.replace_screen(self, self._locales[self._langs_and_locales[self._langs[keyid]]])
+            return InputState.PROCESSED
         except (ValueError, IndexError):
             pass
 
         # TRANSLATORS: 'b' to go back
         if key.lower() == C_("TUI|Spoke Navigation|Language Support", "b"):
-            self.app.switch_screen(self, None)
-            return True
+            ScreenHandler.replace_screen(self)
+            return InputState.PROCESSED
         else:
             return super(LangSpoke, self).input(args, key)
 
@@ -136,5 +138,5 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         return prompt
 
     def apply(self):
-        """ Store the selected langsupport locales """
+        """ Store the selected lang support locales """
         self.data.lang.lang = self._selected
