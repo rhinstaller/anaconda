@@ -1005,6 +1005,9 @@ class DNFPayload(payload.PackagePayload):
         # to use that instead of the default repos.
         self._base.read_all_repos()
 
+        #  Set progress metter for download of metadata
+        self._base.repos.all().set_progress_bar(DownloadProgress)
+
         # Repos on disk are always enabled. When reloaded their state needs to
         # be synchronized with the user selection.
         self.setUpdatesEnabled(self._updates_enabled)
