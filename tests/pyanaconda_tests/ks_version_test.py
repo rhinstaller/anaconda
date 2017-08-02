@@ -15,20 +15,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from mock import Mock
 import unittest
 import os
+import pykickstart.version
+from pyanaconda import kickstart
+
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
-        import sys
-
-        sys.modules["anaconda_logging"] = Mock()
-        sys.modules["block"] = Mock()
-
-        from pyanaconda import kickstart
-        import pykickstart.version
-
         self.handler = pykickstart.version.makeVersion(kickstart.superclass.version)
         self._commandMap = kickstart.commandMap
         self._dataMap = kickstart.dataMap
