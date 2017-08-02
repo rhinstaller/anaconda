@@ -20,7 +20,8 @@
 #
 
 import logging
-from logging.handlers import SysLogHandler, SocketHandler, SYSLOG_UDP_PORT
+from logging.handlers import SysLogHandler, SocketHandler
+from systemd.journal import JournalHandler
 import os
 import sys
 import warnings
@@ -44,6 +45,7 @@ STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
 SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
+ANACONDA_SYSLOG_IDENTIFIER = "anaconda"
 
 from threading import Lock
 program_log_lock = Lock()
@@ -103,31 +105,22 @@ class _AnacondaLogFixer(object):
         # is supposed to be an error.
         self._stream = WriteProxy(value)  # pylint: disable=attribute-defined-outside-init
 
-
-class AnacondaSyslogHandler(_AnacondaLogFixer, SysLogHandler):
-    # syslog doesn't understand these level names
-    levelMap = {"ERR": "error",
-                "CRIT": "critical"}
-
-    def __init__(self,
-                 address=('localhost', SYSLOG_UDP_PORT),
-                 facility=SysLogHandler.LOG_USER,
-                 tag=''):
+class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
+    def __init__(self, tag='', facility=ANACONDA_SYSLOG_FACILITY,
+                 identifier=ANACONDA_SYSLOG_IDENTIFIER):
         self.tag = tag
-        SysLogHandler.__init__(self, address, facility)
+        JournalHandler.__init__(self,
+                                SYSLOG_FACILITY=facility,
+                                SYSLOG_IDENTIFIER=identifier)
 
     def emit(self, record):
         if self.tag:
             original_msg = record.msg
             record.msg = '%s: %s' % (self.tag, original_msg)
-            SysLogHandler.emit(self, record)
+            JournalHandler.emit(self, record)
             record.msg = original_msg
         else:
-            SysLogHandler.emit(self, record)
-
-    def mapPriority(self, levelName):
-        """Map the priority level to a syslog level """
-        return self.levelMap.get(levelName, SysLogHandler.mapPriority(self, levelName))
+            JournalHandler.emit(self, record)
 
 class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
     def makePickle(self, record):
@@ -194,10 +187,10 @@ class AnacondaLog:
             logr.setLevel(logging.DEBUG)
 
         # forward both logs to syslog
-        self.forwardToSyslog(self.anaconda_logger,
-                             log_filter=AnacondaPrefixFilter(),
-                             log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
-        self.forwardToSyslog(storage_logger)
+        self.forwardToJournal(self.anaconda_logger,
+                              log_filter=AnacondaPrefixFilter(),
+                              log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+        self.forwardToJournal(storage_logger)
 
         # External program output log
         program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
@@ -205,7 +198,7 @@ class AnacondaLog:
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             minLevel=logging.DEBUG)
-        self.forwardToSyslog(program_logger)
+        self.forwardToJournal(program_logger)
 
         # Create the packaging logger.
         packaging_logger = logging.getLogger(constants.LOGGER_PACKAGING)
@@ -214,14 +207,14 @@ class AnacondaLog:
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
                             minLevel=logging.INFO,
                             autoLevel=True)
-        self.forwardToSyslog(packaging_logger)
+        self.forwardToJournal(packaging_logger)
 
         # Create the dnf logger and link it to packaging
         dnf_logger = logging.getLogger(constants.LOGGER_DNF)
         dnf_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
-        self.forwardToSyslog(dnf_logger)
+        self.forwardToJournal(dnf_logger)
 
         # Create the sensitive information logger
         # * the sensitive-info.log file is not copied to the installed
@@ -268,8 +261,8 @@ class AnacondaLog:
         except IOError:
             pass
 
-    def forwardToSyslog(self, logr, log_formatter=None, log_filter=None):
-        """Forward everything that goes in the logger to the syslog daemon.
+    def forwardToJournal(self, logr, log_formatter=None, log_filter=None):
+        """Forward everything that goes in the logger to the journal daemon.
         """
         if flags.imageInstall or flags.dirInstall:
             # don't clutter up the system logs when doing an image install
@@ -282,16 +275,13 @@ class AnacondaLog:
             tag = None
         else:
             tag = logr.name
-        syslog_handler = AnacondaSyslogHandler(
-            '/dev/log',
-            ANACONDA_SYSLOG_FACILITY,
-            tag=tag)
-        syslog_handler.setLevel(logging.DEBUG)
+        journal_handler = AnacondaJournalHandler(tag=tag)
+        journal_handler.setLevel(logging.DEBUG)
         if log_filter:
-            syslog_handler.addFilter(log_filter)
+            journal_handler.addFilter(log_filter)
         if log_formatter:
-            syslog_handler.setFormatter(log_formatter)
-        logr.addHandler(syslog_handler)
+            journal_handler.setFormatter(log_formatter)
+        logr.addHandler(journal_handler)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
