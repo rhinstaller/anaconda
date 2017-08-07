@@ -18,6 +18,9 @@
 from pyanaconda.installclasses.rhel import RHELBaseInstallClass
 from pyanaconda.product import productName
 
+__all__ = ["ScientificBaseInstallClass"]
+
+
 class ScientificBaseInstallClass(RHELBaseInstallClass):
     '''
         Scientific Linux is a Free RHEL rebuild.
