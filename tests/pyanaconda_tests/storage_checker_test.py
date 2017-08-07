@@ -20,31 +20,14 @@
 #
 
 import unittest
-from mock import Mock
+from pyanaconda.storage_utils import StorageChecker
 
 
 class StorageCheckerTests(unittest.TestCase):
 
-    def setUp(self):
-        """This madness is supposed to solve the problems with
-         imports in storage_utils that we don't need for testing.
-         """
-        import sys
-
-        sys.modules["blivet"] = Mock()
-        sys.modules["blivet.arch"] = Mock()
-        sys.modules["blivet.size"] = Mock()
-        sys.modules["blivet.errors"] = Mock()
-        sys.modules["blivet.platform"] = Mock()
-        sys.modules["blivet.devicefactory"] = Mock()
-        sys.modules["_isys"] = Mock()
-
-        from pyanaconda.storage_utils import StorageChecker
-        self.checker_type = StorageChecker
-
     def nocheck_test(self):
         """Test a check with no checks."""
-        checker = self.checker_type()
+        checker = StorageChecker()
         report = checker.check(None)
 
         self.assertEqual(report.success, True)
@@ -54,7 +37,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def simple_error_test(self):
         """Test an simple error report."""
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         def check(storage, constraints, report_error, report_warning):
             report_error("error")
@@ -68,7 +51,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def simple_warning_test(self):
         """Test an simple warning report."""
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         def check(storage, constraints, report_error, report_warning):
             report_warning("warning")
@@ -81,7 +64,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def simple_info_test(self):
         """Test simple info messages. """
-        checker = self.checker_type()
+        checker = StorageChecker()
         report = checker.check(None)
         self.assertListEqual(report.info, [
             "Storage check started with constraints {}.",
@@ -90,7 +73,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def info_test(self):
         """Test info messages. """
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         def error_check(storage, constraints, report_error, report_warning):
             report_error("error")
@@ -119,7 +102,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def simple_constraints_test(self):
         """Test simple constraint adding."""
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         # Try to add a new constraint with a wrong method.
         self.assertRaises(KeyError, checker.add_constraint, "x", None)
@@ -139,7 +122,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def check_constraints_test(self):
         """Test constraints checking."""
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         def check(storage, constraints, report_error, report_warning):
             report_warning("%s" % constraints)
@@ -158,7 +141,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def dictionary_constraints_test(self):
         """Test the dictionary constraints."""
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         checker.add_new_constraint("x", {"a": 1, "b": 2, "c": 3})
         self.assertIn("x", checker.constraints)
@@ -174,7 +157,7 @@ class StorageCheckerTests(unittest.TestCase):
 
     def complicated_test(self):
         """Run a complicated check."""
-        checker = self.checker_type()
+        checker = StorageChecker()
 
         # Set the checks,
         def check_x(storage, constraints, report_error, report_warning):
@@ -247,6 +230,6 @@ class StorageCheckerTests(unittest.TestCase):
 
     def default_settings_test(self):
         """Check the default storage checker."""
-        checker = self.checker_type()
+        checker = StorageChecker()
         checker.set_default_constraints()
         checker.set_default_checks()
