@@ -279,10 +279,10 @@ class TaskQueue(BaseTask):
             if self.running or self.done:
                 if self.running:
                     # attempt to start a task that is already running
-                    log.error("Can't start task queue %s - already running.")
+                    log.error("Can't start task queue %s - already running.", self.name)
                 else:
                     # attempt to start a task that an already finished task
-                    log.error("Can't start task queue %s - already done.")
+                    log.error("Can't start task queue %s - already done.", self.name)
             else:
                 do_start = True
                 self._running = True
