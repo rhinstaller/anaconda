@@ -1677,7 +1677,7 @@ class RepoMDMetaHash(object):
     """
     def __init__(self, payload, repo):
         self._repoId = repo.id
-        self._method = payload.data.method.method
+        self._method = payload.data.method
         self._urls = repo.urls
         self._repomd_hash = ""
 
@@ -1728,9 +1728,10 @@ class RepoMDMetaHash(object):
         # Test all urls for this repo. If any of these is working it is enough.
         for url in self._urls:
             try:
+                log.debug("Downloading repomd.xml file from %s (proxy: %s)", url, proxies)
                 repomd = ug.urlread("%s/repodata/repomd.xml" % url,
                                     limit=50000, copy_local=True,
-                                    proxies=proxies, **ugopts)
+                                    timeout=10, proxies=proxies, **ugopts)
                 break
             except URLGrabError as e:
                 log.debug("Can't download new repomd.xml from %s. Error: %s", url, e)
