@@ -248,7 +248,7 @@ def initExceptionHandling(anaconda):
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
                  "/tmp/lvm.log", iutil.getSysroot() + "/root/install.log",
-                 "/proc/cmdline"]
+                 "/proc/cmdline", "/root/lorax-packages.log"]
 
     if os.path.exists("/tmp/syslog"):
         file_list.extend(["/tmp/syslog"])
