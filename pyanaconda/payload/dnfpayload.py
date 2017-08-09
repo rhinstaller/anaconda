@@ -1185,7 +1185,7 @@ class RepoMDMetaHash(object):
 
     @property
     def repoMD_hash(self):
-        """Return MD5 hash of the repomd.xml file stored."""
+        """Return SHA256 hash of the repomd.xml file stored."""
         return self._repomd_hash
 
     @property
@@ -1205,7 +1205,7 @@ class RepoMDMetaHash(object):
         return new_repomd_hash == self._repomd_hash
 
     def _calculate_hash(self, data):
-        m = hashlib.md5()
+        m = hashlib.sha256()
         m.update(data.encode('ascii', 'backslashreplace'))
         return m.digest()
 
