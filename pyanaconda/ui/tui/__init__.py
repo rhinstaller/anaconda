@@ -37,6 +37,8 @@ import meh.ui.text
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+exception_processed = False
+
 
 def exception_msg_handler(signal, data):
     """
@@ -48,6 +50,13 @@ def exception_msg_handler(signal, data):
     :type data: any
 
     """
+
+    global exception_processed
+    if exception_processed:
+        return
+
+    # show only the first exception do not spam user with others
+    exception_processed = True
 
     # get data from the event data structure
     msg_data = signal.exception_info
