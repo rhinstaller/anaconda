@@ -69,7 +69,7 @@ def setup_ifcfg_log():
     logger = get_ifcfg_logger()
     logger.setLevel(logging.DEBUG)
     anaconda_logging.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-    anaconda_logging.logger.forwardToSyslog(logger)
+    anaconda_logging.logger.forwardToJournal(logger)
 
     ifcfglog = get_ifcfg_logger()
 
