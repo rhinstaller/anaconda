@@ -40,7 +40,7 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.i18n import _, CN_
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone, is_valid_ui_timezone
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda import iutil
 from pyanaconda import isys
@@ -511,8 +511,13 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.add_to_store_xlated(self._citiesStore, city, xlated)
 
         self._update_datetime_timer_id = None
-        if is_valid_timezone(self.data.timezone.timezone):
+        if is_valid_ui_timezone(self.data.timezone.timezone):
             self._set_timezone(self.data.timezone.timezone)
+        elif is_valid_timezone(self.data.timezone.timezone):
+            log.warning("Timezone specification %s is not offered by installer GUI.",
+                        self.data.timezone.timezone)
+            # Try to get the correct linked timezone via TimezoneMap selection
+            self._tzmap.set_timezone(self.data.timezone.timezone)
         elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default (%s)",
                         self.data.timezone.timezone, DEFAULT_TZ)
