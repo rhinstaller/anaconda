@@ -256,9 +256,12 @@ class OneShotEditTUIDialog(EditTUIDialog):
     def prompt(self, args=None):
         entry = args
         ret = None
+        self.value = None
 
         if entry:
-            ret = EditTUIDialog.prompt(self, entry)
+            while self.value is None and ret is None:
+                ret = EditTUIDialog.prompt(self, entry)
+
             if ret is None:
                 self.close()
 
