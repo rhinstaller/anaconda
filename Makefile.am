@@ -255,6 +255,14 @@ setup-test-env:
 	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
 	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
 
+	@echo "============================================================"
+	@echo "If you want you can get into testing environment by running:"
+	@echo "mock -r $(MOCKCHROOT) --shell"
+	@echo ""
+	@echo "and `cd` to the /root/anaconda directory"
+	@echo "to run ci tests run `make bare-ci` in the anaconda directory"
+	@echo "============================================================"
+
 test-gui:
 	@rm -f tests/test-suite.log
 	@rm -rf tests/autogui-results-*/
