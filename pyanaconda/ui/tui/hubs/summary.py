@@ -25,7 +25,6 @@ from pyanaconda.i18n import N_, _, C_
 
 from simpleline import App
 from simpleline.render.screen import InputState
-from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.prompt import Prompt
 
 import sys
@@ -60,7 +59,7 @@ class SummaryHub(TUIHub):
         if flags.automatedInstall:
             sys.stdout.write(_("Starting automated install"))
             sys.stdout.flush()
-            spokes = self._keys.values()
+            spokes = self._spokes.values()
             while not all(spoke.ready for spoke in spokes):
                 # Catch any asyncronous events (like storage crashing)
                 loop = App.get_event_loop()
@@ -79,7 +78,7 @@ class SummaryHub(TUIHub):
     # override the prompt so that we can skip user input on kickstarts
     # where all the data is in hand.  If not in hand, do the actual prompt.
     def prompt(self, args=None):
-        incomplete_spokes = [spoke for spoke in self._keys.values()
+        incomplete_spokes = [spoke for spoke in self._spokes.values()
                             if spoke.mandatory and not spoke.completed]
 
         # Kickstart space check failure either stops the automated install or
@@ -141,12 +140,9 @@ class SummaryHub(TUIHub):
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
         to the higher level for processing."""
-        try:
-            number = int(key)
-            ScreenHandler.push_screen(self._keys[number])
+        if self._container.process_user_input(key):
             return InputState.PROCESSED
-
-        except (ValueError, KeyError):
+        else:
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
             # TRANSLATORS: 'b' to begin installation

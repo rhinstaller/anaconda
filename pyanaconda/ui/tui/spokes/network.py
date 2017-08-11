@@ -33,9 +33,10 @@ from pyanaconda.constants import ANACONDA_ENVIRON
 
 from pyanaconda.anaconda_loggers import get_module_logger
 
+from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, ColumnWidget
+from simpleline.render.widgets import TextWidget
 
 log = get_module_logger(__name__)
 
@@ -55,6 +56,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def __init__(self, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("Network configuration")
+        self._container = None
         self.hostname_dialog = OneShotEditTUIDialog(data, storage, payload, instclass)
         self.hostname_dialog.value = self.data.network.hostname
         self.supported_devices = []
@@ -156,6 +158,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         self._load_new_devices()
         EditTUISpoke.refresh(self, args)
 
+        self._container = ListColumnContainer(1, columns_width=78, spacing=1)
+
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
         hostname = _("Host Name: %s\n") % self.data.network.hostname
@@ -167,90 +171,79 @@ class NetworkSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         while len(self.errors) > 0:
             self.window.add_with_separator(TextWidget(self.errors.pop()))
 
-        def _prep(i, w):
-            """ Mangle our text to make it look pretty on screen. """
-            number = TextWidget("%2d)" % (i + 1))
-            return ColumnWidget([(4, [number]), (None, [w])], 1)
+        self._container.add(TextWidget(_("Set host name")), callback=self._set_hostname_callback)
 
-        _opts = [_("Set host name")]
-        for devname in self.supported_devices:
-            _opts.append(_("Configure device %s") % devname)
-        text = [TextWidget(o) for o in _opts]
+        for dev_name in self.supported_devices:
+            text = (_("Configure device %s") % dev_name)
+            self._container.add(TextWidget(text), callback=self._configure_network_interface, data=dev_name)
 
-        # make everything presentable on screen
-        choices = [_prep(i, w) for i, w in enumerate(text)]
-        displayed = ColumnWidget([(78, choices)], 1)
-        self.window.add_with_separator(displayed)
+        self.window.add_with_separator(self._container)
+
+    def _set_hostname_callback(self, data):
+        # set hostname
+        entry = Entry(_("Host Name"), "hostname", re.compile(".*$"), True)
+        ScreenHandler.push_screen_modal(self.hostname_dialog, entry)
+        self.redraw()
+        self.apply()
+
+    def _configure_network_interface(self, data):
+        devname = data
+        ndata = network.ksdata_from_ifcfg(devname)
+        if not ndata:
+            # There is no ifcfg file for the device.
+            # Make sure there is just one connection for the device.
+            try:
+                nm.nm_device_setting_value(devname, "connection", "uuid")
+            except nm.SettingsNotFoundError:
+                log.debug("can't find any connection for %s", devname)
+                return
+            except nm.MultipleSettingsFoundError:
+                log.debug("multiple non-ifcfg connections found for %s", devname)
+                return
+
+            log.debug("dumping ifcfg file for in-memory connection %s", devname)
+            nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
+            ndata = network.ksdata_from_ifcfg(devname)
+
+        new_spoke = ConfigureNetworkSpoke(self.data, self.storage,
+                                          self.payload, self.instclass, ndata)
+        ScreenHandler.push_screen_modal(new_spoke)
+        self.redraw()
+
+        if ndata.ip == "dhcp":
+            ndata.bootProto = "dhcp"
+            ndata.ip = ""
+        else:
+            ndata.bootProto = "static"
+            if not ndata.netmask:
+                self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
+                return
+
+        if ndata.ipv6 == "ignore":
+            ndata.noipv6 = True
+            ndata.ipv6 = ""
+        else:
+            ndata.noipv6 = False
+
+        uuid = network.update_settings_with_ksdata(devname, ndata)
+        network.update_onboot_value(devname, ndata.onboot, ksdata=None, root_path="")
+        network.logIfcfgFiles("settings of %s updated in tui" % devname)
+
+        if ndata._apply:
+            self._apply = True
+            try:
+                nm.nm_activate_device_connection(devname, uuid)
+            except (nm.UnmanagedDeviceError, nm.UnknownConnectionError):
+                self.errors.append(_("Can't apply configuration, device activation failed."))
+
+        self.apply()
 
     def input(self, args, key):
         """ Handle the input. """
-        try:
-            num = int(key)
-        except ValueError:
-            return super(NetworkSpoke, self).input(args, key)
-
-        if num == 1:
-            # set hostname
-            entry = Entry(_("Host Name"), "hostname", re.compile(".*$"), True)
-            ScreenHandler.push_screen_modal(self.hostname_dialog, entry)
-            self.redraw()
-            self.apply()
-            return InputState.PROCESSED
-        elif 2 <= num <= len(self.supported_devices) + 1:
-            # configure device
-            devname = self.supported_devices[num-2]
-            ndata = network.ksdata_from_ifcfg(devname)
-            if not ndata:
-                # There is no ifcfg file for the device.
-                # Make sure there is just one connection for the device.
-                try:
-                    nm.nm_device_setting_value(devname, "connection", "uuid")
-                except nm.SettingsNotFoundError:
-                    log.debug("can't find any connection for %s", devname)
-                    return InputState.PROCESSED
-                except nm.MultipleSettingsFoundError:
-                    log.debug("multiple non-ifcfg connections found for %s", devname)
-                    return InputState.PROCESSED
-
-                log.debug("dumping ifcfg file for in-memory connection %s", devname)
-                nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
-                ndata = network.ksdata_from_ifcfg(devname)
-
-            new_spoke = ConfigureNetworkSpoke(self.data, self.storage,
-                                              self.payload, self.instclass, ndata)
-            ScreenHandler.push_screen_modal(new_spoke)
-            self.redraw()
-
-            if ndata.ip == "dhcp":
-                ndata.bootProto = "dhcp"
-                ndata.ip = ""
-            else:
-                ndata.bootProto = "static"
-                if not ndata.netmask:
-                    self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
-                    return InputState.PROCESSED
-
-            if ndata.ipv6 == "ignore":
-                ndata.noipv6 = True
-                ndata.ipv6 = ""
-            else:
-                ndata.noipv6 = False
-
-            uuid = network.update_settings_with_ksdata(devname, ndata)
-            network.update_onboot_value(devname, ndata.onboot, ksdata=None, root_path="")
-            network.logIfcfgFiles("settings of %s updated in tui" % devname)
-
-            if ndata._apply:
-                self._apply = True
-                try:
-                    nm.nm_activate_device_connection(devname, uuid)
-                except (nm.UnmanagedDeviceError, nm.UnknownConnectionError):
-                    self.errors.append(_("Can't apply configuration, device activation failed."))
-
-            self.apply()
+        if self._container.process_user_input(key):
             return InputState.PROCESSED
         else:
-            return key
+            return super(NetworkSpoke, self).input(args, key)
 
     def apply(self):
         """Apply all of our settings."""

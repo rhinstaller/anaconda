@@ -24,9 +24,10 @@ from pyanaconda.flags import flags
 from pyanaconda import localization
 from pyanaconda.i18n import N_, _, C_
 
-from simpleline.render.widgets import TextWidget, ColumnWidget
+from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget
 
 
 class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
@@ -48,6 +49,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("Language settings")
         self.initialize_start()
+        self._container = None
 
         self._langs = [localization.get_english_name(lang)
                        for lang in localization.get_available_translations()]
@@ -85,49 +87,43 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """
         NormalTUISpoke.refresh(self, args)
 
+        self._container = ListColumnContainer(3)
+
         if args:
             self.window.add(TextWidget(_("Available locales")))
-            displayed = [TextWidget(localization.get_english_name(z)) for z in args]
+            for locale in args:
+                widget = TextWidget(localization.get_english_name(locale))
+                self._container.add(widget, self._set_locales_callback, locale)
         else:
             self.window.add(TextWidget(_("Available languages")))
-            displayed = [TextWidget(z) for z in self._langs]
+            for lang in self._langs:
+                langs_and_locales = self._langs_and_locales[lang]
+                locales = self._locales[langs_and_locales]
+                self._container.add(TextWidget(lang), self._show_locales_callback, locales)
 
-        def _prep(i, w):
-            """ make everything look nice """
-            number = TextWidget("%2d)" % (i + 1))
-            return ColumnWidget([(4, [number]), (None, [w])], 1)
+        self.window.add_with_separator(self._container)
 
-        # split zones to three columns
-        middle = len(displayed) / 3
-        left = [_prep(i, w) for i, w in enumerate(displayed) if i <= middle]
-        center = [_prep(i, w) for i, w in enumerate(displayed) if i > middle and i <= 2*middle]
-        right = [_prep(i, w) for i, w in enumerate(displayed) if i > 2*middle]
+    def _set_locales_callback(self, data):
+        locale = data
+        self._selected = locale
+        self.apply()
+        self.close()
 
-        c = ColumnWidget([(24, left), (24, center), (24, right)], 3)
-        self.window.add_with_separator(c)
+    def _show_locales_callback(self, data):
+        locales = data
+        ScreenHandler.replace_screen(self, locales)
 
     def input(self, args, key):
         """ Handle user input. """
-        try:
-            keyid = int(key) - 1
-            if keyid < 0:
-                return key
-            if args:
-                self._selected = args[keyid]
-                self.apply()
-                self.close()
-            else:
-                ScreenHandler.replace_screen(self, self._locales[self._langs_and_locales[self._langs[keyid]]])
-            return InputState.PROCESSED
-        except (ValueError, IndexError):
-            pass
-
-        # TRANSLATORS: 'b' to go back
-        if key.lower() == C_("TUI|Spoke Navigation|Language Support", "b"):
-            ScreenHandler.replace_screen(self)
+        if self._container.process_user_input(key):
             return InputState.PROCESSED
         else:
-            return super(LangSpoke, self).input(args, key)
+            # TRANSLATORS: 'b' to go back
+            if key.lower() == C_("TUI|Spoke Navigation|Language Support", "b"):
+                ScreenHandler.replace_screen(self)
+                return InputState.PROCESSED
+            else:
+                return super(LangSpoke, self).input(args, key)
 
     def prompt(self, args=None):
         """ Customize default prompt. """

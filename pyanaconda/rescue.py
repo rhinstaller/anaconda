@@ -33,10 +33,11 @@ from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
 from simpleline import App
 from simpleline.render.adv_widgets import YesNoDialog, PasswordDialog
+from simpleline.render.containers import ListColumnContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, ColumnWidget, CheckboxWidget
+from simpleline.render.widgets import TextWidget, CheckboxWidget
 
 import os
 import shutil
@@ -365,7 +366,7 @@ class RescueModeSpoke(NormalTUISpoke):
     def __init__(self, rescue):
         NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
         self.title = N_("Rescue")
-        self._choices = (_("Continue"), _("Read-only mount"), _("Skip to shell"), ("Quit (Reboot)"))
+        self._container = None
         self._rescue = rescue
 
     def refresh(self, args=None):
@@ -381,10 +382,37 @@ class RescueModeSpoke(NormalTUISpoke):
                 "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())
         self.window.add_with_separator(TextWidget(msg))
 
-        for idx, choice in enumerate(self._choices):
-            number = TextWidget("%2d)" % (idx + 1))
-            c = ColumnWidget([(3, [number]), (None, [TextWidget(choice)])], 1)
-            self.window.add_with_separator(c)
+        self._container = ListColumnContainer(1)
+
+        self._container.add(TextWidget(_("Continue")), self._read_write_mount_callback)
+        self._container.add(TextWidget(_("Read-only mount")), self._read_only_mount_callback)
+        self._container.add(TextWidget(_("Skip to shell")), self._skip_to_shell_callback)
+        self._container.add(TextWidget(_("Quit (Reboot)")), self._quit_callback)
+
+        self.window.add_with_separator(self._container)
+
+    def _read_write_mount_callback(self, data):
+        self._mount_and_prompt_for_shell()
+
+    def _read_only_mount_callback(self, data):
+        self._rescue.ro = True
+        self._mount_and_prompt_for_shell()
+
+    def _skip_to_shell_callback(self, data):
+        self._show_result_and_prompt_for_shell()
+
+    def _quit_callback(self, data):
+        d = YesNoDialog(_(u"Do you really want to quit?"))
+        ScreenHandler.push_screen_modal(d)
+        self.redraw()
+        if d.answer:
+            self._rescue.reboot = True
+            self._rescue.finish()
+
+    def _mount_and_prompt_for_shell(self):
+        self._rescue.mount = True
+        self._mount_root()
+        self._show_result_and_prompt_for_shell()
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
@@ -397,35 +425,10 @@ class RescueModeSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         """Override any input so we can launch rescue mode."""
-        keyid = None
-        try:
-            keyid = int(key) - 1
-        except ValueError:
-            pass
-
-        if keyid == 3:
-            # quit/reboot
-            d = YesNoDialog(_(u"Do you really want to quit?"))
-            ScreenHandler.push_screen_modal(d)
-            self.redraw()
-            if d.answer:
-                self._rescue.reboot = True
-                self._rescue.finish()
-        elif keyid == 2:
-            # skip to/run shell
-            self._show_result_and_prompt_for_shell()
-        elif keyid == 1 or keyid == 0:
-            # user chose 0 (continue/rw-mount) or 1 (ro-mount)
-            self._rescue.mount = True
-            if keyid == 1:
-                self._rescue.ro = True
-            self._mount_root()
-            self._show_result_and_prompt_for_shell()
+        if self._container.process_user_input(key):
+            return InputState.PROCESSED
         else:
-            # user entered some invalid number choice
-            return key
-
-        return InputState.PROCESSED
+            return InputState.DISCARDED
 
     def _mount_root(self):
         # decrypt all luks devices

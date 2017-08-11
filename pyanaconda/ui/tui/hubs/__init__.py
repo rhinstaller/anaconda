@@ -22,10 +22,10 @@ from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui import common
 
 from simpleline.render.adv_widgets import HelpScreen
+from simpleline.render.containers import ListRowContainer
 from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, ColumnWidget
 
 from pyanaconda.i18n import _, N_
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -52,9 +52,10 @@ class TUIHub(TUIObject, common.Hub):
         TUIObject.__init__(self, data)
         common.Hub.__init__(self, storage, payload, instclass)
         self.title = N_("Default HUB title")
+        self._container = None
 
-        self._spokes = {}     # holds spokes referenced by their class name
-        self._keys = {}       # holds spokes referenced by their user input key
+        self._spokes_map = []  # hold all the spokes in the right ordering
+        self._spokes = {}      # holds spokes referenced by their class name
         self._spoke_count = 0
 
         # we want user input
@@ -89,7 +90,7 @@ class TUIHub(TUIObject, common.Hub):
             for spoke in sorted(hub_spokes, key=lambda s: s.title):
 
                 self._spoke_count += 1
-                self._keys[self._spoke_count] = spoke
+                self._spokes_map.append(spoke)
                 self._spokes[spoke.__class__.__name__] = spoke
 
         if self._spoke_count:
@@ -108,27 +109,24 @@ class TUIHub(TUIObject, common.Hub):
         we want shown on this screen. Title and Spokes mostly."""
         TUIObject.refresh(self, args)
 
-        def _prep(i, w):
-            number = TextWidget("%2d)" % i)
-            return ColumnWidget([(3, [number]), (None, [w])], 1)
+        self._container = ListRowContainer(2, columns_width=39, spacing=2)
 
-        # split spokes to two columns
-        left = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 1]
-        right = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 0]
+        for w in self._spokes_map:
+            self._container.add(w, callback=self._item_called, data=w)
 
-        c = ColumnWidget([(39, left), (39, right)], 2)
-        self.window.add_with_separator(c)
+        self.window.add_with_separator(self._container)
+
+    def _item_called(self, data):
+        item = data
+        ScreenHandler.push_screen(item)
 
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
         to the higher level for processing."""
 
-        try:
-            number = int(key)
-            ScreenHandler.push_screen(self._keys[number])
+        if self._container.process_user_input(key):
             return InputState.PROCESSED
-
-        except (ValueError, KeyError):
+        else:
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
             # TRANSLATORS: 'c' to continue

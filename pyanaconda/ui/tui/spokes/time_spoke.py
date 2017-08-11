@@ -17,8 +17,6 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -29,13 +27,19 @@ from pyanaconda.i18n import N_, _, C_
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.flags import flags
 
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 from threading import RLock
 
+from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
+from simpleline.render.widgets import TextWidget
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, ColumnWidget
 from simpleline.render.prompt import Prompt
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+CallbackTimezoneArgs = namedtuple("CallbackTimezoneArgs", ["region", "timezone"])
 
 
 def format_ntp_status_list(servers):
@@ -60,6 +64,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("Time settings")
         self._timezone_spoke = None
+        self._container = None
         # we use an ordered dict to keep the NTP server insertion order
         self._ntp_servers = OrderedDict()
         self._ntp_servers_lock = RLock()
@@ -232,43 +237,30 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         else:
             timezone_option = _("Set timezone")
 
-        _options = [timezone_option, _("Configure NTP servers")]
-        text = [TextWidget(m) for m in _options]
+        self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
-        def _prep(i, w):
-            """ Mangle our text to make it look pretty on screen. """
-            number = TextWidget("%2d)" % (i + 1))
-            return ColumnWidget([(4, [number]), (None, [w])], 1)
+        self._container.add(TextWidget(timezone_option), callback=self._timezone_callback)
+        self._container.add(TextWidget(_("Configure NTP servers")), callback=self._configure_ntp_server_callback)
 
-        # gnarl and mangle all of our widgets so things look pretty on screen
-        choices = [_prep(i, w) for i, w in enumerate(text)]
+        self.window.add_with_separator(self._container)
 
-        displayed = ColumnWidget([(78, choices)], 1)
-        self.window.add_with_separator(displayed)
+    def _timezone_callback(self, data):
+        ScreenHandler.push_screen_modal(self.timezone_spoke)
+        self.close()
+
+    def _configure_ntp_server_callback(self, data):
+        new_spoke = NTPServersSpoke(self.data, self.storage,
+                                    self.payload, self.instclass, self)
+        ScreenHandler.push_screen_modal(new_spoke)
+        self.apply()
+        self.close()
 
     def input(self, args, key):
         """ Handle the input - visit a sub spoke or go back to hub."""
-        try:
-            num = int(key)
-        except ValueError:
-            return super(TimeSpoke, self).input(args, key)
-
-        if num == 1:
-            # set timezone
-            ScreenHandler.push_screen_modal(self.timezone_spoke)
-            self.close()
-            return InputState.PROCESSED
-        elif num == 2:
-            # configure NTP servers
-            new_spoke = NTPServersSpoke(self.data, self.storage,
-                                        self.payload, self.instclass, self)
-            ScreenHandler.push_screen_modal(new_spoke)
-            self.apply()
-            self.close()
+        if self._container.process_user_input(key):
             return InputState.PROCESSED
         else:
-            # the user provided an invalid option number, just stay in the spoke
-            return InputState.PROCESSED
+            return super(TimeSpoke, self).input(args, key)
 
     def apply(self):
         # update the NTP server list in kickstart
@@ -286,6 +278,7 @@ class TimeZoneSpoke(NormalTUISpoke):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
 
         self.title = N_("Timezone settings")
+        self._container = None
         # it's stupid to call get_all_regions_and_timezones twice, but regions
         # needs to be unsorted in order to display in the same order as the GUI
         # so whatever
@@ -306,30 +299,38 @@ class TimeZoneSpoke(NormalTUISpoke):
         """args is None if we want a list of zones or "zone" to show all timezones in that zone."""
         NormalTUISpoke.refresh(self, args)
 
+        self._container = ListColumnContainer(3, columns_width=24)
+
         if args and args in self._timezones:
             self.window.add(TextWidget(_("Available timezones in region %s") % args))
-            displayed = [TextWidget(z) for z in self._timezones[args]]
+            for tz in self._timezones[args]:
+                self._container.add(TextWidget(tz), self._select_timezone_callback, CallbackTimezoneArgs(args, tz))
         else:
             self.window.add(TextWidget(_("Available regions")))
-            displayed = [TextWidget(z) for z in self._regions]
+            for region in self._regions:
+                self._container.add(TextWidget(region), self._select_region_callback, region)
 
-        def _prep(i, w):
-            number = TextWidget("%2d)" % (i + 1))
-            return ColumnWidget([(4, [number]), (None, [w])], 1)
+        self.window.add_with_separator(self._container)
 
-        # split zones to three columns
-        middle = len(displayed) / 3
-        left = [_prep(i, w) for i, w in enumerate(displayed) if i <= middle]
-        center = [_prep(i, w) for i, w in enumerate(displayed) if i > middle and i <= 2 * middle]
-        right = [_prep(i, w) for i, w in enumerate(displayed) if i > 2 * middle]
+    def _select_timezone_callback(self, data):
+        self._selection = "%s/%s" % (data.region, data.timezone)
+        self.apply()
+        self.close()
 
-        c = ColumnWidget([(24, left), (24, center), (24, right)], 3)
-        self.window.add_with_separator(c)
+    def _select_region_callback(self, data):
+        region = data
+        selected_timezones = self._timezones[region]
+        if len(selected_timezones) == 1:
+            self._selection = "%s/%s" % (region, selected_timezones[0])
+            self.apply()
+            self.close()
+        else:
+            ScreenHandler.replace_screen(self, region)
 
     def input(self, args, key):
-        try:
-            keyid = int(key) - 1
-        except ValueError:
+        if self._container.process_user_input(key):
+            return InputState.PROCESSED
+        else:
             if key.lower().replace("_", " ") in self._lower_zones:
                 index = self._lower_zones.index(key.lower().replace("_", " "))
                 self._selection = self._zones[index]
@@ -353,28 +354,6 @@ class TimeZoneSpoke(NormalTUISpoke):
             else:
                 return key
 
-        if keyid < 0:
-            return key
-        if args:
-            if keyid >= len(self._timezones[args]):
-                return key
-            self._selection = "%s/%s" % (args, self._timezones[args][keyid])
-            self.apply()
-            self.close()
-        else:
-            if keyid >= len(self._regions):
-                return key
-            region = self._regions[keyid]
-            selected_timezones = self._timezones[region]
-            if len(selected_timezones) == 1:
-                self._selection = "%s/%s" % (region, selected_timezones[0])
-                self.apply()
-                self.close()
-            else:
-                ScreenHandler.replace_screen(self, region)
-
-        return InputState.PROCESSED
-
     def prompt(self, args=None):
         """ Customize default prompt. """
         prompt = NormalTUISpoke.prompt(self, args)
@@ -394,6 +373,7 @@ class NTPServersSpoke(NormalTUISpoke):
     def __init__(self, data, storage, payload, instclass, time_spoke):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("NTP configuration")
+        self._container = None
         self._time_spoke = time_spoke
 
     @property
@@ -416,48 +396,33 @@ class NTPServersSpoke(NormalTUISpoke):
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
 
-        _options = [_("Add NTP server")]
+        self._container = ListColumnContainer(1, columns_width=78, spacing=1)
+
+        self._container.add(TextWidget(_("Add NTP server")), self._add_ntp_server)
+
         # only add the remove option when we can remove something
         if self._time_spoke.ntp_servers:
-            _options.append(_("Remove NTP server"))
-        text = [TextWidget(m) for m in _options]
+            self._container.add(TextWidget(_("Remove NTP server")), self._remove_ntp_server)
 
-        def _prep(i, w):
-            """ Mangle our text to make it look pretty on screen. """
-            number = TextWidget("%2d)" % (i + 1))
-            return ColumnWidget([(4, [number]), (None, [w])], 1)
+        self.window.add_with_separator(self._container)
 
-        # gnarl and mangle all of our widgets so things look pretty on screen
-        choices = [_prep(i, w) for i, w in enumerate(text)]
+    def _add_ntp_server(self, data):
+        new_spoke = AddNTPServerSpoke(self.data, self.storage, self.payload,
+                                      self.instclass, self._time_spoke)
+        ScreenHandler.push_screen_modal(new_spoke)
+        self.redraw()
 
-        displayed = ColumnWidget([(78, choices)], 1)
-        self.window.add_with_separator(displayed)
+    def _remove_ntp_server(self, data):
+        new_spoke = RemoveNTPServerSpoke(self.data, self.storage, self.payload,
+                                         self.instclass, self._time_spoke)
+        ScreenHandler.push_screen_modal(new_spoke)
+        self.redraw()
 
     def input(self, args, key):
-        try:
-            num = int(key)
-        except ValueError:
-            return super(NTPServersSpoke, self).input(args, key)
-
-        if num == 1:
-            # add an NTP server
-            new_spoke = AddNTPServerSpoke(self.data, self.storage, self.payload,
-                                          self.instclass, self._time_spoke)
-            ScreenHandler.push_screen_modal(new_spoke)
-            self.redraw()
-            return InputState.PROCESSED
-        elif self._time_spoke.ntp_servers and num == 2:
-            # remove an NTP server
-            new_spoke = RemoveNTPServerSpoke(self.data, self.storage, self.payload,
-                                             self.instclass, self._time_spoke)
-            ScreenHandler.push_screen_modal(new_spoke)
-            self.redraw()
+        if self._container.process_user_input(key):
             return InputState.PROCESSED
         else:
-            # the user provided an invalid option number,
-            # just stay in the spoke
-            self.redraw()
-            return InputState.PROCESSED
+            return super(NTPServersSpoke, self).input(args, key)
 
     def apply(self):
         pass
