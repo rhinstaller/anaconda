@@ -1140,8 +1140,7 @@ class DNFPayload(payload.PackagePayload):
         Save repomd hash to test if the repositories can be reached.
         """
         self._repoMD_list = []
-        for repoID in self.repos:
-            repo = self.getRepo(repoID)
+        for repo in self._base.repos.iter_enabled():
             repoMD = RepoMDMetaHash(self, repo)
             repoMD.store_repoMD_hash()
             self._repoMD_list.append(repoMD)
