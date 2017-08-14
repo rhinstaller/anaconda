@@ -1140,8 +1140,7 @@ class DNFPayload(payload.PackagePayload):
         Save repomd hash to test if the repositories can be reached.
         """
         self._repoMD_list = []
-        for repoID in self.repos:
-            repo = self.getRepo(repoID)
+        for repo in self._base.repos.iter_enabled():
             repoMD = RepoMDMetaHash(self, repo)
             repoMD.store_repoMD_hash()
             self._repoMD_list.append(repoMD)
@@ -1185,7 +1184,7 @@ class RepoMDMetaHash(object):
 
     @property
     def repoMD_hash(self):
-        """Return MD5 hash of the repomd.xml file stored."""
+        """Return SHA256 hash of the repomd.xml file stored."""
         return self._repomd_hash
 
     @property
@@ -1205,7 +1204,7 @@ class RepoMDMetaHash(object):
         return new_repomd_hash == self._repomd_hash
 
     def _calculate_hash(self, data):
-        m = hashlib.md5()
+        m = hashlib.sha256()
         m.update(data.encode('ascii', 'backslashreplace'))
         return m.digest()
 

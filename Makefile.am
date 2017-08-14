@@ -94,8 +94,6 @@ po-all:
 po-fallback:
 	-$(MAKE) po-pull
 
-
-
 scratch:
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 
@@ -231,14 +229,7 @@ bare-ci:
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
-isolated-test:
-	@-rm -f tests/error_occured
-	mock -r $(MOCKCHROOT) --scrub all || exit 1
-# Install missing dependencies for running make install-test-requires
-	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
-	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
+isolated-test: setup-test-env
 	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
 	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
 	mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
@@ -254,6 +245,23 @@ isolated-test:
 		rm tests/error_occured; \
 		exit $$status; \
 	fi
+
+setup-test-env:
+	@-rm -f tests/error_occured
+	mock -r $(MOCKCHROOT) --scrub all || exit 1
+# Install missing dependencies for running make install-test-requires
+	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
+	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
+
+	@echo "============================================================"
+	@echo "If you want you can get into testing environment by running:"
+	@echo "mock -r $(MOCKCHROOT) --shell"
+	@echo ""
+	@echo "and `cd` to the /root/anaconda directory"
+	@echo "to run ci tests run `make bare-ci` in the anaconda directory"
+	@echo "============================================================"
 
 test-gui:
 	@rm -f tests/test-suite.log

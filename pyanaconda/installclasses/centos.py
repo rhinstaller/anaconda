@@ -22,6 +22,9 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
+__all__ = ["CentOSBaseInstallClass"]
+
+
 class CentOSBaseInstallClass(BaseInstallClass):
     name = "CentOS Linux"
     sortPriority = 10000

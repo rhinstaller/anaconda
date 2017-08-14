@@ -17,22 +17,11 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from mock import Mock
 import unittest
+from pyanaconda import kickstart
 
-class BaseTestCase(unittest.TestCase):
-    def setUp(self):
-        import sys
 
-        sys.modules["anaconda_logging"] = Mock()
-        sys.modules["block"] = Mock()
-
-        from pyanaconda import kickstart
-        self.kickstart = kickstart
-        self.handler = kickstart.AnacondaKSHandler()
-        self.ksparser = kickstart.AnacondaKSParser(self.handler)
-
-class PwPolicyTestCase(BaseTestCase):
+class PwPolicyTestCase(unittest.TestCase):
     ks = """
 %anaconda
 pwpolicy root --strict --minlen=8 --minquality=50 --nochanges --emptyok
@@ -40,11 +29,16 @@ pwpolicy user --strict --minlen=8 --minquality=50 --nochanges --emptyok
 pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
 %end
 """
+
+    def setUp(self):
+        self.handler = kickstart.AnacondaKSHandler()
+        self.ksparser = kickstart.AnacondaKSParser(self.handler)
+
     def pwpolicy_test(self):
         self.ksparser.readKickstartFromString(self.ks)
 
-        self.assertIsInstance(self.handler, self.kickstart.AnacondaKSHandler)
-        self.assertIsInstance(self.handler.anaconda, self.kickstart.AnacondaSectionHandler)
+        self.assertIsInstance(self.handler, kickstart.AnacondaKSHandler)
+        self.assertIsInstance(self.handler.anaconda, kickstart.AnacondaSectionHandler)
 
         eq_template = "pwpolicy %s --minlen=8 --minquality=50 --strict --nochanges --emptyok\n"
         for name in ["root", "user", "luks"]:

@@ -53,6 +53,10 @@ _to_log ip r
 
 cp /tmp/*.log ${OUTDIR}
 
+if [[ -e /tmp/pre-anaconda-logs/ ]];then
+    cp -r /tmp/pre-anaconda-logs ${OUTDIR}
+fi
+
 tar cfa ${ARCHIVE} ${OUTDIR}
 
 echo -e "\nFinished gathering data\nUpload ${ARCHIVE} to another system\n"

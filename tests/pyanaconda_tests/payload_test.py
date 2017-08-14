@@ -124,7 +124,7 @@ or it should be. Nah it's just a test!
 
     def download_file_repomd_test(self):
         """Test if we can download repomd.xml with file:// successfully."""
-        m = hashlib.md5()
+        m = hashlib.sha256()
         m.update(self._content_repomd.encode('ascii', 'backslashreplace'))
         reference_digest = m.digest()
 

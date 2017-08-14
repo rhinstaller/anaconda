@@ -1385,14 +1385,11 @@ class PackagePayload(Payload):
     def environmentDescription(self, environmentid):
         raise NotImplementedError()
 
-    def selectEnvironment(self, environmentid, excluded=None):
+    def selectEnvironment(self, environmentid):
         if environmentid not in self.environments:
             raise NoSuchGroup(environmentid)
 
         self.data.packages.environment = environmentid
-
-        if excluded is None:
-            excluded = []
 
     def environmentGroups(self, environmentid, optional=True):
         raise NotImplementedError()

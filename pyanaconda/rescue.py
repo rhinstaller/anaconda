@@ -37,11 +37,13 @@ from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 import os
 import shutil
 import time
+from enum import Enum
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["RescueMode", "RootSpoke", "RescueMountSpoke"]
+__all__ = ["RescueModeSpoke", "RootSelectionSpoke", "RescueStatusAndShellSpoke"]
+
 
 def makeFStab(instPath=""):
     """Make the fs tab."""
@@ -60,27 +62,6 @@ def makeFStab(instPath=""):
     except IOError as e:
         log.info("failed to write /etc/fstab: %s", e)
 
-def run_shell():
-    """Launch a shell."""
-    if flags.imageInstall:
-        print(_("Run %s to unmount the system when you are finished.")
-                % ANACONDA_CLEANUP)
-    else:
-        print(_("When finished, please exit from the shell and your "
-                "system will reboot."))
-
-    proc = None
-    if proc is None or proc.returncode != 0:
-        if os.path.exists("/bin/bash"):
-            iutil.execConsole()
-        else:
-            print(_("Unable to find /bin/bash to execute!  Not starting shell."))
-            time.sleep(5)
-
-    if not flags.imageInstall:
-        iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
-    else:
-        return None
 
 def makeResolvConf(instPath):
     """Make the resolv.conf file in the chroot."""
@@ -115,35 +96,273 @@ def makeResolvConf(instPath):
     f.write(buf)
     f.close()
 
-class RescueMode(NormalTUISpoke):
+
+def create_etc_symlinks():
+    """I don't know why I live. Maybe I should be killed."""
+    for f in ["services", "protocols", "group", "man.config",
+              "nsswitch.conf", "selinux", "mke2fs.conf"]:
+        try:
+            os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
+        except OSError:
+            log.debug("Failed to create symlink for /mnt/runtime/etc/%s", f)
+
+
+class RescueModeStatus(Enum):
+    """Status of rescue mode environment."""
+    NOT_SET = "not set"
+    MOUNTED = "mounted"
+    MOUNT_FAILED = "mount failed"
+    ROOT_NOT_FOUND = "root not found"
+
+
+class EncryptedDeviceState(object):
+    """A container for encrypted device and its state."""
+    def __init__(self, device, passphrase="", locked=True):
+        self._device = device
+        self._passphrase = passphrase
+        self._locked = locked
+
+    def set_unlocked(self, passphrase):
+        """Mark the device as unlocked."""
+        self._passphrase = passphrase
+        self._locked = False
+
+    @property
+    def locked(self):
+        """Is the device locked?"""
+        return self._locked
+
+    @property
+    def device(self):
+        """The device object (blivet)."""
+        return self._device
+
+
+class Rescue(object):
+    """Rescue mode module.
+
+        Provides interface to:
+        - find and unlock encrypted devices
+        - find existing systems
+        - mount selected existing system and run kickstart scripts
+        - run interactive shell
+        - finish the environment (reboot)
+
+        Dependencies:
+        - storage module
+        - storage initialization thread
+        - global flags: imageInstall
+
+        Initialization:
+        storage     - storage object
+                      <blivet.blivet.Blivet>
+        rescue_data - data of rescue command seen in kickstart
+                      <pykickstart.commands.rescue.XX_Rescue>
+        reboot      - flag for rebooting after finishing
+                      bool
+        scritps     - kickstart scripts to be run after mounting root
+                      <pyanaconda.kickstart.AnacondaKSScript>
+
+    """
+    def __init__(self, storage, rescue_data=None, reboot=False, scripts=None):
+
+        self._storage = storage
+        self._scripts = scripts
+
+        self.reboot = reboot
+        self.automated = False
+        self.mount = False
+        self.ro = False
+
+        self._roots = None
+        self._selected_root = 1
+        self._luks_devices_states = None
+
+        self.status = RescueModeStatus.NOT_SET
+
+        if rescue_data:
+            self.automated = True
+            self.mount = not rescue_data.nomount
+            self.ro = rescue_data.romount
+
+    def initialize(self):
+        threadMgr.wait(THREAD_STORAGE)
+        create_etc_symlinks()
+
+    @property
+    def roots(self):
+        """List of found roots."""
+        if self._roots is None:
+            self._roots = find_existing_installations(self._storage.devicetree)
+            if not self._roots:
+                self.status = RescueModeStatus.ROOT_NOT_FOUND
+        return self._roots
+
+    def get_found_root_infos(self):
+        """List of descriptions of found roots."""
+        roots = [(root.name, root.device.path) for root in self.roots]
+        return roots
+
+    @property
+    def root(self):
+        """Selected root."""
+        if self._selected_root <= len(self.roots):
+            return self.roots[self._selected_root-1]
+        else:
+            return None
+
+    def select_root(self, index):
+        """Select root from a list of found roots."""
+        self._selected_root = index
+
+    # TODO separate running post scripts?
+    def mount_root(self):
+        """Mounts selected root and runs scripts."""
+        # mount root fs
+        try:
+            mount_existing_system(self._storage.fsset, self.root.device, read_only=self.ro)
+            log.info("System has been mounted under: %s", iutil.getSysroot())
+        except StorageError as e:
+            log.error("Mounting system under %s failed: %s", iutil.getSysroot(), e)
+            self.status = RescueModeStatus.MOUNT_FAILED
+            return False
+
+        # turn on swap
+        if not flags.imageInstall or not self.ro:
+            try:
+                self._storage.turn_on_swap()
+            except StorageError:
+                log.error("Error enabling swap.")
+
+        # turn on selinux also
+        if flags.selinux:
+            # we have to catch the possible exception, because we
+            # support read-only mounting
+            try:
+                fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
+                fd.close()
+            except IOError as e:
+                log.warning("Error turning on selinux: %s", e)
+
+        # set a libpath to use mounted fs
+        libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
+        mounted = ["/mnt/sysimage%s" % ldir for ldir in libdirs]
+        iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
+
+        # do we have bash?
+        try:
+            if os.access("/usr/bin/bash", os.R_OK):
+                os.symlink("/usr/bin/bash", "/bin/bash")
+        except OSError as e:
+            log.error("Error symlinking bash: %s", e)
+
+        # make resolv.conf in chroot
+        if not self.ro:
+            self._storage.make_mtab()
+            try:
+                makeResolvConf(iutil.getSysroot())
+            except(OSError, IOError) as e:
+                log.error("Error making resolv.conf: %s", e)
+
+        # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
+        makeFStab()
+
+        # run %post if we've mounted everything
+        if not self.ro and self._scripts:
+            runPostScripts(self._scripts)
+
+        self.status = RescueModeStatus.MOUNTED
+        return True
+
+    @property
+    def luks_devices_states(self):
+        """List of objects representing LUKS devices and their state."""
+        if self._luks_devices_states is None:
+            ldevs = [dev for dev in self._storage.devices if dev.format.type == "luks"]
+            self._luks_devices_states = [EncryptedDeviceState(dev) for dev in ldevs]
+        return self._luks_devices_states
+
+    def get_locked_device_names(self):
+        """List of names of unlocked LUKS devices."""
+        device_names = [device_state.device.name for device_state
+                        in self.luks_devices_states if device_state.locked]
+        return device_names
+
+    def _find_device_state(self, device_name):
+        for device_state in self.luks_devices_states:
+            if device_state.device.name == device_name:
+                return device_state
+        return None
+
+    def unlock_device(self, device_name, passphrase):
+        """Unlocks LUKS device."""
+        device_state = self._find_device_state(device_name)
+        if device_state is None:
+            # TODO: raise an exception?
+            log.error("Can't find device to unlock %s", device_name)
+            return False
+
+        device = device_state.device
+        device.format.passphrase = passphrase
+        try:
+            device.setup()
+            device.format.setup()
+            luks_device = LUKSDevice(device.format.map_name,
+                                     parents=[device],
+                                     exists=True)
+            self._storage.devicetree._add_device(luks_device)
+
+            # Wait for the device.
+            # Otherwise, we could get a message about no Linux partitions.
+            time.sleep(2)
+
+            try_populate_devicetree(self._storage.devicetree)
+        except StorageError as serr:
+            log.error("Failed to unlock %s: %s", device.name, serr)
+            device.teardown(recursive=True)
+            device.format.passphrase = None
+            return False
+        else:
+            device_state.set_unlocked(passphrase)
+            return True
+
+    def run_shell(self):
+        """Launch a shell."""
+        if os.path.exists("/bin/bash"):
+            iutil.execConsole()
+        else:
+            # TODO: FIXME -> move to UI (check via module api?)
+            print(_("Unable to find /bin/bash to execute!  Not starting shell."))
+            time.sleep(5)
+
+    def finish(self, delay=0):
+        """Finish rescue mode with optional delay."""
+        time.sleep(delay)
+        if self.reboot:
+            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+
+    def run_without_ui(self):
+        if self.mount:
+            if self.get_locked_device_names():
+                log.warning("Locked LUKS devices found.")
+            if self.root:
+                self.mount_root()
+            else:
+                log.warning("No Linux partitions found.")
+        self.run_shell()
+        self.finish()
+
+
+class RescueModeSpoke(NormalTUISpoke):
+    """UI offering mounting existing installation roots in rescue mode."""
     title = N_("Rescue")
 
     # If it acts like a spoke and looks like a spoke, is it a spoke? Not
     # always. This is independent of any hub(s), so pass in some fake data
-    def __init__(self, app, data, storage=None, payload=None, instclass=None):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        if flags.automatedInstall:
-            self._ro = data.rescue.romount
-        else:
-            self._ro = False
-
-        self._root = None
+    def __init__(self, app, rescue):
+        NormalTUISpoke.__init__(self, app, data=None, storage=None, payload=None, instclass=None)
         self._choices = (_("Continue"), _("Read-only mount"), _("Skip to shell"), ("Quit (Reboot)"))
-
-    def initialize(self):
-        NormalTUISpoke.initialize(self)
-        threadMgr.wait(THREAD_STORAGE)
-
-        for f in ["services", "protocols", "group", "man.config",
-                  "nsswitch.conf", "selinux", "mke2fs.conf"]:
-            try:
-                os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
-            except OSError:
-                pass
-
-    def prompt(self, args=None):
-        """ Override the default TUI prompt."""
-        return Prompt()
+        self._rescue = rescue
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
@@ -164,6 +383,15 @@ class RescueMode(NormalTUISpoke):
 
         return True
 
+    def prompt(self, args=None):
+        """ Override the default TUI prompt."""
+        if self._rescue.automated:
+            if self._rescue.mount:
+                self._mount_root()
+            self._show_result_and_prompt_for_shell()
+            return None
+        return Prompt()
+
     def input(self, args, key):
         """Override any input so we can launch rescue mode."""
         try:
@@ -176,58 +404,52 @@ class RescueMode(NormalTUISpoke):
             d = YesNoDialog(self.app, _(self.app.quit_message))
             self.app.switch_screen_modal(d)
             if d.answer:
-                iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+                self._rescue.reboot = True
+                self._rescue.finish()
         elif keyid == 2:
             # skip to/run shell
-            run_shell()
-        elif (keyid == 1 or keyid == 0):
+            self._show_result_and_prompt_for_shell()
+        elif keyid == 1 or keyid == 0:
             # user chose 0 (continue/rw-mount) or 1 (ro-mount)
-            # decrypt any luks devices
-            self._unlock_devices()
-
-            # attempt to find previous installations
-            roots = find_existing_installations(self.storage.devicetree)
-            if len(roots) == 1:
-                self._root = roots[0]
-            elif len(roots) > 1:
-                # have to prompt user for which root to mount
-                rootspoke = RootSpoke(self.app, self.data, self.storage,
-                            self.payload, self.instclass, roots)
-                self.app.switch_screen_modal(rootspoke)
-                self._root = rootspoke.root
-
-            # if only one root detected, or user has chosen which root
-            # to mount, go ahead and do that
-            newspoke = RescueMountSpoke(self.app, self.data,
-                        self.storage, self.payload, self.instclass, keyid, self._root)
-            self.app.switch_screen_modal(newspoke)
-            self.close()
+            self._rescue.mount = True
+            if keyid == 1:
+                self._rescue.ro = True
+            self._mount_root()
+            self._show_result_and_prompt_for_shell()
         else:
             # user entered some invalid number choice
             return key
 
-
         return INPUT_PROCESSED
 
-    def apply(self):
-        """Move along home."""
-        pass
+    def _mount_root(self):
+        # decrypt all luks devices
+        self._unlock_devices()
+        found_roots = self._rescue.get_found_root_infos()
+        if len(found_roots) > 1:
+            # have to prompt user for which root to mount
+            rootspoke = RootSelectionSpoke(self.app, found_roots)
+            self.app.switch_screen_modal(rootspoke)
+            self._rescue.select_root(rootspoke.selection)
+        self._rescue.mount_root()
+
+    def _show_result_and_prompt_for_shell(self):
+        newspoke = RescueStatusAndShellSpoke(self.app, self._rescue)
+        self.app.switch_screen_modal(newspoke)
+        self.close()
 
     def _unlock_devices(self):
-        """
-            Loop through devices and attempt to unlock any which are detected as
-            LUKS devices.
+        """Attempt to unlock all locked LUKS devices.
+
+        Returns true if all devices were unlocked.
         """
         try_passphrase = None
-        for device in self.storage.devices:
-            if device.format.type != "luks":
-                continue
-
+        for device_name in self._rescue.get_locked_device_names():
             skip = False
             unlocked = False
             while not (skip or unlocked):
                 if try_passphrase is None:
-                    p = PasswordDialog(self.app, device.name)
+                    p = PasswordDialog(self.app, device_name)
                     self.app.switch_screen_modal(p)
                     if p.answer:
                         passphrase = p.answer.strip()
@@ -235,42 +457,101 @@ class RescueMode(NormalTUISpoke):
                     passphrase = try_passphrase
 
                 if passphrase is None:
-                    # canceled
+                    # cancelled
                     skip = True
                 else:
-                    device.format.passphrase = passphrase
-                    try:
-                        device.setup()
-                        device.format.setup()
-                        luks_dev = LUKSDevice(device.format.map_name,
-                                              parents=[device],
-                                              exists=True)
-                        self.storage.devicetree._add_device(luks_dev)
+                    unlocked = self._rescue.unlock_device(device_name, passphrase)
+                    try_passphrase = passphrase if unlocked else None
 
-                        # Wait for the device.
-                        # Otherwise, we could get a message about no Linux partitions.
-                        time.sleep(2)
+        return not self._rescue.get_locked_device_names()
 
-                        try_populate_devicetree(self.storage.devicetree)
-                        unlocked = True
-                        # try to use the same passhprase for other devices
-                        try_passphrase = passphrase
-                    except StorageError as serr:
-                        log.error("Failed to unlock %s: %s", device.name, serr)
-                        device.teardown(recursive=True)
-                        device.format.passphrase = None
-                        try_passphrase = None
+    def apply(self):
+        """Move along home."""
+        pass
+
+
+class RescueStatusAndShellSpoke(NormalTUISpoke):
+    """UI displaying status of rescue mode mount and prompt for shell."""
+    title = N_("Rescue Shell")
+
+    def __init__(self, app, rescue):
+        NormalTUISpoke.__init__(self, app, data=None, storage=None, payload=None, instclass=None)
+        self._rescue = rescue
+
+    @property
+    def indirect(self):
         return True
 
-class RootSpoke(NormalTUISpoke):
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        umount_msg = _("Run %s to unmount the system when you are finished.") % ANACONDA_CLEANUP
+        exit_reboot_msg = _("When finished, please exit from the shell and your "
+                            "system will reboot.\n")
+        if self._rescue.mount:
+            status = self._rescue.status
+            if status == RescueModeStatus.MOUNTED:
+                if self._rescue.reboot:
+                    finish_msg = exit_reboot_msg
+                else:
+                    finish_msg = umount_msg
+                text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
+                                    "If you would like to make the root of your system the "
+                                    "root of the active system, run the command:\n\n"
+                                    "\tchroot %(mountpoint)s\n")
+                                    % {"mountpoint": iutil.getSysroot()} + finish_msg)
+            elif status == RescueModeStatus.MOUNT_FAILED:
+                if self._rescue.reboot:
+                    finish_msg = exit_reboot_msg
+                else:
+                    finish_msg = umount_msg
+                text = TextWidget(_("An error occurred trying to mount some or all of "
+                                    "your system.  Some of it may be mounted under %s\n\n") % iutil.getSysroot() + finish_msg)
+            elif status == RescueModeStatus.ROOT_NOT_FOUND:
+                if self._rescue.reboot:
+                    finish_msg = _("Rebooting.")
+                else:
+                    finish_msg = ""
+                text = TextWidget(_("You don't have any Linux partitions. %s\n") % finish_msg)
+        else:
+            if self._rescue.reboot:
+                finish_msg = exit_reboot_msg
+            else:
+                finish_msg = ""
+            text = TextWidget(_("Not mounting the system.\n") + finish_msg)
+
+        self._window.append(text)
+        return True
+
+    def prompt(self, args=None):
+        """ Override the default TUI prompt."""
+        if self._rescue.automated:
+            if self._rescue.reboot and self._rescue.status == RescueModeStatus.ROOT_NOT_FOUND:
+                delay = 5
+            else:
+                delay = 0
+                self._rescue.run_shell()
+            self._rescue.finish(delay=delay)
+            return None
+        return Prompt(_("Please press %s to get a shell") % Prompt.ENTER)
+
+    def input(self, args, key):
+        """Move along home."""
+        self._rescue.run_shell()
+        self._rescue.finish()
+        return INPUT_PROCESSED
+
+    def apply(self):
+        pass
+
+
+class RootSelectionSpoke(NormalTUISpoke):
+    """UI for selection of installed system root to be mounted."""
     title = N_("Root Selection")
 
-    def __init__(self, app, data, storage, payload, instclass, roots):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-
-        self._root = None
+    def __init__(self, app, roots):
+        NormalTUISpoke.__init__(self, app, data=None, storage=None, payload=None, instclass=None)
         self._roots = roots
-        # default to selecting the first root in the list
         self._selection = 0
 
     @property
@@ -283,8 +564,9 @@ class RootSpoke(NormalTUISpoke):
         message = _("The following installations were discovered on your system.\n")
         self._window += [TextWidget(message), ""]
 
-        for i, root in enumerate(self._roots):
-            box = CheckboxWidget(title="%i) %s on %s" % (i + 1, _(root.name), root.device.path),
+        for i, root_desc in enumerate(self._roots):
+            root_name, root_device_path = root_desc
+            box = CheckboxWidget(title="%i) %s on %s" % (i + 1, _(root_name), root_device_path),
                                  completed=(self._selection == i))
             self._window += [box, ""]
 
@@ -316,149 +598,36 @@ class RootSpoke(NormalTUISpoke):
             self._selection = keyid
         return INPUT_PROCESSED
 
-    def apply(self):
-        """Apply our selection."""
-        self._root = self._roots[self._selection]
-
     @property
-    def root(self):
+    def selection(self):
         """The selected root fs to mount."""
-        return self._root
-
-class RescueMountSpoke(NormalTUISpoke):
-    # 1 = continue/rw-mount, 2 = ro-mount
-    title = N_("Rescue Mount")
-
-    def __init__(self, app, data, storage, payload, instclass, selection, root):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-
-        self.readOnly = selection
-        # root to mount
-        self._root = root
-
-    def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
-
-        if self._root:
-            try:
-                mount_existing_system(self.storage.fsset, self._root.device,
-                                      read_only=self.readOnly)
-                if flags.automatedInstall:
-                    log.info("System has been mounted under: %s", iutil.getSysroot())
-                else:
-                    text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
-                                        "If you would like to make the root of your system the "
-                                        "root of the active system, run the command:\n\n"
-                                        "\tchroot %(mountpoint)s\n")
-                                        % {"mountpoint": iutil.getSysroot()} )
-                    self._window.append(text)
-                rootmounted = True
-
-                # now turn on swap
-                if not flags.imageInstall or not self.readOnly:
-                    try:
-                        self.storage.turn_on_swap()
-                    except StorageError:
-                        log.error("Error enabling swap.")
-
-                # turn on selinux also
-                if flags.selinux:
-                    # we have to catch the possible exception, because we
-                    # support read-only mounting
-                    try:
-                        fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
-                        fd.close()
-                    except IOError:
-                        log.warning("Cannot touch %s/.autorelabel", iutil.getSysroot())
-
-                # set a libpath to use mounted fs
-                libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
-                mounted = list(map(lambda dir: "/mnt/sysimage%s" % dir, libdirs))
-                iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
-
-                # do we have bash?
-                try:
-                    if os.access("/usr/bin/bash", os.R_OK):
-                        os.symlink("/usr/bin/bash", "/bin/bash")
-                except OSError:
-                    pass
-            except (ValueError, LookupError, SyntaxError, NameError):
-                pass
-            except (OSError, StorageError) as e:
-                if flags.automatedInstall:
-                    msg = _("Run %s to unmount the system when you are finished.\n") % ANACONDA_CLEANUP
-
-                text = TextWidget(_("An error occurred trying to mount some or all of "
-                                    "your system.  Some of it may be mounted under %s\n\n") + iutil.getSysroot() + msg)
-                self._window.append(text)
-                return True
-        else:
-            if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-                log.info("No Linux partitions found.")
-                text = TextWidget(_("You don't have any Linux partitions.  Rebooting.\n"))
-                self._window.append(text)
-                # should probably wait a few seconds to show the message
-                time.sleep(5)
-                iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
-            else:
-                if not flags.imageInstall:
-                    msg = _("The system will reboot automatically when you exit"
-                            " from the shell.\n")
-                else:
-                    msg = ""
-            text = TextWidget(_("You don't have any Linux partitions. %s\n") % msg)
-            self._window.append(text)
-            return True
-
-        if rootmounted and not self.readOnly:
-            self.storage.make_mtab()
-            try:
-                makeResolvConf(iutil.getSysroot())
-            except(OSError, IOError) as e:
-                log.error("Error making resolv.conf: %s", e)
-            text = TextWidget(_("Your system is mounted under the %s directory.") % iutil.getSysroot())
-            self._window.append(text)
-
-        # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
-        makeFStab()
-
-        # run %post if we've mounted everything
-        if rootmounted and not self.readOnly and flags.automatedInstall:
-            runPostScripts(self.data.scripts)
-
-        return True
+        return self._selection + 1
 
     def apply(self):
-        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+        """Passing the result via selection property."""
+        pass
 
-        if not flags.automatedInstall or not self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-            run_shell()
-
-    def prompt(self, args=None):
-        """ Override the default TUI prompt."""
-        return Prompt(_("Please press %s to get a shell") % Prompt.ENTER)
-
-    def input(self, args, key):
-        """Move along home."""
-        run_shell()
-
-        if not flags.imageInstall:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
-
-        return INPUT_PROCESSED
-
-    @property
-    def indirect(self):
-        return True
 
 def start_rescue_mode_ui(anaconda):
-    """Start the rescue mode TUI.
+    """Start the rescue mode UI."""
 
-    :param anaconda: instance of the Anaconda class
-    """
+    ksdata_rescue = None
+    if anaconda.ksdata.rescue.seen:
+        ksdata_rescue = anaconda.ksdata.rescue
+    scripts = anaconda.ksdata.scripts
+    storage = anaconda.storage
+    reboot = True
+    if flags.imageInstall:
+        reboot = False
+    if flags.automatedInstall and anaconda.ksdata.reboot.action not in [KS_REBOOT, KS_SHUTDOWN]:
+        reboot = False
+
+    rescue = Rescue(storage, ksdata_rescue, reboot, scripts)
+    rescue.initialize()
+
+    # We still want to choose from multiple roots, or unlock encrypted devices
+    # if needed, so we run UI even for kickstarts (automated install).
     app = App("Rescue Mode")
-    spoke = RescueMode(app, anaconda.ksdata, anaconda.storage)
-    spoke.initialize()
+    spoke = RescueModeSpoke(app, rescue)
     app.schedule_screen(spoke)
     app.run()
