@@ -330,6 +330,31 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 14 2017 Martin Kolman <mkolman@redhat.com> - 27.20-1
+- Add support for automatic generating of DBus specification. (vponcova)
+- Add support for generating XML (vponcova)
+- Add support for DBus typing system (vponcova)
+- dnfpayload: do not try to contact disabled repo (artem.bityutskiy)
+- Add message to setup-test-env is ran (jkonecny)
+- Use SHA256 instead of MD5 for repoMDHash (#1341280) (bcl)
+- Add lorax-packages.log to bug report. (rvykydal)
+- Use SHA256 instead of MD5 for repoMDHash (#1341280) (jkonecny)
+- 80-setfilecons: Add a few paths (/var/run, /var/spool) (walters)
+- Also capture anaconda-pre logs if they exist (riehecky)
+- Don't mock modules with sys in unit tests (vponcova)
+- logging: replace SyslogHandler with JournalHandler (rvykydal)
+- Add setup-test-env target to the Makefile (jkonecny)
+- Add tests for the install class factory (vponcova)
+- Support for the installclass kickstart command (vponcova)
+- Modules with install classes should define __all__ (vponcova)
+- Refactorization of the installclass.py (vponcova)
+- docs: minor fixups of release document (rvykydal)
+- rescue: add RTD documentation (rvykydal)
+- rescue: clean up method for mounting root (rvykydal)
+- rescue: separate UI and execution logic (rvykydal)
+- Make kickstart rescue command noninteractive. (rvykydal)
+- Remove unused argument and code. (rvykydal)
+
 * Thu Jul 27 2017 Radek Vykydal <rvykydal@redhat.com> - 27.19-1
 - rpmostreepayload: Set up /var first (walters)
 - rpmostreepayload: Explicitly create /var/lib before tmpfiles (walters)
