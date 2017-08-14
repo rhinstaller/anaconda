@@ -106,6 +106,7 @@ Requires: util-linux >= %{utillinuxver}
 Requires: python3-dbus
 Requires: python3-pwquality
 Requires: python3-systemd
+Requires: python3-pydbus
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,
 # which is apparently great for containers but unhelpful for the rest of us
