@@ -302,6 +302,9 @@ hardware, and that anaconda shouldn't bother looking for it.
 Specify the X driver that should be used during installation and on the
 installed system.
 
+=== inst.xtimeout ===
+Specify the timeout in seconds for starting X.
+
 === inst.usefbx ===
 Use the framebuffer X driver (`fbdev`) rather than a hardware-specific driver.
 
