@@ -60,6 +60,7 @@ from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice
+from blivet.devices.md import MDRaidArrayDevice
 
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
     verify_luks_devices_have_key
@@ -2229,7 +2230,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             selectedDeviceLabel = self._incompleteDeviceLabel
             selectedDeviceDescLabel = self._incompleteDeviceDescLabel
 
-            if selector.device.type == "mdarray":
+            if isinstance(selector.device, MDRaidArrayDevice):
                 total = selector.device.memberDevices
                 missing = total - len(selector.device.parents)
                 txt = _("This Software RAID array is missing %(missingMembers)d of %(totalMembers)d member "
