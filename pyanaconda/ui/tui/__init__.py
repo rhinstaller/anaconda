@@ -18,14 +18,17 @@
 #
 
 from pyanaconda import ui
+from pyanaconda.constants_text import IPMI_ABORTED
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
+from pyanaconda.iutil import ipmi_report
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.signals import SendMessageSignal
 from pyanaconda.ui.tui.spokes import StandaloneSpoke
+from pyanaconda.ui.tui.tuiobject import IpmiErrorDialog
 
 from simpleline import App
-from simpleline.render.adv_widgets import YesNoDialog, ErrorDialog
+from simpleline.render.adv_widgets import YesNoDialog
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.event_loop.signals import ExceptionSignal
 
@@ -63,6 +66,10 @@ def exception_msg_handler(signal, data):
 
     # msg_data is a list
     sys.excepthook(*msg_data)
+
+
+def tui_quit_callback(data):
+    ipmi_report(IPMI_ABORTED)
 
 
 class TextUserInterface(ui.UserInterface):
@@ -158,6 +165,8 @@ class TextUserInterface(ui.UserInterface):
         This method must be provided by all subclasses.
         """
         App.initialize()
+        loop = App.get_event_loop()
+        loop.set_quit_callback(tui_quit_callback)
         scheduler = App.get_scheduler()
         scheduler.quit_screen = YesNoDialog(self.quitMessage)
 
@@ -282,7 +291,7 @@ class TextUserInterface(ui.UserInterface):
             # If we're in cmdline mode, just exit.
             return
 
-        error_window = ErrorDialog(message)
+        error_window = IpmiErrorDialog(message)
         ScreenHandler.push_screen_modal(error_window)
 
     def showDetailedError(self, message, details, buttons=None):

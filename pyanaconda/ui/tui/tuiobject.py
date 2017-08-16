@@ -18,7 +18,19 @@
 #
 from pyanaconda.ui import common
 
+from pyanaconda import iutil
+from pyanaconda.constants_text import IPMI_ABORTED
+
 from simpleline.render.screen import UIScreen
+from simpleline.render.adv_widgets import ErrorDialog
+
+
+class IpmiErrorDialog(ErrorDialog):
+
+    def input(self, args, key):
+        """Call IPMI ABORTED. Everything else will be done by original implementation."""
+        iutil.ipmi_report(IPMI_ABORTED)
+        super().input(args, key)
 
 
 class TUIObject(UIScreen, common.UIObject):

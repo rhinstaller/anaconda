@@ -26,6 +26,7 @@ from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
+from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.storage_utils import try_populate_devicetree
 
@@ -639,6 +640,8 @@ def start_rescue_mode_ui(anaconda):
     # We still want to choose from multiple roots, or unlock encrypted devices
     # if needed, so we run UI even for kickstarts (automated install).
     App.initialize()
+    loop = App.get_event_loop()
+    loop.set_quit_callback(tui_quit_callback)
     spoke = RescueModeSpoke(rescue)
     ScreenHandler.schedule_screen(spoke)
     App.run()

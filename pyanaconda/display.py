@@ -33,6 +33,7 @@ from pyanaconda.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.nm import nm_is_connected, nm_is_connecting
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
+from pyanaconda.ui.tui import tui_quit_callback
 # needed for checking if the pyanaconda.ui.gui modules are available
 import pyanaconda.ui
 
@@ -74,6 +75,8 @@ def ask_vnc_question(anaconda, vnc_server, message):
                         with the question
     """
     App.initialize()
+    loop = App.get_event_loop()
+    loop.set_quit_callback(tui_quit_callback)
     spoke = AskVNCSpoke(anaconda.ksdata, message)
     ScreenHandler.schedule_screen(spoke)
     App.run()
