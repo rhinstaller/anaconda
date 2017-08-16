@@ -89,7 +89,7 @@ represents a different class of tests. They are
 - *storage/* - test cases used to verify partitioning scenarios for success or
   expected failures. The scenarios are described using kickstart snippets.
   Written in Python with a custom test case framework based on
-  `blivet <https://github.com/rhinstaller/blivet>`_;
+  `blivet <https://github.com/storaged-project/blivet>`_;
 
 
 
