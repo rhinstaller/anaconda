@@ -36,7 +36,7 @@ import functools
 import time
 from collections import OrderedDict, namedtuple
 
-from blivet.size import Size
+from blivet.size import Size, ROUND_HALF_UP
 from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
@@ -381,7 +381,7 @@ class Payload(object):
         :rtype: :class:`blivet.size.Size`
         """
         device_size = format_class.get_required_size(self.spaceRequired)
-        return device_size.round_to_nearest(Size("1 MiB"))
+        return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
