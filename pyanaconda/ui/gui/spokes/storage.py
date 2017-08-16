@@ -65,6 +65,7 @@ from blivet import arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError
+from blivet.formats.disklabel import DiskLabel
 from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
@@ -947,7 +948,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # any of the free space to be useful.
         disk_labels = set(disk.format.label_type for disk in disks
                               if hasattr(disk.format, "label_type"))
-        platform_labels = set(platform.disklabel_types)
+        platform_labels = set(DiskLabel.get_platform_label_types())
         if disk_labels and platform_labels.isdisjoint(disk_labels):
             disk_free = 0
             fs_free = 0
