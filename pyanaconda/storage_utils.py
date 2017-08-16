@@ -847,7 +847,7 @@ def device_name_is_disk(device_name, devicetree=None, refresh_udev_cache=False):
                 # this function is called for the first time will not be taken into account.
                 udev_device_dict_cache = {udev.device_get_name(d): d for d in udev.get_devices()}
             udev_device = udev_device_dict_cache.get(device_name)
-            return udev_device and udev.device_is_realdisk(udev_device)
+            return udev_device and udev.device_is_disk(udev_device)
         else:
             return False
     else:
