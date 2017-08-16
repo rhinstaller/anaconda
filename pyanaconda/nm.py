@@ -1048,6 +1048,8 @@ def nm_update_settings_of_device(name, new_values):
 def _update_settings(settings_path, new_values):
     """Update setting of object specified by settings_path with value.
 
+       If the value is None, the setting is removed.
+
        The type of value is determined from existing setting.
        If setting for key1, key2 does not exist, default_type_str is used or
        if None, the type is inferred from the value supplied (string and bool only).
@@ -1058,7 +1060,7 @@ def _update_settings(settings_path, new_values):
                           [[key1, key2, value, default_type_str]]
                           key1: first-level key of setting (eg "connection")
                           key2: second-level key of setting (eg "uuid")
-                          value: new value
+                          value: new value, if None, the setting is removed
                           default_type_str: dbus type of new value to be used
                                             if the setting does not already exist;
                                             if None, the type is inferred from
@@ -1087,6 +1089,8 @@ def _update_settings(settings_path, new_values):
 
 def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
     """Update setting of updated_key1, updated_key2 of settings object with value.
+
+       If the value is None, the setting is removed.
 
        The type of value is determined from existing setting.
        If setting for key1, key2 does not exist, default_type_str is used or
@@ -1131,7 +1135,10 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
     if type_str is not None:
         if updated_key1 not in new_settings:
             new_settings[updated_key1] = {}
-        new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
+        if value is None:
+            new_settings[updated_key1].pop(updated_key2, None)
+        else:
+            new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
 
     return GLib.Variant(settings.get_type_string(), (new_settings,))
 
