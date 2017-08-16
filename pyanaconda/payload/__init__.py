@@ -69,7 +69,6 @@ log = get_module_logger(__name__)
 from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
-from blivet import set_sysroot
 
 from pyanaconda.product import productName, productVersion
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
@@ -955,7 +954,6 @@ class Payload(object):
         by overriding the unneeded one with a pass.
         """
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
-            set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
             self.prepareMountTargets(self.storage)
         if not flags.dirInstall:
             self.storage.write()
