@@ -62,6 +62,7 @@ from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
@@ -638,7 +639,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
-        if self.disklabel and self.disklabel not in platform.disklabel_types:
+        if self.disklabel and self.disklabel not in DiskLabel.get_platform_label_types():
             raise KickstartParseError(formatErrorMsg(self.lineno,
                                       msg=_("Disklabel \"%s\" given in clearpart command is not "
                                       "supported on this platform.") % self.disklabel))
@@ -680,9 +681,9 @@ class ClearPart(commands.clearpart.F21_ClearPart):
             storage.config.initialize_disks = self.initAll
 
         if self.disklabel:
-            if not platform.set_default_disklabel_type(self.disklabel):
+            if not DiskLabel.set_default_label_type(self.disklabel):
                 clearpart_log.warning("%s is not a supported disklabel type on this platform. "
-                                      "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
+                                      "Using default disklabel %s instead.", self.disklabel, DiskLabel.get_platform_label_types()[0])
 
         storage.clear_partitions()
 
