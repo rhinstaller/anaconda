@@ -45,6 +45,7 @@ from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
+from pykickstart.constants import BIND_TO_MAC
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
 log = get_module_logger(__name__)
@@ -584,6 +585,11 @@ def update_settings_with_ksdata(devname, networkdata):
         log.debug("%s for %s, using %s", e, devname, uuid)
     new_values = _get_ip_setting_values_from_ksdata(networkdata)
     new_values.append(['connection', 'autoconnect', False, 'b'])
+    if networkdata.bindto == BIND_TO_MAC:
+        hwaddr = nm.nm_device_perm_hwaddress(devname)
+        hwaddr = [int(b, 16) for b in hwaddr.split(":")]
+        new_values.append(['802-3-ethernet', 'mac-address', hwaddr, 'ay'])
+        new_values.append(['connection', 'interface-name', None, 's'])
     nm.nm_update_settings(uuid, new_values)
     return uuid
 
@@ -674,10 +680,17 @@ def add_connection_for_ksdata(networkdata, devname):
         if mac:
             mac = [int(b, 16) for b in mac.split(":")]
             values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
+            values.append(['connection', 'interface-name', devname, 's'])
+        else:
+            if networkdata.bindto == BIND_TO_MAC:
+                hwaddr = nm.nm_device_perm_hwaddress(devname)
+                hwaddr = [int(b, 16) for b in hwaddr.split(":")]
+                values.append(['802-3-ethernet', 'mac-address', hwaddr, 'ay'])
+            else:
+                values.append(['connection', 'interface-name', devname, 's'])
 
         values.append(['connection', 'type', '802-3-ethernet', 's'])
         values.append(['connection', 'id', devname, 's'])
-        values.append(['connection', 'interface-name', devname, 's'])
 
         if blivet.arch.is_s390():
             # Add s390 settings

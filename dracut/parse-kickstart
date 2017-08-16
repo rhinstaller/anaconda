@@ -47,6 +47,11 @@ from collections import OrderedDict
 log = logging.getLogger('parse-kickstart').addHandler(logging.NullHandler())
 
 TMPDIR = "/tmp"
+# uapi/linux/if_arp.h
+##define ARPHRD_ETHER    1               /* Ethernet 10Mbps              */
+##define ARPHRD_INFINIBAND 32            /* InfiniBand                   */
+ARPHRD_ETHER = "1"
+ARPHRD_INFINIBAND = "32"
 
 # Helper function for reading simple files in /sys
 def readsysfile(f):
@@ -77,14 +82,12 @@ def read_cmdline(f):
 
 def first_device_with_link():
     for dev_dir in sorted(glob.glob("/sys/class/net/*")):
-        ##define ARPHRD_ETHER    1               /* Ethernet 10Mbps              */
-        ##define ARPHRD_INFINIBAND 32            /* InfiniBand                   */
         try:
             with open(dev_dir+"/type") as f:
-                if f.read().strip() not in ("1", "32"):
+                if f.read().strip() not in (ARPHRD_ETHER, ARPHRD_INFINIBAND):
                     continue
             with open(dev_dir+"/carrier") as f:
-                if f.read().strip() == "1":
+                if f.read().strip() == ARPHRD_ETHER:
                     return os.path.basename(dev_dir)
         except IOError:
             pass
@@ -93,6 +96,15 @@ def first_device_with_link():
 
 def setting_only_hostname(net, args):
     return net.hostname and (len(args) == 2 or (len(args) == 3 and "--hostname" in args))
+
+def nm_type_of_device(dev):
+    arp_hw_id = readsysfile("/sys/class/net/%s/type" % dev)
+    if arp_hw_id == ARPHRD_ETHER:
+        return "Ethernet"
+    elif arp_hw_id == ARPHRD_INFINIBAND:
+        return "Infiniband"
+    else:
+        return None
 
 proc_cmdline = read_cmdline("/proc/cmdline")
 
@@ -167,7 +179,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
 
         return "\n".join(dd_args)
 
-class Network(commands.network.F25_Network, DracutArgsMixin):
+class Network(commands.network.F27_Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -424,11 +436,19 @@ def ksnet_to_ifcfg(net, filename=None):
         filename = TMPDIR+"/ifcfg/ifcfg-%s" % dev
         if not os.path.isdir(TMPDIR+"/ifcfg"):
             os.makedirs(TMPDIR+"/ifcfg")
-    ifcfg['DEVICE'] = dev
     hwaddr = readsysfile("/sys/class/net/%s/address" % dev)
+    if net.bindto == BIND_TO_MAC and not (net.bridgeslaves or net.bondslaves or net.teamslaves or net.vlanid):
+        # ifcfg-rh requires DEVICE or TYPE to be set
+        ifcfg['HWADDR'] = hwaddr
+        # fall back to Ethernet rather then crash the installation later
+        ifcfg['TYPE'] = nm_type_of_device(dev) or "Ethernet"
+    else:
+        ifcfg['DEVICE'] = dev
     if "ifname={0}:{1}".format(dev, hwaddr).upper() in open("/proc/cmdline").read().upper():
         # rename by initscript's 60-net-rules on target system after switchroot
+        ifcfg['DEVICE'] = dev
         ifcfg['HWADDR'] = hwaddr
+
     ifcfg['UUID'] = str(uuid.uuid4())
     # we set real ONBOOT value in anaconda, here
     # we use it to activate devcies by NM on start
