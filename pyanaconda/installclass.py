@@ -67,7 +67,7 @@ class BaseInstallClass(object):
     default_autopart_type = DEFAULT_AUTOPART_TYPE
 
     # help
-    help_folder = "/usr/share/anaconda/help"
+    help_folder = "/usr/share/anaconda/help/rhel"
     help_main_page = "Installation_Guide.xml"
     help_placeholder = None
     help_placeholder_with_links = None
