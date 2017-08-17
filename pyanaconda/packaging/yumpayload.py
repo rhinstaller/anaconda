@@ -541,6 +541,9 @@ reposdir=%s
 
     def verifyAvailableRepositories(self):
         """Verify availability of repositories."""
+        if not self._repoMD_list:
+            return False
+
         for repo in self._repoMD_list:
             if not repo.verifyRepoMD():
                 log.debug("Can't reach repo %s", repo.id)

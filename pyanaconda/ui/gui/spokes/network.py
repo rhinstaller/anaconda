@@ -1526,16 +1526,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if self.networking_changed:
             if ANACONDA_ENVIRON in anaconda_flags.environs and self.payload.needsNetwork:
-                log.debug("network spoke (apply) refresh payload")
                 from pyanaconda.packaging import payloadMgr
-                if not self.payload.verifyAvailableRepositories():
-                    payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                             fallback=not anaconda_flags.automatedInstall)
-                else:
-                    log.debug("Payload isn't restarted, repositories are still available.")
+                payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                                         fallback=not anaconda_flags.automatedInstall, onlyOnChange=True)
+                self.networking_changed = False
             else:
-                log.debug("network spoke (apply), payload refresh skipped (running outside of installation environment)")
-            self.networking_changed = False
+                log.debug("network spoke (apply), payload refresh skipped "
+                          "(running outside of installation environment)")
         else:
             log.debug("network spoke (apply), no changes detected")
 

@@ -662,7 +662,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Register listeners for payload events
         payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
         payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)
-        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_package_md)
+        payloadMgr.addListener(payloadMgr.STATE_TEST_AVAILABILITY, self._testing_availability)
+        payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
         payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
         payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
 
@@ -684,6 +685,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def _probing_storage(self):
         hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
+
+    def _testing_availability(self):
+        hubQ.send_message(self.__class__.__name__, _("Testing availability.."))
 
     def _downloading_package_md(self):
         # Reset the error state from previous payloads
