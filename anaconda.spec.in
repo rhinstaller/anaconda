@@ -306,7 +306,6 @@ update-desktop-database &> /dev/null || :
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*
-%{_datadir}/themes/Anaconda/*
 
 %files tui
 %{python3_sitearch}/pyanaconda/rescue.py
