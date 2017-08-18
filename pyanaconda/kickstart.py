@@ -18,67 +18,73 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.errors import ScriptError, errorHandler
-from pyanaconda.threads import threadMgr
-from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
-from blivet.devices import LUKSDevice
-from blivet.devices.lvm import LVMCacheRequest, LVMThinLogicalVolumeDevice, LVMThinSnapShotDevice
-from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-from blivet.devicelibs import swap as swap_lib
-from blivet.formats import getFormat
-from blivet.formats.fs import XFS
-from blivet.partitioning import doPartitioning
-from blivet.partitioning import growLVM
-from blivet.errors import PartitioningError
-from blivet.size import Size
-from blivet import udev
-from blivet.platform import platform
-import blivet.iscsi
-import blivet.fcoe
-import blivet.zfcp
-import blivet.arch
-
 import glob
-from pyanaconda import iutil
 import os
 import os.path
-import tempfile
-from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE
 import shlex
 import sys
+import tempfile
 import urlgrabber
+
+import blivet.arch
+import blivet.fcoe
+import blivet.iscsi
+import blivet.zfcp
+
 import pykickstart.commands as commands
+
+from contextlib import contextmanager
+
+from pyanaconda import iutil
 from pyanaconda import keyboard
-from pyanaconda import ntp
-from pyanaconda import timezone
-from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from pyanaconda import localization
 from pyanaconda import network
 from pyanaconda import nm
-from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.users import getPassAlgo
-from pyanaconda.desktop import Desktop
-from pyanaconda.i18n import _
-from pyanaconda.ui.common import collect
+from pyanaconda import ntp
+from pyanaconda import screen_access
+from pyanaconda import timezone
+
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE
+from pyanaconda.desktop import Desktop
+from pyanaconda.errors import ScriptError, errorHandler
+from pyanaconda.flags import flags, can_touch_runtime_system
+from pyanaconda.i18n import _
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
+from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage_utils import device_matches, try_populate_devicetree
-from pyanaconda import screen_access
+from pyanaconda.threads import threadMgr
+from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
+from pyanaconda.ui.common import collect
+from pyanaconda.users import getPassAlgo
+
+from blivet import udev
+
+from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
+from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+from blivet.devicelibs import swap as swap_lib
+from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
+from blivet.devices import LUKSDevice
+from blivet.devices.lvm import LVMCacheRequest, LVMThinLogicalVolumeDevice, LVMThinSnapShotDevice
+from blivet.errors import PartitioningError
+from blivet.formats.fs import XFS
+from blivet.formats import getFormat
+from blivet.partitioning import doPartitioning, growLVM
+from blivet.platform import platform
+from blivet.size import Size
+
 from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
                                   SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
                                   SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.base import BaseHandler
-from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
-                                 OnErrorScriptSection, TracebackScriptSection
-from pykickstart.sections import Section
+                                 OnErrorScriptSection, TracebackScriptSection, Section
 from pykickstart.version import returnClassForVersion, RHEL7
 
 import logging
@@ -87,6 +93,17 @@ stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
 from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel, DEFAULT_LEVEL
+
+@contextmanager
+def check_kickstart_error():
+    try:
+        yield
+    except KickstartError as e:
+        # We do not have an interface here yet, so we cannot use our error
+        # handling callback.
+        print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
+        sys.exit(1)
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -2005,7 +2022,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
             Blivet will do a validity checking for future snapshot.
         """
         if not self.origin.count('/') == 1:
-            raise KickstartParseError(
+            raise KickstartError(
                         formatErrorMsg(self.lineno,
                                        msg=_("Incorrectly specified origin of the snapshot."
                                              " Use format \"VolGroup/LV_name\"")))
@@ -2016,7 +2033,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
         log.debug("Snapshot: name %s has origin %s", self.name, origin_dev)
 
         if not isinstance(origin_dev, LVMThinLogicalVolumeDevice):
-            raise KickstartParseError(
+            raise KickstartError(
                         formatErrorMsg(self.lineno,
                                        msg=(_("Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\""
                                               " is not a valid thin LV device.") %
@@ -2024,7 +2041,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
                                              "name": self.name})))
 
         if storage.devicetree.getDeviceByName("%s-%s" % (origin_dev.vg.name, snap_name)):
-            raise KickstartParseError(
+            raise KickstartError(
                         formatErrorMsg(self.lineno,
                                        msg=(_("Snapshot %s already exists.") % self.name)))
         self.thin_snapshot = None
@@ -2034,7 +2051,7 @@ class SnapshotData(commands.snapshot.RHEL7_SnapshotData):
                                                        segType="thin",
                                                        origin=origin_dev)
         except ValueError as e:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=e))
+            raise KickstartError(formatErrorMsg(self.lineno, msg=e))
 
     def execute(self, storage, ksdata, instClass):
         """ Execute an action for snapshot creation. """
@@ -2271,14 +2288,8 @@ def preScriptPass(f):
     # generates an included file that has commands for later.
     ksparser = AnacondaPreParser(AnacondaKSHandler())
 
-    try:
+    with check_kickstart_error():
         ksparser.readKickstart(f)
-    except KickstartError as e:
-        # We do not have an interface here yet, so we cannot use our error
-        # handling callback.
-        print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
@@ -2299,14 +2310,8 @@ def parseKickstart(f):
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
 
-    try:
+    with check_kickstart_error():
         ksparser.readKickstart(f)
-    except KickstartError as e:
-        # We do not have an interface here yet, so we cannot use our error
-        # handling callback.
-        print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
     return handler
 
