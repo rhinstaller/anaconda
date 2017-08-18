@@ -516,13 +516,14 @@ def ksnet_to_ifcfg(net, filename=None):
 
         for i, slave in enumerate(net.bondslaves.split(","), 1):
             slave_ifcfg = {
-                            'DEVICE': slave,
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
                             'ONBOOT' : "yes" if net.activate else "no",
                             'MASTER' : ifcfg['UUID'],
                           }
+
+            add_connection_binding_setting(slave_ifcfg, slave, bindto=net.bindto)
             add_s390_settings(slave, slave_ifcfg)
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of bond %s" % (slave_filename, slave, dev))
@@ -537,7 +538,6 @@ def ksnet_to_ifcfg(net, filename=None):
 
         for i, (slave, cfg) in enumerate(net.teamslaves, 1):
             slave_ifcfg = {
-                            'DEVICE': slave,
                             'DEVICETYPE' : "TeamPort",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
@@ -546,7 +546,7 @@ def ksnet_to_ifcfg(net, filename=None):
                           }
             if cfg:
                 slave_ifcfg['TEAM_PORT_CONFIG'] = cfg
-
+            add_connection_binding_setting(slave_ifcfg, slave, bindto=net.bindto)
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of team %s" % (slave_filename, slave, dev))
             write_ifcfg(slave_filename, slave_ifcfg)
@@ -580,13 +580,13 @@ def ksnet_to_ifcfg(net, filename=None):
             if update_virtual_slave_ifcfg(slave, setting="BRIDGE=%s" % dev):
                 continue
             slave_ifcfg = {
-                            'DEVICE': slave,
                             'TYPE' : "Ethernet",
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
                             'ONBOOT' : "yes" if net.activate else "no",
                             'BRIDGE' : dev,
                           }
+            add_connection_binding_setting(slave_ifcfg, slave, bindto=net.bindto)
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of bridge %s", slave_filename, slave, dev)
             write_ifcfg(slave_filename, slave_ifcfg)
@@ -621,6 +621,13 @@ def ksnet_to_ifcfg(net, filename=None):
     log.info("writing ifcfg %s for %s" % (filename, dev))
     if write_ifcfg(filename, ifcfg):
         return filename
+
+def add_connection_binding_setting(ifcfg, devname, bindto=None):
+    if bindto == BIND_TO_MAC:
+        hwaddr = readsysfile("/sys/class/net/%s/address" % devname)
+        ifcfg['HWADDR'] = hwaddr
+    else:
+        ifcfg['DEVICE'] = devname
 
 def write_ifcfg(filename, ifcfg):
     try:
