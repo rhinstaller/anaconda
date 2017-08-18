@@ -21,6 +21,8 @@
 import unittest
 from mock import patch
 from pyanaconda.installclass import BaseInstallClass, InstallClassFactory
+from pyanaconda import kickstart
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 
 class FactoryTest(unittest.TestCase):
@@ -172,3 +174,43 @@ class FactoryTest(unittest.TestCase):
             self.assertTrue(isinstance(factory.get_install_class_by_name("Install Class A"), InstallClassA2))
             self.assertTrue(isinstance(factory.get_install_class_by_name("Install Class B 1"), InstallClassB1))
             self.assertTrue(isinstance(factory.get_install_class_by_name("Install Class B 2"), InstallClassB2))
+
+
+class F27_Installclass_TestCase(unittest.TestCase):
+
+    def apply_section(self, content):
+        return "\n%anaconda\n" + content + "%end\n"
+
+    def parse(self, s):
+        handler = kickstart.AnacondaKSHandler()
+        parser = kickstart.AnacondaKSParser(handler)
+        parser.readKickstartFromString(self.apply_section(s + "\n"))
+        return handler
+
+    def assert_parse(self, s, expected):
+        self.assertEqual(str(self.parse(s).anaconda), self.apply_section(expected))
+
+    def assert_parse_error(self, s, error):
+        with self.assertRaises(error):
+            self.parse(s)
+
+    def parse_test(self):
+        """Test parsing of the installclass command."""
+        # pass
+        self.assert_parse("installclass --name='An Install Class'",
+                          "installclass --name=\"An Install Class\"\n")
+
+        self.assert_parse("installclass --name=\"An Install Class\"",
+                          "installclass --name=\"An Install Class\"\n")
+
+        # fail
+        self.assert_parse_error("installclass", KickstartValueError)
+        self.assert_parse_error("installclass --name", KickstartParseError)
+        self.assert_parse_error("installclass --xyz", KickstartParseError)
+        self.assert_parse_error("installclass --name=\"An Install Class\" --xyz", KickstartParseError)
+
+    def command_test(self):
+        """Test the installclass command."""
+        handler = self.parse("installclass --name='An Install Class'")
+        self.assertTrue(handler.anaconda.installclass.seen)  # pylint: disable=no-member
+        self.assertEqual(handler.anaconda.installclass.name, "An Install Class")  # pylint: disable=no-member
