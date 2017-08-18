@@ -107,6 +107,11 @@ def _validateProxy(proxy_string, username_set, password_set):
 
     return InputCheck.CHECK_OK
 
+def _update_check_if_set(check):
+    """Update a check only if it actually set (is not None)."""
+    if check is not None:
+        check.update_check_status()
+
 class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
@@ -1387,7 +1392,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         repo.name = name
         self._repoStore.set_value(itr, REPO_NAME_COL, name)
 
-        self._repoNameChecks[repo].update_check_status()
+        # make sure the check is set (it might not be the case during spoke refresh)
+        _update_check_if_set(self._repoNameChecks.get(repo))
 
     def on_repoUrl_changed(self, *args):
         """ proxy url or protocol changed
@@ -1404,7 +1410,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             repo.baseurl = proto + url
 
-        self._repoURLChecks[repo].update_check_status()
+        # make sure the check is set (it might not be the case during spoke refresh)
+        _update_check_if_set(self._repoURLChecks.get(repo))
 
     def on_repoMirrorlistCheckbox_toggled(self, *args):
         """ mirror state changed
@@ -1435,7 +1442,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         username = self._repoProxyUsernameEntry.get_text().strip() or None
         password = self._repoProxyPasswordEntry.get_text().strip() or None
 
-        self._repoProxyChecks[repo].update_check_status()
+        # make sure the check is set (it might not be the case during spoke refresh)
+        _update_check_if_set(self._repoProxyChecks.get(repo))
 
         try:
             proxy = ProxyString(url=url, username=username, password=password)
@@ -1481,4 +1489,5 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         itr = self._repoSelection.get_selected()[1]
         if itr:
             repo = self._repoStore[itr][REPO_OBJ]
-            self._repoProxyChecks[repo].update_check_status()
+            # make sure the check is set (it might not be the case during spoke refresh)
+            _update_check_if_set(self._repoProxyChecks.get(repo))
