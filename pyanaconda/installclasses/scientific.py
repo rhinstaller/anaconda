@@ -34,7 +34,7 @@ class ScientificBaseInstallClass(RHELBaseInstallClass):
 
     installUpdates = True
 
-    efi_dir = "sl"
+    efi_dir = "scientific"
 
     help_placeholder = "SLPlaceholder.html"
     help_placeholder_with_links = "SLPlaceholder.html"
