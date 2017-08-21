@@ -17,31 +17,31 @@ Source0: %{name}-%{version}.tar.bz2
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
+%define dbusver 1.2.3
+%define dracutver 033-240
+%define fcoeutilsver 1.0.12-3.20100323git
+%define firewalldver 0.3.5-1
 %define gettextver 0.18.1
+%define helpver 1:7.3.1-1
 %define intltoolver 0.31.2-3
-%define pykickstartver 1.99.66.12
-%define yumver 3.4.3-91
+%define iscsiver 6.2.0.870-3
+%define isomd5sum 1.0.10
+%define langtablever 0.0.31-3
+%define libarchivever 3.0.4
+%define libtimezonemapver 0.4.1-2
+%define libxklavierver 5.4
+%define mehver 0.23-1
+%define nmver 1.0.0-6.git20150107
 %define partedver 1.8.1
+%define pykickstartver 1.99.66.12
 %define pypartedver 2.5-2
 %define pythonpyblockver 0.45
-%define nmver 1.0.0-6.git20150107
-%define dbusver 1.2.3
-%define yumutilsver 1.1.11-3
-%define mehver 0.23-1
-%define sckeyboardver 1.3.1
-%define firewalldver 0.3.5-1
 %define pythonurlgrabberver 3.9.1-5
-%define utillinuxver 2.15.1
-%define dracutver 033-240
-%define isomd5sum 1.0.10
-%define fcoeutilsver 1.0.12-3.20100323git
-%define iscsiver 6.2.0.870-3
 %define rpmver 4.10.0
-%define libarchivever 3.0.4
-%define langtablever 0.0.31-3
-%define libxklavierver 5.4
-%define libtimezonemapver 0.4.1-2
-%define helpver 1:7.3.1-1
+%define sckeyboardver 1.3.1
+%define utillinuxver 2.15.1
+%define yumutilsver 1.1.11-3
+%define yumver 3.4.3-91
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
