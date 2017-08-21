@@ -25,6 +25,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define fcoeutilsver 1.0.12-3.20100323git
 %define firewalldver 0.3.5-1
 %define gettextver 0.19.8
+%define gtk3ver 3.22.17
 %define helpver 22.1-1
 %define iscsiver 6.2.0.873-26
 %define isomd5sum 1.0.10
@@ -43,9 +44,9 @@ Source0: %{name}-%{version}.tar.bz2
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
-BuildRequires: gtk3-devel
+BuildRequires: gtk3-devel >= %{gtk3ver}
 BuildRequires: gtk-doc
-BuildRequires: gtk3-devel-docs
+BuildRequires: gtk3-devel-docs >= %{gtk3ver}
 BuildRequires: glib2-doc
 BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
