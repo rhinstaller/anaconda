@@ -1527,20 +1527,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # try if source is available
         if self.networking_changed:
             if ANACONDA_ENVIRON in anaconda_flags.environs and self.payload.needsNetwork:
-                log.debug("network spoke (apply) refresh payload")
-
                 from pyanaconda.payload import payloadMgr
-                if payloadMgr.running:
-                    log.debug("Payload is in the process of restarting, skip the repo availability check.")
-                elif self.payload.verifyAvailableRepositories():
-                    log.debug("Payload isn't restarted, repositories are still available.")
-                else:
-                    log.debug("Repository is not reachable. Restart payload thread.")
-                    payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                             fallback=not anaconda_flags.automatedInstall)
+                payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                                         fallback=not anaconda_flags.automatedInstall, onlyOnchange=True)
+                self.networking_changed = False
             else:
-                log.debug("network spoke (apply), payload refresh skipped (running outside of installation environment)")
-            self.networking_changed = False
+                log.debug("network spoke (apply), payload refresh skipped "
+                          "(running outside of installation environment)")
         else:
             log.debug("network spoke (apply), no changes detected")
         self.network_control_box.kill_nmce(msg="leaving network spoke")
