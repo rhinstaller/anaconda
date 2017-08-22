@@ -318,6 +318,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 22 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.122-1
+- Network spoke freeze when testing availability (jkonecny)
+  Related: rhbz#1478970
+- Fix proxy settings badly used when testing repos (jkonecny)
+  Resolves: rhbz#1478970
+- installclasses/rhelah: Bump default / to 15GB max (walters)
+  Resolves: rhbz#1481768
+- Prevent crash in GUI with incomplete IMSM array (mkolman)
+  Resolves: rhbz#1465944
+- Show IDs of DASDs to be formatted in TUI (vponcova)
+  Resolves: rhbz#1269174
+- rpmostreepayload: Rollup backport of Fedora patches (walters)
+  Resolves: rhbz#1459623
+- Use SHA256 instead of MD5 for repoMDHash (bcl)
+  Related: rhbz#1341280
+- Refactor imports in kickstart.py (jkonecny)
+  Related: rhbz#1463118
+- Use context manager to check KickstartError (jkonecny)
+  Resolves: rhbz#1463118
+- Use KickstartError instead of KickstartParseError (jkonecny)
+  Related: rhbz#1463118
+
 * Wed Jun 21 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.121-1
 - rpmostreepayload: Stub out payload methods which use `import rpm` (walters)
   Related: rhbz#1462979
