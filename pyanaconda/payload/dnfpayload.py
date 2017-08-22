@@ -1178,7 +1178,7 @@ class RepoMDMetaHash(object):
     """
     def __init__(self, dnf_payload, repo):
         self._repoId = repo.id
-        self._method = dnf_payload.data.method.method
+        self._method = dnf_payload.data.method
         self._urls = repo.baseurl
         self._repomd_hash = ""
 
@@ -1238,6 +1238,6 @@ class RepoMDMetaHash(object):
                     log.debug("Server returned %i code when downloading repomd", result.status_code)
                     continue
             except RequestException as e:
-                log.debug("Can't download new repomd.xml from %s. Error: %s", url, e)
+                log.debug("Can't download new repomd.xml from %s with proxy: %s. Error: %s", url, proxies, e)
 
         return repomd
