@@ -345,7 +345,10 @@ class StorageSpoke(NormalTUISpoke):
 
             warntext = _("Warning: All storage changes made using the installer will be lost when you choose to format.\n\nProceed to run dasdfmt?\n")
 
-            displaytext = summary + "\n".join("/dev/" + d for d in to_format) + "\n" + warntext
+            dasd_objs = [self.storage.devicetree.getDeviceByName(d) for d in to_format]
+            dasd_list = "\n".join("/dev/" + d.name + " (" + d.busid + ")" for d in dasd_objs) + "\n\n"
+
+            displaytext = summary + dasd_list + warntext
 
             # now show actual prompt; note -- in cmdline mode, auto-answer for
             # this is 'no', so unformatted and ldl DASDs will remain so unless
