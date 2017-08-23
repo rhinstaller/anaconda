@@ -1782,7 +1782,11 @@ class Timezone(commands.timezone.RHEL7_Timezone):
 
     def execute(self, *args):
         # write out timezone configuration
-        if not timezone.is_valid_timezone(self.timezone):
+        if timezone.is_valid_timezone(self.timezone):
+            if not timezone.is_valid_ui_timezone(self.timezone):
+                log.warning("Timezone specification %s set in kickstart is "\
+                            "not offered by installer GUI.", self.timezone)
+        else:
             # this should never happen, but for pity's sake
             log.warning("Timezone %s set in kickstart is not valid, falling "\
                         "back to default (America/New_York).", self.timezone)
