@@ -40,7 +40,7 @@ import functools
 from distutils import spawn
 
 from pyanaconda.flags import flags
-from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED
+from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED, X_TIMEOUT
 from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY, SALT_CHARS
 from pyanaconda.regexes import URL_PARSE
 from pyanaconda.i18n import _
@@ -195,7 +195,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             close_fds=True,
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
-def startX(argv, output_redirect=None):
+def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
     """ Start X and return once X is ready to accept connections.
 
         X11, if SIGUSR1 is set to SIG_IGN, will send SIGUSR1 to the parent
@@ -206,6 +206,7 @@ def startX(argv, output_redirect=None):
 
         :param argv: The command line to run, as a list
         :param output_redirect: file or file descriptor to redirect stdout and stderr to
+        :param timeout: Number of seconds to timing out.
     """
     # Use a list so the value can be modified from the handler function
     x11_started = [False]
@@ -231,7 +232,8 @@ def startX(argv, output_redirect=None):
         old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
 
         # Start the timer
-        signal.alarm(60)
+        log.debug("Setting timeout %s seconds for starting X.", timeout)
+        signal.alarm(timeout)
 
         childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
                 preexec_fn=sigusr1_preexec)

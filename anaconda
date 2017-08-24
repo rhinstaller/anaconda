@@ -114,7 +114,7 @@ def startSpiceVDAgent():
     else:
         log.info("Started spice-vdagent.")
 
-def startX11():
+def startX11(xtimeout):
     # Ignore stdout/stderr, since everything is logged to /tmp/X.log anyway
     xfd = open("/dev/null", "wb")
 
@@ -122,7 +122,7 @@ def startX11():
     iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
                   ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
                   "-nolisten", "tcp", "-dpi", "96",
-                  "-noreset"], output_redirect=xfd)
+                  "-noreset"], output_redirect=xfd, timeout=xtimeout)
 
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
@@ -234,6 +234,7 @@ def parseArguments(argv=None, boot_cmdline=None):
     from argparse import Action
     from pyanaconda.anaconda_argparse import AnacondaArgumentParser
     from pyanaconda.anaconda_argparse import HelpTextParser
+    from pyanaconda.constants import X_TIMEOUT
 
     datadir = os.environ.get("ANACONDA_DATADIR", "/usr/share/anaconda")
 
@@ -310,6 +311,8 @@ def parseArguments(argv=None, boot_cmdline=None):
                     help=help_parser.help_text("vncpassword"))
     ap.add_argument("--xdriver", dest="xdriver", action="store", type=str,
                     default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
+    ap.add_argument("--xtimeout", action="store", type=int, default=X_TIMEOUT,
+                    metavar="TIMEOUT_IN_SECONDS", help=help_parser.help_text("xtimeout"))
 
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))
@@ -564,11 +567,19 @@ def setupDisplay(anaconda, options, addons=None):
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
     from pyanaconda.nm import nm_is_connected, nm_is_connecting
+    from pyanaconda.constants import X_TIMEOUT
     from blivet import arch
+
+    try:
+        xtimeout = int(options.xtimeout)
+    except ValueError:
+        log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
+        xtimeout = X_TIMEOUT
 
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
+    vncS.timeout = xtimeout
 
     anaconda.displayMode = options.display_mode
     anaconda.isHeadless = arch.isS390()
@@ -689,7 +700,7 @@ def setupDisplay(anaconda, options, addons=None):
     want_x = want_x and (anaconda.displayMode == "g")
     if want_x:
         try:
-            startX11()
+            startX11(xtimeout)
             doStartupX11Actions()
         except (OSError, RuntimeError) as e:
             log.warning("X startup failed: %s", e)
