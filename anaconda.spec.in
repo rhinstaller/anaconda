@@ -104,6 +104,7 @@ Requires: langtable-python3 >= %{langtablever}
 Requires: authconfig
 Requires: firewalld >= %{firewalldver}
 Requires: util-linux >= %{utillinuxver}
+Requires: python3-gobject-base
 Requires: python3-dbus
 Requires: python3-pwquality
 Requires: python3-systemd
@@ -186,7 +187,6 @@ Requires: NetworkManager-wifi
 %endif
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
-Requires: python3-gobject-base
 Requires: blivet-gui-runtime >= %{blivetguiver}
 
 # Needed to compile the gsettings files
