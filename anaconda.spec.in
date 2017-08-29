@@ -332,6 +332,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 29 2017 Martin Kolman <mkolman@redhat.com> - 27.20.1-1
+- Remove the metacity theme. (vponcova)
+- Add the option inst.decorated to allow title bar in GUI (vponcova)
+- Move python3-gobject Requires to core (jkonecny)
+- Return simpleline removed ipmi calls back (jkonecny)
+- Use new list container from Simpleline (jkonecny)
+- Remove old simpleline from anaconda (jkonecny)
+- Ask multiple times for wrong input (jkonecny)
+- Show TUI exception only first time (jkonecny)
+- Add simpleline logger to the Anaconda (jkonecny)
+- Modify TUI to use new Simpleline package (jkonecny)
+- Make 64-bit kernel on 32-bit firmware work for x86 efi machines (pjones)
+- Add missing gtk3 required version to spec file (jkonecny)
+- Sort spec required versions alphabetically (jkonecny)
+- Fix testing of the kickstart version (vponcova)
+- Move the installclass command to the %%anaconda section. (vponcova)
+- Fix SL install class to use right efi dir (riehecky)
+- Fix accelerator key for blivet-gui partitioning (#1482438) (vtrefny)
+- Add blivet-gui logs to python-meh file list (vtrefny)
+- Remove the title bar in anaconda by default (#1468801) (vponcova)
+- Add simple script to read journal with message code source and thread info.
+  (rvykydal)
+
 * Mon Aug 14 2017 Martin Kolman <mkolman@redhat.com> - 27.20-1
 - Add support for automatic generating of DBus specification. (vponcova)
 - Add support for generating XML (vponcova)
