@@ -121,6 +121,8 @@ class MakeBumpVer:
                             help="Do not change any files, only run checks.")
         parser.add_argument("-c", "--commit-and-tag", dest="commit_and_tag", action="store_true",
                             help="Create and tag a release commit once bumping the Anaconda version.")
+        parser.add_argument("--bump-major-version", dest="bump_major_version", action="store_true",
+                            help="Bump Anaconda major version and reset minor version to 1.")
 
         # gather all unprocessed command line arguments
         parser.add_argument(nargs=argparse.REMAINDER, dest="unknown_arguments")
@@ -206,9 +208,13 @@ class MakeBumpVer:
         proc = run_program(['git', 'config', field])
         return proc[0].strip('\n')
 
-    def _incrementVersion(self):
+    def _incrementVersion(self, bump_major_version=False):
         fields = self.version.split('.')
-        fields[-1] = str(int(fields[-1]) + 1)
+        if bump_major_version:  # increment major version
+            fields[0] = str(int(fields[0]) + 1) # bump major version
+            fields[-1] = str(int(1)) # reset minor version to 1
+        else:  # minor version bump
+            fields[-1] = str(int(fields[-1]) + 1)
         new = ".".join(fields)
         return new
 
@@ -641,7 +647,7 @@ class MakeBumpVer:
         if not self.skip_jenkins and not self.check_jenkins():
             log.warning("jenkins test results do not pass; ignoring for now")
 
-        newVersion = self._incrementVersion()
+        newVersion = self._incrementVersion(bump_major_version=self.args.bump_major_version)
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.new_release)
         rpmlog = self._rpmLog(fixedIn)
 
