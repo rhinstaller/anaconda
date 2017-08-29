@@ -22,6 +22,9 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
+__all__ = ["FedoraBaseInstallClass"]
+
+
 class FedoraBaseInstallClass(BaseInstallClass):
     name = "Fedora"
     sortPriority = 10000

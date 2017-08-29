@@ -32,6 +32,9 @@ from blivet.platform import platform
 from blivet.devicelibs import swap
 from blivet.size import Size
 
+__all__ = ["RHELBaseInstallClass", "RHELAtomicInstallClass"]
+
+
 class RHELBaseInstallClass(BaseInstallClass):
     name = "Red Hat Enterprise Linux"
     sortPriority = 20000

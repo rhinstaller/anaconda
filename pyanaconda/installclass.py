@@ -22,22 +22,25 @@
 #
 
 from distutils.sysconfig import get_python_lib
-import os, sys
-import imputil
+import os
+import sys
 
 from blivet.partspec import PartSpec
 from blivet.devicelibs import swap
 from blivet.platform import platform
 from blivet.size import Size
 
+from pyanaconda.kickstart import getAvailableDiskSpace
+from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
+from pyanaconda.ui.common import collect
+
 import logging
 log = logging.getLogger("anaconda")
 
-from pyanaconda.kickstart import getAvailableDiskSpace
-from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
 
 class BaseInstallClass(object):
     # default to not being hidden
+    sortPriority = 0
     hidden = False
     name = "base"
     bootloaderTimeoutDefault = None
@@ -161,131 +164,126 @@ class BaseInstallClass(object):
     def __init__(self):
         pass
 
-allClasses = []
-allClasses_hidden = []
 
-# returns ( className, classObject ) tuples
-def availableClasses(showHidden=False):
-    global allClasses
-    global allClasses_hidden
+class InstallClassFactory(object):
+    """Class used to get an install class instance."""
 
-    def _ordering(first, second):
-        ((name1, _), priority1) = first
-        ((name2, _), priority2) = second
-
-        if priority1 < priority2:
-            return -1
-        elif priority1 > priority2:
-            return 1
-
-        if name1 < name2:
-            return -1
-        elif name1 > name2:
-            return 1
-
-        return 0
-
-    if not showHidden:
-        if allClasses:
-            return allClasses
-    else:
-        if allClasses_hidden:
-            return allClasses_hidden
-
-    path = []
-
-    env_path = []
-    if "ANACONDA_INSTALL_CLASSES" in os.environ:
-        env_path += os.environ["ANACONDA_INSTALL_CLASSES"].split(":")
-
-    for d in env_path + ["installclasses",
-              "/tmp/updates/pyanaconda/installclasses",
-              "/tmp/product/pyanaconda/installclasses",
-              "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1) ]:
-        if os.access(d, os.R_OK):
-            path.append(d)
-
-    # append the location of installclasses to the python path so we
-    # can import them
-    sys.path = path + sys.path
-
-    files = []
-    for p in reversed(path):
-        files += os.listdir(p)
-
-    done = {}
-    lst = []
-    for fileName in files:
-        if fileName[0] == '.':
-            continue
-        if len (fileName) < 4:
-            continue
-        if fileName[-3:] != ".py" and fileName[-4:-1] != ".py":
-            continue
-        mainName = fileName.split(".")[0]
-        if mainName in done:
-            continue
-        done[mainName] = 1
-
-        try:
-            found = imputil.imp.find_module(mainName)
-        except ImportError:
-            log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
-            continue
-
-        try:
-            loaded = imputil.imp.load_module(mainName, found[0], found[1], found[2])
-
-            for (_key, obj) in loaded.__dict__.items():
-                # If it's got these two methods, it's an InstallClass.
-                if hasattr(obj, "setDefaultPartitioning") and hasattr(obj, "setPackageSelection"):
-                    sortOrder = getattr(obj, "sortPriority", 0)
-                    if not obj.hidden or showHidden:
-                        lst.append(((obj.name, obj), sortOrder))
-        except (ImportError, AttributeError):
-            log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
-
-    lst.sort(_ordering)
-    for (item, _) in lst:
-        if showHidden:
-            allClasses_hidden += [item]
-        else:
-            allClasses += [item]
-
-    if showHidden:
-        return allClasses_hidden
-    else:
-        return allClasses
-
-def getBaseInstallClass():
-    # figure out what installclass we should base on.
-    allavail = availableClasses(showHidden=True)
-    avail = availableClasses(showHidden=False)
-
-    if len(avail) == 1:
-        (cname, cobject) = avail[0]
-        log.info("using only installclass %s", cname)
-    elif len(allavail) == 1:
-        (cname, cobject) = allavail[0]
-        log.info("using only installclass %s", cname)
-
-    # Use the highest priority install class if more than one found.
-    elif len(avail) > 1:
-        (cname, cobject) = avail.pop()
-        log.info('%s is the highest priority installclass, using it', cname)
-    elif len(allavail) > 1:
-        (cname, cobject) = allavail.pop()
-        log.info('%s is the highest priority installclass, using it', cname)
-
-    # Default to the base installclass if nothing else is found.
-    else:
-        raise RuntimeError("Unable to find an install class to use!!!")
-
-    return cobject
-
-baseclass = getBaseInstallClass()
-
-# we need to be able to differentiate between this and custom
-class DefaultInstall(baseclass):
     def __init__(self):
-        baseclass.__init__(self)
+        self._classes = []
+        self._visible_classes = []
+        self._paths = []
+
+    def get_install_class_by_name(self, name):
+        """Return an instance of an install class with a requested name."""
+        for install_class in self.classes:
+            if install_class.name == name:
+                log.info("Using the requested install class %s.",
+                         self._get_class_description(install_class))
+
+                return install_class()
+
+        raise RuntimeError("Unable to find the install class %s.", name)
+
+    def get_best_install_class(self):
+        """Return the instance of the best found install class.
+
+        We choose an install class with the highest priority. The priority
+        of an install class is based on its visibility (we prefer visible),
+        its sort priority (we prefer higher number) and its name (in reverse
+        alphabetical order, so Fedora Workstation is preferred before Fedora).
+        """
+        if self.visible_classes:
+            install_class = self.visible_classes[0]
+            log.info("Using a visible install class %s.",
+                     self._get_class_description(install_class))
+
+        elif self.classes:
+            install_class = self.classes[0]
+            log.info("Using a hidden install class %s.",
+                     self._get_class_description(install_class))
+
+        else:
+            raise RuntimeError("Unable to find an install class to use.")
+
+        return install_class()
+
+    @property
+    def paths(self):
+        """Return paths where to look for install classes."""
+        if not self._paths:
+            self._paths = self._get_install_class_paths()
+
+        return self._paths
+
+    @property
+    def classes(self):
+        """Return all available install classes."""
+        if not self._classes:
+            self._classes = self._get_available_classes(self.paths)
+
+        return self._classes
+
+    @property
+    def visible_classes(self):
+        """Return only install classes that are not hidden."""
+        if not self._visible_classes:
+            self._visible_classes = list(filter(self._is_visible_class, self.classes))
+
+        return self._visible_classes
+
+    @staticmethod
+    def _is_visible_class(obj):
+        """Is the class visible?"""
+        return not obj.hidden
+
+    @staticmethod
+    def _is_install_class(obj):
+        """Is the class the install class?"""
+        return issubclass(obj, BaseInstallClass) and obj != BaseInstallClass
+
+    @staticmethod
+    def _get_install_class_key(obj):
+        """Return the install class key for sorting."""
+        return obj.sortPriority, obj.name
+
+    @staticmethod
+    def _get_class_description(install_class):
+        """Return the description of the install class."""
+        return "%s (%s)" % (install_class.name, install_class.__name__)
+
+    def _get_install_class_paths(self):
+        """Return a list of paths to directories with install classes."""
+        path = []
+
+        if "ANACONDA_INSTALL_CLASSES" in os.environ:
+            path += os.environ["ANACONDA_INSTALL_CLASSES"].split(":")
+
+        path += [
+            "installclasses",
+            "/tmp/updates/pyanaconda/installclasses",
+            "/tmp/product/pyanaconda/installclasses",
+            "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1)
+        ]
+
+        return list(filter(lambda d: os.access(d, os.R_OK), path))
+
+    def _get_available_classes(self, paths):
+        """Return a list of available install classes."""
+        # Append the location of install classes to the python path
+        # so install classes can import and inherit correct classes.
+        sys.path = paths + sys.path
+
+        classes = set()
+        for path in paths:
+            log.debug("Searching %s.", path)
+
+            for install_class in collect("%s", path, self._is_install_class):
+                log.debug("Found %s.", self._get_class_description(install_class))
+                classes.add(install_class)
+
+        # Classes are sorted by their priority and name in the reversed order,
+        # so classes with the highest priority and longer name are preferred.
+        # For example, Fedora Workstation doesn't have higher priority.
+        return sorted(classes, key=self._get_install_class_key, reverse=True)
+
+factory = InstallClassFactory()
