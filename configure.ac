@@ -127,7 +127,6 @@ AC_CONFIG_FILES([Makefile
                  data/systemd/Makefile
                  data/window-manager/Makefile
                  data/window-manager/config/Makefile
-                 data/window-manager/theme/Makefile
                  po/Makefile
                  scripts/Makefile
                  pyanaconda/Makefile
@@ -143,7 +142,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/ui/gui/spokes/lib/Makefile
                  pyanaconda/ui/gui/Makefile
                  pyanaconda/ui/tui/hubs/Makefile
-                 pyanaconda/ui/tui/simpleline/Makefile
                  pyanaconda/ui/tui/spokes/Makefile
                  pyanaconda/ui/tui/Makefile
                  data/post-scripts/Makefile

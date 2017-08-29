@@ -25,8 +25,11 @@ import subprocess
 import dbus
 
 from pyanaconda.i18n import _, P_
-from pyanaconda.ui.tui.simpleline import App
+from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
+
+from simpleline import App
+from simpleline.render.screen_handler import ScreenHandler
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -284,10 +287,11 @@ class VncServer:
 
         message = _("VNC password must be six to eight characters long.\n"
                     "Please enter a new one, or leave blank for no password.")
-        app = App("VNC PASSWORD")
-        spoke = VNCPassSpoke(app, self.anaconda.ksdata, None, None, None,
-                             message)
-        app.schedule_screen(spoke)
-        app.run()
+        App.initialize()
+        loop = App.get_event_loop()
+        loop.set_quit_callback(tui_quit_callback)
+        spoke = VNCPassSpoke(self.anaconda.ksdata, None, None, None, message)
+        ScreenHandler.schedule_screen(spoke)
+        App.run()
 
         self.password = self.anaconda.ksdata.vnc.password

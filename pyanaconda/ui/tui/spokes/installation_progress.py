@@ -23,28 +23,31 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pyanaconda import iutil
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
-from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
-from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
-from pyanaconda.ui.tui.simpleline.prompt import Prompt
+
+from simpleline import App
+from simpleline.render.prompt import Prompt
+from simpleline.event_loop import ExitMainLoop
+
+from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 __all__ = ["ProgressSpoke"]
+
 
 class ProgressSpoke(StandaloneTUISpoke):
     """
        .. inheritance-diagram:: ProgressSpoke
           :parts: 3
     """
-    title = N_("Progress")
-
     postForHub = SummaryHub
     priority = 0
 
-    def __init__(self, app, ksdata, storage, payload, instclass):
+    def __init__(self, ksdata, storage, payload, instclass):
         self.initialize_start()
-        StandaloneTUISpoke.__init__(self, app, ksdata, storage, payload, instclass)
+        StandaloneTUISpoke.__init__(self, ksdata, storage, payload, instclass)
+        self.title = N_("Progress")
         self._stepped = False
         self.initialize_done()
 
@@ -75,7 +78,8 @@ class ProgressSpoke(StandaloneTUISpoke):
                 except queue.Empty:
                     pass
                 finally:
-                    self.app.process_events()
+                    loop = App.get_event_loop()
+                    loop.process_signals()
 
             if code == progressQ.PROGRESS_CODE_INIT:
                 # Text mode doesn't have a finite progress bar
@@ -98,7 +102,6 @@ class ProgressSpoke(StandaloneTUISpoke):
             elif code == progressQ.PROGRESS_CODE_COMPLETE:
                 # There shouldn't be any more progress updates, so return
                 q.task_done()
-
 
                 if self._stepped:
                     print('')
@@ -136,16 +139,14 @@ class ProgressSpoke(StandaloneTUISpoke):
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             # Just pretend like we got input, and our input doesn't care
             # what it gets, it just quits.
-            self.input(None, None)
-
-        return True
+            raise ExitMainLoop()
 
     def prompt(self, args=None):
         return Prompt(_("Installation complete. Press %s to quit") % Prompt.ENTER)
 
     def input(self, args, key):
         # There is nothing to do here, just raise to exit the spoke
-        raise ExitAllMainLoops()
+        raise ExitMainLoop()
 
     # Override Spoke.apply
     def apply(self):

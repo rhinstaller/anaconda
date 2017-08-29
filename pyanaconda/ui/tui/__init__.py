@@ -18,13 +18,19 @@
 #
 
 from pyanaconda import ui
-from pyanaconda.ui.communication import hubQ
+from pyanaconda.constants_text import IPMI_ABORTED
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
-from pyanaconda.ui.tui import simpleline as tui
+from pyanaconda.iutil import ipmi_report
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
+from pyanaconda.ui.tui.signals import SendMessageSignal
 from pyanaconda.ui.tui.spokes import StandaloneSpoke
-from pyanaconda.ui.tui.tuiobject import YesNoDialog, ErrorDialog
+from pyanaconda.ui.tui.tuiobject import IpmiErrorDialog
+
+from simpleline import App
+from simpleline.render.adv_widgets import YesNoDialog
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.event_loop.signals import ExceptionSignal
 
 import os
 import sys
@@ -34,22 +40,37 @@ import meh.ui.text
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-def exception_msg_handler(event, data):
-    """
-    Handler for the HUB_CODE_EXCEPTION message in the hubQ.
+exception_processed = False
 
-    :param event: event data
-    :type event: (event_type, message_data)
+
+def exception_msg_handler(signal, data):
+    """
+    Handler for the ExceptionSignal signal.
+
+    :param signal: event data
+    :type signal: (event_type, message_data)
     :param data: additional data
     :type data: any
 
     """
 
+    global exception_processed
+    if exception_processed:
+        return
+
+    # show only the first exception do not spam user with others
+    exception_processed = True
+
     # get data from the event data structure
-    msg_data = event[1]
+    msg_data = signal.exception_info
 
     # msg_data is a list
-    sys.excepthook(*msg_data[0])
+    sys.excepthook(*msg_data)
+
+
+def tui_quit_callback(data):
+    ipmi_report(IPMI_ABORTED)
+
 
 class TextUserInterface(ui.UserInterface):
     """This is the main class for Text user interface.
@@ -92,7 +113,6 @@ class TextUserInterface(ui.UserInterface):
         """
 
         ui.UserInterface.__init__(self, storage, payload, instclass)
-        self._app = None
         self._meh_interface = meh.ui.text.TextIntf()
 
         self.productTitle = productTitle
@@ -124,11 +144,6 @@ class TextUserInterface(ui.UserInterface):
     }
 
     @property
-    def simpleline_app(self):
-        """Provide access the the simpline App instance."""
-        return self._app
-
-    @property
     def tty_num(self):
         return 1
 
@@ -149,15 +164,20 @@ class TextUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
-        self._app = tui.App(self.productTitle, yes_or_no_question=YesNoDialog,
-                            quit_message=self.quitMessage, queue_instance=hubQ.q)
+        App.initialize()
+        loop = App.get_event_loop()
+        loop.set_quit_callback(tui_quit_callback)
+        scheduler = App.get_scheduler()
+        scheduler.quit_screen = YesNoDialog(self.quitMessage)
 
         # tell python-meh it should use our raw_input
-        self._meh_interface.set_io_handler(meh.ui.text.IOHandler(in_func=self._app.raw_input))
+        meh_io_handler = meh.ui.text.IOHandler(in_func=scheduler.io_manager.get_user_input_without_check)
+        self._meh_interface.set_io_handler(meh_io_handler)
 
         # register handlers for various messages
-        self._app.register_event_handler(hubQ.HUB_CODE_EXCEPTION, exception_msg_handler)
-        self._app.register_event_handler(hubQ.HUB_CODE_SHOW_MESSAGE, self._handle_show_message)
+        loop = App.get_event_loop()
+        loop.register_signal_handler(ExceptionSignal, exception_msg_handler)
+        loop.register_signal_handler(SendMessageSignal, self._handle_show_message)
 
         _hubs = self._list_hubs()
 
@@ -166,7 +186,7 @@ class TextUserInterface(ui.UserInterface):
         actionClasses = self._orderActionClasses(spokes, _hubs)
 
         for klass in actionClasses:
-            obj = klass(self._app, data, self.storage, self.payload, self.instclass)
+            obj = klass(data, self.storage, self.payload, self.instclass)
 
             # If we are doing a kickstart install, some standalone spokes
             # could already be filled out.  In that case, we do not want
@@ -182,7 +202,7 @@ class TextUserInterface(ui.UserInterface):
             should_schedule = obj.setup(self.ENVIRONMENT)
 
             if should_schedule:
-                self._app.schedule_screen(obj)
+                scheduler.schedule_screen(obj)
 
     def run(self):
         """Run the interface.
@@ -190,7 +210,7 @@ class TextUserInterface(ui.UserInterface):
         This should do little more than just pass through to something else's run method,
         but is provided here in case more is needed.  This method must be provided by all subclasses.
         """
-        return self._app.run()
+        return App.run()
 
     ###
     ### MESSAGE HANDLING METHODS
@@ -208,21 +228,21 @@ class TextUserInterface(ui.UserInterface):
         :type ret_queue: a queue.Queue instance
         """
 
-        self._app.queue_instance.put((hubQ.HUB_CODE_SHOW_MESSAGE,
-                                     [msg_fn, args, ret_queue]))
+        signal = SendMessageSignal(self, msg_fn=msg_fn, args=args, ret_queue=ret_queue)
+        loop = App.get_event_loop()
+        loop.enqueue_signal(signal)
 
-    def _handle_show_message(self, event, data):
-        """Handler for the HUB_CODE_SHOW_MESSAGE message in the hubQ.
+    def _handle_show_message(self, signal, data):
+        """Handler for the SendMessageSignal signal.
 
-        :param event: event data
-        :type event: (event_type, message_data)
+        :param signal: SendMessage signal
+        :type signal: instance of the SendMessageSignal class
         :param data: additional data
         :type data: any
         """
-
-        # event_type, message_data
-        msg_data = event[1]
-        msg_fn, args, ret_queue = msg_data
+        msg_fn = signal.msg_fn
+        args = signal.args
+        ret_queue = signal.ret_queue
 
         ret_queue.put(msg_fn(*args))
 
@@ -271,8 +291,8 @@ class TextUserInterface(ui.UserInterface):
             # If we're in cmdline mode, just exit.
             return
 
-        error_window = ErrorDialog(self._app, message)
-        self._app.switch_screen_modal(error_window)
+        error_window = IpmiErrorDialog(message)
+        ScreenHandler.push_screen_modal(error_window)
 
     def showDetailedError(self, message, details, buttons=None):
         return self._show_message_in_main_thread(self._showDetailedError, (message, details))
@@ -306,7 +326,8 @@ class TextUserInterface(ui.UserInterface):
             # If we're in cmdline mode, just say no.
             return False
 
-        question_window = YesNoDialog(self._app, message)
-        self._app.switch_screen_modal(question_window)
+        question_window = YesNoDialog(message)
+        ScreenHandler.push_screen_modal(question_window)
+        question_window.redraw()
 
         return question_window.answer

@@ -24,29 +24,30 @@ import subprocess
 import time
 import pkgutil
 
-from pyanaconda.i18n import _
-
-from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
-log = get_module_logger(__name__)
-stdout_log = get_stdout_logger()
-
+from pyanaconda import isys
+from pyanaconda import startup_utils
 from pyanaconda import constants
 from pyanaconda import iutil
 from pyanaconda import vnc
+from pyanaconda.i18n import _
 from pyanaconda.flags import flags
-from pyanaconda import isys
-from pyanaconda import startup_utils
 from pyanaconda.nm import nm_is_connected, nm_is_connecting
-
-from pyanaconda.ui.tui.simpleline import App
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
-
+from pyanaconda.ui.tui import tui_quit_callback
 # needed for checking if the pyanaconda.ui.gui modules are available
 import pyanaconda.ui
 
 import blivet
 
 from pykickstart.constants import DISPLAY_MODE_TEXT
+
+from simpleline import App
+from simpleline.render.screen_handler import ScreenHandler
+
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger
+log = get_module_logger(__name__)
+stdout_log = get_stdout_logger()
+
 
 # Spice
 
@@ -62,6 +63,7 @@ def start_spice_vd_agent():
     else:
         log.info("Started spice-vdagent.")
 
+
 # VNC
 
 def ask_vnc_question(anaconda, vnc_server, message):
@@ -72,10 +74,12 @@ def ask_vnc_question(anaconda, vnc_server, message):
     :param str message: a message to show to the user together
                         with the question
     """
-    app = App("VNC Question")
-    spoke = AskVNCSpoke(app, anaconda.ksdata, message)
-    app.schedule_screen(spoke)
-    app.run()
+    App.initialize()
+    loop = App.get_event_loop()
+    loop.set_quit_callback(tui_quit_callback)
+    spoke = AskVNCSpoke(anaconda.ksdata, message)
+    ScreenHandler.schedule_screen(spoke)
+    App.run()
 
     if anaconda.ksdata.vnc.enabled:
         if not anaconda.gui_mode:
@@ -83,6 +87,7 @@ def ask_vnc_question(anaconda, vnc_server, message):
         anaconda.display_mode = constants.DisplayModes.GUI
         flags.usevnc = True
         vnc_server.password = anaconda.ksdata.vnc.password
+
 
 def check_vnc_can_be_started(anaconda):
     """Check if we can start VNC in the current environment.
@@ -123,6 +128,7 @@ def check_vnc_can_be_started(anaconda):
 
     return vnc_startup_possible, error_messages
 
+
 # X11
 
 def start_x11():
@@ -134,7 +140,9 @@ def start_x11():
                   "-nolisten", "tcp", "-dpi", "96",
                   "-noreset"], output_redirect=subprocess.DEVNULL)
 
+
 # function to handle X startup special issues for anaconda
+
 def do_startup_x11_actions():
     """Start the window manager.
 
@@ -156,6 +164,7 @@ def do_startup_x11_actions():
                                    env_add={'XDG_DATA_DIRS': xdg_data_dirs})
     iutil.watchProcess(childproc, "metacity")
 
+
 def set_x_resolution(runres):
     """Set X server screen resolution.
 
@@ -168,11 +177,12 @@ def set_x_resolution(runres):
         log.error("The X resolution was not set")
         iutil.execWithRedirect("xrandr", ["-d", ":1", "-q"])
 
+
 def do_extra_x11_actions(runres, gui_mode):
     """Perform X11 actions not related to startup.
 
     :param str runres: a resolution specification string
-    :param display_mode: an Anaconda display mode
+    :param gui_mode: an Anaconda display mode
     """
     if runres and gui_mode and not flags.usevnc:
         set_x_resolution(runres)
@@ -182,8 +192,8 @@ def do_extra_x11_actions(runres, gui_mode):
 
     start_spice_vd_agent()
 
-# general display startup
 
+# general display startup
 def setup_display(anaconda, options, addon_paths=None):
     """Setup the display for the installation environment.
 
@@ -273,7 +283,7 @@ def setup_display(anaconda, options, addon_paths=None):
         want_x = False
 
     if anaconda.tui_mode and flags.vncquestion:
-        #we prefer vnc over text mode, so ask about that
+        # we prefer vnc over text mode, so ask about that
         message = _("Text mode provides a limited set of installation "
                     "options. It does not offer custom partitioning for "
                     "full control over the disk layout. Would you like "

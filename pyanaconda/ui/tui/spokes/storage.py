@@ -20,13 +20,13 @@
 import gi
 gi.require_version("BlockDev", "2.0")
 
+from collections import OrderedDict
+
 from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
-from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker
 
 from blivet import arch
@@ -38,14 +38,17 @@ from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, DEFAULT_AUTOPART_TYPE
 from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
-from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
-from collections import OrderedDict
+from simpleline.render.containers import ListColumnContainer
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, CheckboxWidget
+from simpleline.render.adv_widgets import YesNoDialog
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -59,6 +62,7 @@ CLEARNONE = N_("Use Free Space")
 PARTTYPES = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
              CLEARNONE: CLEARPART_TYPE_NONE}
 
+
 class StorageSpoke(NormalTUISpoke):
     """Storage spoke where users proceed to customize storage features such
        as disk selection, partitioning, and fs type.
@@ -66,16 +70,17 @@ class StorageSpoke(NormalTUISpoke):
        .. inheritance-diagram:: StorageSpoke
           :parts: 3
     """
-    title = N_("Installation Destination")
     helpFile = "StorageSpoke.txt"
     category = SystemCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
 
+        self.title = N_("Installation Destination")
         self._ready = False
+        self._container = None
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
-        self.selection = None
+        self.select_all = False
 
         self.autopart = None
         self.clearPartType = None
@@ -203,32 +208,36 @@ class StorageSpoke(NormalTUISpoke):
         #self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self.autopart = self.data.autopart.autopart
 
+        self._container = ListColumnContainer(1, spacing=1)
+
         message = self._update_summary()
 
         # loop through the disks and present them.
         for disk in self.disks:
             disk_info = self._format_disk_info(disk)
-            c = CheckboxWidget(title="%i) %s" % (self.disks.index(disk) + 1, disk_info),
-                               completed=(disk.name in self.selected_disks))
-            self._window += [c, ""]
+            c = CheckboxWidget(title=disk_info, completed=(disk.name in self.selected_disks))
+            self._container.add(c, self._update_disk_list_callback, disk)
 
         # if we have more than one disk, present an option to just
         # select all disks
         if len(self.disks) > 1:
-            c = CheckboxWidget(title="%i) %s" % (len(self.disks) + 1, _("Select all")),
-                                completed=(self.selection == len(self.disks)))
+            c = CheckboxWidget(title=_("Select all"), completed=self.select_all)
+            self._container.add(c, self._select_all_disks_callback)
 
-            self._window += [c, ""]
+        self.window.add_with_separator(self._container)
+        self.window.add_with_separator(TextWidget(message))
 
-        self._window += [TextWidget(message), ""]
-
-        return True
-
-    def _select_all_disks(self):
+    def _select_all_disks_callback(self, data):
         """ Mark all disks as selected for use in partitioning. """
+        self.select_all = True
         for disk in self.disks:
             if disk.name not in self.selected_disks:
                 self._update_disk_list(disk)
+
+    def _update_disk_list_callback(self, data):
+        disk = data
+        self.select_all = False
+        self._update_disk_list(disk)
 
     def _format_disk_info(self, disk):
         """ Some specialized disks are difficult to identify in the storage
@@ -265,17 +274,10 @@ class StorageSpoke(NormalTUISpoke):
     def input(self, args, key):
         """Grab the disk choice and update things"""
         self.errors = []
-        try:
-            keyid = int(key) - 1
-            if keyid < 0:
-                return key
-            self.selection = keyid
-            if len(self.disks) > 1 and keyid == len(self.disks):
-                self._select_all_disks()
-            else:
-                self._update_disk_list(self.disks[keyid])
-            return INPUT_PROCESSED
-        except (ValueError, IndexError):
+        if self._container.process_user_input(key):
+            self.redraw()
+            return InputState.PROCESSED
+        else:
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 if self.selected_disks:
@@ -288,7 +290,8 @@ class StorageSpoke(NormalTUISpoke):
                                      blockdev.s390.dasd_needs_format(d.busid)]
                         if to_format:
                             self.run_dasdfmt(to_format)
-                            return None
+                            self.redraw()
+                            return InputState.PROCESSED
 
                     # make sure no containers were split up by the user's disk
                     # selection
@@ -297,15 +300,17 @@ class StorageSpoke(NormalTUISpoke):
                     if self.errors:
                         # The disk selection has to make sense before we can
                         # proceed.
-                        return None
+                        self.redraw()
+                        return InputState.PROCESSED
 
-                    newspoke = AutoPartSpoke(self.app, self.data, self.storage,
-                                             self.payload, self.instclass)
-                    self.app.switch_screen_modal(newspoke)
+                    new_spoke = AutoPartSpoke(self.data, self.storage,
+                                              self.payload, self.instclass)
+                    ScreenHandler.push_screen_modal(new_spoke)
                     self.apply()
                     self.execute()
                     self.close()
-                return INPUT_PROCESSED
+
+                return InputState.PROCESSED
             else:
                 return super(StorageSpoke, self).input(args, key)
 
@@ -331,8 +336,8 @@ class StorageSpoke(NormalTUISpoke):
             # now show actual prompt; note -- in cmdline mode, auto-answer for
             # this is 'no', so unformatted DASDs will remain so unless zerombr
             # is added to the ks file
-            question_window = YesNoDialog(self._app, displaytext)
-            self._app.switch_screen_modal(question_window)
+            question_window = YesNoDialog(displaytext)
+            ScreenHandler.push_screen_modal(question_window)
             if not question_window.answer:
                 # no? well fine then, back to the storage spoke with you;
                 return None
@@ -444,17 +449,19 @@ class StorageSpoke(NormalTUISpoke):
         # report that the storage spoke has been initialized
         self.initialize_done()
 
+
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here.
 
        .. inheritance-diagram:: AutoPartSpoke
           :parts: 3
     """
-    title = N_("Autopartitioning Options")
     category = SystemCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Autopartitioning Options")
+        self._container = None
         self.clearPartType = self.data.clearpart.type
         self.parttypelist = sorted(PARTTYPES.keys())
 
@@ -466,21 +473,27 @@ class AutoPartSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
         # synchronize our local data store with the global ksdata
         self.clearPartType = self.data.clearpart.type
+        self._container = ListColumnContainer(1)
+
         # I dislike "is None", but bool(0) returns false :(
         if self.clearPartType is None:
             # Default to clearing everything.
             self.clearPartType = CLEARPART_TYPE_ALL
 
-        for i, parttype in enumerate(self.parttypelist):
-            c = CheckboxWidget(title="%i) %s" % (i + 1, _(parttype)),
-                               completed=(PARTTYPES[parttype] == self.clearPartType))
-            self._window += [c, ""]
+        for part_type in self.parttypelist:
+            c = CheckboxWidget(title=_(part_type), completed=(PARTTYPES[part_type] == self.clearPartType))
+            self._container.add(c, self._select_partition_type_callback, part_type)
 
-        message = _("Installation requires partitioning of your hard drive. Select what space to use for the install target.")
+        self.window.add_with_separator(self._container)
 
-        self._window += [TextWidget(message), ""]
+        message = _("Installation requires partitioning of your hard drive. "
+                    "Select what space to use for the install target.")
 
-        return True
+        self.window.add_with_separator(TextWidget(message))
+
+    def _select_partition_type_callback(self, data):
+        self.clearPartType = PARTTYPES[data]
+        self.apply()
 
     def apply(self):
         # kind of a hack, but if we're actually getting to this spoke, there
@@ -494,39 +507,36 @@ class AutoPartSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         """Grab the choice and update things"""
-
-        try:
-            keyid = int(key) - 1
-        except ValueError:
+        if not self._container.process_user_input(key):
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
-                newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage,
-                                                self.payload, self.instclass)
-                self.app.switch_screen_modal(newspoke)
+                new_spoke = PartitionSchemeSpoke(self.data, self.storage,
+                                                 self.payload, self.instclass)
+                ScreenHandler.push_screen_modal(new_spoke)
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             else:
                 return super(AutoPartSpoke, self).input(args, key)
 
-        if 0 <= keyid < len(self.parttypelist):
-            self.clearPartType = PARTTYPES[self.parttypelist[keyid]]
-            self.apply()
-        return INPUT_PROCESSED
+        self.redraw()
+        return InputState.PROCESSED
+
 
 class PartitionSchemeSpoke(NormalTUISpoke):
     """ Spoke to select what partitioning scheme to use on disk(s). """
-    title = N_("Partition Scheme Options")
     category = SystemCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.partschemes = OrderedDict()
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Partition Scheme Options")
+        self._container = None
+        self.part_schemes = OrderedDict()
         pre_select = self.data.autopart.type or DEFAULT_AUTOPART_TYPE
-        for i, item in enumerate(AUTOPART_CHOICES):
-            self.partschemes[item[0]] = item[1]
+        for item in AUTOPART_CHOICES:
+            self.part_schemes[item[0]] = item[1]
             if item[1] == pre_select:
-                self._selection = i
+                self._selected_scheme_value = item[1]
 
     @property
     def indirect(self):
@@ -535,35 +545,34 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
-        schemelist = self.partschemes.keys()
-        for i, sch in enumerate(schemelist):
-            box = CheckboxWidget(title="%i) %s" %(i + 1, _(sch)), completed=(i == self._selection))
-            self._window += [box, ""]
+        self._container = ListColumnContainer(1)
+
+        for scheme, value in self.part_schemes.items():
+            box = CheckboxWidget(title=_(scheme), completed=(value == self._selected_scheme_value))
+            self._container.add(box, self._set_part_scheme_callback, value)
+
+        self.window.add_with_separator(self._container)
 
         message = _("Select a partition scheme configuration.")
-        self._window += [TextWidget(message), ""]
-        return True
+        self.window.add_with_separator(TextWidget(message))
+
+    def _set_part_scheme_callback(self, data):
+        self._selected_scheme_value = data
 
     def input(self, args, key):
         """ Grab the choice and update things. """
-
-        try:
-            keyid = int(key) - 1
-        except ValueError:
+        if not self._container.process_user_input(key):
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
                 self.close()
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             else:
                 return super(PartitionSchemeSpoke, self).input(args, key)
 
-        if 0 <= keyid < len(self.partschemes):
-            self._selection = keyid
-        return INPUT_PROCESSED
+        self.redraw()
+        return InputState.PROCESSED
 
     def apply(self):
         """ Apply our selections. """
-
-        schemelist = list(self.partschemes.values())
-        self.data.autopart.type = schemelist[self._selection]
+        self.data.autopart.type = self._selected_scheme_value

@@ -105,6 +105,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         self._storage_playground = None
 
+        config.log_dir = "/tmp"
         self.client = osinstall.BlivetGUIAnacondaClient()
         box = self.builder.get_object("BlivetGuiViewport")
         self.label_actions = self.builder.get_object("summary_label")

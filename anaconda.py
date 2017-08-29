@@ -428,6 +428,7 @@ if __name__ == "__main__":
     anaconda.rescue_mount = not opts.rescue_nomount
 
     # assign the other anaconda variables from options
+    anaconda.decorated = opts.decorated
     anaconda.proxy = opts.proxy
     anaconda.updateSrc = opts.updateSrc
     anaconda.methodstr = opts.method
