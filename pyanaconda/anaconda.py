@@ -93,8 +93,8 @@ class Anaconda(object):
             from pyanaconda.installclass import factory
 
             # Get install class by name.
-            if self.ksdata.installclass.seen:
-                name = self.ksdata.installclass.name
+            if self.ksdata.anaconda.installclass.seen:
+                name = self.ksdata.anaconda.installclass.name
                 self._instClass = factory.get_install_class_by_name(name)
             # Or just find the best one.
             else:

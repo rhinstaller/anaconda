@@ -66,7 +66,8 @@ from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.platform import platform
 from blivet.size import Size, KiB
 
-from pykickstart.base import BaseHandler
+from pykickstart.base import BaseHandler, KickstartCommand
+from pykickstart.options import KSOptionParser
 from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
@@ -2080,9 +2081,44 @@ class Upgrade(commands.upgrade.F20_Upgrade):
 ### %anaconda Section
 ###
 
+
+class F27_InstallClass(KickstartCommand):
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        KickstartCommand.__init__(self, *args, **kwargs)
+        self.op = self._getParser()
+        self.name = kwargs.get("name", "")
+
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+        if not self.seen:
+            return retval
+
+        retval += "installclass%s\n" % self._getArgsAsStr()
+        return retval
+
+    def _getArgsAsStr(self):
+        retval = ""
+        if self.name:
+            retval += ' --name="%s"' % self.name
+        return retval
+
+    def _getParser(self):
+        op = KSOptionParser()
+        op.add_option("--name", dest="name", required=True, type="string")
+        return op
+
+    def parse(self, args):
+        (opts, _) = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(self.op, opts)
+        return self
+
 class AnacondaSectionHandler(BaseHandler):
     """A handler for only the anaconda ection's commands."""
     commandMap = {
+        "installclass": F27_InstallClass,
         "pwpolicy": F22_PwPolicy
     }
 
