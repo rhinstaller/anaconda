@@ -337,6 +337,7 @@ class DNFPayload(payload.PackagePayload):
         repo = dnf.repo.Repo(ksrepo.name, self._base.conf)
         url = self._replace_vars(ksrepo.baseurl)
         mirrorlist = self._replace_vars(ksrepo.mirrorlist)
+        metalink = self._replace_vars(ksrepo.metalink)
 
         if url and url.startswith("nfs://"):
             (server, path) = url[6:].split(":", 1)
@@ -351,6 +352,8 @@ class DNFPayload(payload.PackagePayload):
             repo.baseurl = [url]
         if mirrorlist:
             repo.mirrorlist = mirrorlist
+        if metalink:
+            repo.metalink = metalink
         repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
         if ksrepo.proxy:
             try:
@@ -376,7 +379,7 @@ class DNFPayload(payload.PackagePayload):
         #     and use this new one.  The highest profile user of this is livecd
         #     kickstarts.
         if repo.id in self._base.repos:
-            if not url and not mirrorlist:
+            if not url and not mirrorlist and not metalink:
                 self._base.repos[repo.id].enable()
             else:
                 with self._repos_lock:
@@ -395,7 +398,7 @@ class DNFPayload(payload.PackagePayload):
         except dnf.exceptions.RepoError as e:
             raise payload.MetadataError(e)
 
-        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist)
+        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
     def addRepo(self, ksrepo):
         """Add a repo to dnf and kickstart repo lists.
@@ -996,9 +999,12 @@ class DNFPayload(payload.PackagePayload):
     def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
-        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage,
-                                                              checkmount)
+        url, mirrorlist, metalink = self._setupInstallDevice(self.storage,
+                                                             checkmount)
         method = self.data.method
+        sslverify = True
+        if method.method == "url":
+            sslverify = not (method.noverifyssl or flags.noverifyssl)
 
         # Read in all the repos from the installation environment, make a note of which
         # are enabled, and then disable them all.  If the user gave us a method, we want
@@ -1032,7 +1038,8 @@ class DNFPayload(payload.PackagePayload):
                 proxy = getattr(method, "proxy", None)
                 base_ksrepo = self.data.RepoData(
                     name=constants.BASE_REPO_NAME, baseurl=url,
-                    mirrorlist=mirrorlist, noverifyssl=not sslverify, proxy=proxy)
+                    mirrorlist=mirrorlist, metalink=metalink,
+                    noverifyssl=not sslverify, proxy=proxy)
                 self._add_repo(base_ksrepo)
             except (payload.MetadataError, payload.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
@@ -1063,11 +1070,12 @@ class DNFPayload(payload.PackagePayload):
                         repo.enable()
 
         for ksrepo in self.data.repo.dataList():
-            log.debug("repo %s: mirrorlist %s, baseurl %s",
-                      ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl)
+            log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
+                      ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
             # one of these must be set to create new repo
-            if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.name in self._base.repos):
-                raise payload.PayloadSetupError("Repository %s has no mirror or baseurl set "
+            if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.metalink or
+                    ksrepo.name in self._base.repos):
+                raise payload.PayloadSetupError("Repository %s has no mirror, baseurl or metalink set "
                                                 "and is not one of the pre-defined repositories"
                                                 % ksrepo.name)
 

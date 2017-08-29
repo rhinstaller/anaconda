@@ -125,7 +125,7 @@ class NFS(commands.nfs.FC6_NFS, DracutArgsMixin):
         method = method.replace(" ", "\\ ")
         return "inst.repo=%s" % method
 
-class URL(commands.url.F18_Url, DracutArgsMixin):
+class URL(commands.url.F27_Url, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         # Spaces in the url need to be %20
         if self.url:

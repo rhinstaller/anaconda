@@ -427,6 +427,8 @@ class Payload(object):
         urls = [repo.baseurl]
         if repo.mirrorlist:
             urls.extend(repo.mirrorlist)
+        elif repo.metalink:
+            urls.extend(repo.metalink)
         return self._sourceNeedsNetwork(urls)
 
     def _sourceNeedsNetwork(self, sources):
@@ -455,8 +457,10 @@ class Payload(object):
         elif self.data.method.method == "url":
             if self.data.url.url:
                 url = self.data.url.url
-            else:
+            elif self.data.url.mirrorlist:
                 url = self.data.url.mirrorlist
+            elif self.data.url.metalink:
+                url = self.data.url.metalink
 
         return (self._sourceNeedsNetwork([url]) or
                 any(self._repoNeedsNetwork(repo) for repo in self.data.repo.dataList()))
@@ -1160,9 +1164,9 @@ class PackagePayload(Payload):
     def _setupInstallDevice(self, storage, checkmount):
         # XXX FIXME: does this need to handle whatever was set up by dracut?
         method = self.data.method
-        sslverify = True
         url = None
         mirrorlist = None
+        metalink = None
 
         # See if we already have stuff mounted due to dracut
         isodev = blivet.util.get_mount_device(DRACUT_ISODIR)
@@ -1273,7 +1277,7 @@ class PackagePayload(Payload):
         elif method.method == "url":
             url = method.url
             mirrorlist = method.mirrorlist
-            sslverify = not (method.noverifyssl or flags.noverifyssl)
+            metalink = method.metalink
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
             device = blivet.util.get_mount_device(DRACUT_REPODIR)
@@ -1307,7 +1311,7 @@ class PackagePayload(Payload):
                 elif method.method == "cdrom":
                     raise PayloadSetupError("no usable optical media found")
 
-        return url, mirrorlist, sslverify
+        return url, mirrorlist, metalink
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES

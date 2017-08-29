@@ -1662,7 +1662,7 @@ class RaidData(commands.raid.F25_RaidData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class RepoData(commands.repo.F21_RepoData):
+class RepoData(commands.repo.F27_RepoData):
     def __init__(self, *args, **kwargs):
         """ Add enabled kwarg
 
@@ -1672,7 +1672,7 @@ class RepoData(commands.repo.F21_RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
 
-        commands.repo.F21_RepoData.__init__(self, *args, **kwargs)
+        commands.repo.F27_RepoData.__init__(self, *args, **kwargs)
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
