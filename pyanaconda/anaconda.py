@@ -62,6 +62,7 @@ class Anaconda(object):
         self.reIPLMessage = None
         self.rescue_mount = True
         self.rootParts = None
+        self.decorated = False
 
         self.stage2 = None
         self._storage = None
@@ -310,7 +311,7 @@ class Anaconda(object):
             # use the window manager
             self._intf = GraphicalUserInterface(self.storage, self.payload,
                                                 self.instClass, gui_lock=self.gui_initialized,
-                                                fullscreen=False)
+                                                fullscreen=False, decorated=self.decorated)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
