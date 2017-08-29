@@ -20,21 +20,23 @@
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
+
+from simpleline.render.widgets import TextWidget
+
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     """
        .. inheritance-diagram:: PasswordSpoke
           :parts: 3
     """
-    title = N_("Root password")
     helpFile = "PasswordSpoke.txt"
     category = UserSettingsCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        EditTUIDialog.__init__(self, app, data, storage, payload, instclass, "root")
+    def __init__(self, data, storage, payload, instclass):
+        EditTUIDialog.__init__(self, data, storage, payload, instclass, "root")
+        self.title = N_("Root password")
         self.initialize_start()
         self._password = None
         self.initialize_done()
@@ -64,14 +66,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     def refresh(self, args=None):
         EditTUIDialog.refresh(self, args)
 
-        self._window += [TextWidget(_("Please select new root password. You will have to type it twice.")), ""]
-
-        return True
+        msg = _("Please select new root password. You will have to type it twice.")
+        self.window.add_with_separator(TextWidget(msg))
 
     def prompt(self, args=None):
         """Overriden prompt as password typing is special."""
         EditTUIDialog.prompt(self, EditTUISpokeEntry(_("Password"), "", EditTUIDialog.PASSWORD, True))
-        if self.value == None:
+        if self.value is None:
+            self.redraw()
             return
 
         self._password = self.value

@@ -40,6 +40,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define pykickstartver 2.36-1
 %define pypartedver 2.5-2
 %define rpmver 4.10.0
+%define simplelinever 0.4-1
 %define utillinuxver 2.15.1
 
 BuildRequires: audit-libs-devel
@@ -199,6 +200,7 @@ This package contains graphical user interface for the Anaconda installer.
 %package tui
 Summary: Textual user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
+Requires: python3-simpleline >= %{simplelinever}
 
 %description tui
 This package contains textual user interface for the Anaconda installer.

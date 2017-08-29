@@ -216,6 +216,13 @@ class AnacondaLog:
                             minLevel=logging.NOTSET)
         self.forwardToJournal(dnf_logger)
 
+        # Create the simpleline logger and link it to anaconda
+        simpleline_logger = logging.getLogger(constants.LOGGER_SIMPLELINE)
+        simpleline_logger.setLevel(logging.DEBUG)
+        self.addFileHandler(MAIN_LOG_FILE, simpleline_logger,
+                            minLevel=logging.NOTSET)
+        self.forwardToJournal(simpleline_logger)
+
         # Create the sensitive information logger
         # * the sensitive-info.log file is not copied to the installed
         # system, as it might contain sensitive information that
