@@ -335,12 +335,16 @@ class ErrorDialog(GUIObject):
 class MainWindow(Gtk.Window):
     """This is a top-level, full size window containing the Anaconda screens."""
 
-    def __init__(self, fullscreen):
+    def __init__(self, fullscreen=False, decorated=False):
         """Create a new anaconda main window.
 
           :param bool fullscreen: if True, fullscreen the window, if false maximize
         """
         Gtk.Window.__init__(self)
+
+        # Remove the title bar, resize controls and other stuff if the window manager
+        # allows it and decorated is set to False. Otherwise, it has no effect.
+        self.set_decorated(decorated)
 
         # Hide the titlebar when maximized if the window manager allows it.
         # This makes anaconda look full-screenish but without covering parts
@@ -639,7 +643,7 @@ class GraphicalUserInterface(UserInterface):
     """
     def __init__(self, storage, payload, instclass,
                  distributionText=product.distributionText, isFinal=product.isFinal,
-                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False):
+                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False, decorated=False):
 
         UserInterface.__init__(self, storage, payload, instclass)
 
@@ -650,7 +654,7 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
-        self.mainWindow = MainWindow(fullscreen=fullscreen)
+        self.mainWindow = MainWindow(fullscreen=fullscreen, decorated=decorated)
 
         self._distributionText = distributionText
         self._isFinal = isFinal

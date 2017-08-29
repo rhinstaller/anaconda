@@ -484,6 +484,15 @@ installation progresses to debug or monitor its progress.
     The ``root`` account has no password by default. You can set one using
     the ``sshpw`` kickstart command.
 
+.. inst.decorated
+
+inst.decorated
+^^^^^^^^^^^^^^
+
+Run GUI installer in a decorated window. By default, the window is not decorated,
+so it doesn't have a title bar, resize controls, etc.
+
+
 Debugging and Troubleshooting
 -----------------------------
 

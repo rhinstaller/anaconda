@@ -20,20 +20,25 @@
 
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.simpleline.widgets import TextWidget
 from pyanaconda.i18n import N_, _
 from pyanaconda.constants import ANACONDA_ENVIRON
 from pyanaconda.flags import flags
 from pyanaconda.iutil import execConsole
 from blivet import arch
 
+from simpleline.render.widgets import TextWidget
+
+
 class ShellSpoke(NormalTUISpoke):
     """
        .. inheritance-diagram:: ShellSpoke
           :parts: 3
     """
-    title = N_("Shell")
     category = SystemCategory
+
+    def __init__(self, data, storage, payload, instclass):
+        super().__init__(data, storage, payload, instclass)
+        self.title = N_("Shell")
 
     @classmethod
     def should_run(cls, environment, data):
@@ -55,8 +60,7 @@ class ShellSpoke(NormalTUISpoke):
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
-
-        self._window += [TextWidget(_("Exit the shell to continue")), ""]
+        self.window.add_with_separator(TextWidget(_("Exit the shell to continue")))
 
     def prompt(self, args=None):
         # run shell instead of printing prompt and close window on shell exit

@@ -1,0 +1,71 @@
+#!/usr/bin/python3
+
+from systemd import journal
+import argparse
+
+usage="""anaconda-read-journal [OPTIONS ...] [MATCHES ...]
+
+Reads, formats and prints all journal entries for current boot (eg installation). For anaconda installer messages displays also thread and log message source code origin information.
+
+MATCHES:
+  Arguments in the form KEY=VALUE can be used to filter messages in a similar way as with journalctl command. Multiple arguments of the same KEY are or-ed, arguments of different KEYs are and-ed.
+
+  To look for available message KEYs use eg "journalctl -a -o verbose"
+
+  Examples:
+
+  messages of specific threads:
+  "THREAD_NAME=AnaPayloadThread" "THREAD_NAME=AnaSourceWatcher"
+
+  messages of program log:
+  "LOGGER=program"
+
+  messages related to networking:
+  "LOGGER=ifcfg" "LOGGER=anaconda.network" "LOGGER=anaconda.ui.gui.spokes.network"
+
+  installer warning and error messages:
+  "_COMM=anaconda" "PRIORITY=4" "PRIORITY=3"
+"""
+
+parser = argparse.ArgumentParser(usage=usage)
+args, matches = parser.parse_known_args()
+
+reader = journal.Reader()
+reader.this_boot()
+
+for match in matches:
+    key, _, value = match.partition("=")
+    reader.add_match(**{key: value})
+
+while reader.get_next():
+    for entry in reader:
+
+        thread_info = ''
+        thread = entry.get('THREAD_NAME', '')
+        process = entry.get('PROCESS_NAME', '')
+        if process and process != 'MainProcess':
+            if thread and thread != 'MainThread':
+                thread_info = '[{}/{}]'.format(process, thread)
+            else:
+                thread_info = '[{}]'.format(process)
+        else:
+            if thread and thread != 'MainThread':
+                thread_info = '[{}]'.format(thread)
+
+        s_id = entry.get('SYSLOG_IDENTIFIER', '') or entry.get('_COMM', '')
+        pid = entry.get('_PID', '')
+        if pid:
+            s_id = '{}[{}]'.format(s_id, pid)
+        else:
+            s_id = '{}'.format(s_id)
+        general_msg = '{} {}{}: {}'.format(entry['__REALTIME_TIMESTAMP'],
+                                           s_id,
+                                           thread_info,
+                                           entry['MESSAGE'])
+
+        code_info = ''
+        if entry.get('SYSLOG_IDENTIFIER', '') == 'anaconda':
+            code_info = '   SOURCE {}:{}:{}'.format(entry['CODE_FILE'],
+                                                    entry['CODE_LINE'],
+                                                    entry['CODE_FUNC'])
+        print('{}{}'.format(general_msg, code_info))

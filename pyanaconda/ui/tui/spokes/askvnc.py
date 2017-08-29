@@ -17,22 +17,29 @@
 # Red Hat, Inc.
 #
 
+import sys
+
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
-from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.constants import USEVNC, USETEXT
-from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import N_, _, C_
-from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.iutil import execWithRedirect, ipmi_abort
 from pyanaconda.flags import can_touch_runtime_system
-import sys
 
-def exception_msg_handler_and_exit(event, data):
+from simpleline import App
+from simpleline.event_loop.signals import ExceptionSignal
+from simpleline.render.containers import ListColumnContainer
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.adv_widgets import YesNoDialog
+from simpleline.render.widgets import TextWidget
+
+
+def exception_msg_handler_and_exit(signal, data):
     """Display an exception and exit so that we don't end up in a loop."""
-    exception_msg_handler(event, data)
+    exception_msg_handler(signal, data)
     sys.exit(1)
+
 
 class AskVNCSpoke(NormalTUISpoke):
     """
@@ -43,17 +50,18 @@ class AskVNCSpoke(NormalTUISpoke):
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
-    def __init__(self, app, data, storage=None, payload=None,
-                 instclass=None, message=""):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage=None, payload=None, instclass=None, message=""):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.input_required = True
         self.initialize_start()
+        self._container = None
 
         # The TUI hasn't been initialized with the message handlers yet. Add an
         # exception message handler so that the TUI exits if anything goes wrong
         # at this stage.
-        self._app.register_event_handler(hubQ.HUB_CODE_EXCEPTION, exception_msg_handler_and_exit)
+        loop = App.get_event_loop()
+        loop.register_signal_handler(ExceptionSignal, exception_msg_handler_and_exit)
         self._message = message
-        self._choices = (_(USEVNC), _(USETEXT))
         self._usevnc = False
         self.initialize_done()
 
@@ -64,68 +72,66 @@ class AskVNCSpoke(NormalTUISpoke):
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
-        self._window += [TextWidget(self._message), ""]
+        self.window.add_with_separator(TextWidget(self._message))
 
-        for idx, choice in enumerate(self._choices):
-            number = TextWidget("%2d)" % (idx + 1))
-            c = ColumnWidget([(3, [number]), (None, [TextWidget(choice)])], 1)
-            self._window += [c, ""]
+        self._container = ListColumnContainer(1, spacing=1)
 
-        return True
+        # choices are
+        # USE VNC
+        self._container.add(TextWidget(_(USEVNC)), self._use_vnc_callback)
+        # USE TEXT
+        self._container.add(TextWidget(_(USETEXT)), self._use_text_callback)
+
+        self.window.add_with_separator(self._container)
+
+    def _use_vnc_callback(self, data):
+        self._usevnc = True
+        new_spoke = VNCPassSpoke(self.data, self.storage,
+                                 self.payload, self.instclass)
+        ScreenHandler.push_screen_modal(new_spoke)
+
+    def _use_text_callback(self, data):
+        self._usevnc = False
 
     def input(self, args, key):
         """Override input so that we can launch the VNC password spoke"""
-
-        try:
-            keyid = int(key) - 1
-            if 0 <= keyid < len(self._choices):
-                choice = self._choices[keyid]
-                if choice == _(USETEXT):
-                    self._usevnc = False
-                else:
-                    self._usevnc = True
-                    newspoke = VNCPassSpoke(self.app, self.data, self.storage,
-                                            self.payload, self.instclass)
-                    self.app.switch_screen_modal(newspoke)
-
-                self.apply()
-                self.close()
-            return INPUT_PROCESSED
-        except ValueError:
-            pass
-
-        # TRANSLATORS: 'q' to quit
-        if key.lower() == C_('TUI|Spoke Navigation', 'q'):
-            d = YesNoDialog(self.app, _(self.app.quit_message))
-            self.app.switch_screen_modal(d)
-            if d.answer:
-                ipmi_abort(scripts=self.data.scripts)
-                if can_touch_runtime_system("Quit and Reboot"):
-                    execWithRedirect("systemctl", ["--no-wall", "reboot"])
-                else:
-                    sys.exit(1)
+        if self._container.process_user_input(key):
+            self.apply()
+            self.close()
+            return InputState.PROCESSED
         else:
-            return super(AskVNCSpoke, self).input(args, key)
+            # TRANSLATORS: 'q' to quit
+            if key.lower() == C_('TUI|Spoke Navigation', 'q'):
+                d = YesNoDialog(_(u"Do you really want to quit?"))
+                ScreenHandler.push_screen_modal(d)
+                if d.answer:
+                    ipmi_abort(scripts=self.data.scripts)
+                    if can_touch_runtime_system("Quit and Reboot"):
+                        execWithRedirect("systemctl", ["--no-wall", "reboot"])
+                    else:
+                        sys.exit(1)
+            else:
+                return super(AskVNCSpoke, self).input(args, key)
 
     def apply(self):
         self.data.vnc.enabled = self._usevnc
+
 
 class VNCPassSpoke(NormalTUISpoke):
     """
        .. inheritance-diagram:: VNCPassSpoke
           :parts: 3
     """
-    title = N_("VNC Password")
 
-    def __init__(self, app, data, storage, payload, instclass, message=None):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass, message=None):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("VNC Password")
         self._password = ""
         if message:
             self._message = message
         else:
             self._message = _("Please provide VNC password (must be six to eight characters long).\n"
                               "You will have to type it twice. Leave blank for no password")
-        self._app = app
 
     @property
     def indirect(self):
@@ -137,31 +143,31 @@ class VNCPassSpoke(NormalTUISpoke):
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
-        self._window += [TextWidget(self._message), ""]
-
-        return True
+        self.window.add_with_separator(TextWidget(self._message))
 
     def prompt(self, args=None):
         """Override prompt as password typing is special."""
-        p1 = self._app.simpleline_getpass(_("Password: "))
-        p2 = self._app.simpleline_getpass(_("Password (confirm): "))
+        p1 = self.get_user_input(_("Password: "), True)
+        p2 = self.get_user_input(_("Password (confirm): "), True)
 
         if p1 != p2:
-            print(_("Passwords do not match!"))
-            return None
+            self._print_error_and_redraw(_("Passwords do not match!"))
         elif 0 < len(p1) < 6:
-            print(_("The password must be at least "
-                    "six characters long."))
-            return None
+            self._print_error_and_redraw((_("The password must be at least "
+                                            "six characters long.")))
         elif len(p1) > 8:
-            print(_("The password cannot be more than "
-                    "eight characters long."))
-            return None
+            self._print_error_and_redraw(_("The password cannot be more than "
+                                           "eight characters long."))
         else:
             self._password = p1
             self.apply()
+            self.close()
 
-        self.close()
+        return None
+
+    def _print_error_and_redraw(self, msg):
+        print(msg)
+        self.redraw()
 
     def apply(self):
         self.data.vnc.password = self._password

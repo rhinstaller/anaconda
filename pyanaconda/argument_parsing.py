@@ -463,6 +463,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("vncpassword"))
     ap.add_argument("--xdriver", dest="xdriver", action="store", type=str,
                     default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
+    ap.add_argument("--decorated", dest="decorated", action="store_true", default=False,
+                    help=help_parser.help_text("decorated"))
 
     # Language
     ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))

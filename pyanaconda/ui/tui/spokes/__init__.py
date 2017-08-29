@@ -16,31 +16,36 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.ui.tui import simpleline as tui
-from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog, HelpScreen
-from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
-from pyanaconda.users import validatePassword, cryptPassword
+
 import re
 from collections import namedtuple
+
+from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
+from pyanaconda.ui.tui.tuiobject import TUIObject
+from pyanaconda.users import validatePassword, cryptPassword
 from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import N_, _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PW_ASCII_CHARS
 from pyanaconda.constants import PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR
 from pyanaconda import ihelp
 
+from simpleline.render.adv_widgets import HelpScreen, YesNoDialog
+from simpleline.render.containers import WindowContainer
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.prompt import Prompt
+from simpleline.render.widgets import Widget, CheckboxWidget, TextWidget, ColumnWidget
+
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
            "StandaloneSpoke", "NormalTUISpoke"]
 
+
 # Inherit abstract methods from Spoke
 # pylint: disable=abstract-method
-class TUISpoke(TUIObject, tui.Widget, Spoke):
+class TUISpoke(TUIObject, Widget, Spoke):
     """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
        It also acts as a Widget so we can easily add it to Hub, where is shows
        as a summary box with title, description and completed checkbox.
-
-       :param title: title of this spoke
-       :type title: str
 
        :param category: category this spoke belongs to
        :type category: string
@@ -49,15 +54,16 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
           :parts: 3
     """
 
-    title = N_("Default spoke title")
-
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         if self.__class__ is TUISpoke:
             raise TypeError("TUISpoke is an abstract class")
 
-        TUIObject.__init__(self, app, data)
-        tui.Widget.__init__(self)
+        TUIObject.__init__(self, data)
+        Widget.__init__(self)
         Spoke.__init__(self, storage, payload, instclass)
+
+        self.input_required = True
+        self.title = N_("Default spoke title")
 
     @property
     def status(self):
@@ -69,7 +75,6 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
     def refresh(self, args=None):
         TUIObject.refresh(self, args)
-        return True
 
     def input(self, args, key):
         """Handle the input, the base class just forwards it to the App level."""
@@ -77,7 +82,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
     def render(self, width):
         """Render the summary representation for Hub to internal buffer."""
-        tui.Widget.render(self, width)
+        Widget.render(self, width)
 
         if self.mandatory and not self.completed:
             key = "!"
@@ -88,10 +93,11 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
         # always set completed = True here; otherwise key value won't be
         # displayed if completed (spoke value from above) is False
-        c = tui.CheckboxWidget(key=key, completed=True,
-                               title=_(self.title), text=self.status)
+        c = CheckboxWidget(key=key, completed=True,
+                           title=_(self.title), text=self.status)
         c.render(width)
         self.draw(c)
+
 
 class NormalTUISpoke(TUISpoke, NormalSpoke):
     """
@@ -102,11 +108,12 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
     def input(self, args, key):
         """Handle the input."""
         # TRANSLATORS: 'h' to help
-        if key.lower() == tui.Prompt.HELP:
+        if key.lower() == Prompt.HELP:
             if self.has_help:
                 help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
-                self.app.switch_screen_modal(HelpScreen(self.app, help_path))
-                return INPUT_PROCESSED
+                ScreenHandler.push_screen_modal(HelpScreen(help_path))
+                self.redraw()
+                return InputState.PROCESSED
 
         return super(NormalTUISpoke, self).input(args, key)
 
@@ -121,6 +128,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
 
 EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux", "visible"])
 
+
 # Inherit abstract methods from NormalTUISpoke
 # pylint: disable=abstract-method
 class EditTUIDialog(NormalTUISpoke):
@@ -132,14 +140,15 @@ class EditTUIDialog(NormalTUISpoke):
        To override the wrong input message set the wrong_input_message attribute
        to a translated string.
     """
-    title = N_("New value")
     PASSWORD = re.compile(".*")
 
-    def __init__(self, app, data, storage, payload, instclass, policy_name=""):
+    def __init__(self, data, storage, payload, instclass, policy_name=""):
         if self.__class__ is EditTUIDialog:
             raise TypeError("EditTUIDialog is an abstract class")
 
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("New value")
+        self.input_required = True
         self.value = None
         self.policy = None
         self.wrong_input_message = None
@@ -150,9 +159,8 @@ class EditTUIDialog(NormalTUISpoke):
             self.policy = self.data.anaconda.PwPolicyData()
 
     def refresh(self, args=None):
-        self._window = []
+        self._window = WindowContainer()
         self.value = None
-        return True
 
     def prompt(self, args=None):
         entry = args
@@ -160,14 +168,14 @@ class EditTUIDialog(NormalTUISpoke):
             return None
 
         if entry.aux == self.PASSWORD:
-            pw = self._app.raw_input(_("%s: ") % entry.title, hidden=True)
-            confirm = self._app.raw_input(_("%s (confirm): ") % entry.title, hidden=True)
+            pw = self.get_user_input(_("%s: ") % entry.title, hidden=True)
+            confirm = self.get_user_input(_("%s (confirm): ") % entry.title, hidden=True)
 
             if (pw and not confirm) or (confirm and not pw):
                 print(_("You must enter your root password and confirm it by typing"
                         " it a second time to continue."))
                 return None
-            if (pw != confirm):
+            if pw != confirm:
                 print(_(PASSWORD_CONFIRM_ERROR_TUI))
                 return None
 
@@ -195,8 +203,8 @@ class EditTUIDialog(NormalTUISpoke):
                     error = _(PASSWORD_WEAK) % done_msg
 
                 if not self.policy.strict:
-                    question_window = YesNoDialog(self._app, error)
-                    self._app.switch_screen_modal(question_window)
+                    question_window = YesNoDialog(error)
+                    ScreenHandler.push_screen_modal(question_window)
                     if not question_window.answer:
                         return None
                 else:
@@ -210,11 +218,11 @@ class EditTUIDialog(NormalTUISpoke):
             self.value = cryptPassword(pw)
             return None
         else:
-            return tui.Prompt(_("Enter a new value for '%(title)s' and press %(enter)s") % {
+            return Prompt(_("Enter a new value for '%(title)s' and press %(enter)s") % {
                 # TRANSLATORS: 'title' as a title of the entry
                 "title": entry.title,
                 # TRANSLATORS: 'enter' as the key ENTER
-                "enter": tui.Prompt.ENTER
+                "enter": Prompt.ENTER
             })
 
     def input(self, args, key):
@@ -231,7 +239,7 @@ class EditTUIDialog(NormalTUISpoke):
         if valid:
             self.value = key
             self.close()
-            return True
+            return InputState.PROCESSED
         else:
             if self.wrong_input_message:
                 print(self.wrong_input_message)
@@ -248,13 +256,17 @@ class OneShotEditTUIDialog(EditTUIDialog):
     def prompt(self, args=None):
         entry = args
         ret = None
+        self.value = None
 
         if entry:
-            ret = EditTUIDialog.prompt(self, entry)
+            while self.value is None and ret is None:
+                ret = EditTUIDialog.prompt(self, entry)
+
             if ret is None:
                 self.close()
 
         return ret
+
 
 # Inherit abstract methods from NormalTUISpoke
 # pylint: disable=abstract-method
@@ -296,12 +308,13 @@ class EditTUISpoke(NormalTUISpoke):
     edit_fields = [
     ]
 
-    def __init__(self, app, data, storage, payload, instclass, policy_name=""):
+    def __init__(self, data, storage, payload, instclass, policy_name=""):
         if self.__class__ is EditTUISpoke:
             raise TypeError("EditTUISpoke is an abstract class")
 
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass, policy_name=policy_name)
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+
+        self.dialog = OneShotEditTUIDialog(data, storage, payload, instclass, policy_name=policy_name)
 
         # self.args should hold the object this Spoke is supposed
         # to edit
@@ -334,29 +347,29 @@ class EditTUISpoke(NormalTUISpoke):
                 self.args = getattr(self.args, key)
 
         def _prep_text(i, entry):
-            number = tui.TextWidget("%2d)" % i)
-            title = tui.TextWidget(_(entry.title))
+            number = TextWidget("%2d)" % i)
+            title = TextWidget(_(entry.title))
             value = getdeepattr(self.args, entry.attribute)
-            value = tui.TextWidget(value)
+            value = TextWidget(value)
 
-            return tui.ColumnWidget([(3, [number]), (None, [title, value])], 1)
+            return ColumnWidget([(3, [number]), (None, [title, value])], 1)
 
         def _prep_check(i, entry):
-            number = tui.TextWidget("%2d)" % i)
+            number = TextWidget("%2d)" % i)
             value = getdeepattr(self.args, entry.attribute)
-            ch = tui.CheckboxWidget(title=_(entry.title), completed=bool(value))
+            ch = CheckboxWidget(title=_(entry.title), completed=bool(value))
 
-            return tui.ColumnWidget([(3, [number]), (None, [ch])], 1)
+            return ColumnWidget([(3, [number]), (None, [ch])], 1)
 
         def _prep_password(i, entry):
-            number = tui.TextWidget("%2d)" % i)
-            title = tui.TextWidget(_(entry.title))
+            number = TextWidget("%2d)" % i)
+            title = TextWidget(_(entry.title))
             value = ""
             if len(getdeepattr(self.args, entry.attribute)) > 0:
                 value = _("Password set.")
-            value = tui.TextWidget(value)
+            value = TextWidget(value)
 
-            return tui.ColumnWidget([(3, [number]), (None, [title, value])], 1)
+            return ColumnWidget([(3, [number]), (None, [title, value])], 1)
 
         for idx, entry in enumerate(self.visible_fields):
             entry_type = entry.aux
@@ -367,12 +380,10 @@ class EditTUISpoke(NormalTUISpoke):
             else:
                 w = _prep_text(idx+1, entry)
 
-            self._window.append(w)
+            self.window.add(w)
 
         if self.visible_fields:
-            self._window.append("")
-
-        return True
+            self.window.add_separator()
 
     def input(self, args, key):
         try:
@@ -381,19 +392,21 @@ class EditTUISpoke(NormalTUISpoke):
                 if self.visible_fields[idx].aux == self.CHECK:
                     setdeepattr(self.args, self.visible_fields[idx].attribute,
                                 not getdeepattr(self.args, self.visible_fields[idx][1]))
-                    self.app.redraw()
+                    self.redraw()
                     self.apply()
                 else:
-                    self.app.switch_screen_modal(self.dialog, self.visible_fields[idx])
+                    ScreenHandler.push_screen_modal(self.dialog, self.visible_fields[idx])
+                    self.redraw()
                     if self.dialog.value is not None:
                         setdeepattr(self.args, self.visible_fields[idx].attribute,
                                     self.dialog.value)
                         self.apply()
-                return True
+                return InputState.PROCESSED
         except ValueError:
             pass
 
         return NormalTUISpoke.input(self, args, key)
+
 
 class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
     """

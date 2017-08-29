@@ -20,7 +20,6 @@
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
 from pyanaconda.i18n import N_, _, C_
@@ -28,7 +27,11 @@ from pyanaconda.i18n import N_, _, C_
 from pyanaconda.constants import THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE
 from pyanaconda.constants import THREAD_SOFTWARE_WATCHER
-from pyanaconda.constants_text import INPUT_PROCESSED
+
+from simpleline.render.containers import ListColumnContainer
+from simpleline.render.screen import InputState
+from simpleline.render.screen_handler import ScreenHandler
+from simpleline.render.widgets import TextWidget, CheckboxWidget
 
 __all__ = ["SoftwareSpoke"]
 
@@ -39,15 +42,16 @@ class SoftwareSpoke(NormalTUISpoke):
        .. inheritance-diagram:: SoftwareSpoke
           :parts: 3
     """
-    title = N_("Software selection")
     helpFile = "SoftwareSpoke.txt"
     category = SoftwareCategory
 
-    def __init__(self, app, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Software selection")
+        self._container = None
         self.errors = []
         self._tx_id = None
-        self._selection = None
+        self._selected_environment = None
         self.environment = None
         self._addons_selection = set()
         self.addons = set()
@@ -70,7 +74,7 @@ class SoftwareSpoke(NormalTUISpoke):
         self.initialize_start()
         super(SoftwareSpoke, self).initialize()
         threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER,
-            target=self._initialize))
+                                     target=self._initialize))
 
     def _initialize(self):
         threadMgr.wait(THREAD_PAYLOAD)
@@ -84,9 +88,9 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 if instclass and instclass.defaultPackageEnvironment and \
                         instclass.defaultPackageEnvironment in environments:
-                    self._selection = environments.index(instclass.defaultPackageEnvironment)
+                    self._selected_environment = environments.index(instclass.defaultPackageEnvironment)
                 else:
-                    self._selection = 0
+                    self._selected_environment = 0
 
         # Apply the initial selection
         self._apply()
@@ -102,7 +106,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def _payload_start(self):
         # Source is changing, invalidate the software selection and clear the
         # errors
-        self._selection = None
+        self._selected_environment = None
         self._addons_selection = set()
         self.errors = []
 
@@ -112,15 +116,6 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _payload_error(self):
         self.errors = [payloadMgr.error]
-
-    def _get_environment(self, selection):
-        """ Return the selected environment or None.
-            Selection can be None during kickstart installation.
-        """
-        if selection is not None and 0 <= selection < len(self.payload.environments):
-            return self.payload.environments[selection]
-        else:
-            return None
 
     def _get_environment_id(self, environment):
         """ Return the id of the selected environment or None. """
@@ -191,28 +186,26 @@ class SoftwareSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         threadMgr.wait(THREAD_PAYLOAD)
+        self._container = None
 
         if not self.payload.baseRepo:
             message = TextWidget(_("Installation source needs to be set up first."))
-            self._window.append(message)
-
-            # add some more space below
-            self._window.append(TextWidget(""))
-            return True
+            self.window.add_with_separator(message)
+            return
 
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
-        displayed = []
+        self._container = ListColumnContainer(2, columns_width=38, spacing=2)
 
         # Display the environments
         if args is None:
             environments = self.payload.environments
-            length = len(environments)
             msg = _("Base environment")
 
             for env in environments:
                 name = self.payload.environmentDescription(env)[0]
-                selected = environments.index(env) == self._selection
-                displayed.append(CheckboxWidget(title="%s" % name, completed=selected))
+                selected = (env == self._selected_environment)
+                widget = CheckboxWidget(title="%s" % name, completed=selected)
+                self._container.add(widget, callback=self._set_environment_callback, data=env)
 
         # Display the add-ons
         else:
@@ -226,69 +219,54 @@ class SoftwareSpoke(NormalTUISpoke):
             for addon_id in args:
                 name = self.payload.groupDescription(addon_id)[0]
                 selected = addon_id in self._addons_selection
-                displayed.append(CheckboxWidget(title="%s" % name, completed=selected))
+                widget = CheckboxWidget(title="%s" % name, completed=selected)
+                self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
 
-        def _prep(i, w):
-            """ Do some format magic for display. """
-            num = TextWidget("%2d)" % (i + 1))
-            return ColumnWidget([(4, [num]), (None, [w])], 1)
+        self.window.add_with_separator(TextWidget(msg))
+        self.window.add_with_separator(self._container)
 
-        # split list of DE's into two columns
-        mid = length / 2
-        left = [_prep(i, w) for i, w in enumerate(displayed) if i <= mid]
-        right = [_prep(i, w) for i, w in enumerate(displayed) if i > mid]
+    def _set_environment_callback(self, data):
+        self._selected_environment = data
 
-        cw = ColumnWidget([(38, left), (38, right)], 2)
-        self._window += [TextWidget(msg), "", cw, ""]
-
-        return True
+    def _set_addons_callback(self, data):
+        addon = data
+        if addon not in self._addons_selection:
+            self._addons_selection.add(addon)
+        else:
+            self._addons_selection.remove(addon)
 
     def input(self, args, key):
         """ Handle the input; this chooses the desktop environment. """
-        try:
-            keyid = int(key) - 1
-        except ValueError:
+        if self._container is not None and self._container.process_user_input(key):
+            self.redraw()
+        else:
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
 
                 # No environment was selected, close
-                if self._selection is None:
+                if self._selected_environment is None:
                     self.close()
 
                 # The environment was selected, switch screen
                 elif args is None:
                     # Get addons for the selected environment
-                    environment = self._get_environment(self._selection)
+                    environment = self._selected_environment
                     environment_id = self._get_environment_id(environment)
                     addons = self._get_available_addons(environment_id)
 
                     # Switch the screen
-                    self.app.switch_screen(self, addons)
+                    ScreenHandler.replace_screen(self, addons)
 
                 # The addons were selected, apply and close
                 else:
                     self.apply()
                     self.close()
 
-                return INPUT_PROCESSED
+                return InputState.PROCESSED
             else:
                 return super(SoftwareSpoke, self).input(args, key)
 
-        # Process the environment selection
-        if args is None:
-            if 0 <= keyid < len(self.payload.environments):
-                self._selection = keyid
-
-        # Process the addons selection
-        else:
-            if 0 <= keyid < len(args):
-                addon = args[keyid]
-                if addon not in self._addons_selection:
-                    self._addons_selection.add(addon)
-                else:
-                    self._addons_selection.remove(addon)
-
-        return INPUT_PROCESSED
+        return InputState.PROCESSED
 
     @property
     def ready(self):
@@ -307,7 +285,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _apply(self):
         """ Private apply. """
-        self.environment = self._get_environment(self._selection)
+        self.environment = self._selected_environment
         self.addons = self._addons_selection if self.environment is not None else set()
 
         if not self.environment:
@@ -343,7 +321,6 @@ class SoftwareSpoke(NormalTUISpoke):
         if changed or self._kickstarted:
             threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
                                          target=self.checkSoftwareSelection))
-
 
     def checkSoftwareSelection(self):
         """ Depsolving """
