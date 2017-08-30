@@ -65,6 +65,10 @@ PROTOCOL_FTP = 'ftp'
 PROTOCOL_NFS = 'nfs'
 PROTOCOL_MIRROR = 'Closest mirror'
 
+URL_TYPE_URL = 'url'
+URL_TYPE_MIRRORLIST = 'mirrorlist'
+URL_TYPE_METALINK = 'metalink'
+
 # Repo Store Columns
 REPO_ENABLED_COL = 0
 REPO_NAME_COL = 1
@@ -449,10 +453,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             if not old_source.method and self.payload.baseRepo and \
                not self._proxyChange and not self._updatesChange:
                 return False
-        elif self._http_active() or self._ftp_active():
+        elif self._ftp_active():
             url = self._urlEntry.get_text().strip()
-            mirrorlist = False
-
             # If the user didn't fill in the URL entry, just return as if they
             # selected nothing.
             if url == "":
@@ -462,28 +464,46 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # to know how to fetch, and the refresh method needs that to know
             # which element of the combo to default to should this spoke be
             # revisited.
-            if self._ftp_active() and not url.startswith("ftp://"):
+            if not url.startswith("ftp://"):
                 url = "ftp://" + url
+            if old_source.method == "url" and not self._proxyChange and \
+                    old_source.url == url:
+                return False
+            self.data.method.method = "url"
+            self.data.method.proxy = self._proxyUrl
+            self.data.method.url = url
+            self.data.method.mirrorlist = ""
+            self.data.method.metalink = ""
+        elif self._http_active():
+            url = self._urlEntry.get_text().strip()
+            # If the user didn't fill in the URL entry, just return as if they
+            # selected nothing.
+            if url == "":
+                return False
+
+            # Make sure the URL starts with the protocol.  dnf will want that
+            # to know how to fetch, and the refresh method needs that to know
+            # which element of the combo to default to should this spoke be
+            # revisited.
             elif self._protocolComboBox.get_active_id() == PROTOCOL_HTTP and not url.startswith("http://"):
                 url = "http://" + url
-                mirrorlist = self._mirrorlistCheckbox.get_active()
             elif self._protocolComboBox.get_active_id() == PROTOCOL_HTTPS and not url.startswith("https://"):
                 url = "https://" + url
-                mirrorlist = self._mirrorlistCheckbox.get_active()
 
+            url_type = self._urlTypeComboBox.get_active_id()
             if old_source.method == "url" and not self._proxyChange and \
-               ((not mirrorlist and old_source.url == url) or \
-                (mirrorlist and old_source.mirrorlist == url)):
+                not self._url_changed(url, url_type, old_source):
                 return False
 
             self.data.method.method = "url"
             self.data.method.proxy = self._proxyUrl
-            if mirrorlist:
+            self.data.method.url = self.data.method.mirrorlist = self.data.method.metalink = ""
+            if url_type == URL_TYPE_MIRRORLIST:
                 self.data.method.mirrorlist = url
-                self.data.method.url = ""
+            elif url_type == URL_TYPE_METALINK:
+                self.data.method.metalink = url
             else:
                 self.data.method.url = url
-                self.data.method.mirrorlist = ""
         elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
@@ -528,6 +548,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         return True
 
+    def _url_changed(self, url, url_type, old_method):
+        if url_type == URL_TYPE_URL:
+            return url != old_method.url
+        elif url_type == URL_TYPE_MIRRORLIST:
+            return url != old_method.mirrorlist
+        else:
+            return url != old_method.metalink
+
     @property
     def changed(self):
         method_changed = self._method_changed()
@@ -566,7 +594,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         elif self._error:
             return _("Error setting up software source")
         elif self.data.method.method == "url":
-            return self.data.method.url or self.data.method.mirrorlist
+            return self.data.method.url or self.data.method.mirrorlist or self.data.method.metalink
         elif self.data.method.method == "nfs":
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
@@ -600,7 +628,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._urlCheck = self.add_check(self._urlEntry, self._checkURLEntry)
         self._urlCheck.enabled = False
 
-        self._mirrorlistCheckbox = self.builder.get_object("mirrorlistCheckbox")
+        self._urlTypeComboBox = self.builder.get_object("urlTypeComboBox")
+        self._urlTypeLabel = self.builder.get_object("urlTypeLabel")
 
         self._noUpdatesCheckbox = self.builder.get_object("noUpdatesCheckbox")
 
@@ -613,7 +642,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoNameEntry = self.builder.get_object("repoNameEntry")
         self._repoProtocolComboBox = self.builder.get_object("repoProtocolComboBox")
         self._repoUrlEntry = self.builder.get_object("repoUrlEntry")
-        self._repoMirrorlistCheckbox = self.builder.get_object("repoMirrorlistCheckbox")
+        self._repoUrlTypeComboBox = self.builder.get_object("repoUrlTypeComboBox")
+
         self._repoProxyUrlEntry = self.builder.get_object("repoProxyUrlEntry")
         self._repoProxyUsernameEntry = self.builder.get_object("repoProxyUsernameEntry")
         self._repoProxyPasswordEntry = self.builder.get_object("repoProxyPasswordEntry")
@@ -827,7 +857,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "url":
             self._networkButton.set_active(True)
 
-            proto = self.data.method.url or self.data.method.mirrorlist
+            proto = self.data.method.url or self.data.method.mirrorlist or self.data.method.metalink
             if proto.startswith("http:"):
                 self._protocolComboBox.set_active_id(PROTOCOL_HTTP)
                 l = 7
@@ -843,7 +873,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self._urlEntry.set_text(proto[l:])
             self._updateURLEntryCheck()
-            self._mirrorlistCheckbox.set_active(bool(self.data.method.mirrorlist))
+            self._updateUrlTypeComboBox()
             self._proxyUrl = self.data.method.proxy
         elif self.data.method.method == "nfs":
             self._networkButton.set_active(True)
@@ -924,6 +954,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Update the URL entry validation now that we're done messing with sensitivites
         self._updateURLEntryCheck()
 
+    def _updateUrlTypeComboBox(self):
+        if self.data.method.mirrorlist:
+            self._urlTypeComboBox.set_active_id(URL_TYPE_MIRRORLIST)
+        elif self.data.method.metalink:
+            self._urlTypeComboBox.set_active_id(URL_TYPE_METALINK)
+        else:
+            self._urlTypeComboBox.set_active_id(URL_TYPE_URL)
+
     def _setup_no_updates(self):
         """ Setup the state of the No Updates checkbox.
 
@@ -977,11 +1015,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if is_additional_repo:
             # Input object contains repository name
             repo = self._get_repo_by_id(inputcheck.input_obj)
-            protocol = urlsplit(repo.baseurl)[0] # extract protocol part (http, https, nfs...)
             if repo.mirrorlist:
-                url_string = repo.mirrorlist.strip()[len(protocol) + 3:] # +3 for "://" part
+                url = repo.mirrorlist
+            elif repo.metalink:
+                url = repo.metalink
             else:
-                url_string = repo.baseurl.strip()[len(protocol) + 3:] # +3 for "://" part
+                url = repo.baseurl
+            protocol = urlsplit(url)[0]
+            # remove protocol part ("http://", "https://", "nfs://"...)
+            url_string = url.strip()[len(protocol + "://"):]
         else:
             url_string = self.get_input(inputcheck.input_obj).strip()
             protocol = combo.get_active_id()
@@ -1217,7 +1259,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # the currently selected protocol.
         self._proxyButton.set_sensitive(self._http_active() or self._mirror_active())
         self._nfsOptsBox.set_visible(self._nfs_active())
-        self._mirrorlistCheckbox.set_visible(self._http_active())
+        self._urlTypeComboBox.set_visible(self._http_active())
+        self._urlTypeLabel.set_visible(self._http_active())
         self._setup_no_updates()
 
         # Any changes to the protocol combo box also need to update the checks.
@@ -1237,7 +1280,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             :returns: True if any repo was changed, added or removed
             :rtype: bool
         """
-        REPO_ATTRS = ("name", "baseurl", "mirrorlist", "proxy", "enabled")
+        REPO_ATTRS = ("name", "baseurl", "mirrorlist", "metalink", "proxy", "enabled")
         changed = False
 
         with self._repoStore_lock:
@@ -1290,6 +1333,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 ks_repo = self.data.RepoData(name=repo.name,
                                              baseurl=repo.baseurl,
                                              mirrorlist=repo.mirrorlist,
+                                             metalink=repo.metalink,
                                              proxy=repo.proxy,
                                              enabled=repo.enabled)
                 # Track the original name, user may change .name
@@ -1366,8 +1410,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         """
         self._repoNameEntry.set_text("")
 
-        with blockedHandler(self._repoMirrorlistCheckbox, self.on_repoMirrorlistCheckbox_toggled):
-            self._repoMirrorlistCheckbox.set_active(False)
+        with blockedHandler(self._repoUrlTypeComboBox, self.on_repo_url_type_changed):
+            self._repoUrlTypeComboBox.set_active_id(URL_TYPE_URL)
 
         self._repoUrlEntry.set_text("")
         self._repoProtocolComboBox.set_active(0)
@@ -1383,13 +1427,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         """
         self._repoNameEntry.set_text(repo.name)
 
-        with blockedHandler(self._repoMirrorlistCheckbox, self.on_repoMirrorlistCheckbox_toggled):
+        with blockedHandler(self._repoUrlTypeComboBox, self.on_repo_url_type_changed):
             if repo.mirrorlist:
                 url = repo.mirrorlist
-                self._repoMirrorlistCheckbox.set_active(True)
+                self._repoUrlTypeComboBox.set_active_id(URL_TYPE_MIRRORLIST)
+            elif repo.metalink:
+                url = repo.metalink
+                self._repoUrlTypeComboBox.set_active_id(URL_TYPE_METALINK)
             else:
                 url = repo.baseurl
-                self._repoMirrorlistCheckbox.set_active(False)
+                self._repoUrlTypeComboBox.set_active_id(URL_TYPE_URL)
 
         if url:
             for idx, proto in REPO_PROTO.items():
@@ -1516,13 +1563,21 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if not itr:
             return
         repo = self._repoStore[itr][REPO_OBJ]
-        idx = self._repoProtocolComboBox.get_active_id()
-        proto = REPO_PROTO[idx]
+        combo_protocol = self._repoProtocolComboBox.get_active_id()
+        url_prefix = REPO_PROTO[combo_protocol]
+
         url = self._repoUrlEntry.get_text().strip()
-        if self._repoMirrorlistCheckbox.get_active():
-            repo.mirorlist = proto + url
+        if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS):
+            url_type = self._repoUrlTypeComboBox.get_active_id()
+            repo.baseurl = repo.mirrorlist = repo.metalink = ""
+            if url_type == URL_TYPE_MIRRORLIST:
+                repo.mirrorlist = url_prefix + url
+            elif url_type == URL_TYPE_METALINK:
+                repo.metalink = url_prefix + url
+            else:
+                repo.baseurl = url_prefix + url
         else:
-            repo.baseurl = proto + url
+            repo.baseurl = url_prefix + url
 
         # do not update check status if check are not yet set up
         # (populationg/refreshing the spoke)
@@ -1532,22 +1587,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Check for and remove a URL prefix that matches the protocol dropdown
         self._removeUrlPrefix(editable, self._repoProtocolComboBox, self.on_repoUrl_changed)
 
-    def on_repoMirrorlistCheckbox_toggled(self, *args):
-        """ mirror state changed
-        """
-        itr = self._repoSelection.get_selected()[1]
-        if not itr:
-            return
-        repo = self._repoStore[itr][REPO_OBJ]
-
-        # This is called by set_active so only swap if there is something
-        # in the variable.
-        if self._repoMirrorlistCheckbox.get_active() and repo.baseurl:
-            repo.mirrorlist = repo.baseurl
-            repo.baseurl = ""
-        elif repo.mirrorlist:
-            repo.baseurl = repo.mirrorlist
-            repo.mirrorlist = ""
+    def on_repo_url_type_changed(self, *args):
+        self._repoUrlEntry.emit("changed")
 
     def on_repoProxy_changed(self, *args):
         """ Update the selected repo's proxy settings
@@ -1611,12 +1652,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                                                                              Gtk.TreeRowReference.new(model, path)))
 
     def on_repoProtocolComboBox_changed(self, combobox, user_data=None):
-        # Set the mirrorlist and proxy fields sensitivity depending on whether NFS was selected
-        sensitive = not(self._repoProtocolComboBox.get_active_id() == PROTOCOL_NFS)
-        fancy_set_sensitive(self._repoMirrorlistCheckbox, sensitive)
-        fancy_set_sensitive(self._repoProxyUrlEntry, sensitive)
-        fancy_set_sensitive(self._repoProxyUsernameEntry, sensitive)
-        fancy_set_sensitive(self._repoProxyPasswordEntry, sensitive)
+        # Set the url type and proxy fields sensitivity depending on whether NFS was selected
+        protocol = self._repoProtocolComboBox.get_active_id()
+
+        can_have_proxy = protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP,
+                                      PROTOCOL_MIRROR)
+        fancy_set_sensitive(self._repoProxyUrlEntry, can_have_proxy)
+        fancy_set_sensitive(self._repoProxyUsernameEntry, can_have_proxy)
+        fancy_set_sensitive(self._repoProxyPasswordEntry, can_have_proxy)
+
+        can_have_mirror = protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS)
+        fancy_set_sensitive(self._repoUrlTypeComboBox, can_have_mirror)
 
         # Re-run the proxy check
         itr = self._repoSelection.get_selected()[1]
