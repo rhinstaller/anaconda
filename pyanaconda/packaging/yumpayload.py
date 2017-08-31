@@ -302,6 +302,12 @@ reposdir=%s
         if self.data.packages.multiLib:
             buf += "multilib_policy=all\n"
 
+        if self.data.packages.timeout is not None:
+            buf += "timeout=%s\n" % self.data.packages.timeout
+
+        if self.data.packages.retries is not None:
+            buf += "retries=%s\n" % self.data.packages.retries
+
         if hasattr(self.data.method, "proxy") and self.data.method.proxy:
             try:
                 proxy = ProxyString(self.data.method.proxy)

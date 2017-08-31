@@ -134,7 +134,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             if retry_count:
                 # retry after waiting a bit
                 time.sleep(next(xdelay))
-                print("PROGRESS_RETRY: Error populating transaction, retrying (%d/%d)"
+                print("PROGRESS_RETRY: Error populating transaction, anaconda is retrying (%d/%d)"
                       % (retry_count, MAX_DOWNLOAD_RETRIES))
             try:
                 # uses dsCallback.transactionPopulation
@@ -144,7 +144,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
                 continue
         else:
             # else = no break called = no successful attempt
-            print("ERROR: Error populating transaction after %d retries: %s"
+            print("ERROR: Error populating transaction after %d anaconda retries: %s"
                   % (retry_count, e))
             # we don't need to print "QUIT:" there, the finally clause
             # of the toplevel try-block will do that for us
