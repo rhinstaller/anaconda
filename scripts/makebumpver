@@ -40,6 +40,10 @@ DEFAULT_ZANATA_GIT_BRANCH_ALIASES = {
     "unstable": "master",
 }
 
+VERSION_NUMBER_INCREMENT = 1
+DEFAULT_ADDED_VERSION_NUMBER = 1
+DEFAULT_MINOR_VERSION_NUMBER = 1
+
 def run_program(*args):
     """Run a program with universal newlines on"""
     # pylint: disable=no-value-for-parameter
@@ -217,12 +221,12 @@ class MakeBumpVer:
     def _incrementVersion(self, bump_major_version=False, add_version_number=False):
         fields = self.version.split('.')
         if add_version_number:  # add another version number to the end
-            fields.append(str(int(1)))
+            fields.append(str(int(DEFAULT_ADDED_VERSION_NUMBER)))
         elif bump_major_version:  # increment major version
-            fields[0] = str(int(fields[0]) + 1) # bump major version
-            fields[-1] = str(int(1)) # reset minor version to 1
+            fields[0] = str(int(fields[0]) + VERSION_NUMBER_INCREMENT)  # bump major version
+            fields[1] = str(int(DEFAULT_MINOR_VERSION_NUMBER))  # reset minor version to 1
         else:  # minor version bump
-            fields[-1] = str(int(fields[-1]) + 1)
+            fields[-1] = str(int(fields[-1]) + VERSION_NUMBER_INCREMENT)
         new = ".".join(fields)
         return new
 
