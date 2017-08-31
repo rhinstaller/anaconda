@@ -1668,7 +1668,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         itr = self._repoSelection.get_selected()[1]
         if itr:
             repo = self._repoStore[itr][REPO_OBJ]
-            self._repoChecks[repo.repo_id].proxy_check.update_check_status()
+            # do not update check status if check are not yet set up
+            # (populationg/refreshing the spoke)
+            if repo.repo_id in self._repoChecks:
+                self._repoChecks[repo.repo_id].proxy_check.update_check_status()
 
         # Run the URL entry handler too as it might be needed
         self._repoUrlEntry.emit("changed")
