@@ -449,7 +449,10 @@ class Payload(object):
     def needsNetwork(self):
         """Test base and additional repositories if they require network."""
         url = ""
-        if self.data.method.method == "nfs":
+        if self.data.method.method is None:
+            # closest mirror set
+            return True
+        elif self.data.method.method == "nfs":
             # NFS is always on network
             return True
         elif self.data.method.method == "url":
