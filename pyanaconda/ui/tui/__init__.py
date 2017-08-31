@@ -55,16 +55,19 @@ def exception_msg_handler(signal, data):
     """
     global exception_processed
     if exception_processed:
+        # get data from the event data structure
+        msg_data = signal.exception_info
+
+        # msg_data is a list
+        sys.excepthook(*msg_data)
         return
-
-    # show only the first exception do not spam user with others
-    exception_processed = True
-
-    # get data from the event data structure
-    msg_data = signal.exception_info
-
-    # msg_data is a list
-    sys.excepthook(*msg_data)
+    else:
+        # show only the first exception do not spam user with others
+        exception_processed = True
+        loop = App.get_event_loop()
+        # start new loop for handling the exception
+        # this will stop processing all the old signals and prevent raising new exceptions
+        loop.execute_new_loop(signal)
 
 
 def tui_quit_callback(data):
