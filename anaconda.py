@@ -1,4 +1,4 @@
-#!/usr/libexec/system-python
+#!/usr/bin/python3
 #
 # anaconda: The Red Hat Linux Installation program
 #
