@@ -59,6 +59,9 @@ class BaseInstallClass(object):
 
     _l10n_domain = None
 
+    # EFI directory.
+    efi_dir = "default"
+
     # The default filesystem type to use.  If None, we will use whatever
     # Blivet uses by default.
     defaultFS = None
