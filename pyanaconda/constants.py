@@ -203,6 +203,7 @@ X_DISPLAY_NUMBER = 1
 
 # Payload status messages
 PAYLOAD_STATUS_PROBING_STORAGE = N_("Probing storage...")
+PAYLOAD_STATUS_TESTING_AVAILABILITY = N_("Testing availability..")
 PAYLOAD_STATUS_PACKAGE_MD = N_("Downloading package metadata...")
 PAYLOAD_STATUS_GROUP_MD = N_("Downloading group metadata...")
 

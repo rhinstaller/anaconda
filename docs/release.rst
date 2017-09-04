@@ -195,3 +195,129 @@ Once Fedora enters a freeze:
 Once Fedora exits the freeze:
 
 - drop the downstream patches and do merge based releases as before
+
+
+Branching for the next Fedora release
+=====================================
+
+Anaconda uses separate branches for each Fedora release to make parallel Anaconda development for Rawhide and next Fedora possible.
+The branches are named like this:
+
+- f<number>-devel
+- f<number>-release
+
+The ``-devel`` branch is where code changes go and it is periodically merged to the master branch.
+The ``-release`` branch contains release commits and any Fedora version specific hotfixes.
+
+How to branch Anaconda
+----------------------
+
+Create the ``-devel`` branch:
+
+::
+
+    git checkout master
+    git pull
+    git checkout -b f<version>-devel
+
+Create the ``-release`` branch:
+
+::
+
+    git checkout unstable
+    git pull
+    git checkout -b f<version>-release
+
+Push the branches to the origin (``-u`` makes sure to setup tracking) :
+
+::
+
+    git push -u origin f<version>-devel
+    git push -u origin f<version>-release
+
+How to create translation branch for next Fedora in Zanata
+----------------------------------------------------------
+
+The Fedora project uses the fedora.zanata.org translation system, so for each Fedora release we also need
+to create a new translation branch there.
+
+To do this you need to have:
+
+- a FAS account
+- be in the admin group of the Anaconda project on Zanata
+
+1. Go to the Anaconda project on the Fedora Zanata instance: https://fedora.zanata.org/project/view/anaconda
+
+2. Make sure you are logged in.
+
+3. Click on the small arrow next to the ``master`` branch and select ``Copy to new version``
+
+4. On the new page ``version id`` should be ``f<version>`` and make sure ``Copy from previous version`` is ticked
+
+5. Wait till the new branch is created.
+
+How to bump Rawhide Anaconda version
+------------------------------------
+
+- major version becomes major version ``+1``
+- minor version is set to 1
+
+For example, for the F27 branching:
+
+- at the time of branching the Rawhide version was ``27.20``
+- after the bump the version is ``28.1``
+
+
+First checkout the ``unstable`` branch and merge the ``master`` branch into it:
+
+::
+
+    git checkout unstable
+    git merge --no-ff master
+
+Then do the major version bump and verify the output looks correct:
+
+::
+
+    ./scripts/makebumpver --skip-zanata -c --bump-major-version
+
+If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
+
+::
+
+    git push origin unstable --tags
+
+Then continue with the normal Rawhide Anaconda build process.
+
+How to add release version for next Fedora
+------------------------------------------
+
+The current practise is to keep the Rawhide major & minor version from which the
+given Anaconda was branched as-is and add a third version number (the release number
+in the NVR nomenclature) and bump that when releasing a new Anaconda for the
+upcoming Fedora release.
+
+For example, for the F27 branching:
+
+- the last Rawhide Anaconda release was 27.20
+- so the first F27 Anaconda release will be 27.20.1, the next 27.20.2 and so on
+
+First checkout the ``f<version>-release`` branch and merge ``f<version>-devel`` into it:
+
+::
+
+    git checkout f<version>-release
+    git merge --no-ff f<version>-devel
+
+Then add the third (release) version number:
+
+::
+    ./scripts/makebumpver --skip-zanata -c --add-version-number
+
+If everything looks fine (changelog, the version number & tag) push the changes to the origin:
+
+::
+
+    git push origin f<version>-release --tags
+
+Then continue with the normal Upcoming Fedora Anaconda build process.

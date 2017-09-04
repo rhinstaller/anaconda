@@ -17,34 +17,41 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from meh import Config
-from meh.handler import ExceptionHandler
-from meh.dump import ReverseExceptionDump
-from pyanaconda import iutil, kickstart
-import sys
-import os
-import shutil
-import time
-import re
 import errno
 import glob
-import traceback
-import blivet.errors
-from pyanaconda.errors import NonInteractiveError
-from pyanaconda.ui.communication import hubQ
-from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
-from pyanaconda.threading import threadMgr
-from pyanaconda.i18n import _
-from pyanaconda import flags
-from pyanaconda import startup_utils
-
 import gi
+import os
+import re
+import shutil
+import sys
+import time
+import traceback
+
+import blivet.errors
+
+from meh import Config
+from meh.dump import ReverseExceptionDump
+from meh.handler import ExceptionHandler
+
+from pyanaconda import flags
+from pyanaconda import iutil, kickstart
+from pyanaconda import startup_utils
+from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
+from pyanaconda.errors import NonInteractiveError
+from pyanaconda.i18n import _
+from pyanaconda.threading import threadMgr
+from pyanaconda.ui.communication import hubQ
+
+from simpleline import App
+from simpleline.event_loop.signals import ExceptionSignal
+
 gi.require_version("GLib", "2.0")
 
 from gi.repository import GLib
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
 
 class AnacondaReverseExceptionDump(ReverseExceptionDump):
 
@@ -69,6 +76,7 @@ class AnacondaReverseExceptionDump(ReverseExceptionDump):
             return description.strip()
         else:
             return ""
+
 
 class AnacondaExceptionHandler(ExceptionHandler):
 
@@ -190,9 +198,16 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # data and let message handler run the exception handler in
                 # the main thread
                 exc_info = dump_info.exc_info
-                hubQ.send_exception((exc_info.type,
-                                     exc_info.value,
-                                     exc_info.stack))
+                # new Simpleline package is now used in TUI. Look if Simpleline is
+                # initialized or if this is some fallback from GTK or other stuff.
+                if App.is_initialized():
+                    # if Simpleline is initialized enqueue exception there
+                    loop = App.get_event_loop()
+                    loop.enqueue_signal(ExceptionSignal(App.get_scheduler(), exception_info=exc_info))
+                else:
+                    hubQ.send_exception((exc_info.type,
+                                         exc_info.value,
+                                         exc_info.stack))
 
     def postWriteHook(self, dump_info):
         anaconda = dump_info.object
@@ -242,6 +257,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         if flags.can_touch_runtime_system("switch console") \
                 and self._intf_tty_num != 1:
             iutil.vtActivate(self._intf_tty_num)
+
 
 def initExceptionHandling(anaconda):
     file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
@@ -298,15 +314,18 @@ def initExceptionHandling(anaconda):
 
     return conf
 
+
 def lsblk_callback():
     """Callback to get info about block devices."""
 
     return iutil.execWithCapture("lsblk", ["--perms", "--fs", "--bytes"])
 
+
 def nmcli_dev_list_callback():
     """Callback to get info about network devices."""
 
     return iutil.execWithCapture("nmcli", ["device", "show"])
+
 
 def journalctl_callback():
     """Callback to get logs from journalctl."""
@@ -322,6 +341,7 @@ def journalctl_callback():
 
     return ret
 
+
 def list_addons_callback():
     """
     Callback to get info about the addons potentially affecting Anaconda's
@@ -332,6 +352,7 @@ def list_addons_callback():
     # list available addons and take their package names
     addon_pkgs = glob.glob("/usr/share/anaconda/addons/*")
     return ", ".join(addon.rsplit("/", 1)[1] for addon in addon_pkgs)
+
 
 def test_exception_handling():
     """
