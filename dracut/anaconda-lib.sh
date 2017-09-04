@@ -155,8 +155,8 @@ when_diskdev_appears() {
     local dev="${1#/dev/}" cmd=""; shift
     cmd="/sbin/initqueue --settled --onetime --name $1 $*"
     {
-        printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
-        printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
+        printf 'SUBSYSTEM=="block", ACTION=="add", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
+        printf 'SUBSYSTEM=="block", ACTION=="add", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
     } >> $rulesfile
 }
 
