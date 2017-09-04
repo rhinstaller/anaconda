@@ -319,6 +319,31 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 04 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.123-1
+- Skip temporarily unavailable checks in the source spoke (mkolman)
+  Resolves: rhbz#1365416
+- Fix restart payload thread in Network spoke GUI (jkonecny)
+  Related: rhbz#1478970
+- Add the boot option inst.xtimeout (vponcova)
+  Resolves: rhbz#1462035
+- Add missing gtk3 required version to spec file (jkonecny)
+  Resolves: rhbz#1445648
+- Sort spec required versions alphabetically (jkonecny)
+  Related: rhbz#1445648
+- Fix testing of the kickstart version (vponcova)
+  Related: rhbz#1412159
+- Add tests for the install class factory and the installclass command
+  (vponcova)
+  Related: rhbz#1412159
+- Support for the installclass kickstart command (vponcova)
+  Resolves: rhbz#1412159
+- Modules with install classes should define __all__ (vponcova)
+  Related: rhbz#1412159
+- Refactorization of the installclass.py (vponcova)
+  Related: rhbz#1412159
+- timezone: for kickstart allow also timezones not offered by GUI (rvykydal)
+  Resolves: rhbz#1452873
+
 * Tue Aug 22 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.122-1
 - Network spoke freeze when testing availability (jkonecny)
   Related: rhbz#1478970
