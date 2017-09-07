@@ -319,6 +319,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 07 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.124-1
+- network: add support for kickstart --bindto=mac for virtual devices
+  (rvykydal)
+  Resolves: rhbz#1328576
+- network: support mac bound network settings as first class (rvykydal)
+  Related: rhbz#1328576
+- network: add support for kickstart --bindto=mac for wired devices (rvykydal)
+  Resolves: rhbz#1328576
+
 * Mon Sep 04 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.123-1
 - Skip temporarily unavailable checks in the source spoke (mkolman)
   Resolves: rhbz#1365416

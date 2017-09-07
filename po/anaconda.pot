@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.122\n"
+"Project-Id-Version: anaconda 21.48.22.123\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-09-04 12:44+0200\n"
+"POT-Creation-Date: 2017-09-07 11:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -836,75 +836,75 @@ msgid ""
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/network.py:108
+#: pyanaconda/network.py:109
 msgid "Host name cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:111
+#: pyanaconda/network.py:112
 msgid "Host name must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:114
+#: pyanaconda/network.py:115
 msgid ""
 "Host names can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1604 pyanaconda/ui/gui/spokes/custom.py:566
+#: pyanaconda/network.py:1627 pyanaconda/ui/gui/spokes/custom.py:566
 #: pyanaconda/ui/gui/spokes/network.py:326
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:64
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1608
+#: pyanaconda/network.py:1631
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1610
+#: pyanaconda/network.py:1633
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1632
+#: pyanaconda/network.py:1655
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1635
+#: pyanaconda/network.py:1658
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1638
+#: pyanaconda/network.py:1661
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1642
+#: pyanaconda/network.py:1665
 #, python-format
 msgid "Team %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1646
+#: pyanaconda/network.py:1669
 #, python-format
 msgid "Bridge %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1656
+#: pyanaconda/network.py:1679
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1674
+#: pyanaconda/network.py:1697
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1677
+#: pyanaconda/network.py:1700
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1680 pyanaconda/ui/gui/spokes/network.glade.h:45
+#: pyanaconda/network.py:1703 pyanaconda/ui/gui/spokes/network.glade.h:45
 msgid "No network devices available"
 msgstr ""
 
