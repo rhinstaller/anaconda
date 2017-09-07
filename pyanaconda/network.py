@@ -46,6 +46,7 @@ from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
+from pykickstart.constants import BIND_TO_MAC
 
 import gi
 gi.require_version("NM", "1.0")
@@ -568,6 +569,11 @@ def update_settings_with_ksdata(devname, networkdata):
         log.debug("network: %s for %s, using %s", e, devname, uuid)
     new_values = _get_ip_setting_values_from_ksdata(networkdata)
     new_values.append(['connection', 'autoconnect', False, 'b'])
+    if networkdata.bindto == BIND_TO_MAC:
+        hwaddr = nm.nm_device_perm_hwaddress(devname)
+        hwaddr = [int(b, 16) for b in hwaddr.split(":")]
+        new_values.append(['802-3-ethernet', 'mac-address', hwaddr, 'ay'])
+        new_values.append(['connection', 'interface-name', None, 's'])
     nm.nm_update_settings(uuid, new_values)
     return uuid
 
@@ -598,7 +604,9 @@ def add_connection_for_ksdata(networkdata, devname):
         options = bond_options_ksdata_to_dbus(networkdata.bondopts)
         values.append(['bond', 'options', options, 'a{ss}'])
         for i, slave in enumerate(networkdata.bondslaves.split(","), 1):
-            suuid = _add_slave_connection('bond', i, slave, devname, networkdata.activate)
+            suuid = _add_slave_connection('bond', i, slave, devname,
+                                          networkdata.activate,
+                                          bindto=networkdata.bindto)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "team"
@@ -611,7 +619,10 @@ def add_connection_for_ksdata(networkdata, devname):
             svalues = []
             if cfg:
                 svalues.append(['team-port', 'config', cfg, 's'])
-            suuid = _add_slave_connection('team', i, slave, devname, networkdata.activate, svalues)
+            suuid = _add_slave_connection('team', i, slave, devname,
+                                          networkdata.activate,
+                                          values=svalues,
+                                          bindto=networkdata.bindto)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "vlan"
@@ -643,7 +654,9 @@ def add_connection_for_ksdata(networkdata, devname):
                 continue
             values.append(['bridge', key, int(value), 'u'])
         for i, slave in enumerate(networkdata.bridgeslaves.split(","), 1):
-            suuid = _add_slave_connection('bridge', i, slave, devname, networkdata.activate)
+            suuid = _add_slave_connection('bridge', i, slave, devname,
+                                          networkdata.activate,
+                                          bindto=networkdata.bindto)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "infiniband"
@@ -660,10 +673,11 @@ def add_connection_for_ksdata(networkdata, devname):
         if mac:
             mac = [int(b, 16) for b in mac.split(":")]
             values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
-
+            values.append(['connection', 'interface-name', devname, 's'])
+        else:
+            values.append(connection_binding_setting(devname, networkdata.bindto))
         values.append(['connection', 'type', '802-3-ethernet', 's'])
         values.append(['connection', 'id', devname, 's'])
-        values.append(['connection', 'interface-name', devname, 's'])
 
         if blivet.arch.isS390():
             # Add s390 settings
@@ -687,6 +701,15 @@ def add_connection_for_ksdata(networkdata, devname):
         return []
     added_connections.insert(0, (con_uuid, dev_spec))
     return added_connections
+
+def connection_binding_setting(devname, bindto):
+    if bindto == BIND_TO_MAC:
+        hwaddr = nm.nm_device_perm_hwaddress(devname)
+        hwaddr = [int(b, 16) for b in hwaddr.split(":")]
+        setting = ['802-3-ethernet', 'mac-address', hwaddr, 'ay']
+    else:
+        setting = ['connection', 'interface-name', devname, 's']
+    return setting
 
 def _bound_hwaddr_of_device(devname):
     """Return hwaddr of the device if it's bound by ifname= dracut boot option
@@ -751,7 +774,7 @@ def _get_s390_settings(devname):
 
     return cfg
 
-def _add_slave_connection(slave_type, slave_idx, slave, master, activate, values=None):
+def _add_slave_connection(slave_type, slave_idx, slave, master, activate, values=None, bindto=None):
     values = values or []
     slave_name = "%s slave %d" % (master, slave_idx)
 
@@ -762,7 +785,7 @@ def _add_slave_connection(slave_type, slave_idx, slave, master, activate, values
     values.append(['connection', 'slave-type', slave_type, 's'])
     values.append(['connection', 'master', master, 's'])
     values.append(['connection', 'type', '802-3-ethernet', 's'])
-    values.append(['connection', 'interface-name', slave, 's'])
+    values.append(connection_binding_setting(slave, bindto))
     # HACK preventing NM to autoactivate the connection
     # The real network --onboot value (ifcfg ONBOOT) will be set later by setOnboot
     values.append(['connection', 'autoconnect', False, 'b'])
