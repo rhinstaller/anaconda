@@ -1846,6 +1846,7 @@ class EFIGRUB(EFIBase, GRUB2):
         if value == '32':
             self._is_32bit_firmware = True
 
+    @property
     def _efi_binary(self):
         if self._is_32bit_firmware:
             return "\\shimia32.efi"
