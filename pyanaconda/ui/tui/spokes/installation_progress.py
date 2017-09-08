@@ -112,23 +112,19 @@ class ProgressSpoke(StandaloneTUISpoke):
             q.task_done()
         return True
 
-    def refresh(self, args=None):
+    def show_all(self):
+        super().show_all()
         from pyanaconda.installation import doInstall, doConfiguration
         from pyanaconda.threading import threadMgr, AnacondaThread
 
-        # We print this here because we don't really use the window object
-        print(_(self.title))
+        thread_args = (self.storage, self.payload, self.data, self.instclass)
 
-        threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
-                                     args=(self.storage, self.payload, self.data,
-                                           self.instclass)))
+        threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall, args=thread_args))
 
         # This will run until we're all done with the install thread.
         self._update_progress()
 
-        threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
-                                     args=(self.storage, self.payload, self.data,
-                                           self.instclass)))
+        threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration, args=thread_args))
 
         # This will run until we're all done with the configuration thread.
         self._update_progress()

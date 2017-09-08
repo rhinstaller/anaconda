@@ -28,9 +28,10 @@ from pyanaconda.ui.tui.spokes import StandaloneSpoke
 from pyanaconda.ui.tui.tuiobject import IpmiErrorDialog
 
 from simpleline import App
+from simpleline.event_loop.glib_event_loop import GLibEventLoop
+from simpleline.event_loop.signals import ExceptionSignal
 from simpleline.render.adv_widgets import YesNoDialog
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.event_loop.signals import ExceptionSignal
 
 import os
 import sys
@@ -51,21 +52,22 @@ def exception_msg_handler(signal, data):
     :type signal: (event_type, message_data)
     :param data: additional data
     :type data: any
-
     """
-
     global exception_processed
     if exception_processed:
+        # get data from the event data structure
+        msg_data = signal.exception_info
+
+        # msg_data is a list
+        sys.excepthook(*msg_data)
         return
-
-    # show only the first exception do not spam user with others
-    exception_processed = True
-
-    # get data from the event data structure
-    msg_data = signal.exception_info
-
-    # msg_data is a list
-    sys.excepthook(*msg_data)
+    else:
+        # show only the first exception do not spam user with others
+        exception_processed = True
+        loop = App.get_event_loop()
+        # start new loop for handling the exception
+        # this will stop processing all the old signals and prevent raising new exceptions
+        loop.execute_new_loop(signal)
 
 
 def tui_quit_callback(data):
@@ -164,8 +166,10 @@ class TextUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
-        App.initialize()
-        loop = App.get_event_loop()
+        # Use GLib event loop for the Simpleline TUI
+        loop = GLibEventLoop()
+        App.initialize(event_loop=loop)
+
         loop.set_quit_callback(tui_quit_callback)
         scheduler = App.get_scheduler()
         scheduler.quit_screen = YesNoDialog(self.quitMessage)

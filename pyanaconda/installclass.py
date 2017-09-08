@@ -59,6 +59,9 @@ class BaseInstallClass(object):
 
     _l10n_domain = None
 
+    # EFI directory.
+    efi_dir = "default"
+
     # The default filesystem type to use.  If None, we will use whatever
     # Blivet uses by default.
     defaultFS = None
@@ -213,12 +216,6 @@ class InstallClassFactory(object):
             install_class = self.visible_classes[0]
             log.info("Using a visible install class %s.",
                      self._get_class_description(install_class))
-
-        elif self.classes:
-            install_class = self.classes[0]
-            log.info("Using a hidden install class %s.",
-                     self._get_class_description(install_class))
-
         else:
             raise RuntimeError("Unable to find an install class to use.")
 
