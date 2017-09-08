@@ -61,6 +61,14 @@ COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
 USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
+RESULT_DIR ?= $(srcdir)/result
+BUILD_RESULT_DIR = $(RESULT_DIR)/build
+TEST_RESULT_DIR = $(RESULT_DIR)/tests
+
+SRPM_BUILD_DIR = $(BUILD_RESULT_DIR)/00-srpm-build
+RPM_BUILD_DIR = $(BUILD_RESULT_DIR)/01-rpm-build
+TEST_INST_BUILD_DIR = $(BUILD_RESULT_DIR)/02-test-install
+
 # If translations are present, run tests on the .po files before tarring them
 # up. Use a weird looking loop because shell doesn't have a good way to test
 # for a wildcard
@@ -120,13 +128,14 @@ release-and-tag:
 	$(MAKE) tag
 
 rc-release: scratch-bumpver scratch
-	mock -r $(MOCKCHROOT) --scrub all || exit 1
-	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(PWD) || exit 1
-	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(PWD) || exit 1
+	-rm -rf $(BUILD_RESULT_DIR)
+	mock -r $(MOCKCHROOT) --clean || exit 1
+	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
+	mock -r $(MOCKCHROOT) --rebuild $(SRPM_BUILD_DIR)/*src.rpm --resultdir $(RPM_BUILD_DIR) || exit 1
 
 test-install: rc-release
-	mock -r $(MOCKCHROOT) --scrub all || exit 1
-	mock -r $(MOCKCHROOT) --install $(PWD)/anaconda-*$(ARCH_NAME).rpm
+	mock -r $(MOCKCHROOT) --clean || exit 1
+	mock -r $(MOCKCHROOT) --install $(RPM_BUILD_DIR)/anaconda-*$(ARCH_NAME).rpm --resultdir $(TEST_INST_BUILD_DIR)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -220,7 +229,7 @@ bare-ci:
 		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh \
 		PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@mkdir -p repo
-	@mv *rpm repo
+	@mv $(RPM_BUILD_DIR)/*rpm repo
 	@createrepo_c -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
@@ -230,25 +239,25 @@ bare-ci:
 	$(MAKE) coverage-report
 
 isolated-test: setup-test-env
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > tests/error_occured
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > $(srcdir)/tests/error_occured
 	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cp -r /root/anaconda/tests/**/*.log /root/anaconda/tests/*.log* /result/" || exit 1
+	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda/tests && cp -r --parents ./**/*.log ./*.log* /result/" || exit 1
 
-	-rm -rf $(srcdir)/result
-	cp -r "$$(mock -r $(MOCKCHROOT) -p)/result" $(srcdir)
+	-rm -rf $(TEST_RESULT_DIR)
+	mkdir -p $(TEST_RESULT_DIR)
+	cp -r $$(mock -r $(MOCKCHROOT) -p)/result/* $(TEST_RESULT_DIR)/
 # Move builders logs
-	-mv $(srcdir)/*.log $(srcdir)/result/
-	-mv $(srcdir)/result/test-suite.log.* $(srcdir)/result/test-suite.log
-	@if [ -f tests/error_occured ]; then \
+	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
+	@if [ -f $(srcdir)/tests/error_occured ]; then \
 		echo "TEST FAILED"; \
-		status=$$(cat tests/error_occured); \
-		rm tests/error_occured; \
+		status=$$(cat $(srcdir)/tests/error_occured); \
+		rm $(srcdir)/tests/error_occured; \
 		exit $$status; \
 	fi
 
 setup-test-env:
 	@-rm -f tests/error_occured
-	mock -r $(MOCKCHROOT) --scrub all || exit 1
+	mock -r $(MOCKCHROOT) --clean || exit 1
 # Install missing dependencies for running make install-test-requires
 	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
 	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1

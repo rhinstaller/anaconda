@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013  Red Hat, Inc.
+# Copyright (C) 2013, 2017  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -20,14 +20,21 @@
 A GeoIP and WiFi location module - location detection based on IP address
 
 How to use the geolocation module
-   First call :func:`init_geolocation` - this creates the LocationInfo singleton and
-   you can also use it to set what geolocation provider should be used.
-   To actually look up current position, call :func:`refresh` - this will trigger
-   the actual online geolocation query, which runs in a thread.
+   First call init_geolocation() with appropriate parameters - this creates the Geolocation singleton and
+   specifies what geolocation provider will be used.
+
+   To actually look up current position, call the refresh() function of the singleton,
+   this will trigger the actual online geolocation query, which runs in a thread.
+
+   It's possible to wait for the lookup to finish by calling the wait_for_refresh_to_finish() method
+   of the singleton. If a lookup is in progress it will block until the lookup finishes or a timeout
+   is reached. If no lookup is in progress in till return at once.
+
    After the look-up thread finishes, the results are stored in the singleton
-   and can be retrieved using the :func:`get_territory_code` and :func:`get_result` methods.
-   If you call these methods without calling :func:`refresh` first or if the look-up
-   is currently in progress, both return ``None``.
+   and can be retrieved using the territory, timezone and result properties.
+
+   If you use these properties without calling refresh() first or if the look-up is currently
+   in progress or failed to return any results all properties will return None.
 
 ====================
 Geolocation backends
@@ -40,7 +47,7 @@ This module currently supports three geolocation backends:
 
 Fedora GeoIP backend
    This is the default backend. It queries the Fedora GeoIP API for location
-   data based on current public IP address. The reply is JSON formated and
+   data based on current public IP address. The reply is JSON formatted and
    contains the following fields:
    postal_code, latitude, longitude, region, city, country_code, country_name,
    time_zone, country_code3, area_code, metro_code, region_name and dma_code
@@ -51,8 +58,8 @@ Hostip backend
    from current public IP address. The public IP address is determined
    automatically when calling the API.
    GeoIP results from Hostip contain the current public IP and an approximate
-   address. To get this detail location info, use the get_result() method
-   to get an instance of the LocationResult class, used to wrap the result.
+   address. To get this detail location info, use the result property to get
+   an instance of the LocationResult class, used to wrap the lookup result.
 
 Google WiFi backend
    This backend is probably the most accurate one, at least as long as the
@@ -112,243 +119,210 @@ from pyanaconda import network
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_sensitive_info_logger
 log = get_module_logger(__name__)
-slog = get_sensitive_info_logger()
+sensitive_info_log = get_sensitive_info_logger()
 
 from pyanaconda import constants
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
+from pyanaconda.flags import flags
 
-location_info_instance = None
-refresh_condition = threading.Condition()
-refresh_in_progress = False
-
-
-def init_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
-    """Prepare the geolocation module for handling geolocation queries.
-    This method sets-up the GeoLocation instance with the given
-    geolocation_provider (or using the default one if no provider
-    is given. Please note that calling this method doesn't actually
-    execute any queries by itself, you need to call refresh()
-    to do that.
-
-    :param provider_id: specifies what geolocation backend to use
-    """
-    global location_info_instance
-    location_info_instance = LocationInfo(provider_id=provider_id)
-
-
-def refresh():
-    """Refresh information about current location using the currently specified
-    geolocation provider.
-    """
-    if location_info_instance:
-        location_info_instance.refresh()
-    else:
-        log.debug("Geoloc: refresh() called before init_geolocation()")
-
-
-def get_territory_code(wait=False):
-    """
-    This function returns the current country code or ``None``, if:
-
-    * no results were found
-    * the lookup is still in progress
-    * the geolocation module was not activated
-      (:func:`init_geolocation` & :func:`refresh` were not called)
-
-       * this is for example the case during image and directory installs
-
-    :param wait: wait for lookup in progress to finish
-
-       | ``False`` - don't wait
-       | ``True`` - wait for default period
-       | number - wait for up to number seconds
-
-    :type wait:  bool or number
-    :return: current country code or ``None`` if not known
-    :rtype: string or ``None``
-    """
-    if _get_location_info_instance(wait):
-        return location_info_instance.get_territory_code()
-    else:
-        return None
-
-
-def get_timezone(wait=False):
-    """
-    This function returns the current time zone or ``None``, if:
-
-    * no timezone was found
-    * the lookup is still in progress
-    * the geolocation module was not activated
-      (:func:`init_geolocation` & :func:`refresh` were not called)
-
-     * this is for example the case during image and directory installs
-
-    :param wait: wait for lookup in progress to finish
-
-       | ``False`` - don't wait
-       | ``True`` - wait for default period
-       | number - wait for up to number seconds
-
-    :type wait:  bool or number
-    :return: current timezone or ``None`` if not known
-    :rtype: string or ``None``
-    """
-    if _get_location_info_instance(wait):
-        return location_info_instance.get_timezone()
-    else:
-        return None
-
-
-def get_result(wait=False):
-    """
-    Returns the current geolocation result wrapper or ``None``, if:
-
-    * no results were found
-    * the refresh is still in progress
-    * the geolocation module was not activated
-      (:func:`init_geolocation` & :func:`refresh` were not called)
-
-       * this is for example the case during image and directory installs
-
-    :param wait: wait for lookup in progress to finish
-
-       | ``False`` - don't wait
-       | ``True`` - wait for default period
-       | number - wait for up to number seconds
-
-    :type wait:  bool or number
-    :return: :class:`LocationResult` instance or ``None`` if location is unknown
-    :rtype: :class:`LocationResult` or ``None``
-    """
-    if _get_location_info_instance(wait):
-        return location_info_instance.get_result()
-    else:
-        return None
-
-
-def get_provider_id_from_option(option_string):
-    """
-    Get a valid provider id from a string
-    This function is used to parse command line
-    arguments/boot options for the geolocation module.
-
-    :param option_string: option specifying the provider
-    :type option_string: string
-    :return: provider id
-    """
-
-    providers = {
-        constants.GEOLOC_PROVIDER_FEDORA_GEOIP,
-        constants.GEOLOC_PROVIDER_HOSTIP
-    }
-    if option_string in providers:
-        return option_string
-    else:
-        # fall back to the default provider
-        return None
-
-
-def _get_provider(provider_id):
-    """Return GeoIP provider instance based on the provider id
-    If the provider id is unknown, return the default provider.
-
-    :return: GeolocationBackend subclass instance
-    :rtype: GeolocationBackend subclass
-    """
-
-    providers = {
-        constants.GEOLOC_PROVIDER_FEDORA_GEOIP: FedoraGeoIPProvider,
-        constants.GEOLOC_PROVIDER_HOSTIP: HostipGeoIPProvider,
-        constants.GEOLOC_PROVIDER_GOOGLE_WIFI: GoogleWiFiLocationProvider
-    }
-    # if unknown provider id is specified,
-    # use the Fedora GeoIP provider
-    default_provider = FedoraGeoIPProvider
-    provider = providers.get(provider_id, default_provider)
-    return provider()
-
-
-def _get_location_info_instance(wait=False):
-    """
-    Return instance of the location info object
-    and optionally wait for the Geolocation thread to finish
-
-    If there is no lookup in progress (no Geolocation refresh thread
-    is running), this function returns at once).
-
-    Meaning of the wait parameter:
-    - False or <=0: don't wait
-    - True : wait for default number of seconds specified by
-    the GEOLOC_TIMEOUT constant
-    - >0 : wait for a given number of seconds
-
-    :param wait: specifies if this function should wait
-    for the lookup to finish before returning the instance
-    :type wait: bool or integer or float
-    """
-    if not wait:
-        # just returns the instance
-        return location_info_instance
-
-    # check if wait is a boolean or a number
-    if wait is True:
-        # use the default waiting period
-        wait = constants.GEOLOC_TIMEOUT
-    # check if there is a refresh in progress
-    start_time = time.time()
-    refresh_condition.acquire()
-    if refresh_in_progress:
-        # calling wait releases the lock and blocks,
-        # after the thread is notified, it unblocks and
-        # reacquires the lock
-        refresh_condition.wait(timeout=wait)
-        if refresh_in_progress:
-            log.info("Waiting for Geolocation timed out after %d seconds.", wait)
-            # please note that this does not mean that the actual
-            # geolocation lookup was stopped in any way, it just
-            # means the caller was unblocked after the waiting period
-            # ended while the lookup thread is still running
-        else:
-            elapsed_time = time.time() - start_time
-            log.info("Waited %1.2f seconds for Geolocation", elapsed_time)
-    refresh_condition.release()
-    return location_info_instance
+OFFICIALLY_SUPPORTED_GEOLOCATION_PROVIDER_IDS = {
+    constants.GEOLOC_PROVIDER_FEDORA_GEOIP,
+    constants.GEOLOC_PROVIDER_HOSTIP
+}
 
 
 class GeolocationError(Exception):
-    """Exception class for geolocation related errors"""
+    """Exception class for geolocation related errors."""
     pass
 
 
+class Geolocation(object):
+    """Top level geolocation handler."""
+
+    def __init__(self, geoloc_option=None, options_override=False, install_class_override=False):
+        # Prepare the geolocation module for handling geolocation queries.
+        #
+        # This sets-up the Geolocation instance with the given
+        # geolocation_provider (or using the default one if no provider
+        # is given. Please note that calling this method doesn't actually
+        # execute any queries by itself, you need to call refresh()
+        # to do that.
+        self._geolocation_enabled = self._check_if_geolocation_should_be_used(options_override, install_class_override)
+        provider_id = constants.GEOLOC_DEFAULT_PROVIDER
+
+        # check if a provider was specified by an option
+        if geoloc_option is not None:
+            parsed_id = self._get_provider_id_from_option(geoloc_option)
+            if parsed_id is None:
+                log.error('geoloc: wrong provider id specified: %s', geoloc_option)
+            else:
+                provider_id = parsed_id
+
+        self._location_info = LocationInfo(provider_id=provider_id)
+
+    def _check_if_geolocation_should_be_used(self, options_override, install_class_override):
+        """Check if geolocation can be used during this installation run.
+
+        And set the geolocation_enabled module attribute accordingly.
+
+        The result is based on current installation type - fully interactive vs
+        fully or partially automated kickstart installation and on the state of the
+        "geoloc*" boot/CLI options.
+
+        By default geolocation is not enabled during a kickstart based installation,
+        unless the geoloc_use_with_ks boot/CLI option is used or the Install Class
+        indicates geolocation should be used with kickstart.
+
+        Also the geoloc boot/CLI option can be used to make sure geolocation
+        will not be used during an installation, like this:
+
+        inst.geoloc=0
+
+        :param bool options_override: use with kickstart due to CLI/boot option override
+        :param bool install_class_override: use with kickstart due to install class override
+        """
+        geolocation_enabled = True
+        # don't use geolocation during image and directory installation
+        if flags.imageInstall or flags.dirInstall:
+            log.info("Geolocation is disabled for image or directory installation.")
+            geolocation_enabled = False
+        # don't use geolocation during kickstart installation unless explicitly
+        # requested by the user
+        elif flags.automatedInstall:
+            # check for use-with-kickstart overrides
+            if options_override or install_class_override:
+                geolocation_enabled = True
+            else:
+                # otherwise disable geolocation during a kickstart installation
+                geolocation_enabled = False
+
+        # and also check if geolocation was not disabled by boot or command like option
+        if not flags.cmdline.getbool('geoloc', True):
+            # flags.cmdline.getbool is used as it handles values such as
+            # 0, no, off and also nogeoloc as False
+            # and other values or geoloc not being present as True
+            geolocation_enabled = False
+
+        # log the result
+        self._log_geolocation_status(geolocation_enabled, options_override, install_class_override)
+
+        return geolocation_enabled
+
+    def _log_geolocation_status(self, geolocation_enabled, options_override, install_class_override):
+        """Log geolocation usage status."""
+        if geolocation_enabled:
+            if flags.automatedInstall:
+                if options_override:
+                    log.info("Geolocation is enabled during kickstart installation due to use of the "
+                             "geoloc-use-with-ks option.")
+                if install_class_override:
+                    log.info("Geolocation is enabled during kickstart installation due to "
+                             "install class override.")
+            else:
+                log.info("Geolocation is enabled.")
+        else:
+            if flags.imageInstall or flags.dirInstall:
+                log.info("Geolocation is disabled for image or directory installation.")
+            elif flags.automatedInstall:
+                log.info("Geolocation is disabled due to automated kickstart based installation.")
+            if not flags.cmdline.getbool('geoloc', True):
+                log.info("Geolocation is disabled by the geoloc option.")
+
+    def refresh(self):
+        """Refresh information about current location."""
+        self._location_info.refresh()
+
+    def wait_for_refresh_to_finish(self, timeout=constants.GEOLOC_TIMEOUT):
+        """Wait for the Geolocation lookup to finish.
+
+        If there is no lookup in progress (no Geolocation refresh thread
+        is running), this function returns at once.
+
+        :param float timeout: how many seconds to wait before timing out
+        """
+        start_time = time.time()
+        self._location_info.refresh_condition.acquire()
+        if self._location_info.refresh_in_progress:
+            # calling wait releases the lock and blocks,
+            # after the thread is notified, it unblocks and
+            # reacquires the lock
+            self._location_info.refresh_condition.wait(timeout=timeout)
+            if self._location_info.refresh_in_progress:
+                log.info("Waiting for Geolocation timed out after %d seconds.", timeout)
+                # please note that this does not mean that the actual
+                # geolocation lookup was stopped in any way, it just
+                # means the caller was unblocked after the waiting period
+                # ended while the lookup thread is still running
+            else:
+                elapsed_time = time.time() - start_time
+                log.info("Waited %1.2f seconds for Geolocation", elapsed_time)
+        self._location_info.refresh_condition.release()
+
+    @property
+    def enabled(self):
+        """Report if geolocation is enabled."""
+        return self._geolocation_enabled
+
+    @property
+    def result(self):
+        """Returns the current geolocation result wrapper.
+
+        None might be returned if:
+
+        - no results were found
+        - the refresh is still in progress
+
+        :return: :class:LocationResult instance or None if location is unknown
+        :rtype: :class:LocationResult instance or None
+        """
+        return self._location_info.result
+
+    def _get_provider_id_from_option(self, option_string):
+        """Get a valid provider id from a string.
+
+        This function is used to parse command line
+        arguments/boot options for the geolocation module.
+
+        :param str option_string: option specifying the provider
+        :return: provider id
+        """
+        # normalize the option string, just in case
+        option_string = option_string.lower()
+        if option_string.lower() in OFFICIALLY_SUPPORTED_GEOLOCATION_PROVIDER_IDS:
+            return option_string
+        else:
+            # fall back to the default provider
+            return None
+
+
 class LocationInfo(object):
-    """
+    """Determines current location.
+
     Determines current location based on IP address or
     nearby WiFi access points (depending on what backend is used)
     """
 
-    def __init__(self,
-                 provider_id=constants.GEOLOC_DEFAULT_PROVIDER,
-                 refresh_now=False):
+    def __init__(self, provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
         """
-        :param provider_id: GeoIP provider id specified by module constant
-        :param refresh_now: if a GeoIP information refresh should be done
-                            once the class is initialized
-        :type refresh_now: bool
+        :param str provider_id: GeoIP provider id
         """
-        self._provider = _get_provider(provider_id)
-        if refresh_now:
-            self.refresh()
+        available_providers = {
+            constants.GEOLOC_PROVIDER_FEDORA_GEOIP: FedoraGeoIPProvider,
+            constants.GEOLOC_PROVIDER_HOSTIP: HostipGeoIPProvider,
+            constants.GEOLOC_PROVIDER_GOOGLE_WIFI: GoogleWiFiLocationProvider
+        }
+        provider = available_providers.get(provider_id, FedoraGeoIPProvider)
+        self._provider = provider()
+
+    @property
+    def result(self):
+        """Return the lookup result."""
+        return self._provider.result
 
     def refresh(self):
-        """Refresh location info"""
-        # first check if a provider is available
-        if self._provider is None:
-            log.error("Geoloc: can't refresh - no provider")
-            return
-
-        # then check if a refresh is already in progress
+        """Refresh location info."""
+        # check if a refresh is already in progress
         if threadMgr.get(constants.THREAD_GEOLOCATION_REFRESH):
             log.debug("Geoloc: refresh already in progress")
         else:  # wait for Internet connectivity
@@ -360,60 +334,26 @@ class LocationInfo(object):
                 log.error("Geolocation refresh failed"
                           " - no connectivity")
 
-    def get_result(self):
+    @property
+    def refresh_in_progress(self):
+        """Report if refresh is in progress."""
+        return self._provider.refresh_in_progress
+
+    @property
+    def refresh_condition(self):
+        """Provide access to the Refresh condition of the provider.
+
+        So that users of this class can wait for the location lookup to finish.
         """
-        Get result from the provider
-
-        :return: the result object or return ``None`` if no results are available
-        :rtype: :class:`LocationResult` or ``None``
-
-        """
-        return self._provider.get_result()
-
-    def get_territory_code(self):
-        """
-        A convenience function for getting the current territory code
-
-        :return: territory code or ``None`` if no results are available
-        :rtype: string or ``None``
-
-        """
-        result = self._provider.get_result()
-        if result:
-            return result.territory_code
-        else:
-            return None
-
-    def get_timezone(self):
-        """A convenience function for getting the current time zone
-
-        :return: time zone or None if no results are available
-        :rtype: string or None
-        """
-        result = self._provider.get_result()
-        if result:
-            return result.timezone
-        else:
-            return None
-
-    def get_public_ip_address(self):
-        """A convenience function for getting current public IP
-
-        :return: current public IP or None if no results are available
-        :rtype: string or None
-        """
-        result = self._provider.get_result()
-        if result:
-            return result.public_ip_address
-        else:
-            return None
+        return self._provider.refresh_condition
 
 
 class LocationResult(object):
+    """Encapsulates the result from GeoIP lookup."""
+
     def __init__(self, territory_code=None, timezone=None,
                  timezone_source="unknown", public_ip_address=None, city=None):
-        """Encapsulates the result from GeoIP lookup.
-
+        """
         :param territory_code: the territory code from GeoIP lookup
         :type territory_code: string
         :param timezone: the time zone from GeoIP lookup
@@ -467,11 +407,14 @@ class LocationResult(object):
 class GeolocationBackend(object):
     """Base class for GeoIP backends."""
     def __init__(self):
-        self._result = None
+        self._result = LocationResult()
         self._result_lock = threading.Lock()
         self._session = requests_session()
+        self._refresh_condition = threading.Condition()
+        self._refresh_in_progress = False
 
-    def get_name(self):
+    @property
+    def name(self):
         """Get name of the backend
 
         :return: name of the backend
@@ -479,52 +422,46 @@ class GeolocationBackend(object):
         """
         pass
 
-    def refresh(self, force=False):
-        """Refresh the geolocation data
-
-        :param force: do a refresh even if there is a result already available
-        :type force: bool
-        """
+    def refresh(self):
+        """Refresh the geolocation data."""
         # check if refresh is needed
-        if force is True or self._result is None:
-            log.info("Starting geolocation lookup")
-            log.info("Geolocation provider: %s", self.get_name())
-            global refresh_in_progress
-            with refresh_condition:
-                refresh_in_progress = True
+        log.info("Starting geolocation lookup")
+        log.info("Geolocation provider: %s", self.name)
+        with self._refresh_condition:
+            self._refresh_in_progress = True
 
-            start_time = time.time()
-            self._refresh()
-            log.info("Geolocation lookup finished in %1.1f seconds",
-                     time.time() - start_time)
+        start_time = time.time()
+        self._refresh()
+        log.info("Geolocation lookup finished in %1.1f seconds",
+                 time.time() - start_time)
 
-            with refresh_condition:
-                refresh_in_progress = False
-                refresh_condition.notify_all()
-            # check if there were any results
-            result = self.get_result()
-            if result:
-                log.info("got results from geolocation")
-                slog.info("geolocation result:\n%s", result)
-            else:
-                log.info("no results from geolocation")
+        with self._refresh_condition:
+            self._refresh_in_progress = False
+            self._refresh_condition.notify_all()
+        # check if there were any results
+        if self.result:
+            log.info("got results from geolocation")
+            sensitive_info_log.info("geolocation result:\n%s", self.result)
+        else:
+            log.info("no results from geolocation")
 
     def _refresh(self):
         pass
 
-    def _set_result(self, result):
-        """Set current location
+    @property
+    def refresh_in_progress(self):
+        """Report if location refresh is in progress."""
+        with self._refresh_condition:
+            return self._refresh_in_progress
 
-        :param result: geolocation lookup result
-        :type result: LocationResult
-        """
-        # As the value is set from a thread but read from
-        # the main thread, use a lock when accessing it
-        with self._result_lock:
-            self._result = result
+    @property
+    def refresh_condition(self):
+        """Return a Condition instance that can be used to wait for the refresh to finish."""
+        return self._refresh_condition
 
-    def get_result(self):
-        """Get current location
+    @property
+    def result(self):
+        """Current location.
 
         :return: geolocation lookup result
         :rtype: LocationResult
@@ -532,19 +469,24 @@ class GeolocationBackend(object):
         with self._result_lock:
             return self._result
 
+    def _set_result(self, new_result):
+        with self._result_lock:
+            self._result = new_result
+
     def __str__(self):
-        return self.get_name()
+        return self.name
 
 
 class FedoraGeoIPProvider(GeolocationBackend):
-    """The Fedora GeoIP service provider"""
+    """The Fedora GeoIP service provider."""
 
     API_URL = "https://geoip.fedoraproject.org/city"
 
     def __init__(self):
         GeolocationBackend.__init__(self)
 
-    def get_name(self):
+    @property
+    def name(self):
         return "Fedora GeoIP"
 
     def _refresh(self):
@@ -562,10 +504,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
                     timezone_code = get_preferred_timezone(territory)
                     timezone_source = "territory code"
                 if territory or timezone_code:
-                    self._set_result(LocationResult(
-                        territory_code=territory,
-                        timezone=timezone_code,
-                        timezone_source=timezone_source))
+                    self._set_result(LocationResult(territory_code=territory,
+                                                    timezone=timezone_code,
+                                                    timezone_source=timezone_source))
             else:
                 log.error("Geoloc: Fedora GeoIP API lookup failed with status code: %s", reply.status_code)
         except requests.exceptions.RequestException as e:
@@ -575,14 +516,15 @@ class FedoraGeoIPProvider(GeolocationBackend):
 
 
 class HostipGeoIPProvider(GeolocationBackend):
-    """The Hostip GeoIP service provider"""
+    """The Hostip GeoIP service provider."""
 
     API_URL = "http://api.hostip.info/get_json.php"
 
     def __init__(self):
         GeolocationBackend.__init__(self)
 
-    def get_name(self):
+    @property
+    def name(self):
         return "Hostip.info"
 
     def _refresh(self):
@@ -595,11 +537,9 @@ class HostipGeoIPProvider(GeolocationBackend):
                 # unless at least country_code is available,
                 # we don't return any results
                 if territory is not None:
-                    self._set_result(LocationResult(
-                        territory_code=territory,
-                        public_ip_address=reply_dict.get("ip", None),
-                        city=reply_dict.get("city", None)
-                    ))
+                    self._set_result(LocationResult(territory_code=territory,
+                                                    public_ip_address=reply_dict.get("ip", None),
+                                                    city=reply_dict.get("city", None)))
             else:
                 log.error("Geoloc: Hostip lookup failed with status code: %s", reply.status_code)
         except requests.exceptions.RequestException as e:
@@ -609,7 +549,7 @@ class HostipGeoIPProvider(GeolocationBackend):
 
 
 class GoogleWiFiLocationProvider(GeolocationBackend):
-    """The Google WiFi location service provider"""
+    """The Google WiFi location service provider."""
 
     API_URL = "https://maps.googleapis.com/" \
               "maps/api/browserlocation/json?browser=firefox&sensor=true"
@@ -617,7 +557,8 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
     def __init__(self):
         GeolocationBackend.__init__(self)
 
-    def get_name(self):
+    @property
+    def name(self):
         return "Google WiFi"
 
     def _refresh(self):
@@ -675,8 +616,9 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
 
 
 class Geocoder(object):
-    """Provides online geocoding services
-    (only reverse geocoding at the moment).
+    """Provides online geocoding services.
+
+    (only reverse geocoding at the moment)
     """
 
     # MapQuest Nominatim instance without (?) rate limiting
@@ -703,7 +645,8 @@ class Geocoder(object):
             return None  # unknown geocoder specified
 
     def _reverse_geocode_nominatim(self, coordinates):
-        """Reverse geocoding using the Nominatim API
+        """Reverse geocoding using the Nominatim API.
+
         Reverse geocoding tries to convert geographic coordinates
         to an accurate address.
 
@@ -733,7 +676,7 @@ class Geocoder(object):
 
 
 class GeocodingResult(object):
-    """A result from geocoding lookup"""
+    """A result from geocoding lookup."""
 
     def __init__(self, coordinates=None, territory_code=None, address=None):
         """
@@ -787,9 +730,7 @@ class Coordinates(object):
 
 
 class WifiScanner(object):
-    """Uses the Network Manager DBUS API to provide information
-    about nearby WiFi access points
-    """
+    """Use the Network Manager DBUS API to provide information about nearby WiFi access points."""
 
     NETWORK_MANAGER_DEVICE_TYPE_WIFI = 2
 
@@ -855,7 +796,7 @@ class WifiScanner(object):
 
 
 class WiFiAccessPoint(object):
-    """Encapsulates information about WiFi access point"""
+    """Encapsulates information about a WiFi access point."""
 
     def __init__(self, bssid, ssid=None, rssi=None):
         """
@@ -883,6 +824,18 @@ class WiFiAccessPoint(object):
         return "bssid (MAC): %s ssid: %s rssi " \
                "(signal strength): %d" % (self.bssid, self.ssid, self.rssi)
 
+
+geoloc = None
+
+def init_geolocation(geoloc_option, options_override, install_class_override):
+    """Initialize the geolocation singleton."""
+    global geoloc
+    geoloc = Geolocation(geoloc_option=geoloc_option,
+                         options_override=options_override,
+                         install_class_override=install_class_override)
+
+
+
 if __name__ == "__main__":
     print("GeoIP directly started")
 
@@ -890,24 +843,24 @@ if __name__ == "__main__":
     location_info = LocationInfo()
     location_info.refresh()
     print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.get_territory_code())
+    print("  territory code: %s" % location_info.result.territory_code)
 
     print("trying the Fedora GeoIP backend")
     location_info = LocationInfo(provider_id=
                                  constants.GEOLOC_PROVIDER_FEDORA_GEOIP)
     location_info.refresh()
     print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.get_territory_code())
+    print("  territory code: %s" % location_info.result.territory_code)
 
     print("trying the Google WiFi location backend")
     location_info = LocationInfo(provider_id=
                                  constants.GEOLOC_PROVIDER_GOOGLE_WIFI)
     location_info.refresh()
     print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.get_territory_code())
+    print("  territory code: %s" % location_info.result.territory_code)
 
     print("trying the Hostip backend")
     location_info = LocationInfo(provider_id=constants.GEOLOC_PROVIDER_HOSTIP)
     location_info.refresh()
     print("  provider used: %s" % location_info._provider)
-    print("  territory code: %s" % location_info.get_territory_code())
+    print("  territory code: %s" % location_info.result.territory_code)

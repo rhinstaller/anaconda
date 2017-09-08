@@ -80,6 +80,9 @@ class BaseInstallClass(object):
     # state firstboot should be in unless something special happens
     firstboot = FIRSTBOOT_DEFAULT
 
+    # geolocation
+    use_geolocation_with_kickstart = False
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:

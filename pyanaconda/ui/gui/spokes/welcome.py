@@ -74,19 +74,29 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # Skip timezone and keyboard default setting for kickstart installs.
         # The user may have provided these values via kickstart and if not, we
-        # need to prompt for them.
-        if flags.flags.automatedInstall:
+        # need to prompt for them. But do continue if geolocation-with-kickstart
+        # is enabled.
+
+        if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
             return
 
-        geoloc_timezone = geoloc.get_timezone()
         loc_timezones = localization.get_locale_timezones(self.data.lang.lang)
-        if geoloc_timezone:
+        if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
-            self.data.timezone.timezone = geoloc_timezone
+            log.info("using timezone determined by geolocation")
+            self.data.timezone.timezone = geoloc.geoloc.result.timezone
+            # Either this is an interactive install and timezone.seen propagates
+            # from the interactive default kickstart, or this is a kickstart
+            # install where the user explicitly requested geolocation to be used.
+            # So set timezone.seen to True, so that the user isn't forced to
+            # enter the Date & Time spoke to acknowledge the timezone detected
+            # by geolocation before continuing the installation.
+            self.data.timezone.seen = True
         elif loc_timezones and not self.data.timezone.timezone:
             # no data is provided by Geolocation, try to get timezone from the
             # current language
+            log.info("geolocation not finished in time, using default timezone")
             self.data.timezone.timezone = loc_timezones[0]
 
     @property
@@ -125,7 +135,14 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
-        territory = geoloc.get_territory_code(wait=True)
+        #
+        # But as the lookup might still be in progress we need to make sure
+        # to wait for it to finish. If the lookup has already finished
+        # the wait function is basically a noop.
+        geoloc.geoloc.wait_for_refresh_to_finish()
+
+        # the lookup should be done now, get the teorritory
+        territory = geoloc.geoloc.result.territory_code
 
         # bootopts and kickstart have priority over geoip
         if self.data.lang.lang and self.data.lang.seen:
