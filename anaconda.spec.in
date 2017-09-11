@@ -332,6 +332,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 11 2017 Martin Kolman <mkolman@redhat.com> - 28.3-1
+- Add missing dot to the availability status message (mail)
+- Bump Simpleline version (jkonecny)
+- Make EFIGRUB._efi_binary a property, not a method (awilliam)
+- Better storing logs from build and tests (jkonecny)
+- Provide a default install class. (vponcova)
+- Do not use hidden install classes. (vponcova)
+- Make geolocation with kickstart possible (#1358331) (mkolman)
+- Run python-meh as modal in TUI (jkonecny)
+- Use GLib event loop in the simpleline (jkonecny)
+- TUI progress reporting is handled by show_all (jkonecny)
+- Add efi_dir to the BaseInstallClass (#1412391) (vponcova)
+- Use /usr/bin/python3 shebang once again (miro)
+
 * Mon Sep 04 2017 Martin Kolman <mkolman@redhat.com> - 28.2-1
 - Fix catch TUI not main thread exceptions (jkonecny)
 - Document Anaconda branching workflow (mkolman)
