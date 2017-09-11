@@ -28,6 +28,8 @@ SELINUX_DEFAULT = -1
 
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
+KICKSTART_PREPEND_DROPDIR_PATH = "/usr/share/anaconda/kickstarts-prepend.d"
+KICKSTART_APPEND_DROPDIR_PATH = "/usr/share/anaconda/kickstarts-append.d"
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
 

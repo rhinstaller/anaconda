@@ -251,6 +251,10 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 # Create an empty directory for addons
 mkdir %{buildroot}%{_datadir}/anaconda/addons
 
+# Create an empty directory for kickstart snippets
+mkdir %{buildroot}%{_datadir}/anaconda/kickstarts-prepend.d
+mkdir %{buildroot}%{_datadir}/anaconda/kickstarts-append.d
+
 %ifarch %livearches
 desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 %endif
