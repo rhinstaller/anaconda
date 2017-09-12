@@ -18,7 +18,8 @@
 #
 
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
-from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
+from pyanaconda.ui.tui.tuiobject import PasswordDialog
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
@@ -26,7 +27,7 @@ from pyanaconda.i18n import N_, _
 from simpleline.render.widgets import TextWidget
 
 
-class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
+class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
        .. inheritance-diagram:: PasswordSpoke
           :parts: 3
@@ -35,9 +36,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     category = UserSettingsCategory
 
     def __init__(self, data, storage, payload, instclass):
-        EditTUIDialog.__init__(self, data, storage, payload, instclass, "root")
-        self.title = N_("Root password")
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.initialize_start()
+        self.title = N_("Root password")
+        self.input_required = False
+
+        self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
         self.initialize_done()
 
@@ -47,7 +51,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall and not self.policy.changesok)
+        return not (self.completed and flags.automatedInstall and not self._policy.changesok)
 
     @property
     def mandatory(self):
@@ -64,22 +68,25 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
             return _("Password is not set.")
 
     def refresh(self, args=None):
-        EditTUIDialog.refresh(self, args)
+        NormalTUISpoke.refresh(self, args)
 
         msg = _("Please select new root password. You will have to type it twice.")
         self.window.add_with_separator(TextWidget(msg))
 
-    def prompt(self, args=None):
-        """Overriden prompt as password typing is special."""
-        EditTUIDialog.prompt(self, EditTUISpokeEntry(_("Password"), "", EditTUIDialog.PASSWORD, True))
-        if self.value is None:
+    def show_all(self):
+        super().show_all()
+
+        password_dialog = PasswordDialog(_("Password"), policy=self._policy)
+        password_dialog.no_separator = True
+
+        self._password = password_dialog.run()
+
+        if self._password is None:
             self.redraw()
             return
-
-        self._password = self.value
-        self.apply()
-
-        self.close()
+        else:
+            self.apply()
+            self.close()
 
     def apply(self):
         self.data.rootpw.password = self._password
