@@ -41,6 +41,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 from pyanaconda.payload import ArchivePayload, PayloadInstallError
+from pyanaconda.bootloader import EFIBase
 import pyanaconda.errors as errors
 
 class RPMOSTreePayload(ArchivePayload):
@@ -102,6 +103,7 @@ class RPMOSTreePayload(ArchivePayload):
         # to add other bootloaders here though (if they can't easily
         # be fixed to *copy* data into /boot at install time, instead
         # of shipping it in the RPM).
+        is_efi = isinstance(self.storage.bootloader, EFIBase)
         physboot = iutil.getTargetPhysicalRoot() + '/boot'
         ostree_boot_source = iutil.getSysroot() + '/usr/lib/ostree-boot'
         if not os.path.isdir(ostree_boot_source):
@@ -114,18 +116,26 @@ class RPMOSTreePayload(ArchivePayload):
             if not os.path.isdir(srcpath):
                 continue
 
-            # Special handling for EFI, as it's a mount point that's
+            # Special handling for EFI; first, we only want to copy
+            # the data if the system is actually EFI (simulating grub2-efi
+            # being installed).  Second, as it's a mount point that's
             # expected to already exist (so if we used copytree, we'd
             # traceback).  If it doesn't, we're not on a UEFI system,
             # so we don't want to copy the data.
-            if fname == 'efi' and os.path.isdir(destpath):
-                for subname in os.listdir(srcpath):
-                    sub_srcpath = os.path.join(srcpath, subname)
-                    sub_destpath = os.path.join(destpath, subname)
-                    self._safeExecWithRedirect('cp', ['-r', '-p', sub_srcpath, sub_destpath])
+            if fname == 'efi':
+                if is_efi:
+                    for subname in os.listdir(srcpath):
+                        sub_srcpath = os.path.join(srcpath, subname)
+                        sub_destpath = os.path.join(destpath, subname)
+                        self._safeExecWithRedirect('cp', ['-r', '-p', sub_srcpath, sub_destpath])
             else:
                 log.info("Copying bootloader data: " + fname)
                 self._safeExecWithRedirect('cp', ['-r', '-p', srcpath, destpath])
+
+            # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
+            efi_grubenv_link = physboot + '/grub2/grubenv'
+            if not is_efi and os.path.islink(efi_grubenv_link):
+                os.unlink(efi_grubenv_link)
 
     def install(self):
         mainctx = GLib.MainContext.new()
