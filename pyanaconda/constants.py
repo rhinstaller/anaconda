@@ -149,6 +149,8 @@ PASSWORD_WEAK_CONFIRM_WITH_ERROR = N_("You have provided a weak password: %s. Pr
 PASSWORD_ASCII = N_("The password you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts to login. Press Done to continue.")
 PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
 
+PASSWORD_SET = N_("Password set.")
+
 class PasswordStatus(Enum):
     EMPTY = N_("Empty")
     TOO_SHORT = N_("Too short")
