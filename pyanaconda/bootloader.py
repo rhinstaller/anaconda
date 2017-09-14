@@ -35,7 +35,6 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.fcoe import fcoe
 import pyanaconda.network
 from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
-from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
 from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
 from blivet.size import Size
@@ -2484,7 +2483,8 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     if hasattr(storage.bootloader, 'efi_dir'):
         storage.bootloader.efi_dir = instClass.efi_dir
 
-    if isinstance(payload, RPMOSTreePayload):
+    # Currently just rpmostreepayload shortcuts the rest of everything below
+    if payload.handlesBootloaderConfiguration:
         if storage.bootloader.skip_bootloader:
             log.info("skipping boot loader install per user request")
             return
