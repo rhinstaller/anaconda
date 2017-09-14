@@ -841,6 +841,14 @@ class Payload(object):
                 # XXX TODO: real error handling, as this is probably going to
                 #           prevent boot on some systems
 
+    @property
+    def handlesBootloaderConfiguration(self):
+        """Whether this payload backend writes the bootloader configuration itself; if
+        False (the default), the generic bootloader configuration code will be used.
+        """
+        return False
+
+
     def recreateInitrds(self):
         """Recreate the initrds by calling new-kernel-pkg
 
