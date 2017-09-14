@@ -330,12 +330,16 @@ class RPMOSTreePayload(ArchivePayload):
                                        ["--create", "--boot", "--root=" + iutil.getSysroot(),
                                         "--prefix=/var/" + varsubdir])
 
-        # Handle mounts like /boot, and any admin-specified points like
-        # /home (really /var/home).  Note we already handled /var above.
-        for mount in storage.mountpoints:
+        # Handle mounts like /boot (except avoid /boot/efi; we just need the
+        # toplevel), and any admin-specified points like /home (really
+        # /var/home). Note we already handled /var above. Avoid recursion since
+        # sub-mounts will be in the list too.  We sort by length as a crude
+        # hack to try to simulate the tree relationship; it looks like this
+        # is handled in blivet in a different way.
+        for mount in sorted(storage.mountpoints, key=len):
             if mount in ('/', '/var') or mount in api_mounts:
                 continue
-            self._setupInternalBindmount(mount)
+            self._setupInternalBindmount(mount, recurse=False)
 
         # And finally, do a nonrecursive bind for the sysroot
         self._setupInternalBindmount("/", dest="/sysroot", recurse=False)
