@@ -193,7 +193,10 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
             preexec_fn()
 
     with program_log_lock:
-        program_log.info("Running... %s", " ".join(argv))
+        if target_root != '/':
+            program_log.info("Running in chroot '%s'... %s", target_root, " ".join(argv))
+        else:
+            program_log.info("Running... %s", " ".join(argv))
 
     env = augmentEnv()
     for var in env_prune:
