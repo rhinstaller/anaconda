@@ -64,6 +64,7 @@ from pykickstart.constants import KS_SCRIPT_ONERROR
 
 _child_env = {}
 
+
 def setenv(name, value):
     """ Set an environment variable to be used by child processes.
 
@@ -77,13 +78,16 @@ def setenv(name, value):
 
     _child_env[name] = value
 
+
 def augmentEnv():
     env = os.environ.copy()
     env.update({"ANA_INSTALL_PATH": getSysroot()})
     env.update(_child_env)
     return env
 
+
 _root_path = "/mnt/sysimage"
+
 
 def getTargetPhysicalRoot():
     """Returns the path to the "physical" storage root, traditionally /mnt/sysimage.
@@ -99,6 +103,7 @@ def getTargetPhysicalRoot():
     # the code.
     return _root_path
 
+
 def setTargetPhysicalRoot(path):
     """Change the physical root path
 
@@ -107,7 +112,9 @@ def setTargetPhysicalRoot(path):
     global _root_path
     _root_path = path
 
+
 _sysroot = _root_path
+
 
 def getSysroot():
     """Returns the path to the target OS installation.
@@ -116,6 +123,7 @@ def getSysroot():
     target root.
     """
     return _sysroot
+
 
 def setSysroot(path):
     """Change the OS root path.
@@ -126,6 +134,7 @@ def setSysroot(path):
     """
     global _sysroot
     _sysroot = path
+
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                  env_prune=None, env_add=None, reset_handlers=True, reset_lang=True, **kwargs):
@@ -204,6 +213,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             restore_signals=restore_signals,
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
+
 def startX(argv, output_redirect=None):
     """ Start X and return once X is ready to accept connections.
 
@@ -256,6 +266,7 @@ def startX(argv, output_redirect=None):
         signal.alarm(0)
         signal.signal(signal.SIGUSR1, old_sigusr1_handler)
         signal.signal(signal.SIGALRM, old_sigalrm_handler)
+
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
                  binary_output=False, filter_stderr=False):
@@ -326,6 +337,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
     return (proc.returncode, output_string)
 
+
 def execInSysroot(command, argv, stdin=None):
     """ Run an external program in the target root.
         :param command: The command to run
@@ -335,6 +347,7 @@ def execInSysroot(command, argv, stdin=None):
     """
 
     return execWithRedirect(command, argv, stdin=stdin, root=getSysroot())
+
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
                      root='/', env_prune=None, log_output=True, binary_output=False):
@@ -359,6 +372,7 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
                         log_output=log_output, binary_output=binary_output)[0]
 
+
 def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False):
     """ Run an external program and capture standard out and err.
 
@@ -378,6 +392,7 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr)[1]
+
 
 def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
     """ Run an external program and capture standard out and err as binary data.
@@ -399,6 +414,7 @@ def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False,
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr, binary_output=True)[1]
+
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
     """ Execute an external command and return the line output of the command
@@ -478,6 +494,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_st
 
     return ExecLineReader(proc, argv)
 
+
 ## Run a shell.
 def execConsole():
     try:
@@ -486,14 +503,17 @@ def execConsole():
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
 
+
 # Dictionary of processes to watch in the form {pid: [name, GLib event source id], ...}
 _forever_pids = {}
 # Set to True if process watching is handled by GLib
 _watch_process_glib = False
 _watch_process_handler_set = False
 
+
 class ExitError(RuntimeError):
     pass
+
 
 # Raise an error on process exit. The argument is a list of tuples
 # of the form [(name, status), ...] with statuses in the subprocess
@@ -510,6 +530,7 @@ def _raise_exit_error(statuses):
         exn_message.append("%s exited %s" % (proc_name, status_str))
 
     raise ExitError(", ".join(exn_message))
+
 
 # Signal handler used with watchProcess
 def _sigchld_handler(num=None, frame=None):
@@ -546,6 +567,7 @@ def _sigchld_handler(num=None, frame=None):
     if exit_statuses:
         _raise_exit_error(exit_statuses)
 
+
 # GLib callback used with watchProcess
 def _watch_process_cb(pid, status, proc_name):
     # Convert the wait-encoded status to the format used by subprocess
@@ -556,6 +578,7 @@ def _watch_process_cb(pid, status, proc_name):
         sub_status = -os.WTERMSIG(status)
 
     _raise_exit_error([(proc_name, sub_status)])
+
 
 def watchProcess(proc, name):
     """Watch for a process exit, and raise a ExitError when it does.
@@ -592,6 +615,7 @@ def watchProcess(proc, name):
             del _forever_pids[proc.pid]
             _raise_exit_error([(name, proc.returncode)])
 
+
 def watchProcessGLib():
     """Convert process watching to GLib mode.
 
@@ -611,6 +635,7 @@ def watchProcessGLib():
         _forever_pids[child_pid][1] = GLib.child_watch_add(child_pid, _watch_process_cb,
                                                            _forever_pids[child_pid])
 
+
 def unwatchProcess(proc):
     """Unwatch a process watched by watchProcess.
 
@@ -620,6 +645,7 @@ def unwatchProcess(proc):
         GLib.source_remove(_forever_pids[proc.pid][1])
     del _forever_pids[proc.pid]
 
+
 def unwatchAllProcesses():
     """Clear the watched process list."""
     global _forever_pids
@@ -627,6 +653,7 @@ def unwatchAllProcesses():
         if _forever_pids[child_pid][1]:
             GLib.source_remove(_forever_pids[child_pid][1])
     _forever_pids = {}
+
 
 def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.
@@ -668,6 +695,7 @@ def getDirSize(directory):
         return dsize
     return getSubdirSize(directory) // 1024
 
+
 ## Create a directory path.  Don't fail if the directory already exists.
 def mkdirChain(directory):
     """ Make a directory and all of its parents. Don't fail if part or
@@ -677,6 +705,7 @@ def mkdirChain(directory):
     """
 
     os.makedirs(directory, 0o755, exist_ok=True)
+
 
 def get_active_console(dev="console"):
     '''Find the active console device.
@@ -694,10 +723,12 @@ def get_active_console(dev="console"):
         dev = open("/sys/class/tty/%s/active" % dev).read().split()[-1]
     return dev
 
+
 def isConsoleOnVirtualTerminal(dev="console"):
     console = get_active_console(dev)           # e.g. 'tty1', 'ttyS0', 'hvc1'
     consoletype = console.rstrip('0123456789')  # remove the number
     return consoletype == 'tty'
+
 
 def reIPL(ipldev):
     try:
@@ -712,12 +743,14 @@ def reIPL(ipldev):
     else:
         log.info("reIPL configuration successful")
 
+
 def resetRpmDb():
     for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % getSysroot()):
         try:
             os.unlink(rpmfile)
         except OSError as e:
             log.debug("error %s removing file: %s", e, rpmfile)
+
 
 def parseNfsUrl(nfsurl):
     options = ''
@@ -735,6 +768,7 @@ def parseNfsUrl(nfsurl):
 
     return (options, host, path)
 
+
 def add_po_path(directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
@@ -749,10 +783,12 @@ def add_po_path(directory):
             log.info("setting %s as translation source for %s", directory, basename[:-3])
             gettext.bindtextdomain(basename[:-3], directory)
 
+
 def setup_translations():
     if os.path.isdir(TRANSLATIONS_UPDATE_DIR):
         add_po_path(TRANSLATIONS_UPDATE_DIR)
     gettext.textdomain("anaconda")
+
 
 def _run_systemctl(command, service, root="/"):
     """
@@ -770,19 +806,24 @@ def _run_systemctl(command, service, root="/"):
 
     return ret
 
+
 def start_service(service):
     return _run_systemctl("start", service)
+
 
 def stop_service(service):
     return _run_systemctl("stop", service)
 
+
 def restart_service(service):
     return _run_systemctl("restart", service)
+
 
 def service_running(service):
     ret = _run_systemctl("status", service)
 
     return ret == 0
+
 
 def enable_service(service):
     """ Enable a systemd service in the sysroot """
@@ -790,6 +831,7 @@ def enable_service(service):
 
     if ret != 0:
         raise ValueError("Error enabling service %s: %s" % (service, ret))
+
 
 def disable_service(service):
     """ Disable a systemd service in the sysroot """
@@ -799,6 +841,7 @@ def disable_service(service):
 
     if ret != 0:
         log.warning("Disabling %s failed. It probably doesn't exist", service)
+
 
 def dracut_eject(device):
     """
@@ -824,6 +867,7 @@ def dracut_eject(device):
     except (IOError, OSError) as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
 
+
 def vtActivate(num):
     """
     Try to switch to tty number $num.
@@ -845,8 +889,10 @@ def vtActivate(num):
 
     return ret == 0
 
+
 class ProxyStringError(Exception):
     pass
+
 
 class ProxyString(object):
     """ Handle a proxy url
@@ -943,6 +989,7 @@ class ProxyString(object):
     def __str__(self):
         return self.url
 
+
 def getdeepattr(obj, name):
     """This behaves as the standard getattr, but supports
        composite (containing dots) attribute names.
@@ -958,6 +1005,7 @@ def getdeepattr(obj, name):
     for attr in name.split("."):
         obj = getattr(obj, attr)
     return obj
+
 
 def setdeepattr(obj, name, value):
     """This behaves as the standard setattr, but supports
@@ -979,6 +1027,7 @@ def setdeepattr(obj, name, value):
         obj = getattr(obj, attr)
     return setattr(obj, path[-1], value)
 
+
 def strip_accents(s):
     """This function takes arbitrary unicode string
     and returns it with all the diacritics removed.
@@ -992,6 +1041,7 @@ def strip_accents(s):
     """
     return ''.join(c for c in unicodedata.normalize('NFD', s)
                    if unicodedata.category(c) != 'Mn')
+
 
 def cmp_obj_attrs(obj1, obj2, attr_list):
     """ Compare attributes of 2 objects for changes
@@ -1014,6 +1064,7 @@ def cmp_obj_attrs(obj1, obj2, attr_list):
         else:
             return False
     return True
+
 
 def dir_tree_map(root, func, files=True, dirs=True):
     """
@@ -1051,6 +1102,7 @@ def dir_tree_map(root, func, files=True, dirs=True):
 
         # directories under the directory entry will appear as directory entries
         # in the loop
+
 
 def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
     """
@@ -1091,6 +1143,7 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
                                                           from_uid_only,
                                                           from_gid_only))
 
+
 def is_unsupported_hw():
     """ Check to see if the hardware is supported or not.
 
@@ -1106,6 +1159,7 @@ def is_unsupported_hw():
     if status:
         log.debug("Installing on Unsupported Hardware")
     return status
+
 
 def ensure_str(str_or_bytes, keep_none=True):
     """
@@ -1128,6 +1182,7 @@ def ensure_str(str_or_bytes, keep_none=True):
     else:
         raise ValueError("str_or_bytes must be of type 'str' or 'bytes', not '%s'" % type(str_or_bytes))
 
+
 # Define translations between ASCII uppercase and lowercase for
 # locale-independent string conversions. The tables are 256-byte string used
 # with str.translate. If str.translate is used with a unicode string,
@@ -1135,6 +1190,7 @@ def ensure_str(str_or_bytes, keep_none=True):
 # raise a UnicodeDecodeError.
 _ASCIIlower_table = str.maketrans(string.ascii_uppercase, string.ascii_lowercase)
 _ASCIIupper_table = str.maketrans(string.ascii_lowercase, string.ascii_uppercase)
+
 
 def _toASCII(s):
     """Convert a unicode string to ASCII"""
@@ -1149,6 +1205,7 @@ def _toASCII(s):
         s = ''
     return s
 
+
 def upperASCII(s):
     """Convert a string to uppercase using only ASCII character definitions.
 
@@ -1162,6 +1219,7 @@ def upperASCII(s):
     s = ensure_str(s)
     return str.translate(_toASCII(s), _ASCIIupper_table)
 
+
 def lowerASCII(s):
     """Convert a string to lowercase using only ASCII character definitions.
 
@@ -1174,6 +1232,7 @@ def lowerASCII(s):
     # out we expect this function to always return string even if given bytes.
     s = ensure_str(s)
     return str.translate(_toASCII(s), _ASCIIlower_table)
+
 
 def upcase_first_letter(text):
     """
@@ -1196,12 +1255,14 @@ def upcase_first_letter(text):
     else:
         return text[0].upper() + text[1:]
 
+
 def get_mount_paths(devnode):
     '''given a device node, return a list of all active mountpoints.'''
     devno = os.stat(devnode).st_rdev
     majmin = "%d:%d" % (os.major(devno), os.minor(devno))
     mountinfo = (line.split() for line in open("/proc/self/mountinfo"))
     return [info[4] for info in mountinfo if info[2] == majmin]
+
 
 def have_word_match(str1, str2):
     """Tells if all words from str1 exist in str2 or not."""
@@ -1227,6 +1288,7 @@ def have_word_match(str1, str2):
 
     return all(word in str2 for word in str1_words)
 
+
 class DataHolder(dict):
     """ A dict that lets you also access keys using dot notation. """
     def __init__(self, **kwargs):
@@ -1245,6 +1307,7 @@ class DataHolder(dict):
     def copy(self):
         return DataHolder(**dict.copy(self))
 
+
 def xprogressive_delay():
     """ A delay generator, the delay starts short and gets longer
         as the internal counter increases.
@@ -1258,6 +1321,7 @@ def xprogressive_delay():
     while True:
         yield 0.25 * (2 ** counter)
         counter += 1
+
 
 def get_platform_groupid():
     """ Return a platform group id string
@@ -1278,6 +1342,7 @@ def get_platform_groupid():
 
     return "platform-" + platform.lower()
 
+
 def persistent_root_image():
     """:returns: whether we are running from a persistent (not in RAM) root.img"""
 
@@ -1291,7 +1356,9 @@ def persistent_root_image():
 
     return True
 
+
 _supports_ipmi = None
+
 
 def ipmi_report(event):
     global _supports_ipmi
@@ -1317,9 +1384,11 @@ def ipmi_report(event):
 
     os.remove(path)
 
+
 def ipmi_abort(scripts=None):
     ipmi_report(IPMI_ABORTED)
     runOnErrorScripts(scripts)
+
 
 def runOnErrorScripts(scripts):
     if not scripts:
@@ -1330,9 +1399,11 @@ def runOnErrorScripts(scripts):
         script.run("/")
     log.info("All kickstart %%onerror script(s) have been run")
 
+
 def parent_dir(directory):
     """Return the parent's path"""
     return "/".join(os.path.normpath(directory).split("/")[:-1])
+
 
 def requests_session():
     """Return a requests.Session object with file and ftp support."""
@@ -1340,6 +1411,7 @@ def requests_session():
     session.mount("file://", FileAdapter())
     session.mount("ftp://", FTPAdapter())
     return session
+
 
 def open_with_perm(path, mode='r', perm=0o777, **kwargs):
     """Open a file with the given permission bits.
@@ -1357,6 +1429,7 @@ def open_with_perm(path, mode='r', perm=0o777, **kwargs):
 
     return open(path, mode, opener=_opener, **kwargs)
 
+
 def id_generator():
     """ Id numbers generator.
         Generating numbers from 0 to X and increments after every call.
@@ -1368,6 +1441,7 @@ def id_generator():
         yield actual_id
         actual_id += 1
 
+
 def sysroot_path(path):
     """Make the given relative or absolute path "sysrooted"
        :param str path: path to be sysrooted
@@ -1375,6 +1449,7 @@ def sysroot_path(path):
        :rtype: str
     """
     return os.path.join(getSysroot(), path.lstrip(os.path.sep))
+
 
 def save_screenshots():
     """Save screenshots to the installed system"""
@@ -1393,6 +1468,7 @@ def save_screenshots():
     except OSError:
         log.exception("saving screenshots to installed system failed")
 
+
 def touch(file_path):
     """Create an empty file."""
     # this misrrors how touch works - it does not
@@ -1400,6 +1476,7 @@ def touch(file_path):
     # even when the path points to dirrectory
     if not os.path.exists(file_path):
         os.mknod(file_path)
+
 
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
@@ -1538,6 +1615,7 @@ def collect(module_pattern, path, pred):
 
     return retval
 
+
 def item_counter(item_count):
     """A generator for easy counting of items.
 
@@ -1564,6 +1642,7 @@ def item_counter(item_count):
         yield "%d/%d" % (index, item_count)
         index += 1
 
+
 def synchronized(wrapped):
     """A locking decorator for methods.
 
@@ -1581,4 +1660,3 @@ def synchronized(wrapped):
         with self._lock:
             return wrapped(self, *args, **kwargs)
     return _wrapper
-
