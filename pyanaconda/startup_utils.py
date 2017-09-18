@@ -383,6 +383,7 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         # unpredictable ways
         # FIXME: Is this still needed for dnf?
         ksdata.method.mirrorlist = None
+        ksdata.method.metalink = None
     elif anaconda.methodstr.startswith("livecd"):
         ksdata.method.method = "harddrive"
         device = anaconda.methodstr.split(":", 1)[1]
