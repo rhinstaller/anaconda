@@ -665,6 +665,8 @@ def _device_settings(name):
     devtype = nm_device_type(name)
     if devtype == NM.DeviceType.BOND:
         settings = _find_settings(name, 'bond', 'interface-name')
+    elif devtype == NM.DeviceType.BRIDGE:
+        settings = _find_settings(name, 'bridge', 'interface-name')
     elif devtype == NM.DeviceType.VLAN:
         settings = _find_settings(name, 'vlan', 'interface-name')
         if not settings:
@@ -681,19 +683,23 @@ def _device_settings(name):
 
             settings = _find_settings(vlanid, 'vlan', 'id')
     else:
+        # device name bound settings
         settings = _find_settings(name, 'connection', 'interface-name')
+        # mac address bound settings
+        try:
+            hwaddr_str = nm_device_valid_hwaddress(name)
+        except PropertyNotFoundError:
+            log.debug("hwaddress of device %s not found", name)
+        else:
+            mac_bound_settings = _settings_for_hwaddr(hwaddr_str)
+            for ms in mac_bound_settings:
+                if ms not in settings:
+                    settings.append(ms)
         if not settings:
-            try:
-                hwaddr_str = nm_device_valid_hwaddress(name)
-            except PropertyNotFoundError:
-                settings = []
-            else:
-                settings = _settings_for_hwaddr(hwaddr_str)
-                if not settings:
-                    # s390 setting generated in dracut with net.ifnames=0
-                    # has neither DEVICE nor HWADDR (#1249750)
-                    settings = [s for s in _find_settings(name, 'connection', 'id')
-                                if _is_s390_setting(s)]
+            # s390 setting generated in dracut with net.ifnames=0
+            # has neither DEVICE nor HWADDR (#1249750)
+            settings = [s for s in _find_settings(name, 'connection', 'id')
+                        if _is_s390_setting(s)]
 
     return settings
 
@@ -985,6 +991,8 @@ def nm_update_settings_of_device(name, new_values):
 def _update_settings(settings_path, new_values):
     """Update setting of object specified by settings_path with value.
 
+       If the value is None, the setting is removed.
+
        The type of value is determined from existing setting.
        If setting for key1, key2 does not exist, default_type_str is used or
        if None, the type is inferred from the value supplied (string and bool only).
@@ -995,7 +1003,7 @@ def _update_settings(settings_path, new_values):
                           [[key1, key2, value, default_type_str]]
                           key1: first-level key of setting (eg "connection")
                           key2: second-level key of setting (eg "uuid")
-                          value: new value
+                          value: new value, if None, the setting is removed
                           default_type_str: dbus type of new value to be used
                                             if the setting does not already exist;
                                             if None, the type is inferred from
@@ -1024,6 +1032,8 @@ def _update_settings(settings_path, new_values):
 
 def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
     """Update setting of updated_key1, updated_key2 of settings object with value.
+
+       If the value is None, the setting is removed.
 
        The type of value is determined from existing setting.
        If setting for key1, key2 does not exist, default_type_str is used or
@@ -1068,7 +1078,10 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
     if type_str is not None:
         if updated_key1 not in new_settings:
             new_settings[updated_key1] = {}
-        new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
+        if value is None:
+            new_settings[updated_key1].pop(updated_key2, None)
+        else:
+            new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
 
     return GLib.Variant(settings.get_type_string(), (new_settings,))
 
