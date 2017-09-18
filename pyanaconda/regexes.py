@@ -30,20 +30,17 @@ GECOS_VALID = re.compile(r'^[^:]*$')
 # the portable filesystem character set (ASCII alnum plus dot, underscore,
 # and hyphen), with the additional restriction that names not start with a
 # hyphen. The Red Hat modification to shadow-utils starts with these rules
-# and additionally allows a final $, because Samba.
+# and additionally allows a final $, because Samba. It doesn't allow fully
+# numeric names or just "." or "..".
 #
 # shadow-utils also defines length limits for names: 32 for group names,
 # and UT_NAMESIZE for user names (which is defined as 32 bits/utmp.h). This
 # expression captures all of that: the initial character, followed by either
 # up to 30 portable characters and a dollar sign or up to 31 portable characters,
-# both for a maximum total of 32. The empty string is not allowed. "root" is not
-# allowed.
+# both for a maximum total of 32. The empty string is not allowed.
 
-# a base expression without anchors, helpful for building other expressions
-# If the string is the right length to match "root", use a lookback expression
-# to make sure it isn't.
 PORTABLE_FS_CHARS = r'a-zA-Z0-9._-'
-_USERNAME_BASE = r'[a-zA-Z0-9._](([' + PORTABLE_FS_CHARS + r']{0,2})|([' + PORTABLE_FS_CHARS + r']{3}(?<!root))|([' + PORTABLE_FS_CHARS + r']{4,31})|([' + PORTABLE_FS_CHARS + r']{,30}\$))'
+_USERNAME_BASE = r'[a-zA-Z0-9._][' + PORTABLE_FS_CHARS + r']{0,30}([' + PORTABLE_FS_CHARS + r']|\$)?'
 
 USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
 GROUPNAME_VALID = USERNAME_VALID
