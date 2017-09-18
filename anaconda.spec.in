@@ -332,6 +332,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 18 2017 Martin Kolman <mkolman@redhat.com> - 28.4-1
+- network: add support for kickstart --bindto=mac for virtual devices
+  (#1328576) (rvykydal)
+- network: support mac bound network settings as first class (#1328576)
+  (rvykydal)
+- network: add support for kickstart --bindto=mac for wired devices (#1328576)
+  (rvykydal)
+- Don't setup the hub twice (#1491333) (vponcova)
+- rpmostreepayload: Substitute ${basearch} in ostreesetup ref (walters)
+- Perform repo checks only when there are checks available. (rvykydal)
+- Add support for repo --metalink (GUI) (#1464843) (rvykydal)
+- Add support for repo --metalink (kickstart, tui) (#1464843) (rvykydal)
+- Add inst.notmux option (dusty)
+
 * Mon Sep 11 2017 Martin Kolman <mkolman@redhat.com> - 28.3-1
 - Add missing dot to the availability status message (mail)
 - Bump Simpleline version (jkonecny)
