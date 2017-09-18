@@ -689,7 +689,6 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="verifyIsoButton">
-                                    <!-- check_accelerators: verifyMediaButton -->
                                     <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
                                     <property name="visible">True</property>
                                     <property name="sensitive">False</property>
@@ -792,25 +791,33 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton" id="mirrorlistCheckbox">
-                                        <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a _mirror list.</property>
-                                        <property name="use_action_appearance">False</property>
+                                      <object class="GtkLabel" id="urlTypeLabel">
                                         <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="no_show_all">True</property>
-                                        <property name="hexpand">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">URL type:</property>
                                         <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="draw_indicator">True</property>
+                                        <property name="mnemonic_widget">urlTypeComboBox</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="urlTypeComboBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">start</property>
+                                        <items>
+                                          <item id="url" translatable="yes">repository URL</item>
+                                          <item id="mirrorlist" translatable="yes">mirrorlist</item>
+                                          <item id="metalink" translatable="yes">metalink</item>
+                                        </items>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
                                         <property name="top_attach">1</property>
                                       </packing>
-                                    </child>
-                                    <child>
-                                      <placeholder/>
                                     </child>
                                     <child>
                                       <placeholder/>
@@ -1137,23 +1144,6 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkCheckButton" id="repoMirrorlistCheckbox">
-                                        <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a mirror _list.</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="margin_left">12</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_repoMirrorlistCheckbox_toggled" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="top_attach">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
                                       <object class="GtkLabel" id="label14">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
@@ -1256,7 +1246,34 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <placeholder/>
+                                      <object class="GtkComboBoxText" id="repoUrlTypeComboBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">start</property>
+                                        <items>
+                                          <item id="url" translatable="yes">repository URL</item>
+                                          <item id="mirrorlist" translatable="yes">mirrorlist</item>
+                                          <item id="metalink" translatable="yes">metalink</item>
+                                        </items>
+                                        <signal name="changed" handler="on_repo_url_type_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label13">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">URL type:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">repoUrlTypeComboBox</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">2</property>
+                                      </packing>
                                     </child>
                                   </object>
                                   <packing>
