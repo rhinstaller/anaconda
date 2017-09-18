@@ -62,6 +62,7 @@ class TUIHub(TUIObject, common.Hub):
         self.input_required = True
 
     def setup(self, args="anaconda"):
+        TUIObject.setup(self, args)
         environment = args
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
