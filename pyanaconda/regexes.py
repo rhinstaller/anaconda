@@ -69,6 +69,11 @@ GROUPLIST_FANCY_PARSE = re.compile(r'^(?:\s*)(?P<name>.*?)\s*(?:\((?P<gid>\d+)\)
 # IPv4 address without anchors
 IPV4_PATTERN_WITHOUT_ANCHORS = r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
 
+IPV4_PATTERN_WITH_ANCHORS = re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$")
+
+# IPv4 address or dhcp with anchors
+IPV4_OR_DHCP_PATTERN_WITH_ANCHORS = re.compile("^(?:" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp)$")
+
 # IPv6 address without anchors
 # Adapted from the IPv6address ABNF definition in RFC 3986, so it has all those
 # IPv4 compatibility bits too. All groups are non-capturing to make it easy to
@@ -87,6 +92,9 @@ IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:' + \
 
 # IPv4 dotted-quad netmask validation
 IPV4_NETMASK_WITHOUT_ANCHORS = r'((128|192|224|240|248|252|254)\.0\.0\.0)|(255\.(((0|128|192|224|240|248|252|254)\.0\.0)|(255\.(((0|128|192|224|240|248|252|254)\.0)|255\.(0|128|192|224|240|248|252|254)))))'
+
+# IPv4 netmask with anchors
+IPV4_NETMASK_WITH_ANCHORS = re.compile("^" + IPV4_NETMASK_WITHOUT_ANCHORS + "$")
 
 # Hostname validation
 # A hostname consists of sections separated by periods. Each of these sections
