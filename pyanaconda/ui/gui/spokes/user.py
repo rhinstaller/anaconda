@@ -289,9 +289,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.pw_bar.add_offset_value("full", 4)
 
         # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.anaconda.pwpolicy.get_policy("user")
-        if not self.policy:
-            self.policy = self.data.anaconda.PwPolicyData()
+        self.policy = self.data.anaconda.pwpolicy.get_policy("user", fallback_to_default=True)
 
         # indicate when the password was set by kickstart
         self._password_kickstarted = self.data.user.seen

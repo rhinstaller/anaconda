@@ -135,14 +135,16 @@ class F22_PwPolicy(KickstartCommand):
     def dataList(self):
         return self.policyList
 
-    def get_policy(self, name):
+    def get_policy(self, name, fallback_to_default=False):
         """ Get the policy by name
 
         :param str name: Name of the policy to return.
-
+        :param bool fallback_to_default: If true return default policy if policy with the given `name` doesn't exists.
         """
         policy = [p for p in self.policyList if p.name == name]
         if policy:
             return policy[0]
+        elif fallback_to_default:
+            return self.handler.PwPolicyData()
         else:
             return None

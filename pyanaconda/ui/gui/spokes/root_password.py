@@ -89,9 +89,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.pw_bar.add_offset_value("full", 4)
 
         # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.anaconda.pwpolicy.get_policy("root")
-        if not self.policy:
-            self.policy = self.data.anaconda.PwPolicyData()
+        self.policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
 
         # set the visibility of the password entries
         set_password_visibility(self.pw, False)
