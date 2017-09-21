@@ -288,7 +288,7 @@ class SoftwareSpoke(NormalTUISpoke):
         self.environment = self._selected_environment
         self.addons = self._addons_selection if self.environment is not None else set()
 
-        if not self.environment:
+        if self.environment is None:
             return
 
         changed = False
