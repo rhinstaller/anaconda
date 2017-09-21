@@ -98,8 +98,8 @@ class StorageCheckHandler(object):
         StorageCheckHandler.errors = report.errors
         StorageCheckHandler.warnings = report.warnings
 
-        hubQ.send_ready(self._mainSpokeClass, True)
         report.log(self.log)
+        hubQ.send_ready(self._mainSpokeClass, True)
 
 class SourceSwitchHandler(object):
     """ A class that can be used as a mixin handling
