@@ -174,12 +174,12 @@ class SoftwareSpoke(NormalTUISpoke):
            if the spoke starts a thread. It should make sure it doesn't access
            things until they are completely setup.
         """
-        processingDone = self.ready and not self.errors and self.txid_valid
+        processing_done = self.ready and not self.errors and self.txid_valid
 
         if flags.automatedInstall or self._kickstarted:
-            return processingDone and self.payload.baseRepo and self.data.packages.seen
+            return processing_done and self.payload.baseRepo and self.data.packages.seen
         else:
-            return processingDone and self.payload.baseRepo and self.environment is not None
+            return processing_done and self.payload.baseRepo and self.environment is not None
 
     def refresh(self, args=None):
         """ Refresh screen. """
