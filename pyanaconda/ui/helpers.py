@@ -188,6 +188,10 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         self.data.method.method = "nfs"
         if opts is not None:
             self.data.method.opts = opts
+        if self.data.method.server is None:
+            self.data.method.server = ""
+        if self.data.method.dir is None:
+            self.data.method.dir = ""
 
     def set_source_cdrom(self):
         """ Switch to cdrom install source """
