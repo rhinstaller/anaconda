@@ -83,7 +83,7 @@ class MakeBumpVer:
         current_version = values[1]
         current_bug_reporting_mail = values[2]
         # also get the current release number
-        regexp = re.compile(r"PACKAGE_RELEASE, \[(.*)\]")
+        regexp = re.compile(r"ANACONDA_RELEASE, \[(.*)\]")
         self.current_release = re.search(regexp, config_ac).groups()[0]
 
         #argument parsing
@@ -511,8 +511,8 @@ class MakeBumpVer:
                                                 newVersion,
                                                 self.bugreport)
 
-        i = l.index("AC_SUBST(PACKAGE_RELEASE, [%s])\n" % self.current_release)
-        l[i] = "AC_SUBST(PACKAGE_RELEASE, [%s])\n" % self.new_release
+        i = l.index("AC_ARG_VAR(ANACONDA_RELEASE, [%s])\n" % self.current_release)
+        l[i] = "AC_ARG_VAR(ANACONDA_RELEASE, [%s])\n" % self.new_release
 
         f = open(self.configure, 'w')
         f.writelines(l)

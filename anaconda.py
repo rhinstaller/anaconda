@@ -324,7 +324,7 @@ if __name__ == "__main__":
             startup_utils.prompt_for_ssh()
             sys.exit(0)
 
-    log.info("%s %s", sys.argv[0], startup_utils.get_anaconda_version_string())
+    log.info("%s %s", sys.argv[0], startup_utils.get_anaconda_version_string(build_time_version=True))
     if os.path.exists("/tmp/updates"):
         log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
 
