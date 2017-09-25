@@ -185,7 +185,9 @@ def doInstall(storage, payload, ksdata, instClass):
         ksdata.firstboot.setup(storage, ksdata, instClass)
         ksdata.addons.setup(storage, ksdata, instClass, payload)
 
-    storage.updateKSData()  # this puts custom storage info into ksdata
+    # put custom storage info into ksdata, but not if just assigning mount points
+    if not ksdata.mount.dataList():
+        storage.updateKSData()
 
     # Do partitioning.
     payload.preStorage()
