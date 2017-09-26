@@ -361,6 +361,8 @@ class SelectDeviceSpoke(NormalTUISpoke):
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
+        self._container = ListColumnContainer(1, columns_width=78, spacing=1)
+
         # check if the storage refresh thread is running
         if threadMgr.get(THREAD_STORAGE_WATCHER):
             # storage refresh is running - just report it
@@ -371,8 +373,6 @@ class SelectDeviceSpoke(NormalTUISpoke):
 
         # check if there are any mountable devices
         if self._mountable_devices:
-            self._container = ListColumnContainer(1, columns_width=78, spacing=1)
-
             for d in self._mountable_devices:
                 self._container.add(TextWidget(d[1]), callback=self._select_mountable_device, data=d[0])
 
