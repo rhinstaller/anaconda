@@ -1160,6 +1160,15 @@ class Mount(commands.mount.F27_Mount):
         for md in self.dataList():
             md.execute(storage, ksdata, instClass)
 
+    def add_mount_data(self, md):
+        self.mount_points.append(md)
+
+    def remove_mount_data(self, md):
+        self.mount_points.remove(md)
+
+    def clear_mount_data(self):
+        self.mount_points = list()
+
 class MountData(commands.mount.F27_MountData):
     def execute(self, storage, ksdata, instClass):
         dev = storage.devicetree.resolve_device(self.device)
@@ -1180,14 +1189,17 @@ class MountData(commands.mount.F27_MountData):
                                               msg=_("No format on device '%s'" % self.device)))
                 fmt = get_format(old_fmt.type)
             storage.format_device(dev, fmt)
+            # make sure swaps end up in /etc/fstab
+            if fmt.type == "swap":
+                storage.add_fstab_swap(dev)
 
         # only set mount points for mountable formats
-        if dev.format.mountable:
+        if dev.format.mountable and self.mount_point is not None and self.mount_point != "none":
             dev.format.mountpoint = self.mount_point
 
-        # make sure swaps end up in /etc/fstab
-        if fmt.type == "swap":
-            storage.add_fstab_swap(dev)
+        dev.format.create_options = self.mkfs_opts
+        dev.format.options = self.mount_opts
+
 
 class Network(commands.network.F27_Network):
     def __init__(self, *args, **kwargs):
