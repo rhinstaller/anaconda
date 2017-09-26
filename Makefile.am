@@ -56,6 +56,7 @@ ARCH_NAME ?= $(shell uname -m)
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 
 MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
+MOCK_EXTRA_ARGS ?=
 
 COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
@@ -129,13 +130,13 @@ release-and-tag:
 
 rc-release: scratch-bumpver scratch
 	-rm -rf $(BUILD_RESULT_DIR)
-	mock -r $(MOCKCHROOT) --clean || exit 1
-	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
-	mock -r $(MOCKCHROOT) --rebuild $(SRPM_BUILD_DIR)/*src.rpm --resultdir $(RPM_BUILD_DIR) || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --rebuild $(SRPM_BUILD_DIR)/*src.rpm --resultdir $(RPM_BUILD_DIR) || exit 1
 
 test-install: rc-release
-	mock -r $(MOCKCHROOT) --clean || exit 1
-	mock -r $(MOCKCHROOT) --install $(RPM_BUILD_DIR)/anaconda-*$(ARCH_NAME).rpm --resultdir $(TEST_INST_BUILD_DIR)
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --install $(RPM_BUILD_DIR)/anaconda-*$(ARCH_NAME).rpm --resultdir $(TEST_INST_BUILD_DIR)
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -239,13 +240,13 @@ bare-ci:
 	$(MAKE) coverage-report
 
 isolated-test: setup-test-env
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > $(srcdir)/tests/error_occured
-	mock -r $(MOCKCHROOT) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda/tests && cp -r --parents ./**/*.log ./*.log* /result/" || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > $(srcdir)/tests/error_occured
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda/tests && cp -r --parents ./**/*.log ./*.log* /result/" || exit 1
 
 	-rm -rf $(TEST_RESULT_DIR)
 	mkdir -p $(TEST_RESULT_DIR)
-	cp -r $$(mock -r $(MOCKCHROOT) -p)/result/* $(TEST_RESULT_DIR)/
+	cp -r $$(mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) -p)/result/* $(TEST_RESULT_DIR)/
 # Move builders logs
 	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
 	@if [ -f $(srcdir)/tests/error_occured ]; then \
@@ -257,12 +258,12 @@ isolated-test: setup-test-env
 
 setup-test-env:
 	@-rm -f tests/error_occured
-	mock -r $(MOCKCHROOT) --clean || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
 # Install missing dependencies for running make install-test-requires
-	mock -r $(MOCKCHROOT) -i dnf python3 git || exit 1
-	mock -r $(MOCKCHROOT) --copyin $(srcdir) /root/anaconda || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
-	mock -r $(MOCKCHROOT) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) -i dnf python3 git || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --copyin $(srcdir) /root/anaconda || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
+	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
 
 	@echo "============================================================"
 	@echo "If you want you can get into testing environment by running:"
