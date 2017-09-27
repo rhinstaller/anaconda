@@ -1824,7 +1824,7 @@ class EFIGRUB1(EFIBase, GRUB):
 
 class EFIGRUB(EFIBase, GRUB2):
     _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
-    _packages64 = [ "grub2-efi-x64", "shim-x64" ]
+    _packages64 = [ "grub2-efi", "shim" ]
     _packages_common = [ "efibootmgr" ]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
