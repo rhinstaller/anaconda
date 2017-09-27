@@ -88,9 +88,9 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 if instclass and instclass.defaultPackageEnvironment and \
                         instclass.defaultPackageEnvironment in environments:
-                    self._selected_environment = environments.index(instclass.defaultPackageEnvironment)
+                    self._selected_environment = instclass.defaultPackageEnvironment
                 else:
-                    self._selected_environment = 0
+                    self._selected_environment = environments[0]
 
         # Apply the initial selection
         self._apply()
@@ -116,15 +116,6 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _payload_error(self):
         self.errors = [payloadMgr.error]
-
-    def _translate_env_selection_to_name(self, selection):
-        """ Return the selected environment name or None.
-            Selection can be None during kickstart installation.
-        """
-        if selection is not None:
-            return self.payload.environments[selection]
-        else:
-            return None
 
     def _translate_env_name_to_id(self, environment):
         """ Return the id of the selected environment or None. """
@@ -259,7 +250,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 # The environment was selected, switch screen
                 elif args is None:
                     # Get addons for the selected environment
-                    environment = self._translate_env_selection_to_name(self._selected_environment)
+                    environment = self._selected_environment
                     environment_id = self._translate_env_name_to_id(environment)
                     addons = self._get_available_addons(environment_id)
 
@@ -294,7 +285,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _apply(self):
         """ Private apply. """
-        self.environment = self._translate_env_selection_to_name(self._selected_environment)
+        self.environment = self._selected_environment
         self.addons = self._addons_selection if self.environment is not None else set()
 
         if self.environment is None:
