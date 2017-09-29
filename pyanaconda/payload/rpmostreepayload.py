@@ -133,7 +133,8 @@ class RPMOSTreePayload(ArchivePayload):
 
         cancellable = None
         gi.require_version("OSTree", "1.0")
-        from gi.repository import OSTree
+        gi.require_version("RpmOstree", "1.0")
+        from gi.repository import OSTree, RpmOstree
         ostreesetup = self.data.ostreesetup
         log.info("executing ostreesetup=%r", ostreesetup)
 
@@ -164,13 +165,16 @@ class RPMOSTreePayload(ArchivePayload):
                            GLib.Variant('a{sv}', self._remoteOptions),
                            cancellable)
 
+        # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
+        ref = RpmOstree.varsubst_basearch(ostreesetup.ref)
+
         progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") % \
-                               {"branchName": ostreesetup.ref, "source": ostreesetup.remote})
+                               {"branchName": ref, "source": ostreesetup.remote})
 
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
 
-        pull_opts = {'refs': GLib.Variant('as', [ostreesetup.ref])}
+        pull_opts = {'refs': GLib.Variant('as', [ref])}
         # If we're doing a kickstart, we can at least use the content as a reference:
         # See <https://github.com/rhinstaller/anaconda/issues/1117>
         # The first path here is used by <https://pagure.io/fedora-lorax-templates>
@@ -194,7 +198,7 @@ class RPMOSTreePayload(ArchivePayload):
                 sys.exit(1)
 
         log.info("ostree pull: " + (progress.get_status() or ""))
-        progressQ.send_message(_("Preparing deployment of %s") % (ostreesetup.ref, ))
+        progressQ.send_message(_("Preparing deployment of %s") % (ref, ))
 
         # Now that we have the data pulled, delete the remote for now.
         # This will allow a remote configuration defined in the tree
@@ -211,13 +215,13 @@ class RPMOSTreePayload(ArchivePayload):
         admin_deploy_args = ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
                              "deploy", "--os=" + ostreesetup.osname]
 
-        admin_deploy_args.append(ostreesetup.remote + ':' + ostreesetup.ref)
+        admin_deploy_args.append(ostreesetup.remote + ':' + ref)
 
         log.info("ostree admin deploy starting")
-        progressQ.send_message(_("Deployment starting: %s") % (ostreesetup.ref, ))
+        progressQ.send_message(_("Deployment starting: %s") % (ref, ))
         self._safeExecWithRedirect("ostree", admin_deploy_args)
         log.info("ostree admin deploy complete")
-        progressQ.send_message(_("Deployment complete: %s") % (ostreesetup.ref, ))
+        progressQ.send_message(_("Deployment complete: %s") % (ref, ))
 
         # Reload now that we've deployed, find the path to the new deployment
         sysroot.load(None)

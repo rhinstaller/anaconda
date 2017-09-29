@@ -101,16 +101,17 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def _repo_status(self):
         """ Return a string describing repo url or lack of one. """
-        if self.data.method.method == "url":
-            return self.data.method.url or self.data.method.mirrorlist
-        elif self.data.method.method == "nfs":
-            return _("NFS server %s") % self.data.method.server
-        elif self.data.method.method == "cdrom":
+        method = self.data.method
+        if method.method == "url":
+            return method.url or method.mirrorlist or method.metalink
+        elif method.method == "nfs":
+            return _("NFS server %s") % method.server
+        elif method.method == "cdrom":
             return _("Local media")
-        elif self.data.method.method == "harddrive":
-            if not self.data.method.dir:
+        elif method.method == "harddrive":
+            if not method.dir:
                 return _("Error setting up software source")
-            return os.path.basename(self.data.method.dir)
+            return os.path.basename(method.dir)
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
@@ -360,6 +361,8 @@ class SelectDeviceSpoke(NormalTUISpoke):
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
+        self._container = ListColumnContainer(1, columns_width=78, spacing=1)
+
         # check if the storage refresh thread is running
         if threadMgr.get(THREAD_STORAGE_WATCHER):
             # storage refresh is running - just report it
@@ -370,8 +373,6 @@ class SelectDeviceSpoke(NormalTUISpoke):
 
         # check if there are any mountable devices
         if self._mountable_devices:
-            self._container = ListColumnContainer(1, columns_width=78, spacing=1)
-
             for d in self._mountable_devices:
                 self._container.add(TextWidget(d[1]), callback=self._select_mountable_device, data=d[0])
 

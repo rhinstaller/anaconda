@@ -368,6 +368,14 @@ language and time zone.
 ``inst.geoloc=provider_hostip``
     Use the Hostip.info GeoIP API.
 
+.. inst.geoloc-use-with-ks
+
+inst.geoloc-use-with-ks
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Enable geolocation even during a kickstart installation (both partial and fully automatic).
+Otherwise geolocation is only enabled during a fully interactive installation.
+
 .. inst.keymap:
 
 inst.keymap
@@ -538,6 +546,14 @@ inst.noshell
 ^^^^^^^^^^^^
 
 Do not put a shell on tty2 during install.
+
+.. inst.notmux:
+
+inst.notmux
+^^^^^^^^^^^
+
+Do not use tmux during install. This allows for output to get generated without
+terminal control characters and is really meant for non-interactive uses.
 
 .. inst.syslog:
 

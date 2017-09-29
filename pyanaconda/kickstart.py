@@ -1152,13 +1152,13 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
 
-class Network(commands.network.F25_Network):
+class Network(commands.network.F27_Network):
     def __init__(self, *args, **kwargs):
-        commands.network.F25_Network.__init__(self, *args, **kwargs)
+        commands.network.F27_Network.__init__(self, *args, **kwargs)
         self.packages = []
 
     def parse(self, args):
-        nd = commands.network.F25_Network.parse(self, args)
+        nd = commands.network.F27_Network.parse(self, args)
         setting_only_hostname = nd.hostname and len(args) <= 2
         if not setting_only_hostname:
             if not nd.device:
@@ -1662,7 +1662,7 @@ class RaidData(commands.raid.F25_RaidData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class RepoData(commands.repo.F21_RepoData):
+class RepoData(commands.repo.F27_RepoData):
     def __init__(self, *args, **kwargs):
         """ Add enabled kwarg
 
@@ -1672,7 +1672,7 @@ class RepoData(commands.repo.F21_RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
 
-        commands.repo.F21_RepoData.__init__(self, *args, **kwargs)
+        commands.repo.F27_RepoData.__init__(self, *args, **kwargs)
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):

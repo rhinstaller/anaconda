@@ -88,9 +88,9 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 if instclass and instclass.defaultPackageEnvironment and \
                         instclass.defaultPackageEnvironment in environments:
-                    self._selected_environment = environments.index(instclass.defaultPackageEnvironment)
+                    self._selected_environment = instclass.defaultPackageEnvironment
                 else:
-                    self._selected_environment = 0
+                    self._selected_environment = environments[0]
 
         # Apply the initial selection
         self._apply()
@@ -117,7 +117,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def _payload_error(self):
         self.errors = [payloadMgr.error]
 
-    def _get_environment_id(self, environment):
+    def _translate_env_name_to_id(self, environment):
         """ Return the id of the selected environment or None. """
         if environment is None:
             return None
@@ -174,12 +174,12 @@ class SoftwareSpoke(NormalTUISpoke):
            if the spoke starts a thread. It should make sure it doesn't access
            things until they are completely setup.
         """
-        processingDone = self.ready and not self.errors and self.txid_valid
+        processing_done = self.ready and not self.errors and self.txid_valid
 
         if flags.automatedInstall or self._kickstarted:
-            return processingDone and self.payload.baseRepo and self.data.packages.seen
+            return processing_done and self.payload.baseRepo and self.data.packages.seen
         else:
-            return processingDone and self.payload.baseRepo and self.environment is not None
+            return processing_done and self.payload.baseRepo and self.environment is not None
 
     def refresh(self, args=None):
         """ Refresh screen. """
@@ -251,7 +251,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 elif args is None:
                     # Get addons for the selected environment
                     environment = self._selected_environment
-                    environment_id = self._get_environment_id(environment)
+                    environment_id = self._translate_env_name_to_id(environment)
                     addons = self._get_available_addons(environment_id)
 
                     # Switch the screen
@@ -288,7 +288,7 @@ class SoftwareSpoke(NormalTUISpoke):
         self.environment = self._selected_environment
         self.addons = self._addons_selection if self.environment is not None else set()
 
-        if not self.environment:
+        if self.environment is None:
             return
 
         changed = False
@@ -305,7 +305,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 self.data.packages.groupList = []
                 self.payload.selectEnvironment(self.environment)
 
-                environment_id = self._get_environment_id(self.environment)
+                environment_id = self._translate_env_name_to_id(self.environment)
                 available_addons = self._get_available_addons(environment_id)
 
                 for addon_id in available_addons:

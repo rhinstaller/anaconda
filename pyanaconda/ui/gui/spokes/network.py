@@ -1526,23 +1526,20 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # if installation media or hdd aren't used and settings have changed
         # try if source is available
         if self.networking_changed:
-            if ANACONDA_ENVIRON in anaconda_flags.environs and self.payload.needsNetwork:
-                log.debug("network spoke (apply) refresh payload")
-
-                from pyanaconda.payload import payloadMgr
-                if payloadMgr.running:
-                    log.debug("Payload is in the process of restarting, skip the repo availability check.")
-                elif self.payload.verifyAvailableRepositories():
-                    log.debug("Payload isn't restarted, repositories are still available.")
-                else:
-                    log.debug("Repository is not reachable. Restart payload thread.")
+            if self.payload.needsNetwork:
+                if ANACONDA_ENVIRON in anaconda_flags.environs:
+                    log.debug("network spoke (apply), network configuration changed - restarting payload thread")
+                    from pyanaconda.payload import payloadMgr
                     payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                             fallback=not anaconda_flags.automatedInstall)
+                                             fallback=not anaconda_flags.automatedInstall, onlyOnChange=True)
+                else:
+                    log.debug("network spoke (apply), network configuration changed - "
+                              "skipping restart of payload thread, outside of Anaconda environment")
             else:
-                log.debug("network spoke (apply), payload refresh skipped (running outside of installation environment)")
-            self.networking_changed = False
-        else:
-            log.debug("network spoke (apply), no changes detected")
+                log.debug("network spoke (apply), network configuration changed - "
+                          "skipping restart of payload thread, payload does not need network")
+        self.networking_changed = False
+
         self.network_control_box.kill_nmce(msg="leaving network spoke")
 
     @property

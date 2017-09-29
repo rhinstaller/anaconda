@@ -345,6 +345,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # as Blivet GUI handles encryption per encrypted device, not globally.
         if self._get_selected_partitioning_method() == PartitioningMethod.BLIVET_GUI:
             self._encryption_revealer.set_reveal_child(False)
+            self._encrypted.set_active(False)
         else:
             self._encryption_revealer.set_reveal_child(True)
 

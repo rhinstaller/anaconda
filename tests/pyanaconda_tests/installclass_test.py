@@ -124,7 +124,9 @@ class FactoryTest(unittest.TestCase):
             self.assertEqual(factory.classes, [InstallClassA])
             self.assertEqual(factory.visible_classes, [])
 
-            self.assertTrue(isinstance(factory.get_best_install_class(), InstallClassA))
+            with self.assertRaises(RuntimeError):
+                factory.get_best_install_class()
+
             self.assertTrue(isinstance(factory.get_install_class_by_name("Install Class A"), InstallClassA))
 
             with self.assertRaises(RuntimeError):

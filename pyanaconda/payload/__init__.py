@@ -427,6 +427,8 @@ class Payload(object):
         urls = [repo.baseurl]
         if repo.mirrorlist:
             urls.extend(repo.mirrorlist)
+        elif repo.metalink:
+            urls.extend(repo.metalink)
         return self._sourceNeedsNetwork(urls)
 
     def _sourceNeedsNetwork(self, sources):
@@ -449,14 +451,19 @@ class Payload(object):
     def needsNetwork(self):
         """Test base and additional repositories if they require network."""
         url = ""
-        if self.data.method.method == "nfs":
+        if self.data.method.method is None:
+            # closest mirror set
+            return True
+        elif self.data.method.method == "nfs":
             # NFS is always on network
             return True
         elif self.data.method.method == "url":
             if self.data.url.url:
                 url = self.data.url.url
-            else:
+            elif self.data.url.mirrorlist:
                 url = self.data.url.mirrorlist
+            elif self.data.url.metalink:
+                url = self.data.url.metalink
 
         return (self._sourceNeedsNetwork([url]) or
                 any(self._repoNeedsNetwork(repo) for repo in self.data.repo.dataList()))
@@ -1160,9 +1167,9 @@ class PackagePayload(Payload):
     def _setupInstallDevice(self, storage, checkmount):
         # XXX FIXME: does this need to handle whatever was set up by dracut?
         method = self.data.method
-        sslverify = True
         url = None
         mirrorlist = None
+        metalink = None
 
         # See if we already have stuff mounted due to dracut
         isodev = blivet.util.get_mount_device(DRACUT_ISODIR)
@@ -1273,7 +1280,7 @@ class PackagePayload(Payload):
         elif method.method == "url":
             url = method.url
             mirrorlist = method.mirrorlist
-            sslverify = not (method.noverifyssl or flags.noverifyssl)
+            metalink = method.metalink
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
             device = blivet.util.get_mount_device(DRACUT_REPODIR)
@@ -1307,7 +1314,7 @@ class PackagePayload(Payload):
                 elif method.method == "cdrom":
                     raise PayloadSetupError("no usable optical media found")
 
-        return url, mirrorlist, sslverify
+        return url, mirrorlist, metalink
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
@@ -1481,12 +1488,14 @@ class PayloadManager(object):
     STATE_STORAGE = 1
     # Waiting on network
     STATE_NETWORK = 2
+    # Verify repository availability
+    STATE_TEST_AVAILABILITY = 3
     # Downloading package metadata
-    STATE_PACKAGE_MD = 3
+    STATE_PACKAGE_MD = 4
     # Downloading group metadata
-    STATE_GROUP_MD = 4
+    STATE_GROUP_MD = 5
     # All done
-    STATE_FINISHED = 5
+    STATE_FINISHED = 6
 
     # Error
     STATE_ERROR = -1
@@ -1535,7 +1544,8 @@ class PayloadManager(object):
             elif event_id <= self._thread_state:
                 func()
 
-    def restartThread(self, storage, ksdata, payload, instClass, fallback=False, checkmount=True):
+    def restartThread(self, storage, ksdata, payload, instClass,
+                      fallback=False, checkmount=True, onlyOnChange=False):
         """Start or restart the payload thread.
 
         This method starts a new thread to restart the payload thread, so
@@ -1549,6 +1559,8 @@ class PayloadManager(object):
         :param installclass.BaseInstallClass instClass: The install class instance
         :param bool fallback: Whether to fall back to the default repo in case of error
         :param bool checkmount: Whether to check for valid mounted media
+        :param bool onlyOnChange: Restart thread only if existing repositories changed.
+                                    This won't restart thread even when a new repository was added!!
         """
         log.debug("Restarting payload thread")
 
@@ -1556,22 +1568,24 @@ class PayloadManager(object):
         if threadMgr.get(THREAD_PAYLOAD_RESTART):
             return
 
+        thread_args = (storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange)
         # Launch a new thread so that this method can return immediately
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
-                                     args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+                                     args=thread_args))
 
     @property
     def running(self):
         """Is the payload thread running right now?"""
         return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
 
-    def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
+    def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange):
         # Wait for the old thread to finish
         threadMgr.wait(THREAD_PAYLOAD)
 
+        thread_args = (storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange)
         # Start a new payload thread
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._runThread,
-                                     args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+                                     args=thread_args))
 
     def _setState(self, event_id):
         # Update the current state
@@ -1585,7 +1599,7 @@ class PayloadManager(object):
             for func in self._event_listeners[event_id]:
                 func()
 
-    def _runThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
+    def _runThread(self, storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange):
         # This is the thread entry
         # Set the initial state
         self._error = None
@@ -1601,7 +1615,6 @@ class PayloadManager(object):
         # (set and use payload.needsNetwork ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
-        self._setState(self.STATE_PACKAGE_MD)
         payload.setup(storage, instClass)
 
         # If this is a non-package Payload, we're done
@@ -1609,8 +1622,18 @@ class PayloadManager(object):
             self._setState(self.STATE_FINISHED)
             return
 
+        # Test if any repository changed from the last update
+        if onlyOnChange:
+            log.debug("Testing repositories availability")
+            self._setState(self.STATE_TEST_AVAILABILITY)
+            if payload.verifyAvailableRepositories():
+                log.debug("Payload isn't restarted, repositories are still available.")
+                self._setState(self.STATE_FINISHED)
+                return
+
         # Keep setting up package-based repositories
         # Download package metadata
+        self._setState(self.STATE_PACKAGE_MD)
         try:
             payload.updateBaseRepo(fallback=fallback, checkmount=checkmount)
             payload.addDriverRepos()
