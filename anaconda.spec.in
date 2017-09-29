@@ -332,6 +332,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 29 2017 Martin Kolman <mkolman@redhat.com> - 28.6-1
+- Add changelog entries from the unstable branch (mkolman)
+- Log when we are executing command in chroot (jkonecny)
+- Use name instead of index in TUI env selection (#1495204) (jkonecny)
+- Fix missing container in TUI source spoke (#1494801) (jkonecny)
+- Add MOCK_EXTRA_ARGS to Makefile (jkonecny)
+- tui source spoke: initialize nfs values when switching to nfs (rvykydal)
+- Deselect encryption when switching to blivet-gui partitioning (vtrefny)
+- Add 2 spaces between functions in iutil (jkonecny)
+- rpmostreepayload: Fix logic for copying of EFI data (walters)
+- rpmostreepayload: Avoid recursing for fstab mounts (walters)
+- payload: Add handlesBootloaderConfiguration(), teach bootloader.py (walters)
+
 * Thu Sep 21 2017 Martin Kolman <mkolman@redhat.com> - 28.5-1
 - Fix missing id to name environment transition (#1491119) (jkonecny)
 - Fix test for unset TUI software environment (#1491119) (jkonecny)
