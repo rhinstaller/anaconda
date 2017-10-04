@@ -41,6 +41,8 @@ bugUrl = config.get("Main", "BugURL")
 isFinal = config.getboolean("Main", "IsFinal")
 productArch = config.get("Main", "Arch")
 productName = config.get("Main", "Product")
+if productName.endswith(" Alternate Architectures"):
+    productName = productName[:-len(" Alternate Architectures")]
 productStamp = config.get("Main", "UUID")
 productVersion = config.get("Main", "Version")
 
