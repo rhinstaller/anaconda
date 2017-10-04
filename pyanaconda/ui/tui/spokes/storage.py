@@ -27,7 +27,7 @@ from gi.repository import BlockDev as blockdev
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
-from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker
+from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker, get_supported_filesystems
 
 from blivet import arch
 from blivet.size import Size
@@ -790,6 +790,7 @@ class SetFormatDialog(EditTUIDialog):
         EditTUIDialog.__init__(self, data, storage, payload, instclass)
         self.title = N_("Configure device format")
         self._mount_data = mount_data
+        self._supported_filesystems = [fmt.type for fmt in get_supported_filesystems()]
 
     @property
     def indirect(self):
@@ -808,12 +809,13 @@ class SetFormatDialog(EditTUIDialog):
             self.value = self._mount_data.format
             return InputState.DISCARDED
         else:
-            fmt = get_format(key)
-            if fmt.type is not None:
+            key = key.lower()
+            if key in self._supported_filesystems:
                 self.value = key
                 return InputState.DISCARDED
             else:
-                print("Invalid format given")
+                print(_("Invalid or unsupported format given"))
+                print(_("Supported formats: %s") % ", ".join(self._supported_filesystems))
                 return InputState.DISCARDED
 
     def apply(self):
