@@ -21,6 +21,9 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda import ihelp
 
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 __all__ = ["StandaloneSpoke", "NormalSpoke"]
 
 # Inherit abstract methods from common.StandaloneSpoke
@@ -62,6 +65,9 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
         # Add a help handler
         self.window.connect_after("help-button-clicked", self._on_help_clicked)
 
+        # warning message
+        self._current_warning_message = ""
+
     def _on_help_clicked(self, window):
         # the help button has been clicked, start the yelp viewer with
         # content for the current spoke
@@ -71,3 +77,21 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
         # Notify the hub that we're finished.
         # The hub will be the current-action of the main window.
         self.main_window.current_action.spoke_done(self)
+
+    def clear_info(self):
+        """Clear the last set warning message and call the ancestors method."""
+        self._current_warning_message = ""
+        super().clear_info()
+
+    def show_warning_message(self, message):
+        """Show error message in the status bar.
+
+        As set_warning() animates the error bar only set new message
+        when it is different from the current one.
+        """
+        if not message:
+            self.clear_info()
+        elif self._current_warning_message != message:
+            self.clear_info()
+            self._current_warning_message = message
+            self.set_warning(message)
