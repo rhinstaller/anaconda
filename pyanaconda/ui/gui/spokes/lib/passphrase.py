@@ -22,31 +22,30 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-import pwquality
-
-from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.helpers import GUIInputCheckHandler
-from pyanaconda.constants import PW_ASCII_CHARS
 from pyanaconda.i18n import _, N_
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
+from pyanaconda import input_checking
+from pyanaconda import constants
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["PassphraseDialog"]
 
 ERROR_WEAK = N_("You have provided a weak passphrase: %s")
 ERROR_NOT_MATCHING = N_("Passphrases do not match.")
 
-class PassphraseDialog(GUIObject, GUIInputCheckHandler):
+class PassphraseDialog(GUIObject):
     builderObjects = ["passphrase_dialog"]
     mainWidgetName = "passphrase_dialog"
     uiFile = "spokes/lib/passphrase.glade"
 
     def __init__(self, data):
         GUIObject.__init__(self, data)
-        GUIInputCheckHandler.__init__(self)
 
-        self._confirm_entry = self.builder.get_object("confirm_pw_entry")
         self._passphrase_entry = self.builder.get_object("passphrase_entry")
+        self._confirm_entry = self.builder.get_object("confirm_pw_entry")
 
         self._save_button = self.builder.get_object("passphrase_save_button")
 
@@ -60,38 +59,47 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self._strength_bar.add_offset_value("low", 2)
         self._strength_bar.add_offset_value("medium", 3)
         self._strength_bar.add_offset_value("high", 4)
-        self._strength_bar.add_offset_value("full", 4)
 
-        # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.anaconda.pwpolicy.get_policy("luks", fallback_to_default=True)
+        # Setup the password checker for passphrase checking
+        self._checker = input_checking.PasswordChecker(initial_password_content = self._passphrase_entry.get_text(),
+                                                       initial_password_confirmation_content = self._confirm_entry.get_text(),
+                                                       policy = input_checking.get_policy(self.data, "luks"))
+        # configure the checker for passphrase checking
+        self._checker.name_of_password = _(constants.NAME_OF_PASSPHRASE)
+        self._checker.name_of_password_plural = _(constants.NAME_OF_PASSPHRASE_PLURAL)
+        # connect UI updates to check results
+        self._checker.checks_done.connect(self._set_status)
 
-        # These will be set up later.
-        self._pwq = None
-        self._pwq_error = None
         self.passphrase = ""
+        self._passphrase_good_enough = False
 
-        # the passphrase confirmation needs to be checked whenever either of the password
-        # fields change. attach to the confirm field and check changes to the
-        # password field in on_passphrase_changed
-        self._passphrase_match_check = self.add_check(self._confirm_entry, self._checkMatch)
-        self._strength_check = self.add_check(self._passphrase_entry, self._checkStrength)
-        self._ascii_check = self.add_check(self._passphrase_entry, self._checkASCII)
+        # check that the content of the passphrase field & the conformation field are the same
+        self._confirm_check = input_checking.PasswordConfirmationCheck()
+        # check passphrase validity, quality and strength
+        self._validity_check = input_checking.PasswordValidityCheck()
+        # connect UI updates to validity check results
+        self._validity_check.result.password_score_changed.connect(self._set_password_strength)
+        self._validity_check.result.status_text_changed.connect(self._set_password_status_text)
+        # check if the passphrase contains non-ascii characters
+        self._ascii_check = input_checking.PasswordASCIICheck()
+        # check if the passphrase is empty
+        self._empty_check = input_checking.PasswordEmptyCheck()
 
-        # set the visibility of the password entries
-        set_password_visibility(self._passphrase_entry, False)
-        set_password_visibility(self._confirm_entry, False)
+        # register the individual checks with the checker in proper order
+        # 1) are both entered passphrases the same ?
+        # 2) is the passphrase valid according to the current password checking policy ?
+        # 3) is the passphrase free of non-ASCII characters ?
+        self._checker.add_check(self._confirm_check)
+        self._checker.add_check(self._validity_check)
+        self._checker.add_check(self._ascii_check)
+        self._checker.add_check(self._empty_check)
 
     def refresh(self):
-        super(PassphraseDialog, self).refresh()
+        super().refresh()
 
         # disable input methods for the passphrase Entry widgets
         self._passphrase_entry.set_property("im-module", "")
         self._confirm_entry.set_property("im-module", "")
-
-        # set up passphrase quality checker
-        self._pwq = pwquality.PWQSettings()
-        self._pwq.read_config()
-        self._pwq.minlen = self.policy.minlen
 
         # initialize with the previously set passphrase
         self.passphrase = self.data.autopart.passphrase
@@ -102,12 +110,8 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self._passphrase_entry.set_text(self.passphrase)
         self._confirm_entry.set_text(self.passphrase)
 
-        self._update_passphrase_strength()
-
-        # Update the check states
-        self._passphrase_match_check.update_check_status()
-        self._strength_check.update_check_status()
-        self._ascii_check.update_check_status()
+        # run the checks
+        self._checker.run_checks()
 
     def run(self):
         self.refresh()
@@ -116,12 +120,10 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         while True:
             rc = self.window.run()
             if rc == 1:
-                # Force an update of all the checks and then see what set_status
-                # did to the sensitivity of the save button
-                for check in self.checks:
-                    check.update_check_status.run_now()
-
-                if self._save_button.get_sensitive():
+                # Force an update of all the checks and then see if it was successful,
+                # just in case.
+                self._checker.run_checks()
+                if self._passphrase_good_enough:
                     # Input ok, save the passphrase
                     self.passphrase = self._passphrase_entry.get_text()
                     break
@@ -135,89 +137,58 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self.window.destroy()
         return rc
 
-    def _update_passphrase_strength(self):
-        passphrase = self._passphrase_entry.get_text()
-        strength = 0
-        self._pwq_error = ""
-        try:
-            strength = self._pwq.check(passphrase, None, None)
-        except pwquality.PWQError as e:
-            self._pwq_error = e.args[1]
+    def _set_status(self, error_message):
+        """Set UI element states according to passphrase check results.
 
-        if strength < 50:
-            val = 1
-            text = _("Weak")
-        elif strength < 75:
-            val = 2
-            text = _("Fair")
-        elif strength < 90:
-            val = 3
-            text = _("Good")
-        else:
-            val = 4
-            text = _("Strong")
-
-        self._strength_bar.set_value(val)
-        self._strength_label.set_text(text)
-
-    def set_status(self, inputcheck):
-        # Set the warning message with the result from the first failed check
-        failed_check = next(self.failed_checks_with_message, None)
-
-        if failed_check:
-            result_icon, result_message = failed_check.check_status
-            self._passphrase_warning_image.set_from_icon_name(result_icon, Gtk.IconSize.BUTTON)
-            self._passphrase_warning_label.set_text(result_message)
-            really_show(self._passphrase_warning_image)
-            really_show(self._passphrase_warning_label)
-        else:
+        NOTE: This method is called every time the checker finishes running all checks.
+        """
+        success = not error_message
+        if success:
             really_hide(self._passphrase_warning_image)
             really_hide(self._passphrase_warning_label)
-
-        # The save button should only be sensitive if the match check passes
-        if self._passphrase_match_check.check_status == InputCheck.CHECK_OK and \
-                (not self.policy.strict or self._strength_check.check_status == InputCheck.CHECK_OK):
-            self._save_button.set_sensitive(True)
         else:
-            self._save_button.set_sensitive(False)
+            if not self._ascii_check.result.success:
+                # ASCII check runs last, so if just it has failed the result is only a warning
+                result_icon = "dialog-warning"
+            else:
+                # something else failed and that's a critical error
+                result_icon = "dialog-error"
+            self._passphrase_warning_image.set_from_icon_name(result_icon, Gtk.IconSize.BUTTON)
+            self._passphrase_warning_label.set_text(error_message)
+            really_show(self._passphrase_warning_image)
+            really_show(self._passphrase_warning_label)
 
-    def _checkASCII(self, inputcheck):
-        passphrase = self.get_input(inputcheck.input_obj)
+        # The save button should only be sensitive if both passphrases match
+        # and are valid enough for current policy
+        self._passphrase_good_enough = False
+        if self._checker.success:
+            self._passphrase_good_enough = True
+        elif len(self._checker.failed_checks) == 1 and self._validity_check in self._checker._failed_checks:
+            # only the password validity check failed
+            if self._checker.policy.strict:
+                # this is not fine for the strict password policy
+                self._passphrase_good_enough = False
+            else:
+                # but is totally fine under the non-strict policy
+                self._passphrase_good_enough = True
+        # set the save button sensitivity accordingly
+        self._save_button.set_sensitive(self._passphrase_good_enough)
 
-        if passphrase and any(char not in PW_ASCII_CHARS for char in passphrase):
-            return ("dialog-warning", _("Passphrase contains non-ASCII characters"))
-        else:
-            return InputCheck.CHECK_OK
+    def _set_password_strength(self, strength):
+        self._strength_bar.set_value(strength)
 
-    def _checkStrength(self, inputcheck):
-        if self._pwq_error:
-            return ("dialog-error", _(ERROR_WEAK) % self._pwq_error)
-        else:
-            return InputCheck.CHECK_OK
-
-    def _checkMatch(self, inputcheck):
-        passphrase = self._passphrase_entry.get_text()
-        confirm = self._confirm_entry.get_text()
-        if passphrase != confirm:
-            result = ("dialog-error", _(ERROR_NOT_MATCHING))
-        else:
-            result = InputCheck.CHECK_OK
-
-        return result
+    def _set_password_status_text(self, status_text):
+        self._strength_label.set_text(status_text)
 
     def on_passphrase_changed(self, entry):
-        self._update_passphrase_strength()
-
-        # Update the match check for changes in the main passphrase field
-        self._passphrase_match_check.update_check_status()
-
-        # Set the OK button to sensitive any time the passphrase or confirm
-        # entries change, so that the user can attempt to exit the dialog
-        # without waiting for the input validation timer
-        self._save_button.set_sensitive(True)
+        self._checker.password.content = entry.get_text()
 
     def on_confirm_changed(self, entry):
-        self._save_button.set_sensitive(True)
+        self._checker.password_confirmation.content = entry.get_text()
+
+    def on_save_clicked(self, button):
+        log.debug("SAVE CLICKED")
+        self.passphrase = self._passphrase_entry.get_text()
 
     def on_entry_activated(self, entry):
         if self._save_button.get_sensitive() and \
