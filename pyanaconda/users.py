@@ -23,10 +23,7 @@ import os.path
 import subprocess
 from contextlib import contextmanager
 from pyanaconda import iutil
-import pwquality
 from pyanaconda.iutil import strip_accents
-from pyanaconda.constants import PASSWORD_MIN_LEN
-from pyanaconda.constants import PasswordStatus
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
@@ -64,88 +61,6 @@ def cryptPassword(password, algo=None):
             raise exn
 
     return cryptpw
-
-def validatePassword(pw, user="root", settings=None, minlen=None, empty_ok=False):
-    """Check the quality of a password.
-
-       This function does three things: given a password and an optional
-       username, it will tell if this password can be used at all, how
-       strong the password is on a scale of 1-100, and, if the password is
-       unusable, why it is unusuable.
-
-       This function uses libpwquality to check the password strength.
-       pwquality will raise a PWQError on a weak password, which, honestly,
-       is kind of dumb behavior. A weak password isn't exceptional, it's what
-       we're asking about! Anyway, this function does not raise PWQError. If
-       the password fails the PWQSettings conditions, the first member of the
-       return tuple will be False and the second member of the tuple will be 0.
-
-       :param pw: the password to check
-       :type pw: string
-
-       :param user: the username for which the password is being set. If no
-                    username is provided, "root" will be used. Use user=None
-                    to disable the username check.
-       :type user: string
-
-       :param settings: an optional PWQSettings object
-       :type settings: pwquality.PWQSettings
-       :param int minlen: Minimum acceptable password length. If not passed,
-                          use the default length from PASSWORD_MIN_LEN
-
-       :returns: A tuple containing (bool(valid), int(score), str(message))
-       :rtype: tuple
-    """
-
-    length_ok = False
-    error_message = None
-    pw_quality = 0
-
-    # if no passworld length is specified, then require use the Anaconda default minimal
-    # password length (6 characters at the moment)
-    if minlen is None:
-        minlen = PASSWORD_MIN_LEN
-
-    if settings is None:
-        # Generate a default PWQSettings once and save it as a member of this function
-        if not hasattr(validatePassword, "pwqsettings"):
-            validatePassword.pwqsettings = pwquality.PWQSettings()
-            validatePassword.pwqsettings.read_config()
-            validatePassword.pwqsettings.minlen = minlen
-        settings = validatePassword.pwqsettings
-    try:
-        pw_quality = settings.check(pw, None, user)
-    except pwquality.PWQError as e:
-        # Leave valid alone here: the password is weak but can still
-        # be accepted.
-        # PWQError values are built as a tuple of (int, str)
-        error_message = e.args[1]
-
-    if empty_ok:
-        # if we are OK with empty passwords, then empty passwords are also fine length wise
-        length_ok = len(pw) >= minlen or not pw
-    else:
-        length_ok = len(pw) >= minlen
-
-    if not pw:
-        pw_score = 0
-        status_text = _(PasswordStatus.EMPTY.value)
-    elif not length_ok:
-        pw_score = 0
-        status_text = _(PasswordStatus.TOO_SHORT.value)
-    elif error_message:
-        pw_score = 1
-        status_text = _(PasswordStatus.WEAK.value)
-    elif pw_quality < 30:
-        pw_score = 2
-        status_text = _(PasswordStatus.FAIR.value)
-    elif pw_quality < 70:
-        pw_score = 3
-        status_text = _(PasswordStatus.GOOD.value)
-    else:
-        pw_score = 4
-        status_text = _(PasswordStatus.STRONG.value)
-    return pw_score, status_text, pw_quality, error_message
 
 def check_username(name):
     # Check reserved names.
