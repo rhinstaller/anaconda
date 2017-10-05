@@ -412,7 +412,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def completed(self):
         retval = (threadMgr.get(constants.THREAD_EXECUTE_STORAGE) is None and
-                  threadMgr.get(constants.THREAD_CHECK_STORAGE) is None and
+                  not self.checking_storage and
                   self.storage.rootDevice is not None and
                   not self.errors)
         return retval
