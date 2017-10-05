@@ -319,6 +319,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 05 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.125-1
+- Fix storage spoke completeness checking (rvykydal)
+  Resolves: rhbz#1496416
+- Missing dot in testing availability message (jkonecny)
+  Related: rhbz#1478970
+
 * Thu Sep 07 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.124-1
 - network: add support for kickstart --bindto=mac for virtual devices
   (rvykydal)
