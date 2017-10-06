@@ -2505,8 +2505,6 @@ def resetCustomStorageData(ksdata):
     for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
         ksdata.resetCommand(command)
 
-    ksdata.clearpart.type = CLEARPART_TYPE_NONE
-
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
     ksdata.clearpart.execute(storage, ksdata, instClass)
