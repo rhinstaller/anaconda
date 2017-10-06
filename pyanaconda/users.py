@@ -148,23 +148,36 @@ def validatePassword(pw, user="root", settings=None, minlen=None, empty_ok=False
     return pw_score, status_text, pw_quality, error_message
 
 def check_username(name):
+    # Check reserved names.
     if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
         return (False, _("User name is reserved for system: %s") % name)
 
+    # Check shadow-utils rules.
     if name.startswith("-"):
-        return (False, _("User name cannot start with '-' character"))
+        return (False, _("User name cannot start with '-' character."))
+
+    if name in [".", ".."]:
+        return (False, _("User name '%s' is not allowed.") % name)
+
+    if name.isdigit():
+        return (False, _("Fully numeric user name is not allowed."))
 
     # Final '$' allowed for Samba
+    if name == "$":
+        return (False, _("User name '$' is not allowed."))
+
     if name.endswith("$"):
         sname = name[:-1]
     else:
         sname = name
+
     match = re.search(r'[^' + PORTABLE_FS_CHARS + r']', sname)
+
     if match:
         return (False, _("User name cannot contain character: '%s'") % match.group())
 
     if len(name) > 32:
-        return (False, _("User name must be shorter than 33 characters"))
+        return (False, _("User name must be shorter than 33 characters."))
 
     # Check also with THE regexp to be sure
     if not USERNAME_VALID.match(name):

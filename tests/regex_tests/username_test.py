@@ -70,7 +70,6 @@ class UsernameRegexTestCase(unittest.TestCase):
                 'gggggggggggggggggggggggggburdell$',
                 ' gburdell',
                 ':gburdell',
-                'root',
                 '$',
                 '-'
                 ]
