@@ -38,6 +38,9 @@ class OvirtBaseInstallClass(BaseInstallClass):
     efi_dir = "centos"
     default_autopart_type = AUTOPART_TYPE_LVM_THINP
 
+    # there is a RHV branded help content variant
+    help_folder = "/usr/share/anaconda/help/rhv"
+
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
 
