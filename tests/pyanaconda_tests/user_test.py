@@ -20,15 +20,21 @@
 #
 
 import unittest
-from pyanaconda.users import check_username
+from pyanaconda.users import check_username, check_groupname, check_grouplist
 
 
 class UserNameTests(unittest.TestCase):
 
-    def _assert_username(self, name, expected_validity):
-        valid, message = check_username(name)
+    def _check_name(self, name):
+        return check_username(name)
+
+    def _assert_name(self, name, expected_validity):
+        valid, message = self._check_name(name)
         self.assertEqual(valid, expected_validity, message)
         self.assertEqual(not valid, message is not None)
+
+    def _assert_username(self, name, expected_validity):
+        self._assert_name(name, expected_validity)
 
     def reserved_names_test(self):
         """Test the reserved names."""
@@ -90,3 +96,49 @@ class UserNameTests(unittest.TestCase):
 
         self._assert_username("f" * 32, True)
         self._assert_username("f" * 1, True)
+
+
+class GroupNameTests(UserNameTests):
+
+    def _check_name(self, name):
+        return check_groupname(name)
+
+    def reserved_names_test(self):
+        """There are no reserved names for groups."""
+        self._assert_name("root", True)
+        self._assert_name("home", True)
+        self._assert_name("system", True)
+
+    def numbers_test(self):
+        """Test numbers in names."""
+        super().numbers_test()
+        self._assert_name("0", False)
+
+
+class GroupListTests(GroupNameTests):
+
+    def _check_name(self, name):
+        return check_grouplist(name)
+
+    def grouplist_test(self):
+        """Test a simple list of groups."""
+        self._assert_name("", True)
+        self._assert_name("foo", True)
+        self._assert_name(" foo", True)
+        self._assert_name(" \tfoo", True)
+        self._assert_name("foo ", True)
+        self._assert_name("foo \t", True)
+        self._assert_name("  foo  ", True)
+        self._assert_name("foo,bar", True)
+        self._assert_name("foo, bar", True)
+        self._assert_name("  foo,    bar", True)
+        self._assert_name("foo, bar, xxx", True)
+
+        self._assert_name(",", False)
+        self._assert_name("foo, -bar,", False)
+        self._assert_name("foo,", False)
+        self._assert_name("foo,   ", False)
+        self._assert_name(",bar", False)
+        self._assert_name("   ,bar", False)
+        self._assert_name(",foo,", False)
+        self._assert_name("foo,bar,", False)
