@@ -16,37 +16,27 @@ In that case just ignore all section that require you to be an Anaconda maintain
 - you need to have committer access to the anaconda package on Fedora distgit
 
 
-1. merge master to unstable
-
-::
-
-    git checkout master
-    git pull
-    git checkout unstable
-    git pull
-    git merge --no-ff master
-
-2. do any changes that are needed to anaconda.spec.in
+1. do any changes that are needed to anaconda.spec.in
 
 ::
 
    vim anaconda.spec.in
 
-3. do a release commit
+2. do a release commit
 
 ::
 
     ./scripts/makebumpver -c --skip-zanata
 
-4. check the commit and tag are correct
+3. check the commit and tag are correct
 
-5. push the unstable branch to the remote
+4. push the master branch to the remote
 
 ::
 
-    git push unstable --tags
+    git push master --tags
 
-6. configure anaconda
+5. configure anaconda
 
 ::
 
@@ -54,26 +44,26 @@ In that case just ignore all section that require you to be an Anaconda maintain
     ./autogen
     ./configure
 
-7. create tarball
+6. create tarball
 
 ::
 
    make release
 
-8. copy tarball to SOURCES
+7. copy tarball to SOURCES
 
 ::
 
     cp anaconda-*.tar.bz2 ~/rpmbuild/SOURCES/
 
-9. create SRPM
+8. create SRPM
 
 
 ::
 
     rpmbuild -bs --nodeps anaconda.spec
 
-10. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
+9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
 
 ::
 
@@ -83,13 +73,13 @@ In that case just ignore all section that require you to be an Anaconda maintain
     fedpkg switch-branch master
     git pull
 
-11. switch to Fedora distgit folder and import the SRPM
+10. switch to Fedora distgit folder and import the SRPM
 
 ::
 
     fedpkg import ~/rpmbuild/SRPMS/anaconda-<version>.src.rpm
 
-12. this will stage a commit, check it's content and commit
+11. this will stage a commit, check it's content and commit
 
  - the header should be: ``New version <version number>``
  - content of the commit message should be the same as the changelog in the spec for the given version
@@ -98,13 +88,13 @@ In that case just ignore all section that require you to be an Anaconda maintain
 
   git commit
 
-13. push the update
+12. push the update
 
 ::
 
     fedpkg push
 
-14. start the build
+13. start the build
 
 ::
 
@@ -224,7 +214,7 @@ Create the ``-release`` branch:
 
 ::
 
-    git checkout unstable
+    git checkout master
     git pull
     git checkout -b f<version>-release
 
@@ -268,14 +258,7 @@ For example, for the F27 branching:
 - after the bump the version is ``28.1``
 
 
-First checkout the ``unstable`` branch and merge the ``master`` branch into it:
-
-::
-
-    git checkout unstable
-    git merge --no-ff master
-
-Then do the major version bump and verify the output looks correct:
+Do the major version bump and verify that the output looks correct:
 
 ::
 
@@ -285,7 +268,7 @@ If everything looks fine (changelog, new major version & the tag) push the chang
 
 ::
 
-    git push origin unstable --tags
+    git push origin master --tags
 
 Then continue with the normal Rawhide Anaconda build process.
 
