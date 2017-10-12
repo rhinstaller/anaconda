@@ -29,6 +29,8 @@ from blivet import util
 from blivet import udev
 from blivet.size import Size
 from blivet.errors import StorageError
+from blivet.formats import device_formats
+from blivet.formats.fs import FS
 from blivet.platform import platform as _platform
 from blivet.autopart import swap_suggestion
 from blivet.devicefactory import DEVICE_TYPE_LVM
@@ -924,3 +926,17 @@ def device_matches(spec, devicetree=None, disks_only=False):
             matches.append(dev_name)
 
     return matches
+
+def get_supported_filesystems():
+    fs_types = []
+    for cls in device_formats.values():
+        obj = cls()
+
+        # btrfs is always handled by on_device_type_changed
+        supported_fs = (obj.supported and obj.formattable and
+                        (isinstance(obj, FS) or
+                         obj.type in ["biosboot", "prepboot", "swap"]))
+        if supported_fs:
+            fs_types.append(obj)
+
+    return fs_types

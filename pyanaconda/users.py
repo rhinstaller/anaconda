@@ -28,7 +28,7 @@ from pyanaconda.iutil import strip_accents
 from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.constants import PasswordStatus
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
-from pyanaconda.regexes import GROUPLIST_FANCY_PARSE, USERNAME_VALID, PORTABLE_FS_CHARS
+from pyanaconda.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
 from pyanaconda.i18n import _
 import re
@@ -148,29 +148,66 @@ def validatePassword(pw, user="root", settings=None, minlen=None, empty_ok=False
     return pw_score, status_text, pw_quality, error_message
 
 def check_username(name):
+    # Check reserved names.
     if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
-        return (False, _("User name is reserved for system: %s") % name)
+        return False, _("User name is reserved for system: %s") % name
 
+    return is_valid_name(name)
+
+def check_grouplist(group_list):
+    # Check empty list.
+    if group_list == "":
+        return True, None
+
+    # Check the group names.
+    for group_name in group_list.split(","):
+        valid, message = check_groupname(group_name.strip())
+        if not valid:
+            return valid, message
+
+    # Check the regexp to be sure
+    if not GROUPLIST_SIMPLE_VALID.match(group_list):
+        return False, _("Either a group name in the group list is invalid "
+                        "or groups are not separated by a comma.")
+
+    return True, None
+
+def check_groupname(name):
+    return is_valid_name(name)
+
+def is_valid_name(name):
+    # Check shadow-utils rules.
     if name.startswith("-"):
-        return (False, _("User name cannot start with '-' character"))
+        return False, _("Name cannot start with '-' character.")
+
+    if name in [".", ".."]:
+        return False, _("Name '%s' is not allowed.") % name
+
+    if name.isdigit():
+        return False, _("Fully numeric name is not allowed.")
 
     # Final '$' allowed for Samba
+    if name == "$":
+        return False, _("Name '$' is not allowed.")
+
     if name.endswith("$"):
         sname = name[:-1]
     else:
         sname = name
+
     match = re.search(r'[^' + PORTABLE_FS_CHARS + r']', sname)
+
     if match:
-        return (False, _("User name cannot contain character: '%s'") % match.group())
+        return False, _("Name cannot contain character: '%s'") % match.group()
 
     if len(name) > 32:
-        return (False, _("User name must be shorter than 33 characters"))
+        return False, _("Name must be shorter than 33 characters.")
 
     # Check also with THE regexp to be sure
-    if not USERNAME_VALID.match(name):
-        return (False, None)
+    if not NAME_VALID.match(name):
+        return False, _("Name '%s' is invalid.") % name
 
-    return (True, None)
+    return True, None
 
 def guess_username(fullname):
     fullname = fullname.split()

@@ -246,8 +246,9 @@ def doInstall(storage, payload, ksdata, instClass):
     # So let's have two task queues - early storage & late storage.
     early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
 
-    # put custom storage info into ksdata
-    early_storage.append(Task("Insert custom storage to ksdata", storage.update_ksdata))
+    # put custom storage info into ksdata, but not if just assigning mount points
+    if not ksdata.mount.dataList():
+        early_storage.append(Task("Insert custom storage to ksdata", storage.update_ksdata))
 
     # pre-storage tasks
     # - Is this actually needed ? It does not appear to do anything right now.

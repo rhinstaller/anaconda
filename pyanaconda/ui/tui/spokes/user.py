@@ -21,12 +21,12 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.users import guess_username, check_username
+from pyanaconda.users import guess_username, check_username, check_grouplist
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
-from pyanaconda.regexes import GECOS_VALID, GROUPLIST_SIMPLE_VALID
+from pyanaconda.regexes import GECOS_VALID
 
 __all__ = ["UserSpoke"]
 
@@ -46,7 +46,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self, args: args._create),
         Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self, args: args._use_password and args._create),
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self, args: args._create),
-        Entry("Groups", "_groups", GROUPLIST_SIMPLE_VALID, lambda self, args: args._create)
+        Entry("Groups", "_groups", check_grouplist, lambda self, args: args._create)
         ]
 
     @classmethod
@@ -145,7 +145,8 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 # more granular message is returned by check_username
                 pass
             elif field.attribute == "_groups":
-                self.dialog.wrong_input_message = _("Either a group name in the group list is invalid or groups are not separated by a comma")
+                # more granular message is returned by check_grouplist
+                pass
 
         return super(UserSpoke, self).input(args, key)
 

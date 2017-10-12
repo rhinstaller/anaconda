@@ -240,9 +240,11 @@ class Hub(GUIObject, common.Hub):
         if not spoke.mandatory or spoke.completed:
             if spoke in self._incompleteSpokes:
                 self._incompleteSpokes.remove(spoke)
+                log.debug("incomplete spokes: %s", self._incompleteSpokes)
         else:
             if spoke not in self._incompleteSpokes:
                 self._incompleteSpokes.append(spoke)
+                log.debug("incomplete spokes: %s", self._incompleteSpokes)
 
         if update_continue:
             self._updateContinue()
