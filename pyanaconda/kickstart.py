@@ -1179,8 +1179,8 @@ class MountData(commands.mount.F27_MountData):
             if self.format:
                 fmt = get_format(self.format)
                 if not fmt:
-                    msg = _("Unknown or invalid format '%s' specified for device '%s'" % \
-                            (self.format, self.device))
+                    msg = _("Unknown or invalid format '%(format)s' specified for device '%(device)s'" % \
+                            {"format" : self.format, "device" : self.device })
                     raise KickstartParseError(formatErrorMsg(self.lineno, msg))
             else:
                 old_fmt = dev.format
