@@ -332,6 +332,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 12 2017 Martin Kolman <mkolman@redhat.com> - 27.20.3-1
+- Mark the mount point assignment in TUI as experimental (vpodzime)
+- Reset storage on change in text mode (vpodzime)
+- Only allow the supported file systems in text mode (vpodzime)
+- Textual configuration of mount points (vpodzime)
+- Add support for the new 'mount' kickstart command (vpodzime)
+- Fix dnf exception repository not set (#1495211) (jkonecny)
+- Add logging of complete spokes in GUI. (rvykydal)
+- Do not execute storage when the spoke is left with no selected disk
+  (#1496327) (rvykydal)
+- Add checks for group names (#1497676) (vponcova)
+- Add new checks for user names (#1491006) (vponcova)
+
 * Fri Sep 29 2017 Martin Kolman <mkolman@redhat.com> - 27.20.2-1
 - Use name instead of index in TUI env selection (#1495204) (jkonecny)
 - Fix missing container in TUI source spoke (#1494801) (jkonecny)
