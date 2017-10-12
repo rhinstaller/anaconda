@@ -30,28 +30,25 @@ GECOS_VALID = re.compile(r'^[^:]*$')
 # the portable filesystem character set (ASCII alnum plus dot, underscore,
 # and hyphen), with the additional restriction that names not start with a
 # hyphen. The Red Hat modification to shadow-utils starts with these rules
-# and additionally allows a final $, because Samba.
+# and additionally allows a final $, because Samba. It doesn't allow fully
+# numeric names or just "." or "..".
 #
 # shadow-utils also defines length limits for names: 32 for group names,
 # and UT_NAMESIZE for user names (which is defined as 32 bits/utmp.h). This
 # expression captures all of that: the initial character, followed by either
 # up to 30 portable characters and a dollar sign or up to 31 portable characters,
-# both for a maximum total of 32. The empty string is not allowed. "root" is not
-# allowed.
+# both for a maximum total of 32. The empty string is not allowed.
 
-# a base expression without anchors, helpful for building other expressions
-# If the string is the right length to match "root", use a lookback expression
-# to make sure it isn't.
 PORTABLE_FS_CHARS = r'a-zA-Z0-9._-'
-_USERNAME_BASE = r'[a-zA-Z0-9._](([' + PORTABLE_FS_CHARS + r']{0,2})|([' + PORTABLE_FS_CHARS + r']{3}(?<!root))|([' + PORTABLE_FS_CHARS + r']{4,31})|([' + PORTABLE_FS_CHARS + r']{,30}\$))'
+_NAME_BASE = r'[a-zA-Z0-9._][' + PORTABLE_FS_CHARS + r']{0,30}([' + PORTABLE_FS_CHARS + r']|\$)?'
 
-USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
-GROUPNAME_VALID = USERNAME_VALID
+# A regex for user and group names.
+NAME_VALID = re.compile(r'^' + _NAME_BASE + '$')
 
-# A comma-separated list of groups, validated as in GROUPNAME_VALID
+# A comma-separated list of groups, validated as in NAME_VALID
 # Any number of spaces are allowed at the start and end of the list and
 # before and after the commas. The empty string is allowed.
-GROUPLIST_SIMPLE_VALID = re.compile(r'^\s*(' + _USERNAME_BASE + r'(\s*,\s*' + _USERNAME_BASE + r')*)?\s*$')
+GROUPLIST_SIMPLE_VALID = re.compile(r'^\s*(' + _NAME_BASE + r'(\s*,\s*' + _NAME_BASE + r')*)?\s*$')
 
 # Parse the <gr-name> (<gid>) strings in the group list.
 #
@@ -66,7 +63,7 @@ GROUPLIST_SIMPLE_VALID = re.compile(r'^\s*(' + _USERNAME_BASE + r'(\s*,\s*' + _U
 # EVERY STRING IS MATCHED. This expression cannot be used for validation.
 # If there is no GID, or the GID contains non-digits, everything except
 # leading or trailing whitespace ends up in the name group. The result needs to
-# be validated with GROUPNAME_VALID.
+# be validated with NAME_VALID.
 GROUPLIST_FANCY_PARSE = re.compile(r'^(?:\s*)(?P<name>.*?)\s*(?:\((?P<gid>\d+)\))?(?:\s*)$')
 
 # IPv4 address without anchors

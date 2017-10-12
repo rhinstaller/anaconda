@@ -20,7 +20,7 @@
 import unittest
 
 from regexcheck import regex_match
-from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_SIMPLE_VALID
+from pyanaconda.regexes import GECOS_VALID, NAME_VALID, GROUPLIST_SIMPLE_VALID
 
 class UsernameRegexTestCase(unittest.TestCase):
     def gecos_test(self):
@@ -70,16 +70,12 @@ class UsernameRegexTestCase(unittest.TestCase):
                 'gggggggggggggggggggggggggburdell$',
                 ' gburdell',
                 ':gburdell',
-                'root',
                 '$',
                 '-'
                 ]
 
-        if not regex_match(USERNAME_VALID, good_tests, bad_tests):
-            self.fail()
-
         # The group name checks for the same thing as the user name
-        if not regex_match(GROUPNAME_VALID, good_tests, bad_tests):
+        if not regex_match(NAME_VALID, good_tests, bad_tests):
             self.fail()
 
     def grouplist_simple_test(self):

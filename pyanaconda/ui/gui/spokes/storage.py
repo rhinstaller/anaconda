@@ -449,6 +449,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
             return
+        if not flags.automatedInstall and not self.selected_disks:
+            log.debug("not executing storage, no disk selected")
+            StorageCheckHandler.errors = [_("No disks selected")]
+            self._ready = True
+            hubQ.send_ready(self.__class__.__name__, True)
+            return
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py

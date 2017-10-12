@@ -1152,6 +1152,55 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
 
+
+class Mount(commands.mount.F27_Mount):
+    def execute(self, storage, ksdata, instClass):
+        storage.do_autopart = False
+
+        for md in self.dataList():
+            md.execute(storage, ksdata, instClass)
+
+    def add_mount_data(self, md):
+        self.mount_points.append(md)
+
+    def remove_mount_data(self, md):
+        self.mount_points.remove(md)
+
+    def clear_mount_data(self):
+        self.mount_points = list()
+
+class MountData(commands.mount.F27_MountData):
+    def execute(self, storage, ksdata, instClass):
+        dev = storage.devicetree.resolve_device(self.device)
+        if dev is None:
+            raise KickstartParseError(formatErrorMsg(self.lineno,
+                                      msg=_("Unknown or invalid device '%s' specified" % self.device)))
+        if self.reformat:
+            if self.format:
+                fmt = get_format(self.format)
+                if not fmt:
+                    msg = _("Unknown or invalid format '%s' specified for device '%s'" % \
+                            (self.format, self.device))
+                    raise KickstartParseError(formatErrorMsg(self.lineno, msg))
+            else:
+                old_fmt = dev.format
+                if not old_fmt or old_fmt.type is None:
+                    raise KickstartParseError(formatErrorMsg(self.lineno,
+                                              msg=_("No format on device '%s'" % self.device)))
+                fmt = get_format(old_fmt.type)
+            storage.format_device(dev, fmt)
+            # make sure swaps end up in /etc/fstab
+            if fmt.type == "swap":
+                storage.add_fstab_swap(dev)
+
+        # only set mount points for mountable formats
+        if dev.format.mountable and self.mount_point is not None and self.mount_point != "none":
+            dev.format.mountpoint = self.mount_point
+
+        dev.format.create_options = self.mkfs_opts
+        dev.format.options = self.mount_opts
+
+
 class Network(commands.network.F27_Network):
     def __init__(self, *args, **kwargs):
         commands.network.F27_Network.__init__(self, *args, **kwargs)
@@ -2194,6 +2243,7 @@ commandMap = {
     "lang": Lang,
     "logging": Logging,
     "logvol": LogVol,
+    "mount": Mount,
     "network": Network,
     "part": Partition,
     "partition": Partition,
@@ -2217,6 +2267,7 @@ commandMap = {
 dataMap = {
     "BTRFSData": BTRFSData,
     "LogVolData": LogVolData,
+    "MountData": MountData,
     "PartData": PartitionData,
     "RaidData": RaidData,
     "RepoData": RepoData,
@@ -2454,8 +2505,6 @@ def resetCustomStorageData(ksdata):
     for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
         ksdata.resetCommand(command)
 
-    ksdata.clearpart.type = CLEARPART_TYPE_NONE
-
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
     ksdata.clearpart.execute(storage, ksdata, instClass)
@@ -2474,6 +2523,7 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.volgroup.execute(storage, ksdata, instClass)
     ksdata.logvol.execute(storage, ksdata, instClass)
     ksdata.btrfs.execute(storage, ksdata, instClass)
+    ksdata.mount.execute(storage, ksdata, instClass)
     # setup snapshot here, that means add it to model and do the tests
     # snapshot will be created on the end of the installation
     ksdata.snapshot.setup(storage, ksdata, instClass)

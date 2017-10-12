@@ -191,7 +191,6 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         self.close()
 
     def _set_network_url(self, data):
-        self.set_source_url()
         new_spoke = SpecifyRepoSpoke(self.data, self.storage,
                                      self.payload, self.instclass, data)
         ScreenHandler.push_screen_modal(new_spoke)
@@ -253,7 +252,8 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
         SourceSwitchHandler.__init__(self)
         self.title = N_("Specify Repo Options")
         self.protocol = protocol
-        self.args = self.data.method
+
+        self.args = self.data.url
 
     def refresh(self, args=None):
         """ Refresh window. """
