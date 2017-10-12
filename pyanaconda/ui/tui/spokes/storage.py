@@ -33,7 +33,6 @@ from blivet import arch
 from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
-from blivet.osinstall import storage_initialize
 from blivet.formats import get_format
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
@@ -43,6 +42,7 @@ from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
 from pyanaconda.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda import kickstart
+from pyanaconda.storage.osinstall import storage_initialize
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
