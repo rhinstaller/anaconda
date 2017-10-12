@@ -26,13 +26,15 @@ from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker
+from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
+from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker, get_supported_filesystems
 
 from blivet import arch
 from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
+from blivet.osinstall import storage_initialize
+from blivet.formats import get_format
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -40,6 +42,7 @@ from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, DEFAULT
 from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
 from pyanaconda.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda import kickstart
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
@@ -49,11 +52,12 @@ from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, CheckboxWidget
 from simpleline.render.adv_widgets import YesNoDialog
+from simpleline.render.prompt import Prompt
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["StorageSpoke", "AutoPartSpoke"]
+__all__ = ["StorageSpoke", "PartTypeSpoke"]
 
 CLEARALL = N_("Use All Space")
 CLEARLINUX = N_("Replace Existing Linux system(s)")
@@ -83,7 +87,6 @@ class StorageSpoke(NormalTUISpoke):
         self.select_all = False
 
         self.autopart = None
-        self.clearPartType = None
 
         # This list gets set up once in initialize and should not be modified
         # except perhaps to add advanced devices. It will remain the full list
@@ -202,6 +205,11 @@ class StorageSpoke(NormalTUISpoke):
         print(_(PAYLOAD_STATUS_PROBING_STORAGE))
         threadMgr.wait(THREAD_STORAGE_WATCHER)
 
+        if not any(d in self.storage.disks for d in self.disks):
+            # something happened to self.storage (probably reset), need to
+            # reinitialize the list of disks
+            self._initialize(reinit=True)
+
         # synchronize our local data store with the global ksdata
         # Commment out because there is no way to select a disk right
         # now without putting it in ksdata.  Seems wrong?
@@ -303,7 +311,8 @@ class StorageSpoke(NormalTUISpoke):
                         self.redraw()
                         return InputState.PROCESSED
 
-                    new_spoke = AutoPartSpoke(self.data, self.storage,
+                    self.apply()
+                    new_spoke = PartTypeSpoke(self.data, self.storage,
                                               self.payload, self.instclass)
                     ScreenHandler.push_screen_modal(new_spoke)
                     self.apply()
@@ -356,13 +365,8 @@ class StorageSpoke(NormalTUISpoke):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
 
-        if self.data.autopart.type is None:
+        if self.autopart and self.data.autopart.type is None:
             self.data.autopart.type = AUTOPART_TYPE_LVM
-
-        if self.autopart:
-            self.clearPartType = CLEARPART_TYPE_ALL
-        else:
-            self.clearPartType = CLEARPART_TYPE_NONE
 
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
@@ -429,7 +433,7 @@ class StorageSpoke(NormalTUISpoke):
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
         # Probably need something here to track which disks are selected?
 
-    def _initialize(self):
+    def _initialize(self, reinit=False):
         """
         Secondary initialize so wait for the storage thread to complete before
         populating our disk list
@@ -444,26 +448,39 @@ class StorageSpoke(NormalTUISpoke):
             self._update_disk_list(self.disks[0])
 
         self._update_summary()
-        self._ready = True
 
-        # report that the storage spoke has been initialized
-        self.initialize_done()
+        if not reinit:
+            self._ready = True
+
+            # report that the storage spoke has been initialized
+            self.initialize_done()
 
 
-class AutoPartSpoke(NormalTUISpoke):
-    """ Autopartitioning options are presented here.
+class PartTypeSpoke(NormalTUISpoke):
+    """ Partitioning options are presented here.
 
-       .. inheritance-diagram:: AutoPartSpoke
+       .. inheritance-diagram:: PartTypeSpoke
           :parts: 3
     """
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
-        self.title = N_("Autopartitioning Options")
+        self.title = N_("Partitioning Options")
         self._container = None
-        self.clearPartType = self.data.clearpart.type
         self.parttypelist = sorted(PARTTYPES.keys())
+
+        # remember the original values so that we can detect a change
+        self._orig_clearpart_type = self.data.clearpart.type
+        self._orig_mount_assign = len(self.data.mount.dataList()) != 0
+
+        # default to mount point assignment if it is already (partially)
+        # configured
+        self._do_mount_assign = self._orig_mount_assign
+        if not self._do_mount_assign:
+            self.clearPartType = self.data.clearpart.type or CLEARPART_TYPE_ALL
+        else:
+            self.clearPartType = CLEARPART_TYPE_NONE
 
     @property
     def indirect(self):
@@ -471,27 +488,30 @@ class AutoPartSpoke(NormalTUISpoke):
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
-        # synchronize our local data store with the global ksdata
-        self.clearPartType = self.data.clearpart.type
         self._container = ListColumnContainer(1)
 
-        # I dislike "is None", but bool(0) returns false :(
-        if self.clearPartType is None:
-            # Default to clearing everything.
-            self.clearPartType = CLEARPART_TYPE_ALL
-
         for part_type in self.parttypelist:
-            c = CheckboxWidget(title=_(part_type), completed=(PARTTYPES[part_type] == self.clearPartType))
+            c = CheckboxWidget(title=_(part_type),
+                               completed=(not self._do_mount_assign and PARTTYPES[part_type] == self.clearPartType))
             self._container.add(c, self._select_partition_type_callback, part_type)
+        c = CheckboxWidget(title=_("Manually assign mount points") + _(" (EXPERIMENTAL)"),
+                           completed=self._do_mount_assign)
+        self._container.add(c, self._select_mount_assign)
 
         self.window.add_with_separator(self._container)
 
         message = _("Installation requires partitioning of your hard drive. "
-                    "Select what space to use for the install target.")
+                    "Select what space to use for the install target or manually assign mount points.")
 
         self.window.add_with_separator(TextWidget(message))
 
+    def _select_mount_assign(self, data=None):
+        self.clearPartType = CLEARPART_TYPE_NONE
+        self._do_mount_assign = True
+        self.apply()
+
     def _select_partition_type_callback(self, data):
+        self._do_mount_assign = False
         self.clearPartType = PARTTYPES[data]
         self.apply()
 
@@ -501,23 +521,57 @@ class AutoPartSpoke(NormalTUISpoke):
         # True. In the case of ks installs which may not have defined any
         # partition options, autopart was never set to True, causing some
         # issues. (rhbz#1001061)
-        self.data.autopart.autopart = True
-        self.data.clearpart.type = self.clearPartType
-        self.data.clearpart.initAll = True
+        if not self._do_mount_assign:
+            self.data.autopart.autopart = True
+            self.data.clearpart.type = self.clearPartType
+            self.data.clearpart.initAll = True
+            self.data.mount.clear_mount_data()
+        else:
+            self.data.autopart.autopart = False
+            self.data.clearpart.type = CLEARPART_TYPE_NONE
+            self.data.clearpart.initAll = False
+
+    def _ensure_init_storage(self):
+        """
+        If a different clearpart type was chosen or mount point assignment was
+        chosen instead, we need to reset/rescan storage to revert all changes
+        done by the previous run of doKickstartStorage() and get everything into
+        the initial state.
+        """
+        # the only safe options are:
+        # 1) if nothing was set before (self._orig_clearpart_type is None) or
+        # 2) mount point assignment was done before and user just wants to tweak it
+        if self._orig_clearpart_type is None or (self._orig_mount_assign and self._do_mount_assign):
+            return
+
+        # else
+        print(_("Reverting previous configuration. This may take a moment..."))
+        # unset self.data.ignoredisk.onlyuse temporarily so that
+        # storage_initialize() processes all devices
+        ignoredisk = self.data.ignoredisk.onlyuse
+        self.data.ignoredisk.onlyuse = []
+        storage_initialize(self.storage, self.data, self.storage.devicetree.protected_dev_names)
+        self.data.ignoredisk.onlyuse = ignoredisk
+        self.data.mount.clear_mount_data()
 
     def input(self, args, key):
         """Grab the choice and update things"""
         if not self._container.process_user_input(key):
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
-                new_spoke = PartitionSchemeSpoke(self.data, self.storage,
-                                                 self.payload, self.instclass)
-                ScreenHandler.push_screen_modal(new_spoke)
                 self.apply()
+                self._ensure_init_storage()
+                if self._do_mount_assign:
+                    new_spoke = MountPointAssignSpoke(self.data, self.storage,
+                                                      self.payload, self.instclass)
+                else:
+                    new_spoke = PartitionSchemeSpoke(self.data, self.storage,
+                                                     self.payload, self.instclass)
+                ScreenHandler.push_screen_modal(new_spoke)
                 self.close()
                 return InputState.PROCESSED
             else:
-                return super(AutoPartSpoke, self).input(args, key)
+                return super(PartTypeSpoke, self).input(args, key)
 
         self.redraw()
         return InputState.PROCESSED
@@ -576,3 +630,285 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def apply(self):
         """ Apply our selections. """
         self.data.autopart.type = self._selected_scheme_value
+
+class MountDataRecorder(kickstart.MountData):
+    """ An artificial subclass also recording changes. """
+    def __init__(self, *args, **kwargs):
+        super(MountDataRecorder, self).__init__(*args, **kwargs)
+        self.modified = False
+        self.orig_format = None
+
+class MountPointAssignSpoke(NormalTUISpoke):
+    """ Assign mount points to block devices. """
+    category = SystemCategory
+
+    def __init__(self, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Assign mount points")
+        self._container = None
+        self._mds = None
+
+        self._gather_mount_data_info()
+
+    def _is_dev_usable(self, dev):
+        maybe = not dev.protected and dev.size != Size(0)
+        if maybe and self.data.ignoredisk.onlyuse:
+            # all device's disks have to be in ignoredisk.onlyuse
+            maybe = set(self.data.ignoredisk.onlyuse).issuperset({d.name for d in dev.disks})
+
+        return maybe
+
+    def _gather_mount_data_info(self):
+        self._mds = OrderedDict()
+
+        for device in filter(self._is_dev_usable, self.storage.devicetree.leaves):
+            fmt = device.format.type
+
+            for ks_md in self.data.mount.dataList():
+                if device is self.storage.devicetree.resolve_device(ks_md.device):
+                    # already have a configuration for the device in ksdata,
+                    # let's just copy it
+                    mdrec = MountDataRecorder(device=ks_md.device, mount_point=ks_md.mount_point,
+                                              format=ks_md.format, reformat=ks_md.reformat)
+                    # and make sure the new version is put back
+                    self.data.mount.remove_mount_data(ks_md)
+                    mdrec.modified = True
+                    break
+            else:
+                if device.format.mountable and device.format.mountpoint:
+                    mpoint = device.format.mountpoint
+                else:
+                    mpoint = None
+
+                mdrec = MountDataRecorder(device=device.path, mount_point=mpoint, format=fmt, reformat=False)
+
+            mdrec.orig_format = fmt
+            self._mds[device.name] = mdrec
+
+    @property
+    def indirect(self):
+        return True
+
+    def prompt(self, args=None):
+        prompt = super(MountPointAssignSpoke, self).prompt(args)
+        # TRANSLATORS: 's' to rescan devices
+        prompt.add_option(C_('TUI|Spoke Navigation|Partitioning', 's'), _("rescan devices"))
+        return prompt
+
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        self._container = ListColumnContainer(2)
+
+        for md in self._mds.values():
+            device = self.storage.devicetree.resolve_device(md.device)
+            devspec = "%s (%s)" % (md.device, device.size)
+            if md.format:
+                devspec += "\n %s" % md.format
+                if md.reformat:
+                    devspec += "*"
+                if md.mount_point:
+                    devspec += ", %s" % md.mount_point
+            w = TextWidget(devspec)
+            self._container.add(w, self._configure_device, device)
+
+        self.window.add_with_separator(self._container)
+
+        message = _("Choose device from above to assign mount point and set format.\n" +
+                    "Formats marked with * are new formats meaning ALL DATA on the original format WILL BE LOST!")
+        self.window.add_with_separator(TextWidget(message))
+
+    def _configure_device(self, device):
+        md = self._mds[device.name]
+        new_spoke = ConfigureDeviceSpoke(self.data, self.storage,
+                                         self.payload, self.instclass, md)
+        ScreenHandler.push_screen(new_spoke)
+
+    def input(self, args, key):
+        """ Grab the choice and update things. """
+        if not self._container.process_user_input(key):
+            # TRANSLATORS: 's' to rescan devices
+            if key.lower() == C_('TUI|Spoke Navigation|Partitioning', 's'):
+                text = _("Warning: This will revert all changes done so far.\nDo you want to proceed?\n")
+                question_window = YesNoDialog(text)
+                ScreenHandler.push_screen_modal(question_window)
+                if question_window.answer:
+                    # unset self.data.ignoredisk.onlyuse temporarily so that
+                    # storage_initialize() processes all devices
+                    ignoredisk = self.data.ignoredisk.onlyuse
+                    self.data.ignoredisk.onlyuse = []
+
+                    print(_("Scanning disks. This may take a moment..."))
+                    storage_initialize(self.storage, self.data, self.storage.devicetree.protected_dev_names)
+
+                    self.data.ignoredisk.onlyuse = ignoredisk
+                    self.data.mount.clear_mount_data()
+                    self._gather_mount_data_info()
+                self.redraw()
+                return InputState.PROCESSED
+            # TRANSLATORS: 'c' to continue
+            elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
+                self.apply()
+
+            return super(MountPointAssignSpoke, self).input(args, key)
+
+        return InputState.PROCESSED
+
+    def apply(self):
+        """ Apply our selections. """
+        for mount_data in self._mds.values():
+            if mount_data.modified and (mount_data.reformat or mount_data.mount_point):
+                self.data.mount.add_mount_data(mount_data)
+
+class ConfigureDeviceSpoke(NormalTUISpoke):
+    """ Assign mount point to a block device and (optionally) reformat it. """
+    category = SystemCategory
+
+    def __init__(self, data, storage, payload, instclass, mount_data):
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        self._container = None
+        self._mount_data = mount_data
+        self.title = N_("Configure device: %s") % mount_data.device
+
+    @property
+    def indirect(self):
+        return True
+
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        self._container = ListColumnContainer(1)
+
+        fmt = get_format(self._mount_data.format)
+        if fmt and fmt.mountable:
+            self._container.add(TextWidget("Mount point: %s" % (self._mount_data.mount_point or _("none"))),
+                                self._assign_mount_point, self._mount_data)
+        elif fmt and fmt.type is None:
+            # mount point cannot be set for no format
+            # (fmt.name = "Uknown" in this case which would look weird)
+            self._container.add(TextWidget("Mount point: [%s]" % _("none")), lambda x: self.redraw(), None)
+        else:
+            # mount point cannot be set for format that is not mountable, just
+            # show the format's name in square brackets instead
+            self._container.add(TextWidget("Mount point: [%s]" % fmt.name), lambda x: self.redraw(), None)
+        self._container.add(TextWidget("Format: %s" % (self._mount_data.format or _("none"))),
+                            self._set_format, self._mount_data)
+        if ((self._mount_data.orig_format and self._mount_data.orig_format != self._mount_data.format)
+            or self._mount_data.mount_point == "/"):
+            # changing format implies reformat and so does "/" mount point
+            self._container.add(CheckboxWidget(title="Reformat", completed=self._mount_data.reformat),
+                                lambda x: self.redraw(), None)
+        else:
+            self._container.add(CheckboxWidget(title="Reformat", completed=self._mount_data.reformat),
+                                self._switch_reformat, self._mount_data)
+
+        self.window.add_with_separator(self._container)
+        self.window.add_with_separator(TextWidget(_("Choose from above to assign mount point and/or set format.")))
+
+    def input(self, args, key):
+        """ Grab the choice and update things. """
+        if not self._container.process_user_input(key):
+            return super(ConfigureDeviceSpoke, self).input(args, key)
+
+        return InputState.PROCESSED
+
+    def apply(self):
+        # nothing to do here, the callbacks below directly modify the data
+        pass
+
+    def _switch_reformat(self, md):
+        md.modified = True
+        md.reformat = not md.reformat
+        self.redraw()
+
+    def _set_format(self, md):
+        md.modified = True
+        dialog = SetFormatDialog(self.data, self.storage, self.payload, self.instclass, md)
+        ScreenHandler.push_screen(dialog)
+
+    def _assign_mount_point(self, md):
+        md.modified = True
+        dialog = SetMountPointDialog(self.data, self.storage, self.payload, self.instclass, md)
+        ScreenHandler.push_screen(dialog)
+
+class SetFormatDialog(EditTUIDialog):
+    """ Set format for a device. """
+    category = SystemCategory
+
+    def __init__(self, data, storage, payload, instclass, mount_data):
+        EditTUIDialog.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Configure device format")
+        self._mount_data = mount_data
+        self._supported_filesystems = [fmt.type for fmt in get_supported_filesystems()]
+
+    @property
+    def indirect(self):
+        return True
+
+    def prompt(self, args=None):
+        if self.value is None:  # first run or nothing entered
+            return Prompt(_("New format for the device%s") %
+                          (" [%s]" % self._mount_data.format if self._mount_data.format else ""))
+        else:
+            self.apply()
+            self.close()
+
+    def input(self, args, key):
+        if not key:
+            self.value = self._mount_data.format
+            return InputState.DISCARDED
+        else:
+            key = key.lower()
+            if key in self._supported_filesystems:
+                self.value = key
+                return InputState.DISCARDED
+            else:
+                print(_("Invalid or unsupported format given"))
+                print(_("Supported formats: %s") % ", ".join(self._supported_filesystems))
+                return InputState.DISCARDED
+
+    def apply(self):
+        if self.value != self._mount_data.format:
+            self._mount_data.reformat = True
+            self._mount_data.format = self.value
+
+class SetMountPointDialog(EditTUIDialog):
+    """ Set mount point for a device. """
+    category = SystemCategory
+
+    def __init__(self, data, storage, payload, instclass, mount_data):
+        EditTUIDialog.__init__(self, data, storage, payload, instclass)
+        self.title = N_("Configure device mount point")
+        self._mount_data = mount_data
+
+    @property
+    def indirect(self):
+        return True
+
+    def prompt(self, args=None):
+        if self.value is None:  # first run or nothing entered
+            return Prompt(_("New mount point for the device"))
+        else:
+            self.apply()
+            self.close()
+
+    def input(self, args, key):
+        if not key:
+            # nothing entered
+            self.value = ""
+            return InputState.DISCARDED
+        elif key.startswith("/"):
+            # a valid mount point must start with /
+            self.value = key
+            return InputState.DISCARDED
+        else:
+            print(_("Invalid mount point given"))
+            return InputState.DISCARDED
+
+    def apply(self):
+        if self.value:
+            self._mount_data.mount_point = self.value
+        else:
+            self._mount_data.mount_point = None
+        if self._mount_data.mount_point == "/":
+            self._mount_data.reformat = True

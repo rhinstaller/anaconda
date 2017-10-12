@@ -47,9 +47,7 @@ from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda import network
 
 from blivet import devicefactory
-from blivet.formats import device_formats
 from blivet.formats import get_format
-from blivet.formats.fs import FS
 from blivet.size import Size
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -69,7 +67,7 @@ from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 from blivet.platform import platform
 
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
-    verify_luks_devices_have_key
+    verify_luks_devices_have_key, get_supported_filesystems
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
@@ -308,19 +306,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             Restrict the set to ones that we might allow users to select.
         """
-        _fs_types = []
-        for cls in device_formats.values():
-            obj = cls()
-
-            # btrfs is always handled by on_device_type_changed
-            supported_fs = (obj.type not in UNSUPPORTED_FILESYSTEMS and
-                            obj.supported and obj.formattable and
-                            (isinstance(obj, FS) or
-                             obj.type in ["biosboot", "prepboot", "swap"]))
-            if supported_fs:
-                _fs_types.append(obj.name)
-
-        self._fs_types = set(_fs_types)
+        self._fs_types = {fs.name for fs in get_supported_filesystems()} - set(UNSUPPORTED_FILESYSTEMS)
 
         # report that the custom spoke has been initialized
         self.initialize_done()
