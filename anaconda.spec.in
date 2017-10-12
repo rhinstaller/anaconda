@@ -332,6 +332,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 12 2017 Martin Kolman <mkolman@redhat.com> - 27.20.4-1
+- Fix a translation check error (mkolman)
+
 * Thu Oct 12 2017 Martin Kolman <mkolman@redhat.com> - 27.20.3-1
 - Mark the mount point assignment in TUI as experimental (vpodzime)
 - Reset storage on change in text mode (vpodzime)
