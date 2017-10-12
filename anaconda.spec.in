@@ -319,6 +319,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 12 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.126-1
+- Add support for the RHV branded help content variant (mkolman)
+  Resolves: rhbz#1378010
+
 * Thu Oct 05 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.125-1
 - Fix storage spoke completeness checking (rvykydal)
   Resolves: rhbz#1496416
