@@ -71,6 +71,7 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
 
     def __init__(self, mainSpokeClass="StorageSpoke"):
         self._mainSpokeClass = mainSpokeClass
+        self._checking = False
 
     @abstractproperty
     def storage(self):
@@ -80,6 +81,10 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
         threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
                                      target=self.checkStorage))
 
+    @property
+    def checking_storage(self):
+        return self._checking
+
     def checkStorage(self):
         from pyanaconda.storage_utils import storage_checker
 
@@ -88,12 +93,13 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
 
+        self._checking = True
         report = storage_checker.check(self.storage)
         # Storage spoke and custom spoke communicate errors via StorageCheckHandler,
         # so we need to set errors and warnings class attributes here.
         StorageCheckHandler.errors = report.errors
         StorageCheckHandler.warnings = report.warnings
-
+        self._checking = False
         hubQ.send_ready(self._mainSpokeClass, True)
         report.log(self.log)
 
