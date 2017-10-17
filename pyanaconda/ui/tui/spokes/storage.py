@@ -26,7 +26,8 @@ from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker, get_supported_filesystems
 
 from blivet import arch
@@ -50,9 +51,8 @@ from pykickstart.errors import KickstartParseError
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget, CheckboxWidget
+from simpleline.render.widgets import TextWidget, CheckboxWidget, EntryWidget
 from simpleline.render.adv_widgets import YesNoDialog
-from simpleline.render.prompt import Prompt
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -770,6 +770,8 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         self._mount_data = mount_data
         self.title = N_("Configure device: %s") % mount_data.device
 
+        self._supported_filesystems = [fmt.type for fmt in get_supported_filesystems()]
+
     @property
     def indirect(self):
         return True
@@ -779,135 +781,88 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
         self._container = ListColumnContainer(1)
 
+        mount_point_title = _("Mount point")
+        reformat_title = _("Reformat")
+        none_msg = _("none")
+
         fmt = get_format(self._mount_data.format)
         if fmt and fmt.mountable:
-            self._container.add(TextWidget("Mount point: %s" % (self._mount_data.mount_point or _("none"))),
-                                self._assign_mount_point, self._mount_data)
+            dialog = Dialog(mount_point_title, conditions=[self._check_assign_mount_point])
+            value = self._mount_data.mount_point or none_msg
+            self._container.add(EntryWidget(dialog.title, value), self._assign_mount_point, dialog)
         elif fmt and fmt.type is None:
             # mount point cannot be set for no format
             # (fmt.name = "Uknown" in this case which would look weird)
-            self._container.add(TextWidget("Mount point: [%s]" % _("none")), lambda x: self.redraw(), None)
+            self._container.add(EntryWidget(mount_point_title, none_msg), lambda x: self.redraw())
         else:
             # mount point cannot be set for format that is not mountable, just
             # show the format's name in square brackets instead
-            self._container.add(TextWidget("Mount point: [%s]" % fmt.name), lambda x: self.redraw(), None)
-        self._container.add(TextWidget("Format: %s" % (self._mount_data.format or _("none"))),
-                            self._set_format, self._mount_data)
+            self._container.add(EntryWidget(mount_point_title, fmt.name), lambda x: self.redraw())
+
+        dialog = Dialog(_("Format"), conditions=[self._check_format])
+        value = self._mount_data.format or none_msg
+        self._container.add(EntryWidget(dialog.title, value), self._set_format, dialog)
+
         if ((self._mount_data.orig_format and self._mount_data.orig_format != self._mount_data.format)
-            or self._mount_data.mount_point == "/"):
+           or self._mount_data.mount_point == "/"):
             # changing format implies reformat and so does "/" mount point
-            self._container.add(CheckboxWidget(title="Reformat", completed=self._mount_data.reformat),
-                                lambda x: self.redraw(), None)
+            self._container.add(CheckboxWidget(title=reformat_title, completed=self._mount_data.reformat))
         else:
-            self._container.add(CheckboxWidget(title="Reformat", completed=self._mount_data.reformat),
-                                self._switch_reformat, self._mount_data)
+            self._container.add(CheckboxWidget(title=reformat_title, completed=self._mount_data.reformat),
+                                self._switch_reformat)
 
         self.window.add_with_separator(self._container)
         self.window.add_with_separator(TextWidget(_("Choose from above to assign mount point and/or set format.")))
+
+    def _check_format(self, user_input, report_func):
+        user_input = user_input.lower()
+        if user_input in self._supported_filesystems:
+            return True
+        else:
+            msg = _("Invalid or unsupported format given")
+            msg += "\n"
+            msg += (_("Supported formats: %s") % ", ".join(self._supported_filesystems))
+            report_func(msg)
+            return False
+
+    def _check_assign_mount_point(self, user_input, report_func):
+        # a valid mount point must start with / or user set nothing
+        if user_input == "" or user_input.startswith("/"):
+            return True
+        else:
+            report_func(_("Invalid mount point given"))
+            return False
 
     def input(self, args, key):
         """ Grab the choice and update things. """
         if not self._container.process_user_input(key):
             return super(ConfigureDeviceSpoke, self).input(args, key)
 
+        self.redraw()
         return InputState.PROCESSED
 
     def apply(self):
         # nothing to do here, the callbacks below directly modify the data
         pass
 
-    def _switch_reformat(self, md):
-        md.modified = True
-        md.reformat = not md.reformat
-        self.redraw()
+    def _switch_reformat(self, args):
+        self._mount_data.modified = True
+        self._mount_data.reformat = not self._mount_data.reformat
 
-    def _set_format(self, md):
-        md.modified = True
-        dialog = SetFormatDialog(self.data, self.storage, self.payload, self.instclass, md)
-        ScreenHandler.push_screen(dialog)
+    def _set_format(self, dialog):
+        self._mount_data.modified = True
+        value = dialog.run()
 
-    def _assign_mount_point(self, md):
-        md.modified = True
-        dialog = SetMountPointDialog(self.data, self.storage, self.payload, self.instclass, md)
-        ScreenHandler.push_screen(dialog)
-
-class SetFormatDialog(EditTUIDialog):
-    """ Set format for a device. """
-    category = SystemCategory
-
-    def __init__(self, data, storage, payload, instclass, mount_data):
-        EditTUIDialog.__init__(self, data, storage, payload, instclass)
-        self.title = N_("Configure device format")
-        self._mount_data = mount_data
-        self._supported_filesystems = [fmt.type for fmt in get_supported_filesystems()]
-
-    @property
-    def indirect(self):
-        return True
-
-    def prompt(self, args=None):
-        if self.value is None:  # first run or nothing entered
-            return Prompt(_("New format for the device%s") %
-                          (" [%s]" % self._mount_data.format if self._mount_data.format else ""))
-        else:
-            self.apply()
-            self.close()
-
-    def input(self, args, key):
-        if not key:
-            self.value = self._mount_data.format
-            return InputState.DISCARDED
-        else:
-            key = key.lower()
-            if key in self._supported_filesystems:
-                self.value = key
-                return InputState.DISCARDED
-            else:
-                print(_("Invalid or unsupported format given"))
-                print(_("Supported formats: %s") % ", ".join(self._supported_filesystems))
-                return InputState.DISCARDED
-
-    def apply(self):
-        if self.value != self._mount_data.format:
+        if value != self._mount_data.format:
             self._mount_data.reformat = True
-            self._mount_data.format = self.value
+            self._mount_data.format = value
 
-class SetMountPointDialog(EditTUIDialog):
-    """ Set mount point for a device. """
-    category = SystemCategory
+    def _assign_mount_point(self, dialog):
+        self._mount_data.modified = True
+        value = dialog.run()
 
-    def __init__(self, data, storage, payload, instclass, mount_data):
-        EditTUIDialog.__init__(self, data, storage, payload, instclass)
-        self.title = N_("Configure device mount point")
-        self._mount_data = mount_data
-
-    @property
-    def indirect(self):
-        return True
-
-    def prompt(self, args=None):
-        if self.value is None:  # first run or nothing entered
-            return Prompt(_("New mount point for the device"))
-        else:
-            self.apply()
-            self.close()
-
-    def input(self, args, key):
-        if not key:
-            # nothing entered
-            self.value = ""
-            return InputState.DISCARDED
-        elif key.startswith("/"):
-            # a valid mount point must start with /
-            self.value = key
-            return InputState.DISCARDED
-        else:
-            print(_("Invalid mount point given"))
-            return InputState.DISCARDED
-
-    def apply(self):
-        if self.value:
-            self._mount_data.mount_point = self.value
+        if value:
+            self._mount_data.mount_point = value
         else:
             self._mount_data.mount_point = None
         if self._mount_data.mount_point == "/":

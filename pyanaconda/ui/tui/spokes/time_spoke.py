@@ -18,7 +18,7 @@
 #
 
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
 from pyanaconda import ntp
@@ -428,21 +428,23 @@ class NTPServersSpoke(NormalTUISpoke):
         pass
 
 
-class AddNTPServerSpoke(EditTUIDialog):
+class AddNTPServerSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
     def __init__(self, data, storage, payload, instclass, time_spoke):
-        EditTUIDialog.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Add NTP server address")
         self._time_spoke = time_spoke
         self._new_ntp_server = None
+        self.value = None
 
     @property
     def indirect(self):
         return True
 
     def refresh(self, args=None):
-        EditTUIDialog.refresh(self, args)
+        super().refresh(args)
+        self.value = None
 
     def prompt(self, args=None):
         # the title is enough, no custom prompt is needed

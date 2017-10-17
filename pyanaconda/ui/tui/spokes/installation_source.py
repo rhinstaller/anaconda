@@ -19,13 +19,12 @@
 
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
-from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.i18n import N_, _, C_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
-from pyanaconda.iutil import DataHolder
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_STORAGE_WATCHER
@@ -37,11 +36,10 @@ from pyanaconda.ui.helpers import SourceSwitchHandler
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
-from simpleline.render.widgets import TextWidget
+from simpleline.render.widgets import TextWidget, EntryWidget
 
 from blivet.util import get_mount_device, get_mount_paths
 
-import re
 import os
 import fnmatch
 
@@ -51,7 +49,7 @@ log = get_module_logger(__name__)
 __all__ = ["SourceSpoke"]
 
 
-class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
+class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Spoke used to customize the install source repo.
 
        .. inheritance-diagram:: SourceSpoke
@@ -63,7 +61,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     SET_NETWORK_INSTALL_MODE = "network_install"
 
     def __init__(self, data, storage, payload, instclass):
-        EditTUISpoke.__init__(self, data, storage, payload, instclass)
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Installation source")
         self._container = None
@@ -72,7 +70,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         self._cdrom = None
 
     def initialize(self):
-        EditTUISpoke.initialize(self)
+        NormalTUISpoke.initialize(self)
         self.initialize_start()
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
@@ -138,7 +136,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
 
     def refresh(self, args=None):
-        EditTUISpoke.refresh(self, args)
+        NormalTUISpoke.refresh(self, args)
 
         threadMgr.wait(THREAD_PAYLOAD)
 
@@ -235,7 +233,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                                  checkmount=False)
 
 
-class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
+class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Specify the repo URL here if closest mirror not selected. """
     category = SoftwareCategory
 
@@ -243,21 +241,36 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
     HTTPS = 2
     FTP = 3
 
-    edit_fields = [
-        Entry(N_("Repo URL"), "url", re.compile(".*$"), True)
-        ]
-
     def __init__(self, data, storage, payload, instclass, protocol):
-        EditTUISpoke.__init__(self, data, storage, payload, instclass)
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Specify Repo Options")
         self.protocol = protocol
+        self._container = None
 
-        self.args = self.data.url
+        self._url = self.data.url.url
 
     def refresh(self, args=None):
         """ Refresh window. """
-        EditTUISpoke.refresh(self, args)
+        NormalTUISpoke.refresh(self, args)
+
+        self._container = ListColumnContainer(1)
+
+        dialog = Dialog(_("Repo URL"))
+        self._container.add(EntryWidget(dialog.title, self.data.method.url), self._set_repo_url, dialog)
+
+        self.window.add_with_separator(self._container)
+
+    def _set_repo_url(self, dialog):
+        self._url = dialog.run()
+
+    def input(self, args, key):
+        if self._container.process_user_input(key):
+            self.apply()
+            self.redraw()
+            return InputState.PROCESSED
+        else:
+            return NormalTUISpoke.input(self, args, key)
 
     @property
     def indirect(self):
@@ -265,42 +278,73 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def apply(self):
         """ Apply all of our changes. """
-        if self.protocol == SpecifyRepoSpoke.HTTP and not self.args.url.startswith("http://"):
-            url = "http://" + self.args.url
-        elif self.protocol == SpecifyRepoSpoke.HTTPS and not self.args.url.startswith("https://"):
-            url = "https://" + self.args.url
-        elif self.protocol == SpecifyRepoSpoke.FTP and not self.args.url.startswith("ftp://"):
-            url = "ftp://" + self.args.url
+        if self.protocol == SpecifyRepoSpoke.HTTP and not self._url.startswith("http://"):
+            url = "http://" + self._url
+        elif self.protocol == SpecifyRepoSpoke.HTTPS and not self._url.startswith("https://"):
+            url = "https://" + self._url
+        elif self.protocol == SpecifyRepoSpoke.FTP and not self._url.startswith("ftp://"):
+            url = "ftp://" + self._url
         else:
             # protocol either unknown or entry already starts with a protocol
             # specification
-            url = self.args.url
+            url = self._url
         self.set_source_url(url)
 
 
-class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
+class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Specify server and mount opts here if NFS selected. """
     category = SoftwareCategory
 
-    edit_fields = [
-        Entry(N_("SERVER:/PATH"), "server", re.compile(".*$"), True),
-        Entry(N_("NFS mount options"), "opts", re.compile(".*$"), True)
-    ]
-
     def __init__(self, data, storage, payload, instclass, error):
-        EditTUISpoke.__init__(self, data, storage, payload, instclass)
+        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Specify Repo Options")
+        self._container = None
         self._error = error
 
         nfs = self.data.method
-        self.args = DataHolder(server="", opts=nfs.opts or "")
-        if nfs.method == "nfs" and nfs.server and nfs.dir:
-            self.args.server = "%s:%s" % (nfs.server, nfs.dir)
+
+        self._nfs_opts = ""
+        self._nfs_server = ""
+
+        if nfs.method == "nfs" and (nfs.server and nfs.dir):
+            self._nfs_server = "%s:%s" % (nfs.server, nfs.dir)
+            self._nfs_opts = nfs.opts
 
     def refresh(self, args=None):
         """ Refresh window. """
-        EditTUISpoke.refresh(self, args)
+        NormalTUISpoke.refresh(self, args)
+
+        self._container = ListColumnContainer(1)
+
+        dialog = Dialog(title=_("SERVER:/PATH"), conditions=[self._check_nfs_server])
+        self._container.add(EntryWidget(dialog.title, self._nfs_server), self._set_nfs_server, dialog)
+
+        dialog = Dialog(title=_("NFS mount options"))
+        self._container.add(EntryWidget(dialog.title, self._nfs_opts), self._set_nfs_opts, dialog)
+
+        self.window.add_with_separator(self._container)
+
+    def _set_nfs_server(self, dialog):
+        self._nfs_server = dialog.run()
+
+    def _check_nfs_server(self, user_input, report_func):
+        if ":" not in user_input or len(user_input.split(":")) != 2:
+            report_func(_("Server must be specified as SERVER:/PATH"))
+            return False
+
+        return True
+
+    def _set_nfs_opts(self, dialog):
+        self._nfs_opts = dialog.run()
+
+    def input(self, args, key):
+        if self._container.process_user_input(key):
+            self.apply()
+            self.redraw()
+            return InputState.PROCESSED
+        else:
+            return NormalTUISpoke.input(self, args, key)
 
     @property
     def indirect(self):
@@ -308,20 +352,20 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def apply(self):
         """ Apply our changes. """
-        if self.args.server == "" or not ':' in self.args.server:
+        if self._nfs_server == "" or ':' not in self._nfs_server:
             return False
 
-        if self.args.server.startswith("nfs://"):
-            self.args.server = self.args.server[6:]
+        if self._nfs_server.startswith("nfs://"):
+            self._nfs_server = self._nfs_server[6:]
 
         try:
-            (self.data.method.server, self.data.method.dir) = self.args.server.split(":", 2)
+            (self.data.method.server, self.data.method.dir) = self._nfs_server.split(":", 2)
         except ValueError as err:
             log.error("ValueError: %s", err)
             self._error = True
             return
 
-        opts = self.args.opts or ""
+        opts = self._nfs_opts or ""
         self.set_source_nfs(opts)
 
 
