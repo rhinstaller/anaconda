@@ -893,6 +893,9 @@ class DNFPayload(payload.PackagePayload):
                 log.error("Installation failed: %r", e)
                 _failure_limbo()
 
+        if os.path.exists(self._download_location):
+            log.info("Removing existing package download location: %s", self._download_location)
+            shutil.rmtree(self._download_location)
         pkgs_to_download = self._base.transaction.install_set
         log.info('Downloading packages to %s.', self._download_location)
         progressQ.send_message(_('Downloading packages'))
