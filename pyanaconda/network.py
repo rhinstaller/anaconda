@@ -373,7 +373,13 @@ def dumpMissingDefaultIfcfgs():
         try:
             uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
         except nm.SettingsNotFoundError:
-            log.debug("no ifcfg file for %s", devname)
+            from pyanaconda.kickstart import AnacondaKSHandler
+            handler = AnacondaKSHandler()
+            # pylint: disable=E1101
+            network_data = handler.NetworkData(onboot=False, ipv6="auto")
+            add_connection_for_ksdata(network_data, devname)
+            rv.append(devname)
+            log.debug("network: creating default ifcfg file for %s", devname)
             continue
         except nm.MultipleSettingsFoundError as e:
             if not nm.nm_device_is_slave(devname):
