@@ -332,6 +332,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 17 2017 Martin Kolman <mkolman@redhat.com> - 28.8-1
+- Bump simpleline version requires (jkonecny)
+- Remove DataHolder class (jkonecny)
+- Remove EditTUISpoke EditTUIDialog and EditTUISpokeEntry (jkonecny)
+- Replace EditTUI* from the TUI Storage spoke (jkonecny)
+- Replace EditTUI* from the TUI User spoke (jkonecny)
+- Replace EditTUI* from the TUI Source spoke (jkonecny)
+- Replace EditTUI* from the TUI Network spoke (jkonecny)
+- Password spoke is using PasswordDialog now (jkonecny)
+- Return default policy if nothing match (jkonecny)
+- Add Dialog and PasswordDialog TUI objects (jkonecny)
+- Remove EditTUIDialog from time_spoke (jkonecny)
+- packaging: clear downloaded packages repo cache before using it (#1480790)
+  (rvykydal)
+- Do substitutions only after translating the string (mkolman)
+- Fix a translation check error (mkolman)
+- Do not run commands in messages in Makefile (jkonecny)
+- Fix storage spoke completeness checking (#1496416) (rvykydal)
+
 * Thu Oct 12 2017 Martin Kolman <mkolman@redhat.com> - 28.7-1
 - Mark the mount point assignment in TUI as experimental (vpodzime)
 - Reset storage on change in text mode (vpodzime)
