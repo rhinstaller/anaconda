@@ -43,7 +43,6 @@ from pyanaconda import isys
 from pyanaconda.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, \
     STORAGE_MUST_BE_ON_LINUXFS, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, STORAGE_MIN_RAM
 from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.storage.autopart import swap_suggestion
 from pyanaconda.platform import platform as _platform
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
@@ -351,20 +350,6 @@ def verify_swap(storage, constraints, report_error, report_warning):
                                  "Although not strictly required in all cases, "
                                  "it will significantly improve performance "
                                  "for most installations."))
-
-    else:
-        swap_space = sum((device.size for device in swaps), Size(0))
-        disk_space = sum((device.size for device in storage.mountpoints.values()), Size(0))
-        recommended = swap_suggestion(disk_space=disk_space, quiet=True)
-
-        log.debug("Total swap space: %s", swap_space)
-        log.debug("Used disk space: %s", disk_space)
-        log.debug("Recommended swaps space: %s", recommended)
-
-        if swap_space < recommended:
-            report_warning(_("Your swap space is less than %(size)s "
-                             "which is lower than recommended.")
-                           % {"size": recommended})
 
 
 def verify_swap_uuid(storage, constraints, report_error, report_warning):
