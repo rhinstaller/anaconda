@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.fedoraproject.Anaconda.Modules.Bar
+Exec=/usr/bin/python3 -m pyanaconda.modules.bar
+User=root

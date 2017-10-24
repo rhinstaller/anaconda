@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.fedoraproject.Anaconda.Addons.Baz
+Exec=/usr/bin/python3 -m pyanaconda.dbus_addons.baz
+User=root
