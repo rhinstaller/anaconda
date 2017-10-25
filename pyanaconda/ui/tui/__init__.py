@@ -56,11 +56,12 @@ def exception_msg_handler(signal, data):
     global exception_processed
     if exception_processed:
         # get data from the event data structure
-        msg_data = signal.exception_info
+        exception_info = signal.exception_info
 
-        # msg_data is a list
-        sys.excepthook(*msg_data)
-        return
+        stack_trace = "\n" + App.get_scheduler().dump_stack()
+        log.error(stack_trace)
+        # exception_info is a list
+        sys.excepthook(*exception_info)
     else:
         # show only the first exception do not spam user with others
         exception_processed = True
