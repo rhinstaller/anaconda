@@ -116,6 +116,8 @@ class SoftwareSpoke(NormalTUISpoke):
     def _payload_finished(self):
         self.environment = self.data.packages.environment
         self.addons = self._get_selected_addons()
+        self._origEnv = None
+        self._origAddons = None
         log.debug("Payload restarted, set new info and clear the old one.")
 
     def _payload_error(self):
