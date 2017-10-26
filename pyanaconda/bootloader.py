@@ -1403,6 +1403,7 @@ class GRUB2(GRUB):
     packages = ["grub2", "grub2-tools"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
+    _passwd_file = "user.cfg"
     defaults_file = "/etc/default/grub"
     terminal_type = "console"
     stage2_max_end = None
@@ -1530,17 +1531,12 @@ class GRUB2(GRUB):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = iutil.getSysroot() + "/etc/grub.d/01_users"
+        users_file = "%s%s/%s" % (iutil.getSysroot(), self.config_dir, self._passwd_file)
         header = iutil.open_with_perm(users_file, "w", 0o700)
-        header.write("#!/bin/sh -e\n\n")
-        header.write("cat << \"EOF\"\n")
         # XXX FIXME: document somewhere that the username is "root"
-        header.write("set superusers=\"root\"\n")
-        header.write("export superusers\n")
         self._encrypt_password()
-        password_line = "password_pbkdf2 root " + self.encrypted_password
+        password_line = "GRUB2_PASSWORD=" + self.encrypted_password
         header.write("%s\n" % password_line)
-        header.write("EOF\n")
         header.close()
 
     def write_config(self):
@@ -1865,7 +1861,7 @@ class Aarch64EFIGRUB(EFIGRUB):
     _efi_binary = "\\shimaa64.efi"
 
 class MacEFIGRUB(EFIGRUB):
-    packages = [ "grub2-tools-efi", "mactel-boot" ]
+    _packages64 = [ "grub2-tools-efi", "mactel-boot" ]
     def mactel_config(self):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
