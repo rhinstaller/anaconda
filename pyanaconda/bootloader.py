@@ -1862,7 +1862,7 @@ class Aarch64EFIGRUB(EFIGRUB):
     _efi_binary = "\\shimaa64.efi"
 
 class MacEFIGRUB(EFIGRUB):
-    packages = [ "grub2-tools-efi", "mactel-boot" ]
+    _packages64 = [ "grub2-tools-efi", "mactel-boot" ]
     def mactel_config(self):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
