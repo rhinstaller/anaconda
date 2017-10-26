@@ -196,34 +196,36 @@ class SoftwareSpoke(NormalTUISpoke):
         threadMgr.wait(THREAD_CHECK_SOFTWARE)
         self._container = ListColumnContainer(2, columns_width=38, spacing=2)
 
-        # Display the environments
         if args is None:
-            environments = self.payload.environments
-            msg = _("Base environment")
-
-            for env in environments:
-                name = self.payload.environmentDescription(env)[0]
-                selected = (env == self._selected_environment)
-                widget = CheckboxWidget(title="%s" % name, completed=selected)
-                self._container.add(widget, callback=self._set_environment_callback, data=env)
-
-        # Display the add-ons
+            msg = self._refresh_environments()
         else:
-            length = len(args)
-
-            if length > 0:
-                msg = _("Add-ons for selected environment")
-            else:
-                msg = _("No add-ons to select.")
-
-            for addon_id in args:
-                name = self.payload.groupDescription(addon_id)[0]
-                selected = addon_id in self._addons_selection
-                widget = CheckboxWidget(title="%s" % name, completed=selected)
-                self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
+            msg = self._refresh_addons(args)
 
         self.window.add_with_separator(TextWidget(msg))
         self.window.add_with_separator(self._container)
+
+    def _refresh_environments(self):
+        environments = self.payload.environments
+
+        for env in environments:
+            name = self.payload.environmentDescription(env)[0]
+            selected = (env == self._selected_environment)
+            widget = CheckboxWidget(title="%s" % name, completed=selected)
+            self._container.add(widget, callback=self._set_environment_callback, data=env)
+
+        return _("Base environment")
+
+    def _refresh_addons(self, available_addons):
+        for addon_id in available_addons:
+            name = self.payload.groupDescription(addon_id)[0]
+            selected = addon_id in self._addons_selection
+            widget = CheckboxWidget(title="%s" % name, completed=selected)
+            self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
+
+        if available_addons:
+            return _("Add-ons for selected environment")
+        else:
+            return _("No add-ons to select.")
 
     def _set_environment_callback(self, data):
         self._selected_environment = data
