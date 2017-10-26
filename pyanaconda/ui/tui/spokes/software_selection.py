@@ -33,6 +33,9 @@ from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 from simpleline.render.widgets import TextWidget, CheckboxWidget
 
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 __all__ = ["SoftwareSpoke"]
 
 
@@ -113,6 +116,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def _payload_finished(self):
         self.environment = self.data.packages.environment
         self.addons = self._get_selected_addons()
+        log.debug("Payload restarted, set new info and clear the old one.")
 
     def _payload_error(self):
         self.errors = [payloadMgr.error]
@@ -288,6 +292,8 @@ class SoftwareSpoke(NormalTUISpoke):
         self.environment = self._selected_environment
         self.addons = self._addons_selection if self.environment is not None else set()
 
+        log.debug("Apply called old env %s, new env %s and addons %s", self._origEnv, self.environment, self.addons)
+
         if self.environment is None:
             return
 
@@ -300,6 +306,9 @@ class SoftwareSpoke(NormalTUISpoke):
             if not self._origEnv \
                     or self._origEnv != self.environment \
                     or set(self._origAddons) != set(self.addons):
+
+                log.debug("Setting new software selection old env %s, new env %s and addons %s",
+                          self._origEnv, self.environment, self.addons)
 
                 self.payload.data.packages.packageList = []
                 self.data.packages.groupList = []
@@ -329,6 +338,7 @@ class SoftwareSpoke(NormalTUISpoke):
         except DependencyError as e:
             self.errors = [str(e)]
             self._tx_id = None
+            log.warning("Transaction error %s", str(e))
         else:
             self._tx_id = self.payload.txID
 
