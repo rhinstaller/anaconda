@@ -332,6 +332,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 26 2017 Martin Kolman <mkolman@redhat.com> - 28.9-1
+- Mac EFI installs need grub2-tools (#1503496) (awilliam)
+- network: create default ifcfg also for missing default NM connection
+  (#1478141) (rvykydal)
+- Print screen stack next to exception in TUI (jkonecny)
+- Enable Custom GRUB2 Password Utility (#985962) (rmarshall)
+
 * Tue Oct 17 2017 Martin Kolman <mkolman@redhat.com> - 28.8-1
 - Bump simpleline version requires (jkonecny)
 - Remove DataHolder class (jkonecny)
