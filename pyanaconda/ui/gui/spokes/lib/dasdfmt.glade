@@ -67,7 +67,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="valign">start</property>
-                <property name="label" translatable="yes">The following unformatted DASDs have been detected on your system. You can choose to format them now with dasdfmt or cancel to leave them unformatted. Unformatted DASDs cannot be used during installation.</property>
+                <property name="label" translatable="yes">The following unformatted or LDL DASDs have been detected on your system. You can choose to format them now with dasdfmt or cancel to leave them unformatted. Unformatted DASDs cannot be used during installation.</property>
                 <property name="wrap">True</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 12"/>
@@ -96,7 +96,7 @@
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
@@ -108,7 +108,7 @@
             <property name="label">List unformatted DASDs here.</property>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
@@ -182,6 +182,7 @@
                   <object class="GtkSpinner" id="spinner4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">end</property>
                     <property name="active">True</property>
                   </object>
                   <packing>
@@ -193,6 +194,7 @@
                   <object class="GtkLabel" id="formatLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="halign">start</property>
                     <property name="label">Current DASD being formatted.</property>
                   </object>
                   <packing>
@@ -204,8 +206,7 @@
                   <object class="GtkLabel" id="returnToHubLabel1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label" translatable="yes">You may &lt;a href=""&gt;go back to the main menu&lt;/a&gt; to complete other
-installation options while formatting completes.</property>
+                    <property name="label" translatable="yes">This may take a moment. You may &lt;a href=""&gt;go back to the main menu&lt;/a&gt; to complete other installation options while formatting completes.</property>
                     <property name="use_markup">True</property>
                     <property name="wrap">True</property>
                     <property name="track_visited_links">False</property>

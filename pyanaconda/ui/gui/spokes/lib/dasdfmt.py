@@ -16,34 +16,28 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once
 from pyanaconda import constants
-from pyanaconda.i18n import _
 import threading
-
-import gi
-gi.require_version("BlockDev", "2.0")
-
-from gi.repository import BlockDev as blockdev
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 __all__ = ["DasdFormatDialog"]
 
+
 class DasdFormatDialog(GUIObject):
     builderObjects = ["unformattedDasdDialog"]
     mainWidgetName = "unformattedDasdDialog"
     uiFile = "spokes/lib/dasdfmt.glade"
 
-    def __init__(self, data, storage, to_format):
+    def __init__(self, data, storage, dasds_formatting):
         GUIObject.__init__(self, data)
 
-        self.storage = storage
-        self.to_format = to_format
+        self._storage = storage
+        self._dasds_formatting = dasds_formatting
 
         self._notebook = self.builder.get_object("formatNotebook")
         self._cancel_button = self.builder.get_object("udCancelButton")
@@ -53,11 +47,8 @@ class DasdFormatDialog(GUIObject):
         self._warn_box = self.builder.get_object("warningBox")
         self._hub_label = self.builder.get_object("returnToHubLabel1")
 
-        if len(self.to_format) > 0:
-            self._unformatted_label.set_text("\n".join("/dev/" + d.name for d in to_format))
-            self._unformatted_label.set_text("\n".join("/dev/" + d.name + " (" + d.busid + ")" for d in to_format))
-        else:
-            self._unformatted_label.set_text("")
+        # Set the label.
+        self._unformatted_label.set_text(self._dasds_formatting.dasds_summary)
 
         # epoch is only increased when user interrupts action to return to hub
         self._epoch = 0
@@ -85,20 +76,6 @@ class DasdFormatDialog(GUIObject):
         """
         self.window.response(2)
 
-    def run_dasdfmt(self, epoch_started, *args):
-        """ Loop through our disks and run dasdfmt against them. """
-        for disk in self.to_format:
-            try:
-                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk.name)
-                blockdev.s390.dasd_format(disk.name)
-            except blockdev.S390Error as err:
-                # Log errors if formatting fails, but don't halt the installer
-                log.error(str(err))
-                continue
-
-        with self._epoch_lock:
-            self.update_dialog(epoch_started)
-
     def on_format_clicked(self, *args):
         """
         Once the format button is clicked, the option to cancel expires.
@@ -108,9 +85,28 @@ class DasdFormatDialog(GUIObject):
         self._ok_button.set_sensitive(False)
         self._notebook.set_current_page(1)
 
+        # Format dasds and update the storage.
+        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT, target=self.run_format, args=()))
+
+    def run_format(self):
+        """Run the dasd formatting and update the storage."""
+        epoch_started = self._epoch
+
         # Loop through all of our unformatted DASDs and format them
-        threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
-                                target=self.run_dasdfmt, args=(self._epoch,)))
+        self._dasds_formatting.report.connect(self.show_dasdfmt_report)
+        self._dasds_formatting.run(self._storage, self._data)
+        self._dasds_formatting.report.disconnect(self.show_dasdfmt_report)
+
+        # Update dialog.
+        with self._epoch_lock:
+            self.update_dialog(epoch_started)
+
+    def show_dasdfmt_report(self, msg):
+        """Show the report from the DASD formatting.
+
+        The callback should be run in the glib loop.
+        """
+        gtk_call_once(self._formatting_label.set_text, msg)
 
     @gtk_action_wait
     def update_dialog(self, epoch_started):
