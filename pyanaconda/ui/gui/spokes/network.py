@@ -882,6 +882,8 @@ class NetworkControlBox(GObject.GObject):
         return title
 
     def dev_cfg(self, uuid=None, device=None, iface=None):
+        if not any([uuid, device, iface]):
+            return None
         for row in self.dev_cfg_store:
             dev_cfg = row[DEVICES_COLUMN_OBJECT]
             if uuid:
