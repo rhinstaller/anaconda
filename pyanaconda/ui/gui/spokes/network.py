@@ -1020,11 +1020,14 @@ class NetworkControlBox(GObject.GObject):
 
     def _refresh_parent_vlanid(self, dev_cfg):
         if dev_cfg.get_device_type() == NM.DeviceType.VLAN:
+            parent = ""
+            vlanid = ""
             if dev_cfg.device:
                 vlanid = dev_cfg.device.get_vlan_id()
-            else:
+                parent = dev_cfg.device.get_parent().get_iface()
+            elif dev_cfg.con:
                 vlanid = dev_cfg.con.get_setting_vlan().get_id()
-            parent = dev_cfg.con.get_setting_vlan().get_parent()
+                parent = dev_cfg.con.get_setting_vlan().get_parent()
             self._set_device_info_value("wired", "vlanid", str(vlanid))
             self._set_device_info_value("wired", "parent", parent)
 
