@@ -1186,8 +1186,14 @@ if __name__ == "__main__":
             ksdata.method.method = "harddrive"
             device = anaconda.methodstr.split(":", 1)[1]
             ksdata.method.partition = os.path.normpath(device)
+        elif anaconda.methodstr.startswith("hmc"):
+            ksdata.method.method = "hmc"
         else:
             log.error("Unknown method: %s", anaconda.methodstr)
+
+    # Enable SE/HMC if it was selected as an installation source.
+    if ksdata.method.method == "hmc":
+        flags.hmc = True
 
     # Override the selinux state from kickstart if set on the command line
     if flags.selinux != constants.SELINUX_DEFAULT:

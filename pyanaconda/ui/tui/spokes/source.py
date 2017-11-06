@@ -65,6 +65,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         self._ready = False
         self._error = False
         self._cdrom = None
+        self._hmc = False
 
         self.errors = []
 
@@ -88,6 +89,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
+
+        # Enable the SE/HMC option.
+        if flags.hmc:
+            self._hmc = True
 
         # Only show Closest mirror if mirrors are available
         if not self.payload.mirrorEnabled:
@@ -113,6 +118,8 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
             return _("Local media")
+        elif self.data.method.method == "hmc":
+            return _("Local media via SE/HMC")
         elif self.data.method.method == "harddrive":
             if not self.data.method.dir:
                 return _("Error setting up software source")
@@ -154,6 +161,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             return True
 
         _methods = [_("CD/DVD"), _("local ISO file"), _("Network")]
+
+        if self._hmc:
+            _methods.append(_("SE/HMC"))
+
         if args == 3:
             text = [TextWidget(_(p)) for p in self._protocols]
         else:
@@ -224,6 +235,12 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                 # iso selected, just set some vars and return to main hub
                 self.set_source_cdrom()
                 self.payload.install_device = self._cdrom
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            # if enabled SE/HMC
+            elif num == 4 and self._hmc:
+                self.set_source_hmc()
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED

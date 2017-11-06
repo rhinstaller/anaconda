@@ -14,6 +14,12 @@ depends() {
     return 0
 }
 
+installkernel() {
+    case "$(uname -m)" in
+        s390*) instmods hmcdrv ;;
+    esac
+}
+
 install() {
     # binaries we want in initramfs
     dracut_install eject -o pigz
@@ -66,5 +72,14 @@ install() {
             *) inst $dep ;;
         esac
     done
+
+    # support for specific architectures
+    case "$(uname -m)" in
+        s390*)
+            inst "/usr/sbin/lshmc"
+            inst "/usr/bin/hmcdrvfs"
+            inst "$moddir/anaconda-hmcroot" "/sbin/anaconda-hmcroot"
+        ;;
+    esac
 }
 

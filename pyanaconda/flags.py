@@ -76,6 +76,8 @@ class Flags(object):
         self.nosave_logs = False
         # single language options
         self.singlelang = False
+        # enable SE/HMC
+        self.hmc = False
         # current runtime environments
         self.environs = [ANACONDA_ENVIRON]
         # parse the boot commandline
