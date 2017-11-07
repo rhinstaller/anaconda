@@ -319,6 +319,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 07 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.127-1
+- Enable SE/HMC file access to repo (vponcova)
+  Resolves: rhbz#1289918
+- Support timeout and retries options in %%packages section (vponcova)
+  Resolves: rhbz#1448459
+
 * Thu Oct 12 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.126-1
 - Add support for the RHV branded help content variant (mkolman)
   Resolves: rhbz#1378010
