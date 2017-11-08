@@ -20,10 +20,10 @@
 from pyanaconda.ui import common
 
 from pyanaconda import iutil
-from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PASSWORD_WEAK_WITH_ERROR, PASSWORD_WEAK, PW_ASCII_CHARS
-from pyanaconda.constants import IPMI_ABORTED
+from pyanaconda import input_checking
+from pyanaconda import constants
 from pyanaconda.i18n import _
-from pyanaconda.users import validatePassword, cryptPassword
+from pyanaconda.users import cryptPassword
 
 from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, YesNoDialog
 from simpleline.render.screen import UIScreen, Prompt
@@ -85,7 +85,7 @@ class IpmiErrorDialog(ErrorDialog):
 
     def input(self, args, key):
         """Call IPMI ABORTED. Everything else will be done by original implementation."""
-        iutil.ipmi_report(IPMI_ABORTED)
+        iutil.ipmi_report(constants.IPMI_ABORTED)
         super().input(args, key)
 
 
@@ -232,32 +232,45 @@ class PasswordDialog(Dialog):
                            " it a second time to continue."))
             return None
         if password != confirm:
-            self._report(_(PASSWORD_CONFIRM_ERROR_TUI))
+            self._report(_(constants.PASSWORD_CONFIRM_ERROR_TUI) % {
+                "password_name_plural" : _(constants.NAME_OF_PASSWORD_PLURAL)
+            })
             return None
 
         # If an empty password was provided, unset the value
         if not password:
             return ""
 
-        pw_score, _status_text, pw_quality, error_message = validatePassword(password,
-                                                                             user=None,
-                                                                             minlen=self._policy.minlen)
+        # prepare a password validation request
+        password_check_request = input_checking.PasswordCheckRequest()
+        password_check_request.password = password
+        password_check_request.password_confirmation = ""
+        password_check_request.policy = self._policy
+
+        # validate the password
+        password_check = input_checking.PasswordValidityCheck()
+        password_check.run(password_check_request)
 
         # if the score is equal to 0 and we have an error message set
-        if not pw_score and error_message:
-            self._report(error_message)
+        if not password_check.result.password_score and password_check.result.error_message:
+            self._report(password_check.result.error_message)
             return None
 
-        if pw_quality < self._policy.minquality:
+        if password_check.result.password_quality < self._policy.minquality:
             if self._policy.strict:
                 done_msg = ""
             else:
                 done_msg = _("\nWould you like to use it anyway?")
 
-            if error_message:
-                error = _(PASSWORD_WEAK_WITH_ERROR) % error_message + " " + done_msg
+            if password_check.result.error_message:
+                error_prefix = _(constants.PASSWORD_WEAK_WITH_ERROR) % {
+                    "password_name" : _(constants.NAME_OF_PASSWORD),
+                    "error_message" : password_check.result.error_message
+                }
+                error = "{} {}".format(error_prefix, done_msg)
             else:
-                error = _(PASSWORD_WEAK) % done_msg
+                weak_prefix = _(constants.PASSWORD_WEAK) % {"password_name" : _(constants.NAME_OF_PASSWORD)}
+                error = "{} {}".format(weak_prefix, done_msg)
 
             if not self._policy.strict:
                 question_window = YesNoDialog(error)
@@ -268,7 +281,7 @@ class PasswordDialog(Dialog):
                 self._report(error)
                 return None
 
-        if any(char not in PW_ASCII_CHARS for char in password):
+        if any(char not in constants.PW_ASCII_CHARS for char in password):
             self._report(_("You have provided a password containing non-ASCII characters.\n"
                            "You may not be able to switch between keyboard layouts to login.\n"))
 
