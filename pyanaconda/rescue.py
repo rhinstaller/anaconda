@@ -18,7 +18,6 @@
 #
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
-from blivet.osinstall import mount_existing_system, find_existing_installations
 
 from pyanaconda import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP, THREAD_STORAGE
@@ -28,6 +27,7 @@ from pyanaconda.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.storage.osinstall import mount_existing_system, find_existing_installations
 from pyanaconda.storage_utils import try_populate_devicetree
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN

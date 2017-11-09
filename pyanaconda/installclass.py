@@ -25,15 +25,15 @@ from distutils.sysconfig import get_python_lib
 import os
 import sys
 
-from blivet.partspec import PartSpec
-from blivet.autopart import swap_suggestion
-from blivet.platform import platform
 from blivet.size import Size
 
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.constants import STORAGE_SWAP_IS_RECOMMENDED
 from pykickstart.constants import FIRSTBOOT_DEFAULT
 from pyanaconda.iutil import collect
+from pyanaconda.storage.autopart import swap_suggestion
+from pyanaconda.storage.partspec import PartSpec
+from pyanaconda.platform import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

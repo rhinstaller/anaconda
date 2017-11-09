@@ -30,13 +30,14 @@ from ordered_set import OrderedSet
 
 from pyanaconda import iutil
 from blivet.devicelibs import raid
+from blivet.formats.disklabel import DiskLabel
 from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.fcoe import fcoe
 import pyanaconda.network
 from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.nm import nm_device_hwaddress
-from blivet import platform
+from pyanaconda import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
 
@@ -360,7 +361,7 @@ class BootLoader(object):
     #
     @property
     def disklabel_types(self):
-        return platform.platform._disklabel_types
+        return DiskLabel.get_platform_label_types()
 
     @property
     def device_descriptions(self):

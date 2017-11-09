@@ -44,6 +44,7 @@ from pyanaconda.constants import SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
+from pyanaconda.platform import platform
 from pyanaconda import network
 
 from blivet import devicefactory
@@ -57,15 +58,14 @@ from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import is_supported_device_type
-from blivet.osinstall import find_existing_installations, Root
-from blivet.autopart import do_autopart
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
-from blivet.platform import platform
 
+from pyanaconda.storage.autopart import do_autopart
+from pyanaconda.storage.osinstall import find_existing_installations, Root
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
     verify_luks_devices_have_key, get_supported_filesystems
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
@@ -641,9 +641,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _replace_device(self, **kwargs):
         """ Create a replacement device and update the device selector. """
         selector = kwargs.pop("selector", None)
-        dev_type = kwargs.pop("device_type")
-        size = kwargs.pop("size")
-        new_device = self._storage_playground.factory_device(dev_type, size, **kwargs)
+        new_device = self._storage_playground.factory_device(**kwargs)
 
         self._devices = self._storage_playground.devices
 
@@ -1087,7 +1085,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
             factory = devicefactory.get_device_factory(self._storage_playground,
-                                                      device_type, size,
+                                                      device_type=device_type,
+                                                      size=size,
                                                       disks=device.disks,
                                                       encrypted=encrypted,
                                                       raid_level=raid_level,
@@ -1704,7 +1703,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     @ui_storage_logged
     def _add_device(self, dev_info):
         factory = devicefactory.get_device_factory(self._storage_playground,
-                                                   dev_info["device_type"], dev_info["size"],
+                                                   device_type=dev_info["device_type"],
+                                                   size=dev_info["size"],
                                                    min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
         container = factory.get_container()
         if container:
@@ -1719,10 +1719,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if container.encrypted:
                 dev_info["encrypted"] = False
 
-        device_type = dev_info.pop("device_type")
         try:
-            self._storage_playground.factory_device(device_type,
-                                                    **dev_info)
+            self._storage_playground.factory_device(**dev_info)
         except StorageError as e:
             log.error("factory_device failed: %s", e)
             log.debug("trying to find an existing container to use")
@@ -1737,12 +1735,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                                                container.size),
                                  "container_name": container.name})
                 try:
-                    self._storage_playground.factory_device(device_type,
-                                                            **dev_info)
+                    self._storage_playground.factory_device(**dev_info)
                 except StorageError as e2:
                     log.error("factory_device failed w/ old container: %s", e2)
                 else:
-                    type_str = _(DEVICE_TEXT_MAP[device_type])
+                    type_str = _(DEVICE_TEXT_MAP[dev_info["device_type"]])
                     self.set_info(_("Added new %(type)s to existing "
                                     "container %(name)s.")
                                     % {"type" : type_str, "name" : container.name})
@@ -1905,7 +1902,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             cont_size = container.size_policy
             cont_name = container.name
             factory = devicefactory.get_device_factory(self._storage_playground,
-                                        device_type, Size(0),
+                                        device_type=device_type,
+                                        size=Size(0),
                                         disks=container.disks,
                                         container_name=cont_name,
                                         container_encrypted=cont_encrypted,
@@ -2559,8 +2557,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         with ui_storage_logger():
             factory = devicefactory.get_device_factory(self._storage_playground,
-                                                     device_type,
-                                                     0, min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
+                                                     device_type=device_type,
+                                                     size=Size(0),
+                                                     min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
             container = factory.get_container(device=_device)
             default_container_name = getattr(container, "name", None)
             if container:

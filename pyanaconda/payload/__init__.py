@@ -36,7 +36,7 @@ import functools
 import time
 from collections import OrderedDict, namedtuple
 
-from blivet.size import Size
+from blivet.size import Size, ROUND_HALF_UP
 from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
@@ -53,6 +53,7 @@ from pyanaconda.i18n import _, N_
 
 from pyanaconda import iutil
 from pyanaconda import isys
+from pyanaconda.platform import platform
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
@@ -68,8 +69,6 @@ log = get_module_logger(__name__)
 from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
-from blivet.platform import platform
-from blivet import set_sysroot
 
 from pyanaconda.product import productName, productVersion
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
@@ -382,7 +381,7 @@ class Payload(object):
         :rtype: :class:`blivet.size.Size`
         """
         device_size = format_class.get_required_size(self.spaceRequired)
-        return device_size.round_to_nearest(Size("1 MiB"))
+        return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
@@ -955,7 +954,6 @@ class Payload(object):
         by overriding the unneeded one with a pass.
         """
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
-            set_sysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
             self.prepareMountTargets(self.storage)
         if not flags.dirInstall:
             self.storage.write()
@@ -1561,7 +1559,7 @@ class PayloadManager(object):
         thread. If there is already a payload thread restart pending, this method
         has no effect.
 
-        :param blivet.Blivet storage: The blivet storage instance
+        :param pyanaconda.storage.InstallerStorage storage: The blivet storage instance
         :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
         :param payload.Payload payload: The payload instance
         :param installclass.BaseInstallClass instClass: The install class instance

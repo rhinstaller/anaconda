@@ -46,24 +46,26 @@ from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.iutil import collect
+from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import device_matches, try_populate_devicetree
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from pyanaconda.users import getPassAlgo
 
-from blivet import autopart, udev
+from blivet import udev
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
-from blivet.platform import platform
 from blivet.size import Size, KiB
 
 from pykickstart.base import BaseHandler, KickstartCommand
@@ -305,7 +307,6 @@ class AutoPart(commands.autopart.F26_AutoPart):
         return retval
 
     def execute(self, storage, ksdata, instClass):
-        from blivet.autopart import do_autopart
         from pyanaconda.storage_utils import storage_checker
 
         if not self.autopart:
@@ -326,7 +327,7 @@ class AutoPart(commands.autopart.F26_AutoPart):
         if self.type is not None:
             storage.autopart_type = self.type
 
-        do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
+        autopart.do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         report = storage_checker.check(storage)
         report.log(autopart_log)
 
@@ -638,7 +639,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
-        if self.disklabel and self.disklabel not in platform.disklabel_types:
+        if self.disklabel and self.disklabel not in DiskLabel.get_platform_label_types():
             raise KickstartParseError(formatErrorMsg(self.lineno,
                                       msg=_("Disklabel \"%s\" given in clearpart command is not "
                                       "supported on this platform.") % self.disklabel))
@@ -680,9 +681,9 @@ class ClearPart(commands.clearpart.F21_ClearPart):
             storage.config.initialize_disks = self.initAll
 
         if self.disklabel:
-            if not platform.set_default_disklabel_type(self.disklabel):
+            if not DiskLabel.set_default_label_type(self.disklabel):
                 clearpart_log.warning("%s is not a supported disklabel type on this platform. "
-                                      "Using default disklabel %s instead.", self.disklabel, platform.default_disklabel_type)
+                                      "Using default disklabel %s instead.", self.disklabel, DiskLabel.get_platform_label_types()[0])
 
         storage.clear_partitions()
 
@@ -1725,8 +1726,6 @@ class RepoData(commands.repo.F27_RepoData):
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
-        from blivet.autopart import do_reqpart
-
         if not self.reqpart:
             return
 
@@ -1743,7 +1742,7 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 
             reqs += bootPartitions
 
-        do_reqpart(storage, reqs)
+        autopart.do_reqpart(storage, reqs)
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):

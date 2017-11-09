@@ -25,6 +25,8 @@ blivet.util.set_up_logging()
 blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
 
+from pyanaconda.storage.osinstall import InstallerStorage
+from pyanaconda import platform as _platform
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.installclass import factory
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
@@ -47,7 +49,7 @@ class TestCase(object):
        desc         -- A description of what this test is supposed to be
                        testing.
        name         -- An identifying string given to this TestCase.
-       platforms    -- A list of blivet.platform.Platform subclasses that this
+       platforms    -- A list of pyanaconda.platform.Platform subclasses that this
                        TestCase is valid for.  This TestCase will only run on
                        matching platforms.  If the list is empty, it is assumed
                        to be valid for all platforms.
@@ -66,7 +68,7 @@ class TestCase(object):
         successes = 0
         failures = 0
 
-        if self.platforms and blivet.platform.get_platform().__class__.__name__ not in self.platforms:
+        if self.platforms and _platform.get_platform().__class__.__name__ not in self.platforms:
             print("Test %s skipped:  not valid for this platform" % self.name, file=sys.stderr)
             return
 
@@ -114,7 +116,7 @@ class TestCaseComponent(object):
            be automatically created by setupDisks and destroyed by tearDownDisks.
         """
         self._disks     = {}
-        self._blivet    = None
+        self._storage   = None
 
         self.disksToCreate = []
 
@@ -132,20 +134,20 @@ class TestCaseComponent(object):
            the storage module.  Subclasses may override this method, but they
            should be sure to call the base method as well.
         """
-        self._blivet = blivet.Blivet(ksdata=ksdata)
+        self._storage = InstallerStorage(ksdata=ksdata)
 
         # blivet only sets up the bootloader in installer_mode.  We don't
         # want installer_mode, though, because that involves running lots
         # of programs on the host and setting up all sorts of other things.
         # Thus, we set it up manually.
         from pyanaconda.bootloader import get_bootloader
-        self._blivet._bootloader = get_bootloader()
+        self._storage._bootloader = get_bootloader()
 
         for (name, size) in self.disksToCreate:
             self._disks[name] = blivet.util.create_sparse_tempfile(name, size)
-            self._blivet.config.diskImages[name] = self._disks[name]
+            self._storage.disk_images[name] = self._disks[name]
 
-        self._blivet.reset()
+        self._storage.reset()
 
     def tearDownDisks(self):
         """Disable any disk images used by this test component and remove their
@@ -154,7 +156,7 @@ class TestCaseComponent(object):
            the images get destroyed.
         """
         # pylint: disable=undefined-variable
-        self._blivet.devicetree.teardownDiskImages()
+        self._storage.devicetree.teardown_disk_images()
 
         for d in self._disks.values():
             os.unlink(d)
@@ -202,10 +204,10 @@ class TestCaseComponent(object):
 
             self.setupDisks(parser.handler)
 
-            doKickstartStorage(self._blivet, parser.handler, instClass)
-            self._blivet.updateKSData()
-            self._blivet.devicetree.teardownAll()
-            self._blivet.doIt()
+            doKickstartStorage(self._storage, parser.handler, instClass)
+            self._storage.update_ksdata()
+            self._storage.devicetree.teardown_all()
+            self._storage.do_it()
         except (BootLoaderError, KickstartError, StorageError) as e:
             # anaconda handles expected kickstart errors (like parsing busted
             # input files) by printing the error and quitting.  For testing, an
@@ -241,7 +243,7 @@ class ReusableTestCaseComponent(TestCaseComponent):
     def tearDownDisks(self):
         # Don't destroy disks here, since a later component will want to
         # use them.
-        self._blivet.devicetree.teardownDiskImages()
+        self._storage.devicetree.teardown_disk_images()
 
 class ReusingTestCaseComponent(TestCaseComponent):
     """A version of TestCaseComponent that reuses existing disk images
@@ -292,16 +294,16 @@ class ReusingTestCaseComponent(TestCaseComponent):
             self._reusedComponents = reusedComponents
 
     def setupDisks(self, ksdata):
-        self._blivet = blivet.Blivet(ksdata=ksdata)
+        self._storage = InstallerStorage(ksdata=ksdata)
 
         # See comment in super class's method.
         from pyanaconda.bootloader import get_bootloader
-        self._blivet._bootloader = get_bootloader()
+        self._storage._bootloader = get_bootloader()
 
         for component in self._reusedComponents:
             self._disks.update(component._disks)
 
         for (name, image) in self._disks.items():
-            self._blivet.config.diskImages[name] = image
+            self._storage.disk_images[name] = image
 
-        self._blivet.reset()
+        self._storage.reset()
