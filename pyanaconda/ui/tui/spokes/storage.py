@@ -550,7 +550,7 @@ class PartTypeSpoke(NormalTUISpoke):
         # storage_initialize() processes all devices
         ignoredisk = self.data.ignoredisk.onlyuse
         self.data.ignoredisk.onlyuse = []
-        storage_initialize(self.storage, self.data, self.storage.devicetree.protected_dev_names)
+        storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
         self.data.ignoredisk.onlyuse = ignoredisk
         self.data.mount.clear_mount_data()
 
@@ -739,7 +739,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
                     self.data.ignoredisk.onlyuse = []
 
                     print(_("Scanning disks. This may take a moment..."))
-                    storage_initialize(self.storage, self.data, self.storage.devicetree.protected_dev_names)
+                    storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
 
                     self.data.ignoredisk.onlyuse = ignoredisk
                     self.data.mount.clear_mount_data()
