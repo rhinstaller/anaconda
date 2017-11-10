@@ -65,6 +65,41 @@ def setHandlersLevel(logr, level):
     for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
         handler.setLevel(level)
 
+def forwardToJournal(logr, log_formatter=None, log_filter=None):
+    """Forward everything that goes in the logger to the journal daemon."""
+    if flags.imageInstall or flags.dirInstall:
+        # don't clutter up the system logs when doing an image install
+        return
+
+    # Don't add syslog tag if custom formatter is in use.
+    # This also means that custom formatters need to make sure they
+    # add the tag correctly themselves.
+    if log_formatter:
+        tag = None
+    else:
+        tag = logr.name
+    journal_handler = AnacondaJournalHandler(tag=tag)
+    journal_handler.setLevel(logging.DEBUG)
+    if log_filter:
+        journal_handler.addFilter(log_filter)
+    if log_formatter:
+        journal_handler.setFormatter(log_formatter)
+    logr.addHandler(journal_handler)
+
+def get_dbus_module_logger(name):
+    """Return logger for a dbus module with correctly setup logging.
+
+    Each DBUS module runs in a separate process, so we need to setup
+    logging for each module separately.
+    """
+    logging.basicConfig(level=logging.DEBUG)
+    dbus_module_logger = logging.getLogger(name)
+    forwardToJournal(dbus_module_logger,
+                     log_filter=AnacondaPrefixFilter(),
+                     log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+    return dbus_module_logger
+
+
 class _AnacondaLogFixer(object):
     """ A mixin for logging.StreamHandler that does not lock during format.
 
@@ -187,10 +222,10 @@ class AnacondaLog:
             logr.setLevel(logging.DEBUG)
 
         # forward both logs to syslog
-        self.forwardToJournal(self.anaconda_logger,
-                              log_filter=AnacondaPrefixFilter(),
-                              log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
-        self.forwardToJournal(storage_logger)
+        forwardToJournal(self.anaconda_logger,
+                         log_filter=AnacondaPrefixFilter(),
+                         log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+        forwardToJournal(storage_logger)
 
         # External program output log
         program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
@@ -198,7 +233,7 @@ class AnacondaLog:
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             minLevel=logging.DEBUG)
-        self.forwardToJournal(program_logger)
+        forwardToJournal(program_logger)
 
         # Create the packaging logger.
         packaging_logger = logging.getLogger(constants.LOGGER_PACKAGING)
@@ -207,21 +242,21 @@ class AnacondaLog:
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
                             minLevel=logging.INFO,
                             autoLevel=True)
-        self.forwardToJournal(packaging_logger)
+        forwardToJournal(packaging_logger)
 
         # Create the dnf logger and link it to packaging
         dnf_logger = logging.getLogger(constants.LOGGER_DNF)
         dnf_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
-        self.forwardToJournal(dnf_logger)
+        forwardToJournal(dnf_logger)
 
         # Create the simpleline logger and link it to anaconda
         simpleline_logger = logging.getLogger(constants.LOGGER_SIMPLELINE)
         simpleline_logger.setLevel(logging.DEBUG)
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger,
                             minLevel=logging.NOTSET)
-        self.forwardToJournal(simpleline_logger)
+        forwardToJournal(simpleline_logger)
 
         # Create the sensitive information logger
         # * the sensitive-info.log file is not copied to the installed
@@ -267,28 +302,6 @@ class AnacondaLog:
             addToLogger.addHandler(logfile_handler)
         except IOError:
             pass
-
-    def forwardToJournal(self, logr, log_formatter=None, log_filter=None):
-        """Forward everything that goes in the logger to the journal daemon.
-        """
-        if flags.imageInstall or flags.dirInstall:
-            # don't clutter up the system logs when doing an image install
-            return
-
-        # Don't add syslog tag if custom formatter is in use.
-        # This also means that custom formatters need to make sure they
-        # add the tag correctly themselves.
-        if log_formatter:
-            tag = None
-        else:
-            tag = logr.name
-        journal_handler = AnacondaJournalHandler(tag=tag)
-        journal_handler.setLevel(logging.DEBUG)
-        if log_filter:
-            journal_handler.addFilter(log_filter)
-        if log_formatter:
-            journal_handler.setFormatter(log_formatter)
-        logr.addHandler(journal_handler)
 
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
