@@ -131,6 +131,7 @@ AC_CONFIG_FILES([Makefile
                  scripts/Makefile
                  pyanaconda/Makefile
                  pyanaconda/version.py
+                 pyanaconda/dbus/Makefile
                  pyanaconda/isys/Makefile
                  pyanaconda/payload/Makefile
                  pyanaconda/storage/Makefile
