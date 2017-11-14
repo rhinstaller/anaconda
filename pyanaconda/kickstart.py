@@ -1147,6 +1147,45 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
 
+class Mount(commands.mount.RHEL7_Mount):
+    def execute(self, storage, ksdata, instClass):
+        storage.do_autopart = False
+
+        for md in self.dataList():
+            md.execute(storage, ksdata, instClass)
+
+class MountData(commands.mount.RHEL7_MountData):
+    def execute(self, storage, ksdata, instClass):
+        dev = storage.devicetree.resolveDevice(self.device)
+        if dev is None:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                                      msg=_("Unknown or invalid device '%s' specified") % self.device))
+        if self.reformat:
+            if self.format:
+                fmt = getFormat(self.format)
+                if not fmt:
+                    msg = _("Unknown or invalid format '%(format)s' specified for device '%(device)s'") % \
+                            {"format" : self.format, "device" : self.device}
+                    raise KickstartValueError(formatErrorMsg(self.lineno, msg))
+            else:
+                old_fmt = dev.format
+                if not old_fmt or old_fmt.type is None:
+                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                                              msg=_("No format on device '%s'") % self.device))
+                fmt = getFormat(old_fmt.type)
+            storage.formatDevice(dev, fmt)
+
+        # only set mount points for mountable formats
+        if dev.format.mountable and self.mount_point is not None and self.mount_point != "none":
+            dev.format.mountpoint = self.mount_point
+
+        dev.format.createOptions = self.mkfs_opts
+        dev.format.options = self.mount_opts
+
+        # make sure swaps end up in /etc/fstab
+        if fmt.type == "swap":
+            storage.addFstabSwap(dev)
+
 class Network(commands.network.RHEL7_Network):
     def parse(self, args):
         nd = commands.network.RHEL7_Network.parse(self, args)
@@ -2203,6 +2242,7 @@ commandMap = {
         "lang": Lang,
         "logging": Logging,
         "logvol": LogVol,
+        "mount": Mount,
         "multipath": MultiPath,
         "network": Network,
         "part": Partition,
@@ -2227,6 +2267,7 @@ commandMap = {
 dataMap = {
         "BTRFSData": BTRFSData,
         "LogVolData": LogVolData,
+        "MountData": MountData,
         "PartData": PartitionData,
         "RaidData": RaidData,
         "RepoData": RepoData,
@@ -2436,6 +2477,7 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.volgroup.execute(storage, ksdata, instClass)
     ksdata.logvol.execute(storage, ksdata, instClass)
     ksdata.btrfs.execute(storage, ksdata, instClass)
+    ksdata.mount.execute(storage, ksdata, instClass)
     # setup snapshot here, that means add it to model and do the tests
     # snapshot will be created on the end of the installation
     ksdata.snapshot.setup(storage, ksdata, instClass)
