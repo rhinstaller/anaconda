@@ -23,24 +23,24 @@ from pydbus.auto_names import auto_object_path
 ANACONDA_DBUS_NAMESPACE = "org.fedoraproject.Anaconda"
 
 # DBUS namespace for modules
-DBUS_MODULE_NAMESPACE = "%s.Modules" % ANACONDA_DBUS_NAMESPACE
+DBUS_MODULE_NAMESPACE = "{}.Modules".format(ANACONDA_DBUS_NAMESPACE)
 
 # DBUS namespace for addons
-DBUS_ADDON_NAMESPACE = "%s.Addons" % ANACONDA_DBUS_NAMESPACE
+DBUS_ADDON_NAMESPACE = "{}.Addons".format(ANACONDA_DBUS_NAMESPACE)
 
 # BOSS
-DBUS_BOSS_NAME = "%s.Boss" % ANACONDA_DBUS_NAMESPACE
+DBUS_BOSS_NAME = "{}.Boss".format(ANACONDA_DBUS_NAMESPACE)
 DBUS_BOSS_PATH = auto_object_path(DBUS_BOSS_NAME)
 
 # Anaconda DBUS modules
-MODULE_FOO_NAME = "%s.Foo" % DBUS_MODULE_NAMESPACE
+MODULE_FOO_NAME = "{}.Foo".format(DBUS_MODULE_NAMESPACE)
 MODULE_FOO_PATH = auto_object_path(MODULE_FOO_NAME)
 
-MODULE_BAR_NAME = "%s.Bar" % DBUS_MODULE_NAMESPACE
+MODULE_BAR_NAME = "{}.Bar".format(DBUS_MODULE_NAMESPACE)
 MODULE_BAR_PATH = auto_object_path(MODULE_BAR_NAME)
 
 # Addons (likely for testing purposes only)
-ADDON_BAZ_NAME = "%s.Baz" % DBUS_ADDON_NAMESPACE
+ADDON_BAZ_NAME = "{}.Baz".format(DBUS_ADDON_NAMESPACE)
 ADDON_BAZ_PATH = auto_object_path(ADDON_BAZ_NAME)
 
 # list of all expected Anaconda services
