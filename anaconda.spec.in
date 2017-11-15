@@ -319,6 +319,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 15 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.128-1
+- Add support for the new 'mount' kickstart command (vpodzime)
+  Resolves: rhbz#1450922
+
 * Tue Nov 07 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.127-1
 - Enable SE/HMC file access to repo (vponcova)
   Resolves: rhbz#1289918

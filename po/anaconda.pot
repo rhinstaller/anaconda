@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.126\n"
+"Project-Id-Version: anaconda 21.48.22.127\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2017-11-07 10:11+0100\n"
+"POT-Creation-Date: 2017-11-15 10:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -474,19 +474,19 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:211 pyanaconda/kickstart.py:2390
+#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2431
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:219
+#: pyanaconda/install.py:221
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:263
+#: pyanaconda/install.py:265
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:266 pyanaconda/packaging/livepayload.py:170
+#: pyanaconda/install.py:268 pyanaconda/packaging/livepayload.py:170
 #: pyanaconda/packaging/yumpayload.py:1532
 msgid "Performing post-installation setup tasks"
 msgstr ""
@@ -560,7 +560,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/kickstart.py:539 pyanaconda/kickstart.py:917
-#: pyanaconda/kickstart.py:1506
+#: pyanaconda/kickstart.py:1545
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
@@ -643,8 +643,8 @@ msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
 #: pyanaconda/kickstart.py:961 pyanaconda/kickstart.py:970
-#: pyanaconda/kickstart.py:1030 pyanaconda/kickstart.py:1298
-#: pyanaconda/kickstart.py:1307 pyanaconda/kickstart.py:1390
+#: pyanaconda/kickstart.py:1030 pyanaconda/kickstart.py:1337
+#: pyanaconda/kickstart.py:1346 pyanaconda/kickstart.py:1429
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
@@ -674,122 +674,138 @@ msgstr ""
 msgid "Percentage must be between 0 and 100."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1009 pyanaconda/kickstart.py:1326
-#: pyanaconda/kickstart.py:1559
+#: pyanaconda/kickstart.py:1009 pyanaconda/kickstart.py:1365
+#: pyanaconda/kickstart.py:1598
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1169 pyanaconda/kickstart.py:1173
+#: pyanaconda/kickstart.py:1162
+#, python-format
+msgid "Unknown or invalid device '%s' specified"
+msgstr ""
+
+#: pyanaconda/kickstart.py:1167
+#, python-format
+msgid ""
+"Unknown or invalid format '%(format)s' specified for device '%(device)s'"
+msgstr ""
+
+#: pyanaconda/kickstart.py:1174
+#, python-format
+msgid "No format on device '%s'"
+msgstr ""
+
+#: pyanaconda/kickstart.py:1208 pyanaconda/kickstart.py:1212
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1198
+#: pyanaconda/kickstart.py:1237
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1233
+#: pyanaconda/kickstart.py:1272
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1244 pyanaconda/kickstart.py:1481
+#: pyanaconda/kickstart.py:1283 pyanaconda/kickstart.py:1520
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1255 pyanaconda/kickstart.py:1491
+#: pyanaconda/kickstart.py:1294 pyanaconda/kickstart.py:1530
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1275
+#: pyanaconda/kickstart.py:1314
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1282
+#: pyanaconda/kickstart.py:1321
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1287 pyanaconda/kickstart.py:1381
+#: pyanaconda/kickstart.py:1326 pyanaconda/kickstart.py:1420
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1341 pyanaconda/kickstart.py:1355
+#: pyanaconda/kickstart.py:1380 pyanaconda/kickstart.py:1394
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1344
+#: pyanaconda/kickstart.py:1383
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1351
+#: pyanaconda/kickstart.py:1390
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1364
+#: pyanaconda/kickstart.py:1403
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1513
+#: pyanaconda/kickstart.py:1552
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1518
+#: pyanaconda/kickstart.py:1557
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1541
+#: pyanaconda/kickstart.py:1580
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1546
+#: pyanaconda/kickstart.py:1585
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1580
+#: pyanaconda/kickstart.py:1619
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1589
+#: pyanaconda/kickstart.py:1628
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1873
+#: pyanaconda/kickstart.py:1912
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1878
+#: pyanaconda/kickstart.py:1917
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1884
+#: pyanaconda/kickstart.py:1923
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1894
+#: pyanaconda/kickstart.py:1933
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -797,40 +813,40 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1901
+#: pyanaconda/kickstart.py:1940
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1906
+#: pyanaconda/kickstart.py:1945
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1909
+#: pyanaconda/kickstart.py:1948
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2032
+#: pyanaconda/kickstart.py:2071
 msgid ""
 "Incorrectly specified origin of the snapshot. Use format \"VolGroup/LV_name\""
 msgstr ""
 
-#: pyanaconda/kickstart.py:2043
+#: pyanaconda/kickstart.py:2082
 #, python-format
 msgid ""
 "Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\" is not a valid thin "
 "LV device."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2051
+#: pyanaconda/kickstart.py:2090
 #, python-format
 msgid "Snapshot %s already exists."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2087
+#: pyanaconda/kickstart.py:2126
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
