@@ -397,11 +397,12 @@ class NetworkControlBox(GObject.GObject):
             log.debug("not adding read-only connection %s", uuid)
             return False
         dev_cfg = DeviceConfiguration(con=con)
-        if network.is_libvirt_device(dev_cfg.get_iface() or ""):
-            log.debug("not adding %s", dev_cfg.get_iface())
+        iface = dev_cfg.get_iface()
+        if network.is_libvirt_device(iface or ""):
+            log.debug("not adding %s", iface)
             return False
-        if network.is_ibft_configured_device(dev_cfg.get_iface() or ""):
-            log.debug("not adding %s configured from iBFT", dev_cfg.get_iface())
+        if network.is_ibft_configured_device(iface or ""):
+            log.debug("not adding %s configured from iBFT", iface)
             return False
         if dev_cfg.get_device_type() not in self.supported_device_types:
             log.debug("not adding connection %s of unsupported type", uuid)
@@ -414,7 +415,13 @@ class NetworkControlBox(GObject.GObject):
         if dev_cfg.get_device_type() == NM.DeviceType.WIFI:
             log.debug("not adding wireless connection %s", uuid)
             return False
-        existing_dev_cfg = self.dev_cfg(iface=dev_cfg.get_iface())
+        # Handle also vlan connections without interface-name specified
+        if dev_cfg.get_device_type() == NM.DeviceType.VLAN:
+            if not iface:
+                iface = self._get_vlan_interface_name_from_connection(con)
+                log.debug("interface name for vlan connection %s inferred: %s", uuid, iface)
+
+        existing_dev_cfg = self.dev_cfg(iface=iface)
         if existing_dev_cfg:
             if existing_dev_cfg.con:
                 log.debug("not adding connection %s, already have %s for device %s",
@@ -428,6 +435,25 @@ class NetworkControlBox(GObject.GObject):
             log.debug("adding connection %s", uuid)
             self.add_dev_cfg(dev_cfg)
         return True
+
+    def _get_vlan_interface_name_from_connection(self, connection):
+        """Get vlan interface name from vlan connection.
+
+        If no interface name is specified in the connection settings, infer
+        the value as <PARENT_IFACE>.<VLAN_ID> - same as NetworkManager.
+        """
+        iface = connection.get_setting_connection().get_interface_name()
+        if not iface:
+            setting_vlan = connection.get_setting_vlan()
+            if setting_vlan:
+                vlanid = setting_vlan.get_id()
+                parent = setting_vlan.get_parent()
+                # if parent is specified by UUID
+                if len(parent) == 36:
+                    parent = self.client.get_connection_by_uuid(parent).get_interface_name()
+                if vlanid and parent:
+                    iface = network.default_ks_vlan_interface_name(parent, vlanid)
+        return iface
 
     def initialize(self):
         self.client.connect("device-added", self.on_device_added)
@@ -856,6 +882,8 @@ class NetworkControlBox(GObject.GObject):
         return title
 
     def dev_cfg(self, uuid=None, device=None, iface=None):
+        if not any([uuid, device, iface]):
+            return None
         for row in self.dev_cfg_store:
             dev_cfg = row[DEVICES_COLUMN_OBJECT]
             if uuid:
@@ -992,11 +1020,14 @@ class NetworkControlBox(GObject.GObject):
 
     def _refresh_parent_vlanid(self, dev_cfg):
         if dev_cfg.get_device_type() == NM.DeviceType.VLAN:
+            parent = ""
+            vlanid = ""
             if dev_cfg.device:
                 vlanid = dev_cfg.device.get_vlan_id()
-            else:
+                parent = dev_cfg.device.get_parent().get_iface()
+            elif dev_cfg.con:
                 vlanid = dev_cfg.con.get_setting_vlan().get_id()
-            parent = dev_cfg.con.get_setting_vlan().get_parent()
+                parent = dev_cfg.con.get_setting_vlan().get_parent()
             self._set_device_info_value("wired", "vlanid", str(vlanid))
             self._set_device_info_value("wired", "parent", parent)
 
