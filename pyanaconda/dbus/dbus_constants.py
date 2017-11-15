@@ -21,20 +21,20 @@
 ANACONDA_DBUS_NAMESPACE = "org.fedoraproject.Anaconda"
 
 # DBUS namespace for modules
-DBUS_MODULE_NAMESPACE = "%s.Modules" % ANACONDA_DBUS_NAMESPACE
+DBUS_MODULE_NAMESPACE = "{}.Modules".format(ANACONDA_DBUS_NAMESPACE)
 
 # DBUS namespace for addons
-DBUS_ADDON_NAMESPACE = "%s.Addons" % ANACONDA_DBUS_NAMESPACE
+DBUS_ADDON_NAMESPACE = "{}.Addons".format(ANACONDA_DBUS_NAMESPACE)
 
 # BOSS
-DBUS_BOSS_NAME = "%s.Boss" % ANACONDA_DBUS_NAMESPACE
+DBUS_BOSS_NAME = "{}.Boss".format(ANACONDA_DBUS_NAMESPACE)
 
 # Anaconda DBUS modules
-MODULE_FOO = "%s.Foo" % DBUS_MODULE_NAMESPACE
-MODULE_BAR = "%s.Bar" % DBUS_MODULE_NAMESPACE
+MODULE_FOO = "{}.Foo".format(DBUS_MODULE_NAMESPACE)
+MODULE_BAR = "{}.Bar".format(DBUS_MODULE_NAMESPACE)
 
 # Addons (likely for testing purposes only)
-ADDON_BAZ = "%s.Baz" % DBUS_ADDON_NAMESPACE
+ADDON_BAZ = "{}.Baz".format(DBUS_ADDON_NAMESPACE)
 
 # list of all expected Anaconda DBUS modules
 ANACONDA_MODULES = [MODULE_FOO, MODULE_BAR]
