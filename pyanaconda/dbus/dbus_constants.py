@@ -36,6 +36,9 @@ MODULE_BAR = "{}.Bar".format(DBUS_MODULE_NAMESPACE)
 # Addons (likely for testing purposes only)
 ADDON_BAZ = "{}.Baz".format(DBUS_ADDON_NAMESPACE)
 
+# Task interface name
+DBUS_TASK_NAME = "{}.Task".format(ANACONDA_DBUS_NAMESPACE)
+
 # list of all expected Anaconda DBUS modules
 ANACONDA_MODULES = [MODULE_FOO, MODULE_BAR]
 
