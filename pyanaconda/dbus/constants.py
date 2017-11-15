@@ -47,6 +47,9 @@ ADDON_BAZ_PATH = auto_object_path(ADDON_BAZ_NAME)
 ANACONDA_SERVICES = [MODULE_FOO_NAME,
                      MODULE_BAR_NAME]
 
+# Task interface name
+DBUS_TASK_NAME = "{}.Task".format(ANACONDA_DBUS_NAMESPACE)
+
 # list of all expected Anaconda DBUS modules
 ANACONDA_MODULES = [MODULE_FOO_PATH,
                     MODULE_BAR_PATH]
