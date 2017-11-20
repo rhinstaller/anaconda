@@ -39,7 +39,8 @@ from pyanaconda import product, iutil, constants
 from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once, unbusyCursor
+from pyanaconda.ui.gui.utils import gtk_call_once, unbusyCursor
+from pyanaconda.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda import ihelp
@@ -914,7 +915,7 @@ class GraphicalUserInterface(UserInterface):
     ###
     ### MESSAGE HANDLING METHODS
     ###
-    @gtk_action_wait
+    @async_action_wait
     def showError(self, message):
         dlg = ErrorDialog(None)
 
@@ -926,7 +927,7 @@ class GraphicalUserInterface(UserInterface):
         # the dialog has the only button -- "Exit installer", so just do so
         sys.exit(1)
 
-    @gtk_action_wait
+    @async_action_wait
     def showDetailedError(self, message, details, buttons=None):
         from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
         buttons = buttons or [C_("GUI|Detailed Error Dialog", "_Quit")]
@@ -938,7 +939,7 @@ class GraphicalUserInterface(UserInterface):
             dlg.window.destroy()
             return rc
 
-    @gtk_action_wait
+    @async_action_wait
     def showYesNoQuestion(self, message):
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
                                 message_type=Gtk.MessageType.QUESTION,

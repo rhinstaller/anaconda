@@ -36,7 +36,8 @@ from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_L
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
-from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.async_utils import async_action_nowait
 
 __all__ = ["ProgressHub"]
 
@@ -287,7 +288,7 @@ class ProgressHub(Hub):
 
         gtk_call_once(self._progressLabel.set_text, message)
 
-    @gtk_action_nowait
+    @async_action_nowait
     def _restart_spinner(self):
         self._spinner.show()
         self._spinner.start()

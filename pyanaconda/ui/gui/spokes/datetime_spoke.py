@@ -33,7 +33,8 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_action_wait, gtk_call_once, override_cell_property
+from pyanaconda.ui.gui.utils import gtk_call_once, override_cell_property
+from pyanaconda.async_utils import async_action_wait, async_action_nowait
 from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
@@ -293,7 +294,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         """
 
-        @gtk_action_nowait
+        @async_action_nowait
         def set_store_value(arg_tuple):
             """
             We need a function for this, because this way it can be added to
@@ -327,7 +328,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
                                     itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
         self._epoch_lock.release()
 
-    @gtk_action_nowait
+    @async_action_nowait
     def _refresh_server_working(self, itr):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 
@@ -639,7 +640,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntpSwitch.set_active(ntp_working)
 
-    @gtk_action_wait
+    @async_action_wait
     def _set_timezone(self, timezone):
         """
         Sets timezone to the city/region comboboxes and the timezone map.
@@ -662,15 +663,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         return True
 
-    @gtk_action_nowait
+    @async_action_nowait
     def add_to_store_xlated(self, store, item, xlated):
         store.append([item, xlated])
 
-    @gtk_action_nowait
+    @async_action_nowait
     def add_to_store(self, store, item):
         store.append([item])
 
-    @gtk_action_nowait
+    @async_action_nowait
     def add_to_store_idx(self, store, idx, item):
         store.append([idx, item])
 

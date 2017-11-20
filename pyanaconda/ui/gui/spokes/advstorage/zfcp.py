@@ -24,7 +24,7 @@ from gi.repository import GLib, BlockDev as blockdev
 
 from blivet import zfcp
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_action_nowait
+from pyanaconda.async_utils import async_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.regexes import DASD_DEVICE_NUMBER, ZFCP_WWPN_NUMBER, ZFCP_LUN_NUMBER
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -143,7 +143,7 @@ class ZFCPDialog(GUIObject):
             # Periodically call the check till it is done.
             GLib.timeout_add(250, self._check_discover)
 
-    @gtk_action_nowait
+    @async_action_nowait
     def _check_discover(self, *args):
         """ After the zFCP discover thread runs, check to see whether a valid
             device was discovered. Display an error message if not.

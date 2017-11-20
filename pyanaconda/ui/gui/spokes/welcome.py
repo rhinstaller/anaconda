@@ -27,7 +27,8 @@ from gi.repository import Gtk
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup, gtk_action_wait
+from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
+from pyanaconda.async_utils import async_action_wait
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
@@ -334,7 +335,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         StandaloneSpoke._on_continue_clicked(self, window, user_data)
 
-    @gtk_action_wait
+    @async_action_wait
     def _set_lang(self, lang):
         # This is *hopefully* safe. The only threads that might be running
         # outside of the GIL are those doing file operations, the Gio dbus

@@ -55,7 +55,8 @@ from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
+from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
+from pyanaconda.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
@@ -391,7 +392,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # user may have set up before now.
         self.storage.config.clear_non_existent = self.data.autopart.autopart
 
-    @gtk_action_nowait
+    @async_action_nowait
     def execute(self):
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageCheckHandler.run runs.
