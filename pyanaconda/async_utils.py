@@ -79,3 +79,8 @@ def async_action_nowait(func):
         GLib.idle_add(_idle_method, args, kwargs)
 
     return _call_method
+
+
+def run_in_main_thread(callback, *args, **kwargs):
+    """Run callback in the main thread."""
+    GLib.idle_add(callback, *args, **kwargs)

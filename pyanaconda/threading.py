@@ -18,12 +18,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import threading
+
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-import threading
 
 _WORKER_THREAD_PREFIX = "AnaWorkerThread"
+_WORKER_WAIT_THREAD = "AnaWaitThread"
+
 
 class ThreadManager(object):
     """A singleton class for managing threads and processes.
@@ -136,6 +139,38 @@ class ThreadManager(object):
             msg = "Unhandled errors from the following threads detected: %s" % thread_names
             raise RuntimeError(msg)
 
+    def call_when_thread_terminates(self, thread_name, callback, *args, **kwargs):
+        """Call the callback when thread with thread_name terminates.
+
+        The callback will be called on the special thread so this is NOT thread safe.
+        For the thread safe variant see the pyanaconda.async_utils.async_action_no_wait decorator.
+
+        :param thread_name: Name of the thread to look on.
+        :type thread_name: str
+
+        :param callback: Call this callback when the thread terminates.
+        :type callback: A function. Other args and kwargs passed here are passed to the callback.
+        """
+        # Check and inject variables to kwargs
+        if "_thread_name" is kwargs:
+            log.error("The '_thread_name' variable can't be used in the callback!"
+                      "This variable will be overridden!")
+        if "_callback" is kwargs:
+            log.error("The '_callback' variable can't be used in the callback!"
+                      "This variable will be overridden!")
+
+        kwargs["_thread_name"] = thread_name
+        kwargs["_callback"] = callback
+
+        thread = AnacondaThread(name=_WORKER_WAIT_THREAD,
+                                target=self._call_when_thread_terminates,
+                                args=args, kwargs=kwargs)
+        self.add(thread)
+
+    def _call_when_thread_terminates(self, _thread_name, _callback, *args, **kwargs):
+        self.wait(_thread_name)
+        _callback(*args, **kwargs)
+
     def set_error(self, name, *exc_info):
         """Set the error data for a thread
 
@@ -207,6 +242,7 @@ class ThreadManager(object):
                 thread = self._objs[thread_name]
                 thread.join()
 
+
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
 
@@ -260,6 +296,7 @@ class AnacondaThread(threading.Thread):
             threadMgr.remove(self.name)
             log.info("Thread Done: %s (%s)", self.name, self.ident)
 
+
 def initThreading():
     """Set up threading for anaconda's use. This method must be called before
        any GTK or threading code is called, or else threads will only run when
@@ -268,5 +305,6 @@ def initThreading():
     """
     global threadMgr
     threadMgr = ThreadManager()
+
 
 threadMgr = None
