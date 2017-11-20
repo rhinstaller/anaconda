@@ -18,23 +18,24 @@
 #
 
 import gi
+
+
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("GLib", "2.0")
-
-from gi.repository import Gdk, Gtk, GLib
-
-from contextlib import contextmanager
-
-from pyanaconda.threading import threadMgr, AnacondaThread
-
-from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE,\
-    PASSWORD_SHOW, PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
 
 import queue
 import time
 import threading
 import functools
+
+from gi.repository import Gdk, Gtk, GLib
+from contextlib import contextmanager
+
+from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.async_utils import async_action_wait
+from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
+                                 PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -53,66 +54,16 @@ def gtk_call_once(func, *args):
 
     GLib.idle_add(wrap, args)
 
-def gtk_action_wait(func):
-    """Decorator method which ensures every call of the decorated function to be
-       executed in the context of Gtk main loop even if called from a non-main
-       thread and returns the ret value after the decorated method finishes.
-    """
-
-    queue_instance = queue.Queue()
-
-    def _idle_method(queue_instance, args, kwargs):
-        """This method contains the code for the main loop to execute.
-        """
-        ret = func(*args)
-        queue_instance.put(ret)
-        return False
-
-    def _call_method(*args, **kwargs):
-        """The new body for the decorated method. If needed, it uses closure
-           bound queue_instance variable which is valid until the reference to this
-           method is destroyed."""
-        if threadMgr.in_main_thread():
-            # nothing special has to be done in the main thread
-            return func(*args, **kwargs)
-
-        GLib.idle_add(_idle_method, queue_instance, args, kwargs)
-        return queue_instance.get()
-
-    return _call_method
 
 def fire_gtk_action(func, *args):
     """Run some Gtk action in the main thread and wait for it."""
 
-    @gtk_action_wait
+    @async_action_wait
     def gtk_action():
         return func(*args)
 
     return gtk_action()
 
-def gtk_action_nowait(func):
-    """Decorator method which ensures every call of the decorated function to be
-       executed in the context of Gtk main loop even if called from a non-main
-       thread. The new method does not wait for the callback to finish.
-    """
-
-    def _idle_method(args, kwargs):
-        """This method contains the code for the main loop to execute.
-        """
-        func(*args, **kwargs)
-        return False
-
-    def _call_method(*args, **kwargs):
-        """The new body for the decorated method.
-        """
-        if threadMgr.in_main_thread():
-            # nothing special has to be done in the main thread
-            func(*args, **kwargs)
-            return
-
-        GLib.idle_add(_idle_method, args, kwargs)
-
-    return _call_method
 
 def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
     """
@@ -250,7 +201,7 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             # function run, no need to schedule it again (return True would do)
             return False
 
-        @gtk_action_wait
+        @async_action_wait
         def run_now(self, *args, **kwargs):
             # Remove the old timer
             if self._timer_id:

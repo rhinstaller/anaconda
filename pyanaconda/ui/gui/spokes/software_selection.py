@@ -32,7 +32,8 @@ from pyanaconda import constants, iutil
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.utils import blockedHandler, gtk_action_wait, escape_markup
+from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
+from pyanaconda.async_utils import async_action_wait
 from pyanaconda.ui.categories.software import SoftwareCategory
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -358,7 +359,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # report that software spoke initialization has been completed
         self.initialize_done()
 
-    @gtk_action_wait
+    @async_action_wait
     def _first_refresh(self):
         self.refresh()
         return True
