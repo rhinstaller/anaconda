@@ -19,6 +19,7 @@ systemddir = $(prefix)/lib/systemd/system
 generatordir = $(prefix)/lib/systemd/system-generators
 
 dist_systemd_DATA = anaconda.service \
+					anaconda-boss.service \
                     anaconda-noshell.service \
                     anaconda-direct.service \
                     anaconda.target \

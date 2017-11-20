@@ -1,0 +1,14 @@
+[Unit]
+ConditionKernelCommandLine=inst.run_boss
+Description=Start Anaconda Boss
+After=anaconda.target
+Before=anaconda.service
+
+[Service]
+Type=dbus
+# Add updates & product image path to PYTHONPATH, so that updates & product images can replace Boss
+# or its parts.
+Environment=PYTHONPATH=/run/install/updates:/run/install/product:/tmp/updates:/tmp/product
+BusName=org.fedoraproject.Anaconda.Boss
+ExecStartPre=/usr/libexec/anaconda/setup-updates
+ExecStart=/usr/bin/python3 -m pyanaconda.modules.boss
