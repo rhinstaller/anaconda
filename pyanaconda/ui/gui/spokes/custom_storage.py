@@ -45,7 +45,6 @@ from pyanaconda.iutil import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.platform import platform
-from pyanaconda import network
 
 from blivet import devicefactory
 from blivet.formats import get_format
@@ -2278,10 +2277,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         user_changed_container = True
         if create_new_container:
             # run the vg editor dialog with a default name and disk set
-            hostname = self.data.network.hostname
-            if hostname == network.DEFAULT_HOSTNAME:
-                hostname = network.current_hostname()
-            name = self._storage_playground.suggest_container_name(hostname=hostname)
+            name = self._storage_playground.suggest_container_name()
             # user_changed_container flips to False if "cancel" picked
             user_changed_container = self.run_container_editor(name=name, new_container=True)
             for idx, data in enumerate(self._containerStore):
@@ -2582,10 +2578,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 self._containerCombo.set_active(containers.index(c))
 
         if default_container_name is None:
-            hostname = self.data.network.hostname
-            if hostname == network.DEFAULT_HOSTNAME:
-                hostname = network.current_hostname()
-            default_container_name = self._storage_playground.suggest_container_name(hostname=hostname)
+            default_container_name = self._storage_playground.suggest_container_name()
 
         log.debug("default container is %s", default_container_name)
         self._device_container_name = default_container_name

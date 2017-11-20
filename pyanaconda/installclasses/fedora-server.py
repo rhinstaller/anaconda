@@ -20,9 +20,9 @@
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
 from pyanaconda.product import productName
 from pyanaconda.kickstart import getAvailableDiskSpace
-from blivet.partspec import PartSpec
-from blivet.autopart import swap_suggestion
-from blivet.platform import platform
+from pyanaconda.storage.partspec import PartSpec
+from pyanaconda.storage.autopart import swap_suggestion
+from pyanaconda.platform import platform
 from blivet.size import Size
 
 __all__ = ["FedoraServerInstallClass"]

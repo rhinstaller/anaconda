@@ -48,6 +48,7 @@ from blivet.zfcp import zfcp
 from blivet.size import Size
 
 from pyanaconda import iutil
+from pyanaconda import network
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.constants import shortProductName
@@ -1869,12 +1870,30 @@ class InstallerStorage(Blivet):
 
         self.update_bootloader_disk_list()
 
+    def _get_hostname(self):
+        """Return a hostname."""
+        ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}
+        hostname = None
+
+        if self.ksdata:
+            hostname = self.ksdata.network.hostname
+
+        if hostname in ignored_hostnames:
+            hostname = network.current_hostname()
+
+        if hostname in ignored_hostnames:
+            hostname = None
+
+        return hostname
+
     def _get_container_name_template(self, prefix=None):
+        """Return a template for suggest_container_name method."""
         prefix = prefix or ""  # make sure prefix is a string instead of None
 
         # try to create a device name incorporating the hostname
-        hostname = self.ksdata.network.hostname if self.ksdata is not None else None
-        if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
+        hostname = self._get_hostname()
+
+        if hostname:
             template = "%s_%s" % (prefix, hostname.split('.')[0].lower())
             template = self.safe_device_name(template)
         else:
