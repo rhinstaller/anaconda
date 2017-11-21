@@ -17,11 +17,6 @@
 # Red Hat, Inc.
 #
 
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
-
 from pyanaconda.i18n import C_, P_
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
@@ -109,14 +104,6 @@ class SelectedDisksDialog(GUIObject):
         rc = self.window.run()
         self.window.destroy()
         return rc
-
-    def _get_selection_refs(self):
-        selected_refs = []
-        if self._selection.count_selected_rows():
-            selected_paths = self._selection.get_selected_rows()[1]
-            selected_refs = [Gtk.TreeRowReference() for _p in selected_paths]
-
-        return selected_refs
 
     def _update_summary(self):
         count = 0

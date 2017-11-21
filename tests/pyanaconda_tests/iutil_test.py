@@ -580,66 +580,6 @@ class MiscTests(unittest.TestCase):
         finally:
             iutil.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
 
-    def get_deep_attr_test(self):
-        """Test getdeepattr."""
-
-        # pylint: disable=attribute-defined-outside-init
-
-        class O(object):
-            pass
-
-        a = O()
-        a.b = O()
-        a.b1 = 1
-        a.b.c = 2
-        a.b.c1 = "ř"
-
-        self.assertEqual(iutil.getdeepattr(a, "b1"), 1)
-        self.assertEqual(iutil.getdeepattr(a, "b.c"), 2)
-        self.assertEqual(iutil.getdeepattr(a, "b.c1"), "ř")
-
-        # be consistent with getattr and throw
-        # AttributeError if non-existent attribute is requested
-        with self.assertRaises(AttributeError):
-            iutil.getdeepattr(a, "")
-        with self.assertRaises(AttributeError):
-            iutil.getdeepattr(a, "b.c.d")
-
-    def set_deep_attr_test(self):
-        """Test setdeepattr."""
-
-        # pylint: disable=attribute-defined-outside-init
-        # pylint: disable=no-member
-
-        class O(object):
-            pass
-
-        a = O()
-        a.b = O()
-        a.b1 = 1
-        a.b.c = O()
-        a.b.c1 = "ř"
-
-        # set to a new attribute
-        iutil.setdeepattr(a, "b.c.d", True)
-        self.assertEqual(a.b.c.d, True)
-
-        # override existing attribute
-        iutil.setdeepattr(a, "b.c", 1234)
-        self.assertEqual(a.b.c, 1234)
-
-        # "" is actually a valid attribute name
-        # that can be only accessed by getattr
-        iutil.setdeepattr(a, "", 1234)
-        self.assertEqual(getattr(a, ""), 1234)
-
-        iutil.setdeepattr(a, "b.", 123)
-        self.assertEqual(iutil.getdeepattr(a, "b."), 123)
-
-        # error should raise AttributeError
-        with self.assertRaises(AttributeError):
-            iutil.setdeepattr(a, "b.c.d.e.f.g.h", 1234)
-
     def strip_accents_test(self):
         """Test strip_accents."""
 

@@ -56,7 +56,6 @@ class EntropyDialog(GUIObject):
         self._desired_entropy = desired_entropy
         self._progress_bar = self.builder.get_object("progressBar")
         self._terminate = False
-        self._started = 0
         self.force_cont = False
         self._num_loops = 0
 

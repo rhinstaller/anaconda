@@ -132,11 +132,6 @@ OFFICIALLY_SUPPORTED_GEOLOCATION_PROVIDER_IDS = {
 }
 
 
-class GeolocationError(Exception):
-    """Exception class for geolocation related errors."""
-    pass
-
-
 class Geolocation(object):
     """Top level geolocation handler."""
 

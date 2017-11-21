@@ -83,10 +83,11 @@ from pykickstart.sections import NullSection, PackageSection, PostScriptSection,
 from pykickstart.version import returnClassForVersion
 
 from pyanaconda import anaconda_logging
-from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_stderr_logger, get_blivet_logger, get_anaconda_root_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_blivet_logger,\
+    get_anaconda_root_logger
+
 log = get_module_logger(__name__)
 
-stderrLog = get_stderr_logger()
 stdoutLog = get_stdout_logger()
 storage_log = get_blivet_logger()
 
@@ -322,7 +323,7 @@ class AutoPart(commands.autopart.F26_AutoPart):
             storage.encryption_passphrase = self.passphrase
             storage.encryption_cipher = self.cipher
             storage.autopart_escrow_cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
-            storage.autoppart_add_backup_passphrase = self.backuppassphrase
+            storage.autopart_add_backup_passphrase = self.backuppassphrase
 
         if self.type is not None:
             storage.autopart_type = self.type
@@ -673,9 +674,9 @@ class ClearPart(commands.clearpart.F28_ClearPart):
         return retval
 
     def execute(self, storage, ksdata, instClass):
-        storage.config.clearpart_type = self.type
-        storage.config.clearpart_disks = self.drives
-        storage.config.clearpart_devices = self.devices
+        storage.config.clear_part_type = self.type
+        storage.config.clear_part_disks = self.drives
+        storage.config.clear_part_devices = self.devices
 
         if self.initAll:
             storage.config.initialize_disks = self.initAll

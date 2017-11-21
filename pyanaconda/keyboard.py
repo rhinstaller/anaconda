@@ -372,9 +372,6 @@ def set_x_keyboard_defaults(ksdata, xkl_wrapper):
             # one
             xkl_wrapper.activate_default_layout()
 
-class LocaledWrapperError(KeyboardConfigError):
-    """Exception class for reporting Localed-related problems"""
-    pass
 
 class LocaledWrapper(object):
     """

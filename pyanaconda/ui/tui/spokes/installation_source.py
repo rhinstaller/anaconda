@@ -377,7 +377,6 @@ class SelectDeviceSpoke(NormalTUISpoke):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("Select device containing the ISO file")
         self._container = None
-        self._currentISOFile = None
         self._mountable_devices = self._get_mountable_devices()
         self._device = None
 

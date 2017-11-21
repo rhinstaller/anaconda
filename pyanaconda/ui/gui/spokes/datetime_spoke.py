@@ -667,10 +667,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         store.append([item, xlated])
 
     @gtk_action_nowait
-    def add_to_store(self, store, item):
-        store.append([item])
-
-    @gtk_action_nowait
     def add_to_store_idx(self, store, idx, item):
         store.append([idx, item])
 

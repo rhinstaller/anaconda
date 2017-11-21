@@ -17,7 +17,6 @@
 # Red Hat, Inc.
 
 from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.simpleconfig import simple_replace
 from pyanaconda import simpleconfig
 import os
 import unittest
@@ -203,45 +202,3 @@ KEY2="A single ' inside" # And comment "with quotes"
 
             # Check that the original file handle points to the replaced contents
             self.assertEqual(testconfig.read(), 'KEY1=value2\n')
-
-class SimpleReplaceTests(unittest.TestCase):
-    TEST_CONFIG = """#SKIP=Skip this commented line
-BOOT=always
-"""
-
-    def replace_test(self):
-        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
-            testconfig.write(self.TEST_CONFIG)
-            testconfig.flush()
-
-            keys = [("BOOT", "BOOT=never")]
-            simple_replace(testconfig.name, keys)
-
-            config = SimpleConfigFile(testconfig.name)
-            config.read()
-            self.assertEqual(config.get("BOOT"), "never")
-
-    def append_test(self):
-        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
-            testconfig.write(self.TEST_CONFIG)
-            testconfig.flush()
-
-            keys = [("NEWKEY", "NEWKEY=froboz")]
-            simple_replace(testconfig.name, keys)
-
-            config = SimpleConfigFile(testconfig.name)
-            config.read()
-            self.assertEqual(config.get("NEWKEY"), "froboz")
-
-    def no_append_test(self):
-        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
-            testconfig.write(self.TEST_CONFIG)
-            testconfig.flush()
-
-            keys = [("BOOT", "BOOT=sometimes"), ("NEWKEY", "NEWKEY=froboz")]
-            simple_replace(testconfig.name, keys, add=False)
-
-            config = SimpleConfigFile(testconfig.name)
-            config.read()
-            self.assertEqual(config.get("BOOT"), "sometimes")
-            self.assertEqual(config.get("NEWKEY"), "")

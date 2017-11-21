@@ -203,21 +203,6 @@ def getHostname():
 
     return hn
 
-def logIfcfgFile(path, message=""):
-    """ Log content of network ifcfg file.
-
-        :param str path: path to the ifcfg file
-        :param str message: optional message appended to the log
-    """
-    content = ""
-    if os.access(path, os.R_OK):
-        f = open(path, 'r')
-        content = f.read()
-        f.close()
-    else:
-        content = "file not found"
-    ifcfglog.debug("%s%s:\n%s", message, path, content)
-
 def _ifcfg_files(directory):
     rv = []
     for name in os.listdir(directory):

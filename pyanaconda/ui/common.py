@@ -263,14 +263,6 @@ class Spoke(object, metaclass=ABCMeta):
         return True
 
     @property
-    def configured(self):
-        """This method returns a list of textual ids that should
-           be written into the after-install customization status
-           file for the firstboot and GIE to know that the spoke was
-           configured and what value groups were provided."""
-        return ["%s.%s" % (self.__class__.__module__, self.__class__.__name__)]
-
-    @property
     def completed(self):
         """Has this spoke been visited and completed?  If not and the spoke is
            mandatory, a special warning icon will be shown on the Hub beside the

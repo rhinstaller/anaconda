@@ -721,9 +721,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _probing_storage(self):
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
 
-    def _testing_availability(self):
-        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_TESTING_AVAILABILITY))
-
     def _downloading_package_md(self):
         # Reset the error state from previous payloads
         self._error = False

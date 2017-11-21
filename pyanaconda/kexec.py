@@ -72,10 +72,8 @@ def run_grubby(args=None):
     return boot_info
 
 
-def setup_kexec(extra_args=None):
+def setup_kexec():
     """ Setup kexec to use the new kernel and default bootloader entry
-
-        :param list extra_args: Extra arguments to pass to kexec
 
         This uses grubby to determine the bootloader arguments from the default entry,
         and then sets up kexec so that reboot will use the new kernel and initrd instead

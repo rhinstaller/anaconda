@@ -76,11 +76,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # Otherwise, once the directory is set it stays that way.
         self._origHome = None
 
-        if self._user.homedir:
-            self._homeSet = True
-        else:
-            self._homeSet = False
-
     def _grabObjects(self):
         self._cUid = self.builder.get_object("c_uid")
         self._cGid = self.builder.get_object("c_gid")
@@ -126,13 +121,10 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # If the user cleared the home directory, revert back to the
         # default
         if not homedir:
-            self._homeSet = False
             self._user.homedir = None
         # If the user modified the home directory input, save that the
         # home directory has been modified and use the value.
         elif self._origHome != homedir:
-            self._homeSet = True
-
             if not os.path.isabs(homedir):
                 homedir = "/" + homedir
             self._user.homedir = homedir

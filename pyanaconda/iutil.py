@@ -619,26 +619,6 @@ def watchProcess(proc, name):
             _raise_exit_error([(name, proc.returncode)])
 
 
-def watchProcessGLib():
-    """Convert process watching to GLib mode.
-
-       This allows anaconda modes that use GLib main loops to use
-       GLib.child_watch_add and continue to watch processes started before the
-       main loop.
-    """
-
-    global _watch_process_glib
-
-    # The first call to child_watch_add will replace our SIGCHLD handler, and
-    # child_watch_add checks if the process has already exited before it returns,
-    # which will handle processes that exit while we're in the loop.
-
-    _watch_process_glib = True
-    for child_pid in _forever_pids:
-        _forever_pids[child_pid][1] = GLib.child_watch_add(child_pid, _watch_process_cb,
-                                                           _forever_pids[child_pid])
-
-
 def unwatchProcess(proc):
     """Unwatch a process watched by watchProcess.
 
@@ -980,56 +960,8 @@ class ProxyString(object):
         self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
         self.noauth_url = self.protocol + self.host + ":" + self.port
 
-    @property
-    def dict(self):
-        """ return a dict of all the elements of the proxy string
-        url, noauth_url, protocol, host, port, username, password
-        """
-        components = ["url", "noauth_url", "protocol", "host", "port",
-                      "username", "password"]
-        return dict((k, getattr(self, k)) for k in components)
-
     def __str__(self):
         return self.url
-
-
-def getdeepattr(obj, name):
-    """This behaves as the standard getattr, but supports
-       composite (containing dots) attribute names.
-
-       As an example:
-
-       >>> import os
-       >>> from os.path import split
-       >>> getdeepattr(os, "path.split") == split
-       True
-    """
-
-    for attr in name.split("."):
-        obj = getattr(obj, attr)
-    return obj
-
-
-def setdeepattr(obj, name, value):
-    """This behaves as the standard setattr, but supports
-       composite (containing dots) attribute names.
-
-       As an example:
-
-       >>> class O:
-       >>>   pass
-       >>> a = O()
-       >>> a.b = O()
-       >>> a.b.c = O()
-       >>> setdeepattr(a, "b.c.d", True)
-       >>> a.b.c.d
-       True
-    """
-    path = name.split(".")
-    for attr in path[:-1]:
-        obj = getattr(obj, attr)
-    return setattr(obj, path[-1], value)
-
 
 def strip_accents(s):
     """This function takes arbitrary unicode string
