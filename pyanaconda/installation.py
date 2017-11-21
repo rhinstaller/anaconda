@@ -49,7 +49,7 @@ class WriteResolvConfTask(Task):
     Secondary reason is to demonstrate how a lightweight Task subclass can be used.
     """
 
-    def do_run(self):
+    def run_task(self):
         """Resolve the sysroot path only right before doing the copy operatio.
 
         If we just added the sysroot path as an argument, it would be resolved when the
