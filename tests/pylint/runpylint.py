@@ -30,6 +30,7 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_lun_input' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
+                                FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_is_ldl' member"),
                               ]
 
     @property

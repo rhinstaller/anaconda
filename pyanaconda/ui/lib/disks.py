@@ -77,6 +77,9 @@ def getDisks(devicetree, fake=False):
     # Remove duplicate names from the list.
     return sorted(set(disks), key=lambda d: d.name)
 
+def getDisksByNames(disks, names):
+    return [d for d in disks if d.name in names]
+
 def isLocalDisk(disk):
     return (not isinstance(disk, MultipathDevice)
             and not isinstance(disk, iScsiDiskDevice)

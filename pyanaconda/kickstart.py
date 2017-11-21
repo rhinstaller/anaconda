@@ -632,9 +632,9 @@ class Realm(commands.realm.F19_Realm):
             realm_log.info("Joined realm %s", self.join_realm)
 
 
-class ClearPart(commands.clearpart.F21_ClearPart):
+class ClearPart(commands.clearpart.F28_ClearPart):
     def parse(self, args):
-        retval = commands.clearpart.F21_ClearPart.parse(self, args)
+        retval = commands.clearpart.F28_ClearPart.parse(self, args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
