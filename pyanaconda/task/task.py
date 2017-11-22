@@ -23,6 +23,7 @@
 
 from threading import Lock
 from pyanaconda.constants import THREAD_DBUS_TASK
+from pyanaconda.dbus import get_bus
 from pyanaconda.task.task_interface import TaskInterface, TaskAlreadyRunningException, \
                                            TaskNotImplemented
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -34,6 +35,8 @@ __all__ = ['Task', 'TaskAlreadyRunningException', 'TaskNotImplemented']
 class Task(TaskInterface):
     """Base class implementing DBus Task interface."""
 
+    _task_counter = 1
+
     def __init__(self):
         super().__init__()
         self._name = ""
@@ -44,6 +47,29 @@ class Task(TaskInterface):
 
         self.__cancel_lock = Lock()
         self.__cancel = False
+
+        self._task_number = Task._task_counter
+        Task._task_counter += 1
+
+        self._dbus_name = ""
+
+    def publish(self, dbus_module_name):
+        """Publish task with the next available number on DBus.
+
+        :param dbus_module_name: Module name on the DBus.
+        :type dbus_module_name: str
+        """
+        self._dbus_name = "{}.{}".format(dbus_module_name, self._task_number)
+        bus = get_bus()
+        bus.publish(self._dbus_name, self)
+
+    @property
+    def dbus_name(self):
+        """DBus path poiting to this task.
+
+        :returns: str
+        """
+        return self._dbus_name
 
     @property
     def Name(self):
