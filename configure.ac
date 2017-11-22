@@ -135,6 +135,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/isys/Makefile
                  pyanaconda/payload/Makefile
                  pyanaconda/storage/Makefile
+                 pyanaconda/task/Makefile
                  pyanaconda/ui/Makefile
                  pyanaconda/ui/categories/Makefile
                  pyanaconda/ui/lib/Makefile
@@ -150,8 +151,10 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/dbus_addons/baz/Makefile
                  pyanaconda/modules/Makefile
                  pyanaconda/modules/bar/Makefile
+                 pyanaconda/modules/bar/tasks/Makefile
                  pyanaconda/modules/boss/Makefile
                  pyanaconda/modules/foo/Makefile
+                 pyanaconda/modules/foo/tasks/Makefile
                  data/post-scripts/Makefile
                  data/pixmaps/Makefile
                  tests/Makefile
