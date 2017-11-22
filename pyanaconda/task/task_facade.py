@@ -30,6 +30,13 @@ class TaskFacade(object):
         self._task_interface.set_description(description)
         self._task_interface.set_progress_steps_count(progress_steps_count)
 
+    def publish(self, dbus_name):
+        self._task_interface.publish(dbus_name)
+
+    @property
+    def dbus_name(self):
+        return self._task_interface.dbus_name
+
     @property
     def name(self):
         return self._task_interface.Name
