@@ -19,10 +19,8 @@
 from pyanaconda.i18n import _, C_
 from pyanaconda.flags import flags
 
-__all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
-           "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
-           "MediaMountError", "ScriptError", "CmdlineError", "NonInteractiveError",
-           "errorHandler"]
+__all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY", "errorHandler", "InvalidImageSizeError",
+           "MissingImageError", "ScriptError", "NonInteractiveError", "CmdlineError"]
 
 class InvalidImageSizeError(Exception):
     def __init__(self, message, filename):
@@ -31,16 +29,6 @@ class InvalidImageSizeError(Exception):
 
 class MissingImageError(Exception):
     pass
-
-class MediaMountError(Exception):
-    def __init__(self, device):
-        Exception.__init__(self)
-        self.device = device
-
-class MediaUnmountError(Exception):
-    def __init__(self, device):
-        Exception.__init__(self)
-        self.device = device
 
 class ScriptError(Exception):
     def __init__(self, lineno, details):
@@ -178,21 +166,6 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _mediaMountHandler(self, exn):
-        message = _("An error occurred mounting the source "
-                    "device %s. Retry?") % exn.device.name
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_RETRY
-        else:
-            return ERROR_RAISE
-
-    def _mediaUnmountHandler(self, exn):
-        message = _("An error occurred unmounting the disc.  "
-                    "Please make sure you're not accessing "
-                    "%s from the shell on tty2 "
-                    "and then click OK to retry.") % exn.device.path
-        self.ui.showError(message)
-
     def _noSuchGroupHandler(self, exn):
         if exn.required:
             message = _("The group '%s' is required for this installation. "
@@ -314,8 +287,6 @@ class ErrorHandler(object):
                 "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
                 "InvalidImageSizeError": self._invalidImageSizeHandler,
                 "MissingImageError": self._missingImageHandler,
-                "MediaMountError": self._mediaMountHandler,
-                "MediaUnmountError": self._mediaUnmountHandler,
                 "NoSuchGroup": self._noSuchGroupHandler,
                 "NoSuchPackage": self._noSuchPackageHandler,
                 "ScriptError": self._scriptErrorHandler,
