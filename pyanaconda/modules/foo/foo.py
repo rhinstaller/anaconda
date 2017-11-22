@@ -20,11 +20,14 @@
 
 from pyanaconda.dbus import dbus_constants
 from pyanaconda.modules.base import BaseModule
+from pyanaconda.modules.foo.tasks.foo_task import FooTask
+from pyanaconda.task.task import TaskContainer
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
+
 
 @dbus_interface(dbus_constants.MODULE_FOO)
 class Foo(BaseModule):
@@ -32,8 +35,19 @@ class Foo(BaseModule):
     def __init__(self):
         super().__init__()
         self._dbus_name = dbus_constants.MODULE_FOO
+        self._tasks = []
+
+        self._collect_tasks()
+        self.publish_tasks()
+
+    def _collect_tasks(self):
+        self._tasks.append(TaskContainer(FooTask(dbus_constants.MODULE_FOO)))
 
     def EchoString(self, s: Str) -> Str:
         """Returns whatever is passed to it."""
         log.debug(s)
         return s
+
+    def publish_tasks(self):
+        for task in self._tasks:
+            task.publish()
