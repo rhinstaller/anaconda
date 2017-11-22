@@ -20,6 +20,7 @@
 
 from pyanaconda.dbus import dbus_constants
 from pyanaconda.modules.base import BaseModule
+from pyanaconda.modules.foo.tasks.foo_task import FooTask
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -33,7 +34,23 @@ class Foo(BaseModule):
         super().__init__()
         self._dbus_name = dbus_constants.MODULE_FOO
 
+        self._tasks = [FooTask]
+
+        self.publish_tasks()
+
     def EchoString(self, s: Str) -> Str:
         """Returns whatever is passed to it."""
         log.debug(s)
         return s
+
+    def AvailableTasks(self) -> List((Str, Str)):
+        ret = List()
+
+        for task in self._tasks:
+            ret.append((task.name, task.dbus_name))
+
+        return ret
+
+    def publish_tasks(self):
+        for task in self._tasks:
+            task.publish(dbus_constants.MODULE_FOO)
