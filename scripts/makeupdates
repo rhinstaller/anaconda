@@ -52,6 +52,9 @@ VERSION_OP_MAP = {
     "<=": VERSION_LESS_OR_EQUAL
 }
 
+# Anaconda scripts that should be installed into the libexec folder
+LIBEXEC_SCRIPTS = ["zramswapon", "zramswapoff", "zram-stats", "log-capture",
+                   "setup-updates", "start-module"]
 
 def getArchiveTag(configure, spec):
     tag = ""
@@ -312,9 +315,11 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
             if not os.path.isdir(os.path.join(updates, "usr/sbin")):
                 os.makedirs(os.path.join(updates, "usr/sbin"))
             shutil.copy2(gitfile, os.path.join(updates, "usr/sbin/anaconda"))
-        elif gitfile.endswith('.service') or gitfile.endswith(".target"):
-            # same for systemd services
-            install_to_dir(gitfile, "usr/lib/systemd/system")
+        elif gitfile.startswith("data/systemd"):
+            # include systemd services, but not for example dbus .service files
+            if gitfile.endswith('.service') or gitfile.endswith(".target"):
+                # same for systemd services
+                install_to_dir(gitfile, "usr/lib/systemd/system")
         elif gitfile.endswith('/anaconda-generator'):
             # yeah, this should probably be more clever..
             install_to_dir(gitfile, "usr/lib/systemd/system-generators")
@@ -340,12 +345,17 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
             install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
         elif gitfile == "utils/handle-sshpw":
             install_to_dir(gitfile, "usr/sbin")
-        elif any(gitfile.endswith(libexec_script) for libexec_script in \
-                 ("zramswapon", "zramswapoff", "zram-stats", "log-capture")):
+        elif any(gitfile.endswith(libexec_script) for libexec_script in LIBEXEC_SCRIPTS):
             install_to_dir(gitfile, "usr/libexec/anaconda")
         elif gitfile.endswith("AnacondaWidgets.py"):
             import gi
             install_to_dir(gitfile, gi._overridesdir[1:])
+        elif gitfile.startswith("data/dbus"):
+            # add DBUS service and config files
+            if gitfile.endswith(".service"):
+                install_to_dir(gitfile, "usr/share/dbus-1/system-services")
+            elif gitfile.endswith(".conf"):
+                install_to_dir(gitfile, "usr/share/dbus-1/system.d")
         elif gitfile.find('/') != -1:
             fields = gitfile.split('/')
             subdir = fields[0]
