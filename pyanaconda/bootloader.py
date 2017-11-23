@@ -1821,7 +1821,6 @@ class EFIGRUB1(EFIBase, GRUB):
 
 class EFIGRUB(EFIBase, GRUB2):
     _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
-    _packages64 = [ "grub2-efi-x64", "shim-x64" ]
     _packages_common = [ "efibootmgr" ]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
@@ -1832,6 +1831,7 @@ class EFIGRUB(EFIBase, GRUB2):
     def __init__(self):
         super(EFIGRUB, self).__init__()
         self.efi_dir = 'BOOT'
+        self._packages64 = [ "grub2-efi-x64", "shim-x64" ]
 
         try:
             f = open("/sys/firmware/efi/fw_platform_size", "r")
@@ -1857,12 +1857,18 @@ class EFIGRUB(EFIBase, GRUB2):
             super(EFIGRUB, self).packages
 
 class Aarch64EFIGRUB(EFIGRUB):
-    _packages64 = ["grub2-efi-aa64", "shim-aa64"]
     _serial_consoles = ["ttyAMA", "ttyS"]
     _efi_binary = "\\shimaa64.efi"
 
+    def __init__(self):
+        super(Aarch64EFIGRUB, self).__init__()
+        self._packages64 = ["grub2-efi-aa64", "shim-aa64"]
+
 class MacEFIGRUB(EFIGRUB):
-    _packages64 = [ "grub2-tools-efi", "mactel-boot" ]
+    def __init__(self):
+        super(MacEFIGRUB, self).__init__()
+        self._packages64.extend(["grub2-tools-efi", "mactel-boot"])
+
     def mactel_config(self):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
