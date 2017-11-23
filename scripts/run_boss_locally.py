@@ -2,7 +2,6 @@
 
 import os
 import tempfile
-import shutil
 import glob
 import pydbus
 import time
@@ -14,16 +13,23 @@ os.putenv("PYTHONPATH", os.path.abspath(".."))  # pylint: disable=environment-mo
 
 MODULES_DIR = os.path.abspath("../pyanaconda/modules")
 DBUS_SERVICES_DIR = "../data/dbus/"
+STARTUP_SCRIPT = os.path.abspath("../scripts/start-module")
+EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 print("creating a temporary directory for DBUS service files")
 temp_service_dir = tempfile.TemporaryDirectory(prefix="anaconda_dbus_")
 print(temp_service_dir.name)
 
-print("copying service files")
+print("copying & modifying DBUS service files")
+modified_exec_path = 'Exec={}'.format(STARTUP_SCRIPT)
 for file_path in glob.glob(DBUS_SERVICES_DIR +  "*.service"):
     filename = os.path.split(file_path)[1]
     target_file_path = os.path.join(temp_service_dir.name, filename)
-    shutil.copy(file_path, target_file_path)
+    with open(file_path, "rt") as input_file:
+        with open(target_file_path, "wt") as output_file:
+            for line in input_file:
+                # change path to the startup script to point to local copy
+                output_file.write(line.replace(EXEC_PATH, modified_exec_path))
 
 test_dbus = Gio.TestDBus()
 
