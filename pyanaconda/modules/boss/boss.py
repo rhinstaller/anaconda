@@ -32,6 +32,7 @@ from pyanaconda.modules.boss.module_manager import ModuleManager  # pylint: disa
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
+
 @dbus_interface(dbus_constants.DBUS_BOSS_NAME)
 class Boss(BaseModule):
 
@@ -54,4 +55,4 @@ class Boss(BaseModule):
     def Quit(self):
         """Stop all modules and then stops Boss."""
         self._module_manager.stop_modules()
-        super().Quit()
+        super().stop_module()

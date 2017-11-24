@@ -19,7 +19,7 @@
 #
 
 from pyanaconda.dbus import dbus_constants
-from pyanaconda.modules.base import BaseModule
+from pyanaconda.modules.base import BaseModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -27,7 +27,7 @@ from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
 @dbus_interface(dbus_constants.ADDON_BAZ)
-class Baz(BaseModule):
+class Baz(BaseModuleInterface):
 
     def __init__(self):
         super().__init__()
