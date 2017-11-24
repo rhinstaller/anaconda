@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_FOO_PATH, MODULE_FOO_NAME
-from pyanaconda.modules.base import BaseModule
+from pyanaconda.modules.base import BaseModuleInterface
 from pyanaconda.modules.foo.tasks.foo_task import FooTask
 from pyanaconda.task import publish_task
 from pyanaconda.dbus.interface import dbus_interface
@@ -30,7 +30,7 @@ log = anaconda_logging.get_dbus_module_logger(__name__)
 
 
 @dbus_interface(MODULE_FOO_NAME)
-class Foo(BaseModule):
+class Foo(BaseModuleInterface):
 
     def __init__(self):
         super().__init__()

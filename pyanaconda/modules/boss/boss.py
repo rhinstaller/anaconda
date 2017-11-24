@@ -63,4 +63,4 @@ class Boss(BaseModule):
     def Quit(self):
         """Stop all modules and then stop the boss."""
         self._module_manager.stop_modules()
-        super().Quit()
+        super().stop_module()
