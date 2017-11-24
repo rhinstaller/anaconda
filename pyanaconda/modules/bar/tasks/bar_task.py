@@ -1,5 +1,6 @@
-# bar.py
-# Example DBUS module
+# DBus Task for Bar example modules.
+#
+# Example of Task Facade implementation.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
@@ -18,22 +19,34 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus import dbus_constants
-from pyanaconda.modules.base import BaseModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+import time
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.task.task_facade import TaskFacade
 
-@dbus_interface(dbus_constants.ADDON_BAZ)
-class Baz(BaseModuleInterface):
+
+class BarTask(TaskFacade):
 
     def __init__(self):
-        super().__init__()
-        self._dbus_name = dbus_constants.ADDON_BAZ
+        super().__init__("Bar", "This is a really complicated job for Bar.", 5)
 
-    def EchoString(self, s: Str) -> Str:
-        """Returns whatever is passed to it."""
-        log.debug(s)
-        return s
+    def runnable(self):
+        self.progress_changed(1, "preparing for the hard work")
+
+        # hard working...
+        time.sleep(1)
+
+        if self.check_cancel():
+            return
+
+        self.progress_changed(2, "working so HARD!!")
+        # pretending hard work while sleeping...
+        time.sleep(1)
+
+        if self.check_cancel():
+            return
+
+        self.progress_changed(3, "It is almost done")
+        # practising memory by trying to remember actual step count
+        time.sleep(1)
+
+        self.progress_changed(5, "Done")

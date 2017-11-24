@@ -18,12 +18,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import threading
+
+from pyanaconda.async_utils import run_in_main_thread
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-import threading
 
 _WORKER_THREAD_PREFIX = "AnaWorkerThread"
+_WORKER_WAIT_THREAD = "AnaWaitThread"
+
 
 class ThreadManager(object):
     """A singleton class for managing threads and processes.
@@ -136,6 +140,29 @@ class ThreadManager(object):
             msg = "Unhandled errors from the following threads detected: %s" % thread_names
             raise RuntimeError(msg)
 
+    def call_when_thread_terminates(self, thread_name, callback, *args, **kwargs):
+        """Call the callback when thread with thread_name terminates.
+
+        The callback will be called on the main thread so this is thread safe solution.
+
+        :param thread_name: Name of the thread to look on.
+        :type thread_name: str
+
+        :param callback: Call this callback when the thread terminates.
+        :type callback: A function. Other args and kwargs passed here are passed to the callback.
+        """
+        # Add thread name and callback to the args
+        args = (thread_name, callback, *args)
+
+        thread = AnacondaThread(_WORKER_WAIT_THREAD,
+                                target=self._call_when_thread_terminates,
+                                *args, **kwargs)
+        self.add(thread)
+
+    def _call_when_thread_terminates(self, thread_name, callback, *args, **kwargs):
+        self.wait(thread_name)
+        run_in_main_thread(callback, *args, **kwargs)
+
     def set_error(self, name, *exc_info):
         """Set the error data for a thread
 
@@ -207,6 +234,7 @@ class ThreadManager(object):
                 thread = self._objs[thread_name]
                 thread.join()
 
+
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
 
@@ -260,6 +288,7 @@ class AnacondaThread(threading.Thread):
             threadMgr.remove(self.name)
             log.info("Thread Done: %s (%s)", self.name, self.ident)
 
+
 def initThreading():
     """Set up threading for anaconda's use. This method must be called before
        any GTK or threading code is called, or else threads will only run when
@@ -268,5 +297,6 @@ def initThreading():
     """
     global threadMgr
     threadMgr = ThreadManager()
+
 
 threadMgr = None

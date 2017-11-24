@@ -41,7 +41,7 @@ from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda.constants import DEFAULT_KEYBOARD
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, KeyboardConfigError, InvalidLayoutVariantSpec
-from pyanaconda.ui.gui.utils import gtk_action_wait
+from pyanaconda.async_utils import async_action_wait
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -260,7 +260,7 @@ class XklWrapper(object):
         # translate the description of the switching option
         return Xkb_(self._switch_opt_infos[switch_opt])
 
-    @gtk_action_wait
+    @async_action_wait
     def activate_default_layout(self):
         """
         Activates default layout (the first one in the list of configured
@@ -275,7 +275,7 @@ class XklWrapper(object):
 
         return layout in self._layout_infos
 
-    @gtk_action_wait
+    @async_action_wait
     def add_layout(self, layout):
         """
         Method that tries to add a given layout to the current X configuration.
@@ -307,7 +307,7 @@ class XklWrapper(object):
             raise XklWrapperError("Failed to add layout '%s (%s)'" % (layout,
                                                                       variant))
 
-    @gtk_action_wait
+    @async_action_wait
     def remove_layout(self, layout):
         """
         Method that tries to remove a given layout from the current X
@@ -341,7 +341,7 @@ class XklWrapper(object):
             raise XklWrapperError("Failed to remove layout '%s (%s)'" % (layout,
                                                                        variant))
 
-    @gtk_action_wait
+    @async_action_wait
     def replace_layouts(self, layouts_list):
         """
         Method that replaces the layouts defined in the current X configuration
@@ -368,7 +368,7 @@ class XklWrapper(object):
             msg = "Failed to replace layouts with: %s" % ",".join(layouts_list)
             raise XklWrapperError(msg)
 
-    @gtk_action_wait
+    @async_action_wait
     def set_switching_options(self, options):
         """
         Method that sets options for layout switching. It replaces the old

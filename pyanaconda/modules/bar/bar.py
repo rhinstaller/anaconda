@@ -19,7 +19,8 @@
 #
 
 from pyanaconda.dbus import dbus_constants
-from pyanaconda.modules.base import BaseModule
+from pyanaconda.modules.base import BaseModuleInterface
+from pyanaconda.modules.bar.tasks.bar_task import BarTask
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -27,13 +28,28 @@ from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
 @dbus_interface(dbus_constants.MODULE_BAR)
-class Bar(BaseModule):
+class Bar(BaseModuleInterface):
 
     def __init__(self):
         super().__init__()
         self._dbus_name = dbus_constants.MODULE_BAR
+        self._tasks = [BarTask()]
+
+        self.publish_tasks()
 
     def EchoString(self, s: Str) -> Str:
         """Returns whatever is passed to it."""
         log.debug(s)
         return s
+
+    def AvailableTasks(self) -> List((Str, Str)):
+        ret = List()
+
+        for task in self._tasks:
+            ret.append((task.name, task.dbus_name))
+
+        return ret
+
+    def publish_tasks(self):
+        for task in self._tasks:
+            task.publish(dbus_constants.MODULE_BAR)
