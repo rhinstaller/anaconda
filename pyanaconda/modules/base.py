@@ -22,6 +22,8 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
+from abc import ABC
+
 from pyanaconda.dbus import dbus_constants
 from pyanaconda.dbus import get_bus
 from pyanaconda.dbus.interface import dbus_interface
@@ -29,18 +31,24 @@ from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
-@dbus_interface(dbus_constants.DBUS_MODULE_NAMESPACE)
-class BaseModule(object):
-    """A common base for Anaconda DBUS modules.
 
-    This class also basically defines the common DBUS API
-    of Anaconda DBUS modules.
+class BaseModule(ABC):
+    """Base implementation of a module.
+
+    This is not DBus interface.
     """
 
     def __init__(self):
         self._loop = GLib.MainLoop()
-        self._bus = get_bus()
         self._dbus_name = None
+
+    @property
+    def dbus_name(self):
+        return self._dbus_name
+
+    @property
+    def loop(self):
+        return self._loop
 
     def run(self):
         # schedule publishing once loop is running
@@ -51,10 +59,25 @@ class BaseModule(object):
 
     def publish_module(self):
         """Publish the module on DBUS and start its main loop."""
-        self._bus.publish(self._dbus_name, self)
+        get_bus().publish(self._dbus_name, self)
         log.debug("module %s has been published", self._dbus_name)
+
+    def stop_module(self):
+        log.debug("module quiting: %s", self.dbus_name)
+        GLib.timeout_add_seconds(1, self.loop.quit)
+
+
+@dbus_interface(dbus_constants.DBUS_MODULE_NAMESPACE)
+class BaseModuleInterface(BaseModule, ABC):
+    """A common base for Anaconda DBUS modules.
+
+    This class also basically defines the common DBUS API
+    of Anaconda DBUS modules.
+    """
+
+    def __init__(self):
+        super().__init__()
 
     def Quit(self):
         """Shut the module down."""
-        log.debug("module quiting: %s", self._dbus_name)
-        GLib.timeout_add_seconds(1, self._loop.quit)
+        self.stop_module()
