@@ -16,6 +16,6 @@ def get_bus():
     if bus_address:
         return pydbus.connect(os.environ["DBUS_STARTER_ADDRESS"])
     else:
-        log.critical("DBUS_STARTER_ADDRESS not defined, can't use DBUS!")
-        raise RuntimeError("DBUS_STARTER_ADDRESS not defined in environment")
+        log.info("DBUS_STARTER_ADDRESS not defined, using system bus")
+        return pydbus.SystemBus()
 

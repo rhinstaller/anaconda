@@ -1,4 +1,4 @@
 [D-BUS Service]
 Name=org.fedoraproject.Anaconda.Boss
-Exec=/usr/bin/python3 -m pyanaconda.modules.boss
+Exec=/usr/libexec/anaconda/start-module pyanaconda.modules.boss
 User=root

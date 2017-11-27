@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# add updates & product image directories to PYTHONPATH if
+# it looks like we are in the installation environment
+
+if [ -d "/run/install" ]; then
+  # Control will enter here if $DIRECTORY exists.
+  export PYTHONPATH=/run/install/updates:/run/install/product:/tmp/updates:/tmp/product
+fi
+
+python3 -m $1
