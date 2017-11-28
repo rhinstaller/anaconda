@@ -533,6 +533,12 @@ class DNFPayload(payload.PackagePayload):
         if self.data.packages.multiLib:
             conf.multilib_policy = "all"
 
+        if self.data.packages.timeout is not None:
+            conf.timeout = self.data.packages.timeout
+
+        if self.data.packages.retries is not None:
+            conf.retries = self.data.packages.retries
+
         self._configure_proxy()
 
         # Start with an empty comps so we can go ahead and use the environment
@@ -556,6 +562,8 @@ class DNFPayload(payload.PackagePayload):
         # Do this here to prevent import side-effects in anaconda_logging
         dnf_logger = get_dnf_logger()
         dnf_logger.setLevel(dnf.logging.DDEBUG)
+
+        log.debug("Dnf configuration:\n%s", conf.dump())
 
     @property
     def _download_space(self):
