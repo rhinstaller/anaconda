@@ -332,6 +332,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 28 2017 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.1-1
+- Really install all the right packages on Mac UEFI installs (awilliam)
+- Add modular server repo to the base repositories (jkonecny)
+  Resolves: rhbz#1506894
+- Fix changing source don't erase old environment TUI (jkonecny)
+  Resolves: rhbz#1505090
+- Add logging to TUI software selection spoke (jkonecny)
+  Related: rhbz#1505090
+- Mac EFI installs need grub2-tools (awilliam)
+  Resolves: rhbz#1503496
+- network: create default ifcfg also for missing default NM connection
+  (rvykydal)
+  Resolves: rhbz#1478141
+- Define zanata branch statically for rhel8-alpha-branch (rvykydal)
+
 * Thu Oct 12 2017 Martin Kolman <mkolman@redhat.com> - 27.20.4-1
 - Fix a translation check error (mkolman)
 
