@@ -24,7 +24,6 @@ from gi.repository import GLib
 
 from pyanaconda.dbus import dbus_constants
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.base import BaseModule
 
 from pyanaconda.modules.boss.module_manager import ModuleManager  # pylint: disable=relative-beyond-top-level
@@ -35,10 +34,11 @@ log = anaconda_logging.get_dbus_module_logger(__name__)
 @dbus_interface(dbus_constants.DBUS_BOSS_NAME)
 class Boss(BaseModule):
 
-    def __init__(self):
+    def __init__(self, module_manager=None):
         super().__init__()
         self._dbus_name = dbus_constants.DBUS_BOSS_NAME
-        self._module_manager = ModuleManager()
+        if module_manager is None:
+            self._module_manager = ModuleManager()
 
     def run(self):
         log.info("looking for addons")
