@@ -31,7 +31,7 @@ from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Ac
 from pyanaconda.flags import BootArgs
 from pyanaconda.flags import flags as flags_instance
 
-from pyanaconda.constants import DisplayModes
+from pyanaconda.constants import DisplayModes, X_TIMEOUT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -463,6 +463,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("vncpassword"))
     ap.add_argument("--xdriver", dest="xdriver", action="store", type=str,
                     default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
+    ap.add_argument("--xtimeout", dest="xtimeout", action="store", type=int, default=X_TIMEOUT,
+                    metavar="TIMEOUT_IN_SECONDS", help=help_parser.help_text("xtimeout"))
     ap.add_argument("--decorated", dest="decorated", action="store_true", default=False,
                     help=help_parser.help_text("decorated"))
 

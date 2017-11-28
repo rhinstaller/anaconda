@@ -29,6 +29,7 @@ from pyanaconda import startup_utils
 from pyanaconda import constants
 from pyanaconda import iutil
 from pyanaconda import vnc
+from pyanaconda.constants import X_TIMEOUT
 from pyanaconda.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.nm import nm_is_connected, nm_is_connecting
@@ -131,14 +132,14 @@ def check_vnc_can_be_started(anaconda):
 
 # X11
 
-def start_x11():
+def start_x11(xtimeout):
     """Start the X server for the Anaconda GUI."""
 
     # Start Xorg and wait for it become ready
     iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
                   ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
                   "-nolisten", "tcp", "-dpi", "96",
-                  "-noreset"], output_redirect=subprocess.DEVNULL)
+                  "-noreset"], output_redirect=subprocess.DEVNULL, timeout=xtimeout)
 
 
 # function to handle X startup special issues for anaconda
@@ -202,8 +203,15 @@ def setup_display(anaconda, options, addon_paths=None):
     :param addon_paths: Anaconda addon paths
     """
 
+    try:
+        xtimeout = int(options.xtimeout)
+    except ValueError:
+        log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
+        xtimeout = X_TIMEOUT
+
     vnc_server = vnc.VncServer()  # The vnc Server object.
     vnc_server.anaconda = anaconda
+    vnc_server.timeout = xtimeout
 
     anaconda.display_mode = options.display_mode
     anaconda.interactive_mode = not options.noninteractive
@@ -307,7 +315,7 @@ def setup_display(anaconda, options, addon_paths=None):
     want_x = want_x and (anaconda.gui_mode)
     if want_x:
         try:
-            start_x11()
+            start_x11(xtimeout)
             do_startup_x11_actions()
         except (OSError, RuntimeError) as e:
             log.warning("X startup failed: %s", e)

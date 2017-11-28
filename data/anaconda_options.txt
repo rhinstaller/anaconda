@@ -107,6 +107,9 @@ the password needs to be 6 to 8 characters long (limitation of the VNC protocol)
 xdriver
 Use DRIVER as the X driver to use during installation as well as on the installed system.
 
+xtimeout
+Specify the timeout in seconds for starting X server.
+
 keymap
 Keyboard layout to use during installation and on the installed system. Valid KEYMAP values
 are those which can be used for the keyboard kickstart command.

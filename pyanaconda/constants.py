@@ -247,3 +247,6 @@ LOGGER_SENSITIVE_INFO = "sensitive_info"
 class PayloadRequirementType(Enum):
     package = "package"
     group = "group"
+
+# Timeout for starting X
+X_TIMEOUT = 60

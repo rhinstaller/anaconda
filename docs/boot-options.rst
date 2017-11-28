@@ -480,6 +480,13 @@ Use the framebuffer X driver (``fbdev``) rather than a hardware-specific driver.
 
 Equivalent to ``inst.xdriver=fbdev``.
 
+.. inst.xtimeout:
+
+inst.xtimeout
+^^^^^^^^^^^^^
+
+Specify the timeout in seconds for starting X server.
+
 .. inst.sshd:
 
 inst.sshd
