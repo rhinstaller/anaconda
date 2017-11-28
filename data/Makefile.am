@@ -21,7 +21,8 @@ CLEANFILES = *~
 
 dist_pkgdata_DATA          = interactive-defaults.ks \
 			     tmux.conf \
-			     anaconda-gtk.css
+			     anaconda-gtk.css \
+			     fedora-server.css
 
 helpdir               = $(datadir)/$(PACKAGE_NAME)
 dist_help_DATA        = anaconda_options.txt
