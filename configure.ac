@@ -114,7 +114,6 @@ AC_CONFIG_SUBDIRS([widgets])
 
 AC_CONFIG_FILES([Makefile
                  anaconda.spec
-                 zanata.xml
                  data/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
