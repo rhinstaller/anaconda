@@ -26,6 +26,7 @@ from abc import ABC
 
 from pyanaconda.dbus import dbus_constants
 from pyanaconda.dbus import get_bus
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 
 from pyanaconda import anaconda_logging
@@ -77,6 +78,14 @@ class BaseModuleInterface(BaseModule, ABC):
 
     def __init__(self):
         super().__init__()
+
+    def AvailableTasks(self) -> List[(Str, Str)]:
+        """Return DBus object paths for tasks available for this module.
+
+        :returns: List of tuples (Name, DBus object path) for all Tasks.
+                  See pyanaconda.task.Task for Task API.
+        """
+        return []
 
     def Quit(self):
         """Shut the module down."""

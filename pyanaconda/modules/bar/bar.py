@@ -48,6 +48,14 @@ class Bar(BaseModuleInterface):
         log.debug(s)
         return s
 
+    def AvailableTasks(self) -> List((Str, Str)):
+        ret = List()
+
+        for task in self._tasks:
+            ret.append((task.name, task.dbus_name))
+
+        return ret
+
     def publish_tasks(self):
         for task in self._tasks:
             task.publish()
