@@ -201,39 +201,3 @@ class SimpleConfigFile(object):
                 s += self._kvpair(key)
 
         return s
-
-
-def simple_replace(fname, keys, add=True, add_comment="# Added by Anaconda"):
-    """ Replace lines in a file, optionally adding if missing.
-
-    :param str fname: Filename to operate on
-    :param list keys: List of (key, string) tuples to search and replace
-    :param bool add: When True add strings that were not replaced
-
-    This will read all the lines in a file, looking for ones that start
-    with keys and replacing the line with the associated string. The string
-    should be a COMPLETE replacement for the line, not just a value.
-
-    When add is True any keys that haven't been found will be appended
-    to the end of the file along with the add_comment.
-    """
-    # Helper to return the line or the first matching key's string
-    def _replace(l):
-        r = [s for k, s in keys if l.startswith(k)]
-        if r:
-            return r[0]
-        else:
-            return l
-
-    # Replace lines that match any of the keys
-    with open(fname, "r") as f:
-        lines = [_replace(l.strip()) for l in f]
-
-    # Add any strings that weren't already in the file
-    if add:
-        append = [s for k, s in keys if not any(l.startswith(k) for l in lines)]
-        if append:
-            lines += [add_comment]
-            lines += append
-
-    write_tmpfile(fname, "\n".join(lines) + "\n")

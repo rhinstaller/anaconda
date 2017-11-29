@@ -425,9 +425,6 @@ if __name__ == "__main__":
     # Now that we've got command line/boot options, do some extra processing.
     startup_utils.setup_logging_from_options(opts)
 
-    # Default is to prompt to mount the installed system.
-    anaconda.rescue_mount = not opts.rescue_nomount
-
     # assign the other anaconda variables from options
     anaconda.decorated = opts.decorated
     anaconda.proxy = opts.proxy

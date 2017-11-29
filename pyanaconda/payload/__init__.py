@@ -75,7 +75,6 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 from distutils.version import LooseVersion
 
-REPO_NOT_SET = False
 MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
 
@@ -97,20 +96,8 @@ class MetadataError(PayloadError):
     pass
 
 
-class NoNetworkError(PayloadError):
-    pass
-
-
 # setup
 class PayloadSetupError(PayloadError):
-    pass
-
-
-class ImageMissingError(PayloadSetupError):
-    pass
-
-
-class ImageDirectoryMountError(PayloadSetupError):
     pass
 
 
@@ -1509,7 +1496,6 @@ class PayloadManager(object):
     # Error strings
     ERROR_SETUP = N_("Failed to set up installation source")
     ERROR_MD = N_("Error downloading package metadata")
-    ERROR_SOURCE = N_("No installation source available")
 
     def __init__(self):
         self._event_lock = threading.Lock()

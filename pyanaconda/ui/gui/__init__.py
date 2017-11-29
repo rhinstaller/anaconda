@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import inspect, os, sys, site, signal
+import inspect, os, sys, site
 import meh.ui.gui
 
 from contextlib import contextmanager
@@ -649,7 +649,6 @@ class GraphicalUserInterface(UserInterface):
 
         self._actions = []
         self._currentAction = None
-        self._ui = None
         self._gui_lock = gui_lock
 
         self.data = None
@@ -730,38 +729,6 @@ class GraphicalUserInterface(UserInterface):
             display.set_window_scale(2)
             # Export the scale so that Gtk programs launched by anaconda are also scaled
             iutil.setenv("GDK_SCALE", "2")
-
-    def _convertSignals(self):
-        # What tends to happen when we receive a signal is that the signal will
-        # be received by the python interpreter's C handler, python will do
-        # what it needs to do to set the python handler we registered to run,
-        # the C handler returns, and then nothing happens because Gtk is
-        # holding the global interpreter lock. The signal then gets delivered
-        # to our python code when you move the mouse or something. We can get
-        # around this by doing signals the GLib way. The conversion assumes
-        # that none of our signal handlers care about the frame parameter,
-        # which is generally true.
-        #
-        # After the unix_signal_add call, signal.getsignal will tell a half
-        # truth: the method returned will still be called, by way of
-        # _signal_converter, but GLib will have replaced the actual signal
-        # handler for that signal.
-
-        # Convert everything except SIGCHLD, because that's a different can of worms
-
-        def _signal_converter(user_data):
-            (handler, signum) = user_data
-            handler(signum, None)
-
-        for signum in (s for s in range(1, signal.NSIG) if s != signal.SIGCHLD):
-            handler = signal.getsignal(signum)
-            if handler and handler not in (signal.SIG_DFL, signal.SIG_IGN):
-                # NB: if you are looking at the glib documentation you are in for
-                # some surprises because gobject-introspection is a minefield.
-                # g_unix_signal_add_full comes out as GLib.unix_signal_add, and
-                # g_unix_signal_add doesn't come out at all.
-                GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signum,
-                        _signal_converter, (handler, signum))
 
     @property
     def tty_num(self):

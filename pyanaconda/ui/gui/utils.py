@@ -114,29 +114,6 @@ def gtk_action_nowait(func):
 
     return _call_method
 
-class GtkActionList(object):
-    """Class for scheduling Gtk actions to be all run at once."""
-
-    def __init__(self):
-        self._actions = []
-
-    def add_action(self, func, *args):
-        """Add Gtk action to be run later."""
-
-        @gtk_action_wait
-        def gtk_action():
-            func(*args)
-
-        self._actions.append(gtk_action)
-
-    def fire(self):
-        """Run all scheduled Gtk actions."""
-
-        for action in self._actions:
-            action()
-
-        self._actions = []
-
 def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
     """
     Function that maps an action on items in a way that makes the action run in

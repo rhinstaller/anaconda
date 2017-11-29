@@ -172,10 +172,6 @@ class ISCSIDialog(GUIObject):
         self._initiatorEntry.set_text(self.iscsi.initiator)
         self._initiatorEntry.set_sensitive(not self.iscsi.initiator_set)
 
-    @property
-    def selectedNames(self):
-        return [itr[2] for itr in self._store if itr[0]]
-
     def run(self):
         rc = self.window.run()
         self.window.destroy()

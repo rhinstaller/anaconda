@@ -347,17 +347,6 @@ class Rescue(object):
         if self.reboot:
             iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
-    def run_without_ui(self):
-        if self.mount:
-            if self.get_locked_device_names():
-                log.warning("Locked LUKS devices found.")
-            if self.root:
-                self.mount_root()
-            else:
-                log.warning("No Linux partitions found.")
-        self.run_shell()
-        self.finish()
-
 
 class RescueModeSpoke(NormalTUISpoke):
     """UI offering mounting existing installation roots in rescue mode."""

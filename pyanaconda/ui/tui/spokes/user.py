@@ -242,9 +242,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         if self._use_password and self._user_data.password and len(self._user_data.password) > 0:
             self._user_data.password = self._user_data.password
             self._user_data.isCrypted = True
-            self._user_data.password_kickstarted = False
         # clear pw when user unselects to use pw
         else:
             self._user_data.password = ""
             self._user_data.isCrypted = False
-            self._user_data.password_kickstarted = False

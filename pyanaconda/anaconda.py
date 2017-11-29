@@ -41,7 +41,6 @@ class Anaconda(object):
         from pyanaconda import desktop
 
         self._bootloader = None
-        self.canReIPL = False
         self.desktop = desktop.Desktop()
         self.dir = None
         self._display_mode = None
@@ -52,16 +51,10 @@ class Anaconda(object):
         self._intf = None
         self.isHeadless = False
         self.ksdata = None
-        self.mediaDevice = None
         self.methodstr = None
         self.opts = None
         self._payload = None
         self.proxy = None
-        self.proxyUsername = None
-        self.proxyPassword = None
-        self.reIPLMessage = None
-        self.rescue_mount = True
-        self.rootParts = None
         self.decorated = False
 
         self.stage2 = None
@@ -213,21 +206,9 @@ class Anaconda(object):
         return self._display_mode == DisplayModes.GUI
 
     @property
-    def noninteractive_gui_mode(self):
-        """Report if Anaconda should run with noninteractive GUI."""
-        return (self._display_mode == DisplayModes.GUI
-                and not self._interactive_mode)
-
-    @property
     def tui_mode(self):
         """Report if Anaconda should run with the TUI."""
         return self._display_mode == DisplayModes.TUI
-
-    @property
-    def noninteractive_tui_mode(self):
-        """Report if Anaconda should run with noninteractive TUI."""
-        return (self._display_mode == DisplayModes.TUI
-                and not self._interactive_mode)
 
     def _set_default_fstype(self, storage):
         fstype = None
@@ -316,7 +297,7 @@ class Anaconda(object):
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
                                                      ui_subdir="gui")
-        elif self.tui_mode or self.noninteractive_tui_mode:
+        elif self.tui_mode:
             # TUI and noninteractive TUI are the same in this regard
             from pyanaconda.ui.tui import TextUserInterface
             self._intf = TextUserInterface(self.storage, self.payload,

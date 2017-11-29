@@ -21,8 +21,6 @@ from pyanaconda.i18n import _
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-from contextlib import contextmanager
-
 from pyanaconda.queuefactory import QueueFactory
 
 # A queue to be used for communicating progress information between a subthread
@@ -39,15 +37,6 @@ progressQ.addMessage("step", 0)
 progressQ.addMessage("message", 1)          # message
 progressQ.addMessage("complete", 0)
 progressQ.addMessage("quit", 1)             # exit_code
-
-# Surround a block of code with progress updating.  Before the code runs, the
-# message is updated so the user can tell what's about to take so long.
-# Afterwards, the progress bar is updated to reflect that the task is done.
-@contextmanager
-def progress_report(message):
-    progress_message(message)
-    yield
-    progress_step("%s -- DONE" % message)
 
 def progress_message(message):
     progressQ.send_message(_(message))

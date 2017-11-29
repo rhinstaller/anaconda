@@ -54,7 +54,6 @@ class LangLocaleHandler(object):
         self._localeStore = None
         self._localeSelection = None
 
-        self._arrow = None
         self._right_arrow = None
         self._left_arrow = None
 

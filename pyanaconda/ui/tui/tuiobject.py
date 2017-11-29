@@ -21,7 +21,7 @@ from pyanaconda.ui import common
 
 from pyanaconda import iutil
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PASSWORD_WEAK_WITH_ERROR, PASSWORD_WEAK, PW_ASCII_CHARS
-from pyanaconda.constants_text import IPMI_ABORTED
+from pyanaconda.constants import IPMI_ABORTED
 from pyanaconda.i18n import _
 from pyanaconda.users import validatePassword, cryptPassword
 
