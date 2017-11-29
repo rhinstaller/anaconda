@@ -53,6 +53,7 @@ class TaskInterface(object):
 
     def __init__(self, task_instance: Task):
         self._task_instance = task_instance
+        self.connect_signals()
 
     def connect_signals(self):
         """Connect signals to the implementation."""
