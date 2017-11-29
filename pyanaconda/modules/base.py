@@ -24,6 +24,7 @@ from gi.repository import GLib
 
 from abc import ABC
 
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
 
@@ -69,6 +70,14 @@ class BaseModuleInterface(BaseModule, ABC):
     This class also basically defines the common DBUS API
     of Anaconda DBUS modules.
     """
+
+    def AvailableTasks(self) -> List[Tuple[Str, Str]]:
+        """Return DBus object paths for tasks available for this module.
+
+        :returns: List of tuples (Name, DBus object path) for all Tasks.
+                  See pyanaconda.task.Task for Task API.
+        """
+        return []
 
     def Quit(self):
         """Shut the module down."""

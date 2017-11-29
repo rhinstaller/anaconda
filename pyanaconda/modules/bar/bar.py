@@ -50,6 +50,14 @@ class Bar(BaseModuleInterface):
         log.debug(s)
         return s
 
+    def AvailableTasks(self) -> List[Tuple[Str, Str]]:
+        ret = []
+
+        for task in self._task_interfaces:
+            ret.append((task.impl_object.name, task.dbus_path))
+
+        return ret
+
     def publish_tasks(self):
         for task in self._collect_tasks():
             self._task_interfaces.append(publish_task(task, MODULE_BAR_PATH))
