@@ -17,6 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from pydbus.auto_names import auto_object_path
+
 # main Anaconda DBUS namespace
 ANACONDA_DBUS_NAMESPACE = "org.fedoraproject.Anaconda"
 
@@ -28,16 +30,26 @@ DBUS_ADDON_NAMESPACE = "%s.Addons" % ANACONDA_DBUS_NAMESPACE
 
 # BOSS
 DBUS_BOSS_NAME = "%s.Boss" % ANACONDA_DBUS_NAMESPACE
+DBUS_BOSS_PATH = auto_object_path(DBUS_BOSS_NAME)
 
 # Anaconda DBUS modules
-MODULE_FOO = "%s.Foo" % DBUS_MODULE_NAMESPACE
-MODULE_BAR = "%s.Bar" % DBUS_MODULE_NAMESPACE
+MODULE_FOO_NAME = "%s.Foo" % DBUS_MODULE_NAMESPACE
+MODULE_FOO_PATH = auto_object_path(MODULE_FOO_NAME)
+
+MODULE_BAR_NAME = "%s.Bar" % DBUS_MODULE_NAMESPACE
+MODULE_BAR_PATH = auto_object_path(MODULE_BAR_NAME)
 
 # Addons (likely for testing purposes only)
-ADDON_BAZ = "%s.Baz" % DBUS_ADDON_NAMESPACE
+ADDON_BAZ_NAME = "%s.Baz" % DBUS_ADDON_NAMESPACE
+ADDON_BAZ_PATH = auto_object_path(ADDON_BAZ_NAME)
+
+# list of all expected Anaconda services
+ANACONDA_SERVICES = [MODULE_FOO_NAME,
+                     MODULE_BAR_NAME]
 
 # list of all expected Anaconda DBUS modules
-ANACONDA_MODULES = [MODULE_FOO, MODULE_BAR]
+ANACONDA_MODULES = [MODULE_FOO_PATH,
+                    MODULE_BAR_PATH]
 
 # status codes
 DBUS_START_REPLY_SUCCESS = 1

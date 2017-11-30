@@ -16,20 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from pydbus.auto_names import auto_object_path
 
-from pyanaconda.dbus import get_bus
-
-from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.dbus.constants import ANACONDA_MODULES, DBUS_START_REPLY_SUCCESS, \
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import ANACONDA_SERVICES, DBUS_START_REPLY_SUCCESS, \
     DBUS_ADDON_NAMESPACE
 
+from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
 class ModuleManager(object):
 
     def __init__(self):
-        self._bus = get_bus()
         self._started_module_services = []
         self._failed_module_services = []
         self._addon_module_services = []
@@ -41,7 +40,7 @@ class ModuleManager(object):
     @property
     def expected_module_services(self):
         expected_modules = []
-        expected_modules.extend(ANACONDA_MODULES)
+        expected_modules.extend(ANACONDA_SERVICES)
         expected_modules.extend(self.addon_module_services)
         return expected_modules
 
@@ -76,7 +75,8 @@ class ModuleManager(object):
                       self._started_module_services,
                       self._failed_module_services)
             for service in self._started_module_services:
-                module = self._bus.get(service)
+                # FIXME: This is just a temporary solution.
+                module = DBus.get_proxy(service, auto_object_path(service))
                 module.EchoString("Boss told me - some modules were started: %s and some might have failed: %s." %
                                   (self._started_module_services, self._failed_module_services))
             return True
@@ -85,27 +85,29 @@ class ModuleManager(object):
 
     def find_addons(self):
         self._addon_module_services = []
-        names = self._bus.dbus.ListActivatableNames()
+        dbus = DBus.get_dbus_proxy()
+        names = dbus.ListActivatableNames()
         for name in names:
             if name.startswith(DBUS_ADDON_NAMESPACE):
                 self._addon_module_services.append(name)
 
 
     def check_no_modules_are_running(self):
+        dbus = DBus.get_dbus_proxy()
         for service in self.expected_module_services:
-            if self._bus.dbus.NameHasOwner(service):
+            if dbus.NameHasOwner(service):
                 log.error("service %s has unexpected owner", service)
 
     def start_modules(self):
         """Starts anaconda modules (including addons)."""
         log.debug("starting modules")
-
         self.check_no_modules_are_running()
 
+        dbus = DBus.get_dbus_proxy()
         for service in self.expected_module_services:
             log.debug("Starting %s", service)
             try:
-                self._bus.dbus.StartServiceByName(service, 0, callback=self._finish_start_service_cb, callback_args=(service,))
+                dbus.StartServiceByName(service, 0, callback=self._finish_start_service_cb, callback_args=(service,))
             except Exception:  # pylint: disable=broad-except
                 self._failed_module_services.append(service)
                 log.exception("module startup failed")
@@ -116,7 +118,8 @@ class ModuleManager(object):
         """Tells all running modules to quit."""
         log.debug("sending Quit to all modules and addons")
         for service in self.running_module_services:
-            module = self._bus.get(service)
+            # FIXME: This is just a temporary solution.
+            module = DBus.get_proxy(service, auto_object_path(service))
             # TODO: async ?
             # possible reasons:
             # - module hanging in Quit, deadlocking shutdown
