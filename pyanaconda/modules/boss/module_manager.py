@@ -17,9 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.dbus import dbus_constants, get_bus
+from pyanaconda.dbus import get_bus
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.dbus.constants import ANACONDA_MODULES, DBUS_START_REPLY_SUCCESS, \
+    DBUS_ADDON_NAMESPACE
+
 log = get_module_logger(__name__)
 
 
@@ -38,7 +41,7 @@ class ModuleManager(object):
     @property
     def expected_module_services(self):
         expected_modules = []
-        expected_modules.extend(dbus_constants.ANACONDA_MODULES)
+        expected_modules.extend(ANACONDA_MODULES)
         expected_modules.extend(self.addon_module_services)
         return expected_modules
 
@@ -57,7 +60,7 @@ class ModuleManager(object):
             log.debug("%s error: %s", service, error)
             self._failed_module_services.append(service)
         elif returned:
-            if returned == dbus_constants.DBUS_START_REPLY_SUCCESS:
+            if returned == DBUS_START_REPLY_SUCCESS:
                 log.debug("%s started successfully, returned: %s)", service, returned)
                 self._started_module_services.append(service)
             else:
@@ -84,7 +87,7 @@ class ModuleManager(object):
         self._addon_module_services = []
         names = self._bus.dbus.ListActivatableNames()
         for name in names:
-            if name.startswith(dbus_constants.DBUS_ADDON_NAMESPACE):
+            if name.startswith(DBUS_ADDON_NAMESPACE):
                 self._addon_module_services.append(name)
 
 

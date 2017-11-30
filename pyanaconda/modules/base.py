@@ -22,14 +22,15 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-from pyanaconda.dbus import dbus_constants
 from pyanaconda.dbus import get_bus
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
-@dbus_interface(dbus_constants.DBUS_MODULE_NAMESPACE)
+
+@dbus_interface(DBUS_MODULE_NAMESPACE)
 class BaseModule(object):
     """A common base for Anaconda DBUS modules.
 

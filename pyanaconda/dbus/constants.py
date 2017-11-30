@@ -1,5 +1,5 @@
 #
-# dbus/constants.py: Anaconda DBUS constants
+# Anaconda DBUS constants
 #
 # Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
 #

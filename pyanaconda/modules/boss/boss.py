@@ -22,21 +22,22 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-from pyanaconda.dbus import dbus_constants
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.modules.base import BaseModule
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME
 
 from pyanaconda.modules.boss.module_manager import ModuleManager  # pylint: disable=relative-beyond-top-level
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
-@dbus_interface(dbus_constants.DBUS_BOSS_NAME)
+
+@dbus_interface(DBUS_BOSS_NAME)
 class Boss(BaseModule):
 
     def __init__(self, module_manager=None):
         super().__init__()
-        self._dbus_name = dbus_constants.DBUS_BOSS_NAME
+        self._dbus_name = DBUS_BOSS_NAME
         if module_manager is None:
             self._module_manager = ModuleManager()
 

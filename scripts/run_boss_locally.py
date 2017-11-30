@@ -7,7 +7,7 @@ import pydbus
 import time
 from gi.repository import Gio
 
-from pyanaconda.dbus import dbus_constants
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME
 
 os.putenv("PYTHONPATH", os.path.abspath(".."))  # pylint: disable=environment-modify
 
@@ -46,13 +46,13 @@ try:
     test_dbus_connection = pydbus.connect(test_dbus.get_bus_address())
 
     print("starting Boss")
-    test_dbus_connection.dbus.StartServiceByName(dbus_constants.DBUS_BOSS_NAME, 0)
+    test_dbus_connection.dbus.StartServiceByName(DBUS_BOSS_NAME, 0)
 
     input("press any key to stop Boss and cleanup")
 
     print("stopping Boss")
 
-    boss_object = test_dbus_connection.get(dbus_constants.DBUS_BOSS_NAME)
+    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
     boss_object.Quit()
 
     print("waiting a bit for module shutdown to happen")
