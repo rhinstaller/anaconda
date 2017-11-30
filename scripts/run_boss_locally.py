@@ -9,7 +9,9 @@ from gi.repository import Gio
 
 from pyanaconda.dbus.constants import DBUS_BOSS_NAME
 
-os.putenv("PYTHONPATH", os.path.abspath(".."))  # pylint: disable=environment-modify
+paths = os.environ.get("PYTHONPATH", "").split(":")
+paths.insert(0, os.path.abspath(".."))
+os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
 
 MODULES_DIR = os.path.abspath("../pyanaconda/modules")
 DBUS_SERVICES_DIR = "../data/dbus/"
