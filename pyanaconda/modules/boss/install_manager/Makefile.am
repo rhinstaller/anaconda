@@ -15,10 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = install_manager
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-bossdir = $(pkgpyexecdir)/boss
-boss_PYTHON = $(srcdir)/*.py
+install_managerdir = $(pkgpyexecdir)/boss
+install_manager_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
