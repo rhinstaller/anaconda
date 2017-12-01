@@ -25,7 +25,7 @@ from contextlib import contextmanager
 
 from pyanaconda.kickstart_dispatcher.element import KickstartElement, TrackedKickstartElements
 from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartParseError, KickstartError
 
 VALID_SECTIONS_ANACONDA = ["%pre", "%pre-install", "%post", "%onerror", "%traceback",
@@ -470,7 +470,7 @@ echo POST1
 
         valid_sections = VALID_SECTIONS_ANACONDA
 
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler, valid_sections)
 
         # Reading kickstart from file
@@ -565,7 +565,7 @@ echo POST1
     def split_kickstart_parser_test(self):
         """Test splitting and dumping of various kickstart samples."""
         valid_sections = VALID_SECTIONS_ANACONDA
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler, valid_sections)
         for kickstart_files, expected_output in self._kickstart_samples:
             self._split_kickstart_parser_test(ksparser, kickstart_files, expected_output)
@@ -573,7 +573,7 @@ echo POST1
     def raising_kickstarts_split_test(self):
         """Test of kickstarts expected to raise KickstartParseError."""
         valid_sections = VALID_SECTIONS_ANACONDA
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler, valid_sections)
         for kickstart_files in self._flat_kickstarts_raising:
             _filename, content = kickstart_files[0]
@@ -582,7 +582,7 @@ echo POST1
     def split_from_string_filename_test(self):
         """Test splitting kickstart supplied by string."""
         valid_sections = VALID_SECTIONS_ANACONDA
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler, valid_sections)
 
         kickstart_files, _output = self._kickstart_flat
@@ -600,7 +600,7 @@ echo POST1
     def valid_sections_test(self):
         """Test setting of valid sections for the parser."""
         valid_sections = VALID_SECTIONS_ANACONDA
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler, valid_sections)
         kickstart_files, _output = self._kickstart_flat
         _filename, content = kickstart_files[0]
@@ -630,7 +630,7 @@ network --device=ens7 --activate
 network --devce=ens9 --activate
 """.strip()
 
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler)
         result = ksparser.split_from_string(ks_content)
         self.assertEqual(len(result.all_elements), 4)
@@ -653,7 +653,7 @@ logvol swap --fstype=swap --name=lv_swap --vgname=Vol00 --size=2048
 autopart --encrypted --passphrase=starost --type=lvm
 """.strip()
 
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler)
         result = ksparser.split_from_string(ks_content)
         self.assertEqual(len(result.all_elements), 7)
@@ -665,7 +665,7 @@ network --device=ens3
 %include missing_include.cfg
 """.strip()
 
-        handler = returnClassForVersion()
+        handler = makeVersion()
         ksparser = SplitKickstartParser(handler)
         # By default raises error
         self.assertRaises(KickstartError, ksparser.split_from_string, ks_content)
