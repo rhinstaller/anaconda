@@ -30,7 +30,7 @@ __all__ = ["FedoraServerInstallClass"]
 
 class FedoraServerInstallClass(FedoraBaseInstallClass):
     name = "Fedora Server"
-    stylesheet = "/usr/share/anaconda/fedora-server.css"
+    stylesheet = "/usr/share/anaconda/pixmaps/server/fedora-server.css"
     defaultFS = "xfs"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
     if not productName.startswith("Fedora Server"):          # pylint: disable=no-member
