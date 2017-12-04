@@ -127,6 +127,15 @@ inst.stage2
 This specifies the location to fetch only the installer runtime image;
 packages will be ignored. Otherwise the same as `inst.repo`_.
 
+.. inst.stage2.all:
+
+inst.stage2.all
+^^^^^^^^^^^^^^^
+
+All locations of type http, https or ftp specified with inst.stage2 will
+be used sequentially one by one until the image is fetched. Other locations
+will be ignored.
+
 inst.dd
 ^^^^^^^
 
@@ -168,6 +177,15 @@ For example:
 * DHCP server: ``192.168.122.1``
 * client address: ``192.168.122.100``
 * kickstart file: ``nfs:192.168.122.1:/kickstart/192.168.122.100-kickstart``
+
+.. inst.ks.all:
+
+inst.ks.all
+^^^^^^^^^^^
+
+All locations of type http, https or ftp specified with inst.ks will be used
+sequentially one by one until the kickstart file is fetched. Other locations
+will be ignored.
 
 .. inst.ks.sendmac:
 
