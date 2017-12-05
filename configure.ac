@@ -125,6 +125,7 @@ AC_CONFIG_FILES([Makefile
                  data/liveinst/gnome/Makefile
                  data/liveinst/pam.d/Makefile
                  data/systemd/Makefile
+                 data/dbus/Makefile
                  data/window-manager/Makefile
                  data/window-manager/config/Makefile
                  po/Makefile

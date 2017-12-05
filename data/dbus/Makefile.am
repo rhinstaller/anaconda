@@ -1,4 +1,4 @@
-# dbus_addons/baz/Makefile.am for anaconda
+# dbus/Makefile.am for anaconda
 #
 # Copyright (C) 2017  Red Hat, Inc.
 #
@@ -14,9 +14,13 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-bazdir = $(pkgpyexecdir)/dbus_addons/baz
-baz_PYTHON = $(srcdir)/*.py
-
+#
+# Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
 MAINTAINERCLEANFILES = Makefile.in
+
+dbusservicesdir = $(datadir)/dbus-1/system-services
+dist_dbusservices_DATA = $(srcdir)/*.service
+
+dbusconfigdir = $(sysconfdir)/dbus-1/system.d
+dist_dbusconfig_DATA = $(srcdir)/*.conf
