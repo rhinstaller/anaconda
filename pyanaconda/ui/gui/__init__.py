@@ -850,10 +850,14 @@ class GraphicalUserInterface(UserInterface):
 
             # Apply the installclass stylesheet
             if self.instclass.stylesheet:
-                provider = Gtk.CssProvider()
-                provider.load_from_path(self.instclass.stylesheet)
-                Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                        STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
+                try:
+                    provider = Gtk.CssProvider()
+                    provider.load_from_path(self.instclass.stylesheet)
+                    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                            STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
+                except GLib.GError as e:
+                    log.error("Install class stylesheet %s failed to load:\n%s",
+                              self.instclass.stylesheet, e)
 
             # Look for updates to the stylesheet and apply them at a higher priority
             for updates_dir in ("updates", "product"):
