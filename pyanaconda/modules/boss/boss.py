@@ -19,39 +19,48 @@
 #
 
 import gi
+
+from pyanaconda.dbus import DBus
+
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-from pyanaconda.dbus import dbus_constants
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.modules.base import BaseModule
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
 
-from pyanaconda.modules.boss.module_manager import ModuleManager  # pylint: disable=relative-beyond-top-level
+from pyanaconda.modules.boss.module_manager import ModuleManager
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
-@dbus_interface(dbus_constants.DBUS_BOSS_NAME)
+
+@dbus_interface(DBUS_BOSS_NAME)
 class Boss(BaseModule):
 
     def __init__(self, module_manager=None):
         super().__init__()
-        self._dbus_name = dbus_constants.DBUS_BOSS_NAME
+
         if module_manager is None:
             self._module_manager = ModuleManager()
 
+    def publish(self):
+        """Publish the boss."""
+        DBus.publish_object(self, DBUS_BOSS_PATH)
+        DBus.register_service(DBUS_BOSS_NAME)
+
     def run(self):
-        log.info("looking for addons")
+        """Run the boss's loop."""
+        log.debug("Look for the addons.")
         self._module_manager.find_addons()
-        # schedule publishing
-        GLib.idle_add(self.publish_module)
-        # then schedule module startup
+        log.debug("Schedule publishing.")
+        GLib.idle_add(self.publish)
+        log.debug("Schedule startup of modules.")
         GLib.idle_add(self._module_manager.start_modules)
-        # start the mainloop
-        log.info("starting mainloop")
+        log.debug("Start the loop.")
         self._loop.run()
 
     def Quit(self):
-        """Stop all modules and then stops Boss."""
+        """Stop all modules and then stop the boss."""
         self._module_manager.stop_modules()
         super().Quit()

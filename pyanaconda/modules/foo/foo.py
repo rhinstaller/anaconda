@@ -17,8 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.dbus import dbus_constants
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_FOO_PATH, MODULE_FOO_NAME
 from pyanaconda.modules.base import BaseModule
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -26,12 +26,14 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
-@dbus_interface(dbus_constants.MODULE_FOO)
+
+@dbus_interface(MODULE_FOO_NAME)
 class Foo(BaseModule):
 
-    def __init__(self):
-        super().__init__()
-        self._dbus_name = dbus_constants.MODULE_FOO
+    def publish(self):
+        """Publish the module."""
+        DBus.publish_object(self, MODULE_FOO_PATH)
+        DBus.register_service(MODULE_FOO_NAME)
 
     def EchoString(self, s: Str) -> Str:
         """Returns whatever is passed to it."""

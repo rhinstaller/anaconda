@@ -22,14 +22,14 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
-from pyanaconda.dbus import dbus_constants
-from pyanaconda.dbus import get_bus
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
-@dbus_interface(dbus_constants.DBUS_MODULE_NAMESPACE)
+
+@dbus_interface(DBUS_MODULE_NAMESPACE)
 class BaseModule(object):
     """A common base for Anaconda DBUS modules.
 
@@ -39,22 +39,22 @@ class BaseModule(object):
 
     def __init__(self):
         self._loop = GLib.MainLoop()
-        self._bus = get_bus()
-        self._dbus_name = None
 
     def run(self):
-        # schedule publishing once loop is running
-        GLib.idle_add(self.publish_module)
-        # start mainloop
-        log.debug("starting module mainloop: %s", self._dbus_name)
+        """Run the module's loop."""
+        log.debug("Schedule publishing.")
+        GLib.idle_add(self.publish)
+        log.debug("Start the loop.")
         self._loop.run()
 
-    def publish_module(self):
-        """Publish the module on DBUS and start its main loop."""
-        self._bus.publish(self._dbus_name, self)
-        log.debug("module %s has been published", self._dbus_name)
+    def publish(self):
+        """Publish DBus objects and register a DBus service.
+
+        Nothing is published by default.
+        """
+        pass
 
     def Quit(self):
         """Shut the module down."""
-        log.debug("module quiting: %s", self._dbus_name)
+        log.debug("Schedule quitting.")
         GLib.timeout_add_seconds(1, self._loop.quit)
