@@ -1169,7 +1169,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._repoProxyUrlEntry.grab_focus()
             return
         # Otherwise let GUISpokeInputCheckHandler figure out what to focus
-        elif not GUISpokeInputCheckHandler.on_back_clicked(self, button):
+        elif not self.can_go_back_focus_if_not():
             return
 
         self.clear_info()

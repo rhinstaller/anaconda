@@ -20,6 +20,8 @@
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword
+from pyanaconda import input_checking
+from pyanaconda import constants
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
@@ -27,6 +29,9 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.utils import set_password_visibility
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.communication import hubQ
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["PasswordSpoke"]
 
@@ -39,7 +44,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"
-    focusWidgetName = "pw"
+    focusWidgetName = "password_entry"
     uiFile = "spokes/root_password.glade"
     helpFile = "PasswordSpoke.xml"
 
@@ -51,49 +56,75 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
-        self._kickstarted = False
 
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
-        # place holders for the text boxes
-        self.pw = self.builder.get_object("pw")
-        self.confirm = self.builder.get_object("confirmPW")
+        # get object references from the builders
+        self._password_entry = self.builder.get_object("password_entry")
+        self._password_confirmation_entry = self.builder.get_object("password_confirmation_entry")
+        self._password_bar = self.builder.get_object("password_bar")
+        self._password_label = self.builder.get_object("password_label")
+
+        # set state based on kickstart
+        self.password_kickstarted = self.data.rootpw.seen
 
         # Install the password checks:
         # - Has a password been specified?
         # - If a password has been specified and there is data in the confirm box, do they match?
         # - How strong is the password?
         # - Does the password contain non-ASCII characters?
-        # - Is there any data in the confirm box?
-        self._confirm_check = self.add_check(self.confirm, self.check_password_confirm)
 
-        # Keep a reference for these checks, since they have to be manually run for the
-        # click Done twice check.
-        self._pwEmptyCheck = self.add_check(self.pw, self.check_password_empty)
-        self._pwStrengthCheck = self.add_check(self.pw, self.check_user_password_strength)
-        self._pwASCIICheck = self.add_check(self.pw, self.check_password_ASCII)
+        # Setup the password checker for password checking
+        self._checker = input_checking.PasswordChecker(
+                initial_password_content = self.password,
+                initial_password_confirmation_content = self.password_confirmation,
+                policy = input_checking.get_policy(self.data, "root")
+        )
+        # configure the checker for password checking
+        self.checker.name_of_password = _(constants.NAME_OF_PASSWORD)
+        self.checker.name_of_password_plural = _(constants.NAME_OF_PASSWORD_PLURAL)
+        # remove any placeholder texts if either password or confirmation field changes content from initial state
+        self.checker.password.changed_from_initial_state.connect(self.remove_placeholder_texts)
+        self.checker.password_confirmation.changed_from_initial_state.connect(self.remove_placeholder_texts)
+        # connect UI updates to check results
+        self.checker.checks_done.connect(self._checks_done)
 
-        self._kickstarted = self.data.rootpw.seen
-        if self._kickstarted:
-            self.pw.set_placeholder_text(_("The password is set."))
-            self.confirm.set_placeholder_text(_("The password is set."))
+        # check that the password is not empty
+        self._empty_check = input_checking.PasswordEmptyCheck()
+        # check that the content of the password field & the conformation field are the same
+        self._confirm_check = input_checking.PasswordConfirmationCheck()
+        # regards both fields empty as success to let the user escape
+        self._confirm_check.success_if_confirmation_empty = True
+        # check password validity, quality and strength
+        self._validity_check = input_checking.PasswordValidityCheck()
+        # connect UI updates to validity check results
+        self._validity_check.result.password_score_changed.connect(self.set_password_score)
+        self._validity_check.result.status_text_changed.connect(self.set_password_status)
+        # check if the password contains non-ascii characters
+        self._ascii_check = input_checking.PasswordASCIICheck()
 
-        self.pw_bar = self.builder.get_object("password_bar")
-        self.pw_label = self.builder.get_object("password_label")
+        # register the individual checks with the checker in proper order
+        # 1) is the password non-empty ?
+        # 2) are both entered passwords the same ?
+        # 3) is the password valid according to the current password checking policy ?
+        # 4) is the password free of non-ASCII characters ?
+        self.checker.add_check(self._empty_check)
+        self.checker.add_check(self._confirm_check)
+        self.checker.add_check(self._validity_check)
+        self.checker.add_check(self._ascii_check)
+
+        # set placeholders if the password has been kickstarted as we likely don't know
+        # nothing about it and can't really show it in the UI in any meaningful way
+        password_set_message = _("The password was set by kickstart.")
+        if self.password_kickstarted:
+            self.password_entry.set_placeholder_text(password_set_message)
+            self.password_confirmation_entry.set_placeholder_text(password_set_message)
 
         # Configure levels for the password bar
-        self.pw_bar.add_offset_value("low", 2)
-        self.pw_bar.add_offset_value("medium", 3)
-        self.pw_bar.add_offset_value("high", 4)
-        self.pw_bar.add_offset_value("full", 4)
-
-        # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
-
-        # set the visibility of the password entries
-        set_password_visibility(self.pw, False)
-        set_password_visibility(self.confirm, False)
+        self._password_bar.add_offset_value("low", 2)
+        self._password_bar.add_offset_value("medium", 3)
+        self._password_bar.add_offset_value("high", 4)
 
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__, False)
@@ -102,13 +133,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.initialize_done()
 
     def refresh(self):
-        # Enable the input checks in case they were disabled on the last exit
-        for check in self.checks:
-            check.enabled = True
+        # focus on the password field if password was not kickstarted
+        if not self.password_kickstarted:
+            self.password_entry.grab_focus()
 
-        self.pw.grab_focus()
-        self.pw.emit("changed")
-        self.confirm.emit("changed")
+        # rerun checks so that we have a correct status message, if any
+        self.checker.run_checks()
 
     @property
     def status(self):
@@ -124,11 +154,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         return not any(user for user in self.data.user.userList if "wheel" in user.groups)
 
     def apply(self):
-        pw = self.pw.get_text()
+        pw = self.password
 
         # value from the kickstart changed
         self.data.rootpw.seen = False
-        self._kickstarted = False
+        self.password_kickstarted = False
 
         self.data.rootpw.lock = False
 
@@ -137,11 +167,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
             self.data.rootpw.isCrypted = False
             return
 
+        # we have a password - set it to kickstart data
         self.data.rootpw.password = cryptPassword(pw)
         self.data.rootpw.isCrypted = True
 
-        self.pw.set_placeholder_text("")
-        self.confirm.set_placeholder_text("")
+        # clear any placeholders
+        self.remove_placeholder_texts()
 
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__, False)
@@ -155,56 +186,101 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         return not (self.completed and flags.automatedInstall
                     and self.data.rootpw.seen)
 
-    @property
-    def input(self):
-        return self.pw.get_text()
+    def _checks_done(self, error_message):
+        """Update the warning with the input validation error from the first
+           error message or clear warnings if all the checks were successful.
 
-    @property
-    def input_confirmation(self):
-        return self.confirm.get_text()
+           Also appends the "press twice" suffix if compatible with current
+           password policy and handles the press-done-twice logic.
+        """
+        # check if an unwaivable check failed
+        unwaivable_check_failed = not self._confirm_check.result.success
 
-    @property
-    def input_kickstarted(self):
-        return self.data.rootpw.seen
+        # set appropriate status bar message
+        if not error_message:
+            # all is fine, just clear the message
+            self.clear_info()
+        elif not self.password and not self.password_confirmation:
+            # Clear any info message if both the password and password
+            # confirmation fields are empty.
+            # This shortcut is done to make it possible for the user to leave the spoke
+            # without inputting any root password. Separate logic makes sure an
+            # empty string is not set as the root password.
+            self.clear_info()
+        else:
+            if self.checker.policy.strict or unwaivable_check_failed:
+                # just forward the error message
+                self.show_warning_message(error_message)
+            else:
+                # add suffix for the click twice logic
+                self.show_warning_message("{} {}".format(error_message, _(constants.PASSWORD_DONE_TWICE)))
 
-    @property
-    def input_username(self):
-        return "root"
+        # check if the spoke can be exited after the latest round of checks
+        self._check_spoke_exit_conditions(unwaivable_check_failed)
 
-    def set_input_score(self, score):
-        self.pw_bar.set_value(score)
+    def _check_spoke_exit_conditions(self, unwaivable_check_failed):
+        # Check if the user can escape from the root spoke or stay forever !
 
-    def set_input_status(self, status_message):
-        self.pw_label.set_text(status_message)
+        # reset any waiving in progress
+        self.waive_clicks = 0
+
+        # Depending on the policy we allow users to waive the password strength
+        # and non-ASCII checks. If the policy is set to strict, the password
+        # needs to be strong, but can still contain non-ASCII characters.
+        self.can_go_back = False
+        self.needs_waiver = True
+
+        # This shortcut is done to make it possible for the user to leave the spoke
+        # without inputting any root password. Separate logic makes sure an
+        # empty string is not set as the root password.
+        if not self.password and not self.password_confirmation:
+            self.can_go_back = True
+            self.needs_waiver = False
+        elif self.checker.success:
+            # if all checks were successful we can always go back to the hub
+            self.can_go_back = True
+            self.needs_waiver = False
+        elif unwaivable_check_failed:
+            self.can_go_back = False
+        else:
+            if self.checker.policy.strict:
+                if not self._validity_check.result.success:
+                    # failing validity check in strict
+                    # mode prevents us from going back
+                    self.can_go_back = False
+                elif not self._ascii_check.result.success:
+                    # but the ASCII check can still be waived
+                    self.can_go_back = True
+                    self.needs_waiver = True
+                else:
+                    self.can_go_back = True
+                    self.needs_waiver = False
+            else:
+                if not self._validity_check.result.success:
+                    self.can_go_back = True
+                    self.needs_waiver = True
+                elif not self._ascii_check.result.success:
+                    self.can_go_back = True
+                    self.needs_waiver = True
+                else:
+                    self.can_go_back = True
+                    self.needs_waiver = False
 
     def on_password_changed(self, editable, data=None):
-        # Reset the counters used for the "press Done twice" logic
-        self.waive_clicks = 0
-        self.waive_ASCII_clicks = 0
+        """Tell checker that the content of the password field changed."""
+        self.checker.password.content = self.password
 
-        # Update the password/confirm match check on changes to the main password field
-        self._confirm_check.update_check_status()
+    def on_password_confirmation_changed(self, editable, data=None):
+        """Tell checker that the content of the password confirmation field changed."""
+        self.checker.password_confirmation.content = self.password_confirmation
 
     def on_password_icon_clicked(self, entry, icon_pos, event):
         """Called by Gtk callback when the icon of a password entry is clicked."""
         set_password_visibility(entry, not entry.get_visibility())
 
     def on_back_clicked(self, button):
-        # If the failed check is for password strength or non-ASCII
-        # characters, add a click to the counter and check again
-        failed_check = next(self.failed_checks_with_message, None)
-        if not self.policy.strict:
-            if failed_check == self._pwStrengthCheck:
-                self.waive_clicks += 1
-                self._pwStrengthCheck.update_check_status()
-            elif failed_check == self._pwEmptyCheck:
-                self.waive_clicks += 1
-                self._pwEmptyCheck.update_check_status()
-            elif failed_check == self._pwASCIICheck:
-                self.waive_ASCII_clicks += 1
-                self._pwASCIICheck.update_check_status()
-            elif failed_check:  # no failed checks -> failed_check == None
-                failed_check.update_check_status()
-
-        if GUISpokeInputCheckHandler.on_back_clicked(self, button):
+        # the GUI spoke input check handler handles the spoke exit logic for us
+        if self.try_to_go_back():
             NormalSpoke.on_back_clicked(self, button)
+        else:
+            log.info("Return to hub prevented by password checking rules.")

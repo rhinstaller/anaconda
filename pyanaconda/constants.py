@@ -138,15 +138,19 @@ UNSUPPORTED_HW = 1 << 28
 
 # Password validation
 PASSWORD_MIN_LEN = 6
-PASSWORD_EMPTY_ERROR = N_("The password is empty.")
-PASSWORD_CONFIRM_ERROR_GUI = N_("The passwords do not match.")
-PASSWORD_CONFIRM_ERROR_TUI = N_("The passwords you entered were different.  Please try again.")
-PASSWORD_WEAK = N_("The password you have provided is weak. %s")
-PASSWORD_WEAK_WITH_ERROR = N_("The password you have provided is weak: %s.")
-PASSWORD_WEAK_CONFIRM = N_("You have provided a weak password. Press Done again to use anyway.")
-PASSWORD_WEAK_CONFIRM_WITH_ERROR = N_("You have provided a weak password: %s. Press Done again to use anyway.")
-PASSWORD_ASCII = N_("The password you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts to login. Press Done to continue.")
+PASSWORD_EMPTY_ERROR = N_("The %(password_name)s is empty.")  # singular
+PASSWORD_CONFIRM_ERROR_GUI = N_("The %(password_name_plural)s do not match.")  # plural
+PASSWORD_CONFIRM_ERROR_TUI = N_("The %(password_name_plural)s you entered were different. Please try again.")  # plural
+# The password-too-short constant is used to replace a libpwquality error message,
+# which is why it does not end with a ".", like all the other do.
+PASSWORD_TOO_SHORT = N_("The %(password_name)s is too short")  # singular
+PASSWORD_WEAK = N_("The %(password_name)s you have provided is weak.")  # singular
+PASSWORD_WEAK_WITH_ERROR = N_("The %(password_name)s you have provided is weak: %(error_message)s.")  # singular
+PASSWORD_FINAL_CONFIRM = N_("Press Done again to use anyway.")
+PASSWORD_ASCII = N_("The %(password_name)s you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")
+# ^ singular
 PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
+PASSWORD_DONE_TO_CONTINUE = N_("Press Done to continue.")
 
 PASSWORD_SET = N_("Password set.")
 
@@ -157,6 +161,14 @@ class PasswordStatus(Enum):
     FAIR = N_("Fair")
     GOOD = N_("Good")
     STRONG = N_("Strong")
+
+# how should passwords be called in combined strings
+NAME_OF_PASSWORD = N_("password")
+NAME_OF_PASSWORD_PLURAL = N_("passwords")
+
+# how should passphrases be called in combined strings
+NAME_OF_PASSPHRASE = N_("passphrase")
+NAME_OF_PASSPHRASE_PLURAL = N_("passphrases")
 
 PASSWORD_HIDE = N_("Hide password.")
 PASSWORD_SHOW = N_("Show password.")

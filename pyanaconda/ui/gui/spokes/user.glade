@@ -61,7 +61,7 @@
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes" context="GUI|User">_Full name</property>
                         <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">t_fullname</property>
+                        <property name="mnemonic_widget">fullname_entry</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -79,7 +79,7 @@
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes" context="GUI|User">_User name</property>
                         <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">t_username</property>
+                        <property name="mnemonic_widget">username_entry</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -90,13 +90,13 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="t_fullname">
+                      <object class="GtkEntry" id="fullname_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="caps_lock_warning">False</property>
-                        <signal name="changed" handler="full_name_changed" swapped="no"/>
+                        <signal name="changed" handler="on_full_name_changed" swapped="no"/>
                         <child internal-child="accessible">
-                          <object class="AtkObject" id="t_fullname-atkobject">
+                          <object class="AtkObject" id="fullname_entry-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Full Name</property>
                           </object>
                         </child>
@@ -107,13 +107,13 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="t_username">
+                      <object class="GtkEntry" id="username_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <signal name="changed" handler="username_changed" swapped="no"/>
+                        <signal name="changed" handler="on_username_changed" swapped="no"/>
                         <signal name="changed" handler="on_username_set_by_user" swapped="no"/>
                         <child internal-child="accessible">
-                          <object class="AtkObject" id="t_username-atkobject">
+                          <object class="AtkObject" id="username_entry-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">User Name</property>
                           </object>
                         </child>
@@ -131,7 +131,7 @@
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes" context="GUI|User">_Password</property>
                         <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">t_password</property>
+                        <property name="mnemonic_widget">password_entry</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -149,7 +149,7 @@
                         <property name="xpad">10</property>
                         <property name="label" translatable="yes" context="GUI|User">_Confirm password</property>
                         <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">t_verifypassword</property>
+                        <property name="mnemonic_widget">password_confirmation_entry</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -160,15 +160,15 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="t_password">
+                      <object class="GtkEntry" id="password_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
-                        <signal name="changed" handler="password_changed" swapped="no"/>
+                        <signal name="changed" handler="on_password_changed" swapped="no"/>
                         <signal name="icon_release" handler="on_password_icon_clicked" swapped="no"/>
                         <child internal-child="accessible">
-                          <object class="AtkObject" id="t_password-atkobject">
+                          <object class="AtkObject" id="password_entry-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Password</property>
                           </object>
                         </child>
@@ -179,14 +179,15 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="t_verifypassword">
+                      <object class="GtkEntry" id="password_confirmation_entry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <signal name="changed" handler="on_password_confirmation_changed" swapped="no"/>
                         <signal name="icon_release" handler="on_password_icon_clicked" swapped="no"/>
                         <child internal-child="accessible">
-                          <object class="AtkObject" id="t_verifypassword-atkobject">
+                          <object class="AtkObject" id="password_confirmation_entry-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Confirm Password</property>
                           </object>
                         </child>
@@ -210,7 +211,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="c_usepassword">
+                      <object class="GtkCheckButton" id="password_required_checkbox">
                         <property name="label" translatable="yes" context="GUI|User">_Require a password to use this account</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -219,7 +220,7 @@
                         <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="usepassword_toggled" swapped="no"/>
+                        <signal name="toggled" handler="password_required_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -268,7 +269,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="c_admin">
+                      <object class="GtkCheckButton" id="admin_checkbox">
                         <property name="label" translatable="yes" context="GUI|User">_Make this user administrator</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -288,7 +289,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
-                          <object class="GtkButton" id="b_advanced">
+                          <object class="GtkButton" id="advanced_button">
                             <property name="label" translatable="yes" context="GUI|User">_Advanced...</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>

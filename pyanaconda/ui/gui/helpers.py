@@ -23,7 +23,7 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-from abc import ABCMeta, abstractproperty, abstractmethod
+from abc import ABCMeta, abstractmethod
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -34,7 +34,6 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui.utils import timed_action
 from pyanaconda.i18n import _
-from pyanaconda.users import validatePassword
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda import constants
 
@@ -104,6 +103,18 @@ class GUIInputCheckHandler(InputCheckHandler, metaclass=ABCMeta):
         self._check_list.append(checkRef)
 
         return checkRef
+
+    def can_go_back_focus_if_not(self):
+        """Check whether the input validation checks allow the spoke to be exited.
+
+        Return True if yes, otherwise focus the problematic input field and return False.
+        """
+        failed_check = next(self.failed_checks, None)
+        if failed_check:
+            failed_check.input_obj.grab_focus()
+            return False
+        else:
+            return True
 
 class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for Gtk dialogs.
@@ -177,13 +188,38 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     def __init__(self):
         GUIInputCheckHandler.__init__(self)
 
-        # Store the previous status to avoid setting the info bar to the same
-        # message multiple times
+        self._checker = None
         self._prev_status = None
+        self._password_kickstarted = False
+        # return to hub logic
+        self._can_go_back = False
+        self._needs_waiver = False
         self._waive_clicks = 0
-        self._waive_ASCII_clicks = 0
-        self._policy = None
-        self._input_enabled = True
+        # important UI object instances
+        self._password_entry = None
+        self._password_confirmation_entry = None
+        self._password_bar = None
+        self._password_label = None
+
+
+    @property
+    def checker(self):
+        return self._checker
+
+    # Implemented by NormalSpoke
+    @abstractmethod
+    def clear_info(self):
+        pass
+
+    # Implemented by GUIObject
+    @abstractmethod
+    def set_warning(self, msg):
+        pass
+
+    # Implemented by NormalSpoke
+    @abstractmethod
+    def show_warning_message(self, message):
+        pass
 
     def set_status(self, inputcheck):
         """Update the warning with the input validation error from the first
@@ -199,23 +235,34 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
             self.clear_info()
             self.set_warning(failed_check.check_status)
 
-    # Implemented by GUIObject
-    @abstractmethod
-    def clear_info(self):
-        pass
-
-    # Implemented by GUIObject
-    @abstractmethod
-    def set_warning(self, msg):
-        pass
-
-    # Implemented by GUIObject
-    @abstractproperty
-    def window(self):
-        pass
+    def remove_placeholder_texts(self):
+        """Remove password and confirmation placeholder texts."""
+        self.password_entry.set_placeholder_text("")
+        self.password_confirmation_entry.set_placeholder_text("")
 
     @property
-    def input(self):
+    def password_bar(self):
+        """Password strength bar."""
+        return self._password_bar
+
+    @property
+    def password_label(self):
+        """Short password status label."""
+        return self._password_label
+
+    def set_password_score(self, score):
+        self.password_bar.set_value(score)
+
+    def set_password_status(self, status_message):
+        self.password_label.set_text(status_message)
+
+    @property
+    def password_entry(self):
+        """The password entry widget."""
+        return self._password_entry
+
+    @property
+    def password(self):
         """Input to be checked.
 
         Content of the input field, etc.
@@ -223,10 +270,15 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         :returns: input to be checked
         :rtype: str
         """
-        return None
+        return self.password_entry.get_text()
 
     @property
-    def input_confirmation(self):
+    def password_confirmation_entry(self):
+        """The password confirmation entry widget."""
+        return self._password_confirmation_entry
+
+    @property
+    def password_confirmation(self):
         """Content of the input confirmation field.
 
         Note that not all spokes might have a password confirmation field.
@@ -234,54 +286,36 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         :returns: content of the password confirmation field
         :rtype: str
         """
-        pass
+        return self.password_confirmation_entry.get_text()
 
     @property
-    def input_enabled(self):
-        """Is the input we are checking enabled ?
-
-        For example on the User spoke it is possible to disable the password input field.
-
-        :returns: is the input we are checking enabled
-        :rtype: bool
-        """
-        return self._input_enabled
-
-    @input_enabled.setter
-    def input_enabled(self, value):
-        self._input_enabled = value
-
-    @property
-    def input_kickstarted(self):
+    def password_kickstarted(self):
         """Reports if the input was initialized from kickstart.
 
         :returns: if the input was initialized from kickstart
         :rtype: bool
         """
-        return False
+        return self._password_kickstarted
+
+    @password_kickstarted.setter
+    def password_kickstarted(self, value):
+        self._password_kickstarted = value
 
     @property
-    def input_username(self):
-        """A username corresponding to the input (if any).
+    def can_go_back(self):
+        return self._can_go_back
 
-        :returns: username corresponding to the input or None
-        :rtype: str on None
-        """
-        return None
+    @can_go_back.setter
+    def can_go_back(self, value):
+        self._can_go_back = value
 
-    def set_input_score(self, score):
-        """Set input quality score.
+    @property
+    def needs_waiver(self):
+        return self._needs_waiver
 
-        :param int score: input quality score
-        """
-        pass
-
-    def set_input_status(self, status_message):
-        """Set input quality status message.
-
-        :param str status: input quality status message
-        """
-        pass
+    @needs_waiver.setter
+    def needs_waiver(self, value):
+        self._needs_waiver = value
 
     @property
     def waive_clicks(self):
@@ -300,159 +334,40 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         """
         self._waive_clicks = clicks
 
-    @property
-    def waive_ASCII_clicks(self):
-        """Number of waive clicks the user has done to override the ASCII input check.
+    def on_password_changed(self, editable, data=None):
+        """Tell checker that the content of the password field changed."""
+        self.checker.password.content = self.password
 
-        :returns: number of ASCII check waive clicks
-        :rtype: int
-        """
-        return self._waive_ASCII_clicks
+    def on_password_confirmation_changed(self, editable, data=None):
+        """Tell checker that the content of the password confirmation field changed."""
+        self.checker.password_confirmation.content = self.password_confirmation
 
-    @waive_ASCII_clicks.setter
-    def waive_ASCII_clicks(self, clicks):
-        """Set number of ASCII check waive clicks.
-
-        :param int clicks: number of ASCII check waive clicks
-        """
-        self._waive_ASCII_clicks = clicks
-
-    @property
-    def policy(self):
-        """Input checking policy.
-
-        :returns: the input checking policy
-        """
-        return self._policy
-
-    @policy.setter
-    def policy(self, input_policy):
-        """Set the input checking policy.
-
-        :param input_policy: the input checking policy
-        """
-        self._policy = input_policy
-
-    @abstractmethod
-    def on_back_clicked(self, button):
+    def try_to_go_back(self):
         """Check whether the input validation checks allow the spoke to be exited.
 
            Unlike NormalSpoke.on_back_clicked, this function returns a boolean value.
-           Classes implementing this class should run GUISpokeInputCheckHandler.on_back_clicked,
+           Classes implementing this class should run GUISpokeInputCheckHandler.try_to_go_back,
            and if it succeeded, run NormalSpoke.on_back_clicked.
         """
-        failed_check = next(self.failed_checks, None)
-        if failed_check:
-            failed_check.input_obj.grab_focus()
-            return False
-        else:
-            return True
-
-    def check_password_confirm(self, inputcheck):
-        """If the user has entered confirmation data, check whether it matches the password."""
-        # Skip the check if no password is required
-        if (not self.input_enabled) or self.input_kickstarted:
-            result = InputCheck.CHECK_OK
-        elif self.input_confirmation and (self.input != self.input_confirmation):
-            result = _(constants.PASSWORD_CONFIRM_ERROR_GUI)
-        else:
-            result = InputCheck.CHECK_OK
-
-        return result
-
-    def check_password_empty(self, inputcheck):
-        """Check whether a password has been specified at all.
-
-           This check is used for both the password and the confirmation.
-        """
-        # If the password was set by kickstart, skip the strength check
-        # pylint: disable=no-member
-        if self.input_kickstarted and not self.policy.changesok:
-            return InputCheck.CHECK_OK
-
-        # Skip the check if no password is required
-        if (not self.input_enabled) or self.input_kickstarted:
-            return InputCheck.CHECK_OK
-        # Also skip the check if the policy says that an empty password is fine
-        # pylint: disable=no-member
-        elif self.policy.emptyok:
-            return InputCheck.CHECK_OK
-        elif not self.get_input(inputcheck.input_obj):
-            # pylint: disable=no-member
-            if self.policy.strict:
-                return _(constants.PASSWORD_EMPTY_ERROR)
+        # check if we can go back
+        if self.can_go_back:
+            if self.needs_waiver:
+                # We can proceed but need waiver.
+                # - this means we can start accumulating thw waive clicks
+                self.waive_clicks += 1
+                # we need to have enough waive clicks to go back
+                if self.waive_clicks == 1:
+                    self.show_warning_message(_(constants.PASSWORD_FINAL_CONFIRM))
+                elif self.waive_clicks >= 2:
+                    # clear the waive clicks & any messages
+                    self.waive_clicks = 0
+                    self.clear_info()
+                    return True
+            # we can go back unconditionally
             else:
-                if self.waive_clicks > 1:
-                    return InputCheck.CHECK_OK
-                else:
-                    return "%s %s" % (_(constants.PASSWORD_EMPTY_ERROR), _(constants.PASSWORD_DONE_TWICE))
-        else:
-            return InputCheck.CHECK_OK
-
-    def check_user_password_strength(self, inputcheck):
-        """Update the error message based on password strength.
-
-           The password strength check can be waived by pressing "Done" twice. This
-           is controlled through the self.waive_clicks counter. The counter
-           is set in on_back_clicked, which also re-runs this check manually.
-         """
-        pw = self.input
-
-        # Don't run any check if the password is empty - there is a dedicated check for that
-        if not pw:
-            return InputCheck.CHECK_OK
-
-        # determine the password strength
-        # pylint: disable=no-member
-        pw_check_result = validatePassword(pw,
-                                           self.input_username,
-                                           minlen=self.policy.minlen,
-                                           empty_ok=self.policy.emptyok)
-        pw_score, status_text, pw_quality, error_message = pw_check_result
-        self.set_input_score(pw_score)
-        self.set_input_status(status_text)
-
-        # Skip the check if no password is required
-        if not self.input_enabled or self.input_kickstarted:
-            return InputCheck.CHECK_OK
-
-        # pylint: disable=no-member
-        if pw_quality < self.policy.minquality or not pw_score or not pw:
-            # If Done has been clicked twice, waive the check
-            if self.waive_clicks > 1:
-                return InputCheck.CHECK_OK
-            elif self.waive_clicks == 1:
-                if error_message:
-                    return _(constants.PASSWORD_WEAK_CONFIRM_WITH_ERROR) % error_message
-                else:
-                    return _(constants.PASSWORD_WEAK_CONFIRM)
-            else:
-                # non-strict allows done to be clicked twice
-                # pylint: disable=no-member
-                if self.policy.strict:
-                    done_msg = ""
-                else:
-                    done_msg = _(constants.PASSWORD_DONE_TWICE)
-
-                if error_message:
-                    return _(constants.PASSWORD_WEAK_WITH_ERROR) % error_message + " " + done_msg
-                else:
-                    return _(constants.PASSWORD_WEAK) % done_msg
-        else:
-            return InputCheck.CHECK_OK
-
-    def check_password_ASCII(self, inputcheck):
-        """Set an error message if the password contains non-ASCII characters.
-
-           Like the password strength check, this check can be bypassed by
-           pressing Done twice.
-        """
-        # If Done has been clicked, waive the check
-        if self.waive_ASCII_clicks > 0:
-            return InputCheck.CHECK_OK
-
-        password = self.get_input(inputcheck.input_obj)
-        if password and any(char not in constants.PW_ASCII_CHARS for char in password):
-            return _(constants.PASSWORD_ASCII)
-
-        return InputCheck.CHECK_OK
+                # clear the waive clicks & any messages
+                self.waive_clicks = 0
+                self.clear_info()
+                return True
+        # we can't get back
+        return False
