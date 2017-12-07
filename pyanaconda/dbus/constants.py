@@ -54,6 +54,9 @@ ANACONDA_MODULES = [MODULE_FOO_PATH,
 # status codes
 DBUS_START_REPLY_SUCCESS = 1
 
+# no flags are set
+DBUS_FLAG_NONE = 0
+
 # NOTE: There is no DBUS_START_REPLY_FAILURE or something similar,
 #       as there is a separate field for error reporting.
 #       For more information see the DBUS docs:
