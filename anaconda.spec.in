@@ -334,6 +334,41 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 07 2017 Martin Kolman <mkolman@redhat.com> - 28.12-1
+- Fix unit tests (mkolman)
+- Fixes in makefiles (vponcova)
+- Use the input_checking module for TUI password validation (mkolman)
+- Use the input_checking module for user checking (mkolman)
+- Use the input_checking module for root password checking (mkolman)
+- Use the input_checking module for checking the LUKS passphrase (mkolman)
+- Reflect GUISpokeInputCheckHandler changes in installation source spoke
+  (mkolman)
+- Convert the input checking helpers to use the input_checking module (mkolman)
+- Provide more robust method of using the warning message bar (mkolman)
+- Remove the validatePassword() method (mkolman)
+- Add new input checking module (mkolman)
+- fixup! Migrate Workstation InstallClass to anaconda (sgallagh)
+- Handle an invalid install class style sheet (vponcova)
+- Enhance password checking constants (mkolman)
+- Fix interactive defaults (mkolman)
+- Modify the PYTHONPATH in run_boss_locally (vponcova)
+- Replace get_bus with the class DBus (vponcova)
+- Migrate Workstation InstallClass to anaconda (sgallagh)
+- Point at new path for fedora-server.css (sgallagh)
+- Rename dbus_constants to constants (vponcova)
+- Add the boot option inst.ks.all (vponcova)
+- Add the boot option inst.stage2.all (vponcova)
+- Remove errors for mounting and unmounting (vponcova)
+- Override the right method in the task (vponcova)
+- Remove useless code (vponcova)
+- Support timeout and retries options in %%packages section (vponcova)
+- Fix device_name_is_disk to fully support raid devices (vponcova)
+- Onlyuse devices of the ignoredisk command should be only disks (vponcova)
+- Add the boot option inst.xtimeout (vponcova)
+- Do not shadow build-in module variable (jkonecny)
+- Module manager is replaceable (jkonecny)
+- Remove pyanaconda.constants_text module (vponcova)
+
 * Mon Nov 27 2017 Martin Kolman <mkolman@redhat.com> - 28.11-1
 - Bump Blivet GUI version (mkolman)
 - Change path to start-module script when running locally (mkolman)
