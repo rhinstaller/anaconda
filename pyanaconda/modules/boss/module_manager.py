@@ -19,111 +19,106 @@
 from pydbus.auto_names import auto_object_path
 
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import ANACONDA_SERVICES, DBUS_START_REPLY_SUCCESS, \
-    DBUS_ADDON_NAMESPACE
+from pyanaconda.dbus.constants import ANACONDA_MODULES, DBUS_START_REPLY_SUCCESS, \
+    DBUS_ADDON_NAMESPACE, DBUS_FLAG_NONE
+from pyanaconda.dbus.observer import DBusObjectObserver
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
 class ModuleManager(object):
+    """A class for managing kickstart modules."""
 
     def __init__(self):
-        self._started_module_services = []
-        self._failed_module_services = []
-        self._addon_module_services = []
+        self._module_observers = []
 
     @property
-    def addon_module_services(self):
-        return self._addon_module_services
+    def module_observers(self):
+        """Return the modules observers."""
+        return self._module_observers
 
-    @property
-    def expected_module_services(self):
-        expected_modules = []
-        expected_modules.extend(ANACONDA_SERVICES)
-        expected_modules.extend(self.addon_module_services)
-        return expected_modules
+    def add_module(self, service_name, module_path):
+        """Add module to manage."""
+        observer = DBusObjectObserver(service_name, module_path)
+        self._module_observers.append(observer)
 
-    @property
-    def running_module_services(self):
-        # For our purpose, just this
-        return self._started_module_services
+    def add_default_modules(self):
+        """Add the default modules."""
+        for name, path in ANACONDA_MODULES:
+            self.add_module(name, path)
 
-    @property
-    def modules_starting_finished(self):
-        return set(self._started_module_services + self._failed_module_services) == set(self.expected_module_services)
-
-    def _finish_start_service_cb(self, service, returned=None, error=None):
-        """Callback for dbus.StartServiceByName."""
-        if error:
-            log.debug("%s error: %s", service, error)
-            self._failed_module_services.append(service)
-        elif returned:
-            if returned == DBUS_START_REPLY_SUCCESS:
-                log.debug("%s started successfully, returned: %s)", service, returned)
-                self._started_module_services.append(service)
-            else:
-                log.warning("%s is already running, returned: %s", service, returned)
-        else:
-            log.error("%s failed to start without even returning anything", service)
-
-        self.check_modules_started()
-
-    def check_modules_started(self):
-        if self.modules_starting_finished:
-            log.debug("modules starting finished, running: %s failed: %s",
-                      self._started_module_services,
-                      self._failed_module_services)
-            for service in self._started_module_services:
-                # FIXME: This is just a temporary solution.
-                module = DBus.get_proxy(service, auto_object_path(service))
-                module.EchoString("Boss told me - some modules were started: %s and some might have failed: %s." %
-                                  (self._started_module_services, self._failed_module_services))
-            return True
-        else:
-            return False
-
-    def find_addons(self):
-        self._addon_module_services = []
+    def add_addon_modules(self):
+        """Add the addon modules."""
         dbus = DBus.get_dbus_proxy()
         names = dbus.ListActivatableNames()
+
         for name in names:
             if name.startswith(DBUS_ADDON_NAMESPACE):
-                self._addon_module_services.append(name)
-
-
-    def check_no_modules_are_running(self):
-        dbus = DBus.get_dbus_proxy()
-        for service in self.expected_module_services:
-            if dbus.NameHasOwner(service):
-                log.error("service %s has unexpected owner", service)
+                self.add_module(name, auto_object_path(name))
 
     def start_modules(self):
-        """Starts anaconda modules (including addons)."""
-        log.debug("starting modules")
-        self.check_no_modules_are_running()
-
+        """Start anaconda modules (including addons)."""
+        log.debug("Start modules.")
         dbus = DBus.get_dbus_proxy()
-        for service in self.expected_module_services:
-            log.debug("Starting %s", service)
-            try:
-                dbus.StartServiceByName(service, 0, callback=self._finish_start_service_cb, callback_args=(service,))
-            except Exception:  # pylint: disable=broad-except
-                self._failed_module_services.append(service)
-                log.exception("module startup failed")
 
-        log.debug("started all modules")
+        for observer in self.module_observers:
+            log.debug("Starting %s", observer)
+            dbus.StartServiceByName(observer.service_name,
+                                    DBUS_FLAG_NONE,
+                                    callback=self._start_modules_callback,
+                                    callback_args=(observer,))
+
+            # Watch the module.
+            observer.service_available.connect(self._process_module_is_available)
+            observer.service_unavailable.connect(self._process_module_is_unavailable)
+            observer.watch()
+
+    def _start_modules_callback(self, service, returned, error):
+        """Callback for start_modules."""
+        if error:
+            log.error("Service %s failed to start: %s", service, error)
+            return
+
+        if returned != DBUS_START_REPLY_SUCCESS:
+            log.warning("Service %s is already running.", service)
+        else:
+            log.debug("Service %s started successfully.", service)
+
+        if self.check_modules_availability():
+            log.info("All modules are ready now.")
+
+    def _process_module_is_available(self, observer):
+        """Process the service_available signal."""
+        log.debug("%s is available", observer)
+        observer.proxy.EchoString("Boss says hi!")
+
+    def _process_module_is_unavailable(self, observer):
+        """Process the service_unavailable signal."""
+        log.debug("%s is unavailable", observer)
+
+    def check_modules_availability(self):
+        """Check if all modules are available.
+
+        :returns: True if all modules are available, otherwise False
+        """
+        for observer in self.module_observers:
+            if not observer.is_service_available:
+                return False
+
+        return True
 
     def stop_modules(self):
-        """Tells all running modules to quit."""
-        log.debug("sending Quit to all modules and addons")
-        for service in self.running_module_services:
-            # FIXME: This is just a temporary solution.
-            module = DBus.get_proxy(service, auto_object_path(service))
-            # TODO: async ?
-            # possible reasons:
-            # - module hanging in Quit, deadlocking shutdown
-            try:
-                module.Quit()
-            except Exception:  # pylint: disable=broad-except
-                log.exception("Quit failed for module: %s", service)
+        """Tell all running modules to quit."""
+        log.debug("Stop modules.")
+        for observer in self.module_observers:
+            if not observer.is_service_available:
+                continue
+
+            # Call asynchronously to avoid problems.
+            observer.proxy.Quit(callback=self._stop_modules_callback,
+                                callback_args=(observer,))
+
+    def _stop_modules_callback(self, observer, returned, error):
+        """Callback for stop_modules."""
+        log.debug("%s has quit.", observer)

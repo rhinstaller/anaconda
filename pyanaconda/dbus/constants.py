@@ -48,8 +48,8 @@ ANACONDA_SERVICES = [MODULE_FOO_NAME,
                      MODULE_BAR_NAME]
 
 # list of all expected Anaconda DBUS modules
-ANACONDA_MODULES = [MODULE_FOO_PATH,
-                    MODULE_BAR_PATH]
+ANACONDA_MODULES = [(MODULE_FOO_NAME, MODULE_FOO_PATH),
+                    (MODULE_BAR_NAME, MODULE_BAR_PATH)]
 
 # status codes
 DBUS_START_REPLY_SUCCESS = 1

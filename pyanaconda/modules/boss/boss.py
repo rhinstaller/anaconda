@@ -51,8 +51,9 @@ class Boss(BaseModule):
 
     def run(self):
         """Run the boss's loop."""
-        log.debug("Look for the addons.")
-        self._module_manager.find_addons()
+        log.debug("Gather the modules.")
+        self._module_manager.add_default_modules()
+        self._module_manager.add_addon_modules()
         log.debug("Schedule publishing.")
         GLib.idle_add(self.publish)
         log.debug("Schedule startup of modules.")
