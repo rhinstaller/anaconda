@@ -551,6 +551,10 @@ if __name__ == "__main__":
     if anaconda.methodstr and not ksdata.method.seen:
         startup_utils.set_installation_method_from_anaconda_options(anaconda, ksdata)
 
+    # Enable SE/HMC if it was selected as an installation source.
+    if ksdata.method.method == "hmc":
+        flags.hmc = True
+
     # Override the selinux state from kickstart if set on the command line
     if flags.selinux != constants.SELINUX_DEFAULT:
         ksdata.selinux.selinux = flags.selinux

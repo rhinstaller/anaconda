@@ -33,6 +33,13 @@ if [ -n "$repo" ]; then
         hd|cd|cdrom)
             [ -n "$rest" ] && root="anaconda-disk:$rest"
         ;;
+        hmc)
+            # Set arg to copy the complete image to RAM.
+            # Otherwise, dracut fails with SquashFS errors.
+            echo rd.live.ram=1 >/etc/cmdline.d/99-anaconda-live-ram.conf
+
+            root="anaconda-hmc"
+        ;;
         *)
             warn "Invalid value for 'inst.$arg': $repo"
         ;;
