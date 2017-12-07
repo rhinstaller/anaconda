@@ -283,6 +283,8 @@ update-desktop-database &> /dev/null || :
 %license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
+%{_datadir}/dbus-1/system-services/*
+%{_sysconfdir}/dbus-1/system.d/*
 %{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_sbindir}/anaconda

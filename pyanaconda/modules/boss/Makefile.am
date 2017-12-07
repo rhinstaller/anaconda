@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-bossdir = $(pkgpyexecdir)/boss
+bossdir = $(pkgpyexecdir)/modules/boss
 boss_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

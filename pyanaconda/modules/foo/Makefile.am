@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-foodir = $(pkgpyexecdir)/foo
+foodir = $(pkgpyexecdir)/modules/foo
 foo_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
