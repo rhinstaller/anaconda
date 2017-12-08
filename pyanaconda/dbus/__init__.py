@@ -35,6 +35,8 @@ class DBus(object):
     with DBus.get_proxy.
     """
     _connection = None
+    _service_registrations = []
+    _object_registrations = []
 
     @staticmethod
     def get_connection():
@@ -76,9 +78,18 @@ class DBus(object):
         :param service_name: a DBus name of a service
         """
         log.debug("Registering a service name %s.", service_name)
-        DBus.get_connection().request_name(service_name,
-                                           allow_replacement=True,
-                                           replace=False)
+        obj = DBus.get_connection().request_name(service_name,
+                                                 allow_replacement=True,
+                                                 replace=False)
+        DBus._service_registrations.append(obj)
+
+    @staticmethod
+    def unregister_all():
+        """Unregister a registered service."""
+        log.debug("Unregistering all service names.")
+        while DBus._service_registrations:
+            registration = DBus._service_registrations.pop(0)
+            registration.unown()
 
     @staticmethod
     def publish_object(obj, object_path):
@@ -88,7 +99,16 @@ class DBus(object):
         :param object_path: a DBus path of an object
         """
         log.debug("Publishing an object at %s.", object_path)
-        DBus.get_connection().register_object(object_path, obj, None)
+        obj = DBus.get_connection().register_object(object_path, obj, None)
+        DBus._object_registrations.append(obj)
+
+    @staticmethod
+    def unpublish_all():
+        """Unpublish all published objects."""
+        log.debug("Unpublishing all objects.")
+        while DBus._object_registrations:
+            registration = DBus._object_registrations.pop(0)
+            registration.unregister()
 
     @staticmethod
     def get_dbus_proxy():
