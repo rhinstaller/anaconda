@@ -16,12 +16,14 @@ from gi.repository import Gio
 try:
     from colorama import Fore, Style
     GREEN = Fore.GREEN
+    RED = Fore.RED
     RESET = Style.RESET_ALL
 except ImportError as e:
     print("#########################################")
     print("Install python3-colorama for nicer output")
     print("#########################################")
     GREEN = ""
+    RED = ""
     RESET = ""
 
 
@@ -41,6 +43,22 @@ MODULES_DIR = os.path.join(top_dir ,"pyanaconda/modules")
 DBUS_SERVICES_DIR = os.path.join(top_dir, "data/dbus/")
 STARTUP_SCRIPT = os.path.join(top_dir, "scripts/start-module")
 EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
+
+
+def start_anaconda_services():
+    print(RED + "starting Boss" + RESET)
+    test_dbus_connection.dbus.StartServiceByName(DBUS_BOSS_NAME, 0)
+
+
+def stops_anaconda_services():
+    print(RED + "stopping Boss" + RESET)
+
+    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
+    boss_object.Quit()
+
+    print(RED + "waiting a bit for module shutdown to happen" + RESET)
+    time.sleep(1)
+
 
 print("creating a temporary directory for DBUS service files")
 temp_service_dir = tempfile.TemporaryDirectory(prefix="anaconda_dbus_")
@@ -70,28 +88,30 @@ try:
     # our custom bus is now running, connect to it
     test_dbus_connection = pydbus.connect(test_dbus.get_bus_address())
 
+    enter_word = GREEN + "enter" + RESET
+    q_word = GREEN + "q" + RESET
     print("")
     print("###########################################################################")
     print("Connect to the bus address below [press a key to continue]:")
     print("(guid part may be ignored)")
     print(GREEN + test_dbus.get_bus_address() + RESET)
+    print()
+    print("To control the loop press " + enter_word + " to restart Boss or [" + q_word + "] to Quit session")
     print("###########################################################################")
 
     input()
 
-    print("starting Boss")
-    test_dbus_connection.dbus.StartServiceByName(DBUS_BOSS_NAME, 0)
+    loop = True
 
+    while(loop):
+        start_anaconda_services()
 
-    input("press any key to stop Boss and cleanup")
+        u_input = input()
 
-    print("stopping Boss")
+        stops_anaconda_services()
 
-    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
-    boss_object.Quit()
-
-    print("waiting a bit for module shutdown to happen")
-    time.sleep(1)
+        if u_input == "q":
+            loop = False
 
 finally:
     # stop the custom DBUS daemon
