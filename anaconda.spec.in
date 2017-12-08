@@ -319,6 +319,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Dec 08 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.129-1
+- Update translations (ljanda)
+  Resolves: rhbz#1480523
+
 * Wed Nov 15 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.128-1
 - Add support for the new 'mount' kickstart command (vpodzime)
   Resolves: rhbz#1450922
