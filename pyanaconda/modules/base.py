@@ -27,9 +27,14 @@ from abc import ABC
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
+# FIXME: Remove this after initThreading will be replaced
+from pyanaconda.threading import initThreading
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
+
+
+initThreading()
 
 
 class BaseModule(ABC):
