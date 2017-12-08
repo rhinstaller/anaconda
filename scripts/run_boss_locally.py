@@ -1,21 +1,45 @@
 #!/usr/bin/python3
+#
+# Run Anaconda DBus services locally in separate DBus session.
+#
+# This script is mainly for debugging purpose.
+#
 
 import os
 import tempfile
 import glob
 import pydbus
 import time
+import sys
 from gi.repository import Gio
+
+try:
+    from colorama import Fore, Style
+    GREEN = Fore.GREEN
+    RESET = Style.RESET_ALL
+except ImportError as e:
+    print("#########################################")
+    print("Install python3-colorama for nicer output")
+    print("#########################################")
+    GREEN = ""
+    RESET = ""
+
+
+# add project top directory to the python paths
+top_dir = os.path.dirname(os.path.realpath(__file__))
+top_dir = os.path.split(top_dir)[0]
+sys.path.insert(0, top_dir)
+
+# add top dir to the PYTHONPATH env var for Boss and modules
+paths = os.environ.get("PYTHONPATH", "").split(":")
+paths.insert(0, top_dir)
+os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
 
 from pyanaconda.dbus.constants import DBUS_BOSS_NAME
 
-paths = os.environ.get("PYTHONPATH", "").split(":")
-paths.insert(0, os.path.abspath(".."))
-os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
-
-MODULES_DIR = os.path.abspath("../pyanaconda/modules")
-DBUS_SERVICES_DIR = "../data/dbus/"
-STARTUP_SCRIPT = os.path.abspath("../scripts/start-module")
+MODULES_DIR = os.path.join(top_dir ,"pyanaconda/modules")
+DBUS_SERVICES_DIR = os.path.join(top_dir, "data/dbus/")
+STARTUP_SCRIPT = os.path.join(top_dir, "scripts/start-module")
 EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 print("creating a temporary directory for DBUS service files")
@@ -42,13 +66,22 @@ try:
     # start the custom DBUS daemon
     print("starting custom dbus session")
     test_dbus.up()
-    print(test_dbus.get_bus_address())
 
     # our custom bus is now running, connect to it
     test_dbus_connection = pydbus.connect(test_dbus.get_bus_address())
 
+    print("")
+    print("###########################################################################")
+    print("Connect to the bus address below [press a key to continue]:")
+    print("(guid part may be ignored)")
+    print(GREEN + test_dbus.get_bus_address() + RESET)
+    print("###########################################################################")
+
+    input()
+
     print("starting Boss")
     test_dbus_connection.dbus.StartServiceByName(DBUS_BOSS_NAME, 0)
+
 
     input("press any key to stop Boss and cleanup")
 
