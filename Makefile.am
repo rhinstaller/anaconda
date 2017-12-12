@@ -181,7 +181,7 @@ install-requires:
 # Install all packages required for running the tests
 install-test-requires: install-buildrequires install-requires
 		dnf install \
-			bzip2 cppcheck rpm-ostree pykickstart spin-kickstarts  \
+			xfsprogs git bzip2 cppcheck rpm-ostree pykickstart spin-kickstarts  \
 		    python3-rpmfluff python3-mock python3-pocketlint python3-nose-testconfig \
 		    python3-sphinx_rtd_theme python3-lxml python3-dogtail sudo
 
