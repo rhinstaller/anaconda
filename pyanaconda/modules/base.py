@@ -24,6 +24,7 @@ from gi.repository import GLib
 
 from abc import ABC
 
+from pyanaconda.dbus import DBus
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
@@ -64,7 +65,16 @@ class BaseModule(ABC):
         """
         pass
 
+    def unpublish(self):
+        """Unpublish DBus objects and unregister a DBus service.
+
+        Everything is unpublished by default.
+        """
+        DBus.unregister_all()
+        DBus.unpublish_all()
+
     def stop_module(self):
+        self.unpublish()
         GLib.timeout_add_seconds(1, self.loop.quit)
 
 
