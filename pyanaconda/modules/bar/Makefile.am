@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+SUBDIRS = tasks
+
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 bardir = $(pkgpyexecdir)/modules/bar
 bar_PYTHON = $(srcdir)/*.py

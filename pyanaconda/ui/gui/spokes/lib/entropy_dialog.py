@@ -29,7 +29,7 @@ from gi.repository import Gtk, GLib
 from pyanaconda.i18n import P_
 from pyanaconda.constants import MAX_ENTROPY_WAIT
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_action_wait
+from pyanaconda.async_utils import async_action_wait
 from blivet.util import get_current_entropy
 
 __all__ = ["run_entropy_dialog"]
@@ -37,7 +37,7 @@ __all__ = ["run_entropy_dialog"]
 # in milliseconds
 LOOP_TIMEOUT = 250
 
-@gtk_action_wait
+@async_action_wait
 def run_entropy_dialog(ksdata, desired_entropy):
     """Show dialog with waiting for entropy"""
 

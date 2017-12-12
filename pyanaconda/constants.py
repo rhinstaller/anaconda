@@ -113,6 +113,7 @@ THREAD_KEYBOARD_INIT = "AnaKeyboardThread"
 THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
 THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
 THREAD_ZFCP_DISCOVER = "AnaZfcpDiscoverThread"
+THREAD_DBUS_TASK = "AnaTaskThread"
 
 # Geolocation constants
 

@@ -30,6 +30,8 @@ from pyanaconda.modules.base import BaseModule
 from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
 
 from pyanaconda.modules.boss.module_manager import ModuleManager
+from pyanaconda.modules.boss.install_manager.installation_interface import InstallationInterface
+from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
@@ -38,15 +40,26 @@ log = anaconda_logging.get_dbus_module_logger(__name__)
 @dbus_interface(DBUS_BOSS_NAME)
 class Boss(BaseModule):
 
-    def __init__(self, module_manager=None):
+    def __init__(self, module_manager=None, install_manager=None):
         super().__init__()
+        self._module_manager = module_manager or ModuleManager()
+        self._install_manager = install_manager or InstallManager()
 
-        if module_manager is None:
-            self._module_manager = ModuleManager()
+    def _setup_install_manager(self):
+        # FIXME: the modules list must to be readable from inside of InstallManager when needed
+        # the modules needs to be passed to the InstallManager some other way
+        # basically we need to be able to load modules from everywhere when we need them
+        modules = self._module_manager.running_module_services
+        self._install_manager.available_modules = modules
+
+        # start and publish interface
+        interface = InstallationInterface(self._install_manager)
+        interface.publish()
 
     def publish(self):
         """Publish the boss."""
         DBus.publish_object(self, DBUS_BOSS_PATH)
+        self._setup_install_manager()
         DBus.register_service(DBUS_BOSS_NAME)
 
     def run(self):
@@ -57,10 +70,10 @@ class Boss(BaseModule):
         GLib.idle_add(self.publish)
         log.debug("Schedule startup of modules.")
         GLib.idle_add(self._module_manager.start_modules)
-        log.debug("Start the loop.")
+        log.info("starting mainloop")
         self._loop.run()
 
     def Quit(self):
         """Stop all modules and then stop the boss."""
         self._module_manager.stop_modules()
-        super().Quit()
+        super().stop_module()

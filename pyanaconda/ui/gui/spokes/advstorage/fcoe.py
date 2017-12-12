@@ -22,7 +22,7 @@ from blivet.fcoe import fcoe
 from pyanaconda import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_action_wait
+from pyanaconda.async_utils import async_action_wait
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda import nm
 
@@ -93,7 +93,7 @@ class FCoEDialog(GUIObject):
 
         self._after_add()
 
-    @gtk_action_wait
+    @async_action_wait
     def _after_add(self):
         # When fcoe discovery is done, update the UI.  We don't need to worry
         # about the user escaping from the dialog because all the buttons are

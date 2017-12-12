@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import ADDON_BAZ_NAME, ADDON_BAZ_PATH
-from pyanaconda.modules.base import BaseModule
+from pyanaconda.modules.base import BaseModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
@@ -28,7 +28,7 @@ log = anaconda_logging.get_dbus_module_logger(__name__)
 
 
 @dbus_interface(ADDON_BAZ_NAME)
-class Baz(BaseModule):
+class Baz(BaseModuleInterface):
 
     def publish(self):
         """Publish the module."""

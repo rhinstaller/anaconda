@@ -18,7 +18,8 @@
 #
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_action_wait, gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.async_utils import async_action_wait
 from pyanaconda import constants
 import threading
 
@@ -108,7 +109,7 @@ class DasdFormatDialog(GUIObject):
         """
         gtk_call_once(self._formatting_label.set_text, msg)
 
-    @gtk_action_wait
+    @async_action_wait
     def update_dialog(self, epoch_started):
         """
         This optionally updates the Gtk dialog box, assuming the user has not

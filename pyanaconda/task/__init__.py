@@ -1,5 +1,7 @@
+# Utilities to help with Task manipulation.
 #
-# Copyright (C) 2017  Red Hat, Inc.
+#
+# Copyright (C) 2017 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,40 +18,17 @@
 # Red Hat, Inc.
 #
 
-import gi
-
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
+from pyanaconda.task.task_interface import TaskInterface
+from pyanaconda.task.task import Task
 
 
-class run_in_glib(object):
-    """Run the test methods in GLib.
+def publish_task(task_instance: Task, module_dbus_path):
+    """Publish Task to the DBus.
 
-    :param timeout: Timeout in seconds when the loop will be killed.
+    :param task_instance: Instance of a Task.
+    :param module_dbus_path: DBus object path of a module.
+    :type module_dbus_path: str
     """
-
-    def __init__(self, timeout):
-        self._timeout = timeout
-        self._result = None
-
-    def __call__(self, func):
-
-        def kill_loop(loop):
-            loop.quit()
-            return False
-
-        def run_in_loop(*args, **kwargs):
-            self._result = func(*args, **kwargs)
-
-        def create_loop(*args, **kwargs):
-            loop = GLib.MainLoop()
-
-            GLib.idle_add(run_in_loop, *args, **kwargs)
-            GLib.timeout_add_seconds(self._timeout, kill_loop, loop)
-
-            loop.run()
-
-            return self._result
-
-        return create_loop
+    interface = TaskInterface(task_instance)
+    interface.publish(module_dbus_path)
+    return interface

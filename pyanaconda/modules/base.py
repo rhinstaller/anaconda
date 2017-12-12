@@ -22,23 +22,33 @@ import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
+from abc import ABC
+
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
+# FIXME: Remove this after initThreading will be replaced
+from pyanaconda.threading import initThreading
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
 
-@dbus_interface(DBUS_MODULE_NAMESPACE)
-class BaseModule(object):
-    """A common base for Anaconda DBUS modules.
+initThreading()
 
-    This class also basically defines the common DBUS API
-    of Anaconda DBUS modules.
+
+class BaseModule(ABC):
+    """Base implementation of a module.
+
+    This is not DBus interface.
     """
 
     def __init__(self):
         self._loop = GLib.MainLoop()
+
+    @property
+    def loop(self):
+        return self._loop
 
     def run(self):
         """Run the module's loop."""
@@ -54,7 +64,26 @@ class BaseModule(object):
         """
         pass
 
+    def stop_module(self):
+        GLib.timeout_add_seconds(1, self.loop.quit)
+
+
+@dbus_interface(DBUS_MODULE_NAMESPACE)
+class BaseModuleInterface(BaseModule, ABC):
+    """A common base for Anaconda DBUS modules.
+
+    This class also basically defines the common DBUS API
+    of Anaconda DBUS modules.
+    """
+
+    def AvailableTasks(self) -> List[Tuple[Str, Str]]:
+        """Return DBus object paths for tasks available for this module.
+
+        :returns: List of tuples (Name, DBus object path) for all Tasks.
+                  See pyanaconda.task.Task for Task API.
+        """
+        return []
+
     def Quit(self):
         """Shut the module down."""
-        log.debug("Schedule quitting.")
-        GLib.timeout_add_seconds(1, self._loop.quit)
+        self.stop_module()

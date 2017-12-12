@@ -1,5 +1,8 @@
+# DBus Task for Bar example modules.
 #
-# Copyright (C) 2017  Red Hat, Inc.
+# Example of Task Facade implementation.
+#
+# Copyright (C) 2017 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,40 +19,43 @@
 # Red Hat, Inc.
 #
 
-import gi
+import time
 
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
+from pyanaconda.task.task import Task
 
 
-class run_in_glib(object):
-    """Run the test methods in GLib.
+class BarTask(Task):
 
-    :param timeout: Timeout in seconds when the loop will be killed.
-    """
+    @property
+    def name(self):
+        return "Lazy task"
 
-    def __init__(self, timeout):
-        self._timeout = timeout
-        self._result = None
+    @property
+    def description(self):
+        return "Bar task"
 
-    def __call__(self, func):
+    @property
+    def progress_steps_count(self):
+        return 5
 
-        def kill_loop(loop):
-            loop.quit()
-            return False
+    def runnable(self):
+        self.progress_changed(1, "preparing for the hard work")
 
-        def run_in_loop(*args, **kwargs):
-            self._result = func(*args, **kwargs)
+        # hard working...
+        time.sleep(1)
 
-        def create_loop(*args, **kwargs):
-            loop = GLib.MainLoop()
+        if self.check_cancel():
+            return
 
-            GLib.idle_add(run_in_loop, *args, **kwargs)
-            GLib.timeout_add_seconds(self._timeout, kill_loop, loop)
+        self.progress_changed(2, "working so HARD!!")
+        # pretending hard work while sleeping...
+        time.sleep(1)
 
-            loop.run()
+        if self.check_cancel():
+            return
 
-            return self._result
+        self.progress_changed(3, "It is almost done")
+        # practising memory by trying to remember actual step count
+        time.sleep(1)
 
-        return create_loop
+        self.progress_changed(5, "Done")
