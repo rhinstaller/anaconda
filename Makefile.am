@@ -180,11 +180,10 @@ install-requires:
 
 # Install all packages required for running the tests
 install-test-requires: install-buildrequires install-requires
-		dnf install bzip2 cppcheck \
-		    lorax mock parallel rpm-ostree virt-install pykickstart spin-kickstarts  \
+		dnf install \
+			bzip2 cppcheck rpm-ostree pykickstart spin-kickstarts  \
 		    python3-rpmfluff python3-mock python3-pocketlint python3-nose-testconfig \
-		    python3-sphinx_rtd_theme libvirt-python3 python3-lxml python3-dogtail    \
-		    qemu-img nosync.x86_64 nosync.i686 sudo
+		    python3-sphinx_rtd_theme python3-lxml python3-dogtail sudo
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
