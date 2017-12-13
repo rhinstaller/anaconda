@@ -150,7 +150,7 @@ class InstallManager(object):
         s = self._actual_task.ProgressChanged.connect(self._progress_changed)
         self._subscriptions.append(s)
 
-        s = self._actual_task.Started.connect(self._task_started())
+        s = self._actual_task.Started.connect(self._task_started)
         self._subscriptions.append(s)
 
         s = self._actual_task.Stopped.connect(self._task_stopped)
