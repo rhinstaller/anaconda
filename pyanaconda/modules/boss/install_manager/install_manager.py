@@ -124,7 +124,7 @@ class InstallManager(object):
                 log.error("Module %s is not available!", observer.service_name)
                 continue
 
-            tasks = observer.proxy.AvailableTasks()
+            tasks = observer.proxy.AvailableTasks
             for task in tasks:
                 log.debug("Getting task %s from module %s", task[TASK_NAME], observer.service_name)
                 task_proxy = DBus.get_proxy(observer.service_name, task[TASK_PATH])

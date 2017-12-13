@@ -111,9 +111,9 @@ class KickstartManager(object):
                 log.warning("distribute kickstart: module %s not available", observer.service_name)
                 continue
 
-            commands = observer.proxy.KickstartCommands()
-            sections = observer.proxy.KickstartSections()
-            addons = observer.proxy.KickstartAddons()
+            commands = observer.proxy.KickstartCommands
+            sections = observer.proxy.KickstartSections
+            addons = observer.proxy.KickstartAddons
             log.info("distribute kickstart: %s handles commands %s sections %s addons %s",
                      observer.service_name, commands, sections, addons)
 
@@ -124,11 +124,17 @@ class KickstartManager(object):
             log.info("distribute kickstart: %s will get kickstart elements: %s",
                      observer.service_name, elements)
 
-            error_lineno, error_msg = observer.proxy.ConfigureWithKickstart(kickstart)
-            if error_lineno:
+            result = observer.proxy.ReadKickstart(kickstart)
+
+            if not result["success"]:
                 line_references = self._elements.get_references_from_elements(elements)
-                kickstart_reference = line_references[error_lineno]
-                errors.append((observer.service_name, kickstart_reference, error_msg))
+                line_number, file_name = line_references[result["line_number"]]
+                result["line_number"] = line_number
+                result["file_name"] = file_name
+                result["module_name"] = observer.service_name
+
+                log.error("distribute kickstart: %s", result)
+                errors.append(result)
 
         return errors
 

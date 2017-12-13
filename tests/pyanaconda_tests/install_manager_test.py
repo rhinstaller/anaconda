@@ -123,6 +123,7 @@ class TestModule(object):
         """Return instance instead of DBus path."""
         return self._bus_name
 
+    @property
     def AvailableTasks(self):
         return [("TaskName", self._task_instance)]
 

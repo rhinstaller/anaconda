@@ -1,5 +1,5 @@
-# foo.py
-# Example DBUS module
+# baz_interface.py
+# Example DBUS addon interface
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
@@ -17,25 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_FOO_PATH, MODULE_FOO_NAME
-from pyanaconda.modules.base import KickstartModule
-from pyanaconda.modules.foo.foo_interface import FooInterface
-from pyanaconda.modules.foo.tasks.foo_task import FooTask
-
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.dbus.constants import ADDON_BAZ_NAME
+from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.base_interface import KickstartModuleInterface
 
 
-class Foo(KickstartModule):
-    """The Foo module."""
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(FooInterface(self), MODULE_FOO_PATH)
-        self.publish_task(FooTask(), MODULE_FOO_PATH)
-        DBus.register_service(MODULE_FOO_NAME)
-
-    def ping(self, s):
-        log.debug(s)
-        return "Foo says hi!"
+@dbus_interface(ADDON_BAZ_NAME)
+class BazInterface(KickstartModuleInterface):
+    """The interface for Baz."""
+    pass

@@ -1,5 +1,5 @@
-# bar.py
-# Example DBUS module
+# baz.py
+# Example DBUS addon.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
@@ -19,23 +19,22 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import ADDON_BAZ_NAME, ADDON_BAZ_PATH
-from pyanaconda.modules.base import BaseModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
+from pyanaconda.modules.base import KickstartModule
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
 
-@dbus_interface(ADDON_BAZ_NAME)
-class Baz(BaseModuleInterface):
+class Baz(KickstartModule):
+    """The Baz module."""
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(self, ADDON_BAZ_PATH)
+        DBus.publish_object(BazInterface(self), ADDON_BAZ_PATH)
         DBus.register_service(ADDON_BAZ_NAME)
 
-    def EchoString(self, s: Str) -> Str:
-        """Returns whatever is passed to it."""
+    def ping(self, s):
+        """Return a string."""
         log.debug(s)
-        return s
+        return "Baz says hi!"
