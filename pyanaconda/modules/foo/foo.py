@@ -37,7 +37,7 @@ class Foo(BaseModuleInterface):
         self._task_interfaces = []
 
     def _collect_tasks(self):
-        return [FooTask(MODULE_FOO_NAME)]
+        return [FooTask()]
 
     def publish(self):
         """Publish the module."""
@@ -54,7 +54,7 @@ class Foo(BaseModuleInterface):
         ret = []
 
         for task in self._task_interfaces:
-            ret.append((task.impl_object.name, task.dbus_path))
+            ret.append((task.implementation.name, task.object_path))
 
         return ret
 
