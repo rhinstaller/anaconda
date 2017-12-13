@@ -62,7 +62,7 @@ COVERAGE ?= coverage3
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
 USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
-RESULT_DIR ?= $(srcdir)/result
+RESULT_DIR ?= $(abs_top_builddir)/result
 BUILD_RESULT_DIR = $(RESULT_DIR)/build
 TEST_RESULT_DIR = $(RESULT_DIR)/tests
 
@@ -211,14 +211,25 @@ runglade:
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
 
-isolated-ci: test-install
-	$(MAKE) isolated-test
+ci:
+# clean result dir
+	-rm -rf $(TEST_RESULT_DIR)
+	mkdir -p $(TEST_RESULT_DIR)
 
-ci: test-install
-	$(MAKE) bare-ci
+# run tests
+	$(MAKE) run-tests || echo $$? > $(srcdir)/tests/error_occured
 
-bare-ci:
-	@rm -f tests/test-suite.log.*
+# grab logs
+	cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR) || exit 1
+	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
+	@if [ -f $(srcdir)/tests/error_occured ]; then \
+		echo "TEST FAILED"; \
+		status=$$(cat $(srcdir)/tests/error_occured); \
+		rm $(srcdir)/tests/error_occured; \
+		exit $$status; \
+	fi
+
+run-tests:
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	$(MAKE)
@@ -228,49 +239,12 @@ bare-ci:
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh \
 		PYTHONUSERBASE=$(USER_SITE_BASE) check
-	@mkdir -p repo
-	@mv $(RPM_BUILD_DIR)/*rpm repo
-	@createrepo_c -p repo
 	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
 		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@cat tests/test-suite.log.* > tests/test-suite.log
 	@rm -f tests/test-suite.log.*
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
-
-isolated-test: setup-test-env
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda && $(MAKE) bare-ci" || echo $$? > $(srcdir)/tests/error_occured
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "mkdir -p /result && chmod 755 /result" || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda/tests && cp -r --parents ./**/*.log ./*.log* /result/" || exit 1
-
-	-rm -rf $(TEST_RESULT_DIR)
-	mkdir -p $(TEST_RESULT_DIR)
-	cp -r $$(mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) -p)/result/* $(TEST_RESULT_DIR)/
-# Move builders logs
-	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
-	@if [ -f $(srcdir)/tests/error_occured ]; then \
-		echo "TEST FAILED"; \
-		status=$$(cat $(srcdir)/tests/error_occured); \
-		rm $(srcdir)/tests/error_occured; \
-		exit $$status; \
-	fi
-
-setup-test-env:
-	@-rm -f tests/error_occured
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
-# Install missing dependencies for running make install-test-requires
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) -i dnf python3 git || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --copyin $(srcdir) /root/anaconda || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda && $(MAKE) install-test-requires" || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --chroot -- "cd /root/anaconda && ./autogen.sh && ./configure" || exit 1
-
-	@echo "============================================================"
-	@echo "If you want you can get into testing environment by running:"
-	@echo "mock -r $(MOCKCHROOT) --shell"
-	@echo ""
-	@echo "and `cd` to the /root/anaconda directory"
-	@echo "to run ci tests run `make bare-ci` in the anaconda directory"
-	@echo "============================================================"
 
 test-gui:
 	@rm -f tests/test-suite.log
