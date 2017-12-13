@@ -54,11 +54,14 @@ ANACONDA_SERVICES = [MODULE_FOO_NAME,
 DBUS_TASK_NAME = "{}.Task".format(ANACONDA_DBUS_NAMESPACE)
 
 # list of all expected Anaconda DBUS modules
-ANACONDA_MODULES = [MODULE_FOO_PATH,
-                    MODULE_BAR_PATH]
+ANACONDA_MODULES = [(MODULE_FOO_NAME, MODULE_FOO_PATH),
+                    (MODULE_BAR_NAME, MODULE_BAR_PATH)]
 
 # status codes
 DBUS_START_REPLY_SUCCESS = 1
+
+# no flags are set
+DBUS_FLAG_NONE = 0
 
 # NOTE: There is no DBUS_START_REPLY_FAILURE or something similar,
 #       as there is a separate field for error reporting.
