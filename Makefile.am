@@ -128,7 +128,7 @@ release-and-tag:
 	$(MAKE) dist
 	$(MAKE) tag
 
-rc-release: scratch-bumpver scratch
+rc-release: scratch
 	-rm -rf $(BUILD_RESULT_DIR)
 	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
 	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
