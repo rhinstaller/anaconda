@@ -241,7 +241,8 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %setup -q
 
 %build
-%configure
+# use actual build-time release number, not tarball creation time release number
+%configure ANACONDA_RELEASE=%{release}
 %{__make} %{?_smp_mflags}
 
 %install
