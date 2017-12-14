@@ -49,8 +49,8 @@ class Boss(BaseModule):
         # FIXME: the modules list must to be readable from inside of InstallManager when needed
         # the modules needs to be passed to the InstallManager some other way
         # basically we need to be able to load modules from everywhere when we need them
-        modules = self._module_manager.running_module_services
-        self._install_manager.available_modules = modules
+        modules = self._module_manager.module_observers
+        self._install_manager.module_observers = modules
 
         # start and publish interface
         interface = InstallationInterface(self._install_manager)

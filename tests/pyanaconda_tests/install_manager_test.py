@@ -19,6 +19,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
+from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
 from pyanaconda.modules.boss.install_manager.installation_interface import InstallationNotRunning
 
@@ -31,7 +32,6 @@ def _get_proxy(dbus_module_path, task_instance):
 
 
 @patch("pyanaconda.modules.boss.install_manager.install_manager.DBus.get_proxy", new=_get_proxy)
-@patch("pyanaconda.modules.boss.install_manager.install_manager.auto_object_path")
 class InstallManagerTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -52,8 +52,7 @@ class InstallManagerTestCase(unittest.TestCase):
         manager.installation_stopped.connect(self._set_installation_stopped)
         manager.task_changed_signal.connect(self._set_task_changed)
 
-    def test_install_no_tasks(self, auto_object_mock):
-        auto_object_mock.return_value = None
+    def test_install_no_tasks(self):
         manager = InstallManager()
 
         self.assertFalse(manager.installation_running)
@@ -68,16 +67,15 @@ class InstallManagerTestCase(unittest.TestCase):
         with self.assertRaises(InstallationNotRunning):
             manager.cancel()
 
-    def test_start_installation_with_one_task(self, auto_object_mock):
-        auto_object_mock.return_value = None
+    def test_start_installation_with_one_task(self):
         manager = InstallManager()
         self._connect_manager(manager)
 
         task = TestTask()
         module_mock = TestModule(bus_name="1", task_instance=task)
+        module_observer = TestModuleObserver("1", "1", module_mock)
 
-        modules = [module_mock]
-        manager.available_modules = modules
+        manager.module_observers = [module_observer]
         manager.start_installation()
 
         self.assertTrue(manager.installation_running)
@@ -104,6 +102,14 @@ class InstallManagerTestCase(unittest.TestCase):
         manager.cancel()
 
         self.assertTrue(task.cancelled)
+
+
+class TestModuleObserver(DBusObjectObserver):
+
+    def __init__(self, service_name, object_path, test_module):
+        super().__init__(service_name, object_path)
+        self._proxy = test_module
+        self._is_service_available = True
 
 
 class TestModule(object):

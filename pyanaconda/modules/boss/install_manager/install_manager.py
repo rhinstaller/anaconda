@@ -17,8 +17,6 @@
 # Red Hat, Inc.
 #
 
-from pydbus.auto_names import auto_object_path
-
 from pyanaconda.isignal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.install_manager.installation_interface import InstallationNotRunning
@@ -45,7 +43,7 @@ class InstallManager(object):
         self._step_sum = 0
         self._tasks_done_step = 0
         self._installation_terminated = False
-        self._modules = []
+        self._module_observers = []
 
         self._install_started_signal = Signal()
         self._install_stopped_signal = Signal()
@@ -85,18 +83,18 @@ class InstallManager(object):
         return self._error_raised_signal
 
     @property
-    def available_modules(self):
-        """Get available modules which will be used for installation."""
-        return self._modules
+    def module_observers(self):
+        """Get all module observers which will be used for installation."""
+        return self._module_observers
 
-    @available_modules.setter
-    def available_modules(self, modules):
-        """Set available modules which will be used for installation.
+    @module_observers.setter
+    def module_observers(self, modules):
+        """Set module observers which will be used for installation.
 
-        :param modules: Modules list.
+        :param modules: Module observers list.
         :type modules: list
         """
-        self._modules = modules
+        self._module_observers = modules
 
     def start_installation(self):
         """Start the installation."""
@@ -115,17 +113,21 @@ class InstallManager(object):
     def _collect_tasks(self):
         self._tasks.clear()
 
-        if not self._modules:
+        if not self._module_observers:
             log.error("Starting installation without available modules.")
 
-        for module_service in self._modules:
-            # FIXME: This is just a temporary solution.
-            module_object = DBus.get_proxy(module_service, auto_object_path(module_service))
+        for observer in self._module_observers:
+            # FIXME: This check is here for testing purposes only.
+            # Normally, all given modules should be available once
+            # we start the installation.
+            if not observer.is_service_available:
+                log.error("Module %s is not available!", observer.service_name)
+                continue
 
-            tasks = module_object.AvailableTasks()
+            tasks = observer.proxy.AvailableTasks()
             for task in tasks:
-                log.debug("Getting task %s from module %s", task[TASK_NAME], module_service)
-                task_proxy = DBus.get_proxy(module_service, task[TASK_PATH])
+                log.debug("Getting task %s from module %s", task[TASK_NAME], observer.service_name)
+                task_proxy = DBus.get_proxy(observer.service_name, task[TASK_PATH])
                 self._tasks.add(task_proxy)
 
     def _sum_steps_count(self):
