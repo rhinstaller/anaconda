@@ -25,25 +25,70 @@ from pyanaconda.dbus import DBus
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.modules.base import BaseModule
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_BOSS_INSTALLATION_PATH
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_BOSS_INSTALLATION_PATH,\
+                                      DBUS_BOSS_ANACONDA_NAME
 
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager.installation_interface import InstallationInterface
 from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
+from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
 
-@dbus_interface(DBUS_BOSS_NAME)
-class Boss(BaseModule):
+@dbus_interface(DBUS_BOSS_ANACONDA_NAME)
+class AnacondaBossInterface(object):
+    """Temporary interface for anaconda.
 
-    def __init__(self, module_manager=None, install_manager=None):
+    Used for synchronization with anaconda during transition.
+    """
+
+    def SplitKickstart(self, path: Str) -> Str:
+        """Splits the kickstart for modules.
+
+        :returns: kickstart regenerated from elements after splitting
+
+        :raises SplitKickstartError: if parsing fails
+        """
+        log.info("splitting kickstart %s", path)
+        self._kickstart_manager.split(path)     # pylint: disable=no-member
+        return self._kickstart_manager.unprocessed_kickstart    # pylint: disable=no-member
+
+    def DistributeKickstart(self) -> List[Tuple[Str,Tuple[Int, Str],Str]]:
+        """Distributes kickstart to modules synchronously.
+
+        Assumes all modules are started.
+
+        :returns: list of (Module service, (Line number, File name), Error message)
+                  tuples for each kickstart parsing error.
+        """
+        log.info("distributing kickstart")
+        errors = self._kickstart_manager.distribute()   # pylint: disable=no-member
+        if errors:
+            log.info("distributing kickstart errors: %s", errors)
+        return errors
+
+    def UnprocessedKickstart(self) -> Str:
+        """Returns kickstart containing parts that are not handled by any module."""
+        return self._kickstart_manager.unprocessed_kickstart    # pylint: disable=no-member
+
+    def AllModulesAvailable(self) -> Bool:
+        """Returns true if all modules are available."""
+        return self._module_manager.check_modules_availability()    # pylint: disable=no-member
+
+
+@dbus_interface(DBUS_BOSS_NAME)
+class Boss(BaseModule, AnacondaBossInterface):
+
+    def __init__(self, module_manager=None, install_manager=None, kickstart_manager=None):
         super().__init__()
         self._module_manager = module_manager or ModuleManager()
         self._install_manager = install_manager or InstallManager()
+        self._kickstart_manager = kickstart_manager or KickstartManager()
 
     def _setup_install_manager(self):
         # FIXME: the modules list must to be readable from inside of InstallManager when needed
@@ -56,10 +101,15 @@ class Boss(BaseModule):
         interface = InstallationInterface(self._install_manager)
         interface.publish(DBUS_BOSS_INSTALLATION_PATH)
 
+    def _setup_kickstart_manager(self):
+        modules = self._module_manager.module_observers
+        self._kickstart_manager.module_observers = modules
+
     def publish(self):
         """Publish the boss."""
         DBus.publish_object(self, DBUS_BOSS_PATH)
         self._setup_install_manager()
+        self._setup_kickstart_manager()
         DBus.register_service(DBUS_BOSS_NAME)
 
     def run(self):
