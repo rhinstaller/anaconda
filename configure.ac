@@ -20,6 +20,15 @@ m4_define(python_required_version, 3.4)
 AC_PREREQ([2.63])
 AC_INIT([anaconda], [28.13], [anaconda-devel-list@redhat.com])
 
+# make it possible to set build info at build time
+# (patch only builds, modular builds, mass-rebuilds, etc.)
+AC_ARG_VAR(ANACONDA_RELEASE, [1])
+
+# default release to 1 if not set by option
+AS_IF([test $ANACONDA_RELEASE],
+      [AC_SUBST(PACKAGE_RELEASE, $ANACONDA_RELEASE)],
+      [AC_SUBST(PACKAGE_RELEASE, 1)])
+
 # Disable building static libraries.
 # This needs to be set before initializing automake
 AC_DISABLE_STATIC
@@ -101,7 +110,6 @@ SHUT_UP_GCC="-Wno-unused-result"
 # Add remaining compiler flags we want to use
 CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC"
 
-AC_SUBST(PACKAGE_RELEASE, [1])
 
 # Perform arch related tests
 AC_CANONICAL_BUILD
