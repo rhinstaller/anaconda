@@ -32,17 +32,18 @@ log = get_module_logger(__name__)
 __all__ = ['KickstartManager', 'SplitKickstartError']
 
 
-@map_error("{}.SplitKickstartError".format(DBUS_BOSS_ANACONDA_NAME))
 class SplitKickstartError(Exception):
-    """Error when parsing kickstart for splitting."""
+    """Error while parsing kickstart for splitting."""
     pass
 
 
-class SplitKickstartUnknownSectionError(SplitKickstartError):
-    """Unknown section was found in kickstart."""
+@map_error("{}.SplitKickstartSectionParsingError".format(DBUS_BOSS_ANACONDA_NAME))
+class SplitKickstartSectionParsingError(SplitKickstartError):
+    """Error while parsing a section in kickstart."""
     pass
 
 
+@map_error("{}.SplitKickstartMissingIncludeError".format(DBUS_BOSS_ANACONDA_NAME))
 class SplitKickstartMissingIncludeError(SplitKickstartError):
     """File included in kickstart was not found."""
     pass
@@ -89,7 +90,7 @@ class KickstartManager(object):
         try:
             result = ksparser.split(path)
         except KickstartParseError as e:
-            raise SplitKickstartUnknownSectionError(e)
+            raise SplitKickstartSectionParsingError(e)
         except KickstartError as e:
             raise SplitKickstartMissingIncludeError(e)
         log.info("split %s: %s", path, result)
