@@ -36,7 +36,7 @@ __all__ = ['Task', 'TaskAlreadyRunningException']
 class Task(ABC):
     """Base class implementing DBus Task interface."""
 
-    def __init__(self, dbus_modul_path):
+    def __init__(self):
         super().__init__()
         self._progress = (0, "")
 

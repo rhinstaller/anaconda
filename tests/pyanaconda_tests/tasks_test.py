@@ -97,8 +97,7 @@ class TaskTestCase(unittest.TestCase):
 class TestTask(Task):
 
     def __init__(self):
-        # it won't be published to DBus we don't need dbus path
-        super().__init__("")
+        super().__init__()
 
         self._run_condition = Event()
 

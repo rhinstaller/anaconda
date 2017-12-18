@@ -25,7 +25,7 @@ from pydbus.error import map_error
 
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.constants import DBUS_TASK_NAME
-from pyanaconda.dbus import DBus
+from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ['TaskInterface', 'TaskAlreadyRunningException', 'TaskNotImplemented']
@@ -44,7 +44,7 @@ class TaskNotImplemented(Exception):
 
 
 @dbus_interface(DBUS_TASK_NAME)
-class TaskInterface(object):
+class TaskInterface(InterfaceTemplate):
     """Base class for implementing Task.
 
     This class has only interface of the Task. Logic will be implemented by each module.
@@ -52,29 +52,26 @@ class TaskInterface(object):
 
     _task_counter = 1
 
-    def __init__(self, task_instance):
+    def __init__(self, implementation):
         """Create Task interface for DBus.
 
-        :param task_instance: Instance of the pyanaconda.task.task.Task class.
+        :param implementation: Instance of the pyanaconda.task.task.Task class.
         """
-        self._task_instance = task_instance
-        self._dbus_path = ""
-
         # this number will be part of the object path on DBus
         self._task_number = TaskInterface._task_counter
         TaskInterface._task_counter += 1
 
-        self.connect_signals()
+        super().__init__(implementation)
 
     def connect_signals(self):
         """Connect signals to the implementation."""
-        self._task_instance.progress_changed_signal.connect(self.ProgressChanged)
-        self._task_instance.error_raised_signal.connect(self.ErrorRaised)
-        self._task_instance.started_signal.connect(self.Started)
-        self._task_instance.stopped_signal.connect(self.Stopped)
+        self.implementation.progress_changed_signal.connect(self.ProgressChanged)
+        self.implementation.error_raised_signal.connect(self.ErrorRaised)
+        self.implementation.started_signal.connect(self.Started)
+        self.implementation.stopped_signal.connect(self.Stopped)
 
-    def publish(self, module_path):
-        """Publish task on DBus.
+    def publish_from_module(self, module_path):
+        """Publish task on DBus using the module path.
 
         Every new created interface instance will get new number used as a last part of the
         DBus object path to avoid conflict.
@@ -82,28 +79,17 @@ class TaskInterface(object):
         :param module_path: DBus object path to the module.
         :type module_path: str
         """
-        self._dbus_path = "{}/Tasks/{}".format(module_path, self._task_number)
-        DBus.publish_object(self, self._dbus_path)
-
-    @property
-    def dbus_path(self):
-        """Get path to this task on the DBus."""
-        return self._dbus_path
-
-    @property
-    def impl_object(self):
-        """Get implementation object used in this interface."""
-        return self._task_instance
+        self.publish("{}/Tasks/{}".format(module_path, self._task_number))
 
     @property
     def Name(self) -> Str:
         """Get name of this task."""
-        return self._task_instance.name
+        return self.implementation.name
 
     @property
     def Description(self) -> Str:
         """Get description of this task."""
-        return self._task_instance.description
+        return self.implementation.description
 
     @property
     def Progress(self) -> Tuple[Int, Str]:
@@ -111,7 +97,7 @@ class TaskInterface(object):
 
         :returns: Tuple with actual step count and description of this step.
         """
-        return self._task_instance.progress
+        return self.implementation.progress
 
     @dbus_signal
     def ErrorRaised(self, error_description: Str):
@@ -131,24 +117,24 @@ class TaskInterface(object):
     @property
     def ProgressStepsCount(self) -> Int:
         """Get number of steps for this task."""
-        return self._task_instance.progress_steps_count
+        return self.implementation.progress_steps_count
 
     @property
     def IsCancelable(self) -> Bool:
         """Could this task be cancelled."""
-        return self._task_instance.is_cancelable
+        return self.implementation.is_cancelable
 
     def Cancel(self):
         """Cancel this task.
 
         This will do something only if the IsCancelable property will return `True`.
         """
-        self._task_instance.cancel()
+        self.implementation.cancel()
 
     @property
     def IsRunning(self) -> Bool:
         """Return True if this Task is running already."""
-        return self._task_instance.is_running
+        return self.implementation.is_running
 
     @dbus_signal
     def Started(self):
@@ -162,4 +148,4 @@ class TaskInterface(object):
 
     def Start(self):
         """Run the task work."""
-        self._task_instance.run()
+        self.implementation.run()

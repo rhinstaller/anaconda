@@ -30,5 +30,5 @@ def publish_task(task_instance: Task, module_dbus_path):
     :type module_dbus_path: str
     """
     interface = TaskInterface(task_instance)
-    interface.publish(module_dbus_path)
+    interface.publish_from_module(module_dbus_path)
     return interface

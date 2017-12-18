@@ -37,7 +37,7 @@ class Bar(BaseModuleInterface):
         self._task_interfaces = []
 
     def _collect_tasks(self):
-        return [BarTask(MODULE_BAR_NAME)]
+        return [BarTask()]
 
     def publish(self):
         """Publish the module."""
@@ -54,7 +54,7 @@ class Bar(BaseModuleInterface):
         ret = []
 
         for task in self._task_interfaces:
-            ret.append((task.impl_object.name, task.dbus_path))
+            ret.append((task.implementation.name, task.object_path))
 
         return ret
 

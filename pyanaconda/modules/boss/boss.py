@@ -27,7 +27,7 @@ from gi.repository import GLib
 
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.modules.base import BaseModule
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_BOSS_INSTALLATION_PATH
 
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager.installation_interface import InstallationInterface
@@ -54,7 +54,7 @@ class Boss(BaseModule):
 
         # start and publish interface
         interface = InstallationInterface(self._install_manager)
-        interface.publish()
+        interface.publish(DBUS_BOSS_INSTALLATION_PATH)
 
     def publish(self):
         """Publish the boss."""

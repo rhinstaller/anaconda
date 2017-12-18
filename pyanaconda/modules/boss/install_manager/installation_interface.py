@@ -24,9 +24,9 @@
 
 from pydbus.error import map_error
 
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import DBUS_BOSS_INSTALLATION_NAME, DBUS_BOSS_INSTALLATION_PATH
+from pyanaconda.dbus.constants import DBUS_BOSS_INSTALLATION_NAME
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
+from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 
@@ -37,34 +37,22 @@ class InstallationNotRunning(Exception):
 
 
 @dbus_interface(DBUS_BOSS_INSTALLATION_NAME)
-class InstallationInterface(object):
+class InstallationInterface(InterfaceTemplate):
     """Interface for Boss to summarize installation from modules for UIs."""
-
-    def __init__(self, installation_instance):
-        """Create installation interface.
-
-        :param installation_instance: Manager for handling the installation process.
-        """
-        self._instance = installation_instance
-        self.connect_signals()
 
     def connect_signals(self):
         """Connect signals of this interface with the implementation."""
-        self._instance.installation_started.connect(self.InstallationStarted)
-        self._instance.installation_stopped.connect(self.InstallationStopped)
-        self._instance.task_changed_signal.connect(self.TaskChanged)
-        self._instance.progress_changed_signal.connect(self.ProgressChanged)
-        self._instance.progress_changed_float_signal.connect(self.ProgressChangedFloat)
-        self._instance.error_raised_signal.connect(self.ErrorRaised)
-
-    def publish(self):
-        """Publish task on DBus."""
-        DBus.publish_object(self, DBUS_BOSS_INSTALLATION_PATH)
+        self.implementation.installation_started.connect(self.InstallationStarted)
+        self.implementation.installation_stopped.connect(self.InstallationStopped)
+        self.implementation.task_changed_signal.connect(self.TaskChanged)
+        self.implementation.progress_changed_signal.connect(self.ProgressChanged)
+        self.implementation.progress_changed_float_signal.connect(self.ProgressChangedFloat)
+        self.implementation.error_raised_signal.connect(self.ErrorRaised)
 
     @property
     def InstallationRunning(self) -> Bool:
         """Installation is running right now."""
-        return self._instance.installation_running
+        return self.implementation.installation_running
 
     @dbus_signal
     def InstallationStarted(self):
@@ -87,12 +75,12 @@ class InstallationInterface(object):
     @property
     def TaskName(self) -> Str:
         """Name of the actual installation task."""
-        return self._instance.task_name
+        return self.implementation.task_name
 
     @property
     def TaskDescription(self) -> Str:
         """Description of the actual installation task."""
-        return self._instance.task_description
+        return self.implementation.task_description
 
     @dbus_signal
     def ErrorRaised(self, error_description: Str):
@@ -102,7 +90,7 @@ class InstallationInterface(object):
     @property
     def ProgressStepsCount(self) -> Int:
         """Sum of all steps in all Tasks in installation."""
-        return self._instance.progress_steps_count
+        return self.implementation.progress_steps_count
 
     @property
     def Progress(self) -> Tuple[Int, Str]:
@@ -112,7 +100,7 @@ class InstallationInterface(object):
                  step - Number of the step in the whole installation process.
                  description - Description of this step.
         """
-        return self._instance.progress
+        return self.implementation.progress
 
     @property
     def ProgressFloat(self) -> Tuple[Double, Str]:
@@ -122,7 +110,7 @@ class InstallationInterface(object):
                  step - Float number of the step.
                  description - Description of this step.
         """
-        return self._instance.progress_float
+        return self.implementation.progress_float
 
     @dbus_signal
     def ProgressChanged(self, step: Int, description: Str):
@@ -144,7 +132,7 @@ class InstallationInterface(object):
 
     def StartInstallation(self):
         """Start the installation process."""
-        self._instance.start_installation()
+        self.implementation.start_installation()
 
     def Cancel(self):
         """Cancel installation process.
@@ -152,4 +140,4 @@ class InstallationInterface(object):
         Installation will be cancelled as soon as possible. The cancelling process could be blocked
         by active task.
         """
-        self._instance.cancel()
+        self.implementation.cancel()
