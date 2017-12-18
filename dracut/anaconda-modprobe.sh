@@ -9,6 +9,10 @@ KERNEL=$(uname -r)
 
 MODULE_LIST="cramfs squashfs iscsi_tcp "
 
+# if no file matches the glob expand it to the empty string
+# we need this when any ko file cannot be found
+shopt -s nullglob
+
 SCSI_MODULES=/lib/modules/$KERNEL/kernel/drivers/scsi/device_handler/
 for m in $SCSI_MODULES/*.ko; do
     # Shell spew to work around not having basename
@@ -16,6 +20,8 @@ for m in $SCSI_MODULES/*.ko; do
     a="${m##*/}"
     MODULE_LIST+=" ${a%.*}"
 done
+
+shopt -u nullglob
 
 if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
     MODULE_LIST+=" floppy edd iscsi_ibft "
