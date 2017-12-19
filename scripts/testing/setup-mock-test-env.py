@@ -21,6 +21,13 @@ class MockException(Exception):
         super().__init__(msg)
 
 
+def _prepare_command(mock_command):
+    cmd = []
+    cmd.extend(mock_command)
+
+    return cmd
+
+
 def _get_script_dir():
     return os.path.dirname(os.path.realpath(__file__))
 
@@ -90,9 +97,8 @@ def install_required_packages(mock_command):
 
 
 def remove_anaconda_in_mock(mock_command):
-    cmd = []
+    cmd = _prepare_command(mock_command)
 
-    cmd.extend(mock_command)
     cmd.append('--chroot')
     cmd.append('--')
     cmd.append('rm -rf /anaconda')
@@ -104,9 +110,8 @@ def copy_anaconda_to_mock(mock_command):
     remove_anaconda_in_mock(mock_command)
 
     anaconda_dir = _resolve_top_dir()
-    cmd = []
+    cmd = _prepare_command(mock_command)
 
-    cmd.extend(mock_command)
     cmd.append('--copyin')
     cmd.append('{}'.format(anaconda_dir))
     cmd.append('/anaconda')
@@ -125,8 +130,7 @@ def create_mock_command(mock_conf, uniqueext):
 
 
 def install_packages_to_mock(mock_command, packages):
-    cmd = []
-    cmd.extend(mock_command)
+    cmd = _prepare_command(mock_command)
 
     cmd.append('--install')
     cmd.extend(packages.split(" "))
@@ -135,8 +139,7 @@ def install_packages_to_mock(mock_command, packages):
 
 
 def run_tests(mock_command):
-    cmd = []
-    cmd.extend(mock_command)
+    cmd = _prepare_command(mock_command)
 
     cmd.append('--chroot')
     cmd.append('--')
@@ -146,8 +149,8 @@ def run_tests(mock_command):
 
 
 def init_mock(mock_command):
-    cmd = []
-    cmd.extend(mock_command)
+    cmd = _prepare_command(mock_command)
+
     cmd.append('--init')
 
     _call_subprocess(cmd, "Can't initialize mock.")
