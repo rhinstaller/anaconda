@@ -85,7 +85,20 @@ def install_required_packages(mock_command):
     install_packages_to_mock(mock_command, packages)
 
 
+def remove_anaconda_in_mock(mock_command):
+    cmd = []
+
+    cmd.extend(mock_command)
+    cmd.append('--chroot')
+    cmd.append('--')
+    cmd.append('rm -rf /anaconda')
+
+    _call_subprocess(cmd, "Can't remove existing anaconda.")
+
+
 def copy_anaconda_to_mock(mock_command):
+    remove_anaconda_in_mock(mock_command)
+
     anaconda_dir = _resolve_top_dir()
     cmd = []
 
