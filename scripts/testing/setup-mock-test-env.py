@@ -61,6 +61,10 @@ def parse_args():
                         set suffix to mock chroot dir; this must be used to 
                         run parallel tasks.
                         """)
+    parser.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
+                        help="""
+                        run anaconda tests in a mock
+                        """)
     parser.add_argument('--copy', '-c', action='store_true', dest='copy',
                         help="""
                         keep existing mock and only replace Anaconda folder in it;
@@ -130,6 +134,17 @@ def install_packages_to_mock(mock_command, packages):
     _call_subprocess(cmd, "Can't install packages to mock.")
 
 
+def run_tests(mock_command):
+    cmd = []
+    cmd.extend(mock_command)
+
+    cmd.append('--chroot')
+    cmd.append('--')
+    cmd.append('cd /anaconda && ./autogen.sh && ./configure && make ci')
+
+    _call_subprocess(cmd, "Can't run tests in a mock.")
+
+
 def init_mock(mock_command):
     cmd = []
     cmd.extend(mock_command)
@@ -151,6 +166,8 @@ if __name__ == "__main__":
 
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)
+    elif ns.run_tests:
+        run_tests(mock_cmd)
     else:
         setup_mock(mock_cmd)
         if ns.install:
@@ -162,6 +179,8 @@ if __name__ == "__main__":
     print("connect to mock by calling:")
     print("{} --shell".format(cmd_msg))
     print("")
-    print("or start ci by calling:")
+    print("start ci by calling:")
+    print("setup-mock-test-env.py --run-tests {}".format(ns.mock_config))
+    print("or manually:")
     print("{} --chroot -- \"cd /anaconda && ./autogen.sh && ./configure && make ci\"".
           format(cmd_msg))
