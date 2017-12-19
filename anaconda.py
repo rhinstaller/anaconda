@@ -483,7 +483,7 @@ if __name__ == "__main__":
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.
-    ksdata = startup_utils.parse_kickstart(opts, addon_paths)
+    ksdata = startup_utils.parse_kickstart(opts, addon_paths, pass_to_boss=flags.run_boss)
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.

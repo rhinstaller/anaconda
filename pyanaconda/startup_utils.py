@@ -436,7 +436,7 @@ def distribute_kickstart_with_boss(kickstart_path):
     log.info("Boss.DistributeKickstart() unprocessed part:\n%s", unprocessed_kickstart)
     return True
 
-def parse_kickstart(options, addon_paths):
+def parse_kickstart(options, addon_paths, pass_to_boss=False):
     """Parse the input kickstart.
 
     If we were given a kickstart file, parse (but do not execute) that now.
@@ -476,7 +476,7 @@ def parse_kickstart(options, addon_paths):
         log.info("Parsing kickstart: " + ks)
         ksdata = kickstart.parseKickstart(ks, options.ksstrict)
 
-        if "run_boss" in flags.cmdline:
+        if pass_to_boss:
             distribute_kickstart_with_boss(ks)
         # Only load the first defaults file we find.
         break
