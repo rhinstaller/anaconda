@@ -35,6 +35,9 @@ DBUS_BOSS_PATH = auto_object_path(DBUS_BOSS_NAME)
 DBUS_BOSS_INSTALLATION_NAME = "{}.Installation".format(DBUS_BOSS_NAME)
 DBUS_BOSS_INSTALLATION_PATH = auto_object_path(DBUS_BOSS_INSTALLATION_NAME)
 
+# Temporary interface for anaconda
+DBUS_BOSS_ANACONDA_NAME = "{}.Anaconda".format(DBUS_BOSS_NAME)
+
 # Anaconda DBUS modules
 MODULE_FOO_NAME = "{}.Foo".format(DBUS_MODULE_NAMESPACE)
 MODULE_FOO_PATH = auto_object_path(MODULE_FOO_NAME)

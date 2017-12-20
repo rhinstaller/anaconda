@@ -342,6 +342,23 @@ echo POST1
                                           ["echo POST1\n"],
                                           12, filename)
 
+        self._expected_element_refs = [
+            (0, ""),
+            (1, filename),
+            (1, filename),
+            (1, filename),
+            (4, filename),
+            (5, filename),
+            (6, filename),
+            (6, filename),
+            (8, filename),
+            (9, filename),
+            (9, filename),
+            (9, filename),
+            (12, filename),
+            (12, filename),
+            (12, filename),
+        ]
 
     def tracked_kickstart_elements_filter_test(self):
         """Test filtering of elements."""
@@ -374,7 +391,6 @@ echo POST1
         self.assertEqual(mixed_elements,
                          [self._element1, self._element2, self._element3, self._element4,
                           self._element7])
-
 
         # nothing required - nothing got
         self.assertEqual(elements.get_elements(), [])
@@ -420,6 +436,19 @@ echo POST1
 
         dumped_ks = elements.get_kickstart_from_elements(elements.all_elements)
         self.assertEqual(dumped_ks, self._expected_ks_content)
+
+    def tracked_kickstart_elements_get_refs_kickstart_test(self):
+        """Test getting of element references."""
+
+        appended_elements = [self._element1, self._element2, self._element3,
+                             self._element4, self._element5, self._element6,
+                             self._element7]
+        elements = TrackedKickstartElements()
+        for element in appended_elements:
+            elements.append(element)
+
+        element_refs = elements.get_references_from_elements(elements.all_elements)
+        self.assertEqual(element_refs, self._expected_element_refs)
 
 
 class SplitKickstartParserTest(unittest.TestCase):

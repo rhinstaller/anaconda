@@ -79,6 +79,7 @@ class Flags(object):
         self.singlelang = False
         # enable SE/HMC
         self.hmc = False
+        self.run_boss = False
         # current runtime environments
         self.environs = [ANACONDA_ENVIRON]
         # parse the boot commandline
@@ -90,7 +91,7 @@ class Flags(object):
 
     def read_cmdline(self):
         for f in ("selinux", "debug", "leavebootorder", "testing", "extlinux",
-                  "nombr", "gpt", "noefi"):
+                  "nombr", "gpt", "noefi", "run_boss"):
             self.set_cmdline_bool(f)
 
         if not selinux.is_selinux_enabled():

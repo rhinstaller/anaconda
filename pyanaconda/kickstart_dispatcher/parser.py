@@ -16,12 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-__all__ = ["SplitKickstartParser"]
+__all__ = ["SplitKickstartParser", "VALID_SECTIONS_ANACONDA"]
 
 from pykickstart.parser import KickstartParser
 from pykickstart.sections import Section
 from pyanaconda.kickstart_dispatcher.element import TrackedKickstartElements, KickstartElement
 
+VALID_SECTIONS_ANACONDA = ["%pre", "%pre-install", "%post", "%onerror", "%traceback",
+                           "%packages", "%addon", "%anaconda"]
 
 class StoreSection(Section):
     """Section for storing section content and header line references.

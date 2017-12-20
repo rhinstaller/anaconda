@@ -35,6 +35,7 @@ class Foo(BaseModuleInterface):
     def __init__(self):
         super().__init__()
         self._task_interfaces = []
+        self._kickstart_commands = ["timezone"]
 
     def _collect_tasks(self):
         return [FooTask()]

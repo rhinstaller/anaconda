@@ -46,10 +46,25 @@ class BaseModule(ABC):
 
     def __init__(self):
         self._loop = GLib.MainLoop()
+        self._kickstart_commands = []
+        self._kickstart_sections = []
+        self._kickstart_addons = []
 
     @property
     def loop(self):
         return self._loop
+
+    @property
+    def kickstart_commands(self):
+        return self._kickstart_commands
+
+    @property
+    def kickstart_sections(self):
+        return self._kickstart_sections
+
+    @property
+    def kickstart_addons(self):
+        return self._kickstart_addons
 
     def run(self):
         """Run the module's loop."""
@@ -77,6 +92,21 @@ class BaseModule(ABC):
         self.unpublish()
         GLib.timeout_add_seconds(1, self.loop.quit)
 
+    def configure_with_kickstart(self, kickstart):
+        """Mock parsing for now.
+
+        Returns parse error if PARSE_ERROR string is found in kickstart.
+        """
+        log.debug("configure_with_kickstart:\n%s", kickstart)
+        lineno, msg = (0, "")
+        for lnum, line in enumerate(kickstart.splitlines(), 1):
+            if "PARSE_ERROR" in line:
+                lineno, msg = (lnum, "Mocked parse error: \"PARSE_ERROR\" found")
+                break
+
+        if lineno:
+            log.info("configure_with_kickstart: error %s on line %d", msg, lineno)
+        return (lineno, msg)
 
 @dbus_interface(DBUS_MODULE_NAMESPACE)
 class BaseModuleInterface(BaseModule, ABC):
@@ -93,6 +123,35 @@ class BaseModuleInterface(BaseModule, ABC):
                   See pyanaconda.task.Task for Task API.
         """
         return []
+
+    def KickstartCommands(self) -> List[Str]:
+        """Return names of kickstart commands handled by module.
+
+        :returns: List of names of kickstart commands handled by module.
+        """
+        return self.kickstart_commands
+
+    def KickstartSections(self) -> List[Str]:
+        """Return names of kickstart sections handled by module.
+
+        :returns: List of names of kickstart sections handled by module.
+        """
+        return self.kickstart_sections
+
+    def KickstartAddons(self) -> List[Str]:
+        """Return names of kickstart addons handled by module.
+
+        :returns: List of names of kickstart addons handled by module.
+        """
+        return self.kickstart_addons
+
+    def ConfigureWithKickstart(self, kickstart: Str) -> Tuple[Int, Str]:
+        """Configure module with kickstart.
+
+        :returns: Tuple (Error line number, Error message) in case of parsing
+                  error or (0, "") in case of success.
+        """
+        return self.configure_with_kickstart(kickstart)
 
     def Quit(self):
         """Shut the module down."""

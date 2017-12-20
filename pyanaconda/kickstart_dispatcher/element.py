@@ -78,6 +78,11 @@ class KickstartElement(object):
         """Kickstart file name."""
         return self._filename
 
+    @property
+    def number_of_lines(self):
+        """Returns number of kickstart lines of the element."""
+        return self.content.count('\n')
+
     def is_command(self):
         """The element is a command."""
         return self._type == self.KickstartElementType.COMMAND
@@ -203,6 +208,23 @@ class KickstartElements(object):
 
     def __str__(self):
         return str(self._elements)
+
+    @staticmethod
+    def get_references_from_elements(elements=None):
+        """Returns elements' references to kickstart file.
+
+        :param elements: list of kickstart elements to get references from
+        :type elements: list(KickstartElement)
+
+        :return: list of (lineno, file name) element references indexed by
+                 line in kickstart given by the elements
+        :rtype: list((int, str))
+        """
+        refs = [(0, "")]
+        for element in elements:
+            element_refs = element.number_of_lines * [(element.lineno, element.filename)]
+            refs.extend(element_refs)
+        return refs
 
 
 class TrackedKickstartElements(KickstartElements):

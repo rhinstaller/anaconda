@@ -41,6 +41,10 @@ from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
 
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
+from pyanaconda.modules.boss.kickstart_manager import SplitKickstartError
+
 import blivet
 
 def module_exists(module_path):
@@ -407,7 +411,32 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
     else:
         log.error("Unknown method: %s", anaconda.methodstr)
 
-def parse_kickstart(options, addon_paths):
+def distribute_kickstart_with_boss(kickstart_path):
+    boss = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+    try:
+        boss_kickstart = boss.SplitKickstart(kickstart_path)
+    except SplitKickstartError as e:
+        log.error("Boss.SplitKickstart(%s) exception: %s", kickstart_path, e)
+        return False
+    log.info("Boss.SplitKickstart(%s):\n%s", kickstart_path, boss_kickstart)
+
+    timeout = 10
+    while not boss.AllModulesAvailable() and timeout > 0:
+        log.info("Waiting %d sec for modules to be started", timeout)
+        time.sleep(1)
+        timeout = timeout - 1
+    if not timeout:
+        log.warning("Waiting for modules to be started timed out")
+        return False
+
+    errors = boss.DistributeKickstart()
+    if errors:
+        log.error("Boss.DistributeKickstart() errors: %s", errors)
+    unprocessed_kickstart = boss.UnprocessedKickstart()
+    log.info("Boss.DistributeKickstart() unprocessed part:\n%s", unprocessed_kickstart)
+    return True
+
+def parse_kickstart(options, addon_paths, pass_to_boss=False):
     """Parse the input kickstart.
 
     If we were given a kickstart file, parse (but do not execute) that now.
@@ -447,6 +476,8 @@ def parse_kickstart(options, addon_paths):
         log.info("Parsing kickstart: " + ks)
         ksdata = kickstart.parseKickstart(ks, options.ksstrict)
 
+        if pass_to_boss:
+            distribute_kickstart_with_boss(ks)
         # Only load the first defaults file we find.
         break
 
