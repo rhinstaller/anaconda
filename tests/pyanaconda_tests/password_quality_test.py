@@ -36,7 +36,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 1)  # empty password is fine with emptyok policy
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.EMPTY.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
         # empty password should override password-too-short messages
@@ -47,7 +47,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.EMPTY.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
@@ -60,7 +60,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.EMPTY.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
         # empty_ok with password length
@@ -72,7 +72,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.EMPTY.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
         # non-empty passwords that are too short should still get a score of 0 & the "too short" message
@@ -84,7 +84,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 0)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
         # also check a long-enough password, just in case
@@ -96,7 +96,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.WEAK.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.WEAK.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
@@ -110,7 +110,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 0)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
 
         # weak but long enough
         request = input_checking.PasswordCheckRequest()
@@ -119,7 +119,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 1)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.WEAK.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.WEAK.value))
 
         # check if setting password length works correctly
         request = input_checking.PasswordCheckRequest()
@@ -129,7 +129,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 0)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         request = input_checking.PasswordCheckRequest()
         request.policy = get_policy()
         request.policy.minlen = 10
@@ -137,7 +137,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertGreater(check.result.password_score, 0)
-        self.assertNotEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
 
     def password_quality_test(self):
         """Check if libpwquality gives reasonable numbers & score is assigned correctly."""
@@ -148,7 +148,7 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertEqual(check.result.password_score, 0)
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
@@ -159,8 +159,8 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertGreater(check.result.password_score, 0)
-        self.assertNotEqual(check.result.status_text, _(constants.PasswordStatus.EMPTY.value))
-        self.assertNotEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
+        self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
@@ -171,8 +171,8 @@ class PasswordQuality(unittest.TestCase):
         check = input_checking.PasswordValidityCheck()
         check.run(request)
         self.assertGreater(check.result.password_score, 0)
-        self.assertNotEqual(check.result.status_text, _(constants.PasswordStatus.EMPTY.value))
-        self.assertNotEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.EMPTY.value))
+        self.assertNotEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         self.assertEqual(check.result.password_quality, 0)
         self.assertIsNotNone(check.result.error_message)
 
@@ -209,7 +209,7 @@ class PasswordQuality(unittest.TestCase):
 
         # this should (hopefully) give quality 100 everywhere
         self.assertEqual(check.result.password_score, 4)  # quality > 90
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.STRONG.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.STRONG.value))
         self.assertEqual(check.result.password_quality, 100)
         self.assertIs(check.result.error_message, "")
 
@@ -222,7 +222,7 @@ class PasswordQuality(unittest.TestCase):
         check.run(request)
         # this should (hopefully) give quality 100 everywhere
         self.assertEqual(check.result.password_score, 4)  # quality > 90
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.STRONG.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.STRONG.value))
         self.assertEqual(check.result.password_quality, 100)
         self.assertIs(check.result.error_message, "")
 
@@ -235,6 +235,6 @@ class PasswordQuality(unittest.TestCase):
         check.run(request)
         # this should (hopefully) give quality 100 everywhere
         self.assertEqual(check.result.password_score, 0)  # too short
-        self.assertEqual(check.result.status_text, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         self.assertEqual(check.result.password_quality, 0)  # dependent on password length
-        self.assertIs(check.result.error_message, _(constants.PasswordStatus.TOO_SHORT.value))
+        self.assertIs(check.result.error_message, _(constants.SECRET_TOO_SHORT[constants.SecretType.PASSWORD]))
