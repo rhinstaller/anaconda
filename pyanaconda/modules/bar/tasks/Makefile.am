@@ -1,4 +1,4 @@
-# modules/bar/Makefile.am for anaconda
+# modules/bar/tasks/Makefile.am for anaconda
 #
 # Copyright (C) 2017  Red Hat, Inc.
 #
@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-tasksdir = $(pkgpyexecdir)/bar
+tasksdir = $(pkgpyexecdir)/modules/bar/tasks
 tasks_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

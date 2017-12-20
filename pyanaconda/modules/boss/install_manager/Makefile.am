@@ -1,4 +1,4 @@
-# modules/boss/Makefile.am for anaconda
+# modules/boss/install_manager/Makefile.am for anaconda
 #
 # Copyright (C) 2017  Red Hat, Inc.
 #
@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-install_managerdir = $(pkgpyexecdir)/boss
+install_managerdir = $(pkgpyexecdir)/modules/boss/install_manager
 install_manager_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
