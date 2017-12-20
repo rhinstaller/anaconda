@@ -335,6 +335,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 20 2017 Martin Kolman <mkolman@redhat.com> - 28.15-1
+- Remove spurious echo call from tmux service file (#1526861) (mkolman)
+- Restore fix for RHBZ #1323012 (`set_name` not `setName`) (awilliam)
+- Fix Makefile for modules/[foo,bar]/tasks and for install_manager (rvykydal)
+- Make passing kickstart to boss more visible. (rvykydal)
+- Add tests for KickstartManager. (rvykydal)
+- Add kickstart dispatching to anaconda. (rvykydal)
+- Add kickstart dispatching to local boss run script (rvykydal)
+- Add KickstartManager for Boss. (rvykydal)
+- Add method for getting line mapping from kickstart elements to kickstart
+  (rvykydal)
+- Add info about handled kickstart commands to modules (rvykydal)
+- Add missing Makefile for kickstart_dispatcher (rvykydal)
+
 * Mon Dec 18 2017 Martin Kolman <mkolman@redhat.com> - 28.14-1
 - Use observers in the install manager (vponcova)
 - Modify readme file for tests (jkonecny)
