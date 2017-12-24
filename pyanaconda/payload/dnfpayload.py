@@ -450,7 +450,11 @@ class DNFPayload(payload.PackagePayload):
             except payload.NoSuchGroup as e:
                 self._miss(e)
 
-        for pkg_name in set(self.data.packages.packageList) - set(self.data.packages.excludedList):
+        for pkg_name in self.data.packages.excludedList:
+            self._exclude_package(pkg_name)
+            log.info("excluded package: '%s'", pkg_name)
+
+        for pkg_name in self.data.packages.packageList:
             try:
                 self._install_package(pkg_name)
                 log.info("selected package: '%s'", pkg_name)
@@ -575,6 +579,13 @@ class DNFPayload(payload.PackagePayload):
         # reserve extra
         return Size(size) + Size("150 MB")
 
+    def _exclude_package(self, pkg_name):
+        subj = dnf.subject.Subject(pkg_name)
+        pkgs = subj.get_best_query(self._base.sack)
+        # The only way to get expected behavior is to declare it
+        # as excluded from the installable set
+        return self._base.sack.add_excludes(pkgs)
+
     def _install_package(self, pkg_name, required=False):
         try:
             return self._base.install(pkg_name)
@@ -621,9 +632,8 @@ class DNFPayload(payload.PackagePayload):
             types.add('default')
         if optional:
             types.add('optional')
-        exclude = self.data.packages.excludedList
         try:
-            self._base.group_install(grp.id, types, exclude=exclude)
+            self._base.group_install(grp.id, types)
         except dnf.exceptions.MarkingError as e:
             # dnf-1.1.9 raises this error when a package is missing from a group
             raise payload.NoSuchPackage(str(e), required=True)
