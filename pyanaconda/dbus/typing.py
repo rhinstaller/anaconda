@@ -23,11 +23,12 @@
 # https://dbus.freedesktop.org/doc/dbus-specification.html#type-system.
 #
 
-from typing import Tuple, Dict, List, NewType, Any, Union, IO
+from typing import Tuple, Dict, List, NewType, IO
+from pydbus import Variant
 
 __all__ = ["Bool", "Double", "Str", "Int", "Byte", "Int16", "UInt16",
            "Int32", "UInt32", "Int64", "UInt64", "File", "ObjPath",
-           "Tuple", "List", "Dict", "Variant"]
+           "Tuple", "List", "Dict", "Variant", "get_variant"]
 
 # Basic types.
 Bool = bool
@@ -54,26 +55,7 @@ ObjPath = NewType('ObjPath', str)
 
 # Container types.
 # Use Tuple, Dict and List from typing.
-
-# Variant type.
-Variant = Union[
-    Bool,
-    Double,
-    Str,
-    Int,
-    Byte,
-    Int16,
-    UInt16,
-    Int32,
-    UInt32,
-    Int64,
-    UInt64,
-    File,
-    ObjPath,
-    List[Any],
-    Dict[Any, Any],
-    Tuple[Any, ...]
-]
+# Use Variant from pydbus and get_variant.
 
 
 def get_dbus_type(type_hint):
@@ -83,6 +65,23 @@ def get_dbus_type(type_hint):
     :return: a string with DBus representation
     """
     return DBusType.get_dbus_representation(type_hint)
+
+
+def get_variant(type_hint, value):
+    """Return a variant data type.
+
+    The type of a variant is specified with
+    a type hint.
+
+    Example:
+         v1 = get_variant(Bool, True)
+         v2 = get_variant(List[Int], [1,2,3])
+
+    :param type_hint: a type hint
+    :param value: a value of the variant
+    :return: an instance of Variant
+    """
+    return Variant(get_dbus_type(type_hint), value)
 
 
 class DBusType(object):
@@ -135,7 +134,7 @@ class DBusType(object):
             return DBusType._get_container_type(type_hint)
 
         # Or raise an error.
-        raise ValueError("Unknown type: %s" % type_hint)
+        raise TypeError("Unknown type: %s" % type_hint)
 
     @staticmethod
     def _is_basic_type(type_hint):
@@ -180,4 +179,4 @@ class DBusType(object):
         key, _ = type_hint.__args__
 
         if DBusType._is_container_type(key) or key == Variant:
-            raise ValueError("Dictionary key cannot be of type %s." % key)
+            raise TypeError("Dictionary key cannot be of type %s." % key)
