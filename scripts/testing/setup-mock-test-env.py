@@ -191,15 +191,7 @@ if __name__ == "__main__":
     ns = parse_args()
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
-
-    if ns.copy:
-        copy_anaconda_to_mock(mock_cmd)
-
-    if ns.run_tests:
-        run_tests(mock_cmd)
-
-    if ns.result_folder:
-        copy_result(mock_cmd, ns.result_folder)
+    mock_init_run = False
 
     # quit immediately if the result dir exists
     if ns.result_folder:
@@ -207,6 +199,7 @@ if __name__ == "__main__":
 
     if not any([ns.copy, ns.run_tests, ns.result_folder]):
         setup_mock(mock_cmd)
+        mock_init_run = True
         if ns.install:
             install_packages_to_mock(mock_cmd, ns.install)
 
@@ -217,7 +210,19 @@ if __name__ == "__main__":
         print("{} --shell".format(cmd_msg))
         print("")
         print("start ci by calling:")
-        print("setup-mock-test-env.py --run-tests {}".format(ns.mock_config))
+        print("setup-mock-test-env.py --copy --run-tests --result /tmp/result {}".format(ns.mock_config))
         print("or manually:")
         print("{} --chroot -- \"cd {} && ./autogen.sh && ./configure && make ci\"".
               format(cmd_msg, ANACONDA_MOCK_PATH))
+
+    if ns.install and not mock_init_run:
+        install_packages_to_mock(mock_cmd, ns.install)
+
+    if ns.copy:
+        copy_anaconda_to_mock(mock_cmd)
+
+    if ns.run_tests:
+        run_tests(mock_cmd)
+
+    if ns.result_folder:
+        copy_result(mock_cmd, ns.result_folder)
