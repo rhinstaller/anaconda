@@ -157,34 +157,6 @@ bumpver: po-pull
 	rm $(srcdir)/po/{main,extra}.pot
 	zanata push $(ZANATA_PUSH_ARGS)
 
-# Install all packages specified as BuildRequires in the Anaconda specfile
-# -> installs packages needed to build Anaconda
-# don't try to install s390utils-devel on non-s390 arches
-install-buildrequires:
-	srcdir="$(srcdir)" && \
-	: $${srcdir:=.} && \
-	pkglist="$$(grep ^BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)" && \
-	if ! [[ $$(uname -m) =~ s390x? ]]; then \
-		pkglist=$$(echo "$$pkglist" | grep -v s390utils) ; \
-	fi ; \
-	extra_pkgs="gettext-devel libtool glibc-langpack-en python3-pocketlint" ; \
-	dnf install $$pkglist $$extra_pkgs
-
-# Install all packages specified as Requires in the Anaconda specfile
-# -> installs packages needed to run Anaconda and the Anaconda unit tests
-# Filter out the %{name} entries required by -devel
-install-requires:
-	srcdir="$(srcdir)" && \
-	: $${srcdir:=.} && \
-	dnf install $$(grep ^Requires: $${srcdir}/anaconda.spec.in | grep -v %{name} | cut -d ' ' -f 2 | grep -v ^anaconda)
-
-# Install all packages required for running the tests
-install-test-requires: install-buildrequires install-requires
-		dnf install \
-			xfsprogs git bzip2 cppcheck rpm-ostree pykickstart spin-kickstarts  \
-		    python3-rpmfluff python3-mock python3-pocketlint python3-nose-testconfig \
-		    python3-sphinx_rtd_theme python3-lxml python3-dogtail sudo
-
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
 # created.  By default, the updates subdirectory is removed after the
