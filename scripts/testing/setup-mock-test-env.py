@@ -11,6 +11,8 @@ from argparse import ArgumentParser
 
 DEPENDENCY_SOLVER = "dependency_solver.py"
 
+ANACONDA_MOCK_PATH = "/anaconda"
+
 
 class MockException(Exception):
 
@@ -101,7 +103,7 @@ def remove_anaconda_in_mock(mock_command):
 
     cmd.append('--chroot')
     cmd.append('--')
-    cmd.append('rm -rf /anaconda')
+    cmd.append('rm -rf ' + ANACONDA_MOCK_PATH)
 
     _call_subprocess(cmd, "Can't remove existing anaconda.")
 
@@ -114,7 +116,7 @@ def copy_anaconda_to_mock(mock_command):
 
     cmd.append('--copyin')
     cmd.append('{}'.format(anaconda_dir))
-    cmd.append('/anaconda')
+    cmd.append(ANACONDA_MOCK_PATH)
 
     _call_subprocess(cmd, "Can't copy Anaconda to mock.")
 
@@ -143,7 +145,7 @@ def run_tests(mock_command):
 
     cmd.append('--chroot')
     cmd.append('--')
-    cmd.append('cd /anaconda && ./autogen.sh && ./configure && make ci')
+    cmd.append('cd {} && ./autogen.sh && ./configure && make ci'.format(ANACONDA_MOCK_PATH))
 
     _call_subprocess(cmd, "Can't run tests in a mock.")
 
@@ -185,5 +187,5 @@ if __name__ == "__main__":
     print("start ci by calling:")
     print("setup-mock-test-env.py --run-tests {}".format(ns.mock_config))
     print("or manually:")
-    print("{} --chroot -- \"cd /anaconda && ./autogen.sh && ./configure && make ci\"".
-          format(cmd_msg))
+    print("{} --chroot -- \"cd {} && ./autogen.sh && ./configure && make ci\"".
+          format(cmd_msg, ANACONDA_MOCK_PATH))
