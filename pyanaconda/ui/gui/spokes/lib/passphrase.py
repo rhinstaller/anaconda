@@ -23,7 +23,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import N_
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
 from pyanaconda import constants
@@ -65,8 +65,7 @@ class PassphraseDialog(GUIObject):
                                                        initial_password_confirmation_content = self._confirm_entry.get_text(),
                                                        policy = input_checking.get_policy(self.data, "luks"))
         # configure the checker for passphrase checking
-        self._checker.name_of_password = _(constants.NAME_OF_PASSPHRASE)
-        self._checker.name_of_password_plural = _(constants.NAME_OF_PASSPHRASE_PLURAL)
+        self._checker.secret_type = constants.SecretType.PASSPHRASE
         # connect UI updates to check results
         self._checker.checks_done.connect(self._set_status)
 

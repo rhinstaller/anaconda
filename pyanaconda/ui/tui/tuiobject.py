@@ -232,9 +232,7 @@ class PasswordDialog(Dialog):
                            " it a second time to continue."))
             return None
         if password != confirm:
-            self._report(_(constants.PASSWORD_CONFIRM_ERROR_TUI) % {
-                "password_name_plural" : _(constants.NAME_OF_PASSWORD_PLURAL)
-            })
+            self._report(_(constants.SECRET_CONFIRM_ERROR_TUI[constants.SecretType.PASSWORD]))
             return None
 
         # If an empty password was provided, unset the value
@@ -263,13 +261,10 @@ class PasswordDialog(Dialog):
                 done_msg = _("\nWould you like to use it anyway?")
 
             if password_check.result.error_message:
-                error_prefix = _(constants.PASSWORD_WEAK_WITH_ERROR) % {
-                    "password_name" : _(constants.NAME_OF_PASSWORD),
-                    "error_message" : password_check.result.error_message
-                }
-                error = "{} {}".format(error_prefix, done_msg)
+                weak_prefix = _(constants.SECRET_WEAK_WITH_ERROR[constants.SecretType.PASSWORD])
+                error = "{} {} {}".format(weak_prefix, password_check.result.error_message, done_msg)
             else:
-                weak_prefix = _(constants.PASSWORD_WEAK) % {"password_name" : _(constants.NAME_OF_PASSWORD)}
+                weak_prefix = _(constants.SECRET_WEAK[constants.SecretType.PASSWORD])
                 error = "{} {}".format(weak_prefix, done_msg)
 
             if not self._policy.strict:

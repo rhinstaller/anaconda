@@ -137,39 +137,57 @@ FIRSTBOOT_ENVIRON = "firstboot"
 # Tainted hardware
 UNSUPPORTED_HW = 1 << 28
 
+# Password type
+class SecretType(Enum):
+    PASSWORD = "password"
+    PASSPHRASE = "passphrase"
+
 # Password validation
-PASSWORD_MIN_LEN = 6
-PASSWORD_EMPTY_ERROR = N_("The %(password_name)s is empty.")  # singular
-PASSWORD_CONFIRM_ERROR_GUI = N_("The %(password_name_plural)s do not match.")  # plural
-PASSWORD_CONFIRM_ERROR_TUI = N_("The %(password_name_plural)s you entered were different. Please try again.")  # plural
-# The password-too-short constant is used to replace a libpwquality error message,
+SECRET_MIN_LEN = 6
+SECRET_EMPTY_ERROR = {
+    SecretType.PASSWORD : N_("The password is empty."),
+    SecretType.PASSPHRASE : N_("The passphrase is empty.")
+}
+SECRET_CONFIRM_ERROR_GUI = {
+    SecretType.PASSWORD : N_("The passwords do not match."),
+    SecretType.PASSPHRASE : N_("The passphrases do not match.")
+}
+SECRET_CONFIRM_ERROR_TUI = {
+    SecretType.PASSWORD : N_("The passwords you entered were different. Please try again."),
+    SecretType.PASSPHRASE : N_("The passphrases you entered were different. Please try again.")
+}
+
+# The secret-too-short constants is used to replace a libpwquality error message,
 # which is why it does not end with a ".", like all the other do.
-PASSWORD_TOO_SHORT = N_("The %(password_name)s is too short")  # singular
-PASSWORD_WEAK = N_("The %(password_name)s you have provided is weak.")  # singular
-PASSWORD_WEAK_WITH_ERROR = N_("The %(password_name)s you have provided is weak: %(error_message)s.")  # singular
-PASSWORD_FINAL_CONFIRM = N_("Press Done again to use anyway.")
-PASSWORD_ASCII = N_("The %(password_name)s you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")
-# ^ singular
-PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
-PASSWORD_DONE_TO_CONTINUE = N_("Press Done to continue.")
+SECRET_TOO_SHORT = {
+    SecretType.PASSWORD : N_("The password is too short"),
+    SecretType.PASSPHRASE : N_("The passphrase is too short")
+}
+SECRET_WEAK = {
+    SecretType.PASSWORD : N_("The password you have provided is weak."),
+    SecretType.PASSPHRASE : N_("The passphrase you have provided is weak.")
+}
+SECRET_WEAK_WITH_ERROR = {
+    SecretType.PASSWORD : N_("The password you have provided is weak:"),
+    SecretType.PASSPHRASE : N_("The passphrase you have provided is weak:")
+}
+PASSWORD_FINAL_CONFIRM = N_("Press <b>Done</b> again to use the password anyway.")
+SECRET_ASCII = {
+    SecretType.PASSWORD : N_("The password you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it."),
+    SecretType.PASSPHRASE : N_("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")
+}
+PASSWORD_DONE_TWICE = N_("You will have to press <b>Done</b> twice to confirm it.")
+PASSWORD_DONE_TO_CONTINUE = N_("Press <b>Done</b> to continue.")
 
 PASSWORD_SET = N_("Password set.")
 
-class PasswordStatus(Enum):
+class SecretStatus(Enum):
     EMPTY = N_("Empty")
     TOO_SHORT = N_("Too short")
     WEAK = N_("Weak")
     FAIR = N_("Fair")
     GOOD = N_("Good")
     STRONG = N_("Strong")
-
-# how should passwords be called in combined strings
-NAME_OF_PASSWORD = N_("password")
-NAME_OF_PASSWORD_PLURAL = N_("passwords")
-
-# how should passphrases be called in combined strings
-NAME_OF_PASSPHRASE = N_("passphrase")
-NAME_OF_PASSPHRASE_PLURAL = N_("passphrases")
 
 PASSWORD_HIDE = N_("Hide password.")
 PASSWORD_SHOW = N_("Show password.")

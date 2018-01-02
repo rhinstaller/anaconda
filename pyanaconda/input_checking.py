@@ -80,8 +80,7 @@ class PasswordCheckRequest(object):
         self._pwquality_settings = None
         self._username = "root"
         self._fullname = ""
-        self._name_of_password = _(constants.NAME_OF_PASSWORD)
-        self._name_of_password_plural = _(constants.NAME_OF_PASSWORD_PLURAL)
+        self._secret_type = constants.SecretType.PASSWORD
 
     @property
     def password(self):
@@ -164,36 +163,29 @@ class PasswordCheckRequest(object):
         self._fullname = new_fullname
 
     @property
-    def name_of_password(self):
-        """Specifies how should the password be called in error messages.
+    def secret_type(self):
+        """Type of secret that is being checked.
 
-        In some cases we are checking a "password", but at other times it
-        might be a "passphrase", etc.
+        At the moment is either a password or a passphrase and this property decides how it will be
+        called in error and status messages.
 
-        :returns: name of the password
-        :rtype: str or None
+        :returns: secret type
+        :rtype: Enum
         """
-        return self._name_of_password
+        return self._secret_type
 
-    @name_of_password.setter
-    def name_of_password(self, new_name_of_password):
-        self._name_of_password = new_name_of_password
+    @secret_type.setter
+    def secret_type(self, new_type):
+        """Set type of secret being checked.
 
-    @property
-    def name_of_password_plural(self):
-        """Specifies how should the password be called in error messages (plural form).
-
-        In some cases we are checking a "password", but at other times it
-        might be a "passphrase", etc.
-
-        :returns: name of the password
-        :rtype: str or None
+        :param Enum new_type: new secret type
         """
-        return self._name_of_password_plural
-
-    @name_of_password_plural.setter
-    def name_of_password_plural(self, new_name_of_password_plural):
-        self._name_of_password_plural = new_name_of_password_plural
+        # Prevent uknown/unsuported secret type from being set, so that
+        # this does no blow up later on once we try to access the status/error message
+        # corresponding to the secret type.
+        if new_type not in constants.SecretType:
+            raise RuntimeError("Unknown secret type: {}".format(new_type))
+        self._secret_type = new_type
 
 
 class CheckResult(object):
@@ -460,27 +452,27 @@ class PasswordValidityCheck(InputCheck):
                 pw_score = 1
             else:
                 pw_score = 0
-            status_text = _(constants.PasswordStatus.EMPTY.value)
+            status_text = _(constants.SecretStatus.EMPTY.value)
         elif not length_ok:
             pw_score = 0
-            status_text = _(constants.PasswordStatus.TOO_SHORT.value)
+            status_text = _(constants.SecretStatus.TOO_SHORT.value)
             # If the password is too short replace the libpwquality error
             # message with a generic "password is too short" message.
             # This is because the error messages returned by libpwquality
             # for short passwords don't make much sense.
-            error_message = _(constants.PasswordStatus.TOO_SHORT.value) % {"password_name": check_request.name_of_password}
+            error_message = _(constants.SECRET_TOO_SHORT[check_request.secret_type])
         elif error_message:
             pw_score = 1
-            status_text = _(constants.PasswordStatus.WEAK.value)
+            status_text = _(constants.SecretStatus.WEAK.value)
         elif pw_quality < 30:
             pw_score = 2
-            status_text = _(constants.PasswordStatus.FAIR.value)
+            status_text = _(constants.SecretStatus.FAIR.value)
         elif pw_quality < 70:
             pw_score = 3
-            status_text = _(constants.PasswordStatus.GOOD.value)
+            status_text = _(constants.SecretStatus.GOOD.value)
         else:
             pw_score = 4
-            status_text = _(constants.PasswordStatus.STRONG.value)
+            status_text = _(constants.SecretStatus.STRONG.value)
 
         # the policy influences the overall success of the check
         # - score 0 & strict == True -> success = False
@@ -526,8 +518,7 @@ class PasswordConfirmationCheck(InputCheck):
             self.result.error_message = ""
             self.result.success = True
         elif check_request.password != check_request.password_confirmation:
-            self.result.error_message = _(constants.PASSWORD_CONFIRM_ERROR_GUI) % \
-                                        {"password_name_plural": check_request.name_of_password_plural}
+            self.result.error_message = _(constants.SECRET_CONFIRM_ERROR_GUI[check_request.secret_type])
             self.result.success = False
         else:
             self.result.error_message = ""
@@ -545,8 +536,7 @@ class PasswordASCIICheck(InputCheck):
         """Fail if the password contains non-ASCII characters."""
         has_non_ASCII = any(char not in constants.PW_ASCII_CHARS for char in check_request.password)
         if check_request.password and has_non_ASCII:
-            self.result.error_message = _(constants.PASSWORD_ASCII) % \
-                                        {"password_name": check_request.name_of_password}
+            self.result.error_message = _(constants.SECRET_ASCII[check_request.secret_type])
             self.result.success = False
         else:
             self.result.error_message = ""
@@ -564,8 +554,7 @@ class PasswordEmptyCheck(InputCheck):
             self.result.success = True
         else:
             # otherwise empty password is an error
-            self.result.error_message = _(constants.PASSWORD_EMPTY_ERROR) % \
-                                        {"password_name": check_request.name_of_password}
+            self.result.error_message = _(constants.SECRET_EMPTY_ERROR[check_request.secret_type])
             self.result.success = False
 
 
@@ -668,13 +657,10 @@ class PasswordChecker(object):
         self._policy = policy
         self._username = None
         self._fullname = ""
+        self._secret_type = constants.SecretType.PASSWORD
         # connect to the password field signals
         self.password.changed.connect(self.run_checks)
         self.password_confirmation.changed.connect(self.run_checks)
-
-        # password naming (for use in status/error messages)
-        self._name_of_password = _(constants.NAME_OF_PASSWORD)
-        self._name_of_password_plural = _(constants.NAME_OF_PASSWORD_PLURAL)
 
         # signals
         self.checks_done = Signal()
@@ -750,39 +736,30 @@ class PasswordChecker(object):
     def fullname(self, new_fullname):
         self._fullname = new_fullname
 
-    # password naming
     @property
-    def name_of_password(self):
-        """Name of the password to be used called in warnings and error messages.
+    def secret_type(self):
+        """Type of secret that is being checked.
 
-        For example:
-        "%s contains non-ASCII characters"
-        can be customized to:
-        "Password contains non-ASCII characters"
-        or
-        "Passphrase contains non-ASCII characters"
+        At the moment is either a password or a passphrase and this property decides how it will be
+        called in error and status messages.
 
-        :returns: name of the password being checked
-        :rtype: str
+        :returns: secret type
+        :rtype: Enum
         """
-        return self._name_of_password
+        return self._secret_type
 
-    @name_of_password.setter
-    def name_of_password(self, name):
-        self._name_of_password = name
+    @secret_type.setter
+    def secret_type(self, new_type):
+        """Set type of secret being checked.
 
-    @property
-    def name_of_password_plural(self):
-        """Plural name of the password to be used called in warnings and error messages.
-
-        :returns: plural name of the password being checked
-        :rtype: str
+        :param Enum new_type: new secret type
         """
-        return self._name_of_password_plural
-
-    @name_of_password_plural.setter
-    def name_of_password_plural(self, name_plural):
-        self._name_of_password_plural = name_plural
+        # Prevent uknown/unsuported secret type from being set, so that
+        # this does no blow up later on once we try to access the status/error message
+        # corresponding to the secret type.
+        if new_type not in constants.SecretType:
+            raise RuntimeError("Unknown secret type: {}".format(new_type))
+        self._secret_type = new_type
 
     def add_check(self, check_instance):
         """Add check instance to list of checks."""
@@ -796,8 +773,7 @@ class PasswordChecker(object):
         check_request.policy = self.policy
         check_request.username = self.username
         check_request.fullname = self.fullname
-        check_request.name_of_password = self.name_of_password
-        check_request.name_of_password_plural = self.name_of_password_plural
+        check_request.secret_type = self.secret_type
 
         # reset the list of failed checks
         self._failed_checks = []
@@ -809,14 +785,13 @@ class PasswordChecker(object):
                 if check.result.success:
                     self._successful_checks.append(check)
                 else:
+                    if not self.failed_checks:
+                        # a check failed:
+                        # - remember that & it's error message
+                        # - run other checks as well and ignore their error messages (if any)
+                        # - fail the overall check run (success = False)
+                        error_message = check.result.error_message
                     self._failed_checks.append(check)
-
-                if not check.result.success and not self.failed_checks:
-                    # a check failed:
-                    # - remember that & it's error message
-                    # - run other checks as well and ignore their error messages (if any)
-                    # - fail the overall check run (success = False)
-                    error_message = check.result.error_message
         if self.failed_checks:
             self._error_message = error_message
             self._success = False

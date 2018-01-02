@@ -82,8 +82,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
                 policy = input_checking.get_policy(self.data, "root")
         )
         # configure the checker for password checking
-        self.checker.name_of_password = _(constants.NAME_OF_PASSWORD)
-        self.checker.name_of_password_plural = _(constants.NAME_OF_PASSWORD_PLURAL)
+        self.checker.secret_type = constants.SecretType.PASSWORD
         # remove any placeholder texts if either password or confirmation field changes content from initial state
         self.checker.password.changed_from_initial_state.connect(self.remove_placeholder_texts)
         self.checker.password_confirmation.changed_from_initial_state.connect(self.remove_placeholder_texts)
