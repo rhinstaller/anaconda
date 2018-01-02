@@ -335,6 +335,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 02 2018 Martin Kolman <mkolman@redhat.com> - 28.16-1
+- Improve password checking status and error messages (mkolman)
+- Spin kickstarts shouldn't be test dependency (jkonecny)
+
 * Wed Dec 20 2017 Martin Kolman <mkolman@redhat.com> - 28.15-1
 - Remove spurious echo call from tmux service file (#1526861) (mkolman)
 - Restore fix for RHBZ #1323012 (`set_name` not `setName`) (awilliam)
