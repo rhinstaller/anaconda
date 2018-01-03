@@ -701,9 +701,9 @@ class Fcoe(commands.fcoe.RHEL7_Fcoe):
 
         return fc
 
-class Firewall(commands.firewall.F28_Firewall):
+class Firewall(commands.firewall.RHEL7_Firewall):
     def __init__(self, *args, **kwargs):
-        commands.firewall.F28_Firewall.__init__(self, *args, **kwargs)
+        commands.firewall.RHEL7_Firewall.__init__(self, *args, **kwargs)
         self.packages = []
 
     def setup(self):
