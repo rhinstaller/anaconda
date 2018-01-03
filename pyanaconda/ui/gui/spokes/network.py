@@ -1526,7 +1526,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # if installation media or hdd aren't used and settings have changed
         # try if source is available
         if self.networking_changed:
-            if self.payload.needsNetwork:
+            if self.payload and self.payload.needsNetwork:
                 if ANACONDA_ENVIRON in anaconda_flags.environs:
                     log.debug("network spoke (apply), network configuration changed - restarting payload thread")
                     from pyanaconda.payload import payloadMgr
