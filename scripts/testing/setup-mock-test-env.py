@@ -31,6 +31,13 @@ def _prepare_command(mock_command):
     return cmd
 
 
+def _run_cmd_in_chroot(mock_command):
+    mock_command.append('--chroot')
+    mock_command.append('--')
+
+    return mock_command
+
+
 def _get_script_dir():
     return os.path.dirname(os.path.realpath(__file__))
 
@@ -48,19 +55,24 @@ def _check_dir_exists(path):
         exit(1)
 
 
-def _call_subprocess(cmd, error_msg, stdout_pipe=False):
-    """Call external command and verify return code."""
-    print("Running command {}".format(cmd))
-
-    if stdout_pipe:
-        process_result = subprocess.run(cmd, stdout=subprocess.PIPE)
-    else:
-        process_result = subprocess.run(cmd)
+def _check_subprocess(cmd, error_msg, stdout_pipe=False):
+    """Call external command and verify return result."""
+    process_result = _call_subprocess(cmd, stdout_pipe)
 
     if process_result.returncode != 0:
         raise MockException(error_msg, cmd)
 
     return process_result
+
+
+def _call_subprocess(cmd, stdout_pipe=False):
+    """Call external command and return result."""
+    print("Running command {}".format(cmd))
+
+    if stdout_pipe:
+        return subprocess.run(cmd, stdout=subprocess.PIPE)
+    else:
+        return subprocess.run(cmd)
 
 
 def parse_args():
@@ -100,7 +112,7 @@ def get_required_packages():
     script = _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
     cmd = [script]
 
-    proc_res = _call_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
+    proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
 
     return proc_res.stdout.decode('utf-8').strip()
 
@@ -113,11 +125,10 @@ def install_required_packages(mock_command):
 def remove_anaconda_in_mock(mock_command):
     cmd = _prepare_command(mock_command)
 
-    cmd.append('--chroot')
-    cmd.append('--')
+    cmd = _run_cmd_in_chroot(cmd)
     cmd.append('rm -rf ' + ANACONDA_MOCK_PATH)
 
-    _call_subprocess(cmd, "Can't remove existing anaconda.")
+    _check_subprocess(cmd, "Can't remove existing anaconda.")
 
 
 def copy_anaconda_to_mock(mock_command):
@@ -130,7 +141,7 @@ def copy_anaconda_to_mock(mock_command):
     cmd.append('{}'.format(anaconda_dir))
     cmd.append(ANACONDA_MOCK_PATH)
 
-    _call_subprocess(cmd, "Can't copy Anaconda to mock.")
+    _check_subprocess(cmd, "Can't copy Anaconda to mock.")
 
 
 def copy_result(mock_command, out_dir):
@@ -140,8 +151,8 @@ def copy_result(mock_command, out_dir):
     cmd.append('{}/result'.format(ANACONDA_MOCK_PATH))
     cmd.append(out_dir)
 
-    _call_subprocess(cmd, "Con't copy Anaconda tests results out of mock. "
-                          "Destination folder must not exists!")
+    _check_subprocess(cmd, "Con't copy Anaconda tests results out of mock. "
+                           "Destination folder must not exists!")
 
 
 def create_mock_command(mock_conf, uniqueext):
@@ -160,17 +171,23 @@ def install_packages_to_mock(mock_command, packages):
     cmd.append('--install')
     cmd.extend(packages.split(" "))
 
-    _call_subprocess(cmd, "Can't install packages to mock.")
+    _check_subprocess(cmd, "Can't install packages to mock.")
 
 
 def run_tests(mock_command):
     cmd = _prepare_command(mock_command)
 
-    cmd.append('--chroot')
-    cmd.append('--')
-    cmd.append('cd {} && ./autogen.sh && ./configure && make ci'.format(ANACONDA_MOCK_PATH))
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('cd {} && ./autogen.sh && ./configure'.format(ANACONDA_MOCK_PATH))
 
-    _call_subprocess(cmd, "Can't run tests in a mock.")
+    _check_subprocess(cmd, "Can't run tests in a mock.")
+
+    cmd = _prepare_command(mock_command)
+
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('cd {} && make ci'.format(ANACONDA_MOCK_PATH))
+
+    _call_subprocess(cmd)
 
 
 def init_mock(mock_command):
@@ -178,7 +195,7 @@ def init_mock(mock_command):
 
     cmd.append('--init')
 
-    _call_subprocess(cmd, "Can't initialize mock.")
+    _check_subprocess(cmd, "Can't initialize mock.")
 
 
 def setup_mock(mock_command):
