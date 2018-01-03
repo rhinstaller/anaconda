@@ -8,7 +8,8 @@ import subprocess
 
 from contextlib import contextmanager
 from collections import namedtuple
-from rpmfluff import SourceFile, SimpleRpmBuild, expectedArch
+# FIXME: remove pylint disable
+from rpmfluff import SourceFile, SimpleRpmBuild, expectedArch # pylint: disable=import-error
 from shutup import shutup
 
 TOP_SRCDIR = os.environ.get("top_builddir", "../..")
