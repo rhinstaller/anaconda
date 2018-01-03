@@ -1525,7 +1525,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         log.debug("network: apply ksdata %s", self.data.network)
 
         if self.networking_changed:
-            if self.payload.needsNetwork:
+            if self.payload and self.payload.needsNetwork:
                 if ANACONDA_ENVIRON in anaconda_flags.environs:
                     log.debug("network spoke (apply), network configuration changed - restarting payload thread")
                     from pyanaconda.packaging import payloadMgr
