@@ -122,6 +122,43 @@ class DBusSpecification(object):
 
     NAME_PATTERN = re.compile(r'[A-Z][A-Za-z0-9]*')
 
+    STANDARD_INTERFACES = """
+    <node>
+        <interface name="org.freedesktop.DBus.Introspectable">
+            <method name="Introspect">
+            <arg type="s" name="xml_data" direction="out"/>
+            </method>
+        </interface>
+        <interface name="org.freedesktop.DBus.Peer">
+            <method name="Ping"/>
+            <method name="GetMachineId">
+                <arg type="s" name="machine_uuid" direction="out"/>
+            </method>
+       </interface>
+        <interface name="org.freedesktop.DBus.Properties">
+            <method name="Get">
+                <arg type="s" name="interface_name" direction="in"/>
+                <arg type="s" name="property_name" direction="in"/>
+                <arg type="v" name="value" direction="out"/>
+            </method>
+            <method name="GetAll">
+                <arg type="s" name="interface_name" direction="in"/>
+                <arg type="a{sv}" name="properties" direction="out"/>
+            </method>
+            <method name="Set">
+                <arg type="s" name="interface_name" direction="in"/>
+                <arg type="s" name="property_name" direction="in"/>
+                <arg type="v" name="value" direction="in"/>
+            </method>
+            <signal name="PropertiesChanged">
+                <arg type="s" name="interface_name"/>
+                <arg type="a{sv}" name="changed_properties"/>
+                <arg type="as" name="invalidated_properties"/>
+            </signal>
+        </interface>
+    </node>
+    """
+
     def __init__(self, xml_generator=XMLGenerator()):
         self.xml_generator = xml_generator
 
@@ -140,12 +177,24 @@ class DBusSpecification(object):
 
         # Generate a new interface.
         if interface_name:
-            interface = self._generate_interface(cls, interfaces, interface_name)
+            all_interfaces = self._collect_standard_interfaces()
+            all_interfaces.update(interfaces)
+            interface = self._generate_interface(cls, all_interfaces, interface_name)
             interfaces[interface_name] = interface
 
         # Generate XML specification for the given class.
         node = self._generate_node(cls, interfaces)
         return self.xml_generator.element_to_xml(node)
+
+    def _collect_standard_interfaces(self):
+        """Collect standard interfaces.
+
+        Standard interfaces are implemented by default.
+
+        :return: a dictionary of standard interfaces
+        """
+        node = self.xml_generator.xml_to_element(self.STANDARD_INTERFACES)
+        return self.xml_generator.get_interfaces_from_node(node)
 
     def _collect_interfaces(self, cls):
         """Collect interfaces implemented by the class.
