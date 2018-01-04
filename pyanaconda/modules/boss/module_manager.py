@@ -91,7 +91,7 @@ class ModuleManager(object):
     def _process_module_is_available(self, observer):
         """Process the service_available signal."""
         log.debug("%s is available", observer)
-        observer.proxy.Ping("Boss says hi!")
+        observer.proxy.Ping()
 
     def _process_module_is_unavailable(self, observer):
         """Process the service_unavailable signal."""

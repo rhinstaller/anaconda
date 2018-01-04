@@ -74,10 +74,6 @@ class BaseModule(ABC):
         self.unpublish()
         GLib.timeout_add_seconds(1, self.loop.quit)
 
-    def ping(self, s):
-        """Ping the module."""
-        return s
-
 
 class KickstartModule(BaseModule):
     """Base implementation of a kickstart module.

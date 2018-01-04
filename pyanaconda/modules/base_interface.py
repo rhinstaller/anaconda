@@ -97,10 +97,6 @@ class KickstartModuleInterface(InterfaceTemplate):
         """
         return self.implementation.generate_kickstart()
 
-    def Ping(self, s: Str) -> Str:
-        """Ping the module."""
-        return self.implementation.ping(s)
-
     def Quit(self):
         """Shut the module down."""
         self.implementation.stop()

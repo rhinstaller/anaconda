@@ -35,7 +35,3 @@ class Foo(KickstartModule):
         DBus.publish_object(FooInterface(self), MODULE_FOO_PATH)
         self.publish_task(FooTask(), MODULE_FOO_PATH)
         DBus.register_service(MODULE_FOO_NAME)
-
-    def ping(self, s):
-        log.debug(s)
-        return "Foo says hi!"

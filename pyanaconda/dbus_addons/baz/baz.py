@@ -33,8 +33,3 @@ class Baz(KickstartModule):
         """Publish the module."""
         DBus.publish_object(BazInterface(self), ADDON_BAZ_PATH)
         DBus.register_service(ADDON_BAZ_NAME)
-
-    def ping(self, s):
-        """Return a string."""
-        log.debug(s)
-        return "Baz says hi!"

@@ -41,10 +41,6 @@ class Bar(KickstartModule):
         self.publish_task(BarTask(), MODULE_BAR_PATH)
         DBus.register_service(MODULE_BAR_NAME)
 
-    def ping(self, s):
-        log.debug(s)
-        return "Bar says hi!"
-
     @property
     def kickstart_specification(self):
         return BarKickstartSpecification
