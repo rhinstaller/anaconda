@@ -24,7 +24,8 @@ import shlex
 from contextlib import contextmanager
 
 from pyanaconda.kickstart_dispatcher.element import KickstartElement, TrackedKickstartElements
-from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser
+from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser, KickstartMerger, \
+    MergeKickstartUnknownCommandError, MergeKickstartCommandAlreadyAddedError
 from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartParseError, KickstartError
 
@@ -701,3 +702,149 @@ network --device=ens3
         # But can be configured not to
         ksparser = SplitKickstartParser(handler, missing_include_is_fatal=False)
         ksparser.split_from_string(ks_content)
+
+
+class KickstartMergerTest(unittest.TestCase):
+
+    def ordering_test(self):
+        """Commands and sections are merged in correct order."""
+
+        shutdown_cmdline = "shutdown\n"
+        timezone_cmd = """
+# System timezone
+timezone Europe/Prague --isUtc --ntpservers=clock01.util.phx2.redhat.com,clock02.util.phx2.redhat.com
+""".lstrip()
+        network_cmd = """
+# Network information
+network  --bootproto=dhcp --device=ens3 --ipv6=auto --activate
+network  --hostname=localhost.localdomain
+""".lstrip()
+        bootloader_cmd = """
+# System bootloader configuration
+bootloader --location=mbr --boot-drive=vda
+""".lstrip()
+        autopart_cmd = """
+autopart --type=lvm
+""".lstrip()
+        zerombr_cmd = """
+# Clear the Master Boot Record
+zerombr
+""".lstrip()
+        clearpart_cmd = """
+# Partition clearing information
+clearpart --none --initlabel
+""".lstrip()
+        packages_section = """
+%packages
+@^workstation-product-environment
+chrony
+%end
+""".lstrip()
+        kdump_addon_section = """
+%addon com_redhat_kdump --disable --reserve-mb='128'
+%end
+""".lstrip()
+        anaconda_section = """
+%anaconda
+pwpolicy root --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+%end
+""".lstrip()
+        expected_kickstart = """
+shutdown
+# System timezone
+timezone Europe/Prague --isUtc --ntpservers=clock01.util.phx2.redhat.com,clock02.util.phx2.redhat.com
+# Network information
+network  --bootproto=dhcp --device=ens3 --ipv6=auto --activate
+network  --hostname=localhost.localdomain
+# System bootloader configuration
+bootloader --location=mbr --boot-drive=vda
+autopart --type=lvm
+# Clear the Master Boot Record
+zerombr
+# Partition clearing information
+clearpart --none --initlabel
+
+%packages
+@^workstation-product-environment
+chrony
+%end
+
+%addon com_redhat_kdump --disable --reserve-mb='128'
+%end
+
+%anaconda
+pwpolicy root --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+%end
+""".lstrip()
+
+        handler = makeVersion()
+        ksmerger = KickstartMerger(handler)
+        merged_ks0 = ksmerger.get_kickstart()
+        self.assertEqual(merged_ks0, "")
+        ksmerger.add_command("bootloader", bootloader_cmd)
+        ksmerger.add_command("zerombr", zerombr_cmd)
+        ksmerger.add_command("autopart", autopart_cmd)
+        ksmerger.add_section(packages_section)
+        ksmerger.add_command("clearpart", clearpart_cmd)
+        ksmerger.add_command("network", network_cmd)
+        ksmerger.add_command("timezone", timezone_cmd)
+        ksmerger.add_command_line(shutdown_cmdline)
+        ksmerger.add_section(kdump_addon_section)
+        ksmerger.add_section(anaconda_section)
+        merged_ks1 = ksmerger.get_kickstart()
+        self.assertEqual(merged_ks1, expected_kickstart)
+
+        ksmerger = KickstartMerger(handler)
+        ksmerger.add_section(packages_section)
+        ksmerger.add_section(kdump_addon_section)
+        ksmerger.add_command("bootloader", bootloader_cmd)
+        ksmerger.add_section(anaconda_section)
+        ksmerger.add_command("timezone", timezone_cmd)
+        ksmerger.add_command_line(shutdown_cmdline)
+        ksmerger.add_command("zerombr", zerombr_cmd)
+        ksmerger.add_command("autopart", autopart_cmd)
+        ksmerger.add_command("clearpart", clearpart_cmd)
+        ksmerger.add_command("network", network_cmd)
+        merged_ks2 = ksmerger.get_kickstart()
+        self.assertEqual(merged_ks1, merged_ks2)
+
+    def multiple_command_adding_test(self):
+        """Test adding a command multiple times"""
+
+        network_cmd = """
+# Network information
+network  --bootproto=dhcp --device=ens3 --ipv6=auto --activate
+network  --hostname=localhost.localdomain
+""".lstrip()
+
+        handler = makeVersion()
+        ksmerger = KickstartMerger(handler)
+        ksmerger.add_command("network", network_cmd)
+        # adding a command multiple times rises error
+        with self.assertRaises(MergeKickstartCommandAlreadyAddedError):
+            ksmerger.add_command("network", network_cmd)
+        # adding a command line with a command that has been already added rises error
+        with self.assertRaises(MergeKickstartCommandAlreadyAddedError):
+            ksmerger.add_command_line("network --device=ens6 --activate")
+
+        ksmerger = KickstartMerger(handler)
+        # adding a command line with the same command multiple times is OK
+        ksmerger.add_command_line("network --device=ens3 --activate")
+        ksmerger.add_command_line("network --device=ens5 --activate")
+
+    def unknown_command_adding_test(self):
+        """Adding unknown command raises exception."""
+
+        handler = makeVersion()
+        ksmerger = KickstartMerger(handler)
+        ksmerger.add_command("network", "network --device=ens3 --activate\n")
+        with self.assertRaises(MergeKickstartUnknownCommandError):
+            ksmerger.add_command("netleisure", "netleisure --device=sofa\n")
+        with self.assertRaises(MergeKickstartUnknownCommandError):
+            ksmerger.add_command_line("netleisure --device=sofa\n")
+        with self.assertRaises(MergeKickstartUnknownCommandError):
+            ksmerger.add_command_line("")

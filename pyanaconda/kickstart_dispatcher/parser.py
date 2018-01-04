@@ -16,7 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-__all__ = ["SplitKickstartParser", "VALID_SECTIONS_ANACONDA"]
+__all__ = ["SplitKickstartParser", "VALID_SECTIONS_ANACONDA", "KickstartMerger",
+           "MergeKickstartUnknownCommandError", "MergeKickstartCommandAlreadyAddedError"]
 
 from pykickstart.parser import KickstartParser
 from pykickstart.sections import Section
@@ -178,3 +179,140 @@ class SplitKickstartParser(KickstartParser):
             self.registerSection(StoreSection(self.handler,
                                               sectionOpen=section,
                                               store=self))
+
+
+class MergeKickstartError(Exception):
+    """Error while merging kickstart."""
+    pass
+
+
+class MergeKickstartUnknownCommandError(MergeKickstartError):
+    """Adding unknown command."""
+    def __init__(self, message, command):
+        super().__init__(message)
+        self.command = command
+
+
+class MergeKickstartCommandAlreadyAddedError(MergeKickstartError):
+    """The command has been already added."""
+    def __init__(self, message, command):
+        super().__init__(message)
+        self.command = command
+
+
+class KickstartMerger(object):
+    """Merges kickstart snippets according to priorities defined by handler.
+
+    The snippets will be merged without any reparsing. They can contain comments
+    and should end with a new line character.
+
+    Kickstart commands are ordered according to priorities obtained from
+    handler. It is possible to add a snippet for specified command with
+    add_command method or a kickstart line containing a command defifiniton
+    with add_command_line method.
+
+    For kickstart sections the order of addition is preserved.
+    """
+
+    def __init__(self, handler):
+        """Initialize the merger with handler as source of priorities.
+
+        :param handler: kickstart handler containing command priorities
+        :type handler: BaseHandler
+        """
+
+        self._cmd_name_priorities = self._get_cmd_name_priorities(handler)
+        self._valid_commands = handler.commands.keys()
+        self._added_commands = set()
+        self._commands = {}
+        self._sections = []
+
+    def _get_cmd_name_priorities(self, handler):
+        # Transform the mapping of command objects priorities from handler
+        # to a mapping of command names priorities.
+        command_names = {}
+        for name, cmd in handler.commands.items():
+            cmd_class = cmd.__class__.__name__
+            if cmd_class in command_names:
+                command_names[cmd_class].append(name)
+            else:
+                command_names[cmd_class] = [name]
+
+        cmd_name_priorities = {}
+        for priority, cmds in handler._writeOrder.items():
+            cmd_names = []
+            for cmd in cmds:
+                cmd_names.extend(command_names[cmd.__class__.__name__])
+            cmd_name_priorities[priority] = cmd_names
+        return cmd_name_priorities
+
+    def add_command(self, command_name, kickstart):
+        """Add the kickstart snippet for given command.
+
+        A snippet for a command can be added only once.
+
+        :param command_name: name of the command
+        :type command_name: str
+        :param kickstart: kickstart snippet for the command
+        :type kickstart: str
+        :raises MergeKickstartCommandAlreadyAddedError: a snippet for the command
+            has already been added
+        """
+        self._add_command(command_name, kickstart)
+        self._added_commands.add(command_name)
+
+    def _add_command(self, command_name, kickstart):
+        if command_name not in self._valid_commands:
+            raise MergeKickstartUnknownCommandError("Unknown command added.", command_name)
+        if command_name in self._added_commands:
+            raise MergeKickstartCommandAlreadyAddedError("Command has already been added", command_name)
+        if command_name in self._commands:
+            self._commands[command_name].append(kickstart)
+        else:
+            self._commands[command_name] = [kickstart]
+
+    def add_command_line(self, command_line):
+        """Add a kickstart line containing a command definition.
+
+        The line won't be added if its command has been already added.
+
+        :param command_line: kickstart command line (including new line)
+        :type command_line: str
+        :raises MergeKickstartCommandAlreadyAddedError: the command of the
+            line has already been added
+        """
+        command_name = command_line.strip()
+        if command_name:
+            command_name = command_name.split()[0]
+        else:
+            command_name = ""
+
+        self._add_command(command_name, command_line)
+
+    def add_section(self, kickstart):
+        """Add a snippet containing a kickstart section.
+
+        :param kickstart: kickstart snippet with a section
+        :type kickstart: str
+        """
+        self._sections.append(kickstart)
+
+    def get_kickstart(self):
+        """Get merged kickstart.
+
+        :return: kickstart with all added commands and sections merged
+        :rtype: str
+        """
+        snippets = []
+        priorities = self._cmd_name_priorities.keys()
+        for prio in sorted(priorities):
+            for cmd_name in self._cmd_name_priorities[prio]:
+                for command_snippet in self._commands.get(cmd_name, []):
+                    snippets.append(command_snippet)
+        for section in self._sections:
+            snippets.append("\n")
+            snippets.append(section)
+        return "".join(snippets)
+
+    def __str__(self):
+        return self.get_kickstart()
