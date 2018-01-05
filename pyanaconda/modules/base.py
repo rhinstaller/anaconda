@@ -1,5 +1,6 @@
+#
 # base.py
-# Anaconda DBUS module base.
+# Base classes for Anaconda modules.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
@@ -17,54 +18,35 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import gi
 gi.require_version("GLib", "2.0")
 from gi.repository import GLib
 
+# FIXME: Remove this after initThreading will be replaced
+from pyanaconda.threading import initThreading
+initThreading()
+
 from abc import ABC
 
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
-# FIXME: Remove this after initThreading will be replaced
-from pyanaconda.threading import initThreading
+from pyanaconda.task import publish_task
+from pyanaconda.modules.base_kickstart import get_kickstart_handler, get_kickstart_parser
+from pyanaconda.modules.base_kickstart import NoKickstartSpecification
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
 
 
-initThreading()
-
-
 class BaseModule(ABC):
-    """Base implementation of a module.
-
-    This is not DBus interface.
-    """
+    """Base implementation of a module."""
 
     def __init__(self):
         self._loop = GLib.MainLoop()
-        self._kickstart_commands = []
-        self._kickstart_sections = []
-        self._kickstart_addons = []
 
     @property
     def loop(self):
+        """Return the loop."""
         return self._loop
-
-    @property
-    def kickstart_commands(self):
-        return self._kickstart_commands
-
-    @property
-    def kickstart_sections(self):
-        return self._kickstart_sections
-
-    @property
-    def kickstart_addons(self):
-        return self._kickstart_addons
 
     def run(self):
         """Run the module's loop."""
@@ -88,71 +70,92 @@ class BaseModule(ABC):
         DBus.unregister_all()
         DBus.unpublish_all()
 
-    def stop_module(self):
+    def stop(self):
         self.unpublish()
         GLib.timeout_add_seconds(1, self.loop.quit)
 
-    def configure_with_kickstart(self, kickstart):
-        """Mock parsing for now.
+    def ping(self, s):
+        """Ping the module."""
+        return s
 
-        Returns parse error if PARSE_ERROR string is found in kickstart.
-        """
-        log.debug("configure_with_kickstart:\n%s", kickstart)
-        lineno, msg = (0, "")
-        for lnum, line in enumerate(kickstart.splitlines(), 1):
-            if "PARSE_ERROR" in line:
-                lineno, msg = (lnum, "Mocked parse error: \"PARSE_ERROR\" found")
-                break
 
-        if lineno:
-            log.info("configure_with_kickstart: error %s on line %d", msg, lineno)
-        return (lineno, msg)
+class KickstartModule(BaseModule):
+    """Base implementation of a kickstart module.
 
-@dbus_interface(DBUS_MODULE_NAMESPACE)
-class BaseModuleInterface(BaseModule, ABC):
-    """A common base for Anaconda DBUS modules.
-
-    This class also basically defines the common DBUS API
-    of Anaconda DBUS modules.
+    Instances of this class can be published with a DBus interface
+    defined by KickstartModuleInterface.
     """
 
-    def AvailableTasks(self) -> List[Tuple[Str, Str]]:
-        """Return DBus object paths for tasks available for this module.
+    def __init__(self):
+        super().__init__()
+        self._published_tasks = []
 
-        :returns: List of tuples (Name, DBus object path) for all Tasks.
-                  See pyanaconda.task.Task for Task API.
+    @property
+    def published_tasks(self):
+        """Returns a list of published tasks."""
+        return self._published_tasks
+
+    def publish_task(self, implementation, module_path):
+        """Publish a task."""
+        published = publish_task(implementation, module_path)
+        self._published_tasks.append(published)
+
+    @property
+    def kickstart_specification(self):
+        """Return a kickstart specification.
+
+        Every kickstart module that is interested in processing
+        kickstart files, should provide its own specification.
+
+        :return: a subclass of KickstartSpecification
         """
-        return []
+        return NoKickstartSpecification
 
-    def KickstartCommands(self) -> List[Str]:
-        """Return names of kickstart commands handled by module.
+    @property
+    def kickstart_command_names(self):
+        """Return a list of kickstart command names."""
+        return list(self.kickstart_specification.commands.keys())
 
-        :returns: List of names of kickstart commands handled by module.
+    @property
+    def kickstart_section_names(self):
+        """Return a list of kickstart section names."""
+        return list(self.kickstart_specification.sections.keys())
+
+    @property
+    def kickstart_addon_names(self):
+        """Return a list of kickstart addon names."""
+        # TODO: We need to add support for addons.
+        return list()
+
+    def read_kickstart(self, s):
+        """Read the given kickstart string.
+
+        The kickstart string should contain only commands and
+        sections that are defined by the kickstart specification.
+
+        :param s: a kickstart string
+        :raises: instances of KickstartError
         """
-        return self.kickstart_commands
+        spec = self.kickstart_specification
+        handler = get_kickstart_handler(spec)
+        parser = get_kickstart_parser(handler, spec)
 
-    def KickstartSections(self) -> List[Str]:
-        """Return names of kickstart sections handled by module.
+        parser.readKickstartFromString(s)
+        self.process_kickstart(handler)
 
-        :returns: List of names of kickstart sections handled by module.
+    def process_kickstart(self, data):
+        """Process the kickstart data.
+
+        :param data: a kickstart handler defined by the specification
         """
-        return self.kickstart_sections
+        pass
 
-    def KickstartAddons(self) -> List[Str]:
-        """Return names of kickstart addons handled by module.
+    def generate_kickstart(self):
+        """Return a kickstart representation of this module.
 
-        :returns: List of names of kickstart addons handled by module.
+        The kickstart string should contain only commands and
+        sections that are defined by the kickstart specification.
+
+        :return: a kickstart string
         """
-        return self.kickstart_addons
-
-    def ConfigureWithKickstart(self, kickstart: Str) -> Tuple[Int, Str]:
-        """Configure module with kickstart.
-
-        :returns: Tuple (Error line number, Error message) in case of parsing
-                  error or (0, "") in case of success.
-        """
-        return self.configure_with_kickstart(kickstart)
-
-    def Quit(self):
-        """Shut the module down."""
-        self.stop_module()
+        return ""

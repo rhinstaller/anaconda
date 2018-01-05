@@ -1,5 +1,5 @@
-# foo.py
-# Example DBUS module
+#
+# Kickstart specification for bar.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
@@ -17,25 +17,29 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_FOO_PATH, MODULE_FOO_NAME
-from pyanaconda.modules.base import KickstartModule
-from pyanaconda.modules.foo.foo_interface import FooInterface
-from pyanaconda.modules.foo.tasks.foo_task import FooTask
+from pykickstart.commands.autopart import F26_AutoPart
+from pykickstart.commands.repo import F27_Repo, F27_RepoData
+from pykickstart.commands.url import F27_Url
+from pykickstart.sections import PackageSection
+from pykickstart.version import F28
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.modules.base_kickstart import KickstartSpecification
 
 
-class Foo(KickstartModule):
-    """The Foo module."""
+class BarKickstartSpecification(KickstartSpecification):
 
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(FooInterface(self), MODULE_FOO_PATH)
-        self.publish_task(FooTask(), MODULE_FOO_PATH)
-        DBus.register_service(MODULE_FOO_NAME)
+    version = F28
 
-    def ping(self, s):
-        log.debug(s)
-        return "Foo says hi!"
+    commands = {
+        "url": F27_Url,
+        "repo": F27_Repo,
+        "autopart": F26_AutoPart,
+    }
+
+    data = {
+        "RepoData": F27_RepoData,
+    }
+
+    sections = {
+        "packages": PackageSection
+    }

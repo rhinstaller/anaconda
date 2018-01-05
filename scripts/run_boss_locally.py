@@ -59,19 +59,20 @@ def distribute_kickstart(ks_path):
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
     boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
     try:
-        parsed_kickstart = boss_object.SplitKickstart(tmpfile)
+        boss_object.SplitKickstart(tmpfile)
     except SplitKickstartError as e:
         print("distribute_kickstart: SplitKickstart() exception: {}".format(e))
     else:
-        print("distribute_kickstart: SplitKickstart({}):\n{}".format(tmpfile, parsed_kickstart))
+        unprocessed_kickstart = boss_object.UnprocessedKickstart
+        print("distribute_kickstart: SplitKickstart({}):\n{}".format(tmpfile, unprocessed_kickstart))
         timeout = 10
-        while not boss_object.AllModulesAvailable() and timeout > 0:
+        while not boss_object.AllModulesAvailable and timeout > 0:
             print("distribute_kickstart: waiting for modules to start")
             time.sleep(1)
             timeout = timeout - 1
         errors = boss_object.DistributeKickstart()
         print("distribute_kickstart: DistributeKickstart() errors: {}".format(errors))
-        unprocessed_kickstart = boss_object.UnprocessedKickstart()
+        unprocessed_kickstart = boss_object.UnprocessedKickstart
         print("distribute_kickstart: DistributeKickstart() unprocessed:\n{}".format(unprocessed_kickstart))
     finally:
         os.unlink(tmpfile)

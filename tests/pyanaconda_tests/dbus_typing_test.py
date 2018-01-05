@@ -41,27 +41,27 @@ class DBusTypingTests(unittest.TestCase):
         class UnknownType:
             pass
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(UnknownType)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(List[UnknownType])
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(Tuple[Int, Str, UnknownType])
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(Dict[Int, UnknownType])
 
     def invalid_test(self):
         """Test the invalid types."""
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(Dict[List[Bool], Bool])
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(Dict[Variant, Int])
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             get_dbus_type(Tuple[Int, Double, Dict[Tuple[Int, Int], Bool]])
 
     def simple_test(self):
@@ -124,53 +124,60 @@ class DBusTypingTests(unittest.TestCase):
         self._compare(Dict[Str, Tuple[Int, Int, Double]], "a{s(iid)}")
         self._compare(Dict[Str, Tuple[Int, Int, Dict[Int, Str]]], "a{s(iia{is})}")
 
-    @unittest.skip("Requires mypy to be setup.")
-    def mypy_test(self):
-        """Test types with mypy."""
-        from mypy import api  # pylint: disable=import-error
-        out, err, res = api.run(["-c", mypy_script])
-        self.assertEqual(res, 0, msg=out + err)
 
-mypy_script = """
-from pyanaconda.dbus.typing import *
+class DBusTypingVariantTests(unittest.TestCase):
 
-a = True        # type: Bool
-b = 1.0         # type: Double
-c = ""          # type: Str
+    def _test_variant(self, type_hint, expected_string, value):
+        """Create a variant."""
+        v1 = get_variant(type_hint, value)
+        self.assertTrue(isinstance(v1, Variant))
+        self.assertEqual(v1.format_string, expected_string)  # pylint: disable=no-member
+        self.assertEqual(v1.unpack(), value)
 
-d = 1           # type: Int
-e = Byte(1)     # type: Byte
-f = Int16(1)    # type: Int16
-g = UInt16(1)   # type: UInt16
-h = Int32(1)    # type: Int32
-i = UInt32(1)   # type: UInt32
-j = Int64(1)    # type: Int64
-k = UInt64(1)   # type: UInt64
+        v2 = Variant(expected_string, value)
+        self.assertTrue(v2.equal(v1))
 
-l = open("/tmp/123")  # type: File
-m = ObjPath("/com/mycompany/c5yo817y0c1y1c5b")  # type: ObjPath
+    def variant_invalid_test(self):
+        """Test invalid variants."""
 
-n = (1, "a")    # type: Tuple[Int, Str]
-o = {1: "a"}    # type: Dict[Int, Str]
-p = [1, 2, 3]   # type: List[Int]
+        class UnknownType:
+            pass
 
-va = True        # type: Variant
-vb = 1.0         # type: Variant
-vc = ""          # type: Variant
+        with self.assertRaises(TypeError):
+            get_variant(UnknownType, 1)
 
-vd = 1           # type: Variant
-ve = Byte(1)     # type: Variant
-vf = Int16(1)    # type: Variant
-vg = UInt16(1)   # type: Variant
-vh = Int32(1)    # type: Variant
-vi = UInt32(1)   # type: Variant
-vj = Int64(1)    # type: Variant
-vk = UInt64(1)   # type: Variant
+        with self.assertRaises(TypeError):
+            get_variant(List[Int], True)
 
-vl = open("/tmp/123")  # type: Variant
-vm = ObjPath("/com/mycompany/c5yo817y0c1y1c5b")  # type: Variant
+    def variant_basic_test(self):
+        """Test variants with basic types."""
+        self._test_variant(Int, "i", 1)
+        self._test_variant(Bool, "b", True)
+        self._test_variant(Double, "d", 1.0)
+        self._test_variant(Str, "s", "Hi!")
+        self._test_variant(ObjPath, "o", "/org/something")
 
-vn = (1, "a")    # type: Variant
-vo = {1: "a"}    # type: Variant
-vp = [1, 2, 3]   # type: Variant
-"""
+    def variant_int_test(self):
+        """Test variants with integer types."""
+        self._test_variant(Int16, "n", 2)
+        self._test_variant(UInt16, "q", 3)
+        self._test_variant(Int32, "i", 4)
+        self._test_variant(UInt32, "u", 5)
+        self._test_variant(Int64, "x", 6)
+        self._test_variant(UInt64, "t", 7)
+
+    def variant_container_test(self):
+        """Test variants with container types."""
+        self._test_variant(Tuple[Bool], "(b)", (False,))
+        self._test_variant(Tuple[Int, Str], "(is)", (0, "zero"))
+
+        self._test_variant(List[Int], "ai", [1, 2, 3])
+        self._test_variant(List[Bool], "ab", [True, False, True])
+
+        self._test_variant(Dict[Str, Int], "a{si}", {"a": 1, "b": 2})
+        self._test_variant(Dict[Int, Bool], "a{ib}", {1: True, 2: False})
+
+    def variant_alias_test(self):
+        """Test variants with type aliases."""
+        AliasType = List[Double]
+        self._test_variant(Dict[Str, AliasType], "a{sad}", {"test": [1.1, 2.2]})

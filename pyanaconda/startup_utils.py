@@ -414,14 +414,15 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
 def distribute_kickstart_with_boss(kickstart_path):
     boss = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
     try:
-        boss_kickstart = boss.SplitKickstart(kickstart_path)
+        boss.SplitKickstart(kickstart_path)
     except SplitKickstartError as e:
         log.error("Boss.SplitKickstart(%s) exception: %s", kickstart_path, e)
         return False
-    log.info("Boss.SplitKickstart(%s):\n%s", kickstart_path, boss_kickstart)
+
+    log.info("Boss.SplitKickstart(%s):\n%s", kickstart_path, boss.UnprocessedKickstart)
 
     timeout = 10
-    while not boss.AllModulesAvailable() and timeout > 0:
+    while not boss.AllModulesAvailable and timeout > 0:
         log.info("Waiting %d sec for modules to be started", timeout)
         time.sleep(1)
         timeout = timeout - 1
@@ -432,7 +433,7 @@ def distribute_kickstart_with_boss(kickstart_path):
     errors = boss.DistributeKickstart()
     if errors:
         log.error("Boss.DistributeKickstart() errors: %s", errors)
-    unprocessed_kickstart = boss.UnprocessedKickstart()
+    unprocessed_kickstart = boss.UnprocessedKickstart
     log.info("Boss.DistributeKickstart() unprocessed part:\n%s", unprocessed_kickstart)
     return True
 
