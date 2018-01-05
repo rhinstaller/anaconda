@@ -701,9 +701,9 @@ class Fcoe(commands.fcoe.RHEL7_Fcoe):
 
         return fc
 
-class Firewall(commands.firewall.F20_Firewall):
+class Firewall(commands.firewall.RHEL7_Firewall):
     def __init__(self, *args, **kwargs):
-        commands.firewall.F20_Firewall.__init__(self, *args, **kwargs)
+        commands.firewall.RHEL7_Firewall.__init__(self, *args, **kwargs)
         self.packages = []
 
     def setup(self):
@@ -712,6 +712,15 @@ class Firewall(commands.firewall.F20_Firewall):
 
     def execute(self, storage, ksdata, instClass):
         args = []
+
+        # If --use-system-defaults was passed then the user wants
+        # whatever was provided by the rpms or ostree to be the
+        # default, do nothing.
+        if self.use_system_defaults:
+            log.info("ks file instructs to use system defaults for "
+                     "firewall, skipping configuration.")
+            return
+
         # enabled is None if neither --enable or --disable is passed
         # default to enabled if nothing has been set.
         if self.enabled == False:
