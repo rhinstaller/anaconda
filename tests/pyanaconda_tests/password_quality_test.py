@@ -22,15 +22,6 @@ from pyanaconda.users import validatePassword
 from pyanaconda import constants
 from pyanaconda.i18n import _
 import unittest
-import platform
-
-# libpwquality gives different results when running on RHEL and elsewhere,
-# so we need to skip absolute quality value checking outside of RHEL
-#
-# Ignore the deprecated method warning - we can revisist this when there is actually
-# a replacement for platform.dist available for Fedora as a package.
-# pylint: disable=deprecated-method
-ON_RHEL = platform.dist()[0] == "redhat"
 
 class PasswordQuality(unittest.TestCase):
     def password_empty_test(self):
@@ -117,31 +108,15 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(quality, 0)
         self.assertIsNotNone(error_message)
 
-        # "4naconda-" gives a quality of 27 on RHEL7
         score, status, quality, error_message = validatePassword("4naconda-")
-        if ON_RHEL:
-            self.assertEqual(score, 1)  # quality < 50
-            self.assertEqual(status, _(constants.PasswordStatus.WEAK.value))
-            self.assertEqual(quality, 27)
         self.assertIsNone(error_message)
 
-        # "4naconda----" gives a quality of 52 on RHEL7
         score, status, quality, error_message = validatePassword("4naconda----")
-        if ON_RHEL:
-            self.assertEqual(score, 2)  # quality > 50 & < 75
-            self.assertEqual(status, _(constants.PasswordStatus.FAIR.value))
-            self.assertEqual(quality, 52)
         self.assertIsNone(error_message)
 
-        # "----4naconda----" gives a quality of 80 on RHEL7
         score, status, quality, error_message = validatePassword("----4naconda----")
-        if ON_RHEL:
-            self.assertEqual(score, 3)  # quality > 75 & < 90
-            self.assertEqual(status, _(constants.PasswordStatus.GOOD.value))
-            self.assertEqual(quality, 80)
         self.assertIsNone(error_message)
 
-        # "?----4naconda----?" gives a quality of 100 on RHEL7
         score, status, quality, error_message = validatePassword("?----4naconda----?")
         # this should (hopefully) give quality 100 everywhere
         self.assertEqual(score, 4)  # quality > 90
