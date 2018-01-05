@@ -1174,19 +1174,21 @@ class MountData(commands.mount.F27_MountData):
         dev = storage.devicetree.resolve_device(self.device)
         if dev is None:
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                                      msg=_("Unknown or invalid device '%s' specified" % self.device)))
+                                      msg=_("Unknown or invalid device '%s' specified") %
+                                          self.device))
         if self.reformat:
             if self.format:
                 fmt = get_format(self.format)
                 if not fmt:
-                    msg = _("Unknown or invalid format '%(format)s' specified for device '%(device)s'" % \
-                            {"format" : self.format, "device" : self.device })
+                    msg = (_("Unknown or invalid format '%(format)s' "
+                             "specified for device '%(device)s'") %
+                           {"format": self.format, "device": self.device})
                     raise KickstartParseError(formatErrorMsg(self.lineno, msg))
             else:
                 old_fmt = dev.format
                 if not old_fmt or old_fmt.type is None:
                     raise KickstartParseError(formatErrorMsg(self.lineno,
-                                              msg=_("No format on device '%s'" % self.device)))
+                                              msg=(_("No format on device '%s'") % self.device)))
                 fmt = get_format(old_fmt.type)
             storage.format_device(dev, fmt)
             # make sure swaps end up in /etc/fstab

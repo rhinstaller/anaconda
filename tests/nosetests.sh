@@ -11,4 +11,5 @@ if [ $# -eq 0 ]; then
     set -- "${top_srcdir}"/tests/*_tests
 fi
 
-exec nosetests-3 -v --exclude=logpicker -a \!acceptance,\!slow "$@"
+# FIXME: remove the dd_test exclude when the python3-rpmfluff package will be available
+exec nosetests-3 -v --exclude=logpicker --exclude=dd_test* -a \!acceptance,\!slow "$@"

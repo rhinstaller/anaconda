@@ -1,10 +1,16 @@
 Testing Anaconda
 ================
 
-Before testing Anaconda you need to install all required dependencies,
-prepare the environment and build the sources::
+Testing locally
+---------------
 
-    make -f Makefile.am install-test-requires
+Before testing Anaconda you need to install all required dependencies.
+To get list of dependencies you can use::
+
+    [dnf|yum] install -y $(./scripts/testing/dependency_solver.py)
+
+Prepare the environment and build the sources::
+
     ./autogen.sh
     ./configure
     make
@@ -28,14 +34,32 @@ produce a human readable report.
 
 .. NOTE::
 
-    When using the `ci' target you need to use a regular user account which
-    is a member of the `mock' group. You can update your account by running
-    the command::
-
-        # usermod -a -G mock <username>
-
     Your regular user account also needs to execute `sudo' because some tests
     require root privileges!
+
+Testing Inside Mock
+-------------------
+
+When using the `ci' target in a mock you need to use a regular user account which
+is a member of the `mock' group. You can update your account by running
+the command::
+
+    # usermod -a -G mock <username>
+
+To prepare testing mock environment call::
+
+    ./scripts/testing/setup-mock-test-env.py [mock-configuration]
+
+Mock configuration can be path to a file or name of file in `/etc/mock/*.cfg`
+without suffix. For detail configuration look on the script help output.
+
+Then you can run tests by::
+
+    mock -r [mock_configuration] --chroot -- "cd /anaconda && ./autogen.sh && ./configure && make ci"
+
+Or you can just attach to shell inside of the prepared mock environment::
+
+    mock -r [mock_configuration] --shell
 
 Test Suite Architecture
 ------------------------
