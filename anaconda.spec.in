@@ -319,6 +319,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 08 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.130-1
+- kickstart: use RHEL7_Firewall instead of F28_Firewall (dusty)
+  Related: rhbz#1526450
+- kickstart: support firewall --use-system-defaults (dusty)
+  Resolves: rhbz#1526450
+- Check payload is set before accessing its data (mkolman)
+  Resolves: rhbz#1524785
+- Fix bad bash '*' expansion when loading kernel modules (jkonecny)
+  Resolves: rhbz#1519220
+
 * Fri Dec 08 2017 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.129-1
 - Update translations (ljanda)
   Resolves: rhbz#1480523
