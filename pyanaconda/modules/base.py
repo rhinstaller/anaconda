@@ -140,6 +140,10 @@ class KickstartModule(BaseModule):
         # TODO: We need to add support for addons.
         return list()
 
+    def get_kickstart_data(self):
+        """Get an empty kickstart data."""
+        return get_kickstart_handler(self.kickstart_specification)
+
     def read_kickstart(self, s):
         """Read the given kickstart string.
 

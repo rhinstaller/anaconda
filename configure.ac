@@ -166,6 +166,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/boss/install_manager/Makefile
                  pyanaconda/modules/foo/Makefile
                  pyanaconda/modules/foo/tasks/Makefile
+                 pyanaconda/modules/timezone/Makefile
                  data/post-scripts/Makefile
                  data/pixmaps/Makefile
                  tests/Makefile
