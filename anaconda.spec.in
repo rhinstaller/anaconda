@@ -110,6 +110,7 @@ Requires: python3-dbus
 Requires: python3-pwquality
 Requires: python3-systemd
 Requires: python3-pydbus
+Requires: system-logos
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,
 # which is apparently great for containers but unhelpful for the rest of us
@@ -173,7 +174,6 @@ Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python3-meh-gui >= %{mehver}
 Requires: adwaita-icon-theme
-Requires: system-logos
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
