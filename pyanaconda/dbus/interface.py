@@ -186,6 +186,35 @@ class DBusSpecification(object):
         node = self._generate_node(cls, interfaces)
         return self.xml_generator.element_to_xml(node)
 
+    def generate_properties_mapping(self, specification):
+        """Generates mapping of properties to interfaces.
+
+        The map can be used to detect the interface the property
+        belongs to. We assume that the specification cannot contain
+        interfaces with same property names.
+
+        :param specification: DBus specification in XML
+        :return: a mapping of property names to interface names
+        """
+        node = self.xml_generator.xml_to_element(specification)
+        interfaces = self.xml_generator.get_interfaces_from_node(node)
+
+        mapping = {}
+
+        for interface_name, element in interfaces.items():
+            properties = self.xml_generator.get_properties_from_interface(element)
+
+            for property_name in properties:
+                if property_name in mapping:
+                    msg = "Property {} from {} is already defined in {}.".format(
+                        property_name, interface_name, mapping[property_name]
+                    )
+                    raise DBusSpecificationError(msg)
+
+                mapping[property_name] = interface_name
+
+        return mapping
+
     def _collect_standard_interfaces(self):
         """Collect standard interfaces.
 

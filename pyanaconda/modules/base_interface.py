@@ -20,18 +20,23 @@
 #
 from pykickstart.errors import KickstartError
 
-from pyanaconda.dbus.template import InterfaceTemplate
+from pyanaconda.dbus.property import emits_properties_changed
+from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
 
 
 @dbus_interface(DBUS_MODULE_NAMESPACE)
-class KickstartModuleInterface(InterfaceTemplate):
+class KickstartModuleInterface(AdvancedInterfaceTemplate):
     """DBus interface of a kickstart module.
 
     The implementation is provided by the KickstartModule class.
     """
+
+    def connect_signals(self):
+        """Connect the signals."""
+        self.implementation.module_properties_changed.connect(self.flush_changes)
 
     @property
     def AvailableTasks(self) -> List[Tuple[Str, Str]]:
@@ -71,6 +76,7 @@ class KickstartModuleInterface(InterfaceTemplate):
         """
         return self.implementation.kickstart_addon_names
 
+    @emits_properties_changed
     def ReadKickstart(self, kickstart: Str) -> Dict[Str, Variant]:
         """Read the kickstart string.
 

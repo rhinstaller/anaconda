@@ -30,6 +30,7 @@ from abc import ABC
 
 from pyanaconda.dbus import DBus
 from pyanaconda.task import publish_task
+from pyanaconda.isignal import Signal
 from pyanaconda.modules.base_kickstart import get_kickstart_handler, get_kickstart_parser
 from pyanaconda.modules.base_kickstart import NoKickstartSpecification
 
@@ -85,6 +86,22 @@ class KickstartModule(BaseModule):
     def __init__(self):
         super().__init__()
         self._published_tasks = []
+        self._module_properties_changed = Signal()
+
+    @property
+    def module_properties_changed(self):
+        """Signal that module might have changed.
+
+        If someone changes properties of this module
+        on the python level (and not from DBus), he
+        should emit this signal once he is done.
+
+        Example of the callback:
+
+            def callback():
+                pass
+        """
+        return self._module_properties_changed
 
     @property
     def published_tasks(self):
