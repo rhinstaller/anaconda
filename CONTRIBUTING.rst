@@ -22,13 +22,10 @@ Anaconda Installer Branching Policy (the long version)
 The basic premise is that there are the following branches:
 
 - master
-- unstable
 - <next fedora number>-release
 - <next fedora number>-devel
 
-``Master`` branch never waits for any release-related processes to take place. The spec file will remain there to track dependencies. ``Master`` branch is *not* associated with Fedora Rawhide builds anymore. Its purpose is to function purely as an upstream branch.
-
-The ``unstable`` branch is used for making periodic Anaconda releases for Rawhide (or possibly anyone else wanting to taste the cutting edge).
+``Master`` branch never waits for any release-related processes to take place and is used for Fedora Rawhide Anaconda builds.
 
 Concerning current RHEL branches, they are too divergent to integrate into this scheme. Thus, commits are merged onto, and builds are done on the RHEL branches.
 In this case, two pull requests will very likely be needed:
@@ -44,9 +41,8 @@ For specific Fedora version, the release process is as follows:
 - ``<next Fedora number>-devel`` is merged onto ``<next Fedora number>-release``
 - a release commit is made (which bumps version in spec file) & tagged
 
-Concerning Fedora Rawhide, the release process is (very) slightly different:
+Concerning Fedora Rawhide, the release process is slightly different:
 
-- master is merged onto the unstable branch
 - a release commit is made (which bumps version in spec file) & tagged
 
 Concerning the ``<next Fedora number>`` branches (which could also be called ``next stable release`` if we wanted to decouple our versioning from Fedora in the future):
@@ -61,7 +57,6 @@ Example for the F25 cycle
 --------------------------
 
 - master
-- unstable
 - f25-devel
 - f25-release
 
@@ -74,7 +69,6 @@ This would continue until F25 is released, after which we:
 This will result in the following branches for the F26 cycle:
 
 - master
-- unstable
 - f26-devel
 - f26-release
 

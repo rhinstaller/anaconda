@@ -264,6 +264,18 @@ Do the major version bump and verify that the output looks correct:
 
     ./scripts/makebumpver --skip-zanata -c --bump-major-version
 
+Set the correct pykickstart version for the new Fedora release by changing all occurrences of:
+
+::
+
+    returnClassForVersion()
+
+to
+
+::
+
+    returnClassForVersion(version=F<new version>)
+
 If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
 
 ::
