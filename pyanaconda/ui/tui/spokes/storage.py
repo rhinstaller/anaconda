@@ -28,7 +28,7 @@ from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelec
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
-from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker, get_supported_filesystems
+from pyanaconda.storage_utils import storage_checker, get_supported_filesystems, get_supported_autopart_choices
 from pyanaconda.format_dasd import DasdFormatting
 
 from blivet.size import Size
@@ -671,7 +671,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         if pre_select == AUTOPART_TYPE_DEFAULT:
             pre_select = DEFAULT_AUTOPART_TYPE
 
-        for item in AUTOPART_CHOICES:
+        for item in get_supported_autopart_choices():
             self.part_schemes[item[0]] = item[1]
             if item[1] == pre_select:
                 self._selected_scheme_value = item[1]
