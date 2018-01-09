@@ -15,8 +15,9 @@
 
 import signal
 
-from dogtail.predicate import GenericPredicate
-from dogtail.utils import doDelay
+# FIXME: remove pylint disable
+from dogtail.predicate import GenericPredicate  # pylint: disable=import-error
+from dogtail.utils import doDelay  # pylint: disable=import-error
 from .base import UITestCase
 
 class ProgressTestCase(UITestCase):
