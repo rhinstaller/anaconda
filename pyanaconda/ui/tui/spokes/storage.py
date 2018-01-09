@@ -27,7 +27,7 @@ from gi.repository import BlockDev as blockdev
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog
-from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker, get_supported_filesystems
+from pyanaconda.storage_utils import storage_checker, get_supported_filesystems, get_supported_autopart_choices
 
 from blivet import arch
 from blivet.size import Size
@@ -587,7 +587,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         self._container = None
         self.part_schemes = OrderedDict()
         pre_select = self.data.autopart.type or DEFAULT_AUTOPART_TYPE
-        for item in AUTOPART_CHOICES:
+        for item in get_supported_autopart_choices():
             self.part_schemes[item[0]] = item[1]
             if item[1] == pre_select:
                 self._selected_scheme_value = item[1]

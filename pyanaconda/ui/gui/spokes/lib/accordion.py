@@ -18,13 +18,11 @@
 # Red Hat, Inc.
 #
 
-from blivet.devicefactory import is_supported_device_type
-
 from pyanaconda.i18n import _, C_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
-from pyanaconda.storage_utils import AUTOPART_CHOICES, AUTOPART_DEVICE_TYPES
+from pyanaconda.storage_utils import get_supported_autopart_choices
 
 import gi
 gi.require_version("AnacondaWidgets", "3.3")
@@ -573,9 +571,8 @@ class CreateNewPage(BasePage):
         self._createBox.attach(label, 0, 4, 2, 1)
         label.set_mnemonic_widget(combo)
 
-        autopart_choices = (c for c in AUTOPART_CHOICES if is_supported_device_type(AUTOPART_DEVICE_TYPES[c[1]]))
         default = None
-        for name, code in autopart_choices:
+        for name, code in get_supported_autopart_choices():
             itr = store.append([_(name), code])
             if code == DEFAULT_AUTOPART_TYPE:
                 default = itr
