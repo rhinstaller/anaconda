@@ -17,9 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.autopart import F26_AutoPart
-from pykickstart.commands.repo import F27_Repo, F27_RepoData
-from pykickstart.commands.url import F27_Url
+from pykickstart.commands.user import F19_User, F19_UserData
 from pykickstart.sections import PackageSection
 from pykickstart.version import F28
 
@@ -31,13 +29,11 @@ class BarKickstartSpecification(KickstartSpecification):
     version = F28
 
     commands = {
-        "url": F27_Url,
-        "repo": F27_Repo,
-        "autopart": F26_AutoPart,
+        "user": F19_User,
     }
 
     data = {
-        "RepoData": F27_RepoData,
+        "UserData": F19_UserData,
     }
 
     sections = {
