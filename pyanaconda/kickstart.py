@@ -91,7 +91,7 @@ from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
                                  OnErrorScriptSection, TracebackScriptSection, Section
-from pykickstart.version import returnClassForVersion, F27
+from pykickstart.version import returnClassForVersion, F27, RHEL8
 
 from pyanaconda import anaconda_logging
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_blivet_logger,\
@@ -2549,7 +2549,7 @@ dataMap = {
     "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(version=RHEL8)
 
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
