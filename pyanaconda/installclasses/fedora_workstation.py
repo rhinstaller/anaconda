@@ -1,6 +1,4 @@
 #
-# fedora-workstation.py
-#
 # Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify

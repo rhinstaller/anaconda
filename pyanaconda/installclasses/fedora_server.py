@@ -1,6 +1,4 @@
 #
-# fedora-server.py
-#
 # Copyright (C) Stephen Gallagher
 #
 # This program is free software; you can redistribute it and/or modify
