@@ -192,7 +192,7 @@ ci:
 	$(MAKE) run-tests || echo $$? > $(srcdir)/tests/error_occured
 
 # grab logs
-	cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR) || exit 1
+	-cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR) || exit 1
 	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
 	@if [ -f $(srcdir)/tests/error_occured ]; then \
 		echo "TEST FAILED"; \
