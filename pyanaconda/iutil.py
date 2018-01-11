@@ -42,11 +42,7 @@ import requests
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
-import gi
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
-
+from pyanaconda.core.glib import child_watch_add, source_remove
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW,\
     IPMI_ABORTED, X_TIMEOUT
@@ -567,7 +563,7 @@ def _sigchld_handler(num=None, frame=None):
 
     for child_pid in exited_pids:
         if _forever_pids[child_pid][1]:
-            GLib.source_remove(_forever_pids[child_pid][1])
+            source_remove(_forever_pids[child_pid][1])
         del _forever_pids[child_pid]
 
     if exit_statuses:
@@ -614,7 +610,7 @@ def watchProcess(proc, name):
     # If GLib is watching processes, add a watcher. child_watch_add checks if
     # the process has already exited.
     if _watch_process_glib:
-        _forever_pids[proc.id][1] = GLib.child_watch_add(proc.pid, _watch_process_cb, name)
+        _forever_pids[proc.id][1] = child_watch_add(proc.pid, _watch_process_cb, name)
     else:
         # Check that the process didn't already exit
         if proc.poll() is not None:
@@ -628,7 +624,7 @@ def unwatchProcess(proc):
        :param proc: The Popen object for the process.
     """
     if _forever_pids[proc.pid][1]:
-        GLib.source_remove(_forever_pids[proc.pid][1])
+        source_remove(_forever_pids[proc.pid][1])
     del _forever_pids[proc.pid]
 
 
@@ -637,7 +633,7 @@ def unwatchAllProcesses():
     global _forever_pids
     for child_pid in _forever_pids:
         if _forever_pids[child_pid][1]:
-            GLib.source_remove(_forever_pids[child_pid][1])
+            source_remove(_forever_pids[child_pid][1])
     _forever_pids = {}
 
 

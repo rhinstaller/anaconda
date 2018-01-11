@@ -36,6 +36,7 @@ from meh.handler import ExceptionHandler
 from pyanaconda import flags
 from pyanaconda import iutil, kickstart
 from pyanaconda import startup_utils
+from pyanaconda.async_utils import run_in_loop
 from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.i18n import _
@@ -44,10 +45,6 @@ from pyanaconda.ui.communication import hubQ
 
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
-
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -95,7 +92,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
     def _main_loop_handleException(self, dump_info):
         """
         Helper method with one argument only so that it can be registered
-        with GLib.idle_add() to run on idle or called from a handler.
+        with run_in_loop to run on idle or called from a handler.
 
         :type dump_info: an instance of the meh.DumpInfo class
 
@@ -156,7 +153,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # the graphical interface is running, don't crash it by
                 # running another one potentially from a different thread
                 log.debug("Gtk running, queuing exception handler to the main loop")
-                GLib.idle_add(self._main_loop_handleException, dump_info)
+                run_in_loop(self._main_loop_handleException, dump_info)
             else:
                 log.debug("Gtk not running, starting Gtk and running exception handler in it")
                 self._main_loop_handleException(dump_info)

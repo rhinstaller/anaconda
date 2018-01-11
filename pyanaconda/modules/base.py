@@ -18,9 +18,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import gi
-gi.require_version("GLib", "2.0")
-from gi.repository import GLib
 
 # FIXME: Remove this after initThreading will be replaced
 from pyanaconda.threading import initThreading
@@ -28,6 +25,9 @@ initThreading()
 
 from abc import ABC
 
+from pyanaconda.core.event_loop import EventLoop
+from pyanaconda.async_utils import run_in_loop
+from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
 from pyanaconda.task import publish_task
 from pyanaconda.isignal import Signal
@@ -42,7 +42,7 @@ class BaseModule(ABC):
     """Base implementation of a module."""
 
     def __init__(self):
-        self._loop = GLib.MainLoop()
+        self._loop = EventLoop()
 
     @property
     def loop(self):
@@ -52,7 +52,7 @@ class BaseModule(ABC):
     def run(self):
         """Run the module's loop."""
         log.debug("Schedule publishing.")
-        GLib.idle_add(self.publish)
+        run_in_loop(self.publish)
         log.debug("Start the loop.")
         self._loop.run()
 
@@ -73,7 +73,7 @@ class BaseModule(ABC):
 
     def stop(self):
         self.unpublish()
-        GLib.timeout_add_seconds(1, self.loop.quit)
+        Timer().timeout_sec(1, self.loop.quit)
 
 
 class KickstartModule(BaseModule):

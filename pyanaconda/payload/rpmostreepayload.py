@@ -28,10 +28,8 @@ from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
 
 import gi
-gi.require_version("GLib", "2.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository import GLib
 from gi.repository import Gio
 
 from blivet.size import Size
@@ -42,6 +40,7 @@ log = get_module_logger(__name__)
 
 from pyanaconda.payload import ArchivePayload, PayloadInstallError
 from pyanaconda.bootloader import EFIBase
+from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 import pyanaconda.errors as errors
 
 class RPMOSTreePayload(ArchivePayload):
@@ -82,7 +81,7 @@ class RPMOSTreePayload(ArchivePayload):
             bytes_transferred = asyncProgress.get_uint64('bytes-transferred')
             fetched = asyncProgress.get_uint('fetched')
             requested = asyncProgress.get_uint('requested')
-            formatted_bytes = GLib.format_size_full(bytes_transferred, 0)
+            formatted_bytes = format_size_full(bytes_transferred, 0)
 
             if requested == 0:
                 percent = 0.0
@@ -138,7 +137,7 @@ class RPMOSTreePayload(ArchivePayload):
                 os.unlink(efi_grubenv_link)
 
     def install(self):
-        mainctx = GLib.MainContext.new()
+        mainctx = create_new_context()
         mainctx.push_thread_default()
 
         cancellable = None
@@ -165,14 +164,14 @@ class RPMOSTreePayload(ArchivePayload):
         self._remoteOptions = {}
 
         if hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg:
-            self._remoteOptions['gpg-verify'] = GLib.Variant('b', False)
+            self._remoteOptions['gpg-verify'] = Variant('b', False)
 
         if flags.noverifyssl:
-            self._remoteOptions['tls-permissive'] = GLib.Variant('b', True)
+            self._remoteOptions['tls-permissive'] = Variant('b', True)
 
         repo.remote_change(None, OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
                            ostreesetup.remote, ostreesetup.url,
-                           GLib.Variant('a{sv}', self._remoteOptions),
+                           Variant('a{sv}', self._remoteOptions),
                            cancellable)
 
         # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
@@ -184,7 +183,7 @@ class RPMOSTreePayload(ArchivePayload):
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
 
-        pull_opts = {'refs': GLib.Variant('as', [ref])}
+        pull_opts = {'refs': Variant('as', [ref])}
         # If we're doing a kickstart, we can at least use the content as a reference:
         # See <https://github.com/rhinstaller/anaconda/issues/1117>
         # The first path here is used by <https://pagure.io/fedora-lorax-templates>
@@ -192,14 +191,14 @@ class RPMOSTreePayload(ArchivePayload):
         if OSTree.check_version(2017, 8):
             for path in ['/ostree/repo', '/install/ostree/repo']:
                 if os.path.isdir(path + '/objects'):
-                    pull_opts['localcache-repos'] = GLib.Variant('as', [path])
+                    pull_opts['localcache-repos'] = Variant('as', [path])
                     break
 
         try:
             repo.pull_with_options(ostreesetup.remote,
-                                   GLib.Variant('a{sv}', pull_opts),
+                                   Variant('a{sv}', pull_opts),
                                    progress, cancellable)
-        except GLib.GError as e:
+        except GError as e:
             exn = PayloadInstallError("Failed to pull from repository: %s" % e)
             log.error(str(exn))
             if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
@@ -393,7 +392,7 @@ class RPMOSTreePayload(ArchivePayload):
         repo.remote_change(sysroot_file,
                            OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
                            self.data.ostreesetup.remote, self.data.ostreesetup.url,
-                           GLib.Variant('a{sv}', self._remoteOptions),
+                           Variant('a{sv}', self._remoteOptions),
                            cancellable)
 
         boot = iutil.getSysroot() + '/boot'

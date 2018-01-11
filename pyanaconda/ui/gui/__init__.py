@@ -27,10 +27,9 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.3")
 gi.require_version("Keybinder", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
-gi.require_version("GLib", "2.0")
 gi.require_version("GObject", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
+from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObject
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_
@@ -38,6 +37,7 @@ from pyanaconda.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product, iutil, constants
 from pyanaconda import threading as anaconda_threading
 
+from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_call_once, unbusyCursor
 from pyanaconda.async_utils import async_action_wait
@@ -370,7 +370,7 @@ class MainWindow(Gtk.Window):
         # bytes, colorspace (there is no other colorspace), has-alpha,
         # bits-per-sample (has to be 8), width, height,
         # rowstride (bytes between row starts, but we only have one row)
-        self._transparent_base = GdkPixbuf.Pixbuf.new_from_bytes(GLib.Bytes.new([0, 0, 0, 127]),
+        self._transparent_base = GdkPixbuf.Pixbuf.new_from_bytes(Bytes.new([0, 0, 0, 127]),
                 GdkPixbuf.Colorspace.RGB, True, 8, 1, 1, 1)
 
         # Contain everything in an overlay so the window can be overlayed with the transparency
@@ -856,7 +856,7 @@ class GraphicalUserInterface(UserInterface):
                     provider.load_from_path(self.instclass.stylesheet)
                     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                             STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
-                except GLib.GError as e:
+                except GError as e:
                     log.error("Install class stylesheet %s failed to load:\n%s",
                               self.instclass.stylesheet, e)
 

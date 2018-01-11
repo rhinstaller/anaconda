@@ -22,12 +22,12 @@ import math
 
 import gi
 gi.require_version("Gtk", "3.0")
-gi.require_version("GLib", "2.0")
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk
 
 from pyanaconda.i18n import P_
 from pyanaconda.constants import MAX_ENTROPY_WAIT
+from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.async_utils import async_action_wait
 from blivet.util import get_current_entropy
@@ -66,7 +66,7 @@ class EntropyDialog(GUIObject):
         # method every ~250msec or rely on NTP not changing system time right
         # now and use time.time()?
         self._num_loops = 0
-        GLib.timeout_add(LOOP_TIMEOUT, self._update_progress)
+        Timer().timeout_msec(LOOP_TIMEOUT, self._update_progress)
         Gtk.main()
         self.window.destroy()
 

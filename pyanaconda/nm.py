@@ -18,12 +18,12 @@
 #
 
 import gi
-gi.require_version("GLib", "2.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("NM", "1.0")
 
-from gi.repository import Gio, GLib
+from gi.repository import Gio
 from gi.repository import NM
+from pyanaconda.core.glib import GError, Variant, VariantType
 import struct
 import socket
 
@@ -108,7 +108,7 @@ def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                                                object_path,
                                                interface_name,
                                                cancellable)
-    except GLib.GError as e:
+    except GError as e:
         if can_touch_runtime_system("raise GLib.GError", touch_live=True):
             raise
 
@@ -125,7 +125,7 @@ def _get_property(object_path, prop, interface_name_suffix=""):
 
     try:
         prop = proxy.Get('(ss)', interface_name, prop)
-    except GLib.GError as e:
+    except GError as e:
         if ("org.freedesktop.DBus.Error.AccessDenied" in e.message or
             "org.freedesktop.DBus.Error.InvalidArgs" in e.message):
             return None
@@ -231,7 +231,7 @@ def _get_object_iface_names(object_path):
                                    "org.freedesktop.DBus.Introspectable",
                                    "Introspect",
                                    None,
-                                   GLib.VariantType.new("(s)"),
+                                   VariantType.new("(s)"),
                                    Gio.DBusCallFlags.NONE,
                                    -1,
                                    None)
@@ -264,7 +264,7 @@ def nm_device_property(name, prop):
     proxy = _get_proxy()
     try:
         device = proxy.GetDeviceByIpIface('(s)', name)
-    except GLib.GError as e:
+    except GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
@@ -738,7 +738,7 @@ def _find_settings(value, key1, key2, format_value=lambda x: x):
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
         try:
             settings = proxy.GetSettings()
-        except GLib.GError as e:
+        except GError as e:
             log.debug("Exception raised in _find_settings: %s", e)
             continue
         try:
@@ -775,7 +775,7 @@ def nm_get_all_settings():
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
         try:
             settings = proxy.GetSettings()
-        except GLib.GError as e:
+        except GError as e:
             # The connection may be deleted asynchronously by NM
             log.debug("Exception raised in nm_get_all_settings: %s", e)
             continue
@@ -810,7 +810,7 @@ def nm_device_setting_value(name, key1, key2):
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     try:
         settings = proxy.GetSettings()
-    except GLib.GError as e:
+    except GError as e:
         log.debug("nm_device_setting_value: %s", e)
         raise SettingsNotFoundError(name)
     try:
@@ -827,7 +827,7 @@ def nm_disconnect_device(name):
     proxy = _get_proxy()
     try:
         device = proxy.GetDeviceByIpIface('(s)', name)
-    except GLib.GError as e:
+    except GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
@@ -835,7 +835,7 @@ def nm_disconnect_device(name):
     device_proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
     try:
         device_proxy.Disconnect()
-    except GLib.GError as e:
+    except GError as e:
         if "org.freedesktop.NetworkManager.Device.NotActive" in e.message:
             raise DeviceNotActiveError(name, e)
         raise
@@ -861,7 +861,7 @@ def nm_activate_device_connection(dev_name, con_uuid):
         proxy = _get_proxy()
         try:
             device_path = proxy.GetDeviceByIpIface('(s)', dev_name)
-        except GLib.GError as e:
+        except GError as e:
             if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
                 raise UnknownDeviceError(dev_name, e)
             raise
@@ -873,7 +873,7 @@ def nm_activate_device_connection(dev_name, con_uuid):
     nm_proxy = _get_proxy()
     try:
         nm_proxy.ActivateConnection('(ooo)', con_paths[0], device_path, "/")
-    except GLib.GError as e:
+    except GError as e:
         if "org.freedesktop.NetworkManager.UnmanagedDevice" in e.message:
             raise UnmanagedDeviceError(dev_name, e)
         elif "org.freedesktop.NetworkManager.UnknownConnection" in e.message:
@@ -902,7 +902,7 @@ def nm_add_connection(values):
 
     settings = {}
     for key1, key2, value, type_str in values:
-        gvalue = GLib.Variant(type_str, value)
+        gvalue = Variant(type_str, value)
         if key1 not in settings:
             settings[key1] = {}
         settings[key1][key2] = gvalue
@@ -911,7 +911,7 @@ def nm_add_connection(values):
                        interface_name="org.freedesktop.NetworkManager.Settings")
     try:
         connection = proxy.AddConnection('(a{sa{sv}})', settings)
-    except GLib.GError as e:
+    except GError as e:
         if "bond.options: invalid option" in e.message:
             raise BondOptionsError(e)
         raise
@@ -1081,9 +1081,9 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
         if value is None:
             new_settings[updated_key1].pop(updated_key2, None)
         else:
-            new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
+            new_settings[updated_key1][updated_key2] = Variant(type_str, value)
 
-    return GLib.Variant(settings.get_type_string(), (new_settings,))
+    return Variant(settings.get_type_string(), (new_settings,))
 
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes 'ay' for dbus

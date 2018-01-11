@@ -17,11 +17,7 @@
 # Red Hat, Inc.
 #
 
-import gi
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
-
+from pyanaconda.core.timer import Timer
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
@@ -45,7 +41,7 @@ class RefreshDialog(GUIObject):
         self._ok_button = self.builder.get_object("refreshOKButton")
 
         self._elapsed = 0
-        self._watcher_id = None
+        self._rescan_timer = Timer()
 
     def run(self):
         rc = self.window.run()
@@ -79,7 +75,7 @@ class RefreshDialog(GUIObject):
         # indicating the user did not press OK.
         #
         # NOTE: There is no button with response_id=2.
-        GLib.source_remove(self._watcher_id)
+        self._rescan_timer.cancel()
         self.window.response(2)
 
     def on_rescan_clicked(self, button):
@@ -97,4 +93,4 @@ class RefreshDialog(GUIObject):
 
         # This watches for the rescan to be finished and updates the dialog when
         # that happens.
-        self._watcher_id = GLib.timeout_add_seconds(1, self._check_rescan)
+        self._rescan_timer.timeout_sec(1, self._check_rescan)

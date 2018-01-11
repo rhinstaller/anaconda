@@ -28,16 +28,12 @@ import re
 import shutil
 import langtable
 
+from pyanaconda.core.glib import GError, Variant
 from pyanaconda import iutil
 from pyanaconda import safe_dbus
 from pyanaconda import localization
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
 from pyanaconda.flags import can_touch_runtime_system
-
-import gi
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -383,7 +379,7 @@ class LocaledWrapper(object):
     def __init__(self):
         try:
             self._connection = safe_dbus.get_new_system_connection()
-        except GLib.GError as e:
+        except GError as e:
             if can_touch_runtime_system("raise GLib.GError", touch_live=True):
                 raise
 
@@ -478,7 +474,7 @@ class LocaledWrapper(object):
         # where convert indicates whether the keymap should be converted
         # to X11 layout and user_interaction indicates whether PolicyKit
         # should ask for credentials or not
-        args = GLib.Variant('(ssbb)', (keymap, "", convert, False))
+        args = Variant('(ssbb)', (keymap, "", convert, False))
 
         try:
             safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
@@ -558,7 +554,7 @@ class LocaledWrapper(object):
         # where convert indicates whether the keymap should be converted
         # to X11 layout and user_interaction indicates whether PolicyKit
         # should ask for credentials or not
-        args = GLib.Variant("(ssssbb)", (layouts_str, "", variants_str, opts_str,
+        args = Variant("(ssssbb)", (layouts_str, "", variants_str, opts_str,
                                          convert, False))
         try:
             safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,

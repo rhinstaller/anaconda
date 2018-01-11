@@ -19,13 +19,9 @@
 
 from collections import namedtuple
 
-import gi
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
-
 from pyanaconda import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.storage_utils import try_populate_devicetree
@@ -294,7 +290,7 @@ class ISCSIDialog(GUIObject):
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_ISCSI_DISCOVER, target=self._discover,
                                      args=(credentials, bind)))
-        GLib.timeout_add(250, self._check_discover)
+        Timer().timeout_msec(250, self._check_discover)
 
     # When the initiator name, ip address, and any auth fields are filled in
     # valid, only then should the Start button be made sensitive.
@@ -446,7 +442,7 @@ class ISCSIDialog(GUIObject):
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_ISCSI_LOGIN, target=self._login,
                                      args=(credentials,)))
-        GLib.timeout_add(250, self._check_login)
+        Timer().timeout_msec(250, self._check_login)
 
     def on_login_field_changed(self, *args):
         # Make up a credentials object so we can test if it's valid.

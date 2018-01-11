@@ -39,10 +39,9 @@
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
-gi.require_version("GLib", "2.0")
 gi.require_version("AnacondaWidgets", "3.3")
 
-from gi.repository import Gdk, GLib, AnacondaWidgets, Gtk
+from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection, getDisksByNames
@@ -58,6 +57,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
 from pyanaconda.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.core.timer import Timer
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet.size import Size
@@ -171,7 +171,7 @@ class InstallOptionsDialogBase(GUIObject):
         # modify the software selection screen.  Thus, we have to set the button
         # insensitive and wait until software selection is ready to go.
         if not self._software_is_ready():
-            GLib.timeout_add_seconds(1, self._check_for_storage_thread, widget)
+            Timer().timeout_sec(1, self._check_for_storage_thread, widget)
 
 class NeedSpaceDialog(InstallOptionsDialogBase):
     builderObjects = ["need_space_dialog"]

@@ -28,11 +28,12 @@ from collections import namedtuple
 from urllib.parse import urlsplit
 
 import gi
-gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
 
-from gi.repository import GLib, Gtk
+from gi.repository import Gtk
 
+from pyanaconda.core import glib
+from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
@@ -248,14 +249,14 @@ class MediaCheckDialog(GUIObject):
 
         self.progressBar.set_fraction(1.0)
         doneButton.set_sensitive(True)
-        GLib.spawn_close_pid(pid)
+        glib.spawn_close_pid(pid)
         self._pid = None
 
     def _checkisoStdoutWatcher(self, fd, condition):
-        if condition == GLib.IOCondition.HUP:
+        if condition == glib.IOCondition.HUP:
             return False
 
-        channel = GLib.IOChannel(fd)
+        channel = glib.IOChannel(fd)
         line = channel.readline().strip()
 
         if not line.isdigit():
@@ -270,17 +271,17 @@ class MediaCheckDialog(GUIObject):
 
     def run(self, devicePath):
         (retval, self._pid, _stdin, stdout, _stderr) = \
-            GLib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
-                                        GLib.SpawnFlags.DO_NOT_REAP_CHILD|GLib.SpawnFlags.SEARCH_PATH,
+            glib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
+                                        glib.SpawnFlags.DO_NOT_REAP_CHILD|glib.SpawnFlags.SEARCH_PATH,
                                         None, None)
         if not retval:
             return
 
         # This function waits for checkisomd5 to end and then cleans up after it.
-        GLib.child_watch_add(self._pid, self._checkisoEndsCB)
+        PidWatcher().watch_process(self._pid, self._checkisoEndsCB)
 
         # This function watches the process's stdout.
-        GLib.io_add_watch(stdout, GLib.IOCondition.IN|GLib.IOCondition.HUP, self._checkisoStdoutWatcher)
+        glib.io_add_watch(stdout, glib.IOCondition.IN|glib.IOCondition.HUP, self._checkisoStdoutWatcher)
 
         self.window.run()
 

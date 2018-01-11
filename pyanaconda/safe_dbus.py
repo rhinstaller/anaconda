@@ -19,12 +19,12 @@
 """Module providing thread-safe and mainloop-safe DBus operations."""
 
 import gi
-gi.require_version("GLib", "2.0")
 gi.require_version("Gio", "2.0")
 
-from gi.repository import GLib, Gio
+from gi.repository import Gio
 
 import os
+from pyanaconda.core.glib import GError, Variant
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
@@ -83,7 +83,7 @@ def get_new_session_connection():
             Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT |
             Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
             None, None)
-    except GLib.GError as gerr:
+    except GError as gerr:
         raise DBusCallError("Unable to connect to session bus: %s", gerr)
     finally:
         if old_euid is not None:
@@ -124,7 +124,7 @@ def call_sync(service, obj_path, iface, method, args,
     if not connection:
         try:
             connection = get_new_system_connection()
-        except GLib.GError as gerr:
+        except GError as gerr:
             raise DBusCallError("Unable to connect to system bus: %s", gerr)
 
     if connection.is_closed():
@@ -134,7 +134,7 @@ def call_sync(service, obj_path, iface, method, args,
         ret = connection.call_sync(service, obj_path, iface, method, args,
                                    None, Gio.DBusCallFlags.NONE,
                                    DEFAULT_DBUS_TIMEOUT, None)
-    except GLib.GError as gerr:
+    except GError as gerr:
         msg = "Failed to call %s method on %s with %s arguments: %s" % (method, obj_path, args, gerr.message)
         raise DBusCallError(msg)
 
@@ -169,7 +169,7 @@ def get_property_sync(service, obj_path, iface, prop_name,
 
     """
 
-    args = GLib.Variant('(ss)', (iface, prop_name))
+    args = Variant('(ss)', (iface, prop_name))
     ret = call_sync(service, obj_path, DBUS_PROPS_IFACE, "Get", args,
                     connection)
     if ret is None:
