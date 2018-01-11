@@ -17,14 +17,14 @@
 # Red Hat, Inc.
 #
 
-import gi
-
 from queue import Queue
 from pyanaconda.threading import threadMgr
+from pyanaconda.core.glib import idle_add
 
-gi.require_version("GLib", "2.0")
 
-from gi.repository import GLib
+def run_in_loop(callback, *args, **kwargs):
+    """Run callback in the main thread."""
+    idle_add(callback, *args, **kwargs)
 
 
 def async_action_wait(func):
@@ -50,7 +50,7 @@ def async_action_wait(func):
             # nothing special has to be done in the main thread
             return func(*args, **kwargs)
 
-        GLib.idle_add(_idle_method, queue_instance, args, kwargs)
+        run_in_loop(_idle_method, queue_instance, args, kwargs)
         return queue_instance.get()
 
     return _call_method
@@ -76,11 +76,6 @@ def async_action_nowait(func):
             func(*args, **kwargs)
             return
 
-        GLib.idle_add(_idle_method, args, kwargs)
+        run_in_loop(_idle_method, args, kwargs)
 
     return _call_method
-
-
-def run_in_main_thread(callback, *args, **kwargs):
-    """Run callback in the main thread."""
-    GLib.idle_add(callback, *args, **kwargs)
