@@ -1,0 +1,241 @@
+#
+# Copyright (C) 2018  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
+#
+import unittest
+from mock import patch, Mock
+
+from pyanaconda.dbus.observer import DBusCachedObserver, PropertiesCache, DBusObjectObserver, \
+    DBusObserverError, DBusServiceObserver, DBusObserver
+
+
+class DBusObserverTestCase(unittest.TestCase):
+    """Test DBus observers."""
+
+    def _setup_observer(self, observer):
+        """Set up the observer."""
+        observer._service_available = Mock()
+        observer._service_unavailable = Mock()
+        self.assertFalse(observer.is_service_available)
+
+    def _make_service_available(self, observer):
+        """Make the service available."""
+        observer._service_name_appeared_callback()
+        self.assertTrue(observer.is_service_available)
+
+        observer._service_available.emit.assert_called_once_with(observer)
+        observer._service_available.reset_mock()
+
+        observer._service_unavailable.emit.assert_not_called()
+        observer._service_unavailable.reset_mock()
+
+    def _make_service_unavailable(self, observer):
+        """Make the service unavailable."""
+        observer._service_name_vanished_callback()
+        self.assertFalse(observer.is_service_available)
+
+        observer._service_unavailable.emit.assert_called_once_with(observer)
+        observer._service_unavailable.reset_mock()
+
+        observer._service_available.emit.assert_not_called()
+        observer._service_available.reset_mock()
+
+    def observer_test(self):
+        """Test the observer."""
+        observer = DBusObserver("SERVICE")
+        self._setup_observer(observer)
+        self._make_service_available(observer)
+        self._make_service_unavailable(observer)
+
+    @patch('pyanaconda.dbus.observer.DBus.get_proxy')
+    def service_observer_test(self, proxy_getter):
+        """Test the service observer."""
+        observer = DBusServiceObserver("SERVICE")
+
+        # Set up the observer.
+        self._setup_observer(observer)
+        self.assertEqual(observer._proxies, dict())
+
+        with self.assertRaises(DBusObserverError):
+            observer.get_proxy("0")
+
+        # Service available.
+        self._make_service_available(observer)
+        self.assertEqual(observer._proxies, dict())
+
+        # Get proxy.
+        proxy = observer.get_proxy("OBJECT")
+        proxy_getter.assert_called_once_with("SERVICE", "OBJECT")
+        self.assertEqual(observer._proxies, {"OBJECT": proxy})
+
+        # Service unavailable.
+        self._make_service_unavailable(observer)
+        self.assertEqual(observer._proxies, dict())
+
+        with self.assertRaises(DBusObserverError):
+            observer.get_proxy("Object")
+
+    @patch('pyanaconda.dbus.observer.DBus.get_proxy')
+    def object_observer_test(self, proxy_getter):
+        """Test the object observer."""
+        observer = DBusObjectObserver("SERVICE", "OBJECT")
+
+        # Setup the observer.
+        self._setup_observer(observer)
+        self.assertIsNone(observer._proxy)
+
+        with self.assertRaises(DBusObserverError):
+            observer.proxy.DoSomething()
+
+        # Service available.
+        self._make_service_available(observer)
+        self.assertIsNone(observer._proxy)
+
+        # Access the proxy.
+        observer.proxy.DoSomething()
+        proxy_getter.assert_called_once_with("SERVICE", "OBJECT")
+        self.assertIsNotNone(observer._proxy)
+
+        # Service unavailable.
+        self._make_service_unavailable(observer)
+        self.assertIsNone(observer._proxy)
+
+        with self.assertRaises(DBusObserverError):
+            observer.proxy.DoSomething()
+
+    def cache_test(self):
+        """Test the properties cache."""
+
+        cache = PropertiesCache()
+        self.assertEqual(cache.properties, {})
+
+        with self.assertRaises(AttributeError):
+            getattr(cache, "a")
+
+        with self.assertRaises(AttributeError):
+            setattr(cache, "a", 1)
+
+        cache.update({"a": 1, "b": 2, "c": 3})
+        self.assertEqual(cache.properties, {"a": 1, "b": 2, "c": 3})
+        self.assertEqual(cache.a, 1)
+        self.assertEqual(cache.b, 2)
+        self.assertEqual(cache.c, 3)
+
+        with self.assertRaises(AttributeError):
+            setattr(cache, "a", 1)
+
+        cache.update({"a": 10, "b": 20})
+        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 3})
+        self.assertEqual(cache.a, 10)
+        self.assertEqual(cache.b, 20)
+        self.assertEqual(cache.c, 3)
+
+        cache.update({"d": 4})
+        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 3, "d": 4})
+        self.assertEqual(cache.a, 10)
+        self.assertEqual(cache.b, 20)
+        self.assertEqual(cache.c, 3)
+        self.assertEqual(cache.d, 4)
+
+        cache.update({"c": 30, "d": 40})
+        self.assertEqual(cache.properties, {"a": 10, "b": 20, "c": 30, "d": 40})
+        self.assertEqual(cache.a, 10)
+        self.assertEqual(cache.b, 20)
+        self.assertEqual(cache.c, 30)
+        self.assertEqual(cache.d, 40)
+
+    @patch('pyanaconda.dbus.observer.DBus.get_proxy')
+    def cached_observer_test(self, proxy_getter):
+        """Test the cached observer."""
+        observer = DBusCachedObserver("SERVICE", "OBJECT", ["I"])
+
+        callback = Mock()
+        observer.cached_properties_changed.connect(callback)
+
+        proxy = Mock()
+        proxy.GetAll.return_value = {"A": 1, "B": 2, "C": 3}
+        proxy_getter.return_value = proxy
+
+        # Set up the observer.
+        self._setup_observer(observer)
+
+        # Enable service.
+        self._make_service_available(observer)
+        proxy.PropertiesChanged.connect.assert_called()
+        callback.assert_called_once_with(observer, {"A", "B", "C"}, set())
+        callback.reset_mock()
+
+        self.assertEqual(observer.cache.A, 1)
+        self.assertEqual(observer.cache.B, 2)
+        self.assertEqual(observer.cache.C, 3)
+
+        with self.assertRaises(AttributeError):
+            getattr(observer.cache, "D")
+
+        # Disable service.
+        self._make_service_unavailable(observer)
+
+    @patch('pyanaconda.dbus.observer.DBus.get_proxy')
+    def cached_observer_advanced_test(self, proxy_getter):
+        """Advanced test for the cached observer."""
+        observer = DBusCachedObserver("SERVICE", "OBJECT", ["I"])
+
+        callback = Mock()
+        observer.cached_properties_changed.connect(callback)
+
+        proxy = Mock()
+        proxy.GetAll.return_value = {}
+        proxy_getter.return_value = proxy
+
+        # Set up the observer.
+        self._setup_observer(observer)
+
+        # Enable service.
+        self._make_service_available(observer)
+        proxy.PropertiesChanged.connect.assert_called()
+        callback.assert_not_called()
+        callback.reset_mock()
+
+        # Change values.
+        observer._properties_changed_callback("I", {"A": 1}, [])
+        callback.assert_called_once_with(observer, {"A"}, set())
+        callback.reset_mock()
+        self.assertEqual(observer.cache.A, 1)
+
+        with self.assertRaises(AttributeError):
+            getattr(observer.cache, "B")
+
+        observer._properties_changed_callback("I", {"A": 10, "B": 2}, [])
+        callback.assert_called_once_with(observer, {"A", "B"}, set())
+        callback.reset_mock()
+        self.assertEqual(observer.cache.A, 10)
+        self.assertEqual(observer.cache.B, 2)
+
+        observer._properties_changed_callback("I", {"B": 20}, ["A"])
+        callback.assert_called_once_with(observer, {"B"}, {"A"})
+        callback.reset_mock()
+        self.assertEqual(observer.cache.A, 10)
+        self.assertEqual(observer.cache.B, 20)
+
+        observer._properties_changed_callback("I2", {"A": 200, "B": 300}, [])
+        callback.assert_not_called()
+        self.assertEqual(observer.cache.A, 10)
+        self.assertEqual(observer.cache.B, 20)
+
+        # Disable service.
+        self._make_service_unavailable(observer)

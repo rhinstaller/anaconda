@@ -22,7 +22,8 @@ import unittest
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.xml import XMLGenerator
-from pyanaconda.dbus.interface import DBusSpecification, DBusSpecificationError, dbus_interface, dbus_class, dbus_signal
+from pyanaconda.dbus.interface import DBusSpecification, DBusSpecificationError, dbus_interface, \
+    dbus_class, dbus_signal
 
 
 class InterfaceGeneratorTestCase(unittest.TestCase):
@@ -602,3 +603,37 @@ class InterfaceGeneratorTestCase(unittest.TestCase):
         '''
 
         self._compare(ComplexClassC, expected_xml)
+
+    def standard_interfaces_test(self):
+        """Test members of standard interfaces."""
+
+        @dbus_interface("InterfaceWithoutStandard")
+        class ClassWithStandard(object):
+
+            @property
+            def Property(self) -> Int:
+                return 1
+
+            def Method(self):
+                pass
+
+            def Ping(self):
+                # This method shouldn't be part of the interface
+                pass
+
+            @dbus_signal
+            def PropertiesChanged(self, a, b, c):
+                # This signal shouldn't be part of the interface
+                pass
+
+        expected_xml = '''
+        <node>
+            <!--Specifies ClassWithStandard-->
+           <interface name="InterfaceWithoutStandard">
+                <method name="Method" />
+                <property access="read" name="Property" type="i"/>
+            </interface>
+        </node>
+        '''
+
+        self._compare(ClassWithStandard, expected_xml)
