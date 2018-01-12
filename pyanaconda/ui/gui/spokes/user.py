@@ -34,7 +34,7 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputC
 from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
 from pyanaconda.ui.communication import hubQ
 
-from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
+from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

@@ -47,7 +47,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
                                       UNSUPPORTED_HW, IPMI_ABORTED, X_TIMEOUT
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
-from pyanaconda.regexes import URL_PARSE
+from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.errors import RemovedModuleError
 
 from pyanaconda.core.i18n import _

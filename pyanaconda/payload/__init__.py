@@ -58,7 +58,7 @@ from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.core.iutil import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.regexes import VERSION_DIGITS
+from pyanaconda.core.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group
 

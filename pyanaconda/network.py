@@ -43,7 +43,7 @@ import blivet.arch
 from pyanaconda import nm
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
-from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
+from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pykickstart.constants import BIND_TO_MAC
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger

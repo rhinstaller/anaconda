@@ -19,7 +19,7 @@
 import unittest
 
 from regexcheck import regex_group
-from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
+from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
 
 class GroupParseTestCase(unittest.TestCase):
     def group_list_test(self):
