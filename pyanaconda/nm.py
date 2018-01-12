@@ -30,7 +30,7 @@ import socket
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
+from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
 from pyanaconda.flags import flags, can_touch_runtime_system
 
 supported_device_types = [

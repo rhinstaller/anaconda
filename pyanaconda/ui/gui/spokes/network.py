@@ -39,7 +39,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, r
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.core.iutil import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
-from pyanaconda.constants import ANACONDA_ENVIRON
+from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib
 
 from pyanaconda import network

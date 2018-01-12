@@ -22,7 +22,7 @@ import sys
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pyanaconda.core import iutil
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
+from pyanaconda.core.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub

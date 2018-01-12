@@ -19,7 +19,7 @@
 
 from pyanaconda import argument_parsing
 from pyanaconda.flags import BootArgs
-from pyanaconda.constants import DisplayModes
+from pyanaconda.core.constants import DisplayModes
 import unittest
 
 class ArgparseTest(unittest.TestCase):
@@ -55,7 +55,7 @@ class ArgparseTest(unittest.TestCase):
 
     def selinux_test(self):
         from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
-        from pyanaconda.constants import SELINUX_DEFAULT
+        from pyanaconda.core.constants import SELINUX_DEFAULT
 
         # with no arguments, use SELINUX_DEFAULT
         opts, _deprecated = self._parseCmdline([])

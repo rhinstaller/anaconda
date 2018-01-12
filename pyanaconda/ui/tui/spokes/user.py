@@ -19,7 +19,7 @@
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 
-from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, PASSWORD_SET
+from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, PASSWORD_SET
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pyanaconda.regexes import GECOS_VALID

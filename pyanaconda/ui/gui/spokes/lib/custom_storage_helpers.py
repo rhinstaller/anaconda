@@ -30,7 +30,7 @@ from collections import namedtuple
 import functools
 import re
 
-from pyanaconda.constants import SIZE_UNITS_DEFAULT
+from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.core.iutil import lowerASCII
 from pyanaconda.platform import platform
 from pyanaconda.storage_utils import size_from_input

@@ -40,8 +40,10 @@ from blivet.devicefactory import DEVICE_TYPE_DISK
 
 from pyanaconda.i18n import _, N_
 from pyanaconda import isys
-from pyanaconda.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, \
-    STORAGE_MUST_BE_ON_LINUXFS, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, STORAGE_MIN_RAM
+from pyanaconda.core.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, \
+                                      STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
+                                      STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, \
+                                      STORAGE_MIN_RAM
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform
 

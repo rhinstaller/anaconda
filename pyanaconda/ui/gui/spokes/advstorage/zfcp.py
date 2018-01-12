@@ -29,7 +29,7 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.regexes import DASD_DEVICE_NUMBER, ZFCP_WWPN_NUMBER, ZFCP_LUN_NUMBER
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 __all__ = ["ZFCPDialog"]
 

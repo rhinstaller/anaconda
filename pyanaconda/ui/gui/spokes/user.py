@@ -23,7 +23,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, guess_username, check_groupname
 from pyanaconda import input_checking
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -589,7 +589,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 self.show_warning_message(error_message)
             else:
                 # add suffix for the click twice logic
-                self.show_warning_message("{} {}".format(error_message, _(constants.PASSWORD_DONE_TWICE)))
+                self.show_warning_message("{} {}".format(error_message,
+                                                         _(constants.PASSWORD_DONE_TWICE)))
 
         # check if the spoke can be exited after the latest round of checks
         self._check_spoke_exit_conditions(unwaivable_check_failed)

@@ -42,10 +42,10 @@ if __name__ == "__main__":
     from pyanaconda import anaconda_logging
     anaconda_logging.init()
 
-from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
-from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
-from pyanaconda.constants import THREAD_PAYLOAD_RESTART
-from pyanaconda.constants import PayloadRequirementType
+from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
+from pyanaconda.core.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
+from pyanaconda.core.constants import THREAD_PAYLOAD_RESTART
+from pyanaconda.core.constants import PayloadRequirementType
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_

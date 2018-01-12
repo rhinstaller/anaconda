@@ -69,8 +69,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
-from pyanaconda import constants
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
@@ -708,7 +707,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         mainBox.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(mainViewport))
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
-                      target=self._initialize))
+                                     target=self._initialize))
 
     def _add_disk_overview(self, disk, box):
         if disk.removable:

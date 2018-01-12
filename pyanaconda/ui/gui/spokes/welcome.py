@@ -37,7 +37,7 @@ from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _, C_
 from pyanaconda.core.iutil import is_unsupported_hw, ipmi_abort
-from pyanaconda.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
+from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

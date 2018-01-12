@@ -18,7 +18,7 @@
 #
 
 import os
-from pyanaconda.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
+from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.core import iutil
 
 from pyanaconda.anaconda_loggers import get_module_logger

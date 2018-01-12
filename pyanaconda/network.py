@@ -23,7 +23,7 @@ gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 import shutil
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 import socket
 import os
 import time
@@ -41,7 +41,6 @@ from blivet.devices import FcoeDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
-from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME

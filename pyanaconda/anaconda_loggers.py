@@ -28,7 +28,8 @@
 #    than the constants module.
 
 import logging
-from pyanaconda import constants
+from pyanaconda.core import constants
+
 
 def get_module_logger(module_name):
     """Return anaconda sub-logger based on a module __name__ attribute.

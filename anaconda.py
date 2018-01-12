@@ -202,7 +202,7 @@ def setup_python_path():
     # First add our updates path
     sys.path.insert(0, '/tmp/updates/')
 
-    from pyanaconda.constants import ADDON_PATHS
+    from pyanaconda.core.constants import ADDON_PATHS
     # append ADDON_PATHS dirs at the end
     sys.path.extend(ADDON_PATHS)
 
@@ -277,9 +277,8 @@ if __name__ == "__main__":
 
     from pyanaconda.i18n import _
 
-    from pyanaconda import constants
     from pyanaconda.addons import collect_addon_paths
-    from pyanaconda.core import iutil
+    from pyanaconda.core import iutil, constants
     from pyanaconda import startup_utils
 
     # do this early so we can set flags before initializing logging

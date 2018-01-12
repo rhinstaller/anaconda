@@ -18,7 +18,7 @@
 #
 
 from pyanaconda import ui
-from pyanaconda.constants import IPMI_ABORTED
+from pyanaconda.core.constants import IPMI_ABORTED
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
 from pyanaconda.core.iutil import ipmi_report

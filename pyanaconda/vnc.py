@@ -19,13 +19,12 @@
 
 import os, sys
 import time
-from pyanaconda import constants, network, product
-from pyanaconda.core import iutil
+from pyanaconda import network, product
+from pyanaconda.core import iutil, constants
 import socket
 import subprocess
 import dbus
 
-from pyanaconda.constants import X_TIMEOUT
 from pyanaconda.i18n import _, P_
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
@@ -63,7 +62,7 @@ class VncServer:
     def __init__(self, root="/", ip=None, name=None,
                  password="", vncconnecthost="",
                  vncconnectport="", log_file="/tmp/vncserver.log",
-                 pw_file="/tmp/vncpassword", timeout=X_TIMEOUT):
+                 pw_file="/tmp/vncpassword", timeout=constants.X_TIMEOUT):
         self.root = root
         self.ip = ip
         self.name = name

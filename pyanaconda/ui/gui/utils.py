@@ -35,8 +35,8 @@ from contextlib import contextmanager
 from pyanaconda.core import glib
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.async_utils import async_action_wait, run_in_loop
-from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
-                                 PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
+from pyanaconda.core.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
+                                      PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

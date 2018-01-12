@@ -30,9 +30,8 @@ import time
 import imp
 import os
 
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 from pyanaconda import product
-from pyanaconda import constants
 from pyanaconda import anaconda_logging
 from pyanaconda import network
 from pyanaconda import safe_dbus

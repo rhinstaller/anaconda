@@ -37,13 +37,12 @@ from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 from pyanaconda import isys
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
-from pyanaconda import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
@@ -322,10 +321,10 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             if orig_hostname == actual_hostname:
                 if server_working:
                     set_store_value((self._serversStore,
-                                    itr, SERVER_WORKING, constants.NTP_SERVER_OK))
+                                     itr, SERVER_WORKING, constants.NTP_SERVER_OK))
                 else:
                     set_store_value((self._serversStore,
-                                    itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
+                                     itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
         self._epoch_lock.release()
 
     @async_action_nowait

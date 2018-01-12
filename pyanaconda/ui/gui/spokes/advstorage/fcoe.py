@@ -19,7 +19,7 @@
 
 from blivet.fcoe import fcoe
 
-from pyanaconda import constants
+from pyanaconda.core import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core.async_utils import async_action_wait

@@ -21,7 +21,7 @@
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.i18n import N_, _
-from pyanaconda.constants import ANACONDA_ENVIRON
+from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.flags import flags
 from pyanaconda.core.iutil import execConsole
 from blivet import arch

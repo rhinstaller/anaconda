@@ -20,7 +20,7 @@
 from pyanaconda.core.timer import Timer
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda import constants
+from pyanaconda.core import constants
 from pyanaconda.storage.osinstall import storage_initialize
 
 

@@ -35,7 +35,8 @@ from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui.utils import timed_action
 from pyanaconda.i18n import _
 from pyanaconda.errors import NonInteractiveError
-from pyanaconda import constants
+from pyanaconda.core import constants
+
 
 def autoinstall_stopped(reason):
     """ Reaction on stop of automatic kickstart installation

@@ -27,8 +27,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda import constants
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -324,7 +323,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         NormalSpoke.initialize(self)
         self.initialize_start()
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOFTWARE_WATCHER,
-                      target=self._initialize))
+                                     target=self._initialize))
 
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)

@@ -32,7 +32,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from pyanaconda.core import glib
+from pyanaconda.core import glib, constants
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, CN_
@@ -49,7 +49,6 @@ from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fan
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
-from pyanaconda import constants
 from pyanaconda import nm
 
 from blivet.util import get_mount_device, get_mount_paths

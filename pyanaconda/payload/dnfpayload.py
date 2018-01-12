@@ -25,7 +25,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.iutil import ProxyString, ProxyStringError
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 import pyanaconda.errors as errors
 import pyanaconda.core.iutil as iutil

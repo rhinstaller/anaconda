@@ -25,7 +25,7 @@ from gi.repository import Gio
 
 import os
 from pyanaconda.core.glib import GError, Variant
-from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
+from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 

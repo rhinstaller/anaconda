@@ -19,7 +19,7 @@
 
 from collections import namedtuple
 
-from pyanaconda import constants
+from pyanaconda.core import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject

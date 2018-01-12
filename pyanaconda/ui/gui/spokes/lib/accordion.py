@@ -23,7 +23,7 @@ from blivet.devicefactory import is_supported_device_type
 from pyanaconda.i18n import _, C_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
-from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
+from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.storage_utils import AUTOPART_CHOICES, AUTOPART_DEVICE_TYPES
 
 import gi

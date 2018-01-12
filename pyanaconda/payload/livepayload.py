@@ -39,8 +39,8 @@ import functools
 
 from pyanaconda.payload import ImagePayload, PayloadSetupError, PayloadInstallError
 
-from pyanaconda.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
-from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
+from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
+from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX
 
 from pyanaconda.core import iutil
 

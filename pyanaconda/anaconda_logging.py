@@ -28,7 +28,7 @@ import warnings
 import wrapt
 
 from pyanaconda.flags import flags
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"

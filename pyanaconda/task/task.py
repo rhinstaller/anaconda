@@ -25,7 +25,7 @@ from threading import Lock
 from abc import ABC, abstractmethod
 
 from pyanaconda.isignal import Signal
-from pyanaconda.constants import THREAD_DBUS_TASK
+from pyanaconda.core.constants import THREAD_DBUS_TASK
 from pyanaconda.task.task_interface import TaskAlreadyRunningException
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.async_utils import async_action_nowait

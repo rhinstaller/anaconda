@@ -19,9 +19,8 @@
 
 from pyanaconda.ui import common
 
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 from pyanaconda import input_checking
-from pyanaconda import constants
 from pyanaconda.i18n import _
 from pyanaconda.users import cryptPassword
 

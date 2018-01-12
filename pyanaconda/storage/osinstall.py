@@ -51,7 +51,7 @@ from pyanaconda.core import iutil
 from pyanaconda import network
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
-from pyanaconda.constants import shortProductName
+from pyanaconda.core.constants import shortProductName
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _

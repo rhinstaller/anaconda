@@ -20,7 +20,7 @@ from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
 
 from pyanaconda.core import iutil
-from pyanaconda.constants import ANACONDA_CLEANUP, THREAD_STORAGE
+from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, C_

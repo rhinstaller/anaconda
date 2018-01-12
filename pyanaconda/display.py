@@ -26,10 +26,8 @@ import pkgutil
 
 from pyanaconda import isys
 from pyanaconda import startup_utils
-from pyanaconda import constants
-from pyanaconda.core import iutil
+from pyanaconda.core import iutil, constants
 from pyanaconda import vnc
-from pyanaconda.constants import X_TIMEOUT
 from pyanaconda.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.nm import nm_is_connected, nm_is_connecting
@@ -207,7 +205,7 @@ def setup_display(anaconda, options, addon_paths=None):
         xtimeout = int(options.xtimeout)
     except ValueError:
         log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
-        xtimeout = X_TIMEOUT
+        xtimeout = constants.X_TIMEOUT
 
     vnc_server = vnc.VncServer()  # The vnc Server object.
     vnc_server.anaconda = anaconda

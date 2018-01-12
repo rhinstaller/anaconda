@@ -121,7 +121,7 @@ from pyanaconda.anaconda_loggers import get_module_logger, get_sensitive_info_lo
 log = get_module_logger(__name__)
 sensitive_info_log = get_sensitive_info_logger()
 
-from pyanaconda import constants
+from pyanaconda.core import constants
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 from pyanaconda.flags import flags

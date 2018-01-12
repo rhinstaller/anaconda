@@ -38,7 +38,7 @@ from pyanaconda import kickstart
 from pyanaconda.core import iutil
 from pyanaconda import startup_utils
 from pyanaconda.core.async_utils import run_in_loop
-from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
+from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.i18n import _
 from pyanaconda.threading import threadMgr

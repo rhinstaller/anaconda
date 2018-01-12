@@ -32,7 +32,7 @@ from pyanaconda.core.glib import GError, Variant
 from pyanaconda.core import iutil
 from pyanaconda import safe_dbus
 from pyanaconda import localization
-from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
+from pyanaconda.core.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
 from pyanaconda.flags import can_touch_runtime_system
 
 from pyanaconda.anaconda_loggers import get_module_logger

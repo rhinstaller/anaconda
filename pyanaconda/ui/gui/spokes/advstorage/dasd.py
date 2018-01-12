@@ -28,7 +28,7 @@ from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.regexes import DASD_DEVICE_NUMBER
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.timer import Timer
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 __all__ = ["DASDDialog"]
 

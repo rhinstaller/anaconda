@@ -26,7 +26,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from pyanaconda.i18n import P_
-from pyanaconda.constants import MAX_ENTROPY_WAIT
+from pyanaconda.core.constants import MAX_ENTROPY_WAIT
 from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core.async_utils import async_action_wait

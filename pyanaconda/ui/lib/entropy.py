@@ -30,7 +30,7 @@ import errno
 import math
 
 from pyanaconda.progress import progress_message
-from pyanaconda.constants import MAX_ENTROPY_WAIT
+from pyanaconda.core.constants import MAX_ENTROPY_WAIT
 from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
 from blivet.util import get_current_entropy
 
