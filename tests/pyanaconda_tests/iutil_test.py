@@ -16,15 +16,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-from pyanaconda.core import iutil
-from pyanaconda.core.iutil import synchronized
 import unittest
 import os
 import tempfile
 import signal
 import shutil
 from threading import Lock
+
+from pyanaconda.errors import ExitError
 from .test_constants import ANACONDA_TEST_DIR
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.core import iutil
+from pyanaconda.core.iutil import synchronized
 
 from timer import timer
 
@@ -444,17 +447,17 @@ done
             with timer(5):
                 # Run something forever so we can kill it
                 proc = iutil.startProgram(["/bin/sh", "-c", "while true; do sleep 1; done"])
-                iutil.watchProcess(proc, "test1")
+                WatchProcesses.watch_process(proc, "test1")
                 proc.kill()
                 # Wait for the SIGCHLD
                 signal.pause()
-        self.assertRaises(iutil.ExitError, test_still_running)
+        self.assertRaises(ExitError, test_still_running)
 
         # Make sure watchProcess checks that the process has not already exited
         with timer(5):
             proc = iutil.startProgram(["true"])
             proc.communicate()
-        self.assertRaises(iutil.ExitError, iutil.watchProcess, proc, "test2")
+        self.assertRaises(ExitError, WatchProcesses.watch_process, proc, "test2")
 
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):

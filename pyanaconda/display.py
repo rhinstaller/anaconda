@@ -24,6 +24,7 @@ import subprocess
 import time
 import pkgutil
 
+from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda import isys
 from pyanaconda import startup_utils
 from pyanaconda.core import iutil, constants
@@ -161,7 +162,7 @@ def do_startup_x11_actions():
 
     childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"],
                                    env_add={'XDG_DATA_DIRS': xdg_data_dirs})
-    iutil.watchProcess(childproc, "metacity")
+    WatchProcesses.watch_process(childproc, "metacity")
 
 
 def set_x_resolution(runres):

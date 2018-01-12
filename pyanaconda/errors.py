@@ -20,15 +20,18 @@ from pyanaconda.core.i18n import _, C_
 from pyanaconda.flags import flags
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY", "errorHandler", "InvalidImageSizeError",
-           "MissingImageError", "ScriptError", "NonInteractiveError", "CmdlineError"]
+           "MissingImageError", "ScriptError", "NonInteractiveError", "CmdlineError", "ExitError"]
+
 
 class InvalidImageSizeError(Exception):
     def __init__(self, message, filename):
         Exception.__init__(self, message)
         self.filename = filename
 
+
 class MissingImageError(Exception):
     pass
+
 
 class ScriptError(Exception):
     def __init__(self, lineno, details):
@@ -36,22 +39,32 @@ class ScriptError(Exception):
         self.lineno = lineno
         self.details = details
 
+
 class NonInteractiveError(Exception):
     pass
+
 
 class CmdlineError(NonInteractiveError):
     pass
 
+
 class RemovedModuleError(ImportError):
     pass
+
 
 class PasswordCryptError(Exception):
     def __init__(self, algo):
         Exception.__init__(self)
         self.algo = algo
 
+
 class ZIPLError(Exception):
     pass
+
+
+class ExitError(RuntimeError):
+    pass
+
 
 # These constants are returned by the callback in the ErrorHandler class.
 # Each represents a different kind of action the caller can take:
@@ -70,6 +83,7 @@ class ZIPLError(Exception):
 ERROR_RAISE = 0
 ERROR_CONTINUE = 1
 ERROR_RETRY = 2
+
 
 ###
 ### TOP-LEVEL ERROR HANDLING OBJECT
@@ -300,6 +314,7 @@ class ErrorHandler(object):
             rc = _map[exn.__class__.__name__](exn)
 
         return rc
+
 
 # Create a singleton of the ErrorHandler class.  It is up to the UserInterface
 # subclass to set errorHandler.ui before this class is ever used, or there will

@@ -51,7 +51,8 @@ import pid
 
 def exitHandler(rebootData, storage):
     # Clear the list of watched PIDs.
-    iutil.unwatchAllProcesses()
+    from pyanaconda.core.process_watchers import WatchProcesses
+    WatchProcesses.unwatch_all_processes()
 
     # stop and save coverage here b/c later the file system may be unavailable
     if coverage is not None:
