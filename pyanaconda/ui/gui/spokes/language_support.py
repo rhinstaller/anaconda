@@ -24,7 +24,7 @@ gi.require_version("Gdk", "3.0")
 from gi.repository import Pango, Gdk
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import CN_
+from pyanaconda.core.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
 from pyanaconda.ui.categories.localization import LocalizationCategory

@@ -35,7 +35,7 @@ from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
 from pyanaconda import geoloc
-from pyanaconda.i18n import _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.iutil import is_unsupported_hw, ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 

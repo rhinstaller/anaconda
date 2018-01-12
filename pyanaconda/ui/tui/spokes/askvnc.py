@@ -21,7 +21,7 @@ import sys
 
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.constants import USEVNC, USETEXT
-from pyanaconda.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.core.iutil import execWithRedirect, ipmi_abort
 from pyanaconda.flags import can_touch_runtime_system

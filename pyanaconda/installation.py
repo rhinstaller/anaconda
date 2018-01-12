@@ -29,7 +29,7 @@ from pyanaconda.core import iutil
 from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda import screen_access
-from pyanaconda.i18n import N_
+from pyanaconda.core.i18n import N_
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts

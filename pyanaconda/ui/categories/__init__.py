@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.i18n import N_
+from pyanaconda.core.i18n import N_
 
 __all__ = ["SpokeCategory"]
 

@@ -28,7 +28,7 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.isignal import Signal
 from pyanaconda.storage_utils import on_disk_storage
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.storage.osinstall import storage_initialize
 
 from pyanaconda.anaconda_loggers import get_module_logger

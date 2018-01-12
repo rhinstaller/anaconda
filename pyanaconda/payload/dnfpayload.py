@@ -22,7 +22,7 @@ import os
 from blivet.size import Size
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.iutil import ProxyString, ProxyStringError
 from pyanaconda.core import constants

@@ -27,7 +27,7 @@ from simpleline.render.prompt import Prompt
 from simpleline.render.screen import InputState
 from simpleline.render.screen_handler import ScreenHandler
 
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 

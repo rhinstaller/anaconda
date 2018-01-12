@@ -35,7 +35,7 @@ from blivet.static_data import luks_data
 
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 
 import logging
 log = logging.getLogger("anaconda.autopart")

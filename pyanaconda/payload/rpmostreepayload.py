@@ -24,7 +24,7 @@ from subprocess import CalledProcessError
 
 from pyanaconda.core import iutil
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.progress import progressQ
 
 import gi

@@ -32,7 +32,7 @@ gi.require_version("GObject", "2.0")
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObject
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product
 from pyanaconda.core import iutil, constants

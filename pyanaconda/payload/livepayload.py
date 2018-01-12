@@ -52,7 +52,7 @@ from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.payload import versionCmp
 
 class LiveImagePayload(ImagePayload):

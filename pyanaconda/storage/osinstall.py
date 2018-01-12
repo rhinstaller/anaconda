@@ -54,7 +54,7 @@ from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import shortProductName
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 

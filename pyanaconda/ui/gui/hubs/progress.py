@@ -29,7 +29,7 @@ import os
 import sys
 import glob
 
-from pyanaconda.i18n import _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags

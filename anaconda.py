@@ -275,7 +275,7 @@ if __name__ == "__main__":
     initThreading()
     from pyanaconda.threading import threadMgr
 
-    from pyanaconda.i18n import _
+    from pyanaconda.core.i18n import _
 
     from pyanaconda.addons import collect_addon_paths
     from pyanaconda.core import iutil, constants

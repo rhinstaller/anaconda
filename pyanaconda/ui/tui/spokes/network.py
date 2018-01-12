@@ -24,7 +24,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.i18n import N_, _
+from pyanaconda.core.i18n import N_, _
 
 from pyanaconda.regexes import IPV4_PATTERN_WITH_ANCHORS, IPV4_NETMASK_WITH_ANCHORS, IPV4_OR_DHCP_PATTERN_WITH_ANCHORS
 from pyanaconda.core.constants import ANACONDA_ENVIRON

@@ -20,7 +20,7 @@
 import configparser
 import os
 
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 
 # First, load in the defaults.  In order of precedence:  contents of
 # .buildstamp, environment, stupid last ditch hardcoded defaults.

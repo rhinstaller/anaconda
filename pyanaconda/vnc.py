@@ -25,7 +25,7 @@ import socket
 import subprocess
 import dbus
 
-from pyanaconda.i18n import _, P_
+from pyanaconda.core.i18n import _, P_
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
 

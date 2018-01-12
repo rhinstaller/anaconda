@@ -39,7 +39,7 @@ from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.nm import nm_device_hwaddress
 from pyanaconda import platform
 from blivet.size import Size
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

@@ -27,7 +27,7 @@ from pyanaconda.core.iutil import strip_accents
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 import re
 
 from pyanaconda.anaconda_loggers import get_module_logger

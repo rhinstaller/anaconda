@@ -28,7 +28,7 @@ from gi.repository import Gtk
 from gi.repository import GObject, Pango, Gio, NM
 
 from pyanaconda.flags import can_touch_runtime_system
-from pyanaconda.i18n import _, N_, C_, CN_
+from pyanaconda.core.i18n import _, N_, C_, CN_
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject

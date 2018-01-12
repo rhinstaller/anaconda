@@ -23,7 +23,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
 from pyanaconda import ntp
 from pyanaconda.core import constants
-from pyanaconda.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.flags import flags
 

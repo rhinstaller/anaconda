@@ -21,7 +21,7 @@ from pyanaconda.ui import common
 
 from pyanaconda.core import iutil, constants
 from pyanaconda import input_checking
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.users import cryptPassword
 
 from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswordInputScreen, YesNoDialog

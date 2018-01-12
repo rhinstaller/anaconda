@@ -21,7 +21,7 @@
 import pwquality
 
 from pyanaconda.isignal import Signal
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.core import constants
 from pyanaconda import users
 from pyanaconda import regexes

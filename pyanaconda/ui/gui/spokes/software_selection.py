@@ -24,7 +24,7 @@ gi.require_version("Pango", "1.0")
 from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_, CN_
+from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import iutil, constants

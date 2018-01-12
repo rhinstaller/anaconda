@@ -21,7 +21,7 @@
 from pyanaconda import input_checking
 from pyanaconda.pwpolicy import F22_PwPolicyData
 from pyanaconda.core import constants
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 import unittest
 
 def get_policy():

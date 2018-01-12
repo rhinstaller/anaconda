@@ -28,7 +28,7 @@ from pyanaconda import isys
 from pyanaconda import startup_utils
 from pyanaconda.core import iutil, constants
 from pyanaconda import vnc
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.nm import nm_is_connected, nm_is_connecting
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke

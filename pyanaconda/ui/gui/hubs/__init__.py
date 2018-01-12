@@ -18,7 +18,7 @@
 #
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.product import distributionText
 from pyanaconda import lifecycle
 from pyanaconda.core.timer import Timer

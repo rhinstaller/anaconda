@@ -19,7 +19,7 @@
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
-from pyanaconda.i18n import N_, _
+from pyanaconda.core.i18n import N_, _
 
 from pyanaconda.core.iutil import is_unsupported_hw
 from pyanaconda.product import productName

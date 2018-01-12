@@ -58,7 +58,7 @@ from abc import ABCMeta, abstractproperty, abstractmethod
 from pyanaconda.core import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.payload import payloadMgr
 from pyanaconda.anaconda_loggers import get_module_logger
 

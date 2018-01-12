@@ -38,7 +38,7 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
 
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 from pyanaconda import isys
 from pyanaconda.core.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, \
                                       STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \

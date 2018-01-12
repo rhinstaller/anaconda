@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, get_packaging_logger
 stdout_log = get_stdout_logger()

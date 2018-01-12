@@ -50,7 +50,7 @@ from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_
 from pyanaconda.regexes import URL_PARSE
 from pyanaconda.errors import RemovedModuleError
 
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger

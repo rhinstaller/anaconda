@@ -34,7 +34,7 @@ from pyanaconda.core.constants import MAX_ENTROPY_WAIT
 from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
 from blivet.util import get_current_entropy
 
-from pyanaconda.i18n import _, P_
+from pyanaconda.core.i18n import _, P_
 
 def wait_for_entropy(msg, desired_entropy, ksdata):
     """

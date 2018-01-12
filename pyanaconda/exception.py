@@ -40,7 +40,7 @@ from pyanaconda import startup_utils
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.communication import hubQ
 

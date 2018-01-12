@@ -25,7 +25,7 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.storage_utils import try_populate_devicetree
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda import nm
 from pyanaconda.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 from pyanaconda.network import check_ip_address

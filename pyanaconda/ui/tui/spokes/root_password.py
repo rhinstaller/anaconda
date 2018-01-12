@@ -22,7 +22,7 @@ from pyanaconda.ui.tui.tuiobject import PasswordDialog
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
-from pyanaconda.i18n import N_, _
+from pyanaconda.core.i18n import N_, _
 
 from simpleline.render.widgets import TextWidget
 

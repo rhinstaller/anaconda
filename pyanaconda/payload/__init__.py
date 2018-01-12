@@ -48,7 +48,7 @@ from pyanaconda.core.constants import THREAD_PAYLOAD_RESTART
 from pyanaconda.core.constants import PayloadRequirementType
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 
 from pyanaconda.core import iutil
 from pyanaconda import isys

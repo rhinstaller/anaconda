@@ -23,7 +23,7 @@ from pyanaconda.core import iutil
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_, C_
+from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke

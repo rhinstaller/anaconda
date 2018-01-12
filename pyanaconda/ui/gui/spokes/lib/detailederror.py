@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.i18n import C_
+from pyanaconda.core.i18n import C_
 from pyanaconda.ui.gui import GUIObject
 
 __all__ = ["DetailedErrorDialog"]

@@ -45,7 +45,7 @@ from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGE
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile

@@ -20,7 +20,7 @@
 import sys
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import N_, _
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.core import iutil
 from pyanaconda.core.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
 

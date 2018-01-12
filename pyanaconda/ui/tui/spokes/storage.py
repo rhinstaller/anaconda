@@ -35,7 +35,7 @@ from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
-from pyanaconda.i18n import _, P_, N_, C_
+from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda import kickstart
 from pyanaconda.storage.osinstall import storage_initialize
