@@ -26,7 +26,7 @@ initThreading()
 from abc import ABC
 
 from pyanaconda.core.event_loop import EventLoop
-from pyanaconda.async_utils import run_in_loop
+from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
 from pyanaconda.task import publish_task

@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.async_utils import run_in_loop
+from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
 from pyanaconda.modules.base import BaseModule

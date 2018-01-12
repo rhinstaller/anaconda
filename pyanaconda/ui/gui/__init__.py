@@ -40,7 +40,7 @@ from pyanaconda import threading as anaconda_threading
 from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_call_once, unbusyCursor
-from pyanaconda.async_utils import async_action_wait
+from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda import ihelp

@@ -23,7 +23,7 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.regexes import DASD_DEVICE_NUMBER
 from pyanaconda.threading import threadMgr, AnacondaThread

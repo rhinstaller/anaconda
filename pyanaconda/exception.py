@@ -36,7 +36,7 @@ from meh.handler import ExceptionHandler
 from pyanaconda import flags
 from pyanaconda import iutil, kickstart
 from pyanaconda import startup_utils
-from pyanaconda.async_utils import run_in_loop
+from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.i18n import _

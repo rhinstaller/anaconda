@@ -46,7 +46,7 @@ from pyanaconda import flags
 from pyanaconda import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.i18n import _, CN_
-from pyanaconda.async_utils import async_action_wait, async_action_nowait
+from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda.core.timer import Timer

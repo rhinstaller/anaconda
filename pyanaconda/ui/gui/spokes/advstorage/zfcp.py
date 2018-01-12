@@ -24,7 +24,7 @@ from gi.repository import BlockDev as blockdev
 
 from blivet import zfcp
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.core.timer import Timer
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda.regexes import DASD_DEVICE_NUMBER, ZFCP_WWPN_NUMBER, ZFCP_LUN_NUMBER

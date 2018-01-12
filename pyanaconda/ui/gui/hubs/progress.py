@@ -39,7 +39,7 @@ from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gtk_call_once
-from pyanaconda.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 
 __all__ = ["ProgressHub"]
 
