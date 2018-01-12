@@ -46,7 +46,6 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     nosetests_root.sh \
 		     run_gui_tests.sh \
 		     pylint/runpylint.py \
-		     #cppcheck/runcppcheck.sh \
 		     testenv.sh \
 		     $(srcdir)/gettext_tests/*.py \
 		     gettext_tests/canary_tests.sh \
@@ -57,7 +56,6 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 
 TESTS = nosetests.sh \
 	pylint/runpylint.py \
-	#cppcheck/runcppcheck.sh \
 	gettext_tests/click.py \
 	gettext_tests/style_guide.py \
 	gettext_tests/contexts.py \
