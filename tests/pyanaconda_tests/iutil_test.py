@@ -16,8 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-from pyanaconda import iutil
-from pyanaconda.iutil import synchronized
+from pyanaconda.core import iutil
+from pyanaconda.core.iutil import synchronized
 import unittest
 import os
 import tempfile
@@ -667,10 +667,10 @@ class MiscTests(unittest.TestCase):
     def upper_ascii_test(self):
         """Test upperASCII."""
 
-        self.assertEqual(iutil.upperASCII(""),"")
-        self.assertEqual(iutil.upperASCII("a"),"A")
-        self.assertEqual(iutil.upperASCII("A"),"A")
-        self.assertEqual(iutil.upperASCII("aBc"),"ABC")
+        self.assertEqual(iutil.upperASCII(""), "")
+        self.assertEqual(iutil.upperASCII("a"), "A")
+        self.assertEqual(iutil.upperASCII("A"), "A")
+        self.assertEqual(iutil.upperASCII("aBc"), "ABC")
         self.assertEqual(iutil.upperASCII("_&*'@#$%^aBcžčŘ"),
                                           "_&*'@#$%^ABCZCR")
         _out = "HEIZOLRUCKSTOABDAMPFUNG"
@@ -679,10 +679,10 @@ class MiscTests(unittest.TestCase):
 
     def lower_ascii_test(self):
         """Test lowerASCII."""
-        self.assertEqual(iutil.lowerASCII(""),"")
-        self.assertEqual(iutil.lowerASCII("A"),"a")
-        self.assertEqual(iutil.lowerASCII("a"),"a")
-        self.assertEqual(iutil.lowerASCII("aBc"),"abc")
+        self.assertEqual(iutil.lowerASCII(""), "")
+        self.assertEqual(iutil.lowerASCII("A"), "a")
+        self.assertEqual(iutil.lowerASCII("a"), "a")
+        self.assertEqual(iutil.lowerASCII("aBc"), "abc")
         self.assertEqual(iutil.lowerASCII("_&*'@#$%^aBcžčŘ"),
                                           "_&*'@#$%^abczcr")
         _out = "heizolruckstoabdampfung"

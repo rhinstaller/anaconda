@@ -19,7 +19,8 @@
 
 import os, sys
 import time
-from pyanaconda import constants, network, product, iutil
+from pyanaconda import constants, network, product
+from pyanaconda.core import iutil
 import socket
 import subprocess
 import dbus

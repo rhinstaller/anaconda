@@ -36,7 +36,8 @@ except ImportError:
     tarfile = None
 
 from pyanaconda.payload import ArchivePayload, PayloadError, versionCmp
-from pyanaconda import iutil
+from pyanaconda.core import iutil
+
 
 # TarPayload is not yet fully implemented
 # pylint: disable=abstract-method

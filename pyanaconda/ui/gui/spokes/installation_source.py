@@ -37,6 +37,7 @@ from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
+from pyanaconda.core.iutil import ProxyString, ProxyStringError, cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui import GUIObject
@@ -44,14 +45,12 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputC
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
-from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda import constants
 from pyanaconda import nm
-from pyanaconda.iutil import id_generator
 
 from blivet.util import get_mount_device, get_mount_paths
 

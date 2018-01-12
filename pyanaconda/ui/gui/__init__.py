@@ -34,7 +34,8 @@ from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObje
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_
 from pyanaconda.constants import WINDOW_TITLE_TEXT
-from pyanaconda import product, iutil, constants
+from pyanaconda import product, constants
+from pyanaconda.core import iutil
 from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError

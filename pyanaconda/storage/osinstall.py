@@ -47,7 +47,7 @@ from blivet.fcoe import fcoe
 from blivet.zfcp import zfcp
 from blivet.size import Size
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import network
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader

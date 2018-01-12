@@ -31,7 +31,7 @@ import functools
 import re
 
 from pyanaconda.constants import SIZE_UNITS_DEFAULT
-from pyanaconda.iutil import lowerASCII
+from pyanaconda.core.iutil import lowerASCII
 from pyanaconda.platform import platform
 from pyanaconda.storage_utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck

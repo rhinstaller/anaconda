@@ -21,7 +21,7 @@
 import shutil
 from collections import namedtuple
 
-from pyanaconda.iutil import getSysroot, execReadlines, execWithRedirect
+from pyanaconda.core.iutil import getSysroot, execReadlines, execWithRedirect
 from pyanaconda.simpleconfig import unquote
 
 from pyanaconda.anaconda_loggers import get_module_logger

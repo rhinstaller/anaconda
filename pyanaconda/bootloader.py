@@ -28,7 +28,7 @@ from itertools import chain
 import crypt
 from ordered_set import OrderedSet
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
 from pyanaconda.product import productName
@@ -2499,7 +2499,8 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     kernel_versions = list(payload.kernelVersionList)
 
     rescue_versions = glob(iutil.getSysroot() + "/boot/vmlinuz-*-rescue-*")
-    rescue_versions += glob(iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+    rescue_versions += glob(
+        iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
     kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
 
     if not kernel_versions:

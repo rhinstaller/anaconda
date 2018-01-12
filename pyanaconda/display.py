@@ -27,7 +27,7 @@ import pkgutil
 from pyanaconda import isys
 from pyanaconda import startup_utils
 from pyanaconda import constants
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import vnc
 from pyanaconda.constants import X_TIMEOUT
 from pyanaconda.i18n import _

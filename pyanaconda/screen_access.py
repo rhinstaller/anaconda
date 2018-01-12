@@ -40,7 +40,7 @@ from configparser import ConfigParser
 from threading import RLock
 
 from pyanaconda import startup_utils
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda.flags import can_touch_runtime_system
 
 

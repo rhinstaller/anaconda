@@ -37,7 +37,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.iutil import startProgram
+from pyanaconda.core.iutil import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib

@@ -32,7 +32,7 @@ import stat
 from time import sleep
 from threading import Lock
 import requests
-from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
+from pyanaconda.core.iutil import ProxyString, ProxyStringError
 import hashlib
 import glob
 import functools
@@ -42,7 +42,7 @@ from pyanaconda.payload import ImagePayload, PayloadSetupError, PayloadInstallEr
 from pyanaconda.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
@@ -394,7 +394,7 @@ class LiveImageKSPayload(LiveImagePayload):
             filesum = sha256.hexdigest()
             log.debug("sha256 of %s is %s", self.data.method.url, filesum)
 
-            if lowerASCII(self.data.method.checksum) != filesum:
+            if iutil.lowerASCII(self.data.method.checksum) != filesum:
                 log.error("%s does not match checksum.", self.data.method.checksum)
                 exn = PayloadInstallError("Checksum of image does not match")
                 if errorHandler.cb(exn) == ERROR_RAISE:

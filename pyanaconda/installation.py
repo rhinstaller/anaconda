@@ -25,7 +25,7 @@ from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import Users
 from pyanaconda import flags
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda import screen_access

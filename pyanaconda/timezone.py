@@ -27,7 +27,7 @@ import pytz
 import langtable
 from collections import OrderedDict
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr

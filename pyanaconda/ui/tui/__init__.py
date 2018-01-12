@@ -21,7 +21,7 @@ from pyanaconda import ui
 from pyanaconda.constants import IPMI_ABORTED
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
-from pyanaconda.iutil import ipmi_report
+from pyanaconda.core.iutil import ipmi_report
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.signals import SendMessageSignal
 from pyanaconda.ui.tui.spokes import StandaloneSpoke

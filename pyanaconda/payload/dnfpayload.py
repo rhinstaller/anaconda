@@ -24,11 +24,11 @@ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.iutil import ProxyString, ProxyStringError, ipmi_abort, requests_session
+from pyanaconda.core.iutil import ProxyString, ProxyStringError
 from pyanaconda import constants
 
 import pyanaconda.errors as errors
-import pyanaconda.iutil
+import pyanaconda.core.iutil as iutil
 import pyanaconda.localization
 import pyanaconda.payload as payload
 
@@ -94,7 +94,7 @@ def _failure_limbo():
 
 def _df_map():
     """Return (mountpoint -> size available) mapping."""
-    output = pyanaconda.iutil.execWithCapture('df', ['--output=target,avail'])
+    output = iutil.execWithCapture('df', ['--output=target,avail'])
     output = output.rstrip()
     lines = output.splitlines()
     structured = {}
@@ -130,7 +130,7 @@ def _pick_mpoint(df, download_size, install_size, download_only):
 
     requested = download_size
     requested_root = requested + install_size
-    root_mpoint = pyanaconda.iutil.getSysroot()
+    root_mpoint = iutil.getSysroot()
     log.debug('Input mount points: %s', df)
     log.info('Estimated size: download %s & install %s', requested,
              (requested_root - requested))
@@ -525,7 +525,7 @@ class DNFPayload(payload.PackagePayload):
         conf.logdir = '/tmp/'
 
         conf.releasever = self._getReleaseVersion(None)
-        conf.installroot = pyanaconda.iutil.getSysroot()
+        conf.installroot = iutil.getSysroot()
         conf.prepend_installroot('persistdir')
 
         self._base.conf.substitutions.update_from_etc(conf.installroot)
@@ -603,7 +603,7 @@ class DNFPayload(payload.PackagePayload):
             # Doing a sys.exit also ensures the running thread quits before
             # it can do anything else.
             progressQ.send_quit(1)
-            ipmi_abort(scripts=self.data.scripts)
+            iutil.ipmi_abort(scripts=self.data.scripts)
             sys.exit(1)
 
     def _pick_download_location(self):
@@ -724,7 +724,7 @@ class DNFPayload(payload.PackagePayload):
 
         download_size = self._download_space
         valid_points = _df_map()
-        root_mpoint = pyanaconda.iutil.getSysroot()
+        root_mpoint = iutil.getSysroot()
         for (key, val) in self.storage.mountpoints.items():
             new_key = key
             if key.endswith('/'):
@@ -1191,7 +1191,7 @@ class DNFPayload(payload.PackagePayload):
                     continue
             except (dnf.exceptions.RepoError, KeyError):
                 continue
-            repo_path = pyanaconda.iutil.getSysroot() + YUM_REPOS_DIR + "%s.repo" % repo.id
+            repo_path = iutil.getSysroot() + YUM_REPOS_DIR + "%s.repo" % repo.id
             try:
                 log.info("Writing %s.repo to target system.", repo.id)
                 self._writeDNFRepo(repo, repo_path)
@@ -1256,7 +1256,7 @@ class RepoMDMetaHash(object):
                 log.info("Failed to parse proxy for test if repo available %s: %s",
                          proxy_url, e)
 
-        session = requests_session()
+        session = iutil.requests_session()
 
         # Test all urls for this repo. If any of these is working it is enough.
         for url in self._urls:

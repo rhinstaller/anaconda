@@ -18,7 +18,7 @@
 #
 import os
 from blivet.size import Size
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 
 from pyanaconda.i18n import _, N_
 

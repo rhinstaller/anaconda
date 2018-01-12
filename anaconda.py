@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
     from pyanaconda import constants
     from pyanaconda.addons import collect_addon_paths
-    from pyanaconda import iutil
+    from pyanaconda.core import iutil
     from pyanaconda import startup_utils
 
     # do this early so we can set flags before initializing logging
@@ -362,7 +362,7 @@ if __name__ == "__main__":
     from pyanaconda import startup_utils
     from pyanaconda import rescue
     from pyanaconda import geoloc
-    from pyanaconda.iutil import ProxyString, ProxyStringError
+    from pyanaconda.core.iutil import ProxyString, ProxyStringError
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.

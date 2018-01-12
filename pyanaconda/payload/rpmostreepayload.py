@@ -22,7 +22,7 @@ import os
 import sys
 from subprocess import CalledProcessError
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ

@@ -19,7 +19,7 @@
 #
 from threading import RLock
 from pyanaconda.isignal import Signal
-from pyanaconda.iutil import synchronized
+from pyanaconda.core.iutil import synchronized
 import time
 
 from pyanaconda.anaconda_loggers import get_module_logger

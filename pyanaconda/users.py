@@ -22,8 +22,8 @@ import os
 import os.path
 import subprocess
 from contextlib import contextmanager
-from pyanaconda import iutil
-from pyanaconda.iutil import strip_accents
+from pyanaconda.core import iutil
+from pyanaconda.core.iutil import strip_accents
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt

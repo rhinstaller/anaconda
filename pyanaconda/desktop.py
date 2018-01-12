@@ -19,7 +19,7 @@
 
 import os
 from pyanaconda.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

@@ -19,7 +19,7 @@
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
@@ -501,7 +501,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
                                     "\tchroot %(mountpoint)s\n")
-                                    % {"mountpoint": iutil.getSysroot()} + finish_msg)
+                                  % {"mountpoint": iutil.getSysroot()} + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
                     finish_msg = exit_reboot_msg

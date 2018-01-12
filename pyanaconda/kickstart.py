@@ -37,7 +37,8 @@ import pykickstart.commands as commands
 
 from contextlib import contextmanager
 
-from pyanaconda import iutil, keyboard, localization, network, nm, ntp, screen_access, timezone
+from pyanaconda import keyboard, localization, network, nm, ntp, screen_access, timezone
+from pyanaconda.core import iutil
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
@@ -45,7 +46,6 @@ from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
-from pyanaconda.iutil import collect
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -277,7 +277,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
     def execute(self, *args):
         cmd = "/usr/sbin/authconfig"
-        if not os.path.lexists(iutil.getSysroot()+cmd):
+        if not os.path.lexists(iutil.getSysroot() + cmd):
             if flags.automatedInstall and self.seen:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
@@ -2316,7 +2316,8 @@ class AnacondaKSHandler(superclass):
             if not os.path.isdir(path):
                 continue
 
-            classes = collect(module_name, path, lambda cls: issubclass(cls, self.AddonClassType))
+            classes = iutil.collect(module_name, path,
+                                    lambda cls: issubclass(cls, self.AddonClassType))
             if classes:
                 addons[addon_id] = classes[0](name=addon_id)
 

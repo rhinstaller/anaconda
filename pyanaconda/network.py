@@ -23,7 +23,7 @@ gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 import shutil
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 import socket
 import os
 import time

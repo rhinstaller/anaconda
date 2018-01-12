@@ -29,7 +29,7 @@ import shutil
 import langtable
 
 from pyanaconda.core.glib import GError, Variant
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import safe_dbus
 from pyanaconda import localization
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD

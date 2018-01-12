@@ -27,7 +27,7 @@ import threading
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
 from pyanaconda.constants import DisplayModes
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import addons
 
 from pyanaconda.anaconda_loggers import get_stdout_logger

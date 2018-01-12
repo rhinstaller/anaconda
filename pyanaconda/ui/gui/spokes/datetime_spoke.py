@@ -37,7 +37,7 @@ from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import isys
 from pyanaconda import network
 from pyanaconda import nm

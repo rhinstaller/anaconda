@@ -30,7 +30,7 @@ gi.require_version("GdkPixbuf", "2.0")
 from gi.repository import Gtk, Pango, GdkPixbuf
 
 from pyanaconda import localization
-from pyanaconda.iutil import strip_accents
+from pyanaconda.core.iutil import strip_accents
 from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property
 
 class LangLocaleHandler(object):

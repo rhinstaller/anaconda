@@ -37,7 +37,6 @@ import time
 from collections import OrderedDict, namedtuple
 
 from blivet.size import Size, ROUND_HALF_UP
-from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
     from pyanaconda import anaconda_logging
@@ -51,13 +50,13 @@ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import isys
 from pyanaconda.platform import platform
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
-from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
+from pyanaconda.core.iutil import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.regexes import VERSION_DIGITS
 
@@ -317,7 +316,7 @@ class Payload(object):
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
 
-        self._session = requests_session()
+        self._session = iutil.requests_session()
 
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
@@ -616,7 +615,7 @@ class Payload(object):
         # Retry treeinfo downloads with a progressively longer pause,
         # so NetworkManager have a chance setup a network and we have
         # full connectivity before trying to download things. (#1292613)
-        xdelay = xprogressive_delay()
+        xdelay = iutil.xprogressive_delay()
         response = None
         ret_code = [None, None]
         headers = {"user-agent": USER_AGENT}

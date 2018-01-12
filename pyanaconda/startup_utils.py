@@ -30,7 +30,7 @@ import time
 import imp
 import os
 
-from pyanaconda import iutil
+from pyanaconda.core import iutil
 from pyanaconda import product
 from pyanaconda import constants
 from pyanaconda import anaconda_logging

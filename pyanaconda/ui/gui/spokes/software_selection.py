@@ -27,7 +27,8 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda import constants, iutil
+from pyanaconda import constants
+from pyanaconda.core import iutil
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke

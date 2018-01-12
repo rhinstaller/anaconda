@@ -69,7 +69,8 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
-from pyanaconda import constants, iutil
+from pyanaconda import constants
+from pyanaconda.core import iutil
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
