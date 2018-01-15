@@ -27,8 +27,7 @@ import tempfile
 import traceback
 import unittest
 
-# FIXME: remove pylint disable
-import testconfig # pylint: disable=import-error
+import testconfig
 from dogtail.config import config as dogtail_config
 from dogtail.predicate import GenericPredicate
 from dogtail.tree import SearchError, root
