@@ -333,6 +333,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 15 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.3-1
+- kickstart: support firewall --use-system-defaults (dusty)
+  Resolves: rhbz#1534604
+- Enable SE/HMC file access to repo (vponcova)
+  Resolves: rhbz#1500792
+
 * Mon Jan 15 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.2-1
 - Use newest ClearPart KS command (jkonecny)
 - Fix makefiles for tests (jkonecny)
