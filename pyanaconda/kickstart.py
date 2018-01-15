@@ -109,6 +109,7 @@ timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 escrow_log = log.getChild("kickstart.escrow")
 upgrade_log = log.getChild("kickstart.upgrade")
+firewall_log = log.getChild("kickstart.firewall")
 
 @contextmanager
 def check_kickstart_error():
@@ -706,9 +707,9 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         return fc
 
-class Firewall(commands.firewall.F20_Firewall):
+class Firewall(commands.firewall.F28_Firewall):
     def __init__(self, *args, **kwargs):
-        commands.firewall.F20_Firewall.__init__(self, *args, **kwargs)
+        commands.firewall.F28_Firewall.__init__(self, *args, **kwargs)
         self.packages = []
 
     def setup(self):
@@ -717,6 +718,15 @@ class Firewall(commands.firewall.F20_Firewall):
 
     def execute(self, storage, ksdata, instClass):
         args = []
+
+        # If --use-system-defaults was passed then the user wants
+        # whatever was provided by the rpms or ostree to be the
+        # default, do nothing.
+        if self.use_system_defaults:
+            firewall_log.info("ks file instructs to use system defaults for "
+                              "firewall, skipping configuration.")
+            return
+
         # enabled is None if neither --enable or --disable is passed
         # default to enabled if nothing has been set.
         if self.enabled == False:
