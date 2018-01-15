@@ -333,6 +333,37 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 15 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.2-1
+- Use newest ClearPart KS command (jkonecny)
+- Fix makefiles for tests (jkonecny)
+- Disable pylint import-error because of missing dependencies (jkonecny)
+- Skip user_create_test (jkonecny)
+- Remove RHEL special casing from password quality checks (mkolman)
+- Do not fail when test are failing in setup-env script (jkonecny)
+- Support running multiple commands at once (jkonecny)
+- Support copy Anaconda result dir out of mock (jkonecny)
+- Add path to Anaconda in mock to constant (jkonecny)
+- Add the _prepare_command helper function to setup-test-env (jkonecny)
+- Add run-tests parameter to setup-test-env script (jkonecny)
+- Remove /anaconda in mock before copying new one (jkonecny)
+- Check payload is set before accessing its data (mkolman)
+  Resolves: rhbz#1530682
+- Fix pylint errors (jkonecny)
+- Remove dependencies from Makefile (jkonecny)
+- Spin kickstarts shouldn't be test dependency (jkonecny)
+- Disable tests which requires missing dependencies (jkonecny)
+- Differentiate upstream and build-time version (mkolman)
+- Modify readme file for tests (jkonecny)
+- Do not bump version when testing installation (jkonecny)
+- Add set up test environment script (jkonecny)
+- Add dependency solver script (jkonecny)
+- Remove running CI in mock from Makefile (jkonecny)
+- Add xfsprogs and git to the test requirements (jkonecny)
+- The gettext-devel is required by autogen (jkonecny)
+- Remove kickstart-test dependencies from test requires (jkonecny)
+- Remove in-memory kickstart representation from traceback file (mkolman)
+  Resolves: rhbz#1523609
+
 * Tue Nov 28 2017 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.1-1
 - Really install all the right packages on Mac UEFI installs (awilliam)
 - Add modular server repo to the base repositories (jkonecny)
