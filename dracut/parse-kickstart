@@ -126,6 +126,10 @@ class HardDrive(commands.harddrive.FC3_HardDrive, DracutArgsMixin):
         else:
             return "inst.repo=hd:%s:%s" % (self.partition, self.dir)
 
+class Hmc(commands.hmc.F28_Hmc, DracutArgsMixin):
+    def dracut_args(self, args, lineno, obj):
+        return "inst.repo=hmc"
+
 class NFS(commands.nfs.FC6_NFS, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.opts:
@@ -252,6 +256,7 @@ class Bootloader(commands.bootloader.F21_Bootloader, DracutArgsMixin):
 dracutCmds = {
     'cdrom': Cdrom,
     'harddrive': HardDrive,
+    'hmc': Hmc,
     'nfs': NFS,
     'url': URL,
     'updates': Updates,

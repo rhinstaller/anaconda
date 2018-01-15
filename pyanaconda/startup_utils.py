@@ -402,6 +402,8 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         ksdata.method.method = "harddrive"
         device = anaconda.methodstr.split(":", 1)[1]
         ksdata.method.partition = os.path.normpath(device)
+    elif anaconda.methodstr.startswith("hmc"):
+        ksdata.method.method = "hmc"
     else:
         log.error("Unknown method: %s", anaconda.methodstr)
 
