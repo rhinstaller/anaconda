@@ -13,8 +13,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# FIXME: remove pylint disable
-from dogtail.utils import doDelay  # pylint: disable=import-error
+from dogtail.utils import doDelay
 
 from .base import UITestCase
 

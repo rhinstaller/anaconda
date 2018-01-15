@@ -14,10 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import re
-
-# FIXME: Remove pylint disable
-from dogtail.predicate import GenericPredicate  # pylint: disable=import-error
-from dogtail.utils import doDelay  # pylint: disable=import-error
+from dogtail.predicate import GenericPredicate
+from dogtail.utils import doDelay
 
 from .base import UITestCase
 

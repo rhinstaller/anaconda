@@ -28,11 +28,11 @@ import traceback
 import unittest
 
 # FIXME: remove pylint disable
-import testconfig  # pylint: disable=import-error
-from dogtail.config import config as dogtail_config  # pylint: disable=import-error
-from dogtail.predicate import GenericPredicate  # pylint: disable=import-error
-from dogtail.tree import SearchError, root  # pylint: disable=import-error
-from dogtail.utils import doDelay, isA11yEnabled, screenshot  # pylint: disable=import-error
+import testconfig # pylint: disable=import-error
+from dogtail.config import config as dogtail_config
+from dogtail.predicate import GenericPredicate
+from dogtail.tree import SearchError, root
+from dogtail.utils import doDelay, isA11yEnabled, screenshot
 from nose.plugins.multiprocess import TimedOutException
 
 class UITestCase(unittest.TestCase):
