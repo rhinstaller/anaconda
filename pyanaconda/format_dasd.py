@@ -26,7 +26,7 @@ from blivet import arch
 
 from pyanaconda.flags import flags
 from pyanaconda.ui.lib.disks import getDisks
-from pyanaconda.core.isignal import Signal
+from pyanaconda.core.signal import Signal
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.core.i18n import _
 from pyanaconda.storage.osinstall import storage_initialize

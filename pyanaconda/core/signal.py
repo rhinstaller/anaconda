@@ -1,6 +1,6 @@
 """ A signal/slot implementation
 
-File:    isignal.py
+File:    signal.py
 Author:  Thiago Marcos P. Santos
 Author:  Christopher S. Case
 Author:  David H. Bronke

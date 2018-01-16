@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from threading import RLock
-from pyanaconda.core.isignal import Signal
+from pyanaconda.core.signal import Signal
 from pyanaconda.core.iutil import synchronized
 import time
 

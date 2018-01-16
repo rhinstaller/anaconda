@@ -30,7 +30,7 @@ from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
 from pyanaconda.task import publish_task
-from pyanaconda.core.isignal import Signal
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.base_kickstart import get_kickstart_handler, get_kickstart_parser
 from pyanaconda.modules.base_kickstart import NoKickstartSpecification
 
