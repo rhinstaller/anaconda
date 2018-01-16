@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.isignal import Signal
+from pyanaconda.core.isignal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.install_manager.installation_interface import InstallationNotRunning
 

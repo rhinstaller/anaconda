@@ -18,7 +18,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import DBUS_FLAG_NONE
-from pyanaconda.isignal import Signal
+from pyanaconda.core.isignal import Signal
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
