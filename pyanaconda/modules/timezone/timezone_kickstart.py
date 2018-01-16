@@ -1,7 +1,7 @@
-# baz.py
-# Example DBUS addon.
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# Kickstart handler for date and time settings.
+#
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,19 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import ADDON_BAZ_NAME, ADDON_BAZ_PATH
-from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
-from pyanaconda.modules.base import KickstartModule
-
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pykickstart.commands.timezone import F25_Timezone
+from pykickstart.version import F28
+from pyanaconda.modules.base_kickstart import KickstartSpecification
 
 
-class Baz(KickstartModule):
-    """The Baz module."""
+class TimezoneKickstartSpecification(KickstartSpecification):
 
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(BazInterface(self), ADDON_BAZ_PATH)
-        DBus.register_service(ADDON_BAZ_NAME)
+    version = F28
+    commands = {
+        "timezone": F25_Timezone,
+    }

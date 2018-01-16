@@ -19,8 +19,9 @@
 from abc import ABC
 
 from pyanaconda.dbus import DBus
+from pyanaconda.dbus.property import PropertiesInterface
 
-__all__ = ["InterfaceTemplate"]
+__all__ = ["InterfaceTemplate", "AdvancedInterfaceTemplate"]
 
 
 class InterfaceTemplate(ABC):
@@ -99,3 +100,43 @@ class InterfaceTemplate(ABC):
         """
         DBus.publish_object(self, object_path)
         self._object_path = object_path
+
+
+class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
+    """Advanced template for DBus interface.
+
+    The interface provides the support for the standard interface
+    org.freedesktop.DBus.Properties.
+
+    Usage:
+
+        def connect_signals(self):
+            super().connect_signals()
+
+            self.implementation.module_properties_changed.connect(self.flush_changes)
+            self.implementation.x_changed.connect(self.changed("X"))
+
+        @property
+        def X(self, x) -> Int:
+            return self.implementation.x
+
+        @emits_properties_changed
+        def SetX(self, x: Int):
+            self.implementation.set_x(x)
+
+    """
+
+    def __init__(self, implementation):
+        PropertiesInterface.__init__(self)
+        InterfaceTemplate.__init__(self, implementation)
+
+    def changed(self, property_name):
+        """Returns a callback for the changed property.
+
+        The callback accepts any arguments, but ignores them.
+
+        :param property_name: a name of a DBus property
+        :return: a callback that should be run when the property has changed
+        """
+        self._properties_changes.check_property(property_name)
+        return lambda *args, **kwargs: self.report_changed_property(property_name)
