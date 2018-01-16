@@ -82,6 +82,8 @@ def parse_args():
                         mock configuration file; could be specified as file path or 
                         name of the file in /etc/mock without .cfg suffix
                         """)
+    parser.add_argument('--init', action='store_true', dest='init',
+                        help="""initialize environment with the required packages""")
     parser.add_argument('--install', '-i', action='store', type=str, dest='install',
                         help="""install additional packages to the mock""")
     parser.add_argument('--uniqueext', action='store', type=str, dest='uniqueext',
@@ -201,7 +203,6 @@ def init_mock(mock_command):
 def setup_mock(mock_command):
     init_mock(mock_command)
     install_required_packages(mock_command)
-    copy_anaconda_to_mock(mock_command)
 
 
 if __name__ == "__main__":
@@ -210,11 +211,16 @@ if __name__ == "__main__":
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
     mock_init_run = False
 
+    if not any([ns.init, ns.copy, ns.run_tests, ns.install]):
+        print("You need to specify one of the main commands!", file=sys.stderr)
+        print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
+        exit(1)
+
     # quit immediately if the result dir exists
     if ns.result_folder:
         _check_dir_exists(ns.result_folder)
 
-    if not any([ns.copy, ns.run_tests, ns.result_folder]):
+    if ns.init:
         setup_mock(mock_cmd)
         mock_init_run = True
         if ns.install:
