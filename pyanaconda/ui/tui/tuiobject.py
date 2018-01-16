@@ -19,7 +19,7 @@
 
 from pyanaconda.ui import common
 
-from pyanaconda.core import iutil, constants
+from pyanaconda.core import util, constants
 from pyanaconda import input_checking
 from pyanaconda.core.i18n import _
 from pyanaconda.users import cryptPassword
@@ -84,7 +84,7 @@ class IpmiErrorDialog(ErrorDialog):
 
     def input(self, args, key):
         """Call IPMI ABORTED. Everything else will be done by original implementation."""
-        iutil.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_report(constants.IPMI_ABORTED)
         super().input(args, key)
 
 

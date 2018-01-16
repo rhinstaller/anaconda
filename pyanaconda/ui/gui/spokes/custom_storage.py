@@ -41,7 +41,7 @@ from pyanaconda.product import productName, productVersion, translated_new_insta
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
 from pyanaconda.core.constants import SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS
-from pyanaconda.core.iutil import lowerASCII
+from pyanaconda.core.util import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.platform import platform

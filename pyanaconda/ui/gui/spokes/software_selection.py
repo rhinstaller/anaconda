@@ -27,7 +27,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core import iutil, constants
+from pyanaconda.core import util, constants
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -612,7 +612,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if rc == 0:
             # Quit.
-            iutil.ipmi_abort(scripts=self.data.scripts)
+            util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
         elif rc == 1:
             # Send the user to the installation source spoke.

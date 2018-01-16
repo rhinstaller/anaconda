@@ -30,7 +30,7 @@ import time
 import imp
 import os
 
-from pyanaconda.core import iutil, constants
+from pyanaconda.core import util, constants
 from pyanaconda import product
 from pyanaconda import anaconda_logging
 from pyanaconda import network
@@ -171,7 +171,7 @@ def check_memory(anaconda, options, display_mode=None):
     graphical_ram = int(isys.MIN_GUI_RAM)
 
     # count the squashfs.img in if it is kept in RAM
-    if not iutil.persistent_root_image():
+    if not util.persistent_root_image():
         needed_ram += isys.SQUASHFS_EXTRA_RAM
         graphical_ram += isys.SQUASHFS_EXTRA_RAM
 
@@ -197,7 +197,7 @@ def check_memory(anaconda, options, display_mode=None):
             print(_("Press ENTER to continue"))
             input()
 
-        iutil.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
@@ -213,7 +213,7 @@ def check_memory(anaconda, options, display_mode=None):
                 stdout_log.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
-                iutil.ipmi_report(constants.IPMI_ABORTED)
+                util.ipmi_report(constants.IPMI_ABORTED)
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
@@ -264,7 +264,7 @@ def prompt_for_ssh():
 
     if not ip:
         stdout_log.error("No IP addresses found, cannot continue installation.")
-        iutil.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     ipstr = ip
@@ -302,7 +302,7 @@ def clean_pstore():
     take effect immediately, which is the best case.  Unfortunately on some,
     an intervening reboot is needed.
     """
-    iutil.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
+    util.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
 
 def print_startup_note(options):
     """Print Anaconda version and short usage instructions.
@@ -371,7 +371,7 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         ksdata.method.method = "cdrom"
     elif anaconda.methodstr.startswith("nfs"):
         ksdata.method.method = "nfs"
-        nfs_options, server, path = iutil.parseNfsUrl(anaconda.methodstr)
+        nfs_options, server, path = util.parseNfsUrl(anaconda.methodstr)
         ksdata.method.server = server
         ksdata.method.dir = path
         ksdata.method.opts = nfs_options
@@ -452,7 +452,7 @@ def parse_kickstart(options, addon_paths, pass_to_boss=False):
     if options.ksfile and not options.liveinst:
         if not os.path.exists(options.ksfile):
             stdout_log.error("Kickstart file %s is missing.", options.ksfile)
-            iutil.ipmi_report(constants.IPMI_ABORTED)
+            util.ipmi_report(constants.IPMI_ABORTED)
             sys.exit(1)
 
         flags.automatedInstall = True

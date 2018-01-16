@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import queue
-from pyanaconda.core.iutil import lowerASCII, upperASCII
+from pyanaconda.core.util import lowerASCII, upperASCII
 
 class QueueFactory(object):
     """Constructs a new object wrapping a Queue.Queue, complete with constants

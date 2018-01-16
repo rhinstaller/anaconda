@@ -25,7 +25,7 @@ from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import Users
 from pyanaconda import flags
-from pyanaconda.core import iutil
+from pyanaconda.core import util
 from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda import screen_access
@@ -56,11 +56,11 @@ class WriteResolvConfTask(Task):
         task queue was created, not when the task is actually executed, which could
         theoretically result in an incorrect path.
         """
-        network.copyFileToPath("/etc/resolv.conf", iutil.getSysroot())
+        network.copyFileToPath("/etc/resolv.conf", util.getSysroot())
 
 
 def _writeKS(ksdata):
-    path = iutil.getSysroot() + "/root/anaconda-ks.cfg"
+    path = util.getSysroot() + "/root/anaconda-ks.cfg"
 
     # Clear out certain sensitive information that kickstart doesn't have a
     # way of representing encrypted.
@@ -69,7 +69,7 @@ def _writeKS(ksdata):
         obj.passphrase = ""
 
     # Make it so only root can read - could have passwords
-    with iutil.open_with_perm(path, "w", 0o600) as f:
+    with util.open_with_perm(path, "w", 0o600) as f:
         f.write(str(ksdata))
 
 def doConfiguration(storage, payload, ksdata, instClass):
@@ -182,9 +182,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # log tasks and queues when they are started
     # - note that we are using generators to add the counter
-    queue_counter = iutil.item_counter(configuration_queue.queue_count)
-    task_started_counter = iutil.item_counter(configuration_queue.task_count)
-    task_completed_counter = iutil.item_counter(configuration_queue.task_count)
+    queue_counter = util.item_counter(configuration_queue.queue_count)
+    task_started_counter = util.item_counter(configuration_queue.task_count)
+    task_completed_counter = util.item_counter(configuration_queue.task_count)
     configuration_queue.queue_started.connect(lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter)))
     configuration_queue.task_started.connect(lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter)))
     configuration_queue.task_completed.connect(lambda x: log.debug("Task completed: %s (%s) (%1.1f s)",
@@ -354,9 +354,9 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # log tasks and queues when they are started
     # - note that we are using generators to add the counter
-    queue_counter = iutil.item_counter(installation_queue.queue_count)
-    task_started_counter = iutil.item_counter(installation_queue.task_count)
-    task_completed_counter = iutil.item_counter(installation_queue.task_count)
+    queue_counter = util.item_counter(installation_queue.queue_count)
+    task_started_counter = util.item_counter(installation_queue.task_count)
+    task_completed_counter = util.item_counter(installation_queue.task_count)
     installation_queue.queue_started.connect(lambda x: log.info("Queue started: %s (%s)", x.name, next(queue_counter)))
     installation_queue.task_started.connect(lambda x: log.info("Task started: %s (%s)", x.name, next(task_started_counter)))
     installation_queue.task_completed.connect(lambda x: log.debug("Task completed: %s (%s) (%1.1f s)",

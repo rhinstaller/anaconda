@@ -19,7 +19,7 @@
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
 
-from pyanaconda.core import iutil
+from pyanaconda.core import util
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
@@ -227,9 +227,9 @@ class Rescue(object):
         # mount root fs
         try:
             mount_existing_system(self._storage.fsset, self.root.device, read_only=self.ro)
-            log.info("System has been mounted under: %s", iutil.getSysroot())
+            log.info("System has been mounted under: %s", util.getSysroot())
         except StorageError as e:
-            log.error("Mounting system under %s failed: %s", iutil.getSysroot(), e)
+            log.error("Mounting system under %s failed: %s", util.getSysroot(), e)
             self.status = RescueModeStatus.MOUNT_FAILED
             return False
 
@@ -245,7 +245,7 @@ class Rescue(object):
             # we have to catch the possible exception, because we
             # support read-only mounting
             try:
-                fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
+                fd = open("%s/.autorelabel" % util.getSysroot(), "w+")
                 fd.close()
             except IOError as e:
                 log.warning("Error turning on selinux: %s", e)
@@ -253,7 +253,7 @@ class Rescue(object):
         # set a libpath to use mounted fs
         libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
         mounted = ["/mnt/sysimage%s" % ldir for ldir in libdirs]
-        iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
+        util.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
 
         # do we have bash?
         try:
@@ -266,7 +266,7 @@ class Rescue(object):
         if not self.ro:
             self._storage.make_mtab()
             try:
-                makeResolvConf(iutil.getSysroot())
+                makeResolvConf(util.getSysroot())
             except(OSError, IOError) as e:
                 log.error("Error making resolv.conf: %s", e)
 
@@ -335,7 +335,7 @@ class Rescue(object):
     def run_shell(self):
         """Launch a shell."""
         if os.path.exists("/bin/bash"):
-            iutil.execConsole()
+            util.execConsole()
         else:
             # TODO: FIXME -> move to UI (check via module api?)
             print(_("Unable to find /bin/bash to execute!  Not starting shell."))
@@ -345,7 +345,7 @@ class Rescue(object):
         """Finish rescue mode with optional delay."""
         time.sleep(delay)
         if self.reboot:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+            util.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
 
 class RescueModeSpoke(NormalTUISpoke):
@@ -369,7 +369,7 @@ class RescueModeSpoke(NormalTUISpoke):
                 "this step.\nYou can choose to mount your file "
                 "systems read-only instead of read-write by choosing "
                 "'2'.\nIf for some reason this process does not work "
-                "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())
+                "choose '3' to skip directly to a shell.\n\n") % (util.getSysroot())
         self.window.add_with_separator(TextWidget(msg))
 
         self._container = ListColumnContainer(1)
@@ -501,14 +501,15 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
                                     "\tchroot %(mountpoint)s\n")
-                                  % {"mountpoint": iutil.getSysroot()} + finish_msg)
+                                  % {"mountpoint": util.getSysroot()} + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
                     finish_msg = exit_reboot_msg
                 else:
                     finish_msg = umount_msg
                 text = TextWidget(_("An error occurred trying to mount some or all of "
-                                    "your system.  Some of it may be mounted under %s\n\n") % iutil.getSysroot() + finish_msg)
+                                    "your system.  Some of it may be mounted under %s\n\n") %
+                                  util.getSysroot() + finish_msg)
             elif status == RescueModeStatus.ROOT_NOT_FOUND:
                 if self._rescue.reboot:
                     finish_msg = _("Rebooting.")

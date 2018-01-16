@@ -69,7 +69,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_, P_
-from pyanaconda.core import iutil, constants
+from pyanaconda.core import util, constants
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
@@ -1200,7 +1200,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             if rc == 0:
                 # Quit.
-                iutil.ipmi_abort(scripts=self.data.scripts)
+                util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
         elif self.errors:
@@ -1221,7 +1221,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             if rc == 0:
                 # Quit.
-                iutil.ipmi_abort(scripts=self.data.scripts)
+                util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
         elif self.warnings:
             label = _("The following warnings were encountered when checking your storage "

@@ -23,7 +23,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.flags import flags
-from pyanaconda.core.iutil import execConsole
+from pyanaconda.core.util import execConsole
 from blivet import arch
 
 from simpleline.render.widgets import TextWidget

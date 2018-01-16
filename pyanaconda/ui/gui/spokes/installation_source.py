@@ -37,7 +37,7 @@ from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
-from pyanaconda.core.iutil import ProxyString, ProxyStringError, cmp_obj_attrs, id_generator
+from pyanaconda.core.util import ProxyString, ProxyStringError, cmp_obj_attrs, id_generator
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui import GUIObject

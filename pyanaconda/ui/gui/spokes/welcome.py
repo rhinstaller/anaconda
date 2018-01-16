@@ -36,7 +36,7 @@ from pyanaconda.product import distributionText, isFinal, productName, productVe
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.iutil import is_unsupported_hw, ipmi_abort
+from pyanaconda.core.util import is_unsupported_hw, ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 
 from pyanaconda.anaconda_loggers import get_module_logger

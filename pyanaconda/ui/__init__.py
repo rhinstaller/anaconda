@@ -20,7 +20,7 @@
 __all__ = ["UserInterface"]
 
 import copy
-from pyanaconda.core.iutil import collect
+from pyanaconda.core.util import collect
 
 class PathDict(dict):
     """Dictionary class supporting + operator"""

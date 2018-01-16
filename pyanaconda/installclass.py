@@ -30,7 +30,7 @@ from blivet.size import Size
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
 from pykickstart.constants import FIRSTBOOT_DEFAULT
-from pyanaconda.core.iutil import collect
+from pyanaconda.core.util import collect
 from pyanaconda.storage.autopart import swap_suggestion
 from pyanaconda.storage.partspec import PartSpec
 from pyanaconda.platform import platform

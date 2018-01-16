@@ -22,8 +22,8 @@ import os
 import os.path
 import subprocess
 from contextlib import contextmanager
-from pyanaconda.core import iutil
-from pyanaconda.core.iutil import strip_accents
+from pyanaconda.core import util
+from pyanaconda.core.util import strip_accents
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE, NAME_VALID, PORTABLE_FS_CHARS, GROUPLIST_SIMPLE_VALID
 import crypt
@@ -210,9 +210,9 @@ class Users(object):
            :keyword int gid: The GID for the new user. If none is given, the next available one is used.
            :keyword str root: The directory of the system to create the new user in.
                           homedir will be interpreted relative to this. Defaults
-                          to iutil.getSysroot().
+                          to util.getSysroot().
         """
-        root = kwargs.get("root", iutil.getSysroot())
+        root = kwargs.get("root", util.getSysroot())
 
         if self._getgrnam(group_name, root):
             raise ValueError("Group %s already exists" % group_name)
@@ -223,7 +223,7 @@ class Users(object):
 
         args.append(group_name)
         with self._ensureLoginDefs(root):
-            status = iutil.execWithRedirect("groupadd", args)
+            status = util.execWithRedirect("groupadd", args)
 
         if status == 4:
             raise ValueError("GID %s already exists" % kwargs.get("gid"))
@@ -255,7 +255,7 @@ class Users(object):
                                   be left in its initial state (locked)
            :keyword str root: The directory of the system to create the new user
                               in.  homedir will be interpreted relative to this.
-                              Defaults to iutil.getSysroot().
+                              Defaults to util.getSysroot().
            :keyword str shell: The shell for the new user.  If none is given, the
                                login.defs default is used.
            :keyword int uid: The UID for the new user.  If none is given, the next
@@ -264,7 +264,7 @@ class Users(object):
                              available one is used.
         """
 
-        root = kwargs.get("root", iutil.getSysroot())
+        root = kwargs.get("root", util.getSysroot())
 
         if self.checkUserExists(user_name, root):
             raise ValueError("User %s already exists" % user_name)
@@ -317,12 +317,12 @@ class Users(object):
             homedir = "/home/" + user_name
 
         # useradd expects the parent directory tree to exist.
-        parent_dir = iutil.parent_dir(root + homedir)
+        parent_dir = util.parent_dir(root + homedir)
 
         # If root + homedir came out to "/", such as if we're creating the sshpw user,
         # parent_dir will be empty. Don't create that.
         if parent_dir:
-            iutil.mkdirChain(parent_dir)
+            util.mkdirChain(parent_dir)
 
         args.extend(["-d", homedir])
 
@@ -344,7 +344,7 @@ class Users(object):
 
         args.append(user_name)
         with self._ensureLoginDefs(root):
-            status = iutil.execWithRedirect("useradd", args)
+            status = util.execWithRedirect("useradd", args)
 
         if status == 4:
             raise ValueError("UID %s already exists" % kwargs.get("uid"))
@@ -367,10 +367,10 @@ class Users(object):
                 log.info("Home directory for the user %s already existed, "
                          "fixing the owner and SELinux context.", user_name)
                 # home directory already existed, change owner of it properly
-                iutil.chown_dir_tree(root + homedir,
-                                     int(pwent[2]), int(pwent[3]),
-                                     orig_uid, orig_gid)
-                iutil.execWithRedirect("restorecon", ["-r", root + homedir])
+                util.chown_dir_tree(root + homedir,
+                                    int(pwent[2]), int(pwent[3]),
+                                    orig_uid, orig_gid)
+                util.execWithRedirect("restorecon", ["-r", root + homedir])
             except OSError as e:
                 log.critical("Unable to change owner of existing home directory: %s", e.strerror)
                 raise
@@ -401,7 +401,7 @@ class Users(object):
                 password = "!" + password
                 log.info("user account %s locked", username)
 
-            proc = iutil.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
+            proc = util.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
             proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
             if proc.returncode != 0:
                 raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
@@ -409,13 +409,13 @@ class Users(object):
         # Reset sp_lstchg to an empty string. On systems with no rtc, this
         # field can be set to 0, which has a special meaning that the password
         # must be reset on the next login.
-        iutil.execWithRedirect("chage", ["-R", root, "-d", "", username])
+        util.execWithRedirect("chage", ["-R", root, "-d", "", username])
 
     def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None, root="/"):
         return self.setUserPassword("root", password, isCrypted, isLocked, algo, root)
 
     def setUserSshKey(self, username, key, **kwargs):
-        root = kwargs.get("root", iutil.getSysroot())
+        root = kwargs.get("root", util.getSysroot())
 
         pwent = self._getpwnam(username, root)
         if not pwent:
@@ -436,10 +436,10 @@ class Users(object):
 
         authfile = os.path.join(sshdir, "authorized_keys")
         authfile_existed = os.path.exists(authfile)
-        with iutil.open_with_perm(authfile, "a", 0o600) as f:
+        with util.open_with_perm(authfile, "a", 0o600) as f:
             f.write(key + "\n")
 
         # Only change ownership if we created it
         if not authfile_existed:
             os.chown(authfile, int(uid), int(gid))
-            iutil.execWithRedirect("restorecon", ["-r", sshdir])
+            util.execWithRedirect("restorecon", ["-r", sshdir])

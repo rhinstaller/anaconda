@@ -109,7 +109,7 @@ Backends that could possibly be used in the future
    * cell tower geolocation
 
 """
-from pyanaconda.core.iutil import requests_session
+from pyanaconda.core.util import requests_session
 import requests
 import urllib.parse
 import dbus

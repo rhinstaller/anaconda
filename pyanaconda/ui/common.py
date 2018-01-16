@@ -21,7 +21,7 @@ from abc import ABCMeta, abstractproperty
 
 from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda import screen_access
-from pyanaconda.core.iutil import collect
+from pyanaconda.core.util import collect
 from pyanaconda.core.signal import Signal
 from pyanaconda import lifecycle
 

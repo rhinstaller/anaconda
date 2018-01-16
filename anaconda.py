@@ -64,7 +64,7 @@ def exitHandler(rebootData, storage):
         vnc.shutdownServer()
 
     if "nokill" in flags.cmdline:
-        iutil.vtActivate(1)
+        util.vtActivate(1)
         print("anaconda halting due to nokill flag.")
         print("The system will be rebooted when you press Ctrl-Alt-Delete.")
         while True:
@@ -99,19 +99,19 @@ def exitHandler(rebootData, storage):
 
         if flags.eject or rebootData.eject:
             for cdrom in (d for d in storage.devices if d.type == "cdrom"):
-                if iutil.get_mount_paths(cdrom.path):
-                    iutil.dracut_eject(cdrom.path)
+                if util.get_mount_paths(cdrom.path):
+                    util.dracut_eject(cdrom.path)
 
         if flags.kexec:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "kexec"])
+            util.execWithRedirect("systemctl", ["--no-wall", "kexec"])
             while True:
                 time.sleep(10000)
         elif rebootData.action == KS_SHUTDOWN:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "poweroff"])
+            util.execWithRedirect("systemctl", ["--no-wall", "poweroff"])
         elif rebootData.action == KS_WAIT:
-            iutil.execWithRedirect("systemctl", ["--no-wall", "halt"])
+            util.execWithRedirect("systemctl", ["--no-wall", "halt"])
         else:  # reboot action is KS_REBOOT or None
-            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+            util.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
 def setup_python_updates():
     """Setup updates to Anaconda Python files."""
@@ -279,7 +279,7 @@ if __name__ == "__main__":
     from pyanaconda.core.i18n import _
 
     from pyanaconda.addons import collect_addon_paths
-    from pyanaconda.core import iutil, constants
+    from pyanaconda.core import util, constants
     from pyanaconda import startup_utils
 
     # do this early so we can set flags before initializing logging
@@ -310,12 +310,12 @@ if __name__ == "__main__":
     # check if input kickstart should be saved
     if flags.nosave_input_ks:
         log.warning("Input kickstart will not be saved to the installed system due to the nosave option.")
-        iutil.touch('/tmp/NOSAVE_INPUT_KS')
+        util.touch('/tmp/NOSAVE_INPUT_KS')
 
     # check if logs should be saved
     if flags.nosave_logs:
         log.warning("Installation logs will not be saved to the installed system due to the nosave option.")
-        iutil.touch('/tmp/NOSAVE_LOGS')
+        util.touch('/tmp/NOSAVE_LOGS')
 
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
@@ -336,21 +336,21 @@ if __name__ == "__main__":
 
     from pyanaconda import isys
 
-    iutil.ipmi_report(constants.IPMI_STARTED)
+    util.ipmi_report(constants.IPMI_STARTED)
 
     if (opts.images or opts.dirinstall) and opts.liveinst:
         stdout_log.error("--liveinst cannot be used with --images or --dirinstall")
-        iutil.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     if opts.images and opts.dirinstall:
         stdout_log.error("--images and --dirinstall cannot be used at the same time")
-        iutil.ipmi_report(constants.IPMI_ABORTED)
+        util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
     elif opts.dirinstall:
         root_path = opts.dirinstall
-        iutil.setTargetPhysicalRoot(root_path)
-        iutil.setSysroot(root_path)
+        util.setTargetPhysicalRoot(root_path)
+        util.setSysroot(root_path)
 
     from pyanaconda import vnc
     from pyanaconda import kickstart
@@ -362,7 +362,7 @@ if __name__ == "__main__":
     from pyanaconda import startup_utils
     from pyanaconda import rescue
     from pyanaconda import geoloc
-    from pyanaconda.core.iutil import ProxyString, ProxyStringError
+    from pyanaconda.core.util import ProxyString, ProxyStringError
 
     # Print the usual "startup note" that contains Anaconda version
     # and short usage & bug reporting instructions.
@@ -371,7 +371,7 @@ if __name__ == "__main__":
 
     from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()
-    iutil.setup_translations()
+    util.setup_translations()
 
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_IGN)
@@ -385,7 +385,7 @@ if __name__ == "__main__":
     setup_environment()
 
     # make sure we have /var/log soon, some programs fail to start without it
-    iutil.mkdirChain("/var/log")
+    util.mkdirChain("/var/log")
 
     # Create a PID file. The exit handler, installed later, will clean it up.
     pidfile = pid.PidFile(pidname='anaconda', register_term_signal_handler=False)
@@ -403,15 +403,16 @@ if __name__ == "__main__":
             # be set from the live environment in this case, and anaconda's
             # language setup hasn't happened yet.
             # pylint: disable=found-_-in-module-class
-            iutil.execWithRedirect("zenity",
-                                   ["--error", "--title", _("Unable to create PID file"), "--text",
-                                   _("Anaconda is unable to create %s because the file" +
-                                   " already exists. Anaconda is already running, or a previous instance" +
-                                   " of anaconda has crashed.") % pidfile.filename])
+            util.execWithRedirect("zenity",
+                                  ["--error", "--title", _("Unable to create PID file"), "--text",
+                                   _("Anaconda is unable to create %s because the file"
+                                     " already exists. Anaconda is already running, or "
+                                     "a previous instance of anaconda has crashed.")
+                                   % pidfile.filename])
         else:
             print("%s already exists, exiting" % pidfile.filename)
 
-        iutil.ipmi_report(constants.IPMI_FAILED)
+        util.ipmi_report(constants.IPMI_FAILED)
         sys.exit(1)
 
     # add our own additional signal handlers
@@ -461,8 +462,8 @@ if __name__ == "__main__":
     # once it gets going.
     if can_touch_runtime_system("early exception handler"):
         def _earlyExceptionHandler(ty, value, traceback):
-            iutil.ipmi_report(constants.IPMI_FAILED)
-            iutil.vtActivate(1)
+            util.ipmi_report(constants.IPMI_FAILED)
+            util.vtActivate(1)
             return sys.__excepthook__(ty, value, traceback)
 
         sys.excepthook = _earlyExceptionHandler
@@ -470,7 +471,7 @@ if __name__ == "__main__":
     if can_touch_runtime_system("start audit daemon"):
         # auditd will turn into a daemon and exit. Ignore startup errors
         try:
-            iutil.execWithRedirect("/sbin/auditd", [])
+            util.execWithRedirect("/sbin/auditd", [])
         except OSError:
             pass
 
@@ -531,14 +532,14 @@ if __name__ == "__main__":
             log.info("Failed to parse proxy \"%s\": %s", anaconda.proxy, e)
         else:
             # Set environmental variables to be used by pre/post scripts
-            iutil.setenv("PROXY", proxy.noauth_url)
-            iutil.setenv("PROXY_USER", proxy.username or "")
-            iutil.setenv("PROXY_PASSWORD", proxy.password or "")
+            util.setenv("PROXY", proxy.noauth_url)
+            util.setenv("PROXY_USER", proxy.username or "")
+            util.setenv("PROXY_PASSWORD", proxy.password or "")
 
             # Variables used by curl, libreport, etc.
-            iutil.setenv("http_proxy", proxy.url)
-            iutil.setenv("ftp_proxy", proxy.url)
-            iutil.setenv("HTTPS_PROXY", proxy.url)
+            util.setenv("http_proxy", proxy.url)
+            util.setenv("ftp_proxy", proxy.url)
+            util.setenv("HTTPS_PROXY", proxy.url)
 
     if flags.noverifyssl:
         ksdata.method.noverifyssl = flags.noverifyssl
@@ -648,7 +649,7 @@ if __name__ == "__main__":
             flags.imageInstall = True
     except ValueError as e:
         stdout_log.error("error specifying image file: %s", e)
-        iutil.ipmi_abort(scripts=ksdata.scripts)
+        util.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
     if image_count:
@@ -713,7 +714,7 @@ if __name__ == "__main__":
             ntp.save_servers_to_config(pools, servers)
 
         if not anaconda.ksdata.timezone.nontp:
-            iutil.start_service("chronyd")
+            util.start_service("chronyd")
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL

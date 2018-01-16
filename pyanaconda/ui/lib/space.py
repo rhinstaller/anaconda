@@ -18,7 +18,7 @@
 #
 import os
 from blivet.size import Size
-from pyanaconda.core import iutil
+from pyanaconda.core import util
 
 from pyanaconda.core.i18n import _, N_
 
@@ -101,7 +101,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
                             in the info bar at the bottom of a Hub.
         """
         self.reset()
-        stat = os.statvfs(iutil.getSysroot())
+        stat = os.statvfs(util.getSysroot())
         free = Size(stat.f_bsize * stat.f_bfree)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)

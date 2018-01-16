@@ -29,7 +29,7 @@ import shutil
 import langtable
 
 from pyanaconda.core.glib import GError, Variant
-from pyanaconda.core import iutil
+from pyanaconda.core import util
 from pyanaconda import safe_dbus
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
@@ -257,7 +257,7 @@ def _try_to_load_keymap(keymap):
     ret = 0
 
     try:
-        ret = iutil.execWithRedirect("loadkeys", [keymap])
+        ret = util.execWithRedirect("loadkeys", [keymap])
     except OSError as oserr:
         msg = "'loadkeys' command not available (%s)" % oserr.strerror
         raise KeyboardConfigError(msg)

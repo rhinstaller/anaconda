@@ -23,7 +23,7 @@ import os
 from pyanaconda.flags import flags
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.core.constants import DEFAULT_LANG
-from pyanaconda.core.iutil import startProgram
+from pyanaconda.core.util import startProgram
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

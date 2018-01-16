@@ -35,7 +35,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import WINDOW_TITLE_TEXT
 from pyanaconda import product
-from pyanaconda.core import iutil, constants
+from pyanaconda.core import util, constants
 from pyanaconda import threading as anaconda_threading
 
 from pyanaconda.core.glib import Bytes, GError
@@ -622,7 +622,7 @@ class MainWindow(Gtk.Window):
         :type name: str or NoneType
         """
         # Make sure the screenshot directory exists.
-        iutil.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
+        util.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
 
         if name is None:
             screenshot_filename = "screenshot-%04d.png" % self._screenshot_index
@@ -730,7 +730,7 @@ class GraphicalUserInterface(UserInterface):
         if monitor_height_px >= 1200 and monitor_dpi_x > 192 and monitor_dpi_y > 192:
             display.set_window_scale(2)
             # Export the scale so that Gtk programs launched by anaconda are also scaled
-            iutil.setenv("GDK_SCALE", "2")
+            util.setenv("GDK_SCALE", "2")
 
     @property
     def tty_num(self):
@@ -958,7 +958,7 @@ class GraphicalUserInterface(UserInterface):
         if len(self._actions) == 1:
             # save the screenshots to the installed system before killing Anaconda
             # (the kickstart post scripts run to early, so we need to copy the screenshots now)
-            iutil.save_screenshots()
+            util.save_screenshots()
             Gtk.main_quit()
             return
 
@@ -1031,7 +1031,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exited.emit(self._currentAction)
-            iutil.ipmi_abort(scripts=self.data.scripts)
+            util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):

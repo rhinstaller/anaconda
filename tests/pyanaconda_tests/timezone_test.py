@@ -52,21 +52,21 @@ class s390HWclock(unittest.TestCase):
     def setUp(self):
         self.arch_mock = mock.Mock()
         self.arch_mock.is_s390.return_value = True
-        self.iutil_mock = mock.Mock()
+        self.util_mock = mock.Mock()
 
         # pylint: disable=no-member
         timezone.save_hw_clock.__globals__["arch"] = self.arch_mock
         # pylint: disable=no-member
-        timezone.save_hw_clock.__globals__["iutil"] = self.iutil_mock
+        timezone.save_hw_clock.__globals__["util"] = self.util_mock
 
     def s390_save_hw_clock_test(self):
         """Check that save_hw_clock does nothing on s390."""
 
         timezone.save_hw_clock(mock.Mock())
-        self.assertFalse(self.iutil_mock.execWithRedirect.called)
+        self.assertFalse(self.util_mock.execWithRedirect.called)
 
     def s390_time_initialize_test(self):
         """Check that time_initialize doesn't call hwclock on s390."""
 
         timezone.time_initialize(mock.Mock(), mock.Mock(), mock.Mock())
-        self.assertFalse(self.iutil_mock.execWithRedirect.called)
+        self.assertFalse(self.util_mock.execWithRedirect.called)

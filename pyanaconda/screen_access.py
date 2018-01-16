@@ -40,7 +40,7 @@ from configparser import ConfigParser
 from threading import RLock
 
 from pyanaconda import startup_utils
-from pyanaconda.core import iutil
+from pyanaconda.core import util
 from pyanaconda.flags import can_touch_runtime_system
 
 
@@ -90,7 +90,7 @@ class ScreenAccessManager(object):
         """
 
         if config_path is None:
-            config_path = iutil.getSysroot() + CONFIG_FILE_PATH
+            config_path = util.getSysroot() + CONFIG_FILE_PATH
 
         with self._lock:
             new_config_file = not os.path.exists(config_path)

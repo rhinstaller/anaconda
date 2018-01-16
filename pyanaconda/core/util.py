@@ -1,5 +1,5 @@
 #
-# iutil.py - generic install utility functions
+# util.py - generic install utility functions
 #
 # Copyright (C) 1999-2014
 # Red Hat, Inc.  All rights reserved.
