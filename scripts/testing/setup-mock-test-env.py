@@ -7,7 +7,7 @@ import os
 import sys
 import subprocess
 
-from argparse import ArgumentParser
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 
 DEPENDENCY_SOLVER = "dependency_solver.py"
@@ -76,35 +76,62 @@ def _call_subprocess(cmd, stdout_pipe=False):
 
 
 def parse_args():
-    parser = ArgumentParser(description="""Setup Anaconda test environment in mock.""")
+    parser = ArgumentParser(description="""Setup Anaconda test environment in mock.""",
+                            formatter_class=RawDescriptionHelpFormatter,
+                            epilog="""
+You need to init mock (--init command or without main commands) before running tests.
+This will install all the required packages.
+
+Parameters can be combined so you can call:
+    setup-mock-test-env.py --init --copy --run-tests --result ./result
+
+
+When the init is done the mock environment stays for later use.
+
+It is possible to connect to mock by calling:
+    mock -r <mock configuration> --shell
+
+Or just update Anaconda and start CI by:
+    setup-mock-test-env.py <mock configuration> --copy --run-tests --result /tmp/result
+
+For further info look on the mock manual page.
+""")
     parser.add_argument('mock_config', action='store', type=str, metavar='mock-config',
                         help="""
                         mock configuration file; could be specified as file path or 
                         name of the file in /etc/mock without .cfg suffix
                         """)
-    parser.add_argument('--init', action='store_true', dest='init',
-                        help="""initialize environment with the required packages""")
-    parser.add_argument('--install', '-i', action='store', type=str, dest='install',
-                        help="""install additional packages to the mock""")
-    parser.add_argument('--uniqueext', action='store', type=str, dest='uniqueext',
+    parser.add_argument('--uniqueext', action='store', type=str, metavar='<unique text>',
+                        dest='uniqueext',
                         help="""
                         set suffix to mock chroot dir; this must be used to 
                         run parallel tasks.
-                        """)
-    parser.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
-                        help="""
-                        run anaconda tests in a mock
-                        """)
-    parser.add_argument('--copy', '-c', action='store_true', dest='copy',
-                        help="""
-                        keep existing mock and only replace Anaconda folder in it;
-                        this will not re-init mock chroot
                         """)
     parser.add_argument('--result', action='store', type=str, metavar='folder',
                         dest='result_folder', default=None,
                         help="""
                         save test result folder from anaconda to destination folder
                         """)
+
+    group = parser.add_argument_group(title="Main commands",
+                                      description="""
+One of these commands must be used. These commands can be combined.
+""")
+    group.add_argument('--init', action='store_true', dest='init',
+                       help="""initialize environment with the required packages""")
+    group.add_argument('--install', '-i', metavar='<packages>', action='store', type=str,
+                       dest='install',
+                       help="""install additional packages to the mock""")
+
+    group.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
+                       help="""
+                       run anaconda tests in a mock
+                       """)
+    group.add_argument('--copy', '-c', action='store_true', dest='copy',
+                       help="""
+                       keep existing mock and only replace Anaconda folder in it;
+                       this will not re-init mock chroot
+                       """)
 
     return parser.parse_args()
 
@@ -225,18 +252,6 @@ if __name__ == "__main__":
         mock_init_run = True
         if ns.install:
             install_packages_to_mock(mock_cmd, ns.install)
-
-        cmd_msg = " ".join(mock_cmd)
-        print()
-        print("mock environment setup successful")
-        print("connect to mock by calling:")
-        print("{} --shell".format(cmd_msg))
-        print("")
-        print("start ci by calling:")
-        print("setup-mock-test-env.py --copy --run-tests --result /tmp/result {}".format(ns.mock_config))
-        print("or manually:")
-        print("{} --chroot -- \"cd {} && ./autogen.sh && ./configure && make ci\"".
-              format(cmd_msg, ANACONDA_MOCK_PATH))
 
     if ns.install and not mock_init_run:
         install_packages_to_mock(mock_cmd, ns.install)
