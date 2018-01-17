@@ -1,6 +1,4 @@
 #
-# fedora-server.py
-#
 # Copyright (C) Stephen Gallagher
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,7 +16,7 @@
 #
 
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
-from pyanaconda.product import productName
+from pyanaconda.product import productVariant
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.storage.partspec import PartSpec
 from pyanaconda.storage.autopart import swap_suggestion
@@ -33,9 +31,10 @@ class FedoraServerInstallClass(FedoraBaseInstallClass):
     stylesheet = "/usr/share/anaconda/pixmaps/server/fedora-server.css"
     defaultFS = "xfs"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
-    if not productName.startswith("Fedora Server"):          # pylint: disable=no-member
-        hidden = True
     defaultPackageEnvironment = "server-product-environment"
+
+    if productVariant != "Server":
+        hidden = True
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
