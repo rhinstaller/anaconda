@@ -48,6 +48,9 @@ MODULE_BAR_PATH = auto_object_path(MODULE_BAR_NAME)
 MODULE_TIMEZONE_NAME = "{}.Timezone".format(DBUS_MODULE_NAMESPACE)
 MODULE_TIMEZONE_PATH = auto_object_path(MODULE_TIMEZONE_NAME)
 
+MODULE_NETWORK_NAME = "{}.Network".format(DBUS_MODULE_NAMESPACE)
+MODULE_NETWORK_PATH = auto_object_path(MODULE_NETWORK_NAME)
+
 # Addons (likely for testing purposes only)
 ADDON_BAZ_NAME = "{}.Baz".format(DBUS_ADDON_NAMESPACE)
 ADDON_BAZ_PATH = auto_object_path(ADDON_BAZ_NAME)
@@ -63,7 +66,8 @@ DBUS_TASK_NAME = "{}.Task".format(ANACONDA_DBUS_NAMESPACE)
 # list of all expected Anaconda DBUS modules
 ANACONDA_MODULES = [(MODULE_FOO_NAME, MODULE_FOO_PATH),
                     (MODULE_BAR_NAME, MODULE_BAR_PATH),
-                    (MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)]
+                    (MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH),
+                    (MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)]
 
 # status codes
 DBUS_START_REPLY_SUCCESS = 1
