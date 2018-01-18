@@ -31,7 +31,7 @@ from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Ac
 from pyanaconda.flags import BootArgs
 from pyanaconda.flags import flags as flags_instance
 
-from pyanaconda.constants import DisplayModes, X_TIMEOUT
+from pyanaconda.core.constants import DisplayModes, X_TIMEOUT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -480,7 +480,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--remotelog", metavar="HOST:PORT", help=help_parser.help_text("remotelog"))
 
     from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
-    from pyanaconda.constants import SELINUX_DEFAULT
+    from pyanaconda.core.constants import SELINUX_DEFAULT
     ap.add_argument("--noselinux", dest="selinux", action="store_const",
                     const=SELINUX_DISABLED, default=SELINUX_DEFAULT,
                     help=help_parser.help_text("noselinux"))

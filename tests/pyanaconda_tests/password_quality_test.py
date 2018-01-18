@@ -20,8 +20,8 @@
 
 from pyanaconda import input_checking
 from pyanaconda.pwpolicy import F22_PwPolicyData
-from pyanaconda import constants
-from pyanaconda.i18n import _
+from pyanaconda.core import constants
+from pyanaconda.core.i18n import _
 import unittest
 
 def get_policy():
@@ -237,4 +237,5 @@ class PasswordQuality(unittest.TestCase):
         self.assertEqual(check.result.password_score, 0)  # too short
         self.assertEqual(check.result.status_text, _(constants.SecretStatus.TOO_SHORT.value))
         self.assertEqual(check.result.password_quality, 0)  # dependent on password length
-        self.assertIs(check.result.error_message, _(constants.SECRET_TOO_SHORT[constants.SecretType.PASSWORD]))
+        self.assertIs(check.result.error_message,
+                      _(constants.SECRET_TOO_SHORT[constants.SecretType.PASSWORD]))

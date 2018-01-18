@@ -23,7 +23,7 @@ gi.require_version("NM", "1.0")
 from gi.repository import NM
 
 import shutil
-from pyanaconda import iutil
+from pyanaconda.core import util, constants
 import socket
 import os
 import time
@@ -41,10 +41,9 @@ from blivet.devices import FcoeDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
-from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.i18n import _
-from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
+from pyanaconda.core.i18n import _
+from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pykickstart.constants import BIND_TO_MAC
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
@@ -433,7 +432,7 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
                 netargs.add("ip=%s::%s::%s:%s:none" % (ipaddr, gateway,
                             hostname, devname))
         else:
-            if iutil.lowerASCII(ifcfg.get('bootproto')) == 'dhcp':
+            if util.lowerASCII(ifcfg.get('bootproto')) == 'dhcp':
                 netargs.add("ip=%s:dhcp" % devname)
             else:
                 cfgidx = ''
@@ -880,7 +879,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
     if not ifcfg.get('BOOTPROTO'):
         kwargs["noipv4"] = True
     else:
-        if iutil.lowerASCII(ifcfg.get('BOOTPROTO')) == 'dhcp':
+        if util.lowerASCII(ifcfg.get('BOOTPROTO')) == 'dhcp':
             kwargs["bootProto"] = "dhcp"
             if ifcfg.get('DHCPCLASS'):
                 kwargs["dhcpclass"] = ifcfg.get('DHCPCLASS')
@@ -925,7 +924,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
     # ipv4 and ipv6
     dnsline = ''
     for key in ifcfg.info.keys():
-        if iutil.upperASCII(key).startswith('DNS'):
+        if util.upperASCII(key).startswith('DNS'):
             if dnsline == '':
                 dnsline = ifcfg.get(key)
             else:
@@ -1175,7 +1174,7 @@ def hostname_from_cmdline(cmdline):
     return hostname
 
 def ifaceForHostIP(host):
-    route = iutil.execWithCapture("ip", ["route", "get", "to", host])
+    route = util.execWithCapture("ip", ["route", "get", "to", host])
     if not route:
         log.error("Could not get interface for route to %s", host)
         return ""
@@ -1189,7 +1188,7 @@ def ifaceForHostIP(host):
     return routeInfo[routeInfo.index("dev") + 1]
 
 def default_route_device(family="inet"):
-    routes = iutil.execWithCapture("ip", ["-f", family, "route", "show"])
+    routes = util.execWithCapture("ip", ["-f", family, "route", "show"])
     if not routes:
         log.debug("Could not get default %s route device", family)
         return None
@@ -1212,7 +1211,7 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     if (os.path.isfile(destfile) and not overwrite):
         return False
     if not os.path.isdir(os.path.dirname(destfile)):
-        iutil.mkdirChain(os.path.dirname(destfile))
+        util.mkdirChain(os.path.dirname(destfile))
     shutil.copy(fileName, destfile)
     return True
 
@@ -1287,7 +1286,7 @@ def ks_spec_to_device_name(ksspec=""):
 def set_hostname(hn):
     if can_touch_runtime_system("set hostname", touch_live=True):
         log.info("setting installation environment host name to %s", hn)
-        iutil.execWithRedirect("hostnamectl", ["set-hostname", hn])
+        util.execWithRedirect("hostnamectl", ["set-hostname", hn])
 
 def write_hostname(rootpath, ksdata, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)
@@ -1790,7 +1789,7 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
     """
     log.debug("setting ONBOOT value of %s to %s", devname, value)
     if root_path is None:
-        root_path = iutil.getSysroot()
+        root_path = util.getSysroot()
     if value:
         ifcfg_value = 'yes'
     else:

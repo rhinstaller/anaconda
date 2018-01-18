@@ -27,20 +27,21 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("AnacondaWidgets", "3.3")
 gi.require_version("Keybinder", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
-gi.require_version("GLib", "2.0")
 gi.require_version("GObject", "2.0")
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
+from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObject
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_
-from pyanaconda.constants import WINDOW_TITLE_TEXT
-from pyanaconda import product, iutil, constants
+from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.constants import WINDOW_TITLE_TEXT
+from pyanaconda import product
+from pyanaconda.core import util, constants
 from pyanaconda import threading as anaconda_threading
 
+from pyanaconda.core.glib import Bytes, GError
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_call_once, unbusyCursor
-from pyanaconda.async_utils import async_action_wait
+from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
 from pyanaconda import ihelp
@@ -370,7 +371,7 @@ class MainWindow(Gtk.Window):
         # bytes, colorspace (there is no other colorspace), has-alpha,
         # bits-per-sample (has to be 8), width, height,
         # rowstride (bytes between row starts, but we only have one row)
-        self._transparent_base = GdkPixbuf.Pixbuf.new_from_bytes(GLib.Bytes.new([0, 0, 0, 127]),
+        self._transparent_base = GdkPixbuf.Pixbuf.new_from_bytes(Bytes.new([0, 0, 0, 127]),
                 GdkPixbuf.Colorspace.RGB, True, 8, 1, 1, 1)
 
         # Contain everything in an overlay so the window can be overlayed with the transparency
@@ -621,7 +622,7 @@ class MainWindow(Gtk.Window):
         :type name: str or NoneType
         """
         # Make sure the screenshot directory exists.
-        iutil.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
+        util.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
 
         if name is None:
             screenshot_filename = "screenshot-%04d.png" % self._screenshot_index
@@ -729,7 +730,7 @@ class GraphicalUserInterface(UserInterface):
         if monitor_height_px >= 1200 and monitor_dpi_x > 192 and monitor_dpi_y > 192:
             display.set_window_scale(2)
             # Export the scale so that Gtk programs launched by anaconda are also scaled
-            iutil.setenv("GDK_SCALE", "2")
+            util.setenv("GDK_SCALE", "2")
 
     @property
     def tty_num(self):
@@ -856,7 +857,7 @@ class GraphicalUserInterface(UserInterface):
                     provider.load_from_path(self.instclass.stylesheet)
                     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                             STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
-                except GLib.GError as e:
+                except GError as e:
                     log.error("Install class stylesheet %s failed to load:\n%s",
                               self.instclass.stylesheet, e)
 
@@ -957,7 +958,7 @@ class GraphicalUserInterface(UserInterface):
         if len(self._actions) == 1:
             # save the screenshots to the installed system before killing Anaconda
             # (the kickstart post scripts run to early, so we need to copy the screenshots now)
-            iutil.save_screenshots()
+            util.save_screenshots()
             Gtk.main_quit()
             return
 
@@ -1030,7 +1031,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exited.emit(self._currentAction)
-            iutil.ipmi_abort(scripts=self.data.scripts)
+            util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):

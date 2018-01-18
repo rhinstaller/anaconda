@@ -19,7 +19,7 @@
 
 # Used for digits, ascii_letters, punctuation constants
 import string # pylint: disable=deprecated-module
-from pyanaconda.i18n import N_
+from pyanaconda.core.i18n import N_
 
 from enum import Enum
 

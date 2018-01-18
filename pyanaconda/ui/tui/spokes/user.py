@@ -19,10 +19,10 @@
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 
-from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, PASSWORD_SET
+from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, PASSWORD_SET
 from pyanaconda.flags import flags
-from pyanaconda.i18n import N_, _
-from pyanaconda.regexes import GECOS_VALID
+from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.regexes import GECOS_VALID
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.spokes import NormalTUISpoke

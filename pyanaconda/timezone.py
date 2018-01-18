@@ -27,8 +27,8 @@ import pytz
 import langtable
 from collections import OrderedDict
 
-from pyanaconda import iutil
-from pyanaconda.constants import THREAD_STORAGE
+from pyanaconda.core import util
+from pyanaconda.core.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
 from blivet import arch
@@ -83,7 +83,7 @@ def time_initialize(timezone, storage, bootloader):
     else:
         args.append("--localtime")
 
-    iutil.execWithRedirect(cmd, args)
+    util.execWithRedirect(cmd, args)
 
 def write_timezone_config(timezone, root):
     """
@@ -157,7 +157,7 @@ def save_hw_clock(timezone):
     else:
         args.append("--local")
 
-    iutil.execWithRedirect(cmd, args)
+    util.execWithRedirect(cmd, args)
 
 
 def get_preferred_timezone(territory):

@@ -21,8 +21,8 @@ import unittest
 import re
 
 from regexcheck import regex_match
-from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IPV4_PATTERN_WITHOUT_ANCHORS,\
-        IPV6_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, \
+                                    IPV4_PATTERN_WITHOUT_ANCHORS, IPV6_PATTERN_WITHOUT_ANCHORS
 
 class HostnameRegexTestCase(unittest.TestCase):
     def hostname_test(self):

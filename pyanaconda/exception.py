@@ -34,20 +34,18 @@ from meh.dump import ReverseExceptionDump
 from meh.handler import ExceptionHandler
 
 from pyanaconda import flags
-from pyanaconda import iutil, kickstart
+from pyanaconda import kickstart
+from pyanaconda.core import util
 from pyanaconda import startup_utils
-from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
+from pyanaconda.core.async_utils import run_in_loop
+from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.threading import threadMgr
 from pyanaconda.ui.communication import hubQ
 
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
-
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -95,7 +93,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
     def _main_loop_handleException(self, dump_info):
         """
         Helper method with one argument only so that it can be registered
-        with GLib.idle_add() to run on idle or called from a handler.
+        with run_in_loop to run on idle or called from a handler.
 
         :type dump_info: an instance of the meh.DumpInfo class
 
@@ -156,7 +154,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # the graphical interface is running, don't crash it by
                 # running another one potentially from a different thread
                 log.debug("Gtk running, queuing exception handler to the main loop")
-                GLib.idle_add(self._main_loop_handleException, dump_info)
+                run_in_loop(self._main_loop_handleException, dump_info)
             else:
                 log.debug("Gtk not running, starting Gtk and running exception handler in it")
                 self._main_loop_handleException(dump_info)
@@ -213,27 +211,27 @@ class AnacondaExceptionHandler(ExceptionHandler):
         anaconda = dump_info.object
 
         # See if there is a /root present in the root path and put exception there as well
-        if os.access(iutil.getSysroot() + "/root", os.X_OK):
+        if os.access(util.getSysroot() + "/root", os.X_OK):
             try:
-                dest = iutil.getSysroot() + "/root/%s" % os.path.basename(self.exnFile)
+                dest = util.getSysroot() + "/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
             except (shutil.Error, IOError):
-                log.error("Failed to copy %s to %s/root", self.exnFile, iutil.getSysroot())
+                log.error("Failed to copy %s to %s/root", self.exnFile, util.getSysroot())
 
         # run kickstart traceback scripts (if necessary)
         try:
-            iutil.runOnErrorScripts(anaconda.ksdata.scripts)
+            util.runOnErrorScripts(anaconda.ksdata.scripts)
             kickstart.runTracebackScripts(anaconda.ksdata.scripts)
         # pylint: disable=bare-except
         except:
             pass
 
-        iutil.ipmi_report(IPMI_FAILED)
+        util.ipmi_report(IPMI_FAILED)
 
     def runDebug(self, exc_info):
         if flags.can_touch_runtime_system("switch console") \
                 and self._intf_tty_num != 1:
-            iutil.vtActivate(1)
+            util.vtActivate(1)
 
         os.open("/dev/console", os.O_RDWR)   # reclaim stdin
         os.dup2(0, 1)                        # reclaim stdout
@@ -256,14 +254,14 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         if flags.can_touch_runtime_system("switch console") \
                 and self._intf_tty_num != 1:
-            iutil.vtActivate(self._intf_tty_num)
+            util.vtActivate(self._intf_tty_num)
 
 
 def initExceptionHandling(anaconda):
     file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
-                 "/tmp/lvm.log", iutil.getSysroot() + "/root/install.log",
+                 "/tmp/lvm.log", util.getSysroot() + "/root/install.log",
                  "/proc/cmdline", "/root/lorax-packages.log",
                  "/tmp/blivet-gui-utils.log"]
 
@@ -320,13 +318,13 @@ def initExceptionHandling(anaconda):
 def lsblk_callback():
     """Callback to get info about block devices."""
 
-    return iutil.execWithCapture("lsblk", ["--perms", "--fs", "--bytes"])
+    return util.execWithCapture("lsblk", ["--perms", "--fs", "--bytes"])
 
 
 def nmcli_dev_list_callback():
     """Callback to get info about network devices."""
 
-    return iutil.execWithCapture("nmcli", ["device", "show"])
+    return util.execWithCapture("nmcli", ["device", "show"])
 
 
 def journalctl_callback():
@@ -336,7 +334,7 @@ def journalctl_callback():
     # logs)
     anaconda_log_line = re.compile(r"\[%d\]:" % os.getpid())
     ret = ""
-    for line in iutil.execReadlines("journalctl", ["-b"]):
+    for line in util.execReadlines("journalctl", ["-b"]):
         if anaconda_log_line.search(line) is None:
             # not an anaconda's message
             ret += line + "\n"

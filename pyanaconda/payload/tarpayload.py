@@ -36,7 +36,8 @@ except ImportError:
     tarfile = None
 
 from pyanaconda.payload import ArchivePayload, PayloadError, versionCmp
-from pyanaconda import iutil
+from pyanaconda.core import util
+
 
 # TarPayload is not yet fully implemented
 # pylint: disable=abstract-method
@@ -79,6 +80,6 @@ class TarPayload(ArchivePayload):
 
     def install(self):
         try:
-            self.archive.extractall(path=iutil.getSysroot())
+            self.archive.extractall(path=util.getSysroot())
         except (tarfile.ExtractError, tarfile.CompressionError) as e:
             log.error("extracting tar archive %s: %s", self.image_file, e)

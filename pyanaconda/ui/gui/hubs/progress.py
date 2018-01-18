@@ -17,27 +17,29 @@
 # Red Hat, Inc.
 
 import gi
-gi.require_version("GLib", "2.0")
+
+from pyanaconda.core.timer import Timer
+
 gi.require_version("Gtk", "3.0")
 
-from gi.repository import GLib, Gtk
+from gi.repository import Gtk
 
 import itertools
 import os
 import sys
 import glob
 
-from pyanaconda.i18n import _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda import iutil
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, IPMI_FINISHED
+from pyanaconda.core import util
+from pyanaconda.core.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gtk_call_once
-from pyanaconda.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 
 __all__ = ["ProgressHub"]
 
@@ -57,8 +59,8 @@ class ProgressHub(Hub):
         self._totalSteps = 0
         self._currentStep = 0
         self._configurationDone = False
-
-        self._rnotes_id = None
+        self._update_progress_timer = Timer()
+        self._cycle_rnotes_timer = Timer()
 
     def _do_configuration(self, widget=None, reenable_ransom=True):
         from pyanaconda.installation import doConfiguration
@@ -76,7 +78,8 @@ class ProgressHub(Hub):
 
         self._restart_spinner()
 
-        GLib.timeout_add(250, self._update_progress, self._configuration_done)
+        self._update_progress_timer.timeout_msec(250, self._update_progress,
+                                                 self._configuration_done)
         threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
@@ -84,7 +87,7 @@ class ProgressHub(Hub):
         # Adding this as a timeout below means it'll get called after 60
         # seconds, so we need to do the first call manually.
         self._cycle_rnotes()
-        self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
+        self._cycle_rnotes_timer.timeout_sec(60, self._cycle_rnotes)
 
     def _update_progress(self, callback=None):
         from pyanaconda.progress import progressQ
@@ -134,11 +137,11 @@ class ProgressHub(Hub):
         # Configuration done, remove ransom notes timer
         # and switch to the Reboot page
 
-        GLib.source_remove(self._rnotes_id)
+        self._cycle_rnotes_timer.cancel()
         self._progressNotebook.set_current_page(1)
         self.window.set_may_continue(True)
 
-        iutil.ipmi_report(IPMI_FINISHED)
+        util.ipmi_report(IPMI_FINISHED)
 
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
@@ -152,7 +155,7 @@ class ProgressHub(Hub):
         else:
             # some mandatory spokes are not ready
             # switch to configure and finish page
-            GLib.source_remove(self._rnotes_id)
+            self._cycle_rnotes_timer.cancel()
             self._progressNotebook.set_current_page(0)
 
     def _do_globs(self, path):
@@ -259,7 +262,7 @@ class ProgressHub(Hub):
         Hub.refresh(self)
 
         self._start_ransom_notes()
-        GLib.timeout_add(250, self._update_progress, self._install_done)
+        self._update_progress_timer.timeout_msec(250, self._update_progress, self._install_done)
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 

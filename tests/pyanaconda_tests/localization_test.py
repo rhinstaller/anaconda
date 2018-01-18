@@ -17,7 +17,7 @@
 #
 
 from pyanaconda import localization
-from pyanaconda.iutil import execWithCaptureBinary
+from pyanaconda.core.util import execWithCaptureBinary
 import locale as locale_mod
 import unittest
 

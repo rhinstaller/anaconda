@@ -17,15 +17,11 @@
 # Red Hat, Inc.
 #
 
-import gi
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
-
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_
+from pyanaconda.core.i18n import _, C_
 from pyanaconda.product import distributionText
 from pyanaconda import lifecycle
+from pyanaconda.core.timer import Timer
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
@@ -94,7 +90,7 @@ class Hub(GUIObject, common.Hub):
         self._autoContinue = flags.automatedInstall
 
         self._hubs_collection.append(self)
-        self.timeout_id = None
+        self.timeout = None
 
         self._incompleteSpokes = []
         self._inSpoke = False
@@ -114,6 +110,8 @@ class Hub(GUIObject, common.Hub):
         self._spokeAutostepIndex = 0
 
     def _createBox(self):
+        import gi
+
         gi.require_version("Gtk", "3.0")
         gi.require_version("AnacondaWidgets", "3.3")
 
@@ -372,18 +370,22 @@ class Hub(GUIObject, common.Hub):
         self._createBox()
 
         for hub in Hub._hubs_collection:
-            if hub.timeout_id is not None:
+            if hub.timeout is not None:
                 log.debug("Disabling event loop for hub %s", hub.__class__.__name__)
-                GLib.source_remove(hub.timeout_id)
-                hub.timeout_id = None
+                hub.timeout.cancel()
+                hub.timeout = None
 
         log.debug("Starting event loop for hub %s", self.__class__.__name__)
-        self.timeout_id = GLib.timeout_add(100, self._update_spokes)
+        self.timeout = Timer()
+        self.timeout.timeout_msec(100, self._update_spokes)
 
     ### SIGNAL HANDLERS
 
     def _on_spoke_clicked(self, selector, event, spoke):
+        import gi
+
         gi.require_version("Gdk", "3.0")
+
         from gi.repository import Gdk
 
         # This handler only runs for these two kinds of events, and only for

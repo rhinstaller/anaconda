@@ -20,14 +20,15 @@
 import gi
 gi.require_version("BlockDev", "2.0")
 
-from gi.repository import GLib, BlockDev as blockdev
+from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
-from pyanaconda.regexes import DASD_DEVICE_NUMBER
+from pyanaconda.core.regexes import DASD_DEVICE_NUMBER
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda import constants
+from pyanaconda.core.timer import Timer
+from pyanaconda.core import constants
 
 __all__ = ["DASDDialog"]
 
@@ -121,7 +122,7 @@ class DASDDialog(GUIObject):
                                          args=(device,)))
 
             # Periodically call the check till it is done.
-            GLib.timeout_add(250, self._check_discover)
+            Timer().timeout_msec(250, self._check_discover)
 
     @async_action_nowait
     def _check_discover(self):

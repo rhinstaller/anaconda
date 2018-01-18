@@ -22,7 +22,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda import localization
-from pyanaconda.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _, C_
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState

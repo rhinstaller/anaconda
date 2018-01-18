@@ -19,23 +19,24 @@
 
 import gi
 
+import pyanaconda.core.timer
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
-gi.require_version("GLib", "2.0")
 
 import queue
 import time
 import threading
 import functools
 
-from gi.repository import Gdk, Gtk, GLib
+from gi.repository import Gdk, Gtk
 from contextlib import contextmanager
 
+from pyanaconda.core import glib
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.async_utils import async_action_wait
-from pyanaconda.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
-                                 PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
+from pyanaconda.core.async_utils import async_action_wait, run_in_loop
+from pyanaconda.core.constants import NOTICEABLE_FREEZE, PASSWORD_HIDE, PASSWORD_SHOW, \
+                                      PASSWORD_HIDE_ICON, PASSWORD_SHOW_ICON
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -52,7 +53,7 @@ def gtk_call_once(func, *args):
         func(*args)
         return False
 
-    GLib.idle_add(wrap, args)
+    run_in_loop(wrap, args)
 
 
 def fire_gtk_action(func, *args):
@@ -140,7 +141,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
                                  target=preprocess,
                                  args=(item_queue_instance,)))
 
-    GLib.idle_add(process_one_batch, (item_queue_instance, action, done_event))
+    run_in_loop(process_one_batch, (item_queue_instance, action, done_event))
     done_event.wait()
     log.debug("Finished applying %s on %s", action, object.__repr__(items))
 
@@ -180,21 +181,21 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
         def __init__(self, func):
             self._func = func
             self._last_start = None
-            self._timer_id = None
+            self._timer = None
 
             self._instance_map = {}
 
         @property
         def timer_active(self):
             """Whether there is a pending timer for this action."""
-            return self._timer_id is not None
+            return self._timer is not None
 
         def _run_once_one_arg(self, arguments):
             (args, kwargs) = arguments
             # run the function and clear stored values
             self._func(*args, **kwargs)
             self._last_start = None
-            self._timer_id = None
+            self._timer = None
             if busy_cursor:
                 unbusyCursor()
 
@@ -204,9 +205,9 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
         @async_action_wait
         def run_now(self, *args, **kwargs):
             # Remove the old timer
-            if self._timer_id:
-                GLib.source_remove(self._timer_id)
-                self._timer_id = None
+            if self._timer:
+                self._timer.cancel()
+                self._timer = None
 
             # Run the function immediately
             self._run_once_one_arg((args, kwargs))
@@ -216,10 +217,10 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             self._last_start = self._last_start or time.time()
             tstamp = time.time()
 
-            if self._timer_id:
+            if self._timer:
                 # remove the old timer scheduling the function
-                GLib.source_remove(self._timer_id)
-                self._timer_id = None
+                self._timer.cancel()
+                self._timer = None
 
             # are we over the threshold?
             if (tstamp - self._last_start) * 1000 > threshold:
@@ -232,8 +233,9 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             # in the meantime
             if busy_cursor:
                 busyCursor()
-            self._timer_id = GLib.timeout_add(delay, self._run_once_one_arg,
-                                              (args, kwargs))
+
+            self._timer = pyanaconda.core.timer.Timer()
+            self._timer.timeout_msec(delay, self._run_once_one_arg, (args, kwargs))
 
         # This method is used by python to bind a class attribute to an
         # instance of that class, so in the case of functions this is what
@@ -381,10 +383,10 @@ def escape_markup(value):
     """
     Escape strings for use within Pango markup.
 
-    This function converts the value to a string before passing markup_escape_text().
+    This function converts the value to a string before passing to GLib function.
     """
 
-    return GLib.markup_escape_text(str(value))
+    return glib.markup_escape_text(str(value))
 
 # This will be populated by override_cell_property. Keys are tuples of (column, renderer).
 # Values are a dict of the form {property-name: (property-func, property-data)}.

@@ -25,9 +25,8 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda.bootloader import get_bootloader
-from pyanaconda import constants
-from pyanaconda.constants import DisplayModes
-from pyanaconda import iutil
+from pyanaconda.core.constants import DisplayModes
+from pyanaconda.core import util, constants
 from pyanaconda import addons
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
@@ -323,7 +322,7 @@ class Anaconda(object):
         if self.xdriver is None:
             return
         if root is None:
-            root = iutil.getSysroot()
+            root = util.getSysroot()
         if not os.path.isdir("%s/etc/X11" %(root,)):
             os.makedirs("%s/etc/X11" %(root,), mode=0o755)
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')

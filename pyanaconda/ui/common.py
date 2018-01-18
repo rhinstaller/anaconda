@@ -19,10 +19,10 @@
 
 from abc import ABCMeta, abstractproperty
 
-from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda import screen_access
-from pyanaconda.iutil import collect
-from pyanaconda.isignal import Signal
+from pyanaconda.core.util import collect
+from pyanaconda.core.signal import Signal
 from pyanaconda import lifecycle
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT

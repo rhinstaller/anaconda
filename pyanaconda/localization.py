@@ -27,8 +27,8 @@ from collections import namedtuple
 import sys
 import io
 
-from pyanaconda import constants
-from pyanaconda.iutil import upcase_first_letter, setenv, execWithRedirect
+from pyanaconda.core import constants
+from pyanaconda.core.util import upcase_first_letter, setenv, execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

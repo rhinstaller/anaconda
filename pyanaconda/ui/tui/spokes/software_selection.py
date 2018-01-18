@@ -22,11 +22,10 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
-from pyanaconda.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _, C_
 
-from pyanaconda.constants import THREAD_PAYLOAD
-from pyanaconda.constants import THREAD_CHECK_SOFTWARE
-from pyanaconda.constants import THREAD_SOFTWARE_WATCHER
+from pyanaconda.core.constants import THREAD_PAYLOAD, THREAD_CHECK_SOFTWARE, \
+                                      THREAD_SOFTWARE_WATCHER
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState

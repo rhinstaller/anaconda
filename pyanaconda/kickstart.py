@@ -37,15 +37,15 @@ import pykickstart.commands as commands
 
 from contextlib import contextmanager
 
-from pyanaconda import iutil, keyboard, localization, network, nm, ntp, screen_access, timezone
+from pyanaconda import keyboard, localization, network, nm, ntp, screen_access, timezone
+from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
-from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
+from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.i18n import _
-from pyanaconda.iutil import collect
+from pyanaconda.core.i18n import _
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -122,7 +122,7 @@ def check_kickstart_error():
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         print(e)
-        iutil.ipmi_report(IPMI_ABORTED)
+        util.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
 class AnacondaKSScript(KSScript):
@@ -166,9 +166,9 @@ class AnacondaKSScript(KSScript):
             messages = "/tmp/%s.log" % os.path.basename(path)
 
         with open(messages, "w") as fp:
-            rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
-                                        stdout=fp,
-                                        root=scriptRoot)
+            rc = util.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
+                                       stdout=fp,
+                                       root=scriptRoot)
 
         if rc != 0:
             script_log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
@@ -181,7 +181,7 @@ class AnacondaKSScript(KSScript):
                 flags.ksprompt = True
 
                 errorHandler.cb(ScriptError(self.lineno, err))
-                iutil.ipmi_report(IPMI_ABORTED)
+                util.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
 
 class AnacondaInternalScript(AnacondaKSScript):
@@ -210,7 +210,7 @@ def getEscrowCertificate(escrowCerts, url):
     escrow_log.info("escrow: downloading %s", url)
 
     try:
-        request = iutil.requests_session().get(url, verify=True)
+        request = util.requests_session().get(url, verify=True)
     except requests.exceptions.SSLError as e:
         msg = _("SSL error while downloading the escrow certificate:\n\n%s") % e
         raise KickstartError(msg)
@@ -277,7 +277,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
     def execute(self, *args):
         cmd = "/usr/sbin/authconfig"
-        if not os.path.lexists(iutil.getSysroot()+cmd):
+        if not os.path.lexists(util.getSysroot() + cmd):
             if flags.automatedInstall and self.seen:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
@@ -287,12 +287,12 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         args = ["--update", "--nostart"] + shlex.split(self.authconfig)
 
         if not flags.automatedInstall and \
-           (os.path.exists(iutil.getSysroot() + "/lib64/security/pam_fprintd.so") or
-            os.path.exists(iutil.getSysroot() + "/lib/security/pam_fprintd.so")):
+           (os.path.exists(util.getSysroot() + "/lib64/security/pam_fprintd.so") or
+            os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so")):
             args += ["--enablefingerprint"]
 
         try:
-            iutil.execInSysroot(cmd, args)
+            util.execInSysroot(cmd, args)
         except RuntimeError as msg:
             authconfig_log.error("Error running %s %s: %s", cmd, args, msg)
 
@@ -587,11 +587,11 @@ class Realm(commands.realm.F19_Realm):
 
         try:
             argv = ["discover", "--verbose"] + self.discover_options + [self.join_realm]
-            output = iutil.execWithCapture("realm", argv, filter_stderr=True)
+            output = util.execWithCapture("realm", argv, filter_stderr=True)
         except OSError:
             # TODO: A lousy way of propagating what will usually be
             # 'no such realm'
-            # The error message is logged by iutil
+            # The error message is logged by util
             return
 
         # Now parse the output for the required software. First line is the
@@ -623,10 +623,10 @@ class Realm(commands.realm.F19_Realm):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["join", "--install", iutil.getSysroot(), "--verbose"] + pw_args + self.join_args
+        argv = ["join", "--install", util.getSysroot(), "--verbose"] + pw_args + self.join_args
         rc = -1
         try:
-            rc = iutil.execWithRedirect("realm", argv)
+            rc = util.execWithRedirect("realm", argv)
         except OSError:
             pass
 
@@ -752,12 +752,12 @@ class Firewall(commands.firewall.F28_Firewall):
             args += ["--service=%s" % (service,)]
 
         cmd = "/usr/bin/firewall-offline-cmd"
-        if not os.path.exists(iutil.getSysroot() + cmd):
+        if not os.path.exists(util.getSysroot() + cmd):
             if self.enabled:
                 msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
                 raise KickstartError(msg)
         else:
-            iutil.execInSysroot(cmd, args)
+            util.execInSysroot(cmd, args)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def setup(self, ksdata, instClass):
@@ -770,18 +770,18 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
                 self.firstboot = instClass.firstboot
 
     def execute(self, *args):
-        action = iutil.enable_service
+        action = util.enable_service
         unit_name = "initial-setup.service"
 
         # find if the unit file for the Initial Setup service is installed
-        unit_exists = os.path.exists(os.path.join(iutil.getSysroot(), "lib/systemd/system/", unit_name))
+        unit_exists = os.path.exists(os.path.join(util.getSysroot(), "lib/systemd/system/", unit_name))
         if unit_exists and self.firstboot == FIRSTBOOT_RECONFIG:
             # write the reconfig trigger file
-            f = open(os.path.join(iutil.getSysroot(), "etc/reconfigSys"), "w+")
+            f = open(os.path.join(util.getSysroot(), "etc/reconfigSys"), "w+")
             f.close()
 
         if self.firstboot == FIRSTBOOT_SKIP:
-            action = iutil.disable_service
+            action = util.disable_service
             # Also tell the screen access manager, so that the fact that post installation tools
             # should be disabled propagates to the user interaction config file.
             screen_access.sam.post_install_tools_disabled = True
@@ -794,7 +794,7 @@ class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
         for grp in self.groupList:
             kwargs = grp.__dict__
-            kwargs.update({"root": iutil.getSysroot()})
+            kwargs.update({"root": util.getSysroot()})
             try:
                 users.createGroup(grp.name, **kwargs)
             except ValueError as e:
@@ -869,7 +869,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
 class Lang(commands.lang.F19_Lang):
     def execute(self, *args, **kwargs):
-        localization.write_language_configuration(self, iutil.getSysroot())
+        localization.write_language_configuration(self, util.getSysroot())
 
 # no overrides needed here
 Eula = commands.eula.F20_Eula
@@ -1237,7 +1237,7 @@ class Network(commands.network.F27_Network):
             self.packages = ["teamd"]
 
     def execute(self, storage, ksdata, instClass):
-        network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
+        network.write_network_config(storage, ksdata, instClass, util.getSysroot())
 
 class Partition(commands.partition.F23_Partition):
     def execute(self, storage, ksdata, instClass):
@@ -1770,7 +1770,7 @@ class RootPw(commands.rootpw.F18_RootPw):
 
 
         algo = getPassAlgo(ksdata.authconfig.authconfig)
-        users.setRootPassword(self.password, self.isCrypted, self.lock, algo, iutil.getSysroot())
+        users.setRootPassword(self.password, self.isCrypted, self.lock, algo, util.getSysroot())
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self, *args):
@@ -1786,7 +1786,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             return
 
         try:
-            selinux_cfg = SimpleConfigFile(iutil.getSysroot() + "/etc/selinux/config")
+            selinux_cfg = SimpleConfigFile(util.getSysroot() + "/etc/selinux/config")
             selinux_cfg.read()
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
@@ -1796,10 +1796,10 @@ class SELinux(commands.selinux.FC3_SELinux):
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
         for svc in self.disabled:
-            iutil.disable_service(svc)
+            util.disable_service(svc)
 
         for svc in self.enabled:
-            iutil.enable_service(svc)
+            util.enable_service(svc)
 
 class SshKey(commands.sshkey.F22_SshKey):
     def execute(self, storage, ksdata, instClass, users):
@@ -1814,9 +1814,9 @@ class Timezone(commands.timezone.F25_Timezone):
     def setup(self, ksdata):
         # do not install and use NTP package
         if self.nontp or NTP_PACKAGE in ksdata.packages.excludedList:
-            if iutil.service_running(NTP_SERVICE) and \
+            if util.service_running(NTP_SERVICE) and \
                     can_touch_runtime_system("stop NTP service"):
-                ret = iutil.stop_service(NTP_SERVICE)
+                ret = util.stop_service(NTP_SERVICE)
                 if ret != 0:
                     timezone_log.error("Failed to stop NTP service")
 
@@ -1824,9 +1824,9 @@ class Timezone(commands.timezone.F25_Timezone):
                 ksdata.services.disabled.append(NTP_SERVICE)
         # install and use NTP package
         else:
-            if not iutil.service_running(NTP_SERVICE) and \
+            if not util.service_running(NTP_SERVICE) and \
                     can_touch_runtime_system("start NTP service"):
-                ret = iutil.start_service(NTP_SERVICE)
+                ret = util.start_service(NTP_SERVICE)
                 if ret != 0:
                     timezone_log.error("Failed to start NTP service")
 
@@ -1844,11 +1844,11 @@ class Timezone(commands.timezone.F25_Timezone):
                                  "back to default (America/New_York).", self.timezone)
             self.timezone = "America/New_York"
 
-        timezone.write_timezone_config(self, iutil.getSysroot())
+        timezone.write_timezone_config(self, util.getSysroot())
 
         # write out NTP configuration (if set) and --nontp is not used
         if not self.nontp and self.ntpservers:
-            chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
+            chronyd_conf_path = os.path.normpath(util.getSysroot() + ntp.NTP_CONFIG_FILE)
             pools, servers = ntp.internal_to_pools_and_servers(self.ntpservers)
             if os.path.exists(chronyd_conf_path):
                 timezone_log.debug("Modifying installed chrony configuration")
@@ -1874,7 +1874,7 @@ class User(commands.user.F19_User):
 
         for usr in self.userList:
             kwargs = usr.__dict__
-            kwargs.update({"algo": algo, "root": iutil.getSysroot()})
+            kwargs.update({"algo": algo, "root": util.getSysroot()})
 
             # If the user password came from a kickstart and it is blank we
             # need to make sure the account is locked, not created with an
@@ -2125,7 +2125,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
 class Keyboard(commands.keyboard.F18_Keyboard):
     def execute(self, *args):
-        keyboard.write_keyboard_config(self, iutil.getSysroot())
+        keyboard.write_keyboard_config(self, util.getSysroot())
 
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
@@ -2133,7 +2133,7 @@ class Upgrade(commands.upgrade.F20_Upgrade):
     def parse(self, args):
         upgrade_log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
         sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup."))
-        iutil.ipmi_report(IPMI_ABORTED)
+        util.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
 ###
@@ -2316,7 +2316,8 @@ class AnacondaKSHandler(superclass):
             if not os.path.isdir(path):
                 continue
 
-            classes = collect(module_name, path, lambda cls: issubclass(cls, self.AddonClassType))
+            classes = util.collect(module_name, path,
+                                   lambda cls: issubclass(cls, self.AddonClassType))
             if classes:
                 addons[addon_id] = classes[0](name=addon_id)
 
@@ -2445,7 +2446,7 @@ def parseKickstart(f, strict_mode=False):
         print(_("\nAn error occurred during reading the kickstart file:"
                 "\n%s\n\nThe installer will now terminate.") % str(e).strip())
 
-        iutil.ipmi_report(IPMI_ABORTED)
+        util.ipmi_report(IPMI_ABORTED)
         time.sleep(10)
         sys.exit(1)
 
@@ -2475,7 +2476,7 @@ def runPostScripts(scripts):
 
     script_log.info("Running kickstart %%post script(s)")
     for script in postScripts:
-        script.run(iutil.getSysroot())
+        script.run(util.getSysroot())
     script_log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):

@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.i18n import C_, P_
+from pyanaconda.core.i18n import C_, P_
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from blivet.size import Size

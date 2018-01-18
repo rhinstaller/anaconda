@@ -26,7 +26,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gdk, Gtk
 
-from pyanaconda.i18n import _, C_, N_, P_
+from pyanaconda.core.i18n import _, C_, N_, P_
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
 from blivet.size import Size

@@ -19,8 +19,8 @@
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_call_once
-from pyanaconda.async_utils import async_action_wait
-from pyanaconda import constants
+from pyanaconda.core.async_utils import async_action_wait
+from pyanaconda.core import constants
 import threading
 
 from pyanaconda.anaconda_loggers import get_module_logger

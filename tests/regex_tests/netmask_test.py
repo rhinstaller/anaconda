@@ -20,7 +20,7 @@
 import unittest
 import re
 
-from pyanaconda.regexes import IPV4_NETMASK_WITHOUT_ANCHORS
+from pyanaconda.core.regexes import IPV4_NETMASK_WITHOUT_ANCHORS
 
 def _run_tests(testcase, expression, goodlist, badlist):
     got_error = False

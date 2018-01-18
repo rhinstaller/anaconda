@@ -28,7 +28,7 @@ import warnings
 import wrapt
 
 from pyanaconda.flags import flags
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
@@ -322,7 +322,7 @@ class AnacondaLog:
 
     def restartSyslog(self):
         # Import here instead of at the module level to avoid an import loop
-        from pyanaconda.iutil import restart_service
+        from pyanaconda.core.util import restart_service
         restart_service("rsyslog")
 
     def updateRemote(self, remote_syslog):

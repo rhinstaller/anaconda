@@ -37,29 +37,28 @@ import time
 from collections import OrderedDict, namedtuple
 
 from blivet.size import Size, ROUND_HALF_UP
-from pyanaconda.iutil import requests_session
 
 if __name__ == "__main__":
     from pyanaconda import anaconda_logging
     anaconda_logging.init()
 
-from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
-from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
-from pyanaconda.constants import THREAD_PAYLOAD_RESTART
-from pyanaconda.constants import PayloadRequirementType
+from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
+from pyanaconda.core.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
+from pyanaconda.core.constants import THREAD_PAYLOAD_RESTART
+from pyanaconda.core.constants import PayloadRequirementType
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 
-from pyanaconda import iutil
+from pyanaconda.core import util
 from pyanaconda import isys
 from pyanaconda.platform import platform
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
-from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
+from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.regexes import VERSION_DIGITS
+from pyanaconda.core.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group
 
@@ -317,7 +316,7 @@ class Payload(object):
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
 
-        self._session = requests_session()
+        self._session = util.requests_session()
 
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
@@ -616,7 +615,7 @@ class Payload(object):
         # Retry treeinfo downloads with a progressively longer pause,
         # so NetworkManager have a chance setup a network and we have
         # full connectivity before trying to download things. (#1292613)
-        xdelay = xprogressive_delay()
+        xdelay = util.xprogressive_delay()
         response = None
         ret_code = [None, None]
         headers = {"user-agent": USER_AGENT}
@@ -786,7 +785,7 @@ class Payload(object):
     ###
     def preInstall(self):
         """Perform pre-installation tasks."""
-        iutil.mkdirChain(iutil.getSysroot() + "/root")
+        util.mkdirChain(util.getSysroot() + "/root")
 
         self._writeModuleBlacklist()
 
@@ -803,8 +802,8 @@ class Payload(object):
         if "modprobe.blacklist" not in flags.cmdline:
             return
 
-        iutil.mkdirChain(iutil.getSysroot() + "/etc/modprobe.d")
-        with open(iutil.getSysroot() + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
+        util.mkdirChain(util.getSysroot() + "/etc/modprobe.d")
+        with open(util.getSysroot() + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
             f.write("# Module blacklists written by anaconda\n")
             for module in flags.cmdline["modprobe.blacklist"].split():
                 f.write("blacklist %s\n" % module)
@@ -814,18 +813,18 @@ class Payload(object):
         # the firmware files in the common DD firmware directory
         for f in glob(DD_FIRMWARE + "/*"):
             try:
-                shutil.copyfile(f, "%s/lib/firmware/" % iutil.getSysroot())
+                shutil.copyfile(f, "%s/lib/firmware/" % util.getSysroot())
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
         #copy RPMS
         for d in glob(DD_RPMS):
-            shutil.copytree(d, iutil.getSysroot() + "/root/" + os.path.basename(d))
+            shutil.copytree(d, util.getSysroot() + "/root/" + os.path.basename(d))
 
         #copy modules and firmware into root's home directory
         if os.path.exists(DD_ALL):
             try:
-                shutil.copytree(DD_ALL, iutil.getSysroot() + "/root/DD")
+                shutil.copytree(DD_ALL, util.getSysroot() + "/root/DD")
             except IOError as e:
                 log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
@@ -847,21 +846,21 @@ class Payload(object):
 
         :returns: None
         """
-        if not os.path.exists(iutil.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
             return
 
         for kernel in self.kernelVersionList:
             log.info("recreating initrd for %s", kernel)
             if not flags.imageInstall:
-                iutil.execInSysroot("new-kernel-pkg",
-                                    ["--mkinitrd", "--dracut",
+                util.execInSysroot("new-kernel-pkg",
+                                   ["--mkinitrd", "--dracut",
                                     "--depmod", "--update", kernel])
             else:
                 # hostonly is not sensible for disk image installations
                 # using /dev/disk/by-uuid/ is necessary due to disk image naming
-                iutil.execInSysroot("dracut",
-                                    ["-N",
+                util.execInSysroot("dracut",
+                                   ["-N",
                                      "--persistent-policy", "by-uuid",
                                      "-f", "/boot/initramfs-%s.img" % kernel,
                                     kernel])
@@ -869,7 +868,7 @@ class Payload(object):
 
     def _setDefaultBootTarget(self):
         """Set the default systemd target for the system."""
-        if not os.path.exists(iutil.getSysroot() + "/etc/systemd/system"):
+        if not os.path.exists(util.getSysroot() + "/etc/systemd/system"):
             log.error("systemd is not installed -- can't set default target")
             return
 
@@ -882,7 +881,7 @@ class Payload(object):
         except ImportError:
             log.info("failed to import rpm -- not adjusting default runlevel")
         else:
-            ts = rpm.TransactionSet(iutil.getSysroot())
+            ts = rpm.TransactionSet(util.getSysroot())
 
             # XXX one day this might need to account for anaconda's display mode
             if ts.dbMatch("provides", 'service(graphical-login)').count() and \
@@ -899,11 +898,11 @@ class Payload(object):
         except ImportError:
             pass
         else:
-            iutil.resetRpmDb()
-            ts = rpm.TransactionSet(iutil.getSysroot())
+            util.resetRpmDb()
+            ts = rpm.TransactionSet(util.getSysroot())
 
             # Only add "rhgb quiet" on non-s390, non-serial installs
-            if iutil.isConsoleOnVirtualTerminal() and \
+            if util.isConsoleOnVirtualTerminal() and \
                (ts.dbMatch('provides', 'rhgb').count() or \
                 ts.dbMatch('provides', 'plymouth').count()):
                 args.extend(["rhgb", "quiet"])
@@ -940,7 +939,7 @@ class Payload(object):
         except for dnf.  Payloads should only implement one of these methods
         by overriding the unneeded one with a pass.
         """
-        if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
+        if util.getSysroot() != util.getTargetPhysicalRoot():
             self.prepareMountTargets(self.storage)
         if not flags.dirInstall:
             self.storage.write()
@@ -1019,7 +1018,7 @@ class PackagePayload(Payload):
             self.rpmMacros.append(('__file_context_path', '%{nil}'))
 
         # Add platform specific group
-        groupid = iutil.get_platform_groupid()
+        groupid = util.get_platform_groupid()
         if groupid and groupid in self.groups:
             self.requirements.add_groups([groupid], reason="platform")
         elif groupid:
@@ -1065,7 +1064,7 @@ class PackagePayload(Payload):
 
         files = []
 
-        ts = rpm.TransactionSet(iutil.getSysroot())
+        ts = rpm.TransactionSet(util.getSysroot())
         mi = ts.dbMatch('providename', 'kernel')
         for hdr in mi:
             unicode_fnames = (f.decode("utf-8") for f in hdr.filenames)
@@ -1203,7 +1202,7 @@ class PackagePayload(Payload):
             #    isodev and/or device are None
             # 4. The repo may not contain an iso, in that case use it as is
             if isodev and device:
-                path = iutil.parseNfsUrl('nfs:%s' % isodev)[2]
+                path = util.parseNfsUrl('nfs:%s' % isodev)[2]
                 # See if the dir holding the iso is what we want
                 # and also if we have an iso mounted to /run/install/repo
                 if path and path in isodev and DRACUT_ISODIR in device:
@@ -1213,7 +1212,7 @@ class PackagePayload(Payload):
                 # see if the nfs dir is mounted
                 needmount = True
                 if device:
-                    _options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
+                    _options, host, path = util.parseNfsUrl('nfs:%s' % device)
                     if method.server and method.server == host and \
                        method.dir and method.dir == path:
                         needmount = False
@@ -1223,7 +1222,7 @@ class PackagePayload(Payload):
                     # nfs mount have changed. It is already mounted, but on INSTALL_TREE
                     # which is the same as DRACUT_ISODIR, making it hard for _setupNFS
                     # to detect that it is already mounted.
-                    _options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
+                    _options, host, path = util.parseNfsUrl('nfs:%s' % isodev)
                     if path and path in isodev:
                         needmount = False
                         path = DRACUT_ISODIR
@@ -1253,10 +1252,10 @@ class PackagePayload(Payload):
                         # move the INSTALL_TREE mount to ISO_DIR so we can
                         # mount the contents of the iso there.
                         # work around inability to move shared filesystems
-                        iutil.execWithRedirect("mount",
-                                               ["--make-rprivate", "/"])
-                        iutil.execWithRedirect("mount",
-                                               ["--move", INSTALL_TREE, ISO_DIR])
+                        util.execWithRedirect("mount",
+                                              ["--make-rprivate", "/"])
+                        util.execWithRedirect("mount",
+                                              ["--move", INSTALL_TREE, ISO_DIR])
                         # The iso is now under ISO_DIR
                         path = ISO_DIR
                     elif path.endswith(".iso"):
@@ -1283,7 +1282,7 @@ class PackagePayload(Payload):
                 log.debug("Trying to mount the content of HMC media drive.")
 
                 # Test the SE/HMC file access.
-                if iutil.execWithRedirect("/usr/sbin/lshmc", []):
+                if util.execWithRedirect("/usr/sbin/lshmc", []):
                     raise PayloadSetupError("The content of HMC media drive couldn't be accessed.")
 
                 # Test if a path is a mount point.
@@ -1291,10 +1290,10 @@ class PackagePayload(Payload):
                     log.debug("Don't mount the content of HMC media drive yet.")
                 else:
                     # Make sure that the directories exists.
-                    iutil.mkdirChain(INSTALL_TREE)
+                    util.mkdirChain(INSTALL_TREE)
 
                     # Mount the device.
-                    if iutil.execWithRedirect("/usr/bin/hmcdrvfs", [INSTALL_TREE]):
+                    if util.execWithRedirect("/usr/bin/hmcdrvfs", [INSTALL_TREE]):
                         raise PayloadSetupError("The content of HMC media drive couldn't be mounted.")
 
                 log.debug("We are ready to use the HMC at %s.", INSTALL_TREE)
@@ -1317,7 +1316,7 @@ class PackagePayload(Payload):
                         # prepend nfs: to the url as that's what the parser
                         # wants.  Note we don't get options from this, but
                         # that's OK for the UI at least.
-                        _options, host, path = iutil.parseNfsUrl("nfs:%s" % device)
+                        _options, host, path = util.parseNfsUrl("nfs:%s" % device)
                         method.method = "nfs"
                         method.server = host
                         method.dir = path
@@ -1362,7 +1361,7 @@ class PackagePayload(Payload):
                 if not rpms:
                     continue
                 log.info("Running createrepo on %s", repo)
-                iutil.execWithRedirect("createrepo_c", [repo])
+                util.execWithRedirect("createrepo_c", [repo])
 
             repo_name = "DD-%d" % dir_num
             if repo_name not in self.addOns:

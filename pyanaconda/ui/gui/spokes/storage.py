@@ -39,10 +39,9 @@
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
-gi.require_version("GLib", "2.0")
 gi.require_version("AnacondaWidgets", "3.3")
 
-from gi.repository import Gdk, GLib, AnacondaWidgets, Gtk
+from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection, getDisksByNames
@@ -56,8 +55,9 @@ from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
-from pyanaconda.async_utils import async_action_nowait
+from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
+from pyanaconda.core.timer import Timer
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet.size import Size
@@ -68,8 +68,8 @@ from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_, CN_, P_
-from pyanaconda import constants, iutil
+from pyanaconda.core.i18n import _, C_, CN_, P_
+from pyanaconda.core import util, constants
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
@@ -171,7 +171,7 @@ class InstallOptionsDialogBase(GUIObject):
         # modify the software selection screen.  Thus, we have to set the button
         # insensitive and wait until software selection is ready to go.
         if not self._software_is_ready():
-            GLib.timeout_add_seconds(1, self._check_for_storage_thread, widget)
+            Timer().timeout_sec(1, self._check_for_storage_thread, widget)
 
 class NeedSpaceDialog(InstallOptionsDialogBase):
     builderObjects = ["need_space_dialog"]
@@ -707,7 +707,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         mainBox.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(mainViewport))
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
-                      target=self._initialize))
+                                     target=self._initialize))
 
     def _add_disk_overview(self, disk, box):
         if disk.removable:
@@ -1200,7 +1200,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             if rc == 0:
                 # Quit.
-                iutil.ipmi_abort(scripts=self.data.scripts)
+                util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
         elif self.errors:
@@ -1221,7 +1221,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             if rc == 0:
                 # Quit.
-                iutil.ipmi_abort(scripts=self.data.scripts)
+                util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
         elif self.warnings:
             label = _("The following warnings were encountered when checking your storage "

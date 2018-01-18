@@ -28,16 +28,16 @@ from gi.repository import Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
-from pyanaconda.async_utils import async_action_wait
+from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
 from pyanaconda import geoloc
-from pyanaconda.i18n import _, C_
-from pyanaconda.iutil import is_unsupported_hw, ipmi_abort
-from pyanaconda.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
+from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.util import is_unsupported_hw, ipmi_abort
+from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

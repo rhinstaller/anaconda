@@ -22,7 +22,7 @@
 
 import unittest
 
-from pyanaconda.isignal import Signal
+from pyanaconda.core.signal import Signal
 
 class FooClass(object):
     def __init__(self):

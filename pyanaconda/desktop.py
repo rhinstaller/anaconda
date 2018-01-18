@@ -18,8 +18,8 @@
 #
 
 import os
-from pyanaconda.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
-from pyanaconda import iutil
+from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
+from pyanaconda.core import util
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -47,14 +47,14 @@ class Desktop(object):
     def write(self):
         """Write the desktop & default target settings to disk."""
         if self.desktop:
-            with open(iutil.getSysroot() + "/etc/sysconfig/desktop", "w") as f:
+            with open(util.getSysroot() + "/etc/sysconfig/desktop", "w") as f:
                 f.write("DESKTOP=%s\n" % self.desktop)
 
-        if not os.path.isdir(iutil.getSysroot() + '/etc/systemd/system'):
+        if not os.path.isdir(util.getSysroot() + '/etc/systemd/system'):
             log.warning("There is no /etc/systemd/system directory, cannot update default.target!")
             return
 
-        default_target = iutil.getSysroot() + '/etc/systemd/system/default.target'
+        default_target = util.getSysroot() + '/etc/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
         os.symlink('/lib/systemd/system/%s' % self.default_target, default_target)

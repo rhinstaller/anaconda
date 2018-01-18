@@ -16,15 +16,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 
-from pyanaconda import iutil
-from pyanaconda.iutil import synchronized
 import unittest
 import os
 import tempfile
 import signal
 import shutil
 from threading import Lock
+
+from pyanaconda.errors import ExitError
 from .test_constants import ANACONDA_TEST_DIR
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.core import util
+from pyanaconda.core.util import synchronized
 
 from timer import timer
 
@@ -43,18 +46,18 @@ class UpcaseFirstLetterTests(unittest.TestCase):
         """Upcasing first letter should work as expected."""
 
         # no change
-        self.assertEqual(iutil.upcase_first_letter("Czech RePuBliC"),
+        self.assertEqual(util.upcase_first_letter("Czech RePuBliC"),
                          "Czech RePuBliC")
 
         # simple case
-        self.assertEqual(iutil.upcase_first_letter("czech"), "Czech")
+        self.assertEqual(util.upcase_first_letter("czech"), "Czech")
 
         # first letter only
-        self.assertEqual(iutil.upcase_first_letter("czech republic"),
+        self.assertEqual(util.upcase_first_letter("czech republic"),
                          "Czech republic")
 
         # no lowercase
-        self.assertEqual(iutil.upcase_first_letter("czech Republic"),
+        self.assertEqual(util.upcase_first_letter("czech Republic"),
                          "Czech Republic")
 
 class RunProgramTests(unittest.TestCase):
@@ -62,24 +65,24 @@ class RunProgramTests(unittest.TestCase):
         """Test the _run_program method."""
 
         # correct calling should return rc==0
-        self.assertEqual(iutil._run_program(['ls'])[0], 0)
+        self.assertEqual(util._run_program(['ls'])[0], 0)
 
         # incorrect calling should return rc!=0
-        self.assertNotEqual(iutil._run_program(['ls', '--asdasd'])[0], 0)
+        self.assertNotEqual(util._run_program(['ls', '--asdasd'])[0], 0)
 
         # check if an int is returned for bot success and error
-        self.assertIsInstance(iutil._run_program(['ls'])[0], int)
-        self.assertIsInstance(iutil._run_program(['ls', '--asdasd'])[0], int)
+        self.assertIsInstance(util._run_program(['ls'])[0], int)
+        self.assertIsInstance(util._run_program(['ls', '--asdasd'])[0], int)
 
         # error should raise OSError
         with self.assertRaises(OSError):
-            iutil._run_program(['asdasdadasd'])
+            util._run_program(['asdasdadasd'])
 
     def run_program_binary_test(self):
         """Test _run_program with binary output."""
 
         # Echo something that cannot be decoded as utf-8
-        retcode, output = iutil._run_program(['echo', '-en', r'\xa0\xa1\xa2'], binary_output=True)
+        retcode, output = util._run_program(['echo', '-en', r'\xa0\xa1\xa2'], binary_output=True)
 
         self.assertEqual(retcode, 0)
         self.assertEqual(output, b'\xa0\xa1\xa2')
@@ -87,19 +90,19 @@ class RunProgramTests(unittest.TestCase):
     def exec_with_redirect_test(self):
         """Test execWithRedirect."""
         # correct calling should return rc==0
-        self.assertEqual(iutil.execWithRedirect('ls', []), 0)
+        self.assertEqual(util.execWithRedirect('ls', []), 0)
 
         # incorrect calling should return rc!=0
-        self.assertNotEqual(iutil.execWithRedirect('ls', ['--asdasd']), 0)
+        self.assertNotEqual(util.execWithRedirect('ls', ['--asdasd']), 0)
 
     def exec_with_capture_test(self):
         """Test execWithCapture."""
 
         # check some output is returned
-        self.assertGreater(len(iutil.execWithCapture('ls', ['--help'])), 0)
+        self.assertGreater(len(util.execWithCapture('ls', ['--help'])), 0)
 
         # check no output is returned
-        self.assertEqual(len(iutil.execWithCapture('true', [])), 0)
+        self.assertEqual(len(util.execWithCapture('true', [])), 0)
 
     def exec_with_capture_no_stderr_test(self):
         """Test execWithCapture with no stderr"""
@@ -113,34 +116,31 @@ echo "error" >&2
 
             # check that only the output is captured
             self.assertEqual(
-                    iutil.execWithCapture("/bin/sh", [testscript.name], filter_stderr=True),
+                    util.execWithCapture("/bin/sh", [testscript.name], filter_stderr=True),
                     "output\n")
 
             # check that both output and error are captured
-            self.assertEqual(iutil.execWithCapture("/bin/sh", [testscript.name]),
-                    "output\nerror\n")
+            self.assertEqual(util.execWithCapture("/bin/sh", [testscript.name]), "output\nerror\n")
 
     def exec_with_capture_empty_test(self):
         """Test execWithCapture with no output"""
 
         # check that the output is an empty string
-        self.assertEqual(
-                iutil.execWithCapture("/bin/sh", ["-c", "exit 0"]),
-                "")
+        self.assertEqual(util.execWithCapture("/bin/sh", ["-c", "exit 0"]), "")
 
     def exec_readlines_test(self):
         """Test execReadlines."""
 
         # test no lines are returned
-        self.assertEqual(list(iutil.execReadlines("true", [])), [])
+        self.assertEqual(list(util.execReadlines("true", [])), [])
 
         # test some lines are returned
-        self.assertGreater(len(list(iutil.execReadlines("ls", ["--help"]))), 0)
+        self.assertGreater(len(list(util.execReadlines("ls", ["--help"]))), 0)
 
         # check that it always returns an iterator for both
         # if there is some output and if there isn't any
-        self.assertTrue(hasattr(iutil.execReadlines("ls", ["--help"]), "__iter__"))
-        self.assertTrue(hasattr(iutil.execReadlines("true", []), "__iter__"))
+        self.assertTrue(hasattr(util.execReadlines("ls", ["--help"]), "__iter__"))
+        self.assertTrue(hasattr(util.execReadlines("true", []), "__iter__"))
 
     def exec_readlines_test_normal_output(self):
         """Test the output of execReadlines."""
@@ -156,7 +156,7 @@ exit 0
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -173,7 +173,7 @@ exit 0
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -196,7 +196,7 @@ exit 1
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -213,7 +213,7 @@ kill -TERM $$
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -230,7 +230,7 @@ exit 1
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -246,7 +246,7 @@ kill -TERM $$
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -269,7 +269,7 @@ exit 0
                 testscript.flush()
 
                 with timer(5):
-                    rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                     self.assertEqual(next(rl_iterator), "one")
                     self.assertEqual(next(rl_iterator), "two")
                     self.assertEqual(next(rl_iterator), "three")
@@ -293,7 +293,7 @@ exit 0
                 testscript.flush()
 
                 with timer(5):
-                    rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                     self.assertEqual(next(rl_iterator), "one")
                     self.assertEqual(next(rl_iterator), "two")
                     self.assertEqual(next(rl_iterator), "three")
@@ -315,7 +315,7 @@ exit 0
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "two")
                 self.assertEqual(next(rl_iterator), "three")
@@ -332,7 +332,7 @@ exit 0
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name], filter_stderr=True)
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name], filter_stderr=True)
                 self.assertEqual(next(rl_iterator), "one")
                 self.assertEqual(next(rl_iterator), "three")
                 self.assertRaises(StopIteration, rl_iterator.__next__)
@@ -353,7 +353,7 @@ exit 0
 
             with timer(5):
                 # Start a program that does nothing, with a preexec_fn
-                proc = iutil.startProgram(["/bin/true"], preexec_fn=preexec)
+                proc = util.startProgram(["/bin/true"], preexec_fn=preexec)
                 proc.communicate()
 
             # Rewind testfile and look for the text
@@ -370,7 +370,7 @@ exit 0
             # delete the NamedTemporaryFile
             stdout = open(testfile.name, 'w')
             with timer(5):
-                proc = iutil.startProgram(["/bin/echo", marker_text], stdout=stdout)
+                proc = util.startProgram(["/bin/echo", marker_text], stdout=stdout)
                 proc.communicate()
 
             # Rewind testfile and look for the text
@@ -388,7 +388,7 @@ while true ; do sleep 1 ; done
             testscript.flush()
 
             # Start a program with reset_handlers
-            proc = iutil.startProgram(["/bin/sh", testscript.name])
+            proc = util.startProgram(["/bin/sh", testscript.name])
 
             with timer(5):
                 # Kill with SIGPIPE and check that the python's SIG_IGN was not inheritted
@@ -398,7 +398,7 @@ while true ; do sleep 1 ; done
                 self.assertEqual(proc.returncode, -(signal.SIGPIPE))
 
             # Start another copy without reset_handlers
-            proc = iutil.startProgram(["/bin/sh", testscript.name], reset_handlers=False)
+            proc = util.startProgram(["/bin/sh", testscript.name], reset_handlers=False)
 
             with timer(5):
                 # Kill with SIGPIPE, then SIGTERM, and make sure SIGTERM was the one
@@ -421,7 +421,7 @@ done
             testscript.flush()
 
             with timer(5):
-                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                rl_iterator = util.execReadlines("/bin/sh", [testscript.name])
 
                 # Save the process context
                 proc = rl_iterator._proc
@@ -443,32 +443,32 @@ done
         def test_still_running():
             with timer(5):
                 # Run something forever so we can kill it
-                proc = iutil.startProgram(["/bin/sh", "-c", "while true; do sleep 1; done"])
-                iutil.watchProcess(proc, "test1")
+                proc = util.startProgram(["/bin/sh", "-c", "while true; do sleep 1; done"])
+                WatchProcesses.watch_process(proc, "test1")
                 proc.kill()
                 # Wait for the SIGCHLD
                 signal.pause()
-        self.assertRaises(iutil.ExitError, test_still_running)
+        self.assertRaises(ExitError, test_still_running)
 
         # Make sure watchProcess checks that the process has not already exited
         with timer(5):
-            proc = iutil.startProgram(["true"])
+            proc = util.startProgram(["true"])
             proc.communicate()
-        self.assertRaises(iutil.ExitError, iutil.watchProcess, proc, "test2")
+        self.assertRaises(ExitError, WatchProcesses.watch_process, proc, "test2")
 
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
         """Test the getDirSize."""
 
         # dev null should have a size == 0
-        self.assertEqual(iutil.getDirSize('/dev/null'), 0)
+        self.assertEqual(util.getDirSize('/dev/null'), 0)
 
         # incorrect path should also return 0
-        self.assertEqual(iutil.getDirSize('/dev/null/foo'), 0)
+        self.assertEqual(util.getDirSize('/dev/null/foo'), 0)
 
         # check if an int is always returned
-        self.assertIsInstance(iutil.getDirSize('/dev/null'), int)
-        self.assertIsInstance(iutil.getDirSize('/dev/null/foo'), int)
+        self.assertIsInstance(util.getDirSize('/dev/null'), int)
+        self.assertIsInstance(util.getDirSize('/dev/null/foo'), int)
 
         # TODO: mock some dirs and check if their size is
         # computed correctly
@@ -477,8 +477,8 @@ class MiscTests(unittest.TestCase):
         """Test mkdirChain."""
 
         # don't fail if directory path already exists
-        iutil.mkdirChain('/')
-        iutil.mkdirChain('/tmp')
+        util.mkdirChain('/')
+        util.mkdirChain('/tmp')
 
         # create a path and test it exists
         test_folder = "test_mkdir_chain"
@@ -499,7 +499,7 @@ class MiscTests(unittest.TestCase):
                       for p in test_paths]
 
         def create_return(path):
-            iutil.mkdirChain(path)
+            util.mkdirChain(path)
             return path
 
         # create the folders and check that they exist
@@ -510,55 +510,55 @@ class MiscTests(unittest.TestCase):
         # and the mkdirChain function needs to handle that
         # without a traceback
         for p in test_paths:
-            iutil.mkdirChain(p)
+            util.mkdirChain(p)
 
     def get_active_console_test(self):
         """Test get_active_console."""
 
         # at least check if a string is returned
-        self.assertIsInstance(iutil.get_active_console(), str)
+        self.assertIsInstance(util.get_active_console(), str)
 
     def is_console_on_vt_test(self):
         """Test isConsoleOnVirtualTerminal."""
 
         # at least check if a bool is returned
-        self.assertIsInstance(iutil.isConsoleOnVirtualTerminal(), bool)
+        self.assertIsInstance(util.isConsoleOnVirtualTerminal(), bool)
 
     def parse_nfs_url_test(self):
         """Test parseNfsUrl."""
 
         # empty NFS url should return 3 blanks
-        self.assertEqual(iutil.parseNfsUrl(""), ("", "", ""))
+        self.assertEqual(util.parseNfsUrl(""), ("", "", ""))
 
         # the string is delimited by :, there is one prefix and 3 parts,
         # the prefix is discarded and all parts after the 3th part
         # are also discarded
-        self.assertEqual(iutil.parseNfsUrl("discard:options:host:path"),
+        self.assertEqual(util.parseNfsUrl("discard:options:host:path"),
                          ("options", "host", "path"))
-        self.assertEqual(iutil.parseNfsUrl("discard:options:host:path:foo:bar"),
+        self.assertEqual(util.parseNfsUrl("discard:options:host:path:foo:bar"),
                          ("options", "host", "path"))
-        self.assertEqual(iutil.parseNfsUrl(":options:host:path::"),
+        self.assertEqual(util.parseNfsUrl(":options:host:path::"),
                          ("options", "host", "path"))
-        self.assertEqual(iutil.parseNfsUrl(":::::"),
+        self.assertEqual(util.parseNfsUrl(":::::"),
                          ("", "", ""))
 
         # if there is only prefix & 2 parts,
         # the two parts are host and path
-        self.assertEqual(iutil.parseNfsUrl("prefix:host:path"),
+        self.assertEqual(util.parseNfsUrl("prefix:host:path"),
                          ("", "host", "path"))
-        self.assertEqual(iutil.parseNfsUrl(":host:path"),
+        self.assertEqual(util.parseNfsUrl(":host:path"),
                          ("", "host", "path"))
-        self.assertEqual(iutil.parseNfsUrl("::"),
+        self.assertEqual(util.parseNfsUrl("::"),
                          ("", "", ""))
 
         # if there is only a prefix and single part,
         # the part is the host
 
-        self.assertEqual(iutil.parseNfsUrl("prefix:host"),
+        self.assertEqual(util.parseNfsUrl("prefix:host"),
                          ("", "host", ""))
-        self.assertEqual(iutil.parseNfsUrl(":host"),
+        self.assertEqual(util.parseNfsUrl(":host"),
                          ("", "host", ""))
-        self.assertEqual(iutil.parseNfsUrl(":"),
+        self.assertEqual(util.parseNfsUrl(":"),
                          ("", "", ""))
 
     def vt_activate_test(self):
@@ -569,46 +569,45 @@ class MiscTests(unittest.TestCase):
         def raise_os_error(*args, **kwargs):
             raise OSError
 
-        _execWithRedirect = iutil.vtActivate.__globals__['execWithRedirect']
+        _execWithRedirect = util.vtActivate.__globals__['execWithRedirect']
 
         try:
             # chvt does not exist on all platforms
             # and the function needs to correctly survie that
-            iutil.vtActivate.__globals__['execWithRedirect'] = raise_os_error
+            util.vtActivate.__globals__['execWithRedirect'] = raise_os_error
 
-            self.assertEqual(iutil.vtActivate(2), False)
+            self.assertEqual(util.vtActivate(2), False)
         finally:
-            iutil.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
+            util.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
 
     def strip_accents_test(self):
         """Test strip_accents."""
 
         # empty string
-        self.assertEqual(iutil.strip_accents(u""), u"")
-        self.assertEqual(iutil.strip_accents(""), "")
+        self.assertEqual(util.strip_accents(u""), u"")
+        self.assertEqual(util.strip_accents(""), "")
 
         # some Czech accents
-        self.assertEqual(iutil.strip_accents(u"ěščřžýáíéúů"), u"escrzyaieuu")
-        self.assertEqual(iutil.strip_accents(u"v češtině"), u"v cestine")
-        self.assertEqual(iutil.strip_accents(u"měšťánek rozšíří HÁČKY"),
-                                              u"mestanek rozsiri HACKY")
-        self.assertEqual(iutil.strip_accents(u"nejneobhospodařovávatelnějšímu"),
-                                              u"nejneobhospodarovavatelnejsimu")
+        self.assertEqual(util.strip_accents(u"ěščřžýáíéúů"), u"escrzyaieuu")
+        self.assertEqual(util.strip_accents(u"v češtině"), u"v cestine")
+        self.assertEqual(util.strip_accents(u"měšťánek rozšíří HÁČKY"), u"mestanek rozsiri HACKY")
+        self.assertEqual(util.strip_accents(u"nejneobhospodařovávatelnějšímu"),
+                         u"nejneobhospodarovavatelnejsimu")
 
         # some German umlauts
-        self.assertEqual(iutil.strip_accents(u"Lärmüberhörer"), u"Larmuberhorer")
-        self.assertEqual(iutil.strip_accents(u"Heizölrückstoßabdämpfung"),
-                                              u"Heizolrucksto\xdfabdampfung")
+        self.assertEqual(util.strip_accents(u"Lärmüberhörer"), u"Larmuberhorer")
+        self.assertEqual(util.strip_accents(u"Heizölrückstoßabdämpfung"),
+                         u"Heizolrucksto\xdfabdampfung")
 
         # some Japanese
-        self.assertEqual(iutil.strip_accents(u"日本語"), u"\u65e5\u672c\u8a9e")
-        self.assertEqual(iutil.strip_accents(u"アナコンダ"),  # Anaconda
-                          u"\u30a2\u30ca\u30b3\u30f3\u30bf")
+        self.assertEqual(util.strip_accents(u"日本語"), u"\u65e5\u672c\u8a9e")
+        self.assertEqual(util.strip_accents(u"アナコンダ"),  # Anaconda
+                         u"\u30a2\u30ca\u30b3\u30f3\u30bf")
 
         # combined
         input_string = u"ASCI měšťánek アナコンダ Heizölrückstoßabdämpfung"
-        output_string =u"ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
-        self.assertEqual(iutil.strip_accents(input_string), output_string)
+        output_string = u"ASCI mestanek \u30a2\u30ca\u30b3\u30f3\u30bf Heizolrucksto\xdfabdampfung"
+        self.assertEqual(util.strip_accents(input_string), output_string)
 
     def cmp_obj_attrs_test(self):
         """Test cmp_obj_attrs."""
@@ -631,89 +630,89 @@ class MiscTests(unittest.TestCase):
         b.c = 3
 
         # a class should have it's own attributes
-        self.assertTrue(iutil.cmp_obj_attrs(a, a, ["b", "c"]))
-        self.assertTrue(iutil.cmp_obj_attrs(a1, a1, ["b", "c"]))
-        self.assertTrue(iutil.cmp_obj_attrs(b, b, ["b", "c"]))
+        self.assertTrue(util.cmp_obj_attrs(a, a, ["b", "c"]))
+        self.assertTrue(util.cmp_obj_attrs(a1, a1, ["b", "c"]))
+        self.assertTrue(util.cmp_obj_attrs(b, b, ["b", "c"]))
 
         # a and a1 should have the same attributes
-        self.assertTrue(iutil.cmp_obj_attrs(a, a1, ["b", "c"]))
-        self.assertTrue(iutil.cmp_obj_attrs(a1, a, ["b", "c"]))
-        self.assertTrue(iutil.cmp_obj_attrs(a1, a, ["c", "b"]))
+        self.assertTrue(util.cmp_obj_attrs(a, a1, ["b", "c"]))
+        self.assertTrue(util.cmp_obj_attrs(a1, a, ["b", "c"]))
+        self.assertTrue(util.cmp_obj_attrs(a1, a, ["c", "b"]))
 
         # missing attributes are considered a mismatch
-        self.assertFalse(iutil.cmp_obj_attrs(a, a1, ["b", "c", "d"]))
+        self.assertFalse(util.cmp_obj_attrs(a, a1, ["b", "c", "d"]))
 
         # empty attribute list is not a mismatch
-        self.assertTrue(iutil.cmp_obj_attrs(a, b, []))
+        self.assertTrue(util.cmp_obj_attrs(a, b, []))
 
         # attributes of a and b differ
-        self.assertFalse(iutil.cmp_obj_attrs(a, b, ["b", "c"]))
-        self.assertFalse(iutil.cmp_obj_attrs(b, a, ["b", "c"]))
-        self.assertFalse(iutil.cmp_obj_attrs(b, a, ["c", "b"]))
+        self.assertFalse(util.cmp_obj_attrs(a, b, ["b", "c"]))
+        self.assertFalse(util.cmp_obj_attrs(b, a, ["b", "c"]))
+        self.assertFalse(util.cmp_obj_attrs(b, a, ["c", "b"]))
 
     def to_ascii_test(self):
         """Test _toASCII."""
 
         # check some conversions
-        self.assertEqual(iutil._toASCII(""), "")
-        self.assertEqual(iutil._toASCII(" "), " ")
-        self.assertEqual(iutil._toASCII("&@`'łŁ!@#$%^&*{}[]$'<>*"),
-                                        "&@`'!@#$%^&*{}[]$'<>*")
-        self.assertEqual(iutil._toASCII("ABC"), "ABC")
-        self.assertEqual(iutil._toASCII("aBC"), "aBC")
+        self.assertEqual(util._toASCII(""), "")
+        self.assertEqual(util._toASCII(" "), " ")
+        self.assertEqual(util._toASCII("&@`'łŁ!@#$%^&*{}[]$'<>*"),
+                         "&@`'!@#$%^&*{}[]$'<>*")
+        self.assertEqual(util._toASCII("ABC"), "ABC")
+        self.assertEqual(util._toASCII("aBC"), "aBC")
         _out = "Heizolruckstoabdampfung"
-        self.assertEqual(iutil._toASCII("Heizölrückstoßabdämpfung"), _out)
+        self.assertEqual(util._toASCII("Heizölrückstoßabdämpfung"), _out)
 
     def upper_ascii_test(self):
         """Test upperASCII."""
 
-        self.assertEqual(iutil.upperASCII(""),"")
-        self.assertEqual(iutil.upperASCII("a"),"A")
-        self.assertEqual(iutil.upperASCII("A"),"A")
-        self.assertEqual(iutil.upperASCII("aBc"),"ABC")
-        self.assertEqual(iutil.upperASCII("_&*'@#$%^aBcžčŘ"),
-                                          "_&*'@#$%^ABCZCR")
+        self.assertEqual(util.upperASCII(""), "")
+        self.assertEqual(util.upperASCII("a"), "A")
+        self.assertEqual(util.upperASCII("A"), "A")
+        self.assertEqual(util.upperASCII("aBc"), "ABC")
+        self.assertEqual(util.upperASCII("_&*'@#$%^aBcžčŘ"),
+                         "_&*'@#$%^ABCZCR")
         _out = "HEIZOLRUCKSTOABDAMPFUNG"
-        self.assertEqual(iutil.upperASCII("Heizölrückstoßabdämpfung"), _out)
+        self.assertEqual(util.upperASCII("Heizölrückstoßabdämpfung"), _out)
 
 
     def lower_ascii_test(self):
         """Test lowerASCII."""
-        self.assertEqual(iutil.lowerASCII(""),"")
-        self.assertEqual(iutil.lowerASCII("A"),"a")
-        self.assertEqual(iutil.lowerASCII("a"),"a")
-        self.assertEqual(iutil.lowerASCII("aBc"),"abc")
-        self.assertEqual(iutil.lowerASCII("_&*'@#$%^aBcžčŘ"),
-                                          "_&*'@#$%^abczcr")
+        self.assertEqual(util.lowerASCII(""), "")
+        self.assertEqual(util.lowerASCII("A"), "a")
+        self.assertEqual(util.lowerASCII("a"), "a")
+        self.assertEqual(util.lowerASCII("aBc"), "abc")
+        self.assertEqual(util.lowerASCII("_&*'@#$%^aBcžčŘ"),
+                         "_&*'@#$%^abczcr")
         _out = "heizolruckstoabdampfung"
-        self.assertEqual(iutil.lowerASCII("Heizölrückstoßabdämpfung"), _out)
+        self.assertEqual(util.lowerASCII("Heizölrückstoßabdämpfung"), _out)
 
     def have_word_match_test(self):
         """Test have_word_match."""
 
-        self.assertTrue(iutil.have_word_match("word1 word2", "word1 word2 word3"))
-        self.assertTrue(iutil.have_word_match("word1 word2", "word2 word1 word3"))
-        self.assertTrue(iutil.have_word_match("word2 word1", "word3 word1 word2"))
-        self.assertTrue(iutil.have_word_match("word1", "word1 word2"))
-        self.assertTrue(iutil.have_word_match("word1 word2", "word2word1 word3"))
-        self.assertTrue(iutil.have_word_match("word2 word1", "word3 word1word2"))
-        self.assertTrue(iutil.have_word_match("word1", "word1word2"))
-        self.assertTrue(iutil.have_word_match("", "word1"))
+        self.assertTrue(util.have_word_match("word1 word2", "word1 word2 word3"))
+        self.assertTrue(util.have_word_match("word1 word2", "word2 word1 word3"))
+        self.assertTrue(util.have_word_match("word2 word1", "word3 word1 word2"))
+        self.assertTrue(util.have_word_match("word1", "word1 word2"))
+        self.assertTrue(util.have_word_match("word1 word2", "word2word1 word3"))
+        self.assertTrue(util.have_word_match("word2 word1", "word3 word1word2"))
+        self.assertTrue(util.have_word_match("word1", "word1word2"))
+        self.assertTrue(util.have_word_match("", "word1"))
 
-        self.assertFalse(iutil.have_word_match("word3 word1", "word1"))
-        self.assertFalse(iutil.have_word_match("word1 word3", "word1 word2"))
-        self.assertFalse(iutil.have_word_match("word3 word2", "word1 word2"))
-        self.assertFalse(iutil.have_word_match("word1word2", "word1 word2 word3"))
-        self.assertFalse(iutil.have_word_match("word1", ""))
-        self.assertFalse(iutil.have_word_match("word1", None))
-        self.assertFalse(iutil.have_word_match(None, "word1"))
-        self.assertFalse(iutil.have_word_match("", None))
-        self.assertFalse(iutil.have_word_match(None, ""))
-        self.assertFalse(iutil.have_word_match(None, None))
+        self.assertFalse(util.have_word_match("word3 word1", "word1"))
+        self.assertFalse(util.have_word_match("word1 word3", "word1 word2"))
+        self.assertFalse(util.have_word_match("word3 word2", "word1 word2"))
+        self.assertFalse(util.have_word_match("word1word2", "word1 word2 word3"))
+        self.assertFalse(util.have_word_match("word1", ""))
+        self.assertFalse(util.have_word_match("word1", None))
+        self.assertFalse(util.have_word_match(None, "word1"))
+        self.assertFalse(util.have_word_match("", None))
+        self.assertFalse(util.have_word_match(None, ""))
+        self.assertFalse(util.have_word_match(None, None))
 
         # Compare designated unicode and "standard" unicode string and make sure nothing crashes
-        self.assertTrue(iutil.have_word_match("fête", u"fête champêtre"))
-        self.assertTrue(iutil.have_word_match(u"fête", "fête champêtre"))
+        self.assertTrue(util.have_word_match("fête", u"fête champêtre"))
+        self.assertTrue(util.have_word_match(u"fête", "fête champêtre"))
 
     def parent_dir_test(self):
         """Test the parent_dir function"""
@@ -722,7 +721,7 @@ class MiscTests(unittest.TestCase):
                 ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
 
         for d, r in dirs:
-            self.assertEqual(iutil.parent_dir(d), r)
+            self.assertEqual(util.parent_dir(d), r)
 
     def open_with_perm_test(self):
         """Test the open_with_perm function"""
@@ -733,11 +732,11 @@ class MiscTests(unittest.TestCase):
             old_umask = os.umask(0)
             try:
                 # Create a file with mode 0777
-                iutil.open_with_perm(test_dir + '/test1', 'w', 0o777)
+                util.open_with_perm(test_dir + '/test1', 'w', 0o777)
                 self.assertEqual(os.stat(test_dir + '/test1').st_mode & 0o777, 0o777)
 
                 # Create a file with mode 0600
-                iutil.open_with_perm(test_dir + '/test2', 'w', 0o600)
+                util.open_with_perm(test_dir + '/test2', 'w', 0o600)
                 self.assertEqual(os.stat(test_dir + '/test2').st_mode & 0o777, 0o600)
             finally:
                 os.umask(old_umask)
@@ -750,7 +749,7 @@ class MiscTests(unittest.TestCase):
         try:
             file_path = os.path.join(test_dir, "EMPTY_FILE")
             # try to create an empty file with touch()
-            iutil.touch(file_path)
+            util.touch(file_path)
 
             # check if it exists & is a file
             self.assertTrue(os.path.isfile(file_path))
@@ -763,23 +762,23 @@ class MiscTests(unittest.TestCase):
     def item_counter_test(self):
         """Test the item_counter generator."""
         # normal usage
-        counter = iutil.item_counter(3)
+        counter = util.item_counter(3)
         self.assertEqual(next(counter), "1/3")
         self.assertEqual(next(counter), "2/3")
         self.assertEqual(next(counter), "3/3")
         with self.assertRaises(StopIteration):
             next(counter)
         # zero items
-        counter = iutil.item_counter(0)
+        counter = util.item_counter(0)
         with self.assertRaises(StopIteration):
             next(counter)
         # one item
-        counter = iutil.item_counter(1)
+        counter = util.item_counter(1)
         self.assertEqual(next(counter), "1/1")
         with self.assertRaises(StopIteration):
             next(counter)
         # negative item count
-        counter = iutil.item_counter(-1)
+        counter = util.item_counter(-1)
         with self.assertRaises(ValueError):
             next(counter)
 

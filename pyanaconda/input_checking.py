@@ -20,11 +20,10 @@
 
 import pwquality
 
-from pyanaconda.isignal import Signal
-from pyanaconda.i18n import _
-from pyanaconda import constants
+from pyanaconda.core.signal import Signal
+from pyanaconda.core.i18n import _
+from pyanaconda.core import constants, regexes
 from pyanaconda import users
-from pyanaconda import regexes
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

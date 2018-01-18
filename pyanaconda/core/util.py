@@ -1,5 +1,5 @@
 #
-# iutil.py - generic install utility functions
+# util.py - generic install utility functions
 #
 # Copyright (C) 1999-2014
 # Red Hat, Inc.  All rights reserved.
@@ -42,19 +42,15 @@ import requests
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
-import gi
-gi.require_version("GLib", "2.0")
-
-from gi.repository import GLib
-
 from pyanaconda.flags import flags
-from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW,\
-    IPMI_ABORTED, X_TIMEOUT
-from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
-from pyanaconda.regexes import URL_PARSE
-from pyanaconda.errors import RemovedModuleError
+from pyanaconda.core.process_watchers import WatchProcesses
+from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
+                                      UNSUPPORTED_HW, IPMI_ABORTED, X_TIMEOUT
+from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
+from pyanaconda.core.regexes import URL_PARSE
+from pyanaconda.errors import RemovedModuleError, ExitError
 
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.anaconda_loggers import get_module_logger, get_program_logger
@@ -261,7 +257,7 @@ def startX(argv, output_redirect=None, timeout=X_TIMEOUT):
 
         childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
                                  preexec_fn=sigusr1_preexec)
-        watchProcess(childproc, argv[0])
+        WatchProcesses.watch_process(childproc, argv[0])
 
         # Wait for SIGUSR1
         while not x11_started[0]:
@@ -508,138 +504,6 @@ def execConsole():
         proc.wait()
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
-
-
-# Dictionary of processes to watch in the form {pid: [name, GLib event source id], ...}
-_forever_pids = {}
-# Set to True if process watching is handled by GLib
-_watch_process_glib = False
-_watch_process_handler_set = False
-
-
-class ExitError(RuntimeError):
-    pass
-
-
-# Raise an error on process exit. The argument is a list of tuples
-# of the form [(name, status), ...] with statuses in the subprocess
-# format (>=0 is return codes, <0 is signal)
-def _raise_exit_error(statuses):
-    exn_message = []
-
-    for proc_name, status in statuses:
-        if status >= 0:
-            status_str = "with status %s" % status
-        else:
-            status_str = "on signal %s" % -status
-
-        exn_message.append("%s exited %s" % (proc_name, status_str))
-
-    raise ExitError(", ".join(exn_message))
-
-
-# Signal handler used with watchProcess
-def _sigchld_handler(num=None, frame=None):
-    # Check whether anything in the list of processes being watched has
-    # exited. We don't want to call waitpid(-1), since that would break
-    # anything else using wait/waitpid (like the subprocess module).
-    exited_pids = []
-    exit_statuses = []
-
-    for child_pid in _forever_pids:
-        try:
-            pid_result, status = os.waitpid(child_pid, os.WNOHANG)
-        except ChildProcessError:
-            continue
-
-        if pid_result:
-            proc_name = _forever_pids[child_pid][0]
-            exited_pids.append(child_pid)
-
-            # Convert the wait-encoded status to the format used by subprocess
-            if os.WIFEXITED(status):
-                sub_status = os.WEXITSTATUS(status)
-            else:
-                # subprocess uses negative return codes to indicate signal exit
-                sub_status = -os.WTERMSIG(status)
-
-            exit_statuses.append((proc_name, sub_status))
-
-    for child_pid in exited_pids:
-        if _forever_pids[child_pid][1]:
-            GLib.source_remove(_forever_pids[child_pid][1])
-        del _forever_pids[child_pid]
-
-    if exit_statuses:
-        _raise_exit_error(exit_statuses)
-
-
-# GLib callback used with watchProcess
-def _watch_process_cb(pid, status, proc_name):
-    # Convert the wait-encoded status to the format used by subprocess
-    if os.WIFEXITED(status):
-        sub_status = os.WEXITSTATUS(status)
-    else:
-        # subprocess uses negative return codes to indicate signal exit
-        sub_status = -os.WTERMSIG(status)
-
-    _raise_exit_error([(proc_name, sub_status)])
-
-
-def watchProcess(proc, name):
-    """Watch for a process exit, and raise a ExitError when it does.
-
-       This method installs a SIGCHLD signal handler and thus interferes
-       the child_watch_add methods in GLib. Use watchProcessGLib to convert
-       to GLib mode if using a GLib main loop.
-
-       Since the SIGCHLD handler calls wait() on the watched process, this call
-       cannot be combined with Popen.wait() or Popen.communicate, and also
-       doing so wouldn't make a whole lot of sense.
-
-       :param proc: The Popen object for the process
-       :param name: The name of the process
-    """
-    global _watch_process_handler_set
-
-    if not _watch_process_glib and not _watch_process_handler_set:
-        signal.signal(signal.SIGCHLD, _sigchld_handler)
-        _watch_process_handler_set = True
-
-    # Add the PID to the dictionary
-    # The second item in the list is for the GLib event source id and will be
-    # replaced with the id once we have one.
-    _forever_pids[proc.pid] = [name, None]
-
-    # If GLib is watching processes, add a watcher. child_watch_add checks if
-    # the process has already exited.
-    if _watch_process_glib:
-        _forever_pids[proc.id][1] = GLib.child_watch_add(proc.pid, _watch_process_cb, name)
-    else:
-        # Check that the process didn't already exit
-        if proc.poll() is not None:
-            del _forever_pids[proc.pid]
-            _raise_exit_error([(name, proc.returncode)])
-
-
-def unwatchProcess(proc):
-    """Unwatch a process watched by watchProcess.
-
-       :param proc: The Popen object for the process.
-    """
-    if _forever_pids[proc.pid][1]:
-        GLib.source_remove(_forever_pids[proc.pid][1])
-    del _forever_pids[proc.pid]
-
-
-def unwatchAllProcesses():
-    """Clear the watched process list."""
-    global _forever_pids
-    for child_pid in _forever_pids:
-        if _forever_pids[child_pid][1]:
-            GLib.source_remove(_forever_pids[child_pid][1])
-    _forever_pids = {}
-
 
 def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.

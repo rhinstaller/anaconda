@@ -24,13 +24,12 @@ import subprocess
 import time
 import pkgutil
 
+from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda import isys
 from pyanaconda import startup_utils
-from pyanaconda import constants
-from pyanaconda import iutil
+from pyanaconda.core import util, constants
 from pyanaconda import vnc
-from pyanaconda.constants import X_TIMEOUT
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.flags import flags
 from pyanaconda.nm import nm_is_connected, nm_is_connecting
 from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
@@ -58,7 +57,7 @@ def start_spice_vd_agent():
     For certain features to work spice requires that the guest os
     is running the spice vdagent.
     """
-    status = iutil.execWithRedirect("spice-vdagent", [])
+    status = util.execWithRedirect("spice-vdagent", [])
     if status:
         log.info("spice-vdagent exited with status %d", status)
     else:
@@ -136,10 +135,11 @@ def start_x11(xtimeout):
     """Start the X server for the Anaconda GUI."""
 
     # Start Xorg and wait for it become ready
-    iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
-                  ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
-                  "-nolisten", "tcp", "-dpi", "96",
-                  "-noreset"], output_redirect=subprocess.DEVNULL, timeout=xtimeout)
+    util.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
+                 ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
+                 "-nolisten", "tcp", "-dpi", "96",
+                 "-noreset"],
+                output_redirect=subprocess.DEVNULL, timeout=xtimeout)
 
 
 # function to handle X startup special issues for anaconda
@@ -161,9 +161,9 @@ def do_startup_x11_actions():
     else:
         xdg_data_dirs = datadir + '/window-manager:/usr/share'
 
-    childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"],
-                                   env_add={'XDG_DATA_DIRS': xdg_data_dirs})
-    iutil.watchProcess(childproc, "metacity")
+    childproc = util.startProgram(["metacity", "--display", ":1", "--sm-disable"],
+                                  env_add={'XDG_DATA_DIRS': xdg_data_dirs})
+    WatchProcesses.watch_process(childproc, "metacity")
 
 
 def set_x_resolution(runres):
@@ -173,10 +173,10 @@ def set_x_resolution(runres):
     """
     try:
         log.info("Setting the screen resolution to: %s.", runres)
-        iutil.execWithRedirect("xrandr", ["-d", ":1", "-s", runres])
+        util.execWithRedirect("xrandr", ["-d", ":1", "-s", runres])
     except RuntimeError:
         log.error("The X resolution was not set")
-        iutil.execWithRedirect("xrandr", ["-d", ":1", "-q"])
+        util.execWithRedirect("xrandr", ["-d", ":1", "-q"])
 
 
 def do_extra_x11_actions(runres, gui_mode):
@@ -189,7 +189,7 @@ def do_extra_x11_actions(runres, gui_mode):
         set_x_resolution(runres)
 
     # Load the system-wide Xresources
-    iutil.execWithRedirect("xrdb", ["-nocpp", "-merge", "/etc/X11/Xresources"])
+    util.execWithRedirect("xrdb", ["-nocpp", "-merge", "/etc/X11/Xresources"])
 
     start_spice_vd_agent()
 
@@ -207,7 +207,7 @@ def setup_display(anaconda, options, addon_paths=None):
         xtimeout = int(options.xtimeout)
     except ValueError:
         log.warning("invalid inst.xtimeout option value: %s", options.xtimeout)
-        xtimeout = X_TIMEOUT
+        xtimeout = constants.X_TIMEOUT
 
     vnc_server = vnc.VncServer()  # The vnc Server object.
     vnc_server.anaconda = anaconda

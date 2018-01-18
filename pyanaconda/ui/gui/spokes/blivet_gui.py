@@ -30,7 +30,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.i18n import _, CN_, C_
+from pyanaconda.core.i18n import _, CN_, C_
 from pyanaconda.bootloader import BootLoaderError
 
 from blivetgui import osinstall

@@ -30,7 +30,7 @@ import socket
 
 from pyanaconda import isys
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.constants import THREAD_SYNC_TIME_BASENAME
+from pyanaconda.core.constants import THREAD_SYNC_TIME_BASENAME
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 

@@ -30,7 +30,7 @@ from blivet.fcoe import has_fcoe
 from blivet.iscsi import iscsi
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import CN_, CP_
+from pyanaconda.core.i18n import CN_, CP_
 from pyanaconda.storage_utils import try_populate_devicetree, on_disk_storage
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection

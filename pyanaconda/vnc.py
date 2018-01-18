@@ -19,13 +19,13 @@
 
 import os, sys
 import time
-from pyanaconda import constants, network, product, iutil
+from pyanaconda import network, product
+from pyanaconda.core import util, constants
 import socket
 import subprocess
 import dbus
 
-from pyanaconda.constants import X_TIMEOUT
-from pyanaconda.i18n import _, P_
+from pyanaconda.core.i18n import _, P_
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
 
@@ -51,7 +51,7 @@ def shutdownServer():
     it by calling a function of the vnc module.
     """
     try:
-        iutil.execWithCapture("killall", [XVNC_BINARY_NAME])
+        util.execWithCapture("killall", [XVNC_BINARY_NAME])
         log.info("The XVNC server has been shut down.")
     except OSError as e:
         log.error("Shutdown of the XVNC server failed with exception:\n%s", e)
@@ -62,7 +62,7 @@ class VncServer:
     def __init__(self, root="/", ip=None, name=None,
                  password="", vncconnecthost="",
                  vncconnectport="", log_file="/tmp/vncserver.log",
-                 pw_file="/tmp/vncpassword", timeout=X_TIMEOUT):
+                 pw_file="/tmp/vncpassword", timeout=constants.X_TIMEOUT):
         self.root = root
         self.ip = ip
         self.name = name
@@ -89,9 +89,9 @@ class VncServer:
 
         with open(self.pw_file, "wb") as pw_file:
             # the -f option makes sure vncpasswd does not ask for the password again
-            rc = iutil.execWithRedirect("vncpasswd", ["-f"],
-                                        stdin=r, stdout=pw_file,
-                                        binary_output=True, log_output=False)
+            rc = util.execWithRedirect("vncpasswd", ["-f"],
+                                       stdin=r, stdout=pw_file,
+                                       binary_output=True, log_output=False)
 
             os.close(r)
             os.close(w)
@@ -171,7 +171,7 @@ class VncServer:
         vncconfigcommand = [self.root + "/usr/bin/vncconfig", "-display", ":%s" % constants.X_DISPLAY_NUMBER, "-connect", hostarg]
 
         for _i in range(maxTries):
-            vncconfp = iutil.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # vncconfig process
+            vncconfp = util.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)  # vncconfig process
             err = vncconfp.communicate()[1].decode("utf-8")
 
             if err == '':
@@ -183,7 +183,7 @@ class VncServer:
                 continue
             else:
                 log.critical(err)
-                iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+                util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
                 sys.exit(1)
         self.log.error(P_("Giving up attempting to connect after %d try!\n",
                           "Giving up attempting to connect after %d tries!\n",
@@ -198,7 +198,7 @@ class VncServer:
         vncconfigcommand = [self.root + "/usr/bin/vncconfig", "-nowin", "-display", ":%s" % constants.X_DISPLAY_NUMBER]
 
         # Use startProgram to run vncconfig in the background
-        iutil.startProgram(vncconfigcommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
+        util.startProgram(vncconfigcommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
 
     def VNCListen(self):
         """Put the server in listening mode.
@@ -221,7 +221,7 @@ class VncServer:
             self.initialize()
         except (socket.herror, dbus.DBusException, ValueError) as e:
             stdoutLog.critical("Could not initialize the VNC server: %s", e)
-            iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
         if self.password and (len(self.password) < 6 or len(self.password) > 8):
@@ -244,10 +244,10 @@ class VncServer:
                        "SecurityTypes=%s" % SecurityTypes, "rfbauth=%s" % rfbauth]
 
         try:
-            iutil.startX(xvnccommand, output_redirect=self.openlogfile(), timeout=self.timeout)
+            util.startX(xvnccommand, output_redirect=self.openlogfile(), timeout=self.timeout)
         except OSError:
             stdoutLog.critical("Could not start the VNC server.  Aborting.")
-            iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
         self.log.info(_("The VNC server is now running."))
@@ -266,7 +266,7 @@ class VncServer:
             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
         else:
             self.log.warning(_("\n\nUnknown Error.  Aborting. \n\n"))
-            iutil.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
+            util.ipmi_abort(scripts=self.anaconda.ksdata.scripts)
             sys.exit(1)
 
         # Lets try to configure the vnc server to whatever the user specified

@@ -22,7 +22,7 @@ from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 
 class F22_PwPolicyData(BaseData):
     """ Kickstart Data object to hold information about pwpolicy. """

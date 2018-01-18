@@ -32,17 +32,17 @@ import stat
 from time import sleep
 from threading import Lock
 import requests
-from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
+from pyanaconda.core.util import ProxyString, ProxyStringError
 import hashlib
 import glob
 import functools
 
 from pyanaconda.payload import ImagePayload, PayloadSetupError, PayloadInstallError
 
-from pyanaconda.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
-from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
+from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
+from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX
 
-from pyanaconda import iutil
+from pyanaconda.core import util
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
@@ -52,7 +52,7 @@ from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.payload import versionCmp
 
 class LiveImagePayload(ImagePayload):
@@ -112,7 +112,7 @@ class LiveImagePayload(ImagePayload):
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:
-                mnt_stat = os.statvfs(iutil.getSysroot() + mnt)
+                mnt_stat = os.statvfs(util.getSysroot() + mnt)
                 dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
@@ -143,9 +143,9 @@ class LiveImagePayload(ImagePayload):
         # file system boundaries
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", iutil.getSysroot()]
+                "--exclude", "/etc/machine-id", INSTALL_TREE + "/", util.getSysroot()]
         try:
-            rc = iutil.execWithRedirect(cmd, args)
+            rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
             msg = None
             err = str(e)
@@ -166,14 +166,14 @@ class LiveImagePayload(ImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
-        if not os.path.exists(iutil.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+        if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
             return
 
         for kernel in self.kernelVersionList:
             log.info("Generating rescue image for %s", kernel)
-            iutil.execInSysroot("new-kernel-pkg",
-                                ["--rpmposttrans", kernel])
+            util.execInSysroot("new-kernel-pkg",
+                               ["--rpmposttrans", kernel])
 
     def postInstall(self):
         """ Perform post-installation tasks. """
@@ -183,12 +183,12 @@ class LiveImagePayload(ImagePayload):
         super(LiveImagePayload, self).postInstall()
 
         # Make sure the new system has a machine-id, it won't boot without it
-        if not os.path.exists(iutil.getSysroot() + "/etc/machine-id"):
-            iutil.execInSysroot("systemd-machine-id-setup", [])
+        if not os.path.exists(util.getSysroot() + "/etc/machine-id"):
+            util.execInSysroot("systemd-machine-id-setup", [])
 
     @property
     def spaceRequired(self):
-        return Size(iutil.getDirSize("/") * 1024)
+        return Size(util.getDirSize("/") * 1024)
 
     def _updateKernelVersionList(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
@@ -248,7 +248,7 @@ class LiveImageKSPayload(LiveImagePayload):
         super(LiveImageKSPayload, self).__init__(*args, **kwargs)
         self._min_size = 0
         self._proxies = {}
-        self.image_path = iutil.getSysroot() + "/disk.img"
+        self.image_path = util.getSysroot() + "/disk.img"
 
     @property
     def is_tarfile(self):
@@ -394,7 +394,7 @@ class LiveImageKSPayload(LiveImagePayload):
             filesum = sha256.hexdigest()
             log.debug("sha256 of %s is %s", self.data.method.url, filesum)
 
-            if lowerASCII(self.data.method.checksum) != filesum:
+            if util.lowerASCII(self.data.method.checksum) != filesum:
                 log.error("%s does not match checksum.", self.data.method.checksum)
                 exn = PayloadInstallError("Checksum of image does not match")
                 if errorHandler.cb(exn) == ERROR_RAISE:
@@ -425,11 +425,11 @@ class LiveImageKSPayload(LiveImagePayload):
             # move the mount to IMAGE_DIR
             os.makedirs(IMAGE_DIR, 0o755)
             # work around inability to move shared filesystems
-            rc = iutil.execWithRedirect("mount",
-                                        ["--make-rprivate", "/"])
+            rc = util.execWithRedirect("mount",
+                                       ["--make-rprivate", "/"])
             if rc == 0:
-                rc = iutil.execWithRedirect("mount",
-                                            ["--move", INSTALL_TREE, IMAGE_DIR])
+                rc = util.execWithRedirect("mount",
+                                           ["--move", INSTALL_TREE, IMAGE_DIR])
             if rc != 0:
                 log.error("error %s moving mount", rc)
                 exn = PayloadInstallError("mount error %s" % rc)
@@ -472,9 +472,9 @@ class LiveImageKSPayload(LiveImagePayload):
         args = ["--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
                 "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/etc/machine-id", "-xaf", self.image_path, "-C", iutil.getSysroot()]
+                "--exclude", "/etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
         try:
-            rc = iutil.execWithRedirect(cmd, args)
+            rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
             msg = None
             err = str(e)
@@ -497,8 +497,8 @@ class LiveImageKSPayload(LiveImagePayload):
         # Live needs to create the rescue image before bootloader is written
         for kernel in self.kernelVersionList:
             log.info("Generating rescue image for %s", kernel)
-            iutil.execInSysroot("new-kernel-pkg",
-                                ["--rpmposttrans", kernel])
+            util.execInSysroot("new-kernel-pkg",
+                               ["--rpmposttrans", kernel])
 
     def postInstall(self):
         """ Unmount and remove image

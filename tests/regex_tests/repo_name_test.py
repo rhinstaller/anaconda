@@ -20,7 +20,7 @@
 import unittest
 
 from regexcheck import regex_match
-from pyanaconda.regexes import REPO_NAME_VALID
+from pyanaconda.core.regexes import REPO_NAME_VALID
 
 class RepoNameTestCase(unittest.TestCase):
     def reponame_test(self):

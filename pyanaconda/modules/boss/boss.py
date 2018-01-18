@@ -18,11 +18,7 @@
 # Red Hat, Inc.
 #
 
-import gi
-gi.require_version("GLib", "2.0")
-from gi.repository import GLib
-
-
+from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
 from pyanaconda.modules.base import BaseModule
@@ -74,9 +70,9 @@ class Boss(BaseModule):
         self._module_manager.add_default_modules()
         self._module_manager.add_addon_modules()
         log.debug("Schedule publishing.")
-        GLib.idle_add(self.publish)
+        run_in_loop(self.publish)
         log.debug("Schedule startup of modules.")
-        GLib.idle_add(self._module_manager.start_modules)
+        run_in_loop(self._module_manager.start_modules)
         log.info("starting mainloop")
         self._loop.run()
 

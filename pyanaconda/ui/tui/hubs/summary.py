@@ -21,7 +21,7 @@ from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceCheck
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
-from pyanaconda.i18n import N_, _, C_
+from pyanaconda.core.i18n import N_, _, C_
 
 from simpleline import App
 from simpleline.render.screen import InputState

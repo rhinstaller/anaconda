@@ -34,7 +34,8 @@ from gi.repository import BlockDev as blockdev
 
 from pykickstart.constants import AUTOPART_TYPE_LVM, CLEARPART_TYPE_NONE, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_LIST
 
-from blivet import arch, util, udev
+from blivet import arch, udev
+from blivet import util as blivet_util
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import FileDevice, NFSDevice, NoDevice, OpticalDevice, NetworkStorageDevice, DirectoryDevice, MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
@@ -47,14 +48,14 @@ from blivet.fcoe import fcoe
 from blivet.zfcp import zfcp
 from blivet.size import Size
 
-from pyanaconda import iutil
+from pyanaconda.core import util
 from pyanaconda import network
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
-from pyanaconda.constants import shortProductName
+from pyanaconda.core.constants import shortProductName
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
+from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 
@@ -64,7 +65,7 @@ log = logging.getLogger("anaconda.storage")
 
 def enable_installer_mode():
     """ Configure the module for use by anaconda (OS installer). """
-    util.program_log_lock = program_log_lock
+    blivet_util.program_log_lock = program_log_lock
 
     # always enable the debug mode when in the installer mode so that we
     # have more data in the logs for rare cases that are hard to reproduce
@@ -88,7 +89,7 @@ def copy_to_system(source):
         log.info("copy_to_system: source '%s' does not exist.", source)
         return False
 
-    target = iutil.getSysroot() + source
+    target = util.getSysroot() + source
     target_dir = os.path.dirname(target)
     log.debug("copy_to_system: '%s' -> '%s'.", source, target)
     if not os.path.isdir(target_dir):
@@ -203,10 +204,10 @@ def get_release_string():
     """
     rel_name = None
     rel_ver = None
-    sysroot = iutil.getSysroot()
+    sysroot = util.getSysroot()
 
     try:
-        rel_arch = util.capture_output(["arch"], root=sysroot).strip()
+        rel_arch = blivet_util.capture_output(["arch"], root=sysroot).strip()
     except OSError:
         rel_arch = None
 
@@ -224,7 +225,7 @@ def get_release_string():
 def parse_fstab(devicetree, chroot=None):
     """ parse /etc/fstab and return a tuple of a mount dict and swap list """
     if not chroot or not os.path.isdir(chroot):
-        chroot = iutil.getSysroot()
+        chroot = util.getSysroot()
 
     mounts = {}
     swaps = []
@@ -302,10 +303,10 @@ def find_existing_installations(devicetree, teardown_all=True):
 
 
 def _find_existing_installations(devicetree):
-    if not os.path.exists(iutil.getTargetPhysicalRoot()):
-        util.makedirs(iutil.getTargetPhysicalRoot())
+    if not os.path.exists(util.getTargetPhysicalRoot()):
+        blivet_util.makedirs(util.getTargetPhysicalRoot())
 
-    sysroot = iutil.getSysroot()
+    sysroot = util.getSysroot()
     roots = []
     direct_devices = (dev for dev in devicetree.devices if dev.direct)
     for device in direct_devices:
@@ -324,11 +325,11 @@ def _find_existing_installations(devicetree):
             device.format.mount(options=options, mountpoint=sysroot)
         except Exception:  # pylint: disable=broad-except
             log_exception_info(log.warning, "mount of %s as %s failed", [device.name, device.format.type])
-            util.umount(mountpoint=sysroot)
+            blivet_util.umount(mountpoint=sysroot)
             continue
 
         if not os.access(sysroot + "/etc/fstab", os.R_OK):
-            util.umount(mountpoint=sysroot)
+            blivet_util.umount(mountpoint=sysroot)
             device.teardown()
             continue
 
@@ -349,7 +350,7 @@ def _find_existing_installations(devicetree):
                     {"product": product, "version": version, "arch": architecture}
 
         (mounts, swaps) = parse_fstab(devicetree, chroot=sysroot)
-        util.umount(mountpoint=sysroot)
+        blivet_util.umount(mountpoint=sysroot)
         if not mounts and not swaps:
             # empty /etc/fstab. weird, but I've seen it happen.
             continue
@@ -596,7 +597,7 @@ class FSSet(object):
                 loop mounts?
         """
         if not chroot or not os.path.isdir(chroot):
-            chroot = iutil.getSysroot()
+            chroot = util.getSysroot()
 
         path = "%s/etc/fstab" % chroot
         if not os.access(path, os.R_OK):
@@ -770,7 +771,7 @@ class FSSet(object):
         """ Create and activate a swap file under storage root. """
         filename = "/SWAP"
         count = 0
-        basedir = os.path.normpath("%s/%s" % (iutil.getTargetPhysicalRoot(),
+        basedir = os.path.normpath("%s/%s" % (util.getTargetPhysicalRoot(),
                                               device.format.mountpoint))
         while os.path.exists("%s/%s" % (basedir, filename)) or \
                 self.devicetree.get_device_by_name(filename):
@@ -790,7 +791,7 @@ class FSSet(object):
 
     def mk_dev_root(self):
         root = self.root_device
-        sysroot = iutil.getSysroot()
+        sysroot = util.getSysroot()
         dev = "%s/%s" % (sysroot, root.path)
         if not os.path.exists("%s/dev/root" % (sysroot,)) and os.path.exists(dev):
             rdev = os.stat(dev).st_rdev
@@ -806,7 +807,7 @@ class FSSet(object):
 
     @property
     def root_device(self):
-        for path in ["/", iutil.getTargetPhysicalRoot()]:
+        for path in ["/", util.getTargetPhysicalRoot()]:
             for device in self.devices:
                 try:
                     mountpoint = device.format.mountpoint
@@ -818,7 +819,7 @@ class FSSet(object):
 
     def write(self):
         """ write out all config files based on the set of filesystems """
-        sysroot = iutil.getSysroot()
+        sysroot = util.getSysroot()
         # /etc/fstab
         fstab_path = os.path.normpath("%s/etc/fstab" % sysroot)
         fstab = self.fstab()
@@ -1256,7 +1257,7 @@ class InstallerStorage(Blivet):
         self.dump_state("final")
 
     def write(self):
-        sysroot = iutil.getSysroot()
+        sysroot = util.getSysroot()
         if not os.path.isdir("%s/etc" % sysroot):
             os.mkdir("%s/etc" % sysroot)
 
@@ -1943,10 +1944,10 @@ class InstallerStorage(Blivet):
         return None
 
     def turn_on_swap(self):
-        self.fsset.turn_on_swap(root_path=iutil.getSysroot())
+        self.fsset.turn_on_swap(root_path=util.getSysroot())
 
     def mount_filesystems(self, read_only=None, skip_root=False):
-        self.fsset.mount_filesystems(root_path=iutil.getSysroot(),
+        self.fsset.mount_filesystems(root_path=util.getSysroot(),
                                      read_only=read_only, skip_root=skip_root)
 
     def umount_filesystems(self, swapoff=True):
@@ -2003,7 +2004,7 @@ class InstallerStorage(Blivet):
     def make_mtab(self):
         path = "/etc/mtab"
         target = "/proc/self/mounts"
-        path = os.path.normpath("%s/%s" % (iutil.getSysroot(), path))
+        path = os.path.normpath("%s/%s" % (util.getSysroot(), path))
 
         if os.path.islink(path):
             # return early if the mtab symlink is already how we like it
@@ -2089,7 +2090,7 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
         if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
             # turn off any swaps that we didn't turn on
             # needed for live installs
-            util.run_program(["swapoff", "-a"])
+            blivet_util.run_program(["swapoff", "-a"])
         storage.devicetree.teardown_all()
 
         try:
@@ -2120,9 +2121,9 @@ def write_escrow_packets(storage):
     backup_passphrase = blockdev.crypto.generate_backup_passphrase()
 
     try:
-        escrow_dir = iutil.getSysroot() + "/root"
+        escrow_dir = util.getSysroot() + "/root"
         log.debug("escrow: writing escrow packets to %s", escrow_dir)
-        util.makedirs(escrow_dir)
+        blivet_util.makedirs(escrow_dir)
         for device in escrow_devices:
             log.debug("escrow: device %s: %s",
                       repr(device.path), repr(device.format.type))
@@ -2178,15 +2179,15 @@ def storage_initialize(storage, ksdata, protected):
 
 def mount_existing_system(fsset, root_device, read_only=None):
     """ Mount filesystems specified in root_device's /etc/fstab file. """
-    root_path = iutil.getSysroot()
+    root_path = util.getSysroot()
 
     read_only = "ro" if read_only else ""
 
     if root_device.protected and os.path.ismount("/mnt/install/isodir"):
-        util.mount("/mnt/install/isodir",
-                   root_path,
-                   fstype=root_device.format.type,
-                   options="bind")
+        blivet_util.mount("/mnt/install/isodir",
+                          root_path,
+                          fstype=root_device.format.type,
+                          options="bind")
     else:
         root_device.setup()
         root_device.format.mount(chroot=root_path,

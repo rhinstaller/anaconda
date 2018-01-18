@@ -19,17 +19,16 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
-gi.require_version("GLib", "2.0")
 gi.require_version("GObject", "2.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("NM", "1.0")
 
 from gi.repository import Gtk
-from gi.repository import GLib, GObject, Pango, Gio, NM
+from gi.repository import GObject, Pango, Gio, NM
 
 from pyanaconda.flags import can_touch_runtime_system
-from pyanaconda.i18n import _, N_, C_, CN_
+from pyanaconda.core.i18n import _, N_, C_, CN_
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -38,8 +37,10 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.iutil import startProgram
-from pyanaconda.constants import ANACONDA_ENVIRON
+from pyanaconda.core.util import startProgram
+from pyanaconda.core.process_watchers import PidWatcher
+from pyanaconda.core.constants import ANACONDA_ENVIRON
+from pyanaconda.core import glib
 
 from pyanaconda import network
 from pyanaconda import nm
@@ -118,7 +119,7 @@ class CellRendererSignal(Gtk.CellRendererPixbuf):
     __gproperties__ = {
         "signal": (GObject.TYPE_UINT,
                    "Signal", "Signal",
-                   0, GLib.MAXUINT, 0,
+                   0, glib.MAXUINT, 0,
                    GObject.ParamFlags.READWRITE),
     }
 
@@ -169,12 +170,11 @@ NM_AP_SEC_WPA2 = 4
 class CellRendererSecurity(Gtk.CellRendererPixbuf):
 
     __gtype_name__ = "CellRendererSecurity"
-    __gproperties__ = {
-        "security": (GObject.TYPE_UINT,
-                   "Security", "Security",
-                   0, GLib.MAXUINT, 0,
-                   GObject.ParamFlags.READWRITE),
-    }
+    __gproperties__ = {"security": (GObject.TYPE_UINT,
+                                    "Security", "Security",
+                                    0, glib.MAXUINT, 0,
+                                    GObject.ParamFlags.READWRITE),
+                       }
 
     def __init__(self):
         Gtk.CellRendererPixbuf.__init__(self)
@@ -626,7 +626,7 @@ class NetworkControlBox(GObject.GObject):
         proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
         self._running_nmce = proc
 
-        GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
+        PidWatcher().watch_process(proc.pid, self.on_nmce_exited, activate)
 
     def _default_eth_con(self, iface, autoconnect):
         con = NM.SimpleConnection.new()
@@ -737,7 +737,7 @@ class NetworkControlBox(GObject.GObject):
         proc = startProgram(["nm-connection-editor", "--keep-above", "--create", "--type=%s" % ty], reset_lang=False)
         self._running_nmce = proc
 
-        GLib.child_watch_add(proc.pid, self.on_nmce_exited)
+        PidWatcher().watch_process(proc.pid, self.on_nmce_exited)
 
     def selected_dev_cfg(self):
         selection = self.builder.get_object("treeview_devices").get_selection()

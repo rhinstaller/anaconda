@@ -30,15 +30,15 @@ from collections import namedtuple
 import functools
 import re
 
-from pyanaconda.constants import SIZE_UNITS_DEFAULT
-from pyanaconda.iutil import lowerASCII
+from pyanaconda.core.constants import SIZE_UNITS_DEFAULT
+from pyanaconda.core.util import lowerASCII
 from pyanaconda.platform import platform
 from pyanaconda.storage_utils import size_from_input
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
-from pyanaconda.i18n import _, N_, CN_
+from pyanaconda.core.i18n import _, N_, CN_
 
 from blivet.size import Size
 from blivet.formats import get_format

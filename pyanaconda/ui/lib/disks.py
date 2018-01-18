@@ -20,7 +20,7 @@
 from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import P_
+from pyanaconda.core.i18n import P_
 
 __all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk"]
 

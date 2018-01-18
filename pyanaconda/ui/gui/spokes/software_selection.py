@@ -24,16 +24,16 @@ gi.require_version("Pango", "1.0")
 from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, C_, CN_
+from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda import constants, iutil
+from pyanaconda.core import util, constants
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup
-from pyanaconda.async_utils import async_action_wait
+from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.categories.software import SoftwareCategory
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -323,7 +323,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         NormalSpoke.initialize(self)
         self.initialize_start()
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOFTWARE_WATCHER,
-                      target=self._initialize))
+                                     target=self._initialize))
 
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
@@ -612,7 +612,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if rc == 0:
             # Quit.
-            iutil.ipmi_abort(scripts=self.data.scripts)
+            util.ipmi_abort(scripts=self.data.scripts)
             sys.exit(0)
         elif rc == 1:
             # Send the user to the installation source spoke.

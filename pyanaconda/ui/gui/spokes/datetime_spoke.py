@@ -21,12 +21,11 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 import gi
-gi.require_version("GLib", "2.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("TimezoneMap", "1.0")
 
-from gi.repository import GLib, Gdk, Gtk, TimezoneMap
+from gi.repository import Gdk, Gtk, TimezoneMap
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -34,22 +33,22 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import gtk_call_once, override_cell_property
-from pyanaconda.async_utils import async_action_wait, async_action_nowait
 from pyanaconda.ui.gui.utils import blockedHandler
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
-from pyanaconda.i18n import _, CN_
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
-from pyanaconda.localization import get_xlated_timezone, resolve_date_format
-from pyanaconda import iutil
+from pyanaconda.core import util, constants
 from pyanaconda import isys
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
-from pyanaconda import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.i18n import _, CN_
+from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
+from pyanaconda.localization import get_xlated_timezone, resolve_date_format
+from pyanaconda.core.timer import Timer
 
 import datetime
 import re
@@ -273,7 +272,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
             if flags.can_touch_runtime_system("save NTP servers configuration"):
                 ntp.save_servers_to_config(new_pools, new_servers)
-                iutil.restart_service(NTP_SERVICE)
+                util.restart_service(NTP_SERVICE)
 
         #Cancel clicked, window destroyed...
         else:
@@ -298,7 +297,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         def set_store_value(arg_tuple):
             """
             We need a function for this, because this way it can be added to
-            the MainLoop with thread-safe GLib.idle_add (but only with one
+            the MainLoop with thread-safe async_action_nowait (but only with one
             argument).
 
             :param arg_tuple: (store, itr, column, value)
@@ -322,10 +321,10 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             if orig_hostname == actual_hostname:
                 if server_working:
                     set_store_value((self._serversStore,
-                                    itr, SERVER_WORKING, constants.NTP_SERVER_OK))
+                                     itr, SERVER_WORKING, constants.NTP_SERVER_OK))
                 else:
                     set_store_value((self._serversStore,
-                                    itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
+                                     itr, SERVER_WORKING, constants.NTP_SERVER_NOK))
         self._epoch_lock.release()
 
     @async_action_nowait
@@ -425,8 +424,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # taking values from the kickstart file?
         self._kickstarted = flags.flags.automatedInstall
 
-        self._update_datetime_timer_id = None
-        self._start_updating_timer_id = None
+        self._update_datetime_timer = None
+        self._start_updating_timer = None
         self._shown = False
         self._tz = None
 
@@ -533,7 +532,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         for city, xlated in sorted(cities, key=functools.cmp_to_key(_compare_cities)):
             self.add_to_store_xlated(self._citiesStore, city, xlated)
 
-        self._update_datetime_timer_id = None
+        self._update_datetime_timer = None
         if is_valid_timezone(self.data.timezone.timezone):
             self._set_timezone(self.data.timezone.timezone)
         elif not flags.flags.automatedInstall:
@@ -592,9 +591,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.data.timezone.nontp = not self._ntpSwitch.get_active()
 
     def execute(self):
-        if self._update_datetime_timer_id is not None:
-            GLib.source_remove(self._update_datetime_timer_id)
-        self._update_datetime_timer_id = None
+        if self._update_datetime_timer is not None:
+            self._update_datetime_timer.cancel()
+        self._update_datetime_timer = None
 
     @property
     def ready(self):
@@ -615,10 +614,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         self._shown = True
 
-        #update the displayed time
-        self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
-                                                    self._update_datetime)
-        self._start_updating_timer_id = None
+        # update the displayed time
+        self._update_datetime_timer = Timer()
+        self._update_datetime_timer.timeout_sec(1, self._update_datetime)
+        self._start_updating_timer = None
 
         if is_valid_timezone(self.data.timezone.timezone):
             self._tzmap.set_timezone(self.data.timezone.timezone)
@@ -634,7 +633,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             gtk_call_once(self._config_dialog.refresh_servers_state)
 
         if flags.can_touch_runtime_system("get NTP service state"):
-            ntp_working = has_active_network and iutil.service_running(NTP_SERVICE)
+            ntp_working = has_active_network and util.service_running(NTP_SERVICE)
         else:
             ntp_working = not self.data.timezone.nontp
 
@@ -777,7 +776,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         """
 
-        self._start_updating_timer_id = None
+        self._start_updating_timer = None
 
         if not flags.can_touch_runtime_system("save system time"):
             return False
@@ -802,9 +801,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             isys.set_system_date_time(year, month, day, hours, minutes, tz=self._tz)
 
         #start the timer only when the spoke is shown
-        if self._shown and not self._update_datetime_timer_id:
-            self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
-                                                        self._update_datetime)
+        if self._shown and not self._update_datetime_timer:
+            self._update_datetime_timer = Timer()
+            self._update_datetime_timer.timeout_sec(1, self._update_datetime)
 
         #run only once (after first 2 seconds of inactivity)
         return False
@@ -830,18 +829,18 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return
 
         #stop time updating
-        if self._update_datetime_timer_id:
-            GLib.source_remove(self._update_datetime_timer_id)
-            self._update_datetime_timer_id = None
+        if self._update_datetime_timer:
+            self._update_datetime_timer.cancel()
+            self._update_datetime_timer = None
 
         #stop previous $interval seconds timer (see below)
-        if self._start_updating_timer_id:
-            GLib.source_remove(self._start_updating_timer_id)
+        if self._start_updating_timer:
+            self._start_updating_timer.cancel()
 
         #let the user change date/time and after $interval seconds of inactivity
         #save it as the system time and start updating the displayed date/time
-        self._start_updating_timer_id = GLib.timeout_add_seconds(interval,
-                                                    self._save_system_time)
+        self._start_updating_timer = Timer()
+        self._start_updating_timer.timeout_sec(interval, self._save_system_time)
 
     def _set_combo_selection(self, combo, item):
         model = combo.get_model()
@@ -1122,12 +1121,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                     #the time as drastically as we need
                     ntp.one_time_sync_async(working_server)
 
-            ret = iutil.start_service(NTP_SERVICE)
+            ret = util.start_service(NTP_SERVICE)
             self._set_date_time_setting_sensitive(False)
 
             #if starting chronyd failed and chronyd is not running,
             #set switch back to OFF
-            if (ret != 0) and not iutil.service_running(NTP_SERVICE):
+            if (ret != 0) and not util.service_running(NTP_SERVICE):
                 switch.set_active(False)
 
         else:
@@ -1137,11 +1136,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return
 
             self._set_date_time_setting_sensitive(True)
-            ret = iutil.stop_service(NTP_SERVICE)
+            ret = util.stop_service(NTP_SERVICE)
 
             #if stopping chronyd failed and chronyd is running,
             #set switch back to ON
-            if (ret != 0) and iutil.service_running(NTP_SERVICE):
+            if (ret != 0) and util.service_running(NTP_SERVICE):
                 switch.set_active(True)
 
             self.clear_info()

@@ -23,10 +23,10 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.i18n import N_
+from pyanaconda.core.i18n import N_
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
-from pyanaconda import constants
+from pyanaconda.core import constants
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

@@ -28,7 +28,7 @@ from itertools import chain
 import crypt
 from ordered_set import OrderedSet
 
-from pyanaconda import iutil
+from pyanaconda.core import util
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
 from pyanaconda.product import productName
@@ -39,7 +39,7 @@ from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.nm import nm_device_hwaddress
 from pyanaconda import platform
 from blivet.size import Size
-from pyanaconda.i18n import _, N_
+from pyanaconda.core.i18n import _, N_
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -943,11 +943,11 @@ class BootLoader(object):
         if not self.config_file:
             raise BootLoaderError("no config file defined for this boot loader")
 
-        config_path = os.path.normpath(iutil.getSysroot() + self.config_file)
+        config_path = os.path.normpath(util.getSysroot() + self.config_file)
         if os.access(config_path, os.R_OK):
             os.rename(config_path, config_path + ".anacbak")
 
-        config = iutil.open_with_perm(config_path, "w", self.config_file_mode)
+        config = util.open_with_perm(config_path, "w", self.config_file_mode)
         self.write_config_header(config)
         self.write_config_images(config)
         config.close()
@@ -975,7 +975,7 @@ class BootLoader(object):
 
         self.write_config()
         os.sync()
-        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+        self.stage2_device.format.sync(root=util.getTargetPhysicalRoot())
         self.install()
 
     def install(self, args=None):
@@ -1158,9 +1158,9 @@ class GRUB(BootLoader):
 
         self.write_config_console(config)
 
-        if iutil.isConsoleOnVirtualTerminal(self.console):
+        if util.isConsoleOnVirtualTerminal(self.console):
             splash = "splash.xpm.gz"
-            splash_path = os.path.normpath("%s/boot/%s/%s" % (iutil.getSysroot(),
+            splash_path = os.path.normpath("%s/boot/%s/%s" % (util.getSysroot(),
                                                               self.splash_dir,
                                                               splash))
             if os.access(splash_path, os.R_OK):
@@ -1213,7 +1213,7 @@ class GRUB(BootLoader):
 
     def write_device_map(self):
         """ Write out a device map containing all supported devices. """
-        map_path = os.path.normpath(iutil.getSysroot() + self.device_map_file)
+        map_path = os.path.normpath(util.getSysroot() + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -1229,7 +1229,7 @@ class GRUB(BootLoader):
         super(GRUB, self).write_config_post()
 
         # make symlink for menu.lst (grub's default config file name)
-        menu_lst = "%s%s/menu.lst" % (iutil.getSysroot(), self.config_dir)
+        menu_lst = "%s%s/menu.lst" % (util.getSysroot(), self.config_dir)
         if os.access(menu_lst, os.R_OK):
             try:
                 os.rename(menu_lst, menu_lst + '.anacbak')
@@ -1242,7 +1242,7 @@ class GRUB(BootLoader):
             log.error("failed to create grub menu.lst symlink: %s", e)
 
         # make symlink to grub.conf in /etc since that's where configs belong
-        etc_grub = "%s/etc/%s" % (iutil.getSysroot(), self._config_file)
+        etc_grub = "%s/etc/%s" % (util.getSysroot(), self._config_file)
         if os.access(etc_grub, os.R_OK):
             try:
                 os.unlink(etc_grub)
@@ -1307,7 +1307,7 @@ class GRUB(BootLoader):
         return targets
 
     def install(self, args=None):
-        rc = iutil.execInSysroot("grub-install", ["--just-copy"])
+        rc = util.execInSysroot("grub-install", ["--just-copy"])
         if rc:
             raise BootLoaderError("boot loader install failed")
 
@@ -1327,7 +1327,7 @@ class GRUB(BootLoader):
             os.close(pwrite)
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
-            rc = iutil.execInSysroot("grub", args, stdin=pread)
+            rc = util.execInSysroot("grub", args, stdin=pread)
             os.close(pread)
             if rc:
                 raise BootLoaderError("boot loader install failed")
@@ -1462,7 +1462,7 @@ class GRUB2(GRUB):
 
     def write_device_map(self):
         """ Write out a device map containing all supported devices. """
-        map_path = os.path.normpath(iutil.getSysroot() + self.device_map_file)
+        map_path = os.path.normpath(util.getSysroot() + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -1487,7 +1487,7 @@ class GRUB2(GRUB):
         dev_map.close()
 
     def write_defaults(self):
-        defaults_file = "%s%s" % (iutil.getSysroot(), self.defaults_file)
+        defaults_file = "%s%s" % (util.getSysroot(), self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
@@ -1520,9 +1520,9 @@ class GRUB2(GRUB):
         passwords = "%s\n%s\n" % (self.password, self.password)
         os.write(pwrite, passwords.encode("utf-8"))
         os.close(pwrite)
-        buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
-                                    stdin=pread,
-                                    root=iutil.getSysroot())
+        buf = util.execWithCapture("grub2-mkpasswd-pbkdf2", [],
+                                   stdin=pread,
+                                   root=util.getSysroot())
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
@@ -1532,8 +1532,8 @@ class GRUB2(GRUB):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = "%s%s/%s" % (iutil.getSysroot(), self.config_dir, self._passwd_file)
-        header = iutil.open_with_perm(users_file, "w", 0o700)
+        users_file = "%s%s/%s" % (util.getSysroot(), self.config_dir, self._passwd_file)
+        header = util.open_with_perm(users_file, "w", 0o700)
         # XXX FIXME: document somewhere that the username is "root"
         self._encrypt_password()
         password_line = "GRUB2_PASSWORD=" + self.encrypted_password
@@ -1565,13 +1565,13 @@ class GRUB2(GRUB):
                 log.warning("Failed to find default image (%s), defaulting to 0", self.default.label)
                 default_index = 0
 
-            rc = iutil.execInSysroot("grub2-set-default", [str(default_index)])
+            rc = util.execInSysroot("grub2-set-default", [str(default_index)])
             if rc:
                 log.error("failed to set default menu entry to %s", productName)
 
         # now tell grub2 to generate the main configuration file
-        rc = iutil.execInSysroot("grub2-mkconfig",
-                                 ["-o", self.config_file])
+        rc = util.execInSysroot("grub2-mkconfig",
+                                ["-o", self.config_file])
         if rc:
             raise BootLoaderError("failed to write boot loader configuration")
 
@@ -1597,9 +1597,9 @@ class GRUB2(GRUB):
                 else:
                     log.info("bootloader.py: mbr will be updated for grub2")
 
-            rc = iutil.execWithRedirect("grub2-install", grub_args,
-                                        root=iutil.getSysroot(),
-                                        env_prune=['MALLOC_PERTURB_'])
+            rc = util.execWithRedirect("grub2-install", grub_args,
+                                       root=util.getSysroot(),
+                                       env_prune=['MALLOC_PERTURB_'])
             if rc:
                 raise BootLoaderError("boot loader install failed")
 
@@ -1614,15 +1614,15 @@ class GRUB2(GRUB):
 
         try:
             self.write_device_map()
-            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+            self.stage2_device.format.sync(root=util.getTargetPhysicalRoot())
             os.sync()
             self.install()
             os.sync()
-            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+            self.stage2_device.format.sync(root=util.getTargetPhysicalRoot())
         finally:
             self.write_config()
             os.sync()
-            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+            self.stage2_device.format.sync(root=util.getTargetPhysicalRoot())
 
     def check(self):
         """ When installing to the mbr of a disk grub2 needs enough space
@@ -1695,11 +1695,11 @@ class EFIBase(object):
             return ""
 
         if kwargs.pop("capture", False):
-            exec_func = iutil.execWithCapture
+            exec_func = util.execWithCapture
         else:
-            exec_func = iutil.execWithRedirect
+            exec_func = util.execWithRedirect
         if "root" not in kwargs:
-            kwargs["root"] = iutil.getSysroot()
+            kwargs["root"] = util.getSysroot()
 
         return exec_func("efibootmgr", list(args), **kwargs)
 
@@ -1716,7 +1716,7 @@ class EFIBase(object):
             "-c", "-w", "-L", productName.split("-")[0],  # pylint: disable=no-member
             "-d", boot_disk.path, "-p", boot_part_num,
             "-l", self.efi_dir_as_efifs_dir + self._efi_binary,  # pylint: disable=no-member
-            root=iutil.getSysroot()
+            root=util.getSysroot()
         )
         if rc:
             raise BootLoaderError("failed to set new efi boot target. This is most likely a kernel or firmware bug.")
@@ -1761,7 +1761,7 @@ class EFIBase(object):
 
         try:
             os.sync()
-            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot()) # pylint: disable=no-member
+            self.stage2_device.format.sync(root=util.getTargetPhysicalRoot()) # pylint: disable=no-member
             self.install()
         finally:
             self.write_config()  # pylint: disable=no-member
@@ -1870,8 +1870,8 @@ class MacEFIGRUB(EFIGRUB):
         self._packages64.extend(["grub2-tools-efi", "mactel-boot"])
 
     def mactel_config(self):
-        if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
-            rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
+        if os.path.exists(util.getSysroot() + "/usr/libexec/mactel-boot-setup"):
+            rc = util.execInSysroot("/usr/libexec/mactel-boot-setup", [])
             if rc:
                 log.error("failed to configure Mac boot loader")
 
@@ -2000,7 +2000,7 @@ class Yaboot(YabootBase):
         super(Yaboot, self).write_config_post()
 
         # make symlink in /etc to yaboot.conf if config is in /boot/etc
-        etc_yaboot_conf = iutil.getSysroot() + "/etc/yaboot.conf"
+        etc_yaboot_conf = util.getSysroot() + "/etc/yaboot.conf"
         if not os.access(etc_yaboot_conf, os.R_OK):
             try:
                 os.symlink("../boot/etc/yaboot.conf", etc_yaboot_conf)
@@ -2008,8 +2008,8 @@ class Yaboot(YabootBase):
                 log.error("failed to create /etc/yaboot.conf symlink: %s", e)
 
     def write_config(self):
-        if not os.path.isdir(iutil.getSysroot() + self.config_dir):
-            os.mkdir(iutil.getSysroot() + self.config_dir)
+        if not os.path.isdir(util.getSysroot() + self.config_dir):
+            os.mkdir(util.getSysroot() + self.config_dir)
 
         # this writes the config
         super(Yaboot, self).write_config()
@@ -2020,7 +2020,7 @@ class Yaboot(YabootBase):
 
     def install(self, args=None):
         args = ["-f", "-C", self.config_file]
-        rc = iutil.execInSysroot(self.prog, args)
+        rc = util.execInSysroot(self.prog, args)
         if rc:
             raise BootLoaderError("boot loader installation failed")
 
@@ -2051,8 +2051,8 @@ class IPSeriesYaboot(Yaboot):
 
         log.debug("updatePowerPCBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
-        buf = iutil.execWithCapture("nvram",
-                                    ["--print-config=boot-device"])
+        buf = util.execWithCapture("nvram",
+                                   ["--print-config=boot-device"])
 
         if len(buf) == 0:
             log.error("FAIL: nvram --print-config=boot-device")
@@ -2061,8 +2061,8 @@ class IPSeriesYaboot(Yaboot):
         boot_list = buf.strip().split()
         log.debug("updatePowerPCBootList: boot_list = %s", boot_list)
 
-        buf = iutil.execWithCapture("ofpathname",
-                                    [self.stage1_device.path])
+        buf = util.execWithCapture("ofpathname",
+                                   [self.stage1_device.path])
 
         if len(buf) > 0:
             boot_disk = buf.strip()
@@ -2079,7 +2079,7 @@ class IPSeriesYaboot(Yaboot):
 
         update_value = "boot-device=%s" % " ".join(boot_list)
 
-        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value])
+        rc = util.execWithRedirect("nvram", ["--update-config", update_value])
         if rc:
             log.error("FAIL: nvram --update-config %s", update_value)
         else:
@@ -2113,8 +2113,8 @@ class IPSeriesGRUB2(GRUB2):
 
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
-        buf = iutil.execWithCapture("nvram",
-                                    ["--print-config=boot-device"])
+        buf = util.execWithCapture("nvram",
+                                   ["--print-config=boot-device"])
 
         if len(buf) == 0:
             log.error("Failed to determine nvram boot device")
@@ -2123,8 +2123,8 @@ class IPSeriesGRUB2(GRUB2):
         boot_list = buf.strip().replace("\"", "").split()
         log.debug("updateNVRAMBootList: boot_list = %s", boot_list)
 
-        buf = iutil.execWithCapture("ofpathname",
-                                    [self.stage1_device.path])
+        buf = util.execWithCapture("ofpathname",
+                                   [self.stage1_device.path])
 
         if len(buf) > 0:
             boot_disk = buf.strip()
@@ -2138,7 +2138,7 @@ class IPSeriesGRUB2(GRUB2):
 
         update_value = "boot-device=%s" % " ".join(boot_list)
 
-        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value])
+        rc = util.execWithRedirect("nvram", ["--update-config", update_value])
         if rc:
             log.error("Failed to update new boot device order")
 
@@ -2149,7 +2149,7 @@ class IPSeriesGRUB2(GRUB2):
     def write_defaults(self):
         super(IPSeriesGRUB2, self).write_defaults()
 
-        defaults_file = "%s%s" % (iutil.getSysroot(), self.defaults_file)
+        defaults_file = "%s%s" % (util.getSysroot(), self.defaults_file)
         defaults = open(defaults_file, "a+")
         # The terminfo's X and Y size, and output location could change in the future
         defaults.write("GRUB_TERMINFO=\"terminfo -g 80x24 console\"\n")
@@ -2254,7 +2254,7 @@ class ZIPL(BootLoader):
     #
 
     def install(self, args=None):
-        buf = iutil.execWithCapture("zipl", [], root=iutil.getSysroot())
+        buf = util.execWithCapture("zipl", [], root=util.getSysroot())
         for line in buf.splitlines():
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:
@@ -2273,7 +2273,7 @@ class ZIPL(BootLoader):
             raise BootLoaderError("could not find IPL device")
 
         # do the reipl
-        iutil.reIPL(self.stage1_name)
+        util.reIPL(self.stage1_name)
 
 class EXTLINUX(BootLoader):
     name = "EXTLINUX"
@@ -2357,7 +2357,7 @@ class EXTLINUX(BootLoader):
             config.write("menu notabmsg Press [Tab] and enter the password to edit options")
 
     def write_config_post(self):
-        etc_extlinux = os.path.normpath(iutil.getSysroot() + "/etc/" + self._config_file)
+        etc_extlinux = os.path.normpath(util.getSysroot() + "/etc/" + self._config_file)
         if not os.access(etc_extlinux, os.R_OK):
             try:
                 os.symlink("../boot/%s" % self._config_file, etc_extlinux)
@@ -2370,7 +2370,7 @@ class EXTLINUX(BootLoader):
 
     def install(self, args=None):
         args = ["--install", self._config_dir]
-        rc = iutil.execInSysroot("extlinux", args)
+        rc = util.execInSysroot("extlinux", args)
 
         if rc:
             raise BootLoaderError("boot loader install failed")
@@ -2413,12 +2413,12 @@ def writeSysconfigKernel(storage, version, instClass):
     # get the name of the default kernel package based on the version
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
-    if not os.path.isfile(iutil.getSysroot() + kernel_file):
+    if not os.path.isfile(util.getSysroot() + kernel_file):
         efi_dir = instClass.efi_dir
         if flags.cmdline.get("force_efi_dir") is not None:
             efi_dir = flags.cmdline.get("force_efi_dir")
         kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
-        if not os.path.isfile(iutil.getSysroot() + kernel_file):
+        if not os.path.isfile(util.getSysroot() + kernel_file):
             log.error("failed to recreate path to default kernel image")
             return
 
@@ -2428,7 +2428,7 @@ def writeSysconfigKernel(storage, version, instClass):
         log.error("failed to import rpm python module")
         return
 
-    ts = rpm.TransactionSet(iutil.getSysroot())
+    ts = rpm.TransactionSet(util.getSysroot())
     mi = ts.dbMatch('basenames', kernel_file)
     try:
         h = next(mi)
@@ -2438,7 +2438,7 @@ def writeSysconfigKernel(storage, version, instClass):
 
     kernel = h.name.decode()
 
-    f = open(iutil.getSysroot() + "/etc/sysconfig/kernel", "w+")
+    f = open(util.getSysroot() + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
@@ -2498,8 +2498,9 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     # add whatever rescue kernels we can find to the end
     kernel_versions = list(payload.kernelVersionList)
 
-    rescue_versions = glob(iutil.getSysroot() + "/boot/vmlinuz-*-rescue-*")
-    rescue_versions += glob(iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+    rescue_versions = glob(util.getSysroot() + "/boot/vmlinuz-*-rescue-*")
+    rescue_versions += glob(
+        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
     kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
 
     if not kernel_versions:
