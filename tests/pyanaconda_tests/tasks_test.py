@@ -15,15 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 import unittest
 
 from threading import Event
-
-from pyanaconda.threading import initThreading
-
-initThreading()
-
 from pyanaconda.task.task import Task
 from tests.pyanaconda_tests import run_in_glib
 
