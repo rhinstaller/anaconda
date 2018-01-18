@@ -85,6 +85,13 @@ class KickstartModuleInterface(AdvancedInterfaceTemplate):
         """
         return self.implementation.kickstarted
 
+    def SetKickstarted(self, kickstarted: Bool):
+        """Set the Kickstarted property.
+
+        FIXME: This method should be removed after we move the logic from UI.
+        """
+        self.implementation.kickstarted = kickstarted
+
     @emits_properties_changed
     def ReadKickstart(self, kickstart: Str) -> Dict[Str, Variant]:
         """Read the kickstart string.

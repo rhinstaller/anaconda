@@ -22,6 +22,10 @@ import re
 import os
 
 import gi
+
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
@@ -79,24 +83,25 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
             return
 
+        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
         loc_timezones = localization.get_locale_timezones(self.data.lang.lang)
         if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
             log.info("using timezone determined by geolocation")
-            self.data.timezone.timezone = geoloc.geoloc.result.timezone
+            timezone_proxy.SetTimezone(geoloc.geoloc.result.timezone)
             # Either this is an interactive install and timezone.seen propagates
             # from the interactive default kickstart, or this is a kickstart
             # install where the user explicitly requested geolocation to be used.
             # So set timezone.seen to True, so that the user isn't forced to
             # enter the Date & Time spoke to acknowledge the timezone detected
             # by geolocation before continuing the installation.
-            self.data.timezone.seen = True
-        elif loc_timezones and not self.data.timezone.timezone:
+            timezone_proxy.SetKickstarted(True)
+        elif loc_timezones and not timezone_proxy.Timezone:
             # no data is provided by Geolocation, try to get timezone from the
             # current language
             log.info("geolocation not finished in time, using default timezone")
-            self.data.timezone.timezone = loc_timezones[0]
+            timezone_proxy.SetTimezone(loc_timezones[0])
 
     @property
     def completed(self):

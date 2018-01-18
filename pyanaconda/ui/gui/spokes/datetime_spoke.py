@@ -43,6 +43,8 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
@@ -155,8 +157,8 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     mainWidgetName = "ntpConfigDialog"
     uiFile = "spokes/datetime_spoke.glade"
 
-    def __init__(self, *args):
-        GUIObject.__init__(self, *args)
+    def __init__(self, data, timezone_module):
+        GUIObject.__init__(self, data)
 
         # Use GUIDIalogInputCheckHandler to manipulate the sensitivity of the
         # add button, and check for valid input in on_entry_activated
@@ -166,6 +168,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         #epoch is increased when serversStore is repopulated
         self._epoch = 0
         self._epoch_lock = threading.Lock()
+        self._timezone_module = timezone_module
 
     @property
     def working_server(self):
@@ -223,8 +226,10 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     def _initialize_store_from_config(self):
         self._serversStore.clear()
 
-        if self.data.timezone.ntpservers:
-            pools, servers = ntp.internal_to_pools_and_servers(self.data.timezone.ntpservers)
+        kickstart_ntp_servers = self._timezone_module.proxy.NTPServers
+
+        if kickstart_ntp_servers:
+            pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntp_servers)
         else:
             try:
                 pools, servers = ntp.get_servers_from_config()
@@ -429,6 +434,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._shown = False
         self._tz = None
 
+        self._timezone_module = DBusObjectObserver(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module.connect()
+
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
@@ -501,7 +509,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not flags.can_touch_runtime_system("modify system time and date"):
             self._set_date_time_setting_sensitive(False)
 
-        self._config_dialog = NTPconfigDialog(self.data)
+        self._config_dialog = NTPconfigDialog(None, self._timezone_module)
         self._config_dialog.initialize()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
@@ -533,13 +541,14 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.add_to_store_xlated(self._citiesStore, city, xlated)
 
         self._update_datetime_timer = None
-        if is_valid_timezone(self.data.timezone.timezone):
-            self._set_timezone(self.data.timezone.timezone)
+        kickstart_timezone = self._timezone_module.proxy.Timezone
+        if is_valid_timezone(kickstart_timezone):
+            self._set_timezone(kickstart_timezone)
         elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default (%s)",
-                        self.data.timezone.timezone, DEFAULT_TZ)
+                        kickstart_timezone, DEFAULT_TZ)
             self._set_timezone(DEFAULT_TZ)
-            self.data.timezone.timezone = DEFAULT_TZ
+            self._timezone_module.proxy.SetTimezone(DEFAULT_TZ)
 
         time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
@@ -554,9 +563,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def status(self):
-        if self.data.timezone.timezone:
-            if is_valid_timezone(self.data.timezone.timezone):
-                return _("%s timezone") % get_xlated_timezone(self.data.timezone.timezone)
+        kickstart_timezone = self._timezone_module.proxy.Timezone
+
+        if kickstart_timezone:
+            if is_valid_timezone(kickstart_timezone):
+                return _("%s timezone") % get_xlated_timezone(kickstart_timezone)
             else:
                 return _("Invalid timezone")
         else:
@@ -578,17 +589,17 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not region or not city:
             return
 
-        old_tz = self.data.timezone.timezone
+        old_tz = self._timezone_module.proxy.Timezone
         new_tz = region + "/" + city
 
-        self.data.timezone.timezone = new_tz
+        self._timezone_module.proxy.SetTimezone(new_tz)
 
         if old_tz != new_tz:
             # new values, not from kickstart
-            self.data.timezone.seen = False
+            # TODO: seen should be set from the module
             self._kickstarted = False
 
-        self.data.timezone.nontp = not self._ntpSwitch.get_active()
+        self._timezone_module.proxy.SetNTPEnabled(self._ntpSwitch.get_active())
 
     def execute(self):
         if self._update_datetime_timer is not None:
@@ -601,11 +612,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def completed(self):
-        if self._kickstarted and not self.data.timezone.seen:
+        if self._kickstarted and not self._timezone_module.proxy.Kickstarted:
             # taking values from kickstart, but not specified
             return False
         else:
-            return is_valid_timezone(self.data.timezone.timezone)
+            return is_valid_timezone(self._timezone_module.proxy.Timezone)
 
     @property
     def mandatory(self):
@@ -619,8 +630,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._update_datetime_timer.timeout_sec(1, self._update_datetime)
         self._start_updating_timer = None
 
-        if is_valid_timezone(self.data.timezone.timezone):
-            self._tzmap.set_timezone(self.data.timezone.timezone)
+        kickstart_timezone = self._timezone_module.proxy.Timezone
+
+        if is_valid_timezone(kickstart_timezone):
+            self._tzmap.set_timezone(kickstart_timezone)
             time.tzset()
 
         self._update_datetime()
@@ -635,7 +648,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if flags.can_touch_runtime_system("get NTP service state"):
             ntp_working = has_active_network and util.service_running(NTP_SERVICE)
         else:
-            ntp_working = not self.data.timezone.nontp
+            ntp_working = self._timezone_module.proxy.NTPEnabled
 
         self._ntpSwitch.set_active(ntp_working)
 
@@ -1153,7 +1166,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if response == 1:
             pools, servers = self._config_dialog.pools_servers
-            self.data.timezone.ntpservers = ntp.pools_servers_to_internal(pools, servers)
+            self._timezone_module.proxy.SetNTPServers(ntp.pools_servers_to_internal(pools, servers))
 
             if self._config_dialog.working_server is None:
                 self._show_no_ntp_server_warning()

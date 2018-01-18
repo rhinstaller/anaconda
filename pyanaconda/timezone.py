@@ -29,6 +29,8 @@ from collections import OrderedDict
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_STORAGE
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
 from blivet import arch
@@ -52,13 +54,13 @@ class TimezoneConfigError(Exception):
     """Exception class for timezone configuration related problems"""
     pass
 
-def time_initialize(timezone, storage, bootloader):
+def time_initialize(timezone_proxy, storage, bootloader):
     """
     Try to guess if RTC uses UTC time or not, set timezone.isUtc properly and
     set system time from RTC using the UTC guess.
     Guess is done by searching for bootable ntfs devices.
 
-    :param timezone: ksdata.timezone object
+    :param timezone_proxy: DBus proxy of the timezone module
     :param storage: pyanaconda.storage.InstallerStorage instance
     :param bootloader: bootloader.Bootloader instance
 
@@ -68,35 +70,35 @@ def time_initialize(timezone, storage, bootloader):
         # nothing to do on s390(x) were hwclock doesn't exist
         return
 
-    if not timezone.isUtc and not flags.automatedInstall:
+    if not timezone_proxy.IsUTC and not flags.automatedInstall:
         # if set in the kickstart, no magic needed here
         threadMgr.wait(THREAD_STORAGE)
         ntfs_devs = filter(lambda dev: dev.format.name == "ntfs",
                            storage.devices)
 
-        timezone.isUtc = not bootloader.has_windows(ntfs_devs)
+        timezone_proxy.SetIsUTC(not bootloader.has_windows(ntfs_devs))
 
     cmd = "hwclock"
     args = ["--hctosys"]
-    if timezone.isUtc:
+    if timezone_proxy.IsUTC:
         args.append("--utc")
     else:
         args.append("--localtime")
 
     util.execWithRedirect(cmd, args)
 
-def write_timezone_config(timezone, root):
+def write_timezone_config(timezone_proxy, root):
     """
     Write timezone configuration for the system specified by root.
 
-    :param timezone: ksdata.timezone object
+    :param timezone_proxy: DBus proxy of the timezone module
     :param root: path to the root
     :raise: TimezoneConfigError
 
     """
 
     # we want to create a relative symlink
-    tz_file = "/usr/share/zoneinfo/" + timezone.timezone
+    tz_file = "/usr/share/zoneinfo/" + timezone_proxy.Timezone
     rooted_tz_file = os.path.normpath(root + tz_file)
     relative_path = os.path.normpath("../" + tz_file)
     link_path = os.path.normpath(root + "/etc/localtime")
@@ -131,7 +133,7 @@ def write_timezone_config(timezone, root):
         with open(os.path.normpath(root + "/etc/adjtime"), "w") as fobj:
             fobj.write(lines[0])
             fobj.write(lines[1])
-            if timezone.isUtc:
+            if timezone_proxy.IsUTC:
                 fobj.write("UTC\n")
             else:
                 fobj.write("LOCAL\n")
@@ -139,20 +141,22 @@ def write_timezone_config(timezone, root):
         msg = "Error while writing /etc/adjtime file: %s" % ioerr.strerror
         raise TimezoneConfigError(msg)
 
-def save_hw_clock(timezone):
+def save_hw_clock(timezone_proxy=None):
     """
     Save system time to HW clock.
 
-    :param timezone: ksdata.timezone object
+    :param timezone_proxy: DBus proxy of the timezone module
 
     """
-
     if arch.is_s390():
         return
 
+    if not timezone_proxy:
+        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+
     cmd = "hwclock"
     args = ["--systohc"]
-    if timezone.isUtc:
+    if timezone_proxy.IsUTC:
         args.append("--utc")
     else:
         args.append("--local")

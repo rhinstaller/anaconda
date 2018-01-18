@@ -483,17 +483,23 @@ if __name__ == "__main__":
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
     # start dbus session (if not already running) and run boss in it
-    if flags.run_boss:
-        anaconda.ensure_running_dbus()
-        anaconda.run_boss()
+    anaconda.ensure_running_dbus()
+    anaconda.run_boss()
 
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
 
+    # Make sure that all DBus modules are ready.
+    if not startup_utils.wait_for_modules():
+        stdout_log.error("Anaconda DBus modules failed to start on time.")
+        util.ipmi_report(constants.IPMI_ABORTED)
+        time.sleep(10)
+        sys.exit(1)
+
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.
-    ksdata = startup_utils.parse_kickstart(opts, addon_paths, pass_to_boss=flags.run_boss)
+    ksdata = startup_utils.parse_kickstart(opts, addon_paths, pass_to_boss=True)
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
@@ -602,7 +608,8 @@ if __name__ == "__main__":
         wait_for_connected_NM(timeout=opts.waitfornet)
 
     # In any case do some actions only after NM finishes its connecting.
-    threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
+    threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM,
+                                 target=wait_for_connecting_NM_thread))
 
     # initialize the screen access manager before launching the UI
     from pyanaconda import screen_access
@@ -682,9 +689,16 @@ if __name__ == "__main__":
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
 
+    from pyanaconda.dbus import DBus
+    from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+    timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+
     if can_touch_runtime_system("initialize time", touch_live=True):
-        threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT, target=time_initialize,
-                                     args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
+                                     target=time_initialize,
+                                     args=(timezone_proxy,
+                                           anaconda.storage,
+                                           anaconda.bootloader)))
 
     if flags.rescue_mode:
         rescue.start_rescue_mode_ui(anaconda)
@@ -720,11 +734,13 @@ if __name__ == "__main__":
 
     # setup ntp servers and start NTP daemon if not requested otherwise
     if can_touch_runtime_system("start chronyd"):
-        if anaconda.ksdata.timezone.ntpservers:
-            pools, servers = ntp.internal_to_pools_and_servers(anaconda.ksdata.timezone.ntpservers)
+        kickstart_ntpservers = timezone_proxy.NTPServers
+
+        if kickstart_ntpservers:
+            pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntpservers)
             ntp.save_servers_to_config(pools, servers)
 
-        if not anaconda.ksdata.timezone.nontp:
+        if timezone_proxy.NTPEnabled:
             util.start_service("chronyd")
 
     # Create pre-install snapshots
