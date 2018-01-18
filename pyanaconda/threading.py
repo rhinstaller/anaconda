@@ -45,6 +45,9 @@ class ThreadManager(object):
         self._objs_lock = threading.RLock()
         self._errors = {}
         self._errors_lock = threading.RLock()
+        self._main_thread = threading.main_thread()
+
+    def set_current_thread_as_main(self):
         self._main_thread = threading.current_thread()
 
     def __call__(self):
@@ -303,8 +306,7 @@ def initThreading():
        an event is triggered in the GTK main loop. And IT HAS TO BE CALLED IN
        THE MAIN THREAD.
     """
-    global threadMgr
-    threadMgr = ThreadManager()
+    threadMgr.set_current_thread_as_main()
 
 
-threadMgr = None
+threadMgr = ThreadManager()

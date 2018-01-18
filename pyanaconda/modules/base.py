@@ -18,11 +18,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-# FIXME: Remove this after initThreading will be replaced
-from pyanaconda.threading import initThreading
-initThreading()
-
 from abc import ABC
 
 from pyanaconda.core.event_loop import EventLoop
