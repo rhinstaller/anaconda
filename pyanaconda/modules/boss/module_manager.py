@@ -72,7 +72,7 @@ class ModuleManager(object):
             # Watch the module.
             observer.service_available.connect(self._process_module_is_available)
             observer.service_unavailable.connect(self._process_module_is_unavailable)
-            observer.watch()
+            observer.connect_once_available()
 
     def _start_modules_callback(self, service, returned, error):
         """Callback for start_modules."""

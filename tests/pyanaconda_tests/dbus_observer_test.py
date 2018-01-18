@@ -36,6 +36,10 @@ class DBusObserverTestCase(unittest.TestCase):
     def _make_service_available(self, observer):
         """Make the service available."""
         observer._service_name_appeared_callback()
+        self._test_if_service_available(observer)
+
+    def _test_if_service_available(self, observer):
+        """Test if service is available."""
         self.assertTrue(observer.is_service_available)
 
         observer._service_available.emit.assert_called_once_with(observer)
@@ -47,6 +51,10 @@ class DBusObserverTestCase(unittest.TestCase):
     def _make_service_unavailable(self, observer):
         """Make the service unavailable."""
         observer._service_name_vanished_callback()
+        self._test_if_service_unavailable(observer)
+
+    def _test_if_service_unavailable(self, observer):
+        """Test if service is unavailable."""
         self.assertFalse(observer.is_service_available)
 
         observer._service_unavailable.emit.assert_called_once_with(observer)
@@ -239,3 +247,58 @@ class DBusObserverTestCase(unittest.TestCase):
 
         # Disable service.
         self._make_service_unavailable(observer)
+
+    @patch('pyanaconda.dbus.observer.DBus.get_dbus_proxy')
+    @patch('pyanaconda.dbus.observer.DBusObserver._watch')
+    @patch('pyanaconda.dbus.observer.DBusObserver._unwatch')
+    def connect_test(self, _proxy_getter, watch, unwatch):
+        """Test observer connect."""
+        observer = DBusObserver("SERVICE")
+        self._setup_observer(observer)
+
+        observer.connect()
+        watch.assert_called_once()
+        self._test_if_service_available(observer)
+
+        observer.disconnect()
+        unwatch.assert_called_once()
+        self._test_if_service_unavailable(observer)
+
+    @patch('pyanaconda.dbus.observer.DBus.get_dbus_proxy')
+    @patch('pyanaconda.dbus.observer.DBusObserver._watch')
+    @patch('pyanaconda.dbus.observer.DBusObserver._unwatch')
+    def connect_advanced_test(self, _proxy_getter, watch, unwatch):
+        """Advanced test for observer connect."""
+        observer = DBusObserver("SERVICE")
+        self._setup_observer(observer)
+
+        observer.connect()
+        watch.assert_called_once()
+        self._test_if_service_available(observer)
+
+        observer._service_name_appeared_callback()
+        self.assertTrue(observer.is_service_available)
+        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
+        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
+
+        observer._service_name_vanished_callback()
+        self._test_if_service_unavailable(observer)
+
+        observer.disconnect()
+        unwatch.assert_called_once()
+        self.assertFalse(observer.is_service_available)
+        observer._service_available.emit.assert_not_called()  # pylint: disable=no-member
+        observer._service_unavailable.emit.assert_not_called()  # pylint: disable=no-member
+
+    @patch('pyanaconda.dbus.observer.DBus.get_dbus_proxy')
+    def connect_failed_test(self, proxy_getter):
+        """Test observer connect failed."""
+        observer = DBusObserver("SERVICE")
+        self._setup_observer(observer)
+
+        proxy = Mock()
+        proxy.NameHasOwner.return_value = False
+        proxy_getter.return_value = proxy
+
+        with self.assertRaises(DBusObserverError):
+            observer.connect()

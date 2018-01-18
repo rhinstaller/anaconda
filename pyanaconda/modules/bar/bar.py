@@ -49,7 +49,7 @@ class Bar(KickstartModule):
 
         # Start to watch the timezone module.
         self._timezone_module.cached_properties_changed.connect(self._timezone_callback)
-        self._timezone_module.watch()
+        self._timezone_module.connect_once_available()
 
     @property
     def kickstart_specification(self):

@@ -40,16 +40,26 @@ class DBusObserver(object):
 
     Usage:
 
+    # Create the observer and connect to its signals.
+    observer = DBusObserver("org.freedesktop.NetworkManager")
+
     def callback1(observer):
         print("Service is available!")
 
     def callback2(observer):
         print("Service is unavailable!")
 
-    observer = DBusObserver("org.freedesktop.NetworkManager")
     observer.service_available.connect(callback1)
     observer.service_unavailable.connect(callback2)
-    observer.watch()
+
+    # Connect to the service immediately.
+    observer.connect()
+
+    # Or connect to the service once it is available.
+    # observer.connect_once_available()
+
+    # Disconnect the observer.
+    observer.disconnect()
     """
 
     def __init__(self, service_name):
@@ -93,7 +103,40 @@ class DBusObserver(object):
         """
         return self._service_unavailable
 
-    def watch(self):
+    def connect(self):
+        """Connect to the service immediately.
+
+        :raise DBusObserverError: if service is not available
+        """
+        bus_proxy = DBus.get_dbus_proxy()
+
+        if not bus_proxy.NameHasOwner(self.service_name):
+            raise DBusObserverError("Service {} is not available."
+                                    .format(self._service_name))
+
+        self._enable_service()
+        self._watch()
+
+    def connect_once_available(self):
+        """Connect to the service once it is available.
+
+        The observer is not connected to the service until it
+        emits the service_available signal.
+        """
+        self._watch()
+
+    def disconnect(self):
+        """Disconnect from the service.
+
+        Disconnect from the service if it is connected and stop
+        watching its availability.
+        """
+        self._unwatch()
+
+        if self.is_service_available:
+            self._disable_service()
+
+    def _watch(self):
         """Watch the service name on DBus."""
         bus = DBus.get_connection()
         num = bus.watch_name(self.service_name,
@@ -103,21 +146,31 @@ class DBusObserver(object):
 
         self._watched_id = num
 
-    def unwatch(self):
+    def _unwatch(self):
         """Stop to watch the service name on DBus."""
         bus = DBus.get_connection()
         bus.unwatch_name(self._watched_id)
         self._watched_id = None
 
-    def _service_name_appeared_callback(self, *args):
-        """Callback for the watch method."""
+    def _enable_service(self):
+        """Enable the service."""
         self._is_service_available = True
         self._service_available.emit(self)
 
-    def _service_name_vanished_callback(self, *args):
-        """Callback for the watch method."""
+    def _disable_service(self):
+        """Disable the service."""
         self._is_service_available = False
         self._service_unavailable.emit(self)
+
+    def _service_name_appeared_callback(self, *args):
+        """Callback for the watch method."""
+        if not self.is_service_available:
+            self._enable_service()
+
+    def _service_name_vanished_callback(self, *args):
+        """Callback for the watch method."""
+        if self.is_service_available:
+            self._disable_service()
 
     def __str__(self):
         """Returns a string version of this object."""
@@ -141,7 +194,7 @@ class DBusServiceObserver(DBusObserver):
     Usage:
 
     observer = DBusServiceObserver("org.freedesktop.NetworkManager")
-    observer.watch()
+    observer.connect()
 
     proxy = observer.get_proxy("org/freedesktop/NetworkManager/Settings")
     result = proxy.ListConnections()
@@ -160,8 +213,8 @@ class DBusServiceObserver(DBusObserver):
     def get_proxy(self, object_path):
         """"Returns a proxy of the remote object."""
         if not self._is_service_available:
-            raise DBusObserverError("Service %s is not available.",
-                                    self._service_name)
+            raise DBusObserverError("Service {} is not available."
+                                    .format(self._service_name))
 
         if object_path in self._proxies:
             return self._proxies.get(object_path)
@@ -170,15 +223,15 @@ class DBusServiceObserver(DBusObserver):
         self._proxies[object_path] = proxy
         return proxy
 
-    def _service_name_appeared_callback(self, *args):
-        """Callback for the watch method."""
+    def _enable_service(self):
+        """Enable the service."""
         self._proxies = dict()
-        super()._service_name_appeared_callback(*args)
+        super()._enable_service()
 
-    def _service_name_vanished_callback(self, *args):
-        """Callback for the watch method."""
+    def _disable_service(self):
+        """Disable the service."""
         self._proxies = dict()
-        super()._service_name_vanished_callback(*args)
+        super()._disable_service()
 
 
 class DBusObjectObserver(DBusObserver):
@@ -193,7 +246,7 @@ class DBusObjectObserver(DBusObserver):
 
     observer = DBusObjectObserver("org.freedesktop.NetworkManager",
                                   "org/freedesktop/NetworkManager/Settings")
-    observer.watch()
+    observer.connect()
     result = observer.proxy.ListConnections()
     print(result)
 
@@ -213,8 +266,8 @@ class DBusObjectObserver(DBusObserver):
     def proxy(self):
         """"Returns a proxy of the remote object."""
         if not self._is_service_available:
-            raise DBusObserverError("Service %s is not available.",
-                                    self._service_name)
+            raise DBusObserverError("Service {} is not available."
+                                    .format(self._service_name))
 
         if not self._proxy:
             self._proxy = DBus.get_proxy(self._service_name,
@@ -222,15 +275,15 @@ class DBusObjectObserver(DBusObserver):
 
         return self._proxy
 
-    def _service_name_appeared_callback(self, *args):
-        """Callback for the watch method."""
+    def _enable_service(self):
+        """Enable the service."""
         self._proxy = None
-        super()._service_name_appeared_callback(*args)
+        super()._enable_service()
 
-    def _service_name_vanished_callback(self, *args):
-        """Callback for the watch method."""
+    def _disable_service(self):
+        """Disable the service"""
         self._proxy = None
-        super()._service_name_vanished_callback(*args)
+        super()._disable_service()
 
     def __str__(self):
         """Returns a string version of this object."""
@@ -265,7 +318,7 @@ class PropertiesCache(object):
         the attribute in the usual places.
         """
         if name not in self._properties:
-            raise AttributeError("Unknown property %s.", name)
+            raise AttributeError("Unknown property {}.".format(name))
 
         return self._properties[name]
 
@@ -280,7 +333,7 @@ class PropertiesCache(object):
         if name in {"_properties"}:
             return super().__setattr__(name, value)
 
-        raise AttributeError("It is not allowed to set %s.", name)
+        raise AttributeError("It is not allowed to set {}.".format(name))
 
 
 class DBusCachedObserver(DBusObjectObserver):
@@ -297,7 +350,7 @@ class DBusCachedObserver(DBusObjectObserver):
     observer = DBusCachedObserver("org.freedesktop.NetworkManager",
                                   "org/freedesktop/NetworkManager/Settings",
                                   ["org.freedesktop.NetworkManager.Settings"])
-    observer.watch()
+    observer.connect()
     print(observer.cache.Hostname)
     """
 
@@ -339,16 +392,19 @@ class DBusCachedObserver(DBusObjectObserver):
         """
         return self._cached_properties_changed
 
-    def _service_name_appeared_callback(self, *args):
-        """Callback for the watch method."""
+    def force_update(self):
+        """Force the update of the cache."""
+        for interface in self._watched_interfaces:
+            self._cache.update(self.proxy.GetAll(interface))
+
+    def _enable_service(self):
+        """Enable the service."""
         self._proxy = None
         self._is_service_available = True
 
         # Synchronize properties with the remote object.
         self.proxy.PropertiesChanged.connect(self._properties_changed_callback)
-
-        for interface in self._watched_interfaces:
-            self._cache.update(self.proxy.GetAll(interface))
+        self.force_update()
 
         # Send cached_properties_changed signal.
         observer = self
