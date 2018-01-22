@@ -20,8 +20,8 @@ fi
 
 if [ -e ${NOSAVE_INPUT_KS_FILE} ]; then
     rm -f ${NOSAVE_INPUT_KS_FILE}
-else
-    [ -e /run/install/ks.cfg ] && cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
+elif [ -e /run/install/ks.cfg ]; then
+    cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
 fi
 
 %end
