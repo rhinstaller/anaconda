@@ -57,6 +57,7 @@ class TimezoneModule(KickstartModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        log.debug("Processing kickstart data...")
         self.set_timezone(data.timezone.timezone)
         self.set_is_utc(data.timezone.isUtc)
         self.set_ntp_enabled(not data.timezone.nontp)
@@ -64,6 +65,7 @@ class TimezoneModule(KickstartModule):
 
     def generate_kickstart(self):
         """Return the kickstart string."""
+        log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
         data.timezone.timezone = self.timezone
         data.timezone.isUtc = self.is_utc
@@ -83,6 +85,7 @@ class TimezoneModule(KickstartModule):
         """Set the timezone."""
         self._timezone = timezone
         self.timezone_changed.emit()
+        log.debug("Timezone is set to %s.", timezone)
 
     @property
     def is_utc(self):
@@ -93,6 +96,7 @@ class TimezoneModule(KickstartModule):
         """Set if the hardware clock is set to UTC."""
         self._is_utc = is_utc
         self.is_utc_changed.emit()
+        log.debug("UTC is set to %s.", is_utc)
 
     @property
     def ntp_enabled(self):
@@ -103,6 +107,7 @@ class TimezoneModule(KickstartModule):
         """Enable or disable automatic starting of NTP service."""
         self._ntp_enabled = ntp_enabled
         self.ntp_enabled_changed.emit()
+        log.debug("NTP is set to %s.", ntp_enabled)
 
     @property
     def ntp_servers(self):
@@ -113,3 +118,4 @@ class TimezoneModule(KickstartModule):
         """Set NTP servers."""
         self._ntp_servers = list(servers)
         self.ntp_servers_changed.emit()
+        log.debug("NTP servers are set to %s.", servers)

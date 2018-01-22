@@ -147,6 +147,7 @@ class KickstartModule(BaseModule):
     def kickstarted(self, value):
         self._kickstarted = value
         self.kickstarted_changed.emit()
+        log.debug("Kickstarted is set to %s.", value)
 
     def get_kickstart_handler(self):
         """Return a kickstart handler.
@@ -172,6 +173,7 @@ class KickstartModule(BaseModule):
         :param s: a kickstart string
         :raises: instances of KickstartError
         """
+        log.debug("Reading kickstart...")
         handler = self.get_kickstart_handler()
         parser = self.get_kickstart_parser(handler)
 
