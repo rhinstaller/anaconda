@@ -58,7 +58,7 @@ class TimezoneModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self.set_timezone(data.timezone.timezone)
-        self.set_utc(data.timezone.isUtc)
+        self.set_is_utc(data.timezone.isUtc)
         self.set_ntp_enabled(not data.timezone.nontp)
         self.set_ntp_servers(data.timezone.ntpservers)
 
@@ -89,7 +89,7 @@ class TimezoneModule(KickstartModule):
         """Is the hardware clock set to UTC?"""
         return self._is_utc
 
-    def set_utc(self, is_utc):
+    def set_is_utc(self, is_utc):
         """Set if the hardware clock is set to UTC."""
         self._is_utc = is_utc
         self.is_utc_changed.emit()

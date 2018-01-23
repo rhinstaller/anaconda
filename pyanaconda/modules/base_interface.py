@@ -37,6 +37,7 @@ class KickstartModuleInterface(AdvancedInterfaceTemplate):
     def connect_signals(self):
         """Connect the signals."""
         self.implementation.module_properties_changed.connect(self.flush_changes)
+        self.implementation.kickstarted_changed.connect(self.changed("Kickstarted"))
 
     @property
     def AvailableTasks(self) -> List[Tuple[Str, Str]]:
@@ -75,6 +76,14 @@ class KickstartModuleInterface(AdvancedInterfaceTemplate):
         :returns: List of names of kickstart addons handled by module.
         """
         return self.implementation.kickstart_addon_names
+
+    @property
+    def Kickstarted(self) -> Bool:
+        """Was this module set up by the kickstart?
+
+        :return: True if module was set up by the kickstart, otherwise False
+        """
+        return self.implementation.kickstarted
 
     @emits_properties_changed
     def ReadKickstart(self, kickstart: Str) -> Dict[Str, Variant]:

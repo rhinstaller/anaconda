@@ -83,6 +83,9 @@ class KickstartModule(BaseModule):
         self._published_tasks = []
         self._module_properties_changed = Signal()
 
+        self.kickstarted_changed = Signal()
+        self._kickstarted = False
+
     @property
     def module_properties_changed(self):
         """Signal that module might have changed.
@@ -135,6 +138,16 @@ class KickstartModule(BaseModule):
         # TODO: We need to add support for addons.
         return list()
 
+    @property
+    def kickstarted(self):
+        """Was this module set up by the kickstart?"""
+        return self._kickstarted
+
+    @kickstarted.setter
+    def kickstarted(self, value):
+        self._kickstarted = value
+        self.kickstarted_changed.emit()
+
     def get_kickstart_data(self):
         """Get an empty kickstart data."""
         return get_kickstart_handler(self.kickstart_specification)
@@ -154,6 +167,7 @@ class KickstartModule(BaseModule):
 
         parser.readKickstartFromString(s)
         self.process_kickstart(handler)
+        self.kickstarted = True
 
     def process_kickstart(self, data):
         """Process the kickstart data.

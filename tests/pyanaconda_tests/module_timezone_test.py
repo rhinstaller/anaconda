@@ -20,7 +20,7 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, DBUS_MODULE_NAMESPACE
 from pyanaconda.modules.timezone.timezone import TimezoneModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 
@@ -53,7 +53,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
 
     def utc_property_test(self):
         """Test the IsUtc property."""
-        self.timezone_interface.SetUTC(True)
+        self.timezone_interface.SetIsUTC(True)
         self.assertEqual(self.timezone_interface.IsUTC, True)
         self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'IsUTC': True}, [])
 
@@ -82,7 +82,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.assertEqual(ks_output, self.timezone_interface.GenerateKickstart())
 
         # Test the properties changed callback.
-        self.callback.assert_called_once()
+        self.callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
 
     def kickstart_test(self):
         """Test the timezone command."""

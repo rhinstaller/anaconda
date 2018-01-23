@@ -67,12 +67,12 @@ class TimezoneInterface(KickstartModuleInterface):
         return self.implementation.is_utc
 
     @emits_properties_changed
-    def SetUTC(self, is_utc: Bool):
+    def SetIsUTC(self, is_utc: Bool):
         """Set if the hardware clock set to UTC or not.
 
         :param is_utc: Is the hardware clock set to UTC?
         """
-        self.implementation.set_utc(is_utc)
+        self.implementation.set_is_utc(is_utc)
 
     @property
     def NTPEnabled(self) -> Bool:
