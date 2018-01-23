@@ -301,14 +301,7 @@ def setup_display(anaconda, options, addon_paths=None):
             # user has explicitly specified text mode
             flags.vncquestion = False
 
-    display_mode_name = anaconda.display_mode.value
-    if display_mode_name:
-        log.info("Display mode = %s", anaconda.display_mode)
-    elif anaconda.display_mode:
-        log.error("Unknown display mode: %s", anaconda.display_mode)
-    else:
-        log.error("Display mode not set!")
-
+    anaconda.log_display_mode()
     startup_utils.check_memory(anaconda, options)
 
     # check_memory may have changed the display mode

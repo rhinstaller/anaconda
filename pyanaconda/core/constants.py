@@ -260,6 +260,17 @@ class DisplayModes(Enum):
     GUI = "GUI"
     TUI = "TUI"
 
+
+DISPLAY_MODE_NAME = {
+    DisplayModes.GUI: "graphical mode",
+    DisplayModes.TUI: "text mode"
+}
+
+INTERACTIVE_MODE_NAME = {
+    True: "interactive",
+    False: "noninteractive"
+}
+
 # Loggers
 LOGGER_ANACONDA_ROOT = "anaconda"
 LOGGER_MAIN = "anaconda.main"
