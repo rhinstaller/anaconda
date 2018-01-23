@@ -23,7 +23,7 @@ import os
 import shutil
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
 from pyanaconda.constants import *
-from pyanaconda.product import *
+from pyanaconda.product import productVariant
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda.core import util
@@ -41,9 +41,12 @@ __all__ = ['AtomicInstallClass']
 
 class AtomicInstallClass(FedoraBaseInstallClass):
     name = "Atomic Host"
-    sortPriority = 11000
-    hidden = False
+    stylesheet = "/usr/share/anaconda/pixmaps/atomic/fedora-atomic.css"
+    sortPriority = FedoraBaseInstallClass.sortPriority + 1
     defaultFS = "xfs"
+
+    if productVariant != "Atomic":
+        hidden = True
 
     def __init__(self):
         self.localemap = {} # loaded lazily
