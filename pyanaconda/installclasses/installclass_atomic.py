@@ -22,12 +22,8 @@
 import os
 import shutil
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
-from pyanaconda.constants import *
 from pyanaconda.product import productVariant
-from pyanaconda import network
-from pyanaconda import nm
 from pyanaconda.core import util
-import types
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.storage.partspec import PartSpec
 from pyanaconda.storage.autopart import swap_suggestion
@@ -39,6 +35,7 @@ log = logging.getLogger("anaconda")
 
 __all__ = ['AtomicInstallClass']
 
+
 class AtomicInstallClass(FedoraBaseInstallClass):
     name = "Atomic Host"
     stylesheet = "/usr/share/anaconda/pixmaps/atomic/fedora-atomic.css"
@@ -49,15 +46,15 @@ class AtomicInstallClass(FedoraBaseInstallClass):
         hidden = True
 
     def __init__(self):
-        self.localemap = {} # loaded lazily
+        self.localemap = {}  # loaded lazily
         FedoraBaseInstallClass.__init__(self)
 
     # This is intended right now to match Fedora Server; if changing this,
     # please discuss on https://lists.projectatomic.io/projectatomic-archives/atomic-devel/
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
-                                size=Size("3GiB"), max_size=Size("15GiB"),
-                                grow=True, lv=True)]
+                                 size=Size("3GiB"), max_size=Size("15GiB"),
+                                 grow=True, lv=True)]
 
         bootreqs = platform.set_default_partitioning()
         if bootreqs:
@@ -66,7 +63,7 @@ class AtomicInstallClass(FedoraBaseInstallClass):
         disk_space = getAvailableDiskSpace(storage)
         swp = swap_suggestion(disk_space=disk_space)
         autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
-                                    lv=True, encrypted=True))
+                                     lv=True, encrypted=True))
 
         for autoreq in autorequests:
             if autoreq.fstype is None:
@@ -101,7 +98,7 @@ class AtomicInstallClass(FedoraBaseInstallClass):
             return
 
         # fallback to just en_US in case of errors
-        self.localemap = { "en": ["en_US"] }
+        self.localemap = {"en": ["en_US"]}
 
         # Let's only handle local embedded repos for now. Anyway, it'd probably
         # not be very common to only override ostreesetup through kickstart and
@@ -128,7 +125,7 @@ class AtomicInstallClass(FedoraBaseInstallClass):
                                         "--list-archive"]):
             line = self._strip_codeset_and_modifier(line)
             if '_' in line:
-                (lang, territory) = line.split('_', 1)
+                (lang, _territory) = line.split('_', 1)
             else:
                 lang = line
             if lang not in self.localemap:
