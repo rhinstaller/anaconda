@@ -22,13 +22,9 @@
 import os
 import shutil
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
+from pyanaconda.installclasses.fedora_server import FedoraServerInstallClass
 from pyanaconda.product import productVariant
 from pyanaconda.core import util
-from pyanaconda.kickstart import getAvailableDiskSpace
-from pyanaconda.storage.partspec import PartSpec
-from pyanaconda.storage.autopart import swap_suggestion
-from pyanaconda.platform import platform
-from blivet.size import Size
 
 import logging
 log = logging.getLogger("anaconda")
@@ -49,30 +45,8 @@ class AtomicInstallClass(FedoraBaseInstallClass):
         self.localemap = {}  # loaded lazily
         FedoraBaseInstallClass.__init__(self)
 
-    # This is intended right now to match Fedora Server; if changing this,
-    # please discuss on https://lists.projectatomic.io/projectatomic-archives/atomic-devel/
     def setDefaultPartitioning(self, storage):
-        autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
-                                 size=Size("3GiB"), max_size=Size("15GiB"),
-                                 grow=True, lv=True)]
-
-        bootreqs = platform.set_default_partitioning()
-        if bootreqs:
-            autorequests.extend(bootreqs)
-
-        disk_space = getAvailableDiskSpace(storage)
-        swp = swap_suggestion(disk_space=disk_space)
-        autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
-                                     lv=True, encrypted=True))
-
-        for autoreq in autorequests:
-            if autoreq.fstype is None:
-                if autoreq.mountpoint == "/boot":
-                    autoreq.fstype = storage.default_boot_fstype
-                else:
-                    autoreq.fstype = storage.default_fstype
-
-        storage.autopart_requests = autorequests
+        FedoraServerInstallClass.createDefaultPartitioning(storage)
 
     def filterSupportedLangs(self, ksdata, langs):
         self._initialize_localemap(ksdata.ostreesetup.ref,

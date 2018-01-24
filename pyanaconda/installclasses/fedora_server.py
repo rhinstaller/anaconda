@@ -37,6 +37,10 @@ class FedoraServerInstallClass(FedoraBaseInstallClass):
         hidden = True
 
     def setDefaultPartitioning(self, storage):
+        self.createDefaultPartitioning(storage)
+
+    @staticmethod
+    def createDefaultPartitioning(storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
                                  size=Size("2GiB"),
                                  max_size=Size("15GiB"),
