@@ -59,6 +59,9 @@ from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
+
 import logging
 log = logging.getLogger("anaconda.storage")
 
@@ -1893,8 +1896,8 @@ class InstallerStorage(Blivet):
         ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}
         hostname = None
 
-        if self.ksdata:
-            hostname = self.ksdata.network.hostname
+        network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+        hostname = network_proxy.Hostname
 
         if hostname in ignored_hostnames:
             hostname = network.current_hostname()
