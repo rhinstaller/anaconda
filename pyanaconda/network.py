@@ -1286,10 +1286,12 @@ def ks_spec_to_device_name(ksspec=""):
 
     return ksspec
 
+# TODO MOD remove, call module when can_touch_runtime_system is resolved
 def set_hostname(hn):
     if can_touch_runtime_system("set hostname", touch_live=True):
         log.info("setting installation environment host name to %s", hn)
-        util.execWithRedirect("hostnamectl", ["set-hostname", hn])
+        network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+        network_proxy.SetCurrentHostname(hn)
 
 def write_hostname(rootpath, hostname, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)

@@ -18,12 +18,16 @@
 # Red Hat, Inc.
 #
 
+import pydbus
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.network_kickstart import NetworkKickstartSpecification
+
+HOSTNAME_SERVICE = "org.freedesktop.hostname1"
+HOSTNAME_PATH = "/org/freedesktop/hostname1"
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
@@ -35,6 +39,10 @@ class NetworkModule(KickstartModule):
         super().__init__()
         self.hostname_changed = Signal()
         self._hostname = "localhost.localdomain"
+        self.current_hostname_changed = Signal()
+        # TODO fallback solution (no hostnamed) ?
+        self._hostname_service_proxy = pydbus.SystemBus().get(HOSTNAME_SERVICE, HOSTNAME_PATH)
+        self._hostname_service_proxy.PropertiesChanged.connect(self._hostname_service_properties_changed)
 
     def publish(self):
         """Publish the module."""
@@ -70,3 +78,18 @@ class NetworkModule(KickstartModule):
         self._hostname = hostname
         self.hostname_changed.emit()
         log.debug("Hostname is set to %s", hostname)
+
+    def _hostname_service_properties_changed(self, interface, changed, invalidated):
+        if interface == "org.freedesktop.hostname1" and "Hostname" in changed:
+            hostname = changed["Hostname"]
+            self.current_hostname_changed.emit(hostname)
+            log.debug("Current hostname changed to %s", hostname)
+
+    def get_current_hostname(self):
+        """Return current hostname of the system."""
+        return self._hostname_service_proxy.Hostname
+
+    def set_current_hostname(self, hostname):
+        """Set current system hostname."""
+        self._hostname_service_proxy.SetHostname(hostname, False)
+        log.debug("Current hostname is set to %s", hostname)

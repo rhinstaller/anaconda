@@ -49,7 +49,6 @@ from blivet.zfcp import zfcp
 from blivet.size import Size
 
 from pyanaconda.core import util
-from pyanaconda import network
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import shortProductName
@@ -1900,7 +1899,7 @@ class InstallerStorage(Blivet):
         hostname = network_proxy.Hostname
 
         if hostname in ignored_hostnames:
-            hostname = network.current_hostname()
+            hostname = network_proxy.GetCurrentHostname()
 
         if hostname in ignored_hostnames:
             hostname = None

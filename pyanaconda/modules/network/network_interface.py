@@ -22,7 +22,7 @@ from pyanaconda.dbus.constants import MODULE_NETWORK_NAME
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.base_interface import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 
 
 @dbus_interface(MODULE_NETWORK_NAME)
@@ -32,6 +32,7 @@ class NetworkInterface(KickstartModuleInterface):
     def connect_signals(self):
         super().connect_signals()
         self.implementation.hostname_changed.connect(self.changed("Hostname"))
+        self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
 
     @property
     def Hostname(self) -> Str:
@@ -47,3 +48,21 @@ class NetworkInterface(KickstartModuleInterface):
         param hostname: a string with a hostname
         """
         self.implementation.set_hostname(hostname)
+
+    @dbus_signal
+    def CurrentHostnameChanged(self, hostname: Str):
+        """Signal current hostname change."""
+        pass
+
+    def GetCurrentHostname(self) -> Str:
+        """Current system hostname."""
+        return self.implementation.get_current_hostname()
+
+    def SetCurrentHostname(self, hostname: Str):
+        """Set current system hostname.
+
+        Sets the hostname of installer environment.
+
+        param: hostname: a string with a hostname
+        """
+        self.implementation.set_current_hostname(hostname)

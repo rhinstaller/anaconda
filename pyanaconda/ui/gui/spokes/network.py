@@ -45,6 +45,9 @@ from pyanaconda.core import glib
 from pyanaconda import network
 from pyanaconda import nm
 
+from pyanaconda.dbus.observer import DBusObjectObserver
+from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
+
 import dbus
 import dbus.service
 # Used for ascii_letters and hexdigits constants
@@ -1541,14 +1544,21 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.networking_changed = False
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
-        self.network_control_box.hostname = self.data.network.hostname
-        self.network_control_box.current_hostname = network.current_hostname()
+        self._network_module = DBusObjectObserver(MODULE_NETWORK_NAME,
+                                                  MODULE_NETWORK_PATH)
+        self._network_module.connect()
+        self.network_control_box.hostname = self._network_module.proxy.Hostname
+        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
+        self._network_module.proxy.CurrentHostnameChanged.connect(self._hostname_changed)
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
         self.network_control_box.connect("device-state-changed",
                                          self.on_device_state_changed)
         self.network_control_box.connect("apply-hostname",
                                          self.on_apply_hostname)
+
+    def _hostname_changed(self, hostname):
+        gtk_call_once(self._update_hostname)
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
@@ -1611,10 +1621,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
-        self.network_control_box.current_hostname = network.current_hostname()
+        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
 
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_status)
+        # TODO MOD replace and test - will NM updating hostname from dhcp being
+        # estabilished be propagated to module via hostnamed?
         gtk_call_once(self._update_hostname)
 
     def on_device_state_changed(self, source, device, new_state, *args):
@@ -1634,13 +1646,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         else:
             self.clear_info()
             network.set_hostname(hostname)
-            self._update_hostname()
 
     def _update_status(self):
         hubQ.send_message(self.__class__.__name__, self.status)
 
     def _update_hostname(self):
-        self.network_control_box.current_hostname = network.current_hostname()
+        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
 
     def on_back_clicked(self, button):
         hostname = self.network_control_box.hostname
@@ -1677,8 +1688,14 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
-        self.network_control_box.hostname = self.data.network.hostname
-        self.network_control_box.current_hostname = network.current_hostname()
+
+        self._network_module = DBusObjectObserver(MODULE_NETWORK_NAME,
+                                                  MODULE_NETWORK_PATH)
+        self._network_module.connect()
+        self.network_control_box.hostname = self._network_module.proxy.Hostname
+        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
+        self._network_module.proxy.CurrentHostnameChanged.connect(self._hostname_changed)
+
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
 
@@ -1690,6 +1707,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._initially_available = self.completed
         log.debug("network standalone spoke (init): completed: %s", self._initially_available)
         self._now_available = False
+
+    def _hostname_changed(self, hostname):
+        gtk_call_once(self._update_hostname)
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
@@ -1722,7 +1742,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def refresh(self):
         StandaloneSpoke.refresh(self)
         self.network_control_box.refresh()
-        self.network_control_box.current_hostname = network.current_hostname()
+        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
 
     def _on_continue_clicked(self, window, user_data=None):
         hostname = self.network_control_box.hostname
@@ -1738,6 +1758,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     # Use case: slow dhcp has connected when on spoke
     def on_nm_state_changed(self, *args):
+        # TODO MOD replace and test - will NM updating hostname from dhcp being
+        # estabilished be propagated to module via hostnamed?
         gtk_call_once(self._update_hostname)
 
     def on_apply_hostname(self, *args):
@@ -1751,10 +1773,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         else:
             self.clear_info()
             network.set_hostname(hostname)
-            self._update_hostname()
 
     def _update_hostname(self):
-        self.network_control_box.current_hostname = network.current_hostname()
+        self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
 
 def _update_network_data(data, ncb):
     data.network.network = []
