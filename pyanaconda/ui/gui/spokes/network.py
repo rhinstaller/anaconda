@@ -1612,7 +1612,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.builder.get_object("live_hint_label").set_no_show_all(True)
             self.builder.get_object("live_hint_label").hide()
 
-        if not self.data.network.seen:
+        if not self._network_module.proxy.Kickstarted:
             _update_network_data(self.data, self.network_control_box)
 
         # report that we are done

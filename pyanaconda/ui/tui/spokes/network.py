@@ -74,7 +74,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._load_new_devices()
 
         NormalTUISpoke.initialize(self)
-        if not self.data.network.seen:
+        if not self._network_module.proxy.Kickstarted:
             self._update_network_data()
         self.initialize_done()
 
