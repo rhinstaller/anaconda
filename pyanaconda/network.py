@@ -1429,6 +1429,7 @@ def setOnboot(ksdata):
             else:
                 try:
                     nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
+                    log.debug("setting ONBOOT value of %s to %s", devname, network_data.onboot)
                 except (nm.SettingsNotFoundError, nm.UnknownDeviceError) as e:
                     log.debug("setOnboot: %s", e)
                     continue
