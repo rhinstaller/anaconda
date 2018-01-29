@@ -209,6 +209,15 @@ class Anaconda(object):
         """Report if Anaconda should run with the TUI."""
         return self._display_mode == DisplayModes.TUI
 
+    def log_display_mode(self):
+        if not self.display_mode:
+            log.error("Display mode is not set!")
+            return
+
+        log.info("Display mode is set to '%s %s'.",
+                 constants.INTERACTIVE_MODE_NAME[self.interactive_mode],
+                 constants.DISPLAY_MODE_NAME[self.display_mode])
+
     def _set_default_fstype(self, storage):
         fstype = None
         boot_fstype = None
