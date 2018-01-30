@@ -271,7 +271,7 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = ListColumnContainer(1)
 
         dialog = Dialog(_("Repo URL"))
-        self._container.add(EntryWidget(dialog.title, self.data.method.url), self._set_repo_url, dialog)
+        self._container.add(EntryWidget(dialog.title, self._url), self._set_repo_url, dialog)
 
         self.window.add_with_separator(self._container)
 
