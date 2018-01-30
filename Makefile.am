@@ -184,22 +184,23 @@ runglade:
 	glade ${GLADE_FILE}
 
 ci:
-# clean result dir
-	-rm -rf $(TEST_RESULT_DIR)
-	mkdir -p $(TEST_RESULT_DIR)
-
-# run tests
 	$(MAKE) run-tests || echo $$? > $(srcdir)/tests/error_occured
+	$(MAKE) grab-logs
 
-# grab logs
-	-cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR) || exit 1
-	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
 	@if [ -f $(srcdir)/tests/error_occured ]; then \
 		echo "TEST FAILED"; \
 		status=$$(cat $(srcdir)/tests/error_occured); \
 		rm $(srcdir)/tests/error_occured; \
 		exit $$status; \
 	fi
+
+grab-logs:
+# clean result dir
+	-rm -rf $(TEST_RESULT_DIR)
+	mkdir -p $(TEST_RESULT_DIR)
+
+	cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR) || exit 1
+	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
 
 run-tests:
 	@mkdir -p $(USER_SITE_PACKAGES)
