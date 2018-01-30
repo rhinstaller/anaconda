@@ -846,6 +846,10 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
     """
     # just to be sure, create a separate session for each query,
     # as the individual lookups will run in different threads
+
+    # koji library is imported only here not in Anaconda but pylint is ran for all script files
+    # if we don't want to add BuildRequires than we need to disable pylint here
+    # pylint: disable=import-error
     import koji
     kojiclient = koji.ClientSession('http://koji.fedoraproject.org/kojihub', {})
     version = package.version

@@ -16,8 +16,6 @@ class AnacondaLintConfig(PocketLintConfig):
                                 # TODO: Should be fixed with https://github.com/PyCQA/astroid/pull/433
                                 FalsePositive(r"^E1129.*: Context manager 'lock' doesn't implement __enter__ and __exit__.$"),
 
-                                # XXX: This is temporary until koji has python3 versions.
-                                FalsePositive(r"^E0401.*: Unable to import 'koji'$"),
                                 FalsePositive(r"^E1101.*: Instance of 'GError' has no 'message' member"),
                                 FalsePositive(r"^E1101.*: FedoraGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: HostipGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
