@@ -56,7 +56,8 @@ def _read_spec_file():
 
 
 def parse_args():
-    parser = ArgumentParser(description="Resolve Anaconda all dependencies.")
+    parser = ArgumentParser(description="Resolve Anaconda all dependencies.",
+                            epilog="Without any options the '-b -r -t' options will be used.")
     parser.add_argument('-b', '--build', action='store_true',  dest="build",
                         help="resolve build dependencies")
     parser.add_argument('-r', '--runtime', action='store_true', dest='runtime',
