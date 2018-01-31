@@ -32,11 +32,6 @@ In case the *ci* target fails there is also a *coverage-report* target
 which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
-.. NOTE::
-
-    Your regular user account also needs to execute `sudo' because some tests
-    require root privileges!
-
 Testing Inside Mock
 -------------------
 

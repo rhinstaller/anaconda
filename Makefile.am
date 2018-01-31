@@ -195,27 +195,21 @@ ci:
 	fi
 
 grab-logs:
+# can't be used after tests automatically because make will end when tests fails
 # clean result dir
 	-rm -rf $(TEST_RESULT_DIR)
 	mkdir -p $(TEST_RESULT_DIR)
 
-	cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR) || exit 1
-	-mv $(TEST_RESULT_DIR)/test-suite.log.* $(TEST_RESULT_DIR)/test-suite.log
+	-cd $(top_builddir)/tests/ && cp -r --parents ./**/*.log ./*.log* $(TEST_RESULT_DIR)
+	-cd $(top_builddir)/tests/ && cp -r --parents ./*.log* $(TEST_RESULT_DIR)
 
 run-tests:
 	@mkdir -p $(USER_SITE_PACKAGES)
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	$(MAKE)
 	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
+	    TEST_SUITE_LOG=test-suite.log PYTHONUSERBASE=$(USER_SITE_BASE) check
 	@tail -n 1 tests/gettext_tests/*.log > tests/gettext_tests/gettext_tests.log
-	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ TESTS=nosetests_root.sh \
-		PYTHONUSERBASE=$(USER_SITE_BASE) check
-	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
-		TEST_SUITE_LOG=test-suite.log.$$$$ PYTHONUSERBASE=$(USER_SITE_BASE) check
-	@cat tests/test-suite.log.* > tests/test-suite.log
-	@rm -f tests/test-suite.log.*
 	@rm -rf $(USER_SITE_BASE)
 	$(MAKE) coverage-report
 
