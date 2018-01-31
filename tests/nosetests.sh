@@ -6,9 +6,9 @@ if [ -z "$top_srcdir" ]; then
     . ${top_srcdir}/tests/testenv.sh
 fi
 
-# If no tests were selected, select all of them
-if [ $# -eq 0 ]; then
+# If no tests were selected by user or makefile, select all of them
+if [ $# -eq 0 ] && [ -z $NOSE_TESTS_ARGS ]; then
     set -- "${top_srcdir}"/tests/*_tests
 fi
 
-exec nosetests-3 -v --exclude=logpicker -a \!acceptance,\!slow "$@"
+exec nosetests-3 -v --exclude=logpicker -a \!acceptance,\!slow $NOSE_TESTS_ARGS "$@"
