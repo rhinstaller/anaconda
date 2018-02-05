@@ -89,3 +89,6 @@ class NetworkInterface(KickstartModuleInterface):
         To be removed after reworking the synchronization.
         """
         return self.implementation.is_connecting()
+
+    def CreateDeviceConfigurations(self):
+        self.implementation.create_device_configurations()

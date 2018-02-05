@@ -25,6 +25,7 @@ from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 from pyanaconda.modules.network.firewall import FirewallModule
+from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 
 import gi
 gi.require_version("NM", "1.0")
@@ -32,6 +33,7 @@ from gi.repository import NM
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
 
 
 class NetworkModule(KickstartModule):
@@ -64,6 +66,8 @@ class NetworkModule(KickstartModule):
                 self.set_connected(self._nm_state_connected(initial_state))
             else:
                 log.debug("NetworkManager is not running.")
+
+        self._device_configurations = None
 
     def publish(self):
         """Publish the module."""
@@ -164,3 +168,8 @@ class NetworkModule(KickstartModule):
         state = self.nm_client.get_state()
         log.debug("NeworkManager state changed to %s", state)
         self.set_connected(self._nm_state_connected(state))
+
+    def create_device_configurations(self):
+        self._device_configurations = DeviceConfigurations(self.nm_client)
+        self._device_configurations.reload()
+        log.debug("%s", self._device_configurations)
