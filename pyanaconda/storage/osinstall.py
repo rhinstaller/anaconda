@@ -1191,6 +1191,23 @@ class InstallerStorage(Blivet):
 
         self._short_product_name = shortProductName
 
+    def copy(self):
+        """Copy the storage.
+
+        Kickstart data are not copied.
+        """
+        # Disable the kickstart data.
+        old_data = self.ksdata
+        self.ksdata = None
+
+        # Create the copy.
+        new_storage = super().copy()
+
+        # Recover the kickstart data.
+        self.ksdata = old_data
+        new_storage.ksdata = old_data
+        return new_storage
+
     def do_it(self, callbacks=None):
         """
         Commit queued changes to disk.
