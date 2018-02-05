@@ -19,6 +19,7 @@
 #
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
+from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network import ifcfg
 
 import gi
@@ -38,6 +39,8 @@ supported_device_types = [
     NM.DeviceType.BRIDGE,
     NM.DeviceType.TEAM,
 ]
+
+# TODO provide DeviceConfiguration.to_dbus
 
 
 class DeviceConfiguration(object):
@@ -71,6 +74,18 @@ class DeviceConfiguration(object):
         if not self.connection_uuid:
             return None
         return ifcfg.find_ifcfg_file([("UUID", self.connection_uuid)])
+
+    def get_values(self):
+        """Dictionary representation of the configuration.
+
+        Should be used for signals and DBus API (as variant).
+
+        return: dictionary keyed by string describing the attribute
+        rtype: dict
+        """
+        return {"device-name": self.device_name,
+                "connection-uuid": self.connection_uuid,
+                "device-type": self.device_type}
 
     def __repr__(self):
         return "DeviceConfiguration(device_name={}, connection_uuid={}, device_type={})".format(
@@ -113,6 +128,7 @@ class DeviceConfigurations(object):
     def __init__(self, nm_client=None):
         self._device_configurations = None
         self.nm_client = nm_client or NM.Client.new()
+        self.configuration_changed = Signal()
 
     def reload(self):
         """Reload the state from the system."""
@@ -123,15 +139,32 @@ class DeviceConfigurations(object):
             self.add_connection(connection)
 
     def connect(self):
-        """Connect to NM listening for updates."""
-        # TODO
-        pass
+        """Connect to NetworkManager for devices and connections updates."""
+        self.nm_client.connect("device-added", self._device_added_cb)
+        self.nm_client.connect("device-removed", self._device_removed_cb)
+        self.nm_client.connect("connection-added", self._connection_added_cb)
+        self.nm_client.connect("connection-removed", self._connection_removed_cb)
+
+    def disconnect(self):
+        """Disconnect from NetworkManager devices and connections updates."""
+        for cb in [self._device_added_cb,
+                   self._device_removed_cb,
+                   self._connection_added_cb,
+                   self._connection_removed_cb]:
+            try:
+                self.nm_client.disconnect_by_func(cb)
+            except TypeError as e:
+                if not "nothing connected" in str(e):
+                    log.debug("%s", e)
 
     def add(self, device_name=None, connection_uuid=None, device_type=None):
         """Add a new DeviceConfiguration."""
-        self._device_configurations.append(DeviceConfiguration(device_name,
-                                                               connection_uuid,
-                                                               device_type))
+        new_dev_cfg = DeviceConfiguration(device_name,
+                                          connection_uuid,
+                                          device_type)
+        self._device_configurations.append(new_dev_cfg)
+        self.configuration_changed.emit({}, new_dev_cfg.get_values())
+
     def add_device(self, device):
         """Add or update configuration for libnm network device object.
 
@@ -216,7 +249,10 @@ class DeviceConfigurations(object):
         existing_cfgs = self.get_for_uuid(connection_uuid)
         if connection_uuid and existing_cfgs:
             # If we already have a connection for the device it is a virtual device appearing
+            old_values = existing_cfgs[0].get_values()
             existing_cfgs[0].device_name = iface
+            new_values = existing_cfgs[0].get_values()
+            self.configuration_changed.emit(old_values, new_values)
             log.debug("attached device %s to connection %s", iface, connection_uuid)
         else:
             self.add(device_name=iface, connection_uuid=connection_uuid,
@@ -341,7 +377,10 @@ class DeviceConfigurations(object):
                             uuid, cfg.connection_uuid, cfg.device_name)
                     return False
                 else:
+                    old_values = cfg.get_values()
                     cfg.connection_uuid = uuid
+                    new_values = cfg.get_values()
+                    self.configuration_changed.emit(old_values, new_values)
                     log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
         else:
             self.add(connection_uuid=uuid, device_type=device_type)
@@ -355,6 +394,62 @@ class DeviceConfigurations(object):
     def get_for_uuid(self, connection_uuid):
         return [cfg for cfg in self._device_configurations
                 if cfg.connection_uuid == connection_uuid]
+
+    def _device_added_cb(self, client, device, *args):
+        # We need to wait for valid state before adding the device
+        log.debug("NM device added: %s", device.get_iface())
+        if device.get_state() == NM.DeviceState.UNKNOWN:
+            device.connect("state-changed", self._added_device_state_changed_cb)
+        else:
+            self.add_device(device)
+
+    def _added_device_state_changed_cb(self, device, new_state, *args):
+        # We need to wait for valid state before adding the device
+        if new_state != NM.DeviceState.UNKNOWN:
+            device.disconnect_by_func(self._added_device_state_changed_cb)
+            self.add_device(device)
+
+    def _device_removed_cb(self, client, device, *args):
+        # We just remove the device from the DeviceConfiguration, keeping the object
+        # assuming it is just a disconnected virtual device.
+        iface = device.get_iface()
+        log.debug("NM device removed: %s", iface)
+        dev_cfgs = self.get_for_device(iface)
+        for cfg in dev_cfgs:
+            if cfg.connection_uuid:
+                old_values = cfg.get_values()
+                cfg.device_name = None
+                new_values = cfg.get_values()
+                self.configuration_changed.emit(old_values, new_values)
+                log.debug("device name %s removed from %s", iface, cfg)
+            else:
+                values = cfg.get_values()
+                self._device_configurations.remove(cfg)
+                self.configuration_changed.emit(values, {})
+                log.debug("%s removed", cfg)
+
+    def _connection_added_cb(self, client, connection):
+        log.debug("NM connection added: %s", connection.get_uuid())
+        self.add_connection(connection)
+
+    def _connection_removed_cb(self, client, connection):
+        uuid = connection.get_uuid()
+        log.debug("NM connection removed: %s", uuid)
+        # Remove the configuration if it does not have a device_name
+        # which means it is a virtual device configurtation
+        dev_cfgs = self.get_for_uuid(uuid)
+        for cfg in dev_cfgs:
+            if cfg.device_name:
+                old_values = cfg.get_values()
+                cfg.connection_uuid = None
+                new_values = cfg.get_values()
+                self.configuration_changed.emit(old_values, new_values)
+                log.debug("connection uuid %s removed from %s", uuid, cfg)
+            else:
+                values = cfg.get_values()
+                self._device_configurations.remove(cfg)
+                self.configuration_changed.emit(values, {})
+                log.debug("%s removed", cfg)
 
     def __str__(self):
         return str(self._device_configurations)

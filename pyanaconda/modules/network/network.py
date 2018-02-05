@@ -171,5 +171,10 @@ class NetworkModule(KickstartModule):
 
     def create_device_configurations(self):
         self._device_configurations = DeviceConfigurations(self.nm_client)
+        self._device_configurations.configuration_changed.connect(self.device_configurations_changed_cb)
         self._device_configurations.reload()
+        self._device_configurations.connect()
+
+    def device_configurations_changed_cb(self, old_dev_cfg, new_dev_cfg):
+        log.debug("Configuration changed: %s -> %s", old_dev_cfg, new_dev_cfg)
         log.debug("%s", self._device_configurations)
