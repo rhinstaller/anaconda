@@ -521,7 +521,9 @@ if __name__ == "__main__":
 
     # cmdline flags override kickstart settings
     if anaconda.proxy:
-        ksdata.method.proxy = anaconda.proxy
+
+        if hasattr(ksdata.method, "proxy"):
+            ksdata.method.proxy = anaconda.proxy
 
         # Setup proxy environmental variables so that pre/post scripts use it
         # as well as libreport
