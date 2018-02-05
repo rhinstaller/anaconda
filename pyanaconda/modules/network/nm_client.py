@@ -61,3 +61,23 @@ def get_iface_from_hwaddr(hwaddr):
         if address.upper() == hwaddr.upper():
             return device.get_iface()
     return None
+
+def get_team_port_config_from_connection(uuid):
+    connection = nm_client.get_connection_by_uuid(uuid)
+    if not connection:
+        return None
+    team_port = connection.get_setting_team_port()
+    if not team_port:
+        return None
+    config = team_port.get_config()
+    return config
+
+def get_team_config_form_connection(uuid):
+    connection = nm_client.get_connection_by_uuid(uuid)
+    if not connection:
+        return None
+    team = connection.get_setting_team()
+    if not team:
+        return None
+    config = team.get_config()
+    return config

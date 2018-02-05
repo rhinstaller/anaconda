@@ -65,8 +65,7 @@ class DeviceConfiguration(object):
         self.connection_uuid = connection_uuid
         self.device_type = device_type
 
-    @property
-    def ifcfg_path(self):
+    def get_ifcfg_path(self):
         """Path to ifcfg file for the configuration.
 
         return: ifcfg file path or None if it does not exist
@@ -87,6 +86,16 @@ class DeviceConfiguration(object):
         return {"device-name": self.device_name,
                 "connection-uuid": self.connection_uuid,
                 "device-type": self.device_type}
+
+    def get_kickstart_network_data(self, network_data_class):
+        """Get kickstart data corresponding to the configuration."""
+        if self.device_type == NM.DeviceType.WIFI:
+            return None
+        ifcfg_path = self.get_ifcfg_path()
+        if ifcfg_path:
+            ifcfg_file = ifcfg.IfcfgFile(ifcfg_path)
+            ifcfg_file.read()
+            return ifcfg_file.get_kickstart_data(network_data_class)
 
     def __repr__(self):
         return "DeviceConfiguration(device_name={}, connection_uuid={}, device_type={})".format(
@@ -426,6 +435,27 @@ class DeviceConfigurations(object):
     def __repr__(self):
         return "DeviceConfigurations({})".format(self.nm_client)
 
+    def _is_device_activated(self, iface):
+        device = self.nm_client.get_device_by_iface(iface)
+        return device and device.get_state() == NM.DeviceState.ACTIVATED
+
+    def get_kickstart_data(self, network_data_class):
+        rv = []
+        for i, cfg in enumerate(self._device_configurations or []):
+            network_data = cfg.get_kickstart_network_data(network_data_class)
+            if not network_data:
+                log.debug("Device configuration %s does not generate any kickstart data", cfg)
+                continue
+            if cfg.device_name:
+                if self._is_device_activated(cfg.device_name):
+                    network_data.activate = True
+                else:
+                    # First network command defaults to --activate so we must
+                    # use --no-activate explicitly to prevent the default
+                    if i == 0:
+                        network_data.activate = False
+            rv.append(network_data)
+        return rv
 
 def is_libvirt_device(iface):
     return iface.startswith("virbr")

@@ -23,7 +23,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
-from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
+from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, \
+    update_network_hostname_data
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 from pyanaconda.modules.network.nm_client import nm_client
@@ -66,6 +67,7 @@ class NetworkModule(KickstartModule):
             else:
                 log.debug("NetworkManager is not running.")
 
+        self._original_network_data = []
         self._device_configurations = None
 
     def publish(self):
@@ -82,19 +84,35 @@ class NetworkModule(KickstartModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        log.debug("kickstart to be processed:\n%s", str(data))
+
+        self._original_network_data = data.network.network
         if data.network.hostname:
             self.set_hostname(data.network.hostname)
         self._firewall_module.process_kickstart(data)
 
+        log.debug("processed kickstart:\n%s", str(data))
+
     def generate_kickstart(self):
         """Return the kickstart string."""
+
         data = self.get_kickstart_handler()
-        data.network.network = []
-        # hostname
+        if self._device_configurations:
+            device_data = self._device_configurations.get_kickstart_data(data.NetworkData)
+            log.debug("using device configurations to generate kickstart")
+        else:
+            device_data = self._original_network_data
+            log.debug("using original kickstart data to generate kickstart")
+        data.network.network = device_data
+
         hostname_data = data.NetworkData(hostname=self.hostname, bootProto="")
-        data.network.network.append(hostname_data)
+        update_network_hostname_data(data.network.network, hostname_data)
+
         # firewall
         self._firewall_module.setup_kickstart(data)
+
+        log.debug("generated kickstart:\n%s", str(data))
+
         return str(data)
 
     @property

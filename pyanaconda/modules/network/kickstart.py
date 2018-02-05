@@ -32,3 +32,14 @@ class NetworkKickstartSpecification(KickstartSpecification):
     commands_data = {
         "NetworkData": COMMANDS.NetworkData,
     }
+
+
+# TODO force moving hostname data into separate line?
+def update_network_hostname_data(network_data_list, hostname_data):
+    hostname_found = False
+    for nd in network_data_list:
+        if nd.hostname:
+            nd.hostname = hostname_data.hostname
+            hostname_found = True
+    if not hostname_found:
+        network_data_list.append(hostname_data)
