@@ -21,6 +21,7 @@
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network import ifcfg
+from pyanaconda.modules.network.nm_client import get_iface_from_connection
 
 import gi
 gi.require_version("NM", "1.0")
@@ -260,38 +261,6 @@ class DeviceConfigurations(object):
             log.debug("added device configuration for device %s", iface)
         return True
 
-    def _get_iface_from_connection(self, connection):
-        """Get the name of device that would be used for the connection.
-
-        In installer it should be just one device.
-        We need to account also for the case of configurations bound to mac address
-        (HWADDR), eg network --bindto=mac command.
-        """
-        iface = connection.get_setting_connection().get_interface_name()
-        if not iface:
-            wired_setting = connection.get_setting_wired()
-            if wired_setting:
-                mac = wired_setting.get_mac_address()
-                if mac:
-                    iface = self._hwaddr_to_device_name(mac)
-        return iface
-
-    def _hwaddr_to_device_name(self, hwaddr):
-        """Find the name of device specified by mac address."""
-        for device in self.nm_client.get_devices():
-            if device.get_device_type() in (NM.DeviceType.ETHERNET,
-                                            NM.DeviceType.WIFI):
-                try:
-                    address = device.get_permanent_hw_address()
-                except AttributeError as e:
-                    log.warning("Device %s: %s", device.get_iface(), e)
-                    address = device.get_hw_address()
-            else:
-                address = device.get_hw_address()
-            if address.upper() == hwaddr.upper():
-                return device.get_iface()
-        return None
-
     def _get_vlan_interface_name_from_connection(self, connection):
         """Get vlan interface name from vlan connection.
 
@@ -306,7 +275,7 @@ class DeviceConfigurations(object):
                 parent = setting_vlan.get_parent()
                 # if parent is specified by UUID
                 if len(parent) == 36:
-                    parent = self.nm_client.get_connection_by_uuid(parent).get_interface_name()
+                    parent = get_iface_from_connection(parent)
                 if vlanid is not None and parent:
                     iface = default_ks_vlan_interface_name(parent, vlanid)
         return iface
@@ -336,7 +305,7 @@ class DeviceConfigurations(object):
             log.debug("not adding %s: read-only connection", uuid)
             return False
 
-        iface = self._get_iface_from_connection(connection)
+        iface = get_iface_from_connection(uuid)
 
         if is_libvirt_device(iface or ""):
             log.debug("not adding %s: libvirt special device connection", uuid)

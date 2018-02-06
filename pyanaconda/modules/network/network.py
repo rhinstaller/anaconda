@@ -26,6 +26,7 @@ from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations
+from pyanaconda.modules.network.nm_client import nm_client
 
 import gi
 gi.require_version("NM", "1.0")
@@ -33,7 +34,6 @@ from gi.repository import NM
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
-
 
 
 class NetworkModule(KickstartModule):
@@ -58,7 +58,6 @@ class NetworkModule(KickstartModule):
         self.nm_client = None
         # TODO fallback solution - use Gio/GNetworkMonitor ?
         if SystemBus.check_connection():
-            nm_client = NM.Client.new(None)
             if nm_client.get_nm_running():
                 self.nm_client = nm_client
                 self.nm_client.connect("notify::%s" % NM.CLIENT_STATE, self._nm_state_changed)
