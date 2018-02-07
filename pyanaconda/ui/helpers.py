@@ -65,6 +65,9 @@ from pyanaconda.packaging import payloadMgr
 
 import logging
 import copy
+import collections
+
+DisabledMitigations = collections.namedtuple("DisabledMitigations", ["no_pti", "no_ibrs", "no_ibpb"])
 
 class StorageCheckHandler(object):
     __metaclass__ = ABCMeta
@@ -411,3 +414,49 @@ class InputCheckHandler(object):
     def checks(self):
         """An iterator over all input checks"""
         return self._check_list.__iter__()
+
+def find_bootopt_mitigations(opts):
+    """Check if some mitigations are disabled in boot options.
+
+    :param str opts: space delimited additional boot options
+    :returns: a named tupple reporting which mitigations are currently disabled (if any)
+    :rtype: named tuple
+    """
+    opt_set = set(opts.split(" "))
+    no_pti = "nopti" in opt_set
+    no_ibrs = "noibrs" in opt_set
+    no_ibpb = "noibpb" in opt_set
+    return DisabledMitigations(no_pti=no_pti, no_ibrs=no_ibrs, no_ibpb=no_ibpb)
+
+def set_bootopt_mitigations(opts, no_pti, no_ibrs, no_ibpb):
+    """Make it possible to selectively disable some boot option based mitigations.
+
+    :param str opts: space delimited additional boot options
+    :param bool no_pti: disable Page Table Isolation
+    :param bool no_ibrs: disable Indirect Branch Restricted Speculation
+    :param bool no_ibpb: disable Indirect Branch Prediction Barier
+    """
+
+    # create a set of individual options
+    opt_set = set(opts.split(" "))
+
+    # PTI
+    if no_pti:
+        opt_set.add("nopti")
+    elif "nopti" in opt_set:
+        opt_set.remove("nopti")
+
+    # IBRS
+    if no_ibrs:
+        opt_set.add("noibrs")
+    elif "noibrs" in opt_set:
+        opt_set.remove("noibrs")
+
+    # IBPB
+    if no_ibpb:
+        opt_set.add("noibpb")
+    elif "noibpb" in opt_set:
+        opt_set.remove("noibpb")
+
+    # join back to space delimited string and return
+    return " ".join(opt_set)
