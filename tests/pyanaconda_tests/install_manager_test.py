@@ -107,7 +107,7 @@ class InstallManagerTestCase(unittest.TestCase):
 class TestModuleObserver(DBusObjectObserver):
 
     def __init__(self, service_name, object_path, test_module):
-        super().__init__(service_name, object_path)
+        super().__init__(None, service_name, object_path)
         self._proxy = test_module
         self._is_service_available = True
 

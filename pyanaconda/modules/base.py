@@ -58,16 +58,9 @@ class BaseModule(ABC):
         """
         pass
 
-    def unpublish(self):
-        """Unpublish DBus objects and unregister a DBus service.
-
-        Everything is unpublished by default.
-        """
-        DBus.unregister_all()
-        DBus.unpublish_all()
-
     def stop(self):
-        self.unpublish()
+        """Stop the module's loop."""
+        DBus.disconnect()
         Timer().timeout_sec(1, self.loop.quit)
 
 

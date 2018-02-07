@@ -18,8 +18,7 @@
 # Red Hat, Inc.
 #
 
-import pydbus
-from pyanaconda.dbus import DBus
+from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.base import KickstartModule
@@ -42,7 +41,7 @@ class NetworkModule(KickstartModule):
         self._hostname = "localhost.localdomain"
         self.current_hostname_changed = Signal()
         # TODO fallback solution (no hostnamed) ?
-        self._hostname_service_proxy = pydbus.SystemBus().get(HOSTNAME_SERVICE, HOSTNAME_PATH)
+        self._hostname_service_proxy = SystemBus.get_proxy(HOSTNAME_SERVICE, HOSTNAME_PATH)
         self._hostname_service_proxy.PropertiesChanged.connect(self._hostname_service_properties_changed)
 
     def publish(self):
