@@ -29,6 +29,10 @@ import shutil
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
 from pyanaconda.payload import PayloadRequirements, PayloadRequirementsMissingApply
 
+from pyanaconda.payload.dnfpayload import DNFPayload
+from pyanaconda.payload.livepayload import LiveImagePayload
+from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
+from pyanaconda.payload.tarpayload import TarPayload
 
 class PickLocation(unittest.TestCase):
     def pick_download_location_test(self):
@@ -150,7 +154,28 @@ or it should be. Nah it's just a test!
         os.remove(self._md_file)
         self.assertFalse(r.verify_repoMD())
 
-class  PayloadRequirementsTestCase(unittest.TestCase):
+class PayloadCheckTypeTests(unittest.TestCase):
+    def test_for_dnf_payload_type(self):
+        """Test that the dnf payload_type is defined correctly"""
+        p = DNFPayload(data=None)
+        self.assertIn(p.payload_type, 'dnf')
+
+    def test_for_live_payload_type(self):
+        """Test that the live payload_type is defined correctly"""
+        p = LiveImagePayload(data=None)
+        self.assertIn(p.payload_type, 'live')
+
+    def test_for_rpmostree_payload_type(self):
+        """Test that the rpmostree payload_type is defined correctly"""
+        p = RPMOSTreePayload(data=None)
+        self.assertIn(p.payload_type, 'rpmostree')
+
+    def test_for_tar_payload_type(self):
+        """Test that the tar payload_type is defined correctly"""
+        p = TarPayload(data=None)
+        self.assertIn(p.payload_type, 'tar')
+
+class PayloadRequirementsTestCase(unittest.TestCase):
 
     def requirements_test(self):
         """Check that requirements work correctly."""

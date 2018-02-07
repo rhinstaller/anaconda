@@ -290,6 +290,7 @@ class DNFPayload(payload.PackagePayload):
     def __init__(self, data):
         payload.PackagePayload.__init__(self, data)
 
+        self.payload_type.append('dnf')
         self._base = None
         self._download_location = None
         self._updates_enabled = True

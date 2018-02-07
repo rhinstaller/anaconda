@@ -312,6 +312,7 @@ class Payload(object):
         self.storage = None
         self.instclass = None
         self.txID = None
+        self.payload_type = []
 
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
@@ -955,6 +956,7 @@ class ImagePayload(Payload):
             raise TypeError("ImagePayload is an abstract class")
 
         Payload.__init__(self, data)
+        self.payload_type.append('image')
 
 
 # Inherit abstract methods from ImagePayload
@@ -967,6 +969,7 @@ class ArchivePayload(ImagePayload):
             raise TypeError("ArchivePayload is an abstract class")
 
         ImagePayload.__init__(self, data)
+        self.payload_type.append('archive')
 
 
 class PackagePayload(Payload):
@@ -981,6 +984,7 @@ class PackagePayload(Payload):
         super(PackagePayload, self).__init__(data)
         self.install_device = None
         self._rpm_macros = []
+        self.payload_type.append('package')
 
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
