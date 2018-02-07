@@ -22,7 +22,6 @@
 
 from pyanaconda import iutil
 
-from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 
 from pyanaconda.ui.helpers import find_bootopt_mitigations, set_bootopt_mitigations

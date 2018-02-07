@@ -20,7 +20,6 @@
 
 
 import unittest
-import os
 
 from pyanaconda.ui.helpers import find_bootopt_mitigations, set_bootopt_mitigations
 

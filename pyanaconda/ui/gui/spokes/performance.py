@@ -19,7 +19,6 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 
-from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 
 from pyanaconda.ui.helpers import find_bootopt_mitigations, set_bootopt_mitigations
