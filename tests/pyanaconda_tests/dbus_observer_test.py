@@ -21,7 +21,7 @@ import unittest
 from mock import patch, Mock
 
 from pyanaconda.dbus.observer import DBusCachedObserver, PropertiesCache, DBusObjectObserver, \
-    DBusObserverError, DBusServiceObserver, DBusObserver
+    DBusObserverError, DBusObserver
 
 
 class DBusObserverTestCase(unittest.TestCase):
@@ -69,34 +69,6 @@ class DBusObserverTestCase(unittest.TestCase):
         self._setup_observer(observer)
         self._make_service_available(observer)
         self._make_service_unavailable(observer)
-
-    @patch('pyanaconda.dbus.observer.DBus.get_proxy')
-    def service_observer_test(self, proxy_getter):
-        """Test the service observer."""
-        observer = DBusServiceObserver("SERVICE")
-
-        # Set up the observer.
-        self._setup_observer(observer)
-        self.assertEqual(observer._proxies, dict())
-
-        with self.assertRaises(DBusObserverError):
-            observer.get_proxy("0")
-
-        # Service available.
-        self._make_service_available(observer)
-        self.assertEqual(observer._proxies, dict())
-
-        # Get proxy.
-        proxy = observer.get_proxy("OBJECT")
-        proxy_getter.assert_called_once_with("SERVICE", "OBJECT")
-        self.assertEqual(observer._proxies, {"OBJECT": proxy})
-
-        # Service unavailable.
-        self._make_service_unavailable(observer)
-        self.assertEqual(observer._proxies, dict())
-
-        with self.assertRaises(DBusObserverError):
-            observer.get_proxy("Object")
 
     @patch('pyanaconda.dbus.observer.DBus.get_proxy')
     def object_observer_test(self, proxy_getter):
