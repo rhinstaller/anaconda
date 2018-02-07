@@ -319,6 +319,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 07 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.131-1
+- UI support for configuring certain mitigations (mkolman)
+  Resolves: rhbz#1534833
+
 * Mon Jan 08 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.130-1
 - kickstart: use RHEL7_Firewall instead of F28_Firewall (dusty)
   Related: rhbz#1526450
