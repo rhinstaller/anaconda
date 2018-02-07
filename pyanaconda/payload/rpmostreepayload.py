@@ -49,6 +49,7 @@ class RPMOSTreePayload(ArchivePayload):
         super(RPMOSTreePayload, self).__init__(data)
         self._remoteOptions = None
         self._internal_mounts = []
+        self.payload_type.append('rpmostree')
 
     @property
     def handlesBootloaderConfiguration(self):

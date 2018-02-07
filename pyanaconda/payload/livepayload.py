@@ -64,6 +64,7 @@ class LiveImagePayload(ImagePayload):
         self.pct = 0
         self.pct_lock = None
         self.source_size = 1
+        self.payload_type.append('live')
 
         self._kernelVersionList = []
 
