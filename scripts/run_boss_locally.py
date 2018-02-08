@@ -15,8 +15,6 @@ import shutil
 import argparse
 from gi.repository import Gio
 
-from pyanaconda.modules.boss.kickstart_manager import SplitKickstartError
-
 try:
     from colorama import Fore, Style
     GREEN = Fore.GREEN
@@ -42,6 +40,7 @@ paths.insert(0, top_dir)
 os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
 
 from pyanaconda.dbus.constants import DBUS_BOSS_NAME
+from pyanaconda.dbus.errors import SplitKickstartError
 
 MODULES_DIR = os.path.join(top_dir ,"pyanaconda/modules")
 DBUS_SERVICES_DIR = os.path.join(top_dir, "data/dbus/")

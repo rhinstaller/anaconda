@@ -22,18 +22,10 @@
 # Red Hat, Inc.
 #
 
-from pydbus.error import map_error
-
 from pyanaconda.dbus.constants import DBUS_BOSS_INSTALLATION_NAME
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-
-
-@map_error("{}.InstallationNotRunning".format(DBUS_BOSS_INSTALLATION_NAME))
-class InstallationNotRunning(Exception):
-    """Exception will be raised when action requires running installation."""
-    pass
 
 
 @dbus_interface(DBUS_BOSS_INSTALLATION_NAME)

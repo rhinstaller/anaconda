@@ -16,11 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-from pydbus.error import map_error
-
-from pyanaconda.dbus.constants import DBUS_BOSS_ANACONDA_NAME
-
+from pyanaconda.dbus.errors import SplitKickstartSectionParsingError, \
+    SplitKickstartMissingIncludeError
 from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser, VALID_SECTIONS_ANACONDA
 from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartError, KickstartParseError
@@ -29,24 +26,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-__all__ = ['KickstartManager', 'SplitKickstartError']
-
-
-class SplitKickstartError(Exception):
-    """Error while parsing kickstart for splitting."""
-    pass
-
-
-@map_error("{}.SplitKickstartSectionParsingError".format(DBUS_BOSS_ANACONDA_NAME))
-class SplitKickstartSectionParsingError(SplitKickstartError):
-    """Error while parsing a section in kickstart."""
-    pass
-
-
-@map_error("{}.SplitKickstartMissingIncludeError".format(DBUS_BOSS_ANACONDA_NAME))
-class SplitKickstartMissingIncludeError(SplitKickstartError):
-    """File included in kickstart was not found."""
-    pass
+__all__ = ['KickstartManager']
 
 
 class KickstartManager(object):
