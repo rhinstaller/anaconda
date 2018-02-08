@@ -19,12 +19,12 @@
 import unittest
 import os
 from contextlib import contextmanager
-
 from mock import Mock
 
+from pyanaconda.modules.boss.kickstart_manager import KickstartManager
+from pyanaconda.modules.common.errors.kickstart import SplitKickstartSectionParsingError, \
+    SplitKickstartMissingIncludeError
 from pyanaconda.dbus.observer import DBusObjectObserver
-from pyanaconda.modules.boss.kickstart_manager import KickstartManager,\
-    SplitKickstartSectionParsingError, SplitKickstartMissingIncludeError
 
 KICKSTART1 = """
 text

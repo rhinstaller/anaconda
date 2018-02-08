@@ -163,6 +163,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/common/Makefile
                  pyanaconda/modules/common/base/Makefile
                  pyanaconda/modules/common/task/Makefile
+                 pyanaconda/modules/common/errors/Makefile
                  pyanaconda/modules/bar/Makefile
                  pyanaconda/modules/bar/tasks/Makefile
                  pyanaconda/modules/boss/Makefile
