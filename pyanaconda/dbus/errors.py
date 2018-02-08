@@ -17,9 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pydbus.error import map_error, map_by_default
-
-from pyanaconda.dbus.constants import DBUS_BOSS_ANACONDA_NAME, DBUS_BOSS_INSTALLATION_NAME, \
-    DBUS_TASK_NAME, ANACONDA_DBUS_NAMESPACE
+from pyanaconda.dbus.objects import ANACONDA_NAMESPACE, BOSS_ANACONDA, BOSS_INSTALLATION, TASK
 
 
 @map_by_default
@@ -28,37 +26,37 @@ class DBusError(Exception):
     pass
 
 
-@map_error("{}.Error".format(ANACONDA_DBUS_NAMESPACE))
+@map_error("{}.Error".format(ANACONDA_NAMESPACE))
 class AnacondaError(Exception):
     """A default DBus error."""
     pass
 
 
-@map_error("{}.SplitKickstartError".format(DBUS_BOSS_ANACONDA_NAME))
+@map_error("{}.SplitKickstartError".format(BOSS_ANACONDA))
 class SplitKickstartError(AnacondaError):
     """Error while parsing kickstart for splitting."""
     pass
 
 
-@map_error("{}.SplitKickstartSectionParsingError".format(DBUS_BOSS_ANACONDA_NAME))
+@map_error("{}.SplitKickstartSectionParsingError".format(BOSS_ANACONDA))
 class SplitKickstartSectionParsingError(SplitKickstartError):
     """Error while parsing a section in kickstart."""
     pass
 
 
-@map_error("{}.SplitKickstartMissingIncludeError".format(DBUS_BOSS_ANACONDA_NAME))
+@map_error("{}.SplitKickstartMissingIncludeError".format(BOSS_ANACONDA))
 class SplitKickstartMissingIncludeError(SplitKickstartError):
     """File included in kickstart was not found."""
     pass
 
 
-@map_error("{}.InstallationNotRunning".format(DBUS_BOSS_INSTALLATION_NAME))
+@map_error("{}.InstallationNotRunning".format(BOSS_INSTALLATION))
 class InstallationNotRunning(AnacondaError):
     """Exception will be raised when action requires running installation."""
     pass
 
 
-@map_error("{}.AlreadyRunning".format(DBUS_TASK_NAME))
+@map_error("{}.AlreadyRunning".format(TASK))
 class TaskAlreadyRunningException(AnacondaError):
     """Exception will be raised when starting task which is already running."""
     pass
