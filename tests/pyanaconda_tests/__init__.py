@@ -24,7 +24,7 @@ from gi.repository import GLib
 
 from textwrap import dedent
 from mock import Mock
-from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
+from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 
 
 class run_in_glib(object):
@@ -82,7 +82,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out):
 
     # Test the properties changed callback.
     if ks_in is not None:
-        callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
+        callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
     else:
         test.assertEqual(interface.Kickstarted, False)
         callback.assert_not_called()

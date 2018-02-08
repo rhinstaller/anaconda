@@ -20,9 +20,10 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_USER_NAME, DBUS_MODULE_NAMESPACE
+from pyanaconda.modules.common.constants.services import USER
 from pyanaconda.modules.user.user import UserModule
 from pyanaconda.modules.user.user_interface import UserInterface
+from tests.pyanaconda_tests import check_kickstart_interface
 
 
 class UserInterfaceTestCase(unittest.TestCase):
@@ -55,14 +56,14 @@ class UserInterfaceTestCase(unittest.TestCase):
         self.user_interface.SetCryptedRootPassword("abcef")
         self.assertEqual(self.user_interface.IsRootPasswordSet, True)
         self.assertEqual(self.user_interface.IsRootAccountLocked, False)
-        self.callback.assert_called_once_with(MODULE_USER_NAME, {'IsRootPasswordSet': True}, [])
+        self.callback.assert_called_once_with(USER.interface_name, {'IsRootPasswordSet': True}, [])
 
     def lock_root_account_test(self):
         """Test if root account can be locked via DBUS correctly."""
         self.user_interface.SetRootAccountLocked(True)
         self.assertEqual(self.user_interface.IsRootPasswordSet, False)
         self.assertEqual(self.user_interface.IsRootAccountLocked, True)
-        self.callback.assert_called_once_with(MODULE_USER_NAME, {'IsRootAccountLocked': True}, [])
+        self.callback.assert_called_once_with(USER.interface_name, {'IsRootAccountLocked': True}, [])
 
     def ks_set_plaintext_roopw_test(self):
         """Test if setting plaintext root password from kickstart works correctly."""
@@ -89,7 +90,7 @@ class UserInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.user_interface.IsRootPasswordSet, False)
         self.assertEqual(self.user_interface.IsRootAccountLocked, True)
         self.user_interface.SetRootAccountLocked(False)
-        self.callback.assert_called_with(MODULE_USER_NAME, {'IsRootAccountLocked': False}, [])
+        self.callback.assert_called_with(USER.interface_name, {'IsRootAccountLocked': False}, [])
         self.assertEqual(self.user_interface.IsRootPasswordSet, False)
         self.assertEqual(self.user_interface.IsRootAccountLocked, False)
 
@@ -99,13 +100,13 @@ class UserInterfaceTestCase(unittest.TestCase):
         self.user_interface.SetCryptedRootPassword("abcef")
         self.assertEqual(self.user_interface.IsRootPasswordSet, True)
         self.assertEqual(self.user_interface.IsRootAccountLocked, False)
-        self.callback.assert_called_once_with(MODULE_USER_NAME, {'IsRootPasswordSet': True}, [])
+        self.callback.assert_called_once_with(USER.interface_name, {'IsRootPasswordSet': True}, [])
         # clear it
         self.user_interface.ClearRootPassword()
         # check if it looks cleared
         self.assertEqual(self.user_interface.IsRootPasswordSet, False)
         self.assertEqual(self.user_interface.IsRootAccountLocked, False)
-        self.callback.assert_called_with(MODULE_USER_NAME, {'IsRootPasswordSet': False}, [])
+        self.callback.assert_called_with(USER.interface_name, {'IsRootPasswordSet': False}, [])
 
     def rootpw_not_kickstarted_test(self):
         """Test rootpw is not marked as kickstarted without kickstart."""
@@ -114,7 +115,7 @@ class UserInterfaceTestCase(unittest.TestCase):
         # check if we can set it to True (not sure why would we do it, but oh well)
         self.user_interface.SetRootpwKickstarted(True)
         self.assertEqual(self.user_interface.IsRootpwKickstarted, True)
-        self.callback.assert_called_with(MODULE_USER_NAME, {'IsRootpwKickstarted': True}, [])
+        self.callback.assert_called_with(USER.interface_name, {'IsRootpwKickstarted': True}, [])
 
     def rootpw_kickstarted_test(self):
         """Test rootpw is marked as kickstarted with kickstart."""
@@ -124,22 +125,10 @@ class UserInterfaceTestCase(unittest.TestCase):
         # and we should be able to set it to False (for example when we override the data from kickstart)
         self.user_interface.SetRootpwKickstarted(False)
         self.assertEqual(self.user_interface.IsRootpwKickstarted, False)
-        self.callback.assert_called_with(MODULE_USER_NAME, {'IsRootpwKickstarted': False}, [])
+        self.callback.assert_called_with(USER.interface_name, {'IsRootpwKickstarted': False}, [])
 
     def _test_kickstart(self, ks_in, ks_out):
-        """Test the kickstart string."""
-        # Remove extra spaces from the expected output.
-        ks_output = "\n".join("".join(line.strip()) for line in ks_out.strip("\n").splitlines())
-
-        # Read a kickstart,
-        result = self.user_interface.ReadKickstart(ks_in)
-        self.assertEqual({k: v.unpack() for k, v in result.items()}, {"success": True})
-
-        # Generate a kickstart.
-        self.assertEqual(ks_output, self.user_interface.GenerateKickstart())
-
-        # Test the properties changed callback.
-        self.callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
+        check_kickstart_interface(self, self.user_interface, ks_in, ks_out)
 
     def kickstart_set_plain_rootpw_test(self):
         """Test the setting plaintext root password via kickstart."""

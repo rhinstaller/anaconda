@@ -17,13 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.dbus.constants import MODULE_FOO_NAME
 from pyanaconda.modules.common.base import KickstartModuleInterface
+from pyanaconda.modules.common.constants.services import FOO
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_FOO_NAME)
+@dbus_interface(FOO.interface_name)
 class FooInterface(KickstartModuleInterface):
     """DBus interface for Foo."""
     pass

@@ -20,14 +20,14 @@
 #
 from pykickstart.errors import KickstartError
 
+from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
 
 
-@dbus_interface(DBUS_MODULE_NAMESPACE)
+@dbus_interface(KICKSTART_MODULE.interface_name)
 class KickstartModuleInterface(AdvancedInterfaceTemplate):
     """DBus interface of a kickstart module.
 

@@ -17,14 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.dbus.constants import MODULE_BAR_NAME
+from pyanaconda.modules.common.constants.services import BAR
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_BAR_NAME)
+@dbus_interface(BAR.interface_name)
 class BarInterface(KickstartModuleInterface):
     """DBus interface for Bar."""
 
