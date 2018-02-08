@@ -17,12 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.constants import ADDON_BAZ_NAME
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.objects import BAZ
 from pyanaconda.modules.base_interface import KickstartModuleInterface
 
 
-@dbus_interface(ADDON_BAZ_NAME)
+@dbus_interface(BAZ.interface_name)
 class BazInterface(KickstartModuleInterface):
     """The interface for Baz."""
     pass

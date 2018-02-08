@@ -21,14 +21,14 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
-from pyanaconda.dbus.constants import DBUS_TASK_NAME
+from pyanaconda.dbus.objects import TASK
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ['TaskInterface']
 
 
-@dbus_interface(DBUS_TASK_NAME)
+@dbus_interface(TASK.interface_name)
 class TaskInterface(InterfaceTemplate):
     """Base class for implementing Task.
 

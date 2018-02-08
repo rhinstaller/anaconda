@@ -17,15 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME
+from pyanaconda.dbus.objects import TIMEZONE
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.base_interface import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_TIMEZONE_NAME)
+@dbus_interface(TIMEZONE.interface_name)
 class TimezoneInterface(KickstartModuleInterface):
     """DBus interface for Timezone module."""
 

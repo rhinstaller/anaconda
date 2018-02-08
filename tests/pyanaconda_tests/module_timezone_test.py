@@ -20,7 +20,7 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, DBUS_MODULE_NAMESPACE
+from pyanaconda.dbus.objects import TIMEZONE, KICKSTART_MODULE
 from pyanaconda.modules.timezone.timezone import TimezoneModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 
@@ -49,25 +49,25 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         """Test the Timezone property."""
         self.timezone_interface.SetTimezone("Europe/Prague")
         self.assertEqual(self.timezone_interface.Timezone, "Europe/Prague")
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'Timezone': 'Europe/Prague'}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'Timezone': 'Europe/Prague'}, [])
 
     def utc_property_test(self):
         """Test the IsUtc property."""
         self.timezone_interface.SetIsUTC(True)
         self.assertEqual(self.timezone_interface.IsUTC, True)
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'IsUTC': True}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'IsUTC': True}, [])
 
     def ntp_property_test(self):
         """Test the NTPEnabled property."""
         self.timezone_interface.SetNTPEnabled(False)
         self.assertEqual(self.timezone_interface.NTPEnabled, False)
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'NTPEnabled': False}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPEnabled': False}, [])
 
     def ntp_servers_property_test(self):
         """Test the NTPServers property."""
         self.timezone_interface.SetNTPServers(["ntp.cesnet.cz"])
         self.assertEqual(self.timezone_interface.NTPServers, ["ntp.cesnet.cz"])
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'NTPServers': ["ntp.cesnet.cz"]}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPServers': ["ntp.cesnet.cz"]}, [])
 
     def _test_kickstart(self, ks_in, ks_out):
         """Test the kickstart string."""
@@ -82,7 +82,7 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.assertEqual(ks_output, self.timezone_interface.GenerateKickstart())
 
         # Test the properties changed callback.
-        self.callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
+        self.callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
 
     def kickstart_test(self):
         """Test the timezone command."""

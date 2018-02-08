@@ -19,12 +19,12 @@
 #
 
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_ANACONDA_NAME
+from pyanaconda.dbus.objects import BOSS, BOSS_ANACONDA
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 
-@dbus_interface(DBUS_BOSS_NAME)
+@dbus_interface(BOSS.interface_name)
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
 
@@ -33,7 +33,7 @@ class BossInterface(InterfaceTemplate):
         self.implementation.stop()
 
 
-@dbus_interface(DBUS_BOSS_ANACONDA_NAME)
+@dbus_interface(BOSS_ANACONDA.interface_name)
 class AnacondaBossInterface(BossInterface):
     """Temporary extension of the boss for anaconda.
 

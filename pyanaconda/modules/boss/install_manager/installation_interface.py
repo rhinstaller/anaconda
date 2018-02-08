@@ -21,14 +21,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.dbus.constants import DBUS_BOSS_INSTALLATION_NAME
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
+from pyanaconda.dbus.objects import BOSS_INSTALLATION
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 
-@dbus_interface(DBUS_BOSS_INSTALLATION_NAME)
+@dbus_interface(BOSS_INSTALLATION.interface_name)
 class InstallationInterface(InterfaceTemplate):
     """Interface for Boss to summarize installation from modules for UIs."""
 
