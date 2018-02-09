@@ -2,6 +2,7 @@
 
 command -v unpack_img >/dev/null || . /lib/img-lib.sh
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
+command -v fetch_url >/dev/null || . /lib/url-lib.sh
 
 # config_get SECTION KEY < FILE
 # read an .ini-style config file, find the KEY in the given SECTION, and return
