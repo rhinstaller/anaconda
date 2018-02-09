@@ -1,7 +1,5 @@
 #
-# installclass_atomic.py
-#
-# Atomic-specific partitioning defaults
+# Fedora Atomic Host install class defaults
 #
 # Copyright (C) 2014  Red Hat, Inc.  All rights reserved.
 #
@@ -29,10 +27,10 @@ from pyanaconda.core import util
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ['AtomicInstallClass']
+__all__ = ['AtomicHostInstallClass']
 
 
-class AtomicInstallClass(FedoraBaseInstallClass):
+class AtomicHostInstallClass(FedoraBaseInstallClass):
     name = "Atomic Host"
     stylesheet = "/usr/share/anaconda/pixmaps/atomic/fedora-atomic.css"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
