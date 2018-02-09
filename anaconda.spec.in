@@ -106,7 +106,8 @@ Requires: python3-requests-ftp
 Requires: python3-kickstart >= %{pykickstartver}
 Requires: langtable-data >= %{langtablever}
 Requires: langtable-python3 >= %{langtablever}
-Requires: authconfig
+Requires: authselect
+Requires: authselect-compat
 Requires: firewalld >= %{firewalldver}
 Requires: util-linux >= %{utillinuxver}
 Requires: python3-gobject-base

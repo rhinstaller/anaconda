@@ -82,7 +82,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
-    os_config.append(Task("Configure authconfig", ksdata.authconfig.execute, (storage, ksdata, instClass)))
+    os_config.append(Task("Configure authselect", ksdata.authselect.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure SELinux", ksdata.selinux.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure first boot tasks", ksdata.firstboot.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure services", ksdata.services.execute, (storage, ksdata, instClass)))
@@ -289,7 +289,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Check for other possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
-    pre_install.append(Task("Setup authconfig", ksdata.authconfig.setup))
+    pre_install.append(Task("Setup authselect", ksdata.authselect.setup))
     pre_install.append(Task("Setup firewall", ksdata.firewall.setup))
     pre_install.append(Task("Setup network", ksdata.network.setup))
     # Setup timezone and add chrony as package if timezone was set in KS
@@ -309,7 +309,7 @@ def doInstall(storage, payload, ksdata, instClass):
         # to finish setting up the system.
         payload.requirements.add_packages(storage.packages, reason="storage")
         payload.requirements.add_packages(ksdata.realm.packages, reason="realm")
-        payload.requirements.add_packages(ksdata.authconfig.packages, reason="authconfig")
+        payload.requirements.add_packages(ksdata.authselect.packages, reason="authselect")
         payload.requirements.add_packages(ksdata.firewall.packages, reason="firewall")
         payload.requirements.add_packages(ksdata.network.packages, reason="network")
         payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)

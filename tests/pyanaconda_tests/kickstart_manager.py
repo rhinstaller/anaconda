@@ -37,7 +37,6 @@ keyboard --vckeymap=us --xlayouts='us'
 rootpw --plaintext chrchl
 selinux --enforcing
 firstboot --disable
-authconfig --passalgo=sha512 --enableshadow
 timezone --utc Asia/Tokyo
 
 network --device ens3
@@ -146,7 +145,6 @@ keyboard --vckeymap=us --xlayouts='us'
 rootpw --plaintext chrchl
 selinux --enforcing
 firstboot --disable
-authconfig --passalgo=sha512 --enableshadow
 timezone --utc Asia/Tokyo
 repo --name=repo1 --baseurl=http://bla.bla/repo1
 %post --nochroot --interpreter /usr/bin/bash

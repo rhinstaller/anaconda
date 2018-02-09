@@ -57,7 +57,6 @@ from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import device_matches, try_populate_devicetree
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
-from pyanaconda.users import getPassAlgo
 
 from blivet import udev
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
@@ -100,7 +99,7 @@ script_log = log.getChild("script")
 parsing_log = log.getChild("parsing")
 
 # command specific loggers
-authconfig_log = log.getChild("kickstart.authconfig")
+authselect_log = log.getChild("kickstart.authselect")
 bootloader_log = log.getChild("kickstart.bootloader")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
@@ -294,35 +293,59 @@ class RemovedCommand(KickstartCommand):
         log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
 
 
-class Authconfig(commands.authconfig.FC3_Authconfig):
+class Authselect(commands.authselect.F28_Authselect):
+
     def __init__(self, *args, **kwargs):
-        commands.authconfig.FC3_Authconfig.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.packages = []
 
+    @property
+    def fingerprint_supported(self):
+        return (os.path.exists(util.getSysroot() + "/lib64/security/pam_fprintd.so") or
+                os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so"))
+
     def setup(self):
-        if self.seen:
-            self.packages = ["authconfig"]
+        if self.seen or not flags.automatedInstall:
+            self.packages += ["authselect"]
+
+        if self.handler.authconfig.seen:
+            self.packages += ["authselect-compat"]
 
     def execute(self, *args):
-        cmd = "/usr/sbin/authconfig"
+        # Enable fingerprint option by default (#481273).
+        if not flags.automatedInstall and self.fingerprint_supported:
+            self._run(
+                "/usr/bin/authselect",
+                ["select", "sssd", "with-fingerprints", "--force"],
+                required=False
+            )
+
+        # Apply the authselect options from the kickstart file.
+        if self.seen and self.authselect:
+            self._run(
+                "/usr/bin/authselect",
+                shlex.split(self.authselect) + ["--force"]
+            )
+
+        # Apply the authconfig options from the kickstart file (deprecated).
+        if self.handler.authconfig.seen and self.handler.authconfig.authconfig:
+            self._run(
+                "/usr/sbin/authconfig",
+                ["--update", "--nostart"] + shlex.split(self.handler.authconfig.authconfig)
+            )
+
+    def _run(self, cmd, args, required=True):
         if not os.path.lexists(util.getSysroot() + cmd):
-            if flags.automatedInstall and self.seen:
+            if required:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
             else:
                 return
-
-        args = ["--update", "--nostart"] + shlex.split(self.authconfig)
-
-        if not flags.automatedInstall and \
-           (os.path.exists(util.getSysroot() + "/lib64/security/pam_fprintd.so") or
-            os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so")):
-            args += ["--enablefingerprint"]
-
         try:
             util.execInSysroot(cmd, args)
         except RuntimeError as msg:
-            authconfig_log.error("Error running %s %s: %s", cmd, args, msg)
+            authselect_log.error("Error running %s %s: %s", cmd, args, msg)
+
 
 class AutoPart(commands.autopart.F26_AutoPart):
     def parse(self, args):
@@ -1795,9 +1818,7 @@ class RootPw(commands.rootpw.F18_RootPw):
             # Also lock the root password if it was not set during interactive installation.
             self.lock = True
 
-
-        algo = getPassAlgo(ksdata.authconfig.authconfig)
-        users.setRootPassword(self.password, self.isCrypted, self.lock, algo, util.getSysroot())
+        users.setRootPassword(self.password, self.isCrypted, self.lock, None, util.getSysroot())
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self, *args):
@@ -1911,11 +1932,10 @@ class Timezone(RemovedCommand):
 
 class User(commands.user.F24_User):
     def execute(self, storage, ksdata, instClass, users):
-        algo = getPassAlgo(ksdata.authconfig.authconfig)
 
         for usr in self.userList:
             kwargs = usr.__dict__
-            kwargs.update({"algo": algo, "root": util.getSysroot()})
+            kwargs.update({"root": util.getSysroot()})
 
             # If the user password came from a kickstart and it is blank we
             # need to make sure the account is locked, not created with an
@@ -2282,8 +2302,7 @@ class AnacondaSection(Section):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
-    "auth": Authconfig,
-    "authconfig": Authconfig,
+    "authselect": Authselect,
     "autopart": AutoPart,
     "btrfs": BTRFS,
     "bootloader": Bootloader,

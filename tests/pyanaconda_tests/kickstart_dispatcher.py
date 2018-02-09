@@ -44,7 +44,6 @@ keyboard --vckeymap=us --xlayouts='us'
 rootpw --plaintext chrchl
 selinux --enforcing
 firstboot --disable
-authconfig --passalgo=sha512 --enableshadow
 timezone --utc Asia/Tokyo
 
 network --device ens3
@@ -129,7 +128,6 @@ keyboard --vckeymap=us --xlayouts='us'
 rootpw --plaintext chrchl
 selinux --enforcing
 firstboot --disable
-authconfig --passalgo=sha512 --enableshadow
 timezone --utc Asia/Tokyo
 network --device ens3
 network --device ens4 --activate
