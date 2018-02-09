@@ -521,7 +521,9 @@ if __name__ == "__main__":
 
     # cmdline flags override kickstart settings
     if anaconda.proxy:
-        ksdata.method.proxy = anaconda.proxy
+
+        if hasattr(ksdata.method, "proxy"):
+            ksdata.method.proxy = anaconda.proxy
 
         # Setup proxy environmental variables so that pre/post scripts use it
         # as well as libreport
@@ -540,7 +542,7 @@ if __name__ == "__main__":
             util.setenv("ftp_proxy", proxy.url)
             util.setenv("HTTPS_PROXY", proxy.url)
 
-    if flags.noverifyssl:
+    if flags.noverifyssl and hasattr(ksdata.method, "noverifyssl"):
         ksdata.method.noverifyssl = flags.noverifyssl
     if opts.multiLib:
         # sets dnf's multilib_policy to "all" (as opposed to "best")
