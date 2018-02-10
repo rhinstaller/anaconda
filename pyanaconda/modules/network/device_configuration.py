@@ -373,6 +373,9 @@ class DeviceConfigurations(object):
         return [cfg for cfg in self._device_configurations
                 if cfg.connection_uuid == connection_uuid]
 
+    def get_all(self):
+        return list(self._device_configurations)
+
     def _device_added_cb(self, client, device, *args):
         # We need to wait for valid state before adding the device
         log.debug("NM device added: %s", device.get_iface())

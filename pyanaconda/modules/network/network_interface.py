@@ -34,6 +34,7 @@ class NetworkInterface(KickstartModuleInterface):
         self.implementation.hostname_changed.connect(self.changed("Hostname"))
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.implementation.connected_changed.connect(self.changed("Connected"))
+        self.implementation.configuration_changed.connect(self.DeviceConfigurationChanged)
 
     @property
     def Hostname(self) -> Str:
@@ -92,3 +93,22 @@ class NetworkInterface(KickstartModuleInterface):
 
     def CreateDeviceConfigurations(self):
         self.implementation.create_device_configurations()
+
+    def GetDeviceConfigurations(self) -> List[Dict[Str, Variant]]:
+        dev_cfgs = self.implementation.get_device_configurations()
+        return [device_configuration_to_dbus(dev_cfg) for dev_cfg in dev_cfgs]
+
+    @dbus_signal
+    def DeviceConfigurationChanged(self, changes: List[Tuple[Dict[Str, Variant], Dict[Str, Variant]]]):
+        """Signal change of network devices configurations."""
+        pass
+
+
+def device_configuration_to_dbus(dev_cfg):
+    if not dev_cfg:
+        return {}
+    return {
+        "device-name": get_variant(Str, dev_cfg["device-name"] or ""),
+        "connection-uuid": get_variant(Str, dev_cfg["connection-uuid"] or ""),
+        "device-type": get_variant(Int, dev_cfg["device-type"])
+    }
