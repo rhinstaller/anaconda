@@ -171,7 +171,10 @@ class IfcfgFile(SimpleConfigFile):
 
         # vlan
         if self.get("VLAN") == "yes" or self.get("TYPE") == "Vlan":
-            kwargs["device"] = self.get("PHYSDEV")
+            physdev = self.get("PHYSDEV")
+            if len(physdev) == 36:
+                physdev = nm_client.get_iface_from_connection(physdev)
+            kwargs["device"] = physdev
             kwargs["vlanid"] = self.get("VLAN_ID")
             interface_name = self.get("DEVICE")
             if interface_name and interface_name != default_ks_vlan_interface_name(kwargs["device"], kwargs["vlanid"]):
