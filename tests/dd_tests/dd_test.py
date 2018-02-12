@@ -76,7 +76,9 @@ binfile = RPMFile(
 libfile = RPMFile(
     path="/usr/lib/fun.so",
     contents="I AM TOTALLY A SHARED LIBRARY",
-    mode="0755"
+
+    # FIXME: Uncomment after bug #1544361 will be resolved
+    # mode="0755"
 )
 fwfile = RPMFile(
     path="/lib/firmware/fun.fw",
