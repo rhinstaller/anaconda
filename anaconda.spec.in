@@ -319,6 +319,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 12 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.132-1
+- Performance spoke related CI fixes (mkolman)
+  Related: rhbz#1534833
+
 * Wed Feb 07 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.131-1
 - UI support for configuring certain mitigations (mkolman)
   Resolves: rhbz#1534833
