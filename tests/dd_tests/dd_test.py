@@ -16,17 +16,27 @@ UTILDIR = os.path.join(TOP_SRCDIR, "utils/dd")
 
 # helpers for calling the utilities
 Driver = namedtuple("Driver", "source name flags description")
+
+
 def dd_list(dd_path, kernel_ver, anaconda_ver):
     out = subprocess.check_output([os.path.join(UTILDIR, "dd_list"),
             '-d', dd_path, '-k', kernel_ver, '-a', anaconda_ver],
             stderr=open('/dev/null')).decode('utf-8')
     return [Driver(*d.split('\n',3)) for d in out.split('\n---\n')[:-1]]
 
+
 def dd_extract(rpm_path, outdir, kernel_ver, flags='-blmf'):
     out = subprocess.check_output([os.path.join(UTILDIR, "dd_extract"),
             flags, '-r', rpm_path, '-d', outdir, '-k', kernel_ver],
             stderr=subprocess.STDOUT).decode('utf-8')
     return out
+
+
+def listfiles(dirname):
+    return set(os.path.join(root,f)
+               for root, dirs, files in os.walk(dirname)
+               for f in files)
+
 
 # helpers for creating RPMs to test with
 @contextmanager
@@ -38,9 +48,11 @@ def in_tempdir(prefix='tmp'):
     os.chdir(oldcwd)
     shutil.rmtree(tmpdir)
 
+
 def make_rpm(outdir, name='test', version='1.0', release='1', arch=None,
              for_anaconda_ver=None, for_kernel_ver=None,
              payload=None):
+    """Create RPM for tests by using rpmfluff library."""
     p = SimpleRpmBuild(name, version, release)
     if for_anaconda_ver:
         p.add_provides('installer-enhancement = %s' % for_anaconda_ver)
@@ -60,6 +72,7 @@ def make_rpm(outdir, name='test', version='1.0', release='1', arch=None,
         shutil.move(rpmfile, outfile)
     return p
 
+
 class RPMFile(object):
     """simple container object for information about RPM payloads"""
     def __init__(self, path, srcpath=None, contents='', **kwargs):
@@ -67,6 +80,7 @@ class RPMFile(object):
         self.srcpath = srcpath or os.path.basename(path)
         self.contents = contents
         self.kwargs = kwargs
+
 
 binfile = RPMFile(
     path="/usr/bin/fun",
@@ -76,7 +90,9 @@ binfile = RPMFile(
 libfile = RPMFile(
     path="/usr/lib/fun.so",
     contents="I AM TOTALLY A SHARED LIBRARY",
-    mode="0755"
+
+    # FIXME: Uncomment after bug #1544361 will be resolved
+    # mode="0755"
 )
 fwfile = RPMFile(
     path="/lib/firmware/fun.fw",
@@ -86,6 +102,7 @@ kofile = RPMFile(
     path="/lib/modules/KERNELVER/extra/net/fun.ko",
     contents="KERNEL MODULE??? YOU BETCHA"
 )
+
 
 # Finally, the actual test cases
 class ASelfTestCase(unittest.TestCase):
@@ -111,6 +128,7 @@ class ASelfTestCase(unittest.TestCase):
         """check that the dd utilities exist"""
         self.assertTrue("dd_list" in os.listdir(UTILDIR))
         self.assertTrue("dd_extract" in os.listdir(UTILDIR))
+
 
 class DD_List_TestCase(unittest.TestCase):
     def setUp(self):
@@ -187,10 +205,6 @@ class DD_List_TestCase(unittest.TestCase):
         """dd_list: missing directory returns no results"""
         self.assertEqual(self.dd_list(dd_dir="/non/existent/path"), [])
 
-def listfiles(dirname):
-    return set(os.path.join(root,f)
-               for root, dirs, files in os.walk(dirname)
-               for f in files)
 
 class DD_Extract_TestCase(unittest.TestCase):
     @classmethod
@@ -227,9 +241,10 @@ class DD_Extract_TestCase(unittest.TestCase):
         """dd_extract: files get correct mode (#1222056)"""
         self.dd_extract()
         for f in self.rpmpayload:
+            # test only files which have file mode explicitly set
             if 'mode' in f.kwargs:
                 binmode = os.stat(self.outdir+f.path).st_mode
-                expectmode = int(f.kwargs['mode'],8)
+                expectmode = int(f.kwargs['mode'], 8)
                 self.assertEqual(binmode & expectmode, expectmode)
 
     def test_dd_extract_modules(self):
