@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_FOO_PATH, MODULE_FOO_NAME
+from pyanaconda.dbus.objects import FOO
 from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.foo.foo_interface import FooInterface
 from pyanaconda.modules.foo.tasks.foo_task import FooTask
@@ -32,6 +32,6 @@ class Foo(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(FooInterface(self), MODULE_FOO_PATH)
-        self.publish_task(FooTask(), MODULE_FOO_PATH)
-        DBus.register_service(MODULE_FOO_NAME)
+        DBus.publish_object(FOO.object_path, FooInterface(self))
+        self.publish_task(FOO.pathspace, FooTask())
+        DBus.register_service(FOO.service_name)

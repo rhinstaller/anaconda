@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import ADDON_BAZ_NAME, ADDON_BAZ_PATH
+from pyanaconda.dbus.objects import BAZ
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
 from pyanaconda.modules.base import KickstartModule
 
@@ -31,5 +31,5 @@ class Baz(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(BazInterface(self), ADDON_BAZ_PATH)
-        DBus.register_service(ADDON_BAZ_NAME)
+        DBus.publish_object(BAZ.object_path, BazInterface(self))
+        DBus.register_service(BAZ.service_name)

@@ -86,11 +86,11 @@ class DBusConnection(object):
                                            replace=False)
         self._service_registrations.append(reg)
 
-    def publish_object(self, obj, object_path):
+    def publish_object(self, object_path, obj):
         """Publish an object on DBus.
 
-        :param obj: an instance of @dbus_interface or @dbus_class
         :param object_path: a DBus path of an object
+        :param obj: an instance of @dbus_interface or @dbus_class
         """
         log.debug("Publishing an object at %s.", object_path)
         reg = self.connection.register_object(object_path, obj, None)

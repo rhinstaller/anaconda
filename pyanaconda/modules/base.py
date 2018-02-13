@@ -99,9 +99,9 @@ class KickstartModule(BaseModule):
         """Returns a list of published tasks."""
         return self._published_tasks
 
-    def publish_task(self, implementation, module_path):
+    def publish_task(self, dbus_path, task):
         """Publish a task."""
-        published = publish_task(implementation, module_path)
+        published = publish_task(dbus_path, task)
         self._published_tasks.append(published)
 
     @property

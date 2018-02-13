@@ -18,8 +18,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
 from pyanaconda.core.signal import Signal
+from pyanaconda.dbus.objects import TIMEZONE
 from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.modules.timezone.timezone_kickstart import TimezoneKickstartSpecification
@@ -47,8 +47,8 @@ class TimezoneModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(TimezoneInterface(self), MODULE_TIMEZONE_PATH)
-        DBus.register_service(MODULE_TIMEZONE_NAME)
+        DBus.publish_object(TIMEZONE.object_path, TimezoneInterface(self))
+        DBus.register_service(TIMEZONE.service_name)
 
     @property
     def kickstart_specification(self):
