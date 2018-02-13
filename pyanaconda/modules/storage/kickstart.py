@@ -23,10 +23,10 @@ from pykickstart.commands.autopart import RHEL8_AutoPart
 from pykickstart.commands.bootloader import RHEL8_Bootloader
 from pykickstart.commands.clearpart import F28_ClearPart
 from pykickstart.commands.ignoredisk import F29_IgnoreDisk
-from pykickstart.commands.logvol import F23_LogVol, F23_LogVolData
+from pykickstart.commands.logvol import RHEL8_LogVol, F23_LogVolData
 from pykickstart.commands.mount import F27_Mount, F27_MountData
-from pykickstart.commands.partition import F29_Partition, F29_PartData
-from pykickstart.commands.raid import F25_Raid, F25_RaidData
+from pykickstart.commands.partition import RHEL8_Partition, F29_PartData
+from pykickstart.commands.raid import RHEL8_Raid, F25_RaidData
 from pykickstart.commands.reqpart import F23_ReqPart
 from pykickstart.commands.volgroup import RHEL8_VolGroup, RHEL8_VolGroupData
 from pykickstart.commands.zerombr import F9_ZeroMbr
@@ -136,11 +136,11 @@ class StorageKickstartSpecification(KickstartSpecification):
         "bootloader": RHEL8_Bootloader,
         "clearpart": ClearPart,
         "ignoredisk": IgnoreDisk,
-        "logvol": F23_LogVol,
+        "logvol": RHEL8_LogVol,
         "mount": F27_Mount,
-        "part": F29_Partition,
-        "partition": F29_Partition,
-        "raid": F25_Raid,
+        "part": RHEL8_Partition,
+        "partition": RHEL8_Partition,
+        "raid": RHEL8_Raid,
         "reqpart": F23_ReqPart,
         "volgroup": RHEL8_VolGroup,
         "zerombr": F9_ZeroMbr,
