@@ -790,7 +790,7 @@ class Lang(commands.lang.F19_Lang):
 # no overrides needed here
 Eula = commands.eula.F20_Eula
 
-class LogVol(commands.logvol.F23_LogVol):
+class LogVol(commands.logvol.RHEL8_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -1157,7 +1157,7 @@ class Network(commands.network.F27_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
-class Partition(commands.partition.F23_Partition):
+class Partition(commands.partition.RHEL8_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1451,7 +1451,7 @@ class PartitionData(commands.partition.F23_PartData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class Raid(commands.raid.F25_Raid):
+class Raid(commands.raid.RHEL8_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
