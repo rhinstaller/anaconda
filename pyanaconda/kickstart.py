@@ -61,7 +61,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
-from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.errors import PartitioningError, StorageError
 from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
@@ -295,9 +295,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             authconfig_log.error("Error running %s %s: %s", cmd, args, msg)
 
-class AutoPart(commands.autopart.F26_AutoPart):
+class AutoPart(commands.autopart.RHEL8_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F26_AutoPart.parse(self, args)
+        retval = commands.autopart.RHEL8_AutoPart.parse(self, args)
 
         if self.fstype:
             fmt = blivet.formats.get_format(self.fstype)
@@ -486,93 +486,10 @@ class Bootloader(commands.bootloader.RHEL8_Bootloader):
         if self.nombr:
             flags.nombr = True
 
-class BTRFS(commands.btrfs.F23_BTRFS):
-    def execute(self, storage, ksdata, instClass):
-        for b in self.btrfsList:
-            b.execute(storage, ksdata, instClass)
-
-class BTRFSData(commands.btrfs.F23_BTRFSData):
-    def execute(self, storage, ksdata, instClass):
-        devicetree = storage.devicetree
-
-        storage.do_autopart = False
-
-        members = []
-
-        # Get a list of all the devices that make up this volume.
-        for member in self.devices:
-            dev = devicetree.resolve_device(member)
-            if not dev:
-                # if using --onpart, use original device
-                member_name = ksdata.onPart.get(member, member)
-                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
-
-            if dev and dev.format.type == "luks":
-                try:
-                    dev = dev.children[0]
-                except IndexError:
-                    dev = None
-
-            if dev and dev.format.type != "btrfs":
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
-                             {"device": member, "format": dev.format.type}))
-
-            if not dev:
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Tried to use undefined partition \"%s\" in Btrfs volume specification.") % member))
-
-            members.append(dev)
-
-        if self.subvol:
-            name = self.name
-        elif self.label:
-            name = self.label
-        else:
-            name = None
-
-        if len(members) == 0 and not self.preexist:
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("Btrfs volume defined without any member devices.  Either specify member devices or use --useexisting.")))
-
-        # allow creating btrfs vols/subvols without specifying mountpoint
-        if self.mountpoint in ("none", "None"):
-            self.mountpoint = ""
-
-        # Sanity check mountpoint
-        if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint))
-
-        # If a previous device has claimed this mount point, delete the
-        # old one.
-        try:
-            if self.mountpoint:
-                device = storage.mountpoints[self.mountpoint]
-                storage.destroy_device(device)
-        except KeyError:
-            pass
-
-        if self.preexist:
-            device = devicetree.resolve_device(self.name)
-            if not device:
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name))
-
-            device.format.mountpoint = self.mountpoint
-        else:
-            try:
-                request = storage.new_btrfs(name=name,
-                                            subvol=self.subvol,
-                                            mountpoint=self.mountpoint,
-                                            metadata_level=self.metaDataLevel,
-                                            data_level=self.dataLevel,
-                                            parents=members,
-                                            create_options=self.mkfsopts)
-            except BTRFSValueError as e:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
-
-            storage.create_device(request)
+class BTRFS(commands.btrfs.RHEL8_BTRFS):
+    def parse(self, args):
+        commands.btrfs.RHEL8_BTRFS.parse(self, args)
+        raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported.")))
 
 class Realm(commands.realm.F19_Realm):
     def __init__(self, *args):
@@ -2282,7 +2199,6 @@ commandMap = {
 }
 
 dataMap = {
-    "BTRFSData": BTRFSData,
     "LogVolData": LogVolData,
     "MountData": MountData,
     "PartData": PartitionData,
@@ -2519,7 +2435,7 @@ def runTracebackScripts(scripts):
     script_log.info("All kickstart %%traceback script(s) have been run")
 
 def resetCustomStorageData(ksdata):
-    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
+    for command in ["partition", "raid", "volgroup", "logvol"]:
         ksdata.resetCommand(command)
 
 def doKickstartStorage(storage, ksdata, instClass):
@@ -2539,7 +2455,6 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.raid.execute(storage, ksdata, instClass)
     ksdata.volgroup.execute(storage, ksdata, instClass)
     ksdata.logvol.execute(storage, ksdata, instClass)
-    ksdata.btrfs.execute(storage, ksdata, instClass)
     ksdata.mount.execute(storage, ksdata, instClass)
     # setup snapshot here, that means add it to model and do the tests
     # snapshot will be created on the end of the installation
