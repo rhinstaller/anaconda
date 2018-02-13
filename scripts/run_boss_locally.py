@@ -39,10 +39,10 @@ paths = os.environ.get("PYTHONPATH", "").split(":")
 paths.insert(0, top_dir)
 os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
 
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME
+from pyanaconda.dbus.objects import BOSS
 from pyanaconda.dbus.errors import SplitKickstartError
 
-MODULES_DIR = os.path.join(top_dir ,"pyanaconda/modules")
+MODULES_DIR = os.path.join(top_dir, "pyanaconda/modules")
 DBUS_SERVICES_DIR = os.path.join(top_dir, "data/dbus/")
 STARTUP_SCRIPT = os.path.join(top_dir, "scripts/start-module")
 EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
@@ -50,13 +50,13 @@ EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 def start_anaconda_services():
     print(RED + "starting Boss" + RESET)
-    test_dbus_connection.dbus.StartServiceByName(DBUS_BOSS_NAME, 0)
+    test_dbus_connection.dbus.StartServiceByName(BOSS.service_name, 0)
 
 def distribute_kickstart(ks_path):
     tmpfile = tempfile.mktemp(suffix=".run_boss_locally.ks")
     shutil.copyfile(ks_path, tmpfile)
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
-    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
+    boss_object = test_dbus_connection.get(BOSS.service_name, BOSS.object_path)
     try:
         boss_object.SplitKickstart(tmpfile)
     except SplitKickstartError as e:
@@ -79,7 +79,7 @@ def distribute_kickstart(ks_path):
 def stops_anaconda_services():
     print(RED + "stopping Boss" + RESET)
 
-    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
+    boss_object = test_dbus_connection.get(BOSS.service_name, BOSS.object_path)
     boss_object.Quit()
 
     print(RED + "waiting a bit for module shutdown to happen" + RESET)

@@ -16,12 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pydbus.auto_names import auto_object_path
-
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import ANACONDA_MODULES, DBUS_START_REPLY_SUCCESS, \
-    DBUS_ADDON_NAMESPACE, DBUS_FLAG_NONE
-from pyanaconda.dbus.observer import DBusObjectObserver
+from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
+from pyanaconda.dbus.namespace import get_object_path
+from pyanaconda.dbus.objects import ALL_KICKSTART_MODULES, KICKSTART_ADDON
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -38,15 +36,11 @@ class ModuleManager(object):
         """Return the modules observers."""
         return self._module_observers
 
-    def add_module(self, service_name, module_path):
-        """Add module to manage."""
-        observer = DBusObjectObserver(service_name, module_path)
-        self._module_observers.append(observer)
-
     def add_default_modules(self):
         """Add the default modules."""
-        for name, path in ANACONDA_MODULES:
-            self.add_module(name, path)
+        for module in ALL_KICKSTART_MODULES:
+            observer = module.get_observer()
+            self._module_observers.append(observer)
 
     def add_addon_modules(self):
         """Add the addon modules."""
@@ -54,8 +48,9 @@ class ModuleManager(object):
         names = dbus.ListActivatableNames()
 
         for name in names:
-            if name.startswith(DBUS_ADDON_NAMESPACE):
-                self.add_module(name, auto_object_path(name))
+            if name.startswith(KICKSTART_ADDON.namespace):
+                observer = DBus.get_observer(name, get_object_path(name))
+                self._module_observers.append(observer)
 
     def start_modules(self):
         """Start anaconda modules (including addons)."""
