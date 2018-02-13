@@ -19,7 +19,7 @@
 #
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
-from pykickstart.commands.autopart import F26_AutoPart
+from pykickstart.commands.autopart import RHEL8_AutoPart
 from pykickstart.commands.bootloader import RHEL8_Bootloader
 from pykickstart.commands.clearpart import F28_ClearPart
 from pykickstart.commands.ignoredisk import F29_IgnoreDisk
@@ -55,7 +55,7 @@ def get_device_names(specs, disks_only=False, msg="{}", lineno=None):
     return drives
 
 
-class AutoPart(F26_AutoPart):
+class AutoPart(RHEL8_AutoPart):
     """The autopart kickstart command."""
 
     def parse(self, args):
