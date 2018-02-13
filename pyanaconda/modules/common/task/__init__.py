@@ -21,13 +21,12 @@ from pyanaconda.modules.common.task.task_interface import TaskInterface
 __all__ = ["publish_task", "Task", "TaskInterface"]
 
 
-def publish_task(task_instance: Task, module_dbus_path):
+def publish_task(dbus_path, task_instance: Task):
     """Publish Task to the DBus.
 
+    :param str dbus_path: prefix of the DBus object path
     :param task_instance: Instance of a Task.
-    :param module_dbus_path: DBus object path of a module.
-    :type module_dbus_path: str
     """
     interface = TaskInterface(task_instance)
-    interface.publish_from_module(module_dbus_path)
+    interface.publish_from_module(dbus_path)
     return interface

@@ -98,7 +98,7 @@ class InterfaceTemplate(ABC):
 
         :type object_path: a DBus path of the object
         """
-        DBus.publish_object(self, object_path)
+        DBus.publish_object(object_path, self)
         self._object_path = object_path
 
 
