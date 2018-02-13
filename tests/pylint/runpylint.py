@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 
 import sys
+import time
 
+from os import path
 from pocketlint import FalsePositive, PocketLintConfig, PocketLinter
+
+TIME_LOG = "pylint-time.log"
+
 
 class AnacondaLintConfig(PocketLintConfig):
     def __init__(self):
@@ -16,8 +21,6 @@ class AnacondaLintConfig(PocketLintConfig):
                                 # TODO: Should be fixed with https://github.com/PyCQA/astroid/pull/433
                                 FalsePositive(r"^E1129.*: Context manager 'lock' doesn't implement __enter__ and __exit__.$"),
 
-                                # XXX: This is temporary until koji has python3 versions.
-                                FalsePositive(r"^E0401.*: Unable to import 'koji'$"),
                                 FalsePositive(r"^E1101.*: Instance of 'GError' has no 'message' member"),
                                 FalsePositive(r"^E1101.*: FedoraGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: HostipGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
@@ -46,8 +49,28 @@ class AnacondaLintConfig(PocketLintConfig):
     def ignoreNames(self):
         return {"translation-canary"}
 
+
+def _get_timelog_path():
+    log_dir = path.dirname(path.realpath(__file__))
+    return "{}/{}".format(log_dir, TIME_LOG)
+
+
+def save_start_time():
+    lt = time.localtime()
+    with open(_get_timelog_path(), 'at') as f:
+        f.write("Start - {}:{}:{}\n".format(lt.tm_hour, lt.tm_min, lt.tm_sec))
+
+
+def save_end_time():
+    lt = time.localtime()
+    with open(_get_timelog_path(), 'at') as f:
+        f.write("End - {}:{}:{}\n".format(lt.tm_hour, lt.tm_min, lt.tm_sec))
+
+
 if __name__ == "__main__":
     conf = AnacondaLintConfig()
     linter = PocketLinter(conf)
+    save_start_time()
     rc = linter.run()
+    save_end_time()
     sys.exit(rc)

@@ -1,5 +1,24 @@
 #!/bin/python3
 #
+# Copyright (C) 2018  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
+#
+#
 # Setup mock testing environment for Anaconda.
 #
 
@@ -13,6 +32,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 DEPENDENCY_SOLVER = "dependency_solver.py"
 
 ANACONDA_MOCK_PATH = "/anaconda"
+NOSE_TESTS_PREFIX = "./pyanaconda_tests/"
 
 
 class MockException(Exception):
@@ -47,6 +67,19 @@ def _resolve_top_dir():
     # go up two dirs to get top path
     top_dir = os.path.split(script_dir)[0]
     return os.path.split(top_dir)[0]
+
+
+def _replace_prefix_paths(paths, prefix):
+    result = []
+
+    for p in paths:
+        if os.path.exists(p):
+            basename = os.path.basename(p)
+            result.append(os.path.join(prefix + basename))
+        else:
+            result.append(p)
+
+    return result
 
 
 def _check_dir_exists(path):
@@ -127,13 +160,29 @@ One of these commands must be used. These commands can be combined.
                        help="""
                        run anaconda tests in a mock
                        """)
+    group.add_argument('--run-nosetests', '-n', action='store', nargs='*',
+                       metavar='tests/pyanaconda_tests/test.py',
+                       dest='nose_targets',
+                       help="""
+                       run anaconda nosetests;
+                       you can specify which tests will run by giving paths to tests files
+                       from anaconda root dir as additional parameters
+                       """)
     group.add_argument('--copy', '-c', action='store_true', dest='copy',
                        help="""
                        keep existing mock and only replace Anaconda folder in it;
                        this will not re-init mock chroot
                        """)
 
-    return parser.parse_args()
+    namespace = parser.parse_args()
+    check_args(namespace)
+
+    return namespace
+
+
+def check_args(namespace):
+    if namespace.run_tests and namespace.nose_targets is not None:
+        raise AttributeError("You can't combine `--run-tests` and `--run-nosetests` commands!")
 
 
 def get_required_packages():
@@ -203,20 +252,54 @@ def install_packages_to_mock(mock_command, packages):
     _check_subprocess(cmd, "Can't install packages to mock.")
 
 
-def run_tests(mock_command):
+def prepare_anaconda(mock_command):
     cmd = _prepare_command(mock_command)
 
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append('cd {} && ./autogen.sh && ./configure'.format(ANACONDA_MOCK_PATH))
 
-    _check_subprocess(cmd, "Can't run tests in a mock.")
+    _check_subprocess(cmd, "Can't prepare anaconda in a mock.")
+
+
+def run_tests(mock_command):
+    prepare_anaconda(mock_command)
 
     cmd = _prepare_command(mock_command)
 
     cmd = _run_cmd_in_chroot(cmd)
     cmd.append('cd {} && make ci'.format(ANACONDA_MOCK_PATH))
 
-    _call_subprocess(cmd)
+    result = _call_subprocess(cmd)
+
+    return result.returncode == 0
+
+
+def run_nosetests(mock_command, specified_test_files):
+    prepare_anaconda(mock_command)
+
+    cmd = _prepare_command(mock_command)
+
+    specified_test_files = _replace_prefix_paths(specified_test_files, NOSE_TESTS_PREFIX)
+    additional_args = " ".join(specified_test_files)
+
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('cd {} && make tests-nose-only NOSE_TESTS_ARGS="{}"'.format(ANACONDA_MOCK_PATH,
+                                                                           additional_args))
+
+    result = _call_subprocess(cmd)
+
+    move_logs_in_mock(mock_command)
+
+    return result.returncode == 0
+
+
+def move_logs_in_mock(mock_command):
+    cmd = _prepare_command(mock_command)
+    cmd = _run_cmd_in_chroot(cmd)
+
+    cmd.append('cd {} && make grab-logs'.format(ANACONDA_MOCK_PATH))
+
+    _check_subprocess(cmd, "Can't move logs to result folder inside of mock.")
 
 
 def init_mock(mock_command):
@@ -237,6 +320,7 @@ if __name__ == "__main__":
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
     mock_init_run = False
+    success = True
 
     if not any([ns.init, ns.copy, ns.run_tests, ns.install]):
         print("You need to specify one of the main commands!", file=sys.stderr)
@@ -260,7 +344,13 @@ if __name__ == "__main__":
         copy_anaconda_to_mock(mock_cmd)
 
     if ns.run_tests:
-        run_tests(mock_cmd)
+        success = run_tests(mock_cmd)
+    elif ns.nose_targets is not None:
+        success = run_nosetests(mock_cmd, ns.nose_targets)
 
     if ns.result_folder:
         copy_result(mock_cmd, ns.result_folder)
+
+    if not success:
+        print("\nTESTS FAILED!\n")
+        sys.exit(1)

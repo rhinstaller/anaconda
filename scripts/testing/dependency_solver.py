@@ -1,5 +1,24 @@
 #!/bin/python3
 #
+# Copyright (C) 2018  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Jiri Konecny <jkonecny@redhat.com>
+#
+#
 # Resolve dependencies from spec file.
 #
 # Return a list of packages required for build, runtime, tests or combination of those.
@@ -16,7 +35,7 @@ ANACONDA_SPEC_NAME = "anaconda.spec.in"
 TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pykickstart",
                      "python3-rpmfluff", "python3-mock", "python3-pocketlint",
                      "python3-nose-testconfig", "python3-sphinx_rtd_theme", "python3-lxml",
-                     "python3-dogtail", "sudo"]
+                     "python3-dogtail"]
 
 
 def _resolve_top_dir():
@@ -37,7 +56,8 @@ def _read_spec_file():
 
 
 def parse_args():
-    parser = ArgumentParser(description="Resolve Anaconda all dependencies.")
+    parser = ArgumentParser(description="Resolve Anaconda all dependencies.",
+                            epilog="Without any options the '-b -r -t' options will be used.")
     parser.add_argument('-b', '--build', action='store_true',  dest="build",
                         help="resolve build dependencies")
     parser.add_argument('-r', '--runtime', action='store_true', dest='runtime',
