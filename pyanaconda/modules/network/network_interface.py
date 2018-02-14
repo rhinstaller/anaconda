@@ -103,3 +103,10 @@ class NetworkInterface(KickstartModuleInterface):
     def DeviceConfigurationChanged(self, changes: List[Tuple[Structure, Structure]]):
         """Signal change of network devices configurations."""
         pass
+
+    def SetDefaultKickstartDeviceSpecification(self, specification: Str):
+        """Sets device specification for missing --device kickstart option.
+
+        :param specification: kickstart network --device option specification
+        """
+        self.implementation.default_device_specification = specification
