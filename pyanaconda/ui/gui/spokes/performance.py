@@ -92,6 +92,26 @@ class PerformanceSpoke(NormalSpoke):
                                        no_ibpb=not self._ibpb_switch.get_active())
         self.data.bootloader.appendLine = opts
 
+        # We need to make sure the options are applied here as the execute()
+        # method of the bootloader command might not be called again after user
+        # has exited this spoke.
+
+        # PTI
+        if self._pti_switch.get_active():
+            self.storage.bootloader.boot_args.discard("nopti")
+        else:
+            self.storage.bootloader.boot_args.update(["nopti"])
+        # IBRS
+        if self._ibrs_switch.get_active():
+            self.storage.bootloader.boot_args.discard("noibrs")
+        else:
+            self.storage.bootloader.boot_args.update(["noibrs"])
+        # IBPB
+        if self._ibpb_switch.get_active():
+            self.storage.bootloader.boot_args.discard("noibpb")
+        else:
+            self.storage.bootloader.boot_args.update(["noibpb"])
+
     @property
     def completed(self):
         """Every state of the mitigation options should be valid."""
