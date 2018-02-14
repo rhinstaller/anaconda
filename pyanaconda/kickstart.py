@@ -335,15 +335,15 @@ class AutoPart(commands.autopart.F26_AutoPart):
         if report.failure:
             raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
 
-class Bootloader(commands.bootloader.F21_Bootloader):
+class Bootloader(commands.bootloader.RHEL8_Bootloader):
     def __init__(self, *args, **kwargs):
-        commands.bootloader.F21_Bootloader.__init__(self, *args, **kwargs)
+        commands.bootloader.RHEL8_Bootloader.__init__(self, *args, **kwargs)
         self.location = "mbr"
         self._useBackup = False
         self._origBootDrive = None
 
     def parse(self, args):
-        commands.bootloader.F21_Bootloader.parse(self, args)
+        commands.bootloader.RHEL8_Bootloader.parse(self, args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
             raise KickstartParseError(formatErrorMsg(self.lineno,
                                       msg=_("GRUB2 does not support installation to a partition.")))
@@ -688,9 +688,9 @@ class ClearPart(commands.clearpart.F28_ClearPart):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.RHEL8_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = commands.fcoe.RHEL8_Fcoe.parse(self, args)
 
         if fc.nic not in nm.nm_devices():
             raise KickstartParseError(formatErrorMsg(self.lineno,
@@ -1887,12 +1887,12 @@ class User(commands.user.F24_User):
             except ValueError as e:
                 user_log.warning(str(e))
 
-class VolGroup(commands.volgroup.F21_VolGroup):
+class VolGroup(commands.volgroup.RHEL8_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.F21_VolGroupData):
+class VolGroupData(commands.volgroup.RHEL8_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
