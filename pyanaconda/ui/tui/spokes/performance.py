@@ -89,3 +89,23 @@ class PerformanceSpoke(EditTUISpoke):
                                        no_ibrs=not self.args.ibrs,
                                        no_ibpb=not self.args.ibpb)
         self.data.bootloader.appendLine = opts
+
+        # We need to make sure the options are applied here as the execute()
+        # method of the bootloader command might not be called again after user
+        # has exited this spoke.
+
+        # PTI
+        if self.args.pti:
+            self.storage.bootloader.boot_args.discard("nopti")
+        else:
+            self.storage.bootloader.boot_args.update(["nopti"])
+        # IBRS
+        if self.args.ibrs:
+            self.storage.bootloader.boot_args.discard("noibrs")
+        else:
+            self.storage.bootloader.boot_args.update(["noibrs"])
+        # IBPB
+        if self.args.ibpb:
+            self.storage.bootloader.boot_args.discard("noibpb")
+        else:
+            self.storage.bootloader.boot_args.update(["noibpb"])
