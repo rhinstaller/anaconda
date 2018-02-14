@@ -246,7 +246,7 @@ class DisplayMode(commands.displaymode.F26_DisplayMode, DracutArgsMixin):
 
         return ret
 
-class Bootloader(commands.bootloader.F29_Bootloader, DracutArgsMixin):
+class Bootloader(commands.bootloader.RHEL8_Bootloader, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.extlinux:
             return "extlinux"

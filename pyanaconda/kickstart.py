@@ -855,7 +855,7 @@ class ClearPart(RemovedCommand):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F28_Fcoe):
+class Fcoe(commands.fcoe.RHEL8_Fcoe):
     def parse(self, args):
         fc = super().parse(args)
 
@@ -2136,12 +2136,12 @@ class User(commands.user.F24_User):
             except ValueError as e:
                 user_log.warning(str(e))
 
-class VolGroup(commands.volgroup.F21_VolGroup):
+class VolGroup(commands.volgroup.RHEL8_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.F21_VolGroupData):
+class VolGroupData(commands.volgroup.RHEL8_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
