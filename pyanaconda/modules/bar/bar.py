@@ -17,7 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
+from pyanaconda.dbus import DBus, SystemBus
+from pyanaconda.dbus.namespace import DBusServiceIdentifier
 from pyanaconda.dbus.objects import BAR, TIMEZONE
 from pyanaconda.modules.bar.bar_kickstart import BarKickstartSpecification
 from pyanaconda.modules.base import KickstartModule
@@ -26,6 +27,9 @@ from pyanaconda.modules.bar.tasks.bar_task import BarTask
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
+
+# Network manager service for testing.
+NETWORK = DBusServiceIdentifier("org", "freedesktop", "NetworkManager", message_bus=SystemBus)
 
 
 class Bar(KickstartModule):
@@ -71,3 +75,7 @@ class Bar(KickstartModule):
         log.debug("Timezone set to: %s", timezone)
         self._timezone_module.proxy.SetTimezone(timezone)
         self._timezone_debug()
+
+    def get_all_devices(self):
+        proxy = NETWORK.get_proxy()
+        return proxy.GetAllDevices()

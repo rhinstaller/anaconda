@@ -29,3 +29,6 @@ class BarInterface(KickstartModuleInterface):
 
     def SetTimezone(self, timezone: Str):
         self.implementation.set_timezone(timezone)
+
+    def GetAllDevices(self) -> List[ObjPath]:
+        return self.implementation.get_all_devices()
