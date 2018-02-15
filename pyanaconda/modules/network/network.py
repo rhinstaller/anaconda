@@ -29,6 +29,8 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 from pyanaconda.modules.network.nm_client import nm_client
+from pyanaconda.modules.network.ifcfg import find_ifcfg_file_of_device, ifcfg_is_from_kickstart, \
+    find_ifcfg_uuid_of_device
 
 import gi
 gi.require_version("NM", "1.0")
@@ -227,3 +229,77 @@ class NetworkModule(KickstartModule):
         self.configuration_changed.emit([
             (get_structure(old_dev_cfg), get_structure(new_dev_cfg))
         ])
+
+    def consolidate_initramfs_connections(self):
+        """Ensure devices configured in initramfs have no more than one NM connection.
+
+        In case of multiple connections for device having ifcfg configuration from
+        boot options, the connection should correspond to the ifcfg file.
+        NetworkManager can be generating additional in-memory connection in case it
+        fails to match device configuration to the ifcfg (#1433891).  By
+        reactivating the device with ifcfg connection the generated in-memory
+        connection will be deleted by NM.
+
+        Don't enforce on slave devices for which having multiple connections can be
+        valid (slave connection, regular device connection).
+        """
+        consolidated_devices = []
+
+        for device in self.nm_client.get_devices():
+            cons = device.get_available_connections()
+            number_of_connections = len(cons)
+            iface = device.get_iface()
+
+            if number_of_connections < 2:
+                continue
+
+            # Ignore devices which are slaves
+            if any(con.get_setting_connection().get_master() for con in cons):
+                log.debug("consolidate %d initramfs connections for %s: it is OK, device is a slave",
+                          number_of_connections, iface)
+                continue
+
+            ifcfg_path = find_ifcfg_file_of_device(iface)
+            if not ifcfg_path:
+                log.error("consolidate %d initramfs connections for %s: no ifcfg file",
+                          number_of_connections, iface)
+                continue
+
+            # Handle only ifcfgs created from boot options in initramfs
+            # (Kickstart based ifcfgs are handled when applying kickstart)
+            if ifcfg_is_from_kickstart(ifcfg_path):
+                continue
+
+            log.debug("consolidate %d initramfs connections for %s: ensure active ifcfg connection",
+                      number_of_connections, iface)
+
+            self._ensure_active_ifcfg_connection_for_device(iface, only_replace=True)
+
+            consolidated_devices.append(iface)
+
+        return consolidated_devices
+
+    def _ensure_active_ifcfg_connection_for_device(self, iface, only_replace=False):
+        """Make sure active connection of a device is the one of ifcfg file
+
+        :param iface: name of device to apply the connection to
+        :type iface: str
+        :param only_replace: apply the connection only if the device has different
+                             active connection
+        :type only_replace: bool
+        """
+        msg = "not activating"
+        active_uuid = None
+        ifcfg_uuid = find_ifcfg_uuid_of_device(iface)
+        device = self.nm_client.get_device_by_iface(iface)
+        if device:
+            ac = device.get_active_connection()
+            if ac or not only_replace:
+                active_uuid = ac.get_uuid()
+                if ifcfg_uuid != active_uuid:
+                    ifcfg_con = self.nm_client.get_connection_by_uuid(ifcfg_uuid)
+                    # TODO sync somewhere?
+                    self.nm_client.activate_connection_async(ifcfg_con, None, None, None)
+                    msg = "activating"
+        log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
+                  iface, active_uuid, ifcfg_uuid, msg)
