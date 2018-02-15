@@ -655,7 +655,7 @@ class ClearPart(commands.clearpart.F21_ClearPart):
         # devices available before the execute methods run.
         devices = []
         for spec in self.devices:
-            matched = device_matches(spec, disks_only=True)
+            matched = device_matches(spec)
             if matched:
                 devices.extend(matched)
             else:
