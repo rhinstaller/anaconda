@@ -26,8 +26,8 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
 from pyanaconda.task import publish_task
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.base_kickstart import get_kickstart_handler, get_kickstart_parser
-from pyanaconda.modules.base_kickstart import NoKickstartSpecification
+from pyanaconda.modules.base_kickstart import NoKickstartSpecification, \
+    KickstartSpecificationHandler, KickstartSpecificationParser
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
@@ -148,9 +148,20 @@ class KickstartModule(BaseModule):
         self._kickstarted = value
         self.kickstarted_changed.emit()
 
-    def get_kickstart_data(self):
-        """Get an empty kickstart data."""
-        return get_kickstart_handler(self.kickstart_specification)
+    def get_kickstart_handler(self):
+        """Return a kickstart handler.
+
+        :return: a kickstart handler
+        """
+        return KickstartSpecificationHandler(self.kickstart_specification)
+
+    def get_kickstart_parser(self, handler):
+        """Return a kickstart parser.
+
+        :param handler: a kickstart handler
+        :return: a kickstart parser
+        """
+        return KickstartSpecificationParser(handler, self.kickstart_specification)
 
     def read_kickstart(self, s):
         """Read the given kickstart string.
@@ -161,9 +172,8 @@ class KickstartModule(BaseModule):
         :param s: a kickstart string
         :raises: instances of KickstartError
         """
-        spec = self.kickstart_specification
-        handler = get_kickstart_handler(spec)
-        parser = get_kickstart_parser(handler, spec)
+        handler = self.get_kickstart_handler()
+        parser = self.get_kickstart_parser(handler)
 
         parser.readKickstartFromString(s)
         self.process_kickstart(handler)
