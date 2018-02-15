@@ -64,7 +64,7 @@ class TimezoneModule(KickstartModule):
 
     def generate_kickstart(self):
         """Return the kickstart string."""
-        data = self.get_kickstart_data()
+        data = self.get_kickstart_handler()
         data.timezone.timezone = self.timezone
         data.timezone.isUtc = self.is_utc
         data.timezone.nontp = not self.ntp_enabled
