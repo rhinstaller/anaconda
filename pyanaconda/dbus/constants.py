@@ -71,6 +71,9 @@ DBUS_START_REPLY_SUCCESS = 1
 # no flags are set
 DBUS_FLAG_NONE = 0
 
+# system environment variable holding dbus session address
+DBUS_SESSION_ADDRESS = "DBUS_SESSION_BUS_ADDRESS"
+
 # NOTE: There is no DBUS_START_REPLY_FAILURE or something similar,
 #       as there is a separate field for error reporting.
 #       For more information see the DBUS docs:

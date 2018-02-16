@@ -24,10 +24,11 @@ from glob import glob
 from tempfile import mkstemp
 import threading
 
+from pyanaconda import addons
+from pyanaconda.dbus import launcher
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
-from pyanaconda import addons
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -337,3 +338,10 @@ class Anaconda(object):
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
+
+    def ensure_running_dbus(self):
+        """Ensure suitable DBus is running. If not, start a new session."""
+        if not launcher.is_dbus_session_running():
+            launcher.start_dbus_session()
+
+        launcher.write_bus_address()
