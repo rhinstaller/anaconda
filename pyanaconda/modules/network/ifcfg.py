@@ -24,6 +24,7 @@ import os
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.core import util
 from pyanaconda.modules.network import nm_client
+from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -172,6 +173,9 @@ class IfcfgFile(SimpleConfigFile):
         if self.get("VLAN") == "yes" or self.get("TYPE") == "Vlan":
             kwargs["device"] = self.get("PHYSDEV")
             kwargs["vlanid"] = self.get("VLAN_ID")
+            interface_name = self.get("DEVICE")
+            if interface_name and interface_name != default_ks_vlan_interface_name(kwargs["device"], kwargs["vlanid"]):
+                kwargs["interfacename"] = interface_name
 
         # bridging
         if self.get("TYPE") == "Bridge":

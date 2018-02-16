@@ -43,3 +43,6 @@ def update_network_hostname_data(network_data_list, hostname_data):
             hostname_found = True
     if not hostname_found:
         network_data_list.append(hostname_data)
+
+def default_ks_vlan_interface_name(parent, vlanid):
+    return "%s.%s" % (parent, vlanid)
