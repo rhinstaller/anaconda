@@ -19,6 +19,8 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 
+import blivet
+
 from pyanaconda.i18n import _, CN_
 
 from pyanaconda.ui.helpers import find_bootopt_mitigations, set_bootopt_mitigations
@@ -47,6 +49,11 @@ class PerformanceSpoke(NormalSpoke):
 
     title = CN_("GUI|Spoke", "_KERNEL & PERFORMANCE")
     icon = "system-run-symbolic"
+
+    @classmethod
+    def should_run(cls, environment, data):
+        # The Kernel and performance spoke should run just on x86_64 for now.
+        return blivet.arch.isX86()
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)

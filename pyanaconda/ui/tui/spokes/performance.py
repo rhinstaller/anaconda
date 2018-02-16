@@ -19,6 +19,7 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 
+import blivet
 
 from pyanaconda import iutil
 
@@ -44,6 +45,11 @@ class PerformanceSpoke(EditTUISpoke):
         Entry("IBRS (Indirect Branch Restricted Speculation)", "ibrs", EditTUISpoke.CHECK, True),
         Entry("IBPB (Indirect Branch Prediction Barriers)", "ibpb", EditTUISpoke.CHECK, True),
         ]
+
+    @classmethod
+    def should_run(cls, environment, data):
+        # The Kernel and performance spoke should run just on x86_64 for now.
+        return blivet.arch.isX86()
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
