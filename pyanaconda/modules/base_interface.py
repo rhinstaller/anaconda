@@ -95,12 +95,10 @@ class KickstartModuleInterface(AdvancedInterfaceTemplate):
         try:
             self.implementation.read_kickstart(kickstart)
         except KickstartError as e:
-            # FIXME: We should return a real line number.
-            # We are waiting for a support from pykickstart.
             return {
                 "success": get_variant(Bool, False),
-                "error_message": get_variant(Str, str(e)),
-                "line_number": get_variant(Int, 1)
+                "error_message": get_variant(Str, str(e.message)),
+                "line_number": get_variant(Int, e.lineno)
             }
 
         return {"success": get_variant(Bool, True)}
