@@ -65,6 +65,15 @@ def update_network_data_with_default_device(network_data_list, device_specificat
             updated = True
     return updated
 
+def update_first_network_command_activate_value(network_data_list):
+    if network_data_list:
+        nd = network_data_list[0]
+        if not is_hostname_only_network_data(nd):
+            if nd.activate is None:
+                nd.activate = True
+                return True
+    return False
+
 def is_hostname_only_network_args(args):
     return (len(args) == 1 and args[0].startswith("--hostname") or
             len(args) == 2 and "--hostname" in args)

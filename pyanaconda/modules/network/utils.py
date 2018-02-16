@@ -1,0 +1,86 @@
+#
+# Utility functions for network module
+#
+# Copyright (C) 2018 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+
+import os
+import glob
+
+# TODO use anaconda.core
+def is_s390():
+    return os.uname()[4].startswith('s390')
+
+# TODO move somewhwere
+# We duplicate this in dracut/parse-kickstart
+def get_s390_settings(devname):
+    cfg = {
+        'SUBCHANNELS': '',
+        'NETTYPE': '',
+        'OPTIONS': ''
+    }
+
+    subchannels = []
+    for symlink in sorted(glob.glob("/sys/class/net/%s/device/cdev[0-9]*" % devname)):
+        subchannels.append(os.path.basename(os.readlink(symlink)))
+    if not subchannels:
+        return cfg
+    cfg['SUBCHANNELS'] = ','.join(subchannels)
+
+    # Example of the ccw.conf file content:
+    #qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
+    #
+    #SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
+    #NETTYPE="qeth"
+    #OPTIONS="layer2=1 portname=FOOBAR portno=0"
+    if not os.path.exists('/run/install/ccw.conf'):
+        return cfg
+    with open('/run/install/ccw.conf') as f:
+        # pylint: disable=redefined-outer-name
+        for line in f:
+            if cfg['SUBCHANNELS'] in line:
+                items = line.strip().split(',')
+                cfg['NETTYPE'] = items[0]
+                cfg['OPTIONS'] = " ".join(i for i in items[1:] if '=' in i)
+                break
+
+    return cfg
+
+def prefix2netmask(prefix):
+    """ Convert prefix (CIDR bits) to netmask """
+    _bytes = []
+    for _i in range(4):
+        if prefix >= 8:
+            _bytes.append(255)
+            prefix -= 8
+        else:
+            _bytes.append(256 - 2 ** (8 - prefix))
+            prefix = 0
+    netmask = ".".join(str(byte) for byte in _bytes)
+    return netmask
+
+def netmask2prefix(netmask):
+    """ Convert netmask to prefix (CIDR bits) """
+    prefix = 0
+
+    while prefix < 33:
+        if (prefix2netmask(prefix) == netmask):
+            return prefix
+
+        prefix += 1
+
+    return prefix

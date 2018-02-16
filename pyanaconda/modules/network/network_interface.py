@@ -119,3 +119,20 @@ class NetworkInterface(KickstartModuleInterface):
         :returns: list of device names which have been cosolidated
         """
         return self.implementation.consolidate_initramfs_connections()
+
+    def SetBootifKickstartDeviceSpecification(self, specification: Str):
+        """Sets value of network --bootif kickstart option.
+
+        :param specification: kickstart network --bootif option specification
+        """
+        self.implementation.bootif = specification
+
+    def ApplyKickstart(self) -> List[Str]:
+        """Apply kickstart configuration which has not already been applied.
+
+        * activate configurations created in initramfs if --activate is True
+        * create configurations for %pre kickstart commands and activate eventually
+
+        :returns: list of devices to which kickstart configuration was applied
+        """
+        return self.implementation.apply_kickstart()

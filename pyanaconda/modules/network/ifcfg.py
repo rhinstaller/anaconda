@@ -25,6 +25,7 @@ from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.core import util
 from pyanaconda.modules.network import nm_client
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
+from pyanaconda.modules.network.utils import is_s390, prefix2netmask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -303,23 +304,6 @@ def find_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
         return ifcfg_paths[0]
     else:
         log.debug("Ifcfg file for %s not found", device_name)
-
-# TODO use anaconda.core
-def is_s390():
-    return os.uname()[4].startswith('s390')
-
-def prefix2netmask(prefix):
-    """ Convert prefix (CIDR bits) to netmask """
-    _bytes = []
-    for _i in range(4):
-        if prefix >= 8:
-            _bytes.append(255)
-            prefix -= 8
-        else:
-            _bytes.append(256 - 2 ** (8 - prefix))
-            prefix = 0
-    netmask = ".".join(str(byte) for byte in _bytes)
-    return netmask
 
 def get_slaves_from_ifcfgs(master_option, master_specs, root_path=""):
     """List of slaves of master specified by master_specs in master_option.
