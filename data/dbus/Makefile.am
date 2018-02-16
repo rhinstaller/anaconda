@@ -19,7 +19,7 @@
 #
 MAINTAINERCLEANFILES = Makefile.in
 
-dbusservicesdir = $(datadir)/dbus-1/system-services
+dbusservicesdir = $(datadir)/dbus-1/services
 dist_dbusservices_DATA = $(srcdir)/*.service
 
 dbusconfigdir = $(sysconfdir)/dbus-1/system.d
