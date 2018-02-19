@@ -19,7 +19,7 @@
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.errors import InstallationNotRunning
+from pyanaconda.dbus.errors.boss import InstallationNotRunning
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)

@@ -40,7 +40,7 @@ paths.insert(0, top_dir)
 os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
 
 from pyanaconda.dbus.objects import BOSS
-from pyanaconda.dbus.errors import SplitKickstartError
+from pyanaconda.dbus.errors.boss import SplitKickstartError
 
 MODULES_DIR = os.path.join(top_dir, "pyanaconda/modules")
 DBUS_SERVICES_DIR = os.path.join(top_dir, "data/dbus/")

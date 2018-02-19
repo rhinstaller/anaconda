@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pydbus.error import map_error, map_by_default
-from pyanaconda.dbus.objects import ANACONDA_NAMESPACE, BOSS_ANACONDA, BOSS_INSTALLATION, TASK
+from pyanaconda.dbus.objects import ANACONDA_NAMESPACE, TASK
 
 
 @map_by_default
@@ -28,35 +28,11 @@ class DBusError(Exception):
 
 @map_error("{}.Error".format(ANACONDA_NAMESPACE))
 class AnacondaError(Exception):
-    """A default DBus error."""
+    """A default Anaconda error."""
     pass
 
 
-@map_error("{}.SplitKickstartError".format(BOSS_ANACONDA))
-class SplitKickstartError(AnacondaError):
-    """Error while parsing kickstart for splitting."""
-    pass
-
-
-@map_error("{}.SplitKickstartSectionParsingError".format(BOSS_ANACONDA))
-class SplitKickstartSectionParsingError(SplitKickstartError):
-    """Error while parsing a section in kickstart."""
-    pass
-
-
-@map_error("{}.SplitKickstartMissingIncludeError".format(BOSS_ANACONDA))
-class SplitKickstartMissingIncludeError(SplitKickstartError):
-    """File included in kickstart was not found."""
-    pass
-
-
-@map_error("{}.InstallationNotRunning".format(BOSS_INSTALLATION))
-class InstallationNotRunning(AnacondaError):
-    """Exception will be raised when action requires running installation."""
-    pass
-
-
-@map_error("{}.AlreadyRunning".format(TASK))
+@map_error("{}.AlreadyRunningError".format(TASK))
 class TaskAlreadyRunningException(AnacondaError):
     """Exception will be raised when starting task which is already running."""
     pass

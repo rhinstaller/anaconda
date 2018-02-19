@@ -39,7 +39,7 @@ from pyanaconda import kickstart
 from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
-from pyanaconda.dbus.errors import SplitKickstartError
+from pyanaconda.dbus.errors.boss import SplitKickstartError
 from pyanaconda.dbus.objects import BOSS
 
 import blivet

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.errors import SplitKickstartSectionParsingError, \
+from pyanaconda.dbus.errors.boss import SplitKickstartSectionParsingError, \
     SplitKickstartMissingIncludeError
 from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser, VALID_SECTIONS_ANACONDA
 from pykickstart.version import makeVersion

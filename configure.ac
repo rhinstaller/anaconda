@@ -142,6 +142,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/version.py
                  pyanaconda/core/Makefile
                  pyanaconda/dbus/Makefile
+                 pyanaconda/dbus/errors/Makefile
                  pyanaconda/isys/Makefile
                  pyanaconda/kickstart_dispatcher/Makefile
                  pyanaconda/payload/Makefile

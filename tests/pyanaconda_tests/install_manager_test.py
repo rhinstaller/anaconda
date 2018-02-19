@@ -19,7 +19,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from pyanaconda.dbus.errors import InstallationNotRunning
+from pyanaconda.dbus.errors.boss import InstallationNotRunning
 from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
 

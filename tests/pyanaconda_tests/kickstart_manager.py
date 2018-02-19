@@ -20,8 +20,8 @@ import unittest
 import os
 from contextlib import contextmanager
 
-from pyanaconda.dbus.errors import SplitKickstartMissingIncludeError, \
-    SplitKickstartSectionParsingError
+from pyanaconda.dbus.errors.boss import SplitKickstartSectionParsingError, \
+    SplitKickstartMissingIncludeError
 from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 
