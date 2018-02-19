@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.132\n"
+"Project-Id-Version: anaconda 21.48.22.133\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2018-02-14 15:33+0100\n"
+"POT-Creation-Date: 2018-02-19 14:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1422,7 +1422,7 @@ msgstr ""
 msgid "Deployment complete: %s"
 msgstr ""
 
-#: pyanaconda/ui/helpers.py:101 pyanaconda/ui/tui/spokes/storage.py:438
+#: pyanaconda/ui/helpers.py:98 pyanaconda/ui/tui/spokes/storage.py:438
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1872,18 +1872,6 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/password.py:66
 msgid "Please select new root password. You will have to type it twice."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/performance.py:39
-msgid "Kernel & performance"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/performance.py:78
-msgid "All mitigations enabled."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/performance.py:80
-msgid "Some mitigations disabled."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:55
@@ -2924,19 +2912,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:121
 msgid "Root password is not set"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/performance.py:48
-msgctxt "GUI|Spoke"
-msgid "_KERNEL & PERFORMANCE"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/performance.py:79
-msgid "All mitigations enabled"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/performance.py:81
-msgid "Some mitigations disabled"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:56
@@ -4481,7 +4456,6 @@ msgid "checked"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.glade.h:1
-#: pyanaconda/ui/gui/spokes/performance.glade.h:2
 msgid "ROOT PASSWORD"
 msgstr ""
 
@@ -4509,10 +4483,6 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/performance.glade.h:1
-msgid "KERNEL & PERFORMANCE"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade.h:1
