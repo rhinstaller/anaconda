@@ -339,6 +339,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 19 2018 Martin Kolman <mkolman@redhat.com> - 28.22-1
+- Prevent anaconda-core requiring gjs-console (awilliam)
+- Temporarily don't test versions of specified kickstart objects (vponcova)
+
 * Mon Feb 19 2018 Martin Kolman <mkolman@redhat.com> - 28.21-1
 - Explain when run dependency_solver without options (jkonecny)
 - Clean dd_test code (jkonecny)
