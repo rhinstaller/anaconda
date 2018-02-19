@@ -21,11 +21,11 @@
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.objects import BOSS, BOSS_INSTALLATION
+from pyanaconda.dbus.module import BaseModule
 from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
-from pyanaconda.modules.base import BaseModule
 from pyanaconda.modules.boss.module_manager import ModuleManager
-from pyanaconda.modules.boss.install_manager.installation_interface import InstallationInterface
-from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
+from pyanaconda.modules.boss.installation_manager import InstallManager
+from pyanaconda.modules.boss.installation_interface import InstallationInterface
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 
 from pyanaconda import anaconda_logging

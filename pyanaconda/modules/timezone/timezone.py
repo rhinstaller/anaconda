@@ -20,9 +20,9 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus.objects import TIMEZONE
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.dbus.module import KickstartModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
-from pyanaconda.modules.timezone.timezone_kickstart import TimezoneKickstartSpecification
+from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)

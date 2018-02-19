@@ -20,8 +20,8 @@
 from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.dbus.namespace import DBusServiceIdentifier
 from pyanaconda.dbus.objects import BAR, TIMEZONE
-from pyanaconda.modules.bar.bar_kickstart import BarKickstartSpecification
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.dbus.module import KickstartModule
+from pyanaconda.modules.bar.kickstart import BarKickstartSpecification
 from pyanaconda.modules.bar.bar_interface import BarInterface
 from pyanaconda.modules.bar.tasks.bar_task import BarTask
 

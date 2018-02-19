@@ -19,8 +19,8 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.objects import BAZ
+from pyanaconda.dbus.module import KickstartModule
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
-from pyanaconda.modules.base import KickstartModule
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)

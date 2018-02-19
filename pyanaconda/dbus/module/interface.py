@@ -1,5 +1,4 @@
 #
-# base_interface.py
 # Base interface for Anaconda modules.
 #
 # Copyright (C) 2017 Red Hat, Inc.

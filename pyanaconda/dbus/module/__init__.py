@@ -1,7 +1,7 @@
-# foo.py
-# Example DBUS module
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# Base classes for Anaconda modules.
+#
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,21 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.objects import FOO
-from pyanaconda.dbus.module import KickstartModule
-from pyanaconda.modules.foo.foo_interface import FooInterface
-from pyanaconda.modules.foo.tasks.foo_task import FooTask
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.dbus.module.base import BaseModule, KickstartModule
+from pyanaconda.dbus.module.interface import KickstartModuleInterface
 
-
-class Foo(KickstartModule):
-    """The Foo module."""
-
-    def publish(self):
-        """Publish the module."""
-        DBus.publish_object(FOO.object_path, FooInterface(self))
-        self.publish_task(FOO.pathspace, FooTask())
-        DBus.register_service(FOO.service_name)
+__all__ = ['BaseModule', 'KickstartModule', 'KickstartModuleInterface']

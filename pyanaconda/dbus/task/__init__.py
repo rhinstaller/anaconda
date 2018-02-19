@@ -18,8 +18,8 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.task.task_interface import TaskInterface
-from pyanaconda.task.task import Task
+from pyanaconda.dbus.task.interface import TaskInterface
+from pyanaconda.dbus.task.base import Task
 
 
 def publish_task(dbus_path, task_instance: Task):
@@ -31,3 +31,6 @@ def publish_task(dbus_path, task_instance: Task):
     interface = TaskInterface(task_instance)
     interface.publish_from_module(dbus_path)
     return interface
+
+
+__all__ = ['publish_task', 'Task', 'TaskInterface']

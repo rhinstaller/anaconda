@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.objects import FOO
-from pyanaconda.modules.base_interface import KickstartModuleInterface
+from pyanaconda.dbus.module import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 

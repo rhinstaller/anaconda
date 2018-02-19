@@ -1,5 +1,4 @@
 #
-# base.py
 # Base classes for Anaconda modules.
 #
 # Copyright (C) 2017 Red Hat, Inc.
@@ -24,10 +23,10 @@ from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
-from pyanaconda.task import publish_task
+from pyanaconda.dbus.task import publish_task
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.base_kickstart import get_kickstart_handler, get_kickstart_parser
-from pyanaconda.modules.base_kickstart import NoKickstartSpecification
+from pyanaconda.core.kickstart import get_kickstart_handler, get_kickstart_parser
+from pyanaconda.core.kickstart import NoKickstartSpecification
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)

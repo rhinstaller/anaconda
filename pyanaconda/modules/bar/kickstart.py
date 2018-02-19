@@ -1,7 +1,7 @@
 #
-# Kickstart handler for date and time settings.
+# Kickstart specification for bar.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2017 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,14 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.timezone import F25_Timezone
+from pykickstart.commands.user import F19_User, F19_UserData
+from pykickstart.sections import PackageSection
 from pykickstart.version import F28
-from pyanaconda.modules.base_kickstart import KickstartSpecification
+
+from pyanaconda.core.kickstart import KickstartSpecification
 
 
-class TimezoneKickstartSpecification(KickstartSpecification):
+class BarKickstartSpecification(KickstartSpecification):
 
     version = F28
+
     commands = {
-        "timezone": F25_Timezone,
+        "user": F19_User,
+    }
+
+    data = {
+        "UserData": F19_UserData,
+    }
+
+    sections = {
+        "packages": PackageSection
     }
