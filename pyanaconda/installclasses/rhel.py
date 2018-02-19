@@ -86,7 +86,8 @@ class RHELAtomicInstallClass(RHELBaseInstallClass):
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
-                                size=Size("3GiB"), maxSize=Size("15GiB"), grow=True, lv=True)]
+                                 size=Size("3GiB"), maxSize=Size("15GiB"), grow=True, lv=True,
+                                 thin=True, encrypted=True)]
 
         bootreqs = platform.setDefaultPartitioning()
         if bootreqs:
