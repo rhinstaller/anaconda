@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import unittest
 import os
+import warnings
 from pyanaconda import kickstart
 
 
@@ -24,9 +25,19 @@ from pyanaconda import kickstart
 # F10 version of a command, make sure anaconda >= F10 uses the F10 version.
 class CommandVersionTestCase(unittest.TestCase):
 
+    # Names of the kickstart commands and data that should be temporarily ignored.
+    IGNORED_NAMES = {
+        "auth",
+        "authconfig",
+    }
+
     def assert_compare_versions(self, children, parents):
         """Check if children inherit from parents."""
         for name in children:
+            if name in self.IGNORED_NAMES:
+                warnings.warn("Skipping the kickstart name {}.".format(name))
+                continue
+
             print(name, children[name], parents[name])
             self.assertIsInstance(children[name](), parents[name])
 
