@@ -190,13 +190,10 @@ class MakeBumpVer:
 
         # apply the bug map
         self.bugmap = {}
-        bugmap = self.args.fedora_rhel_bz_map
-        if bugmap and bugmap != '':
-            maps = bugmap.split(',')
-            for mapping in maps:
-                bugs = mapping.split('=')
-                if len(bugs) == 2:
-                    self.bugmap[bugs[0]] = bugs[1]
+        for mapping in self.args.fedora_rhel_bz_map:
+            bugs = mapping.split('=')
+            if len(bugs) == 2:
+                self.bugmap[bugs[0]] = bugs[1]
 
         self.skip_acks = self.args.skip_acks
         self.skip_all = self.args.skip_all_acks
