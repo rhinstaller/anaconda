@@ -25,7 +25,8 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda import addons
-from pyanaconda.dbus import launcher
+from pyanaconda.dbus import DBus, launcher
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_FLAG_NONE
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
@@ -345,3 +346,7 @@ class Anaconda(object):
             launcher.start_dbus_session()
 
         launcher.write_bus_address()
+
+    def run_boss(self):
+        bus_proxy = DBus.get_dbus_proxy()
+        bus_proxy.StartServiceByName(DBUS_BOSS_NAME, DBUS_FLAG_NONE)
