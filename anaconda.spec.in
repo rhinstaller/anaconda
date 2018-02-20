@@ -333,6 +333,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 20 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.4-1
+- Revert pylint import-error disable (jkonecny)
+- Revert disable tests with missing dependencies (jkonecny)
+- Revert disable pylint import errors due to dependencies (jkonecny)
+- Provide comprehensive log messages about the display mode (vponcova)
+  Resolves: rhbz#1534474
+- Remove btrfs support from UI. (rvykydal)
+  Resolves: rhbz#1533904
+
 * Mon Jan 15 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.3-1
 - kickstart: support firewall --use-system-defaults (dusty)
   Resolves: rhbz#1534604
