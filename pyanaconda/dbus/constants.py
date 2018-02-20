@@ -73,6 +73,7 @@ DBUS_FLAG_NONE = 0
 
 # system environment variable holding dbus session address
 DBUS_SESSION_ADDRESS = "DBUS_SESSION_BUS_ADDRESS"
+DBUS_STARTER_ADDRESS = "DBUS_STARTER_ADDRESS"
 
 # NOTE: There is no DBUS_START_REPLY_FAILURE or something similar,
 #       as there is a separate field for error reporting.

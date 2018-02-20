@@ -19,6 +19,7 @@
 
 import os
 import pydbus
+from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -53,19 +54,20 @@ class DBus(object):
         You shouldn't create new connections unless there is a good
         reason for it. Use DBus.get_connection instead.
 
-        Normally this method should return a connection to the system
+        Normally this method should return a connection to the session
         bus, but during testing/development a custom bus might be used.
         So just always connect to the bus specified by the environmental
         variable DBUS_STARTER_ADDRESS.
         """
-        bus_address = os.environ.get("DBUS_STARTER_ADDRESS")
+        if DBUS_STARTER_ADDRESS in os.environ:
+            bus_address = os.environ.get(DBUS_STARTER_ADDRESS)
+        elif DBUS_SESSION_ADDRESS in os.environ:
+            bus_address = os.environ.get(DBUS_SESSION_ADDRESS)
+        else:
+            raise ConnectionError("Can't find usable DBus address!")
 
-        if bus_address:
-            log.info("Connecting to DBus at %s.", bus_address)
-            return pydbus.connect(bus_address)
-
-        log.info("Connecting to system DBus.")
-        return pydbus.SystemBus()
+        log.info("Connecting to DBus at %s.", bus_address)
+        return pydbus.connect(bus_address)
 
     @staticmethod
     def register_service(service_name):
