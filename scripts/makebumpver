@@ -61,7 +61,7 @@ class ParseCommaSeparatedList(argparse.Action):
             # (" ".strip() -> "")
             if value:
                 value_list.append(value)
-        self.dest = value_list
+        setattr(namespace, self.dest, value_list)
 
 class MakeBumpVer:
     def __init__(self):
@@ -362,9 +362,8 @@ class MakeBumpVer:
         proc = run_program(['git', 'log', '--no-merges', '--pretty=oneline', git_range])
         lines = proc[0].strip('\n').split('\n')
 
-        if self.ignore and self.ignore != '':
-            for commit in self.ignore.split(','):
-                lines = (x for x in lines if not x.startswith(commit))
+        for commit in self.ignore:
+            lines = [x for x in lines if not x.startswith(commit)]
 
         rpm_log = []
         bad_bump = False
