@@ -45,6 +45,8 @@ class FedoraServerInstallClass(FedoraBaseInstallClass):
                                  size=Size("2GiB"),
                                  max_size=Size("15GiB"),
                                  grow=True,
+                                 # Allow one to pass in any of following for root partition
+                                 # `autopart --type [partition|plain|btrfs|lvm|thinp] [--encrypted]`
                                  btr=True, lv=True, thin=True, encrypted=True)]
 
         bootreqs = platform.set_default_partitioning()
