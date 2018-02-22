@@ -20,12 +20,12 @@
 
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.dbus import DBus
+from pyanaconda.dbus.objects import BOSS, BOSS_INSTALLATION
+from pyanaconda.dbus.module import BaseModule
 from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
-from pyanaconda.modules.base import BaseModule
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_BOSS_INSTALLATION_PATH
 from pyanaconda.modules.boss.module_manager import ModuleManager
-from pyanaconda.modules.boss.install_manager.installation_interface import InstallationInterface
-from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
+from pyanaconda.modules.boss.installation_manager import InstallManager
+from pyanaconda.modules.boss.installation_interface import InstallationInterface
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 
 from pyanaconda import anaconda_logging
@@ -59,10 +59,11 @@ class Boss(BaseModule):
 
     def publish(self):
         """Publish the boss."""
-        DBus.publish_object(AnacondaBossInterface(self), DBUS_BOSS_PATH)
-        DBus.publish_object(InstallationInterface(self._install_manager),
-                            DBUS_BOSS_INSTALLATION_PATH)
-        DBus.register_service(DBUS_BOSS_NAME)
+        DBus.publish_object(BOSS.object_path,
+                            AnacondaBossInterface(self))
+        DBus.publish_object(BOSS_INSTALLATION.object_path,
+                            InstallationInterface(self._install_manager))
+        DBus.register_service(BOSS.service_name)
 
     def run(self):
         """Run the boss's loop."""

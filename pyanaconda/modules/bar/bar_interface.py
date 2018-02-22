@@ -17,16 +17,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.dbus.constants import MODULE_BAR_NAME
+from pyanaconda.dbus.objects import BAR
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.base_interface import KickstartModuleInterface
+from pyanaconda.dbus.module import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_BAR_NAME)
+@dbus_interface(BAR.interface_name)
 class BarInterface(KickstartModuleInterface):
     """DBus interface for Bar."""
 
     def SetTimezone(self, timezone: Str):
         self.implementation.set_timezone(timezone)
+
+    def GetAllDevices(self) -> List[ObjPath]:
+        return self.implementation.get_all_devices()

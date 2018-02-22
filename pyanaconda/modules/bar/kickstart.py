@@ -1,5 +1,5 @@
-# Utilities to help with Task manipulation.
 #
+# Kickstart specification for bar.
 #
 # Copyright (C) 2017 Red Hat, Inc.
 #
@@ -17,18 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.commands.user import F19_User, F19_UserData
+from pykickstart.sections import PackageSection
+from pykickstart.version import F28
 
-from pyanaconda.task.task_interface import TaskInterface
-from pyanaconda.task.task import Task
+from pyanaconda.core.kickstart import KickstartSpecification
 
 
-def publish_task(task_instance: Task, module_dbus_path):
-    """Publish Task to the DBus.
+class BarKickstartSpecification(KickstartSpecification):
 
-    :param task_instance: Instance of a Task.
-    :param module_dbus_path: DBus object path of a module.
-    :type module_dbus_path: str
-    """
-    interface = TaskInterface(task_instance)
-    interface.publish_from_module(module_dbus_path)
-    return interface
+    version = F28
+
+    commands = {
+        "user": F19_User,
+    }
+
+    data = {
+        "UserData": F19_UserData,
+    }
+
+    sections = {
+        "packages": PackageSection
+    }

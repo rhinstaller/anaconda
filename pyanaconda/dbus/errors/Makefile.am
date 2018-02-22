@@ -1,6 +1,6 @@
-# modules/boss/install_manager/Makefile.am for anaconda
+# Makefile.am for anaconda
 #
-# Copyright (C) 2017  Red Hat, Inc.
+# Copyright (C) 2018  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-install_managerdir = $(pkgpyexecdir)/modules/boss/install_manager
-install_manager_PYTHON = $(srcdir)/*.py
+dbus_errorsdir = $(pkgpyexecdir)/dbus/errors
+dbus_errors_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

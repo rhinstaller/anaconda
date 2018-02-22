@@ -1,7 +1,7 @@
 #
-# DBus constants.
+# Known DBus errors.
 #
-# Copyright (C) 2017  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,14 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from pydbus.error import map_error, map_by_default
+from pyanaconda.dbus.objects import ANACONDA_NAMESPACE, TASK
 
-# no flags are set
-DBUS_FLAG_NONE = 0
 
-# status codes
-DBUS_START_REPLY_SUCCESS = 1
+@map_by_default
+class DBusError(Exception):
+    """A default DBus error."""
+    pass
 
-# NOTE: There is no DBUS_START_REPLY_FAILURE or something similar,
-#       as there is a separate field for error reporting.
-#       For more information see the DBUS docs:
-#       https://dbus.freedesktop.org/doc/dbus-specification.html#bus-messages-start-service-by-name
+
+@map_error("{}.Error".format(ANACONDA_NAMESPACE))
+class AnacondaError(Exception):
+    """A default Anaconda error."""
+    pass
+
+
+@map_error("{}.AlreadyRunningError".format(TASK))
+class TaskAlreadyRunningException(AnacondaError):
+    """Exception will be raised when starting task which is already running."""
+    pass

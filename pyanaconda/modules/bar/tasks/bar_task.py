@@ -21,7 +21,7 @@
 
 import time
 
-from pyanaconda.task.task import Task
+from pyanaconda.dbus.task import Task
 
 
 class BarTask(Task):

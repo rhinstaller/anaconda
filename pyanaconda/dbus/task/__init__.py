@@ -1,7 +1,7 @@
+# Utilities to help with Task manipulation.
 #
-# Kickstart handler for date and time settings.
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2017 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,14 +17,20 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.timezone import F25_Timezone
-from pykickstart.version import F28
-from pyanaconda.modules.base_kickstart import KickstartSpecification
+
+from pyanaconda.dbus.task.interface import TaskInterface
+from pyanaconda.dbus.task.base import Task
 
 
-class TimezoneKickstartSpecification(KickstartSpecification):
+def publish_task(dbus_path, task_instance: Task):
+    """Publish Task to the DBus.
 
-    version = F28
-    commands = {
-        "timezone": F25_Timezone,
-    }
+    :param str dbus_path: prefix of the DBus object path
+    :param task_instance: Instance of a Task.
+    """
+    interface = TaskInterface(task_instance)
+    interface.publish_from_module(dbus_path)
+    return interface
+
+
+__all__ = ['publish_task', 'Task', 'TaskInterface']

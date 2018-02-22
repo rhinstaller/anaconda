@@ -20,30 +20,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pydbus.error import map_error
-
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
-from pyanaconda.dbus.constants import DBUS_TASK_NAME
+from pyanaconda.dbus.objects import TASK
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ['TaskInterface', 'TaskAlreadyRunningException', 'TaskNotImplemented']
+__all__ = ['TaskInterface']
 
 
-@map_error("{}.AlreadyRunning".format(DBUS_TASK_NAME))
-class TaskAlreadyRunningException(Exception):
-    """Exception will be raised when starting task which is already running."""
-    pass
-
-
-@map_error("{}.NotImplemented".format(DBUS_TASK_NAME))
-class TaskNotImplemented(Exception):
-    """Exception will be raised when tasks job is not implemented."""
-    pass
-
-
-@dbus_interface(DBUS_TASK_NAME)
+@dbus_interface(TASK.interface_name)
 class TaskInterface(InterfaceTemplate):
     """Base class for implementing Task.
 

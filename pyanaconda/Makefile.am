@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = installclasses isys ui payload storage dbus modules dbus_addons task kickstart_dispatcher core
+SUBDIRS = installclasses isys ui payload storage dbus modules dbus_addons kickstart_dispatcher core
 
 MAINTAINERCLEANFILES = Makefile.in
 

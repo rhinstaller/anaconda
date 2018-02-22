@@ -1,5 +1,4 @@
 #
-# base.py
 # Base classes for Anaconda modules.
 #
 # Copyright (C) 2017 Red Hat, Inc.
@@ -24,10 +23,10 @@ from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
-from pyanaconda.task import publish_task
+from pyanaconda.dbus.task import publish_task
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.base_kickstart import get_kickstart_handler, get_kickstart_parser
-from pyanaconda.modules.base_kickstart import NoKickstartSpecification
+from pyanaconda.core.kickstart import get_kickstart_handler, get_kickstart_parser
+from pyanaconda.core.kickstart import NoKickstartSpecification
 
 from pyanaconda import anaconda_logging
 log = anaconda_logging.get_dbus_module_logger(__name__)
@@ -58,16 +57,9 @@ class BaseModule(ABC):
         """
         pass
 
-    def unpublish(self):
-        """Unpublish DBus objects and unregister a DBus service.
-
-        Everything is unpublished by default.
-        """
-        DBus.unregister_all()
-        DBus.unpublish_all()
-
     def stop(self):
-        self.unpublish()
+        """Stop the module's loop."""
+        DBus.disconnect()
         Timer().timeout_sec(1, self.loop.quit)
 
 
@@ -106,9 +98,9 @@ class KickstartModule(BaseModule):
         """Returns a list of published tasks."""
         return self._published_tasks
 
-    def publish_task(self, implementation, module_path):
+    def publish_task(self, dbus_path, task):
         """Publish a task."""
-        published = publish_task(implementation, module_path)
+        published = publish_task(dbus_path, task)
         self._published_tasks.append(published)
 
     @property
