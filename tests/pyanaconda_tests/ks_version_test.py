@@ -27,8 +27,6 @@ class CommandVersionTestCase(unittest.TestCase):
 
     # Names of the kickstart commands and data that should be temporarily ignored.
     IGNORED_NAMES = {
-        "auth",
-        "authconfig",
     }
 
     def assert_compare_versions(self, children, parents):
