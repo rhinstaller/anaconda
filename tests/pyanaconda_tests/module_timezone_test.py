@@ -90,7 +90,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone Europe/Prague
         """
         ks_out = """
-        #version=DEVEL
         # System timezone
         timezone Europe/Prague
         """
@@ -102,7 +101,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone --utc --nontp Europe/Prague
         """
         ks_out = """
-        #version=DEVEL
         # System timezone
         timezone Europe/Prague --isUtc --nontp
         """
@@ -114,7 +112,6 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         timezone --ntpservers ntp.cesnet.cz Europe/Prague
         """
         ks_out = """
-        #version=DEVEL
         # System timezone
         timezone Europe/Prague --ntpservers=ntp.cesnet.cz
         """

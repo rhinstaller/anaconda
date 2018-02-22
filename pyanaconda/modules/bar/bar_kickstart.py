@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pykickstart.commands.user import F19_User, F19_UserData
+from pykickstart.parser import Packages
 from pykickstart.sections import PackageSection
 from pykickstart.version import F28
 
@@ -32,10 +33,14 @@ class BarKickstartSpecification(KickstartSpecification):
         "user": F19_User,
     }
 
-    data = {
+    commands_data = {
         "UserData": F19_UserData,
     }
 
     sections = {
         "packages": PackageSection
+    }
+
+    sections_data = {
+        "packages": Packages
     }

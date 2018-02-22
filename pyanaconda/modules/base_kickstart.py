@@ -17,12 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.base import BaseHandler
+from pykickstart.base import KickstartHandler
 from pykickstart.parser import KickstartParser
 from pykickstart.version import DEVEL
 
 __all__ = ["KickstartSpecification", "NoKickstartSpecification",
-           "get_kickstart_handler", "get_kickstart_parser"]
+           "KickstartSpecificationHandler", "KickstartSpecificationParser"]
 
 
 class KickstartSpecification(object):
@@ -40,19 +40,23 @@ class KickstartSpecification(object):
 
     A specification is defined by these attributes:
 
-    version     - version of a kickstart data
-    commands    - mapping of kickstart command names to
-                  classes that represent them
-    data        - mapping of kickstart data names to
-                  classes that represent them
-    sections    - mapping of kickstart sections names to
-                  classes that represent them
+    version       - version of this specification
+    commands      - mapping of kickstart command names to
+                    classes that represent them
+    commands_data - mapping of kickstart data names to
+                    classes that represent them
+    sections      - mapping of kickstart sections names to
+                    classes that represent them
+    sections_data - mapping of kickstart sections data to
+                    classes that represent them
+
     """
 
     version = DEVEL
     commands = {}
-    data = {}
+    commands_data = {}
     sections = {}
+    sections_data = {}
 
 
 class NoKickstartSpecification(KickstartSpecification):
@@ -60,49 +64,43 @@ class NoKickstartSpecification(KickstartSpecification):
     pass
 
 
-class KickstartSpecificationHandler(BaseHandler):
-    """Handler defined by a kickstart specification.
+class KickstartSpecificationHandler(KickstartHandler):
+    """Handler defined by a kickstart specification."""
 
-    You should call get_kickstart_handler to get a handler.
-    """
+    def __init__(self, specification):
+        super().__init__()
 
-    def __init__(self, *args, version=DEVEL, **kwargs):
-        self.version = version
-        super().__init__(*args, **kwargs)
+        self.version = specification.version
+
+        for name, command in specification.commands.items():
+            self.registerCommand(name, command)
+
+        for name, data in specification.commands_data.items():
+            self.registerData(name, data)
+
+        for name, data in specification.sections_data.items():
+            self.registerSectionData(name, data)
+
+    def registerSectionData(self, name, data):
+        """Register data used by a section."""
+        # Create a new attribute.
+        obj = data()
+        setattr(self, name, obj)
+
+        # Write the section at the end of the output.
+        write_priority = max(self._writeOrder.keys()) + 100
+        self._writeOrder[write_priority] = [obj]
 
 
 class KickstartSpecificationParser(KickstartParser):
-    """Parser defined by a kickstart specification.
+    """Parser defined by a kickstart specification."""
 
-    You should call get_kickstart_parser to get a parser.
-    """
+    def __init__(self, handler, specification):
+        super().__init__(handler)
 
-    def setupSection(self):
-        """Do not setup any sections by default."""
+        for section in specification.sections.values():
+            self.registerSection(section(handler))
+
+    def setupSections(self):
+        """Do not setup any default sections."""
         pass
-
-
-def get_kickstart_handler(specification):
-    """Return a kickstart handler.
-
-    :param specification: a kickstart specification
-    :return: a kickstart handler
-    """
-    return KickstartSpecificationHandler(specification.commands,
-                                         specification.data,
-                                         specification.version)
-
-
-def get_kickstart_parser(handler, specification):
-    """Return a kickstart parser.
-
-    :param handler: a kickstart handler
-    :param specification: a kickstart specification
-    :return: a kickstart parser
-    """
-    parser = KickstartSpecificationParser(handler)
-
-    for section in specification.sections.values():
-        parser.registerSection(section(handler))
-
-    return parser
