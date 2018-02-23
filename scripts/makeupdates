@@ -53,8 +53,7 @@ VERSION_OP_MAP = {
 }
 
 # Anaconda scripts that should be installed into the libexec folder
-LIBEXEC_SCRIPTS = ["zramswapon", "zramswapoff", "zram-stats", "log-capture",
-                   "setup-updates", "start-module"]
+LIBEXEC_SCRIPTS = ["zramswapon", "zramswapoff", "zram-stats", "log-capture", "start-module"]
 
 def getArchiveTag(configure, spec):
     tag = ""
