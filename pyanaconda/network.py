@@ -18,6 +18,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import gi
+
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+
 gi.require_version("NM", "1.0")
 
 from gi.repository import NM
@@ -1545,9 +1549,10 @@ def networkInitialize(ksdata):
         if bootopts_hostname:
             update_hostname_data(ksdata, bootopts_hostname)
 
-def _get_ntp_servers_from_dhcp(ksdata):
+def _get_ntp_servers_from_dhcp():
     """Check if some NTP servers were returned from DHCP and set them
     to ksdata (if not NTP servers were specified in the kickstart)"""
+    timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
     ntp_servers = nm.nm_ntp_servers_from_dhcp()
     log.info("got %d NTP servers from DHCP", len(ntp_servers))
     hostnames = []
@@ -1560,11 +1565,12 @@ def _get_ntp_servers_from_dhcp(ksdata):
                       server_address)
             hostname = server_address
         hostnames.append(hostname)
+
     # check if some NTP servers were specified from kickstart
-    if not ksdata.timezone.ntpservers \
+    if not timezone_proxy.NTPServers \
        and not (flags.imageInstall or flags.dirInstall):
         # no NTP servers were specified, add those from DHCP
-        ksdata.timezone.ntpservers = hostnames
+        timezone_proxy.SetNTPServers(hostnames)
 
 def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False):
     """Wait for NM being connected.
@@ -1617,7 +1623,7 @@ def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEO
         time.sleep(1)
     return False
 
-def wait_for_connecting_NM_thread(ksdata):
+def wait_for_connecting_NM_thread():
     """Wait for connecting NM in thread, do some work and signal connectivity.
 
     This function is called from a thread which is run at startup to wait for
@@ -1627,7 +1633,7 @@ def wait_for_connecting_NM_thread(ksdata):
     """
     connected = wait_for_connected_NM(only_connecting=True)
     if connected:
-        _get_ntp_servers_from_dhcp(ksdata)
+        _get_ntp_servers_from_dhcp()
     with network_connected_condition:
         global network_connected
         network_connected = connected

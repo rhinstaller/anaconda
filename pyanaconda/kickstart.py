@@ -42,10 +42,14 @@ from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH, DBUS_BOSS_NAME, \
+    DBUS_BOSS_PATH
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.boss.kickstart_manager import SplitKickstartError
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -265,6 +269,30 @@ def refreshAutoSwapSize(storage):
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
+
+
+class RemovedCommand(KickstartCommand):
+    """Kickstart command that was moved on DBus.
+
+    This class should simplify the transition to DBus.
+
+    Kickstart command that was moved on DBus should inherit this
+    class. Methods parse, setup and execute should be modified to
+    access the DBus modules or moved on DBus.
+    """
+
+    def __str__(self):
+        """Generate this part of a kickstart file from the module."""
+        return ""
+
+    def parse(self, args):
+        """Do not parse anything.
+
+        We can keep this method for the checks if it is possible, but
+        it shouldn't parse anything.
+        """
+        log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
+
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def __init__(self, *args, **kwargs):
@@ -1805,14 +1833,21 @@ class SshKey(commands.sshkey.F22_SshKey):
         for usr in self.sshUserList:
             users.setUserSshKey(usr.username, usr.key)
 
-class Timezone(commands.timezone.F25_Timezone):
+class Timezone(RemovedCommand):
+
     def __init__(self, *args):
-        commands.timezone.F25_Timezone.__init__(self, *args)
+        super().__init__(*args)
         self.packages = []
 
+    def __str__(self):
+        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        return timezone_proxy.GenerateKickstart()
+
     def setup(self, ksdata):
+        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+
         # do not install and use NTP package
-        if self.nontp or NTP_PACKAGE in ksdata.packages.excludedList:
+        if not timezone_proxy.NTPEnabled or NTP_PACKAGE in ksdata.packages.excludedList:
             if util.service_running(NTP_SERVICE) and \
                     can_touch_runtime_system("stop NTP service"):
                 ret = util.stop_service(NTP_SERVICE)
@@ -1836,19 +1871,26 @@ class Timezone(commands.timezone.F25_Timezone):
                 ksdata.services.enabled.append(NTP_SERVICE)
 
     def execute(self, *args):
+        # get the DBus proxies
+        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+
         # write out timezone configuration
-        if not timezone.is_valid_timezone(self.timezone):
+        kickstart_timezone = timezone_proxy.Timezone
+
+        if not timezone.is_valid_timezone(kickstart_timezone):
             # this should never happen, but for pity's sake
             timezone_log.warning("Timezone %s set in kickstart is not valid, falling "
-                                 "back to default (America/New_York).", self.timezone)
-            self.timezone = "America/New_York"
+                                 "back to default (America/New_York).", kickstart_timezone)
+            timezone_proxy.SetTimezone("America/New_York")
 
-        timezone.write_timezone_config(self, util.getSysroot())
+        timezone.write_timezone_config(timezone_proxy, util.getSysroot())
 
         # write out NTP configuration (if set) and --nontp is not used
-        if not self.nontp and self.ntpservers:
+        kickstart_ntp_servers = timezone_proxy.NTPServers
+
+        if timezone_proxy.NTPEnabled and kickstart_ntp_servers:
             chronyd_conf_path = os.path.normpath(util.getSysroot() + ntp.NTP_CONFIG_FILE)
-            pools, servers = ntp.internal_to_pools_and_servers(self.ntpservers)
+            pools, servers = ntp.internal_to_pools_and_servers(kickstart_ntp_servers)
             if os.path.exists(chronyd_conf_path):
                 timezone_log.debug("Modifying installed chrony configuration")
                 try:
@@ -2390,7 +2432,7 @@ def preScriptPass(f):
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
 
-def parseKickstart(f, strict_mode=False):
+def parseKickstart(f, strict_mode=False, pass_to_boss=False):
     # preprocessing the kickstart file has already been handled in initramfs.
 
     addon_paths = collect_addon_paths(ADDON_PATHS)
@@ -2428,7 +2470,18 @@ def parseKickstart(f, strict_mode=False):
             for category in kscategories:
                 warnings.filterwarnings(action="always", module=ksmodule, category=category)
 
-            # Parse the kickstart file.
+            # Parse the kickstart file in DBus modules.
+            if pass_to_boss:
+                boss = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+
+                boss.SplitKickstart(f)
+                errors = boss.DistributeKickstart()
+
+                if errors:
+                    message = "\n\n".join("{error_message}".format_map(e) for e in errors)
+                    raise KickstartError(message)
+
+            # Parse the kickstart file in anaconda.
             ksparser.readKickstart(f)
 
             # Process pykickstart warnings in the strict mode:
@@ -2436,7 +2489,7 @@ def parseKickstart(f, strict_mode=False):
                 raise KickstartError("Please modify your kickstart file to fix the warnings "
                                      "or remove the `ksstrict` option.")
 
-    except KickstartError as e:
+    except (KickstartError, SplitKickstartError) as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         parsing_log.error(e)

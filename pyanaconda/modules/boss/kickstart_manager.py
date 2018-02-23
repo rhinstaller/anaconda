@@ -32,7 +32,8 @@ log = get_module_logger(__name__)
 __all__ = ['KickstartManager', 'SplitKickstartError']
 
 
-class SplitKickstartError(Exception):
+@map_error("{}.SplitKickstartError".format(DBUS_BOSS_ANACONDA_NAME))
+class SplitKickstartError(KickstartError):
     """Error while parsing kickstart for splitting."""
     pass
 

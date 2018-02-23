@@ -231,7 +231,8 @@ def doInstall(storage, payload, ksdata, instClass):
     # - this used to be before waiting on threads, but I don't think that's needed
     if flags.can_touch_runtime_system("save system time to HW clock"):
         # lets just do this as a top-level task - no
-        save_hwclock = Task("Save system time to HW clock", timezone.save_hw_clock, (ksdata.timezone,))
+
+        save_hwclock = Task("Save system time to HW clock", timezone.save_hw_clock)
         installation_queue.append(save_hwclock)
 
     # setup the installation environment

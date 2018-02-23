@@ -16,7 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -69,6 +70,9 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._ntp_servers = OrderedDict()
         self._ntp_servers_lock = RLock()
 
+        self._timezone_module = DBusObjectObserver(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module.connect()
+
     @property
     def indirect(self):
         return False
@@ -83,7 +87,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         ntp_servers = []
 
         if constants.ANACONDA_ENVIRON in flags.environs:
-            ntp_servers = self.data.timezone.ntpservers
+            ntp_servers = self._timezone_module.proxy.NTPServers
         elif constants.FIRSTBOOT_ENVIRON in flags.environs:
             ntp_servers = ntp.get_servers_from_config()[1]  # returns a (NPT pools, NTP servers) tupple
         else:
@@ -186,7 +190,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self.data.timezone.timezone)
+        return bool(self._timezone_module.proxy.Timezone)
 
     @property
     def mandatory(self):
@@ -194,8 +198,10 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def status(self):
-        if self.data.timezone.timezone:
-            return _("%s timezone") % self.data.timezone.timezone
+        kickstart_timezone = self._timezone_module.proxy.Timezone
+
+        if kickstart_timezone:
+            return _("%s timezone") % kickstart_timezone
         else:
             return _("Timezone is not set.")
 
@@ -207,9 +213,10 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """
         msg = ""
         # timezone
+        kickstart_timezone = self._timezone_module.proxy.Timezone
         timezone_msg = _("not set")
-        if self.data.timezone.timezone:
-            timezone_msg = self.data.timezone.timezone
+        if kickstart_timezone:
+            timezone_msg = kickstart_timezone
 
         msg += _("Timezone: %s\n") % timezone_msg
 
@@ -232,7 +239,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
 
-        if self.data.timezone.timezone:
+        if self._timezone_module.proxy.Timezone:
             timezone_option = _("Change timezone")
         else:
             timezone_option = _("Set timezone")
@@ -264,7 +271,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         # update the NTP server list in kickstart
-        self.data.timezone.ntpservers = list(self.ntp_servers.keys())
+        self._timezone_module.proxy.SetNTPServers(list(self.ntp_servers.keys()))
 
 
 class TimeZoneSpoke(NormalTUISpoke):
@@ -290,6 +297,9 @@ class TimeZoneSpoke(NormalTUISpoke):
         # for lowercase lookup
         self._lower_zones = [z.lower().replace("_", " ") for region in self._timezones for z in self._timezones[region]]
         self._selection = ""
+
+        self._timezone_module = DBusObjectObserver(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module.connect()
 
     @property
     def indirect(self):
@@ -363,8 +373,8 @@ class TimeZoneSpoke(NormalTUISpoke):
         return prompt
 
     def apply(self):
-        self.data.timezone.timezone = self._selection
-        self.data.timezone.seen = False
+        self._timezone_module.proxy.SetTimezone(self._selection)
+        self._timezone_module.proxy.SetKickstarted(False)
 
 
 class NTPServersSpoke(NormalTUISpoke):
