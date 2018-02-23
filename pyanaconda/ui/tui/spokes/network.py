@@ -19,6 +19,8 @@
 
 from pyanaconda import network
 from pyanaconda import nm
+from pyanaconda.dbus.observer import DBusObjectObserver
+from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 from pyanaconda.flags import can_touch_runtime_system, flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -58,8 +60,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def __init__(self, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("Network configuration")
+        self._network_module = DBusObjectObserver(MODULE_NETWORK_NAME,
+                                                  MODULE_NETWORK_PATH)
+        self._network_module.connect()
         self._container = None
-        self._value = self.data.network.hostname
+        self._value = self._network_module.proxy.Hostname
         self.supported_devices = []
         self.errors = []
         self._apply = False
@@ -69,7 +74,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._load_new_devices()
 
         NormalTUISpoke.initialize(self)
-        if not self.data.network.seen:
+        if not self._network_module.proxy.Kickstarted:
             self._update_network_data()
         self.initialize_done()
 
@@ -162,9 +167,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
-        hostname = _("Host Name: %s\n") % self.data.network.hostname
+        hostname = _("Host Name: %s\n") % self._network_module.proxy.Hostname
         self.window.add_with_separator(TextWidget(hostname))
-        current_hostname = _("Current host name: %s\n") % network.current_hostname()
+        current_hostname = _("Current host name: %s\n") % self._network_module.proxy.GetCurrentHostname()
         self.window.add_with_separator(TextWidget(current_hostname))
 
         # if we have any errors, display them
@@ -258,7 +263,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                                          self.instclass, checkmount=False)
 
     def _update_network_data(self):
-        hostname = self.data.network.hostname
+        hostname = self._network_module.proxy.Hostname
 
         self.data.network.network = []
         for i, name in enumerate(nm.nm_devices()):

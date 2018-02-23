@@ -49,7 +49,6 @@ from blivet.zfcp import zfcp
 from blivet.size import Size
 
 from pyanaconda.core import util
-from pyanaconda import network
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import shortProductName
@@ -58,6 +57,9 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
+
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -1893,11 +1895,11 @@ class InstallerStorage(Blivet):
         ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}
         hostname = None
 
-        if self.ksdata:
-            hostname = self.ksdata.network.hostname
+        network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+        hostname = network_proxy.Hostname
 
         if hostname in ignored_hostnames:
-            hostname = network.current_hostname()
+            hostname = network_proxy.GetCurrentHostname()
 
         if hostname in ignored_hostnames:
             hostname = None
