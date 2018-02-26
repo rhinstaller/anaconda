@@ -22,7 +22,7 @@ from pykickstart.parser import Packages
 from pykickstart.sections import PackageSection
 from pykickstart.version import F28
 
-from pyanaconda.modules.base_kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class BarKickstartSpecification(KickstartSpecification):

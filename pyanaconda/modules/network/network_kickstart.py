@@ -19,7 +19,7 @@
 #
 from pykickstart.commands.network import F27_Network, F27_NetworkData
 from pykickstart.version import F28
-from pyanaconda.modules.base_kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class NetworkKickstartSpecification(KickstartSpecification):
