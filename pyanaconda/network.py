@@ -18,10 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import gi
-
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
-
 gi.require_version("NM", "1.0")
 
 from gi.repository import NM
@@ -50,7 +46,8 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
+from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH, \
+    MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
 log = get_module_logger(__name__)

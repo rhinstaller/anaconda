@@ -28,6 +28,6 @@ class NetworkKickstartSpecification(KickstartSpecification):
     commands = {
         "network": F27_Network,
     }
-    data = {
+    commands_data = {
         "NetworkData": F27_NetworkData,
     }
