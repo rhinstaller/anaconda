@@ -352,9 +352,9 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
         elif gitfile.startswith("data/dbus"):
             # add DBUS service and config files
             if gitfile.endswith(".service"):
-                install_to_dir(gitfile, "usr/share/dbus-1/system-services")
+                install_to_dir(gitfile, "usr/share/dbus-1/services")
             elif gitfile.endswith(".conf"):
-                install_to_dir(gitfile, "etc/dbus-1/system.d")
+                install_to_dir(gitfile, "etc/dbus-1/session.d")
         elif gitfile.find('/') != -1:
             fields = gitfile.split('/')
             subdir = fields[0]
