@@ -114,7 +114,6 @@ Requires: python3-dbus
 Requires: python3-pwquality
 Requires: python3-systemd
 Requires: python3-pydbus
-Requires: system-logos
 
 # pwquality only "recommends" the dictionaries it needs to do anything useful,
 # which is apparently great for containers but unhelpful for the rest of us
@@ -193,6 +192,7 @@ Requires: NetworkManager-wifi
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
 Requires: blivet-gui-runtime >= %{blivetguiver}
+Requires: system-logos
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
