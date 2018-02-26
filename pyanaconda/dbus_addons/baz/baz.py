@@ -22,8 +22,8 @@ from pyanaconda.dbus.constants import ADDON_BAZ_NAME, ADDON_BAZ_PATH
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
 from pyanaconda.modules.base import KickstartModule
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class Baz(KickstartModule):

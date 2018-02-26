@@ -26,8 +26,8 @@ from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.bar.bar_interface import BarInterface
 from pyanaconda.modules.bar.tasks.bar_task import BarTask
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class Bar(KickstartModule):
