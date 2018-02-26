@@ -23,8 +23,8 @@ from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.foo.foo_interface import FooInterface
 from pyanaconda.modules.foo.tasks.foo_task import FooTask
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class Foo(KickstartModule):

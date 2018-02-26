@@ -21,8 +21,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.install_manager.installation_interface import InstallationNotRunning
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 TASK_NAME = 0
 TASK_PATH = 1

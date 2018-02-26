@@ -28,8 +28,8 @@ from pyanaconda.modules.boss.install_manager.installation_interface import Insta
 from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 
 class Boss(BaseModule):

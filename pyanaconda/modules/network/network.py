@@ -29,8 +29,9 @@ from pyanaconda.modules.network.network_kickstart import NetworkKickstartSpecifi
 HOSTNAME_SERVICE = "org.freedesktop.hostname1"
 HOSTNAME_PATH = "/org/freedesktop/hostname1"
 
-from pyanaconda import anaconda_logging
-log = anaconda_logging.get_dbus_module_logger(__name__)
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 
 class NetworkModule(KickstartModule):
     """The Network module."""

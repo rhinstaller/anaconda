@@ -86,19 +86,6 @@ def forwardToJournal(logr, log_formatter=None, log_filter=None):
         journal_handler.setFormatter(log_formatter)
     logr.addHandler(journal_handler)
 
-def get_dbus_module_logger(name):
-    """Return logger for a dbus module with correctly setup logging.
-
-    Each DBUS module runs in a separate process, so we need to setup
-    logging for each module separately.
-    """
-    logging.basicConfig(level=logging.DEBUG)
-    dbus_module_logger = logging.getLogger(name)
-    forwardToJournal(dbus_module_logger,
-                     log_filter=AnacondaPrefixFilter(),
-                     log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
-    return dbus_module_logger
-
 
 class _AnacondaLogFixer(object):
     """ A mixin for logging.StreamHandler that does not lock during format.
