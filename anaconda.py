@@ -696,6 +696,8 @@ if __name__ == "__main__":
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
+    anaconda.postConfigureInstallClass()
+
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
     payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass, fallback=fallback)
