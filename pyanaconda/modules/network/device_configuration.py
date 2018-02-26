@@ -22,7 +22,7 @@ import copy
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.network import ifcfg
+from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device, get_kickstart_network_data
 from pyanaconda.modules.network.nm_client import get_iface_from_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 
@@ -193,7 +193,7 @@ class DeviceConfigurations(object):
             # reconfiguring it via kickstart without activation.
             log.debug("%s has multiple connections: %s", iface, [c.get_uuid() for c in cons])
             hwaddr = device.get_hw_address()
-            ifcfg_uuid = ifcfg.find_ifcfg_uuid_of_device(iface, hwaddr=hwaddr)
+            ifcfg_uuid = find_ifcfg_uuid_of_device(iface, hwaddr=hwaddr)
 
         for c in cons:
             # Ignore slave connections
@@ -392,8 +392,8 @@ class DeviceConfigurations(object):
         for i, cfg in enumerate(self._device_configurations or []):
             network_data = None
             if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
-                network_data = ifcfg.get_kickstart_network_data(cfg.connection_uuid,
-                                                                network_data_class)
+                network_data = get_kickstart_network_data(cfg.connection_uuid,
+                                                          network_data_class)
             if not network_data:
                 log.debug("Device configuration %s does not generate any kickstart data", cfg)
                 continue

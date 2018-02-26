@@ -565,3 +565,30 @@ def bind_connection(connection, bindto, device_name=None, bind_exclusively=True)
                     log.debug("%s removed mac-address from connection", msg)
                     return True
                 return False
+
+
+def ensure_active_connection_for_device(uuid, device_name, only_replace=False):
+    """Make sure active connection of a device is the one specified by uuid.
+
+    :param uuid: uuid of the connection to be applied
+    :type uuid: str
+    :param device_name: name of device to apply the connection to
+    :type device_name: str
+    :param only_replace: apply the connection only if the device has different
+                            active connection
+    :type only_replace: bool
+    """
+    msg = "not activating"
+    active_uuid = None
+    device = nm_client.get_device_by_iface(device_name)
+    if device:
+        ac = device.get_active_connection()
+        if ac or not only_replace:
+            active_uuid = ac.get_uuid()
+            if uuid != active_uuid:
+                ifcfg_con = nm_client.get_connection_by_uuid(uuid)
+                # TODO make the API calls synchronous ?
+                nm_client.activate_connection_async(ifcfg_con, None, None, None)
+                msg = "activating"
+    log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
+                device_name, active_uuid, uuid, msg)

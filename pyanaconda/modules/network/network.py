@@ -30,9 +30,8 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types
 from pyanaconda.modules.network.nm_client import nm_client, get_device_name_from_network_data, \
-    add_connection_from_ksdata, update_connection_from_ksdata
-from pyanaconda.modules.network.ifcfg import find_ifcfg_file_of_device, ifcfg_is_from_kickstart, \
-    find_ifcfg_uuid_of_device
+    add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device
+from pyanaconda.modules.network.ifcfg import find_ifcfg_file_of_device
 
 import gi
 gi.require_version("NM", "1.0")
@@ -264,50 +263,25 @@ class NetworkModule(KickstartModule):
                           number_of_connections, iface)
                 continue
 
-            ifcfg_path = find_ifcfg_file_of_device(iface)
-            if not ifcfg_path:
+            ifcfg_file = find_ifcfg_file_of_device(iface)
+            if not ifcfg_file:
                 log.error("consolidate %d initramfs connections for %s: no ifcfg file",
                           number_of_connections, iface)
                 continue
-
-            # Handle only ifcfgs created from boot options in initramfs
-            # (Kickstart based ifcfgs are handled when applying kickstart)
-            if ifcfg_is_from_kickstart(ifcfg_path):
-                continue
+            else:
+                # Handle only ifcfgs created from boot options in initramfs
+                # (Kickstart based ifcfgs are handled when applying kickstart)
+                if ifcfg_file.is_from_kickstart:
+                    continue
 
             log.debug("consolidate %d initramfs connections for %s: ensure active ifcfg connection",
                       number_of_connections, iface)
 
-            self._ensure_active_ifcfg_connection_for_device(iface, only_replace=True)
+            ensure_active_connection_for_device(ifcfg_file.uuid, iface, only_replace=True)
 
             consolidated_devices.append(iface)
 
         return consolidated_devices
-
-    def _ensure_active_ifcfg_connection_for_device(self, iface, only_replace=False):
-        """Make sure active connection of a device is the one of ifcfg file
-
-        :param iface: name of device to apply the connection to
-        :type iface: str
-        :param only_replace: apply the connection only if the device has different
-                             active connection
-        :type only_replace: bool
-        """
-        msg = "not activating"
-        active_uuid = None
-        ifcfg_uuid = find_ifcfg_uuid_of_device(iface)
-        device = self.nm_client.get_device_by_iface(iface)
-        if device:
-            ac = device.get_active_connection()
-            if ac or not only_replace:
-                active_uuid = ac.get_uuid()
-                if ifcfg_uuid != active_uuid:
-                    ifcfg_con = self.nm_client.get_connection_by_uuid(ifcfg_uuid)
-                    # TODO sync somewhere?
-                    self.nm_client.activate_connection_async(ifcfg_con, None, None, None)
-                    msg = "activating"
-        log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
-                  iface, active_uuid, ifcfg_uuid, msg)
 
     def get_supported_devices(self):
         """Get names of existing supported devices on the system."""
@@ -359,20 +333,19 @@ class NetworkModule(KickstartModule):
                 log.warning("apply kickstart: --device %s not found", network_data.device)
                 continue
 
-            ifcfg_path = find_ifcfg_file_of_device(device_name)
-            if ifcfg_path:
-                if ifcfg_is_from_kickstart(ifcfg_path):
-                    if network_data.activate:
-                        self._ensure_active_ifcfg_connection_for_device(device_name)
-                        applied_devices.append(device_name)
-                    continue
+            ifcfg_file = find_ifcfg_file_of_device(device_name)
+            if ifcfg_file and ifcfg_file.is_from_kickstart:
+                if network_data.activate:
+                    ensure_active_connection_for_device(ifcfg_file.uuid, device_name)
+                    applied_devices.append(device_name)
+                continue
 
             # If there is no kickstart ifcfg from initramfs the command was added
             # in %pre section after switch root, so apply it now
             applied_devices.append(device_name)
-            if ifcfg_path:
+            if ifcfg_file:
                 # if the device was already configured in initramfs update the settings
-                con_uuid = find_ifcfg_uuid_of_device(device_name)
+                con_uuid = ifcfg_file.uuid
                 log.debug("pre kickstart - updating settings %s of device %s",
                           con_uuid, device_name)
                 update_connection_from_ksdata(con_uuid, network_data, device_name=device_name)
