@@ -69,7 +69,8 @@ def start_dbus_session():
     if is_dbus_session_running():
         return False
 
-    address = execWithCapture(DBUS_LAUNCH_BIN, ["--session", "--print-address", "--fork"],
+    address = execWithCapture(DBUS_LAUNCH_BIN,
+                              ["--session", "--print-address", "--fork", "--syslog"],
                               filter_stderr=True)
 
     if not address:
