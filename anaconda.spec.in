@@ -27,7 +27,6 @@ Source0: %{name}-%{version}.tar.bz2
 %define dnfver 2.2.0
 %define dracutver 034-7
 %define fcoeutilsver 1.0.12-3.20100323git
-%define firewalldver 0.3.5-1
 %define gettextver 0.19.8
 %define gtk3ver 3.22.17
 %define helpver 22.1-1
@@ -106,9 +105,6 @@ Requires: python3-requests-ftp
 Requires: python3-kickstart >= %{pykickstartver}
 Requires: langtable-data >= %{langtablever}
 Requires: langtable-python3 >= %{langtablever}
-Requires: authselect
-Requires: authselect-compat
-Requires: firewalld >= %{firewalldver}
 Requires: util-linux >= %{utillinuxver}
 Requires: python3-gobject-base
 Requires: python3-dbus
