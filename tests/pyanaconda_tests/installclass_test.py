@@ -177,6 +177,36 @@ class FactoryTest(unittest.TestCase):
             self.assertTrue(isinstance(factory.get_install_class_by_name("Install Class B 1"), InstallClassB1))
             self.assertTrue(isinstance(factory.get_install_class_by_name("Install Class B 2"), InstallClassB2))
 
+class Installclass_AttribsTestCase(unittest.TestCase):
+
+    def verify_attribs_test(self):
+        """Just check that common attributes are defined at the top"""
+        class InstallClassExample(BaseInstallClass):
+            pass
+
+        testclass = InstallClassExample()
+
+        self.assertTrue(hasattr(testclass, 'sortPriority'))
+        self.assertTrue(hasattr(testclass, 'hidden'))
+        self.assertTrue(hasattr(testclass, 'name'))
+        self.assertTrue(hasattr(testclass, 'bootloaderTimeoutDefault'))
+        self.assertTrue(hasattr(testclass, 'bootloaderExtraArgs'))
+        self.assertTrue(hasattr(testclass, 'ignoredPackages'))
+        self.assertTrue(hasattr(testclass, 'installUpdates'))
+        self.assertTrue(hasattr(testclass, '_l10n_domain'))
+        self.assertTrue(hasattr(testclass, 'efi_dir'))
+        self.assertTrue(hasattr(testclass, 'defaultFS'))
+        self.assertTrue(hasattr(testclass, 'help_folder'))
+        self.assertTrue(hasattr(testclass, 'help_main_page'))
+        self.assertTrue(hasattr(testclass, 'help_main_page_plain_text'))
+        self.assertTrue(hasattr(testclass, 'help_placeholder'))
+        self.assertTrue(hasattr(testclass, 'help_placeholder_with_links'))
+        self.assertTrue(hasattr(testclass, 'help_placeholder_plain_text'))
+        self.assertTrue(hasattr(testclass, 'stylesheet'))
+        self.assertTrue(hasattr(testclass, 'defaultPackageEnvironment'))
+        self.assertTrue(hasattr(testclass, 'firstboot'))
+        self.assertTrue(hasattr(testclass, 'use_geolocation_with_kickstart'))
+
 
 class F27_Installclass_TestCase(unittest.TestCase):
 
