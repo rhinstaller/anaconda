@@ -20,6 +20,8 @@ import unittest
 import os
 from contextlib import contextmanager
 
+from mock import Mock
+
 from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager,\
     SplitKickstartSectionParsingError, SplitKickstartMissingIncludeError
@@ -259,7 +261,7 @@ network --device=ens3
 class TestModuleObserver(DBusObjectObserver):
 
     def __init__(self, service_name, object_path, test_module):
-        super().__init__(service_name, object_path)
+        super().__init__(Mock(), service_name, object_path)
         self._proxy = test_module
         self._is_service_available = True
 

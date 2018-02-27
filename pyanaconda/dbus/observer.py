@@ -16,14 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import DBUS_FLAG_NONE
 from pyanaconda.core.signal import Signal
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["DBusObserverError", "DBusServiceObserver", "DBusObjectObserver", "DBusCachedObserver"]
+__all__ = ["DBusObserverError", "DBusObjectObserver", "DBusCachedObserver"]
 
 
 class DBusObserverError(Exception):
@@ -41,7 +40,7 @@ class DBusObserver(object):
     Usage:
 
     # Create the observer and connect to its signals.
-    observer = DBusObserver("org.freedesktop.NetworkManager")
+    observer = DBusObserver(SystemBus, "org.freedesktop.NetworkManager")
 
     def callback1(observer):
         print("Service is available!")
@@ -62,11 +61,13 @@ class DBusObserver(object):
     observer.disconnect()
     """
 
-    def __init__(self, service_name):
+    def __init__(self, message_bus, service_name):
         """Creates an DBus service observer.
 
+        :param message_bus: a message bus
         :param service_name: a DBus name of a service
         """
+        self._message_bus = message_bus
         self._service_name = service_name
         self._is_service_available = False
 
@@ -108,7 +109,7 @@ class DBusObserver(object):
 
         :raise DBusObserverError: if service is not available
         """
-        bus_proxy = DBus.get_dbus_proxy()
+        bus_proxy = self._message_bus.get_dbus_proxy()
 
         if not bus_proxy.NameHasOwner(self.service_name):
             raise DBusObserverError("Service {} is not available."
@@ -138,7 +139,7 @@ class DBusObserver(object):
 
     def _watch(self):
         """Watch the service name on DBus."""
-        bus = DBus.get_connection()
+        bus = self._message_bus.connection
         num = bus.watch_name(self.service_name,
                              DBUS_FLAG_NONE,
                              self._service_name_appeared_callback,
@@ -148,7 +149,7 @@ class DBusObserver(object):
 
     def _unwatch(self):
         """Stop to watch the service name on DBus."""
-        bus = DBus.get_connection()
+        bus = self._message_bus.connection
         bus.unwatch_name(self._watched_id)
         self._watched_id = None
 
@@ -182,58 +183,6 @@ class DBusObserver(object):
                                self._service_name)
 
 
-class DBusServiceObserver(DBusObserver):
-    """Observer of a DBus service.
-
-    This class is recommended to use when you want to also access
-    the objects provided by the service. The class keeps the proxies
-    of the remote objects in a cache and deletes the cache when the
-    service is unavailable. Therefore, you shouldn't keep the proxies
-    somewhere else.
-
-    Usage:
-
-    observer = DBusServiceObserver("org.freedesktop.NetworkManager")
-    observer.connect()
-
-    proxy = observer.get_proxy("org/freedesktop/NetworkManager/Settings")
-    result = proxy.ListConnections()
-    print(result)
-
-    """
-
-    def __init__(self, service_name):
-        """Creates the DBus service observer.
-
-        :param service_name: a DBus name of a service
-        """
-        super().__init__(service_name)
-        self._proxies = dict()
-
-    def get_proxy(self, object_path):
-        """"Returns a proxy of the remote object."""
-        if not self._is_service_available:
-            raise DBusObserverError("Service {} is not available."
-                                    .format(self._service_name))
-
-        if object_path in self._proxies:
-            return self._proxies.get(object_path)
-
-        proxy = DBus.get_proxy(self._service_name, object_path)
-        self._proxies[object_path] = proxy
-        return proxy
-
-    def _enable_service(self):
-        """Enable the service."""
-        self._proxies = dict()
-        super()._enable_service()
-
-    def _disable_service(self):
-        """Disable the service."""
-        self._proxies = dict()
-        super()._disable_service()
-
-
 class DBusObjectObserver(DBusObserver):
     """Observer of a DBus object.
 
@@ -244,7 +193,7 @@ class DBusObjectObserver(DBusObserver):
 
     Usage:
 
-    observer = DBusObjectObserver("org.freedesktop.NetworkManager",
+    observer = DBusObjectObserver(SystemBus, "org.freedesktop.NetworkManager",
                                   "org/freedesktop/NetworkManager/Settings")
     observer.connect()
     result = observer.proxy.ListConnections()
@@ -252,13 +201,14 @@ class DBusObjectObserver(DBusObserver):
 
     """
 
-    def __init__(self, service_name, object_path):
+    def __init__(self, message_bus, service_name, object_path):
         """Creates an DBus object observer.
 
+        :param message_bus: a message bus
         :param service_name: a DBus name of a service
         :param object_path: a DBus path of an object
         """
-        super().__init__(service_name)
+        super().__init__(message_bus, service_name)
         self._proxy = None
         self._object_path = object_path
 
@@ -270,8 +220,8 @@ class DBusObjectObserver(DBusObserver):
                                     .format(self._service_name))
 
         if not self._proxy:
-            self._proxy = DBus.get_proxy(self._service_name,
-                                         self._object_path)
+            self._proxy = self._message_bus.get_proxy(self._service_name,
+                                                      self._object_path)
 
         return self._proxy
 
@@ -347,23 +297,24 @@ class DBusCachedObserver(DBusObjectObserver):
     Only properties of specified interfaces will be cached.
 
     Usage:
-    observer = DBusCachedObserver("org.freedesktop.NetworkManager",
+    observer = DBusCachedObserver(SystemBus, "org.freedesktop.NetworkManager",
                                   "org/freedesktop/NetworkManager/Settings",
                                   ["org.freedesktop.NetworkManager.Settings"])
     observer.connect()
     print(observer.cache.Hostname)
     """
 
-    def __init__(self, service_name, object_path, watched_interfaces=None):
+    def __init__(self, message_bus, service_name, object_path, watched_interfaces=None):
         """Create an observer with cached properties.
 
         Only properties of specified interfaces will be watched and cached.
 
+        :param message_bus: a message bus
         :param service_name: a DBus name of a service
         :param object_path:  a DBus path of an object
         :param watched_interfaces: a list of interface names
         """
-        super().__init__(service_name, object_path)
+        super().__init__(message_bus, service_name, object_path)
         self._cache = PropertiesCache()
         self._cached_properties_changed = Signal()
         self._watched_interfaces = set()

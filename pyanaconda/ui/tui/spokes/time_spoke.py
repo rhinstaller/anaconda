@@ -16,8 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
-from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -70,7 +70,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._ntp_servers = OrderedDict()
         self._ntp_servers_lock = RLock()
 
-        self._timezone_module = DBusObjectObserver(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module = DBus.get_observer(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
         self._timezone_module.connect()
 
     @property
@@ -298,7 +298,7 @@ class TimeZoneSpoke(NormalTUISpoke):
         self._lower_zones = [z.lower().replace("_", " ") for region in self._timezones for z in self._timezones[region]]
         self._selection = ""
 
-        self._timezone_module = DBusObjectObserver(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module = DBus.get_observer(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
         self._timezone_module.connect()
 
     @property

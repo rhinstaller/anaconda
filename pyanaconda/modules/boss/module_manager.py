@@ -21,7 +21,6 @@ from pydbus.auto_names import auto_object_path
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import ANACONDA_MODULES, DBUS_START_REPLY_SUCCESS, \
     DBUS_ADDON_NAMESPACE, DBUS_FLAG_NONE
-from pyanaconda.dbus.observer import DBusObjectObserver
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -40,7 +39,7 @@ class ModuleManager(object):
 
     def add_module(self, service_name, module_path):
         """Add module to manage."""
-        observer = DBusObjectObserver(service_name, module_path)
+        observer = DBus.get_observer(service_name, module_path)
         self._module_observers.append(observer)
 
     def add_default_modules(self):

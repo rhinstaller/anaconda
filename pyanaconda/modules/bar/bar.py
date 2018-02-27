@@ -20,7 +20,6 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_BAR_PATH, MODULE_BAR_NAME, MODULE_TIMEZONE_NAME, \
     MODULE_TIMEZONE_PATH
-from pyanaconda.dbus.observer import DBusCachedObserver
 from pyanaconda.modules.bar.bar_kickstart import BarKickstartSpecification
 from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.bar.bar_interface import BarInterface
@@ -36,9 +35,9 @@ class Bar(KickstartModule):
     def __init__(self):
         super().__init__()
         self._data = None
-        self._timezone_module = DBusCachedObserver(MODULE_TIMEZONE_NAME,
-                                                   MODULE_TIMEZONE_PATH,
-                                                   [MODULE_TIMEZONE_NAME])
+        self._timezone_module = DBus.get_cached_observer(MODULE_TIMEZONE_NAME,
+                                                         MODULE_TIMEZONE_PATH,
+                                                         [MODULE_TIMEZONE_NAME])
 
     def publish(self):
         """Publish the module."""

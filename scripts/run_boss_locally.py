@@ -8,13 +8,14 @@
 import os
 import tempfile
 import glob
-import pydbus
 import time
 import sys
 import shutil
 import argparse
 from gi.repository import Gio
 
+from pyanaconda.dbus import DBusConnection
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
 from pyanaconda.modules.boss.kickstart_manager import SplitKickstartError
 
 try:
@@ -41,8 +42,6 @@ paths = os.environ.get("PYTHONPATH", "").split(":")
 paths.insert(0, top_dir)
 os.putenv("PYTHONPATH", ":".join(paths))  # pylint: disable=environment-modify
 
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME
-
 MODULES_DIR = os.path.join(top_dir ,"pyanaconda/modules")
 DBUS_SERVICES_DIR = os.path.join(top_dir, "data/dbus/")
 STARTUP_SCRIPT = os.path.join(top_dir, "scripts/start-module")
@@ -51,13 +50,13 @@ EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 def start_anaconda_services():
     print(RED + "starting Boss" + RESET)
-    test_dbus_connection.dbus.StartServiceByName(DBUS_BOSS_NAME, 0)
+    test_dbus_connection.get_dbus_proxy().StartServiceByName(DBUS_BOSS_NAME, 0)
 
 def distribute_kickstart(ks_path):
     tmpfile = tempfile.mktemp(suffix=".run_boss_locally.ks")
     shutil.copyfile(ks_path, tmpfile)
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
-    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
+    boss_object = test_dbus_connection.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
     try:
         boss_object.SplitKickstart(tmpfile)
     except SplitKickstartError as e:
@@ -80,7 +79,7 @@ def distribute_kickstart(ks_path):
 def stops_anaconda_services():
     print(RED + "stopping Boss" + RESET)
 
-    boss_object = test_dbus_connection.get(DBUS_BOSS_NAME)
+    boss_object = test_dbus_connection.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
     boss_object.Quit()
 
     print(RED + "waiting a bit for module shutdown to happen" + RESET)
@@ -119,7 +118,7 @@ try:
     test_dbus.up()
 
     # our custom bus is now running, connect to it
-    test_dbus_connection = pydbus.connect(test_dbus.get_bus_address())
+    test_dbus_connection = DBusConnection(test_dbus.get_bus_address())
 
     enter_word = GREEN + "enter" + RESET
     q_word = GREEN + "q" + RESET
@@ -127,7 +126,7 @@ try:
     print("###########################################################################")
     print("Connect to the bus address below [press a key to continue]:")
     print("(guid part may be ignored)")
-    print(GREEN + test_dbus.get_bus_address() + RESET)
+    print(GREEN + test_dbus_connection.address + RESET)
     if args.kickstart:
         print()
         print("Kickstart file {} will be distributed to modules.".format(args.kickstart))

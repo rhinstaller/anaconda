@@ -43,8 +43,8 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
+from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
-from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
@@ -434,7 +434,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._shown = False
         self._tz = None
 
-        self._timezone_module = DBusObjectObserver(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module = DBus.get_observer(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
         self._timezone_module.connect()
 
     def initialize(self):
