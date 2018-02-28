@@ -25,12 +25,11 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda import addons
-from pyanaconda.dbus import DBus
 from pyanaconda.dbus.launcher import DBusLauncher
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_FLAG_NONE
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
+from pyanaconda.startup_utils import run_boss, stop_boss
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -344,20 +343,18 @@ class Anaconda(object):
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
 
-    def ensure_running_dbus(self):
+    def run_boss_with_dbus(self):
         """Ensure suitable DBus is running. If not, start a new session."""
         if not self._dbus_launcher.is_dbus_session_running():
             self._dbus_launcher.start_dbus_session()
 
         self._dbus_launcher.write_bus_address()
+        run_boss()
 
-    def stop_dbus_session(self):
+    def cleanup_dbus_session(self):
         """Stop our DBus services and our DBus session if it is our private DBus session.
 
         Our DBus is started when no session DBus is available.
         """
+        stop_boss()
         self._dbus_launcher.stop()
-
-    def run_boss(self):
-        bus_proxy = DBus.get_dbus_proxy()
-        bus_proxy.StartServiceByName(DBUS_BOSS_NAME, DBUS_FLAG_NONE)

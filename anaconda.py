@@ -94,7 +94,7 @@ def exitHandler(rebootData, storage):
     if pidfile:
         pidfile.close()
 
-    anaconda.stop_dbus_session()
+    anaconda.cleanup_dbus_session()
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
@@ -481,8 +481,7 @@ if __name__ == "__main__":
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
     # start dbus session (if not already running) and run boss in it
-    anaconda.ensure_running_dbus()
-    anaconda.run_boss()
+    anaconda.run_boss_with_dbus()
 
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
