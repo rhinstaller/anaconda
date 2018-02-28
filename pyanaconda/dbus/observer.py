@@ -124,7 +124,8 @@ class DBusObserver(object):
         The observer is not connected to the service until it
         emits the service_available signal.
         """
-        self._watch()
+        if self._message_bus.check_connection():
+            self._watch()
 
     def disconnect(self):
         """Disconnect from the service.
@@ -132,7 +133,8 @@ class DBusObserver(object):
         Disconnect from the service if it is connected and stop
         watching its availability.
         """
-        self._unwatch()
+        if self._message_bus.check_connection():
+            self._unwatch()
 
         if self.is_service_available:
             self._disable_service()

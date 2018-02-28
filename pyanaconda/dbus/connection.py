@@ -63,6 +63,17 @@ class Connection(ABC):
         """
         pass
 
+    def check_connection(self):
+        """Check if the connection is set up.
+
+        :return: True if the connection is set up otherwise False
+        """
+        try:
+            return self.connection is not None
+        except Exception as e:  # pylint: disable=broad-except
+            log.error("Connection failed to be created:\n%s", e)
+            return False
+
     def register_service(self, service_name):
         """Register a service on DBus.
 

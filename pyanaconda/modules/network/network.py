@@ -27,6 +27,7 @@ from pyanaconda.modules.network.network_kickstart import NetworkKickstartSpecifi
 
 HOSTNAME_SERVICE = "org.freedesktop.hostname1"
 HOSTNAME_PATH = "/org/freedesktop/hostname1"
+HOSTNAME_INTERFACE = "org.freedesktop.hostname1"
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -39,10 +40,20 @@ class NetworkModule(KickstartModule):
         super().__init__()
         self.hostname_changed = Signal()
         self._hostname = "localhost.localdomain"
+
         self.current_hostname_changed = Signal()
-        # TODO fallback solution (no hostnamed) ?
-        self._hostname_service_proxy = SystemBus.get_proxy(HOSTNAME_SERVICE, HOSTNAME_PATH)
-        self._hostname_service_proxy.PropertiesChanged.connect(self._hostname_service_properties_changed)
+        self._hostname_service = self._get_hostname_service_observer()
+
+    def _get_hostname_service_observer(self):
+        """Get an observer of the hostname service."""
+        service = SystemBus.get_cached_observer(
+            HOSTNAME_SERVICE, HOSTNAME_PATH, [HOSTNAME_INTERFACE])
+
+        service.cached_properties_changed.connect(
+            self._hostname_service_properties_changed)
+
+        service.connect_once_available()
+        return service
 
     def publish(self):
         """Publish the module."""
@@ -79,17 +90,25 @@ class NetworkModule(KickstartModule):
         self.hostname_changed.emit()
         log.debug("Hostname is set to %s", hostname)
 
-    def _hostname_service_properties_changed(self, interface, changed, invalidated):
-        if interface == "org.freedesktop.hostname1" and "Hostname" in changed:
-            hostname = changed["Hostname"]
+    def _hostname_service_properties_changed(self, observer, changed, invalid):
+        if "Hostname" in changed:
+            hostname = self._hostname_service.cache.Hostname
             self.current_hostname_changed.emit(hostname)
             log.debug("Current hostname changed to %s", hostname)
 
     def get_current_hostname(self):
         """Return current hostname of the system."""
-        return self._hostname_service_proxy.Hostname
+        if self._hostname_service.is_service_available:
+            return self._hostname_service.proxy.Hostname
+
+        log.debug("Current hostname cannot be get.")
+        return ""
 
     def set_current_hostname(self, hostname):
         """Set current system hostname."""
-        self._hostname_service_proxy.SetHostname(hostname, False)
+        if not self._hostname_service.is_service_available:
+            log.debug("Current hostname cannot be set.")
+            return
+
+        self._hostname_service.proxy.SetHostname(hostname, False)
         log.debug("Current hostname is set to %s", hostname)
