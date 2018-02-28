@@ -94,9 +94,7 @@ def exitHandler(rebootData, storage):
     if pidfile:
         pidfile.close()
 
-    from pyanaconda.dbus.launcher import clean_bus_address_file
-    # Clean up dbus address file
-    clean_bus_address_file()
+    anaconda.stop_dbus_session()
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
