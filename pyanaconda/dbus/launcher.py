@@ -27,7 +27,7 @@
 import os
 
 from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS
-from pyanaconda.core.util import execWithCapture
+from pyanaconda.core.util import startProgram
 from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
 
 __all__ = ["is_dbus_session_running", "start_dbus_session", "write_bus_address",
@@ -69,9 +69,14 @@ def start_dbus_session():
     if is_dbus_session_running():
         return False
 
-    address = execWithCapture(DBUS_LAUNCH_BIN,
-                              ["--session", "--print-address", "--fork", "--syslog"],
-                              filter_stderr=True)
+    log_file = open('/tmp/dbus.log', 'a')
+    proc = startProgram([DBUS_LAUNCH_BIN, "--session", '--print-address', "--syslog"],
+                        stderr=log_file)
+
+    if proc.poll() is not None:
+        raise IOError("DBus wasn't properly started!")
+
+    address = proc.stdout.readline().decode('utf-8')
 
     if not address:
         raise IOError("Unable to start DBus session!")
