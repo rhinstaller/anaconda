@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import PropertyMock
 from unittest.mock import patch
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, F28
 from pyanaconda.storage.osinstall import InstallerStorage
 from blivet.devices import PartitionDevice
 from blivet import formats
@@ -33,7 +33,7 @@ class BlivetTestCase(unittest.TestCase):
                 mock_mountpoints.values.return_value = []
 
                 # initialize ksdata
-                prepboot_ksdata = returnClassForVersion()()
+                prepboot_ksdata = returnClassForVersion(version=F28)()
                 prepboot_blivet_obj.ksdata = prepboot_ksdata
                 prepboot_blivet_obj.update_ksdata()
 
@@ -54,7 +54,7 @@ class BlivetTestCase(unittest.TestCase):
                 mock_mountpoints.values.return_value = []
 
                 # initialize ksdata
-                biosboot_ksdata = returnClassForVersion()()
+                biosboot_ksdata = returnClassForVersion(version=F28)()
                 biosboot_blivet_obj.ksdata = biosboot_ksdata
                 biosboot_blivet_obj.update_ksdata()
 
