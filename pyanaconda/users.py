@@ -33,18 +33,6 @@ import re
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-def getPassAlgo(authconfigStr):
-    """ Reads the auth string and returns a string indicating our desired
-        password encoding algorithm.
-    """
-    if authconfigStr.find("--enablemd5") != -1 or authconfigStr.find("--passalgo=md5") != -1:
-        return 'md5'
-    elif authconfigStr.find("--passalgo=sha256") != -1:
-        return 'sha256'
-    elif authconfigStr.find("--passalgo=sha512") != -1:
-        return 'sha512'
-    else:
-        return None
 
 def cryptPassword(password, algo=None):
     salts = {'md5': crypt.METHOD_MD5,
