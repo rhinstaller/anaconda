@@ -442,11 +442,14 @@ def ksnet_to_ifcfg(net, filename=None):
         if not os.path.isdir(TMPDIR+"/ifcfg"):
             os.makedirs(TMPDIR+"/ifcfg")
     hwaddr = readsysfile("/sys/class/net/%s/address" % dev)
+    devtype = nm_type_of_device(dev)
+    if devtype:
+        ifcfg['TYPE'] = devtype
     if net.bindto == BIND_TO_MAC and not (net.bridgeslaves or net.bondslaves or net.teamslaves or net.vlanid):
         # ifcfg-rh requires DEVICE or TYPE to be set
         ifcfg['HWADDR'] = hwaddr
         # fall back to Ethernet rather then crash the installation later
-        ifcfg['TYPE'] = nm_type_of_device(dev) or "Ethernet"
+        ifcfg['TYPE'] = devtype or "Ethernet"
     else:
         ifcfg['DEVICE'] = dev
     if "ifname={0}:{1}".format(dev, hwaddr).upper() in open("/proc/cmdline").read().upper():
