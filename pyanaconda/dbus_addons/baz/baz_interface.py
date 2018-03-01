@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus.constants import ADDON_BAZ_NAME
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.modules.base_interface import KickstartModuleInterface
+from pyanaconda.modules.common.base import KickstartModuleInterface
 
 
 @dbus_interface(ADDON_BAZ_NAME)

@@ -21,7 +21,7 @@
 from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 
