@@ -18,7 +18,8 @@
 #
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartSectionParsingError, \
     SplitKickstartMissingIncludeError
-from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser, VALID_SECTIONS_ANACONDA
+from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser,\
+    VALID_SECTIONS_ANACONDA
 from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartError, KickstartParseError
 
