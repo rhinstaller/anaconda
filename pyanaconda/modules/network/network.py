@@ -23,7 +23,7 @@ from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
-from pyanaconda.modules.network.network_kickstart import NetworkKickstartSpecification
+from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 
 HOSTNAME_SERVICE = "org.freedesktop.hostname1"
 HOSTNAME_PATH = "/org/freedesktop/hostname1"
