@@ -791,7 +791,14 @@ class BootLoader(object):
         if self.stage2_device != storage.root_device:
             dracut_devices.append(self.stage2_device)
 
-        dracut_devices.extend(storage.fsset.swap_devices)
+        swap_devices = storage.fsset.swap_devices
+        dracut_devices.extend(swap_devices)
+
+        # Add resume= option to enable hibernation.
+        # Choose the largest swap device for that.
+        if swap_devices:
+            resume_device = max(swap_devices, key=lambda x: x.size)
+            self.boot_args.add("resume=%s" % resume_device.fstab_spec)
 
         # Does /usr have its own device? If so, we need to tell dracut
         usr_device = storage.mountpoints.get("/usr")
