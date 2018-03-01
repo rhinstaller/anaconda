@@ -136,3 +136,17 @@ class NetworkInterface(KickstartModuleInterface):
         :returns: list of devices to which kickstart configuration was applied
         """
         return self.implementation.apply_kickstart()
+
+    def SetRealOnbootValuesFromKickstart(self) -> List[Str]:
+        """Update ifcfg ONBOOT values according to kickstart configuration.
+
+        So it reflects the --onboot option.
+
+        This is needed because:
+        1) For ifcfg files created in initramfs we use ONBOOT for --activate
+        2) For kickstart applied in stage 2 we can't set the autoconnect
+           setting of connection because the device would be activated immediately.
+
+        :returns: list of devices for which ONBOOT was updated
+        """
+        return self.implementation.set_real_onboot_values_from_kickstart()

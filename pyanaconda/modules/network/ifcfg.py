@@ -255,9 +255,9 @@ def find_ifcfg_file(values, root_path=""):
             return ifcfg
     return None
 
-def find_ifcfg_uuid_of_device(device_name, hwaddr=None):
+def find_ifcfg_uuid_of_device(device_name, hwaddr=None, root_path=""):
     uuid = None
-    ifcfg = find_ifcfg_file_of_device(device_name, hwaddr)
+    ifcfg = find_ifcfg_file_of_device(device_name, hwaddr, root_path)
     if ifcfg:
         uuid = ifcfg.uuid
     return uuid
@@ -351,3 +351,66 @@ def get_kickstart_network_data(connection_uuid, network_data_class):
     ifcfg = find_ifcfg_file([("UUID", connection_uuid)])
     if ifcfg:
         return ifcfg.get_kickstart_data(network_data_class)
+
+def update_onboot_value(devname, onboot, root_path=""):
+    """Update onboot value in ifcfg files.
+
+    :param devname: name of device
+    :type devname: str
+    :param onboot: value of ONBOOT setting
+    :type onboot: bool
+    :param root_path: optional root path for ifcfg files to be updated
+    :type root_path: str
+    :returns: True if the value was updated, False otherwise
+    :rtype: bool
+    """
+
+    ifcfg = find_ifcfg_file_of_device(devname, root_path=root_path)
+    if not ifcfg:
+        log.debug("can't find ifcfg file of %s", devname)
+        return False
+
+    ifcfg.read()
+    old_value = ifcfg.get('ONBOOT')
+    new_value = "yes" if onboot else "no"
+    log.debug("updating ONBOOT value of %s from %s to %s", devname, old_value, new_value)
+    ifcfg.set(('ONBOOT', new_value))
+    ifcfg.write()
+
+    return True
+
+def update_slaves_onboot_value(master_devname, onboot, root_path="", uuid=None):
+    """Update onboot value in slave ifcfg files of given master.
+
+    Master can be identified by device name or uuid. If uuid is not provided
+    as argument it will be looked up in master's ifcfg file.
+
+    :param master_devname: name of master device
+    :type devname: str
+    :param onboot: value of ONBOOT setting
+    :type onboot: bool
+    :param root_path: optional root path for ifcfg files to be updated
+    :type root_path: str
+    :param uuid: uuid of master connection (optional)
+    :type uuid: str
+    :returns: True if the value was updated, False otherwise
+    :rtype: bool
+    """
+    new_value = "yes" if onboot else "no"
+    updated_devices = []
+    # Master can be identified by devname or uuid, try to find master uuid
+    if not uuid:
+        uuid = find_ifcfg_uuid_of_device(master_devname, root_path=root_path)
+    for ifcfg_path in _ifcfg_files(os.path.normpath(root_path + IFCFG_DIR)):
+        ifcfg = IfcfgFile(ifcfg_path)
+        ifcfg.read()
+        master = ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER") or ifcfg.get("BRIDGE")
+        if master in (master_devname, uuid):
+            old_value = ifcfg.get('ONBOOT')
+            slave = ifcfg.get("NAME")
+            log.debug("updating ONBOOT value of slave %s from %s to %s", slave, old_value, new_value)
+            ifcfg.set(('ONBOOT', new_value))
+            ifcfg.write()
+            updated_devices.append(slave)
+
+    return updated_devices
