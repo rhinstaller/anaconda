@@ -336,8 +336,8 @@ class NetworkModule(KickstartModule):
             ifcfg_file = find_ifcfg_file_of_device(device_name)
             if ifcfg_file and ifcfg_file.is_from_kickstart:
                 if network_data.activate:
-                    ensure_active_connection_for_device(ifcfg_file.uuid, device_name)
-                    applied_devices.append(device_name)
+                    if ensure_active_connection_for_device(ifcfg_file.uuid, device_name):
+                        applied_devices.append(device_name)
                 continue
 
             # If there is no kickstart ifcfg from initramfs the command was added

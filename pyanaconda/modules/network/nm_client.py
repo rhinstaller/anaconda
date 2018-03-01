@@ -578,7 +578,7 @@ def ensure_active_connection_for_device(uuid, device_name, only_replace=False):
                             active connection
     :type only_replace: bool
     """
-    msg = "not activating"
+    activated = False
     active_uuid = None
     device = nm_client.get_device_by_iface(device_name)
     if device:
@@ -589,6 +589,8 @@ def ensure_active_connection_for_device(uuid, device_name, only_replace=False):
                 ifcfg_con = nm_client.get_connection_by_uuid(uuid)
                 # TODO make the API calls synchronous ?
                 nm_client.activate_connection_async(ifcfg_con, None, None, None)
-                msg = "activating"
+                activated = True
+    msg = "activated" if activated else "not activated"
     log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
                 device_name, active_uuid, uuid, msg)
+    return activated
