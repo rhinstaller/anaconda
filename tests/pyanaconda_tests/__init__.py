@@ -22,6 +22,10 @@ gi.require_version("GLib", "2.0")
 
 from gi.repository import GLib
 
+from textwrap import dedent
+from mock import Mock
+from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
+
 
 class run_in_glib(object):
     """Run the test methods in GLib.
@@ -53,3 +57,32 @@ class run_in_glib(object):
             return self._result
 
         return create_loop
+
+
+def check_kickstart_interface(test, interface, ks_in, ks_out):
+    """Test the parsing and generating of a kickstart module.
+
+    :param test: instance of TestCase
+    :param interface: instance of KickstartModuleInterface
+    :param ks_in: string with the input kickstart
+    :param ks_out: string with the output kickstart
+    """
+    callback = Mock()
+    interface.PropertiesChanged.connect(callback)
+
+    # Read a kickstart,
+    if ks_in is not None:
+        ks_in = dedent(ks_in).strip()
+        result = interface.ReadKickstart(ks_in)
+        test.assertEqual({k: v.unpack() for k, v in result.items()}, {"success": True})
+
+    # Generate a kickstart
+    ks_out = dedent(ks_out).strip()
+    test.assertEqual(ks_out, interface.GenerateKickstart().strip())
+
+    # Test the properties changed callback.
+    if ks_in is not None:
+        callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
+    else:
+        test.assertEqual(interface.Kickstarted, False)
+        callback.assert_not_called()
