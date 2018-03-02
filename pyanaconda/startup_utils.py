@@ -41,9 +41,10 @@ from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
 
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
+from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_FLAG_NONE
 
 import blivet
+
 
 def module_exists(module_path):
     """Report is a given module exists in the current module import pth or not.
@@ -78,6 +79,19 @@ def module_exists(module_path):
         return True
     except ImportError:
         return False
+
+
+def stop_boss():
+    """Stop boss by calling Quit() on DBus."""
+    boss_proxy = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+    boss_proxy.Quit()
+
+
+def run_boss():
+    """Start Boss service on DBus."""
+    bus_proxy = DBus.get_dbus_proxy()
+    bus_proxy.StartServiceByName(DBUS_BOSS_NAME, DBUS_FLAG_NONE)
+
 
 def get_anaconda_version_string(build_time_version=False):
     """Return a string describing current Anaconda version.
@@ -133,6 +147,7 @@ def gtk_warning(title, reason):
     dialog.set_title(title)
     dialog.run()
     dialog.destroy()
+
 
 def check_memory(anaconda, options, display_mode=None):
     """Check is the system has enough RAM for installation.
@@ -221,6 +236,7 @@ def check_memory(anaconda, options, display_mode=None):
                 anaconda.display_mode = constants.DisplayModes.TUI
                 time.sleep(2)
 
+
 def setup_logging_from_options(options):
     """Configure logging according to Anaconda command line/boot options.
 
@@ -251,6 +267,7 @@ def setup_logging_from_options(options):
             anaconda_logging.logger.setup_remotelog(host, port)
         except ValueError:
             log.error("Could not setup remotelog with %s", options.remotelog)
+
 
 def prompt_for_ssh():
     """Prompt the user to ssh to the installation environment on the s390."""
@@ -292,6 +309,7 @@ def prompt_for_ssh():
     else:
         stdout_log.info(_("Please ssh install@HOSTNAME to continue installation."))
 
+
 def clean_pstore():
     """Remove files stored in nonvolatile ram created by the pstore subsystem.
 
@@ -302,6 +320,7 @@ def clean_pstore():
     an intervening reboot is needed.
     """
     util.dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
+
 
 def print_startup_note(options):
     """Print Anaconda version and short usage instructions.
@@ -342,6 +361,7 @@ def print_startup_note(options):
             print(text_mode_note)
         print(separate_attachements_note)
 
+
 def live_startup(anaconda, options):
     """Live environment startup tasks.
 
@@ -356,6 +376,7 @@ def live_startup(anaconda, options):
         log.info("Unable to connect to DBus session bus: %s", e)
     else:
         anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
+
 
 def set_installation_method_from_anaconda_options(anaconda, ksdata):
     """Set the installation method from Anaconda options.
