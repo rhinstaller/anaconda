@@ -66,8 +66,8 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         LangLocaleHandler.__init__(self)
         self._selected_locales = set()
 
-        self._localization_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
-        self._localization_module.connect()
+        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module.connect()
 
     def initialize(self):
         self.initialize_start()
@@ -113,8 +113,8 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def apply(self):
         # store only additional langsupport locales
-        added = sorted(self._selected_locales - set([self._localization_module.proxy.Language]))
-        self._localization_module.proxy.SetLanguageSupport(added)
+        added = sorted(self._selected_locales - set([self._l12_module.proxy.Language]))
+        self._l12_module.proxy.SetLanguageSupport(added)
 
     def refresh(self):
         self._languageEntry.set_text("")
@@ -125,7 +125,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     @property
     def _installed_langsupports(self):
-        return [self._localization_module.proxy.Language] + sorted(self._localization_module.proxy.LanguageSupport)
+        return [self._l12_module.proxy.Language] + sorted(self._l12_module.proxy.LanguageSupport)
 
     @property
     def showable(self):
@@ -163,7 +163,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
         # native, locale, selected, additional
         store.append([native_span, locale, locale in self._selected_locales,
-                      locale != self._localization_module.proxy.Language])
+                      locale != self._l12_module.proxy.Language])
 
     def _mark_selected_locale_bold(self, column, renderer, model, itr, user_data=None):
         if model[itr][2]:

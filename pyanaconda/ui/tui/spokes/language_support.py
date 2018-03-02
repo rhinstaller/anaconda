@@ -60,15 +60,15 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._locales = dict((lang, localization.get_language_locales(lang))
                              for lang in self._langs_and_locales.values())
 
-        self._localization_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
-        self._localization_module.connect()
+        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module.connect()
 
-        self._selected = self._localization_module.proxy.Language
+        self._selected = self._l12_module.proxy.Language
         self.initialize_done()
 
     @property
     def completed(self):
-        return self._localization_module.proxy.Language
+        return self._l12_module.proxy.Language
 
     @property
     def mandatory(self):
@@ -81,7 +81,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def status(self):
-        if self._localization_module.proxy.Language:
+        if self._l12_module.proxy.Language:
             return localization.get_english_name(self._selected)
         else:
             return _("Language is not set.")
@@ -141,4 +141,4 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         """ Store the selected lang support locales """
-        self._localization_module.proxy.SetLanguage(self._selected)
+        self._l12_module.proxy.SetLanguage(self._selected)
