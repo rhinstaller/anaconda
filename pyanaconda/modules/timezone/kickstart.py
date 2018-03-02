@@ -1,5 +1,5 @@
 #
-# Kickstart handler for network and hostname settings
+# Kickstart handler for date and time settings.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -17,17 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.network import F27_Network, F27_NetworkData
+from pykickstart.commands.timezone import F25_Timezone
 from pykickstart.version import F28
-from pyanaconda.modules.base_kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import KickstartSpecification
 
 
-class NetworkKickstartSpecification(KickstartSpecification):
+class TimezoneKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {
-        "network": F27_Network,
-    }
-    commands_data = {
-        "NetworkData": F27_NetworkData,
+        "timezone": F25_Timezone,
     }

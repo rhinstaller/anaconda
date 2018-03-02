@@ -22,7 +22,7 @@ from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.base import KickstartModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
-from pyanaconda.modules.timezone.timezone_kickstart import TimezoneKickstartSpecification
+from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
