@@ -20,7 +20,7 @@
 #
 
 import time
-from pyanaconda.task.task import Task
+from pyanaconda.modules.common.task import Task
 
 
 class FooTask(Task):

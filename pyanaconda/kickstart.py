@@ -49,7 +49,7 @@ from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.boss.kickstart_manager import SplitKickstartError
+from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile

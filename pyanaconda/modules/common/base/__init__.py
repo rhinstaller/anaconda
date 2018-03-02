@@ -1,7 +1,5 @@
-# Utilities to help with Task manipulation.
 #
-#
-# Copyright (C) 2017 Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,18 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.common.base.base import BaseModule, KickstartModule
+from pyanaconda.modules.common.base.base_interface import KickstartModuleInterface
 
-from pyanaconda.task.task_interface import TaskInterface
-from pyanaconda.task.task import Task
-
-
-def publish_task(task_instance: Task, module_dbus_path):
-    """Publish Task to the DBus.
-
-    :param task_instance: Instance of a Task.
-    :param module_dbus_path: DBus object path of a module.
-    :type module_dbus_path: str
-    """
-    interface = TaskInterface(task_instance)
-    interface.publish_from_module(module_dbus_path)
-    return interface
+__all__ = ["BaseModule", "KickstartModule", "KickstartModuleInterface"]

@@ -19,7 +19,7 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_FOO_PATH, MODULE_FOO_NAME
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.foo.foo_interface import FooInterface
 from pyanaconda.modules.foo.tasks.foo_task import FooTask
 

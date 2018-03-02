@@ -20,7 +20,7 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
 

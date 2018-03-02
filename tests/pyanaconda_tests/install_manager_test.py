@@ -21,7 +21,7 @@ from unittest.mock import MagicMock, patch
 
 from pyanaconda.dbus.observer import DBusObjectObserver
 from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
-from pyanaconda.modules.boss.install_manager.installation_interface import InstallationNotRunning
+from pyanaconda.modules.common.errors.installation import InstallationNotRunning
 
 
 def _get_proxy(dbus_module_path, task_instance):

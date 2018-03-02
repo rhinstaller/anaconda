@@ -1,7 +1,5 @@
-# bar_interface.py
-# Example DBUS interface
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,16 +15,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.common.task.task import Task
+from pyanaconda.modules.common.task.task_interface import TaskInterface
 
-from pyanaconda.dbus.constants import MODULE_BAR_NAME
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
+__all__ = ["publish_task", "Task", "TaskInterface"]
 
 
-@dbus_interface(MODULE_BAR_NAME)
-class BarInterface(KickstartModuleInterface):
-    """DBus interface for Bar."""
+def publish_task(task_instance: Task, module_dbus_path):
+    """Publish Task to the DBus.
 
-    def SetTimezone(self, timezone: Str):
-        self.implementation.set_timezone(timezone)
+    :param task_instance: Instance of a Task.
+    :param module_dbus_path: DBus object path of a module.
+    :type module_dbus_path: str
+    """
+    interface = TaskInterface(task_instance)
+    interface.publish_from_module(module_dbus_path)
+    return interface
