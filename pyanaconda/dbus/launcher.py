@@ -44,6 +44,7 @@ class DBusLauncher(object):
 
     def __init__(self):
         self._dbus_daemon_process = None
+        self._log_file = None
 
     @classmethod
     def is_dbus_session_running(cls):
@@ -78,9 +79,9 @@ class DBusLauncher(object):
         if self.is_dbus_session_running():
             return False
 
-        log_file = open('/tmp/dbus.log', 'a')
+        self._log_file = open('/tmp/dbus.log', 'a')
         command = [DBusLauncher.DBUS_LAUNCH_BIN, "--session", '--print-address', "--syslog"]
-        self._dbus_daemon_process = startProgram(command, stderr=log_file)
+        self._dbus_daemon_process = startProgram(command, stderr=self._log_file)
 
         if self._dbus_daemon_process.poll() is not None:
             raise IOError("DBus wasn't properly started!")
@@ -110,6 +111,9 @@ class DBusLauncher(object):
         f = ANACONDA_BUS_ADDR_FILE
         if os.path.exists(f):
             os.unlink(f)
+
+        if self._log_file:
+            self._log_file.close()
 
         if not self._dbus_daemon_process:
             return
