@@ -282,10 +282,9 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do packaging.
 
     # Discover information about realms to join to determine the need for additional packages.
-    if ksdata.realm.join_realm:
-        realm_discover = TaskQueue("Realm discover", N_("Discovering realm to join"))
-        realm_discover.append(Task("Discover realm to join", ksdata.realm.setup))
-        installation_queue.append(realm_discover)
+    realm_discover = TaskQueue("Realm discover", N_("Discovering realm to join"))
+    realm_discover.append(Task("Discover realm to join", ksdata.realm.setup))
+    installation_queue.append(realm_discover)
 
     # Check for other possibly needed additional packages.
     pre_install = TaskQueue("Pre install tasks", N_("Running pre-installation tasks"))
