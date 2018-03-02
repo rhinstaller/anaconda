@@ -199,10 +199,10 @@ def find_best_locale_match(locale, langcodes):
     else:
         return None
 
-def setup_locale(locale, lang=None, text_mode=False):
+def setup_locale(locale, localization_proxy=None, text_mode=False):
     """
     Procedure setting the system to use the given locale and store it in to the
-    ksdata.lang object (if given). DOES NOT PERFORM ANY CHECKS OF THE GIVEN
+    localization module (if given). DOES NOT PERFORM ANY CHECKS OF THE GIVEN
     LOCALE.
 
     $LANG must be set by the caller in order to set the language used by gettext.
@@ -217,15 +217,15 @@ def setup_locale(locale, lang=None, text_mode=False):
     different from the locale requested.
 
     :param str locale: locale to setup
-    :param lang: ksdata.lang object or None
+    :param localization_proxy: DBus proxy of the localization module or None
     :param bool text_mode: if the locale is being setup for text mode
     :return: the locale that was actually set
     :rtype: str
 
     """
 
-    if lang:
-        lang.lang = locale
+    if localization_proxy:
+        localization_proxy.SetLanguage(locale)
 
     # not all locales might be displayable in text mode
     if text_mode:
@@ -539,7 +539,7 @@ def write_language_configuration(lang, root):
     """
     Write language configuration to the $root/etc/locale.conf file.
 
-    :param lang: ksdata.lang object
+    :param lang: value for LANG locale variable
     :param root: path to the root of the installed system
 
     """
@@ -547,7 +547,7 @@ def write_language_configuration(lang, root):
     try:
         fpath = os.path.normpath(root + LOCALE_CONF_FILE_PATH)
         with open(fpath, "w") as fobj:
-            fobj.write('LANG="%s"\n' % lang.lang)
+            fobj.write('LANG="%s"\n' % lang)
     except IOError as ioerr:
         msg = "Cannot write language configuration file: %s" % ioerr.strerror
         raise LocalizationConfigError(msg)

@@ -25,6 +25,7 @@ import gi
 
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -68,11 +69,14 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         LangLocaleHandler.__init__(self)
         self._origStrings = {}
 
+        self._localization_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._localization_module.connect()
+
     def apply(self):
         (store, itr) = self._localeSelection.get_selected()
 
         locale = store[itr][1]
-        locale = localization.setup_locale(locale, self.data.lang, text_mode=False)
+        locale = localization.setup_locale(locale, self._localization_module.proxy, text_mode=False)
         self._set_lang(locale)
 
         # Skip timezone and keyboard default setting for kickstart installs.
@@ -84,7 +88,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             return
 
         timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
-        loc_timezones = localization.get_locale_timezones(self.data.lang.lang)
+        loc_timezones = localization.get_locale_timezones(self._localization_module.proxy.Language)
         if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is
             # either a valid timezone or None)
@@ -111,8 +115,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if flags.flags.singlelang:
             return True
 
-        if flags.flags.automatedInstall and self.data.lang.seen:
-            return self.data.lang.lang and self.data.lang.lang != ""
+        if flags.flags.automatedInstall and self._localization_module.proxy.Kickstarted:
+            return bool(self._localization_module.proxy.Language)
         else:
             return False
 
@@ -149,8 +153,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         territory = geoloc.geoloc.result.territory_code
 
         # bootopts and kickstart have priority over geoip
-        if self.data.lang.lang and self.data.lang.seen:
-            locales = [self.data.lang.lang]
+        language = self._localization_module.proxy.Language
+        if language and self._localization_module.proxy.Kickstarted:
+            locales = [language]
         else:
             locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]
 
@@ -175,8 +180,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # use default
         if not langs_with_translations:
             self._set_lang(DEFAULT_LANG)
-            localization.setup_locale(DEFAULT_LANG, self.data.lang, text_mode=False)
-            lang_itr, _locale_itr = self._select_locale(self.data.lang.lang)
+            localization.setup_locale(DEFAULT_LANG, self._localization_module.proxy, text_mode=False)
+            lang_itr, _locale_itr = self._select_locale(self._localization_module.proxy.Language)
             langs_with_translations[DEFAULT_LANG] = lang_itr
             locales = [DEFAULT_LANG]
 
@@ -199,9 +204,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
 
         # setup the "best" locale
-        locale = localization.setup_locale(locales[0], self.data.lang)
+        locale = localization.setup_locale(locales[0], self._localization_module.proxy)
         self._set_lang(locale)
-        self._select_locale(self.data.lang.lang)
+        self._select_locale(self._localization_module.proxy.Language)
 
         # report that we are done
         self.initialize_done()
@@ -264,7 +269,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             self.main_window.reapply_language()
 
     def refresh(self):
-        self._select_locale(self.data.lang.lang)
+        self._select_locale(self._localization_module.proxy.Language)
         self._languageEntry.set_text("")
         self._languageStoreFilter.refilter()
 

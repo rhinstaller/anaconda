@@ -23,6 +23,8 @@ gi.require_version("Gdk", "3.0")
 
 from gi.repository import Pango, Gdk
 
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -63,6 +65,9 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
         self._selected_locales = set()
+
+        self._localization_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._localization_module.connect()
 
     def initialize(self):
         self.initialize_start()
@@ -108,7 +113,8 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def apply(self):
         # store only additional langsupport locales
-        self.data.lang.addsupport = sorted(self._selected_locales - set([self.data.lang.lang]))
+        added = sorted(self._selected_locales - set([self._localization_module.proxy.Language]))
+        self._localization_module.proxy.SetLanguageSupport(added)
 
     def refresh(self):
         self._languageEntry.set_text("")
@@ -119,7 +125,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     @property
     def _installed_langsupports(self):
-        return [self.data.lang.lang] + sorted(self.data.lang.addsupport)
+        return [self._localization_module.proxy.Language] + sorted(self._localization_module.proxy.LanguageSupport)
 
     @property
     def showable(self):
@@ -157,7 +163,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
         # native, locale, selected, additional
         store.append([native_span, locale, locale in self._selected_locales,
-                      locale != self.data.lang.lang])
+                      locale != self._localization_module.proxy.Language])
 
     def _mark_selected_locale_bold(self, column, renderer, model, itr, user_data=None):
         if model[itr][2]:

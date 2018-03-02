@@ -17,6 +17,8 @@
 # Red Hat, Inc.
 #
 
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -57,12 +59,16 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                                        for lang in localization.get_available_translations())
         self._locales = dict((lang, localization.get_language_locales(lang))
                              for lang in self._langs_and_locales.values())
-        self._selected = self.data.lang.lang
+
+        self._localization_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._localization_module.connect()
+
+        self._selected = self._localization_module.proxy.Language
         self.initialize_done()
 
     @property
     def completed(self):
-        return self.data.lang.lang
+        return self._localization_module.proxy.Language
 
     @property
     def mandatory(self):
@@ -75,7 +81,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def status(self):
-        if self.data.lang.lang:
+        if self._localization_module.proxy.Language:
             return localization.get_english_name(self._selected)
         else:
             return _("Language is not set.")
@@ -135,4 +141,4 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         """ Store the selected lang support locales """
-        self.data.lang.lang = self._selected
+        self._localization_module.proxy.SetLanguage(self._selected)

@@ -44,7 +44,7 @@ from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH, DBUS_BOSS_NAME, \
-    DBUS_BOSS_PATH
+    DBUS_BOSS_PATH, MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -918,9 +918,14 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         blivet.iscsi.iscsi.initiator = self.iscsiname
         return retval
 
-class Lang(commands.lang.F19_Lang):
+class Lang(RemovedCommand):
+    def __str__(self):
+        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        return localization_proxy.GenerateKickstart()
     def execute(self, *args, **kwargs):
-        localization.write_language_configuration(self, util.getSysroot())
+        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        lang = localization_proxy.Language
+        localization.write_language_configuration(lang, util.getSysroot())
 
 # no overrides needed here
 Eula = commands.eula.F20_Eula
