@@ -25,81 +25,102 @@
 #
 
 import os
+from subprocess import TimeoutExpired
 
 from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS
 from pyanaconda.core.util import startProgram
 from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
+from pyanaconda.anaconda_loggers import get_anaconda_root_logger
 
-__all__ = ["is_dbus_session_running", "start_dbus_session", "write_bus_address",
-           "get_anaconda_dbus_address", "clean_bus_address_file"]
+log = get_anaconda_root_logger()
 
-DBUS_LAUNCH_BIN = "dbus-daemon"
-
-
-def is_dbus_session_running():
-    """Check if dbus session is running.
-
-    :returns: True if DBus is running, False otherwise
-    """
-    if os.environ.get(DBUS_SESSION_ADDRESS):
-        return True
-
-    return False
+__all__ = ["DBusLauncher"]
 
 
-def get_anaconda_dbus_address():
-    """Return name of the dbus session where Anaconda lives.
+class DBusLauncher(object):
 
-    :returns: dbus session name
-    :rtype: str
-    """
-    bus_addr_file = ANACONDA_BUS_ADDR_FILE
-    if os.path.exists(bus_addr_file):
-        with open(bus_addr_file, 'rt') as f:
-            return f.readline().rstrip('\n')
-    else:
-        return ""
+    DBUS_LAUNCH_BIN = "dbus-daemon"
+    TERMINATE_WAITING_TIME = 20
 
+    def __init__(self):
+        self._dbus_daemon_process = None
 
-def start_dbus_session():
-    """Start dbus session if not running already.
+    @classmethod
+    def is_dbus_session_running(cls):
+        """Check if dbus session is running.
 
-    :returns: True if session was started, False otherwise
-    """
-    if is_dbus_session_running():
+        :returns: True if DBus is running, False otherwise
+        """
+        if os.environ.get(DBUS_SESSION_ADDRESS):
+            return True
+
         return False
 
-    log_file = open('/tmp/dbus.log', 'a')
-    proc = startProgram([DBUS_LAUNCH_BIN, "--session", '--print-address', "--syslog"],
-                        stderr=log_file)
+    @classmethod
+    def get_anaconda_dbus_address(cls):
+        """Return name of the dbus session where Anaconda lives.
 
-    if proc.poll() is not None:
-        raise IOError("DBus wasn't properly started!")
+        :returns: dbus session name
+        :rtype: str
+        """
+        bus_addr_file = ANACONDA_BUS_ADDR_FILE
+        if os.path.exists(bus_addr_file):
+            with open(bus_addr_file, 'rt') as f:
+                return f.readline().rstrip('\n')
+        else:
+            return ""
 
-    address = proc.stdout.readline().decode('utf-8')
+    def start_dbus_session(self):
+        """Start dbus session if not running already.
 
-    if not address:
-        raise IOError("Unable to start DBus session!")
+        :returns: True if session was started, False otherwise
+        """
+        if self.is_dbus_session_running():
+            return False
 
-    # pylint: disable=environment-modify
-    os.environ[DBUS_SESSION_ADDRESS] = address.rstrip('\n')
-    return True
+        log_file = open('/tmp/dbus.log', 'a')
+        command = [DBusLauncher.DBUS_LAUNCH_BIN, "--session", '--print-address', "--syslog"]
+        self._dbus_daemon_process = startProgram(command, stderr=log_file)
 
+        if self._dbus_daemon_process.poll() is not None:
+            raise IOError("DBus wasn't properly started!")
 
-def write_bus_address():
-    address = os.environ[DBUS_SESSION_ADDRESS]
-    file_name = ANACONDA_BUS_ADDR_FILE
-    run_dir = os.path.dirname(file_name)
+        address = self._dbus_daemon_process.stdout.readline().decode('utf-8')
 
-    if not os.path.exists(run_dir):
-        os.mkdir(run_dir)
+        if not address:
+            raise IOError("Unable to start DBus session!")
 
-    with open(file_name, 'wt') as f:
-        f.write(address)
+        # pylint: disable=environment-modify
+        os.environ[DBUS_SESSION_ADDRESS] = address.rstrip('\n')
+        return True
 
+    def write_bus_address(self):
+        address = os.environ[DBUS_SESSION_ADDRESS]
+        file_name = ANACONDA_BUS_ADDR_FILE
+        run_dir = os.path.dirname(file_name)
 
-def clean_bus_address_file():
-    """Delete bus address file in /var/run/anaconda/ ."""
-    f = ANACONDA_BUS_ADDR_FILE
-    if os.path.exists(f):
-        os.unlink(f)
+        if not os.path.exists(run_dir):
+            os.mkdir(run_dir)
+
+        with open(file_name, 'wt') as f:
+            f.write(address)
+
+    def stop(self):
+        """Stop DBus service and clean bus address file."""
+        f = ANACONDA_BUS_ADDR_FILE
+        if os.path.exists(f):
+            os.unlink(f)
+
+        if not self._dbus_daemon_process:
+            return
+
+        self._dbus_daemon_process.terminate()
+
+        try:
+            self._dbus_daemon_process.wait(DBusLauncher.TERMINATE_WAITING_TIME)
+        except TimeoutExpired:
+            log.error("DBus daemon wasn't terminated kill it now")
+            self._dbus_daemon_process.kill()
+
+        if self._dbus_daemon_process.poll() is not None:
+            log.error("DBus daemon can't be killed!")
