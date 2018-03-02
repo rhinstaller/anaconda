@@ -37,6 +37,7 @@ stdoutLog = get_stdout_logger()
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 class Anaconda(object):
     def __init__(self):
         from pyanaconda import desktop
@@ -326,6 +327,13 @@ class Anaconda(object):
 
         if addon_paths:
             self._intf.update_paths(addon_paths)
+
+    def postConfigureInstallClass(self):
+        """Do an install class late configuration.
+
+        This will enable to configure payload.
+        """
+        self.instClass.configurePayload(self.payload)
 
     def writeXdriver(self, root=None):
         # this should go away at some point, but until it does, we
