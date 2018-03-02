@@ -39,6 +39,18 @@ class LocalizationModule(KickstartModule):
         self.language_support_changed = Signal()
         self._language_support = []
 
+        self.keyboard_changed = Signal()
+        self._keyboard = ""
+
+        self.vc_keymap_changed = Signal()
+        self._vc_keymap = ""
+
+        self.x_layouts_changed = Signal()
+        self._x_layouts = []
+
+        self.switch_options_changed = Signal()
+        self._switch_options = []
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(LocalizationInterface(self), MODULE_LOCALIZATION_PATH)
@@ -52,15 +64,31 @@ class LocalizationModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
+
+        # lang
         self.set_language(data.lang.lang)
         self.set_language_support(data.lang.addsupport)
+
+        # keyboard
+        self.set_keyboard(data.keyboard._keyboard)
+        self.set_vc_keymap(data.keyboard.vc_keymap)
+        self.set_x_layouts(data.keyboard.x_layouts)
+        self.set_switch_options(data.keyboard.switch_options)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
+
+        # lang
         data.lang.lang = self.language
         data.lang.addsupport = self.language_support
+
+        # keyboard
+        data.keyboard._keyboard = self.keyboard
+        data.keyboard.vc_keymap = self.vc_keymap
+        data.keyboard.x_layouts = self.x_layouts
+        data.keyboard.switch_options = self.switch_options
 
         return str(data)
 
@@ -85,3 +113,47 @@ class LocalizationModule(KickstartModule):
         self._language_support = language_support
         self.language_support_changed.emit()
         log.debug("Language support is set to %s.", language_support)
+
+    @property
+    def keyboard(self):
+        """Return keyboard."""
+        return self._keyboard
+
+    def set_keyboard(self, keyboard):
+        """Set the keyboard."""
+        self._keyboard = keyboard
+        self.keyboard_changed.emit()
+        log.debug("Keyboard is set to %s.", keyboard)
+
+    @property
+    def vc_keymap(self):
+        """Return virtual console keymap."""
+        return self._vc_keymap
+
+    def set_vc_keymap(self, vc_keymap):
+        """Set virtual console keymap."""
+        self._vc_keymap = vc_keymap
+        self.vc_keymap_changed.emit()
+        log.debug("Virtual console keymap is set to %s.", vc_keymap)
+
+    @property
+    def x_layouts(self):
+        """Return X Keyboard Layouts."""
+        return self._x_layouts
+
+    def set_x_layouts(self, x_layouts):
+        """Set X Keyboard Layouts."""
+        self._x_layouts = x_layouts
+        self.x_layouts_changed.emit()
+        log.debug("X Layouts are set to %s.", x_layouts)
+
+    @property
+    def switch_options(self):
+        """Return X layout switching options."""
+        return self._switch_options
+
+    def set_switch_options(self, switch_options):
+        """Set X layout switching options."""
+        self._switch_options = switch_options
+        self.switch_options_changed.emit()
+        log.debug("X layout switch options are set to %s.", switch_options)
