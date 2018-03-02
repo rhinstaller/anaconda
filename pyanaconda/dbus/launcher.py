@@ -29,7 +29,7 @@ from subprocess import TimeoutExpired
 
 from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS
 from pyanaconda.core.util import startProgram
-from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
+from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE, ANACONDA_DATA_DIR
 from pyanaconda.anaconda_loggers import get_anaconda_root_logger
 
 log = get_anaconda_root_logger()
@@ -80,7 +80,8 @@ class DBusLauncher(object):
             return False
 
         self._log_file = open('/tmp/dbus.log', 'a')
-        command = [DBusLauncher.DBUS_LAUNCH_BIN, "--session", '--print-address', "--syslog"]
+        config_file = "--config-file={}".format(os.path.join(ANACONDA_DATA_DIR, "dbus/anaconda-bus.conf"))
+        command = [DBusLauncher.DBUS_LAUNCH_BIN, '--print-address', "--syslog", config_file]
         self._dbus_daemon_process = startProgram(command, stderr=self._log_file)
 
         if self._dbus_daemon_process.poll() is not None:
