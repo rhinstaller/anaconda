@@ -19,7 +19,7 @@
 #
 from pykickstart.commands.timezone import F25_Timezone
 from pykickstart.version import F28
-from pyanaconda.modules.base_kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class TimezoneKickstartSpecification(KickstartSpecification):

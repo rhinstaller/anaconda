@@ -16,11 +16,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s):  Vendula Poncova <vponcova@redhat.com>
-#
+#			  Jiri Konecny <jkonecny@redhat.com>
+
 MAINTAINERCLEANFILES = Makefile.in
 
-dbusservicesdir = $(datadir)/dbus-1/services
+dbusservicesdir = $(datadir)/$(PACKAGE_NAME)/dbus/services
 dist_dbusservices_DATA = $(srcdir)/*.service
 
-dbusconfigdir = $(sysconfdir)/dbus-1/system.d
-dist_dbusconfig_DATA = $(srcdir)/*.conf
+dbusconfigdir = $(datadir)/$(PACKAGE_NAME)/dbus/confs
+dist_dbusconfig_DATA = $(srcdir)/org.fedoraproject.Anaconda*.conf
+
+dbusmaindir = $(datadir)/$(PACKAGE_NAME)/dbus
+dist_dbusmain_DATA = $(srcdir)/anaconda-bus.conf

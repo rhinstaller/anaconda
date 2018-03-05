@@ -20,7 +20,7 @@
 
 from pyanaconda.dbus.constants import MODULE_BAR_NAME
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.base_interface import KickstartModuleInterface
+from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 

@@ -26,11 +26,11 @@ from abc import ABC, abstractmethod
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.constants import THREAD_DBUS_TASK
-from pyanaconda.task.task_interface import TaskAlreadyRunningException
+from pyanaconda.modules.common.errors.task import TaskAlreadyRunningError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.async_utils import async_action_nowait
 
-__all__ = ['Task', 'TaskAlreadyRunningException']
+__all__ = ['Task']
 
 
 class Task(ABC):
@@ -174,7 +174,7 @@ class Task(ABC):
             self.running_changed()
             threadMgr.call_when_thread_terminates(self._thread_name, self.running_changed)
         else:
-            raise TaskAlreadyRunningException("Task {} is already running".format(self.name))
+            raise TaskAlreadyRunningError("Task {} is already running".format(self.name))
 
     @abstractmethod
     def runnable(self):

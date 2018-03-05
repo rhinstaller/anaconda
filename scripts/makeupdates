@@ -351,10 +351,12 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
             install_to_dir(gitfile, gi._overridesdir[1:])
         elif gitfile.startswith("data/dbus"):
             # add DBUS service and config files
-            if gitfile.endswith(".service"):
-                install_to_dir(gitfile, "usr/share/dbus-1/services")
+            if gitfile.endswith("anaconda-bus.conf"):
+                install_to_dir(gitfile, "usr/share/anaconda/dbus")
+            elif gitfile.endswith(".service"):
+                install_to_dir(gitfile, "usr/share/anaconda/dbus/services")
             elif gitfile.endswith(".conf"):
-                install_to_dir(gitfile, "etc/dbus-1/session.d")
+                install_to_dir(gitfile, "usr/share/anaconda/dbus/confs")
         elif gitfile.find('/') != -1:
             fields = gitfile.split('/')
             subdir = fields[0]

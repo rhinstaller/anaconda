@@ -24,9 +24,9 @@ from pyanaconda.core.event_loop import EventLoop
 from pyanaconda.core.async_utils import run_in_loop
 from pyanaconda.core.timer import Timer
 from pyanaconda.dbus import DBus
-from pyanaconda.task import publish_task
+from pyanaconda.modules.common.task import publish_task
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.base_kickstart import NoKickstartSpecification, \
+from pyanaconda.core.kickstart import NoKickstartSpecification, \
     KickstartSpecificationHandler, KickstartSpecificationParser
 
 from pyanaconda.anaconda_loggers import get_module_logger

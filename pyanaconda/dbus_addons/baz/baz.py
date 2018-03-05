@@ -20,7 +20,7 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import ADDON_BAZ_NAME, ADDON_BAZ_PATH
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

@@ -94,9 +94,7 @@ def exitHandler(rebootData, storage):
     if pidfile:
         pidfile.close()
 
-    from pyanaconda.dbus.launcher import clean_bus_address_file
-    # Clean up dbus address file
-    clean_bus_address_file()
+    anaconda.cleanup_dbus_session()
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
@@ -483,8 +481,7 @@ if __name__ == "__main__":
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
     # start dbus session (if not already running) and run boss in it
-    anaconda.ensure_running_dbus()
-    anaconda.run_boss()
+    anaconda.run_boss_with_dbus()
 
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
@@ -580,20 +577,24 @@ if __name__ == "__main__":
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 
+    from pyanaconda.dbus import DBus
+    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
+    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+
     # If the language was set on the command line, copy that to kickstart
     if opts.lang:
-        ksdata.lang.lang = opts.lang
-        ksdata.lang.seen = True
+        localization_proxy.SetLanguage(opts.lang)
+        localization_proxy.SetKickstarted(True)
 
     # Setup the locale environment
-    if ksdata.lang.seen:
-        locale_option = ksdata.lang.lang
+    if localization_proxy.Kickstarted:
+        locale_option = localization_proxy.Language
     else:
         locale_option = None
     localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
 
     # Now that LANG is set, do something with it
-    localization.setup_locale(os.environ["LANG"], ksdata.lang, text_mode=anaconda.tui_mode)
+    localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
 
     from pyanaconda.storage.osinstall import storage_initialize, enable_installer_mode
     enable_installer_mode()
@@ -626,7 +627,7 @@ if __name__ == "__main__":
         # as we might now be in text mode, which might not be able to display
         # the characters from our current locale
         log.warning("reinitializing locale due to failed attempt to start the GUI")
-        localization.setup_locale(os.environ["LANG"], ksdata.lang, text_mode=anaconda.tui_mode)
+        localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
 
     # we now know in which mode we are going to run so store the information
     from pykickstart import constants as pykickstart_constants
@@ -689,7 +690,6 @@ if __name__ == "__main__":
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
 
-    from pyanaconda.dbus import DBus
     from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
     timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
 

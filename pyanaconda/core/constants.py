@@ -60,6 +60,7 @@ IMAGE_DIR = MOUNT_DIR + "/image"
 INSTALL_TREE = MOUNT_DIR + "/source"
 BASE_REPO_NAME = "anaconda"
 ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
+ANACONDA_DATA_DIR = "/usr/share/anaconda"
 
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
@@ -292,3 +293,8 @@ class PayloadRequirementType(Enum):
 
 # Timeout for starting X
 X_TIMEOUT = 60
+
+# Realm
+REALM_NAME = "name"
+REALM_DISCOVER = "discover"
+REALM_JOIN = "join"

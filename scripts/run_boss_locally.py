@@ -16,7 +16,7 @@ from gi.repository import Gio
 
 from pyanaconda.dbus import DBusConnection
 from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
-from pyanaconda.modules.boss.kickstart_manager import SplitKickstartError
+from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 
 try:
     from colorama import Fore, Style

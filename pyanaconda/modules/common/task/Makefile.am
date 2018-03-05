@@ -1,6 +1,5 @@
-# kickstart_dispatcher/Makefile.am for anaconda
 #
-# Copyright (C) 2017  Red Hat, Inc.
+# Copyright (C) 2018  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -16,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modulesdir = $(pkgpyexecdir)/kickstart_dispatcher
-modules_PYTHON = $(srcdir)/*.py
+modules_taskdir = $(pkgpyexecdir)/modules/common/task
+modules_task_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

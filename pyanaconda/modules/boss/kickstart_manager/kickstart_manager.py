@@ -16,38 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-from pydbus.error import map_error
-
-from pyanaconda.dbus.constants import DBUS_BOSS_ANACONDA_NAME
-
-from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser, VALID_SECTIONS_ANACONDA
+from pyanaconda.modules.common.errors.kickstart import SplitKickstartSectionParsingError, \
+    SplitKickstartMissingIncludeError
+from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser,\
+    VALID_SECTIONS_ANACONDA
 from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartError, KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-
-__all__ = ['KickstartManager', 'SplitKickstartError']
-
-
-@map_error("{}.SplitKickstartError".format(DBUS_BOSS_ANACONDA_NAME))
-class SplitKickstartError(KickstartError):
-    """Error while parsing kickstart for splitting."""
-    pass
-
-
-@map_error("{}.SplitKickstartSectionParsingError".format(DBUS_BOSS_ANACONDA_NAME))
-class SplitKickstartSectionParsingError(SplitKickstartError):
-    """Error while parsing a section in kickstart."""
-    pass
-
-
-@map_error("{}.SplitKickstartMissingIncludeError".format(DBUS_BOSS_ANACONDA_NAME))
-class SplitKickstartMissingIncludeError(SplitKickstartError):
-    """File included in kickstart was not found."""
-    pass
+__all__ = ['KickstartManager']
 
 
 class KickstartManager(object):
@@ -94,7 +73,6 @@ class KickstartManager(object):
             raise SplitKickstartSectionParsingError(e)
         except KickstartError as e:
             raise SplitKickstartMissingIncludeError(e)
-        log.info("split %s: %s", path, result)
         self._elements = result
 
     def distribute(self):
@@ -122,8 +100,10 @@ class KickstartManager(object):
                                                                sections=sections,
                                                                addons=addons)
             kickstart = self._elements.get_kickstart_from_elements(elements)
-            log.info("distribute kickstart: %s will get kickstart elements: %s",
-                     observer.service_name, elements)
+
+            if not kickstart:
+                log.info("distribute kickstart: there are no data for %s", observer.service_name)
+                continue
 
             result = observer.proxy.ReadKickstart(kickstart)
 

@@ -20,8 +20,8 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_BAR_PATH, MODULE_BAR_NAME, MODULE_TIMEZONE_NAME, \
     MODULE_TIMEZONE_PATH
-from pyanaconda.modules.bar.bar_kickstart import BarKickstartSpecification
-from pyanaconda.modules.base import KickstartModule
+from pyanaconda.modules.bar.kickstart import BarKickstartSpecification
+from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.bar.bar_interface import BarInterface
 from pyanaconda.modules.bar.tasks.bar_task import BarTask
 

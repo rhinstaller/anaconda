@@ -330,7 +330,11 @@ def set_x_keyboard_defaults(ksdata, xkl_wrapper):
     :raise InvalidLocaleSpec: if an invalid locale is given (see
                               localization.LANGCODE_RE)
     """
-    locale = ksdata.lang.lang
+    # TODO MOD: pass module as argument when keyboard is added
+    from pyanaconda.dbus import DBus
+    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
+    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+    locale = localization_proxy.Language
 
     # remove all X layouts that are not valid X layouts (unsupported)
     for layout in ksdata.keyboard.x_layouts:

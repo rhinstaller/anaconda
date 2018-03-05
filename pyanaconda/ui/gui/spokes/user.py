@@ -24,6 +24,8 @@ from pyanaconda.core.i18n import _, CN_
 from pyanaconda.users import cryptPassword, guess_username, check_groupname
 from pyanaconda import input_checking
 from pyanaconda.core import constants
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_USER_NAME, MODULE_USER_PATH
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
@@ -241,6 +243,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
 
+        self._user_module = DBus.get_observer(MODULE_USER_NAME, MODULE_USER_PATH)
+        self._user_module.connect()
+
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
@@ -418,7 +423,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """ Only mandatory if the root pw hasn't been set in the UI
             eg. not mandatory if the root account was locked in a kickstart
         """
-        return not self.data.rootpw.password and not self.data.rootpw.lock
+        return not self._user_module.proxy.IsRootPasswordSet and not self._user_module.proxy.IsRootAccountLocked
 
     def apply(self):
         # set the password only if the user enters anything to the text entry
