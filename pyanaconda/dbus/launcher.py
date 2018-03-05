@@ -124,5 +124,9 @@ class DBusLauncher(object):
             log.error("DBus daemon wasn't terminated kill it now")
             self._dbus_daemon_process.kill()
 
-        if self._dbus_daemon_process.poll() is not None:
+        ret_code = self._dbus_daemon_process.poll()
+
+        if ret_code is None:
             log.error("DBus daemon can't be killed!")
+        elif ret_code != 0:
+            log.error("DBus daemon exited with error %s", ret_code)
