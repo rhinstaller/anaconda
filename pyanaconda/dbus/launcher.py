@@ -27,9 +27,9 @@
 import os
 from subprocess import TimeoutExpired
 
-from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS
+from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS
 from pyanaconda.core.util import startProgram
-from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
+from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE, ANACONDA_DATA_DIR
 from pyanaconda.anaconda_loggers import get_anaconda_root_logger
 
 log = get_anaconda_root_logger()
@@ -52,7 +52,7 @@ class DBusLauncher(object):
 
         :returns: True if DBus is running, False otherwise
         """
-        if os.environ.get(DBUS_SESSION_ADDRESS):
+        if os.environ.get(DBUS_ANACONDA_SESSION_ADDRESS):
             return True
 
         return False
@@ -76,11 +76,9 @@ class DBusLauncher(object):
 
         :returns: True if session was started, False otherwise
         """
-        if self.is_dbus_session_running():
-            return False
-
         self._log_file = open('/tmp/dbus.log', 'a')
-        command = [DBusLauncher.DBUS_LAUNCH_BIN, "--session", '--print-address', "--syslog"]
+        config_file = "--config-file={}".format(os.path.join(ANACONDA_DATA_DIR, "dbus/anaconda-bus.conf"))
+        command = [DBusLauncher.DBUS_LAUNCH_BIN, '--print-address', "--syslog", config_file]
         self._dbus_daemon_process = startProgram(command, stderr=self._log_file)
 
         if self._dbus_daemon_process.poll() is not None:
@@ -92,11 +90,11 @@ class DBusLauncher(object):
             raise IOError("Unable to start DBus session!")
 
         # pylint: disable=environment-modify
-        os.environ[DBUS_SESSION_ADDRESS] = address.rstrip('\n')
+        os.environ[DBUS_ANACONDA_SESSION_ADDRESS] = address.rstrip('\n')
         return True
 
     def write_bus_address(self):
-        address = os.environ[DBUS_SESSION_ADDRESS]
+        address = os.environ[DBUS_ANACONDA_SESSION_ADDRESS]
         file_name = ANACONDA_BUS_ADDR_FILE
         run_dir = os.path.dirname(file_name)
 
@@ -126,5 +124,9 @@ class DBusLauncher(object):
             log.error("DBus daemon wasn't terminated kill it now")
             self._dbus_daemon_process.kill()
 
-        if self._dbus_daemon_process.poll() is not None:
+        ret_code = self._dbus_daemon_process.poll()
+
+        if ret_code is None:
             log.error("DBus daemon can't be killed!")
+        elif ret_code != 0:
+            log.error("DBus daemon exited with error %s", ret_code)
