@@ -46,7 +46,7 @@ from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGE
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH, DBUS_BOSS_NAME, \
     DBUS_BOSS_PATH, MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH, MODULE_SECURITY_NAME, \
-    MODULE_SECURITY_PATH
+    MODULE_SECURITY_PATH, MODULE_USER_NAME, MODULE_USER_PATH
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -1833,20 +1833,27 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 
         autopart.do_reqpart(storage, reqs)
 
-class RootPw(commands.rootpw.F18_RootPw):
+class RootPw(RemovedCommand):
     def execute(self, storage, ksdata, instClass, users):
-        if flags.automatedInstall and not self.password and not self.seen:
+
+        user_proxy = DBus.get_proxy(MODULE_USER_NAME, MODULE_USER_PATH)
+
+        if flags.automatedInstall and not user_proxy.IsRootPasswordSet and not user_proxy.IsRootpwKickstarted:
             # Lock the root password if during an installation with kickstart
             # the root password is empty & not specififed as empty in the kickstart
             # (seen == False) via the rootpw command.
             # Note that kickstart is actually the only way to specify an empty
             # root password - we don't allow that via the UI.
-            self.lock = True
-        elif not flags.automatedInstall and not self.password:
+            user_proxy.SetRootAccountLocked(True)
+        elif not flags.automatedInstall and not user_proxy.IsRootPasswordSet:
             # Also lock the root password if it was not set during interactive installation.
-            self.lock = True
+            user_proxy.SetRootAccountLocked(True)
 
-        users.setRootPassword(self.password, self.isCrypted, self.lock, None, util.getSysroot())
+        users.setRootPassword(user_proxy.RootPassword,
+                              user_proxy.IsRootPasswordCrypted,
+                              user_proxy.IsRootAccountLocked,
+                              None,
+                              util.getSysroot())
 
 class SELinux(RemovedCommand):
 

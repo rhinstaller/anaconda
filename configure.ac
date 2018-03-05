@@ -174,6 +174,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/timezone/Makefile
                  pyanaconda/modules/network/Makefile
                  pyanaconda/modules/localization/Makefile
+                 pyanaconda/modules/user/Makefile
                  data/post-scripts/Makefile
                  data/pixmaps/Makefile
                  tests/Makefile
