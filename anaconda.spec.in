@@ -334,6 +334,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 05 2018 Martin Kolman <mkolman@redhat.com> - 28.22.2-1
+- Use the user DBUS module in the UI (mkolman)
+- Use the user DBUS module for the rootpw command in kickstart.py (mkolman)
+- Add initial user DBUS module (mkolman)
+- Add tests for the Security module (vponcova)
+- Use the Security module in UI (vponcova)
+- Don't send empty kickstart to DBus modules (vponcova)
+- Add the Security module (vponcova)
+- Fix makeupdates script to work with new DBus structure (jkonecny)
+- Fix Makefile of the kickstart manager (vponcova)
+- Fix check if dbus daemon quit properly (jkonecny)
+- Remove check if dbus is running (#1551096) (jkonecny)
+- Use Anaconda's special env variable for dbus address (#1551096) (jkonecny)
+- Migrate Anaconda to our private dbus session (#1551096) (jkonecny)
+- localization module: use l12 shortcut for module name in UI (rvykydal)
+- localization module: replace ksdata.lang with the module in anaconda.
+  (rvykydal)
+- localization module: add KS support for lang command (rvykydal)
+- Return restorecon utility to Fedora 28 mock (jkonecny)
+- Include dbus.log when exporting logs (mkolman)
+- Reorganize pyanaconda.modules.boss (vponcova)
+- Move all DBus errors to pyanaconda.modules.common.errors (vponcova)
+- Move common classes and functions to pyanaconda.modules.common (vponcova)
+- Close DBus log file when quitting DBus session (jkonecny)
+- Rename files that provide kickstart specifications (vponcova)
+- Move the kickstart specification to pyanaconda.core.kickstart (vponcova)
+- Start and quit Boss properly (jkonecny)
+- Make class from dbus.launcher module (jkonecny)
+- Add the kernel option resume= by default (#1206936) (vponcova)
+
 * Wed Feb 28 2018 Martin Kolman <mkolman@redhat.com> - 28.22.1-1
 - Set Pykickstart version for Fedora 28 (mkolman)
 - Use observers to access the hostname service (vponcova)
