@@ -584,13 +584,9 @@ if __name__ == "__main__":
     # If the language was set on the command line, copy that to kickstart
     if opts.lang:
         localization_proxy.SetLanguage(opts.lang)
-        localization_proxy.SetKickstarted(True)
 
     # Setup the locale environment
-    if localization_proxy.Kickstarted:
-        locale_option = localization_proxy.Language
-    else:
-        locale_option = None
+    locale_option = localization_proxy.Language or None
     localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
 
     # Now that LANG is set, do something with it
