@@ -41,10 +41,12 @@ from pyanaconda import keyboard, localization, network, nm, ntp, screen_access, 
 from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
-from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
+from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, \
+    GRAPHICAL_TARGET, THREAD_STORAGE, SELINUX_DEFAULT, REALM_NAME, REALM_DISCOVER, REALM_JOIN
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH, DBUS_BOSS_NAME, \
-    DBUS_BOSS_PATH
+    DBUS_BOSS_PATH, MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH, MODULE_SECURITY_NAME, \
+    MODULE_SECURITY_PATH, MODULE_USER_NAME, MODULE_USER_PATH
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -293,11 +295,16 @@ class RemovedCommand(KickstartCommand):
         log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
 
 
-class Authselect(commands.authselect.F28_Authselect):
+class Authselect(RemovedCommand):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.packages = []
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Security module in the SELinux class.
+        return ""
 
     @property
     def fingerprint_supported(self):
@@ -305,13 +312,17 @@ class Authselect(commands.authselect.F28_Authselect):
                 os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so"))
 
     def setup(self):
-        if self.seen or not flags.automatedInstall:
+        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+
+        if security_proxy.Authselect or not flags.automatedInstall:
             self.packages += ["authselect"]
 
-        if self.handler.authconfig.seen:
+        if security_proxy.Authconfig:
             self.packages += ["authselect-compat"]
 
     def execute(self, *args):
+        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+
         # Enable fingerprint option by default (#481273).
         if not flags.automatedInstall and self.fingerprint_supported:
             self._run(
@@ -321,17 +332,17 @@ class Authselect(commands.authselect.F28_Authselect):
             )
 
         # Apply the authselect options from the kickstart file.
-        if self.seen and self.authselect:
+        if security_proxy.Authselect:
             self._run(
                 "/usr/bin/authselect",
-                shlex.split(self.authselect) + ["--force"]
+                security_proxy.Authselect + ["--force"]
             )
 
         # Apply the authconfig options from the kickstart file (deprecated).
-        if self.handler.authconfig.seen and self.handler.authconfig.authconfig:
+        if security_proxy.Authconfig:
             self._run(
                 "/usr/sbin/authconfig",
-                ["--update", "--nostart"] + shlex.split(self.handler.authconfig.authconfig)
+                ["--update", "--nostart"] + security_proxy.Authconfig
             )
 
     def _run(self, cmd, args, required=True):
@@ -626,18 +637,26 @@ class BTRFSData(commands.btrfs.F23_BTRFSData):
 
             storage.create_device(request)
 
-class Realm(commands.realm.F19_Realm):
+class Realm(RemovedCommand):
     def __init__(self, *args):
-        commands.realm.F19_Realm.__init__(self, *args)
+        super().__init__(*args)
         self.packages = []
         self.discovered = ""
 
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Security module in the SELinux class.
+        return ""
+
     def setup(self):
-        if not self.join_realm:
+        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        realm = security_proxy.Realm
+
+        if not realm[REALM_NAME]:
             return
 
         try:
-            argv = ["discover", "--verbose"] + self.discover_options + [self.join_realm]
+            argv = ["discover", "--verbose"] + realm[REALM_DISCOVER] + [realm[REALM_NAME]]
             output = util.execWithCapture("realm", argv, filter_stderr=True)
         except OSError:
             # TODO: A lousy way of propagating what will usually be
@@ -666,7 +685,11 @@ class Realm(commands.realm.F19_Realm):
     def execute(self, *args):
         if not self.discovered:
             return
-        for arg in self.join_args:
+
+        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        realm = security_proxy.Realm
+
+        for arg in realm[REALM_JOIN]:
             if arg.startswith("--no-password") or arg.startswith("--one-time-password"):
                 pw_args = []
                 break
@@ -674,7 +697,7 @@ class Realm(commands.realm.F19_Realm):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["join", "--install", util.getSysroot(), "--verbose"] + pw_args + self.join_args
+        argv = ["join", "--install", util.getSysroot(), "--verbose"] + pw_args + realm[REALM_JOIN]
         rc = -1
         try:
             rc = util.execWithRedirect("realm", argv)
@@ -682,7 +705,7 @@ class Realm(commands.realm.F19_Realm):
             pass
 
         if rc == 0:
-            realm_log.info("Joined realm %s", self.join_realm)
+            realm_log.info("Joined realm %s", realm[REALM_NAME])
 
 
 class ClearPart(commands.clearpart.F28_ClearPart):
@@ -918,9 +941,14 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         blivet.iscsi.iscsi.initiator = self.iscsiname
         return retval
 
-class Lang(commands.lang.F19_Lang):
+class Lang(RemovedCommand):
+    def __str__(self):
+        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        return localization_proxy.GenerateKickstart()
     def execute(self, *args, **kwargs):
-        localization.write_language_configuration(self, util.getSysroot())
+        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        lang = localization_proxy.Language
+        localization.write_language_configuration(lang, util.getSysroot())
 
 # no overrides needed here
 Eula = commands.eula.F20_Eula
@@ -1805,41 +1833,59 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 
         autopart.do_reqpart(storage, reqs)
 
-class RootPw(commands.rootpw.F18_RootPw):
+class RootPw(RemovedCommand):
     def execute(self, storage, ksdata, instClass, users):
-        if flags.automatedInstall and not self.password and not self.seen:
+
+        user_proxy = DBus.get_proxy(MODULE_USER_NAME, MODULE_USER_PATH)
+
+        if flags.automatedInstall and not user_proxy.IsRootPasswordSet and not user_proxy.IsRootpwKickstarted:
             # Lock the root password if during an installation with kickstart
             # the root password is empty & not specififed as empty in the kickstart
             # (seen == False) via the rootpw command.
             # Note that kickstart is actually the only way to specify an empty
             # root password - we don't allow that via the UI.
-            self.lock = True
-        elif not flags.automatedInstall and not self.password:
+            user_proxy.SetRootAccountLocked(True)
+        elif not flags.automatedInstall and not user_proxy.IsRootPasswordSet:
             # Also lock the root password if it was not set during interactive installation.
-            self.lock = True
+            user_proxy.SetRootAccountLocked(True)
 
-        users.setRootPassword(self.password, self.isCrypted, self.lock, None, util.getSysroot())
+        users.setRootPassword(user_proxy.RootPassword,
+                              user_proxy.IsRootPasswordCrypted,
+                              user_proxy.IsRootAccountLocked,
+                              None,
+                              util.getSysroot())
 
-class SELinux(commands.selinux.FC3_SELinux):
+class SELinux(RemovedCommand):
+
+    SELINUX_STATES = {
+        SELINUX_DISABLED: "disabled",
+        SELINUX_ENFORCING: "enforcing",
+        SELINUX_PERMISSIVE: "permissive"
+    }
+
+    def __str__(self):
+        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        return security_proxy.GenerateKickstart()
+
     def execute(self, *args):
-        selinux_states = {SELINUX_DISABLED: "disabled",
-                          SELINUX_ENFORCING: "enforcing",
-                          SELINUX_PERMISSIVE: "permissive"}
+        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        selinux = security_proxy.SELinux
 
-        if self.selinux is None:
-            # Use the defaults set by the installed (or not) selinux package
+        if selinux == SELINUX_DEFAULT:
+            selinux_log.debug("Use SELinux default configuration.")
             return
-        elif self.selinux not in selinux_states:
-            selinux_log.error("unknown selinux state: %s", self.selinux)
+
+        if selinux not in self.SELINUX_STATES:
+            selinux_log.error("Unknown SELinux state for %s.", selinux)
             return
 
         try:
             selinux_cfg = SimpleConfigFile(util.getSysroot() + "/etc/selinux/config")
             selinux_cfg.read()
-            selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
+            selinux_cfg.set(("SELINUX", self.SELINUX_STATES[selinux]))
             selinux_cfg.write()
         except IOError as msg:
-            selinux_log.error("Error setting selinux mode: %s", msg)
+            selinux_log.error("SELinux configuration failed: %s", msg)
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
@@ -2302,6 +2348,8 @@ class AnacondaSection(Section):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
+    "auth": RemovedCommand,
+    "authconfig": RemovedCommand,
     "authselect": Authselect,
     "autopart": AutoPart,
     "btrfs": BTRFS,

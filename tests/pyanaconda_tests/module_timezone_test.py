@@ -20,9 +20,10 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, DBUS_MODULE_NAMESPACE
+from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME
 from pyanaconda.modules.timezone.timezone import TimezoneModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
+from tests.pyanaconda_tests import check_kickstart_interface
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):
@@ -70,19 +71,22 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'NTPServers': ["ntp.cesnet.cz"]}, [])
 
     def _test_kickstart(self, ks_in, ks_out):
-        """Test the kickstart string."""
-        # Remove extra spaces from the expected output.
-        ks_output = "\n".join("".join(line.strip()) for line in ks_out.strip("\n").splitlines())
+        check_kickstart_interface(self, self.timezone_interface, ks_in, ks_out)
 
-        # Read a kickstart,
-        result = self.timezone_interface.ReadKickstart(ks_in)
-        self.assertEqual({k: v.unpack() for k, v in result.items()}, {"success": True})
+    def no_kickstart_test(self):
+        """Test with no kickstart."""
+        ks_in = None
+        ks_out = """
+        # System timezone
+        timezone America/New_York
+        """
+        self._test_kickstart(ks_in, ks_out)
 
-        # Generate a kickstart.
-        self.assertEqual(ks_output, self.timezone_interface.GenerateKickstart())
-
-        # Test the properties changed callback.
-        self.callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
+    def kickstart_empty_test(self):
+        """Test with empty string."""
+        ks_in = ""
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
 
     def kickstart_test(self):
         """Test the timezone command."""

@@ -23,6 +23,8 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_USER_NAME, MODULE_USER_PATH
 
 from simpleline.render.widgets import TextWidget
 
@@ -43,11 +45,15 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
+
+        self._user_module = DBus.get_observer(MODULE_USER_NAME, MODULE_USER_PATH)
+        self._user_module.connect()
+
         self.initialize_done()
 
     @property
     def completed(self):
-        return bool(self.data.rootpw.password or self.data.rootpw.lock)
+        return bool(self._user_module.proxy.IsRootPasswordSet or self._user_module.proxy.IsRootAccountLocked)
 
     @property
     def showable(self):
@@ -60,9 +66,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def status(self):
-        if self.data.rootpw.password:
+        if self._user_module.proxy.IsRootPasswordSet:
             return _("Password is set.")
-        elif self.data.rootpw.lock:
+        elif self._user_module.proxy.IsRootAccountLocked:
             return _("Root account is disabled.")
         else:
             return _("Password is not set.")
@@ -89,7 +95,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.close()
 
     def apply(self):
-        self.data.rootpw.password = self._password
-        self.data.rootpw.isCrypted = True
-        self.data.rootpw.lock = False
-        self.data.rootpw.seen = False
+        self._user_module.proxy.SetCryptedRootPassword(self._password)
+        self._user_module.proxy.SetRootAccountLocked(False)
+        self._user_module.proxy.SetRootpwKickstarted(False)

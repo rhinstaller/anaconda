@@ -22,6 +22,8 @@ from pyanaconda.core.i18n import _, CN_
 from pyanaconda.users import cryptPassword
 from pyanaconda import input_checking
 from pyanaconda.core import constants
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_USER_NAME, MODULE_USER_PATH
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
@@ -57,6 +59,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
 
+        self._user_module = DBus.get_observer(MODULE_USER_NAME, MODULE_USER_PATH)
+        self._user_module.connect()
+
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
@@ -67,7 +72,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_label = self.builder.get_object("password_label")
 
         # set state based on kickstart
-        self.password_kickstarted = self.data.rootpw.seen
+        # NOTE: this will stop working once the module supports multiple kickstart commands
+        self.password_kickstarted = self._user_module.proxy.IsRootpwKickstarted
 
         # Install the password checks:
         # - Has a password been specified?
@@ -141,9 +147,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def status(self):
-        if self.data.rootpw.password:
+        if self._user_module.proxy.IsRootPasswordSet:
             return _("Root password is set")
-        elif self.data.rootpw.lock:
+        elif self._user_module.proxy.IsRootAccountLocked:
             return _("Root account is disabled")
         else:
             return _("Root password is not set")
@@ -156,19 +162,20 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         pw = self.password
 
         # value from the kickstart changed
-        self.data.rootpw.seen = False
+        # NOTE: yet again, this stops to be valid once multiple
+        #       commands are supported by a single DBUS module
+        self._user_module.proxy.SetRootpwKickstarted(False)
         self.password_kickstarted = False
 
-        self.data.rootpw.lock = False
+        self._user_module.proxy.SetRootAccountLocked(False)
 
         if not pw:
-            self.data.rootpw.password = ''
-            self.data.rootpw.isCrypted = False
+            self._user_module.proxy.ClearRootPassword()
             return
 
         # we have a password - set it to kickstart data
-        self.data.rootpw.password = cryptPassword(pw)
-        self.data.rootpw.isCrypted = True
+
+        self._user_module.proxy.SetCryptedRootPassword(cryptPassword(pw))
 
         # clear any placeholders
         self.remove_placeholder_texts()
@@ -178,12 +185,12 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def completed(self):
-        return bool(self.data.rootpw.password or self.data.rootpw.lock)
+        return bool(self._user_module.proxy.IsRootPasswordSet or self._user_module.proxy.IsRootAccountLocked)
 
     @property
     def sensitive(self):
         return not (self.completed and flags.automatedInstall
-                    and self.data.rootpw.seen)
+                    and self._user_module.proxy.IsRootpwKickstarted)
 
     def _checks_done(self, error_message):
         """Update the warning with the input validation error from the first
