@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-kickstart_managerdir = $(pkgpyexecdir)/modules/kickstart_manager
+kickstart_managerdir = $(pkgpyexecdir)/modules/boss/kickstart_manager
 kickstart_manager_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
