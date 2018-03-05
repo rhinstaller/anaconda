@@ -21,7 +21,7 @@ from abc import ABC, abstractmethod
 
 import pydbus
 
-from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
+from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
 from pyanaconda.dbus.observer import DBusObjectObserver, DBusCachedObserver
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -200,8 +200,8 @@ class DBusDefaultConnection(Connection):
         """
         if DBUS_STARTER_ADDRESS in os.environ:
             bus_address = os.environ.get(DBUS_STARTER_ADDRESS)
-        elif DBUS_SESSION_ADDRESS in os.environ:
-            bus_address = os.environ.get(DBUS_SESSION_ADDRESS)
+        elif DBUS_ANACONDA_SESSION_ADDRESS in os.environ:
+            bus_address = os.environ.get(DBUS_ANACONDA_SESSION_ADDRESS)
         else:
             raise ConnectionError("Can't find usable bus address!")
 

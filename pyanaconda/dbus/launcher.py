@@ -27,7 +27,7 @@
 import os
 from subprocess import TimeoutExpired
 
-from pyanaconda.dbus.constants import DBUS_SESSION_ADDRESS
+from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS
 from pyanaconda.core.util import startProgram
 from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE, ANACONDA_DATA_DIR
 from pyanaconda.anaconda_loggers import get_anaconda_root_logger
@@ -52,7 +52,7 @@ class DBusLauncher(object):
 
         :returns: True if DBus is running, False otherwise
         """
-        if os.environ.get(DBUS_SESSION_ADDRESS):
+        if os.environ.get(DBUS_ANACONDA_SESSION_ADDRESS):
             return True
 
         return False
@@ -93,11 +93,11 @@ class DBusLauncher(object):
             raise IOError("Unable to start DBus session!")
 
         # pylint: disable=environment-modify
-        os.environ[DBUS_SESSION_ADDRESS] = address.rstrip('\n')
+        os.environ[DBUS_ANACONDA_SESSION_ADDRESS] = address.rstrip('\n')
         return True
 
     def write_bus_address(self):
-        address = os.environ[DBUS_SESSION_ADDRESS]
+        address = os.environ[DBUS_ANACONDA_SESSION_ADDRESS]
         file_name = ANACONDA_BUS_ADDR_FILE
         run_dir = os.path.dirname(file_name)
 
