@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.fedoraproject.Anaconda.Modules.Security
+Exec=/usr/libexec/anaconda/start-module pyanaconda.modules.security
+User=root
