@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.fedoraproject.Anaconda.Modules.Localization
+Exec=/usr/libexec/anaconda/start-module pyanaconda.modules.localization
+User=root
