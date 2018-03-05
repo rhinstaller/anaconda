@@ -263,7 +263,7 @@ def initExceptionHandling(anaconda):
                  "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
                  "/tmp/lvm.log", util.getSysroot() + "/root/install.log",
                  "/proc/cmdline", "/root/lorax-packages.log",
-                 "/tmp/blivet-gui-utils.log"]
+                 "/tmp/blivet-gui-utils.log", "/tmp/dbus.log"]
 
     if os.path.exists("/tmp/syslog"):
         file_list.extend(["/tmp/syslog"])
