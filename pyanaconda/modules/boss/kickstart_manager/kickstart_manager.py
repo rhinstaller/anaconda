@@ -73,7 +73,6 @@ class KickstartManager(object):
             raise SplitKickstartSectionParsingError(e)
         except KickstartError as e:
             raise SplitKickstartMissingIncludeError(e)
-        log.info("split %s: %s", path, result)
         self._elements = result
 
     def distribute(self):
@@ -101,8 +100,10 @@ class KickstartManager(object):
                                                                sections=sections,
                                                                addons=addons)
             kickstart = self._elements.get_kickstart_from_elements(elements)
-            log.info("distribute kickstart: %s will get kickstart elements: %s",
-                     observer.service_name, elements)
+
+            if not kickstart:
+                log.info("distribute kickstart: there are no data for %s", observer.service_name)
+                continue
 
             result = observer.proxy.ReadKickstart(kickstart)
 
