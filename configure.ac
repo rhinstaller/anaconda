@@ -143,10 +143,8 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/core/Makefile
                  pyanaconda/dbus/Makefile
                  pyanaconda/isys/Makefile
-                 pyanaconda/kickstart_dispatcher/Makefile
                  pyanaconda/payload/Makefile
                  pyanaconda/storage/Makefile
-                 pyanaconda/task/Makefile
                  pyanaconda/ui/Makefile
                  pyanaconda/ui/categories/Makefile
                  pyanaconda/ui/lib/Makefile
@@ -161,10 +159,15 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/dbus_addons/Makefile
                  pyanaconda/dbus_addons/baz/Makefile
                  pyanaconda/modules/Makefile
+                 pyanaconda/modules/common/Makefile
+                 pyanaconda/modules/common/base/Makefile
+                 pyanaconda/modules/common/task/Makefile
+                 pyanaconda/modules/common/errors/Makefile
                  pyanaconda/modules/bar/Makefile
                  pyanaconda/modules/bar/tasks/Makefile
                  pyanaconda/modules/boss/Makefile
                  pyanaconda/modules/boss/install_manager/Makefile
+                 pyanaconda/modules/boss/kickstart_manager/Makefile
                  pyanaconda/modules/foo/Makefile
                  pyanaconda/modules/foo/tasks/Makefile
                  pyanaconda/modules/timezone/Makefile

@@ -18,7 +18,7 @@
 import unittest
 
 from threading import Event
-from pyanaconda.task.task import Task
+from pyanaconda.modules.common.task import Task
 from tests.pyanaconda_tests import run_in_glib
 
 

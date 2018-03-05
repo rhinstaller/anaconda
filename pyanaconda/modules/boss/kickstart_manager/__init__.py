@@ -1,7 +1,5 @@
-# bar_interface.py
-# Example DBUS interface
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,16 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.boss.kickstart_manager.kickstart_manager import KickstartManager
 
-from pyanaconda.dbus.constants import MODULE_BAR_NAME
-from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface
-
-
-@dbus_interface(MODULE_BAR_NAME)
-class BarInterface(KickstartModuleInterface):
-    """DBus interface for Bar."""
-
-    def SetTimezone(self, timezone: Str):
-        self.implementation.set_timezone(timezone)
+__all__ = ['KickstartManager']

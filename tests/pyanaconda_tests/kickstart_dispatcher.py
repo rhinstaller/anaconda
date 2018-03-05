@@ -23,8 +23,9 @@ import os
 import shlex
 from contextlib import contextmanager
 
-from pyanaconda.kickstart_dispatcher.element import KickstartElement, TrackedKickstartElements
-from pyanaconda.kickstart_dispatcher.parser import SplitKickstartParser
+from pyanaconda.modules.boss.kickstart_manager.element import KickstartElement,\
+    TrackedKickstartElements
+from pyanaconda.modules.boss.kickstart_manager.parser import SplitKickstartParser
 from pykickstart.version import makeVersion
 from pykickstart.errors import KickstartParseError, KickstartError
 
