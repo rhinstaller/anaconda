@@ -345,9 +345,7 @@ class Anaconda(object):
 
     def run_boss_with_dbus(self):
         """Ensure suitable DBus is running. If not, start a new session."""
-        if not self._dbus_launcher.is_dbus_session_running():
-            self._dbus_launcher.start_dbus_session()
-
+        self._dbus_launcher.start_dbus_session()
         self._dbus_launcher.write_bus_address()
         run_boss()
 

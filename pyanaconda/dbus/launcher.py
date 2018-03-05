@@ -76,9 +76,6 @@ class DBusLauncher(object):
 
         :returns: True if session was started, False otherwise
         """
-        if self.is_dbus_session_running():
-            return False
-
         self._log_file = open('/tmp/dbus.log', 'a')
         config_file = "--config-file={}".format(os.path.join(ANACONDA_DATA_DIR, "dbus/anaconda-bus.conf"))
         command = [DBusLauncher.DBUS_LAUNCH_BIN, '--print-address', "--syslog", config_file]
