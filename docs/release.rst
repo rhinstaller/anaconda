@@ -110,24 +110,24 @@ with a few key differences:
 - the branches are named differently
 - you need to create a Bodhi update so that the build actually reaches the stable package repository
 
-So let's enumerate the steps that doe something differently in more detail (we use Fedora 26 in the CLI examples):
+So let's enumerate the steps that doe something differently in more detail (we use Fedora 28 in the CLI examples):
 
 1. merge f<fedora version>-devel to f<fedora version>-release
 
 ::
 
-    git checkout f26-devel
+    git checkout f28-devel
     git pull
-    git checkout f26-release
+    git checkout f28-release
     git pull
-    git merge --no-ff master
+    git merge --no-ff f28-devel
 
 
 5. push the f<fedora version>-release branch to the remote
 
 ::
 
-    git push f26-release --tags
+    git push f28-release --tags
 
 
 9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the f<fedora version> branch & make sure it's up to date
@@ -136,7 +136,7 @@ So let's enumerate the steps that doe something differently in more detail (we u
 
     cd <some folder>
     fedpkg clone anaconda
-    fedpkg switch-branch f26
+    fedpkg switch-branch f28
     git pull
 
 
@@ -264,18 +264,6 @@ Do the major version bump and verify that the output looks correct:
 
     ./scripts/makebumpver --skip-zanata -c --bump-major-version
 
-Set the correct pykickstart version for the new Fedora release by changing all occurrences of:
-
-::
-
-    returnClassForVersion()
-
-to
-
-::
-
-    returnClassForVersion(version=F<new version>)
-
 If everything looks fine (changelog, new major version & the tag) push the changes to the origin:
 
 ::
@@ -304,7 +292,23 @@ First checkout the ``f<version>-release`` branch and merge ``f<version>-devel`` 
     git checkout f<version>-release
     git merge --no-ff f<version>-devel
 
-Then add the third (release) version number:
+
+Then correct pykickstart version for the new Fedora release by changing all occurrences of:
+
+::
+
+    returnClassForVersion()
+
+to
+
+::
+
+    returnClassForVersion(version=F<new version>)
+
+Commit the result. The commit will become one of the few exclusive release branch commits,
+as we can't let it be merged back to master via the devel branch for obvious reasons.
+
+Next add the third (release) version number:
 
 ::
     ./scripts/makebumpver --skip-zanata -c --add-version-number
