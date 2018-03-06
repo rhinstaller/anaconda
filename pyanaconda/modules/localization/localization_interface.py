@@ -37,6 +37,7 @@ class LocalizationInterface(KickstartModuleInterface):
         self.implementation.vc_keymap_changed.connect(self.changed("VirtualConsoleKeymap"))
         self.implementation.x_layouts_changed.connect(self.changed("XLayouts"))
         self.implementation.switch_options_changed.connect(self.changed("LayoutSwitchOptions"))
+        self.implementation.keyboard_seen_changed.connect(self.changed("KeyboardKickstarted"))
 
     @property
     def Language(self) -> Str:
@@ -138,3 +139,11 @@ class LocalizationInterface(KickstartModuleInterface):
         :param options: List of layout switching options.
         """
         self.implementation.set_switch_options(switch_options)
+
+    @property
+    def KeyboardKickstarted(self) -> Bool:
+        """Was keyboard command seen in kickstart?
+
+        :return: True if keyboard command was seen in kickstart, otherwise False
+        """
+        return self.implementation.keyboard_seen

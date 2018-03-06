@@ -51,6 +51,9 @@ class LocalizationModule(KickstartModule):
         self.switch_options_changed = Signal()
         self._switch_options = []
 
+        self.keyboard_seen_changed = Signal()
+        self._keyboard_seen = False
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(LocalizationInterface(self), MODULE_LOCALIZATION_PATH)
@@ -74,6 +77,8 @@ class LocalizationModule(KickstartModule):
         self.set_vc_keymap(data.keyboard.vc_keymap)
         self.set_x_layouts(data.keyboard.x_layouts)
         self.set_switch_options(data.keyboard.switch_options)
+
+        self.set_keyboard_seen(data.keyboard.seen)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -157,3 +162,14 @@ class LocalizationModule(KickstartModule):
         self._switch_options = switch_options
         self.switch_options_changed.emit()
         log.debug("X layout switch options are set to %s.", switch_options)
+
+    @property
+    def keyboard_seen(self):
+        """Was keyboard command seen in kickstart?"""
+        return self._keyboard_seen
+
+    def set_keyboard_seen(self, keyboard_seen):
+        """Set whether keyboard command was seen in kickstart."""
+        self._keyboard_seen = keyboard_seen
+        self.keyboard_seen_changed.emit()
+        log.debug("keyboard command considered seen in kicksatart: %s.", keyboard_seen)

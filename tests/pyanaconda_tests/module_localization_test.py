@@ -18,6 +18,7 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
+from textwrap import dedent
 from mock import Mock
 
 from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME
@@ -81,6 +82,23 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
         self.assertEqual(self.localization_interface.LayoutSwitchOptions, ["grp:alt_shift_toggle"])
         self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'LayoutSwitchOptions': ["grp:alt_shift_toggle"]}, [])
+
+    def keyboard_seen_test(self):
+        """Test the KeyboardKickstarted property."""
+        self.assertEqual(self.localization_interface.KeyboardKickstarted, False)
+        ks_in = """
+        lang cs_CZ.UTF-8
+        """
+        ks_in = dedent(ks_in).strip()
+        self.localization_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.localization_interface.KeyboardKickstarted, False)
+        ks_in = """
+        lang cs_CZ.UTF-8
+        keyboard cz
+        """
+        ks_in = dedent(ks_in).strip()
+        self.localization_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.localization_interface.KeyboardKickstarted, True)
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
