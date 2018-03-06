@@ -31,6 +31,8 @@ from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 from pyanaconda import keyboard
 from pyanaconda import flags
+from pyanaconda.dbus import DBus
+from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
 from pyanaconda.ui.communication import hubQ
@@ -64,8 +66,8 @@ class AddLayoutDialog(GUIObject):
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.glade"
 
-    def __init__(self, *args):
-        GUIObject.__init__(self, *args)
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
         self._xkl_wrapper = XklWrapper.get_instance()
         self._chosen_layouts = []
 
@@ -179,11 +181,13 @@ class ConfigureSwitchingDialog(GUIObject):
     mainWidgetName = "switchingDialog"
     uiFile = "spokes/keyboard.glade"
 
-    def __init__(self, *args):
-        GUIObject.__init__(self, *args)
+    def __init__(self, data, l12_module):
+        GUIObject.__init__(self, data)
         self._xkl_wrapper = XklWrapper.get_instance()
 
         self._switchingOptsStore = self.builder.get_object("switchingOptsStore")
+
+        self._l12_module = l12_module
 
     def initialize(self):
         # we want to display "Alt + Shift" rather than "grp:alt_shift_toggle"
@@ -202,7 +206,7 @@ class ConfigureSwitchingDialog(GUIObject):
         itr = self._switchingOptsStore.get_iter_first()
         while itr:
             option = self._switchingOptsStore[itr][0]
-            if option in self.data.keyboard.switch_options:
+            if option in self._l12_module.proxy.LayoutSwitchOptions:
                 self._switchingOptsStore.set_value(itr, 1, True)
             else:
                 self._switchingOptsStore.set_value(itr, 1, False)
@@ -284,23 +288,25 @@ class KeyboardSpoke(NormalSpoke):
         self._removeButton = self.builder.get_object("removeLayoutButton")
         self._previewButton = self.builder.get_object("previewButton")
 
+        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module.connect()
+        self._seen = self._l12_module.proxy.KeyboardKickstarted
+
     def apply(self):
         # the user has confirmed (seen) the configuration
         self._confirmed = True
+        self._seen = True
 
-        # Clear and repopulate self.data with actual values
-        self.data.keyboard.x_layouts = list()
-        self.data.keyboard.seen = True
-
-        for row in self._store:
-            self.data.keyboard.x_layouts.append(row[0])
+        # Update module with actual values
+        layouts = [row[0] for row in self._store]
+        self._l12_module.proxy.SetXLayouts(layouts)
 
     @property
     def completed(self):
-        if flags.flags.automatedInstall and not self.data.keyboard.seen:
+        if flags.flags.automatedInstall and not self._seen:
             return False
         elif not self._confirmed and \
-                self._xkl_wrapper.get_current_layout() != self.data.keyboard.x_layouts[0] and \
+                self._xkl_wrapper.get_current_layout() != self._l12_module.proxy.XLayouts[0] and \
                 not flags.flags.usevnc:
             # the currently activated layout is a different one from the
             # installed system's default. Ignore VNC, since VNC keymaps are
@@ -324,14 +330,15 @@ class KeyboardSpoke(NormalSpoke):
         NormalSpoke.initialize(self)
         self.initialize_start()
 
+
         # set X keyboard defaults
         # - this needs to be done early in spoke initialization so that
         #   the spoke status does not show outdated keyboard selection
-        keyboard.set_x_keyboard_defaults(self.data, self._xkl_wrapper)
+        keyboard.set_x_keyboard_defaults(self._l12_module.proxy, self._xkl_wrapper)
 
         # make sure the x_layouts list has at least one keyboard layout
-        if not self.data.keyboard.x_layouts:
-            self.data.keyboard.x_layouts.append(DEFAULT_KEYBOARD)
+        if not self._l12_module.proxy.XLayouts:
+            self._l12_module.proxy.SetXLayouts([DEFAULT_KEYBOARD])
 
         self._add_dialog = AddLayoutDialog(self.data)
         self._add_dialog.initialize()
@@ -352,7 +359,7 @@ class KeyboardSpoke(NormalSpoke):
 
         self._selection = self.builder.get_object("layoutSelection")
 
-        self._switching_dialog = ConfigureSwitchingDialog(self.data)
+        self._switching_dialog = ConfigureSwitchingDialog(self.data, self._l12_module)
         self._switching_dialog.initialize()
 
         self._layoutSwitchLabel = self.builder.get_object("layoutSwitchLabel")
@@ -395,7 +402,7 @@ class KeyboardSpoke(NormalSpoke):
         buf = self.builder.get_object("layoutTestBuffer")
         buf.set_text("")
 
-        # Clear and repopulate addedLayoutStore with values from self.data
+        # Clear and repopulate addedLayoutStore with values from the module data
         self._store.clear()
         self._add_data_layouts()
 
@@ -427,13 +434,14 @@ class KeyboardSpoke(NormalSpoke):
         store.remove(itr)
 
     def _refresh_switching_info(self):
+        switch_options = self._l12_module.proxy.LayoutSwitchOptions
         if flags.flags.usevnc:
             self._layoutSwitchLabel.set_text(_("Keyboard layouts are not "
                                                "supported when using VNC.\n"
                                                "However the settings will be used "
                                                "after the installation."))
-        elif self.data.keyboard.switch_options:
-            first_option = self.data.keyboard.switch_options[0]
+        elif switch_options:
+            first_option = switch_options[0]
             desc = self._xkl_wrapper.get_switch_opt_description(first_option)
 
             self._layoutSwitchLabel.set_text(_(LAYOUT_SWITCHING_INFO) % desc)
@@ -613,19 +621,19 @@ class KeyboardSpoke(NormalSpoke):
         # OK clicked, set and save switching options.
         new_options = self._switching_dialog.checked_options
         self._xkl_wrapper.set_switching_options(new_options)
-        self.data.keyboard.switch_options = new_options
+        self._l12_module.proxy.SetLayoutSwitchOptions(new_options)
 
         # Refresh switching info label.
         self._refresh_switching_info()
 
     def _add_data_layouts(self):
-        if not self.data.keyboard.x_layouts:
+        if not self._l12_module.proxy.XLayouts:
             # nothing specified, just add the default
             self._addLayout(self._store, DEFAULT_KEYBOARD)
             return
 
         valid_layouts = []
-        for layout in self.data.keyboard.x_layouts:
+        for layout in self._l12_module.proxy.XLayouts:
             try:
                 self._addLayout(self._store, layout)
                 valid_layouts += layout
@@ -635,7 +643,7 @@ class KeyboardSpoke(NormalSpoke):
         if not valid_layouts:
             log.error("No valid layout given, falling back to default %s", DEFAULT_KEYBOARD)
             self._addLayout(self._store, DEFAULT_KEYBOARD)
-            self.data.keyboard.x_layouts = [DEFAULT_KEYBOARD]
+            self._l12_module.proxy.SetXLayouts([DEFAULT_KEYBOARD])
 
     def _flush_layouts_to_X(self):
         layouts_list = list()
