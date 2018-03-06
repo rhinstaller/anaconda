@@ -333,6 +333,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 06 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.5-1
+- kickstart: "clearpart --list" does not work (#1410335) (vponcova)
+  Resolves: rhbz#1551931
+- Add --init as new parameter to setup-mock-test-env (jkonecny)
+- Move how to use setup-mock-test-env script to help (jkonecny)
+- Add copyright to scripts in ./scripts/testing (jkonecny)
+- Remove false positive but disable Pylint in makeupdates script (jkonecny)
+- Separate grab-logs from ci target in Makefile (jkonecny)
+- Save start and end time for pylint run (jkonecny)
+- Do not run tests as root (jkonecny)
+- Support running only nosetests or only some nosetests (jkonecny)
+- makebumpver: fix -i option (rvykydal)
+- makebumpver: fix parsing of -m option (rvykydal)
+
 * Tue Feb 20 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.4-1
 - Revert pylint import-error disable (jkonecny)
 - Revert disable tests with missing dependencies (jkonecny)
