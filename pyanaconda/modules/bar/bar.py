@@ -22,7 +22,6 @@ from pyanaconda.modules.bar.bar_interface import BarInterface
 from pyanaconda.modules.bar.kickstart import BarKickstartSpecification
 from pyanaconda.modules.bar.tasks.bar_task import BarTask
 from pyanaconda.modules.common.base import KickstartModule
-from pyanaconda.modules.common.constants.namespaces import BAR_NAMESPACE
 from pyanaconda.modules.common.constants.services import BAR, TIMEZONE
 
 from pyanaconda.anaconda_loggers import get_module_logger

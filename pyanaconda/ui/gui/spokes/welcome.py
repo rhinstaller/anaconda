@@ -22,11 +22,6 @@ import re
 import os
 
 import gi
-
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
@@ -43,6 +38,7 @@ from pyanaconda import geoloc
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.util import is_unsupported_hw, ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
+from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -69,7 +65,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         LangLocaleHandler.__init__(self)
         self._origStrings = {}
 
-        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module = LOCALIZATION.get_observer()
         self._l12_module.connect()
 
     def apply(self):
@@ -87,7 +83,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if flags.flags.automatedInstall and not geoloc.geoloc.enabled:
             return
 
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
         loc_timezones = localization.get_locale_timezones(self._l12_module.proxy.Language)
         if geoloc.geoloc.result.timezone:
             # (the geolocation module makes sure that the returned timezone is

@@ -17,8 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -60,7 +59,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._locales = dict((lang, localization.get_language_locales(lang))
                              for lang in self._langs_and_locales.values())
 
-        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module = LOCALIZATION.get_observer()
         self._l12_module.connect()
 
         self._selected = self._l12_module.proxy.Language

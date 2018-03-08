@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus.constants import MODULE_USER_NAME
 from pyanaconda.modules.common.constants.services import USER
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import

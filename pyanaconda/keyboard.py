@@ -348,7 +348,6 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     :raise InvalidLocaleSpec: if an invalid locale is given (see
                               localization.LANGCODE_RE)
     """
-
     x_layouts = localization_proxy.XLayouts
     # remove all X layouts that are not valid X layouts (unsupported)
     valid_layouts = []

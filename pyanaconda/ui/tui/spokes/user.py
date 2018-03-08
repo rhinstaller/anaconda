@@ -23,8 +23,7 @@ from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, PASSW
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import GECOS_VALID
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_USER_NAME, MODULE_USER_PATH
+from pyanaconda.modules.common.constants.services import USER
 
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -90,7 +89,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self.errors = []
 
-        self._user_module = DBus.get_observer(MODULE_USER_NAME, MODULE_USER_PATH)
+        self._user_module = USER.get_observer()
         self._user_module.connect()
 
         self.initialize_done()
