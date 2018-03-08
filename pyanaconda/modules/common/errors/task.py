@@ -16,18 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pydbus.error import map_error
-from pyanaconda.dbus.constants import DBUS_TASK_NAME
+from pyanaconda.dbus.error import dbus_error
+from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 from pyanaconda.modules.common.errors import AnacondaError
 
 
-@map_error("{}.TaskError".format(DBUS_TASK_NAME))
+@dbus_error("TaskError", namespace=ANACONDA_NAMESPACE)
 class TaskError(AnacondaError):
     """General exception for task errors."""
     pass
 
 
-@map_error("{}.TaskAlreadyRunningError".format(DBUS_TASK_NAME))
+@dbus_error("TaskAlreadyRunningError", namespace=ANACONDA_NAMESPACE)
 class TaskAlreadyRunningError(TaskError):
     """Exception will be raised when starting task which is already running."""
     pass
