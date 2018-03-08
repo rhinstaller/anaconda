@@ -25,7 +25,7 @@ from pyanaconda.core.constants import GRAPHICAL_TARGET, SETUP_ON_BOOT_DISABLED, 
 from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda.modules.services.services import ServicesModule
 from pyanaconda.modules.services.services_interface import ServicesInterface
-from tests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class ServicesInterfaceTestCase(unittest.TestCase):

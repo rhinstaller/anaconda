@@ -55,7 +55,8 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     storage/run_storage_tests.py \
 		     $(srcdir)/gui/*.py \
 		     $(srcdir)/storage/cases/*.py \
-		     $(srcdir)/*_tests/*.py
+		     $(srcdir)/*_tests/*.py \
+		     $(srcdir)/nosetests/*_tests/*.py
 
 TESTS = nosetests.sh \
 	pylint/runpylint.py \

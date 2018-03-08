@@ -24,7 +24,7 @@ from mock import Mock
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.localization import LocalizationModule
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
-from tests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class LocalizationInterfaceTestCase(unittest.TestCase):
