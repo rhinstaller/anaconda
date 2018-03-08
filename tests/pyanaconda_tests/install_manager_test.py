@@ -125,7 +125,7 @@ class TestModule(object):
 
     @property
     def AvailableTasks(self):
-        return [("TaskName", self._task_instance)]
+        return [self._task_instance]
 
 
 class TestTask(object):

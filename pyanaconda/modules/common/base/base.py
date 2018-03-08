@@ -73,7 +73,7 @@ class KickstartModule(BaseModule):
 
     def __init__(self):
         super().__init__()
-        self._published_tasks = []
+        self._published_tasks = {}
         self._module_properties_changed = Signal()
 
         self.kickstarted_changed = Signal()
@@ -96,13 +96,13 @@ class KickstartModule(BaseModule):
 
     @property
     def published_tasks(self):
-        """Returns a list of published tasks."""
+        """Returns a dictionary of published tasks."""
         return self._published_tasks
 
-    def publish_task(self, dbus_path, task):
+    def publish_task(self, namespace, task, message_bus=DBus):
         """Publish a task."""
-        published = publish_task(dbus_path, task)
-        self._published_tasks.append(published)
+        object_path = publish_task(message_bus, namespace, task)
+        self.published_tasks[task] = object_path
 
     @property
     def kickstart_specification(self):

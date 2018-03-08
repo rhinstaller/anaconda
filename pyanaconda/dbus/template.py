@@ -18,7 +18,6 @@
 #
 from abc import ABC
 
-from pyanaconda.dbus import DBus
 from pyanaconda.dbus.property import PropertiesInterface
 
 __all__ = ["InterfaceTemplate", "AdvancedInterfaceTemplate"]
@@ -41,7 +40,7 @@ class InterfaceTemplate(ABC):
 
     Example:
 
-    @dbus_interface("org.myproject.InterfaceX")
+    @dbus_interface("org.myproject.X")
     class InterfaceX(InterfaceTemplate):
         def DoSomething(self) -> Str:
             return self.implementation.do_something()
@@ -52,8 +51,8 @@ class InterfaceTemplate(ABC):
 
     x = X()
     i = InterfaceX(x)
-    i.publish("org/myproject/X/1")
 
+    DBus.publish_object("/org/myproject/X", i)
     """
 
     def __init__(self, implementation):
@@ -62,7 +61,6 @@ class InterfaceTemplate(ABC):
         :param implementation: an implementation of this interface
         """
         self._implementation = implementation
-        self._object_path = None
         self.connect_signals()
 
     @property
@@ -73,16 +71,6 @@ class InterfaceTemplate(ABC):
         """
         return self._implementation
 
-    @property
-    def object_path(self):
-        """Return an DBus object path.
-
-        If this object wasn't published, it returns None.
-
-        :return: a DBus path or None
-        """
-        return self._object_path
-
     def connect_signals(self):
         """Interconnect the signals.
 
@@ -92,14 +80,6 @@ class InterfaceTemplate(ABC):
         reemits the signal on DBus.
         """
         pass
-
-    def publish(self, object_path):
-        """Publish the object on DBus.
-
-        :type object_path: a DBus path of the object
-        """
-        DBus.publish_object(object_path, self)
-        self._object_path = object_path
 
 
 class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
