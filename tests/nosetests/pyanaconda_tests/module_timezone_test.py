@@ -23,7 +23,7 @@ from mock import Mock
 from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.timezone.timezone import TimezoneModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
-from tests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class TimezoneInterfaceTestCase(unittest.TestCase):
