@@ -17,9 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.user import F24_User
 from pykickstart.commands.rootpw import F18_RootPw
-from pykickstart.commands.group import F12_Group
 from pykickstart.version import F28
 from pyanaconda.core.kickstart import KickstartSpecification
 
@@ -28,7 +26,5 @@ class UserKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {
-        "rootpw": F18_RootPw,
-        "user": F24_User,
-        "group": F12_Group,
+        "rootpw": F18_RootPw
     }
