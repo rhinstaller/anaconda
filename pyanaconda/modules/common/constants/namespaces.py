@@ -71,6 +71,11 @@ STORAGE_NAMESPACE = (
     "Storage"
 )
 
+SERVICES_NAMESPACE = (
+    *MODULES_NAMESPACE,
+    "Services"
+)
+
 BAZ_NAMESPACE = (
     *ADDONS_NAMESPACE,
     "Baz"
