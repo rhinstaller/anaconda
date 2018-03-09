@@ -40,7 +40,7 @@ class UserInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.user_interface.KickstartCommands, ["rootpw", "user", "group"])
+        self.assertEqual(self.user_interface.KickstartCommands, ["rootpw"])
         self.assertEqual(self.user_interface.KickstartSections, [])
         self.assertEqual(self.user_interface.KickstartAddons, [])
         self.callback.assert_not_called()
