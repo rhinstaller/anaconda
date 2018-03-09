@@ -21,14 +21,15 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
-from pyanaconda.dbus.constants import DBUS_TASK_NAME
+from pyanaconda.dbus.namespace import get_dbus_path
+from pyanaconda.modules.common.constants.interfaces import TASK
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ['TaskInterface']
 
 
-@dbus_interface(DBUS_TASK_NAME)
+@dbus_interface(TASK.interface_name)
 class TaskInterface(InterfaceTemplate):
     """Base class for implementing Task.
 
@@ -37,16 +38,18 @@ class TaskInterface(InterfaceTemplate):
 
     _task_counter = 1
 
-    def __init__(self, implementation):
-        """Create Task interface for DBus.
+    @staticmethod
+    def get_object_path(namespace):
+        """Get the unique object path in the given namespace.
 
-        :param implementation: Instance of the pyanaconda.task.task.Task class.
+        This method is not thread safe for now.
+
+        :param namespace: a sequence of names
+        :return: a DBus path of a task
         """
-        # this number will be part of the object path on DBus
-        self._task_number = TaskInterface._task_counter
+        task_number = TaskInterface._task_counter
         TaskInterface._task_counter += 1
-
-        super().__init__(implementation)
+        return get_dbus_path(*namespace, "Tasks", str(task_number))
 
     def connect_signals(self):
         """Connect signals to the implementation."""
@@ -54,17 +57,6 @@ class TaskInterface(InterfaceTemplate):
         self.implementation.error_raised_signal.connect(self.ErrorRaised)
         self.implementation.started_signal.connect(self.Started)
         self.implementation.stopped_signal.connect(self.Stopped)
-
-    def publish_from_module(self, module_path):
-        """Publish task on DBus using the module path.
-
-        Every new created interface instance will get new number used as a last part of the
-        DBus object path to avoid conflict.
-
-        :param module_path: DBus object path to the module.
-        :type module_path: str
-        """
-        self.publish("{}/Tasks/{}".format(module_path, self._task_number))
 
     @property
     def Name(self) -> Str:

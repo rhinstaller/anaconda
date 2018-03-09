@@ -16,23 +16,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pydbus.error import map_error, map_by_default
 from pykickstart.errors import KickstartError
+from pyanaconda.dbus.error import dbus_error_by_default, dbus_error
+from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 
-from pyanaconda.dbus.constants import ANACONDA_DBUS_NAMESPACE
 
-
-@map_by_default
+@dbus_error_by_default
 class DBusError(Exception):
     """A default DBus error."""
     pass
 
 
-@map_error("{}.Error".format(ANACONDA_DBUS_NAMESPACE))
+@dbus_error("Error", namespace=ANACONDA_NAMESPACE)
 class AnacondaError(Exception):
     """A default Anaconda error."""
     pass
 
 
 # Define mapping for existing exceptions.
-map_error("{}.KickstartError".format(ANACONDA_DBUS_NAMESPACE))(KickstartError)
+dbus_error("KickstartError", namespace=ANACONDA_NAMESPACE)(KickstartError)

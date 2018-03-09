@@ -21,9 +21,9 @@ import shlex
 
 from pyanaconda.core.constants import SELINUX_DEFAULT, REALM_NAME, REALM_DISCOVER, REALM_JOIN
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_SECURITY_NAME, MODULE_SECURITY_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 
@@ -55,8 +55,8 @@ class SecurityModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(SecurityInterface(self), MODULE_SECURITY_PATH)
-        DBus.register_service(MODULE_SECURITY_NAME)
+        DBus.publish_object(SECURITY.object_path, SecurityInterface(self))
+        DBus.register_service(SECURITY.service_name)
 
     @property
     def kickstart_specification(self):

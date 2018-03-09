@@ -18,12 +18,11 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_BAR_PATH, MODULE_BAR_NAME, MODULE_TIMEZONE_NAME, \
-    MODULE_TIMEZONE_PATH
-from pyanaconda.modules.bar.kickstart import BarKickstartSpecification
-from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.bar.bar_interface import BarInterface
+from pyanaconda.modules.bar.kickstart import BarKickstartSpecification
 from pyanaconda.modules.bar.tasks.bar_task import BarTask
+from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.constants.services import BAR, TIMEZONE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -35,16 +34,14 @@ class Bar(KickstartModule):
     def __init__(self):
         super().__init__()
         self._data = None
-        self._timezone_module = DBus.get_cached_observer(MODULE_TIMEZONE_NAME,
-                                                         MODULE_TIMEZONE_PATH,
-                                                         [MODULE_TIMEZONE_NAME])
+        self._timezone_module = TIMEZONE.get_cached_observer()
 
     def publish(self):
         """Publish the module."""
         # Publish bar.
-        DBus.publish_object(BarInterface(self), MODULE_BAR_PATH)
-        self.publish_task(BarTask(), MODULE_BAR_PATH)
-        DBus.register_service(MODULE_BAR_NAME)
+        DBus.publish_object(BAR.object_path, BarInterface(self))
+        self.publish_task(BAR.namespace, BarTask())
+        DBus.register_service(BAR.service_name)
 
         # Start to watch the timezone module.
         self._timezone_module.cached_properties_changed.connect(self._timezone_callback)

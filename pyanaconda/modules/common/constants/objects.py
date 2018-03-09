@@ -1,5 +1,5 @@
 #
-# DBus errors related to a kickstart file.
+# Known DBus objects.
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
@@ -16,24 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.error import dbus_error
+from pyanaconda.dbus.identifier import DBusObjectIdentifier
 from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE
-from pyanaconda.modules.common.errors import AnacondaError
 
-
-@dbus_error("SplitKickstartError", namespace=BOSS_NAMESPACE)
-class SplitKickstartError(AnacondaError):
-    """Error while parsing kickstart for splitting."""
-    pass
-
-
-@dbus_error("SplitKickstartSectionParsingError", namespace=BOSS_NAMESPACE)
-class SplitKickstartSectionParsingError(SplitKickstartError):
-    """Error while parsing a section in kickstart."""
-    pass
-
-
-@dbus_error("SplitKickstartMissingIncludeError", namespace=BOSS_NAMESPACE)
-class SplitKickstartMissingIncludeError(SplitKickstartError):
-    """File included in kickstart was not found."""
-    pass
+BOSS_INSTALLATION = DBusObjectIdentifier(
+    namespace=BOSS_NAMESPACE,
+    basename="Installation"
+)

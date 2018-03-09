@@ -19,8 +19,7 @@
 
 from pyanaconda import network
 from pyanaconda import nm
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
+from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.flags import can_touch_runtime_system, flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -60,8 +59,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def __init__(self, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, data, storage, payload, instclass)
         self.title = N_("Network configuration")
-        self._network_module = DBus.get_observer(MODULE_NETWORK_NAME,
-                                                 MODULE_NETWORK_PATH)
+        self._network_module = NETWORK.get_observer()
         self._network_module.connect()
         self._container = None
         self._value = self._network_module.proxy.Hostname

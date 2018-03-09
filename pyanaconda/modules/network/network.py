@@ -18,16 +18,12 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus import DBus, SystemBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
+from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
-
-HOSTNAME_SERVICE = "org.freedesktop.hostname1"
-HOSTNAME_PATH = "/org/freedesktop/hostname1"
-HOSTNAME_INTERFACE = "org.freedesktop.hostname1"
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -46,8 +42,7 @@ class NetworkModule(KickstartModule):
 
     def _get_hostname_service_observer(self):
         """Get an observer of the hostname service."""
-        service = SystemBus.get_cached_observer(
-            HOSTNAME_SERVICE, HOSTNAME_PATH, [HOSTNAME_INTERFACE])
+        service = HOSTNAME.get_cached_observer()
 
         service.cached_properties_changed.connect(
             self._hostname_service_properties_changed)
@@ -57,8 +52,8 @@ class NetworkModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(NetworkInterface(self), MODULE_NETWORK_PATH)
-        DBus.register_service(MODULE_NETWORK_NAME)
+        DBus.publish_object(NETWORK.object_path, NetworkInterface(self))
+        DBus.register_service(NETWORK.service_name)
 
     @property
     def kickstart_specification(self):

@@ -31,12 +31,11 @@ from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 from pyanaconda import keyboard
 from pyanaconda import flags
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 from pyanaconda.core.i18n import _, N_, CN_
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.util import strip_accents, have_word_match
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.threading import threadMgr, AnacondaThread
 
 import locale as locale_mod
@@ -288,7 +287,7 @@ class KeyboardSpoke(NormalSpoke):
         self._removeButton = self.builder.get_object("removeLayoutButton")
         self._previewButton = self.builder.get_object("previewButton")
 
-        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module = LOCALIZATION.get_observer()
         self._l12_module.connect()
         self._seen = self._l12_module.proxy.KeyboardKickstarted
 

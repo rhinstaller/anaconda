@@ -18,9 +18,9 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_USER_NAME, MODULE_USER_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.constants.services import USER
 from pyanaconda.modules.user.user_interface import UserInterface
 from pyanaconda.modules.user.kickstart import UserKickstartSpecification
 
@@ -46,8 +46,8 @@ class UserModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(UserInterface(self), MODULE_USER_PATH)
-        DBus.register_service(MODULE_USER_NAME)
+        DBus.publish_object(USER.object_path, UserInterface(self))
+        DBus.register_service(USER.service_name)
 
     @property
     def kickstart_specification(self):

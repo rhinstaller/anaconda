@@ -21,7 +21,7 @@ import unittest
 from textwrap import dedent
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.localization import LocalizationModule
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from tests.pyanaconda_tests import check_kickstart_interface
@@ -51,37 +51,37 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """Test the Language property."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
         self.assertEqual(self.localization_interface.Language, "cs_CZ.UTF-8")
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'Language': 'cs_CZ.UTF-8'}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Language': 'cs_CZ.UTF-8'}, [])
 
     def language_support_property_test(self):
         """Test the LanguageSupport property."""
         self.localization_interface.SetLanguageSupport(["fr_FR"])
         self.assertEqual(self.localization_interface.LanguageSupport, ["fr_FR"])
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'LanguageSupport': ["fr_FR"]}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageSupport': ["fr_FR"]}, [])
 
     def keyboard_property_test(self):
         """Test the Keyboard property."""
         self.localization_interface.SetKeyboard("cz")
         self.assertEqual(self.localization_interface.Keyboard, "cz")
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'Keyboard': 'cz'}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Keyboard': 'cz'}, [])
 
     def vc_keymap_property_test(self):
         """Test the VirtualConsoleKeymap property."""
         self.localization_interface.SetVirtualConsoleKeymap("cz")
         self.assertEqual(self.localization_interface.VirtualConsoleKeymap, "cz")
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'VirtualConsoleKeymap': 'cz'}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'VirtualConsoleKeymap': 'cz'}, [])
 
     def x_layouts_property_test(self):
         """Test the XLayouts property."""
         self.localization_interface.SetXLayouts(["en", "cz(querty)"])
         self.assertEqual(self.localization_interface.XLayouts, ["en", "cz(querty)"])
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'XLayouts': ["en", "cz(querty)"]}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'XLayouts': ["en", "cz(querty)"]}, [])
 
     def switch_options_property_test(self):
         """Test the LayoutSwitchOptions property."""
         self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
         self.assertEqual(self.localization_interface.LayoutSwitchOptions, ["grp:alt_shift_toggle"])
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'LayoutSwitchOptions': ["grp:alt_shift_toggle"]}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LayoutSwitchOptions': ["grp:alt_shift_toggle"]}, [])
 
     def keyboard_seen_test(self):
         """Test the KeyboardKickstarted property."""

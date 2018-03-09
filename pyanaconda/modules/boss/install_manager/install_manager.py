@@ -124,10 +124,12 @@ class InstallManager(object):
                 log.error("Module %s is not available!", observer.service_name)
                 continue
 
-            tasks = observer.proxy.AvailableTasks
-            for task in tasks:
-                log.debug("Getting task %s from module %s", task[TASK_NAME], observer.service_name)
-                task_proxy = DBus.get_proxy(observer.service_name, task[TASK_PATH])
+            service_name = observer.service_name
+            task_paths = observer.proxy.AvailableTasks
+
+            for object_path in task_paths:
+                log.debug("Getting task %s from module %s", object_path, service_name)
+                task_proxy = DBus.get_proxy(service_name, object_path)
                 self._tasks.add(task_proxy)
 
     def _sum_steps_count(self):

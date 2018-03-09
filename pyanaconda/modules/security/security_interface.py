@@ -18,14 +18,14 @@
 # Red Hat, Inc.
 #
 from pyanaconda.core.constants import REALM_NAME, REALM_DISCOVER, REALM_JOIN
-from pyanaconda.dbus.constants import MODULE_SECURITY_NAME
+from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_SECURITY_NAME)
+@dbus_interface(SECURITY.interface_name)
 class SecurityInterface(KickstartModuleInterface):
     """DBus interface for the security module."""
 

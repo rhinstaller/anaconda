@@ -1,5 +1,5 @@
 #
-# DBus errors related to tasks.
+# Known DBus interfaces.
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
@@ -16,18 +16,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.error import dbus_error
-from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
-from pyanaconda.modules.common.errors import AnacondaError
+from pyanaconda.dbus.identifier import DBusInterfaceIdentifier
+from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, BOSS_NAMESPACE, \
+    MODULES_NAMESPACE
 
 
-@dbus_error("TaskError", namespace=ANACONDA_NAMESPACE)
-class TaskError(AnacondaError):
-    """General exception for task errors."""
-    pass
+KICKSTART_MODULE = DBusInterfaceIdentifier(
+    namespace=MODULES_NAMESPACE
+)
 
+BOSS_ANACONDA = DBusInterfaceIdentifier(
+    namespace=BOSS_NAMESPACE,
+    basename="Anaconda"
+)
 
-@dbus_error("TaskAlreadyRunningError", namespace=ANACONDA_NAMESPACE)
-class TaskAlreadyRunningError(TaskError):
-    """Exception will be raised when starting task which is already running."""
-    pass
+TASK = DBusInterfaceIdentifier(
+    namespace=ANACONDA_NAMESPACE,
+    basename="Task"
+)

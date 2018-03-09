@@ -18,14 +18,14 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_LOCALIZATION_NAME)
+@dbus_interface(LOCALIZATION.interface_name)
 class LocalizationInterface(KickstartModuleInterface):
     """DBus interface for Localization module."""
 

@@ -18,9 +18,9 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 
@@ -56,8 +56,8 @@ class LocalizationModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(LocalizationInterface(self), MODULE_LOCALIZATION_PATH)
-        DBus.register_service(MODULE_LOCALIZATION_NAME)
+        DBus.publish_object(LOCALIZATION.object_path, LocalizationInterface(self))
+        DBus.register_service(LOCALIZATION.service_name)
 
     @property
     def kickstart_specification(self):

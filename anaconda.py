@@ -518,9 +518,8 @@ if __name__ == "__main__":
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
 
-    from pyanaconda.dbus import DBus
-    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+    from pyanaconda.modules.common.constants.services import LOCALIZATION
+    localization_proxy = LOCALIZATION.get_proxy()
 
     configured = any((localization_proxy.Keyboard,
                       localization_proxy.VirtualConsoleKeymap,
@@ -585,6 +584,9 @@ if __name__ == "__main__":
 
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
+
+    from pyanaconda.modules.common.constants.services import LOCALIZATION
+    localization_proxy = LOCALIZATION.get_proxy()
 
     # If the language was set on the command line, copy that to kickstart
     if opts.lang:
@@ -691,8 +693,8 @@ if __name__ == "__main__":
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
 
-    from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
-    timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+    from pyanaconda.modules.common.constants.services import TIMEZONE
+    timezone_proxy = TIMEZONE.get_proxy()
 
     if can_touch_runtime_system("initialize time", touch_live=True):
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
