@@ -517,16 +517,25 @@ if __name__ == "__main__":
 
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
-    if opts.keymap:
-        if not ksdata.keyboard.keyboard:
-            ksdata.keyboard.keyboard = opts.keymap
 
-    if ksdata.keyboard.keyboard:
+    from pyanaconda.dbus import DBus
+    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
+    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+
+    configured = any((localization_proxy.Keyboard,
+                      localization_proxy.VirtualConsoleKeymap,
+                      localization_proxy.XLayouts))
+
+    if opts.keymap and not configured:
+        localization_proxy.SetKeyboard(opts.keymap)
+        configured = True
+
+    if configured:
         if can_touch_runtime_system("activate keyboard"):
-            keyboard.activate_keyboard(ksdata.keyboard)
+            keyboard.activate_keyboard(localization_proxy)
         else:
             # at least make sure we have all the values
-            keyboard.populate_missing_items(ksdata.keyboard)
+            keyboard.populate_missing_items(localization_proxy)
 
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
@@ -577,20 +586,12 @@ if __name__ == "__main__":
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 
-    from pyanaconda.dbus import DBus
-    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
-
     # If the language was set on the command line, copy that to kickstart
     if opts.lang:
         localization_proxy.SetLanguage(opts.lang)
-        localization_proxy.SetKickstarted(True)
 
     # Setup the locale environment
-    if localization_proxy.Kickstarted:
-        locale_option = localization_proxy.Language
-    else:
-        locale_option = None
+    locale_option = localization_proxy.Language or None
     localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
 
     # Now that LANG is set, do something with it

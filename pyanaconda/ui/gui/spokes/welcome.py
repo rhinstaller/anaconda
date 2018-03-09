@@ -115,8 +115,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if flags.flags.singlelang:
             return True
 
-        if flags.flags.automatedInstall and self._l12_module.proxy.Kickstarted:
-            return bool(self._l12_module.proxy.Language)
+        if flags.flags.automatedInstall and self._l12_module.proxy.Language:
+            return True
         else:
             return False
 
@@ -154,7 +154,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # bootopts and kickstart have priority over geoip
         language = self._l12_module.proxy.Language
-        if language and self._l12_module.proxy.Kickstarted:
+        if language:
             locales = [language]
         else:
             locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]

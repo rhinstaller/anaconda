@@ -2230,9 +2230,10 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
         return fcp
 
-class Keyboard(commands.keyboard.F18_Keyboard):
+class Keyboard(RemovedCommand):
     def execute(self, *args):
-        keyboard.write_keyboard_config(self, util.getSysroot())
+        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
 
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in

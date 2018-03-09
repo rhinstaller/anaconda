@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pykickstart.commands.lang import F19_Lang
+from pykickstart.commands.keyboard import F18_Keyboard
 from pykickstart.version import F28
 from pyanaconda.core.kickstart import KickstartSpecification
 
@@ -26,5 +27,6 @@ class LocalizationKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {
+        "keyboard": F18_Keyboard,
         "lang": F19_Lang,
     }
