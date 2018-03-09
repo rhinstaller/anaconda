@@ -43,15 +43,13 @@ from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_ad
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, \
     GRAPHICAL_TARGET, THREAD_STORAGE, SELINUX_DEFAULT, REALM_NAME, REALM_DISCOVER, REALM_JOIN
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH, DBUS_BOSS_NAME, \
-    DBUS_BOSS_PATH, MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH, MODULE_SECURITY_NAME, \
-    MODULE_SECURITY_PATH, MODULE_USER_NAME, MODULE_USER_PATH
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
+from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
+    USER
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -312,7 +310,7 @@ class Authselect(RemovedCommand):
                 os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so"))
 
     def setup(self):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
 
         if security_proxy.Authselect or not flags.automatedInstall:
             self.packages += ["authselect"]
@@ -321,7 +319,7 @@ class Authselect(RemovedCommand):
             self.packages += ["authselect-compat"]
 
     def execute(self, *args):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
 
         # Enable fingerprint option by default (#481273).
         if not flags.automatedInstall and self.fingerprint_supported:
@@ -649,7 +647,7 @@ class Realm(RemovedCommand):
         return ""
 
     def setup(self):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         realm = security_proxy.Realm
 
         if not realm[REALM_NAME]:
@@ -686,7 +684,7 @@ class Realm(RemovedCommand):
         if not self.discovered:
             return
 
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         realm = security_proxy.Realm
 
         for arg in realm[REALM_JOIN]:
@@ -943,10 +941,11 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
 class Lang(RemovedCommand):
     def __str__(self):
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         return localization_proxy.GenerateKickstart()
+
     def execute(self, *args, **kwargs):
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         lang = localization_proxy.Language
         localization.write_language_configuration(lang, util.getSysroot())
 
@@ -1836,7 +1835,7 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 class RootPw(RemovedCommand):
     def execute(self, storage, ksdata, instClass, users):
 
-        user_proxy = DBus.get_proxy(MODULE_USER_NAME, MODULE_USER_PATH)
+        user_proxy = USER.get_proxy()
 
         if flags.automatedInstall and not user_proxy.IsRootPasswordSet and not user_proxy.IsRootpwKickstarted:
             # Lock the root password if during an installation with kickstart
@@ -1864,11 +1863,11 @@ class SELinux(RemovedCommand):
     }
 
     def __str__(self):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         return security_proxy.GenerateKickstart()
 
     def execute(self, *args):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         selinux = security_proxy.SELinux
 
         if selinux == SELINUX_DEFAULT:
@@ -1907,11 +1906,11 @@ class Timezone(RemovedCommand):
         self.packages = []
 
     def __str__(self):
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
         return timezone_proxy.GenerateKickstart()
 
     def setup(self, ksdata):
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
 
         # do not install and use NTP package
         if not timezone_proxy.NTPEnabled or NTP_PACKAGE in ksdata.packages.excludedList:
@@ -1939,7 +1938,7 @@ class Timezone(RemovedCommand):
 
     def execute(self, *args):
         # get the DBus proxies
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
 
         # write out timezone configuration
         kickstart_timezone = timezone_proxy.Timezone
@@ -2230,9 +2229,10 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
         return fcp
 
-class Keyboard(commands.keyboard.F18_Keyboard):
+class Keyboard(RemovedCommand):
     def execute(self, *args):
-        keyboard.write_keyboard_config(self, util.getSysroot())
+        localization_proxy = LOCALIZATION.get_proxy()
+        keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
 
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
@@ -2539,7 +2539,7 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
 
             # Parse the kickstart file in DBus modules.
             if pass_to_boss:
-                boss = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+                boss = BOSS.get_proxy()
 
                 boss.SplitKickstart(f)
                 errors = boss.DistributeKickstart()

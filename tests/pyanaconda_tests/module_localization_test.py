@@ -18,11 +18,13 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
+from textwrap import dedent
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, DBUS_MODULE_NAMESPACE
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.localization import LocalizationModule
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
+from tests.pyanaconda_tests import check_kickstart_interface
 
 
 class LocalizationInterfaceTestCase(unittest.TestCase):
@@ -40,7 +42,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.localization_interface.KickstartCommands, ["lang"])
+        self.assertEqual(self.localization_interface.KickstartCommands, ["keyboard", "lang"])
         self.assertEqual(self.localization_interface.KickstartSections, [])
         self.assertEqual(self.localization_interface.KickstartAddons, [])
         self.callback.assert_not_called()
@@ -49,30 +51,71 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """Test the Language property."""
         self.localization_interface.SetLanguage("cs_CZ.UTF-8")
         self.assertEqual(self.localization_interface.Language, "cs_CZ.UTF-8")
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'Language': 'cs_CZ.UTF-8'}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Language': 'cs_CZ.UTF-8'}, [])
 
     def language_support_property_test(self):
         """Test the LanguageSupport property."""
         self.localization_interface.SetLanguageSupport(["fr_FR"])
         self.assertEqual(self.localization_interface.LanguageSupport, ["fr_FR"])
-        self.callback.assert_called_once_with(MODULE_LOCALIZATION_NAME, {'LanguageSupport': ["fr_FR"]}, [])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageSupport': ["fr_FR"]}, [])
+
+    def keyboard_property_test(self):
+        """Test the Keyboard property."""
+        self.localization_interface.SetKeyboard("cz")
+        self.assertEqual(self.localization_interface.Keyboard, "cz")
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'Keyboard': 'cz'}, [])
+
+    def vc_keymap_property_test(self):
+        """Test the VirtualConsoleKeymap property."""
+        self.localization_interface.SetVirtualConsoleKeymap("cz")
+        self.assertEqual(self.localization_interface.VirtualConsoleKeymap, "cz")
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'VirtualConsoleKeymap': 'cz'}, [])
+
+    def x_layouts_property_test(self):
+        """Test the XLayouts property."""
+        self.localization_interface.SetXLayouts(["en", "cz(querty)"])
+        self.assertEqual(self.localization_interface.XLayouts, ["en", "cz(querty)"])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'XLayouts': ["en", "cz(querty)"]}, [])
+
+    def switch_options_property_test(self):
+        """Test the LayoutSwitchOptions property."""
+        self.localization_interface.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
+        self.assertEqual(self.localization_interface.LayoutSwitchOptions, ["grp:alt_shift_toggle"])
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LayoutSwitchOptions': ["grp:alt_shift_toggle"]}, [])
+
+    def keyboard_seen_test(self):
+        """Test the KeyboardKickstarted property."""
+        self.assertEqual(self.localization_interface.KeyboardKickstarted, False)
+        ks_in = """
+        lang cs_CZ.UTF-8
+        """
+        ks_in = dedent(ks_in).strip()
+        self.localization_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.localization_interface.KeyboardKickstarted, False)
+        ks_in = """
+        lang cs_CZ.UTF-8
+        keyboard cz
+        """
+        ks_in = dedent(ks_in).strip()
+        self.localization_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.localization_interface.KeyboardKickstarted, True)
 
     def _test_kickstart(self, ks_in, ks_out):
-        """Test the kickstart string."""
-        # Remove extra spaces from the expected output.
-        ks_output = "\n".join("".join(line.strip()) for line in ks_out.strip("\n").splitlines())
+        check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
 
-        # Read a kickstart,
-        result = self.localization_interface.ReadKickstart(ks_in)
-        self.assertEqual({k: v.unpack() for k, v in result.items()}, {"success": True})
+    def no_kickstart_test(self):
+        """Test with no kickstart."""
+        ks_in = None
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
 
-        # Generate a kickstart.
-        self.assertEqual(ks_output, self.localization_interface.GenerateKickstart())
+    def kickstart_empty_test(self):
+        """Test with empty string."""
+        ks_in = ""
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out)
 
-        # Test the properties changed callback.
-        self.callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
-
-    def kickstart_test(self):
+    def lang_kickstart_test(self):
         """Test the lang command."""
         ks_in = """
         lang cs_CZ.UTF-8
@@ -83,7 +126,7 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def kickstart2_test(self):
+    def lang_kickstart2_test(self):
         """Test the lang command with added language support.."""
         ks_in = """
         lang en_US.UTF-8 --addsupport=cs_CZ.UTF-8
@@ -91,5 +134,51 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         ks_out = """
         # System language
         lang en_US.UTF-8 --addsupport=cs_CZ.UTF-8
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def keyboard_kickstart1_test(self):
+        """Test the keyboard command."""
+        ks_in = """
+        keyboard --vckeymap=us --xlayouts='us','cz (qwerty)'
+        """
+        ks_out = """
+        # Keyboard layouts
+        keyboard --vckeymap=us --xlayouts='us','cz (qwerty)'
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def keyboard_kickstart2_test(self):
+        """Test the keyboard command."""
+        ks_in = """
+        keyboard us
+        """
+        ks_out = """
+        # Keyboard layouts
+        keyboard 'us'
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def keyboard_kickstart3_test(self):
+        """Test the keyboard command."""
+        ks_in = """
+        keyboard --xlayouts=cz,'cz (qwerty)' --switch=grp:alt_shift_toggle
+        """
+        ks_out = """
+        # Keyboard layouts
+        keyboard --xlayouts='cz','cz (qwerty)' --switch='grp:alt_shift_toggle'
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def keyboard_kickstart4_test(self):
+        """Test the keyboard command."""
+        ks_in = """
+        keyboard --xlayouts='cz (qwerty)','en' en
+        """
+        ks_out = """
+        # Keyboard layouts
+        # old format: keyboard en
+        # new format:
+        keyboard --xlayouts='cz (qwerty)','en'
         """
         self._test_kickstart(ks_in, ks_out)

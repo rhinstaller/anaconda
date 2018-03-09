@@ -41,12 +41,10 @@ from pyanaconda.core.util import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib
+from pyanaconda.modules.common.constants.services import NETWORK
 
 from pyanaconda import network
 from pyanaconda import nm
-
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 
 import dbus
 import dbus.service
@@ -1544,8 +1542,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.networking_changed = False
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
-        self._network_module = DBus.get_observer(MODULE_NETWORK_NAME,
-                                                 MODULE_NETWORK_PATH)
+        self._network_module = NETWORK.get_observer()
         self._network_module.connect()
         self.network_control_box.hostname = self._network_module.proxy.Hostname
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
@@ -1689,8 +1686,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
 
-        self._network_module = DBus.get_observer(MODULE_NETWORK_NAME,
-                                                 MODULE_NETWORK_PATH)
+        self._network_module = NETWORK.get_observer()
         self._network_module.connect()
         self.network_control_box.hostname = self._network_module.proxy.Hostname
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()

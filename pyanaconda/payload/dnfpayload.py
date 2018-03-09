@@ -19,9 +19,6 @@
 #
 import os
 
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-
 from blivet.size import Size
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 from pyanaconda.flags import flags
@@ -30,6 +27,7 @@ from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
 from pyanaconda.core import util
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 
 import pyanaconda.errors as errors
 import pyanaconda.localization
@@ -672,7 +670,7 @@ class DNFPayload(payload.PackagePayload):
 
         langpacks = []
         # add base langpacks into transaction
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         for lang in [localization_proxy.Language] + localization_proxy.LanguageSupport:
             loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
             if not loc:
@@ -1005,7 +1003,7 @@ class DNFPayload(payload.PackagePayload):
         return True
 
     def languageGroups(self):
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
         match_fn = pyanaconda.localization.langcode_matches_locale
         gids = set()

@@ -41,7 +41,8 @@ from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
 
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH, DBUS_FLAG_NONE
+from pyanaconda.dbus.constants import DBUS_FLAG_NONE
+from pyanaconda.modules.common.constants.services import BOSS
 
 import blivet
 
@@ -83,14 +84,14 @@ def module_exists(module_path):
 
 def stop_boss():
     """Stop boss by calling Quit() on DBus."""
-    boss_proxy = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+    boss_proxy = BOSS.get_proxy()
     boss_proxy.Quit()
 
 
 def run_boss():
     """Start Boss service on DBus."""
     bus_proxy = DBus.get_dbus_proxy()
-    bus_proxy.StartServiceByName(DBUS_BOSS_NAME, DBUS_FLAG_NONE)
+    bus_proxy.StartServiceByName(BOSS.service_name, DBUS_FLAG_NONE)
 
 
 def get_anaconda_version_string(build_time_version=False):
@@ -437,7 +438,7 @@ def wait_for_modules(timeout=60):
     :param timeout: seconds to the timeout
     :return: True if the modules are ready, otherwise False
     """
-    boss = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+    boss = BOSS.get_proxy()
 
     while not boss.AllModulesAvailable and timeout > 0:
         log.info("Waiting %d sec for modules to be started.", timeout)

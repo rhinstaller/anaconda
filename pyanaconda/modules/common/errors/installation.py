@@ -16,18 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pydbus.error import map_error
+from pyanaconda.dbus.error import dbus_error
+from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 from pyanaconda.modules.common.errors import AnacondaError
-from pyanaconda.dbus.constants import DBUS_BOSS_INSTALLATION_NAME
 
 
-@map_error("{}.InstallationError".format(DBUS_BOSS_INSTALLATION_NAME))
+@dbus_error("InstallationError", namespace=ANACONDA_NAMESPACE)
 class InstallationError(AnacondaError):
     """General exception for the installation errors."""
     pass
 
 
-@map_error("{}.InstallationNotRunning".format(DBUS_BOSS_INSTALLATION_NAME))
+@dbus_error("InstallationNotRunning", namespace=ANACONDA_NAMESPACE)
 class InstallationNotRunning(InstallationError):
     """Exception will be raised when action requires running installation."""
     pass

@@ -45,9 +45,7 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pykickstart.constants import BIND_TO_MAC
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH, \
-    MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
 log = get_module_logger(__name__)
@@ -1291,7 +1289,7 @@ def ks_spec_to_device_name(ksspec=""):
 def set_hostname(hn):
     if can_touch_runtime_system("set hostname", touch_live=True):
         log.info("setting installation environment host name to %s", hn)
-        network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+        network_proxy = NETWORK.get_proxy()
         network_proxy.SetCurrentHostname(hn)
 
 def write_hostname(rootpath, hostname, overwrite=False):
@@ -1363,7 +1361,7 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     # overwrite previous settings for LiveCD or liveimg installations
     overwrite = flags.livecdInstall or ksdata.method.method == "liveimg"
 
-    network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+    network_proxy = NETWORK.get_proxy()
     hostname = network_proxy.Hostname
     write_hostname(rootpath, hostname, overwrite=overwrite)
     if hostname != DEFAULT_HOSTNAME:
@@ -1386,7 +1384,7 @@ def update_hostname_data(ksdata, hostname):
     if not hostname_found:
         nd = hostname_ksdata(hostname)
         ksdata.network.network.append(nd)
-    network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+    network_proxy = NETWORK.get_proxy()
     network_proxy.SetHostname(hostname)
 
 def get_device_name(network_data):
@@ -1540,7 +1538,7 @@ def networkInitialize(ksdata):
         logIfcfgFiles(msg)
 
     # initialize ksdata hostname
-    network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+    network_proxy = NETWORK.get_proxy()
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
         bootopts_hostname = hostname_from_cmdline(flags.cmdline)
         if bootopts_hostname:
@@ -1549,7 +1547,7 @@ def networkInitialize(ksdata):
 def _get_ntp_servers_from_dhcp():
     """Check if some NTP servers were returned from DHCP and set them
     to ksdata (if not NTP servers were specified in the kickstart)"""
-    timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+    timezone_proxy = TIMEZONE.get_proxy()
     ntp_servers = nm.nm_ntp_servers_from_dhcp()
     log.info("got %d NTP servers from DHCP", len(ntp_servers))
     hostnames = []

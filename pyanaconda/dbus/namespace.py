@@ -1,5 +1,5 @@
 #
-# DBus errors related to tasks.
+# DBus names and paths.
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
@@ -16,18 +16,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.dbus.error import dbus_error
-from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
-from pyanaconda.modules.common.errors import AnacondaError
+
+__all__ = ['get_dbus_name', 'get_dbus_path', 'get_namespace_from_name']
 
 
-@dbus_error("TaskError", namespace=ANACONDA_NAMESPACE)
-class TaskError(AnacondaError):
-    """General exception for task errors."""
-    pass
+def get_dbus_name(*namespace):
+    """Create a DBus name from the given names.
+
+    :param namespace: a sequence of names
+    :return: a DBus name
+    """
+    return ".".join(namespace)
 
 
-@dbus_error("TaskAlreadyRunningError", namespace=ANACONDA_NAMESPACE)
-class TaskAlreadyRunningError(TaskError):
-    """Exception will be raised when starting task which is already running."""
-    pass
+def get_dbus_path(*namespace):
+    """Create a DBus path from the given names.
+
+    :param namespace: a sequence of names
+    :return: a DBus path
+    """
+    return "/" + "/".join(namespace)
+
+
+def get_namespace_from_name(name):
+    """Return a namespace of the DBus name.
+
+    :param name: a DBus name
+    :return: a sequence of names
+    """
+    return tuple(name.split("."))

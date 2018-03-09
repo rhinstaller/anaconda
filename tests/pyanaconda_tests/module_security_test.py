@@ -22,7 +22,7 @@ from mock import Mock
 from pykickstart.constants import SELINUX_ENFORCING
 
 from pyanaconda.core.constants import REALM_NAME, REALM_DISCOVER, REALM_JOIN
-from pyanaconda.dbus.constants import MODULE_SECURITY_NAME
+from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.dbus.typing import get_variant, Str, List
 from pyanaconda.modules.security.security import SecurityModule
 from pyanaconda.modules.security.security_interface import SecurityInterface
@@ -54,19 +54,19 @@ class SecurityInterfaceTestCase(unittest.TestCase):
         """Test the selinux property."""
         self.security_interface.SetSELinux(SELINUX_ENFORCING)
         self.assertEqual(self.security_interface.SELinux, SELINUX_ENFORCING)
-        self.callback.assert_called_once_with(MODULE_SECURITY_NAME, {'SELinux': SELINUX_ENFORCING}, [])
+        self.callback.assert_called_once_with(SECURITY.interface_name, {'SELinux': SELINUX_ENFORCING}, [])
 
     def authselect_property_test(self):
         """Test the authselect property."""
         self.security_interface.SetAuthselect(["sssd", "with-mkhomedir"])
         self.assertEqual(self.security_interface.Authselect, ["sssd", "with-mkhomedir"])
-        self.callback.assert_called_once_with(MODULE_SECURITY_NAME, {'Authselect': ["sssd", "with-mkhomedir"]}, [])
+        self.callback.assert_called_once_with(SECURITY.interface_name, {'Authselect': ["sssd", "with-mkhomedir"]}, [])
 
     def authconfig_property_test(self):
         """Test the authconfig property."""
         self.security_interface.SetAuthconfig(["--passalgo=sha512", "--useshadow"])
         self.assertEqual(self.security_interface.Authconfig, ["--passalgo=sha512", "--useshadow"])
-        self.callback.assert_called_once_with(MODULE_SECURITY_NAME, {'Authconfig': ["--passalgo=sha512", "--useshadow"]}, [])
+        self.callback.assert_called_once_with(SECURITY.interface_name, {'Authconfig': ["--passalgo=sha512", "--useshadow"]}, [])
 
     def realm_property_test(self):
         """Test the realm property."""
@@ -84,7 +84,7 @@ class SecurityInterfaceTestCase(unittest.TestCase):
 
         self.security_interface.SetRealm(realm_in)
         self.assertEqual(realm_out, self.security_interface.Realm)
-        self.callback.assert_called_once_with(MODULE_SECURITY_NAME, {'Realm': realm_out}, [])
+        self.callback.assert_called_once_with(SECURITY.interface_name, {'Realm': realm_out}, [])
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.security_interface, ks_in, ks_out)

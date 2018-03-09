@@ -29,9 +29,8 @@ from collections import OrderedDict
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_STORAGE
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
 from pyanaconda.flags import flags
+from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.threading import threadMgr
 from blivet import arch
 
@@ -152,7 +151,7 @@ def save_hw_clock(timezone_proxy=None):
         return
 
     if not timezone_proxy:
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
 
     cmd = "hwclock"
     args = ["--systohc"]

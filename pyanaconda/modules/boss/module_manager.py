@@ -16,11 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pydbus.auto_names import auto_object_path
-
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import ANACONDA_MODULES, DBUS_START_REPLY_SUCCESS, \
-    DBUS_ADDON_NAMESPACE, DBUS_FLAG_NONE
+from pyanaconda.dbus.constants import DBUS_START_REPLY_SUCCESS, DBUS_FLAG_NONE
+from pyanaconda.dbus.namespace import get_dbus_name, get_namespace_from_name, get_dbus_path
+from pyanaconda.modules.common.constants.namespaces import ADDONS_NAMESPACE
+from pyanaconda.modules.common.constants.services import ALL_KICKSTART_MODULES
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -37,24 +37,27 @@ class ModuleManager(object):
         """Return the modules observers."""
         return self._module_observers
 
-    def add_module(self, service_name, module_path):
-        """Add module to manage."""
-        observer = DBus.get_observer(service_name, module_path)
-        self._module_observers.append(observer)
-
     def add_default_modules(self):
         """Add the default modules."""
-        for name, path in ANACONDA_MODULES:
-            self.add_module(name, path)
+        for kickstart_module in ALL_KICKSTART_MODULES:
+            observer = kickstart_module.get_observer()
+            self._module_observers.append(observer)
 
     def add_addon_modules(self):
         """Add the addon modules."""
         dbus = DBus.get_dbus_proxy()
         names = dbus.ListActivatableNames()
+        prefix = get_dbus_name(*ADDONS_NAMESPACE)
 
-        for name in names:
-            if name.startswith(DBUS_ADDON_NAMESPACE):
-                self.add_module(name, auto_object_path(name))
+        for service_name in names:
+            if service_name.startswith(prefix):
+                # Get the object path.
+                namespace = get_namespace_from_name(service_name)
+                object_path = get_dbus_path(*namespace)
+
+                # Add the observer.
+                observer = DBus.get_observer(service_name, object_path)
+                self._module_observers.append(observer)
 
     def start_modules(self):
         """Start anaconda modules (including addons)."""

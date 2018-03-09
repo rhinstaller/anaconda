@@ -15,7 +15,7 @@ import argparse
 from gi.repository import Gio
 
 from pyanaconda.dbus import DBusConnection
-from pyanaconda.dbus.constants import DBUS_BOSS_NAME, DBUS_BOSS_PATH
+from pyanaconda.modules.common.constants.services import  BOSS
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 
 try:
@@ -50,13 +50,13 @@ EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 def start_anaconda_services():
     print(RED + "starting Boss" + RESET)
-    test_dbus_connection.get_dbus_proxy().StartServiceByName(DBUS_BOSS_NAME, 0)
+    test_dbus_connection.get_dbus_proxy().StartServiceByName(BOSS.service_name, 0)
 
 def distribute_kickstart(ks_path):
     tmpfile = tempfile.mktemp(suffix=".run_boss_locally.ks")
     shutil.copyfile(ks_path, tmpfile)
     print(RED + "distributing kickstart {}".format(tmpfile) + RESET)
-    boss_object = test_dbus_connection.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+    boss_object = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
     try:
         boss_object.SplitKickstart(tmpfile)
     except SplitKickstartError as e:
@@ -79,7 +79,7 @@ def distribute_kickstart(ks_path):
 def stops_anaconda_services():
     print(RED + "stopping Boss" + RESET)
 
-    boss_object = test_dbus_connection.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+    boss_object = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
     boss_object.Quit()
 
     print(RED + "waiting a bit for module shutdown to happen" + RESET)

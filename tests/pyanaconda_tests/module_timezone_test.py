@@ -20,7 +20,7 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME
+from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.modules.timezone.timezone import TimezoneModule
 from pyanaconda.modules.timezone.timezone_interface import TimezoneInterface
 from tests.pyanaconda_tests import check_kickstart_interface
@@ -50,25 +50,25 @@ class TimezoneInterfaceTestCase(unittest.TestCase):
         """Test the Timezone property."""
         self.timezone_interface.SetTimezone("Europe/Prague")
         self.assertEqual(self.timezone_interface.Timezone, "Europe/Prague")
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'Timezone': 'Europe/Prague'}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'Timezone': 'Europe/Prague'}, [])
 
     def utc_property_test(self):
         """Test the IsUtc property."""
         self.timezone_interface.SetIsUTC(True)
         self.assertEqual(self.timezone_interface.IsUTC, True)
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'IsUTC': True}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'IsUTC': True}, [])
 
     def ntp_property_test(self):
         """Test the NTPEnabled property."""
         self.timezone_interface.SetNTPEnabled(False)
         self.assertEqual(self.timezone_interface.NTPEnabled, False)
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'NTPEnabled': False}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPEnabled': False}, [])
 
     def ntp_servers_property_test(self):
         """Test the NTPServers property."""
         self.timezone_interface.SetNTPServers(["ntp.cesnet.cz"])
         self.assertEqual(self.timezone_interface.NTPServers, ["ntp.cesnet.cz"])
-        self.callback.assert_called_once_with(MODULE_TIMEZONE_NAME, {'NTPServers': ["ntp.cesnet.cz"]}, [])
+        self.callback.assert_called_once_with(TIMEZONE.interface_name, {'NTPServers': ["ntp.cesnet.cz"]}, [])
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.timezone_interface, ks_in, ks_out)
