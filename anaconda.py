@@ -580,8 +580,8 @@ if __name__ == "__main__":
     # Now that LANG is set, do something with it
     localization.setup_locale(os.environ["LANG"], ksdata.lang, text_mode=anaconda.tui_mode)
 
-    import blivet
-    blivet.enable_installer_mode()
+    from pyanaconda.storage.osinstall import storage_initialize, enable_installer_mode
+    enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
     from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread, wait_for_connected_NM
@@ -646,7 +646,7 @@ if __name__ == "__main__":
     try:
         for (name, path) in name_path_pairs(opts.images):
             log.info("naming disk image '%s' '%s'", path, name)
-            anaconda.storage.config.disk_images[name] = path
+            anaconda.storage.disk_images[name] = path
             image_count += 1
             flags.imageInstall = True
     except ValueError as e:
@@ -666,7 +666,6 @@ if __name__ == "__main__":
             log.info("Adding disk %s labeled OEMDRV to ignored disks",
                     oemdrv_disk)
 
-    from blivet.osinstall import storage_initialize
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
 

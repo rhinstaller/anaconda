@@ -62,11 +62,10 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
-from blivet import autopart
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
 from blivet.errors import StorageError
-from blivet.platform import platform
+from blivet.formats.disklabel import DiskLabel
 from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
@@ -74,6 +73,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants, iutil
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.screen_access import sam
 
@@ -948,7 +948,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # any of the free space to be useful.
         disk_labels = set(disk.format.label_type for disk in disks
                               if hasattr(disk.format, "label_type"))
-        platform_labels = set(platform.disklabel_types)
+        platform_labels = set(DiskLabel.get_platform_label_types())
         if disk_labels and platform_labels.isdisjoint(disk_labels):
             disk_free = 0
             fs_free = 0

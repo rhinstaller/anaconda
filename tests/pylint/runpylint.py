@@ -15,6 +15,7 @@ class AnacondaLintConfig(PocketLintConfig):
 
         self.falsePositives = [ FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: GError$"),
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: S390Error$"),
+                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: BlockDevError$"),
 
                                 # TODO: Should be fixed with https://github.com/PyCQA/astroid/pull/433
                                 FalsePositive(r"^E1129.*: Context manager 'lock' doesn't implement __enter__ and __exit__.$"),
@@ -30,6 +31,8 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_online' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_wwpn_input' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'zfcp_sanitize_lun_input' member"),
+                                FalsePositive(r"E1101.*: Instance of 'int' has no 'name_from_node' member"),
+                                FalsePositive(r"E1101.*: Instance of 'int' has no 'generate_backup_passphrase' member"),
                               ]
 
     @property

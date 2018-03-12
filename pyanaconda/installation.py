@@ -19,8 +19,8 @@
 #
 
 from blivet import callbacks
-from blivet.osinstall import turn_on_filesystems
 from blivet.devices import BTRFSDevice
+from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import Users

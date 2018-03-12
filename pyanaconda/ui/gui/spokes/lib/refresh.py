@@ -25,8 +25,8 @@ from gi.repository import GLib
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
+from pyanaconda.storage.osinstall import storage_initialize
 
-from blivet.osinstall import storage_initialize
 
 __all__ = ["RefreshDialog"]
 
@@ -91,7 +91,7 @@ class RefreshDialog(GUIObject):
 
         # And now to fire up the storage reinitialization.
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
-                                     args=(self.storage, self.data, self.storage.devicetree.protected_dev_names)))
+                                     args=(self.storage, self.data, self.storage.protected_dev_names)))
 
         self._elapsed = 0
 

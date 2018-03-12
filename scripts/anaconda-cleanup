@@ -38,11 +38,10 @@ flags.imageInstall = True
 import pyanaconda.anaconda_logging
 pyanaconda.anaconda_logging.init()
 
-from blivet.blivet import StorageDiscoveryConfig
 from blivet.devicetree import DeviceTree
 from gi.repository import BlockDev as blockdev
 
-storage_config = StorageDiscoveryConfig()
+disk_images = dict()
 
 # find devices representing disk images
 sys_class_block = "/sys/class/block"
@@ -56,7 +55,7 @@ for dev in os.listdir(sys_class_block):
         continue
 
     loop = os.listdir("%s/%s/slaves" % (sys_class_block, dev))[0].strip()
-    storage_config.disk_images[name] = blockdev.loop_get_backing_file(loop)
+    disk_images[name] = blockdev.loop_get_backing_file(loop)
 
 if not image_install:
     live_install = live_install or os.path.exists("/dev/live")
@@ -79,7 +78,7 @@ for mounted in reversed(open("/proc/mounts").readlines()):
 
 os.system("udevadm trigger --subsystem-match block")
 os.system("udevadm settle")
-devicetree = DeviceTree(conf=storage_config)
+devicetree = DeviceTree(disk_images=disk_images)
 devicetree.populate(cleanup_only=True)
 for name in devicetree.disk_images.keys():
     device = devicetree.get_device_by_name(name)

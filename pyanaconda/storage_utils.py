@@ -31,8 +31,6 @@ from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats
 from blivet.formats.fs import FS
-from blivet.platform import platform as _platform
-from blivet.autopart import swap_suggestion
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -46,6 +44,8 @@ from pyanaconda import isys
 from pyanaconda.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, STORAGE_MUST_BE_ON_ROOT, \
     STORAGE_MUST_BE_ON_LINUXFS, STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, STORAGE_MIN_RAM
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.storage.autopart import swap_suggestion
+from pyanaconda.platform import platform as _platform
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -306,7 +306,7 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
     if storage.bootloader and not storage.bootloader.skip_bootloader:
         stage1 = storage.bootloader.stage1_device
 
-        if _platform.weight(fstype="biosboot") and stage1 and stage1.is_disk \
+        if arch.is_x86() and not arch.is_efi() and stage1 and stage1.is_disk \
                 and getattr(stage1.format, "labelType", None) == "gpt":
 
             missing = True
@@ -606,7 +606,7 @@ class StorageChecker(object):
         This function is called at the end of partitioning so that we can make
         sure you don't have anything silly (like no /, a really small /, etc).
 
-        :param storage: an instance of the :class:`blivet.Blivet` class to check
+        :param storage: an instance of the :class:`pyanaconda.storage.InstallerStorage` class to check
         :param constraints: an dictionary of constraints that will be used by
                checks or None if we want to use the storage checker's constraints
         :param skip: a collection of checks we want to skip or None if we don't
@@ -751,14 +751,14 @@ def try_populate_devicetree(devicetree):
     return
 
 class StorageSnapshot(object):
-    """R/W snapshot of storage (i.e. a :class:`blivet.Blivet` instance)"""
+    """R/W snapshot of storage (i.e. a :class:`pyanaconda.storage.InstallerStorage` instance)"""
 
     def __init__(self, storage=None):
         """
         Create new instance of the class
 
         :param storage: if given, its snapshot is created
-        :type storage: :class:`blivet.Blivet`
+        :type storage: :class:`pyanaconda.storage.InstallerStorage`
         """
         if storage:
             self._storage_snap = storage.copy()
@@ -793,7 +793,7 @@ class StorageSnapshot(object):
         """
         Reset storage to snapshot (**modifies :param:`storage` in place**)
 
-        :param storage: :class:`blivet.Blivet` instance to reset to the created snapshot
+        :param storage: :class:`pyanaconda.storage.InstallerStorage` instance to reset to the created snapshot
         :param bool dispose: whether to dispose the snapshot after reset or not
         :raises ValueError: if no snapshot is available (was not created before)
         """
@@ -851,7 +851,7 @@ def device_name_is_disk(device_name, devicetree=None, refresh_udev_cache=False):
                 # this function is called for the first time will not be taken into account.
                 udev_device_dict_cache = {udev.device_get_name(d): d for d in udev.get_devices()}
             udev_device = udev_device_dict_cache.get(device_name)
-            return udev_device and udev.device_is_realdisk(udev_device)
+            return udev_device and udev.device_is_disk(udev_device)
         else:
             return False
     else:
