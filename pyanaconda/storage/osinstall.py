@@ -80,7 +80,7 @@ def enable_installer_mode():
     blivet_flags.keep_empty_ext_partitions = False
     blivet_flags.discard_new = True
 
-    udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk', '^pmem']
+    udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
 
 
 def copy_to_system(source):
