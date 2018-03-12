@@ -16,10 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pykickstart.constants import FIRSTBOOT_RECONFIG
-
-from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, PASSWORD_SET
+from pyanaconda.core.constants import FIRSTBOOT_ENVIRON, PASSWORD_SET
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import GECOS_VALID
@@ -51,20 +48,15 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @classmethod
     def should_run(cls, environment, data):
+        if FirstbootSpokeMixIn.should_run(environment, data):
+            return True
+
         # the user spoke should run always in the anaconda and in firstboot only
         # when doing reconfig or if no user has been created in the installation
-        if environment == ANACONDA_ENVIRON:
+        if environment == FIRSTBOOT_ENVIRON and data and not data.user.userList:
             return True
-        elif environment == FIRSTBOOT_ENVIRON and data is None:
-            # cannot decide, stay in the game and let another call with data
-            # available (will come) decide
-            return True
-        elif environment == FIRSTBOOT_ENVIRON and data and \
-                (data.firstboot.firstboot == FIRSTBOOT_RECONFIG or
-                 len(data.user.userList) == 0):
-            return True
-        else:
-            return False
+
+        return False
 
     def __init__(self, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
