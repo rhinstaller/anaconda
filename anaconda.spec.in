@@ -333,6 +333,40 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 12 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.6-1
+- Update the use of suggest_container_name method (vponcova)
+  Resolves: rhbz#1551930
+- Devicetree doesn't have protected_dev_names (vponcova)
+  Resolves: rhbz#1551930
+- Add pyanaconda.storage to Makefile (vponcova)
+  Resolves: rhbz#1551930
+- Do not try to use protected disks for autopart (vtrefny)
+  Resolves: rhbz#1551930
+- Adapt new storage tui spoke to storage code move. (dlehman)
+  Resolves: rhbz#1551930
+- Update blivet upstream URL in testing README. (dlehman)
+  Resolves: rhbz#1551930
+- Adapt to devicefactory API change. (dlehman)
+  Resolves: rhbz#1551930
+- Adapt to removal of default rounding in blivet.size.Size. (dlehman)
+  Resolves: rhbz#1551930
+- Use anaconda's logic for ostree sys/physical root. (dlehman)
+  Resolves: rhbz#1551930
+- Adapt to removal of blivet.udev.device_is_realdisk. (dlehman)
+  Resolves: rhbz#1551930
+- Adapt to move of disklabel type logic into DiskLabel. (dlehman)
+  Resolves: rhbz#1551930
+- Move blivet.partspec into pyanaconda.storage. (dlehman)
+  Resolves: rhbz#1551930
+- Move blivet.platform to pyanaconda.platform. (dlehman)
+  Resolves: rhbz#1551930
+- Fix traceback from mocked partitions in clearpart test. (dlehman)
+  Resolves: rhbz#1551930
+- Move blivet.osinstall to pyanaconda.storage. (dlehman)
+  Resolves: rhbz#1551930
+- Move autopart from blivet to pyanaconda.storage. (dlehman)
+  Resolves: rhbz#1551930
+
 * Tue Mar 06 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.5-1
 - kickstart: "clearpart --list" does not work (#1410335) (vponcova)
   Resolves: rhbz#1551931
