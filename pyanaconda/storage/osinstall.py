@@ -1699,11 +1699,19 @@ class InstallerStorage(Blivet):
             if " /run/initramfs/live " not in mnt:
                 continue
 
-            live_device_name = mnt.split()[0].split("/")[-1]
-            log.info("%s looks to be the live device; marking as protected",
-                     live_device_name)
-            self.protected_dev_names.append(live_device_name)
-            self.live_backing_device = live_device_name
+            live_device_path = mnt.split()[0]
+            udev_device = udev.get_device(device_node=live_device_path)
+            if udev_device and udev.device_is_partition(udev_device):
+                live_device_name = udev.device_get_partition_disk(udev_device)
+            else:
+                live_device_name = live_device_path.split("/")[-1]
+
+            log.info("resolved live device to %s", live_device_name)
+            if live_device_name:
+                log.info("marking live device %s protected", live_device_name)
+                self.protected_dev_names.append(live_device_name)
+                self.live_backing_device = live_device_name
+
             break
 
     def _mark_protected_device(self, device):
