@@ -168,10 +168,16 @@ One of these commands must be used. These commands can be combined.
                        you can specify which tests will run by giving paths to tests files
                        from anaconda root dir as additional parameters
                        """)
+
     group.add_argument('--copy', '-c', action='store_true', dest='copy',
                        help="""
                        keep existing mock and only replace Anaconda folder in it;
                        this will not re-init mock chroot
+                       """)
+    group.add_argument('--prepare', '-p', action='store_true', dest='prepare',
+                       help="""
+                       run configure and autogen.sh on Anaconda inside of mock
+                       NOTE: -t and -n will call this automatically
                        """)
 
     namespace = parser.parse_args()
@@ -183,6 +189,10 @@ One of these commands must be used. These commands can be combined.
 def check_args(namespace):
     if namespace.run_tests and namespace.nose_targets is not None:
         raise AttributeError("You can't combine `--run-tests` and `--run-nosetests` commands!")
+
+    # prepare will be called by tests automatically
+    if namespace.run_tests or namespace.nose_targets is not None:
+        namespace.prepare = False
 
 
 def get_required_packages():
@@ -342,6 +352,9 @@ if __name__ == "__main__":
 
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)
+
+    if ns.prepare:
+        prepare_anaconda(mock_cmd)
 
     if ns.run_tests:
         success = run_tests(mock_cmd)
