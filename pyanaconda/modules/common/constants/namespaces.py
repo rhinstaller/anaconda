@@ -66,6 +66,11 @@ PAYLOAD_NAMESPACE = (
     "Payload"
 )
 
+STORAGE_NAMESPACE = (
+    *MODULES_NAMESPACE,
+    "Storage"
+)
+
 BAZ_NAMESPACE = (
     *ADDONS_NAMESPACE,
     "Baz"
