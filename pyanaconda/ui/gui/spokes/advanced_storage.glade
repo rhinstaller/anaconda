@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.20.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -39,9 +39,16 @@
       <column type="gchararray"/>
       <!-- column-name diskWWPN -->
       <column type="gchararray"/>
+      <!-- column-name diskNamespace -->
+      <column type="gchararray"/>
+      <!-- column-name diskMode -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="multipathModel">
+    <property name="child_model">diskStore</property>
+  </object>
+  <object class="GtkTreeModelFilter" id="nvdimmModel">
     <property name="child_model">diskStore</property>
   </object>
   <object class="GtkTreeModelFilter" id="otherModel">
@@ -237,7 +244,6 @@
                                       <object class="GtkLabel" id="searchLUNLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <!-- check_accelerators: refresh -->
                                         <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Search|Port Target LUN">_LUN:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">searchLUNEntry</property>
@@ -497,6 +503,34 @@
                                         <attribute name="sensitive">2</attribute>
                                         <attribute name="visible">0</attribute>
                                         <attribute name="text">7</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="searchNamespaceCol">
+                                    <property name="title" translatable="yes">Namespace</property>
+                                    <property name="clickable">True</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="searchNamespaceRenderer"/>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="text">17</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="searchModeCol">
+                                    <property name="title" translatable="yes">Mode</property>
+                                    <property name="clickable">True</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="searchModeRenderer"/>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="text">18</attribute>
                                       </attributes>
                                     </child>
                                   </object>
@@ -1178,6 +1212,294 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkBox" id="nvdimmBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_left">6</property>
+                        <property name="margin_right">6</property>
+                        <property name="margin_top">12</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkBox" id="nvdimmParametersBox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkLabel" id="nvdimmFilterLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices">Filter B_y:</property>
+                                <property name="use_underline">True</property>
+                                <property name="mnemonic_widget">zTypeCombo</property>
+                                <property name="xalign">0</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkComboBoxText" id="nvdimmTypeCombo">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <items>
+                                  <item id="None" translatable="yes">None</item>
+                                  <item id="Namespace" translatable="yes">Namespace</item>
+                                  <item id="Mode" translatable="yes">Mode</item>
+                                </items>
+                                <signal name="changed" handler="on_nvdimm_type_combo_changed" swapped="no"/>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkNotebook" id="nvdimmTypeNotebook">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="no_show_all">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="show_tabs">False</property>
+                                <property name="show_border">False</property>
+                                <child>
+                                  <object class="GtkLabel" id="nvdimmNoneLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="hexpand">True</property>
+                                  </object>
+                                </child>
+                                <child type="tab">
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="nvdimmModeBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkLabel" id="nvdimmModeLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices|Mode">Show Only Devices in _Mode:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">nvdimmModeCombo</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="nvdimmModeCombo">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="active_id">Sector</property>
+                                        <items>
+                                          <item id="Sector" translatable="yes">Sector</item>
+                                          <item id="Memory" translatable="yes">Memory</item>
+                                        </items>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child type="tab">
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="nvdimmNamespaceBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkLabel" id="nvdimmNamespaceLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices|Namespace">_Namespace:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">nvdimmNamespaceEntry</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="nvdimmNamespaceEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
+                                        <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child type="tab">
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child type="tab">
+                                  <placeholder/>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow" id="nvdimmScrolledWindow">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="hexpand">True</property>
+                            <property name="vexpand">True</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkTreeView" id="nvdimmTreeView">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="model">nvdimmModel</property>
+                                <property name="rules_hint">True</property>
+                                <property name="enable_search">False</property>
+                                <property name="enable_tree_lines">True</property>
+                                <child internal-child="selection">
+                                  <object class="GtkTreeSelection" id="nvdimm-selection"/>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="nvdimmSelectedCol">
+                                    <child>
+                                      <object class="GtkCellRendererToggle" id="nvdimmSelectedRenderer">
+                                        <signal name="toggled" handler="on_row_toggled" swapped="no"/>
+                                      </object>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="active">1</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="nvdimmNamespaceCol">
+                                    <property name="title" translatable="yes">Namespace</property>
+                                    <property name="clickable">True</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="nvdimmNamespaceRenderer"/>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="text">17</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="nvdimmNameCol">
+                                    <property name="title" translatable="yes">Name</property>
+                                    <property name="clickable">True</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="nvdimmNameRenderer"/>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="text">3</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="nvdimmModeCol">
+                                    <property name="title" translatable="yes">Mode</property>
+                                    <property name="clickable">True</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="nvdimmModeRenderer"/>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="text">18</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="nvdimmCapacityCol">
+                                    <property name="title" translatable="yes">Capacity</property>
+                                    <property name="clickable">True</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="nvdimmCapacityRenderer"/>
+                                      <attributes>
+                                        <attribute name="sensitive">2</attribute>
+                                        <attribute name="visible">0</attribute>
+                                        <attribute name="text">6</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                    <child type="tab">
+                      <object class="GtkLabel" id="nvdimmLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">_NVDIMM Devices</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkBox" id="zBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -1337,7 +1659,6 @@
                                       <object class="GtkLabel" id="zLUNLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <!-- check_accelerators: refresh -->
                                         <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries|LUN">_LUN:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">zLUNEntry</property>
@@ -1528,7 +1849,7 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="position">3</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <child type="tab">
@@ -1539,7 +1860,7 @@
                         <property name="use_underline">True</property>
                       </object>
                       <packing>
-                        <property name="position">3</property>
+                        <property name="position">4</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
@@ -1642,10 +1963,10 @@
                   <object class="GtkButton" id="summary_button">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
                     <property name="receives_default">True</property>
                     <property name="halign">start</property>
                     <property name="relief">none</property>
-                    <property name="focus_on_click">False</property>
                     <property name="xalign">0</property>
                     <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
                     <child>
