@@ -61,6 +61,11 @@ USER_NAMESPACE = (
     "User"
 )
 
+PAYLOAD_NAMESPACE = (
+    *MODULES_NAMESPACE,
+    "Payload"
+)
+
 BAZ_NAMESPACE = (
     *ADDONS_NAMESPACE,
     "Baz"

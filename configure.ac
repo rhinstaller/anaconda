@@ -172,6 +172,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/network/Makefile
                  pyanaconda/modules/localization/Makefile
                  pyanaconda/modules/user/Makefile
+                 pyanaconda/modules/payload/Makefile
                  data/post-scripts/Makefile
                  data/pixmaps/Makefile
                  tests/Makefile
