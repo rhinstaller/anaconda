@@ -36,16 +36,6 @@ BOSS_NAMESPACE = (
     "Boss"
 )
 
-FOO_NAMESPACE = (
-    *MODULES_NAMESPACE,
-    "Foo"
-)
-
-BAR_NAMESPACE = (
-    *MODULES_NAMESPACE,
-    "Bar"
-)
-
 TIMEZONE_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Timezone"
