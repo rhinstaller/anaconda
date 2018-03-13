@@ -238,6 +238,13 @@ test-gui:
 	@mv .coverage.* tests/
 	$(MAKE) coverage-report
 
+test-rpm: rc-release run-rpm-tests-only
+
+run-rpm-tests-only:
+	$(MAKE)
+	$(MAKE) TEST_SUITE_LOG=test-suite.log MOCKCHROOT=$(MOCKCHROOT) \
+			MOCK_EXTRA_ARGS=$(MOCK_EXTRA_ARGS) RPM_PATH=$(RPM_BUILD_DIR) TESTS=rpm_tests.sh check
+
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
 	$(COVERAGE) report --omit "tests/*" > tests/coverage-report.log
