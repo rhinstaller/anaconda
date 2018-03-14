@@ -870,23 +870,34 @@ class Payload(object):
 
 
     def recreateInitrds(self):
-        """Recreate the initrds by calling new-kernel-pkg
+        """Recreate the initrds by calling new-kernel-pkg or dracut
 
         This needs to be done after all configuration files have been
         written, since dracut depends on some of them.
 
         :returns: None
         """
-        if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-            log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
-            return
+        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            useDracut = False
+        else:
+            log.warning("new-kernel-pkg does not exist - grubby wasn't installed?  using dracut instead.")
+            useDracut = True
 
         for kernel in self.kernelVersionList:
             log.info("recreating initrd for %s", kernel)
             if not flags.imageInstall:
-                util.execInSysroot("new-kernel-pkg",
-                                   ["--mkinitrd", "--dracut",
-                                    "--depmod", "--update", kernel])
+                if useDracut:
+                    util.execInSysroot("depmod", ["-a", kernel])
+                    util.execInSysroot("dracut",
+                                       ["-H", "--persistent-policy", "by-uuid",
+                                        "-f",
+                                        "/boot/initramfs-%s.img" % kernel,
+                                        kernel])
+                else:
+                    util.execInSysroot("new-kernel-pkg",
+                                       ["--mkinitrd", "--dracut", "--depmod",
+                                        "--update", kernel])
+
             else:
                 # hostonly is not sensible for disk image installations
                 # using /dev/disk/by-uuid/ is necessary due to disk image naming
