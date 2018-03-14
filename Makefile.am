@@ -134,10 +134,6 @@ rc-release: scratch
 	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(SRPM_BUILD_DIR) || exit 1
 	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --rebuild $(SRPM_BUILD_DIR)/*src.rpm --resultdir $(RPM_BUILD_DIR) || exit 1
 
-test-install: rc-release
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --clean || exit 1
-	mock -r $(MOCKCHROOT) $(MOCK_EXTRA_ARGS) --install $(RPM_BUILD_DIR)/anaconda-*$(ARCH_NAME).rpm --resultdir $(TEST_INST_BUILD_DIR)
-
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
