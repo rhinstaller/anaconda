@@ -333,6 +333,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 14 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.7-1
+- Remove spurious echo call from tmux service file (mkolman)
+  Resolves: rhbz#1554243
+
 * Mon Mar 12 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.6-1
 - Update the use of suggest_container_name method (vponcova)
   Resolves: rhbz#1551930
