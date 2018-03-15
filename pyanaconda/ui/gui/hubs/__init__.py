@@ -59,6 +59,11 @@ class Hub(GUIObject, common.Hub):
     handles_autostep = True
     _hubs_collection = []
 
+    # Should we automatically go to next hub if processing is done and there are no
+    # spokes on the hub ? The default value is False and Initial Setup will likely
+    # override it to True in it's hub.
+    continue_if_empty = False
+
     def __init__(self, data, storage, payload, instclass):
         """Create a new Hub instance.
 
@@ -286,7 +291,7 @@ class Hub(GUIObject, common.Hub):
 
         q = hubQ.q
 
-        if not self._spokes and self.window.get_may_continue():
+        if not self._spokes and self.window.get_may_continue() and self.continue_if_empty:
             # no spokes, move on
             log.debug("no spokes available on %s, continuing automatically", self)
             gtk_call_once(self.window.emit, "continue-clicked")
