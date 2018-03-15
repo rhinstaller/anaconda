@@ -44,6 +44,9 @@ from pyanaconda.core.i18n import _, N_
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+with open("/proc/cmdline") as f:
+    EXPERIMENTAL = "anaconda.experimental" in f.read().split()
+
 class serial_opts(object):
     def __init__(self):
         self.speed = None
@@ -677,7 +680,7 @@ class BootLoader(object):
             self.errors.append(_("%s cannot be on an iSCSI disk") % self.stage2_description)
             valid = False
 
-        if not self._device_type_match(device, self.stage2_device_types):
+        if not EXPERIMENTAL and not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("%(desc)s cannot be of type %(type)s")
                                % {"desc": _(self.stage2_description), "type": device.type})
             valid = False
