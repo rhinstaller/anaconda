@@ -22,6 +22,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.modules.services.constants import SetupOnBootAction
 
 
 @dbus_interface(SERVICES.interface_name)
@@ -108,7 +109,7 @@ class ServicesInterface(KickstartModuleInterface):
     @property
     def SetupOnBoot(self) -> Int:
         """Set up the installed system on the first boot."""
-        return self.implementation.setup_on_boot
+        return self.implementation.setup_on_boot.value
 
     @emits_properties_changed
     def SetSetupOnBoot(self, value: Int):
@@ -125,4 +126,4 @@ class ServicesInterface(KickstartModuleInterface):
 
         :param value: a number of the action
         """
-        self.implementation.set_setup_on_boot(value)
+        self.implementation.set_setup_on_boot(SetupOnBootAction(value))
