@@ -39,6 +39,9 @@ class LocalizationModule(KickstartModule):
         self.language_support_changed = Signal()
         self._language_support = []
 
+        self.language_seen_changed = Signal()
+        self._language_seen = False
+
         self.keyboard_changed = Signal()
         self._keyboard = ""
 
@@ -71,6 +74,8 @@ class LocalizationModule(KickstartModule):
         # lang
         self.set_language(data.lang.lang)
         self.set_language_support(data.lang.addsupport)
+
+        self.set_language_seen(data.lang.seen)
 
         # keyboard
         self.set_keyboard(data.keyboard._keyboard)
@@ -118,6 +123,17 @@ class LocalizationModule(KickstartModule):
         self._language_support = language_support
         self.language_support_changed.emit()
         log.debug("Language support is set to %s.", language_support)
+
+    @property
+    def language_seen(self):
+        """Was language command seen in kickstart?"""
+        return self._language_seen
+
+    def set_language_seen(self, seen):
+        """Set whether language command was seen in kickstart."""
+        self._language_seen = seen
+        self.language_seen_changed.emit()
+        log.debug("Language seen set to %s.", seen)
 
     @property
     def keyboard(self):
