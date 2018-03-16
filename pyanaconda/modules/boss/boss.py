@@ -24,7 +24,7 @@ from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
 from pyanaconda.modules.boss.install_manager import InstallManager, InstallationInterface
 from pyanaconda.modules.boss.kickstart_manager import KickstartManager
-from pyanaconda.modules.common.base import BaseModule
+from pyanaconda.modules.common.base import MainModule
 from pyanaconda.modules.common.constants.objects import BOSS_INSTALLATION
 from pyanaconda.modules.common.constants.services import BOSS
 
@@ -32,7 +32,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class Boss(BaseModule):
+class Boss(MainModule):
     """The Boss module."""
 
     def __init__(self, module_manager=None, install_manager=None, kickstart_manager=None):

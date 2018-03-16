@@ -1,5 +1,4 @@
 #
-# base_interface.py
 # Base interface for Anaconda modules.
 #
 # Copyright (C) 2017 Red Hat, Inc.
@@ -20,15 +19,15 @@
 #
 from pykickstart.errors import KickstartError
 
+from pyanaconda.modules.common.base.base_template import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.dbus.property import emits_properties_changed
-from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
 
 
 @dbus_interface(KICKSTART_MODULE.interface_name)
-class KickstartModuleInterface(AdvancedInterfaceTemplate):
+class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
     """DBus interface of a kickstart module.
 
     The implementation is provided by the KickstartModule class.
@@ -36,7 +35,7 @@ class KickstartModuleInterface(AdvancedInterfaceTemplate):
 
     def connect_signals(self):
         """Connect the signals."""
-        self.implementation.module_properties_changed.connect(self.flush_changes)
+        super().connect_signals()
         self.implementation.kickstarted_changed.connect(self.changed("Kickstarted"))
 
     @property

@@ -34,50 +34,10 @@ log = get_module_logger(__name__)
 
 
 class BaseModule(ABC):
-    """Base implementation of a module."""
+    """Implementation of a base module."""
 
     def __init__(self):
-        self._loop = EventLoop()
-
-    @property
-    def loop(self):
-        """Return the loop."""
-        return self._loop
-
-    def run(self):
-        """Run the module's loop."""
-        log.debug("Schedule publishing.")
-        run_in_loop(self.publish)
-        log.debug("Start the loop.")
-        self._loop.run()
-
-    def publish(self):
-        """Publish DBus objects and register a DBus service.
-
-        Nothing is published by default.
-        """
-        pass
-
-    def stop(self):
-        """Stop the module's loop."""
-        DBus.disconnect()
-        Timer().timeout_sec(1, self.loop.quit)
-
-
-class KickstartModule(BaseModule):
-    """Base implementation of a kickstart module.
-
-    Instances of this class can be published with a DBus interface
-    defined by KickstartModuleInterface.
-    """
-
-    def __init__(self):
-        super().__init__()
-        self._published_tasks = {}
         self._module_properties_changed = Signal()
-
-        self.kickstarted_changed = Signal()
-        self._kickstarted = False
 
     @property
     def module_properties_changed(self):
@@ -94,6 +54,69 @@ class KickstartModule(BaseModule):
         """
         return self._module_properties_changed
 
+    def publish(self):
+        """Publish DBus objects and register a DBus service.
+
+        Nothing is published by default.
+        """
+        pass
+
+
+class MainModule(BaseModule):
+    """Implementation of the main module.
+
+    The main module is an owner of the main loop, so it is
+    able to start and stop the application.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self._loop = EventLoop()
+
+    @property
+    def loop(self):
+        """Return the loop."""
+        return self._loop
+
+    def run(self):
+        """Run the module's loop."""
+        log.debug("Schedule publishing.")
+        run_in_loop(self.publish)
+        log.debug("Start the loop.")
+        self._loop.run()
+
+    def stop(self):
+        """Stop the module's loop."""
+        DBus.disconnect()
+        Timer().timeout_sec(1, self.loop.quit)
+
+
+class KickstartBaseModule(BaseModule):
+    """Implementation of a base kickstart module."""
+
+    def __init__(self):
+        super().__init__()
+        self._published_tasks = {}
+
+    def process_kickstart(self, data):
+        """Process the kickstart data.
+
+        Use the given kickstart data to set the module attributes.
+
+        :param data: a kickstart handler
+        """
+        pass
+
+    def setup_kickstart(self, data):
+        """Set the given kickstart data.
+
+        Use the module attributes to set the kickstart data.
+
+        :param data: a kickstart handler
+        :return: a kickstart handler
+        """
+        return data
+
     @property
     def published_tasks(self):
         """Returns a dictionary of published tasks."""
@@ -103,6 +126,19 @@ class KickstartModule(BaseModule):
         """Publish a task."""
         object_path = publish_task(message_bus, namespace, task)
         self.published_tasks[task] = object_path
+
+
+class KickstartModule(MainModule, KickstartBaseModule):
+    """Implementation of a main kickstart module.
+
+    The main kickstart module is able to parse and generate the given
+    kickstart string based on its kickstart specification.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.kickstarted_changed = Signal()
+        self._kickstarted = False
 
     @property
     def kickstart_specification(self):
@@ -174,13 +210,6 @@ class KickstartModule(BaseModule):
         self.process_kickstart(handler)
         self.kickstarted = True
 
-    def process_kickstart(self, data):
-        """Process the kickstart data.
-
-        :param data: a kickstart handler defined by the specification
-        """
-        pass
-
     def generate_kickstart(self):
         """Return a kickstart representation of this module.
 
@@ -189,4 +218,6 @@ class KickstartModule(BaseModule):
 
         :return: a kickstart string
         """
-        return ""
+        handler = self.get_kickstart_handler()
+        self.setup_kickstart(handler)
+        return str(handler)

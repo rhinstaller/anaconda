@@ -1,4 +1,6 @@
 #
+# Interface templates for Anaconda modules.
+#
 # Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -15,12 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.base.base import BaseModule, MainModule, KickstartModule, \
-    KickstartBaseModule
-from pyanaconda.modules.common.base.base_interface import KickstartModuleInterface
-from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate, \
-    KickstartModuleInterfaceTemplate
+from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 
-__all__ = ["BaseModule", "MainModule", "KickstartBaseModule", "KickstartModule",
-           "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate",
-           "KickstartModuleInterface"]
+
+class ModuleInterfaceTemplate(AdvancedInterfaceTemplate):
+    """The DBus interface template for a module.
+
+    The template should be used to create DBus interfaces
+    for instances of BaseModule.
+    """
+
+    def connect_signals(self):
+        """Connect the signals."""
+        self.implementation.module_properties_changed.connect(self.flush_changes)
+
+
+class KickstartModuleInterfaceTemplate(ModuleInterfaceTemplate):
+    """The DBus interface template for a kickstart module.
+
+    The template should be used to create DBus interfaces
+    for instances of KickstartBaseModule.
+    """
+    pass
