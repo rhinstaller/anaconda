@@ -39,6 +39,7 @@ EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
 
 NOSE_TESTS_ARGS ?= ""
+RPM_TESTS_ARGS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
