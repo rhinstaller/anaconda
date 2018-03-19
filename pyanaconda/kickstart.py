@@ -1835,6 +1835,11 @@ class ReqPart(commands.reqpart.F23_ReqPart):
         autopart.do_reqpart(storage, reqs)
 
 class RootPw(RemovedCommand):
+
+    def __str__(self):
+        user_proxy = USER.get_proxy()
+        return user_proxy.GenerateKickstart()
+
     def execute(self, storage, ksdata, instClass, users):
 
         user_proxy = USER.get_proxy()
