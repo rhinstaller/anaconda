@@ -33,6 +33,7 @@ class LocalizationInterface(KickstartModuleInterface):
         super().connect_signals()
         self.implementation.language_changed.connect(self.changed("Language"))
         self.implementation.language_support_changed.connect(self.changed("LanguageSupport"))
+        self.implementation.language_seen_changed.connect(self.changed("LanguageKickstarted"))
         self.implementation.keyboard_changed.connect(self.changed("Keyboard"))
         self.implementation.vc_keymap_changed.connect(self.changed("VirtualConsoleKeymap"))
         self.implementation.x_layouts_changed.connect(self.changed("XLayouts"))
@@ -73,6 +74,14 @@ class LocalizationInterface(KickstartModuleInterface):
         :param language_support: IDs of languages ($LANG) to be supported on system.
         """
         self.implementation.set_language_support(language_support)
+
+    @property
+    def LanguageKickstarted(self) -> Bool:
+        """Was the language set in a kickstart?
+
+        :return: True if it was set in a kickstart, otherwise False
+        """
+        return self.implementation.language_seen
 
     # TODO MOD - remove this when we get logic for inferring what we are
     # getting and the other option value (localed proxy) into the module?

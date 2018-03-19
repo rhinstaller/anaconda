@@ -91,7 +91,6 @@ def doConfiguration(storage, payload, ksdata, instClass):
     os_config.append(Task("Configure language", ksdata.lang.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure firewall", ksdata.firewall.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure X", ksdata.xconfig.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure skip-X", ksdata.skipx.execute, (storage, ksdata, instClass)))
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
@@ -237,7 +236,6 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # setup the installation environment
     setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
-    setup_environment.append(Task("Setup firstboot", ksdata.firstboot.setup, (ksdata, instClass)))
     setup_environment.append(Task("Setup addons", ksdata.addons.setup, (storage, ksdata, instClass, payload)))
     installation_queue.append(setup_environment)
 

@@ -42,10 +42,10 @@ if __name__ == "__main__":
     from pyanaconda import anaconda_logging
     anaconda_logging.init()
 
-from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
-from pyanaconda.core.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
-from pyanaconda.core.constants import THREAD_PAYLOAD_RESTART
-from pyanaconda.core.constants import PayloadRequirementType
+from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
+    DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
+    THREAD_WAIT_FOR_CONNECTING_NM, PayloadRequirementType, GRAPHICAL_TARGET, TEXT_ONLY_TARGET
+from pyanaconda.modules.common.constants.services import SERVICES
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
@@ -872,8 +872,10 @@ class Payload(object):
             log.error("systemd is not installed -- can't set default target")
             return
 
-        # If X was already requested we don't have to continue
-        if self.data.xconfig.startX:
+        # If the target was already set, we don't have to continue.
+        services_proxy = SERVICES.get_proxy()
+        if services_proxy.DefaultTarget:
+            log.debug("The default target is already set.")
             return
 
         try:
@@ -889,7 +891,9 @@ class Payload(object):
                not flags.usevnc:
                 # We only manipulate the ksdata.  The symlink is made later
                 # during the config write out.
-                self.data.xconfig.startX = True
+                services_proxy.SetDefaultTarget(GRAPHICAL_TARGET)
+            else:
+                services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
     def dracutSetupArgs(self):
         args = []

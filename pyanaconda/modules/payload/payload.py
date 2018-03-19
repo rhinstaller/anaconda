@@ -1,7 +1,7 @@
-# foo.py
-# Example DBUS module
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# Kickstart module for packaging.
+#
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -19,19 +19,33 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
-from pyanaconda.modules.common.constants.services import FOO
-from pyanaconda.modules.foo.foo_interface import FooInterface
-from pyanaconda.modules.foo.tasks.foo_task import FooTask
+from pyanaconda.modules.common.constants.services import PAYLOAD
+from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
+from pyanaconda.modules.payload.payload_interface import PayloadInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class Foo(KickstartModule):
-    """The Foo module."""
+class PayloadModule(KickstartModule):
+    """The Payload module."""
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(FOO.object_path, FooInterface(self))
-        self.publish_task(FOO.namespace, FooTask())
-        DBus.register_service(FOO.service_name)
+        DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
+        DBus.register_service(PAYLOAD.service_name)
+
+    @property
+    def kickstart_specification(self):
+        """Return the kickstart specification."""
+        return PayloadKickstartSpecification
+
+    def process_kickstart(self, data):
+        """Process the kickstart data."""
+        log.debug("Processing kickstart data...")
+
+    def generate_kickstart(self):
+        """Return the kickstart string."""
+        log.debug("Generating kickstart data...")
+        data = self.get_kickstart_handler()
+        return str(data)

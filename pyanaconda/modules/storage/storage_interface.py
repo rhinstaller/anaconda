@@ -1,7 +1,7 @@
-# foo_interface.py
-# Example DBUS module interface
 #
-# Copyright (C) 2017 Red Hat, Inc.
+# DBus interface for the storage.
+#
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,12 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.modules.common.constants.services import FOO
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(FOO.interface_name)
-class FooInterface(KickstartModuleInterface):
-    """DBus interface for Foo."""
-    pass
+@dbus_interface(STORAGE.interface_name)
+class StorageInterface(KickstartModuleInterface):
+    """DBus interface for Storage module."""

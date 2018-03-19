@@ -100,6 +100,23 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.localization_interface.ReadKickstart(ks_in)
         self.assertEqual(self.localization_interface.KeyboardKickstarted, True)
 
+    def language_seen_test(self):
+        """Test the LanguageKickstarted property."""
+        self.assertEqual(self.localization_interface.LanguageKickstarted, False)
+        ks_in = """
+        keyboard cz
+        """
+        ks_in = dedent(ks_in).strip()
+        self.localization_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.localization_interface.LanguageKickstarted, False)
+        ks_in = """
+        keyboard cz
+        lang cs_CZ.UTF-8
+        """
+        ks_in = dedent(ks_in).strip()
+        self.localization_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.localization_interface.LanguageKickstarted, True)
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
 
