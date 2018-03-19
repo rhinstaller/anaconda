@@ -643,8 +643,12 @@ if __name__ == "__main__":
 
     # if we're in text mode, the resulting system should be too
     # ...unless the kickstart specified otherwise
-    if anaconda.tui_mode and not anaconda.ksdata.xconfig.startX:
-        anaconda.ksdata.skipx.skipx = True
+    from pyanaconda.modules.common.constants.services import SERVICES
+    from pyanaconda.core.constants import TEXT_ONLY_TARGET
+    services_proxy = SERVICES.get_proxy()
+
+    if not services_proxy.DefaultTarget and anaconda.tui_mode:
+        services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
     # Set flag to prompt for missing ks data
     if not anaconda.interactive_mode:
@@ -745,6 +749,20 @@ if __name__ == "__main__":
 
         if timezone_proxy.NTPEnabled:
             util.start_service("chronyd")
+
+    # Finish the initialization of the setup on boot action.
+    # This should be done sooner and somewhere else once it is possible.
+    from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT, SETUP_ON_BOOT_DISABLED
+    from pyanaconda.modules.common.constants.services import SERVICES
+    services_proxy = SERVICES.get_proxy()
+
+    if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DEFAULT:
+        if flags.automatedInstall:
+            # Disable by default after kickstart installations.
+            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
+        else:
+            # Otherwise use the install class's default value.
+            services_proxy.SetSetupOnBoot(anaconda.instClass.setup_on_boot)
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL

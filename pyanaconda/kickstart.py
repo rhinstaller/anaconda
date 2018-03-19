@@ -41,15 +41,15 @@ from pyanaconda import keyboard, localization, network, nm, ntp, screen_access, 
 from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
-from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, \
-    GRAPHICAL_TARGET, THREAD_STORAGE, SELINUX_DEFAULT, REALM_NAME, REALM_DISCOVER, REALM_JOIN
+from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
+    REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    USER
+    USER, SERVICES
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -74,7 +74,6 @@ from blivet.size import Size, KiB
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.options import KSOptionParser
 from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
-                                  FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
                                   SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
                                   SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
@@ -831,36 +830,39 @@ class Firewall(commands.firewall.F28_Firewall):
         else:
             util.execInSysroot(cmd, args)
 
-class Firstboot(commands.firstboot.FC3_Firstboot):
-    def setup(self, ksdata, instClass):
-        if not self.seen:
-            if flags.automatedInstall:
-                # firstboot should be disabled by default after kickstart installations
-                self.firstboot = FIRSTBOOT_SKIP
-            elif instClass.firstboot and not self.firstboot:
-                # if nothing is specified, use the installclass default for firstboot
-                self.firstboot = instClass.firstboot
+class Firstboot(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Services module in the Services class.
+        return ""
 
     def execute(self, *args):
-        action = util.enable_service
         unit_name = "initial-setup.service"
+        services_proxy = SERVICES.get_proxy()
+        setup_on_boot = services_proxy.SetupOnBoot
 
-        # find if the unit file for the Initial Setup service is installed
-        unit_exists = os.path.exists(os.path.join(util.getSysroot(), "lib/systemd/system/", unit_name))
-        if unit_exists and self.firstboot == FIRSTBOOT_RECONFIG:
+        if setup_on_boot == SETUP_ON_BOOT_DISABLED:
+            log.debug("The %s service will be disabled.", unit_name)
+            util.disable_service(unit_name)
+            # Also tell the screen access manager, so that the fact that post installation tools
+            # should be disabled propagates to the user interaction config file.
+            screen_access.sam.post_install_tools_disabled = True
+            return
+
+        if not os.path.exists(os.path.join(util.getSysroot(), "lib/systemd/system/", unit_name)):
+            log.debug("The %s service will not be started on first boot, because "
+                      "it's unit file is not installed.", unit_name)
+            return
+
+        if setup_on_boot == SETUP_ON_BOOT_RECONFIG:
+            log.debug("The %s service will run in the reconfiguration mode.", unit_name)
             # write the reconfig trigger file
             f = open(os.path.join(util.getSysroot(), "etc/reconfigSys"), "w+")
             f.close()
 
-        if self.firstboot == FIRSTBOOT_SKIP:
-            action = util.disable_service
-            # Also tell the screen access manager, so that the fact that post installation tools
-            # should be disabled propagates to the user interaction config file.
-            screen_access.sam.post_install_tools_disabled = True
-
-        # enable/disable the Initial Setup service (if its unit is installed)
-        if unit_exists:
-            action(unit_name)
+        log.debug("The %s service will be enabled.", unit_name)
+        util.enable_service(unit_name)
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
@@ -1886,12 +1888,21 @@ class SELinux(RemovedCommand):
         except IOError as msg:
             selinux_log.error("SELinux configuration failed: %s", msg)
 
-class Services(commands.services.FC6_Services):
+class Services(RemovedCommand):
+
+    def __str__(self):
+        services_proxy = SERVICES.get_proxy()
+        return services_proxy.GenerateKickstart()
+
     def execute(self, storage, ksdata, instClass):
-        for svc in self.disabled:
+        services_proxy = SERVICES.get_proxy()
+
+        for svc in services_proxy.DisabledServices:
+            log.debug("Disabling the service %s.", svc)
             util.disable_service(svc)
 
-        for svc in self.enabled:
+        for svc in services_proxy.EnabledServices:
+            log.debug("Enabling the service %s.", svc)
             util.enable_service(svc)
 
 class SshKey(commands.sshkey.F22_SshKey):
@@ -1911,6 +1922,10 @@ class Timezone(RemovedCommand):
 
     def setup(self, ksdata):
         timezone_proxy = TIMEZONE.get_proxy()
+        services_proxy = SERVICES.get_proxy()
+
+        enabled_services = services_proxy.EnabledServices
+        disabled_services = services_proxy.DisabledServices
 
         # do not install and use NTP package
         if not timezone_proxy.NTPEnabled or NTP_PACKAGE in ksdata.packages.excludedList:
@@ -1920,8 +1935,9 @@ class Timezone(RemovedCommand):
                 if ret != 0:
                     timezone_log.error("Failed to stop NTP service")
 
-            if NTP_SERVICE not in ksdata.services.disabled:
-                ksdata.services.disabled.append(NTP_SERVICE)
+            if NTP_SERVICE not in disabled_services:
+                disabled_services.append(NTP_SERVICE)
+                services_proxy.SetDisabledServices(disabled_services)
         # install and use NTP package
         else:
             if not util.service_running(NTP_SERVICE) and \
@@ -1932,9 +1948,10 @@ class Timezone(RemovedCommand):
 
             self.packages.append(NTP_PACKAGE)
 
-            if not NTP_SERVICE in ksdata.services.enabled and \
-                    not NTP_SERVICE in ksdata.services.disabled:
-                ksdata.services.enabled.append(NTP_SERVICE)
+            if not NTP_SERVICE in enabled_services and \
+                    not NTP_SERVICE in disabled_services:
+                enabled_services.append(NTP_SERVICE)
+                services_proxy.SetEnabledServices(enabled_services)
 
     def execute(self, *args):
         # get the DBus proxies
@@ -2074,24 +2091,35 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
             # in case we had to truncate or otherwise adjust the specified name
             ksdata.onPart[self.vgname] = request.name
 
-class XConfig(commands.xconfig.F14_XConfig):
+class XConfig(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Services module in the Services class.
+        return ""
+
     def execute(self, *args):
         desktop = Desktop()
-        if self.startX:
-            desktop.default_target = GRAPHICAL_TARGET
+        services_proxy = SERVICES.get_proxy()
+        default_target = services_proxy.DefaultTarget
+        default_desktop = services_proxy.DefaultDesktop
 
-        if self.defaultdesktop:
-            desktop.desktop = self.defaultdesktop
+        if default_target:
+            log.debug("Using the default target %s.", default_target)
+            desktop.default_target = default_target
 
-        # now write it out
+        if default_desktop:
+            log.debug("Using the default desktop %s.", default_desktop)
+            desktop.desktop = default_desktop
+
         desktop.write()
 
-class SkipX(commands.skipx.FC3_SkipX):
-    def execute(self, *args):
-        if self.skipx:
-            desktop = Desktop()
-            desktop.default_target = TEXT_ONLY_TARGET
-            desktop.write()
+class SkipX(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Services module in the Services class.
+        return ""
 
 class Snapshot(commands.snapshot.F26_Snapshot):
     def _post_snapshots(self):
