@@ -794,9 +794,9 @@ class BootLoader(object):
         swap_devices = storage.fsset.swap_devices
         dracut_devices.extend(swap_devices)
 
-        # Add resume= option to enable hibernation.
+        # Add resume= option to enable hibernation on x86.
         # Choose the largest swap device for that.
-        if swap_devices:
+        if blivet.arch.is_x86() and swap_devices:
             resume_device = max(swap_devices, key=lambda x: x.size)
             self.boot_args.add("resume=%s" % resume_device.fstab_spec)
 
