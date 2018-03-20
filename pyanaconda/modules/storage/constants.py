@@ -1,5 +1,5 @@
 #
-# Kickstart handler for the storage.
+# Private constants of the storage module.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -17,18 +17,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.clearpart import F28_ClearPart
-from pykickstart.commands.ignoredisk import F14_IgnoreDisk
-from pykickstart.commands.zerombr import F9_ZeroMbr
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from enum import Enum, unique
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_ALL, \
+    CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_DEFAULT
 
 
-class StorageKickstartSpecification(KickstartSpecification):
-
-    version = F28
-    commands = {
-        "zerombr": F9_ZeroMbr,
-        "clearpart": F28_ClearPart,
-        "ignoredisk": F14_IgnoreDisk,
-    }
+@unique
+class InitializationMode(Enum):
+    """The disks initialization mode."""
+    DEFAULT = CLEAR_PARTITIONS_DEFAULT
+    CLEAR_NONE = CLEAR_PARTITIONS_NONE
+    CLEAR_ALL = CLEAR_PARTITIONS_ALL
+    CLEAR_LIST = CLEAR_PARTITIONS_LIST
+    CLEAR_LINUX = CLEAR_PARTITIONS_LINUX

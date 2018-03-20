@@ -86,3 +86,36 @@ def check_kickstart_interface(test, interface, ks_in, ks_out):
     else:
         test.assertEqual(interface.Kickstarted, False)
         callback.assert_not_called()
+
+
+def check_dbus_property(test, interface_id, interface, property_name,
+                        in_value, out_value=None, getter=None, setter=None):
+    """Check DBus property.
+
+    :param test: instance of TestCase
+    :param interface_id: instance of DBusInterfaceIdentifier
+    :param interface: instance of a DBus interface
+    :param property_name: a DBus property name
+    :param in_value: an input value of the property
+    :param out_value: an output value of the property or None
+    :param getter: a property getter or None
+    :param setter: a property setter or None
+    """
+    callback = Mock()
+    interface.PropertiesChanged.connect(callback)
+
+    if out_value is None:
+        out_value = in_value
+
+    # Set the property.
+    if not setter:
+        setter = getattr(interface, "Set{}".format(property_name))
+
+    setter(in_value)
+    callback.assert_called_once_with(interface_id.interface_name, {property_name: out_value}, [])
+
+    # Get the property.
+    if not getter:
+        getter = lambda: getattr(interface, property_name)
+
+    test.assertEqual(getter(), out_value)

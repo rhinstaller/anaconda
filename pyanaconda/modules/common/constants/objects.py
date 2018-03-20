@@ -17,9 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pyanaconda.dbus.identifier import DBusObjectIdentifier
-from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE
+from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, STORAGE_NAMESPACE
 
 BOSS_INSTALLATION = DBusObjectIdentifier(
     namespace=BOSS_NAMESPACE,
     basename="Installation"
+)
+
+DISK_INITIALIZATION = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="DiskInitialization"
+)
+
+DISK_SELECTION = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="DiskSelection"
 )
