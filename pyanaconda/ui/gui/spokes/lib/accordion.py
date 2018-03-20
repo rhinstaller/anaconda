@@ -86,7 +86,7 @@ class Accordion(Gtk.Box):
         expanded, all others are collapsed.
     """
     def __init__(self):
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
+        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
         self._active_selectors = []
         self._current_selector = None
@@ -383,7 +383,7 @@ class BasePage(Gtk.Box):
             and use the subclass instead.
     """
     def __init__(self, title):
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title
         self._selected_members = set()

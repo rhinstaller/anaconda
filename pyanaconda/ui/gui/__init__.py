@@ -140,7 +140,7 @@ class GUIObject(common.UIObject):
                        spoke off a hub.  They can only skip to the hub
                        itself.
         """
-        common.UIObject.__init__(self, data)
+        super().__init__(data)
 
         if self.__class__ is GUIObject:
             raise TypeError("GUIObject is an abstract class")
@@ -342,7 +342,7 @@ class MainWindow(Gtk.Window):
 
           :param bool fullscreen: if True, fullscreen the window, if false maximize
         """
-        Gtk.Window.__init__(self)
+        super().__init__()
 
         # Remove the title bar, resize controls and other stuff if the window manager
         # allows it and decorated is set to False. Otherwise, it has no effect.
@@ -647,7 +647,7 @@ class GraphicalUserInterface(UserInterface):
                  distributionText=product.distributionText, isFinal=product.isFinal,
                  quitDialog=QuitDialog, gui_lock=None, fullscreen=False, decorated=False):
 
-        UserInterface.__init__(self, storage, payload, instclass)
+        super().__init__(storage, payload, instclass)
 
         self._actions = []
         self._currentAction = None
@@ -837,7 +837,7 @@ class GraphicalUserInterface(UserInterface):
 
             # Get the path to the application data
             data_path = os.environ.get("ANACONDA_DATA", "/usr/share/anaconda")
-            
+
             # Apply the application stylesheet
             css_path = os.path.join(data_path, "anaconda-gtk.css")
             provider = Gtk.CssProvider()
@@ -1048,7 +1048,7 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         :type lightbox_func: None -> None
 
         """
-        meh.ui.gui.GraphicalIntf.__init__(self)
+        super().__init__()
 
         self._lightbox_func = lightbox_func
 

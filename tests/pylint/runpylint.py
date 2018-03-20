@@ -17,6 +17,7 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: S390Error$"),
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: BlockDevError$"),
                                 FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
+                                FalsePositive(r"^E1101.*: Instance of 'Namespace' has no '.*' member$"),
 
                                 # TODO: Should be fixed with https://github.com/PyCQA/astroid/pull/433
                                 FalsePositive(r"^E1129.*: Context manager 'lock' doesn't implement __enter__ and __exit__.$"),

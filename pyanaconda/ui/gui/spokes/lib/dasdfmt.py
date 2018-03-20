@@ -35,7 +35,7 @@ class DasdFormatDialog(GUIObject):
     uiFile = "spokes/lib/dasdfmt.glade"
 
     def __init__(self, data, storage, dasds_formatting):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
 
         self._storage = storage
         self._dasds_formatting = dasds_formatting

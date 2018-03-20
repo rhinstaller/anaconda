@@ -45,7 +45,7 @@ class ZFCPDialog(GUIObject):
     uiFile = "spokes/advstorage/zfcp.glade"
 
     def __init__(self, data, storage):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self.storage = storage
         self.zfcp = zfcp.zFCP()
 

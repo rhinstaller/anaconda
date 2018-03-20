@@ -103,7 +103,7 @@ class PayloadSetupError(PayloadError):
 # software selection
 class NoSuchGroup(PayloadError):
     def __init__(self, group, adding=True, required=False):
-        PayloadError.__init__(self, group)
+        super().__init__(group)
         self.group = group
         self.adding = adding
         self.required = required
@@ -111,7 +111,7 @@ class NoSuchGroup(PayloadError):
 
 class NoSuchPackage(PayloadError):
     def __init__(self, package, required=False):
-        PayloadError.__init__(self, package)
+        super().__init__(package)
         self.package = package
         self.required = required
 
@@ -958,7 +958,7 @@ class ImagePayload(Payload):
         if self.__class__ is ImagePayload:
             raise TypeError("ImagePayload is an abstract class")
 
-        Payload.__init__(self, data)
+        super().__init__(data)
 
 
 # Inherit abstract methods from ImagePayload
@@ -970,7 +970,7 @@ class ArchivePayload(ImagePayload):
         if self.__class__ is ArchivePayload:
             raise TypeError("ArchivePayload is an abstract class")
 
-        ImagePayload.__init__(self, data)
+        super().__init__(data)
 
 
 class PackagePayload(Payload):
@@ -982,7 +982,7 @@ class PackagePayload(Payload):
         if self.__class__ is PackagePayload:
             raise TypeError("PackagePayload is an abstract class")
 
-        super(PackagePayload, self).__init__(data)
+        super().__init__(data)
         self.install_device = None
         self._rpm_macros = []
 
@@ -994,7 +994,7 @@ class PackagePayload(Payload):
         self._environmentAddons = {}
 
     def preInstall(self):
-        super(PackagePayload, self).preInstall()
+        super().preInstall()
 
         # Set rpm-specific options
 

@@ -67,7 +67,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     _ADDON_DESELECTED = 2
 
     def __init__(self, *args, **kwargs):
-        NormalSpoke.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._errorMsgs = None
         self._tx_id = None
         self._selectFlag = False
@@ -320,7 +320,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self.payload.environmentDescription(self.environment)[0]
 
     def initialize(self):
-        NormalSpoke.initialize(self)
+        super().initialize()
         self.initialize_start()
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOFTWARE_WATCHER,
                                      target=self._initialize))
@@ -381,7 +381,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         listbox.insert(row, -1)
 
     def refresh(self):
-        NormalSpoke.refresh(self)
+        super().refresh()
 
         threadMgr.wait(constants.THREAD_PAYLOAD)
 

@@ -42,7 +42,7 @@ class PassphraseDialog(GUIObject):
     uiFile = "spokes/lib/passphrase.glade"
 
     def __init__(self, data):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
 
         self._passphrase_entry = self.builder.get_object("passphrase_entry")
         self._confirm_entry = self.builder.get_object("confirm_pw_entry")

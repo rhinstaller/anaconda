@@ -52,7 +52,7 @@ class EntropyDialog(GUIObject):
     uiFile = "spokes/lib/entropy_dialog.glade"
 
     def __init__(self, data, desired_entropy):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self._desired_entropy = desired_entropy
         self._progress_bar = self.builder.get_object("progressBar")
         self._terminate = False

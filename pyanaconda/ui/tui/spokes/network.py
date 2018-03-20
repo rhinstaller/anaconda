@@ -246,7 +246,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         if self._container.process_user_input(key):
             return InputState.PROCESSED
         else:
-            return super(NetworkSpoke, self).input(args, key)
+            return super().input(args, key)
 
     def apply(self):
         """Apply all of our settings."""

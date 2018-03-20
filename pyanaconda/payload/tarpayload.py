@@ -47,12 +47,12 @@ class TarPayload(ArchivePayload):
         if tarfile is None:
             raise PayloadError("unsupported payload type")
 
-        super(TarPayload, self).__init__(data)
+        super().__init__(data)
         self.archive = None
         self.image_file = None
 
     def setup(self, storage, instClass):
-        super(TarPayload, self).setup(storage, instClass)
+        super().setup(storage, instClass)
 
         try:
             self.archive = tarfile.open(self.image_file)
@@ -62,7 +62,7 @@ class TarPayload(ArchivePayload):
             raise PayloadError("invalid payload format")
 
     def unsetup(self):
-        super(TarPayload, self).unsetup()
+        super().unsetup()
         self.archive = None
 
     @property

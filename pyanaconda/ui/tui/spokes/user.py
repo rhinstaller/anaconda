@@ -208,7 +208,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.redraw()
             return InputState.PROCESSED
 
-        return super(UserSpoke, self).input(args, key)
+        return super().input(args, key)
 
     def apply(self):
         if self._user_data.gecos and not self._user_data.name:

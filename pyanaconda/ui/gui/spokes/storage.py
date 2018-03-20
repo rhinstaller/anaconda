@@ -107,7 +107,7 @@ class InstallOptionsDialogBase(GUIObject):
 
     def __init__(self, *args, **kwargs):
         self.payload = kwargs.pop("payload", None)
-        GUIObject.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self._grabObjects()
 

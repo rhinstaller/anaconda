@@ -64,7 +64,7 @@ class ResizeDialog(GUIObject):
     uiFile = "spokes/lib/resize.glade"
 
     def __init__(self, data, storage, payload):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self.storage = storage
         self.payload = payload
 
@@ -319,7 +319,7 @@ class ResizeDialog(GUIObject):
 
     # pylint: disable=arguments-differ
     def refresh(self, disks):
-        super(ResizeDialog, self).refresh()
+        super().refresh()
 
         # clear out the store and repopulate it from the devicetree
         self._diskStore.clear()
