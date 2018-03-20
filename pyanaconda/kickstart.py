@@ -21,6 +21,8 @@
 import glob
 import os
 import os.path
+from abc import ABCMeta, abstractmethod
+
 import requests
 import shlex
 import sys
@@ -269,7 +271,7 @@ def refreshAutoSwapSize(storage):
 ###
 
 
-class RemovedCommand(KickstartCommand):
+class RemovedCommand(KickstartCommand, metaclass=ABCMeta):
     """Kickstart command that was moved on DBus.
 
     This class should simplify the transition to DBus.
@@ -279,8 +281,15 @@ class RemovedCommand(KickstartCommand):
     access the DBus modules or moved on DBus.
     """
 
+    @abstractmethod
     def __str__(self):
-        """Generate this part of a kickstart file from the module."""
+        """Generate this part of a kickstart file from the module.
+
+        This method is required to be overridden, so we don't forget
+        to use DBus modules to generate their part of a kickstart file.
+
+        Make sure that each DBus module is used only once.
+        """
         return ""
 
     def parse(self, args):
@@ -290,6 +299,21 @@ class RemovedCommand(KickstartCommand):
         it shouldn't parse anything.
         """
         log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
+
+
+class UselessCommand(RemovedCommand):
+    """Kickstart command that was moved on DBus and doesn't do anything.
+
+    Use this class to override the pykickstart command in our command map,
+    when we don't want the command to do anything. It is not allowed to
+    subclass this class.
+    """
+
+    def __init_subclass__(cls, **kwargs):
+        raise TypeError("It is not allowed to subclass the UselessCommand class.")
+
+    def __str__(self):
+        return ""
 
 
 class Authselect(RemovedCommand):
@@ -2119,13 +2143,6 @@ class XConfig(RemovedCommand):
 
         desktop.write()
 
-class SkipX(RemovedCommand):
-
-    def __str__(self):
-        # The kickstart for this command is generated
-        # by Services module in the Services class.
-        return ""
-
 class Snapshot(commands.snapshot.F26_Snapshot):
     def _post_snapshots(self):
         return filter(lambda snap: snap.when == SNAPSHOT_WHEN_POST_INSTALL, self.dataList())
@@ -2263,6 +2280,12 @@ class ZFCP(commands.zfcp.F14_ZFCP):
         return fcp
 
 class Keyboard(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Localization module in the Lang class.
+        return ""
+
     def execute(self, *args):
         localization_proxy = LOCALIZATION.get_proxy()
         keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
@@ -2381,8 +2404,8 @@ class AnacondaSection(Section):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
-    "auth": RemovedCommand,
-    "authconfig": RemovedCommand,
+    "auth": UselessCommand,
+    "authconfig": UselessCommand,
     "authselect": Authselect,
     "autopart": AutoPart,
     "btrfs": BTRFS,
@@ -2411,7 +2434,7 @@ commandMap = {
     "selinux": SELinux,
     "services": Services,
     "sshkey": SshKey,
-    "skipx": SkipX,
+    "skipx": UselessCommand,
     "snapshot": Snapshot,
     "timezone": Timezone,
     "upgrade": Upgrade,
