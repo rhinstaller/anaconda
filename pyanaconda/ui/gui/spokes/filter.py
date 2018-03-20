@@ -42,6 +42,7 @@ from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
 from pyanaconda.ui.gui.spokes.advstorage.zfcp import ZFCPDialog
 from pyanaconda.ui.gui.spokes.advstorage.dasd import DASDDialog
+from pyanaconda.ui.gui.spokes.advstorage.nvdimm import NVDIMMDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.categories.system import SystemCategory
 
@@ -490,6 +491,7 @@ class NvdimmPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
         self.model = self.builder.get_object("nvdimmModel")
+        self.treeview = self.builder.get_object("nvdimmTreeView")
         self.model.set_visible_func(self.visible_func)
 
         self._combo = self.builder.get_object("nvdimmTypeCombo")
@@ -548,6 +550,15 @@ class NvdimmPage(FilterPage):
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device) and self._filter_func(device)
 
+    def get_selected_namespaces(self):
+        namespaces = []
+        selection = self.treeview.get_selection()
+        store, pathlist = selection.get_selected_rows()
+        for path in pathlist:
+            store_row = DiskStoreRow(*store[store.get_iter(path)])
+            namespaces.append(store_row.namespace)
+
+        return namespaces
 
 class FilterSpoke(NormalSpoke):
     builderObjects = ["diskStore", "filterWindow",
@@ -567,6 +578,8 @@ class FilterSpoke(NormalSpoke):
         self.ancestors = []
         self.disks = []
         self.selected_disks = []
+
+        self._reconfigureNVDIMMButton = self.builder.get_object("reconfigureNVDIMMButton")
 
     @property
     def indirect(self):
@@ -610,6 +623,9 @@ class FilterSpoke(NormalSpoke):
 
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
+
+        # The button is sensitive only on NVDIMM page
+        self._reconfigureNVDIMMButton.set_sensitive(False)
 
         # report that we are done
         self.initialize_done()
@@ -710,6 +726,7 @@ class FilterSpoke(NormalSpoke):
     def on_page_switched(self, notebook, newPage, newPageNum, *args):
         self.pages[newPageNum].model.refilter()
         notebook.get_nth_page(newPageNum).show_all()
+        self._reconfigureNVDIMMButton.set_sensitive(newPageNum == 3)
 
     def on_row_toggled(self, button, path):
         if not path:
@@ -776,6 +793,18 @@ class FilterSpoke(NormalSpoke):
         if rc == 1:
             self.skipTo = "StorageSpoke"
             self.on_back_clicked(rc)
+
+        # We now need to refresh so any new disks picked up by adding advanced
+        # storage are displayed in the UI.
+        self.refresh()
+
+    def on_reconfigure_nvdimm_clicked(self, widget, *args):
+        namespaces = self.pages[PAGE_NVDIMM].get_selected_namespaces()
+        dialog = NVDIMMDialog(self.data, self.storage, namespaces)
+
+        with self.main_window.enlightbox(dialog.window):
+            dialog.refresh()
+            dialog.run()
 
         # We now need to refresh so any new disks picked up by adding advanced
         # storage are displayed in the UI.
