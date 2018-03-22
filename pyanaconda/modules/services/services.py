@@ -19,12 +19,12 @@
 #
 from pykickstart.constants import FIRSTBOOT_DEFAULT, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG
 
-from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET, SETUP_ON_BOOT_DEFAULT, \
-    SETUP_ON_BOOT_ENABLED, SETUP_ON_BOOT_RECONFIG, SETUP_ON_BOOT_DISABLED
+from pyanaconda.core.constants import TEXT_ONLY_TARGET, GRAPHICAL_TARGET
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SERVICES
+from pyanaconda.modules.services.constants import SetupOnBootAction
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.services.services_interface import ServicesInterface
 
@@ -51,7 +51,7 @@ class ServicesModule(KickstartModule):
         self._default_desktop = ""
 
         self.setup_on_boot_changed = Signal()
-        self._setup_on_boot = SETUP_ON_BOOT_DEFAULT
+        self._setup_on_boot = SetupOnBootAction.DEFAULT
 
     def publish(self):
         """Publish the module."""
@@ -107,10 +107,10 @@ class ServicesModule(KickstartModule):
         :return: a converted value of the action
         """
         mapping = {
-            None: SETUP_ON_BOOT_DEFAULT,
-            FIRSTBOOT_SKIP: SETUP_ON_BOOT_DISABLED,
-            FIRSTBOOT_DEFAULT: SETUP_ON_BOOT_ENABLED,
-            FIRSTBOOT_RECONFIG: SETUP_ON_BOOT_RECONFIG,
+            None: SetupOnBootAction.DEFAULT,
+            FIRSTBOOT_SKIP: SetupOnBootAction.DISABLED,
+            FIRSTBOOT_DEFAULT: SetupOnBootAction.ENABLED,
+            FIRSTBOOT_RECONFIG: SetupOnBootAction.RECONFIG,
         }
 
         if reverse:

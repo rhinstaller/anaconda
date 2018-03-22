@@ -19,11 +19,12 @@
 #
 import shlex
 
-from pyanaconda.core.constants import SELINUX_DEFAULT, REALM_NAME, REALM_DISCOVER, REALM_JOIN
+from pyanaconda.core.constants import REALM_NAME, REALM_DISCOVER, REALM_JOIN
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import SECURITY
+from pyanaconda.modules.security.constants import SELinuxMode
 from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.security.security_interface import SecurityInterface
 
@@ -38,7 +39,7 @@ class SecurityModule(KickstartModule):
         super().__init__()
 
         self.selinux_changed = Signal()
-        self._selinux = SELINUX_DEFAULT
+        self._selinux = SELinuxMode.DEFAULT
 
         self.authselect_changed = Signal()
         self._authselect_args = []
@@ -68,7 +69,7 @@ class SecurityModule(KickstartModule):
         log.debug("Processing kickstart data...")
 
         if data.selinux.selinux is not None:
-            self.set_selinux(data.selinux.selinux)
+            self.set_selinux(SELinuxMode(data.selinux.selinux))
 
         if data.authselect.authselect:
             self.set_authselect(shlex.split(data.authselect.authselect))
@@ -88,8 +89,8 @@ class SecurityModule(KickstartModule):
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
 
-        if self.selinux != SELINUX_DEFAULT:
-            data.selinux.selinux = self.selinux
+        if self.selinux != SELinuxMode.DEFAULT:
+            data.selinux.selinux = self.selinux.value
 
         if self.authselect:
             data.authselect.authselect = " ".join(self.authselect)
@@ -108,20 +109,14 @@ class SecurityModule(KickstartModule):
     def selinux(self):
         """The state of SELinux on the installed system.
 
-        Allowed values:
-          -1  Unset.
-           0  Disabled.
-           1  Enforcing.
-           2  Permissive.
-
-        :return: a value of the SELinux state
+        :return: an instance of SELinuxMode
         """
         return self._selinux
 
     def set_selinux(self, value):
         """Sets the state of SELinux on the installed system.
 
-        :param value: a value of the SELinux state
+        :param value: an instance of SELinuxMode
         """
         self._selinux = value
         self.selinux_changed.emit()
