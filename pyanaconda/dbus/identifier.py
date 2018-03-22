@@ -136,15 +136,30 @@ class DBusServiceIdentifier(DBusObjectIdentifier):
         """Return the string representation."""
         return self.service_name
 
+    def _choose_object_path(self, object_path):
+        """Choose an object path."""
+        if object_path is None:
+            return self.object_path
+
+        if isinstance(object_path, DBusObjectIdentifier):
+            return object_path.object_path
+
+        return object_path
+
+    def _choose_interface_names(self, object_path, interface_names):
+        """Choose interface names."""
+        if object_path is None and interface_names is None:
+            return [self.interface_name]
+
+        return interface_names
+
     def get_proxy(self, object_path=None):
         """Returns a proxy of the DBus object.
 
         :param object_path: a DBus path an object or None
         :return: a proxy object
         """
-        if object_path is None:
-            object_path = self.object_path
-
+        object_path = self._choose_object_path(object_path)
         return self._message_bus.get_proxy(self.service_name, object_path)
 
     def get_observer(self, object_path=None):
@@ -153,9 +168,7 @@ class DBusServiceIdentifier(DBusObjectIdentifier):
         :param object_path: a DBus path of an object or None
         :return: an observer object
         """
-        if object_path is None:
-            object_path = self.object_path
-
+        object_path = self._choose_object_path(object_path)
         return self._message_bus.get_observer(self.service_name, object_path)
 
     def get_cached_observer(self, object_path=None, interface_names=None):
@@ -165,11 +178,8 @@ class DBusServiceIdentifier(DBusObjectIdentifier):
         :param interface_names: a list of interface names or None
         :return: an observer object
         """
-        if object_path is None:
-            object_path = self.object_path
-
-            if interface_names is None:
-                interface_names = [self.interface_name]
+        interface_names = self._choose_interface_names(object_path, interface_names)
+        object_path = self._choose_object_path(object_path)
 
         return self._message_bus.get_cached_observer(
             self.service_name, object_path, interface_names
