@@ -61,7 +61,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
-from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.errors import PartitioningError, StorageError
 from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
@@ -80,7 +80,7 @@ from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
                                  OnErrorScriptSection, TracebackScriptSection, Section
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, F27, RHEL8
 
 from pyanaconda import anaconda_logging
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_stderr_logger, get_blivet_logger, get_anaconda_root_logger
@@ -295,9 +295,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             authconfig_log.error("Error running %s %s: %s", cmd, args, msg)
 
-class AutoPart(commands.autopart.F26_AutoPart):
+class AutoPart(commands.autopart.RHEL8_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F26_AutoPart.parse(self, args)
+        retval = commands.autopart.RHEL8_AutoPart.parse(self, args)
 
         if self.fstype:
             fmt = blivet.formats.get_format(self.fstype)
@@ -335,15 +335,15 @@ class AutoPart(commands.autopart.F26_AutoPart):
         if report.failure:
             raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
 
-class Bootloader(commands.bootloader.F21_Bootloader):
+class Bootloader(commands.bootloader.RHEL8_Bootloader):
     def __init__(self, *args, **kwargs):
-        commands.bootloader.F21_Bootloader.__init__(self, *args, **kwargs)
+        commands.bootloader.RHEL8_Bootloader.__init__(self, *args, **kwargs)
         self.location = "mbr"
         self._useBackup = False
         self._origBootDrive = None
 
     def parse(self, args):
-        commands.bootloader.F21_Bootloader.parse(self, args)
+        commands.bootloader.RHEL8_Bootloader.parse(self, args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
             raise KickstartParseError(formatErrorMsg(self.lineno,
                                       msg=_("GRUB2 does not support installation to a partition.")))
@@ -486,93 +486,10 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         if self.nombr:
             flags.nombr = True
 
-class BTRFS(commands.btrfs.F23_BTRFS):
-    def execute(self, storage, ksdata, instClass):
-        for b in self.btrfsList:
-            b.execute(storage, ksdata, instClass)
-
-class BTRFSData(commands.btrfs.F23_BTRFSData):
-    def execute(self, storage, ksdata, instClass):
-        devicetree = storage.devicetree
-
-        storage.do_autopart = False
-
-        members = []
-
-        # Get a list of all the devices that make up this volume.
-        for member in self.devices:
-            dev = devicetree.resolve_device(member)
-            if not dev:
-                # if using --onpart, use original device
-                member_name = ksdata.onPart.get(member, member)
-                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
-
-            if dev and dev.format.type == "luks":
-                try:
-                    dev = dev.children[0]
-                except IndexError:
-                    dev = None
-
-            if dev and dev.format.type != "btrfs":
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
-                             {"device": member, "format": dev.format.type}))
-
-            if not dev:
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Tried to use undefined partition \"%s\" in Btrfs volume specification.") % member))
-
-            members.append(dev)
-
-        if self.subvol:
-            name = self.name
-        elif self.label:
-            name = self.label
-        else:
-            name = None
-
-        if len(members) == 0 and not self.preexist:
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("Btrfs volume defined without any member devices.  Either specify member devices or use --useexisting.")))
-
-        # allow creating btrfs vols/subvols without specifying mountpoint
-        if self.mountpoint in ("none", "None"):
-            self.mountpoint = ""
-
-        # Sanity check mountpoint
-        if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint))
-
-        # If a previous device has claimed this mount point, delete the
-        # old one.
-        try:
-            if self.mountpoint:
-                device = storage.mountpoints[self.mountpoint]
-                storage.destroy_device(device)
-        except KeyError:
-            pass
-
-        if self.preexist:
-            device = devicetree.resolve_device(self.name)
-            if not device:
-                raise KickstartParseError(formatErrorMsg(self.lineno,
-                        msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name))
-
-            device.format.mountpoint = self.mountpoint
-        else:
-            try:
-                request = storage.new_btrfs(name=name,
-                                            subvol=self.subvol,
-                                            mountpoint=self.mountpoint,
-                                            metadata_level=self.metaDataLevel,
-                                            data_level=self.dataLevel,
-                                            parents=members,
-                                            create_options=self.mkfsopts)
-            except BTRFSValueError as e:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=str(e)))
-
-            storage.create_device(request)
+class BTRFS(commands.btrfs.RHEL8_BTRFS):
+    def parse(self, args):
+        commands.btrfs.RHEL8_BTRFS.parse(self, args)
+        raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported.")))
 
 class Realm(commands.realm.F19_Realm):
     def __init__(self, *args):
@@ -688,9 +605,9 @@ class ClearPart(commands.clearpart.F28_ClearPart):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.RHEL8_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = commands.fcoe.RHEL8_Fcoe.parse(self, args)
 
         if fc.nic not in nm.nm_devices():
             raise KickstartParseError(formatErrorMsg(self.lineno,
@@ -799,9 +716,9 @@ class Group(commands.group.F12_Group):
             except ValueError as e:
                 group_log.warning(str(e))
 
-class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
+class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
     def parse(self, args):
-        retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
+        retval = commands.ignoredisk.F14_IgnoreDisk.parse(self, args)
 
         # See comment in ClearPart.parse
         drives = []
@@ -873,7 +790,7 @@ class Lang(commands.lang.F19_Lang):
 # no overrides needed here
 Eula = commands.eula.F20_Eula
 
-class LogVol(commands.logvol.F23_LogVol):
+class LogVol(commands.logvol.RHEL8_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -1240,7 +1157,7 @@ class Network(commands.network.F27_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
-class Partition(commands.partition.F23_Partition):
+class Partition(commands.partition.RHEL8_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1534,7 +1451,7 @@ class PartitionData(commands.partition.F23_PartData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class Raid(commands.raid.F25_Raid):
+class Raid(commands.raid.RHEL8_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
@@ -1869,7 +1786,7 @@ class Timezone(commands.timezone.F25_Timezone):
                 except ntp.NTPconfigError as ntperr:
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
-class User(commands.user.F19_User):
+class User(commands.user.F24_User):
     def execute(self, storage, ksdata, instClass, users):
         algo = getPassAlgo(ksdata.authconfig.authconfig)
 
@@ -1887,12 +1804,12 @@ class User(commands.user.F19_User):
             except ValueError as e:
                 user_log.warning(str(e))
 
-class VolGroup(commands.volgroup.F21_VolGroup):
+class VolGroup(commands.volgroup.RHEL8_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.F21_VolGroupData):
+class VolGroupData(commands.volgroup.RHEL8_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
@@ -2166,13 +2083,19 @@ class F27_InstallClass(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_option("--name", dest="name", required=True, type="string")
+        op = KSOptionParser(prog="installclass", version=F27, description="""
+                            Require the specified install class to be used for
+                            the installation. Otherwise, the best available
+                            install class will be used.""")
+
+        op.add_argument("--name", dest="name", required=True, type=str,
+                        version=F27, help="""
+                        Name of the required install class.""")
         return op
 
     def parse(self, args):
-        (opts, _) = self.op.parse_args(args=args, lineno=self.lineno)
-        self.set_to_self(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(ns)
         return self
 
 class AnacondaSectionHandler(BaseHandler):
@@ -2276,7 +2199,6 @@ commandMap = {
 }
 
 dataMap = {
-    "BTRFSData": BTRFSData,
     "LogVolData": LogVolData,
     "MountData": MountData,
     "PartData": PartitionData,
@@ -2286,7 +2208,7 @@ dataMap = {
     "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(version=RHEL8)
 
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
@@ -2513,7 +2435,7 @@ def runTracebackScripts(scripts):
     script_log.info("All kickstart %%traceback script(s) have been run")
 
 def resetCustomStorageData(ksdata):
-    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
+    for command in ["partition", "raid", "volgroup", "logvol"]:
         ksdata.resetCommand(command)
 
 def doKickstartStorage(storage, ksdata, instClass):
@@ -2533,7 +2455,6 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.raid.execute(storage, ksdata, instClass)
     ksdata.volgroup.execute(storage, ksdata, instClass)
     ksdata.logvol.execute(storage, ksdata, instClass)
-    ksdata.btrfs.execute(storage, ksdata, instClass)
     ksdata.mount.execute(storage, ksdata, instClass)
     # setup snapshot here, that means add it to model and do the tests
     # snapshot will be created on the end of the installation

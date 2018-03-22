@@ -36,7 +36,7 @@ import uuid
 import glob
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.sections import NullSection
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, RHEL8
 from pykickstart.errors import KickstartError
 # pylint: disable=wildcard-import,unused-wildcard-import
 from pykickstart.constants import *
@@ -246,7 +246,7 @@ class DisplayMode(commands.displaymode.F26_DisplayMode, DracutArgsMixin):
 
         return ret
 
-class Bootloader(commands.bootloader.F21_Bootloader, DracutArgsMixin):
+class Bootloader(commands.bootloader.RHEL8_Bootloader, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.extlinux:
             return "extlinux"
@@ -268,7 +268,7 @@ dracutCmds = {
     'text': DisplayMode,
     'bootloader': Bootloader,
 }
-handlerclass = returnClassForVersion()
+handlerclass = returnClassForVersion(RHEL8)
 class DracutHandler(handlerclass):
     def __init__(self):
         handlerclass.__init__(self, commandUpdates=dracutCmds)

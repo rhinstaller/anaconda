@@ -412,8 +412,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             :returns: True if it changed, False if not
             :rtype: bool
         """
-        import copy
-        old_source = copy.deepcopy(self.data.method)
+        # FIXME:
+        # This is an ugly temporary fix, because we cannot use deepcopy since
+        # pykickstart 3. This entire module should be rewritten anyway.
+        old_method = self.data.method.method
+        old_partition = getattr(self.data.method, "partition", None)
+        old_dir = getattr(self.data.method, "dir", None)
+        old_url = getattr(self.data.method, "url", None)
+        old_server = getattr(self.data.method, "server", None)
+        old_opts = getattr(self.data.method, "opts", None)
+        old_mirrorlist = getattr(self.data.method, "mirrorlist", None)
+        old_metalink = getattr(self.data.method, "metalink", None)
 
         if self._autodetectButton.get_active():
             if not self._cdrom:
@@ -421,7 +430,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self.data.method.method = "cdrom"
             self.payload.install_device = self._cdrom
-            if old_source.method == "cdrom":
+            if old_method == "cdrom":
                 # XXX maybe we should always redo it for cdrom in case they
                 #     switched disks
                 return False
@@ -439,9 +448,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self.data.method.partition = part.name
             # The / gets stripped off by payload.ISOImage
             self.data.method.dir = "/" + self._currentIsoFile
-            if (old_source.method == "harddrive" and
-                self.storage.devicetree.resolve_device(old_source.partition) == part and
-                old_source.dir in [self._currentIsoFile, "/" + self._currentIsoFile]):
+            if (old_method == "harddrive" and
+                self.storage.devicetree.resolve_device(old_partition) == part and
+                old_dir in [self._currentIsoFile, "/" + self._currentIsoFile]):
                 return False
 
             # Make sure anaconda doesn't touch this device.
@@ -451,7 +460,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # this preserves the url for later editing
             self.data.method.method = None
             self.data.method.proxy = self._proxyUrl
-            if not old_source.method and self.payload.baseRepo and \
+            if not old_method and self.payload.baseRepo and \
                not self._proxyChange and not self._updatesChange:
                 return False
         elif self._ftp_active():
@@ -467,8 +476,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # revisited.
             if not url.startswith("ftp://"):
                 url = "ftp://" + url
-            if old_source.method == "url" and not self._proxyChange and \
-                    old_source.url == url:
+            if old_method == "url" and not self._proxyChange and \
+                    old_url == url:
                 return False
             self.data.method.method = "url"
             self.data.method.proxy = self._proxyUrl
@@ -492,8 +501,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 url = "https://" + url
 
             url_type = self._urlTypeComboBox.get_active_id()
-            if old_source.method == "url" and not self._proxyChange and \
-                not self._url_changed(url, url_type, old_source):
+            if old_method == "url" and not self._proxyChange and \
+                not self._url_changed(url, url_type, old_url, old_mirrorlist, old_metalink):
                 return False
 
             self.data.method.method = "url"
@@ -522,25 +531,25 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
 
-            if (old_source.method == "nfs" and
-                old_source.server == self.data.method.server and
-                old_source.dir == self.data.method.dir and
-                old_source.opts == self.data.method.opts):
+            if (old_method == "nfs" and
+                old_server == self.data.method.server and
+                old_dir == self.data.method.dir and
+                old_opts == self.data.method.opts):
                 return False
 
         # If the user moved from an HDISO method to some other, we need to
         # clear the protected bit on that device.
-        if old_source.method == "harddrive" and old_source.partition:
+        if old_method == "harddrive" and old_partition:
             if not self._isoButton.get_active():
                 # Only clear this if iso isn't selected
                 self._currentIsoFile = None
                 self._isoChooserButton.set_label(self._origIsoChooserButton)
                 self._isoChooserButton.set_use_underline(True)
 
-            if old_source.partition in self.storage.config.protected_dev_specs:
-                self.storage.config.protected_dev_specs.remove(old_source.partition)
+            if old_partition in self.storage.config.protected_dev_specs:
+                self.storage.config.protected_dev_specs.remove(old_partition)
 
-            dev = self.storage.devicetree.get_device_by_name(old_source.partition)
+            dev = self.storage.devicetree.get_device_by_name(old_partition)
             if dev:
                 dev.protected = False
 
@@ -549,13 +558,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         return True
 
-    def _url_changed(self, url, url_type, old_method):
+    def _url_changed(self, url, url_type, old_url, old_mirrorlist, old_metalink):
         if url_type == URL_TYPE_URL:
-            return url != old_method.url
+            return url != old_url
         elif url_type == URL_TYPE_MIRRORLIST:
-            return url != old_method.mirrorlist
+            return url != old_mirrorlist
         else:
-            return url != old_method.metalink
+            return url != old_metalink
 
     @property
     def changed(self):

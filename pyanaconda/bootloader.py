@@ -1421,7 +1421,7 @@ class GRUB2(GRUB):
     @property
     def stage2_format_types(self):
         if productName.startswith("Red Hat "):              # pylint: disable=no-member
-            return ["xfs", "ext4", "ext3", "ext2", "btrfs"]
+            return ["xfs", "ext4", "ext3", "ext2"]
         else:
             return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
 
