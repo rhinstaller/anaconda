@@ -506,8 +506,13 @@ class NvdimmPage(FilterPage):
         for disk in disks:
             paths = [d.name for d in disk.parents]
             selected = disk.name in selectedNames
+            mutable = not disk.protected
 
-            store.append([True, selected, not disk.protected,
+            if disk.mode != "sector":
+                mutable = False
+                selected = False
+
+            store.append([True, selected, mutable,
                           disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           self._long_identifier(disk), "\n".join(paths), "", "",
