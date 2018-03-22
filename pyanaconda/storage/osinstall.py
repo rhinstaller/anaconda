@@ -38,7 +38,9 @@ from blivet import arch, udev
 from blivet import util as blivet_util
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
-from blivet.devices import FileDevice, NFSDevice, NoDevice, OpticalDevice, NetworkStorageDevice, DirectoryDevice, MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
+from blivet.devices import FileDevice, NFSDevice, NoDevice, OpticalDevice, NetworkStorageDevice, \
+    DirectoryDevice, MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, \
+    LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice, NVDIMMNamespaceDevice
 from blivet.errors import FSTabTypeMismatchError, UnrecognizedFSTabEntryError, StorageError, FSResizeError, FormatResizeError, UnknownSourceDeviceError
 from blivet.formats import get_device_format_class
 from blivet.formats import get_format
@@ -2188,6 +2190,12 @@ def storage_initialize(storage, ksdata, protected):
                 continue
         else:
             break
+
+    # Ignore NVDIMM disks which are not in sector mode
+    for d in storage.disks:
+        if isinstance(d, NVDIMMNamespaceDevice) and d.mode != "sector":
+            log.debug("adding %s to ignored disks - NVDIMM device is not in sector mode", d.name)
+            ksdata.ignoredisk.ignoredisk.append(d.name)
 
     if protected and not flags.livecdInstall and \
        not any(d.protected for d in storage.devices):
