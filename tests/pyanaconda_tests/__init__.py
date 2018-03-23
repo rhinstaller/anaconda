@@ -59,13 +59,14 @@ class run_in_glib(object):
         return create_loop
 
 
-def check_kickstart_interface(test, interface, ks_in, ks_out):
+def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True):
     """Test the parsing and generating of a kickstart module.
 
     :param test: instance of TestCase
     :param interface: instance of KickstartModuleInterface
     :param ks_in: string with the input kickstart
     :param ks_out: string with the output kickstart
+    :param ks_valid: True if the input kickstart is valid, otherwise False
     """
     callback = Mock()
     interface.PropertiesChanged.connect(callback)
@@ -73,8 +74,16 @@ def check_kickstart_interface(test, interface, ks_in, ks_out):
     # Read a kickstart,
     if ks_in is not None:
         ks_in = dedent(ks_in).strip()
-        result = interface.ReadKickstart(ks_in)
-        test.assertEqual({k: v.unpack() for k, v in result.items()}, {"success": True})
+        result = {k: v.unpack() for k, v in interface.ReadKickstart(ks_in).items()}
+
+        if ks_valid:
+            test.assertEqual(result, {"success": True})
+        else:
+            test.assertIn("success", result)
+            test.assertEqual(result["success"], False)
+            test.assertIn("line_number", result)
+            test.assertIn("error_message", result)
+            return
 
     # Generate a kickstart
     ks_out = dedent(ks_out).strip()
