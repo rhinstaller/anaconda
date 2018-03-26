@@ -196,20 +196,29 @@ class KickstartManagerTestCase(unittest.TestCase):
 
     def distribute_test(self):
         manager = KickstartManager()
+
         module1 = TestModule(commands=["network", "firewall"])
         module2 = TestModule(addons=["pony"])
         module3 = TestModule(sections=["packages"])
         module4 = TestModule(addons=["scorched"])
+
         m1_observer = TestModuleObserver("1", "1", module1)
         m2_observer = TestModuleObserver("2", "2", module2)
         m3_observer = TestModuleObserver("3", "3", module3)
+
         unavailable_observer = TestModuleObserver("4", "4", module4)
         unavailable_observer._is_service_available = False
 
-        manager.module_observers = [m1_observer, m2_observer, m3_observer,
-                                    unavailable_observer]
+        manager.module_observers = [
+            m1_observer,
+            m2_observer,
+            m3_observer,
+            unavailable_observer
+        ]
+
         with self._create_ks_files(self._kickstart_include) as filename:
             manager.split(filename)
+
         errors = manager.distribute()
 
         self.assertEqual(module1.kickstart, self._m1_kickstart)
@@ -218,12 +227,24 @@ class KickstartManagerTestCase(unittest.TestCase):
         self.assertEqual(module4.kickstart, "")
         self.assertEqual(manager.unprocessed_kickstart, self._unprocessed_kickstart)
 
-        expected_errors = {("1", 5, 'ks.manager.test.include1.cfg'),
-                           ("3", 42, 'ks.manager.test.include.cfg')}
-        actual_errors = set()
-        for service_name, (lineno, file_name), _msg in errors:
-            actual_errors.add((service_name, lineno, file_name))
-        self.assertEqual(actual_errors, expected_errors)
+        expected_errors = [
+            {
+                "success": False,
+                "error_message": "Mocked parse error: \"PARSE_ERROR\" found",
+                "line_number": 5,
+                "module_name": "1",
+                "file_name": "ks.manager.test.include1.cfg"
+            },
+            {
+                "success": False,
+                "error_message": "Mocked parse error: \"PARSE_ERROR\" found",
+                "line_number": 41,
+                "module_name": "3",
+                "file_name": "ks.manager.test.include.cfg"
+            }
+        ]
+
+        self.assertEqual(errors, expected_errors)
 
     def unknown_section_split_test(self):
         ks_content = """
@@ -272,27 +293,31 @@ class TestModule(object):
         self.kickstart_addons = addons or []
         self.kickstart = ""
 
+    @property
     def KickstartSections(self):
         return self.kickstart_sections
 
+    @property
     def KickstartAddons(self):
         return self.kickstart_addons
 
+    @property
     def KickstartCommands(self):
         return self.kickstart_commands
 
-    def configure_with_kickstart(self, kickstart):
+    def ReadKickstart(self, kickstart):
         """Mock parsing for now.
 
         Returns parse error if PARSE_ERROR string is found in kickstart.
         """
-        lineno, msg = (0, "")
+        self.kickstart = kickstart
+
         for lnum, line in enumerate(kickstart.splitlines(), 1):
             if "PARSE_ERROR" in line:
-                lineno, msg = (lnum, "Mocked parse error: \"PARSE_ERROR\" found")
-                break
-        return (lineno, msg)
+                return {
+                    "success": False,
+                    "error_message": "Mocked parse error: \"PARSE_ERROR\" found",
+                    "line_number": lnum
+                }
 
-    def ConfigureWithKickstart(self, kickstart):
-        self.kickstart = kickstart
-        return self.configure_with_kickstart(kickstart)
+        return {"success": True}
