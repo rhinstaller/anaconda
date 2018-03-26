@@ -508,7 +508,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not flags.can_touch_runtime_system("modify system time and date"):
             self._set_date_time_setting_sensitive(False)
 
-        self._config_dialog = NTPconfigDialog(None, self._timezone_module)
+        self._config_dialog = NTPconfigDialog(self.data, self._timezone_module)
         self._config_dialog.initialize()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
