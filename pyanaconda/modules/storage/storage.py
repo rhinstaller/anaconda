@@ -20,6 +20,8 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
+from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 
@@ -30,8 +32,25 @@ log = get_module_logger(__name__)
 class StorageModule(KickstartModule):
     """The Storage module."""
 
+    def __init__(self):
+        super().__init__()
+        self._modules = []
+
+        self._disk_init_module = DiskInitializationModule()
+        self._add_module(self._disk_init_module)
+
+        self._disk_selection_module = DiskSelectionModule()
+        self._add_module(self._disk_selection_module)
+
+    def _add_module(self, storage_module):
+        """Add a base kickstart module."""
+        self._modules.append(storage_module)
+
     def publish(self):
         """Publish the module."""
+        for kickstart_module in self._modules:
+            kickstart_module.publish()
+
         DBus.publish_object(STORAGE.object_path, StorageInterface(self))
         DBus.register_service(STORAGE.service_name)
 
@@ -44,8 +63,15 @@ class StorageModule(KickstartModule):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
+        for kickstart_module in self._modules:
+            kickstart_module.process_kickstart(data)
+
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
+
+        for kickstart_module in self._modules:
+            kickstart_module.setup_kickstart(data)
+
         return str(data)
