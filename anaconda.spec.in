@@ -334,6 +334,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 27 2018 Martin Kolman <mkolman@redhat.com> - 29.6-1
+- Create the disk initialization and disk selection modules (vponcova)
+- Use watch_property to watch changes of DBus properties (vponcova)
+- Better organize the base classes for modules (vponcova)
+- Fixed KS forcing zerombr onto RO disk (japokorn)
+- Add tests for the kickstart specifications (vponcova)
+- Standardize calls to parent via super() (riehecky)
+- Fix 'isDisk' property name (#1558906) (vtrefny)
+- Make the class for removed kickstart commands more strict (vponcova)
+- Fix the progress bar steps (vponcova)
+- Use enum for the first boot action (vponcova)
+- Use enum for the SELinux modes (vponcova)
+- datetime spoke: still pass ksdata to NTPconfigDialog (UIObject) (rvykydal)
+
 * Mon Mar 19 2018 Martin Kolman <mkolman@redhat.com> - 29.5-1
 - Write rootpw command to kickstart (#1557529) (mkolman)
 - Don't make safe to observe services on buses that don't run (vponcova)
