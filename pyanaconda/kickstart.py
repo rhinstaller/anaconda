@@ -344,15 +344,8 @@ class Authselect(RemovedCommand):
     def execute(self, *args):
         security_proxy = SECURITY.get_proxy()
 
-        # Enable fingerprint option by default (#481273).
-        if not flags.automatedInstall and self.fingerprint_supported:
-            self._run(
-                "/usr/bin/authselect",
-                ["select", "sssd", "with-fingerprints", "--force"],
-                required=False
-            )
-
-        # Apply the authselect options from the kickstart file.
+        # Only call authselect if explicitly specified in kickstart.
+        # https://github.com/pbrezina/authselect/issues/48
         if security_proxy.Authselect:
             self._run(
                 "/usr/bin/authselect",
