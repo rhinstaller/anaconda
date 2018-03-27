@@ -20,6 +20,7 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
@@ -41,6 +42,9 @@ class StorageModule(KickstartModule):
 
         self._disk_selection_module = DiskSelectionModule()
         self._add_module(self._disk_selection_module)
+
+        self._bootloader_module = BootloaderModule()
+        self._add_module(self._bootloader_module)
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""

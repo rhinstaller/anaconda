@@ -24,6 +24,11 @@ BOSS_INSTALLATION = DBusObjectIdentifier(
     basename="Installation"
 )
 
+BOOTLOADER = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="Bootloader"
+)
+
 DISK_INITIALIZATION = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="DiskInitialization"

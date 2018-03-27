@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = disk_initialization disk_selection bootloader
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-storage_moduledir = $(pkgpyexecdir)/modules/storage
-storage_module_PYTHON = $(srcdir)/*.py
+bootloader_moduledir = $(pkgpyexecdir)/modules/storage/bootloader
+bootloader_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
