@@ -173,7 +173,7 @@ class AnacondaPrefixFilter(logging.Filter):
                 record.log_prefix = record.name[9:]
         return True
 
-class AnacondaLog:
+class AnacondaLog(object):
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
     VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 

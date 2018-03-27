@@ -170,6 +170,14 @@ class BaseInstallClass(object):
         # Customize the default partitioning with kickstart data.
         self.customizeDefaultPartitioning(anaconda.storage, anaconda.ksdata)
 
+    def configurePayload(self, payload):
+        """Configure install class specific payload operations.
+
+        This is called after payload is created.
+        Beware: This method is called before payload is restarted so it is not completely set up.
+        """
+        self.setPackageSelection(payload)
+
     def setStorageChecker(self, storage_checker):
         # Update constraints and add or remove some checks in
         # the storage checker to customize the storage sanity

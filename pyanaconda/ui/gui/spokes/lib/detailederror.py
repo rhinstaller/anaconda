@@ -41,7 +41,7 @@ class DetailedErrorDialog(GUIObject):
     def __init__(self, *args, **kwargs):
         buttons = kwargs.pop("buttons", [])
         label = kwargs.pop("label", None)
-        GUIObject.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         if not buttons:
             widget = self.window.add_button(C_("GUI|Detailed Error Dialog", "_Cancel"), 0)

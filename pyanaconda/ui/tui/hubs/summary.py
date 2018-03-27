@@ -42,7 +42,7 @@ class SummaryHub(TUIHub):
     helpFile = "SummaryHub.txt"
 
     def __init__(self, data, storage, payload, instclass):
-        super(SummaryHub, self).__init__(data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Installation")
 
         if not flags.dirInstall:
@@ -130,7 +130,7 @@ class SummaryHub(TUIHub):
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
-        prompt = super(SummaryHub, self).prompt(args)
+        prompt = super().prompt(args)
         # this screen cannot be closed
         prompt.remove_option(Prompt.CONTINUE)
         # TRANSLATORS: 'b' to begin installation
@@ -165,4 +165,4 @@ class SummaryHub(TUIHub):
                 # which is the global TUI key to close the current screen
                 return InputState.DISCARDED
             else:
-                return super(SummaryHub, self).input(args, key)
+                return super().input(args, key)

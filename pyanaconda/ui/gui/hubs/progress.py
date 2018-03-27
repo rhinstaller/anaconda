@@ -54,7 +54,7 @@ class ProgressHub(Hub):
     helpFile = "ProgressHub.xml"
 
     def __init__(self, data, storage, payload, instclass):
-        Hub.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
 
         self._totalSteps = 0
         self._currentStep = 0
@@ -211,7 +211,7 @@ class ProgressHub(Hub):
         return True
 
     def initialize(self):
-        Hub.initialize(self)
+        super().initialize()
 
         if flags.livecdInstall:
             continueText = self.builder.get_object("rebootLabel")
@@ -259,7 +259,7 @@ class ProgressHub(Hub):
         from pyanaconda.installation import doInstall
         from pyanaconda.threading import threadMgr, AnacondaThread
 
-        Hub.refresh(self)
+        super().refresh()
 
         self._start_ransom_notes()
         self._update_progress_timer.timeout_msec(250, self._update_progress, self._install_done)

@@ -58,7 +58,7 @@ from pyanaconda.payload import versionCmp
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
     def __init__(self, *args, **kwargs):
-        super(LiveImagePayload, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         # Used to adjust size of sysroot when files are already present
         self._adj_size = 0
         self.pct = 0
@@ -68,7 +68,7 @@ class LiveImagePayload(ImagePayload):
         self._kernelVersionList = []
 
     def setup(self, storage, instClass):
-        super(LiveImagePayload, self).setup(storage, instClass)
+        super().setup(storage, instClass)
 
         # Mount the live device and copy from it instead of the overlay at /
         osimg = storage.devicetree.get_device_by_path(self.data.method.partition)
@@ -90,7 +90,7 @@ class LiveImagePayload(ImagePayload):
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def unsetup(self):
-        super(LiveImagePayload, self).unsetup()
+        super().unsetup()
 
         # Unmount a previously mounted live tree
         try:
@@ -100,7 +100,7 @@ class LiveImagePayload(ImagePayload):
 
     def preInstall(self):
         """ Perform pre-installation tasks. """
-        super(LiveImagePayload, self).preInstall()
+        super().preInstall()
         progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
 
     def progress(self):
@@ -180,7 +180,7 @@ class LiveImagePayload(ImagePayload):
         progressQ.send_message(_("Performing post-installation setup tasks"))
         blivet.util.umount(INSTALL_TREE)
 
-        super(LiveImagePayload, self).postInstall()
+        super().postInstall()
 
         # Make sure the new system has a machine-id, it won't boot without it
         if not os.path.exists(util.getSysroot() + "/etc/machine-id"):
@@ -245,7 +245,7 @@ class DownloadProgress(object):
 class LiveImageKSPayload(LiveImagePayload):
     """ Install using a live filesystem image from the network """
     def __init__(self, *args, **kwargs):
-        super(LiveImageKSPayload, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._min_size = 0
         self._proxies = {}
         self.image_path = util.getSysroot() + "/disk.img"
@@ -455,7 +455,7 @@ class LiveImageKSPayload(LiveImagePayload):
         """
         # If it doesn't look like a tarfile use the super's install()
         if not self.is_tarfile:
-            super(LiveImageKSPayload, self).install()
+            super().install()
             return
 
         # Use 2x the archive's size to estimate the size of the install
@@ -505,7 +505,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
             If file:// was used, just unmount it.
         """
-        super(LiveImageKSPayload, self).postInstall()
+        super().postInstall()
 
         if os.path.exists(IMAGE_DIR + "/LiveOS"):
             blivet.util.umount(IMAGE_DIR)
@@ -529,7 +529,7 @@ class LiveImageKSPayload(LiveImagePayload):
     def kernelVersionList(self):
         # If it doesn't look like a tarfile use the super's kernelVersionList
         if not self.is_tarfile:
-            return super(LiveImageKSPayload, self).kernelVersionList
+            return super().kernelVersionList
 
         import tarfile
         with tarfile.open(self.image_path) as archive:

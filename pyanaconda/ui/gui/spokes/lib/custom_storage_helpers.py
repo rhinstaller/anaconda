@@ -314,7 +314,7 @@ class AddDialog(GUIObject):
 
     def __init__(self, *args, **kwargs):
         self.mountpoints = kwargs.pop("mountpoints", [])
-        GUIObject.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.size = Size(0)
         self.mountpoint = ""
         self._error = False
@@ -346,7 +346,7 @@ class AddDialog(GUIObject):
         self.window.destroy()
 
     def refresh(self):
-        GUIObject.refresh(self)
+        super().refresh()
         self._warningLabel.set_text("")
 
     def run(self):
@@ -362,7 +362,7 @@ class ConfirmDeleteDialog(GUIObject):
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
     def __init__(self, *args, **kwargs):
-        GUIObject.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._optional_checkbox = self.builder.get_object("optionalCheckbox")
 
     @property
@@ -384,7 +384,7 @@ class ConfirmDeleteDialog(GUIObject):
                                       not display the checkbox.
             :param bool snapshot: If true warn user he's going to delete snapshots too.
         """
-        GUIObject.refresh(self)
+        super().refresh()
         label = self.builder.get_object("confirmLabel")
 
         if checkbox_text:
@@ -418,7 +418,7 @@ class DisksDialog(GUIObject):
         self._disks = kwargs.pop("disks")
         free = kwargs.pop("free")
         self.selected = kwargs.pop("selected")[:]
-        GUIObject.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._store = self.builder.get_object("disk_store")
         # populate the store
         for disk in self._disks:

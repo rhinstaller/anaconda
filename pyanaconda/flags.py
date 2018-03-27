@@ -107,7 +107,7 @@ class BootArgs(OrderedDict):
         Create a BootArgs object.
         Reads each of the "files", then parses "cmdline" if it was provided.
         """
-        OrderedDict.__init__(self)
+        super().__init__()
         if files is None:
             self.read(cmdline_files)
         elif files:

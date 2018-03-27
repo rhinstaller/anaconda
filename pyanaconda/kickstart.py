@@ -190,7 +190,7 @@ class AnacondaKSScript(KSScript):
 
 class AnacondaInternalScript(AnacondaKSScript):
     def __init__(self, *args, **kwargs):
-        AnacondaKSScript.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._hidden = True
 
     def __str__(self):
@@ -381,7 +381,7 @@ class Authselect(RemovedCommand):
 
 class AutoPart(commands.autopart.F26_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F26_AutoPart.parse(self, args)
+        retval = super().parse(args)
 
         if self.fstype:
             fmt = blivet.formats.get_format(self.fstype)
@@ -421,13 +421,13 @@ class AutoPart(commands.autopart.F26_AutoPart):
 
 class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):
-        commands.bootloader.F21_Bootloader.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.location = "mbr"
         self._useBackup = False
         self._origBootDrive = None
 
     def parse(self, args):
-        commands.bootloader.F21_Bootloader.parse(self, args)
+        super().parse(args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
             raise KickstartParseError(lineno=self.lineno,
                                       msg=_("GRUB2 does not support installation to a partition."))
@@ -731,7 +731,7 @@ class Realm(RemovedCommand):
 
 class ClearPart(commands.clearpart.F28_ClearPart):
     def parse(self, args):
-        retval = commands.clearpart.F28_ClearPart.parse(self, args)
+        retval = super().parse(args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
@@ -786,7 +786,7 @@ class ClearPart(commands.clearpart.F28_ClearPart):
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = super().parse(args)
 
         if fc.nic not in nm.nm_devices():
             raise KickstartParseError(lineno=self.lineno,
@@ -806,7 +806,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
 class Firewall(commands.firewall.F28_Firewall):
     def __init__(self, *args, **kwargs):
-        commands.firewall.F28_Firewall.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.packages = []
 
     def setup(self):
@@ -900,7 +900,7 @@ class Group(commands.group.F12_Group):
 
 class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
     def parse(self, args):
-        retval = commands.ignoredisk.F14_IgnoreDisk.parse(self, args)
+        retval = super().parse(args)
 
         # See comment in ClearPart.parse
         drives = []
@@ -929,7 +929,7 @@ class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
 
 class Iscsi(commands.iscsi.F17_Iscsi):
     def parse(self, args):
-        tg = commands.iscsi.F17_Iscsi.parse(self, args)
+        tg = super().parse(args)
 
         if tg.iface:
             if not network.wait_for_network_devices([tg.iface]):
@@ -960,7 +960,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
 
 class IscsiName(commands.iscsiname.FC6_IscsiName):
     def parse(self, args):
-        retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
+        retval = super().parse(args)
 
         blivet.iscsi.iscsi.initiator = self.iscsiname
         return retval
@@ -1318,11 +1318,11 @@ class MountData(commands.mount.F27_MountData):
 
 class Network(commands.network.F27_Network):
     def __init__(self, *args, **kwargs):
-        commands.network.F27_Network.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.packages = []
 
     def parse(self, args):
-        nd = commands.network.F27_Network.parse(self, args)
+        nd = super().parse(args)
         setting_only_hostname = nd.hostname and len(args) <= 2
         if not setting_only_hostname:
             if not nd.device:
@@ -1836,7 +1836,7 @@ class RepoData(commands.repo.F27_RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
 
-        commands.repo.F27_RepoData.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
@@ -2220,7 +2220,7 @@ class Snapshot(commands.snapshot.F26_Snapshot):
 
 class SnapshotData(commands.snapshot.F26_SnapshotData):
     def __init__(self, *args, **kwargs):
-        commands.snapshot.F26_SnapshotData.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.thin_snapshot = None
 
     def setup(self, storage, ksdata, instClass):
@@ -2271,7 +2271,7 @@ class SnapshotData(commands.snapshot.F26_SnapshotData):
 
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
-        fcp = commands.zfcp.F14_ZFCP.parse(self, args)
+        fcp = super().parse(args)
         try:
             blivet.zfcp.zfcp.add_fcp(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError as e:
@@ -2355,7 +2355,7 @@ class AnacondaSectionHandler(BaseHandler):
     }
 
     def __init__(self):
-        BaseHandler.__init__(self, mapping=self.commandMap, dataMapping=self.dataMap)
+        super().__init__(mapping=self.commandMap, dataMapping=self.dataMap)
 
     def __str__(self):
         """Return the %anaconda section"""
@@ -2376,7 +2376,7 @@ class AnacondaSection(Section):
     sectionOpen = "%anaconda"
 
     def __init__(self, *args, **kwargs):
-        Section.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.cmdno = 0
 
     def handleLine(self, line):
@@ -2470,7 +2470,7 @@ class AnacondaKSHandler(superclass):
         if dataUpdates is None:
             dataUpdates = dataMap
 
-        superclass.__init__(self, commandUpdates=commandUpdates, dataUpdates=dataUpdates)
+        super().__init__(commandUpdates=commandUpdates, dataUpdates=dataUpdates)
         self.onPart = {}
 
         # collect all kickstart addons for anaconda to addons dictionary
@@ -2498,14 +2498,14 @@ class AnacondaKSHandler(superclass):
         self.anaconda = AnacondaSectionHandler()
 
     def __str__(self):
-        return superclass.__str__(self) + "\n" + str(self.addons) + str(self.anaconda)
+        return super().__str__() + "\n" + str(self.addons) + str(self.anaconda)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
     def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
                  missingIncludeIsFatal=True):
-        KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
+        super().__init__(handler, missingIncludeIsFatal=False)
 
     def handleCommand(self, lineno, args):
         pass
@@ -2525,7 +2525,7 @@ class AnacondaKSParser(KickstartParser):
     def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
                  missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
         self.scriptClass = scriptClass
-        KickstartParser.__init__(self, handler)
+        super().__init__(handler)
 
     def handleCommand(self, lineno, args):
         if not self.handler:

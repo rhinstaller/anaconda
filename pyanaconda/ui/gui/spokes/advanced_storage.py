@@ -161,7 +161,7 @@ class SearchPage(FilterPage):
     SEARCH_TYPE_WWID = 'WWID'
 
     def __init__(self, storage, builder):
-        FilterPage.__init__(self, storage, builder)
+        super().__init__(storage, builder)
         self.model = self.builder.get_object("searchModel")
         self.model.set_visible_func(self.visible_func)
 
@@ -245,7 +245,7 @@ class MultipathPage(FilterPage):
     SEARCH_TYPE_WWID = 'WWID'
 
     def __init__(self, storage, builder):
-        FilterPage.__init__(self, storage, builder)
+        super().__init__(storage, builder)
         self.model = self.builder.get_object("multipathModel")
         self.model.set_visible_func(self.visible_func)
 
@@ -318,7 +318,7 @@ class OtherPage(FilterPage):
     SEARCH_TYPE_ID = 'ID'
 
     def __init__(self, storage, builder):
-        FilterPage.__init__(self, storage, builder)
+        super().__init__(storage, builder)
         self.model = self.builder.get_object("otherModel")
         self.model.set_visible_func(self.visible_func)
 
@@ -400,7 +400,7 @@ class ZPage(FilterPage):
     SEARCH_TYPE_LUN = 'LUN'
 
     def __init__(self, storage, builder):
-        FilterPage.__init__(self, storage, builder)
+        super().__init__(self, storage, builder)
         self.model = self.builder.get_object("zModel")
         self.model.set_visible_func(self.visible_func)
 
@@ -489,7 +489,7 @@ class FilterSpoke(NormalSpoke):
     title = CN_("GUI|Spoke", "_INSTALLATION DESTINATION")
 
     def __init__(self, *args):
-        NormalSpoke.__init__(self, *args)
+        super().__init__(*args)
         self.applyOnSkip = True
 
         self.ancestors = []
@@ -515,7 +515,7 @@ class FilterSpoke(NormalSpoke):
         on_disk_storage.create_snapshot(self.storage)
 
     def initialize(self):
-        NormalSpoke.initialize(self)
+        super().initialize()
         self.initialize_start()
 
         self.pages = [SearchPage(self.storage, self.builder),
@@ -548,7 +548,7 @@ class FilterSpoke(NormalSpoke):
         return [d for d in disk.ancestors if d.name != disk.name]
 
     def refresh(self):
-        NormalSpoke.refresh(self)
+        super().refresh()
 
         self.disks = getDisks(self.storage.devicetree)
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
@@ -606,7 +606,7 @@ class FilterSpoke(NormalSpoke):
 
     def on_back_clicked(self, button):
         self.skipTo = "StorageSpoke"
-        NormalSpoke.on_back_clicked(self, button)
+        super().on_back_clicked(button)
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)

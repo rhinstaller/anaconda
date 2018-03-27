@@ -121,7 +121,7 @@ class AnacondaArgumentParser(ArgumentParser):
         flags = [a for a in args if a.startswith('-')]
         bootargs = [a for a in args if not a.startswith('-')]
         do_bootarg = kwargs.pop("bootarg", True)
-        option = super(AnacondaArgumentParser, self).add_argument(*flags, **kwargs)
+        option = super().add_argument(*flags, **kwargs)
         # make a generator that returns only the long opts without the -- prefix
         long_opts = (o[2:] for o in option.option_strings if o.startswith("--"))
         bootargs += (flag for flag in long_opts)
@@ -239,7 +239,7 @@ class AnacondaArgumentParser(ArgumentParser):
         # created from parsing boot options, overriding any options
         # with the same destination already present in the namespace
         # NOTE: this means that CLI options override boot options
-        namespace = ArgumentParser.parse_args(self, args, namespace)
+        namespace = super().parse_args(args, namespace)
         return namespace
 
 def name_path_pairs(image_specs):

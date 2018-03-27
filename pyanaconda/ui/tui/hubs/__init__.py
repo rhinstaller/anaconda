@@ -157,7 +157,7 @@ class TUIHub(TUIObject, common.Hub):
                  to skip further input processing
         :rtype: str|None
         """
-        prompt = super(TUIHub, self).prompt(args)
+        prompt = super().prompt(args)
 
         if self._spoke_count == 1:
             prompt.add_option("1", _("to enter the %(spoke_title)s spoke") % {"spoke_title": list(self._spokes.values())[0].title})

@@ -427,7 +427,7 @@ class NormalSpoke(Spoke):
 
     def __init__(self, storage, payload, instclass):
         """Create a NormalSpoke instance."""
-        Spoke.__init__(self, storage, payload, instclass)
+        super().__init__(storage, payload, instclass)
         self.selector = None
 
     @property
@@ -493,7 +493,7 @@ class StandaloneSpoke(Spoke):
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        Spoke.__init__(self, storage, payload, instclass)
+        super().__init__(storage, payload, instclass)
 
     # Standalone spokes are not part of a hub, and thus have no status.
     # Provide a concrete implementation of status here so that subclasses

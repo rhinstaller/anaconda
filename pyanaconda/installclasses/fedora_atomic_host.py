@@ -41,7 +41,7 @@ class AtomicHostInstallClass(FedoraBaseInstallClass):
 
     def __init__(self):
         self.localemap = {}  # loaded lazily
-        FedoraBaseInstallClass.__init__(self)
+        super().__init__()
 
     def setDefaultPartitioning(self, storage):
         FedoraServerInstallClass.createDefaultPartitioning(storage)

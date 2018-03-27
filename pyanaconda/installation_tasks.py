@@ -100,7 +100,7 @@ class TaskQueue(BaseTask):
     """
 
     def __init__(self, name, status_message=None):
-        super(TaskQueue, self).__init__(name=name)
+        super().__init__(name=name)
         self._status_message = status_message
         self._current_task_number = None
         self._current_queue_number = None
@@ -385,7 +385,7 @@ class Task(BaseTask):
     """
 
     def __init__(self, name, task=None, task_args=None, task_kwargs=None):
-        super(Task, self).__init__(name=name)
+        super().__init__(name=name)
         self._task = task
         if task_args is None:
             task_args = []

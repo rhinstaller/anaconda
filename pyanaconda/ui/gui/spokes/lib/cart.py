@@ -37,7 +37,7 @@ class SelectedDisksDialog(GUIObject):
     uiFile = "spokes/lib/cart.glade"
 
     def __init__(self, data):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
 
         self._view = self.builder.get_object("disk_tree_view")
         self._store = self.builder.get_object("disk_store")
@@ -94,7 +94,7 @@ class SelectedDisksDialog(GUIObject):
 
     # pylint: disable=arguments-differ
     def refresh(self, disks, free, showRemove=True, setBoot=True):
-        super(SelectedDisksDialog, self).refresh()
+        super().refresh()
 
         # clear out the store and repopulate it from the devicetree
         self._store.clear()
