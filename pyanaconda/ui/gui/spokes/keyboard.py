@@ -66,7 +66,7 @@ class AddLayoutDialog(GUIObject):
     uiFile = "spokes/keyboard.glade"
 
     def __init__(self, data):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self._xkl_wrapper = XklWrapper.get_instance()
         self._chosen_layouts = []
 
@@ -181,7 +181,7 @@ class ConfigureSwitchingDialog(GUIObject):
     uiFile = "spokes/keyboard.glade"
 
     def __init__(self, data, l12_module):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self._xkl_wrapper = XklWrapper.get_instance()
 
         self._switchingOptsStore = self.builder.get_object("switchingOptsStore")
@@ -275,7 +275,7 @@ class KeyboardSpoke(NormalSpoke):
     title = CN_("GUI|Spoke", "_KEYBOARD")
 
     def __init__(self, *args):
-        NormalSpoke.__init__(self, *args)
+        super().__init__(*args)
         self._remove_last_attempt = False
         self._confirmed = False
         self._xkl_wrapper = XklWrapper.get_instance()
@@ -326,7 +326,7 @@ class KeyboardSpoke(NormalSpoke):
         return self._ready and threadMgr.get(ADD_LAYOUTS_INITIALIZE_THREAD) is None
 
     def initialize(self):
-        NormalSpoke.initialize(self)
+        super().initialize()
         self.initialize_start()
 
 
@@ -394,7 +394,7 @@ class KeyboardSpoke(NormalSpoke):
         self.initialize_done()
 
     def refresh(self):
-        NormalSpoke.refresh(self)
+        super().refresh()
 
         # Clear out the layout testing box every time the spoke is loaded.  It
         # doesn't make sense to leave temporary data laying around.

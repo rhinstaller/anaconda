@@ -48,7 +48,7 @@ class SoftwareSpoke(NormalTUISpoke):
     category = SoftwareCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Software selection")
         self._container = None
         self.errors = []
@@ -74,7 +74,7 @@ class SoftwareSpoke(NormalTUISpoke):
         # Start a thread to wait for the payload and run the first, automatic
         # dependency check
         self.initialize_start()
-        super(SoftwareSpoke, self).initialize()
+        super().initialize()
         threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER,
                                      target=self._initialize))
 
@@ -271,7 +271,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 return InputState.PROCESSED
             else:
-                return super(SoftwareSpoke, self).input(args, key)
+                return super().input(args, key)
 
         return InputState.PROCESSED
 

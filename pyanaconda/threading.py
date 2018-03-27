@@ -279,7 +279,7 @@ class AnacondaThread(threading.Thread):
         else:
             self._fatal = True
 
-        threading.Thread.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.daemon = True
 
     def run(self):

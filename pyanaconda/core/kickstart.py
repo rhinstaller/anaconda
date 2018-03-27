@@ -88,7 +88,11 @@ class KickstartSpecificationHandler(KickstartHandler):
         setattr(self, name, obj)
 
         # Write the section at the end of the output.
-        write_priority = max(self._writeOrder.keys()) + 100
+        write_priority = 0
+
+        if self._writeOrder:
+            write_priority = max(self._writeOrder.keys()) + 100
+
         self._writeOrder[write_priority] = [obj]
 
 

@@ -54,7 +54,7 @@ class dbus_signal(signal):
     have no arguments and signal.definition is equal to None.
     """
     def __init__(self, method=None):
-        super(dbus_signal, self).__init__()
+        super().__init__()
         self.definition = method
 
 

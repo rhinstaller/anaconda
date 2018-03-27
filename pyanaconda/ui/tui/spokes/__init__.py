@@ -106,7 +106,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
                 self.redraw()
                 return InputState.PROCESSED
 
-        return super(NormalTUISpoke, self).input(args, key)
+        return super().input(args, key)
 
     def prompt(self, args=None):
         """Return the prompt."""

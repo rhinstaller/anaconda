@@ -60,7 +60,7 @@ class GUIInputCheck(InputCheck):
     """
 
     def __init__(self, parent, input_obj, run_check, data=None):
-        InputCheck.__init__(self, parent, input_obj, run_check, data)
+        super().__init__(parent, input_obj, run_check, data)
 
         # Add the timer here instead of decorating a method so that a new
         # TimedAction is created for every instance
@@ -76,7 +76,7 @@ class GUIInputCheck(InputCheck):
             # object, not a curried function around the object.
             self.update_check_status.run_now()
 
-        return super(GUIInputCheck, self).check_status
+        return super().check_status
 
 # Inherit abstract methods from InputCheckHandler
 # pylint: disable=abstract-method
@@ -132,7 +132,7 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """
 
     def __init__(self, ok_button=None):
-        GUIInputCheckHandler.__init__(self)
+        super().__init__()
         self._ok_button = ok_button
 
     def _update_check_status(self, editable, inputcheck):
@@ -144,7 +144,7 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
         if self._ok_button:
             self._ok_button.set_sensitive(True)
 
-        return super(GUIDialogInputCheckHandler, self)._update_check_status(editable, inputcheck)
+        return super()._update_check_status(editable, inputcheck)
 
     def set_status(self, inputcheck):
         if inputcheck.check_status in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT):
@@ -187,7 +187,7 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """
 
     def __init__(self):
-        GUIInputCheckHandler.__init__(self)
+        super().__init__()
 
         self._checker = None
         self._prev_status = None

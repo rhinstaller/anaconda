@@ -78,7 +78,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     configuration_queue = TaskQueue("Configuration queue")
     # connect progress reporting
     configuration_queue.queue_started.connect(lambda x: progress_message(x.status_message))
-    configuration_queue.queue_completed.connect(lambda x: progress_step("%s -- DONE" % x.status_message))
+    configuration_queue.task_completed.connect(lambda x: progress_step(x.name))
 
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
@@ -175,7 +175,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         configuration_queue.append(write_configs)
 
     # notify progress tracking about the number of steps
-    progress_init(len(configuration_queue))
+    progress_init(configuration_queue.task_count)
     # log contents of the main task queue
     log.info(configuration_queue.summary)
 
@@ -206,7 +206,7 @@ def doInstall(storage, payload, ksdata, instClass):
     installation_queue = TaskQueue("Installation queue")
     # connect progress reporting
     installation_queue.queue_started.connect(lambda x: progress_message(x.status_message))
-    installation_queue.queue_completed.connect(lambda x: progress_step("%s -- DONE" % x.status_message))
+    installation_queue.task_completed.connect(lambda x: progress_step(x.name))
 
     # This should be the only thread running, wait for the others to finish if not.
     if threadMgr.running > 1:
@@ -255,13 +255,10 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # callbacks for blivet
     message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
-    step_clbk = lambda clbk_data: progress_step(clbk_data.msg)
     entropy_wait_clbk = lambda clbk_data: wait_for_entropy(clbk_data.msg,
                                                            clbk_data.min_entropy, ksdata)
     callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
-                                                            create_format_post=step_clbk,
                                                             resize_format_pre=message_clbk,
-                                                            resize_format_post=step_clbk,
                                                             wait_for_entropy=entropy_wait_clbk)
 
     early_storage.append(Task("Activate filesystems",
@@ -346,7 +343,7 @@ def doInstall(storage, payload, ksdata, instClass):
         installation_queue.append(snapshot_creation)
 
     # notify progress tracking about the number of steps
-    progress_init(len(installation_queue))
+    progress_init(installation_queue.task_count)
     # log contents of the main task queue
     log.info(installation_queue.summary)
 

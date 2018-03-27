@@ -32,7 +32,7 @@ class RefreshDialog(GUIObject):
     uiFile = "spokes/lib/refresh.glade"
 
     def __init__(self, data, storage):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
 
         self.storage = storage
 

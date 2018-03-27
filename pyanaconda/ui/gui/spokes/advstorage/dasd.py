@@ -44,7 +44,7 @@ class DASDDialog(GUIObject):
     uiFile = "spokes/advstorage/dasd.glade"
 
     def __init__(self, data, storage):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self.storage = storage
         self.dasd = [d for d in self.storage.devices if d.type == "dasd"]
         self.dasd.sort(key=lambda d: d.name)

@@ -1,5 +1,5 @@
 #
-# Kickstart handler for the storage.
+# Interface templates for Anaconda modules.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -17,18 +17,25 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.clearpart import F28_ClearPart
-from pykickstart.commands.ignoredisk import F14_IgnoreDisk
-from pykickstart.commands.zerombr import F9_ZeroMbr
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 
 
-class StorageKickstartSpecification(KickstartSpecification):
+class ModuleInterfaceTemplate(AdvancedInterfaceTemplate):
+    """The DBus interface template for a module.
 
-    version = F28
-    commands = {
-        "zerombr": F9_ZeroMbr,
-        "clearpart": F28_ClearPart,
-        "ignoredisk": F14_IgnoreDisk,
-    }
+    The template should be used to create DBus interfaces
+    for instances of BaseModule.
+    """
+
+    def connect_signals(self):
+        """Connect the signals."""
+        self.implementation.module_properties_changed.connect(self.flush_changes)
+
+
+class KickstartModuleInterfaceTemplate(ModuleInterfaceTemplate):
+    """The DBus interface template for a kickstart module.
+
+    The template should be used to create DBus interfaces
+    for instances of KickstartBaseModule.
+    """
+    pass

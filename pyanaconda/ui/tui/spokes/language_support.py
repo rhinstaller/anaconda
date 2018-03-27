@@ -128,7 +128,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 ScreenHandler.replace_screen(self)
                 return InputState.PROCESSED
             else:
-                return super(LangSpoke, self).input(args, key)
+                return super().input(args, key)
 
     def prompt(self, args=None):
         """ Customize default prompt. """

@@ -73,7 +73,7 @@ class StorageSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
 
         self.title = N_("Installation Destination")
         self._ready = False
@@ -183,7 +183,7 @@ class StorageSpoke(NormalTUISpoke):
         return summary
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         # Join the initialization thread to block on it
         # This print is foul.  Need a better message display
@@ -316,7 +316,7 @@ class StorageSpoke(NormalTUISpoke):
 
                 return InputState.PROCESSED
             else:
-                return super(StorageSpoke, self).input(args, key)
+                return super().input(args, key)
 
     def run_dasdfmt_dialog(self, dasd_formatting):
         """Do DASD formatting if user agrees."""
@@ -461,7 +461,7 @@ class PartTypeSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Partitioning Options")
         self._container = None
         self.parttypelist = sorted(PARTTYPES.keys())
@@ -483,7 +483,7 @@ class PartTypeSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
         self._container = ListColumnContainer(1)
 
         for part_type in self.parttypelist:
@@ -567,7 +567,7 @@ class PartTypeSpoke(NormalTUISpoke):
                 self.close()
                 return InputState.PROCESSED
             else:
-                return super(PartTypeSpoke, self).input(args, key)
+                return super().input(args, key)
 
         self.redraw()
         return InputState.PROCESSED
@@ -578,7 +578,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Partition Scheme Options")
         self._container = None
         self.part_schemes = OrderedDict()
@@ -593,7 +593,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self._container = ListColumnContainer(1)
 
@@ -618,7 +618,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
                 self.close()
                 return InputState.PROCESSED
             else:
-                return super(PartitionSchemeSpoke, self).input(args, key)
+                return super().input(args, key)
 
         self.redraw()
         return InputState.PROCESSED
@@ -630,7 +630,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 class MountDataRecorder(kickstart.MountData):
     """ An artificial subclass also recording changes. """
     def __init__(self, *args, **kwargs):
-        super(MountDataRecorder, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.modified = False
         self.orig_format = None
 
@@ -639,7 +639,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Assign mount points")
         self._container = None
         self._mds = None
@@ -686,13 +686,13 @@ class MountPointAssignSpoke(NormalTUISpoke):
         return True
 
     def prompt(self, args=None):
-        prompt = super(MountPointAssignSpoke, self).prompt(args)
+        prompt = super().prompt(args)
         # TRANSLATORS: 's' to rescan devices
         prompt.add_option(C_('TUI|Spoke Navigation|Partitioning', 's'), _("rescan devices"))
         return prompt
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self._container = ListColumnContainer(2)
 
@@ -746,7 +746,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
             elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
 
-            return super(MountPointAssignSpoke, self).input(args, key)
+            return super().input(args, key)
 
         return InputState.PROCESSED
 
@@ -761,7 +761,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass, mount_data):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self._container = None
         self._mount_data = mount_data
         self.title = N_("Configure device: %s") % mount_data.device
@@ -773,7 +773,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh( args)
 
         self._container = ListColumnContainer(1)
 
@@ -832,7 +832,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     def input(self, args, key):
         """ Grab the choice and update things. """
         if not self._container.process_user_input(key):
-            return super(ConfigureDeviceSpoke, self).input(args, key)
+            return super().input(args, key)
 
         self.redraw()
         return InputState.PROCESSED

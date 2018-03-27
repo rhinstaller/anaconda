@@ -228,7 +228,7 @@ def logIfcfgFiles(message=""):
 
 class IfcfgFile(SimpleConfigFile):
     def __init__(self, filename):
-        SimpleConfigFile.__init__(self, always_quote=True, filename=filename)
+        super().__init__(always_quote=True, filename=filename)
         self._dirty = False
 
     def read(self, filename=None):

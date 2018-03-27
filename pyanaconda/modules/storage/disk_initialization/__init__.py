@@ -1,6 +1,4 @@
 #
-# Kickstart handler for the storage.
-#
 # Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -17,18 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.clearpart import F28_ClearPart
-from pykickstart.commands.ignoredisk import F14_IgnoreDisk
-from pykickstart.commands.zerombr import F9_ZeroMbr
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
 
-
-class StorageKickstartSpecification(KickstartSpecification):
-
-    version = F28
-    commands = {
-        "zerombr": F9_ZeroMbr,
-        "clearpart": F28_ClearPart,
-        "ignoredisk": F14_IgnoreDisk,
-    }
+__all__ = ["DiskInitializationModule"]

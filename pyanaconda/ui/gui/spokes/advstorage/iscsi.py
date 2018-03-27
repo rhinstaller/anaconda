@@ -118,7 +118,7 @@ class ISCSIDialog(GUIObject):
     uiFile = "spokes/advstorage/iscsi.glade"
 
     def __init__(self, data, storage):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self.storage = storage
         self.iscsi = iscsi
 

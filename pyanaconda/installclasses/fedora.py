@@ -39,9 +39,6 @@ class FedoraBaseInstallClass(BaseInstallClass):
     help_placeholder_plain_text = "FedoraPlaceholder.txt"
     help_placeholder_with_links = "FedoraPlaceholderWithLinks.html"
 
-    def configure(self, anaconda):
-        BaseInstallClass.configure(self, anaconda)
-
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
@@ -57,5 +54,3 @@ class FedoraBaseInstallClass(BaseInstallClass):
                 network.update_onboot_value(dev, True, ksdata=ksdata)
                 break
 
-    def __init__(self):
-        BaseInstallClass.__init__(self)
