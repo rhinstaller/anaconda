@@ -81,7 +81,8 @@ from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.options import KSOptionParser
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
     KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
-    SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, NVDIMM_ACTION_RECONFIGURE
+    SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, NVDIMM_ACTION_RECONFIGURE, \
+    NVDIMM_ACTION_USE
 from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -1407,6 +1408,24 @@ class Nvdimm(commands.nvdimm.F28_Nvdimm):
                 log.info("nvdimm: reconfiguring %s to %s mode", action.namespace, action.mode)
                 nvdimm.reconfigure_namespace(action.namespace, action.mode,
                                              sector_size=action.sectorsize)
+        elif action.action == NVDIMM_ACTION_USE:
+            if action.namespace and action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(lineno=self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace)
+
+            if action.blockdevs:
+                # See comment in ClearPart.parse
+                drives = []
+                for spec in action.blockdevs:
+                    matched = device_matches(spec, disks_only=True)
+                    if matched:
+                        drives.extend(matched)
+                    else:
+                        raise KickstartParseError(lineno=self.lineno,
+                                msg=_("Disk \"%s\" given in nvdimm command does not exist.") % spec)
+
+                action.blockdevs = drives
+
         return action
 
 class Partition(commands.partition.F29_Partition):
