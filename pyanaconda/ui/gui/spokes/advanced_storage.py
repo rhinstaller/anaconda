@@ -400,7 +400,7 @@ class ZPage(FilterPage):
     SEARCH_TYPE_LUN = 'LUN'
 
     def __init__(self, storage, builder):
-        super().__init__(self, storage, builder)
+        super().__init__(storage, builder)
         self.model = self.builder.get_object("zModel")
         self.model.set_visible_func(self.visible_func)
 
