@@ -334,6 +334,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 29 2018 Martin Kolman <mkolman@redhat.com> - 29.7-1
+- Add Makefiles for disk initialization and selection modules (vponcova)
+- Remove the invalid self argument (vponcova)
+- Run all unit tests (vponcova)
+
 * Tue Mar 27 2018 Martin Kolman <mkolman@redhat.com> - 29.6-1
 - Create the disk initialization and disk selection modules (vponcova)
 - Use watch_property to watch changes of DBus properties (vponcova)
