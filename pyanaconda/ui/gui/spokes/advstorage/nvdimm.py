@@ -22,10 +22,10 @@ from blivet.static_data import nvdimm
 from pyanaconda import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import gtk_action_wait
+from pyanaconda.ui.gui.utils import gtk_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
 
-from pyanaconda.i18n import CN_
+from pyanaconda.i18n import _, CN_
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -61,7 +61,9 @@ class NVDIMMDialog(GUIObject):
         self._devicesLabel = self.builder.get_object("devicesLabel")
         self._cancelButton = self.builder.get_object("cancelButton")
         self._okButton = self.builder.get_object("okButton")
-        self._waitSpinner = self.builder.get_object("waitSpinner")
+        self._reconfigureSpinner = self.builder.get_object("reconfigureSpinner")
+        self._repopulateSpinner = self.builder.get_object("repopulateSpinner")
+        self._repopulateLabel = self.builder.get_object("repopulateLabel")
         self._sectorSizeLabel = self.builder.get_object("sectorSizeLabel")
         self._sectorSizeSpinButton = self.builder.get_object("sectorSizeSpinButton")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
@@ -80,9 +82,6 @@ class NVDIMMDialog(GUIObject):
     def run(self):
         rc = self.window.run()
         self.window.destroy()
-        if self._update_devicetree:
-            self.storage.devicetree.reset()
-            try_populate_devicetree(self.storage.devicetree)
         return rc
 
     @property
@@ -96,7 +95,7 @@ class NVDIMMDialog(GUIObject):
                        self._okButton]:
             widget.set_sensitive(False)
 
-        self._waitSpinner.start()
+        self._reconfigureSpinner.start()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_NVDIMM_RECONFIGURE, target=self._reconfigure,
                                      args=(self.namespaces, "sector", self.sector_size)))
@@ -117,17 +116,32 @@ class NVDIMMDialog(GUIObject):
                 log.error("nvdimm: namespace %s to be reconfigured not found", namespace)
         self._after_reconfigure()
 
-    @gtk_action_wait
+    @gtk_action_nowait
     def _after_reconfigure(self):
         # When reconfiguration is done, update the UI.  We don't need to worry
         # about the user escaping from the dialog because all the buttons are
         # marked insensitive.
-        self._waitSpinner.stop()
+        self._reconfigureSpinner.stop()
 
         if self._error:
             self.builder.get_object("deviceErrorLabel").set_text(self._error)
             self._error = None
             self._conditionNotebook.set_current_page(PAGE_RESULT_ERROR)
+            self._okButton.set_sensitive(True)
         else:
             self._conditionNotebook.set_current_page(PAGE_RESULT_SUCCESS)
+            if self._update_devicetree:
+                self._repopulateSpinner.start()
+                threadMgr.add(AnacondaThread(name=constants.THREAD_NVDIMM_REPOPULATE, target=self._repopulate))
+
+    def _repopulate(self):
+        log.info("nvdimm: repopulating device tree")
+        self.storage.devicetree.reset()
+        try_populate_devicetree(self.storage.devicetree)
+        self._after_repopulate()
+
+    @gtk_action_nowait
+    def _after_repopulate(self):
+        self._repopulateSpinner.stop()
+        self._repopulateLabel.set_text(_("Rescanning disks finished."))
         self._okButton.set_sensitive(True)
