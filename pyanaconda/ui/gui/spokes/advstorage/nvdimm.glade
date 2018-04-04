@@ -128,7 +128,7 @@
                     <property name="halign">center</property>
                     <property name="spacing">5</property>
                     <child>
-                      <object class="GtkSpinner" id="waitSpinner">
+                      <object class="GtkSpinner" id="reconfigureSpinner">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="active">True</property>
@@ -265,6 +265,29 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSpinner" id="repopulateSpinner">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="repopulateLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Rescanning disks after reconfiguration.
+This may take a moment ...</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">1</property>
                       </packing>
                     </child>
                   </object>
