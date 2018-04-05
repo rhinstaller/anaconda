@@ -334,20 +334,6 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
-* Mon Mar 19 2018 Martin Kolman <mkolman@redhat.com> - 29.5-1
-- Write rootpw command to kickstart (#1557529) (mkolman)
-- Don't make safe to observe services on buses that don't run (vponcova)
-- Add the LanguageKickstarted property (vponcova)
-- Don't autoquit by default if the last hub is empty (#1553935) (mkolman)
-- Use the Services module in UI (vponcova)
-- Create the Services module (vponcova)
-- Enable hibernation only on x86 (#1554345) (vponcova)
-- Add the Storage module with no API (vponcova)
-- Add the Payload module with no API (vponcova)
-- Remove DBus modules Foo and Bar (vponcova)
-- network module: fix accessing org.freedesktop.hostname1 for current hostname
-  (rvykydal)
-
 * Mon Mar 12 2018 Martin Kolman <mkolman@redhat.com> - 29.4-1
 - network module: add basic test (rvykydal)
 - Add prepare command to setup-mock-test-env script (jkonecny)
