@@ -44,14 +44,16 @@ from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
-    REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG
+    REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
+    CLEAR_PARTITIONS_ALL
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    USER, SERVICES
+    USER, SERVICES, STORAGE
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -75,10 +77,9 @@ from blivet.size import Size, KiB
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.options import KSOptionParser
-from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
-                                  KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
-                                  SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
-                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
+    KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
+    SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -728,59 +729,24 @@ class Realm(RemovedCommand):
         if rc == 0:
             realm_log.info("Joined realm %s", realm[REALM_NAME])
 
-
-class ClearPart(commands.clearpart.F28_ClearPart):
-    def parse(self, args):
-        retval = super().parse(args)
-
-        if self.type is None:
-            self.type = CLEARPART_TYPE_NONE
-
-        if self.disklabel and self.disklabel not in DiskLabel.get_platform_label_types():
-            raise KickstartParseError(lineno=self.lineno,
-                                      msg=_("Disklabel \"%s\" given in clearpart command is not "
-                                      "supported on this platform.") % self.disklabel)
-
-        # Do any glob expansion now, since we need to have the real list of
-        # disks available before the execute methods run.
-        drives = []
-        for spec in self.drives:
-            matched = device_matches(spec, disks_only=True)
-            if matched:
-                drives.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Disk \"%s\" given in clearpart command does not exist.") % spec)
-
-        self.drives = drives
-
-        # Do any glob expansion now, since we need to have the real list of
-        # devices available before the execute methods run.
-        devices = []
-        for spec in self.devices:
-            matched = device_matches(spec)
-            if matched:
-                devices.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Device \"%s\" given in clearpart device list does not exist.") % spec)
-
-        self.devices = devices
-
-        return retval
+class ClearPart(RemovedCommand):
+    def __str__(self):
+        storage_module_proxy = STORAGE.get_proxy()
+        return storage_module_proxy.GenerateKickstart()
 
     def execute(self, storage, ksdata, instClass):
-        storage.config.clear_part_type = self.type
-        storage.config.clear_part_disks = self.drives
-        storage.config.clear_part_devices = self.devices
+        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+        storage.config.clear_part_type = disk_init_proxy.InitializationMode
+        storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
+        storage.config.clear_part_devices = disk_init_proxy.DevicesToClear
+        storage.config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
 
-        if self.initAll:
-            storage.config.initialize_disks = self.initAll
-
-        if self.disklabel:
-            if not DiskLabel.set_default_label_type(self.disklabel):
+        disk_label = disk_init_proxy.DefaultDiskLabel
+        if disk_label:
+            if not DiskLabel.set_default_label_type(disk_label):
                 clearpart_log.warning("%s is not a supported disklabel type on this platform. "
-                                      "Using default disklabel %s instead.", self.disklabel, DiskLabel.get_platform_label_types()[0])
+                                      "Using default disklabel %s instead.", disk_label,
+                                      DiskLabel.get_platform_label_types()[0])
 
         storage.clear_partitions()
 
@@ -897,35 +863,6 @@ class Group(commands.group.F12_Group):
                 users.createGroup(grp.name, **kwargs)
             except ValueError as e:
                 group_log.warning(str(e))
-
-class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
-    def parse(self, args):
-        retval = super().parse(args)
-
-        # See comment in ClearPart.parse
-        drives = []
-        for spec in self.ignoredisk:
-            matched = device_matches(spec, disks_only=True)
-            if matched:
-                drives.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec)
-
-        self.ignoredisk = drives
-
-        drives = []
-        for spec in self.onlyuse:
-            matched = device_matches(spec, disks_only=True)
-            if matched:
-                drives.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec)
-
-        self.onlyuse = drives
-
-        return retval
 
 class Iscsi(commands.iscsi.F17_Iscsi):
     def parse(self, args):
@@ -2205,11 +2142,14 @@ class Snapshot(commands.snapshot.F26_Snapshot):
 
         if pre_snapshots:
             threadMgr.wait(THREAD_STORAGE)
+            disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
 
-            if (ksdata.clearpart.devices or ksdata.clearpart.drives or
-                ksdata.clearpart.type == CLEARPART_TYPE_ALL):
+            if disk_init_proxy.DevicesToClear \
+                or disk_init_proxy.DrivesToClear \
+                    or disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_ALL:
                 log.warning("Snapshot: \"clearpart\" command could erase pre-install snapshots!")
-            if ksdata.zerombr.zerombr:
+
+            if disk_init_proxy.FormatUnrecognizedEnabled:
                 log.warning("Snapshot: \"zerombr\" command could erase pre-install snapshots!")
 
             for snap_data in pre_snapshots:
@@ -2416,7 +2356,7 @@ commandMap = {
     "firewall": Firewall,
     "firstboot": Firstboot,
     "group": Group,
-    "ignoredisk": IgnoreDisk,
+    "ignoredisk": UselessCommand,
     "iscsi": Iscsi,
     "iscsiname": IscsiName,
     "keyboard": Keyboard,
@@ -2441,6 +2381,7 @@ commandMap = {
     "user": User,
     "volgroup": VolGroup,
     "xconfig": XConfig,
+    "zerombr": UselessCommand,
     "zfcp": ZFCP,
 }
 

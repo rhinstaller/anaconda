@@ -18,6 +18,7 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from mock import patch
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
@@ -48,8 +49,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.storage_interface.KickstartSections, [])
         self.assertEqual(self.storage_interface.KickstartAddons, [])
 
-    def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.storage_interface, ks_in, ks_out)
+    def _test_kickstart(self, ks_in, ks_out, **kwargs):
+        check_kickstart_interface(self, self.storage_interface, ks_in, ks_out, **kwargs)
 
     def no_kickstart_test(self):
         """Test with no kickstart."""
@@ -140,37 +141,67 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def clearpart_list_kickstart_test(self):
+    @patch("pyanaconda.modules.storage.kickstart.device_matches")
+    def clearpart_list_kickstart_test(self, device_matches):
         """Test the clearpart command with the list option."""
         ks_in = """
-        clearpart --list=sda2,sda3,sdb1
+        clearpart --list=sdb1
         """
         ks_out = """
         # Partition clearing information
-        clearpart --list=sda2,sda3,sdb1
+        clearpart --list=sdb1
         """
+        device_matches.return_value = ["sdb1"]
         self._test_kickstart(ks_in, ks_out)
 
-    def clearpart_drives_kickstart_test(self):
+        device_matches.return_value = []
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch("pyanaconda.modules.storage.kickstart.device_matches")
+    def clearpart_drives_kickstart_test(self, device_matches):
         """Test the clearpart command with the drives option."""
         ks_in = """
-        clearpart --all --drives=sda,sdb
+        clearpart --all --drives=sda
         """
         ks_out = """
         # Partition clearing information
-        clearpart --all --drives=sda,sdb
+        clearpart --all --drives=sda
         """
+        device_matches.return_value = ["sda"]
         self._test_kickstart(ks_in, ks_out)
 
-    def ignoredisk_drives_kickstart_test(self):
-        """Test the ignoredisk command with the drives option."""
+        device_matches.return_value = []
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch("pyanaconda.modules.storage.kickstart.device_matches")
+    def ignoredisk_drives_kickstart_test(self, device_matches):
+        """Test the ignoredisk command with the onlyuse option."""
         ks_in = """
-        ignoredisk --drives=sda,sdb
+        ignoredisk --only-use=sda
         """
         ks_out = """
-        ignoredisk --drives=sda,sdb
+        ignoredisk --only-use=sda
         """
+        device_matches.return_value = ["sda"]
         self._test_kickstart(ks_in, ks_out)
+
+        device_matches.return_value = []
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch("pyanaconda.modules.storage.kickstart.device_matches")
+    def ignoredisk_onlyuse_kickstart_test(self, device_matches):
+        """Test the ignoredisk command with the drives option."""
+        ks_in = """
+        ignoredisk --drives=sdb
+        """
+        ks_out = """
+        ignoredisk --drives=sdb
+        """
+        device_matches.return_value = ["sdb"]
+        self._test_kickstart(ks_in, ks_out)
+
+        device_matches.return_value = []
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
 
 class DiskInitializationInterfaceTestCase(unittest.TestCase):

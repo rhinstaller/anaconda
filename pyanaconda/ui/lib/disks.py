@@ -21,6 +21,8 @@ from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import P_
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.services import STORAGE
 
 __all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk"]
 
@@ -92,8 +94,11 @@ def applyDiskSelection(storage, data, use_names):
                        if d.name not in onlyuse
                        and d.is_disk)
 
-    data.ignoredisk.onlyuse = onlyuse
-    data.clearpart.drives = use_names[:]
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    disk_select_proxy.SetSelectedDisks(onlyuse)
+
+    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+    disk_init_proxy.SetDrivesToClear(use_names)
 
 def checkDiskSelection(storage, selected_disks):
     """ Return a list of errors related to a proposed disk selection.
