@@ -334,11 +334,6 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
-* Mon Mar 12 2018 Martin Kolman <mkolman@redhat.com> - 29.4-1
-- network module: add basic test (rvykydal)
-- Add prepare command to setup-mock-test-env script (jkonecny)
-- Mark partition live device's disk protected. (#1524700) (dlehman)
-
 * Fri Mar 09 2018 Martin Kolman <mkolman@redhat.com> - 29.3-1
 - Remove useless constants from pyanaconda.dbus.constants (vponcova)
 - Use identifiers to get observers and proxies (vponcova)
