@@ -334,6 +334,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 05 2018 Martin Kolman <mkolman@redhat.com> - 29.8-1
+- Fix forgotten usage of the selinux kickstart command (vponcova)
+- Fix tests for the storage module (vponcova)
+- Use the disk selection and initialization modules in UI (vponcova)
+- Enable to use object identifiers instead of object paths (vponcova)
+
 * Thu Mar 29 2018 Martin Kolman <mkolman@redhat.com> - 29.7-1
 - Add Makefiles for disk initialization and selection modules (vponcova)
 - Remove the invalid self argument (vponcova)
