@@ -579,8 +579,10 @@ if __name__ == "__main__":
         flags.hmc = True
 
     # Override the selinux state from kickstart if set on the command line
+    from pyanaconda.modules.common.constants.services import SECURITY
     if flags.selinux != constants.SELINUX_DEFAULT:
-        ksdata.selinux.selinux = flags.selinux
+        security_proxy = SECURITY.get_proxy()
+        security_proxy.SetSELinux(flags.selinux)
 
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
