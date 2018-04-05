@@ -41,7 +41,7 @@ class WarningsSpoke(StandaloneTUISpoke):
     priority = 0
 
     def __init__(self, *args, **kwargs):
-        StandaloneTUISpoke.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.title = N_("Warnings")
         self.initialize_start()
 
@@ -62,7 +62,7 @@ class WarningsSpoke(StandaloneTUISpoke):
         return not self._unsupported
 
     def refresh(self, args=None):
-        StandaloneTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self.window.add_with_separator(TextWidget(self._message))
 

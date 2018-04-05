@@ -477,9 +477,6 @@ class FedoraGeoIPProvider(GeolocationBackend):
 
     API_URL = "https://geoip.fedoraproject.org/city"
 
-    def __init__(self):
-        GeolocationBackend.__init__(self)
-
     @property
     def name(self):
         return "Fedora GeoIP"
@@ -515,9 +512,6 @@ class HostipGeoIPProvider(GeolocationBackend):
 
     API_URL = "http://api.hostip.info/get_json.php"
 
-    def __init__(self):
-        GeolocationBackend.__init__(self)
-
     @property
     def name(self):
         return "Hostip.info"
@@ -548,9 +542,6 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
 
     API_URL = "https://maps.googleapis.com/" \
               "maps/api/browserlocation/json?browser=firefox&sensor=true"
-
-    def __init__(self):
-        GeolocationBackend.__init__(self)
 
     @property
     def name(self):

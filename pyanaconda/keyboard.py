@@ -117,39 +117,46 @@ def normalize_layout_variant(layout_str):
     layout, variant = parse_layout_variant(layout_str)
     return join_layout_variant(layout, variant)
 
-def populate_missing_items(keyboard):
+def populate_missing_items(localization_proxy=None):
     """
     Function that populates keyboard.vc_keymap and keyboard.x_layouts if they
     are missing. By invoking LocaledWrapper's methods this function READS AND
     WRITES CONFIGURATION FILES (but tries to keep their content unchanged).
 
-    :type keyboard: ksdata.keyboard object
+    :param localization_proxy: DBus proxy of the localization module or None
 
     """
 
     localed = LocaledWrapper()
 
-    if keyboard._keyboard and not (keyboard.vc_keymap or keyboard.x_layouts):
+    vc_keymap = localization_proxy.VirtualConsoleKeymap
+    x_layouts = localization_proxy.XLayouts
+    keyboard = localization_proxy.Keyboard
+
+    new_vc_keymap = ""
+    if keyboard and not (vc_keymap or x_layouts):
         # we were given just a value in the old format, use it as a vc_keymap
-        keyboard.vc_keymap = keyboard._keyboard
+        new_vc_keymap = keyboard
+    elif not vc_keymap and x_layouts:
+        new_vc_keymap = localed.convert_layouts(x_layouts)
+    elif not vc_keymap:
+        new_vc_keymap = DEFAULT_KEYBOARD
 
-    if keyboard.x_layouts and not keyboard.vc_keymap:
-        keyboard.vc_keymap = localed.convert_layouts(keyboard.x_layouts)
+    if new_vc_keymap:
+        localization_proxy.SetVirtualConsoleKeymap(new_vc_keymap)
+        vc_keymap = new_vc_keymap
 
-    if not keyboard.vc_keymap:
-        keyboard.vc_keymap = DEFAULT_KEYBOARD
+    if not x_layouts:
+        c_lay_var = localed.convert_keymap(vc_keymap)
+        localization_proxy.SetXLayouts([c_lay_var])
 
-    if not keyboard.x_layouts:
-        c_lay_var = localed.convert_keymap(keyboard.vc_keymap)
-        keyboard.x_layouts.append(c_lay_var)
-
-def write_keyboard_config(keyboard, root, convert=True):
+def write_keyboard_config(localization_proxy, root, convert=True):
     """
     Function that writes files with layouts configuration to
     $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
     $root/etc/vconsole.conf.
 
-    :param keyboard: ksdata.keyboard object
+    :param localization_proxy: DBus proxy of the localization module or None
     :param root: path to the root of the installed system
     :param convert: whether to convert specified values to get the missing
                     ones
@@ -158,7 +165,7 @@ def write_keyboard_config(keyboard, root, convert=True):
     """
 
     if convert:
-        populate_missing_items(keyboard)
+        populate_missing_items(localization_proxy)
 
     xconf_dir = "/etc/X11/xorg.conf.d"
     xconf_file = "00-keyboard.conf"
@@ -176,7 +183,11 @@ def write_keyboard_config(keyboard, root, convert=True):
     except OSError:
         errors.append("Cannot create directory xorg.conf.d")
 
-    if keyboard.x_layouts:
+    x_layouts = localization_proxy.XLayouts
+    switch_options = localization_proxy.LayoutSwitchOptions
+    vc_keymap = localization_proxy.VirtualConsoleKeymap
+
+    if x_layouts:
         localed_wrapper = LocaledWrapper()
 
         if root != "/":
@@ -187,8 +198,8 @@ def write_keyboard_config(keyboard, root, convert=True):
 
             # set systemd-localed's layouts, variants and switch options, which
             # also generates a new conf file
-            localed_wrapper.set_layouts(keyboard.x_layouts,
-                                        keyboard.switch_options)
+            localed_wrapper.set_layouts(x_layouts,
+                                        switch_options)
 
             # make sure the right directory exists under the given root
             rooted_xconf_dir = os.path.normpath(root + "/" + xconf_dir)
@@ -212,21 +223,21 @@ def write_keyboard_config(keyboard, root, convert=True):
         else:
             try:
                 # just let systemd-localed write out the conf file
-                localed_wrapper.set_layouts(keyboard.x_layouts,
-                                            keyboard.switch_options)
+                localed_wrapper.set_layouts(x_layouts,
+                                            switch_options)
             except InvalidLayoutVariantSpec as ilvs:
                 # some weird value appeared as a requested X layout
                 log.error("Failed to write out config file: %s", ilvs)
 
                 # try default
-                keyboard.x_layouts = [DEFAULT_KEYBOARD]
-                localed_wrapper.set_layouts(keyboard.x_layouts,
-                                            keyboard.switch_options)
+                x_layouts = [DEFAULT_KEYBOARD]
+                localed_wrapper.set_layouts(x_layouts,
+                                            switch_options)
 
-    if keyboard.vc_keymap:
+    if vc_keymap:
         try:
             with open(os.path.join(vcconf_dir, vcconf_file), "w") as fobj:
-                fobj.write('KEYMAP="%s"\n' % keyboard.vc_keymap)
+                fobj.write('KEYMAP="%s"\n' % vc_keymap)
 
                 # systemd now defaults to a font that cannot display non-ascii
                 # characters, so we have to tell it to use a better one
@@ -264,12 +275,11 @@ def _try_to_load_keymap(keymap):
 
     return ret == 0
 
-def activate_keyboard(keyboard):
+def activate_keyboard(localization_proxy):
     """
     Try to setup VConsole keymap and X11 layouts as specified in kickstart.
 
-    :param keyboard: ksdata.keyboard object
-    :type keyboard: ksdata.keyboard object
+    :param localization_proxy: DBus proxy of the localization module or None
 
     """
 
@@ -277,75 +287,81 @@ def activate_keyboard(keyboard):
     c_lays_vars = []
     c_keymap = ""
 
-    if keyboard._keyboard and not (keyboard.vc_keymap or keyboard.x_layouts):
+    keyboard = localization_proxy.Keyboard
+    vc_keymap = localization_proxy.VirtualConsoleKeymap
+    x_layouts = localization_proxy.XLayouts
+
+    if keyboard and not (vc_keymap or x_layouts):
         # we were give only one value in old format of the keyboard command
         # try to guess if we were given VConsole keymap or X11 layout
-        is_keymap = _try_to_load_keymap(keyboard._keyboard)
+        is_keymap = _try_to_load_keymap(keyboard)
 
         if is_keymap:
-            keyboard.vc_keymap = keyboard._keyboard
+            vc_keymap = keyboard
         else:
-            keyboard.x_layouts.append(keyboard._keyboard)
+            x_layouts.append(keyboard)
 
-    if keyboard.vc_keymap:
-        valid_keymap = _try_to_load_keymap(keyboard.vc_keymap)
+    if vc_keymap:
+        valid_keymap = _try_to_load_keymap(vc_keymap)
         if not valid_keymap:
             log.error("'%s' is not a valid VConsole keymap, not loading",
-                      keyboard.vc_keymap)
-            keyboard.vc_keymap = None
+                      vc_keymap)
+            vc_keymap = None
         else:
             # activate VConsole keymap and get converted layout and variant
-            converted = localed.set_and_convert_keymap(keyboard.vc_keymap)
+            converted = localed.set_and_convert_keymap(vc_keymap)
 
             # localed may give us multiple comma-separated layouts+variants
             c_lays_vars = converted.split(",")
 
-    if not keyboard.x_layouts:
+    if not x_layouts:
         if c_lays_vars:
             # suggested by systemd-localed for a requested VConsole keymap
-            keyboard.x_layouts += c_lays_vars
-        elif keyboard.vc_keymap:
+            x_layouts += c_lays_vars
+        elif vc_keymap:
             # nothing suggested by systemd-localed, but we may try to use the
             # same string for both VConsole keymap and X layout (will fail
             # safely if it doesn't work)
-            keyboard.x_layouts.append(keyboard.vc_keymap)
+            x_layouts.append(vc_keymap)
 
-    if keyboard.x_layouts:
-        c_keymap = localed.set_and_convert_layouts(keyboard.x_layouts)
+    if x_layouts:
+        c_keymap = localed.set_and_convert_layouts(x_layouts)
 
-        if not keyboard.vc_keymap:
-            keyboard.vc_keymap = c_keymap
+        if not vc_keymap:
+            vc_keymap = c_keymap
 
+    localization_proxy.SetVirtualConsoleKeymap(vc_keymap)
+    localization_proxy.SetXLayouts(x_layouts)
+
+    if x_layouts:
         # write out keyboard configuration for the X session
-        write_keyboard_config(keyboard, root="/", convert=False)
+        write_keyboard_config(localization_proxy, root="/", convert=False)
 
-def set_x_keyboard_defaults(ksdata, xkl_wrapper):
+def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
     """
     Set default keyboard settings (layouts, layout switching).
 
-    :param ksdata: kickstart instance
+    :param localization_proxy: DBus proxy of the localization module or None
     :type ksdata: object instance
     :param xkl_wrapper: XklWrapper instance
     :type xkl_wrapper: object instance
     :raise InvalidLocaleSpec: if an invalid locale is given (see
                               localization.LANGCODE_RE)
     """
-    # TODO MOD: pass module as argument when keyboard is added
-    from pyanaconda.dbus import DBus
-    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
-    locale = localization_proxy.Language
-
+    x_layouts = localization_proxy.XLayouts
     # remove all X layouts that are not valid X layouts (unsupported)
-    for layout in ksdata.keyboard.x_layouts:
-        if not xkl_wrapper.is_valid_layout(layout):
-            ksdata.keyboard.x_layouts.remove(layout)
+    valid_layouts = []
+    for layout in x_layouts:
+        if xkl_wrapper.is_valid_layout(layout):
+            valid_layouts.append(layout)
+    localization_proxy.SetXLayouts(valid_layouts)
 
-    if ksdata.keyboard.x_layouts:
+    if valid_layouts:
         # do not add layouts if there are any specified in the kickstart
         # (the x_layouts list comes from kickstart)
         return
 
+    locale = localization_proxy.Language
     layouts = localization.get_locale_keyboards(locale)
     if layouts:
         # take the first locale (with highest rank) from the list and
@@ -358,13 +374,13 @@ def set_x_keyboard_defaults(ksdata, xkl_wrapper):
         log.error("Failed to get layout for chosen locale '%s'", locale)
         new_layouts = [DEFAULT_KEYBOARD]
 
-    ksdata.keyboard.x_layouts = new_layouts
+    localization_proxy.SetXLayouts(new_layouts)
     if can_touch_runtime_system("replace runtime X layouts", touch_live=True):
         xkl_wrapper.replace_layouts(new_layouts)
 
-    if len(new_layouts) >= 2 and not ksdata.keyboard.switch_options:
+    if len(new_layouts) >= 2 and not localization_proxy.LayoutSwitchOptions:
         # initialize layout switching if needed
-        ksdata.keyboard.switch_options = ["grp:alt_shift_toggle"]
+        localization_proxy.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
 
         if can_touch_runtime_system("init layout switching", touch_live=True):
             xkl_wrapper.set_switching_options(["grp:alt_shift_toggle"])

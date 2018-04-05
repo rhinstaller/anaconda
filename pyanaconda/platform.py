@@ -133,7 +133,7 @@ class X86(Platform):
 
     def set_platform_bootloader_reqs(self):
         """Return the default platform-specific partitioning information."""
-        ret = Platform.set_platform_bootloader_reqs(self)
+        ret = super().set_platform_bootloader_reqs()
         ret.append(PartSpec(fstype="biosboot", size=Size("1MiB")))
         return ret
 
@@ -156,7 +156,7 @@ class EFI(Platform):
                                     "disk, mounted at /boot/efi.")
 
     def set_platform_bootloader_reqs(self):
-        ret = Platform.set_platform_bootloader_reqs(self)
+        ret = super().set_platform_bootloader_reqs()
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi",
                             size=Size("20MiB"), max_size=Size("200MiB"),
                             grow=True))
@@ -170,7 +170,7 @@ class MacEFI(EFI):
     _packages = ["mactel-boot"]
 
     def set_platform_bootloader_reqs(self):
-        ret = Platform.set_platform_bootloader_reqs(self)
+        ret = super().set_platform_bootloader_reqs()
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="macefi",
                             size=Size("20MiB"), max_size=Size("200MiB"),
                             grow=True))
@@ -215,7 +215,7 @@ class NewWorldPPC(PPC):
                                     "formatted disk.")
 
     def set_platform_bootloader_reqs(self):
-        ret = Platform.set_platform_bootloader_reqs(self)
+        ret = super().set_platform_bootloader_reqs()
         ret.append(PartSpec(fstype="appleboot", size=Size("1MiB")))
         return ret
 
@@ -236,9 +236,6 @@ class S390(Platform):
                           "partition": Platform._boot_partition_description}
     _boot_stage1_missing_error = N_("You must include at least one MBR- or "
                                     "DASD-formatted disk as an install target.")
-
-    def __init__(self):
-        Platform.__init__(self)
 
     def set_platform_boot_partition(self):
         """Return the default platform-specific partitioning information."""

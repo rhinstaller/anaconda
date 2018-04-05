@@ -19,6 +19,8 @@
 
 from collections import OrderedDict
 
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, getDisksByNames
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -33,14 +35,15 @@ from blivet.formats import get_format
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, DEFAULT_AUTOPART_TYPE
-from pyanaconda.core.constants import PAYLOAD_STATUS_PROBING_STORAGE
+from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
+    DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
+    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda import kickstart
 from pyanaconda.storage.osinstall import storage_initialize
 
-from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
+from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 from simpleline.render.containers import ListColumnContainer
@@ -58,8 +61,8 @@ CLEARALL = N_("Use All Space")
 CLEARLINUX = N_("Replace Existing Linux system(s)")
 CLEARNONE = N_("Use Free Space")
 
-PARTTYPES = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
-             CLEARNONE: CLEARPART_TYPE_NONE}
+PARTTYPES = {CLEARALL: CLEAR_PARTITIONS_ALL, CLEARLINUX: CLEAR_PARTITIONS_LINUX,
+             CLEARNONE: CLEAR_PARTITIONS_NONE}
 
 
 class StorageSpoke(NormalTUISpoke):
@@ -73,14 +76,20 @@ class StorageSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
+
+        self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
+        self._disk_init_observer.connect()
+
+        self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
+        self._disk_select_observer.connect()
+
+        self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
 
         self.title = N_("Installation Destination")
         self._ready = False
         self._container = None
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self.select_all = False
-
         self.autopart = None
 
         # This list gets set up once in initialize and should not be modified
@@ -117,26 +126,18 @@ class StorageSpoke(NormalTUISpoke):
     @property
     def status(self):
         """ A short string describing the current status of storage setup. """
-        msg = _("No disks selected")
-
         if flags.automatedInstall and not self.storage.root_device:
-            msg = _("Kickstart insufficient")
-        elif self.data.ignoredisk.onlyuse:
-            msg = P_(("%d disk selected"),
-                     ("%d disks selected"),
-                     len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
-
-            if self.errors:
-                msg = _("Error checking storage configuration")
-            elif self.warnings:
-                msg = _("Warning checking storage configuration")
-            # Maybe show what type of clearpart and which disks selected?
-            elif self.data.autopart.autopart:
-                msg = _("Automatic partitioning selected")
-            else:
-                msg = _("Custom partitioning selected")
-
-        return msg
+            return _("Kickstart insufficient")
+        elif not self._disk_select_observer.proxy.SelectedDisks:
+            return _("No disks selected")
+        if self.errors:
+            return _("Error checking storage configuration")
+        elif self.warnings:
+            return _("Warning checking storage configuration")
+        elif self.data.autopart.autopart:
+            return _("Automatic partitioning selected")
+        else:
+            return _("Custom partitioning selected")
 
     def _update_disk_list(self, disk):
         """ Update self.selected_disks based on the selection."""
@@ -183,7 +184,7 @@ class StorageSpoke(NormalTUISpoke):
         return summary
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         # Join the initialization thread to block on it
         # This print is foul.  Need a better message display
@@ -316,7 +317,7 @@ class StorageSpoke(NormalTUISpoke):
 
                 return InputState.PROCESSED
             else:
-                return super(StorageSpoke, self).input(args, key)
+                return super().input(args, key)
 
     def run_dasdfmt_dialog(self, dasd_formatting):
         """Do DASD formatting if user agrees."""
@@ -352,8 +353,9 @@ class StorageSpoke(NormalTUISpoke):
 
     def apply(self):
         self.autopart = self.data.autopart.autopart
-        self.data.ignoredisk.onlyuse = self.selected_disks[:]
-        self.data.clearpart.drives = self.selected_disks[:]
+
+        self._disk_select_observer.proxy.SetSelectedDisks(self.selected_disks)
+        self._disk_init_observer.proxy.SetDrivesToClear(self.selected_disks)
 
         if self.autopart and self.data.autopart.type is None:
             self.data.autopart.type = AUTOPART_TYPE_LVM
@@ -373,7 +375,7 @@ class StorageSpoke(NormalTUISpoke):
             self.data.bootloader.bootDrive = ""
             self.storage.bootloader.reset()
 
-        self.storage.config.update(self.data)
+        self.storage.config.update()
 
         # If autopart is selected we want to remove whatever has been
         # created/scheduled to make room for autopart.
@@ -390,9 +392,9 @@ class StorageSpoke(NormalTUISpoke):
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
             self.data.bootloader.bootDrive = ""
-            self.data.clearpart.type = CLEARPART_TYPE_ALL
-            self.data.clearpart.initAll = False
-            self.storage.config.update(self.data)
+            self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
+            self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
+            self.storage.config.update()
             self.storage.autopart_type = self.data.autopart.type
             self.storage.reset()
             # now set ksdata back to the user's specified config
@@ -420,7 +422,7 @@ class StorageSpoke(NormalTUISpoke):
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
         # Probably need something here to track which disks are selected?
 
     def _initialize(self):
@@ -461,29 +463,30 @@ class PartTypeSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Partitioning Options")
         self._container = None
         self.parttypelist = sorted(PARTTYPES.keys())
 
         # remember the original values so that we can detect a change
-        self._orig_clearpart_type = self.data.clearpart.type
+        self._disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+        self._orig_clearpart_type = self._disk_init_proxy.InitializationMode
         self._orig_mount_assign = len(self.data.mount.dataList()) != 0
 
         # default to mount point assignment if it is already (partially)
         # configured
         self._do_mount_assign = self._orig_mount_assign
         if not self._do_mount_assign:
-            self.clearPartType = self.data.clearpart.type or CLEARPART_TYPE_ALL
+            self.clearPartType = self._disk_init_proxy.InitializationMode
         else:
-            self.clearPartType = CLEARPART_TYPE_NONE
+            self.clearPartType = CLEAR_PARTITIONS_NONE
 
     @property
     def indirect(self):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
         self._container = ListColumnContainer(1)
 
         for part_type in self.parttypelist:
@@ -502,7 +505,7 @@ class PartTypeSpoke(NormalTUISpoke):
         self.window.add_with_separator(TextWidget(message))
 
     def _select_mount_assign(self, data=None):
-        self.clearPartType = CLEARPART_TYPE_NONE
+        self.clearPartType = CLEAR_PARTITIONS_NONE
         self._do_mount_assign = True
         self.apply()
 
@@ -519,13 +522,13 @@ class PartTypeSpoke(NormalTUISpoke):
         # issues. (rhbz#1001061)
         if not self._do_mount_assign:
             self.data.autopart.autopart = True
-            self.data.clearpart.type = self.clearPartType
-            self.data.clearpart.initAll = True
+            self._disk_init_proxy.SetInitializationMode(self.clearPartType)
+            self._disk_init_proxy.SetInitializeLabelsEnabled(True)
             self.data.mount.clear_mount_data()
         else:
             self.data.autopart.autopart = False
-            self.data.clearpart.type = CLEARPART_TYPE_NONE
-            self.data.clearpart.initAll = False
+            self._disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
+            self._disk_init_proxy.SetInitializeLabelsEnabled(False)
 
     def _ensure_init_storage(self):
         """
@@ -536,18 +539,24 @@ class PartTypeSpoke(NormalTUISpoke):
         """
         # the only safe options are:
         # 1) if nothing was set before (self._orig_clearpart_type is None) or
+        if self._orig_clearpart_type == CLEAR_PARTITIONS_DEFAULT:
+            return
+
         # 2) mount point assignment was done before and user just wants to tweak it
-        if self._orig_clearpart_type is None or (self._orig_mount_assign and self._do_mount_assign):
+        if self._orig_mount_assign and self._do_mount_assign:
             return
 
         # else
         print(_("Reverting previous configuration. This may take a moment..."))
-        # unset self.data.ignoredisk.onlyuse temporarily so that
+        # unset selected disks temporarily so that
         # storage_initialize() processes all devices
-        ignoredisk = self.data.ignoredisk.onlyuse
-        self.data.ignoredisk.onlyuse = []
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        selected_disks = disk_select_proxy.SelectedDisks
+        disk_select_proxy.SetSelectedDisks([])
+
         storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
-        self.data.ignoredisk.onlyuse = ignoredisk
+
+        disk_select_proxy.SetSelectedDisks(selected_disks)
         self.data.mount.clear_mount_data()
 
     def input(self, args, key):
@@ -567,7 +576,7 @@ class PartTypeSpoke(NormalTUISpoke):
                 self.close()
                 return InputState.PROCESSED
             else:
-                return super(PartTypeSpoke, self).input(args, key)
+                return super().input(args, key)
 
         self.redraw()
         return InputState.PROCESSED
@@ -578,7 +587,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Partition Scheme Options")
         self._container = None
         self.part_schemes = OrderedDict()
@@ -593,7 +602,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self._container = ListColumnContainer(1)
 
@@ -618,7 +627,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
                 self.close()
                 return InputState.PROCESSED
             else:
-                return super(PartitionSchemeSpoke, self).input(args, key)
+                return super().input(args, key)
 
         self.redraw()
         return InputState.PROCESSED
@@ -630,7 +639,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 class MountDataRecorder(kickstart.MountData):
     """ An artificial subclass also recording changes. """
     def __init__(self, *args, **kwargs):
-        super(MountDataRecorder, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.modified = False
         self.orig_format = None
 
@@ -639,25 +648,31 @@ class MountPointAssignSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Assign mount points")
         self._container = None
         self._mds = None
 
         self._gather_mount_data_info()
 
-    def _is_dev_usable(self, dev):
+    def _is_dev_usable(self, dev, selected_disks):
         maybe = not dev.protected and dev.size != Size(0)
-        if maybe and self.data.ignoredisk.onlyuse:
-            # all device's disks have to be in ignoredisk.onlyuse
-            maybe = set(self.data.ignoredisk.onlyuse).issuperset({d.name for d in dev.disks})
+        if maybe and selected_disks:
+            # all device's disks have to be in selected disks
+            maybe = set(selected_disks).issuperset({d.name for d in dev.disks})
 
         return maybe
 
     def _gather_mount_data_info(self):
         self._mds = OrderedDict()
 
-        for device in filter(self._is_dev_usable, self.storage.devicetree.leaves):
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        selected_disks = disk_select_proxy.SelectedDisks
+
+        for device in self.storage.devicetree.leaves:
+            if not self._is_dev_usable(device, selected_disks):
+                continue
+
             fmt = device.format.type
 
             for ks_md in self.data.mount.dataList():
@@ -686,13 +701,13 @@ class MountPointAssignSpoke(NormalTUISpoke):
         return True
 
     def prompt(self, args=None):
-        prompt = super(MountPointAssignSpoke, self).prompt(args)
+        prompt = super().prompt(args)
         # TRANSLATORS: 's' to rescan devices
         prompt.add_option(C_('TUI|Spoke Navigation|Partitioning', 's'), _("rescan devices"))
         return prompt
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self._container = ListColumnContainer(2)
 
@@ -729,15 +744,16 @@ class MountPointAssignSpoke(NormalTUISpoke):
                 question_window = YesNoDialog(text)
                 ScreenHandler.push_screen_modal(question_window)
                 if question_window.answer:
-                    # unset self.data.ignoredisk.onlyuse temporarily so that
+                    # unset selected disks temporarily so that
                     # storage_initialize() processes all devices
-                    ignoredisk = self.data.ignoredisk.onlyuse
-                    self.data.ignoredisk.onlyuse = []
+                    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+                    selected_disks = disk_select_proxy.SelectedDisks
+                    disk_select_proxy.SetSelectedDisks([])
 
                     print(_("Scanning disks. This may take a moment..."))
                     storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
 
-                    self.data.ignoredisk.onlyuse = ignoredisk
+                    disk_select_proxy.SetSelectedDisks(selected_disks)
                     self.data.mount.clear_mount_data()
                     self._gather_mount_data_info()
                 self.redraw()
@@ -746,7 +762,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
             elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
 
-            return super(MountPointAssignSpoke, self).input(args, key)
+            return super().input(args, key)
 
         return InputState.PROCESSED
 
@@ -761,7 +777,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass, mount_data):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self._container = None
         self._mount_data = mount_data
         self.title = N_("Configure device: %s") % mount_data.device
@@ -773,7 +789,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh( args)
 
         self._container = ListColumnContainer(1)
 
@@ -832,7 +848,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     def input(self, args, key):
         """ Grab the choice and update things. """
         if not self._container.process_user_input(key):
-            return super(ConfigureDeviceSpoke, self).input(args, key)
+            return super().input(args, key)
 
         self.redraw()
         return InputState.PROCESSED

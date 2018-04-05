@@ -30,6 +30,8 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.core.i18n import _
 from pyanaconda.storage.osinstall import storage_initialize
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -116,10 +118,12 @@ class DasdFormatting(object):
 
         return result
 
-    def update_restrictions(self, data):
-        """Read kickstart data to update the restrictions."""
-        self._can_format_unformatted = data.zerombr.zerombr
-        self._can_format_ldl = data.clearpart.cdl
+    def update_restrictions(self):
+        """Update the restrictions."""
+        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+
+        self._can_format_unformatted = disk_init_proxy.FormatUnrecognizedEnabled
+        self._can_format_ldl = disk_init_proxy.FormatLDLEnabled
 
     def search_disks(self, disks):
         """Search for a list of disks for DASDs to format."""
@@ -177,7 +181,7 @@ class DasdFormatting(object):
         disks = getDisks(storage.devicetree)
 
         formatting = DasdFormatting()
-        formatting.update_restrictions(data)
+        formatting.update_restrictions()
         formatting.search_disks(disks)
 
         if not formatting.should_run():

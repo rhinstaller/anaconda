@@ -46,7 +46,7 @@ class ProgressSpoke(StandaloneTUISpoke):
 
     def __init__(self, ksdata, storage, payload, instclass):
         self.initialize_start()
-        StandaloneTUISpoke.__init__(self, ksdata, storage, payload, instclass)
+        super().__init__(ksdata, storage, payload, instclass)
         self.title = N_("Progress")
         self._stepped = False
         self.initialize_done()

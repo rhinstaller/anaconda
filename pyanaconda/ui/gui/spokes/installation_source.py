@@ -230,7 +230,7 @@ class MediaCheckDialog(GUIObject):
     uiFile = "spokes/installation_source.glade"
 
     def __init__(self, data):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self.progressBar = self.builder.get_object("mediaCheck-progressBar")
         self._pid = None
 
@@ -309,7 +309,7 @@ class IsoChooser(GUIObject):
     uiFile = "spokes/installation_source.glade"
 
     def __init__(self, data):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self._chooser = self.builder.get_object("isoChooserDialog")
 
         # Hide the places sidebar, since it makes no sense in this context
@@ -321,7 +321,7 @@ class IsoChooser(GUIObject):
 
     # pylint: disable=arguments-differ
     def refresh(self, currentFile=""):
-        GUIObject.refresh(self)
+        super().refresh()
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
         self._chooser.set_filename(constants.ISO_DIR + "/" + currentFile)
 

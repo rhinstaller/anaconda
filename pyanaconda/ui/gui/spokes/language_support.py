@@ -23,8 +23,7 @@ gi.require_version("Gdk", "3.0")
 
 from gi.repository import Pango, Gdk
 
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -66,7 +65,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         LangLocaleHandler.__init__(self)
         self._selected_locales = set()
 
-        self._l12_module = DBus.get_observer(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        self._l12_module = LOCALIZATION.get_observer()
         self._l12_module.connect()
 
     def initialize(self):

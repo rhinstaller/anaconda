@@ -354,13 +354,13 @@ class RescueModeSpoke(NormalTUISpoke):
     # If it acts like a spoke and looks like a spoke, is it a spoke? Not
     # always. This is independent of any hub(s), so pass in some fake data
     def __init__(self, rescue):
-        NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
+        super().__init__(data=None, storage=None, payload=None, instclass=None)
         self.title = N_("Rescue")
         self._container = None
         self._rescue = rescue
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         msg = _("The rescue environment will now attempt "
                 "to find your Linux installation and mount it under "
@@ -474,7 +474,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
     """UI displaying status of rescue mode mount and prompt for shell."""
 
     def __init__(self, rescue):
-        NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
+        super().__init__(data=None, storage=None, payload=None, instclass=None)
         self.title = N_("Rescue Shell")
         self._rescue = rescue
 
@@ -483,7 +483,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         umount_msg = _("Run %s to unmount the system when you are finished.") % ANACONDA_CLEANUP
         exit_reboot_msg = _("When finished, please exit from the shell and your "
@@ -552,7 +552,7 @@ class RootSelectionSpoke(NormalTUISpoke):
     """UI for selection of installed system root to be mounted."""
 
     def __init__(self, roots):
-        NormalTUISpoke.__init__(self, data=None, storage=None, payload=None, instclass=None)
+        super().__init__(data=None, storage=None, payload=None, instclass=None)
         self.title = N_("Root Selection")
         self._roots = roots
         self._selection = 0
@@ -562,7 +562,7 @@ class RootSelectionSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         message = _("The following installations were discovered on your system.\n")
         self.window.add_with_separator(TextWidget(message))

@@ -28,8 +28,7 @@ import sys
 from blivet.size import Size
 
 from pyanaconda.kickstart import getAvailableDiskSpace
-from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
-from pykickstart.constants import FIRSTBOOT_DEFAULT
+from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED, SETUP_ON_BOOT_DEFAULT
 from pyanaconda.core.util import collect
 from pyanaconda.storage.autopart import swap_suggestion
 from pyanaconda.storage.partspec import PartSpec
@@ -80,8 +79,8 @@ class BaseInstallClass(object):
     # comps environment id to select by default
     defaultPackageEnvironment = None
 
-    # state firstboot should be in unless something special happens
-    firstboot = FIRSTBOOT_DEFAULT
+    # should we run the initial setup on the first boot?
+    setup_on_boot = SETUP_ON_BOOT_DEFAULT
 
     # geolocation
     use_geolocation_with_kickstart = False
@@ -170,6 +169,14 @@ class BaseInstallClass(object):
 
         # Customize the default partitioning with kickstart data.
         self.customizeDefaultPartitioning(anaconda.storage, anaconda.ksdata)
+
+    def configurePayload(self, payload):
+        """Configure install class specific payload operations.
+
+        This is called after payload is created.
+        Beware: This method is called before payload is restarted so it is not completely set up.
+        """
+        self.setPackageSelection(payload)
 
     def setStorageChecker(self, storage_checker):
         # Update constraints and add or remove some checks in

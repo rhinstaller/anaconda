@@ -115,7 +115,7 @@ class TextUserInterface(ui.UserInterface):
         :type quitMessage: str
         """
 
-        ui.UserInterface.__init__(self, storage, payload, instclass)
+        super().__init__(storage, payload, instclass)
         self._meh_interface = meh.ui.text.TextIntf()
 
         self.productTitle = productTitle

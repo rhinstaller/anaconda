@@ -1,5 +1,4 @@
 #
-# base_interface.py
 # Base interface for Anaconda modules.
 #
 # Copyright (C) 2017 Red Hat, Inc.
@@ -20,15 +19,15 @@
 #
 from pykickstart.errors import KickstartError
 
+from pyanaconda.modules.common.base.base_template import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 from pyanaconda.dbus.property import emits_properties_changed
-from pyanaconda.dbus.template import AdvancedInterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
 
 
-@dbus_interface(DBUS_MODULE_NAMESPACE)
-class KickstartModuleInterface(AdvancedInterfaceTemplate):
+@dbus_interface(KICKSTART_MODULE.interface_name)
+class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
     """DBus interface of a kickstart module.
 
     The implementation is provided by the KickstartModule class.
@@ -36,22 +35,16 @@ class KickstartModuleInterface(AdvancedInterfaceTemplate):
 
     def connect_signals(self):
         """Connect the signals."""
-        self.implementation.module_properties_changed.connect(self.flush_changes)
+        super().connect_signals()
         self.implementation.kickstarted_changed.connect(self.changed("Kickstarted"))
 
     @property
-    def AvailableTasks(self) -> List[Tuple[Str, Str]]:
+    def AvailableTasks(self) -> List[ObjPath]:
         """Return DBus object paths for tasks available for this module.
 
-        :returns: List of tuples (Name, DBus object path) for all Tasks.
-                  See pyanaconda.task.Task for Task API.
+        :returns: List of object paths for all available tasks.
         """
-        result = []
-
-        for task in self.implementation.published_tasks:
-            result.append((task.Name, task.object_path))
-
-        return result
+        return list(self.implementation.published_tasks.values())
 
     @property
     def KickstartCommands(self) -> List[Str]:

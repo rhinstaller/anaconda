@@ -18,7 +18,6 @@
 #
 from abc import ABC
 
-from pyanaconda.dbus import DBus
 from pyanaconda.dbus.property import PropertiesInterface
 
 __all__ = ["InterfaceTemplate", "AdvancedInterfaceTemplate"]
@@ -41,7 +40,7 @@ class InterfaceTemplate(ABC):
 
     Example:
 
-    @dbus_interface("org.myproject.InterfaceX")
+    @dbus_interface("org.myproject.X")
     class InterfaceX(InterfaceTemplate):
         def DoSomething(self) -> Str:
             return self.implementation.do_something()
@@ -52,8 +51,8 @@ class InterfaceTemplate(ABC):
 
     x = X()
     i = InterfaceX(x)
-    i.publish("org/myproject/X/1")
 
+    DBus.publish_object("/org/myproject/X", i)
     """
 
     def __init__(self, implementation):
@@ -62,7 +61,6 @@ class InterfaceTemplate(ABC):
         :param implementation: an implementation of this interface
         """
         self._implementation = implementation
-        self._object_path = None
         self.connect_signals()
 
     @property
@@ -73,16 +71,6 @@ class InterfaceTemplate(ABC):
         """
         return self._implementation
 
-    @property
-    def object_path(self):
-        """Return an DBus object path.
-
-        If this object wasn't published, it returns None.
-
-        :return: a DBus path or None
-        """
-        return self._object_path
-
     def connect_signals(self):
         """Interconnect the signals.
 
@@ -92,14 +80,6 @@ class InterfaceTemplate(ABC):
         reemits the signal on DBus.
         """
         pass
-
-    def publish(self, object_path):
-        """Publish the object on DBus.
-
-        :type object_path: a DBus path of the object
-        """
-        DBus.publish_object(self, object_path)
-        self._object_path = object_path
 
 
 class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
@@ -114,7 +94,7 @@ class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
             super().connect_signals()
 
             self.implementation.module_properties_changed.connect(self.flush_changes)
-            self.implementation.x_changed.connect(self.changed("X"))
+            self.watch_property("X", self.implementation.x_changed)
 
         @property
         def X(self, x) -> Int:
@@ -130,8 +110,20 @@ class AdvancedInterfaceTemplate(InterfaceTemplate, PropertiesInterface):
         PropertiesInterface.__init__(self)
         InterfaceTemplate.__init__(self, implementation)
 
+    def watch_property(self, property_name, signal):
+        """Watch a DBus property.
+
+        Report a change when the property is changed.
+
+        :param property_name: a name of a DBus property
+        :param signal: a signal that emits when the property is changed
+        """
+        signal.connect(self.changed(property_name))
+
     def changed(self, property_name):
         """Returns a callback for the changed property.
+
+        FIXME: Remove this method and replace it with watch_property.
 
         The callback accepts any arguments, but ignores them.
 

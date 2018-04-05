@@ -43,8 +43,7 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
+from pyanaconda.modules.common.constants.services import TIMEZONE
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
@@ -434,7 +433,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._shown = False
         self._tz = None
 
-        self._timezone_module = DBus.get_observer(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        self._timezone_module = TIMEZONE.get_observer()
         self._timezone_module.connect()
 
     def initialize(self):
@@ -509,7 +508,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not flags.can_touch_runtime_system("modify system time and date"):
             self._set_date_time_setting_sensitive(False)
 
-        self._config_dialog = NTPconfigDialog(None, self._timezone_module)
+        self._config_dialog = NTPconfigDialog(self.data, self._timezone_module)
         self._config_dialog.initialize()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,

@@ -24,7 +24,7 @@ from gi.repository import GLib
 
 from textwrap import dedent
 from mock import Mock
-from pyanaconda.dbus.constants import DBUS_MODULE_NAMESPACE
+from pyanaconda.modules.common.constants.interfaces import KICKSTART_MODULE
 
 
 class run_in_glib(object):
@@ -59,13 +59,14 @@ class run_in_glib(object):
         return create_loop
 
 
-def check_kickstart_interface(test, interface, ks_in, ks_out):
+def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True):
     """Test the parsing and generating of a kickstart module.
 
     :param test: instance of TestCase
     :param interface: instance of KickstartModuleInterface
     :param ks_in: string with the input kickstart
     :param ks_out: string with the output kickstart
+    :param ks_valid: True if the input kickstart is valid, otherwise False
     """
     callback = Mock()
     interface.PropertiesChanged.connect(callback)
@@ -73,8 +74,16 @@ def check_kickstart_interface(test, interface, ks_in, ks_out):
     # Read a kickstart,
     if ks_in is not None:
         ks_in = dedent(ks_in).strip()
-        result = interface.ReadKickstart(ks_in)
-        test.assertEqual({k: v.unpack() for k, v in result.items()}, {"success": True})
+        result = {k: v.unpack() for k, v in interface.ReadKickstart(ks_in).items()}
+
+        if ks_valid:
+            test.assertEqual(result, {"success": True})
+        else:
+            test.assertIn("success", result)
+            test.assertEqual(result["success"], False)
+            test.assertIn("line_number", result)
+            test.assertIn("error_message", result)
+            return
 
     # Generate a kickstart
     ks_out = dedent(ks_out).strip()
@@ -82,7 +91,40 @@ def check_kickstart_interface(test, interface, ks_in, ks_out):
 
     # Test the properties changed callback.
     if ks_in is not None:
-        callback.assert_any_call(DBUS_MODULE_NAMESPACE, {'Kickstarted': True}, [])
+        callback.assert_any_call(KICKSTART_MODULE.interface_name, {'Kickstarted': True}, [])
     else:
         test.assertEqual(interface.Kickstarted, False)
         callback.assert_not_called()
+
+
+def check_dbus_property(test, interface_id, interface, property_name,
+                        in_value, out_value=None, getter=None, setter=None):
+    """Check DBus property.
+
+    :param test: instance of TestCase
+    :param interface_id: instance of DBusInterfaceIdentifier
+    :param interface: instance of a DBus interface
+    :param property_name: a DBus property name
+    :param in_value: an input value of the property
+    :param out_value: an output value of the property or None
+    :param getter: a property getter or None
+    :param setter: a property setter or None
+    """
+    callback = Mock()
+    interface.PropertiesChanged.connect(callback)
+
+    if out_value is None:
+        out_value = in_value
+
+    # Set the property.
+    if not setter:
+        setter = getattr(interface, "Set{}".format(property_name))
+
+    setter(in_value)
+    callback.assert_called_once_with(interface_id.interface_name, {property_name: out_value}, [])
+
+    # Get the property.
+    if not getter:
+        getter = lambda: getattr(interface, property_name)
+
+    test.assertEqual(getter(), out_value)

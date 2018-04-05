@@ -18,14 +18,14 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_LOCALIZATION_NAME)
+@dbus_interface(LOCALIZATION.interface_name)
 class LocalizationInterface(KickstartModuleInterface):
     """DBus interface for Localization module."""
 
@@ -33,6 +33,12 @@ class LocalizationInterface(KickstartModuleInterface):
         super().connect_signals()
         self.implementation.language_changed.connect(self.changed("Language"))
         self.implementation.language_support_changed.connect(self.changed("LanguageSupport"))
+        self.implementation.language_seen_changed.connect(self.changed("LanguageKickstarted"))
+        self.implementation.keyboard_changed.connect(self.changed("Keyboard"))
+        self.implementation.vc_keymap_changed.connect(self.changed("VirtualConsoleKeymap"))
+        self.implementation.x_layouts_changed.connect(self.changed("XLayouts"))
+        self.implementation.switch_options_changed.connect(self.changed("LayoutSwitchOptions"))
+        self.implementation.keyboard_seen_changed.connect(self.changed("KeyboardKickstarted"))
 
     @property
     def Language(self) -> Str:
@@ -68,3 +74,85 @@ class LocalizationInterface(KickstartModuleInterface):
         :param language_support: IDs of languages ($LANG) to be supported on system.
         """
         self.implementation.set_language_support(language_support)
+
+    @property
+    def LanguageKickstarted(self) -> Bool:
+        """Was the language set in a kickstart?
+
+        :return: True if it was set in a kickstart, otherwise False
+        """
+        return self.implementation.language_seen
+
+    # TODO MOD - remove this when we get logic for inferring what we are
+    # getting and the other option value (localed proxy) into the module?
+    @property
+    def Keyboard(self) -> Str:
+        """Generic system keyboard specification."""
+        return self.implementation.keyboard
+
+    @emits_properties_changed
+    def SetKeyboard(self, keyboard: Str):
+        """Set the system keyboard type in generic way.
+
+        Can contain virtual console keyboard mapping or X layout specification.
+        This is deprecated way of specifying keyboard, use either
+        SetVirtualConsoleKeymap and/or SetXLayouts.
+
+        :param keyboard: system keyboard specification
+        """
+        self.implementation.set_keyboard(keyboard)
+
+    @property
+    def VirtualConsoleKeymap(self) -> Str:
+        """Virtual Console keyboard mapping."""
+        return self.implementation.vc_keymap
+
+    @emits_properties_changed
+    def SetVirtualConsoleKeymap(self, vc_keymap: Str):
+        """Set Virtual console keyboard mapping.
+
+        The mapping name corresponds to filenames in /usr/lib/kbd/keymaps
+        (localectl --list-keymaps).
+
+        :param vc_keymap: Virtual console keymap name.
+        """
+        self.implementation.set_vc_keymap(vc_keymap)
+
+    @property
+    def XLayouts(self) -> List[Str]:
+        """X Layouts that should be used on the system."""
+        return self.implementation.x_layouts
+
+    @emits_properties_changed
+    def SetXLayouts(self, x_layouts: List[Str]):
+        """Set the X layouts for the system.
+
+        The layout is specified by values used by setxkbmap(1).  Accepts either
+        layout format (eg "cz") or the layout(variant) format (eg "cz (qerty)")
+
+        :param x_layouts: List of x layout specifications.
+        """
+        self.implementation.set_x_layouts(x_layouts)
+
+    @property
+    def LayoutSwitchOptions(self) -> List[Str]:
+        """List of options for layout switching"""
+        return self.implementation.switch_options
+
+    @emits_properties_changed
+    def SetLayoutSwitchOptions(self, switch_options: List[Str]):
+        """Set the layout switchin options.
+
+        Accepts the same values as setxkbmap(1) for switching.
+
+        :param options: List of layout switching options.
+        """
+        self.implementation.set_switch_options(switch_options)
+
+    @property
+    def KeyboardKickstarted(self) -> Bool:
+        """Was keyboard command seen in kickstart?
+
+        :return: True if keyboard command was seen in kickstart, otherwise False
+        """
+        return self.implementation.keyboard_seen

@@ -55,7 +55,7 @@ class SummaryHub(Hub):
                            installation information like default package
                            selections and default partitioning.
         """
-        super(SummaryHub, self).__init__(data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
 
         if not flags.dirInstall:
             self._checker = FileSystemSpaceChecker(storage, payload)

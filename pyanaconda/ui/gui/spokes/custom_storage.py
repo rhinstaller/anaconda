@@ -34,15 +34,15 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
-from pykickstart.constants import CLEARPART_TYPE_NONE
-
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threading import AnacondaThread, threadMgr
-from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
-from pyanaconda.core.constants import SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS
+from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
+    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.platform import platform
 
@@ -183,6 +183,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                   DEVICE_TYPE_DISK: ""}
 
         self._initialized = False
+        self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
+        self._disk_init_observer.connect()
 
     def apply(self):
         self.clear_errors()
@@ -312,7 +314,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def _clearpartDevices(self):
-        return [d for d in self._devices if d.name in self.data.clearpart.drives and d.partitioned]
+        drives_to_clear = self._disk_init_observer.proxy.DrivesToClear
+        return [d for d in self._devices if d.name in drives_to_clear and d.partitioned]
 
     @property
     def unusedDevices(self):
@@ -344,7 +347,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def _currentFreeInfo(self):
-        return self._storage_playground.get_free_space(clear_part_type=CLEARPART_TYPE_NONE)
+        return self._storage_playground.get_free_space(clear_part_type=CLEAR_PARTITIONS_NONE)
 
     def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
@@ -363,7 +366,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._availableSpaceLabel.set_text(str(self._free_space))
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
-        count = len(self.data.clearpart.drives)
+        count = len(self._disk_init_observer.proxy.DrivesToClear)
         summary = CP_("GUI|Custom Partitioning",
                 "%d _storage device selected",
                 "%d _storage devices selected",

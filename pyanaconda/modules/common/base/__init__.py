@@ -15,7 +15,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.base.base import BaseModule, KickstartModule
+from pyanaconda.modules.common.base.base import BaseModule, MainModule, KickstartModule, \
+    KickstartBaseModule
 from pyanaconda.modules.common.base.base_interface import KickstartModuleInterface
+from pyanaconda.modules.common.base.base_template import ModuleInterfaceTemplate, \
+    KickstartModuleInterfaceTemplate
 
-__all__ = ["BaseModule", "KickstartModule", "KickstartModuleInterface"]
+__all__ = ["BaseModule", "MainModule", "KickstartBaseModule", "KickstartModule",
+           "ModuleInterfaceTemplate", "KickstartModuleInterfaceTemplate",
+           "KickstartModuleInterface"]

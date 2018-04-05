@@ -51,7 +51,7 @@ class AskVNCSpoke(NormalTUISpoke):
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
     def __init__(self, data, storage=None, payload=None, instclass=None, message=""):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.input_required = True
         self.initialize_start()
         self._container = None
@@ -70,7 +70,7 @@ class AskVNCSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self.window.add_with_separator(TextWidget(self._message))
 
@@ -111,7 +111,7 @@ class AskVNCSpoke(NormalTUISpoke):
                     else:
                         sys.exit(1)
             else:
-                return super(AskVNCSpoke, self).input(args, key)
+                return super().input(args, key)
 
     def apply(self):
         self.data.vnc.enabled = self._usevnc
@@ -124,7 +124,7 @@ class VNCPassSpoke(NormalTUISpoke):
     """
 
     def __init__(self, data, storage, payload, instclass, message=None):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("VNC Password")
         self._password = ""
         if message:
@@ -142,7 +142,7 @@ class VNCPassSpoke(NormalTUISpoke):
         return True # We're always complete
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
         self.window.add_with_separator(TextWidget(self._message))
 
     def prompt(self, args=None):

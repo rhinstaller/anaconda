@@ -45,9 +45,6 @@ class RHELBaseInstallClass(BaseInstallClass):
     help_placeholder = "RHEL7Placeholder.html"
     help_placeholder_with_links = "RHEL7PlaceholderWithLinks.html"
 
-    def configure(self, anaconda):
-        BaseInstallClass.configure(self, anaconda)
-
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
@@ -61,5 +58,3 @@ class RHELBaseInstallClass(BaseInstallClass):
             return
         network.update_onboot_value(dev, True, ksdata=ksdata)
 
-    def __init__(self):
-        BaseInstallClass.__init__(self)

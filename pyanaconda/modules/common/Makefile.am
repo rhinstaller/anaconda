@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = base task errors
+SUBDIRS = base task errors constants
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 modules_commondir = $(pkgpyexecdir)/modules/common

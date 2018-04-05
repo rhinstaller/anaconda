@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = common boss bar foo timezone network localization security user
+SUBDIRS = common boss timezone network localization security user payload storage services
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 modulesdir = $(pkgpyexecdir)/modules

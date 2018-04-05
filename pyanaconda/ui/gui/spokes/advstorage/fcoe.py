@@ -38,7 +38,7 @@ class FCoEDialog(GUIObject):
     uiFile = "spokes/advstorage/fcoe.glade"
 
     def __init__(self, data, storage):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
 
         self._addError = None
 

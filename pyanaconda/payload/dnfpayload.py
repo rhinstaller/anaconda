@@ -19,9 +19,6 @@
 #
 import os
 
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-
 from blivet.size import Size
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 from pyanaconda.flags import flags
@@ -30,6 +27,7 @@ from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
 from pyanaconda.core import util
+from pyanaconda.modules.common.constants.services import LOCALIZATION
 
 import pyanaconda.errors as errors
 import pyanaconda.localization
@@ -168,7 +166,7 @@ def _pick_mpoint(df, download_size, install_size, download_only):
 
 class PayloadRPMDisplay(dnf.callback.TransactionProgress):
     def __init__(self, queue_instance):
-        super(PayloadRPMDisplay, self).__init__()
+        super().__init__()
         self._queue = queue_instance
         self._last_ts = None
         self._postinst_phase = False
@@ -234,6 +232,7 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
 
 class DownloadProgress(dnf.callback.DownloadProgress):
     def __init__(self):
+        super().__init__()
         self.downloads = collections.defaultdict(int)
         self.last_time = time.time()
         self.total_files = 0
@@ -291,7 +290,7 @@ def do_transaction(base, queue_instance):
 
 class DNFPayload(payload.PackagePayload):
     def __init__(self, data):
-        payload.PackagePayload.__init__(self, data)
+        super().__init__(data)
 
         self._base = None
         self._download_location = None
@@ -310,7 +309,7 @@ class DNFPayload(payload.PackagePayload):
         self.requirements.set_apply_callback(self._apply_requirements)
 
     def unsetup(self):
-        super(DNFPayload, self).unsetup()
+        super().unsetup()
         self._base = None
         self._configure()
         self._repoMD_list = []
@@ -411,7 +410,7 @@ class DNFPayload(payload.PackagePayload):
         :returns: None
         """
         self._add_repo(ksrepo)
-        super(DNFPayload, self).addRepo(ksrepo)
+        super().addRepo(ksrepo)
 
     def _apply_selections(self):
         if self.data.packages.nocore:
@@ -672,7 +671,7 @@ class DNFPayload(payload.PackagePayload):
 
         langpacks = []
         # add base langpacks into transaction
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         for lang in [localization_proxy.Language] + localization_proxy.LanguageSupport:
             loc = pyanaconda.localization.find_best_locale_match(lang, alangs)
             if not loc:
@@ -821,7 +820,7 @@ class DNFPayload(payload.PackagePayload):
             log.info("Disabled '%s'", repo_id)
         except KeyError:
             pass
-        super(DNFPayload, self).disableRepo(repo_id)
+        super().disableRepo(repo_id)
 
     def enableRepo(self, repo_id):
         try:
@@ -829,7 +828,7 @@ class DNFPayload(payload.PackagePayload):
             log.info("Enabled '%s'", repo_id)
         except KeyError:
             pass
-        super(DNFPayload, self).enableRepo(repo_id)
+        super().enableRepo(repo_id)
 
     def environmentDescription(self, environmentid):
         env = self._base.comps.environment_by_pattern(environmentid)
@@ -991,7 +990,7 @@ class DNFPayload(payload.PackagePayload):
         try:
             return self._base.repos[repo_id].enabled
         except (dnf.exceptions.RepoError, KeyError):
-            return super(DNFPayload, self).isRepoEnabled(repo_id)
+            return super().isRepoEnabled(repo_id)
 
     def verifyAvailableRepositories(self):
         """Verify availability of repositories."""
@@ -1005,7 +1004,7 @@ class DNFPayload(payload.PackagePayload):
         return True
 
     def languageGroups(self):
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
         match_fn = pyanaconda.localization.langcode_matches_locale
         gids = set()
@@ -1017,7 +1016,7 @@ class DNFPayload(payload.PackagePayload):
         return list(gids)
 
     def reset(self):
-        super(DNFPayload, self).reset()
+        super().reset()
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self.txID = None
@@ -1203,7 +1202,7 @@ class DNFPayload(payload.PackagePayload):
             except payload.PayloadSetupError as e:
                 log.error(e)
 
-        super(DNFPayload, self).postInstall()
+        super().postInstall()
 
     def writeStorageLate(self):
         pass

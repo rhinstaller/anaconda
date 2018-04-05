@@ -204,7 +204,7 @@ class AddonSection(Section):
 
     def handleHeader(self, lineno, args):
         """Process the arguments to the %addon header."""
-        Section.handleHeader(self, lineno, args)
+        super().handleHeader(lineno, args)
         self.addon_id = args[1]
 
         # If the addon is not registered, create dummy placeholder for it.
@@ -218,7 +218,7 @@ class AddonSection(Section):
 
     def finalize(self):
         """Let addon know no additional data will come."""
-        Section.finalize(self)
+        super().finalize()
 
         addon = getattr(self.handler.addons, self.addon_id)
         addon.finalize()

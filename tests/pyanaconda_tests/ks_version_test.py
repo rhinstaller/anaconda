@@ -36,11 +36,13 @@ class CommandVersionTestCase(unittest.TestCase):
                 warnings.warn("Skipping the kickstart name {}.".format(name))
                 continue
 
+            # Print info about the command for better debugging.
+            print(name, children[name], parents[name])
+
             # Skip commands that were moved on DBus.
             if isinstance(children[name](), kickstart.RemovedCommand):
                 continue
 
-            print(name, children[name], parents[name])
             self.assertIsInstance(children[name](), parents[name])
 
     def commands_test(self):

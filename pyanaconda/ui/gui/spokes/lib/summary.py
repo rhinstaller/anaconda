@@ -31,7 +31,7 @@ class ActionSummaryDialog(GUIObject):
     uiFile = "spokes/lib/summary.glade"
 
     def __init__(self, data):
-        GUIObject.__init__(self, data)
+        super().__init__(data)
         self._store = self.builder.get_object("actionStore")
 
     # pylint: disable=arguments-differ
@@ -69,7 +69,7 @@ class ActionSummaryDialog(GUIObject):
 
     # pylint: disable=arguments-differ
     def refresh(self, actions):
-        GUIObject.refresh(self)
+        super().refresh()
 
         self._store.clear()
         self.initialize(actions)

@@ -517,16 +517,24 @@ if __name__ == "__main__":
 
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
-    if opts.keymap:
-        if not ksdata.keyboard.keyboard:
-            ksdata.keyboard.keyboard = opts.keymap
 
-    if ksdata.keyboard.keyboard:
+    from pyanaconda.modules.common.constants.services import LOCALIZATION
+    localization_proxy = LOCALIZATION.get_proxy()
+
+    configured = any((localization_proxy.Keyboard,
+                      localization_proxy.VirtualConsoleKeymap,
+                      localization_proxy.XLayouts))
+
+    if opts.keymap and not configured:
+        localization_proxy.SetKeyboard(opts.keymap)
+        configured = True
+
+    if configured:
         if can_touch_runtime_system("activate keyboard"):
-            keyboard.activate_keyboard(ksdata.keyboard)
+            keyboard.activate_keyboard(localization_proxy)
         else:
             # at least make sure we have all the values
-            keyboard.populate_missing_items(ksdata.keyboard)
+            keyboard.populate_missing_items(localization_proxy)
 
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
@@ -571,26 +579,23 @@ if __name__ == "__main__":
         flags.hmc = True
 
     # Override the selinux state from kickstart if set on the command line
+    from pyanaconda.modules.common.constants.services import SECURITY
     if flags.selinux != constants.SELINUX_DEFAULT:
-        ksdata.selinux.selinux = flags.selinux
+        security_proxy = SECURITY.get_proxy()
+        security_proxy.SetSELinux(flags.selinux)
 
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 
-    from pyanaconda.dbus import DBus
-    from pyanaconda.dbus.constants import MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH
-    localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+    from pyanaconda.modules.common.constants.services import LOCALIZATION
+    localization_proxy = LOCALIZATION.get_proxy()
 
     # If the language was set on the command line, copy that to kickstart
     if opts.lang:
         localization_proxy.SetLanguage(opts.lang)
-        localization_proxy.SetKickstarted(True)
 
     # Setup the locale environment
-    if localization_proxy.Kickstarted:
-        locale_option = localization_proxy.Language
-    else:
-        locale_option = None
+    locale_option = localization_proxy.Language or None
     localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
 
     # Now that LANG is set, do something with it
@@ -640,8 +645,12 @@ if __name__ == "__main__":
 
     # if we're in text mode, the resulting system should be too
     # ...unless the kickstart specified otherwise
-    if anaconda.tui_mode and not anaconda.ksdata.xconfig.startX:
-        anaconda.ksdata.skipx.skipx = True
+    from pyanaconda.modules.common.constants.services import SERVICES
+    from pyanaconda.core.constants import TEXT_ONLY_TARGET
+    services_proxy = SERVICES.get_proxy()
+
+    if not services_proxy.DefaultTarget and anaconda.tui_mode:
+        services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
     # Set flag to prompt for missing ks data
     if not anaconda.interactive_mode:
@@ -675,13 +684,18 @@ if __name__ == "__main__":
         anaconda.storage.setup_disk_images()
 
     # Ignore disks labeled OEMDRV
+    from pyanaconda.modules.common.constants.services import STORAGE
+    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     from pyanaconda.storage_utils import device_matches
     matched = device_matches("LABEL=OEMDRV", disks_only=True)
     for oemdrv_disk in matched:
-        if oemdrv_disk not in ksdata.ignoredisk.ignoredisk:
-            ksdata.ignoredisk.ignoredisk.append(oemdrv_disk)
-            log.info("Adding disk %s labeled OEMDRV to ignored disks",
-                    oemdrv_disk)
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        ignored_disks = disk_select_proxy.IgnoredDisks
+
+        if oemdrv_disk not in ignored_disks:
+            log.info("Adding disk %s labeled OEMDRV to ignored disks", oemdrv_disk)
+            ignored_disks.append(oemdrv_disk)
+            disk_select_proxy.SetIgnoredDisks(ignored_disks)
 
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
@@ -690,8 +704,8 @@ if __name__ == "__main__":
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
 
-    from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH
-    timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+    from pyanaconda.modules.common.constants.services import TIMEZONE
+    timezone_proxy = TIMEZONE.get_proxy()
 
     if can_touch_runtime_system("initialize time", touch_live=True):
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
@@ -719,6 +733,8 @@ if __name__ == "__main__":
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
+    anaconda.postConfigureInstallClass()
+
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
     payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass, fallback=fallback)
@@ -742,6 +758,20 @@ if __name__ == "__main__":
 
         if timezone_proxy.NTPEnabled:
             util.start_service("chronyd")
+
+    # Finish the initialization of the setup on boot action.
+    # This should be done sooner and somewhere else once it is possible.
+    from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT, SETUP_ON_BOOT_DISABLED
+    from pyanaconda.modules.common.constants.services import SERVICES
+    services_proxy = SERVICES.get_proxy()
+
+    if services_proxy.SetupOnBoot == SETUP_ON_BOOT_DEFAULT:
+        if flags.automatedInstall:
+            # Disable by default after kickstart installations.
+            services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
+        else:
+            # Otherwise use the install class's default value.
+            services_proxy.SetSetupOnBoot(anaconda.instClass.setup_on_boot)
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL

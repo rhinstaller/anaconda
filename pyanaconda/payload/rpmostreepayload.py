@@ -46,7 +46,7 @@ import pyanaconda.errors as errors
 class RPMOSTreePayload(ArchivePayload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages) onto the target system. """
     def __init__(self, data):
-        super(RPMOSTreePayload, self).__init__(data)
+        super().__init__(data)
         self._remoteOptions = None
         self._internal_mounts = []
 
@@ -354,7 +354,7 @@ class RPMOSTreePayload(ArchivePayload):
         self._setupInternalBindmount("/", dest="/sysroot", recurse=False)
 
     def unsetup(self):
-        super(RPMOSTreePayload, self).unsetup()
+        super().unsetup()
 
         for mount in reversed(self._internal_mounts):
             try:
@@ -369,7 +369,7 @@ class RPMOSTreePayload(ArchivePayload):
         pass
 
     def postInstall(self):
-        super(RPMOSTreePayload, self).postInstall()
+        super().postInstall()
 
         gi.require_version("OSTree", "1.0")
         from gi.repository import OSTree

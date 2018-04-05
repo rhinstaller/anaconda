@@ -19,13 +19,14 @@
 
 from abc import ABCMeta, abstractproperty
 
-from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pyanaconda.core.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON, SETUP_ON_BOOT_RECONFIG
+from pyanaconda.modules.common.constants.services import SERVICES
 from pyanaconda import screen_access
 from pyanaconda.core.util import collect
 from pyanaconda.core.signal import Signal
 from pyanaconda import lifecycle
 
-from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
+from pykickstart.constants import DISPLAY_MODE_TEXT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -118,18 +119,20 @@ class FirstbootSpokeMixIn(object):
 
         if environment == ANACONDA_ENVIRON:
             return True
-        elif environment == FIRSTBOOT_ENVIRON and data is None:
+
+        if environment == FIRSTBOOT_ENVIRON:
             # cannot decide, stay in the game and let another call with data
             # available (will come) decide
-            return True
-        elif environment == FIRSTBOOT_ENVIRON and \
-                data and data.firstboot.firstboot == FIRSTBOOT_RECONFIG:
+            if data is None:
+                return True
+
             # generally run spokes in firstboot only if doing reconfig, spokes
             # that should run even if not doing reconfig should override this
             # method
-            return True
-        else:
-            return False
+            services_proxy = SERVICES.get_proxy()
+            return services_proxy.SetupOnBoot == SETUP_ON_BOOT_RECONFIG
+
+        return False
 
 
 class FirstbootOnlySpokeMixIn(object):
@@ -424,7 +427,7 @@ class NormalSpoke(Spoke):
 
     def __init__(self, storage, payload, instclass):
         """Create a NormalSpoke instance."""
-        Spoke.__init__(self, storage, payload, instclass)
+        super().__init__(storage, payload, instclass)
         self.selector = None
 
     @property
@@ -490,7 +493,7 @@ class StandaloneSpoke(Spoke):
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        Spoke.__init__(self, storage, payload, instclass)
+        super().__init__(storage, payload, instclass)
 
     # Standalone spokes are not part of a hub, and thus have no status.
     # Provide a concrete implementation of status here so that subclasses

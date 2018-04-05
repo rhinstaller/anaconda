@@ -221,7 +221,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
     def input(self, args, key):
         """ Handle the input; this decides the repo source. """
         if not self._container.process_user_input(key):
-            return super(SourceSpoke, self).input(args, key)
+            return super().input(args, key)
 
         return InputState.PROCESSED
 
@@ -388,7 +388,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
     category = SoftwareCategory
 
     def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        super().__init__(data, storage, payload, instclass)
         self.title = N_("Select device containing the ISO file")
         self._container = None
         self._mountable_devices = self._get_mountable_devices()
@@ -416,7 +416,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
         return disks
 
     def refresh(self, args=None):
-        NormalTUISpoke.refresh(self, args)
+        super().refresh(args)
 
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
@@ -453,7 +453,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
         else:
             # either the input was not a number or
             # we don't have the disk for the given number
-            return super(SelectDeviceSpoke, self).input(args, key)
+            return super().input(args, key)
 
     # Override Spoke.apply
     def apply(self):
@@ -502,7 +502,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
             self.close()
             return InputState.PROCESSED
         else:
-            return super(SelectISOSpoke, self).input(args, key)
+            return super().input(args, key)
 
     @property
     def indirect(self):

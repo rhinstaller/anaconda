@@ -57,7 +57,7 @@ def shutdownServer():
         log.error("Shutdown of the XVNC server failed with exception:\n%s", e)
 
 
-class VncServer:
+class VncServer(object):
 
     def __init__(self, root="/", ip=None, name=None,
                  password="", vncconnecthost="",

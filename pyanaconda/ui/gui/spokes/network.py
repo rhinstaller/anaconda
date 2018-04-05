@@ -41,12 +41,10 @@ from pyanaconda.core.util import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core import glib
+from pyanaconda.modules.common.constants.services import NETWORK
 
 from pyanaconda import network
 from pyanaconda import nm
-
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
 
 import dbus
 import dbus.service
@@ -127,7 +125,7 @@ class CellRendererSignal(Gtk.CellRendererPixbuf):
     }
 
     def __init__(self):
-        Gtk.CellRendererPixbuf.__init__(self)
+        super().__init__()
         self.signal = 0
 
 
@@ -180,7 +178,7 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
                        }
 
     def __init__(self):
-        Gtk.CellRendererPixbuf.__init__(self)
+        super().__init__()
         self.security = NM_AP_SEC_UNKNOWN
         self.icon_name = ""
 
@@ -285,7 +283,7 @@ class NetworkControlBox(GObject.GObject):
 
     def __init__(self, builder, client, spoke=None):
 
-        GObject.GObject.__init__(self)
+        super().__init__()
 
         self.builder = builder
         self._running_nmce = None
@@ -1321,7 +1319,7 @@ class SecretAgentDialog(GUIObject):
 
     def __init__(self, *args, **kwargs):
         self._content = kwargs.pop('content', {})
-        GUIObject.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.builder.get_object("label_message").set_text(self._content['message'])
         self._connect_button = self.builder.get_object("connect_button")
 
@@ -1389,7 +1387,7 @@ class SecretAgent(dbus.service.Object):
     def __init__(self, spoke):
         self._bus = dbus.SystemBus()
         self.spoke = spoke
-        dbus.service.Object.__init__(self, self._bus, "/org/freedesktop/NetworkManager/SecretAgent")
+        super().__init__(self._bus, "/org/freedesktop/NetworkManager/SecretAgent")
 
     @dbus.service.method(SECRET_AGENT_IFACE,
                          in_signature='a{sa{sv}}osasb',
@@ -1544,8 +1542,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.networking_changed = False
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
-        self._network_module = DBus.get_observer(MODULE_NETWORK_NAME,
-                                                 MODULE_NETWORK_PATH)
+        self._network_module = NETWORK.get_observer()
         self._network_module.connect()
         self.network_control_box.hostname = self._network_module.proxy.Hostname
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
@@ -1686,11 +1683,10 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     priority = 10
 
     def __init__(self, *args, **kwargs):
-        StandaloneSpoke.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
 
-        self._network_module = DBus.get_observer(MODULE_NETWORK_NAME,
-                                                 MODULE_NETWORK_PATH)
+        self._network_module = NETWORK.get_observer()
         self._network_module.connect()
         self.network_control_box.hostname = self._network_module.proxy.Hostname
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
@@ -1736,11 +1732,11 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def initialize(self):
         register_secret_agent(self)
-        StandaloneSpoke.initialize(self)
+        super().initialize()
         self.network_control_box.initialize()
 
     def refresh(self):
-        StandaloneSpoke.refresh(self)
+        super().refresh()
         self.network_control_box.refresh()
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
 

@@ -24,12 +24,14 @@ import shutil
 from threading import Lock
 
 from pyanaconda.errors import ExitError
-from .test_constants import ANACONDA_TEST_DIR
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core import util
 from pyanaconda.core.util import synchronized
 
 from timer import timer
+
+ANACONDA_TEST_DIR = '/tmp/anaconda_tests_dir'
+
 
 class UpcaseFirstLetterTests(unittest.TestCase):
 

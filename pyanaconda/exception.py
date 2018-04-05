@@ -85,7 +85,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         """
 
-        ExceptionHandler.__init__(self, confObj, intfClass, exnClass)
+        super().__init__(confObj, intfClass, exnClass)
         self._gui_lock = gui_lock
         self._intf_tty_num = tty_num
         self._interactive = interactive
@@ -116,7 +116,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         elif isinstance(value, NonInteractiveError):
             sys.exit(0)
         else:
-            super(AnacondaExceptionHandler, self).handleException(dump_info)
+            super().handleException(dump_info)
             return False
 
     def handleException(self, dump_info):

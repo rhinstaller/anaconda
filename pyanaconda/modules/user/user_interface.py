@@ -18,14 +18,14 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.dbus.constants import MODULE_USER_NAME
+from pyanaconda.modules.common.constants.services import USER
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(MODULE_USER_NAME)
+@dbus_interface(USER.interface_name)
 class UserInterface(KickstartModuleInterface):
     """DBus interface for User module."""
 

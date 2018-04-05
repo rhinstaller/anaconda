@@ -138,7 +138,7 @@ class Arguments(OrderedSet):
 
     def add(self, key):
         self.discard(key)
-        super(Arguments, self).add(key)
+        super().add(key)
 
     def update(self, sequence):
         for key in sequence:
@@ -155,7 +155,7 @@ class BootLoaderImage(object):
 
 class LinuxBootLoaderImage(BootLoaderImage):
     def __init__(self, device=None, label=None, short=None, version=None):
-        super(LinuxBootLoaderImage, self).__init__(device=device, label=label)
+        super().__init__(device=device, label=label)
         self.label = label              # label string
         self.short_label = short        # shorter label string
         self.device = device            # StorageDevice instance
@@ -183,7 +183,7 @@ class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
     _args = ["intel_iommu=on"]
 
     def __init__(self, device=None, label=None, short=None, version=None):
-        super(TbootLinuxBootLoaderImage, self).__init__(device=device, label=label,
+        super().__init__(device=device, label=label,
                                                         short=short, version=version)
 
     @property
@@ -238,7 +238,7 @@ class BootLoader(object):
     _trusted_boot = False
 
     def __init__(self):
-        super(BootLoader, self).__init__()
+        super().__init__()
         self.boot_args = Arguments()
         self.dracut_args = Arguments()
 
@@ -794,9 +794,9 @@ class BootLoader(object):
         swap_devices = storage.fsset.swap_devices
         dracut_devices.extend(swap_devices)
 
-        # Add resume= option to enable hibernation.
+        # Add resume= option to enable hibernation on x86.
         # Choose the largest swap device for that.
-        if swap_devices:
+        if blivet.arch.is_x86() and swap_devices:
             resume_device = max(swap_devices, key=lambda x: x.size)
             self.boot_args.add("resume=%s" % resume_device.fstab_spec)
 
@@ -1016,7 +1016,7 @@ class GRUB(BootLoader):
     _serial_consoles = ["ttyS"]
 
     def __init__(self):
-        super(GRUB, self).__init__()
+        super().__init__()
         self.encrypted_password = ""
 
     #
@@ -1233,7 +1233,7 @@ class GRUB(BootLoader):
 
     def write_config_post(self):
         """ Perform additional configuration after writing config file(s). """
-        super(GRUB, self).write_config_post()
+        super().write_config_post()
 
         # make symlink for menu.lst (grub's default config file name)
         menu_lst = "%s%s/menu.lst" % (util.getSysroot(), self.config_dir)
@@ -1267,7 +1267,7 @@ class GRUB(BootLoader):
         self.write_device_map()
 
         # this writes the actual configuration file
-        super(GRUB, self).write_config()
+        super().write_config()
 
     #
     # installation
@@ -1358,7 +1358,7 @@ class GRUB(BootLoader):
 
     # Add a warning about certain RAID situations to is_valid_stage2_device
     def is_valid_stage2_device(self, device, linux=True, non_linux=False):
-        valid = super(GRUB, self).is_valid_stage2_device(device, linux, non_linux)
+        valid = super().is_valid_stage2_device(device, linux, non_linux)
 
         # If the stage2 device is on a raid1, check that the stage1 device is also redundant,
         # either by also being part of an array or by being a disk (which is expanded
@@ -1682,7 +1682,7 @@ class GRUB2(GRUB):
 class EFIBase(object):
 
     def __init__(self):
-        super(EFIBase, self).__init__()
+        super().__init__()
         self.efi_dir = None
 
     @property
@@ -1799,7 +1799,7 @@ class EFIGRUB1(EFIBase, GRUB):
     _efi_binary = "\\grub.efi"
 
     def __init__(self):
-        super(EFIGRUB1, self).__init__()
+        super().__init__()
         self.efi_dir = 'BOOT'
         if flags.cmdline.get("force_efi_dir") is not None:
             self.efi_dir = flags.cmdline.get("force_efi_dir")
@@ -1836,7 +1836,7 @@ class EFIGRUB(EFIBase, GRUB2):
     _is_32bit_firmware = False
 
     def __init__(self):
-        super(EFIGRUB, self).__init__()
+        super().__init__()
         self.efi_dir = 'BOOT'
         self._packages64 = [ "grub2-efi-x64", "shim-x64" ]
 
@@ -1859,21 +1859,21 @@ class EFIGRUB(EFIBase, GRUB2):
     def packages(self):
         if self._is_32bit_firmware:
             return self._packages32 + self._packages_common + \
-                super(EFIGRUB, self).packages
+                super().packages
         return self._packages64 + self._packages_common + \
-            super(EFIGRUB, self).packages
+            super().packages
 
 class Aarch64EFIGRUB(EFIGRUB):
     _serial_consoles = ["ttyAMA", "ttyS"]
     _efi_binary = "\\shimaa64.efi"
 
     def __init__(self):
-        super(Aarch64EFIGRUB, self).__init__()
+        super().__init__()
         self._packages64 = ["grub2-efi-aa64", "shim-aa64"]
 
 class MacEFIGRUB(EFIGRUB):
     def __init__(self):
-        super(MacEFIGRUB, self).__init__()
+        super().__init__()
         self._packages64.extend(["grub2-tools-efi", "mactel-boot"])
 
     def mactel_config(self):
@@ -1883,11 +1883,11 @@ class MacEFIGRUB(EFIGRUB):
                 log.error("failed to configure Mac boot loader")
 
     def install(self, args=None):
-        super(MacEFIGRUB, self).install()
+        super().install()
         self.mactel_config()
 
     def is_valid_stage1_device(self, device, early=False):
-        valid = super(MacEFIGRUB, self).is_valid_stage1_device(device, early)
+        valid = super().is_valid_stage1_device(device, early)
 
         # Make sure we don't pick the OSX root partition
         if valid and getattr(device.format, "name", "") != "Linux HFS+ ESP":
@@ -2004,7 +2004,7 @@ class Yaboot(YabootBase):
         config.write("usemount\n")
 
     def write_config_post(self):
-        super(Yaboot, self).write_config_post()
+        super().write_config_post()
 
         # make symlink in /etc to yaboot.conf if config is in /boot/etc
         etc_yaboot_conf = util.getSysroot() + "/etc/yaboot.conf"
@@ -2019,7 +2019,7 @@ class Yaboot(YabootBase):
             os.mkdir(util.getSysroot() + self.config_dir)
 
         # this writes the config
-        super(Yaboot, self).write_config()
+        super().write_config()
 
     #
     # installation
@@ -2050,7 +2050,7 @@ class IPSeriesYaboot(Yaboot):
     def install(self, args=None):
         self.updatePowerPCBootList()
 
-        super(IPSeriesYaboot, self).install()
+        super().install()
 
     def updatePowerPCBootList(self):
         if not can_touch_runtime_system("updatePowerPCBootList", touch_live=True):
@@ -2111,7 +2111,7 @@ class IPSeriesGRUB2(GRUB2):
         else:
             self.updateNVRAMBootList()
 
-        super(IPSeriesGRUB2, self).install(args=["--no-nvram"])
+        super().install(args=["--no-nvram"])
 
     # This will update the PowerPC's (ppc) bios boot devive order list
     def updateNVRAMBootList(self):
@@ -2154,7 +2154,7 @@ class IPSeriesGRUB2(GRUB2):
     # console's window to a standard 80x24
     #
     def write_defaults(self):
-        super(IPSeriesGRUB2, self).write_defaults()
+        super().write_defaults()
 
         defaults_file = "%s%s" % (util.getSysroot(), self.defaults_file)
         defaults = open(defaults_file, "a+")
@@ -2207,7 +2207,7 @@ class ZIPL(BootLoader):
     preserve_args = ["cio_ignore", "rd.znet", "rd_ZNET"]
 
     def __init__(self):
-        super(ZIPL, self).__init__()
+        super().__init__()
         self.stage1_name = None
 
     #

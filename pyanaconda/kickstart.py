@@ -21,6 +21,8 @@
 import glob
 import os
 import os.path
+from abc import ABCMeta, abstractmethod
+
 import requests
 import shlex
 import sys
@@ -41,17 +43,17 @@ from pyanaconda import keyboard, localization, network, nm, ntp, screen_access, 
 from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
-from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, \
-    GRAPHICAL_TARGET, THREAD_STORAGE, SELINUX_DEFAULT, REALM_NAME, REALM_DISCOVER, REALM_JOIN
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH, DBUS_BOSS_NAME, \
-    DBUS_BOSS_PATH, MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH, MODULE_SECURITY_NAME, \
-    MODULE_SECURITY_PATH, MODULE_USER_NAME, MODULE_USER_PATH
+from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
+    REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
+    CLEAR_PARTITIONS_ALL
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
+from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
+    USER, SERVICES, STORAGE
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -75,11 +77,9 @@ from blivet.size import Size, KiB
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.options import KSOptionParser
-from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
-                                  FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
-                                  KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
-                                  SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
-                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
+    KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
+    SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -191,7 +191,7 @@ class AnacondaKSScript(KSScript):
 
 class AnacondaInternalScript(AnacondaKSScript):
     def __init__(self, *args, **kwargs):
-        AnacondaKSScript.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._hidden = True
 
     def __str__(self):
@@ -272,7 +272,7 @@ def refreshAutoSwapSize(storage):
 ###
 
 
-class RemovedCommand(KickstartCommand):
+class RemovedCommand(KickstartCommand, metaclass=ABCMeta):
     """Kickstart command that was moved on DBus.
 
     This class should simplify the transition to DBus.
@@ -282,8 +282,15 @@ class RemovedCommand(KickstartCommand):
     access the DBus modules or moved on DBus.
     """
 
+    @abstractmethod
     def __str__(self):
-        """Generate this part of a kickstart file from the module."""
+        """Generate this part of a kickstart file from the module.
+
+        This method is required to be overridden, so we don't forget
+        to use DBus modules to generate their part of a kickstart file.
+
+        Make sure that each DBus module is used only once.
+        """
         return ""
 
     def parse(self, args):
@@ -293,6 +300,21 @@ class RemovedCommand(KickstartCommand):
         it shouldn't parse anything.
         """
         log.warning("Command %s will be parsed in DBus module.", self.currentCmd)
+
+
+class UselessCommand(RemovedCommand):
+    """Kickstart command that was moved on DBus and doesn't do anything.
+
+    Use this class to override the pykickstart command in our command map,
+    when we don't want the command to do anything. It is not allowed to
+    subclass this class.
+    """
+
+    def __init_subclass__(cls, **kwargs):
+        raise TypeError("It is not allowed to subclass the UselessCommand class.")
+
+    def __str__(self):
+        return ""
 
 
 class Authselect(RemovedCommand):
@@ -312,7 +334,7 @@ class Authselect(RemovedCommand):
                 os.path.exists(util.getSysroot() + "/lib/security/pam_fprintd.so"))
 
     def setup(self):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
 
         if security_proxy.Authselect or not flags.automatedInstall:
             self.packages += ["authselect"]
@@ -321,7 +343,7 @@ class Authselect(RemovedCommand):
             self.packages += ["authselect-compat"]
 
     def execute(self, *args):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
 
         # Enable fingerprint option by default (#481273).
         if not flags.automatedInstall and self.fingerprint_supported:
@@ -360,7 +382,7 @@ class Authselect(RemovedCommand):
 
 class AutoPart(commands.autopart.F26_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F26_AutoPart.parse(self, args)
+        retval = super().parse(args)
 
         if self.fstype:
             fmt = blivet.formats.get_format(self.fstype)
@@ -400,13 +422,13 @@ class AutoPart(commands.autopart.F26_AutoPart):
 
 class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):
-        commands.bootloader.F21_Bootloader.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.location = "mbr"
         self._useBackup = False
         self._origBootDrive = None
 
     def parse(self, args):
-        commands.bootloader.F21_Bootloader.parse(self, args)
+        super().parse(args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
             raise KickstartParseError(lineno=self.lineno,
                                       msg=_("GRUB2 does not support installation to a partition."))
@@ -649,7 +671,7 @@ class Realm(RemovedCommand):
         return ""
 
     def setup(self):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         realm = security_proxy.Realm
 
         if not realm[REALM_NAME]:
@@ -686,7 +708,7 @@ class Realm(RemovedCommand):
         if not self.discovered:
             return
 
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         realm = security_proxy.Realm
 
         for arg in realm[REALM_JOIN]:
@@ -707,65 +729,30 @@ class Realm(RemovedCommand):
         if rc == 0:
             realm_log.info("Joined realm %s", realm[REALM_NAME])
 
-
-class ClearPart(commands.clearpart.F28_ClearPart):
-    def parse(self, args):
-        retval = commands.clearpart.F28_ClearPart.parse(self, args)
-
-        if self.type is None:
-            self.type = CLEARPART_TYPE_NONE
-
-        if self.disklabel and self.disklabel not in DiskLabel.get_platform_label_types():
-            raise KickstartParseError(lineno=self.lineno,
-                                      msg=_("Disklabel \"%s\" given in clearpart command is not "
-                                      "supported on this platform.") % self.disklabel)
-
-        # Do any glob expansion now, since we need to have the real list of
-        # disks available before the execute methods run.
-        drives = []
-        for spec in self.drives:
-            matched = device_matches(spec, disks_only=True)
-            if matched:
-                drives.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Disk \"%s\" given in clearpart command does not exist.") % spec)
-
-        self.drives = drives
-
-        # Do any glob expansion now, since we need to have the real list of
-        # devices available before the execute methods run.
-        devices = []
-        for spec in self.devices:
-            matched = device_matches(spec)
-            if matched:
-                devices.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Device \"%s\" given in clearpart device list does not exist.") % spec)
-
-        self.devices = devices
-
-        return retval
+class ClearPart(RemovedCommand):
+    def __str__(self):
+        storage_module_proxy = STORAGE.get_proxy()
+        return storage_module_proxy.GenerateKickstart()
 
     def execute(self, storage, ksdata, instClass):
-        storage.config.clear_part_type = self.type
-        storage.config.clear_part_disks = self.drives
-        storage.config.clear_part_devices = self.devices
+        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+        storage.config.clear_part_type = disk_init_proxy.InitializationMode
+        storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
+        storage.config.clear_part_devices = disk_init_proxy.DevicesToClear
+        storage.config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
 
-        if self.initAll:
-            storage.config.initialize_disks = self.initAll
-
-        if self.disklabel:
-            if not DiskLabel.set_default_label_type(self.disklabel):
+        disk_label = disk_init_proxy.DefaultDiskLabel
+        if disk_label:
+            if not DiskLabel.set_default_label_type(disk_label):
                 clearpart_log.warning("%s is not a supported disklabel type on this platform. "
-                                      "Using default disklabel %s instead.", self.disklabel, DiskLabel.get_platform_label_types()[0])
+                                      "Using default disklabel %s instead.", disk_label,
+                                      DiskLabel.get_platform_label_types()[0])
 
         storage.clear_partitions()
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = super().parse(args)
 
         if fc.nic not in nm.nm_devices():
             raise KickstartParseError(lineno=self.lineno,
@@ -785,7 +772,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
 class Firewall(commands.firewall.F28_Firewall):
     def __init__(self, *args, **kwargs):
-        commands.firewall.F28_Firewall.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.packages = []
 
     def setup(self):
@@ -833,36 +820,39 @@ class Firewall(commands.firewall.F28_Firewall):
         else:
             util.execInSysroot(cmd, args)
 
-class Firstboot(commands.firstboot.FC3_Firstboot):
-    def setup(self, ksdata, instClass):
-        if not self.seen:
-            if flags.automatedInstall:
-                # firstboot should be disabled by default after kickstart installations
-                self.firstboot = FIRSTBOOT_SKIP
-            elif instClass.firstboot and not self.firstboot:
-                # if nothing is specified, use the installclass default for firstboot
-                self.firstboot = instClass.firstboot
+class Firstboot(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Services module in the Services class.
+        return ""
 
     def execute(self, *args):
-        action = util.enable_service
         unit_name = "initial-setup.service"
+        services_proxy = SERVICES.get_proxy()
+        setup_on_boot = services_proxy.SetupOnBoot
 
-        # find if the unit file for the Initial Setup service is installed
-        unit_exists = os.path.exists(os.path.join(util.getSysroot(), "lib/systemd/system/", unit_name))
-        if unit_exists and self.firstboot == FIRSTBOOT_RECONFIG:
+        if setup_on_boot == SETUP_ON_BOOT_DISABLED:
+            log.debug("The %s service will be disabled.", unit_name)
+            util.disable_service(unit_name)
+            # Also tell the screen access manager, so that the fact that post installation tools
+            # should be disabled propagates to the user interaction config file.
+            screen_access.sam.post_install_tools_disabled = True
+            return
+
+        if not os.path.exists(os.path.join(util.getSysroot(), "lib/systemd/system/", unit_name)):
+            log.debug("The %s service will not be started on first boot, because "
+                      "it's unit file is not installed.", unit_name)
+            return
+
+        if setup_on_boot == SETUP_ON_BOOT_RECONFIG:
+            log.debug("The %s service will run in the reconfiguration mode.", unit_name)
             # write the reconfig trigger file
             f = open(os.path.join(util.getSysroot(), "etc/reconfigSys"), "w+")
             f.close()
 
-        if self.firstboot == FIRSTBOOT_SKIP:
-            action = util.disable_service
-            # Also tell the screen access manager, so that the fact that post installation tools
-            # should be disabled propagates to the user interaction config file.
-            screen_access.sam.post_install_tools_disabled = True
-
-        # enable/disable the Initial Setup service (if its unit is installed)
-        if unit_exists:
-            action(unit_name)
+        log.debug("The %s service will be enabled.", unit_name)
+        util.enable_service(unit_name)
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
@@ -874,38 +864,9 @@ class Group(commands.group.F12_Group):
             except ValueError as e:
                 group_log.warning(str(e))
 
-class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
-    def parse(self, args):
-        retval = commands.ignoredisk.F14_IgnoreDisk.parse(self, args)
-
-        # See comment in ClearPart.parse
-        drives = []
-        for spec in self.ignoredisk:
-            matched = device_matches(spec, disks_only=True)
-            if matched:
-                drives.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec)
-
-        self.ignoredisk = drives
-
-        drives = []
-        for spec in self.onlyuse:
-            matched = device_matches(spec, disks_only=True)
-            if matched:
-                drives.extend(matched)
-            else:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec)
-
-        self.onlyuse = drives
-
-        return retval
-
 class Iscsi(commands.iscsi.F17_Iscsi):
     def parse(self, args):
-        tg = commands.iscsi.F17_Iscsi.parse(self, args)
+        tg = super().parse(args)
 
         if tg.iface:
             if not network.wait_for_network_devices([tg.iface]):
@@ -936,17 +897,18 @@ class Iscsi(commands.iscsi.F17_Iscsi):
 
 class IscsiName(commands.iscsiname.FC6_IscsiName):
     def parse(self, args):
-        retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
+        retval = super().parse(args)
 
         blivet.iscsi.iscsi.initiator = self.iscsiname
         return retval
 
 class Lang(RemovedCommand):
     def __str__(self):
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         return localization_proxy.GenerateKickstart()
+
     def execute(self, *args, **kwargs):
-        localization_proxy = DBus.get_proxy(MODULE_LOCALIZATION_NAME, MODULE_LOCALIZATION_PATH)
+        localization_proxy = LOCALIZATION.get_proxy()
         lang = localization_proxy.Language
         localization.write_language_configuration(lang, util.getSysroot())
 
@@ -1293,11 +1255,11 @@ class MountData(commands.mount.F27_MountData):
 
 class Network(commands.network.F27_Network):
     def __init__(self, *args, **kwargs):
-        commands.network.F27_Network.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.packages = []
 
     def parse(self, args):
-        nd = commands.network.F27_Network.parse(self, args)
+        nd = super().parse(args)
         setting_only_hostname = nd.hostname and len(args) <= 2
         if not setting_only_hostname:
             if not nd.device:
@@ -1811,7 +1773,7 @@ class RepoData(commands.repo.F27_RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
 
-        commands.repo.F27_RepoData.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
@@ -1834,9 +1796,14 @@ class ReqPart(commands.reqpart.F23_ReqPart):
         autopart.do_reqpart(storage, reqs)
 
 class RootPw(RemovedCommand):
+
+    def __str__(self):
+        user_proxy = USER.get_proxy()
+        return user_proxy.GenerateKickstart()
+
     def execute(self, storage, ksdata, instClass, users):
 
-        user_proxy = DBus.get_proxy(MODULE_USER_NAME, MODULE_USER_PATH)
+        user_proxy = USER.get_proxy()
 
         if flags.automatedInstall and not user_proxy.IsRootPasswordSet and not user_proxy.IsRootpwKickstarted:
             # Lock the root password if during an installation with kickstart
@@ -1864,11 +1831,11 @@ class SELinux(RemovedCommand):
     }
 
     def __str__(self):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         return security_proxy.GenerateKickstart()
 
     def execute(self, *args):
-        security_proxy = DBus.get_proxy(MODULE_SECURITY_NAME, MODULE_SECURITY_PATH)
+        security_proxy = SECURITY.get_proxy()
         selinux = security_proxy.SELinux
 
         if selinux == SELINUX_DEFAULT:
@@ -1887,12 +1854,21 @@ class SELinux(RemovedCommand):
         except IOError as msg:
             selinux_log.error("SELinux configuration failed: %s", msg)
 
-class Services(commands.services.FC6_Services):
+class Services(RemovedCommand):
+
+    def __str__(self):
+        services_proxy = SERVICES.get_proxy()
+        return services_proxy.GenerateKickstart()
+
     def execute(self, storage, ksdata, instClass):
-        for svc in self.disabled:
+        services_proxy = SERVICES.get_proxy()
+
+        for svc in services_proxy.DisabledServices:
+            log.debug("Disabling the service %s.", svc)
             util.disable_service(svc)
 
-        for svc in self.enabled:
+        for svc in services_proxy.EnabledServices:
+            log.debug("Enabling the service %s.", svc)
             util.enable_service(svc)
 
 class SshKey(commands.sshkey.F22_SshKey):
@@ -1907,11 +1883,15 @@ class Timezone(RemovedCommand):
         self.packages = []
 
     def __str__(self):
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
         return timezone_proxy.GenerateKickstart()
 
     def setup(self, ksdata):
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
+        services_proxy = SERVICES.get_proxy()
+
+        enabled_services = services_proxy.EnabledServices
+        disabled_services = services_proxy.DisabledServices
 
         # do not install and use NTP package
         if not timezone_proxy.NTPEnabled or NTP_PACKAGE in ksdata.packages.excludedList:
@@ -1921,8 +1901,9 @@ class Timezone(RemovedCommand):
                 if ret != 0:
                     timezone_log.error("Failed to stop NTP service")
 
-            if NTP_SERVICE not in ksdata.services.disabled:
-                ksdata.services.disabled.append(NTP_SERVICE)
+            if NTP_SERVICE not in disabled_services:
+                disabled_services.append(NTP_SERVICE)
+                services_proxy.SetDisabledServices(disabled_services)
         # install and use NTP package
         else:
             if not util.service_running(NTP_SERVICE) and \
@@ -1933,13 +1914,14 @@ class Timezone(RemovedCommand):
 
             self.packages.append(NTP_PACKAGE)
 
-            if not NTP_SERVICE in ksdata.services.enabled and \
-                    not NTP_SERVICE in ksdata.services.disabled:
-                ksdata.services.enabled.append(NTP_SERVICE)
+            if not NTP_SERVICE in enabled_services and \
+                    not NTP_SERVICE in disabled_services:
+                enabled_services.append(NTP_SERVICE)
+                services_proxy.SetEnabledServices(enabled_services)
 
     def execute(self, *args):
         # get the DBus proxies
-        timezone_proxy = DBus.get_proxy(MODULE_TIMEZONE_NAME, MODULE_TIMEZONE_PATH)
+        timezone_proxy = TIMEZONE.get_proxy()
 
         # write out timezone configuration
         kickstart_timezone = timezone_proxy.Timezone
@@ -2075,24 +2057,28 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
             # in case we had to truncate or otherwise adjust the specified name
             ksdata.onPart[self.vgname] = request.name
 
-class XConfig(commands.xconfig.F14_XConfig):
+class XConfig(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Services module in the Services class.
+        return ""
+
     def execute(self, *args):
         desktop = Desktop()
-        if self.startX:
-            desktop.default_target = GRAPHICAL_TARGET
+        services_proxy = SERVICES.get_proxy()
+        default_target = services_proxy.DefaultTarget
+        default_desktop = services_proxy.DefaultDesktop
 
-        if self.defaultdesktop:
-            desktop.desktop = self.defaultdesktop
+        if default_target:
+            log.debug("Using the default target %s.", default_target)
+            desktop.default_target = default_target
 
-        # now write it out
+        if default_desktop:
+            log.debug("Using the default desktop %s.", default_desktop)
+            desktop.desktop = default_desktop
+
         desktop.write()
-
-class SkipX(commands.skipx.FC3_SkipX):
-    def execute(self, *args):
-        if self.skipx:
-            desktop = Desktop()
-            desktop.default_target = TEXT_ONLY_TARGET
-            desktop.write()
 
 class Snapshot(commands.snapshot.F26_Snapshot):
     def _post_snapshots(self):
@@ -2156,11 +2142,14 @@ class Snapshot(commands.snapshot.F26_Snapshot):
 
         if pre_snapshots:
             threadMgr.wait(THREAD_STORAGE)
+            disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
 
-            if (ksdata.clearpart.devices or ksdata.clearpart.drives or
-                ksdata.clearpart.type == CLEARPART_TYPE_ALL):
+            if disk_init_proxy.DevicesToClear \
+                or disk_init_proxy.DrivesToClear \
+                    or disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_ALL:
                 log.warning("Snapshot: \"clearpart\" command could erase pre-install snapshots!")
-            if ksdata.zerombr.zerombr:
+
+            if disk_init_proxy.FormatUnrecognizedEnabled:
                 log.warning("Snapshot: \"zerombr\" command could erase pre-install snapshots!")
 
             for snap_data in pre_snapshots:
@@ -2171,7 +2160,7 @@ class Snapshot(commands.snapshot.F26_Snapshot):
 
 class SnapshotData(commands.snapshot.F26_SnapshotData):
     def __init__(self, *args, **kwargs):
-        commands.snapshot.F26_SnapshotData.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.thin_snapshot = None
 
     def setup(self, storage, ksdata, instClass):
@@ -2222,7 +2211,7 @@ class SnapshotData(commands.snapshot.F26_SnapshotData):
 
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
-        fcp = commands.zfcp.F14_ZFCP.parse(self, args)
+        fcp = super().parse(args)
         try:
             blivet.zfcp.zfcp.add_fcp(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError as e:
@@ -2230,9 +2219,16 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
         return fcp
 
-class Keyboard(commands.keyboard.F18_Keyboard):
+class Keyboard(RemovedCommand):
+
+    def __str__(self):
+        # The kickstart for this command is generated
+        # by Localization module in the Lang class.
+        return ""
+
     def execute(self, *args):
-        keyboard.write_keyboard_config(self, util.getSysroot())
+        localization_proxy = LOCALIZATION.get_proxy()
+        keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
 
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
@@ -2299,7 +2295,7 @@ class AnacondaSectionHandler(BaseHandler):
     }
 
     def __init__(self):
-        BaseHandler.__init__(self, mapping=self.commandMap, dataMapping=self.dataMap)
+        super().__init__(mapping=self.commandMap, dataMapping=self.dataMap)
 
     def __str__(self):
         """Return the %anaconda section"""
@@ -2320,7 +2316,7 @@ class AnacondaSection(Section):
     sectionOpen = "%anaconda"
 
     def __init__(self, *args, **kwargs):
-        Section.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.cmdno = 0
 
     def handleLine(self, line):
@@ -2348,8 +2344,8 @@ class AnacondaSection(Section):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
-    "auth": RemovedCommand,
-    "authconfig": RemovedCommand,
+    "auth": UselessCommand,
+    "authconfig": UselessCommand,
     "authselect": Authselect,
     "autopart": AutoPart,
     "btrfs": BTRFS,
@@ -2360,7 +2356,7 @@ commandMap = {
     "firewall": Firewall,
     "firstboot": Firstboot,
     "group": Group,
-    "ignoredisk": IgnoreDisk,
+    "ignoredisk": UselessCommand,
     "iscsi": Iscsi,
     "iscsiname": IscsiName,
     "keyboard": Keyboard,
@@ -2378,13 +2374,14 @@ commandMap = {
     "selinux": SELinux,
     "services": Services,
     "sshkey": SshKey,
-    "skipx": SkipX,
+    "skipx": UselessCommand,
     "snapshot": Snapshot,
     "timezone": Timezone,
     "upgrade": Upgrade,
     "user": User,
     "volgroup": VolGroup,
     "xconfig": XConfig,
+    "zerombr": UselessCommand,
     "zfcp": ZFCP,
 }
 
@@ -2414,7 +2411,7 @@ class AnacondaKSHandler(superclass):
         if dataUpdates is None:
             dataUpdates = dataMap
 
-        superclass.__init__(self, commandUpdates=commandUpdates, dataUpdates=dataUpdates)
+        super().__init__(commandUpdates=commandUpdates, dataUpdates=dataUpdates)
         self.onPart = {}
 
         # collect all kickstart addons for anaconda to addons dictionary
@@ -2442,14 +2439,14 @@ class AnacondaKSHandler(superclass):
         self.anaconda = AnacondaSectionHandler()
 
     def __str__(self):
-        return superclass.__str__(self) + "\n" + str(self.addons) + str(self.anaconda)
+        return super().__str__() + "\n" + str(self.addons) + str(self.anaconda)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
     def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
                  missingIncludeIsFatal=True):
-        KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
+        super().__init__(handler, missingIncludeIsFatal=False)
 
     def handleCommand(self, lineno, args):
         pass
@@ -2469,7 +2466,7 @@ class AnacondaKSParser(KickstartParser):
     def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
                  missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
         self.scriptClass = scriptClass
-        KickstartParser.__init__(self, handler)
+        super().__init__(handler)
 
     def handleCommand(self, lineno, args):
         if not self.handler:
@@ -2539,7 +2536,7 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
 
             # Parse the kickstart file in DBus modules.
             if pass_to_boss:
-                boss = DBus.get_proxy(DBUS_BOSS_NAME, DBUS_BOSS_PATH)
+                boss = BOSS.get_proxy()
 
                 boss.SplitKickstart(f)
                 errors = boss.DistributeKickstart()

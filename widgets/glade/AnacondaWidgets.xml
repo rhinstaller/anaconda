@@ -1,17 +1,18 @@
-<glade-catalog name="AnacondaWidgets"
-               version="3.3"
-               targetable="3.2,3.1,3.0,2.0,1.0"
-               library="AnacondaWidgets"
-               domain="glade-3"
-               depends="gtk+">
-
+<glade-catalog
+  name="AnacondaWidgets"
+  version="3.3"
+  targetable="3.2,3.1,3.0,2.0,1.0"
+  library="AnacondaWidgets"
+  domain="glade-3"
+  depends="gtk+">
     <glade-widget-classes>
-        <glade-widget-class title="Base Window"
-                            name="AnacondaBaseWindow"
-                            icon-name="widget-gtk-window"
-                            generic-name="AnacondaBaseWindow"
-                            use-placeholders="True"
-                            toplevel="True">
+        <glade-widget-class
+          title="Base Window"
+          name="AnacondaBaseWindow"
+          icon-name="widget-gtk-window"
+          generic-name="AnacondaBaseWindow"
+          use-placeholders="True"
+          toplevel="True">
             <properties>
                 <property id="default-width" disabled="True" />
                 <property id="default-height" disabled="True" />
@@ -21,23 +22,22 @@
                 <property id="title" disabled="True" />
                 <property id="type" disabled="True" />
                 <property id="width-request" disabled="True" />
-
                 <property id="distribution" translatable="True" />
                 <property id="window-name" translatable="True" />
             </properties>
-
             <signals>
-              <signal since="3.1" id="help-button-clicked" />
+                <signal since="3.1" id="help-button-clicked" />
             </signals>
-
         </glade-widget-class>
 
-        <glade-widget-class title="Standalone Spoke Window"
-                            name="AnacondaStandaloneWindow"
-                            icon-name="widget-gtk-window"
-                            generic-name="AnacondaStandaloneWindow"
-                            use-placeholders="True"
-                            toplevel="True">
+        <glade-widget-class
+          title="Standalone Spoke Window"
+          name="AnacondaStandaloneWindow"
+          icon-name="widget-gtk-window"
+          generic-name="AnacondaStandaloneWindow"
+          use-placeholders="True"
+          toplevel="True">
+
             <post-create-function>anaconda_standalone_window_post_create</post-create-function>
 
             <internal-children>
@@ -52,25 +52,25 @@
             </internal-children>
         </glade-widget-class>
 
-        <glade-widget-class title="Hub Window"
-                            name="AnacondaHubWindow"
-                            icon-name="widget-gtk-window"
-                            generic-name="AnacondaHubWindow"
-                            use-placeholders="True"
-                            toplevel="True">
+        <glade-widget-class
+          title="Hub Window"
+          name="AnacondaHubWindow"
+          icon-name="widget-gtk-window"
+          generic-name="AnacondaHubWindow"
+          use-placeholders="True"
+          toplevel="True">
+
             <!-- Not a typo - we really can use the same functions here (for now) -->
             <post-create-function>anaconda_standalone_window_post_create</post-create-function>
 
             <properties>
-              <property since="3.0" id="quit-button" />
-              <property since="3.0" id="continue-button" />
+                <property since="3.0" id="quit-button" />
+                <property since="3.0" id="continue-button" />
             </properties>
-
             <signals>
-              <signal since="3.0" id="quit-clicked" />
-              <signal since="3.0" id="continue-clicked" />
+                <signal since="3.0" id="quit-clicked" />
+                <signal since="3.0" id="continue-clicked" />
             </signals>
-
             <internal-children>
                 <object name="main_box">
                     <object name="nav_box">
@@ -85,12 +85,14 @@
             </internal-children>
         </glade-widget-class>
 
-        <glade-widget-class title="Spoke Window"
-                            name="AnacondaSpokeWindow"
-                            icon-name="widget-gtk-window"
-                            generic-name="AnacondaSpokeWindow"
-                            use-placeholders="True"
-                            toplevel="True">
+        <glade-widget-class
+          title="Spoke Window"
+          name="AnacondaSpokeWindow"
+          icon-name="widget-gtk-window"
+          generic-name="AnacondaSpokeWindow"
+          use-placeholders="True"
+          toplevel="True">
+
             <!-- Not a typo - we really can use the same functions here (for now) -->
             <post-create-function>anaconda_standalone_window_post_create</post-create-function>
 
@@ -106,13 +108,13 @@
             </internal-children>
         </glade-widget-class>
 
-        <glade-widget-class title="Spoke Selector"
-                            name="AnacondaSpokeSelector"
-                            icon-name="widget-gtk-grid"
-                            generic-name="AnacondaSpokeSelector">
+        <glade-widget-class
+          title="Spoke Selector"
+          name="AnacondaSpokeSelector"
+          icon-name="widget-gtk-grid"
+          generic-name="AnacondaSpokeSelector">
             <properties>
                 <property id="column-spacing" default="6" visible="False" />
-
                 <property since="1.0" themed-icon="True" id="icon" name="Icon" default="image-missing" visible="True">
                     <parameter-spec>
                         <type>GParamString</type>
@@ -121,20 +123,19 @@
             </properties>
         </glade-widget-class>
 
-        <glade-widget-class title="Disk Overview"
-                            name="AnacondaDiskOverview"
-                            icon-name="widget-gtk-vbox"
-                            generic-name="AnacondaDiskOverview">
+        <glade-widget-class
+          title="Disk Overview"
+          name="AnacondaDiskOverview"
+          icon-name="widget-gtk-vbox"
+          generic-name="AnacondaDiskOverview">
             <properties>
                 <property id="size" query="False" default="4" visible="False" />
                 <property id="spacing" default="6" visible="False" />
-
                 <property since="1.0" themed-icon="True" id="kind" name="Kind" default="drive-harddisk" visible="True">
                     <parameter-spec>
                         <type>GParamString</type>
                     </parameter-spec>
                 </property>
-
                 <property id="description" translatable="True" />
                 <property id="capacity" translatable="True" />
                 <property id="os" translatable="True" />
@@ -142,14 +143,16 @@
             </properties>
         </glade-widget-class>
 
-    <glade-widget-class title="Layout Indicator"
-			            name="AnacondaLayoutIndicator"
-			            icon-name="widget-gtk-label"
-			            generic-name="AnacondaLayoutIndicator">
-      <properties>
-        <property id="label-width" default="12" />
-      </properties>
-	</glade-widget-class>
+        <glade-widget-class
+          title="Layout Indicator"
+          name="AnacondaLayoutIndicator"
+          icon-name="widget-gtk-label"
+          generic-name="AnacondaLayoutIndicator">
+            <properties>
+                <property id="label-width" default="12" />
+            </properties>
+        </glade-widget-class>
+
     </glade-widget-classes>
 
     <glade-widget-group name="anaconda-windows" title="Anaconda Windows">
@@ -166,4 +169,5 @@
         <glade-widget-class-ref name="AnacondaSpokeSelector" />
         <glade-widget-class-ref name="AnacondaLayoutIndicator" />
     </glade-widget-group>
+
 </glade-catalog>

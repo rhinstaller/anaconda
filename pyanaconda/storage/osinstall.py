@@ -32,7 +32,7 @@ gi.require_version("BlockDev", "2.0")
 
 from gi.repository import BlockDev as blockdev
 
-from pykickstart.constants import AUTOPART_TYPE_LVM, CLEARPART_TYPE_NONE, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_LIST
+from pykickstart.constants import AUTOPART_TYPE_LVM
 
 from blivet import arch, udev
 from blivet import util as blivet_util
@@ -51,15 +51,15 @@ from blivet.size import Size
 from pyanaconda.core import util
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
-from pyanaconda.core.constants import shortProductName
+from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
+    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
-
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import MODULE_NETWORK_NAME, MODULE_NETWORK_PATH
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -369,7 +369,7 @@ class StorageDiscoveryConfig(object):
 
         # storage configuration variables
         self.ignore_disk_interactive = False
-        self.clear_part_type = None
+        self.clear_part_type = CLEAR_PARTITIONS_DEFAULT
         self.clear_part_disks = []
         self.clear_part_devices = []
         self.initialize_disks = False
@@ -380,17 +380,15 @@ class StorageDiscoveryConfig(object):
         # disklabels depends on this flag.
         self.clear_non_existent = False
 
-    def update(self, ksdata):
-        """ Update configuration from ksdata source.
+    def update(self, *args, **kwargs):
+        """Update configuration."""
+        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
 
-            :param ksdata: kickstart data used as data source
-            :type ksdata: :class:`pykickstart.Handler`
-        """
-        self.clear_part_type = ksdata.clearpart.type
-        self.clear_part_disks = ksdata.clearpart.drives[:]
-        self.clear_part_devices = ksdata.clearpart.devices[:]
-        self.initialize_disks = ksdata.clearpart.initAll
-        self.zero_mbr = ksdata.zerombr.zerombr
+        self.clear_part_type = disk_init_proxy.InitializationMode
+        self.clear_part_disks = disk_init_proxy.DrivesToClear
+        self.clear_part_devices = disk_init_proxy.DevicesToClear
+        self.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
+        self.zero_mbr = disk_init_proxy.FormatUnrecognizedEnabled
 
 
 class FSSet(object):
@@ -1517,11 +1515,13 @@ class InstallerStorage(Blivet):
 
         # bootloader
 
-        # ignoredisk
+        # disk selection
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+
         if self.ignored_disks:
-            self.ksdata.ignoredisk.ignoredisk = self.ignored_disks[:]
+            disk_select_proxy.SetIgnoredDisks(self.ignored_disks)
         elif self.exclusive_disks:
-            self.ksdata.ignoredisk.onlyuse = self.exclusive_disks[:]
+            disk_select_proxy.SetSelectedDisks(self.exclusive_disks)
 
         # autopart
         self.ksdata.autopart.autopart = self.do_autopart
@@ -1529,19 +1529,22 @@ class InstallerStorage(Blivet):
         self.ksdata.autopart.encrypted = self.encrypted_autopart
 
         # clearpart
-        self.ksdata.clearpart.type = self.config.clear_part_type
-        self.ksdata.clearpart.drives = self.config.clear_part_disks[:]
-        self.ksdata.clearpart.devices = self.config.clear_part_devices[:]
-        self.ksdata.clearpart.initAll = self.config.initialize_disks
-        if self.ksdata.clearpart.type == CLEARPART_TYPE_NONE:
+        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+        disk_init_proxy.SetInitializationMode(self.config.clear_part_type)
+        disk_init_proxy.SetDrivesToClear(self.config.clear_part_disks)
+        disk_init_proxy.SetDevicesToClear(self.config.clear_part_devices)
+        disk_init_proxy.SetInitializeLabelsEnabled(self.config.initialize_disks)
+
+        if disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_NONE:
             # Make a list of initialized disks and of removed partitions. If any
             # partitions were removed from disks that were not completely
-            # cleared we'll have to use CLEARPART_TYPE_LIST and provide a list
+            # cleared we'll have to use CLEAR_PARTITIONS_LIST and provide a list
             # of all removed partitions. If no partitions were removed from a
             # disk that was not cleared/reinitialized we can use
-            # CLEARPART_TYPE_ALL.
-            self.ksdata.clearpart.devices = []
-            self.ksdata.clearpart.drives = []
+            # CLEAR_PARTITIONS_ALL.
+            disk_init_proxy.SetDrivesToClear([])
+            disk_init_proxy.SetDevicesToClear([])
+
             fresh_disks = [d.name for d in self.disks if d.partitioned and
                            not d.format.exists]
 
@@ -1561,12 +1564,12 @@ class InstallerStorage(Blivet):
                 pass
             elif partial:
                 # make a list of removed partitions
-                self.ksdata.clearpart.type = CLEARPART_TYPE_LIST
-                self.ksdata.clearpart.devices = cleared_partitions
+                disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_LIST)
+                disk_init_proxy.SetDevicesToClear(cleared_partitions)
             else:
                 # if they didn't partially clear any disks, use the shorthand
-                self.ksdata.clearpart.type = CLEARPART_TYPE_ALL
-                self.ksdata.clearpart.drives = fresh_disks
+                disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
+                disk_init_proxy.SetDrivesToClear(fresh_disks)
 
         if self.do_autopart:
             return
@@ -1653,9 +1656,11 @@ class InstallerStorage(Blivet):
                 self.save_passphrase(device)
 
         if self.ksdata:
-            self.config.update(self.ksdata)
-            self.ignored_disks = self.ksdata.ignoredisk.ignoredisk[:]
-            self.exclusive_disks = self.ksdata.ignoredisk.onlyuse[:]
+            self.config.update()
+
+            disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+            self.ignored_disks = disk_select_proxy.IgnoredDisks
+            self.exclusive_disks = disk_select_proxy.SelectedDisks
 
         if not flags.imageInstall:
             iscsi.startup()
@@ -1701,11 +1706,19 @@ class InstallerStorage(Blivet):
             if " /run/initramfs/live " not in mnt:
                 continue
 
-            live_device_name = mnt.split()[0].split("/")[-1]
-            log.info("%s looks to be the live device; marking as protected",
-                     live_device_name)
-            self.protected_dev_names.append(live_device_name)
-            self.live_backing_device = live_device_name
+            live_device_path = mnt.split()[0]
+            udev_device = udev.get_device(device_node=live_device_path)
+            if udev_device and udev.device_is_partition(udev_device):
+                live_device_name = udev.device_get_partition_disk(udev_device)
+            else:
+                live_device_name = live_device_path.split("/")[-1]
+
+            log.info("resolved live device to %s", live_device_name)
+            if live_device_name:
+                log.info("marking live device %s protected", live_device_name)
+                self.protected_dev_names.append(live_device_name)
+                self.live_backing_device = live_device_name
+
             break
 
     def _mark_protected_device(self, device):
@@ -1794,10 +1807,10 @@ class InstallerStorage(Blivet):
                 return False
 
         # the only devices we want to clear when clear_part_type is
-        # CLEARPART_TYPE_NONE are uninitialized disks, or disks with no
+        # CLEAR_PARTITIONS_NONE are uninitialized disks, or disks with no
         # partitions, in clear_part_disks, and then only when we have been asked
         # to initialize disks as needed
-        if clear_part_type in [CLEARPART_TYPE_NONE, None]:
+        if clear_part_type in [CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT]:
             if not self.config.initialize_disks or not device.is_disk:
                 return False
 
@@ -1815,15 +1828,15 @@ class InstallerStorage(Blivet):
             if not device.is_primary and not device.is_logical:
                 return False
 
-            if clear_part_type == CLEARPART_TYPE_LINUX and \
+            if clear_part_type == CLEAR_PARTITIONS_LINUX and \
                not device.format.linux_native and \
                not device.get_flag(parted.PARTITION_LVM) and \
                not device.get_flag(parted.PARTITION_RAID) and \
                not device.get_flag(parted.PARTITION_SWAP):
                 return False
         elif device.is_disk:
-            if device.partitioned and clear_part_type != CLEARPART_TYPE_ALL:
-                # if clear_part_type is not CLEARPART_TYPE_ALL but we'll still be
+            if device.partitioned and clear_part_type != CLEAR_PARTITIONS_ALL:
+                # if clear_part_type is not CLEAR_PARTITIONS_ALL but we'll still be
                 # removing every partition from the disk, return True since we
                 # will want to be able to create a new disklabel on this disk
                 if not self.empty_device(device):
@@ -1833,11 +1846,11 @@ class InstallerStorage(Blivet):
             if device.format.hidden:
                 return False
 
-            # When clear_part_type is CLEARPART_TYPE_LINUX and a disk has non-
+            # When clear_part_type is CLEAR_PARTITIONS_LINUX and a disk has non-
             # linux whole-disk formatting, do not clear it. The exception is
             # the case of an uninitialized disk when we've been asked to
             # initialize disks as needed
-            if (clear_part_type == CLEARPART_TYPE_LINUX and
+            if (clear_part_type == CLEAR_PARTITIONS_LINUX and
                 not ((self.config.initialize_disks and
                       self.empty_device(device)) or
                      (not device.partitioned and device.format.linux_native))):
@@ -1848,7 +1861,7 @@ class InstallerStorage(Blivet):
         if device.protected or any(d.protected for d in descendants):
             return False
 
-        if clear_part_type == CLEARPART_TYPE_LIST and \
+        if clear_part_type == CLEAR_PARTITIONS_LIST and \
            device.name not in clear_part_devices:
             return False
 
@@ -1885,17 +1898,19 @@ class InstallerStorage(Blivet):
                 self.recursive_remove(disk)
 
             if zerombr or should_clear:
-                log.debug("clearpart: initializing %s", disk.name)
-                self.initialize_disk(disk)
+                if disk.protected:
+                    log.warning("cannot clear '%s': disk is protected or read only", disk.name)
+                else:
+                    log.debug("clearpart: initializing %s", disk.name)
+                    self.initialize_disk(disk)
 
         self.update_bootloader_disk_list()
 
     def _get_hostname(self):
         """Return a hostname."""
         ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}
-        hostname = None
 
-        network_proxy = DBus.get_proxy(MODULE_NETWORK_NAME, MODULE_NETWORK_PATH)
+        network_proxy = NETWORK.get_proxy()
         hostname = network_proxy.Hostname
 
         if hostname in ignored_hostnames:
@@ -2167,7 +2182,7 @@ def storage_initialize(storage, ksdata, protected):
 
     # Before we set up the storage system, we need to know which disks to
     # ignore, etc.  Luckily that's all in the kickstart data.
-    storage.config.update(ksdata)
+    storage.config.update()
 
     # Set up the protected partitions list now.
     if protected:
@@ -2190,10 +2205,14 @@ def storage_initialize(storage, ksdata, protected):
 
     # kickstart uses all the disks
     if flags.automatedInstall:
-        if not ksdata.ignoredisk.onlyuse:
-            ksdata.ignoredisk.onlyuse = [d.name for d in storage.disks
-                                         if d.name not in ksdata.ignoredisk.ignoredisk]
-            log.debug("onlyuse is now: %s", ",".join(ksdata.ignoredisk.onlyuse))
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        selected_disks = disk_select_proxy.SelectedDisks
+        ignored_disks = disk_select_proxy.IgnoredDisks
+
+        if not selected_disks:
+            selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
+            disk_select_proxy.SetSelectedDisks(selected_disks)
+            log.debug("onlyuse is now: %s", ",".join(selected_disks))
 
 
 def mount_existing_system(fsset, root_device, read_only=None):

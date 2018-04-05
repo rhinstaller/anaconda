@@ -3,7 +3,7 @@ import mock
 
 import blivet
 from pyanaconda.storage.osinstall import InstallerStorage
-from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
+from pyanaconda.core.constants import CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE
 from parted import PARTITION_NORMAL
 from blivet.flags import flags
 
@@ -76,7 +76,7 @@ class ClearPartTestCase(unittest.TestCase):
         #
         # clearpart type none
         #
-        b.config.clear_part_type = CLEARPART_TYPE_NONE
+        b.config.clear_part_type = CLEAR_PARTITIONS_NONE
         self.assertFalse(b.should_clear(sda1),
                          msg="type none should not clear any partitions")
         self.assertFalse(b.should_clear(sda2),
@@ -113,7 +113,7 @@ class ClearPartTestCase(unittest.TestCase):
         #
         # clearpart type linux
         #
-        b.config.clear_part_type = CLEARPART_TYPE_LINUX
+        b.config.clear_part_type = CLEAR_PARTITIONS_LINUX
         self.assertTrue(b.should_clear(sda1),
                         msg="type linux should clear partitions containing "
                             "ext4 filesystems")
@@ -158,7 +158,7 @@ class ClearPartTestCase(unittest.TestCase):
         #
         # clearpart type all
         #
-        b.config.clear_part_type = CLEARPART_TYPE_ALL
+        b.config.clear_part_type = CLEAR_PARTITIONS_ALL
         self.assertTrue(b.should_clear(sda1),
                         msg="type all should clear all partitions")
         self.assertTrue(b.should_clear(sda2),
