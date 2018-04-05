@@ -16,8 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.core.constants import BOOTLOADER_ENABLED, BOOTLOADER_LOCATION_MBR, \
+    BOOTLOADER_DRIVE_UNSET, BOOTLOADER_SKIPPED
 from pyanaconda.core.i18n import C_, P_
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from blivet.size import Size
@@ -47,6 +50,8 @@ class SelectedDisksDialog(GUIObject):
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
 
+        self._bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+
     # pylint: disable=arguments-differ
     def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
@@ -71,15 +76,17 @@ class SelectedDisksDialog(GUIObject):
             return
 
         # Don't select a boot device if no boot device is asked for.
-        if self.data.bootloader.location == "none":
+        if self._bootloader_proxy.BootloaderMode != BOOTLOADER_ENABLED:
             return
 
         # Set up the default boot device.  Use what's in the ksdata if anything,
         # then fall back to the first device.
+        boot_drive = self._bootloader_proxy.Drive
         default_id = None
-        if self.data.bootloader.bootDrive:
+
+        if boot_drive:
             for d in self.disks:
-                if d.name == self.data.bootloader.bootDrive:
+                if d.name == boot_drive:
                     default_id = d.id
 
         if not default_id:
@@ -162,14 +169,15 @@ class SelectedDisksDialog(GUIObject):
             if row[IS_BOOT_COL]:
                 for disk in self.disks:
                     if disk.id == row[ID_COL]:
-                        self.data.bootloader.bootDrive = disk.name
-                        self.data.bootloader.location = "mbr"
+                        self._bootloader_proxy.SetBootloaderMode(BOOTLOADER_ENABLED)
+                        self._bootloader_proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
+                        self._bootloader_proxy.SetDrive(disk.name)
                         return
 
         # No device was selected.  The user does not want to install
         # a bootloader.
-        self.data.bootloader.bootDrive = ""
-        self.data.bootloader.location = "none"
+        self._bootloader_proxy.SetBootloaderMode(BOOTLOADER_SKIPPED)
+        self._bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:

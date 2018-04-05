@@ -70,13 +70,15 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
+    BOOTLOADER_ENABLED
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
+    BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
@@ -277,6 +279,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self.autopart_missing_passphrase = False
         self.disks_errors = []
 
+        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
+        self._bootloader_observer.connect()
+
         self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
         self._disk_init_observer.connect()
 
@@ -379,9 +384,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self.data.autopart.encrypted = self.encrypted
         self.data.autopart.passphrase = self.passphrase
 
-        if self.data.bootloader.bootDrive and \
-           self.data.bootloader.bootDrive not in self.selected_disks:
-            self.data.bootloader.bootDrive = ""
+        boot_drive = self._bootloader_observer.proxy.Drive
+        if boot_drive and boot_drive not in self.selected_disks:
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self.storage.bootloader.reset()
 
         self._disk_init_observer.proxy.SetInitializeLabelsEnabled(True)
@@ -465,18 +470,22 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.error("storage configuration failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            self.data.bootloader.bootDrive = ""
+
+            # Prepare for reset.
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self._disk_select_observer.proxy.SetSelectedDisks([])
-            self.storage.config.update()
+
+            # The reset also calls self.storage.config.update().
             self.storage.reset()
+
+            # Now set data back to the user's specified config.
             self.disks = getDisks(self.storage.devicetree)
-            # now set ksdata back to the user's specified config
             applyDiskSelection(self.storage, self.data, self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            self.data.bootloader.bootDrive = ""
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
         except Exception as e:
             log.error("unexpected storage error: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
@@ -864,10 +873,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._update_summary()
 
-        self.data.bootloader.seen = True
-
-        if self.data.bootloader.location == "none":
-            self.set_warning(_("You have chosen to skip boot loader installation.  Your system may not be bootable."))
+        if self._bootloader_observer.proxy.BootloaderMode != BOOTLOADER_ENABLED:
+            self.set_warning(_("You have chosen to skip boot loader installation. "
+                               "Your system may not be bootable."))
         else:
             self.clear_info()
 

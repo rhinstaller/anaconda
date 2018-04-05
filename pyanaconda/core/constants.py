@@ -328,3 +328,6 @@ BOOTLOADER_LOCATION_MBR = "MBR"
 
 # Bootloader timeout.
 BOOTLOADER_TIMEOUT_UNSET = -1
+
+# Bootloader drive.
+BOOTLOADER_DRIVE_UNSET = ""

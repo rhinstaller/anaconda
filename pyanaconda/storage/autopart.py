@@ -484,10 +484,7 @@ def do_autopart(storage, data, min_luks_entropy=None):
     log.debug("storage.disks: %s", [d.name for d in storage.disks])
     log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
     log.debug("all names: %s", [d.name for d in storage.devices])
-    log.debug("boot disk: %s", getattr(storage.boot_disk, "name", None))
-
-    disks = []
-    devs = []
+    log.debug("boot disk: %s", getattr(storage.bootloader.stage1_disk, "name", None))
 
     if not storage.do_autopart:
         return

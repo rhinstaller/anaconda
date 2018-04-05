@@ -19,7 +19,8 @@
 
 from collections import OrderedDict
 
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
+    BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, getDisksByNames
 from pyanaconda.ui.categories.system import SystemCategory
@@ -37,7 +38,8 @@ from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
-    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT
+    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
+    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda import kickstart
@@ -77,6 +79,9 @@ class StorageSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload, instclass):
         super().__init__(data, storage, payload, instclass)
+
+        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
+        self._bootloader_observer.connect()
 
         self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
         self._disk_init_observer.connect()
@@ -368,11 +373,11 @@ class StorageSpoke(NormalTUISpoke):
                  disk not in self.storage.devices:
                 self.storage.devicetree.unhide(disk)
 
-        self.data.bootloader.location = "mbr"
+        self._bootloader_observer.proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
+        boot_drive = self._bootloader_observer.proxy.Drive
 
-        if self.data.bootloader.bootDrive and \
-           self.data.bootloader.bootDrive not in self.selected_disks:
-            self.data.bootloader.bootDrive = ""
+        if boot_drive and boot_drive not in self.selected_disks:
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self.storage.bootloader.reset()
 
         self.storage.config.update()
@@ -391,19 +396,23 @@ class StorageSpoke(NormalTUISpoke):
             log.error("storage configuration failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-            self.data.bootloader.bootDrive = ""
+
+            # Prepare for reset.
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
             self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
-            self.storage.config.update()
             self.storage.autopart_type = self.data.autopart.type
+
+            # The reset also calls self.storage.config.update().
             self.storage.reset()
-            # now set ksdata back to the user's specified config
+
+            # Now set data back to the user's specified config.
             applyDiskSelection(self.storage, self.data, self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-            self.data.bootloader.bootDrive = ""
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
         else:
             print(_("Checking storage configuration..."))
             report = storage_checker.check(self.storage)

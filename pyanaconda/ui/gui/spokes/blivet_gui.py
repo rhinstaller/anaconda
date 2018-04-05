@@ -31,7 +31,10 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.i18n import _, CN_, C_
+from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
 
 from blivetgui import osinstall
 from blivetgui.config import config
@@ -86,6 +89,9 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self.label_actions = None
         self.button_reset = None
         self.button_undo = None
+
+        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
+        self._bootloader_observer.connect()
 
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
@@ -190,7 +196,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
-            self.data.bootloader.bootDrive = ""
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
         StorageCheckHandler.checkStorage(self)
 
