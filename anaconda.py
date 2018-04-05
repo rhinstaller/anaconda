@@ -579,8 +579,10 @@ if __name__ == "__main__":
         flags.hmc = True
 
     # Override the selinux state from kickstart if set on the command line
+    from pyanaconda.modules.common.constants.services import SECURITY
     if flags.selinux != constants.SELINUX_DEFAULT:
-        ksdata.selinux.selinux = flags.selinux
+        security_proxy = SECURITY.get_proxy()
+        security_proxy.SetSELinux(flags.selinux)
 
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
@@ -682,13 +684,18 @@ if __name__ == "__main__":
         anaconda.storage.setup_disk_images()
 
     # Ignore disks labeled OEMDRV
+    from pyanaconda.modules.common.constants.services import STORAGE
+    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     from pyanaconda.storage_utils import device_matches
     matched = device_matches("LABEL=OEMDRV", disks_only=True)
     for oemdrv_disk in matched:
-        if oemdrv_disk not in ksdata.ignoredisk.ignoredisk:
-            ksdata.ignoredisk.ignoredisk.append(oemdrv_disk)
-            log.info("Adding disk %s labeled OEMDRV to ignored disks",
-                    oemdrv_disk)
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        ignored_disks = disk_select_proxy.IgnoredDisks
+
+        if oemdrv_disk not in ignored_disks:
+            log.info("Adding disk %s labeled OEMDRV to ignored disks", oemdrv_disk)
+            ignored_disks.append(oemdrv_disk)
+            disk_select_proxy.SetIgnoredDisks(ignored_disks)
 
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize

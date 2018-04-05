@@ -32,6 +32,8 @@ from blivet.iscsi import iscsi
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_, CP_
 from pyanaconda.storage_utils import try_populate_devicetree, on_disk_storage
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection
 from pyanaconda.ui.gui.utils import timed_action
@@ -551,7 +553,9 @@ class FilterSpoke(NormalSpoke):
         super().refresh()
 
         self.disks = getDisks(self.storage.devicetree)
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        self.selected_disks = disk_select_proxy.SelectedDisks
 
         self.ancestors = [d.name for disk in self.disks for d in self._real_ancestors(disk)]
 

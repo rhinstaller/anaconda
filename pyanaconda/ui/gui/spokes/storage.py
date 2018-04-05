@@ -70,13 +70,16 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.services import STORAGE
 
-from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
+from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 import sys
@@ -265,16 +268,22 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
-
         self._ready = False
         self.autoPartType = None
         self.encrypted = False
         self.passphrase = ""
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self._last_selected_disks = []
         self._back_clicked = False
         self.autopart_missing_passphrase = False
         self.disks_errors = []
+
+        self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
+        self._disk_init_observer.connect()
+
+        self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
+        self._disk_select_observer.connect()
+
+        self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
 
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so
@@ -287,7 +296,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self.autopart = self.data.autopart.autopart
         self.autoPartType = None
-        self.clearPartType = CLEARPART_TYPE_NONE
+        self.clearPartType = constants.CLEAR_PARTITIONS_NONE
         self._previous_autopart = False
 
         self._last_clicked_overview = None
@@ -375,13 +384,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self.data.bootloader.bootDrive = ""
             self.storage.bootloader.reset()
 
-        self.data.clearpart.initAll = True
+        self._disk_init_observer.proxy.SetInitializeLabelsEnabled(True)
 
         if not self.autopart_missing_passphrase:
-            self.clearPartType = CLEARPART_TYPE_NONE
-            self.data.clearpart.type = self.clearPartType
+            self.clearPartType = CLEAR_PARTITIONS_NONE
+            self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
-        self.storage.config.update(self.data)
+        self.storage.config.update()
         self.storage.autopart_type = self.data.autopart.type
         self.storage.encrypted_autopart = self.data.autopart.encrypted
         self.storage.encryption_passphrase = self.data.autopart.passphrase
@@ -457,9 +466,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
-            self.data.ignoredisk.drives = []
-            self.data.ignoredisk.onlyuse = []
-            self.storage.config.update(self.data)
+            self._disk_select_observer.proxy.SetSelectedDisks([])
+            self.storage.config.update()
             self.storage.reset()
             self.disks = getDisks(self.storage.devicetree)
             # now set ksdata back to the user's specified config
@@ -525,27 +533,20 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     @property
     def status(self):
         """ A short string describing the current status of storage setup. """
-        msg = _("No disks selected")
-
         if threadMgr.get(constants.THREAD_DASDFMT):
-            msg = _("Formatting DASDs")
+            return _("Formatting DASDs")
         elif flags.automatedInstall and not self.storage.root_device:
-            msg = _("Kickstart insufficient")
-        elif self.data.ignoredisk.onlyuse:
-            msg = P_(("%d disk selected"),
-                     ("%d disks selected"),
-                     len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
-
-            if self.errors:
-                msg = _("Error checking storage configuration")
-            elif self.warnings:
-                msg = _("Warning checking storage configuration")
-            elif self.data.autopart.autopart:
-                msg = _("Automatic partitioning selected")
-            else:
-                msg = _("Custom partitioning selected")
-
-        return msg
+            return _("Kickstart insufficient")
+        elif not self._disk_select_observer.proxy.SelectedDisks:
+            return _("No disks selected")
+        elif self.errors:
+            return _("Error checking storage configuration")
+        elif self.warnings:
+            return _("Warning checking storage configuration")
+        elif self.data.autopart.autopart:
+            return _("Automatic partitioning selected")
+        else:
+            return _("Custom partitioning selected")
 
     @property
     def localOverviews(self):
@@ -620,8 +621,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self.disks]
-        self.selected_disks = [d for d in self.data.ignoredisk.onlyuse
-                               if d in disk_names]
+        selected_names = self._disk_select_observer.proxy.SelectedDisks
+        self.selected_disks = [d for d in selected_names if d in disk_names]
 
         # unhide previously hidden disks so that they don't look like being
         # empty (because of all child devices hidden)
@@ -653,7 +654,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # of them, we do not display them in the box by default.  Instead, only
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
-        for name in self.data.ignoredisk.onlyuse:
+        for name in selected_names:
             if name not in disk_names:
                 continue
             obj = self.storage.devicetree.get_device_by_name(name, hidden=True)
@@ -947,7 +948,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                                                      ", ".join(disk_labels))
         else:
             free_space = self.storage.get_free_space(disks=disks,
-                                                     clear_part_type=CLEARPART_TYPE_NONE)
+                                                     clear_part_type=CLEAR_PARTITIONS_NONE)
             disk_free = sum(f[0] for f in free_space.values())
             fs_free = sum(f[1] for f in free_space.values())
 
