@@ -333,6 +333,5 @@ class TextUserInterface(ui.UserInterface):
 
         question_window = YesNoDialog(message)
         ScreenHandler.push_screen_modal(question_window)
-        question_window.redraw()
 
         return question_window.answer
