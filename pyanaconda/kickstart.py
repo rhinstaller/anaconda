@@ -349,7 +349,7 @@ class Authselect(RemovedCommand):
         if not flags.automatedInstall and self.fingerprint_supported:
             self._run(
                 "/usr/bin/authselect",
-                ["select", "sssd", "with-fingerprint", "--force"],
+                ["select", "sssd", "with-fingerprint", "with-silent-lastlog", "--force"],
                 required=False
             )
 
