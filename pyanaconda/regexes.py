@@ -144,3 +144,6 @@ VERSION_DIGITS = r'([\d.]+)'
 
 # Device with this name was configured from ibft (and renamed) by dracut
 IBFT_CONFIGURED_DEVICE_NAME = re.compile(r'^ibft\d+$')
+
+# IPv6 address in dracut IP option (including the square brackets)
+IPV6_ADDRESS_IN_DRACUT_IP_OPTION = re.compile(r'\[[^\]]+\]')
