@@ -1877,6 +1877,13 @@ class RepoData(commands.repo.F27_RepoData):
 
         super().__init__(*args, **kwargs)
 
+    def __str__(self):
+        """Don't output disabled repos"""
+        if self.enabled:
+            return super().__str__()
+        else:
+            return ''
+
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
         if not self.reqpart:

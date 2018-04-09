@@ -381,36 +381,59 @@ class DNFPayload(payload.PackagePayload):
         #     and use this new one.  The highest profile user of this is livecd
         #     kickstarts.
         if repo.id in self._base.repos:
-            if not url and not mirrorlist and not metalink:
-                self._base.repos[repo.id].enable()
-            else:
+            if url or mirrorlist or metalink:
                 with self._repos_lock:
                     self._base.repos.pop(repo.id)
                     self._base.repos.add(repo)
-                repo.enable()
         # If the repo's not already known, we've got to add it.
         else:
             with self._repos_lock:
                 self._base.repos.add(repo)
-            repo.enable()
 
-        # Load the metadata to verify that the repo is valid
+        log.debug("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
+
+    def _fetch_md(self, repo):
+        """Download repo metadata
+
+        :param repo: name/id of repo to fetch
+        :type repo: str
+        :returns: None
+        """
+        ksrepo = self._base.repos[repo]
+        ksrepo.enable()
         try:
-            self._base.repos[repo.id].load()
+            # Load the metadata to verify that the repo is valid
+            ksrepo.load()
         except dnf.exceptions.RepoError as e:
+            ksrepo.disable()
+            log.debug("repo: '%s' - %s failed to load repomd", ksrepo.name,
+                     ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
             raise payload.MetadataError(e)
 
-        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
+        log.info("enabled repo: '%s' - %s and got repomd", ksrepo.name,
+                 ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
 
     def addRepo(self, ksrepo):
-        """Add a repo to dnf and kickstart repo lists.
+        """Add an enabled repo to dnf and kickstart repo lists.
 
         :param ksrepo: Kickstart Repository to add
         :type ksrepo: Kickstart RepoData object.
         :returns: None
         """
         self._add_repo(ksrepo)
+        self._fetch_md(ksrepo.name)
         super().addRepo(ksrepo)
+
+    def addDisabledRepo(self, ksrepo):
+        """Add a disabled repo to dnf and kickstart repo lists.
+
+        :param ksrepo: Kickstart Repository to add
+        :type ksrepo: Kickstart RepoData object.
+        :returns: None
+        """
+        ksrepo.disable()
+        self._add_repo(ksrepo)
+        super().addDisabledRepo(ksrepo)
 
     def _apply_selections(self):
         if self.data.packages.nocore:
@@ -688,6 +711,8 @@ class DNFPayload(payload.PackagePayload):
             log.info('_sync_metadata: addon repo error: %s', e)
             self.disableRepo(id_)
             self.verbose_errors.append(str(e))
+        log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
+                 dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
 
     @property
     def baseRepo(self):
@@ -1039,10 +1064,11 @@ class DNFPayload(payload.PackagePayload):
         # to use that instead of the default repos.
         self._base.read_all_repos()
 
-        # Repos on disk are always enabled. When reloaded their state needs to
-        # be synchronized with the user selection.
+        # If setup updates/updates-testing
         self.setUpdatesEnabled(self._updates_enabled)
 
+        # Repos on disk are always enabled. When reloaded their state needs to
+        # be synchronized with the user selection.
         enabled = []
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
@@ -1069,6 +1095,7 @@ class DNFPayload(payload.PackagePayload):
                     mirrorlist=mirrorlist, metalink=metalink,
                     noverifyssl=not sslverify, proxy=proxy)
                 self._add_repo(base_ksrepo)
+                self._fetch_md(base_ksrepo.name)
             except (payload.MetadataError, payload.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           method.method, url)
@@ -1095,9 +1122,11 @@ class DNFPayload(payload.PackagePayload):
             with self._repos_lock:
                 for (id_, repo) in self._base.repos.items():
                     if id_ in enabled:
+                        log.debug("repo %s: fall back enabled from default repos", id_)
                         repo.enable()
 
-        for ksrepo in self.data.repo.dataList():
+        for repo in self.addOns:
+            ksrepo = self.getAddOnRepo(repo)
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
             # one of these must be set to create new repo
@@ -1109,15 +1138,21 @@ class DNFPayload(payload.PackagePayload):
 
             self._add_repo(ksrepo)
 
-        ksnames = [r.name for r in self.data.repo.dataList()]
-        ksnames.append(constants.BASE_REPO_NAME)
         with self._repos_lock:
+
+            # disable unnecessary repos
             for repo in self._base.repos.iter_enabled():
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
                     self.disableRepo(id_)
                 elif constants.isFinal and 'rawhide' in id_:
                     self.disableRepo(id_)
+
+            # fetch md for enabled repos
+            enabled_repos = self.enabledRepos
+            for repo in self.addOns:
+                if repo in enabled_repos:
+                    self._fetch_md(repo)
 
     def _writeDNFRepo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
