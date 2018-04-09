@@ -1,5 +1,5 @@
 #
-# Kickstart handler for network and hostname settings
+# Private constants for the network module.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -17,19 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.network import F27_Network, F27_NetworkData
-from pykickstart.commands.firewall import F28_Firewall
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from enum import Enum, unique
+
+from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_DISABLED, \
+        FIREWALL_ENABLED, FIREWALL_USE_SYSTEM_DEFAULTS
 
 
-class NetworkKickstartSpecification(KickstartSpecification):
+@unique
+class FirewallMode(Enum):
+    """Firewall mode for the installed system."""
 
-    version = F28
-    commands = {
-        "network": F27_Network,
-        "firewall" : F28_Firewall,
-    }
-    commands_data = {
-        "NetworkData": F27_NetworkData,
-    }
+    DEFAULT = FIREWALL_DEFAULT
+    DISABLED = FIREWALL_DISABLED
+    ENABLED = FIREWALL_ENABLED
+    USE_SYSTEM_DEFAULTS = FIREWALL_USE_SYSTEM_DEFAULTS
