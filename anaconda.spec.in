@@ -346,6 +346,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 10 2018 Martin Kolman <mkolman@redhat.com> - 29.10-1
+- Bump simpleline version (mkolman)
+- Do not redraw screen after text YesNo dialog (#1557951)(jkonecny)
+- Revert "Adapt to a new simpleline changes (#1557472)(jkonecny)
+- authselect: enable silent last log (pbrezina)
+- authselect: fix typo to enable fingerprint authentication (pbrezina)
+
 * Mon Apr 09 2018 Martin Kolman <mkolman@redhat.com> - 29.9-1
 - Move install time dependencies to a metapackage (mkolman)
 
