@@ -1780,8 +1780,11 @@ class ReqPart(commands.reqpart.F23_ReqPart):
         if not self.reqpart:
             return
 
+        log.debug("Looking for platform-specific bootloader requirements.")
         reqs = platform.set_platform_bootloader_reqs()
+
         if self.addBoot:
+            log.debug("Looking for platform-specific boot requirements.")
             bootPartitions = platform.set_platform_boot_partition()
 
             # blivet doesn't know this - anaconda sets up the default boot fstype
@@ -1793,7 +1796,9 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 
             reqs += bootPartitions
 
-        autopart.do_reqpart(storage, reqs)
+        if reqs:
+            log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
+            autopart.do_reqpart(storage, reqs)
 
 class RootPw(RemovedCommand):
 
