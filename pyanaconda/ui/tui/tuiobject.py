@@ -28,6 +28,9 @@ from simpleline.render.adv_widgets import ErrorDialog, GetInputScreen, GetPasswo
 from simpleline.render.screen import UIScreen, Prompt
 from simpleline.render.screen_handler import ScreenHandler
 
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 
 def reporting_callback(message):
     """Callback used for general reporting from acceptance conditions.
@@ -93,11 +96,28 @@ class TUIObject(UIScreen, common.UIObject):
     common pyanaconda.ui.common.UIObject interface"""
 
     helpFile = None
+    _default_pass_func = None
 
     def __init__(self, data):
         UIScreen.__init__(self)
         common.UIObject.__init__(self, data)
         self.title = u"Default title"
+
+        log.debug("XXX creating TUIObject")
+        if TUIObject._default_pass_func:
+            log.debug("XXX default get pass is set")
+            self.password_func = TUIObject._default_pass_func
+
+    @staticmethod
+    def set_default_password_func(password_func):
+        """Set password function which will be used for all screens.
+
+        :param password_func: Function with one parameter which is text prompt returning user
+                              input.
+        :type password_func: Password function fn(text_prompt : str) -> str .
+        """
+        log.debug("XXX Setting password func")
+        TUIObject._default_pass_func = password_func
 
     @property
     def showable(self):

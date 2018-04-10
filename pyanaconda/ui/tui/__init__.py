@@ -167,6 +167,7 @@ class TextUserInterface(ui.UserInterface):
 
         This method must be provided by all subclasses.
         """
+        log.debug("XXX TextUserInterface setup called")
         # Use GLib event loop for the Simpleline TUI
         loop = GLibEventLoop()
         App.initialize(event_loop=loop)
