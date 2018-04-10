@@ -2628,6 +2628,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     @timed_action(delay=50, threshold=100)
     def on_update_settings_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
+        if button:
+            # Clear errors if we are handling a click.
+            self.clear_errors()
+
         self._save_right_side(self._current_selector)
         self._applyButton.set_sensitive(False)
 
