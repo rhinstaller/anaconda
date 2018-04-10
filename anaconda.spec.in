@@ -288,7 +288,10 @@ update-desktop-database &> /dev/null || :
 update-desktop-database &> /dev/null || :
 %endif
 
+# main package and install-env-deps are metapackages
 %files
+
+%files install-env-deps
 
 # Allow the lang file to be empty
 %define _empty_manifest_terminate_build 0
