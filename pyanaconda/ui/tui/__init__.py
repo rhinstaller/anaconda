@@ -30,6 +30,7 @@ from pyanaconda.ui.tui.tuiobject import IpmiErrorDialog
 from simpleline import App
 from simpleline.event_loop.glib_event_loop import GLibEventLoop
 from simpleline.event_loop.signals import ExceptionSignal
+from simpleline.input.input_handler import InputHandler
 from simpleline.render.adv_widgets import YesNoDialog
 from simpleline.render.screen_handler import ScreenHandler
 
@@ -176,7 +177,7 @@ class TextUserInterface(ui.UserInterface):
         scheduler.quit_screen = YesNoDialog(self.quitMessage)
 
         # tell python-meh it should use our raw_input
-        meh_io_handler = meh.ui.text.IOHandler(in_func=scheduler.io_manager.get_user_input_without_check)
+        meh_io_handler = meh.ui.text.IOHandler(in_func=self._get_meh_input_func)
         self._meh_interface.set_io_handler(meh_io_handler)
 
         # register handlers for various messages
@@ -208,6 +209,13 @@ class TextUserInterface(ui.UserInterface):
 
             if should_schedule:
                 scheduler.schedule_screen(obj)
+
+    def _get_meh_input_func(self, text_prompt):
+        handler = InputHandler(source=self.meh_interface)
+        handler.skip_concurrency_check = True
+        handler.get_input(text_prompt)
+        handler.wait_on_input()
+        return handler.value
 
     def run(self):
         """Run the interface.
@@ -333,6 +341,5 @@ class TextUserInterface(ui.UserInterface):
 
         question_window = YesNoDialog(message)
         ScreenHandler.push_screen_modal(question_window)
-        question_window.redraw()
 
         return question_window.answer
