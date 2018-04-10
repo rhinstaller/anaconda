@@ -1706,8 +1706,11 @@ class ReqPart(commands.reqpart.RHEL7_ReqPart):
         if not self.reqpart:
             return
 
+        log.debug("Looking for platform-specific bootloader requirements.")
         reqs = platform.setPlatformBootloaderReqs()
+
         if self.addBoot:
+            log.debug("Looking for platform-specific boot requirements.")
             bootPartitions = platform.setPlatformBootPartition()
 
             # blivet doesn't know this - anaconda sets up the default boot fstype
@@ -1719,7 +1722,9 @@ class ReqPart(commands.reqpart.RHEL7_ReqPart):
 
             reqs += bootPartitions
 
-        doReqPartition(storage, reqs)
+        if reqs:
+            log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
+            doReqPartition(storage, reqs)
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
