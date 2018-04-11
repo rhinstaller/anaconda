@@ -352,13 +352,13 @@ class NetworkIfcfgTests(unittest.TestCase):
         ifcfg = self.ifcfg_mock({"BOOTPROTO": "ibft"})
         self.assertEqual(
                 network.dracutBootArguments("em1", ifcfg, ""),
-                set(["ip=ibft"]))
+                set(["rd.iscsi.ibft"]))
 
         ifcfg = self.ifcfg_mock({"BOOTPROTO": "ibft",
                                  "HWADDR": "00:00:00:00:00:00"})
         self.assertEqual(
                 network.dracutBootArguments("em1", ifcfg, ""),
-                set(["ip=ibft"]))
+                set(["rd.iscsi.ibft"]))
 
         ifcfg = self.ifcfg_mock({"BOOTPROTO": "dhcp"})
         self.assertEqual(
