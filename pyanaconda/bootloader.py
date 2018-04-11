@@ -864,10 +864,10 @@ class BootLoader(object):
                 continue
             self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
-        # Add iscsi_firmware to trigger dracut running iscsistart
+        # Add rd.iscsi.firmware to trigger dracut running iscsistart
         # See rhbz#1099603 and rhbz#1185792
         if len(glob("/sys/firmware/iscsi_boot*")) > 0:
-            self.boot_args.add("iscsi_firmware")
+            self.boot_args.add("rd.iscsi.firmware")
 
         #
         # preservation of some of our boot args
