@@ -497,9 +497,10 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
 
 class LoadDriversTestCase(unittest.TestCase):
     @mock.patch("driver_updates.subprocess.call")
+    @mock.patch("driver_updates.subprocess.check_output")
     @mock.patch("driver_updates.rm_net_intfs_for_unload")
     @mock.patch("driver_updates.list_net_intfs")
-    def test_basic(self, list_net_intfs, rm_net_intfs_for_unload, call):
+    def test_basic(self, list_net_intfs, rm_net_intfs_for_unload, check_output, call):
         """load_drivers: runs depmod and modprobes all named modules"""
         modnames = ['mod1', 'mod2']
         load_drivers({name: [name] for name in modnames})
