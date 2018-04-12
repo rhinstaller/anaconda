@@ -333,6 +333,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 12 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.10-1
+- Do not redraw screen after text YesNo dialog (jkonecny)
+  Resolves: rhbz#1516875
+- Fix the progress bar steps (vponcova)
+  Resolves: rhbz#1543299
+
 * Mon Apr 09 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.9-1
 - Restore fix for RHBZ #1323012 (`set_name` not `setName`) (awilliam)
   Resolves: rhbz#1564473
