@@ -350,6 +350,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 12 2018 Martin Kolman <mkolman@redhat.com> - 28.22.7-1
+- Add anaconda-install-env-deps as dependency of the anaconda package (mkolman)
+
 * Wed Apr 11 2018 Martin Kolman <mkolman@redhat.com> - 28.22.6-1
 - Add %%files for install-env-deps so it actually exists (awilliam)
 
