@@ -305,7 +305,16 @@ update-desktop-database &> /dev/null || :
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
-%{_datadir}/anaconda
+%dir %{_datadir}/anaconda
+%dir %{_datadir}/anaconda/addons
+%{_datadir}/anaconda/ui/
+%{_datadir}/anaconda/post-scripts/
+%{_datadir}/anaconda/anaconda_options.txt
+%{_datadir}/anaconda/instperf.p
+%{_datadir}/anaconda/interactive-defaults.ks
+%{_datadir}/anaconda/list-harddrives-stub
+%{_datadir}/anaconda/restart-anaconda
+%{_datadir}/anaconda/tmux.conf
 %{_prefix}/libexec/anaconda
 %exclude %{_prefix}/libexec/anaconda/dd_*
 %{python3_sitearch}/pyanaconda
@@ -326,6 +335,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %files gui
+%{_datadir}/anaconda/anaconda-gtk.css
+%{_datadir}/anaconda/gnome/
+%{_datadir}/anaconda/pixmaps/
+%{_datadir}/anaconda/window-manager/
 %{python3_sitearch}/pyanaconda/ui/gui/*
 
 %files tui
