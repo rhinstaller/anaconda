@@ -350,6 +350,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 12 2018 Martin Kolman <mkolman@redhat.com> - 29.11-1
+- Add anaconda-install-env-deps as dependency of the anaconda package (mkolman)
+- Add %%files for install-env-deps so it actually exists (awilliam)
+
 * Tue Apr 10 2018 Martin Kolman <mkolman@redhat.com> - 29.10-1
 - Bump simpleline version (mkolman)
 - Do not redraw screen after text YesNo dialog (#1557951)(jkonecny)
