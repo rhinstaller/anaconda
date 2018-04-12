@@ -80,6 +80,7 @@ BuildRequires: libxml2
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
 Requires: anaconda-tui = %{version}-%{release}
+Requires: anaconda-install-env-deps = %{version}-%{release}
 
 %description
 The anaconda package is a metapackage for the Anaconda installer.
