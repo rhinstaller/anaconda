@@ -80,6 +80,7 @@ BuildRequires: libxml2
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
 Requires: anaconda-tui = %{version}-%{release}
+Requires: anaconda-install-env-deps = %{version}-%{release}
 
 %description
 The anaconda package is a metapackage for the Anaconda installer.
@@ -288,7 +289,10 @@ update-desktop-database &> /dev/null || :
 update-desktop-database &> /dev/null || :
 %endif
 
+# main package and install-env-deps are metapackages
 %files
+
+%files install-env-deps
 
 # Allow the lang file to be empty
 %define _empty_manifest_terminate_build 0
