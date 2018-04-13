@@ -9,20 +9,12 @@ from unittest import TestCase
 MOCK_NAME_ENV = "MOCKCHROOT"
 MOCK_EXTRA_ARGS_ENV = "MOCK_EXTRA_ARGS"
 RPM_BUILD_DIR_ENV = "RPM_PATH"
-
-
-class CallError(Exception):
-    """Exception raised when external command fails."""
-
-    def __init__(self, cmd):
-        msg = """When running command '{}' exception raised.
-        """.format(cmd)
-        super().__init__(msg)
+ROOT_DIR_ENV = "ROOT_ANACONDA_PATH"
 
 
 class RPMTestCase(TestCase):
 
-    def _check_subprocess(self, cmd, cwd=None):
+    def check_subprocess(self, cmd, cwd=None):
         """Call external command and verify return result.
 
         :param cmd: list of parameters to specify command to run
@@ -31,14 +23,15 @@ class RPMTestCase(TestCase):
                     run command in actual directory.
         :type cwd: str
         """
-        process_result = self._call_subprocess(cmd, cwd)
+        process_result = self.call_subprocess(cmd, cwd)
 
-        if process_result.returncode != 0:
-            raise CallError(cmd)
+        self.assertEqual(process_result.returncode, 0, msg="""
+        Bad return code when running:
+        {}""".format(cmd))
 
         return process_result
 
-    def _call_subprocess(self, cmd, cwd):
+    def call_subprocess(self, cmd, cwd=None):
         """Call external command and return result."""
         print("Running command \"{}\"".format(" ".join(cmd)))
         return subprocess.run(cmd, stdout=subprocess.PIPE, cwd=cwd)
@@ -52,6 +45,11 @@ class RPMTestCase(TestCase):
     def mock_extra_args(self):
         """Extra arguments for mock from Makefile"""
         return os.environ[MOCK_EXTRA_ARGS_ENV]
+
+    @property
+    def anaconda_root_path(self):
+        """Root directory of tested anaconda from Makefile"""
+        return os.environ[ROOT_DIR_ENV]
 
     @property
     def rpm_paths(self):
@@ -69,7 +67,7 @@ class RPMTestCase(TestCase):
         """
         mock_command = self._create_mock_command()
         mock_command.extend(cmd)
-        self._check_subprocess(mock_command)
+        self.check_subprocess(mock_command)
 
     def _create_mock_command(self):
         output_cmd = ["mock", "-r", self.mock_name]
