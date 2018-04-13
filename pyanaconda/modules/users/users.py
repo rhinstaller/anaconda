@@ -21,8 +21,9 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.modules.users.users_interface import UsersInterface
+from pyanaconda.modules.users.user import UserModule, UserInterface
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
+from pyanaconda.modules.users.users_interface import UsersInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -44,6 +45,9 @@ class UsersModule(KickstartModule):
         self.root_account_locked_changed = Signal()
         self._root_account_locked = False
 
+        self.users_changed = Signal()
+        self._users = {}
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USERS.object_path, UsersInterface(self))
@@ -57,10 +61,14 @@ class UsersModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
-        # rootpw
         self.set_root_password(data.rootpw.password, crypted=data.rootpw.isCrypted)
         self.set_root_account_locked(data.rootpw.lock)
         self.set_rootpw_seen(data.rootpw.seen)
+
+        for user_data in data.user.userList:
+            user = self._create_user_instance()
+            user.process_kickstart(data, user_data)
+            self._publish_user_instance(user)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -70,7 +78,56 @@ class UsersModule(KickstartModule):
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
         data.rootpw.seen = self.rootpw_seen
+
+        for user in self.users.values():
+            user.setup_kickstart(data)
+
         return str(data)
+
+    @property
+    def users(self):
+        """Dictionary of users and their object paths."""
+        return self._users
+
+    @property
+    def object_paths_of_users(self):
+        """List of users object paths."""
+        return list(self._users.keys())
+
+    def create_user(self):
+        """Create and publish a new UserModule.
+
+        :return: an object path of the module
+        """
+        user_instance = self._create_user_instance()
+        object_path = self._publish_user_instance(user_instance)
+        return object_path
+
+    def _create_user_instance(self):
+        """Create a new instance of the user.
+
+        :return: an instance of UserModule
+        """
+        user_instance = UserModule()
+        log.debug("Created a new user instance.")
+        return user_instance
+
+    def _publish_user_instance(self, user_instance):
+        """Publish the user instance on DBus.
+
+        :param user_instance: an instance of UserModule
+        """
+        # Publish the DBus object.
+        publishable = UserInterface(user_instance)
+        object_path = UserInterface.get_object_path(USERS.namespace)
+        DBus.publish_object(object_path, publishable)
+
+        # Update the module.
+        self.users[object_path] = user_instance
+        self.users_changed.emit()
+
+        log.debug("Published a user at '%s'.", object_path)
+        return object_path
 
     @property
     def rootpw_seen(self):

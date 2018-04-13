@@ -31,9 +31,23 @@ class UsersInterface(KickstartModuleInterface):
 
     def connect_signals(self):
         super().connect_signals()
-        self.implementation.root_password_is_set_changed.connect(self.changed("IsRootPasswordSet"))
-        self.implementation.root_account_locked_changed.connect(self.changed("IsRootAccountLocked"))
-        self.implementation.rootpw_seen_changed.connect(self.changed("IsRootpwKickstarted"))
+        self.watch_property("Users", self.implementation.users_changed)
+        self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
+        self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
+        self.watch_property("IsRootpwKickstarted", self.implementation.rootpw_seen_changed)
+
+    @property
+    def Users(self) -> List[ObjPath]:
+        """A list of object paths to available user objects."""
+        return self.implementation.object_paths_of_users
+
+    @emits_properties_changed
+    def CreateUser(self) -> ObjPath:
+        """Create a new user object.
+
+        :return: an object path to the created user
+        """
+        return self.implementation.create_user()
 
     @property
     def IsRootpwKickstarted(self) -> Bool:

@@ -18,8 +18,7 @@
 #
 from pyanaconda.dbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, BOSS_NAMESPACE, \
-    MODULES_NAMESPACE
-
+    MODULES_NAMESPACE, USERS_NAMESPACE
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE
@@ -28,6 +27,11 @@ KICKSTART_MODULE = DBusInterfaceIdentifier(
 BOSS_ANACONDA = DBusInterfaceIdentifier(
     namespace=BOSS_NAMESPACE,
     basename="Anaconda"
+)
+
+USER = DBusInterfaceIdentifier(
+    namespace=USERS_NAMESPACE,
+    basename="User"
 )
 
 TASK = DBusInterfaceIdentifier(

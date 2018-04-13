@@ -1,6 +1,4 @@
 #
-# Kickstart handler for date and time settings.
-#
 # Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -17,20 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.rootpw import F18_RootPw
-from pykickstart.commands.user import F24_User, F19_UserData
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.modules.users.user.user import UserModule
+from pyanaconda.modules.users.user.user_interface import UserInterface
 
-
-class UsersKickstartSpecification(KickstartSpecification):
-
-    version = F28
-    commands = {
-        "rootpw": F18_RootPw,
-        "user": F24_User
-    }
-
-    commands_data = {
-        "UserData": F19_UserData
-    }
+__all__ = ["UserModule", "UserInterface"]
