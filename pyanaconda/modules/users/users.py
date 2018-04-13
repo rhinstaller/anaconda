@@ -1,5 +1,5 @@
 #
-# Kickstart module for date and time settings.
+# Kickstart module for the users module.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -20,16 +20,16 @@
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
-from pyanaconda.modules.common.constants.services import USER
-from pyanaconda.modules.user.user_interface import UserInterface
-from pyanaconda.modules.user.kickstart import UserKickstartSpecification
+from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.users.users_interface import UsersInterface
+from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class UserModule(KickstartModule):
-    """The User module."""
+class UsersModule(KickstartModule):
+    """The Users module."""
 
     def __init__(self):
         super().__init__()
@@ -46,13 +46,13 @@ class UserModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(USER.object_path, UserInterface(self))
-        DBus.register_service(USER.service_name)
+        DBus.publish_object(USERS.object_path, UsersInterface(self))
+        DBus.register_service(USERS.service_name)
 
     @property
     def kickstart_specification(self):
         """Return the kickstart specification."""
-        return UserKickstartSpecification
+        return UsersKickstartSpecification
 
     def process_kickstart(self, data):
         """Process the kickstart data."""

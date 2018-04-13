@@ -1,5 +1,5 @@
 #
-# DBus interface for the user module.
+# DBus interface for the users module.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -18,16 +18,16 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda.modules.common.constants.services import USER
+from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
 
 
-@dbus_interface(USER.interface_name)
-class UserInterface(KickstartModuleInterface):
-    """DBus interface for User module."""
+@dbus_interface(USERS.interface_name)
+class UsersInterface(KickstartModuleInterface):
+    """DBus interface for Users module."""
 
     def connect_signals(self):
         super().connect_signals()
@@ -40,7 +40,7 @@ class UserInterface(KickstartModuleInterface):
         """Was the rootpw command seen in kickstart ?
 
         NOTE: this property should be only temporary and should be
-              dropped once the user module itself can report
+              dropped once the users module itself can report
               if the password changed from kickstart
 
         :return: True, if the rootpw was present in input kickstart, otherwise False
@@ -52,7 +52,7 @@ class UserInterface(KickstartModuleInterface):
         """Set if rootpw should be considered as coming from kickstart.
 
         NOTE: this property should be only temporary and should be
-              dropped once the user module itself can report
+              dropped once the users module itself can report
               if the password changed from kickstart
 
         :param bool rootpw_seen: if rootpw should be considered as coming from kickstart
@@ -64,7 +64,7 @@ class UserInterface(KickstartModuleInterface):
         """Root password.
 
         NOTE: this property should be only temporary and should be
-              dropped once the user module itself can configure the root password
+              dropped once the users module itself can configure the root password
 
         :return: root password (might be crypted)
         """
@@ -75,7 +75,7 @@ class UserInterface(KickstartModuleInterface):
         """Is the root password crypted ?
 
         NOTE: this property should be only temporary and should be
-              dropped once the user module itself can configure the root password
+              dropped once the users module itself can configure the root password
 
         :return: True, if the root password is crypted, otherwise False
         """

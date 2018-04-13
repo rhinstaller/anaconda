@@ -22,7 +22,7 @@ from pykickstart.version import F28
 from pyanaconda.core.kickstart import KickstartSpecification
 
 
-class UserKickstartSpecification(KickstartSpecification):
+class UsersKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {

@@ -23,7 +23,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
-from pyanaconda.modules.common.constants.services import USER
+from pyanaconda.modules.common.constants.services import USERS
 
 from simpleline.render.widgets import TextWidget
 
@@ -45,14 +45,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._policy = self.data.anaconda.pwpolicy.get_policy("root", fallback_to_default=True)
         self._password = None
 
-        self._user_module = USER.get_observer()
-        self._user_module.connect()
+        self._users_module = USERS.get_observer()
+        self._users_module.connect()
 
         self.initialize_done()
 
     @property
     def completed(self):
-        return bool(self._user_module.proxy.IsRootPasswordSet or self._user_module.proxy.IsRootAccountLocked)
+        return bool(self._users_module.proxy.IsRootPasswordSet or self._users_module.proxy.IsRootAccountLocked)
 
     @property
     def showable(self):
@@ -65,9 +65,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def status(self):
-        if self._user_module.proxy.IsRootPasswordSet:
+        if self._users_module.proxy.IsRootPasswordSet:
             return _("Password is set.")
-        elif self._user_module.proxy.IsRootAccountLocked:
+        elif self._users_module.proxy.IsRootAccountLocked:
             return _("Root account is disabled.")
         else:
             return _("Password is not set.")
@@ -94,6 +94,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self.close()
 
     def apply(self):
-        self._user_module.proxy.SetCryptedRootPassword(self._password)
-        self._user_module.proxy.SetRootAccountLocked(False)
-        self._user_module.proxy.SetRootpwKickstarted(False)
+        self._users_module.proxy.SetCryptedRootPassword(self._password)
+        self._users_module.proxy.SetRootAccountLocked(False)
+        self._users_module.proxy.SetRootpwKickstarted(False)
