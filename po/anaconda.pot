@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.133\n"
+"Project-Id-Version: anaconda 21.48.22.134\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2018-02-19 14:47+0100\n"
+"POT-Creation-Date: 2018-04-16 12:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -474,7 +474,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2440
+#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2445
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -786,26 +786,26 @@ msgstr ""
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1921
+#: pyanaconda/kickstart.py:1926
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1926
+#: pyanaconda/kickstart.py:1931
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1932
+#: pyanaconda/kickstart.py:1937
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1942
+#: pyanaconda/kickstart.py:1947
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -813,114 +813,114 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1949
+#: pyanaconda/kickstart.py:1954
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1954
+#: pyanaconda/kickstart.py:1959
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1957
+#: pyanaconda/kickstart.py:1962
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2080
+#: pyanaconda/kickstart.py:2085
 msgid ""
 "Incorrectly specified origin of the snapshot. Use format \"VolGroup/LV_name\""
 msgstr ""
 
-#: pyanaconda/kickstart.py:2091
+#: pyanaconda/kickstart.py:2096
 #, python-format
 msgid ""
 "Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\" is not a valid thin "
 "LV device."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2099
+#: pyanaconda/kickstart.py:2104
 #, python-format
 msgid "Snapshot %s already exists."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2135
+#: pyanaconda/kickstart.py:2140
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/network.py:109
+#: pyanaconda/network.py:110
 msgid "Host name cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:112
+#: pyanaconda/network.py:113
 msgid "Host name must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:115
+#: pyanaconda/network.py:116
 msgid ""
 "Host names can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1627 pyanaconda/ui/gui/spokes/custom.py:566
+#: pyanaconda/network.py:1632 pyanaconda/ui/gui/spokes/custom.py:566
 #: pyanaconda/ui/gui/spokes/network.py:326
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:64
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1631
+#: pyanaconda/network.py:1636
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1633
+#: pyanaconda/network.py:1638
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1655
+#: pyanaconda/network.py:1660
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1658
+#: pyanaconda/network.py:1663
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1661
+#: pyanaconda/network.py:1666
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1665
+#: pyanaconda/network.py:1670
 #, python-format
 msgid "Team %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1669
+#: pyanaconda/network.py:1674
 #, python-format
 msgid "Bridge %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1679
+#: pyanaconda/network.py:1684
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1697
+#: pyanaconda/network.py:1702
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1700
+#: pyanaconda/network.py:1705
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1703 pyanaconda/ui/gui/spokes/network.glade.h:45
+#: pyanaconda/network.py:1708 pyanaconda/ui/gui/spokes/network.glade.h:45
 msgid "No network devices available"
 msgstr ""
 
@@ -2634,7 +2634,7 @@ msgstr ""
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2651
+#: pyanaconda/ui/gui/spokes/custom.py:2655
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
