@@ -235,6 +235,7 @@ test-gui:
 	$(MAKE) coverage-report
 
 test-rpm: rc-release run-rpm-tests-only
+	$(MAKE) grab-logs
 
 run-rpm-tests-only:
 	$(MAKE)
