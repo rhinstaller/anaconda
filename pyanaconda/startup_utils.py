@@ -42,7 +42,7 @@ from pyanaconda.screensaver import inhibit_screensaver
 
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import DBUS_FLAG_NONE
-from pyanaconda.modules.common.constants.services import BOSS
+from pyanaconda.modules.common.constants.services import BOSS, ALL_KICKSTART_MODULES
 
 import blivet
 
@@ -88,10 +88,20 @@ def stop_boss():
     boss_proxy.Quit()
 
 
-def run_boss():
-    """Start Boss service on DBus."""
+def run_boss(kickstart_modules=None, addons_enabled=True):
+    """Start Boss service on DBus.
+
+    :param kickstart_modules: a list of service identifiers
+    :param addons_enabled: should we start the addons?
+    """
+    if kickstart_modules is None:
+        kickstart_modules = ALL_KICKSTART_MODULES
+
     bus_proxy = DBus.get_dbus_proxy()
     bus_proxy.StartServiceByName(BOSS.service_name, DBUS_FLAG_NONE)
+
+    boss_proxy = BOSS.get_proxy()
+    boss_proxy.StartModules([m.service_name for m in kickstart_modules], addons_enabled)
 
 
 def get_anaconda_version_string(build_time_version=False):
