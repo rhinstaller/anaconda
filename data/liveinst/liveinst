@@ -65,6 +65,7 @@ for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snap
 if [ -f /etc/system-release ]; then
     export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
     export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+    export ANACONDA_PRODUCTVARIANT="Workstation"
 fi
 
 if [ $IMAGE_INSTALL = 1 ]; then
