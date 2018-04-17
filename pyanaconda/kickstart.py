@@ -1906,7 +1906,7 @@ class RootPw(RemovedCommand):
 
     def __str__(self):
         users_proxy = USERS.get_proxy()
-        return users_proxy.GenerateKickstart()
+        return users_proxy.GenerateTemporaryKickstart()
 
     def execute(self, storage, ksdata, instClass, users):
 

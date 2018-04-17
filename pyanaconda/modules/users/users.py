@@ -70,7 +70,12 @@ class UsersModule(KickstartModule):
             user.process_kickstart(data, user_data)
             self._publish_user_instance(user)
 
-    def generate_kickstart(self):
+    def generate_temporary_kickstart(self):
+        """Return the temporary kickstart string."""
+        return self.generate_kickstart(skip_unsupported=True)
+
+    # pylint: disable=arguments-differ
+    def generate_kickstart(self, skip_unsupported=False):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
@@ -78,6 +83,9 @@ class UsersModule(KickstartModule):
         data.rootpw.isCrypted = self._root_password_is_crypted
         data.rootpw.lock = self.root_account_locked
         data.rootpw.seen = self.rootpw_seen
+
+        if skip_unsupported:
+            return str(data)
 
         for user in self.users.values():
             user.setup_kickstart(data)

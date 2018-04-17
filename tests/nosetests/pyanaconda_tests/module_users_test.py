@@ -164,8 +164,8 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual("/org/fedoraproject/Anaconda/Modules/Users/User/3", object_path_3)
         self.assertEqual(self.users_interface.Users, [object_path_1, object_path_2, object_path_3])
 
-    def _test_kickstart(self, ks_in, ks_out):
-        check_kickstart_interface(self, self.users_interface, ks_in, ks_out)
+    def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
+        check_kickstart_interface(self, self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
 
     def kickstart_set_plain_rootpw_test(self):
         """Test the setting plaintext root password via kickstart."""
@@ -221,7 +221,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         ks_out = """
         user --name=harry
         """
-        self._test_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
 
     @patch("pyanaconda.modules.users.users.DBus")
     def kickstart_multiple_users_test(self, _bus):
@@ -236,7 +236,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
         user --name=hermione
         user --name=ron
         """
-        self._test_kickstart(ks_in, ks_out)
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
 
 
 class UserInterfaceTestCase(unittest.TestCase):
