@@ -1,6 +1,4 @@
 #
-# Private constants of the storage module.
-#
 # Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -17,32 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from enum import Enum, unique
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_ALL, \
-    CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_DEFAULT, BOOTLOADER_DISABLED, \
-    BOOTLOADER_ENABLED, BOOTLOADER_SKIPPED, BOOTLOADER_TYPE_DEFAULT, BOOTLOADER_TYPE_EXTLINUX
+from pyanaconda.modules.storage.bootloader.bootloader import BootloaderModule
 
-
-@unique
-class BootloaderMode(Enum):
-    """The bootloader mode."""
-    DISABLED = BOOTLOADER_DISABLED
-    ENABLED = BOOTLOADER_ENABLED
-    SKIPPED = BOOTLOADER_SKIPPED
-
-
-@unique
-class BootloaderType(Enum):
-    """The type of bootloader."""
-    DEFAULT = BOOTLOADER_TYPE_DEFAULT
-    EXTLINUX = BOOTLOADER_TYPE_EXTLINUX
-
-
-@unique
-class InitializationMode(Enum):
-    """The disks initialization mode."""
-    DEFAULT = CLEAR_PARTITIONS_DEFAULT
-    CLEAR_NONE = CLEAR_PARTITIONS_NONE
-    CLEAR_ALL = CLEAR_PARTITIONS_ALL
-    CLEAR_LIST = CLEAR_PARTITIONS_LIST
-    CLEAR_LINUX = CLEAR_PARTITIONS_LINUX
+__all__ = ["BootloaderModule"]

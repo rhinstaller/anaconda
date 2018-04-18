@@ -500,8 +500,13 @@ if __name__ == "__main__":
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
-    if ksdata.bootloader.extlinux:
+    from pyanaconda.modules.common.constants.services import STORAGE
+    from pyanaconda.modules.common.constants.objects import BOOTLOADER
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+
+    if bootloader_proxy.BootloaderType == constants.BOOTLOADER_TYPE_EXTLINUX:
         flags.extlinux = True
+
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
 
@@ -593,9 +598,13 @@ if __name__ == "__main__":
     # If the language was set on the command line, copy that to kickstart
     if opts.lang:
         localization_proxy.SetLanguage(opts.lang)
+        localization_proxy.SetLanguageKickstarted(True)
 
     # Setup the locale environment
-    locale_option = localization_proxy.Language or None
+    if localization_proxy.LanguageKickstarted:
+        locale_option = localization_proxy.Language
+    else:
+        locale_option = None
     localization.setup_locale_environment(locale_option, text_mode=anaconda.tui_mode)
 
     # Now that LANG is set, do something with it

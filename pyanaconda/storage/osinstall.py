@@ -1348,20 +1348,13 @@ class InstallerStorage(Blivet):
             log.info("user specified that bootloader install be skipped")
             return
 
-        # Need to make sure bootDrive has been setup from the latest information
+        # Need to make sure that boot drive has been setup from the latest information.
+        # This will also set self.bootloader.stage1_disk.
         self.ksdata.bootloader.execute(self, self.ksdata, None)
-        self.bootloader.stage1_disk = self.devicetree.resolve_device(self.ksdata.bootloader.bootDrive)
+
         self.bootloader.stage2_device = self.boot_device
         if not early:
             self.bootloader.set_stage1_device(self.devices)
-
-    @property
-    def boot_disk(self):
-        disk = None
-        if self.ksdata:
-            spec = self.ksdata.bootloader.bootDrive
-            disk = self.devicetree.resolve_device(spec)
-        return disk
 
     @property
     def bootloader_device(self):
@@ -2180,16 +2173,13 @@ def storage_initialize(storage, ksdata, protected):
 
     storage.shutdown()
 
-    # Before we set up the storage system, we need to know which disks to
-    # ignore, etc.  Luckily that's all in the kickstart data.
-    storage.config.update()
-
     # Set up the protected partitions list now.
     if protected:
         storage.config.protected_dev_specs.extend(protected)
 
     while True:
         try:
+            # This also calls storage.config.update().
             storage.reset()
         except StorageError as e:
             if error_handler.cb(e) == ERROR_RAISE:

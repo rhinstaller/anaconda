@@ -20,9 +20,12 @@
 import unittest
 from mock import patch
 
-from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX
+from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED, \
+    BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
-    DISK_SELECTION
+    DISK_SELECTION, BOOTLOADER
+from pyanaconda.modules.storage.bootloader import BootloaderModule
+from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
     DiskInitializationInterface
@@ -44,7 +47,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
     def kickstart_properties_test(self):
         """Test kickstart properties."""
         self.assertEqual(self.storage_interface.KickstartCommands,
-                         ["zerombr", "clearpart", "ignoredisk"])
+                         ["bootloader", "clearpart", "ignoredisk", "zerombr"])
 
         self.assertEqual(self.storage_interface.KickstartSections, [])
         self.assertEqual(self.storage_interface.KickstartAddons, [])
@@ -203,6 +206,160 @@ class StorageInterfaceTestCase(unittest.TestCase):
         device_matches.return_value = []
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
+    def bootloader_disabled_kickstart_test(self):
+        """Test the bootloader command with the disabled option."""
+        ks_in = """
+        bootloader --disabled
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --disabled
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_none_kickstart_test(self):
+        """Test the bootloader command with the none option."""
+        ks_in = """
+        bootloader --location=none
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=none
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_mbr_kickstart_test(self):
+        """Test the bootloader command with the MBR option."""
+        ks_in = """
+        bootloader --location=mbr
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_partition_kickstart_test(self):
+        """Test the bootloader command with the partition option."""
+        ks_in = """
+        bootloader --location=partition
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=partition
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_append_kickstart_test(self):
+        """Test the bootloader command with the append option."""
+        ks_in = """
+        bootloader --append="hdd=ide-scsi ide=nodma"
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --append="hdd=ide-scsi ide=nodma" --location=mbr
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_password_kickstart_test(self):
+        """Test the bootloader command with the password option."""
+        ks_in = """
+        bootloader --password="12345"
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --password="12345"
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_encrypted_password_kickstart_test(self):
+        """Test the bootloader command with the encrypted password option."""
+        ks_in = """
+        bootloader --password="12345" --iscrypted
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --password="12345" --iscrypted
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_driveorder_kickstart_test(self):
+        """Test the bootloader command with the driveorder option."""
+        ks_in = """
+        bootloader --driveorder="sda,sdb"
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --driveorder="sda,sdb"
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_timeout_kickstart_test(self):
+        """Test the bootloader command with the timeout option."""
+        ks_in = """
+        bootloader --timeout=10
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --timeout=10
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_md5pass_kickstart_test(self):
+        """Test the bootloader command with the md5pass option."""
+        ks_in = """
+        bootloader --md5pass="12345"
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --password="12345" --iscrypted
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_bootdrive_kickstart_test(self):
+        """Test the bootloader command with the boot drive option."""
+        ks_in = """
+        bootloader --boot-drive="sda"
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --boot-drive=sda
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_leavebootorder_kickstart_test(self):
+        """Test the bootloader command with the leavebootorder option."""
+        ks_in = """
+        bootloader --leavebootorder
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --leavebootorder
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_extlinux_kickstart_test(self):
+        """Test the bootloader command with the extlinux option."""
+        ks_in = """
+        bootloader --extlinux
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --extlinux
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def bootloader_nombr_kickstart_test(self):
+        """Test the bootloader command with the nombr option."""
+        ks_in = """
+        bootloader --nombr
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --nombr
+        """
+        self._test_kickstart(ks_in, ks_out)
+
 
 class DiskInitializationInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the disk initialization module."""
@@ -298,4 +455,93 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         self._test_dbus_property(
             "IgnoredDisks",
             ["sda", "sdb"]
+        )
+
+
+class BootloaderInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the bootloader module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.bootloader_module = BootloaderModule()
+        self.bootloader_interface = BootloaderInterface(self.bootloader_module)
+
+    def _test_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            BOOTLOADER,
+            self.bootloader_interface,
+            *args, **kwargs
+        )
+
+    def bootloader_mode_property_test(self):
+        """Test the bootloader mode property."""
+        self._test_dbus_property(
+            "BootloaderMode",
+            BOOTLOADER_SKIPPED
+        )
+
+    def bootloader_type_property_test(self):
+        """Test the bootloader type property."""
+        self._test_dbus_property(
+            "BootloaderType",
+            BOOTLOADER_TYPE_EXTLINUX
+        )
+
+    def preferred_location_property_test(self):
+        """Test the preferred location property."""
+        self._test_dbus_property(
+            "PreferredLocation",
+            BOOTLOADER_LOCATION_PARTITION
+        )
+
+    def drive_property_test(self):
+        """Test the drive property."""
+        self._test_dbus_property(
+            "Drive",
+            "sda"
+        )
+
+    def drive_order_property_test(self):
+        """Test the drive order property."""
+        self._test_dbus_property(
+            "DriveOrder",
+            ["sda", "sdb"]
+        )
+
+    def keep_mbr_property_test(self):
+        """Test the keep MBR property."""
+        self._test_dbus_property(
+            "KeepMBR",
+            True
+        )
+
+    def keep_boot_order_test(self):
+        """Test the keep boot order property."""
+        self._test_dbus_property(
+            "KeepBootOrder",
+            True
+        )
+
+    def extra_arguments_property_test(self):
+        """Test the extra arguments property."""
+        self._test_dbus_property(
+            "ExtraArguments",
+            ["hdd=ide-scsi", "ide=nodma"]
+        )
+
+    def timeout_property_test(self):
+        """Test the timeout property."""
+        self._test_dbus_property(
+            "Timeout",
+            25
+        )
+
+    def password_property_test(self):
+        """Test the password property."""
+        self._test_dbus_property(
+            "Password",
+            "12345",
+            setter=self.bootloader_interface.SetEncryptedPassword,
+            changed={'IsPasswordSet': True}
         )

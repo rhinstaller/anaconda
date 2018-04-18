@@ -38,10 +38,11 @@ from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE
+    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE, \
+    BOOTLOADER_DRIVE_UNSET
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.platform import platform
@@ -183,6 +184,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                   DEVICE_TYPE_DISK: ""}
 
         self._initialized = False
+
+        self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
+        self._bootloader_observer.connect()
+
         self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
         self._disk_init_observer.connect()
 
@@ -338,9 +343,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 continue
 
             disk_names = (d.name for d in device.disks)
-            # bootDrive may not be setup because it IS one of these.
-            if not self.data.bootloader.bootDrive or \
-               self.data.bootloader.bootDrive in disk_names:
+            # boot drive may not be setup because it IS one of these.
+            boot_drive = self._bootloader_observer.proxy.Drive
+            if not boot_drive or boot_drive in disk_names:
                 devices.append(device)
 
         return devices
@@ -1631,7 +1636,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
-            self.data.bootloader.bootDrive = ""
+            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
         StorageCheckHandler.checkStorage(self)
 

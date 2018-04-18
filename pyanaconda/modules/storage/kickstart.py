@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from blivet.formats.disklabel import DiskLabel
+from pykickstart.commands.bootloader import F21_Bootloader
 from pykickstart.commands.clearpart import F28_ClearPart
 from pykickstart.commands.ignoredisk import F14_IgnoreDisk
 from pykickstart.commands.zerombr import F9_ZeroMbr
@@ -108,7 +109,8 @@ class StorageKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {
-        "zerombr": F9_ZeroMbr,
+        "bootloader": F21_Bootloader,
         "clearpart": ClearPart,
         "ignoredisk": IgnoreDisk,
+        "zerombr": F9_ZeroMbr,
     }
