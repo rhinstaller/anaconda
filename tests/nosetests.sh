@@ -8,7 +8,7 @@ fi
 
 # If no tests were selected by user or makefile, select all of them
 if [ $# -eq 0 ] && [ -z $NOSE_TESTS_ARGS ]; then
-    set -- "${top_srcdir}"/tests/*_tests
+    set -- "${top_srcdir}"/tests/nosetests/*_tests
 fi
 
 exec nosetests-3 -v --exclude=logpicker -a \!acceptance,\!slow $NOSE_TESTS_ARGS "$@"

@@ -33,7 +33,7 @@ from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
-from tests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 
 
 class StorageInterfaceTestCase(unittest.TestCase):

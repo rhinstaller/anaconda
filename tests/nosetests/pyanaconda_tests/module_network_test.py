@@ -23,7 +23,7 @@ from mock import Mock
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
-from tests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class NetworkInterfaceTestCase(unittest.TestCase):
