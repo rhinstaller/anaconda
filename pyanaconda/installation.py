@@ -20,6 +20,10 @@
 
 from blivet import callbacks
 from blivet.devices import BTRFSDevice
+
+from pyanaconda.core.constants import BOOTLOADER_DISABLED
+from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
@@ -123,7 +127,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # recreated after the first writeBootLoader call. This reruns it after the new initrd has
     # been created, fixing the kernel root and subvol args and adding the missing initrd entry.
     boot_on_btrfs = isinstance(storage.mountpoints.get("/"), BTRFSDevice)
-    bootloader_enabled = not ksdata.bootloader.disabled and ksdata.bootloader != "none"
+
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
+
     if flags.flags.livecdInstall and boot_on_btrfs and bootloader_enabled:
         generate_initramfs.append(Task("Write BTRFS bootloader fix", writeBootLoader, (storage, payload, instClass, ksdata)))
     configuration_queue.append(generate_initramfs)
@@ -200,8 +207,9 @@ def doInstall(storage, payload, ksdata, instClass):
        The two main tasks for this are putting filesystems onto disks and
        installing packages onto those filesystems.
     """
-    willInstallBootloader = not flags.flags.dirInstall and (not ksdata.bootloader.disabled
-                                                            and ksdata.bootloader != "none")
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
+    can_install_bootloader = not flags.flags.dirInstall and bootloader_enabled
 
     installation_queue = TaskQueue("Installation queue")
     # connect progress reporting
@@ -308,7 +316,7 @@ def doInstall(storage, payload, ksdata, instClass):
         payload.requirements.add_packages(ksdata.network.packages, reason="network")
         payload.requirements.add_packages(ksdata.timezone.packages, reason="ntp", strong=False)
 
-        if willInstallBootloader:
+        if can_install_bootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
         payload.requirements.add_groups(payload.languageGroups(), reason="language groups")
         payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
@@ -327,7 +335,7 @@ def doInstall(storage, payload, ksdata, instClass):
     installation_queue.append(late_storage)
 
     # Do bootloader.
-    if willInstallBootloader:
+    if can_install_bootloader:
         bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
         bootloader_install.append(Task("Install bootloader", writeBootLoader, (storage, payload, instClass, ksdata)))
         installation_queue.append(bootloader_install)

@@ -98,7 +98,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True):
 
 
 def check_dbus_property(test, interface_id, interface, property_name,
-                        in_value, out_value=None, getter=None, setter=None):
+                        in_value, out_value=None, getter=None, setter=None, changed=None):
     """Check DBus property.
 
     :param test: instance of TestCase
@@ -109,6 +109,7 @@ def check_dbus_property(test, interface_id, interface, property_name,
     :param out_value: an output value of the property or None
     :param getter: a property getter or None
     :param setter: a property setter or None
+    :param changed: a dictionary of changed properties or None
     """
     callback = Mock()
     interface.PropertiesChanged.connect(callback)
@@ -121,7 +122,11 @@ def check_dbus_property(test, interface_id, interface, property_name,
         setter = getattr(interface, "Set{}".format(property_name))
 
     setter(in_value)
-    callback.assert_called_once_with(interface_id.interface_name, {property_name: out_value}, [])
+
+    if not changed:
+        changed = {property_name: out_value}
+
+    callback.assert_called_once_with(interface_id.interface_name, changed, [])
 
     # Get the property.
     if not getter:

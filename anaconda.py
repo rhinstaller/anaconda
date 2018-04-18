@@ -500,8 +500,13 @@ if __name__ == "__main__":
 
     # Pick up any changes from interactive-defaults.ks that would
     # otherwise be covered by the dracut KS parser.
-    if ksdata.bootloader.extlinux:
+    from pyanaconda.modules.common.constants.services import STORAGE
+    from pyanaconda.modules.common.constants.objects import BOOTLOADER
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+
+    if bootloader_proxy.BootloaderType == constants.BOOTLOADER_TYPE_EXTLINUX:
         flags.extlinux = True
+
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
 
