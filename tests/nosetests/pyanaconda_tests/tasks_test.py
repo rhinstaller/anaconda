@@ -19,7 +19,7 @@ import unittest
 
 from threading import Event
 from pyanaconda.modules.common.task import Task
-from tests.pyanaconda_tests import run_in_glib
+from tests.nosetests.pyanaconda_tests import run_in_glib
 
 
 TASK_NAME = "TestTask"

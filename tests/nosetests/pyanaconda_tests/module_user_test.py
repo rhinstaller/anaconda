@@ -23,7 +23,7 @@ from mock import Mock
 from pyanaconda.modules.common.constants.services import USER
 from pyanaconda.modules.user.user import UserModule
 from pyanaconda.modules.user.user_interface import UserInterface
-from tests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class UserInterfaceTestCase(unittest.TestCase):

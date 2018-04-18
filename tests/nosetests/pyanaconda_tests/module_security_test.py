@@ -26,7 +26,7 @@ from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.dbus.typing import get_variant, Str, List
 from pyanaconda.modules.security.security import SecurityModule
 from pyanaconda.modules.security.security_interface import SecurityInterface
-from tests.pyanaconda_tests import check_kickstart_interface
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class SecurityInterfaceTestCase(unittest.TestCase):

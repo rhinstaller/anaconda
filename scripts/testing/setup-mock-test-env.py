@@ -161,7 +161,7 @@ One of these commands must be used. These commands can be combined.
                        run anaconda tests in a mock
                        """)
     group.add_argument('--run-nosetests', '-n', action='store', nargs='*',
-                       metavar='tests/pyanaconda_tests/test.py',
+                       metavar='tests/nosetests/pyanaconda_tests/test.py',
                        dest='nose_targets',
                        help="""
                        run anaconda nosetests;

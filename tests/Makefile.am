@@ -39,6 +39,7 @@ EXTRA_DIST += $(top_srcdir)/translation-canary/translation_canary/*.py \
 	      $(top_srcdir)/translation-canary/translation_canary/*/*.py
 
 NOSE_TESTS_ARGS ?= ""
+RPM_TESTS_ARGS ?= ""
 
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = $(srcdir)/glade/*.py \
@@ -47,6 +48,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     nosetests.sh \
 		     nosetests_root.sh \
 		     run_gui_tests.sh \
+		     rpm_tests.sh \
 		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
@@ -55,7 +57,8 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     storage/run_storage_tests.py \
 		     $(srcdir)/gui/*.py \
 		     $(srcdir)/storage/cases/*.py \
-		     $(srcdir)/*_tests/*.py
+		     $(srcdir)/*_tests/*.py \
+		     $(srcdir)/nosetests/*_tests/*.py
 
 TESTS = nosetests.sh \
 	pylint/runpylint.py \
