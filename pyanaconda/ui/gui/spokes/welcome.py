@@ -111,10 +111,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if flags.flags.singlelang:
             return True
 
-        if flags.flags.automatedInstall and self._l12_module.proxy.Language:
-            return True
-        else:
-            return False
+        if flags.flags.automatedInstall and self._l12_module.proxy.LanguageKickstarted:
+            return bool(self._l12_module.proxy.Language)
 
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
@@ -150,7 +148,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # bootopts and kickstart have priority over geoip
         language = self._l12_module.proxy.Language
-        if language:
+        if language and self._l12_module.proxy.LanguageKickstarted:
             locales = [language]
         else:
             locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]

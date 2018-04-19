@@ -64,6 +64,11 @@ class RPMOSTreePayload(ArchivePayload):
         # We don't have this data with OSTree at the moment
         return Size("500 MB")
 
+    @property
+    def needsNetwork(self):
+        """Test ostree repository if it requires network."""
+        return not (self.data.ostreesetup.url and self.data.ostreesetup.url.startswith("file://"))
+
     def _safeExecWithRedirect(self, cmd, argv, **kwargs):
         """Like util.execWithRedirect, but treat errors as fatal"""
         rc = util.execWithRedirect(cmd, argv, **kwargs)

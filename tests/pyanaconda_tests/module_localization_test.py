@@ -117,6 +117,12 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.localization_interface.ReadKickstart(ks_in)
         self.assertEqual(self.localization_interface.LanguageKickstarted, True)
 
+    def set_language_kickstarted_test(self):
+        """Test SetLanguageKickstart."""
+        self.localization_interface.SetLanguageKickstarted(True)
+        self.assertEqual(self.localization_interface.LanguageKickstarted, True)
+        self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageKickstarted': True}, [])
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
 

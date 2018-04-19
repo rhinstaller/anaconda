@@ -67,15 +67,22 @@ class Boss(MainModule):
 
     def run(self):
         """Run the boss's loop."""
-        log.debug("Gather the modules.")
-        self._module_manager.add_default_modules()
-        self._module_manager.add_addon_modules()
         log.debug("Schedule publishing.")
         run_in_loop(self.publish)
-        log.debug("Schedule startup of modules.")
-        run_in_loop(self._module_manager.start_modules)
-        log.info("starting mainloop")
+        log.info("Start the main loop.")
         self._loop.run()
+
+    def start_modules(self, service_names, addons_enabled=True):
+        """Start the given kickstart modules."""
+        for service_name in service_names:
+            log.debug("Add module %s.", service_name)
+            self._module_manager.add_module(service_name)
+
+        if addons_enabled:
+            log.debug("Addons are enabled.")
+            self._module_manager.add_addon_modules()
+
+        self._module_manager.start_modules()
 
     def stop(self):
         """Stop all modules and then stop the boss."""

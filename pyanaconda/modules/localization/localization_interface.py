@@ -83,6 +83,14 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         return self.implementation.language_seen
 
+    @emits_properties_changed
+    def SetLanguageKickstarted(self, language_seen: Bool):
+        """Set if language should be considered as coming from kickstart
+
+        :param bool language_seen: if language should be considered as coming from kickstart
+        """
+        self.implementation.set_language_seen(language_seen)
+
     # TODO MOD - remove this when we get logic for inferring what we are
     # getting and the other option value (localed proxy) into the module?
     @property
