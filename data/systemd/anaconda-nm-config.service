@@ -1,5 +1,6 @@
 [Unit]
 ConditionKernelCommandLine=!ip=ibft
+ConditionKernelCommandLine=!rd.iscsi.ibft
 Description=Anaconda NetworkManager configuration
 Before=NetworkManager.service
 
