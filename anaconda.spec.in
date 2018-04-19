@@ -333,6 +333,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 19 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.11-1
+- Fix bad bash '*' expansion when loading kernel modules (jkonecny)
+  Resolves: rhbz#1567927
+
 * Thu Apr 12 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.10-1
 - Do not redraw screen after text YesNo dialog (jkonecny)
   Resolves: rhbz#1516875
