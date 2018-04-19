@@ -15,7 +15,7 @@ import argparse
 from gi.repository import Gio
 
 from pyanaconda.dbus import DBusConnection
-from pyanaconda.modules.common.constants.services import  BOSS
+from pyanaconda.modules.common.constants.services import BOSS, ALL_KICKSTART_MODULES
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 
 try:
@@ -50,7 +50,11 @@ EXEC_PATH = 'Exec=/usr/libexec/anaconda/start-module'
 
 def start_anaconda_services():
     print(RED + "starting Boss" + RESET)
-    test_dbus_connection.get_dbus_proxy().StartServiceByName(BOSS.service_name, 0)
+    bus_proxy = test_dbus_connection.get_dbus_proxy()
+    bus_proxy.StartServiceByName(BOSS.service_name, 0)
+
+    boss_proxy = test_dbus_connection.get_proxy(BOSS.service_name, BOSS.object_path)
+    boss_proxy.StartModules([m.service_name for m in ALL_KICKSTART_MODULES], True)
 
 def distribute_kickstart(ks_path):
     tmpfile = tempfile.mktemp(suffix=".run_boss_locally.ks")

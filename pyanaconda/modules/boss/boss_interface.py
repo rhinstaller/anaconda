@@ -41,6 +41,14 @@ class AnacondaBossInterface(BossInterface):
     Used for synchronization with anaconda during transition.
     """
 
+    def StartModules(self, service_names: List[Str], addons_enabled: Bool):
+        """Start the given kickstart modules.
+
+        :param service_names: a list of service names
+        :param addons_enabled: should we start addons?
+        """
+        self.implementation.start_modules(service_names, addons_enabled)
+
     @property
     def AllModulesAvailable(self) -> Bool:
         """Returns true if all modules are available."""
