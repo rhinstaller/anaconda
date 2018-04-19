@@ -67,6 +67,17 @@ if [ -f /etc/system-release ]; then
     export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
 fi
 
+# set PRODUCTVARIANT if this is a Fedora Workstation live image
+# FIXME really, livemedia-creator should include .buildstamp in live
+# images, if it did, we could remove this:
+# https://github.com/weldr/lorax/issues/350
+if [ -f /etc/os-release ]; then
+    variantid=$( grep VARIANT_ID /etc/os-release | tail -1 | cut -d= -f2)
+    if [ "$variantid" = "workstation" ]; then
+        export ANACONDA_PRODUCTVARIANT="Workstation"
+    fi
+fi
+
 if [ $IMAGE_INSTALL = 1 ]; then
     export ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
 fi
