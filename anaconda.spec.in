@@ -350,6 +350,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 19 2018 Martin Kolman <mkolman@redhat.com> - 28.22.8-1
+- localization: use LanguageKickstarted module property (#1568119) (rvykydal)
+- Start only the specified kickstart modules (#1566621) (vponcova)
+- rpmostreepayload: do not require network for dvd installation (#1565369)
+  (rvykydal)
+- Don't try to create required partitions if there are none (vponcova)
+
 * Thu Apr 12 2018 Martin Kolman <mkolman@redhat.com> - 28.22.7-1
 - Add anaconda-install-env-deps as dependency of the anaconda package (mkolman)
 
