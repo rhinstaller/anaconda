@@ -350,6 +350,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Apr 20 2018 Martin Kolman <mkolman@redhat.com> - 28.22.9-1
+- Select Workstation install class for Workstation live (#1569083) (awilliam)
+
 * Thu Apr 19 2018 Martin Kolman <mkolman@redhat.com> - 28.22.8-1
 - localization: use LanguageKickstarted module property (#1568119) (rvykydal)
 - Start only the specified kickstart modules (#1566621) (vponcova)
