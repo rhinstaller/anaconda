@@ -32,7 +32,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 DEPENDENCY_SOLVER = "dependency_solver.py"
 
 ANACONDA_MOCK_PATH = "/anaconda"
-NOSE_TESTS_PREFIX = "./pyanaconda_tests/"
+NOSE_TESTS_PREFIX = "./nosetests/pyanaconda_tests/"
 
 
 class MockException(Exception):
