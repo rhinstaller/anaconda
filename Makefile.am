@@ -245,5 +245,7 @@ run-rpm-tests-only:
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
-	$(COVERAGE) report --omit "tests/*" > tests/coverage-report.log
+	$(COVERAGE) report -m --omit "tests/*" > tests/coverage-report.log
+	$(COVERAGE) report -m --include "pyanaconda/dbus*,pyanaconda/modules/*,pyanaconda/core/*" \
+								     > tests/coverage-modular.log
 	@cat tests/coverage-report.log
