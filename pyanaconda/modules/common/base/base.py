@@ -221,3 +221,12 @@ class KickstartModule(MainModule, KickstartBaseModule):
         handler = self.get_kickstart_handler()
         self.setup_kickstart(handler)
         return str(handler)
+
+    def generate_temporary_kickstart(self):
+        """Return a temporary kickstart representation of this module.
+
+        Don't include kickstart commands temporarily unsupported in UI.
+
+        :return: a kickstart string
+        """
+        return self.generate_kickstart()

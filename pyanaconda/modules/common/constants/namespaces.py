@@ -56,9 +56,9 @@ SECURITY_NAMESPACE = (
     "Security"
 )
 
-USER_NAMESPACE = (
+USERS_NAMESPACE = (
     *MODULES_NAMESPACE,
-    "User"
+    "Users"
 )
 
 PAYLOAD_NAMESPACE = (

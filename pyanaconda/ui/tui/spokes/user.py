@@ -20,7 +20,7 @@ from pyanaconda.core.constants import FIRSTBOOT_ENVIRON, PASSWORD_SET
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.regexes import GECOS_VALID
-from pyanaconda.modules.common.constants.services import USER
+from pyanaconda.modules.common.constants.services import USERS
 
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -81,8 +81,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self.errors = []
 
-        self._user_module = USER.get_observer()
-        self._user_module.connect()
+        self._users_module = USERS.get_observer()
+        self._users_module.connect()
 
         self.initialize_done()
 
@@ -189,7 +189,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Only mandatory if the root pw hasn't been set in the UI
             eg. not mandatory if the root account was locked in a kickstart
         """
-        return not self._user_module.proxy.IsRootPasswordSet and not self._user_module.proxy.IsRootAccountLocked
+        return not self._users_module.proxy.IsRootPasswordSet and not self._users_module.proxy.IsRootAccountLocked
 
     @property
     def status(self):

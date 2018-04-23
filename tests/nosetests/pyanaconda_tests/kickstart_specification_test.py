@@ -36,7 +36,7 @@ from pyanaconda.modules.security.kickstart import SecurityKickstartSpecification
 from pyanaconda.modules.services.kickstart import ServicesKickstartSpecification
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.timezone.kickstart import TimezoneKickstartSpecification
-from pyanaconda.modules.user.kickstart import UserKickstartSpecification
+from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 
 
 class KickstartSpecificationTestCase(unittest.TestCase):
@@ -168,7 +168,7 @@ class ModuleSpecificationsTestCase(unittest.TestCase):
         ServicesKickstartSpecification,
         StorageKickstartSpecification,
         TimezoneKickstartSpecification,
-        UserKickstartSpecification,
+        UsersKickstartSpecification,
     ]
 
     def setUp(self):

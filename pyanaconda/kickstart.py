@@ -53,7 +53,7 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    USER, SERVICES, STORAGE
+    USERS, SERVICES, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -1905,27 +1905,27 @@ class ReqPart(commands.reqpart.F23_ReqPart):
 class RootPw(RemovedCommand):
 
     def __str__(self):
-        user_proxy = USER.get_proxy()
-        return user_proxy.GenerateKickstart()
+        users_proxy = USERS.get_proxy()
+        return users_proxy.GenerateTemporaryKickstart()
 
     def execute(self, storage, ksdata, instClass, users):
 
-        user_proxy = USER.get_proxy()
+        users_proxy = USERS.get_proxy()
 
-        if flags.automatedInstall and not user_proxy.IsRootPasswordSet and not user_proxy.IsRootpwKickstarted:
+        if flags.automatedInstall and not users_proxy.IsRootPasswordSet and not users_proxy.IsRootpwKickstarted:
             # Lock the root password if during an installation with kickstart
             # the root password is empty & not specififed as empty in the kickstart
             # (seen == False) via the rootpw command.
             # Note that kickstart is actually the only way to specify an empty
             # root password - we don't allow that via the UI.
-            user_proxy.SetRootAccountLocked(True)
-        elif not flags.automatedInstall and not user_proxy.IsRootPasswordSet:
+            users_proxy.SetRootAccountLocked(True)
+        elif not flags.automatedInstall and not users_proxy.IsRootPasswordSet:
             # Also lock the root password if it was not set during interactive installation.
-            user_proxy.SetRootAccountLocked(True)
+            users_proxy.SetRootAccountLocked(True)
 
-        users.setRootPassword(user_proxy.RootPassword,
-                              user_proxy.IsRootPasswordCrypted,
-                              user_proxy.IsRootAccountLocked,
+        users.setRootPassword(users_proxy.RootPassword,
+                              users_proxy.IsRootPasswordCrypted,
+                              users_proxy.IsRootAccountLocked,
                               None,
                               util.getSysroot())
 
