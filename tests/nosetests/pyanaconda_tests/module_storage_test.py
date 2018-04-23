@@ -133,7 +133,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def clearpart_disklabel_kickstart_test(self):
+    @patch("pyanaconda.modules.storage.kickstart.DiskLabel")
+    def clearpart_disklabel_kickstart_test(self, disk_label):
         """Test the clearpart command with the disklabel option."""
         ks_in = """
         clearpart --all --disklabel=msdos
@@ -142,7 +143,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Partition clearing information
         clearpart --all --disklabel=msdos
         """
+        disk_label.get_platform_label_types.return_value = ["msdos", "gpt"]
         self._test_kickstart(ks_in, ks_out)
+
+        disk_label.get_platform_label_types.return_value = ["gpt"]
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     @patch("pyanaconda.modules.storage.kickstart.device_matches")
     def clearpart_list_kickstart_test(self, device_matches):
