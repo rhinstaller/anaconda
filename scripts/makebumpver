@@ -23,7 +23,9 @@ logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("bugzilla")
 log.setLevel(logging.INFO)
 
-import bugzilla
+# This is only place where bugzilla library is used. Exclude from dependencies and
+# ignore pylint.
+import bugzilla  # pylint: disable=import-error
 from contextlib import closing
 import datetime
 import argparse
