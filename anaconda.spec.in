@@ -333,6 +333,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 23 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.12-1
+- Disable window renaming in installer tmux (rvykydal)
+  Resolves: rhbz#1533419
+- Replace deprecated dracut options for booting with ibft. (rvykydal)
+  Resolves: rhbz#1566052
+
 * Thu Apr 19 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.11-1
 - Fix bad bash '*' expansion when loading kernel modules (jkonecny)
   Resolves: rhbz#1567927
