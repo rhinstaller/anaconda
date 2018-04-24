@@ -403,6 +403,26 @@ class Payload(object):
         """
         return True
 
+    @property
+    def disabledRepos(self):
+        """A list of disabled repos."""
+        disabled = []
+        for repo in self.addOns:
+            if not self.isRepoEnabled(repo):
+                disabled.append(repo)
+
+        return disabled
+
+    @property
+    def enabledRepos(self):
+        """A list of enabled repos."""
+        enabled = []
+        for repo in self.addOns:
+            if self.isRepoEnabled(repo):
+                enabled.append(repo)
+
+        return enabled
+
     def isRepoEnabled(self, repo_id):
         """Return True if repo is enabled."""
         repo = self.getAddOnRepo(repo_id)
@@ -483,6 +503,17 @@ class Payload(object):
         take the place of the previous value.
         """
         # Add the repo to the ksdata so it'll appear in the output ks file.
+        ksrepo.enabled = True
+        self.data.repo.dataList().append(ksrepo)
+
+    def addDisabledRepo(self, ksrepo):
+        """Add the repo given by the pykickstart Repo object ksrepo to the
+        system.
+
+        Duplicate repos will not raise an error.  They should just silently
+        take the place of the previous value.
+        """
+        ksrepo.enabled = False
         self.data.repo.dataList().append(ksrepo)
 
     def removeRepo(self, repo_id):

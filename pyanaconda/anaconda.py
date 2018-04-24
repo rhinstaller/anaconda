@@ -36,7 +36,6 @@ stdoutLog = get_stdout_logger()
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-
 class Anaconda(object):
     def __init__(self):
         from pyanaconda import desktop
