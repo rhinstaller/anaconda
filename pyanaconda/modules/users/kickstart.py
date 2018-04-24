@@ -18,13 +18,19 @@
 # Red Hat, Inc.
 #
 from pykickstart.commands.rootpw import F18_RootPw
+from pykickstart.commands.user import F24_User, F19_UserData
 from pykickstart.version import F28
 from pyanaconda.core.kickstart import KickstartSpecification
 
 
-class UserKickstartSpecification(KickstartSpecification):
+class UsersKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {
-        "rootpw": F18_RootPw
+        "rootpw": F18_RootPw,
+        "user": F24_User
+    }
+
+    commands_data = {
+        "UserData": F19_UserData
     }

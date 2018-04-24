@@ -56,9 +56,6 @@ BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: pango-devel
 BuildRequires: python3-kickstart >= %{pykickstartver}
-%if ! 0%{?rhel}
-BuildRequires: python3-bugzilla
-%endif
 BuildRequires: python3-devel
 BuildRequires: python3-nose
 BuildRequires: systemd

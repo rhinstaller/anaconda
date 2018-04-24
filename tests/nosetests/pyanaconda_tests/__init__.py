@@ -59,7 +59,7 @@ class run_in_glib(object):
         return create_loop
 
 
-def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True):
+def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True, ks_tmp=None):
     """Test the parsing and generating of a kickstart module.
 
     :param test: instance of TestCase
@@ -67,6 +67,7 @@ def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True):
     :param ks_in: string with the input kickstart
     :param ks_out: string with the output kickstart
     :param ks_valid: True if the input kickstart is valid, otherwise False
+    :param ks_tmp: string with the temporary output kickstart
     """
     callback = Mock()
     interface.PropertiesChanged.connect(callback)
@@ -95,6 +96,11 @@ def check_kickstart_interface(test, interface, ks_in, ks_out, ks_valid=True):
     else:
         test.assertEqual(interface.Kickstarted, False)
         callback.assert_not_called()
+
+    if ks_tmp is None:
+        ks_tmp = ks_out
+
+    test.assertEqual(ks_tmp, interface.GenerateTemporaryKickstart().strip())
 
 
 def check_dbus_property(test, interface_id, interface, property_name,
