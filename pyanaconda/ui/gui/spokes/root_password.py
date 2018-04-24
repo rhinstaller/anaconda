@@ -22,7 +22,7 @@ from pyanaconda.core.i18n import _, CN_
 from pyanaconda.users import cryptPassword
 from pyanaconda import input_checking
 from pyanaconda.core import constants
-from pyanaconda.modules.common.constants.services import USERS
+from pyanaconda.modules.common.constants.services import USERS, SERVICES
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
@@ -60,6 +60,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         self._users_module = USERS.get_observer()
         self._users_module.connect()
+
+        self._services_module = SERVICES.get_observer()
+        self._services_module.connect()
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -146,10 +149,18 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     @property
     def status(self):
-        if self._users_module.proxy.IsRootPasswordSet:
+        if self._users_module.proxy.IsRootAccountLocked:
+            # check if we are running in Initial Setup reconfig mode
+            reconfig_mode = self._services_module.proxy.SetupOnBoot == constants.SETUP_ON_BOOT_RECONFIG
+            # reconfig mode currently allows re-enabling a locked root account if
+            # user sets a new root password
+            if reconfig_mode:
+                return _("Disabled, set password to enable.")
+            else:
+                return _("Root account is disabled.")
+
+        elif self._users_module.proxy.IsRootPasswordSet:
             return _("Root password is set")
-        elif self._users_module.proxy.IsRootAccountLocked:
-            return _("Root account is disabled")
         else:
             return _("Root password is not set")
 
