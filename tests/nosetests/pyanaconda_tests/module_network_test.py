@@ -25,6 +25,23 @@ from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
+import gi
+gi.require_version("NM", "1.0")
+from gi.repository import NM
+
+
+class MockedNMClient():
+    def __init__(self):
+        self.state = NM.State.DISCONNECTED
+        self.state_callback = None
+    def _connect_state_changed(self, callback):
+        self.state_callback = callback
+    def _set_state(self, state):
+        self.state = state
+        self.state_callback(state)
+    def get_state(self):
+        return self.state
+
 
 class NetworkInterfaceTestCase(unittest.TestCase):
     """Test DBus interface for the Network module."""
@@ -55,6 +72,54 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def get_current_hostname_test(self):
         """Test getting current hostname does not fail."""
         self.network_interface.GetCurrentHostname()
+
+    def connected_test(self):
+        """Test getting connectivity status does not fail."""
+        connected = self.network_interface.Connected
+        self.assertIn(connected, (True, False))
+
+    def connecting_test(self):
+        """Test checking connecting status does not fail."""
+        self.network_interface.IsConnecting()
+
+    def mocked_client_connectivity_test(self):
+        """Test connectivity properties with mocked NMClient."""
+        nm_client = MockedNMClient()
+        nm_client._connect_state_changed(self.network_module._nm_state_changed)
+        self.network_module.nm_client = nm_client
+
+        nm_client._set_state(NM.State.CONNECTED_LOCAL)
+        self.assertTrue(self.network_interface.Connected)
+
+        nm_client._set_state(NM.State.DISCONNECTED)
+        self.assertFalse(self.network_interface.Connected)
+        self.callback.assert_called_with(NETWORK.interface_name, {'Connected': False}, [])
+        self.assertFalse(self.network_interface.IsConnecting())
+
+        nm_client._set_state(NM.State.CONNECTED_SITE)
+        self.assertTrue(self.network_interface.Connected)
+        self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
+        self.assertFalse(self.network_interface.IsConnecting())
+
+        nm_client._set_state(NM.State.CONNECTED_GLOBAL)
+        self.assertTrue(self.network_interface.Connected)
+        self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
+        self.assertFalse(self.network_interface.IsConnecting())
+
+        nm_client._set_state(NM.State.CONNECTING)
+        self.assertFalse(self.network_interface.Connected)
+        self.callback.assert_called_with(NETWORK.interface_name, {'Connected': False}, [])
+        self.assertTrue(self.network_interface.IsConnecting())
+
+        nm_client._set_state(NM.State.CONNECTED_LOCAL)
+        self.assertTrue(self.network_interface.Connected)
+        self.callback.assert_called_with(NETWORK.interface_name, {'Connected': True}, [])
+        self.assertFalse(self.network_interface.IsConnecting())
+
+    def nm_availability_test(self):
+        self.network_module.nm_client = None
+        self.assertTrue(self.network_interface.Connected)
+        self.assertFalse(self.network_interface.IsConnecting())
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.network_interface, ks_in, ks_out)

@@ -53,7 +53,7 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    USERS, SERVICES, STORAGE
+    USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -209,9 +209,11 @@ def getEscrowCertificate(escrowCerts, url):
         return escrowCerts[url]
 
     needs_net = not url.startswith("/") and not url.startswith("file:")
-    if needs_net and not nm.nm_is_connected():
-        msg = _("Escrow certificate %s requires the network.") % url
-        raise KickstartError(msg)
+    if needs_net:
+        network_proxy = NETWORK.get_proxy()
+        if not network_proxy.Connected:
+            msg = _("Escrow certificate %s requires the network.") % url
+            raise KickstartError(msg)
 
     escrow_log.info("escrow: downloading %s", url)
 

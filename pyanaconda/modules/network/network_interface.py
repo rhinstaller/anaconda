@@ -33,6 +33,7 @@ class NetworkInterface(KickstartModuleInterface):
         super().connect_signals()
         self.implementation.hostname_changed.connect(self.changed("Hostname"))
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
+        self.implementation.connected_changed.connect(self.changed("Connected"))
 
     @property
     def Hostname(self) -> Str:
@@ -66,3 +67,25 @@ class NetworkInterface(KickstartModuleInterface):
         param: hostname: a string with a hostname
         """
         self.implementation.set_current_hostname(hostname)
+
+    @property
+    def Connected(self) -> Bool:
+        """Is the system connected to the network?
+
+        The system is considered to be connected if being in one of the states
+        NM_STATE_CONNECTED_LOCAL, NM_STATE_CONNECTED_SITE or NM_STATE_CONNECTED_GLOBAL.
+        """
+        return self.implementation.connected
+
+    def IsConnecting(self) -> Bool:
+        """Is NewtorkManager in connecting state?
+
+        The connecting state can indicate that dhcp configuration is
+        in progress.
+
+        The state corresponds to NM_STATE_CONNECTING.
+
+        Internal API used for networking initialization and synchronization.
+        To be removed after reworking the synchronization.
+        """
+        return self.implementation.is_connecting()

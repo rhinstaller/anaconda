@@ -1582,11 +1582,12 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
     :rtype: bool
     """
 
-    if nm.nm_is_connected():
+    network_proxy = NETWORK.get_proxy()
+    if network_proxy.Connected:
         return True
 
     if only_connecting:
-        if nm.nm_is_connecting():
+        if network_proxy.IsConnecting():
             log.debug("waiting for connecting NM (dhcp in progress?), timeout=%d", timeout)
         else:
             return False
@@ -1597,11 +1598,11 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
     while i < timeout:
         i += constants.NETWORK_CONNECTED_CHECK_INTERVAL
         time.sleep(constants.NETWORK_CONNECTED_CHECK_INTERVAL)
-        if nm.nm_is_connected():
+        if network_proxy.Connected:
             log.debug("NM connected, waited %d seconds", i)
             return True
         elif only_connecting:
-            if not nm.nm_is_connecting():
+            if not network_proxy.IsConnecting():
                 break
 
     log.debug("NM not connected, waited %d seconds", i)

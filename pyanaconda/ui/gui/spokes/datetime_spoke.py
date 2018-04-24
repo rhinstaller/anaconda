@@ -40,10 +40,9 @@ from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.core import util, constants
 from pyanaconda import isys
 from pyanaconda import network
-from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
-from pyanaconda.modules.common.constants.services import TIMEZONE
+from pyanaconda.modules.common.constants.services import TIMEZONE, NETWORK
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.async_utils import async_action_wait, async_action_nowait
@@ -435,6 +434,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._timezone_module = TIMEZONE.get_observer()
         self._timezone_module.connect()
+        self._network_module = NETWORK.get_observer()
+        self._network_module.connect()
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -637,7 +638,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._update_datetime()
 
-        has_active_network = nm.nm_is_connected()
+        has_active_network = self._network_module.proxy.Connected
         if not has_active_network:
             self._show_no_network_warning()
         else:
@@ -1118,7 +1119,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 #cannot touch runtime system, not much to do here
                 return
 
-            if not nm.nm_is_connected():
+            if not self._network_module.proxy.Connected:
                 self._show_no_network_warning()
                 switch.set_active(False)
                 return
