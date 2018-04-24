@@ -570,7 +570,19 @@ def get_active_console(dev="console"):
     # If there's an 'active' attribute, this is a fake console..
     while os.path.exists("/sys/class/tty/%s/active" % dev):
         # So read the name of the real, primary console out of the file.
-        dev = open("/sys/class/tty/%s/active" % dev).read().split()[-1]
+        console_path = "/sys/class/tty/%s/active" % dev
+        active = open(console_path, "rt").read()
+        if active.split():
+            # the active attribute seems to be pointing to another console
+            dev = active.split()[-1]
+        else:
+            # At least some consoles on PPC have the "active" attribute, but it is empty.
+            # (see rhbz#1569045 for more details)
+            log.warning("%s is empty while console name is expected", console_path)
+            # We can't continue to a next console if active is empty, so set dev to ""
+            # and break the search loop.
+            dev = ""
+            break
     return dev
 
 
