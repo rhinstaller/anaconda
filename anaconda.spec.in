@@ -319,6 +319,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 25 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.136-1
+- Once again fix cmdline error handling. (sbueno+anaconda)
+  Resolves: rhbz#1360223
+- Extend the timeout period to 180s in the case of cmdline error.
+  (sbueno+anaconda)
+  Resolves: rhbz#1360223
+- kickstart: "clearpart --list" does not work (marcel)
+  Resolves: rhbz#1561930
+
 * Mon Apr 16 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.135-1
 - Clear errors when a user updates partitioning settings (vponcova)
   Resolves: rhbz#1535781
