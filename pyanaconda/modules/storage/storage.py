@@ -24,6 +24,7 @@ from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
+from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -45,6 +46,9 @@ class StorageModule(KickstartModule):
 
         self._bootloader_module = BootloaderModule()
         self._add_module(self._bootloader_module)
+
+        self._autopart_module = AutoPartitioningModule()
+        self._add_module(self._autopart_module)
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
@@ -70,12 +74,21 @@ class StorageModule(KickstartModule):
         for kickstart_module in self._modules:
             kickstart_module.process_kickstart(data)
 
-    def generate_kickstart(self):
+    def generate_temporary_kickstart(self):
+        """Return the temporary kickstart string."""
+        return self.generate_kickstart(skip_unsupported=True)
+
+    def generate_kickstart(self, skip_unsupported=False):  # pylint: disable=arguments-differ
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
 
         for kickstart_module in self._modules:
+
+            # The auto partitioning module is not used in UI for now.
+            if skip_unsupported and isinstance(kickstart_module, AutoPartitioningModule):
+                continue
+
             kickstart_module.setup_kickstart(data)
 
         return str(data)

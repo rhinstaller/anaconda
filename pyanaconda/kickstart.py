@@ -836,7 +836,7 @@ class Realm(RemovedCommand):
 class ClearPart(RemovedCommand):
     def __str__(self):
         storage_module_proxy = STORAGE.get_proxy()
-        return storage_module_proxy.GenerateKickstart()
+        return storage_module_proxy.GenerateTemporaryKickstart()
 
     def execute(self, storage, ksdata, instClass):
         disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
