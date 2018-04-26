@@ -45,8 +45,9 @@ from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_ad
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
     REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
-    CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_SKIPPED, BOOTLOADER_ENABLED,\
-    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+    CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_SKIPPED, BOOTLOADER_ENABLED, \
+    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS, \
+    AUTOPART_TYPE_DEFAULT
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -54,12 +55,13 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
+    AUTO_PARTITIONING
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
-from pyanaconda.storage_utils import device_matches, try_populate_devicetree
+from pyanaconda.storage_utils import device_matches, try_populate_devicetree, storage_checker
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
@@ -385,38 +387,34 @@ class Authselect(RemovedCommand):
             authselect_log.error("Error running %s %s: %s", cmd, args, msg)
 
 
-class AutoPart(commands.autopart.F26_AutoPart):
-    def parse(self, args):
-        retval = super().parse(args)
+class AutoPart(RemovedCommand):
 
-        if self.fstype:
-            fmt = blivet.formats.get_format(self.fstype)
-            if not fmt or fmt.type is None:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg=_("autopart fstype of %s is invalid.") % self.fstype)
-
-        return retval
+    def __str__(self):
+        return ""
 
     def execute(self, storage, ksdata, instClass):
-        from pyanaconda.storage_utils import storage_checker
+        # Create the auto partitioning proxy.
+        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
 
-        if not self.autopart:
+        # Is the auto partitioning enabled?
+        if not auto_part_proxy.Enabled:
             return
 
-        # Sets up default autopartitioning. Use clearpart separately if you want it.
+        # Sets up default auto partitioning. Use clearpart separately if you want it.
         # The filesystem type is already set in the storage.
         refreshAutoSwapSize(storage)
         storage.do_autopart = True
 
-        if self.encrypted:
+        if auto_part_proxy.Encrypted:
             storage.encrypted_autopart = True
-            storage.encryption_passphrase = self.passphrase
-            storage.encryption_cipher = self.cipher
-            storage.autopart_escrow_cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
-            storage.autopart_add_backup_passphrase = self.backuppassphrase
+            storage.encryption_passphrase = auto_part_proxy.Passphrase
+            storage.encryption_cipher = auto_part_proxy.Cipher
+            storage.autopart_escrow_cert = getEscrowCertificate(storage.escrow_certificates,
+                                                                auto_part_proxy.Escrowcert)
+            storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
 
-        if self.type is not None:
-            storage.autopart_type = self.type
+        if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
+            storage.autopart_type = auto_part_proxy.Type
 
         autopart.do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         report = storage_checker.check(storage)

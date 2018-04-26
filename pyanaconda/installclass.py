@@ -30,6 +30,8 @@ from blivet.size import Size
 from pyanaconda.kickstart import getAvailableDiskSpace
 from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED, SETUP_ON_BOOT_DEFAULT
 from pyanaconda.core.util import collect
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.autopart import swap_suggestion
 from pyanaconda.storage.partspec import PartSpec
 from pyanaconda.platform import platform
@@ -134,21 +136,22 @@ class BaseInstallClass(object):
 
     def customizeDefaultPartitioning(self, storage, data):
         # Customize the default partitioning with kickstart data.
+        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
         skipped_mountpoints = set()
         skipped_fstypes = set()
 
         # Create sets of mountpoints and fstypes to remove from autorequests.
-        if data.autopart.autopart:
+        if auto_part_proxy.Enabled:
             # Remove /home if --nohome is selected.
-            if data.autopart.nohome:
+            if auto_part_proxy.NoHome:
                 skipped_mountpoints.add("/home")
 
             # Remove /boot if --noboot is selected.
-            if data.autopart.noboot:
+            if auto_part_proxy.NoBoot:
                 skipped_mountpoints.add("/boot")
 
             # Remove swap if --noswap is selected.
-            if data.autopart.noswap:
+            if auto_part_proxy.NoSwap:
                 skipped_fstypes.add("swap")
 
                 # Swap will not be recommended by the storage checker.
