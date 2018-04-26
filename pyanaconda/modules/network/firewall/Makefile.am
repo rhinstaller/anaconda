@@ -1,4 +1,3 @@
-# modules/network/Makefile.am for anaconda
 #
 # Copyright (C) 2018  Red Hat, Inc.
 #
@@ -15,12 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-SUBDIRS = firewall
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-
-networkdir = $(pkgpyexecdir)/modules/network
-network_PYTHON = $(srcdir)/*.py
+firewall_moduledir = $(pkgpyexecdir)/modules/network/firewall
+firewall_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

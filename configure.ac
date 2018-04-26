@@ -170,6 +170,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/security/Makefile
                  pyanaconda/modules/timezone/Makefile
                  pyanaconda/modules/network/Makefile
+                 pyanaconda/modules/network/firewall/Makefile
                  pyanaconda/modules/localization/Makefile
                  pyanaconda/modules/users/Makefile
                  pyanaconda/modules/users/user/Makefile

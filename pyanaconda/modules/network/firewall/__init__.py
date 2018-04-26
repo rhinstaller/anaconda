@@ -1,6 +1,4 @@
 #
-# Kickstart handler for network and hostname settings
-#
 # Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -17,19 +15,5 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.network import F27_Network, F27_NetworkData
-from pykickstart.commands.firewall import F28_Firewall
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
-
-
-class NetworkKickstartSpecification(KickstartSpecification):
-
-    version = F28
-    commands = {
-        "network": F27_Network,
-        "firewall" : F28_Firewall,
-    }
-    commands_data = {
-        "NetworkData": F27_NetworkData,
-    }
+from pyanaconda.modules.network.firewall.firewall import FirewallModule
+__all__ = ["FirewallModule"]

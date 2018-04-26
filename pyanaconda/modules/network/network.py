@@ -24,6 +24,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
+from pyanaconda.modules.network.firewall import FirewallModule
 
 import gi
 gi.require_version("NM", "1.0")
@@ -38,6 +39,9 @@ class NetworkModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
+
+        self._firewall_module = FirewallModule()
+
         self.hostname_changed = Signal()
         self._hostname = "localhost.localdomain"
 
@@ -62,26 +66,31 @@ class NetworkModule(KickstartModule):
 
     def publish(self):
         """Publish the module."""
+        self._firewall_module.publish()
+
         DBus.publish_object(NETWORK.object_path, NetworkInterface(self))
         DBus.register_service(NETWORK.service_name)
 
     @property
     def kickstart_specification(self):
-        """Return the kickstart specififcation."""
+        """Return the kickstart specification."""
         return NetworkKickstartSpecification
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
         if data.network.hostname:
             self.set_hostname(data.network.hostname)
+        self._firewall_module.process_kickstart(data)
 
     def generate_kickstart(self):
-        """Retrurn the kickstart string."""
+        """Return the kickstart string."""
         data = self.get_kickstart_handler()
         data.network.network = []
         # hostname
         hostname_data = data.NetworkData(hostname=self.hostname, bootProto="")
         data.network.network.append(hostname_data)
+        # firewall
+        self._firewall_module.setup_kickstart(data)
         return str(data)
 
     @property
