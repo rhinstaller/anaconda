@@ -1394,7 +1394,7 @@ class Network(commands.network.F27_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, util.getSysroot())
 
-class Partition(commands.partition.F23_Partition):
+class Partition(commands.partition.F29_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1402,7 +1402,7 @@ class Partition(commands.partition.F23_Partition):
         if self.partitions:
             do_partitioning(storage)
 
-class PartitionData(commands.partition.F23_PartData):
+class PartitionData(commands.partition.F29_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
@@ -2357,14 +2357,6 @@ class Keyboard(RemovedCommand):
         localization_proxy = LOCALIZATION.get_proxy()
         keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
 
-class Upgrade(commands.upgrade.F20_Upgrade):
-    # Upgrade is no longer supported. If an upgrade command was included in
-    # a kickstart, warn the user and exit.
-    def parse(self, args):
-        upgrade_log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
-        sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup."))
-        util.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
 ###
 ### %anaconda Section
@@ -2504,7 +2496,6 @@ commandMap = {
     "skipx": UselessCommand,
     "snapshot": Snapshot,
     "timezone": Timezone,
-    "upgrade": Upgrade,
     "user": User,
     "volgroup": VolGroup,
     "xconfig": XConfig,
