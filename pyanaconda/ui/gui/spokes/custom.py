@@ -1551,23 +1551,24 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.storage.roots = self._storage_playground.roots
 
         # set up bootloader and check the configuration
+        bootloader_errors = []
         try:
             self.storage.setUpBootLoader()
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
-            StorageCheckHandler.errors = str(e).split("\n")
+            bootloader_errors = str(e).split("\n")
             self.data.bootloader.bootDrive = ""
 
         StorageCheckHandler.checkStorage(self)
 
-        if self.errors:
+        if self.errors or bootloader_errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
         elif self.warnings:
             self.set_warning(_("Warning checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
 
         # on_info_bar_clicked requires self._error to be set, so set it to the
         # list of all errors and warnings that storage checking found.
-        self._error = "\n".join(self.errors + self.warnings)
+        self._error = "\n".join(bootloader_errors + self.errors + self.warnings)
 
         return self._error == ""
 
@@ -2308,6 +2309,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         log.debug("running automatic partitioning")
         self._storage_playground.doAutoPart = True
         self.clear_errors()
+        bootloader_error = ""
         try:
             self._storage_playground.createFreeSpaceSnapshot()
             # doAutoPartitions needs stage1_disk setup so it will reuse existing partitions
@@ -2326,12 +2328,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             log.error("doAutoPartition failed: %s", e)
             self._error = e
             self.set_error(_("Not enough free space on selected disks."))
-        except (StorageError, BootLoaderError) as e:
+        except StorageError as e:
             log.error("doAutoPartition failed: %s", e)
             self._reset_storage()
             self._error = e
             self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
                              "for details.</a>"))
+        except BootLoaderError as e:
+            log.error("doAutoPartition failed: %s", e)
+            self._reset_storage()
+            self._error = e
+            self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
+                             "for details.</a>"))
+            bootloader_error = e
         else:
             self._devices = self._storage_playground.devices
             # mark all new containers for automatic size management
@@ -2341,6 +2350,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         finally:
             self._storage_playground.doAutoPart = False
             log.debug("finished automatic partitioning")
+
+        if bootloader_error:
+            return
 
         report = storage_checker.check(self._storage_playground,
                                        skip=(verify_luks_devices_have_key,))
