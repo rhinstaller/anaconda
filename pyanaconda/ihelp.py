@@ -96,6 +96,16 @@ def get_help_path(help_file, instclass, plain_text=False):
 
     :return str: full path to the help file requested or to a placeholder
     """
+
+    # NOTE: Help content is not yet available, so just always return
+    #       a placeholder for now.
+    #
+    # For more information see: rhbz#1551929
+    if plain_text:
+        return "/usr/share/anaconda/help_tui_placeholder.txt"
+    else:
+        return "/usr/share/anaconda/help_gui_placeholder.xml"
+
     # help l10n handling
 
     if help_file:
