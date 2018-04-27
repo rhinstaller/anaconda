@@ -505,6 +505,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--noibft", dest="ibft", action="store_false", default=True,
                     help=help_parser.help_text("noibft"))
     ap.add_argument("--ibft", action="store_true", help=help_parser.help_text("ibft"))
+    ap.add_argument("--nonibftiscsiboot", action="store_true", default=False,
+                    help=help_parser.help_text("nonibftiscsiboot"))
 
     # Geolocation
     ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))

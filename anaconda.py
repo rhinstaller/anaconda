@@ -452,6 +452,7 @@ if __name__ == "__main__":
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
     flags.ibft = opts.ibft
+    flags.nonibftiscsiboot = opts.nonibftiscsiboot
     flags.selinux = opts.selinux
     flags.eject = opts.eject
     flags.kexec = opts.kexec
