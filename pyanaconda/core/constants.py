@@ -213,7 +213,12 @@ SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
 # cmdline arguments that append instead of overwrite
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 
+# The default autopart type is lvm.
+# FIXME: Move this constant to the storage module.
 DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
+
+# Is the default autopart type selected?
+AUTOPART_TYPE_DEFAULT = -1
 
 # Filesystems which are not supported by Anaconda
 UNSUPPORTED_FILESYSTEMS = ("btrfs", "ntfs", "tmpfs")
@@ -331,3 +336,9 @@ BOOTLOADER_TIMEOUT_UNSET = -1
 
 # Bootloader drive.
 BOOTLOADER_DRIVE_UNSET = ""
+
+# Firewall mode.
+FIREWALL_DEFAULT = -1
+FIREWALL_DISABLED = 0
+FIREWALL_ENABLED = 1
+FIREWALL_USE_SYSTEM_DEFAULTS = 2

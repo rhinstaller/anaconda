@@ -71,6 +71,11 @@ STORAGE_NAMESPACE = (
     "Storage"
 )
 
+PARTITIONING_NAMESPACE = (
+    *STORAGE_NAMESPACE,
+    "Partitioning"
+)
+
 SERVICES_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Services"

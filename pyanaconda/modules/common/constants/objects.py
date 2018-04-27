@@ -17,7 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from pyanaconda.dbus.identifier import DBusObjectIdentifier
-from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, STORAGE_NAMESPACE
+from pyanaconda.modules.common.constants.namespaces import BOSS_NAMESPACE, STORAGE_NAMESPACE, \
+     NETWORK_NAMESPACE, PARTITIONING_NAMESPACE
 
 BOSS_INSTALLATION = DBusObjectIdentifier(
     namespace=BOSS_NAMESPACE,
@@ -37,4 +38,14 @@ DISK_INITIALIZATION = DBusObjectIdentifier(
 DISK_SELECTION = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="DiskSelection"
+)
+
+AUTO_PARTITIONING = DBusObjectIdentifier(
+    namespace=PARTITIONING_NAMESPACE,
+    basename="Automatic"
+)
+
+FIREWALL = DBusObjectIdentifier(
+    namespace=NETWORK_NAMESPACE,
+    basename="Firewall"
 )

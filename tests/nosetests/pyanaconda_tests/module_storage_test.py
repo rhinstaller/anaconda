@@ -19,11 +19,12 @@
 #
 import unittest
 from mock import patch
+from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED, \
-    BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION
+    BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION, AUTOPART_TYPE_DEFAULT
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
-    DISK_SELECTION, BOOTLOADER
+    DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
@@ -31,6 +32,8 @@ from pyanaconda.modules.storage.disk_initialization.initialization_interface imp
     DiskInitializationInterface
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
+from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
+from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
@@ -46,9 +49,23 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.storage_interface.KickstartCommands,
-                         ["bootloader", "clearpart", "ignoredisk", "zerombr"])
-
+        self.assertEqual(
+            self.storage_interface.KickstartCommands,
+            [
+                'autopart',
+                'bootloader',
+                'clearpart',
+                'ignoredisk',
+                'logvol',
+                'mount',
+                'part',
+                'partition',
+                'raid',
+                'reqpart',
+                'volgroup',
+                'zerombr'
+            ]
+        )
         self.assertEqual(self.storage_interface.KickstartSections, [])
         self.assertEqual(self.storage_interface.KickstartAddons, [])
 
@@ -133,7 +150,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def clearpart_disklabel_kickstart_test(self):
+    @patch("pyanaconda.modules.storage.kickstart.DiskLabel")
+    def clearpart_disklabel_kickstart_test(self, disk_label):
         """Test the clearpart command with the disklabel option."""
         ks_in = """
         clearpart --all --disklabel=msdos
@@ -142,7 +160,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # Partition clearing information
         clearpart --all --disklabel=msdos
         """
+        disk_label.get_platform_label_types.return_value = ["msdos", "gpt"]
         self._test_kickstart(ks_in, ks_out)
+
+        disk_label.get_platform_label_types.return_value = ["gpt"]
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     @patch("pyanaconda.modules.storage.kickstart.device_matches")
     def clearpart_list_kickstart_test(self, device_matches):
@@ -360,6 +382,96 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def autopart_kickstart_test(self):
+        """Test the autopart command."""
+        ks_in = """
+        autopart
+        """
+        ks_out = """
+        autopart
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_type_kickstart_test(self):
+        """Test the autopart command with the type option."""
+        ks_in = """
+        autopart --type=thinp
+        """
+        ks_out = """
+        autopart --type=thinp
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_fstype_kickstart_test(self):
+        """Test the autopart command with the fstype option."""
+        ks_in = """
+        autopart --fstype=ext4
+        """
+        ks_out = """
+        autopart --fstype=ext4
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_nopart_kickstart_test(self):
+        """Test the autopart command with nohome, noboot and noswap options."""
+        ks_in = """
+        autopart --nohome --noboot --noswap
+        """
+        ks_out = """
+        autopart --nohome --noboot --noswap
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_encrypted_kickstart_test(self):
+        """Test the autopart command with the encrypted option."""
+        ks_in = """
+        autopart --encrypted
+        """
+        ks_out = """
+        autopart --encrypted
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_cipher_kickstart_test(self):
+        """Test the autopart command with the cipher option."""
+        ks_in = """
+        autopart --encrypted --cipher="aes-xts-plain64"
+        """
+        ks_out = """
+        autopart --encrypted --cipher="aes-xts-plain64"
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_passphrase_kickstart_test(self):
+        """Test the autopart command with the passphrase option."""
+        ks_in = """
+        autopart --encrypted --passphrase="123456"
+        """
+        ks_out = """
+        autopart --encrypted --passphrase="123456"
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_escrowcert_kickstart_test(self):
+        """Test the autopart command with the escrowcert option."""
+        ks_in = """
+        autopart --encrypted --escrowcert="file:///tmp/escrow.crt"
+        """
+        ks_out = """
+        autopart --encrypted --escrowcert="file:///tmp/escrow.crt"
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
+    def autopart_backuppassphrase_kickstart_test(self):
+        """Test the autopart command with the backuppassphrase option."""
+        ks_in = """
+        autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
+        """
+        ks_out = """
+        autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
+        """
+        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+
 
 class DiskInitializationInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the disk initialization module."""
@@ -544,4 +656,128 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             "12345",
             setter=self.bootloader_interface.SetEncryptedPassword,
             changed={'IsPasswordSet': True}
+        )
+
+
+class AutopartitioningInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the auto partitioning module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.autopart_module = AutoPartitioningModule()
+        self.autopart_interface = AutoPartitioningInterface(self.autopart_module)
+
+    def _test_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            AUTO_PARTITIONING,
+            self.autopart_interface,
+            *args, **kwargs
+        )
+
+    def enabled_property_test(self):
+        """Test the property enabled."""
+        self._test_dbus_property(
+            "Enabled",
+            True
+        )
+
+    def type_property_test(self):
+        """Test the type property."""
+        self._test_dbus_property(
+            "Type",
+            AUTOPART_TYPE_LVM_THINP
+        )
+
+        self._test_dbus_property(
+            "Type",
+            AUTOPART_TYPE_DEFAULT
+        )
+
+        self._test_dbus_property(
+            "Type",
+            AUTOPART_TYPE_PLAIN
+        )
+
+        self._test_dbus_property(
+            "Type",
+            AUTOPART_TYPE_LVM
+        )
+
+    def filesystem_type_property_test(self):
+        """Test the filesystem property."""
+        self._test_dbus_property(
+            "FilesystemType",
+            "ext4"
+        )
+
+    def nohome_property_test(self):
+        """Test the nohome property."""
+        def setter(value):
+            self.autopart_module.set_nohome(value)
+            self.autopart_module.module_properties_changed.emit()
+
+        self._test_dbus_property(
+            "NoHome",
+            True,
+            setter=setter
+        )
+
+    def noboot_property_test(self):
+        """Test the noboot property."""
+        def setter(value):
+            self.autopart_module.set_noboot(value)
+            self.autopart_module.module_properties_changed.emit()
+
+        self._test_dbus_property(
+            "NoBoot",
+            True,
+            setter=setter
+        )
+
+    def noswap_property_test(self):
+        """Test the noswap property."""
+        def setter(value):
+            self.autopart_module.set_noswap(value)
+            self.autopart_module.module_properties_changed.emit()
+
+        self._test_dbus_property(
+            "NoSwap",
+            True,
+            setter=setter
+        )
+
+    def encrypted_property_test(self):
+        """Test the encrypted property."""
+        self._test_dbus_property(
+            "Encrypted",
+            True
+        )
+
+    def cipher_property_test(self):
+        """Test the cipher property,"""
+        self._test_dbus_property(
+            "Cipher",
+            "aes-xts-plain64"
+        )
+
+    def passphrase_property_test(self):
+        """Test the passphrase property."""
+        self._test_dbus_property(
+            "Passphrase",
+            "123456"
+        )
+
+    def escrowcert_property_test(self):
+        """Test the escrowcert property."""
+        self._test_dbus_property(
+            "Escrowcert",
+            "file:///tmp/escrow.crt"
+        )
+
+    def backup_passphrase_enabled_property_test(self):
+        """Test the backup passphrase enabled property."""
+        self._test_dbus_property(
+            "BackupPassphraseEnabled",
+            True
         )

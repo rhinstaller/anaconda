@@ -170,6 +170,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/security/Makefile
                  pyanaconda/modules/timezone/Makefile
                  pyanaconda/modules/network/Makefile
+                 pyanaconda/modules/network/firewall/Makefile
                  pyanaconda/modules/localization/Makefile
                  pyanaconda/modules/users/Makefile
                  pyanaconda/modules/users/user/Makefile
@@ -178,6 +179,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/storage/bootloader/Makefile
                  pyanaconda/modules/storage/disk_initialization/Makefile
                  pyanaconda/modules/storage/disk_selection/Makefile
+                 pyanaconda/modules/storage/partitioning/Makefile
                  pyanaconda/modules/services/Makefile
                  data/post-scripts/Makefile
                  data/pixmaps/Makefile
