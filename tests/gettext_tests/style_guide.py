@@ -43,7 +43,7 @@ bad_strings = {'(?i)bootloader': 'boot loader',
 # write a more specific regex. List occurrences here.
 # {'filename': {'matched string', occurrences}}
 expected_badness = {'pyanaconda/bootloader.py':    {'mountpoint': 1,   # format string specifier
-                                                    'bootloader': 1},  # format string specifier
+                                                    'bootloader': 2},  # format string specifier
                     'pyanaconda/network.py':       {'vlan': 1},        # format string specifier
                     'pyanaconda/rescue.py':        {'mountpoint': 1},  # format string specifier
                     'pyanaconda/startup_utils.py': {'HOSTNAME': 1}}    # ssh to install@HOSTNAME
