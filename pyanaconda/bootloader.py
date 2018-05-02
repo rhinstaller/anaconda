@@ -565,9 +565,12 @@ class BootLoader(object):
         if _is_on_sw_iscsi(device):
             if not _is_on_ibft(device):
                 if flags.nonibftiscsiboot:
-                    log.debug("stage1 device on non-iBFT iSCSI disk allowed by boot option inst.iscsi.nonibftboot")
+                    log.debug("stage1 device on non-iBFT iSCSI disk allowed "
+                              "by boot option inst.iscsi.nonibftboot")
                 else:
                     log.debug("stage1 device cannot be on an non-iBFT iSCSI disk")
+                    self.errors.append(_("Boot loader stage1 device cannot be on "
+                                         "an iSCSI disk which is not configured in iBFT."))
                     return False
 
         description = self.device_description(device)
@@ -641,6 +644,8 @@ class BootLoader(object):
             self.stage1_device = self.stage2_device
             return
 
+        # Track the errors set by validity check in case no device would be found.
+        errors = []
         for device in devices:
             if self.stage1_disk not in device.disks:
                 continue
@@ -654,10 +659,14 @@ class BootLoader(object):
                     self.stage1_device = device
 
                 break
+            errors.extend(self.errors)
 
         if not self.stage1_device:
             self.reset()
-            raise BootLoaderError("failed to find a suitable stage1 device")
+            msg = "Failed to find a suitable stage1 device"
+            if errors:
+                msg = msg + ": " + "; ".join(errors)
+            raise BootLoaderError(msg)
 
     #
     # boot/stage2 device access
