@@ -330,6 +330,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 02 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.13-1
+- Help placeholders (mkolman)
+  Resolves: rhbz#1551929
+- Change the pop-up text with the pre-release warning (vpodzime)
+  Resolves: rhbz#1542998
+- Remove makebumpver dependency from spec file (jkonecny)
+
 * Mon Apr 23 2018 Radek Vykydal <rvykydal@redhat.com> - 27.20.4.12-1
 - Disable window renaming in installer tmux (rvykydal)
   Resolves: rhbz#1533419
