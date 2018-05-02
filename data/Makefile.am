@@ -24,6 +24,8 @@ dist_pkgdata_DATA          = interactive-defaults.ks \
 			     anaconda-gtk.css
 
 helpdir               = $(datadir)/$(PACKAGE_NAME)
-dist_help_DATA        = anaconda_options.txt
+dist_help_DATA        = anaconda_options.txt \
+				 help_gui_placeholder.xml \
+				 help_tui_placeholder.txt
 
 MAINTAINERCLEANFILES = Makefile.in
