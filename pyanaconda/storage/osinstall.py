@@ -40,7 +40,7 @@ from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import FileDevice, NFSDevice, NoDevice, OpticalDevice, NetworkStorageDevice, \
     DirectoryDevice, MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, \
-    LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice, NVDIMMNamespaceDevice
+    LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
 from blivet.errors import FSTabTypeMismatchError, UnrecognizedFSTabEntryError, StorageError, FSResizeError, FormatResizeError, UnknownSourceDeviceError
 from blivet.formats import get_device_format_class
 from blivet.formats import get_format
@@ -1652,11 +1652,26 @@ class InstallerStorage(Blivet):
                 self.save_passphrase(device)
 
         if self.ksdata:
+            nvdimm_ksdata = self.ksdata.nvdimm
+        else:
+            nvdimm_ksdata = None
+        ignored_nvdimm_devs = get_ignored_nvdimm_blockdevs(nvdimm_ksdata)
+        if ignored_nvdimm_devs:
+            log.debug("adding %s to ignored disks - these NVDIMM devices are not allowed to be used",
+                        ",".join(ignored_nvdimm_devs))
+
+        if self.ksdata:
+            disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+            if ignored_nvdimm_devs:
+                ignored_disks = disk_select_proxy.IgnoredDisks
+                ignored_disks.extend(ignored_nvdimm_devs)
+                disk_select_proxy.SetIgnoredDisks(ignored_disks)
             self.config.update()
 
-            disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
             self.ignored_disks = disk_select_proxy.IgnoredDisks
             self.exclusive_disks = disk_select_proxy.SelectedDisks
+        else:
+            self.ignored_disks.extend(ignored_nvdimm_devs)
 
         if not flags.imageInstall:
             iscsi.startup()
@@ -2166,8 +2181,8 @@ def write_escrow_packets(storage):
 
     log.debug("escrow: write_escrow_packets done")
 
-def get_allowed_nvdimm_blockdevs(nvdimm_ksdata):
-    """Return names of nvdimm devices allowed to be used for installation.
+def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
+    """Return names of nvdimm devices to be ignored.
 
     By default nvdimm devices are ignored. To become available for installation,
     the device(s) must be specified by nvdimm kickstart command.
@@ -2175,28 +2190,39 @@ def get_allowed_nvdimm_blockdevs(nvdimm_ksdata):
 
     :param nvdimm_ksdata: nvdimm kickstart data
     :type nvdimm_ksdata: Nvdimm kickstart command
-    :returns: names of nvdimm block devices allowed to be used fo installation
+    :returns: names of nvdimm block devices that should be ignored for installation
     :rtype: set(str)
     """
 
-    allowed_namespaces = set()
-    allowed_blockdevs = set()
-    # Gather allowed blockdev names and namespaces
-    for action in nvdimm_ksdata.actionList:
-        if action.action == NVDIMM_ACTION_USE:
-            if action.namespace:
-                allowed_namespaces.add(action.namespace)
-            if action.blockdevs:
-                allowed_blockdevs.update(action.blockdevs)
-        if action.action == NVDIMM_ACTION_RECONFIGURE:
-            allowed_namespaces.add(action.namespace)
+    ks_allowed_namespaces = set()
+    ks_allowed_blockdevs = set()
+    if nvdimm_ksdata:
+        # Gather allowed blockdev names and namespaces
+        for action in nvdimm_ksdata.actionList:
+            if action.action == NVDIMM_ACTION_USE:
+                if action.namespace:
+                    ks_allowed_namespaces.add(action.namespace)
+                if action.blockdevs:
+                    ks_allowed_blockdevs.update(action.blockdevs)
+            if action.action == NVDIMM_ACTION_RECONFIGURE:
+                ks_allowed_namespaces.add(action.namespace)
 
-    # Map allowed namespaces to their blockdev names
-    for ns_name, ns in nvdimm.namespaces.items():
-        if ns_name in allowed_namespaces:
-            allowed_blockdevs.add(ns.blockdev)
+    ignored_blockdevs = set()
+    for ns_name, ns_info in nvdimm.namespaces.items():
+        mode = blockdev.nvdimm_namespace_get_mode_str(ns_info.mode)
+        if mode != "sector":
+            log.debug("%s / %s will be ignored - NVDIMM device is not in sector mode",
+                      ns_name, ns_info.blockdev)
+        else:
+            if ns_name in ks_allowed_namespaces or \
+                    ns_info.blockdev in ks_allowed_blockdevs:
+                continue
+            else:
+                log.debug("%s / %s will be ignored - NVDIMM device is not allowed to be used",
+                          ns_name, ns_info.blockdev)
+        ignored_blockdevs.add(ns_info.blockdev)
 
-    return allowed_blockdevs
+    return ignored_blockdevs
 
 def storage_initialize(storage, ksdata, protected):
     """ Perform installer-specific storage initialization. """
@@ -2222,19 +2248,6 @@ def storage_initialize(storage, ksdata, protected):
                 continue
         else:
             break
-
-    # Ignore NVDIMM disks which are not allowed by nvdimm command
-    allowed_blockdevs = get_allowed_nvdimm_blockdevs(ksdata.nvdimm)
-    for d in storage.disks:
-        if isinstance(d, NVDIMMNamespaceDevice):
-            if d.name in allowed_blockdevs:
-                if d.mode == "sector":
-                    continue
-                else:
-                    log.debug("adding %s to ignored disks - NVDIMM device is not in sector mode", d.name)
-            else:
-                log.debug("adding %s to ignored disks - NVDIMM device is not allowed to be used", d.name)
-            ksdata.ignoredisk.ignoredisk.append(d.name)
 
     if protected and not flags.livecdInstall and \
        not any(d.protected for d in storage.devices):
