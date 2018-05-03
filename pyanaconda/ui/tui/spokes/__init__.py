@@ -26,7 +26,7 @@ import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import N_, _
-from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PW_ASCII_CHARS
+from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PW_ASCII_CHARS, PASSWORD_ASCII
 from pyanaconda.constants import PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR
 from pyanaconda.constants import NAME_OF_PASSWORD, NAME_OF_PASSWORD_PLURAL
 
@@ -106,6 +106,8 @@ class EditTUIDialog(NormalTUISpoke):
     """
     title = N_("New value")
     PASSWORD = re.compile(".*")
+    NAME_OF_PASSWORD = NAME_OF_PASSWORD
+    NAME_OF_PASSWORD_PLURAL = NAME_OF_PASSWORD_PLURAL
 
     def __init__(self, app, data, storage, payload, instclass, policy_name=""):
         if self.__class__ is EditTUIDialog:
@@ -122,6 +124,14 @@ class EditTUIDialog(NormalTUISpoke):
         if not self.policy:
             self.policy = self.data.anaconda.PwPolicyData()
 
+    def process_password(self, pw):
+        """Process the entered password.
+
+        :param pw: a password
+        :return: a processed password
+        """
+        return cryptPassword(pw)
+
     def refresh(self, args=None):
         self._window = []
         self.value = None
@@ -135,12 +145,9 @@ class EditTUIDialog(NormalTUISpoke):
             pw = self._app.raw_input(_("%s: ") % entry.title, hidden=True)
             confirm = self._app.raw_input(_("%s (confirm): ") % entry.title, hidden=True)
 
-            if (pw and not confirm) or (confirm and not pw):
-                print(_("You must enter your root password and confirm it by typing"
-                        " it a second time to continue."))
-                return None
+            # If passwords are different, ask again.
             if (pw != confirm):
-                print(_(PASSWORD_CONFIRM_ERROR_TUI) % {"passwords": _(NAME_OF_PASSWORD_PLURAL)})
+                print(_(PASSWORD_CONFIRM_ERROR_TUI) % {"passwords": _(self.NAME_OF_PASSWORD_PLURAL)})
                 return None
 
             # If an empty password was provided, unset the value
@@ -148,7 +155,11 @@ class EditTUIDialog(NormalTUISpoke):
                 self.value = ""
                 return None
 
-            request = PasswordCheckRequest(password=pw, username=None, minimum_length=self.policy.minlen)
+            request = PasswordCheckRequest(password=pw,
+                                           username=None,
+                                           minimum_length=self.policy.minlen,
+                                           name_of_password=_(self.NAME_OF_PASSWORD))
+
             result = validatePassword(request)
 
             if result.password_quality < self.policy.minquality or not result.password_score:
@@ -158,11 +169,11 @@ class EditTUIDialog(NormalTUISpoke):
                     done_msg = _("\nWould you like to use it anyway?")
 
                 if result.error_message:
-                    main_message = _(PASSWORD_WEAK_WITH_ERROR) % {"password": _(NAME_OF_PASSWORD),
+                    main_message = _(PASSWORD_WEAK_WITH_ERROR) % {"password": _(self.NAME_OF_PASSWORD),
                                                                   "error_message": result.error_message}
                     error = main_message + " " + done_msg
                 else:
-                    error = _(PASSWORD_WEAK) % {"password": _(NAME_OF_PASSWORD)} + " " + done_msg
+                    error = _(PASSWORD_WEAK) % {"password": _(self.NAME_OF_PASSWORD)} + " " + done_msg
 
                 if not self.policy.strict:
                     question_window = YesNoDialog(self._app, error)
@@ -174,10 +185,9 @@ class EditTUIDialog(NormalTUISpoke):
                     return None
 
             if any(char not in PW_ASCII_CHARS for char in pw):
-                print(_("You have provided a password containing non-ASCII characters.\n"
-                        "You may not be able to switch between keyboard layouts to login.\n"))
+                print(_(PASSWORD_ASCII) % {"password": self.NAME_OF_PASSWORD})
 
-            self.value = cryptPassword(pw)
+            self.value = self.process_password(pw)
             return None
         else:
             return _("Enter new value for '%s' and press enter\n") % entry.title
