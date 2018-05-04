@@ -442,7 +442,7 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         log.error("Unknown method: %s", anaconda.methodstr)
 
 
-def wait_for_modules(timeout=60):
+def wait_for_modules(timeout=600):
     """Wait for the DBus modules.
 
     :param timeout: seconds to the timeout
