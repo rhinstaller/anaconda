@@ -168,6 +168,9 @@ class MacEFI(EFI):
     _boot_efi_description = N_("Apple EFI Boot Partition")
     _non_linux_format_types = ["macefi"]
     _packages = ["mactel-boot"]
+    _boot_stage1_missing_error = N_("For a UEFI installation, you must include "
+                                    "a Linux HFS+ ESP on a GPT-formatted "
+                                    "disk, mounted at /boot/efi.")
 
     def set_platform_bootloader_reqs(self):
         ret = super().set_platform_bootloader_reqs()
