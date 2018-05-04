@@ -347,6 +347,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 04 2018 Martin Kolman <mkolman@redhat.com> - 29.14-1
+- Increase module startup timeout to 600 seconds (mkolman)
+- Fix name of the Zanata Python client package (mkolman)
+- Add tests for the auto partitioning module (vponcova)
+- Create the auto partitioning module (vponcova)
+- Add the firewall submodule (mkolman)
+- Once again fix cmdline error handling. (#1360223) (sbueno+anaconda)
+- Extend the timeout period to 180s in the case of cmdline error. (#1360223)
+  (sbueno+anaconda)
+- Fix the clearpart test with disklabel option (vponcova)
+- The specified nosetests failed to run (vponcova)
+
 * Tue Apr 24 2018 Martin Kolman <mkolman@redhat.com> - 29.13-1
 - Show correct root account locked status in reconfig mode (#1507940) (mkolman)
 - Add missing lines and modularization only log to test coverage (jkonecny)
