@@ -99,6 +99,12 @@ def _is_on_ibft(device):
 
     return all(getattr(disk, "ibft", False) for disk in device.disks)
 
+def _is_on_nvdimm(device):
+    """Tells whether a given device is on an NVDIMM disk."""
+
+    return all(isinstance(disk, blivet.devices.NVDIMMNamespaceDevice)
+               for disk in device.disks)
+
 class BootLoaderError(Exception):
     pass
 
@@ -562,9 +568,20 @@ class BootLoader(object):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
 
-        if _is_on_sw_iscsi(device) and not _is_on_ibft(device):
-            log.debug("stage1 device cannot be on an iSCSI disk")
-            return False
+        if _is_on_sw_iscsi(device):
+            if not _is_on_ibft(device):
+                if flags.nonibftiscsiboot:
+                    log.debug("stage1 device on non-iBFT iSCSI disk allowed "
+                              "by boot option inst.iscsi.nonibftboot")
+                else:
+                    log.debug("stage1 device cannot be on an non-iBFT iSCSI disk")
+                    self.errors.append(_("Boot loader stage1 device cannot be on "
+                                         "an iSCSI disk which is not configured in iBFT."))
+                    return False
+
+        if _is_on_nvdimm(device):
+            log.debug("stage1 device cannot be on an NVDIMM disk")
+            self.errors.append(_("Boot loader stage1 device cannot be on an NVDIMM disk."))
 
         description = self.device_description(device)
 
@@ -637,6 +654,8 @@ class BootLoader(object):
             self.stage1_device = self.stage2_device
             return
 
+        # Track the errors set by validity check in case no device would be found.
+        errors = []
         for device in devices:
             if self.stage1_disk not in device.disks:
                 continue
@@ -650,10 +669,14 @@ class BootLoader(object):
                     self.stage1_device = device
 
                 break
+            errors.extend(self.errors)
 
         if not self.stage1_device:
             self.reset()
-            raise BootLoaderError("failed to find a suitable stage1 device")
+            msg = "Failed to find a suitable stage1 device"
+            if errors:
+                msg = msg + ": " + "; ".join(errors)
+            raise BootLoaderError(msg)
 
     #
     # boot/stage2 device access
@@ -674,9 +697,23 @@ class BootLoader(object):
         if device.protected:
             valid = False
 
-        if _is_on_sw_iscsi(device) and not _is_on_ibft(device):
-            self.errors.append(_("%s cannot be on an iSCSI disk") % self.stage2_description)
+        if _is_on_sw_iscsi(device):
+            if not _is_on_ibft(device):
+                if flags.nonibftiscsiboot:
+                    log.info("%s on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
+                             self.stage2_description)
+                else:
+                    self.errors.append(_("%(bootloader_stage2_description)s cannot be on "
+                                         "an iSCSI disk which is not configured in iBFT.")
+                                       % {"bootloader_stage2_description":
+                                          self.stage2_description})
+                    valid = False
+
+        if _is_on_nvdimm(device):
+            self.errors.append(_("%(bootloader_stage2_description)s cannot be on an NVDIMM disk.")
+                               % {"bootloader_stage2_description" : self.stage2_description})
             valid = False
+
 
         if not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("%(desc)s cannot be of type %(type)s")

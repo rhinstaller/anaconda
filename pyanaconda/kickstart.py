@@ -41,6 +41,7 @@ from pyanaconda import iutil, keyboard, localization, network, nm, ntp, screen_a
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED, TEXT_ONLY_TARGET, GRAPHICAL_TARGET, THREAD_STORAGE
+
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -61,6 +62,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
+from blivet.static_data import nvdimm
 from blivet.errors import PartitioningError, StorageError
 from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
@@ -74,7 +76,8 @@ from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
                                   SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
-                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, \
+                                  NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -1157,6 +1160,38 @@ class Network(commands.network.F27_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
+class Nvdimm(commands.nvdimm.F28_Nvdimm):
+    def parse(self, args):
+        action = commands.nvdimm.F28_Nvdimm.parse(self, args)
+
+        if action.action == NVDIMM_ACTION_RECONFIGURE:
+            if action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(formatErrorMsg(self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace))
+            else:
+                log.info("nvdimm: reconfiguring %s to %s mode", action.namespace, action.mode)
+                nvdimm.reconfigure_namespace(action.namespace, action.mode,
+                                             sector_size=action.sectorsize)
+        elif action.action == NVDIMM_ACTION_USE:
+            if action.namespace and action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(formatErrorMsg(self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace))
+
+            if action.blockdevs:
+                # See comment in ClearPart.parse
+                drives = []
+                for spec in action.blockdevs:
+                    matched = device_matches(spec, disks_only=True)
+                    if matched:
+                        drives.extend(matched)
+                    else:
+                        raise KickstartParseError(formatErrorMsg(self.lineno,
+                                msg=_("Disk \"%s\" given in nvdimm command does not exist.") % spec))
+
+                action.blockdevs = drives
+
+        return action
+
 class Partition(commands.partition.RHEL8_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
@@ -2179,6 +2214,7 @@ commandMap = {
     "logvol": LogVol,
     "mount": Mount,
     "network": Network,
+    "nvdimm": Nvdimm,
     "part": Partition,
     "partition": Partition,
     "raid": Raid,
