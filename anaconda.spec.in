@@ -319,6 +319,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 10 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.138-1
+- Fix crash on inst.noverifyssl with non-url method (rvykydal)
+  Resolves: rhbz#1515678
+
 * Wed May 02 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.137-1
 - Improve UI feedback for invalid boot on non-iBFT iSCSI devices. (rvykydal)
   Related: rhbz#1562301
