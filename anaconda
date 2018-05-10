@@ -1142,7 +1142,8 @@ if __name__ == "__main__":
             iutil.setenv("ftp_proxy", proxy.url)
             iutil.setenv("HTTPS_PROXY", proxy.url)
 
-    if flags.noverifyssl:
+    # only some installations methods support --noverifyssl option
+    if flags.noverifyssl and hasattr(ksdata.method, "noverifyssl"):
         ksdata.method.noverifyssl = flags.noverifyssl
     if opts.multiLib:
         # sets yum's multilib_policy to "all" (as opposed to "best")
