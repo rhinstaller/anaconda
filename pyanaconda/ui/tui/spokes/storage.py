@@ -24,7 +24,7 @@
 from pyanaconda.iutil import firstNotNone
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.spokes import NormalTUISpoke, EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker
@@ -37,7 +37,8 @@ from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list, is_l
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT
+from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT, \
+    NAME_OF_PASSPHRASE, NAME_OF_PASSPHRASE_PLURAL
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
@@ -88,6 +89,10 @@ class StorageSpoke(NormalTUISpoke):
         # specified zerombr/cdl in their ks file
         if arch.isS390() and flags.automatedInstall:
             self.run_dasdfmt()
+
+        # Ask for the default passphrase if required.
+        if flags.automatedInstall:
+            self.ask_for_default_passphrase()
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
@@ -377,6 +382,21 @@ class StorageSpoke(NormalTUISpoke):
             # update the summary screen with the changes
             self._initialize()
 
+    def ask_for_default_passphrase(self):
+        """Ask user for a default passphrase."""
+        dialog = PassphraseDialog(self.app, self.data, self.storage, self.payload, self.instclass)
+
+        # Do we need the passphrase?
+        if not dialog.is_passphrase_required:
+            return
+
+        # Are we allowed to ask?
+        if not flags.ksprompt:
+            return
+
+        # Ask user for the default passphrase.
+        self._app.switch_screen_modal(dialog)
+
     def apply(self):
         self.autopart = self.data.autopart.autopart
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
@@ -474,6 +494,76 @@ class StorageSpoke(NormalTUISpoke):
 
         # report that the storage spoke has been initialized
         self.initialize_done()
+
+
+class PassphraseDialog(EditTUIDialog):
+    """Dialog for choosing a passphrase."""
+    title = N_("Passphrase")
+    category = SystemCategory
+
+    NAME_OF_PASSWORD = NAME_OF_PASSPHRASE
+    NAME_OF_PASSWORD_PLURAL = NAME_OF_PASSPHRASE_PLURAL
+
+    def __init__(self, app, data, storage, payload, instclass):
+        EditTUIDialog.__init__(self, app, data, storage, payload, instclass, policy_name="passphrase")
+
+    @property
+    def indirect(self):
+        return True
+
+    @property
+    def data_without_passphrase(self):
+        """List of kickstart data that require a passphrase."""
+        result = []
+
+        if self.data.autopart.encrypted and not self.data.autopart.passphrase:
+            result.append(self.data.autopart)
+
+        for data in self.data.partition.dataList():
+            if data.encrypted and not data.passphrase:
+                result.append(data)
+
+        for data in self.data.logvol.dataList():
+            if data.encrypted and not data.passphrase:
+                result.append(data)
+
+        for data in self.data.raid.dataList():
+            if data.encrypted and not data.passphrase:
+                result.append(data)
+
+        return result
+
+    @property
+    def is_passphrase_required(self):
+        """Is the default passphrase required?"""
+        return bool(self.data_without_passphrase)
+
+    def refresh(self, args=None):
+        EditTUIDialog.refresh(self, args)
+        self._window += [TextWidget(_("Please provide LUKS passphrase. "
+                                      "You will have to type it twice."))]
+        return True
+
+    def prompt(self, args=None):
+        """Ask for a passphrase."""
+        entry = EditTUISpokeEntry(_("Passphrase"), "", EditTUIDialog.PASSWORD, True)
+        EditTUIDialog.prompt(self, entry)
+
+        if self.value is None:
+            return
+
+        self.apply()
+        self.close()
+
+    def process_password(self, pw):
+        """Don't encrypt the passphrase."""
+        return pw
+
+    def apply(self):
+        """Apply the passphrase."""
+        for data in self.data_without_passphrase:
+            data.passphrase = self.value
+
 
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here. """
