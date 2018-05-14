@@ -813,12 +813,12 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
             self._container.add(EntryWidget(dialog.title, value), self._assign_mount_point, dialog)
         elif fmt and fmt.type is None:
             # mount point cannot be set for no format
-            # (fmt.name = "Uknown" in this case which would look weird)
-            self._container.add(EntryWidget(mount_point_title, none_msg), lambda x: self.redraw())
+            # (fmt.name = "Unknown" in this case which would look weird)
+            self._container.add(EntryWidget(mount_point_title, none_msg))
         else:
             # mount point cannot be set for format that is not mountable, just
             # show the format's name in square brackets instead
-            self._container.add(EntryWidget(mount_point_title, fmt.name), lambda x: self.redraw())
+            self._container.add(EntryWidget(mount_point_title, fmt.name))
 
         dialog = Dialog(_("Format"), conditions=[self._check_format])
         value = self._mount_data.format or none_msg
