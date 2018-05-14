@@ -22,7 +22,8 @@ from collections import OrderedDict
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, getDisksByNames
+from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, \
+    getDisksByNames
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
@@ -31,7 +32,8 @@ from pyanaconda.format_dasd import DasdFormatting
 
 from blivet.size import Size
 from blivet.errors import StorageError
-from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
+from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, \
+    ZFCPDiskDevice
 from blivet.formats import get_format
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
@@ -176,7 +178,8 @@ class StorageSpoke(NormalTUISpoke):
                       count) % (count, str(Size(capacity)), free))
 
         if len(self.disks) == 0:
-            summary = _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation.")
+            summary = _("No disks detected.  Please shut down the computer, "
+                        "connect at least one disk, and restart to complete installation.")
         elif count == 0:
             summary = (_("No disks selected; please select at least one disk to install to."))
 
@@ -204,7 +207,7 @@ class StorageSpoke(NormalTUISpoke):
         # synchronize our local data store with the global ksdata
         # Commment out because there is no way to select a disk right
         # now without putting it in ksdata.  Seems wrong?
-        #self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        # self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self.autopart = self.data.autopart.autopart
 
         self._container = ListColumnContainer(1, spacing=1)
@@ -250,7 +253,9 @@ class StorageSpoke(NormalTUISpoke):
 
         disk_attrs = []
         # now check for/add info about special disks
-        if (isinstance(disk, MultipathDevice) or isinstance(disk, iScsiDiskDevice) or isinstance(disk, FcoeDiskDevice)):
+        if (isinstance(disk, MultipathDevice) or
+                isinstance(disk, iScsiDiskDevice) or
+                isinstance(disk, FcoeDiskDevice)):
             if hasattr(disk, "wwid"):
                 disk_attrs.append(disk.wwid)
         elif isinstance(disk, DASDDevice):
@@ -463,6 +468,7 @@ class StorageSpoke(NormalTUISpoke):
         if len(self.disks) == 1:
             self._update_disk_list(self.disks[0])
 
+
 class PartTypeSpoke(NormalTUISpoke):
     """ Partitioning options are presented here.
 
@@ -509,7 +515,8 @@ class PartTypeSpoke(NormalTUISpoke):
         self.window.add_with_separator(self._container)
 
         message = _("Installation requires partitioning of your hard drive. "
-                    "Select what space to use for the install target or manually assign mount points.")
+                    "Select what space to use for the install target or "
+                    "manually assign mount points.")
 
         self.window.add_with_separator(TextWidget(message))
 
@@ -645,12 +652,14 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         """ Apply our selections. """
         self.data.autopart.type = self._selected_scheme_value
 
+
 class MountDataRecorder(kickstart.MountData):
     """ An artificial subclass also recording changes. """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.modified = False
         self.orig_format = None
+
 
 class MountPointAssignSpoke(NormalTUISpoke):
     """ Assign mount points to block devices. """
@@ -735,7 +744,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
         self.window.add_with_separator(self._container)
 
         message = _("Choose device from above to assign mount point and set format.\n" +
-                    "Formats marked with * are new formats meaning ALL DATA on the original format WILL BE LOST!")
+                    "Formats marked with * are new formats meaning ALL DATA on the "
+                    "original format WILL BE LOST!")
         self.window.add_with_separator(TextWidget(message))
 
     def _configure_device(self, device):
@@ -749,7 +759,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
         if not self._container.process_user_input(key):
             # TRANSLATORS: 's' to rescan devices
             if key.lower() == C_('TUI|Spoke Navigation|Partitioning', 's'):
-                text = _("Warning: This will revert all changes done so far.\nDo you want to proceed?\n")
+                text = _("Warning: This will revert all changes done so far.\n"
+                         "Do you want to proceed?\n")
                 question_window = YesNoDialog(text)
                 ScreenHandler.push_screen_modal(question_window)
                 if question_window.answer:
@@ -781,6 +792,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
             if mount_data.modified and (mount_data.reformat or mount_data.mount_point):
                 self.data.mount.add_mount_data(mount_data)
 
+
 class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Assign mount point to a block device and (optionally) reformat it. """
     category = SystemCategory
@@ -798,7 +810,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         return True
 
     def refresh(self, args=None):
-        super().refresh( args)
+        super().refresh(args)
 
         self._container = ListColumnContainer(1)
 
@@ -824,16 +836,20 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         value = self._mount_data.format or none_msg
         self._container.add(EntryWidget(dialog.title, value), self._set_format, dialog)
 
-        if ((self._mount_data.orig_format and self._mount_data.orig_format != self._mount_data.format)
+        if ((self._mount_data.orig_format and
+             self._mount_data.orig_format != self._mount_data.format)
            or self._mount_data.mount_point == "/"):
             # changing format implies reformat and so does "/" mount point
-            self._container.add(CheckboxWidget(title=reformat_title, completed=self._mount_data.reformat))
+            self._container.add(CheckboxWidget(title=reformat_title,
+                                               completed=self._mount_data.reformat))
         else:
-            self._container.add(CheckboxWidget(title=reformat_title, completed=self._mount_data.reformat),
+            self._container.add(CheckboxWidget(title=reformat_title,
+                                               completed=self._mount_data.reformat),
                                 self._switch_reformat)
 
         self.window.add_with_separator(self._container)
-        self.window.add_with_separator(TextWidget(_("Choose from above to assign mount point and/or set format.")))
+        self.window.add_with_separator(TextWidget(_("Choose from above to assign "
+                                                    "mount point and/or set format.")))
 
     def _check_format(self, user_input, report_func):
         user_input = user_input.lower()
