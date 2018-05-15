@@ -2209,8 +2209,7 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
 
     ignored_blockdevs = set()
     for ns_name, ns_info in nvdimm.namespaces.items():
-        mode = blockdev.nvdimm_namespace_get_mode_str(ns_info.mode)
-        if mode != "sector":
+        if ns_info.mode != blockdev.NVDIMMNamespaceMode.SECTOR:
             log.debug("%s / %s will be ignored - NVDIMM device is not in sector mode",
                       ns_name, ns_info.blockdev)
         else:
