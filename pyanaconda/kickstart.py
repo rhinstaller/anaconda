@@ -1322,8 +1322,6 @@ class Logging(commands.logging.FC6_Logging):
 
 class Mount(commands.mount.F27_Mount):
     def execute(self, storage, ksdata, instClass):
-        storage.do_autopart = False
-
         for md in self.dataList():
             md.execute(storage, ksdata, instClass)
 
@@ -1338,6 +1336,8 @@ class Mount(commands.mount.F27_Mount):
 
 class MountData(commands.mount.F27_MountData):
     def execute(self, storage, ksdata, instClass):
+        storage.do_autopart = False
+
         dev = storage.devicetree.resolve_device(self.device)
         if dev is None:
             raise KickstartParseError(lineno=self.lineno,
