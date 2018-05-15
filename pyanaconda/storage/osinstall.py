@@ -1657,7 +1657,7 @@ class InstallerStorage(Blivet):
             nvdimm_ksdata = None
         ignored_nvdimm_devs = get_ignored_nvdimm_blockdevs(nvdimm_ksdata)
         if ignored_nvdimm_devs:
-            log.debug("adding %s to ignored disks - these NVDIMM devices are not allowed to be used",
+            log.debug("adding NVDIMM devices %s to ignored disks",
                         ",".join(ignored_nvdimm_devs))
 
         if self.ksdata:
@@ -2217,7 +2217,7 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
                     ns_info.blockdev in ks_allowed_blockdevs:
                 continue
             else:
-                log.debug("%s / %s will be ignored - NVDIMM device is not allowed to be used",
+                log.debug("%s / %s will be ignored - NVDIMM device has not been configured to be used",
                           ns_name, ns_info.blockdev)
         ignored_blockdevs.add(ns_info.blockdev)
 
