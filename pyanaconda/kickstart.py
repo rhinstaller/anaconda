@@ -46,7 +46,7 @@ from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
     REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
     CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_SKIPPED, BOOTLOADER_ENABLED,\
-    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -69,6 +69,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, iScsiDiskDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
+from blivet.static_data import nvdimm
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
 from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
@@ -80,7 +81,8 @@ from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.options import KSOptionParser
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
     KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
-    SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+    SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, NVDIMM_ACTION_RECONFIGURE, \
+    NVDIMM_ACTION_USE
 from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
@@ -854,7 +856,7 @@ class ClearPart(RemovedCommand):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.F28_Fcoe):
     def parse(self, args):
         fc = super().parse(args)
 
@@ -929,7 +931,7 @@ class Firewall(RemovedCommand):
 
         cmd = "/usr/bin/firewall-offline-cmd"
         if not os.path.exists(util.getSysroot() + cmd):
-            if firewall_proxy.FirewallEnabled:
+            if firewall_proxy.FirewallMode == FIREWALL_ENABLED:
                 msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
                 raise KickstartError(msg)
         else:
@@ -1222,9 +1224,9 @@ class LogVolData(commands.logvol.F23_LogVolData):
                     else:
                         logvol_log.warning("No matching profile for %s found in LVM configuration", self.profile)
                 if self.metadata_size:
-                    pool_args["metadatasize"] = Size("%d MiB" % self.metadata_size)
+                    pool_args["metadata_size"] = Size("%d MiB" % self.metadata_size)
                 if self.chunk_size:
-                    pool_args["chunksize"] = Size("%d KiB" % self.chunk_size)
+                    pool_args["chunk_size"] = Size("%d KiB" % self.chunk_size)
 
             if self.maxSizeMB:
                 try:
@@ -1394,7 +1396,39 @@ class Network(commands.network.F27_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, util.getSysroot())
 
-class Partition(commands.partition.F23_Partition):
+class Nvdimm(commands.nvdimm.F28_Nvdimm):
+    def parse(self, args):
+        action = commands.nvdimm.F28_Nvdimm.parse(self, args)
+
+        if action.action == NVDIMM_ACTION_RECONFIGURE:
+            if action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(lineno=self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace)
+            else:
+                log.info("nvdimm: reconfiguring %s to %s mode", action.namespace, action.mode)
+                nvdimm.reconfigure_namespace(action.namespace, action.mode,
+                                             sector_size=action.sectorsize)
+        elif action.action == NVDIMM_ACTION_USE:
+            if action.namespace and action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(lineno=self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace)
+
+            if action.blockdevs:
+                # See comment in ClearPart.parse
+                drives = []
+                for spec in action.blockdevs:
+                    matched = device_matches(spec, disks_only=True)
+                    if matched:
+                        drives.extend(matched)
+                    else:
+                        raise KickstartParseError(lineno=self.lineno,
+                                msg=_("Disk \"%s\" given in nvdimm command does not exist.") % spec)
+
+                action.blockdevs = drives
+
+        return action
+
+class Partition(commands.partition.F29_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1402,7 +1436,7 @@ class Partition(commands.partition.F23_Partition):
         if self.partitions:
             do_partitioning(storage)
 
-class PartitionData(commands.partition.F23_PartData):
+class PartitionData(commands.partition.F29_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
@@ -2357,14 +2391,6 @@ class Keyboard(RemovedCommand):
         localization_proxy = LOCALIZATION.get_proxy()
         keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
 
-class Upgrade(commands.upgrade.F20_Upgrade):
-    # Upgrade is no longer supported. If an upgrade command was included in
-    # a kickstart, warn the user and exit.
-    def parse(self, args):
-        upgrade_log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
-        sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup."))
-        util.ipmi_report(IPMI_ABORTED)
-        sys.exit(1)
 
 ###
 ### %anaconda Section
@@ -2492,6 +2518,7 @@ commandMap = {
     "logvol": LogVol,
     "mount": Mount,
     "network": Network,
+    "nvdimm": Nvdimm,
     "part": Partition,
     "partition": Partition,
     "raid": Raid,
@@ -2504,7 +2531,6 @@ commandMap = {
     "skipx": UselessCommand,
     "snapshot": Snapshot,
     "timezone": Timezone,
-    "upgrade": Upgrade,
     "user": User,
     "volgroup": VolGroup,
     "xconfig": XConfig,

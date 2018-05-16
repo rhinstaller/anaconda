@@ -19,12 +19,12 @@
 #
 from blivet.formats.disklabel import DiskLabel
 from pykickstart.commands.autopart import F26_AutoPart
-from pykickstart.commands.bootloader import F21_Bootloader
+from pykickstart.commands.bootloader import F29_Bootloader
 from pykickstart.commands.clearpart import F28_ClearPart
-from pykickstart.commands.ignoredisk import F14_IgnoreDisk
+from pykickstart.commands.ignoredisk import F29_IgnoreDisk
 from pykickstart.commands.logvol import F23_LogVol, F23_LogVolData
 from pykickstart.commands.mount import F27_Mount, F27_MountData
-from pykickstart.commands.partition import F23_Partition, F23_PartData
+from pykickstart.commands.partition import F29_Partition, F29_PartData
 from pykickstart.commands.raid import F25_Raid, F25_RaidData
 from pykickstart.commands.reqpart import F23_ReqPart
 from pykickstart.commands.volgroup import F21_VolGroup, F21_VolGroupData
@@ -88,7 +88,7 @@ class ClearPart(F28_ClearPart):
         return retval
 
 
-class IgnoreDisk(F14_IgnoreDisk):
+class IgnoreDisk(F29_IgnoreDisk):
     """The ignoredisk kickstart command."""
 
     def parse(self, args):
@@ -117,13 +117,13 @@ class StorageKickstartSpecification(KickstartSpecification):
     version = F28
     commands = {
         "autopart": F26_AutoPart,
-        "bootloader": F21_Bootloader,
+        "bootloader": F29_Bootloader,
         "clearpart": ClearPart,
         "ignoredisk": IgnoreDisk,
         "logvol": F23_LogVol,
         "mount": F27_Mount,
-        "part": F23_Partition,
-        "partition": F23_Partition,
+        "part": F29_Partition,
+        "partition": F29_Partition,
         "raid": F25_Raid,
         "reqpart": F23_ReqPart,
         "volgroup": F21_VolGroup,
@@ -133,7 +133,7 @@ class StorageKickstartSpecification(KickstartSpecification):
     commands_data = {
         "LogVolData": F23_LogVolData,
         "MountData": F27_MountData,
-        "PartData": F23_PartData,
+        "PartData": F29_PartData,
         "RaidData": F25_RaidData,
         "VolGroupData": F21_VolGroupData,
     }
