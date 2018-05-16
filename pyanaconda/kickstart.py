@@ -46,7 +46,7 @@ from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
     REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
     CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_SKIPPED, BOOTLOADER_ENABLED,\
-    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -929,7 +929,7 @@ class Firewall(RemovedCommand):
 
         cmd = "/usr/bin/firewall-offline-cmd"
         if not os.path.exists(util.getSysroot() + cmd):
-            if firewall_proxy.FirewallEnabled:
+            if firewall_proxy.FirewallMode == FIREWALL_ENABLED:
                 msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
                 raise KickstartError(msg)
         else:
