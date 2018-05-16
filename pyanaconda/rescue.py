@@ -524,7 +524,6 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
             text = TextWidget(_("Not mounting the system.\n") + finish_msg)
 
         self.window.add(text)
-        return InputState.PROCESSED
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
