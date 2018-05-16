@@ -718,6 +718,13 @@ Multiple values can be combined as a comma separated list, for example: ``input_
     The nosave option is meant for excluding files from the installed system that *can't*
     be removed by a kickstart %post script, such as logs and input/output kickstarts.
 
+.. inst.nonibftiscsiboot
+
+inst.nonibftiscsiboot
+^^^^^^^^^^^^^^^^^^^^^
+
+Allows to place boot loader on iSCSI devices which were not configured in iBFT.
+
 
 Third-party options
 ^^^^^^^^^^^^^^^^^^^
