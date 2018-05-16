@@ -281,8 +281,7 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     def input(self, args, key):
         if self._container.process_user_input(key):
             self.apply()
-            self.redraw()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_REDRAW
         else:
             return NormalTUISpoke.input(self, args, key)
 
@@ -355,8 +354,7 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     def input(self, args, key):
         if self._container.process_user_input(key):
             self.apply()
-            self.redraw()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_REDRAW
         else:
             return NormalTUISpoke.input(self, args, key)
 
@@ -499,8 +497,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
         # TRANSLATORS: 'c' to continue
         elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
             self.apply()
-            self.close()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_CLOSE
         else:
             return super().input(args, key)
 

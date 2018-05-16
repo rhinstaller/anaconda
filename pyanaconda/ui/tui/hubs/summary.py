@@ -157,8 +157,7 @@ class SummaryHub(TUIHub):
                     print(self._checker.error_message)
                     return InputState.DISCARDED
 
-                self.close()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             # TRANSLATORS: 'c' to continue
             elif key == C_('TUI|Spoke Navigation', 'c'):
                 # Kind of a hack, but we want to ignore if anyone presses 'c'

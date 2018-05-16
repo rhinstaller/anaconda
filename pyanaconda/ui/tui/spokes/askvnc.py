@@ -97,8 +97,7 @@ class AskVNCSpoke(NormalTUISpoke):
         """Override input so that we can launch the VNC password spoke"""
         if self._container.process_user_input(key):
             self.apply()
-            self.close()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_CLOSE
         else:
             # TRANSLATORS: 'q' to quit
             if key.lower() == C_('TUI|Spoke Navigation', 'q'):
