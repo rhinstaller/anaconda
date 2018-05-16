@@ -71,7 +71,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
-    BOOTLOADER_ENABLED, AUTOPART_TYPE_DEFAULT
+    BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, AUTOPART_TYPE_DEFAULT
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
@@ -130,7 +130,7 @@ class InstallOptionsDialogBase(GUIObject):
 
         return True
 
-    def _get_sw_needs_text(self, required_space, auto_swap):
+    def _get_sw_needs_text(self, required_space, sw_space, auto_swap):
         tooltip = _("Please wait... software metadata still loading.")
 
         if flags.livecdInstall:
@@ -139,8 +139,8 @@ class InstallOptionsDialogBase(GUIObject):
                          "space, including <b>%(software)s</b> for software and "
                          "<b>%(swap)s</b> for swap space.")
                        % {"product": escape_markup(productName),
-                          "total": escape_markup(str(required_space + auto_swap)),
-                          "software": escape_markup(str(required_space)),
+                          "total": escape_markup(str(required_space)),
+                          "software": escape_markup(str(sw_space)),
                           "swap": escape_markup(str(auto_swap))})
         else:
             sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
@@ -149,8 +149,8 @@ class InstallOptionsDialogBase(GUIObject):
                          "<b>%(swap)s</b> for swap space.")
                        % {"tooltip": escape_markup(tooltip),
                           "product": escape_markup(productName),
-                          "total": escape_markup(str(required_space + auto_swap)),
-                          "software": escape_markup(str(required_space)),
+                          "total": escape_markup(str(required_space)),
+                          "software": escape_markup(str(sw_space)),
                           "swap": escape_markup(str(auto_swap))})
         return sw_text
 
@@ -191,8 +191,8 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
         self.fs_free_label.set_text(str(fs_free))
 
     # pylint: disable=arguments-differ
-    def refresh(self, required_space, auto_swap, disk_free, fs_free):
-        sw_text = self._get_sw_needs_text(required_space, auto_swap)
+    def refresh(self, required_space, sw_space, auto_swap, disk_free, fs_free):
+        sw_text = self._get_sw_needs_text(required_space, sw_space, auto_swap)
         label_text = _("%s The disks you've selected have the following "
                        "amounts of free space:") % sw_text
         label = self.builder.get_object("need_space_desc_label")
@@ -225,8 +225,8 @@ class NoSpaceDialog(InstallOptionsDialogBase):
         self.fs_free_label.set_text(str(fs_free))
 
     # pylint: disable=arguments-differ
-    def refresh(self, required_space, auto_swap, disk_free, fs_free):
-        label_text = self._get_sw_needs_text(required_space, auto_swap)
+    def refresh(self, required_space, sw_space, auto_swap, disk_free, fs_free):
+        label_text = self._get_sw_needs_text(required_space, sw_space, auto_swap)
         label_text += (_("  You don't have enough space available to install "
                          "<b>%(product)s</b>, even if you used all of the free space "
                          "available on the selected disks.")
@@ -972,7 +972,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             fs_free = sum(f[1] for f in free_space.values())
 
         disks_size = sum((d.size for d in disks), Size(0))
-        required_space = self.payload.spaceRequired
+        sw_space = self.payload.spaceRequired
         auto_swap = sum((r.size for r in self.storage.autopart_requests
                                 if r.fstype == "swap"), Size(0))
         if self.autopart and auto_swap == Size(0):
@@ -981,17 +981,20 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             auto_swap = autopart.swap_suggestion()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
-                  disk_free, fs_free, required_space, auto_swap)
+                  disk_free, fs_free, sw_space, auto_swap)
 
-        # compare only to 90% of disk space because fs takes some space for a metadata
-        if (disk_free * 0.9) >= required_space + auto_swap:
+        # We need enough space for the software, the swap and the metadata.
+        # It is not an ideal estimate, but it works.
+        required_space = sw_space + auto_swap + STORAGE_METADATA_RATIO * disk_free
+
+        if disk_free >= required_space:
             dialog = None
-        elif (disks_size * 0.9) >= required_space:
+        elif disks_size >= required_space - auto_swap:
             dialog = NeedSpaceDialog(self.data, payload=self.payload)
-            dialog.refresh(required_space, auto_swap, disk_free, fs_free)
+            dialog.refresh(required_space, sw_space, auto_swap, disk_free, fs_free)
         else:
             dialog = NoSpaceDialog(self.data, payload=self.payload)
-            dialog.refresh(required_space, auto_swap, disk_free, fs_free)
+            dialog.refresh(required_space, sw_space, auto_swap, disk_free, fs_free)
 
         # the 'dialog' variable is always set by the if statement above
         return dialog
