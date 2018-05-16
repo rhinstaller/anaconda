@@ -1224,9 +1224,9 @@ class LogVolData(commands.logvol.F23_LogVolData):
                     else:
                         logvol_log.warning("No matching profile for %s found in LVM configuration", self.profile)
                 if self.metadata_size:
-                    pool_args["metadatasize"] = Size("%d MiB" % self.metadata_size)
+                    pool_args["metadata_size"] = Size("%d MiB" % self.metadata_size)
                 if self.chunk_size:
-                    pool_args["chunksize"] = Size("%d KiB" % self.chunk_size)
+                    pool_args["chunk_size"] = Size("%d KiB" % self.chunk_size)
 
             if self.maxSizeMB:
                 try:
