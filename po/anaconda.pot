@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.137\n"
+"Project-Id-Version: anaconda 21.48.22.138\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2018-05-10 11:50+0200\n"
+"POT-Creation-Date: 2018-05-16 14:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1022,9 +1022,9 @@ msgstr ""
 #: pyanaconda/ui/tui/hubs/__init__.py:149
 #: pyanaconda/ui/tui/simpleline/base.py:462
 #: pyanaconda/ui/tui/simpleline/base.py:672
-#: pyanaconda/ui/tui/spokes/storage.py:274
-#: pyanaconda/ui/tui/spokes/storage.py:530
-#: pyanaconda/ui/tui/spokes/storage.py:582
+#: pyanaconda/ui/tui/spokes/storage.py:279
+#: pyanaconda/ui/tui/spokes/storage.py:620
+#: pyanaconda/ui/tui/spokes/storage.py:672
 #: pyanaconda/ui/tui/spokes/source.py:482
 #: pyanaconda/ui/tui/spokes/software.py:171
 msgctxt "TUI|Spoke Navigation"
@@ -1430,7 +1430,7 @@ msgstr ""
 msgid "Deployment complete: %s"
 msgstr ""
 
-#: pyanaconda/ui/helpers.py:98 pyanaconda/ui/tui/spokes/storage.py:438
+#: pyanaconda/ui/helpers.py:98 pyanaconda/ui/tui/spokes/storage.py:458
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1882,71 +1882,71 @@ msgstr ""
 msgid "Please select new root password. You will have to type it twice."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:55
+#: pyanaconda/ui/tui/spokes/storage.py:56
 msgid "Use All Space"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:56
+#: pyanaconda/ui/tui/spokes/storage.py:57
 msgid "Replace Existing Linux system(s)"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:57
+#: pyanaconda/ui/tui/spokes/storage.py:58
 msgid "Use Free Space"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:67
+#: pyanaconda/ui/tui/spokes/storage.py:68
 msgid "Installation Destination"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:123
+#: pyanaconda/ui/tui/spokes/storage.py:128
 #: pyanaconda/ui/gui/spokes/storage.py:433
 msgid "No disks selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:133
+#: pyanaconda/ui/tui/spokes/storage.py:138
 #: pyanaconda/ui/gui/spokes/storage.py:445
 msgid "Error checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:135
+#: pyanaconda/ui/tui/spokes/storage.py:140
 #: pyanaconda/ui/gui/spokes/storage.py:447
 msgid "Warning checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:138
+#: pyanaconda/ui/tui/spokes/storage.py:143
 #: pyanaconda/ui/gui/spokes/storage.py:449
 msgid "Automatic partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:140
+#: pyanaconda/ui/tui/spokes/storage.py:145
 #: pyanaconda/ui/gui/spokes/storage.py:451
 msgid "Custom partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:176
+#: pyanaconda/ui/tui/spokes/storage.py:181
 #: pyanaconda/ui/gui/spokes/storage.py:709
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:178
+#: pyanaconda/ui/tui/spokes/storage.py:183
 #: pyanaconda/ui/gui/spokes/storage.py:713
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:193
+#: pyanaconda/ui/tui/spokes/storage.py:198
 #: pyanaconda/ui/tui/spokes/source.py:397
 #: pyanaconda/ui/gui/spokes/source.py:697
 #: pyanaconda/ui/gui/spokes/storage.py:657
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:214
+#: pyanaconda/ui/tui/spokes/storage.py:219
 msgid "Select all"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:341
+#: pyanaconda/ui/tui/spokes/storage.py:346
 msgid ""
 "The following unformatted or LDL DASDs have been detected on your system. "
 "You can choose to format them now with dasdfmt or cancel to leave them "
@@ -1954,7 +1954,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:346
+#: pyanaconda/ui/tui/spokes/storage.py:351
 msgid ""
 "Warning: All storage changes made using the installer will be lost when you "
 "choose to format.\n"
@@ -1962,37 +1962,46 @@ msgid ""
 "Proceed to run dasdfmt?\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:364
+#: pyanaconda/ui/tui/spokes/storage.py:369
 #: pyanaconda/ui/gui/spokes/lib/dasdfmt.py:94
 #, python-format
 msgid "Formatting /dev/%s. This may take a moment."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:417
+#: pyanaconda/ui/tui/spokes/storage.py:437
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:422
-#: pyanaconda/ui/tui/spokes/storage.py:434
+#: pyanaconda/ui/tui/spokes/storage.py:442
+#: pyanaconda/ui/tui/spokes/storage.py:454
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:480
+#: pyanaconda/ui/tui/spokes/storage.py:501
+#: pyanaconda/ui/tui/spokes/storage.py:549
+msgid "Passphrase"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:543
+msgid "Please provide LUKS passphrase. You will have to type it twice."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:570
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:507
+#: pyanaconda/ui/tui/spokes/storage.py:597
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:547
+#: pyanaconda/ui/tui/spokes/storage.py:637
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:571
+#: pyanaconda/ui/tui/spokes/storage.py:661
 msgid "Select a partition scheme configuration."
 msgstr ""
 
@@ -2350,44 +2359,32 @@ msgstr ""
 msgid "New value"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:135
+#: pyanaconda/ui/tui/spokes/__init__.py:145
 #, python-format
 msgid "%s: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:136
+#: pyanaconda/ui/tui/spokes/__init__.py:146
 #, python-format
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:139
-msgid ""
-"You must enter your root password and confirm it by typing it a second time "
-"to continue."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/__init__.py:158
+#: pyanaconda/ui/tui/spokes/__init__.py:169
 msgid ""
 "\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:177
-msgid ""
-"You have provided a password containing non-ASCII characters.\n"
-"You may not be able to switch between keyboard layouts to login.\n"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/__init__.py:183
+#: pyanaconda/ui/tui/spokes/__init__.py:193
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:202
+#: pyanaconda/ui/tui/spokes/__init__.py:212
 msgid "You have provided an invalid value\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:315
+#: pyanaconda/ui/tui/spokes/__init__.py:325
 msgid "Password set."
 msgstr ""
 

@@ -319,6 +319,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 16 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.139-1
+- installclasses/rhelah: Allow LVM thin and dm-crypt (walters)
+  Resolves: rhbz#1546252
+- Ask for a default passphrase if required (vponcova)
+  Resolves: rhbz#1436304
+- Add support for setting different types of passwords in TUI (vponcova)
+  Related: rhbz#1436304
+
 * Thu May 10 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.138-1
 - Fix crash on inst.noverifyssl with non-url method (rvykydal)
   Resolves: rhbz#1515678
