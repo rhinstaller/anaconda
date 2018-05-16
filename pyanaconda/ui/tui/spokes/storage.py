@@ -320,9 +320,8 @@ class StorageSpoke(NormalTUISpoke):
                     ScreenHandler.push_screen_modal(new_spoke)
                     self.apply()
                     self.execute()
-                    self.close()
 
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             else:
                 return super().input(args, key)
 
