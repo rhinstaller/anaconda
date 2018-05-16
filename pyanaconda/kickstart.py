@@ -854,7 +854,7 @@ class ClearPart(RemovedCommand):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.F28_Fcoe):
     def parse(self, args):
         fc = super().parse(args)
 
