@@ -92,7 +92,7 @@ class SummaryHub(TUIHub):
         if flags.automatedInstall and not incomplete_spokes:
 
             # Check the available space.
-            if self._checker and not self._checker.check():
+            if flags.ksprompt and self._checker and not self._checker.check():
 
                 # Space is not ok.
                 print(self._checker.error_message)
@@ -101,14 +101,11 @@ class SummaryHub(TUIHub):
                 # Unset the checker so everything passes next time.
                 self._checker = None
 
-                if not flags.ksprompt:
-                    return None
-                else:
-                    # TRANSLATORS: 'b' to begin installation
-                    print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
-                            # TRANSLATORS: 'b' to begin installation
-                            C_("TUI|Spoke Navigation", "b")
-                            )
+                # TRANSLATORS: 'b' to begin installation
+                print(_("Enter '%s' to ignore the warning and attempt to install anyway.") %
+                        # TRANSLATORS: 'b' to begin installation
+                        C_("TUI|Spoke Navigation", "b")
+                        )
             else:
                 # Space is ok and spokes are complete, continue.
                 self.close()
