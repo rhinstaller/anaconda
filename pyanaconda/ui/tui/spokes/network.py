@@ -410,9 +410,8 @@ class ConfigureNetworkSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         if self._container.process_user_input(key):
-            self.redraw()
             self.apply()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_REDRAW
         else:
             return super().input(args, key)
 

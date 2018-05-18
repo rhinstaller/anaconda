@@ -279,8 +279,7 @@ class StorageSpoke(NormalTUISpoke):
         """Grab the disk choice and update things"""
         self.errors = []
         if self._container.process_user_input(key):
-            self.redraw()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_REDRAW
         else:
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
@@ -304,8 +303,7 @@ class StorageSpoke(NormalTUISpoke):
 
                             # Run the dialog.
                             self.run_dasdfmt_dialog(dasd_formatting)
-                            self.redraw()
-                            return InputState.PROCESSED
+                            return InputState.PROCESSED_AND_REDRAW
 
                     # make sure no containers were split up by the user's disk
                     # selection
@@ -314,8 +312,7 @@ class StorageSpoke(NormalTUISpoke):
                     if self.errors:
                         # The disk selection has to make sense before we can
                         # proceed.
-                        self.redraw()
-                        return InputState.PROCESSED
+                        return InputState.PROCESSED_AND_REDRAW
 
                     self.apply()
                     new_spoke = PartTypeSpoke(self.data, self.storage,
@@ -323,9 +320,8 @@ class StorageSpoke(NormalTUISpoke):
                     ScreenHandler.push_screen_modal(new_spoke)
                     self.apply()
                     self.execute()
-                    self.close()
 
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             else:
                 return super().input(args, key)
 
@@ -589,13 +585,11 @@ class PartTypeSpoke(NormalTUISpoke):
                     new_spoke = PartitionSchemeSpoke(self.data, self.storage,
                                                      self.payload, self.instclass)
                 ScreenHandler.push_screen_modal(new_spoke)
-                self.close()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             else:
                 return super().input(args, key)
 
-        self.redraw()
-        return InputState.PROCESSED
+        return InputState.PROCESSED_AND_REDRAW
 
 
 class PartitionSchemeSpoke(NormalTUISpoke):
@@ -640,13 +634,11 @@ class PartitionSchemeSpoke(NormalTUISpoke):
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
-                self.close()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             else:
                 return super().input(args, key)
 
-        self.redraw()
-        return InputState.PROCESSED
+        return InputState.PROCESSED_AND_REDRAW
 
     def apply(self):
         """ Apply our selections. """
@@ -776,8 +768,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
                     disk_select_proxy.SetSelectedDisks(selected_disks)
                     self.data.mount.clear_mount_data()
                     self._gather_mount_data_info()
-                self.redraw()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_REDRAW
             # TRANSLATORS: 'c' to continue
             elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
@@ -875,8 +866,7 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         if not self._container.process_user_input(key):
             return super().input(args, key)
 
-        self.redraw()
-        return InputState.PROCESSED
+        return InputState.PROCESSED_AND_REDRAW
 
     def apply(self):
         # nothing to do here, the callbacks below directly modify the data
