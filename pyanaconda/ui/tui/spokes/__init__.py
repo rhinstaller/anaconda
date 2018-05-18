@@ -103,8 +103,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
             if self.has_help:
                 help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
                 ScreenHandler.push_screen_modal(HelpScreen(help_path))
-                self.redraw()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_REDRAW
 
         return super().input(args, key)
 

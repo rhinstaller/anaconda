@@ -344,8 +344,7 @@ class TimeZoneSpoke(NormalTUISpoke):
                 index = self._lower_zones.index(key.lower().replace("_", " "))
                 self._selection = self._zones[index]
                 self.apply()
-                self.close()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             elif key.lower() in self._lower_regions:
                 index = self._lower_regions.index(key.lower())
                 if len(self._timezones[self._regions[index]]) == 1:
@@ -516,8 +515,7 @@ class RemoveNTPServerSpoke(NormalTUISpoke):
         if num > 0 and num <= len(self._time_spoke.ntp_servers):
             self._ntp_server_index = num - 1
             self.apply()
-            self.close()
-            return InputState.PROCESSED
+            return InputState.PROCESSED_AND_CLOSE
         else:
             # the user enter a number that is out of range of the
             # available NTP servers, ignore it and stay in spoke

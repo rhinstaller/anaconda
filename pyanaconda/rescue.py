@@ -524,7 +524,6 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
             text = TextWidget(_("Not mounting the system.\n") + finish_msg)
 
         self.window.add(text)
-        return InputState.PROCESSED
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
@@ -590,15 +589,13 @@ class RootSelectionSpoke(NormalTUISpoke):
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
                 self.apply()
-                self.close()
-                return InputState.PROCESSED
+                return InputState.PROCESSED_AND_CLOSE
             else:
                 return key
 
         if 0 <= keyid < len(self._roots):
             self._selection = keyid
-        self.redraw()
-        return InputState.PROCESSED
+        return InputState.PROCESSED_AND_REDRAW
 
     @property
     def selection(self):

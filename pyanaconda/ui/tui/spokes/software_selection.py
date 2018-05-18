@@ -268,8 +268,6 @@ class SoftwareSpoke(NormalTUISpoke):
                 else:
                     self.apply()
                     self.close()
-
-                return InputState.PROCESSED
             else:
                 return super().input(args, key)
 
