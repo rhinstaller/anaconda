@@ -62,6 +62,13 @@ class ZIPLError(Exception):
     pass
 
 
+class FirmwareCompatError(Exception):
+    """ Firmware is incompatible with installation requirements """
+    def __init__(self, reason):
+        Exception.__init__(self)
+        self.reason = reason
+
+
 class ExitError(RuntimeError):
     pass
 
@@ -312,6 +319,16 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
+    def _FirmwareCompatErrorHandler(self, reason):
+        details = str(reason)
+        message = _("Installation was stopped due to an incompatibility with "
+                    "the current version of the system firmware. The exact "
+                    "error message is:\n\n%s\n\n"
+                    "The installer will now terminate.") % details
+
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -350,7 +367,8 @@ class ErrorHandler(object):
                 "DependencyError": self._dependencyErrorHandler,
                 "BootLoaderError": self._bootLoaderErrorHandler,
                 "PasswordCryptError": self._passwordCryptErrorHandler,
-                "ZIPLError": self._ziplErrorHandler}
+                "ZIPLError": self._ziplErrorHandler,
+                "FirmwareCompatError": self._FirmwareCompatErrorHandler}
 
         if exn.__class__.__name__ in _map:
             rc = _map[exn.__class__.__name__](exn)
