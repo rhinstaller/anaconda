@@ -434,6 +434,7 @@ if __name__ == "__main__":
     flags.noverifyssl = opts.noverifyssl
     flags.armPlatform = opts.armPlatform
     flags.extlinux = opts.extlinux
+    flags.blscfg = opts.blscfg
     flags.nombr = opts.nombr
     flags.mpathFriendlyNames = opts.mpathfriendlynames
     flags.debug = opts.debug
