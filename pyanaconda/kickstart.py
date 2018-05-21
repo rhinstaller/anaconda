@@ -80,7 +80,7 @@ from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
                                   SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
                                   SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, \
-                                  NVDIMM_ACTION_RECONFIGURE
+                                  NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
@@ -1227,9 +1227,25 @@ class Nvdimm(commands.nvdimm.RHEL7_Nvdimm):
                 log.info("nvdimm: reconfiguring %s to %s mode", action.namespace, action.mode)
                 blivet.nvdimm.nvdimm().reconfigure_namespace(action.namespace, action.mode,
                                                              sector_size=action.sectorsize)
+        elif action.action == NVDIMM_ACTION_USE:
+            if action.namespace and action.namespace not in namespaces:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace))
+
+            if action.blockdevs:
+                # See comment in ClearPart.parse
+                drives = []
+                for spec in action.blockdevs:
+                    matched = device_matches(spec, disks_only=True)
+                    if matched:
+                        drives.extend(matched)
+                    else:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg=_("Disk \"%s\" given in nvdimm command does not exist.") % spec))
+
+                action.blockdevs = drives
+
         return action
-
-
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
