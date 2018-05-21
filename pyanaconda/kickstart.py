@@ -30,6 +30,7 @@ import blivet.arch
 import blivet.fcoe
 import blivet.iscsi
 import blivet.zfcp
+import blivet.nvdimm
 
 import pykickstart.commands as commands
 
@@ -78,7 +79,8 @@ from pykickstart.constants import CLEARPART_TYPE_NONE, CLEARPART_TYPE_ALL, \
                                   FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, \
                                   KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, \
                                   SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
-                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+                                  SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, \
+                                  NVDIMM_ACTION_RECONFIGURE
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
@@ -1212,6 +1214,23 @@ class Network(commands.network.RHEL7_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
+class Nvdimm(commands.nvdimm.RHEL7_Nvdimm):
+    def parse(self, args):
+        action = commands.nvdimm.RHEL7_Nvdimm.parse(self, args)
+
+        namespaces = blivet.nvdimm.nvdimm().namespaces
+        if action.action == NVDIMM_ACTION_RECONFIGURE:
+            if action.namespace not in namespaces:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("nvdimm: namespace %s not found.") % action.namespace))
+            else:
+                log.info("nvdimm: reconfiguring %s to %s mode", action.namespace, action.mode)
+                blivet.nvdimm.nvdimm().reconfigure_namespace(action.namespace, action.mode,
+                                                             sector_size=action.sectorsize)
+        return action
+
+
+
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
         raise NotImplementedError(_("The %s kickstart command is not currently supported.") % "multipath")
@@ -2259,6 +2278,7 @@ commandMap = {
         "mount": Mount,
         "multipath": MultiPath,
         "network": Network,
+        "nvdimm": Nvdimm,
         "part": Partition,
         "partition": Partition,
         "raid": Raid,
