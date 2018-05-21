@@ -27,3 +27,7 @@ def init():
     """
     import logging
     logging.basicConfig(level=logging.DEBUG)
+
+    import locale
+    from pyanaconda.core.constants import DEFAULT_LANG
+    locale.setlocale(locale.LC_ALL, DEFAULT_LANG)
