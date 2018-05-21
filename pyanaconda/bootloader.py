@@ -25,7 +25,7 @@ import re
 import blivet
 from parted import PARTITION_BIOS_GRUB
 from glob import glob
-from itertools import chain
+from itertools import chain, zip_longest
 import crypt
 from ordered_set import OrderedSet
 
@@ -36,7 +36,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.fcoe import fcoe
 import pyanaconda.network
-from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
+from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError, FirmwareCompatError
 from pyanaconda.nm import nm_device_hwaddress
 from pyanaconda import platform
 from blivet.size import Size
@@ -104,6 +104,35 @@ def _is_on_nvdimm(device):
 
     return all(isinstance(disk, blivet.devices.NVDIMMNamespaceDevice)
                for disk in device.disks)
+
+def _get_petitboot_version():
+    """
+    get the version of the petitboot loader that OF expresses as:
+        v1.6.1-pd8c7a0a
+    in the form:
+        ('v1.6.1-pd8c7a0a', (1, 6, 1), 'pd8c7a0a')
+    """
+    path = "/sys/firmware/devicetree/base/ibm,firmware-versions/petitboot"
+    if not os.access(path, os.F_OK):
+        raise FileNotFoundError
+    for line in open(path).readlines():
+        if line.startswith('v'):
+            line = line[1:]
+        (components, digest) = line.split('-')
+        components = [int(x) for x in components.split('.')]
+        return (line, tuple(components), digest)
+
+    return (None, (), None)
+
+def _version_ge(version, goal):
+    """
+    Compare two version tuples and tell you if version is >= goal
+    """
+    for ver0, ver1 in zip_longest(version, goal, fillvalue=0):
+        if ver0 != ver1:
+            return ver0 > ver1
+    return True
+
 
 class BootLoaderError(Exception):
     pass
@@ -1552,7 +1581,12 @@ class GRUB2(GRUB):
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
+        if flags.blscfg:
+            defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
+
+    def _test_firmware_compat(self):
+        """ Check that this platform is configured in a compatible way """
 
     def _encrypt_password(self):
         """ Make sure self.encrypted_password is set up properly. """
@@ -1665,6 +1699,9 @@ class GRUB2(GRUB):
         if self.update_only:
             self.update()
             return
+
+        if flags.blscfg:
+            _test_firmware_compat()
 
         try:
             self.write_device_map()
@@ -2215,6 +2252,23 @@ class IPSeriesGRUB2(GRUB2):
         defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
 
+    def _test_firmware_compat(self):
+        """ Check that this platform is configured in a compatible way """
+
+        super()._test_firmware_compat()
+        if not os.access("/sys/firmware/opal", os.F_OK):
+            return
+        try:
+            vstr, vtuple, _ = _get_petitboot_version()
+
+        except FileNotFoundError as err:
+            msg = "Could not get OPAL version: %s" % (err,)
+            errorHandler.cb(FirmwareCompatError(msg))
+
+        if not _version_ge(vtuple, (1, 8, 0)):
+            msg = "Incompatible firmware version %s" % (vstr,)
+            errorHandler.cb(FirmwareCompatError(msg))
+
 
 class MacYaboot(Yaboot):
     prog = "mkofboot"
@@ -2266,6 +2320,9 @@ class ZIPL(BootLoader):
         return "/boot"
 
     def write_config_images(self, config):
+        if flags.blscfg:
+            return
+
         for image in self.images:
             if "kdump" in (image.initrd or image.kernel):
                 # no need to create bootloader entries for kdump
@@ -2293,15 +2350,14 @@ class ZIPL(BootLoader):
             config.write(stanza)
 
     def write_config_header(self, config):
-        header = ("[defaultboot]\n"
+        header = "[defaultboot]\n"
                   "defaultauto\n"
                   "prompt=1\n"
-                  "timeout=%(timeout)d\n"
-                  "default=%(default)s\n"
+                  "timeout={}\n"
                   "target=/boot\n"
-                  % {"timeout": self.timeout,
-                     "default": self.image_label(self.default)})
-        config.write(header)
+        config.write(header.format(self.timeout))
+        if not flags.blscfg:
+            config.write("default={}\n".format(self.image_label(self.default)))
 
     #
     # installation
