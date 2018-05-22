@@ -22,6 +22,8 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DASD
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
+from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
+
 
 log = get_module_logger(__name__)
 
@@ -32,3 +34,13 @@ class DASDModule(KickstartBaseModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(DASD.object_path, DASDInterface(self))
+
+    def discover_with_task(self, device_number):
+        """Discover a DASD.
+
+        :param device_number: a device number
+        :return: a path to a task
+        """
+        task = DASDDiscoverTask(device_number)
+        path = self.publish_task(DASD.namespace, task)
+        return path

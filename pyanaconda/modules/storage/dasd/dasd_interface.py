@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
-from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import DASD
@@ -28,5 +27,11 @@ from pyanaconda.modules.common.constants.objects import DASD
 class DASDInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the DASD module."""
 
-    def Discover(self):
-        pass
+    def DiscoverWithTask(self, device_number: Str) -> ObjPath:
+        """Discover a DASD.
+
+        :param device_number: a device number
+        :return: a path to a task
+        :raise: DiscoveryError in a case of failure
+        """
+        return self.implementation.discover_with_task(device_number)
