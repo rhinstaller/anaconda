@@ -16,21 +16,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-import gi
-gi.require_version("BlockDev", "2.0")
-
-from gi.repository import BlockDev as blockdev
-
+from pyanaconda.modules.common.constants.objects import DASD
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
-from pyanaconda.core.regexes import DASD_DEVICE_NUMBER
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core.timer import Timer
-from pyanaconda.core import constants
 
 __all__ = ["DASDDialog"]
+
 
 class DASDDialog(GUIObject):
     """ Gtk dialog which allows users to manually add DASD devices without
@@ -45,26 +39,19 @@ class DASDDialog(GUIObject):
 
     def __init__(self, data, storage):
         super().__init__(data)
-        self.storage = storage
-        self.dasd = [d for d in self.storage.devices if d.type == "dasd"]
-        self.dasd.sort(key=lambda d: d.name)
-
-        self._discoveryError = None
-
+        self._storage = storage
         self._update_devicetree = False
+        self._dasd_proxy = STORAGE.get_proxy(DASD)
 
         # grab all of the ui objects
         self._configureGrid = self.builder.get_object("configureGrid")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
-
         self._startButton = self.builder.get_object("startButton")
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
         self._retryButton = self.builder.get_object("retryButton")
         self._errorLabel = self.builder.get_object("deviceErrorLabel")
-
         self._deviceEntry = self.builder.get_object("deviceEntry")
-
         self._spinner = self.builder.get_object("waitSpinner")
 
     def refresh(self):
@@ -78,7 +65,7 @@ class DASDDialog(GUIObject):
         # We need to call this to get the device nodes to show up
         # in our devicetree.
         if self._update_devicetree:
-            try_populate_devicetree(self.storage.devicetree)
+            try_populate_devicetree(self._storage.devicetree)
         return rc
 
     def on_start_clicked(self, *args):
@@ -92,85 +79,39 @@ class DASDDialog(GUIObject):
         self._deviceEntry.set_sensitive(False)
         self._conditionNotebook.set_current_page(1)
 
-        # Initialize.
-        config_error = None
-        device = None
-        device_name = self._deviceEntry.get_text().strip()
+        # Get the device number.
+        device_number = self._deviceEntry.get_text().strip()
 
-        # Check the format of the given device name.
-        if not DASD_DEVICE_NUMBER.match(device_name):
-            config_error = "Incorrect format of the given device number."
-        else:
-            try:
-                # Get full device name.
-                device = blockdev.s390.sanitize_dev_input(device_name)
-            except (blockdev.S390Error, ValueError) as e:
-                config_error = str(e)
+        # Get the discovery task.
+        task_path = self._dasd_proxy.DiscoverWithTask(device_number)
+        task_proxy = STORAGE.get_proxy(task_path)
 
-        # Process the configuration error.
-        if config_error:
-            self._errorLabel.set_text(config_error)
-            self._deviceEntry.set_sensitive(True)
-            self._cancelButton.set_sensitive(True)
-            self._conditionNotebook.set_current_page(2)
-        # Run the discovery.
-        else:
-            # Discover.
-            self._spinner.start()
-            threadMgr.add(AnacondaThread(name=constants.THREAD_DASD_DISCOVER,
-                                         target=self._discover,
-                                         args=(device,)))
+        # Start the discovery.
+        async_run_task(task_proxy, self.process_result)
+        self._spinner.start()
 
-            # Periodically call the check till it is done.
-            Timer().timeout_msec(250, self._check_discover)
+    def process_result(self, task_proxy):
+        """Process the result of the task.
 
-    @async_action_nowait
-    def _check_discover(self):
-        """ After the DASD discover thread runs, check to see whether a valid
-            device was discovered. Display an error message if not.
-
-            If the discover is not done, return True to indicate that the check
-            has to be run again, otherwise check the discovery and return False.
+        :param task_proxy: a remove task proxy
         """
-        # Discovery is not done, return True.
-        if threadMgr.get(constants.THREAD_DASD_DISCOVER):
-            return True
-
-        # Discovery has finished, run the check.
+        # Stop the spinner.
         self._spinner.stop()
+        self._cancelButton.set_sensitive(True)
 
-        if self._discoveryError:
-            # Failure, display a message and leave the user on the dialog so
-            # they can try again (or cancel)
-            self._errorLabel.set_text(self._discoveryError)
-            self._discoveryError = None
-
+        try:
+            # Finish the task.
+            task_proxy.Finish()
+        except StorageDiscoveryError as e:
+            # Discovery has failed, show the error.
+            self._errorLabel.set_text(str(e))
             self._deviceEntry.set_sensitive(True)
             self._conditionNotebook.set_current_page(2)
         else:
-            # Great success. Since DASDs go under local disks, update dialog to
-            # show users that's where they'll be
+            # Discovery succeeded.
+            self._update_devicetree = True
             self._okButton.set_sensitive(True)
             self._conditionNotebook.set_current_page(3)
-
-        self._cancelButton.set_sensitive(True)
-        # Discovery and the check have finished, return False.
-        return False
-
-    def _discover(self, device):
-        """ Given the configuration options from a user, attempt to discover
-            a DASD device. This includes searching black-listed devices.
-        """
-        # Attempt to add the device.
-        try:
-            # If the device does not exist, dasd_online will return False,
-            # otherwise an exception will be raised.
-            if not blockdev.s390.dasd_online(device):
-                self._discoveryError = "The device could not be switched online. It may not exist."
-            else:
-                self._update_devicetree = True
-        except blockdev.S390Error as err:
-            self._discoveryError = str(err)
 
     def on_device_entry_activate(self, entry, user_data=None):
         # If the user hit Enter while the start button is displayed, activate
