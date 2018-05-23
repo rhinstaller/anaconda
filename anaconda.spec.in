@@ -319,6 +319,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 23 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.140-1
+- Preserve the boot option zfcp.allow_lun_scan (vponcova)
+  Resolves: rhbz#1561662
+- Don't display "Alternate Architectures" in product name (rvykydal)
+  Resolves: rhbz#1488558
+
 * Wed May 16 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.139-1
 - installclasses/rhelah: Allow LVM thin and dm-crypt (walters)
   Resolves: rhbz#1546252
