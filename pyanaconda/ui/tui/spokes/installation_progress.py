@@ -131,6 +131,14 @@ class ProgressSpoke(StandaloneTUISpoke):
 
         util.ipmi_report(IPMI_FINISHED)
 
+        if self.instclass.eula_path:
+            # Notify user about the EULA (if any).
+            print(_("Installation complete"))
+            print('')
+            print(_("Use of this product is subject to the license agreement found at:"))
+            print(self.instclass.eula_path)
+            print('')
+
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             # Just pretend like we got input, and our input doesn't care
