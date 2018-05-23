@@ -22,7 +22,7 @@ import sys
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pyanaconda import iutil
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED, eulaLocation
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
@@ -131,6 +131,13 @@ class ProgressSpoke(StandaloneTUISpoke):
 
         iutil.ipmi_report(IPMI_FINISHED)
 
+        # Notify user about the EULA.
+        print(_("Installation complete"))
+        print('')
+        print(_("Use of this product is subject to the license agreement found at:"))
+        print(eulaLocation)
+        print('')
+
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             # Just pretend like we got input, and our input doesn't care
@@ -138,7 +145,7 @@ class ProgressSpoke(StandaloneTUISpoke):
             raise ExitMainLoop()
 
     def prompt(self, args=None):
-        return Prompt(_("Installation complete. Press %s to quit") % Prompt.ENTER)
+        return Prompt(_("Press %s to quit") % Prompt.ENTER)
 
     def input(self, args, key):
         # There is nothing to do here, just raise to exit the spoke
