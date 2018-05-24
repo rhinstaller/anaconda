@@ -54,7 +54,6 @@ class TaskInterface(InterfaceTemplate):
     def connect_signals(self):
         """Connect signals to the implementation."""
         self.implementation.progress_changed_signal.connect(self.ProgressChanged)
-        self.implementation.error_raised_signal.connect(self.ErrorRaised)
         self.implementation.started_signal.connect(self.Started)
         self.implementation.stopped_signal.connect(self.Stopped)
 
@@ -75,11 +74,6 @@ class TaskInterface(InterfaceTemplate):
         :returns: Tuple with actual step count and description of this step.
         """
         return self.implementation.progress
-
-    @dbus_signal
-    def ErrorRaised(self, error_description: Str):
-        """Error raised when job is running."""
-        pass
 
     @dbus_signal
     def ProgressChanged(self, step: Int, message: Str):
@@ -125,4 +119,11 @@ class TaskInterface(InterfaceTemplate):
 
     def Start(self):
         """Run the task work."""
-        self.implementation.run()
+        self.implementation.start()
+
+    def Finish(self):
+        """Finish the task after it stopped.
+
+        This method will return an error if the task failed.
+        """
+        self.implementation.finish()

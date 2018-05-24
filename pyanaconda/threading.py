@@ -279,25 +279,51 @@ class AnacondaThread(threading.Thread):
         else:
             self._fatal = True
 
+        self._target_started_callback = kwargs.pop("target_started", None)
+        self._target_stopped_callback = kwargs.pop("target_stopped", None)
+        self._target_failed_callback = kwargs.pop("target_failed", None)
+
         super().__init__(*args, **kwargs)
         self.daemon = True
+
+    def _target_started(self):
+        log.info("Running Thread: %s (%s)", self.name, self.ident)
+
+        if self._target_started_callback:
+            self._target_started_callback()
+
+    def _target_stopped(self):
+        log.info("Thread Done: %s (%s)", self.name, self.ident)
+
+        if self._target_stopped_callback:
+            self._target_stopped_callback()
+
+    def _target_failed(self, *exc_info):
+        log.info("Thread Failed: %s (%s)", self.name, self.ident)
+
+        if self._fatal:
+            import sys
+            sys.excepthook(*exc_info)
+        else:
+            threadMgr.set_error(self.name, *exc_info)
+
+        if self._target_failed_callback:
+            self._target_failed_callback(*exc_info)
 
     def run(self):
         # http://bugs.python.org/issue1230540#msg25696
         import sys
 
-        log.info("Running Thread: %s (%s)", self.name, self.ident)
         try:
+            self._target_started()
             threading.Thread.run(self)
-        # pylint: disable=bare-except
-        except:
-            if self._fatal:
-                sys.excepthook(*sys.exc_info())
-            else:
-                threadMgr.set_error(self.name, *sys.exc_info())
+
+        except:  # pylint: disable=bare-except
+            self._target_failed(*sys.exc_info())
+
         finally:
             threadMgr.remove(self.name)
-            log.info("Thread Done: %s (%s)", self.name, self.ident)
+            self._target_stopped()
 
 
 def initThreading():
