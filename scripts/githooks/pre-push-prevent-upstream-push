@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# pre-push hook blocking push to the upstream brach.
+# You can disable this hook by calling push with --no-verify argument.
+#
+# If you want to use this hook then call:
+#
+# cp ./pre-push-prevent-upstream-push ../../.git/hooks/pre-push
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+
+remote="$1"
+url="$2"
+
+prevent_remote="$(git remote -v | grep rhinstaller | head -n 1 | cut -f 1)"
+
+IFS=' '
+
+if [ "$remote" = "$prevent_remote" ]; then
+    echo "Do not push to remote branch"
+    echo "If you really want to push, use --no-verify to skip this check"
+    exit 1
+fi
+
+exit 0
