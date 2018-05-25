@@ -29,43 +29,17 @@ TASK_PROGRESS_STEPS_COUNT = 20
 
 class TaskTestCase(unittest.TestCase):
 
-    def _check_progress(self, task, step, msg):
-        self.assertEqual(task.progress, (step, msg))
-        self.assertEqual(task.progress_changed_out, (step, msg))
-
     def test_progress(self):
         task = TestTask()
+
         self.assertEqual(task.progress, (0, ""))
 
-        task.report_progress("1")
-        self._check_progress(task, 0, "1")
+        step_num = 2
+        step_desc = "reaching the end of the cave"
+        task.progress_changed(step_num, step_desc)
 
-        task.report_progress("2")
-        self._check_progress(task, 0, "2")
-
-        task.report_progress("3", do_step=True)
-        self._check_progress(task, 1, "3")
-
-        task.report_progress("4")
-        self._check_progress(task, 1, "4")
-
-        task.report_progress("5")
-        self._check_progress(task, 1, "5")
-
-        task.report_progress("6", do_step=True)
-        self._check_progress(task, 2, "6")
-
-        task.report_progress("7", do_step=True)
-        self._check_progress(task, 3, "7")
-
-        task.report_progress("8", do_step=True)
-        self._check_progress(task, 4, "8")
-
-        task.report_progress("9", do_step=True, step_size=2)
-        self._check_progress(task, 6, "9")
-
-        task.report_progress("10", do_step=True, step_size=4)
-        self._check_progress(task, 10, "10")
+        self.assertEqual(task.progress, (step_num, step_desc))
+        self.assertEqual(task.progress_changed_out, (step_num, step_desc))
 
     def test_cancel(self):
         task = TestTask()
