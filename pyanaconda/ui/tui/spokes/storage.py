@@ -20,7 +20,7 @@
 from collections import OrderedDict
 
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER
+    BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, \
     getDisksByNames
@@ -41,7 +41,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET
+    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda import kickstart
@@ -91,6 +91,9 @@ class StorageSpoke(NormalTUISpoke):
         self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
         self._disk_select_observer.connect()
 
+        self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
+        self._auto_part_observer.connect()
+
         self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
 
         self.title = N_("Installation Destination")
@@ -108,7 +111,7 @@ class StorageSpoke(NormalTUISpoke):
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
-            self.data.autopart.autopart = True
+            self._auto_part_observer.proxy.SetEnabled(True)
 
     @property
     def completed(self):
@@ -141,7 +144,7 @@ class StorageSpoke(NormalTUISpoke):
             return _("Error checking storage configuration")
         elif self.warnings:
             return _("Warning checking storage configuration")
-        elif self.data.autopart.autopart:
+        elif self._auto_part_observer.proxy.Enabled:
             return _("Automatic partitioning selected")
         else:
             return _("Custom partitioning selected")
@@ -208,7 +211,7 @@ class StorageSpoke(NormalTUISpoke):
         # Commment out because there is no way to select a disk right
         # now without putting it in ksdata.  Seems wrong?
         # self.selected_disks = self.data.ignoredisk.onlyuse[:]
-        self.autopart = self.data.autopart.autopart
+        self.autopart = self._auto_part_observer.proxy.Enabled
 
         self._container = ListColumnContainer(1, spacing=1)
 
@@ -358,13 +361,13 @@ class StorageSpoke(NormalTUISpoke):
         print(msg, flush=True)
 
     def apply(self):
-        self.autopart = self.data.autopart.autopart
+        self.autopart = self._auto_part_observer.proxy.Enabled
 
         self._disk_select_observer.proxy.SetSelectedDisks(self.selected_disks)
         self._disk_init_observer.proxy.SetDrivesToClear(self.selected_disks)
 
-        if self.autopart and self.data.autopart.type is None:
-            self.data.autopart.type = AUTOPART_TYPE_LVM
+        if self.autopart and self._auto_part_observer.proxy.Type == AUTOPART_TYPE_DEFAULT:
+            self._auto_part_observer.proxy.SetType(AUTOPART_TYPE_LVM)
 
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
@@ -387,7 +390,7 @@ class StorageSpoke(NormalTUISpoke):
         # created/scheduled to make room for autopart.
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
-        self.storage.config.clear_non_existent = self.data.autopart.autopart
+        self.storage.config.clear_non_existent = self._auto_part_observer.proxy.Enabled
 
     def execute(self):
         print(_("Generating updated storage configuration"))
@@ -402,7 +405,7 @@ class StorageSpoke(NormalTUISpoke):
             self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
             self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
-            self.storage.autopart_type = self.data.autopart.type
+            self.storage.autopart_type = self._auto_part_observer.proxy.Type
 
             # The reset also calls self.storage.config.update().
             self.storage.reset()
@@ -484,6 +487,9 @@ class PartTypeSpoke(NormalTUISpoke):
         self._orig_clearpart_type = self._disk_init_proxy.InitializationMode
         self._orig_mount_assign = len(self.data.mount.dataList()) != 0
 
+        # Create the auto partitioning proxy
+        self._auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+
         # default to mount point assignment if it is already (partially)
         # configured
         self._do_mount_assign = self._orig_mount_assign
@@ -533,12 +539,12 @@ class PartTypeSpoke(NormalTUISpoke):
         # partition options, autopart was never set to True, causing some
         # issues. (rhbz#1001061)
         if not self._do_mount_assign:
-            self.data.autopart.autopart = True
+            self._auto_part_proxy.SetEnabled(True)
             self._disk_init_proxy.SetInitializationMode(self.clearPartType)
             self._disk_init_proxy.SetInitializeLabelsEnabled(True)
             self.data.mount.clear_mount_data()
         else:
-            self.data.autopart.autopart = False
+            self._auto_part_proxy.SetEnabled(False)
             self._disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
             self._disk_init_proxy.SetInitializeLabelsEnabled(False)
 
@@ -601,7 +607,13 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         self.title = N_("Partition Scheme Options")
         self._container = None
         self.part_schemes = OrderedDict()
-        pre_select = self.data.autopart.type or DEFAULT_AUTOPART_TYPE
+
+        self._auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+        pre_select = self._auto_part_proxy.Type
+
+        if pre_select == AUTOPART_TYPE_DEFAULT:
+            pre_select = DEFAULT_AUTOPART_TYPE
+
         for item in AUTOPART_CHOICES:
             self.part_schemes[item[0]] = item[1]
             if item[1] == pre_select:
@@ -642,7 +654,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
     def apply(self):
         """ Apply our selections. """
-        self.data.autopart.type = self._selected_scheme_value
+        self._auto_part_proxy.SetType(self._selected_scheme_value)
 
 
 class MountDataRecorder(kickstart.MountData):

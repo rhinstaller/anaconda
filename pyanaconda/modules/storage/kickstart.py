@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from pykickstart.commands.autopart import F26_AutoPart
 from pykickstart.commands.bootloader import F29_Bootloader
@@ -52,6 +53,21 @@ def get_device_names(specs, disks_only=False, msg="{}", lineno=None):
             drives.extend(matched)
 
     return drives
+
+
+class AutoPart(F26_AutoPart):
+    """The autopart kickstart command."""
+
+    def parse(self, args):
+        retval = super().parse(args)
+
+        if self.fstype:
+            fmt = get_format(self.fstype)
+
+            if not fmt or fmt.type is None:
+                raise KickstartParseError(_("File system type \"{}\" given in autopart command is "
+                                            "invalid.").format(self.fstype), lineno=self.lineno)
+        return retval
 
 
 class ClearPart(F28_ClearPart):
@@ -116,7 +132,7 @@ class StorageKickstartSpecification(KickstartSpecification):
 
     version = F28
     commands = {
-        "autopart": F26_AutoPart,
+        "autopart": AutoPart,
         "bootloader": F29_Bootloader,
         "clearpart": ClearPart,
         "ignoredisk": IgnoreDisk,

@@ -27,6 +27,8 @@ from pyanaconda.core.i18n import N_
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
 from pyanaconda.core import constants
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -101,7 +103,8 @@ class PassphraseDialog(GUIObject):
         self._confirm_entry.set_property("im-module", "")
 
         # initialize with the previously set passphrase
-        self.passphrase = self.data.autopart.passphrase
+        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+        self.passphrase = auto_part_proxy.Passphrase
 
         if not self.passphrase:
             self._save_button.set_sensitive(False)
