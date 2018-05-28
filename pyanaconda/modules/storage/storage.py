@@ -84,11 +84,6 @@ class StorageModule(KickstartModule):
         data = self.get_kickstart_handler()
 
         for kickstart_module in self._modules:
-
-            # The auto partitioning module is not used in UI for now.
-            if skip_unsupported and isinstance(kickstart_module, AutoPartitioningModule):
-                continue
-
             kickstart_module.setup_kickstart(data)
 
         return str(data)

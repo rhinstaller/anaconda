@@ -62,7 +62,8 @@ from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
+    AUTO_PARTITIONING
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -1520,9 +1521,10 @@ class InstallerStorage(Blivet):
             disk_select_proxy.SetSelectedDisks(self.exclusive_disks)
 
         # autopart
-        self.ksdata.autopart.autopart = self.do_autopart
-        self.ksdata.autopart.type = self.autopart_type
-        self.ksdata.autopart.encrypted = self.encrypted_autopart
+        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+        auto_part_proxy.SetEnabled(self.do_autopart)
+        auto_part_proxy.SetType(self.autopart_type)
+        auto_part_proxy.SetEncrypted(self.encrypted_autopart)
 
         # clearpart
         disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)

@@ -390,7 +390,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_type_kickstart_test(self):
         """Test the autopart command with the type option."""
@@ -400,7 +400,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --type=thinp
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_fstype_kickstart_test(self):
         """Test the autopart command with the fstype option."""
@@ -410,7 +410,13 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --fstype=ext4
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
+
+        ks_in = """
+        autopart --fstype=invalid
+        """
+        ks_out = ""
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     def autopart_nopart_kickstart_test(self):
         """Test the autopart command with nohome, noboot and noswap options."""
@@ -420,7 +426,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --nohome --noboot --noswap
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_encrypted_kickstart_test(self):
         """Test the autopart command with the encrypted option."""
@@ -430,7 +436,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_cipher_kickstart_test(self):
         """Test the autopart command with the cipher option."""
@@ -440,7 +446,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --cipher="aes-xts-plain64"
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_passphrase_kickstart_test(self):
         """Test the autopart command with the passphrase option."""
@@ -450,7 +456,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --passphrase="123456"
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_escrowcert_kickstart_test(self):
         """Test the autopart command with the escrowcert option."""
@@ -460,7 +466,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt"
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
     def autopart_backuppassphrase_kickstart_test(self):
         """Test the autopart command with the backuppassphrase option."""
@@ -470,7 +476,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
 
 class DiskInitializationInterfaceTestCase(unittest.TestCase):

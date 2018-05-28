@@ -71,14 +71,14 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
-    BOOTLOADER_ENABLED
+    BOOTLOADER_ENABLED, AUTOPART_TYPE_DEFAULT
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER
+    BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
@@ -288,6 +288,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._disk_select_observer = STORAGE.get_observer(DISK_SELECTION)
         self._disk_select_observer.connect()
 
+        self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
+        self._auto_part_observer.connect()
+
         self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
 
         # This list contains all possible disks that can be included in the install.
@@ -297,10 +300,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
-            self.data.autopart.autopart = True
+            self._auto_part_observer.proxy.SetEnabled(True)
 
-        self.autopart = self.data.autopart.autopart
-        self.autoPartType = None
+        self.autopart = self._auto_part_observer.proxy.Enabled
+        self.autoPartType = constants.AUTOPART_TYPE_DEFAULT
         self.clearPartType = constants.CLEAR_PARTITIONS_NONE
         self._previous_autopart = False
 
@@ -379,10 +382,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def apply(self):
         applyDiskSelection(self.storage, self.data, self.selected_disks)
-        self.data.autopart.autopart = self.autopart
-        self.data.autopart.type = self.autoPartType
-        self.data.autopart.encrypted = self.encrypted
-        self.data.autopart.passphrase = self.passphrase
+        self._auto_part_observer.proxy.SetEnabled(self.autopart)
+        self._auto_part_observer.proxy.SetType(self.autoPartType)
+        self._auto_part_observer.proxy.SetEncrypted(self.encrypted)
+        self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
 
         boot_drive = self._bootloader_observer.proxy.Drive
         if boot_drive and boot_drive not in self.selected_disks:
@@ -396,15 +399,15 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
         self.storage.config.update()
-        self.storage.autopart_type = self.data.autopart.type
-        self.storage.encrypted_autopart = self.data.autopart.encrypted
-        self.storage.encryption_passphrase = self.data.autopart.passphrase
+        self.storage.autopart_type = self._auto_part_observer.proxy.Type
+        self.storage.encrypted_autopart = self._auto_part_observer.proxy.Encrypted
+        self.storage.encryption_passphrase = self._auto_part_observer.proxy.Passphrase
 
         # If autopart is selected we want to remove whatever has been
         # created/scheduled to make room for autopart.
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
-        self.storage.config.clear_non_existent = self.data.autopart.autopart
+        self.storage.config.clear_non_existent = self._auto_part_observer.proxy.Enabled
 
     @async_action_nowait
     def execute(self):
@@ -451,7 +454,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.wait(constants.THREAD_DASDFMT)
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         threadMgr.wait(constants.THREAD_STORAGE)
-        if flags.automatedInstall and self.data.autopart.encrypted and not self.data.autopart.passphrase:
+        if flags.automatedInstall \
+                and self._auto_part_observer.proxy.Encrypted \
+                and not self._auto_part_observer.proxy.Passphrase:
             self.autopart_missing_passphrase = True
             StorageCheckHandler.errors = [_("Passphrase for autopart encryption not specified.")]
             self._ready = True
@@ -492,7 +497,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             hubQ.send_message(self.__class__.__name__, _("Unexpected storage error"))
             raise e
         else:
-            if self.autopart or (flags.automatedInstall and (self.data.autopart.autopart or self.data.partition.seen)):
+            if self.autopart or \
+                    (flags.automatedInstall and
+                     (self._auto_part_observer.proxy.Enabled or self.data.partition.seen)):
                 # run() executes StorageCheckHandler.checkStorage in a seperate thread
                 self.run()
         finally:
@@ -552,7 +559,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             return _("Error checking storage configuration")
         elif self.warnings:
             return _("Warning checking storage configuration")
-        elif self.data.autopart.autopart:
+        elif self._auto_part_observer.proxy.Enabled:
             return _("Automatic partitioning selected")
         else:
             return _("Custom partitioning selected")
@@ -637,12 +644,14 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # empty (because of all child devices hidden)
         self._unhide_disks()
 
-        self.autopart = self.data.autopart.autopart
-        self.autoPartType = self.data.autopart.type
-        if self.autoPartType is None:
+        self.autopart = self._auto_part_observer.proxy.Enabled
+
+        self.autoPartType = self._auto_part_observer.proxy.Type
+        if self.autoPartType == AUTOPART_TYPE_DEFAULT:
             self.autoPartType = AUTOPART_TYPE_LVM
-        self.encrypted = self.data.autopart.encrypted
-        self.passphrase = self.data.autopart.passphrase
+
+        self.encrypted = self._auto_part_observer.proxy.Encrypted
+        self.passphrase = self._auto_part_observer.proxy.Passphrase
 
         self._previous_autopart = self.autopart
 

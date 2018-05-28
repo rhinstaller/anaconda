@@ -29,6 +29,8 @@ from pyanaconda.dbus.launcher import DBusLauncher
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.startup_utils import run_boss, stop_boss
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
@@ -229,9 +231,11 @@ class Anaconda(object):
         boot_fstype = None
 
         # Get the default fstype from a kickstart file.
-        if self.ksdata.autopart.autopart and self.ksdata.autopart.fstype:
-            fstype = self.ksdata.autopart.fstype
-            boot_fstype = self.ksdata.autopart.fstype
+        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+
+        if auto_part_proxy.Enabled and auto_part_proxy.FilesystemType:
+            fstype = auto_part_proxy.FilesystemType
+            boot_fstype = fstype
         # Or from an install class.
         elif self.instClass.defaultFS:
             fstype = self.instClass.defaultFS

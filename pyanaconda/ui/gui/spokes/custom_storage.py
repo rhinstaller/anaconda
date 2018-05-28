@@ -39,10 +39,11 @@ from pyanaconda.product import productName, productVersion, translated_new_insta
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE, \
-    BOOTLOADER_DRIVE_UNSET
+    BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
+    AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.platform import platform
@@ -191,6 +192,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._disk_init_observer = STORAGE.get_observer(DISK_INITIALIZATION)
         self._disk_init_observer.connect()
 
+        self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
+        self._auto_part_observer.connect()
+
     def apply(self):
         self.clear_errors()
 
@@ -200,7 +204,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.storage.set_fstab_swaps(new_swaps)
 
         # update the global passphrase
-        self.data.autopart.passphrase = self.passphrase
+        self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
 
         # make sure any device/passphrase pairs we've obtained are remembered
         for device in self.storage.devices:
@@ -410,7 +414,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
-        self.passphrase = self.data.autopart.passphrase
+        self.passphrase = self._auto_part_observer.proxy.Passphrase
         self._reset_storage()
         self._do_refresh()
 
@@ -432,7 +436,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_autopart_type(self, autopartTypeCombo):
         itr = autopartTypeCombo.get_active_iter()
         if not itr:
-            return None
+            return AUTOPART_TYPE_DEFAULT
 
         model = autopartTypeCombo.get_model()
         return model[itr][1]
@@ -446,8 +450,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         clicks the '+' button.
 
         """
-
-        self.data.autopart.type = self._get_autopart_type(autopartTypeCombo)
+        self._auto_part_observer.proxy.SetType(self._get_autopart_type(autopartTypeCombo))
 
     def get_new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
@@ -1805,7 +1808,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # If you want "encrypt my VG/PVs" you'll have to either use the autopart
         # button or wait until we have a way to control container-level
         # encryption.
-        dev_info["encrypted"] = self.data.autopart.encrypted
+        dev_info["encrypted"] = self._auto_part_observer.proxy.Encrypted
 
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
@@ -1813,7 +1816,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
             dev_info["mountpoint"] = None
 
-        dev_info["device_type"] = device_type_from_autopart(self.data.autopart.type)
+        dev_info["device_type"] = device_type_from_autopart(self._auto_part_observer.proxy.Type)
         if (dev_info["device_type"] != DEVICE_TYPE_PARTITION and
             ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
              dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES)):
@@ -2318,7 +2321,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                                              container.size)
         else:
             self._device_container_raid_level = None
-            self._device_container_encrypted = self.data.autopart.encrypted
+            self._device_container_encrypted = self._auto_part_observer.proxy.Encrypted
             self._device_container_size = SIZE_POLICY_AUTO
 
         self._modifyContainerButton.set_sensitive(not container_exists)
