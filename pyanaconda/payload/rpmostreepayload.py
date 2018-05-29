@@ -133,7 +133,7 @@ class RPMOSTreePayload(ArchivePayload):
                         sub_destpath = os.path.join(destpath, subname)
                         self._safeExecWithRedirect('cp', ['-r', '-p', sub_srcpath, sub_destpath])
             else:
-                log.info("Copying bootloader data: " + fname)
+                log.info("Copying bootloader data: %s", fname)
                 self._safeExecWithRedirect('cp', ['-r', '-p', srcpath, destpath])
 
             # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
@@ -211,7 +211,7 @@ class RPMOSTreePayload(ArchivePayload):
                 util.ipmi_abort(scripts=self.data.scripts)
                 sys.exit(1)
 
-        log.info("ostree pull: " + (progress.get_status() or ""))
+        log.info("ostree pull: %s", progress.get_status() or "")
         progressQ.send_message(_("Preparing deployment of %s") % (ref, ))
 
         # Now that we have the data pulled, delete the remote for now.
