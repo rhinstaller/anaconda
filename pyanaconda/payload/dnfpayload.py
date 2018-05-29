@@ -284,7 +284,7 @@ def do_transaction(base, queue_instance):
         import traceback
         exit_reason = str(e) + traceback.format_exc()
     finally:
-        base.close()
+        base.close() # Always close this base.
         queue_instance.put(('quit', str(exit_reason)))
 
 
@@ -996,7 +996,7 @@ class DNFPayload(payload.PackagePayload):
             (token, msg) = queue_instance.get()
 
         process.join()
-        self._base.close()
+        # Don't close the mother base here, because we still need it.
         if os.path.exists(self._download_location):
             log.info("Cleaning up downloaded packages: %s", self._download_location)
             shutil.rmtree(self._download_location)
@@ -1237,6 +1237,8 @@ class DNFPayload(payload.PackagePayload):
             except payload.PayloadSetupError as e:
                 log.error(e)
 
+        # We don't need the mother base anymore. Close it.
+        self._base.close()
         super().postInstall()
 
     def writeStorageLate(self):
