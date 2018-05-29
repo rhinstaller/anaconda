@@ -25,9 +25,3 @@ from pyanaconda.modules.common.errors import AnacondaError
 class TaskError(AnacondaError):
     """General exception for task errors."""
     pass
-
-
-@dbus_error("TaskAlreadyRunningError", namespace=ANACONDA_NAMESPACE)
-class TaskAlreadyRunningError(TaskError):
-    """Exception will be raised when starting task which is already running."""
-    pass

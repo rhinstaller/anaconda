@@ -54,19 +54,14 @@ class TaskInterface(InterfaceTemplate):
     def connect_signals(self):
         """Connect signals to the implementation."""
         self.implementation.progress_changed_signal.connect(self.ProgressChanged)
-        self.implementation.error_raised_signal.connect(self.ErrorRaised)
         self.implementation.started_signal.connect(self.Started)
         self.implementation.stopped_signal.connect(self.Stopped)
+        self.implementation.failed_signal.connect(self.Failed)
 
     @property
     def Name(self) -> Str:
-        """Get name of this task."""
+        """Get the name of this task."""
         return self.implementation.name
-
-    @property
-    def Description(self) -> Str:
-        """Get description of this task."""
-        return self.implementation.description
 
     @property
     def Progress(self) -> Tuple[Int, Str]:
@@ -77,36 +72,19 @@ class TaskInterface(InterfaceTemplate):
         return self.implementation.progress
 
     @dbus_signal
-    def ErrorRaised(self, error_description: Str):
-        """Error raised when job is running."""
-        pass
-
-    @dbus_signal
     def ProgressChanged(self, step: Int, message: Str):
         """Signal making progress for this task.
 
-        :param step: Number of the actual step. Please look on the self.ProgressStepsCount to
+        :param step: Number of the actual step. Please look on the self.Steps to
                      calculate progress percentage.
         :param message: Short description of what is this task currently trying to do.
         """
         pass
 
     @property
-    def ProgressStepsCount(self) -> Int:
-        """Get number of steps for this task."""
-        return self.implementation.progress_steps_count
-
-    @property
-    def IsCancelable(self) -> Bool:
-        """Could this task be cancelled."""
-        return self.implementation.is_cancelable
-
-    def Cancel(self):
-        """Cancel this task.
-
-        This will do something only if the IsCancelable property will return `True`.
-        """
-        self.implementation.cancel()
+    def Steps(self) -> Int:
+        """Get total number of steps for this task."""
+        return self.implementation.steps
 
     @property
     def IsRunning(self) -> Bool:
@@ -123,6 +101,22 @@ class TaskInterface(InterfaceTemplate):
         """Signal when this task stops."""
         pass
 
+    @dbus_signal
+    def Failed(self):
+        """Signal when this task fails."""
+        pass
+
     def Start(self):
         """Run the task work."""
-        self.implementation.run()
+        self.implementation.start()
+
+    def Cancel(self):
+        """Cancel the task."""
+        self.implementation.cancel()
+
+    def Finish(self):
+        """Finish the task after it stopped.
+
+        This method will return an error if the task failed.
+        """
+        self.implementation.finish()

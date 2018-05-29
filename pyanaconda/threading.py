@@ -25,7 +25,6 @@ log = get_module_logger(__name__)
 
 
 _WORKER_THREAD_PREFIX = "AnaWorkerThread"
-_WORKER_WAIT_THREAD = "AnaWaitThread"
 
 
 class ThreadManager(object):
@@ -142,38 +141,6 @@ class ThreadManager(object):
             msg = "Unhandled errors from the following threads detected: %s" % thread_names
             raise RuntimeError(msg)
 
-    def call_when_thread_terminates(self, thread_name, callback, *args, **kwargs):
-        """Call the callback when thread with thread_name terminates.
-
-        The callback will be called on the special thread so this is NOT thread safe.
-        For the thread safe variant see the pyanaconda.async_utils.async_action_no_wait decorator.
-
-        :param thread_name: Name of the thread to look on.
-        :type thread_name: str
-
-        :param callback: Call this callback when the thread terminates.
-        :type callback: A function. Other args and kwargs passed here are passed to the callback.
-        """
-        # Check and inject variables to kwargs
-        if "_thread_name" is kwargs:
-            log.error("The '_thread_name' variable can't be used in the callback!"
-                      "This variable will be overridden!")
-        if "_callback" is kwargs:
-            log.error("The '_callback' variable can't be used in the callback!"
-                      "This variable will be overridden!")
-
-        kwargs["_thread_name"] = thread_name
-        kwargs["_callback"] = callback
-
-        thread = AnacondaThread(name=_WORKER_WAIT_THREAD,
-                                target=self._call_when_thread_terminates,
-                                args=args, kwargs=kwargs)
-        self.add(thread)
-
-    def _call_when_thread_terminates(self, _thread_name, _callback, *args, **kwargs):
-        self.wait(_thread_name)
-        _callback(*args, **kwargs)
-
     def set_error(self, name, *exc_info):
         """Set the error data for a thread
 
@@ -279,25 +246,51 @@ class AnacondaThread(threading.Thread):
         else:
             self._fatal = True
 
+        self._target_started_callback = kwargs.pop("target_started", None)
+        self._target_stopped_callback = kwargs.pop("target_stopped", None)
+        self._target_failed_callback = kwargs.pop("target_failed", None)
+
         super().__init__(*args, **kwargs)
         self.daemon = True
+
+    def _target_started(self):
+        log.info("Running Thread: %s (%s)", self.name, self.ident)
+
+        if self._target_started_callback:
+            self._target_started_callback()
+
+    def _target_stopped(self):
+        log.info("Thread Done: %s (%s)", self.name, self.ident)
+
+        if self._target_stopped_callback:
+            self._target_stopped_callback()
+
+    def _target_failed(self, *exc_info):
+        log.info("Thread Failed: %s (%s)", self.name, self.ident)
+
+        if self._fatal:
+            import sys
+            sys.excepthook(*exc_info)
+        else:
+            threadMgr.set_error(self.name, *exc_info)
+
+        if self._target_failed_callback:
+            self._target_failed_callback(*exc_info)
 
     def run(self):
         # http://bugs.python.org/issue1230540#msg25696
         import sys
 
-        log.info("Running Thread: %s (%s)", self.name, self.ident)
         try:
+            self._target_started()
             threading.Thread.run(self)
-        # pylint: disable=bare-except
-        except:
-            if self._fatal:
-                sys.excepthook(*sys.exc_info())
-            else:
-                threadMgr.set_error(self.name, *sys.exc_info())
+
+        except:  # pylint: disable=bare-except
+            self._target_failed(*sys.exc_info())
+
         finally:
             threadMgr.remove(self.name)
-            log.info("Thread Done: %s (%s)", self.name, self.ident)
+            self._target_stopped()
 
 
 def initThreading():
