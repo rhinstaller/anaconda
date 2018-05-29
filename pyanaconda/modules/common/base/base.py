@@ -38,6 +38,7 @@ class BaseModule(ABC):
 
     def __init__(self):
         self._module_properties_changed = Signal()
+        self._published_tasks = {}
 
     @property
     def module_properties_changed(self):
@@ -60,6 +61,18 @@ class BaseModule(ABC):
         Nothing is published by default.
         """
         pass
+
+    def publish_task(self, namespace, task, message_bus=DBus):
+        """Publish a task.
+
+        :param namespace: a DBus namespace
+        :param task: an instance of task
+        :param message_bus: a message bus
+        :return: a DBus path of the published task
+        """
+        object_path = publish_task(message_bus, namespace, task)
+        self._published_tasks[task] = object_path
+        return object_path
 
 
 class MainModule(BaseModule):
@@ -94,10 +107,6 @@ class MainModule(BaseModule):
 class KickstartBaseModule(BaseModule):
     """Implementation of a base kickstart module."""
 
-    def __init__(self):
-        super().__init__()
-        self._published_tasks = {}
-
     def process_kickstart(self, data):
         """Process the kickstart data.
 
@@ -116,16 +125,6 @@ class KickstartBaseModule(BaseModule):
         :return: a kickstart handler
         """
         return data
-
-    @property
-    def published_tasks(self):
-        """Returns a dictionary of published tasks."""
-        return self._published_tasks
-
-    def publish_task(self, namespace, task, message_bus=DBus):
-        """Publish a task."""
-        object_path = publish_task(message_bus, namespace, task)
-        self.published_tasks[task] = object_path
 
 
 class KickstartModule(MainModule, KickstartBaseModule):
@@ -230,3 +229,10 @@ class KickstartModule(MainModule, KickstartBaseModule):
         :return: a kickstart string
         """
         return self.generate_kickstart()
+
+    def install_with_tasks(self):
+        """Return installation tasks of this module.
+
+        :return: a list of DBus paths of the installation tasks
+        """
+        return []
