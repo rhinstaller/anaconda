@@ -15,7 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.boss.install_manager.install_interface import InstallationInterface
 from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
 
-__all__ = ['InstallationInterface', 'InstallManager']
+__all__ = ['InstallManager']
