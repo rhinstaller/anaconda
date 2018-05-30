@@ -23,8 +23,8 @@ import os, sys
 import time
 from pyanaconda import constants, network, product, iutil
 import socket
-import subprocess
 import dbus
+import subprocess32 as subprocess
 
 from pyanaconda.constants import X_TIMEOUT
 from pyanaconda.i18n import _, P_

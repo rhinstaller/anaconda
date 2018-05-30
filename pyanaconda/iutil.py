@@ -25,7 +25,6 @@ import os
 import stat
 import os.path
 import errno
-import subprocess
 import unicodedata
 import shutil
 import string
@@ -38,6 +37,8 @@ import crypt
 import random
 import functools
 from distutils import spawn
+import subprocess32 as subprocess
+
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW, IPMI_ABORTED, X_TIMEOUT

@@ -107,6 +107,7 @@ Requires: authconfig
 Requires: firewalld >= %{firewalldver}
 Requires: util-linux >= %{utillinuxver}
 Requires: dbus-python
+Requires: python-subprocess32
 Requires: python-pwquality
 Requires: python-IPy
 Requires: python-nss
