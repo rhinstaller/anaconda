@@ -320,6 +320,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 30 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.141-1
+- Use subprocess32 to prevent concurrency issues. (rvykydal)
+  Resolves: rhbz#1581200
+
 * Wed May 23 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.140-1
 - Preserve the boot option zfcp.allow_lun_scan (vponcova)
   Resolves: rhbz#1561662
