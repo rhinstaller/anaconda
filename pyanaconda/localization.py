@@ -33,8 +33,6 @@ from pyanaconda.core.util import upcase_first_letter, setenv, execWithRedirect
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-LOCALE_CONF_FILE_PATH = "/etc/locale.conf"
-
 SCRIPTS_SUPPORTED_BY_CONSOLE = {'Latn', 'Cyrl', 'Grek'}
 
 #e.g. 'SR_RS.UTF-8@latin'
@@ -534,23 +532,6 @@ def get_xlated_timezone(tz_spec_part):
                                      territoryIdQuery=parts.get("territory", ""),
                                      scriptIdQuery=parts.get("script", ""))
     return xlated
-
-def write_language_configuration(lang, root):
-    """
-    Write language configuration to the $root/etc/locale.conf file.
-
-    :param lang: value for LANG locale variable
-    :param root: path to the root of the installed system
-
-    """
-
-    try:
-        fpath = os.path.normpath(root + LOCALE_CONF_FILE_PATH)
-        with open(fpath, "w") as fobj:
-            fobj.write('LANG="%s"\n' % lang)
-    except IOError as ioerr:
-        msg = "Cannot write language configuration file: %s" % ioerr.strerror
-        raise LocalizationConfigError(msg)
 
 def get_firmware_language(text_mode=False):
     """

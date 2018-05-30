@@ -60,6 +60,16 @@ class LocalizationInterface(KickstartModuleInterface):
         """
         self.implementation.set_language(language)
 
+    def InstallLanguageWithTask(self, sysroot: Str) -> ObjPath:
+        """Install language with an installation task.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a DBus path of an installation task
+        """
+        return self.implementation.install_language_with_task(sysroot)
+
     @property
     def LanguageSupport(self) -> List[Str]:
         """Supported languages on the system."""
