@@ -79,7 +79,7 @@ class DBusLauncher(object):
         self._log_file = open('/tmp/dbus.log', 'a')
         config_file = "--config-file={}".format(os.path.join(ANACONDA_DATA_DIR, "dbus/anaconda-bus.conf"))
         command = [DBusLauncher.DBUS_LAUNCH_BIN, '--print-address', "--syslog", config_file]
-        self._dbus_daemon_process = startProgram(command, stderr=self._log_file)
+        self._dbus_daemon_process = startProgram(command, stderr=self._log_file, reset_lang=False)
 
         if self._dbus_daemon_process.poll() is not None:
             raise IOError("DBus wasn't properly started!")
