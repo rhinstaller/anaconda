@@ -48,7 +48,8 @@ class AnacondaLintConfig(PocketLintConfig):
 
     @property
     def ignoreNames(self):
-        return {"translation-canary"}
+        # FIXME: Remove bootloader.py when python-astroid will be fixed (#1583256)
+        return {"translation-canary", "bootloader.py"}
 
 
 def _get_timelog_path():
