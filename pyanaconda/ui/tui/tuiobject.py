@@ -202,20 +202,35 @@ class Dialog(object):
 class PasswordDialog(Dialog):
     """Ask for user password and process it."""
 
-    def __init__(self, title, policy, report_func=reporting_callback):
+    def __init__(self, title, policy,
+                 report_func=reporting_callback,
+                 process_func=cryptPassword,
+                 secret_type=constants.SecretType.PASSWORD,
+                 message=None):
         super().__init__(title, report_func=report_func)
         self._no_separator = False
         self._policy = policy
+        self._secret_type = secret_type
+        self._process_password = process_func
+        self._dialog_message = message
 
     def run(self):
         """Get password input from user and call setter callback at the end.
 
         Repeat asking user for input to the time when all the password conditions will be satisfied.
         """
-        password = self._ask_pass_modal(self._title, self._no_separator)
-        confirm = self._ask_pass_modal("%s (confirm)" % self._title, True)
-
+        password = self._ask_pass_modal(self._get_password_prompt(), self._no_separator)
+        confirm = self._ask_pass_modal(self._get_confim_prompt(), True)
         return self._validate_password(password, confirm)
+
+    def _get_password_prompt(self):
+        if not self._dialog_message:
+            return self._title
+
+        return "{}\n\n{}".format(self._dialog_message, self._title)
+
+    def _get_confim_prompt(self):
+        return "{} (confirm)".format(self._title)
 
     def _ask_pass_modal(self, prompt, no_separator):
         pass_screen = GetPasswordInputScreen(prompt)
@@ -226,12 +241,8 @@ class PasswordDialog(Dialog):
 
     def _validate_password(self, password, confirm):
         """Validate and process user password."""
-        if (password and not confirm) or (confirm and not password):
-            self._report(_("You must enter your root password and confirm it by typing"
-                           " it a second time to continue."))
-            return None
         if password != confirm:
-            self._report(_(constants.SECRET_CONFIRM_ERROR_TUI[constants.SecretType.PASSWORD]))
+            self._report(_(constants.SECRET_CONFIRM_ERROR_TUI[self._secret_type]))
             return None
 
         # If an empty password was provided, unset the value
@@ -260,10 +271,10 @@ class PasswordDialog(Dialog):
                 done_msg = _("\nWould you like to use it anyway?")
 
             if password_check.result.error_message:
-                weak_prefix = _(constants.SECRET_WEAK_WITH_ERROR[constants.SecretType.PASSWORD])
+                weak_prefix = _(constants.SECRET_WEAK_WITH_ERROR[self._secret_type])
                 error = "{} {} {}".format(weak_prefix, password_check.result.error_message, done_msg)
             else:
-                weak_prefix = _(constants.SECRET_WEAK[constants.SecretType.PASSWORD])
+                weak_prefix = _(constants.SECRET_WEAK[self._secret_type])
                 error = "{} {}".format(weak_prefix, done_msg)
 
             if not self._policy.strict:
@@ -276,10 +287,9 @@ class PasswordDialog(Dialog):
                 return None
 
         if any(char not in constants.PW_ASCII_CHARS for char in password):
-            self._report(_("You have provided a password containing non-ASCII characters.\n"
-                           "You may not be able to switch between keyboard layouts to login.\n"))
+            self._report(_(constants.SECRET_ASCII[self._secret_type]))
 
-        return cryptPassword(password)
+        return self._process_password(password)
 
     def _report(self, message):
         if self._report_func:
