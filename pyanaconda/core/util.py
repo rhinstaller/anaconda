@@ -776,7 +776,6 @@ class ProxyString(object):
         ProxyString.url is the full url including username:password@
         ProxyString.noauth_url is the url without username:password@
         """
-        self.url = ensure_str(url, keep_none=True)
         self.protocol = ensure_str(protocol, keep_none=True)
         self.host = ensure_str(host, keep_none=True)
         self.port = str(port)
@@ -786,14 +785,50 @@ class ProxyString(object):
         self.noauth_url = None
 
         if url:
-            self.parse_url()
+            self.url = url
         elif not host:
             raise ProxyStringError(_("No host url"))
-        else:
-            self.parse_components()
 
-    def parse_url(self):
-        """ Parse the proxy url into its component pieces
+    def __str__(self):
+        return self.url
+
+    @property
+    def validate(self):
+        """ Determine if the proxy is valid or raise ProxyStringError
+        """
+        if str(self) == None:
+            raise ProxyStringError(_("Invalid proxy URL"))
+        if self.protocol and self.protocol not in ('http://', 'https://', 'ftp://'):
+            raise ProxyStringError(_("Invalid proxy protocol: %s") % self.protocol)
+
+        return True
+
+    @property
+    def noauth_url(self):
+        """ Parse the components of a proxy url into noauth_url as needed
+        """
+        if self.protocol and self.host and self.port:
+            return self.protocol + self.host + ":" + self.port
+        else:
+            return None
+
+    @property
+    def url(self):
+        """ Parse the components of a proxy url into url as needed
+        """
+        if self.username or self.password:
+            proxy_auth = "%s:%s@" % (quote(self.username or ""),
+                                     quote(self.password or ""))
+            if self.protocol and self.host and self.port:
+                return self.protocol + proxy_auth + self.host + ":" + self.port
+            else:
+                return None
+        else:
+            return self.noauth_url
+
+    @url.setter
+    def url(self, value):
+        """ Parse out a url into this object
         """
         # NOTE: If this changes, update tests/regex/proxy.py
         #
@@ -807,7 +842,7 @@ class ProxyString(object):
         # 6 = path
         # 7 = query
         # 8 = fragment
-        m = URL_PARSE.match(self.url)
+        m = URL_PARSE.match(ensure_str(value, keep_none=True))
         if not m:
             raise ProxyStringError(_("malformed URL, cannot parse it."))
 
@@ -826,21 +861,6 @@ class ProxyString(object):
                 self.port = m.group("port")
         else:
             raise ProxyStringError(_("URL has no host component"))
-
-        self.parse_components()
-
-    def parse_components(self):
-        """ Parse the components of a proxy url into url and noauth_url
-        """
-        if self.username or self.password:
-            self.proxy_auth = "%s:%s@" % (quote(self.username or ""),
-                                          quote(self.password or ""))
-
-        self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
-        self.noauth_url = self.protocol + self.host + ":" + self.port
-
-    def __str__(self):
-        return self.url
 
 def strip_accents(s):
     """This function takes arbitrary unicode string
