@@ -1493,6 +1493,7 @@ class PackagePayload(Payload):
         :return: List of selected group IDs.
         :raise PayloadError: If translation is not supported by payload.
         """
+        # pylint: disable=try-except-raise
         try:
             ret = []
             for grp in self.selectedGroups():
@@ -1503,7 +1504,7 @@ class PackagePayload(Payload):
             raise PayloadError(("Can't translate group names to group ID - "
                                 "Group translation is not implemented for %s payload." % self))
         except PayloadError as ex:
-            raise PayloadError(("Can't translate group names to group ID - %s", str(ex)))
+            raise PayloadError("Can't translate group names to group ID - {}".format(ex))
 
     def groupDescription(self, grpid):
         raise NotImplementedError()

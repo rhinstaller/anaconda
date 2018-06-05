@@ -84,7 +84,7 @@ def get_new_session_connection():
             Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
             None, None)
     except GError as gerr:
-        raise DBusCallError("Unable to connect to session bus: %s", gerr)
+        raise DBusCallError("Unable to connect to session bus: {}".format(gerr))
     finally:
         if old_euid is not None:
             os.seteuid(old_euid)
@@ -125,7 +125,7 @@ def call_sync(service, obj_path, iface, method, args,
         try:
             connection = get_new_system_connection()
         except GError as gerr:
-            raise DBusCallError("Unable to connect to system bus: %s", gerr)
+            raise DBusCallError("Unable to connect to system bus: {}".format(gerr))
 
     if connection.is_closed():
         raise DBusCallError("Connection is closed")

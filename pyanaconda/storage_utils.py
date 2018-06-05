@@ -550,7 +550,7 @@ class StorageChecker(object):
         :param value: a value of the constraint
         """
         if name in self.constraints:
-            raise KeyError("The constraint %s already exists.", name)
+            raise KeyError("The constraint {} already exists.".format(name))
 
         self.constraints[name] = value
 
@@ -564,7 +564,7 @@ class StorageChecker(object):
         :param value: a value of the constraint
         """
         if name not in self.constraints:
-            raise KeyError("The constraint %s does not exist.", name)
+            raise KeyError("The constraint {} does not exist.".format(name))
 
         self.constraints[name] = value
 

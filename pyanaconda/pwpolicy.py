@@ -92,6 +92,7 @@ class F22_PwPolicy(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
 
+    # pylint: disable=keyword-arg-before-vararg
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()

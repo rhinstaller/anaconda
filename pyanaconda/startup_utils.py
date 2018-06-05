@@ -499,7 +499,7 @@ def parse_kickstart(options, addon_paths, pass_to_boss=False):
             continue
 
         kickstart.preScriptPass(ks)
-        log.info("Parsing kickstart: " + ks)
+        log.info("Parsing kickstart: %s", ks)
 
         ksdata = kickstart.parseKickstart(ks, options.ksstrict, pass_to_boss)
 

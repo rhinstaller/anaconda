@@ -17,15 +17,12 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: S390Error$"),
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: BlockDevError$"),
                                 FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
-                                FalsePositive(r"^E1101.*: Instance of 'Namespace' has no '.*' member$"),
-
-                                # TODO: Should be fixed with https://github.com/PyCQA/astroid/pull/433
-                                FalsePositive(r"^E1129.*: Context manager 'lock' doesn't implement __enter__ and __exit__.$"),
-
+                                FalsePositive(r"^E1101.*: Method 'PropertiesChanged' has no 'connect' member$"),
                                 FalsePositive(r"^E1101.*: Instance of 'GError' has no 'message' member"),
                                 FalsePositive(r"^E1101.*: FedoraGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: HostipGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: Geocoder._reverse_geocode_nominatim: Instance of 'LookupDict' has no 'ok' member"),
+
                                 # TODO: BlockDev introspection needs to be added to pylint to handle these
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_format' member"),

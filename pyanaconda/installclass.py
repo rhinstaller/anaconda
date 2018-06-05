@@ -218,7 +218,7 @@ class InstallClassFactory(object):
 
                 return install_class()
 
-        raise RuntimeError("Unable to find the install class %s.", name)
+        raise RuntimeError("Unable to find the install class {}.".format(name))
 
     def get_best_install_class(self):
         """Return the instance of the best found install class."""

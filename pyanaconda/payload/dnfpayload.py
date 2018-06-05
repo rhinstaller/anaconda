@@ -1178,7 +1178,8 @@ class DNFPayload(payload.PackagePayload):
             else:
                 f.close()
                 os.unlink(repo_path)
-                raise payload.PayloadSetupError("repo %s has no baseurl, mirrorlist or metalink", repo.id)
+                raise payload.PayloadSetupError("The repo {} has no baseurl, mirrorlist or "
+                                                "metalink".format(repo.id))
 
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)

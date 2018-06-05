@@ -1,3 +1,4 @@
+# pylint: skip-file
 # bootloader.py
 # Anaconda's bootloader configuration module.
 #
