@@ -15,6 +15,37 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.boss.install_manager.install_manager import InstallManager
+from threading import Lock
+from abc import ABC
 
-__all__ = ['InstallManager']
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+__all__ = ['Cancellable']
+
+
+class Cancellable(ABC):
+    """Abstract class that allows to cancel a task."""
+
+    def __init__(self):
+        super().__init__()
+        self.__cancel_lock = Lock()
+        self.__cancel = False
+
+    def cancel(self):
+        """Request the cancellation of the task."""
+        with self.__cancel_lock:
+            self.__cancel = True
+
+    def check_cancel(self):
+        """Should the task be canceled right now?
+
+        Check if the task cancellation is requested.
+        If yes, clear the cancel flag.
+
+        This is a thread safe method.
+
+        :returns: bool
+        """
+        with self.__cancel_lock:
+            return self.__cancel

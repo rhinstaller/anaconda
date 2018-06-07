@@ -17,10 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from time import sleep
+
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import BAZ
+from pyanaconda.modules.common.task import Task
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -33,3 +36,29 @@ class Baz(KickstartModule):
         """Publish the module."""
         DBus.publish_object(BAZ.object_path, BazInterface(self))
         DBus.register_service(BAZ.service_name)
+
+    def install_with_tasks(self):
+        """Return installation tasks."""
+        return [self.publish_task(BAZ.namespace, BazTask())]
+
+
+class BazTask(Task):
+    """The Baz task."""
+
+    @property
+    def name(self):
+        return "Configure Baz"
+
+    @property
+    def steps(self):
+        return 5
+
+    def run(self):
+        self.report_progress("Working..", step_size=1)
+        sleep(5)
+
+        self.report_progress("Taking a nap...", step_size=1)
+        sleep(5)
+
+        self.report_progress("Finishing...", step_size=1)
+        sleep(5)

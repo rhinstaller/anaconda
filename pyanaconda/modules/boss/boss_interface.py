@@ -29,6 +29,13 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 class BossInterface(InterfaceTemplate):
     """DBus interface for the Boss."""
 
+    def InstallSystemWithTask(self) -> ObjPath:
+        """Install the system.
+
+        :return: a DBus path of the main installation task
+        """
+        return self.implementation.install_system_with_task()
+
     def Quit(self):
         """Stop all modules and then stop the boss."""
         self.implementation.stop()

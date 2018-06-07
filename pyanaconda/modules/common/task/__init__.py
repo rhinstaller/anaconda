@@ -15,10 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.common.task.task import Task
+from time import sleep
+
+from pyanaconda.modules.common.task.task import Task, AbstractTask
 from pyanaconda.modules.common.task.task_interface import TaskInterface
 
-__all__ = ["publish_task", "Task", "TaskInterface"]
+__all__ = ["publish_task", "sync_run_task", "async_run_task", "AbstractTask", "Task",
+           "TaskInterface"]
 
 
 def publish_task(message_bus, namespace, task_instance):
@@ -33,3 +36,42 @@ def publish_task(message_bus, namespace, task_instance):
     object_path = TaskInterface.get_object_path(namespace)
     message_bus.publish_object(object_path, publishable)
     return object_path
+
+
+def sync_run_task(task_proxy):
+    """Run a remote task synchronously.
+
+    :param task_proxy: a proxy of the remote task
+    :raise: a remote error
+    """
+    task_proxy.Start()
+
+    while task_proxy.IsRunning:
+        sleep(1)
+
+    task_proxy.Finish()
+
+
+def async_run_task(task_proxy, callback):
+    """Run a remote task asynchronously.
+
+    The callback is called once the task is done. You should always
+    call the Finish method of the remote task in your callback and
+    handle the remote errors.
+
+    Example of the callback:
+
+        def callback(task_proxy):
+            try:
+                task_proxy.Finish()
+            except RemoteError as e:
+                pass
+
+    :param task_proxy: a proxy of the remote task
+    :param callback: a callback with a task_proxy argument
+    """
+    def _callback():
+        callback(task_proxy)
+
+    task_proxy.Stopped.connect(_callback)
+    task_proxy.Start()

@@ -16,71 +16,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.common.errors.installation import InstallationNotRunning
+from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-TASK_NAME = 0
-TASK_PATH = 1
-
 
 class InstallManager(object):
-    """Manager to control module installation.
-
-    Installation tasks will be collected from modules and run one by one.
-
-    Provides summarized API (InstallationInterface class) for UI.
-    """
+    """Manager of the system installation."""
 
     def __init__(self):
         """ Create installation manager."""
-        self._tasks = set()
-        self._actual_task = None
-        self._step_sum = 0
-        self._tasks_done_step = 0
-        self._installation_terminated = False
         self._module_observers = []
-
-        self._install_started_signal = Signal()
-        self._install_stopped_signal = Signal()
-        self._task_changed_signal = Signal()
-        self._progress_changed_signal = Signal()
-        self._progress_changed_float_signal = Signal()
-        self._error_raised_signal = Signal()
-
-        self._subscriptions = []
-
-    @property
-    def installation_started(self):
-        return self._install_started_signal
-
-    @property
-    def installation_stopped(self):
-        return self._install_stopped_signal
-
-    @property
-    def task_changed_signal(self):
-        """Signal when installation task changed."""
-        return self._task_changed_signal
-
-    @property
-    def progress_changed_signal(self):
-        """Signal when progress changed."""
-        return self._progress_changed_signal
-
-    @property
-    def progress_changed_float_signal(self):
-        """Signal when progress in float changed."""
-        return self._progress_changed_float_signal
-
-    @property
-    def error_raised_signal(self):
-        """Signal which will be emitted when error raised during installation."""
-        return self._error_raised_signal
 
     @property
     def module_observers(self):
@@ -96,22 +44,21 @@ class InstallManager(object):
         """
         self._module_observers = modules
 
-    def start_installation(self):
-        """Start the installation."""
-        self._collect_tasks()
+    def install_system_with_task(self):
+        """Install the system.
 
-        self._sum_steps_count()
-        self._disconnect_task()
-        self._tasks_done_step = 0
-        self._installation_terminated = False
+        :return: an instance of the main installation task
+        """
+        installation_tasks = self._collect_installation_tasks()
+        system_task = SystemInstallationTask(installation_tasks)
+        return system_task
 
-        if self._tasks:
-            self._actual_task = self._tasks.pop()
-            self._install_started_signal.emit()
-            self._run_task()
+    def _collect_installation_tasks(self):
+        """Collect installation tasks from modules.
 
-    def _collect_tasks(self):
-        self._tasks.clear()
+        :return: a list of tasks proxies
+        """
+        tasks = []
 
         if not self._module_observers:
             log.error("Starting installation without available modules.")
@@ -125,153 +72,11 @@ class InstallManager(object):
                 continue
 
             service_name = observer.service_name
-            task_paths = observer.proxy.AvailableTasks
+            task_paths = observer.proxy.InstallWithTasks()
 
             for object_path in task_paths:
                 log.debug("Getting task %s from module %s", object_path, service_name)
                 task_proxy = DBus.get_proxy(service_name, object_path)
-                self._tasks.add(task_proxy)
+                tasks.append(task_proxy)
 
-    def _sum_steps_count(self):
-        self._step_sum = 0
-        for task in self._tasks:
-            self._step_sum += task.ProgressStepsCount
-
-    def _run_task(self):
-        if self._installation_terminated:
-            log.debug("Don't run another task. The installation was terminated.")
-            return
-
-        task_name = self._actual_task.Name
-
-        log.debug("Running installation task %s", task_name)
-        self._disconnect_task()
-        self._connect_task()
-        self._task_changed_signal.emit(task_name)
-        self._actual_task.Start()
-
-    def _connect_task(self):
-        s = self._actual_task.ProgressChanged.connect(self._progress_changed)
-        self._subscriptions.append(s)
-
-        s = self._actual_task.Started.connect(self._task_started)
-        self._subscriptions.append(s)
-
-        s = self._actual_task.Stopped.connect(self._task_stopped)
-        self._subscriptions.append(s)
-
-        s = self._actual_task.ErrorRaised.connect(self._task_error_raised)
-        self._subscriptions.append(s)
-
-    def _disconnect_task(self):
-        for subscription in self._subscriptions:
-            subscription.disconnect()
-
-    def _test_if_running(self, log_msg=None):
-        if self._actual_task is not None:
-            return True
-        else:
-            log.warning(log_msg)
-            return False
-
-    def _task_stopped(self):
-        self._tasks_done_step += self._actual_task.ProgressStepsCount
-        if self._tasks:
-            self._actual_task = self._tasks.pop()
-            self._run_task()
-        else:
-            log.info("Installation finished.")
-            self._actual_task = None
-            self._install_stopped_signal.emit()
-
-    def _task_started(self):
-        log.info("Installation task %s has started.", self._actual_task)
-
-    def _task_error_raised(self, error_description):
-        self._error_raised_signal.emit(error_description)
-
-    @property
-    def installation_running(self):
-        """Installation is running right now.
-
-        :returns: True if installation is running. False otherwise.
-        """
-        return self._actual_task is not None
-
-    @property
-    def task_name(self):
-        """Get name of the running task."""
-        if self._test_if_running("Can't get task name when installation is not running."):
-            return self._actual_task.Name
-        else:
-            return ""
-
-    @property
-    def task_description(self):
-        """Get description of the running task."""
-        if self._test_if_running("Can't get task description when installation is not running."):
-            return self._actual_task.Description
-        else:
-            return ""
-
-    @property
-    def progress_steps_count(self):
-        """Sum of steps in all tasks used for installation."""
-        if self._test_if_running("Can't get sum of all tasks when installation is not running."):
-            return self._step_sum
-        else:
-            return 0
-
-    def _progress_changed(self, step, msg):
-        actual_progress = step + self._tasks_done_step
-        self._progress_changed_signal.emit(actual_progress, msg)
-        self._progress_changed_float_signal.emit(actual_progress / self._step_sum, msg)
-
-    @property
-    def progress(self):
-        """Get progress of the installation.
-
-        :returns: (step: int, msg: str) tuple.
-                  step - step in the installation process.
-                  msg - short description of the step
-        """
-        if self._test_if_running("Can't get task progress when installation is not running."):
-            (step, msg) = self._actual_task.Progress
-            actual_progress = step + self._tasks_done_step
-
-            return actual_progress, msg
-        else:
-            return 0, ""
-
-    @property
-    def progress_float(self):
-        """Get progress of the installation as float number from 0.0 to 1.0.
-
-        :returns: (step: float, msg: str) tuple.
-                  step - step in the installation process.
-                  msg - short description of the step
-        """
-        if self._test_if_running("Can't get task progress in float "
-                                 "when installation is not running."):
-            (step, msg) = self._actual_task.Progress
-            actual_progress = step + self._tasks_done_step
-            actual_progress = actual_progress / self._step_sum
-
-            return actual_progress, msg
-        else:
-            return 0, ""
-
-    def cancel(self):
-        """Cancel installation.
-
-        Installation will be canceled as soon as possible. When exactly depends on the actual task
-        running.
-        """
-        if self._test_if_running():
-
-            self._installation_terminated = True
-
-            if self._actual_task.IsCancelable:
-                self._actual_task.Cancel()
-        else:
-            raise InstallationNotRunning("Can't cancel task when installation is not running.")
+        return tasks
