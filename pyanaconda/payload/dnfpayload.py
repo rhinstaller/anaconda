@@ -548,6 +548,8 @@ class DNFPayload(payload.PackagePayload):
         conf.cachedir = DNF_CACHE_DIR
         conf.pluginconfpath = DNF_PLUGINCONF_DIR
         conf.logdir = '/tmp/'
+        # enable depsolver debugging if in debug mode
+        self._base.conf.debug_solver = flags.debug
 
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = util.getSysroot()
