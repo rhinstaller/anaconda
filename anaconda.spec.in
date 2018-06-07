@@ -347,6 +347,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 07 2018 Martin Kolman <mkolman@redhat.com> - 29.16-1
+- Add tests for changes in tasks and the install manager (vponcova)
+- Add a simple installation task in the Baz module (vponcova)
+- Update the boss classes (vponcova)
+- Update the base clases for modules (vponcova)
+- Use the system installation task in the install manager (vponcova)
+- Add the system installation task (vponcova)
+- Add methods for running remote DBus tasks (vponcova)
+- Improved base clases for DBus tasks (vponcova)
+- Do not manually create LUKSDevice when unlocking a LUKS format (vtrefny)
+- Fix pylint errors (vponcova)
+- Skip the pylint check for the bootloader.py (vponcova)
+- Enable DNF depsolver debugging in debug mode (mkolman)
+- Don't reset locale of our DBus daemon (vponcova)
+- Close the DNF base later (#1571299) (vponcova)
+- Add 10%% for storage metadata to the total required space (#1578395)
+  (vponcova)
+- Add hook to prevent mistake upstream pushes (jkonecny)
+- Revert "WIP" (vponcova)
+- WIP (vponcova)
+- Set locale to en_US.UTF-8 in every module (#1575415) (vponcova)
+- Move initial module configuration to the init function (vponcova)
+- Fix the mount command (vponcova)
+- Use the auto partitioning module in UI (vponcova)
+- Only check space during a tui kickstart if ksprompt is enabled (bcl)
+- Fix can't exit TUI storage spoke (jkonecny)
+- Use PROCESSED_AND_CLOSE and PROCESSED_AND_REDRAW (jkonecny)
+- Remove not required PROCESSED return (jkonecny)
+- Remove PROCESSED from refresh method (jkonecny)
+
 * Wed May 16 2018 Martin Kolman <mkolman@redhat.com> - 29.15-1
 - nvdimm: make debug messages more clear (rvykydal)
 - nvdimm: use libblockdev enum to check namespace mode (rvykydal)
