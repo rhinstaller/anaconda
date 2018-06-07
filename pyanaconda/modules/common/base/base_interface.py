@@ -39,14 +39,6 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         self.implementation.kickstarted_changed.connect(self.changed("Kickstarted"))
 
     @property
-    def AvailableTasks(self) -> List[ObjPath]:
-        """Return DBus object paths for tasks available for this module.
-
-        :returns: List of object paths for all available tasks.
-        """
-        return list(self.implementation.published_tasks.values())
-
-    @property
     def KickstartCommands(self) -> List[Str]:
         """Return names of kickstart commands handled by module.
 
@@ -122,6 +114,13 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         :return: a kickstart string
         """
         return self.implementation.generate_temporary_kickstart()
+
+    def InstallWithTasks(self) -> List[ObjPath]:
+        """Returns installation tasks of this module.
+
+        :returns: list of object paths of installation tasks.
+        """
+        return self.implementation.install_with_tasks()
 
     def Quit(self):
         """Shut the module down."""

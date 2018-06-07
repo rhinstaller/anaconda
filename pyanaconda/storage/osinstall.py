@@ -2145,8 +2145,6 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
         except (FSResizeError, FormatResizeError) as e:
             if error_handler.cb(e) == ERROR_RAISE:
                 raise
-        except Exception as e:
-            raise
 
         storage.turn_on_swap()
     # FIXME:  For livecd, skip_root needs to be True.

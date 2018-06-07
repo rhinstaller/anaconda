@@ -17,7 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from blivet.errors import StorageError
-from blivet.devices import LUKSDevice
 
 from pyanaconda.core import util
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
@@ -313,10 +312,6 @@ class Rescue(object):
         try:
             device.setup()
             device.format.setup()
-            luks_device = LUKSDevice(device.format.map_name,
-                                     parents=[device],
-                                     exists=True)
-            self._storage.devicetree._add_device(luks_device)
 
             # Wait for the device.
             # Otherwise, we could get a message about no Linux partitions.

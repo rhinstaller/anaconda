@@ -15,19 +15,37 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from threading import Lock
+from abc import ABC
 
-__all__ = ["init"]
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+__all__ = ['Cancellable']
 
 
-def init():
-    """Do initial configuration of an Anaconda DBus module.
+class Cancellable(ABC):
+    """Abstract class that allows to cancel a task."""
 
-    This method should be imported and called from __main__.py of every
-    Anaconda DBus module before any other import.
-    """
-    import logging
-    logging.basicConfig(level=logging.DEBUG)
+    def __init__(self):
+        super().__init__()
+        self.__cancel_lock = Lock()
+        self.__cancel = False
 
-    import locale
-    from pyanaconda.core.constants import DEFAULT_LANG
-    locale.setlocale(locale.LC_ALL, DEFAULT_LANG)
+    def cancel(self):
+        """Request the cancellation of the task."""
+        with self.__cancel_lock:
+            self.__cancel = True
+
+    def check_cancel(self):
+        """Should the task be canceled right now?
+
+        Check if the task cancellation is requested.
+        If yes, clear the cancel flag.
+
+        This is a thread safe method.
+
+        :returns: bool
+        """
+        with self.__cancel_lock:
+            return self.__cancel

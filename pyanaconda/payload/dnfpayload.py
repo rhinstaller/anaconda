@@ -284,7 +284,7 @@ def do_transaction(base, queue_instance):
         import traceback
         exit_reason = str(e) + traceback.format_exc()
     finally:
-        base.close()
+        base.close() # Always close this base.
         queue_instance.put(('quit', str(exit_reason)))
 
 
@@ -548,6 +548,8 @@ class DNFPayload(payload.PackagePayload):
         conf.cachedir = DNF_CACHE_DIR
         conf.pluginconfpath = DNF_PLUGINCONF_DIR
         conf.logdir = '/tmp/'
+        # enable depsolver debugging if in debug mode
+        self._base.conf.debug_solver = flags.debug
 
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = util.getSysroot()
@@ -996,7 +998,7 @@ class DNFPayload(payload.PackagePayload):
             (token, msg) = queue_instance.get()
 
         process.join()
-        self._base.close()
+        # Don't close the mother base here, because we still need it.
         if os.path.exists(self._download_location):
             log.info("Cleaning up downloaded packages: %s", self._download_location)
             shutil.rmtree(self._download_location)
@@ -1178,7 +1180,8 @@ class DNFPayload(payload.PackagePayload):
             else:
                 f.close()
                 os.unlink(repo_path)
-                raise payload.PayloadSetupError("repo %s has no baseurl, mirrorlist or metalink", repo.id)
+                raise payload.PayloadSetupError("The repo {} has no baseurl, mirrorlist or "
+                                                "metalink".format(repo.id))
 
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)
@@ -1237,6 +1240,8 @@ class DNFPayload(payload.PackagePayload):
             except payload.PayloadSetupError as e:
                 log.error(e)
 
+        # We don't need the mother base anymore. Close it.
+        self._base.close()
         super().postInstall()
 
     def writeStorageLate(self):

@@ -355,7 +355,7 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
                     cmd_ifname, cmd_mac= cmd_ifname.split(":", 1)
                     if mac == cmd_mac:
                         net.device = cmd_ifname
-                        log.info("MAC '%s' is named by user. Use '%s' name." % (mac, cmd_ifname))
+                        log.info("MAC '%s' is named by user. Use '%s' name.", mac, cmd_ifname)
                         break
             except KeyError:
                 log.debug("ifname= command isn't used generate name ksdev0 for device")

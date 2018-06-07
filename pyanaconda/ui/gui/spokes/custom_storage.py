@@ -2820,10 +2820,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         device.original_format.passphrase = passphrase
         log.info("unlocked %s, now going to populate devicetree...", device.name)
         with ui_storage_logger():
-            luks_dev = LUKSDevice(device.format.map_name,
-                                  parents=[device],
-                                  exists=True)
-            self._storage_playground.devicetree._add_device(luks_dev)
             # save the passphrase for possible reset and to try for other devs
             self._storage_playground.save_passphrase(device)
             # XXX What if the user has changed things using the shell?
