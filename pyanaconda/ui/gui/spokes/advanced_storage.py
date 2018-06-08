@@ -240,7 +240,7 @@ class SearchPage(FilterPage):
         elif filterBy == self.SEARCH_TYPE_PORT_TARGET_LUN:
             return self._port_equal(device) and self._target_equal(device) and self._lun_equal(device)
         elif filterBy == self.SEARCH_TYPE_WWID:
-            return self._wwidEntry.get_text() in getattr(device, "wwid", self._long_identifier(device))
+            return self._wwidEntry.get_text() in getattr(device, "wwn", self._long_identifier(device))
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow(*model[itr])
@@ -278,7 +278,7 @@ class MultipathPage(FilterPage):
             store.append([True, selected, not disk.protected,
                           disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
-                          disk.wwid, "\n".join(paths), "", "",
+                          disk.wwn, "\n".join(paths), "", "",
                           "", "", "", "", ""])
             if not disk.vendor in vendors:
                 vendors.append(disk.vendor)
@@ -310,7 +310,7 @@ class MultipathPage(FilterPage):
         elif filterBy == self.SEARCH_TYPE_INTERCONNECT:
             return device.bus == self._icCombo.get_active_text()
         elif filterBy == self.SEARCH_TYPE_WWID:
-            return self._wwidEntry.get_text() in device.wwid
+            return self._wwidEntry.get_text() in device.wwn
 
     def visible_func(self, model, itr, *args):
         if not flags.mpath:
