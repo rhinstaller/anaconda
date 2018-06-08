@@ -742,8 +742,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # We don't want to display the whole huge WWID for a multipath device.
         # That makes the DO way too wide.
         if isinstance(disk, MultipathDevice):
-            desc = disk.wwid.split(":")
-            description = ":".join(desc[0:3]) + "..." + ":".join(desc[-4:])
+            desc = disk.wwn
+            description = desc[0:6] + "..." + desc[-8:]
         elif isinstance(disk, ZFCPDiskDevice):
             # manually mangle the desc of a zFCP device to be multi-line since
             # it's so long it makes the disk selection screen look odd
