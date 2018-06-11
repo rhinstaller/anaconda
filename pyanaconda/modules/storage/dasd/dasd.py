@@ -23,7 +23,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DASD
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
-
+from pyanaconda.modules.storage.dasd.format import DASDFormatTask
 
 log = get_module_logger(__name__)
 
@@ -42,5 +42,15 @@ class DASDModule(KickstartBaseModule):
         :return: a path to a task
         """
         task = DASDDiscoverTask(device_number)
+        path = self.publish_task(DASD.namespace, task)
+        return path
+
+    def format_with_task(self, dasds):
+        """Format specified DASD disks.
+
+        :param dasds: a list of disk names
+        :return: a DBus path to a task
+        """
+        task = DASDFormatTask(dasds)
         path = self.publish_task(DASD.namespace, task)
         return path
