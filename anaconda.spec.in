@@ -347,6 +347,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 12 2018 Martin Kolman <mkolman@redhat.com> - 29.17-1
+- Wait for kickstart modules to quit (vponcova)
+- Ask for a default passphrase if required (vponcova)
+- Add support for setting different types of passwords in TUI (vponcova)
+
 * Thu Jun 07 2018 Martin Kolman <mkolman@redhat.com> - 29.16-1
 - Add tests for changes in tasks and the install manager (vponcova)
 - Add a simple installation task in the Baz module (vponcova)
