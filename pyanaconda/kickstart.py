@@ -801,8 +801,7 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
             if matched:
                 drives.extend(matched)
             else:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Disk \"%s\" given in ignoredisk command does not exist.") % spec))
+                log.warn("Disk \"%s\" given in ignoredisk command does not exist.", spec)
 
         self.ignoredisk = drives
 
