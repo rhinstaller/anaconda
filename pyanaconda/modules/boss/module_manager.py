@@ -114,10 +114,7 @@ class ModuleManager(object):
             if not observer.is_service_available:
                 continue
 
-            # Call asynchronously to avoid problems.
-            observer.proxy.Quit(callback=self._stop_modules_callback,
-                                callback_args=(observer,))
-
-    def _stop_modules_callback(self, observer, returned, error):
-        """Callback for stop_modules."""
-        log.debug("%s has quit.", observer)
+            # Call synchronously, because we need to wait for the
+            # modules to quit before the boss can quit itself.
+            observer.proxy.Quit()
+            log.debug("%s has quit.", observer)

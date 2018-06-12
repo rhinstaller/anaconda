@@ -19,6 +19,7 @@
 
 from collections import OrderedDict
 
+from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -26,7 +27,7 @@ from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelec
     getDisksByNames
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.ui.tui.tuiobject import Dialog
+from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage_utils import AUTOPART_CHOICES, storage_checker, get_supported_filesystems
 from pyanaconda.format_dasd import DasdFormatting
 
@@ -41,12 +42,13 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT
+    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT, SecretType
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda import kickstart
 from pyanaconda.storage.osinstall import storage_initialize
 
+from pykickstart.base import BaseData
 from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
@@ -360,6 +362,57 @@ class StorageSpoke(NormalTUISpoke):
     def _show_dasdfmt_report(self, msg):
         print(msg, flush=True)
 
+    def run_passphrase_dialog(self):
+        """Ask user for a default passphrase."""
+        data_without_passphrase = self._get_data_without_passphrase()
+        if not data_without_passphrase:
+            return
+
+        dialog = PasswordDialog(
+            title=_("Passphrase"),
+            message=_("Please provide a default LUKS passphrase for all devices "
+                      "you want to encrypt. You will have to type it twice."),
+            secret_type=SecretType.PASSPHRASE,
+            policy=get_policy(self.data, "luks"),
+            process_func=lambda x: x
+        )
+
+        passphrase = None
+        while passphrase is None:
+            passphrase = dialog.run()
+
+        self._set_data_without_passphrase(data_without_passphrase, passphrase)
+
+    def _get_data_without_passphrase(self):
+        """Collect kickstart data and DBus proxies that require a passphrase."""
+        result = []
+
+        if self._auto_part_observer.proxy.Encrypted \
+                and not self._auto_part_observer.proxy.Passphrase:
+            result.append(self._auto_part_observer.proxy)
+
+        for data in self.data.partition.dataList():
+            if data.encrypted and not data.passphrase:
+                result.append(data)
+
+        for data in self.data.logvol.dataList():
+            if data.encrypted and not data.passphrase:
+                result.append(data)
+
+        for data in self.data.raid.dataList():
+            if data.encrypted and not data.passphrase:
+                result.append(data)
+
+        return result
+
+    def _set_data_without_passphrase(self, data_without_passphrase, passphrase):
+        """Set a passphrase to the collected kickstart data and DBus proxies."""
+        for data in data_without_passphrase:
+            if isinstance(data, BaseData):
+                data.passphrase = passphrase
+            else:
+                data.SetPassphrase(passphrase)
+
     def apply(self):
         self.autopart = self._auto_part_observer.proxy.Enabled
 
@@ -431,6 +484,10 @@ class StorageSpoke(NormalTUISpoke):
     def initialize(self):
         NormalTUISpoke.initialize(self)
         self.initialize_start()
+
+        # Ask for a default passphrase.
+        if flags.automatedInstall and flags.ksprompt:
+            self.run_passphrase_dialog()
 
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
