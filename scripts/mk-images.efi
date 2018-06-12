@@ -31,7 +31,13 @@ makeefibootdisk()
     disksize=$(($disksize + $(($disksize % 512))))
     local diskimg=$(mktemp /tmp/efidisk.img.XXXXXX)
     dd if=/dev/zero of=$diskimg count=1 bs=$disksize
-    local loop=$(losetup -v -f $diskimg | awk '{ print $4 }')
+
+    local losetup_output
+    losetup_output=$(losetup -v -f $diskimg)
+    local ret=$?
+    [ $ret -eq 0 ] || return $ret
+    local loop=$(echo $losetup_output | awk '{ print $NF }')
+
     dmsetup create efiboot$$ --table "0 $(($disksize / 512)) linear $loop 0"
     parted --script /dev/mapper/efiboot$$ mklabel gpt unit b mkpart '"EFI System Partition"' fat32 17408 $((17408 + $partsize)) set 1 boot on
     dd if=$partimg of=/dev/mapper/efiboot$$p1
