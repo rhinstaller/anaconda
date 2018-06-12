@@ -19,6 +19,7 @@
 
 makeefibootdisk()
 {
+    echo "in makeefibootdisk: makeefibootdisk $@"
     partimg=$1
     target=$2
 
@@ -231,7 +232,10 @@ makeEfiImages() {
 
     makeefibootdisk $TOPDESTPATH/images/efiboot.img $TOPDESTPATH/images/efidisk.img
     local ret=$?
-    [ $ret -eq 0 ] || return $ret
+    if [ $ret -ne 0 ]; then
+        echo "makeefiboodisk failed" >&2
+        return $ret
+    fi
     rm -vf $TOPDESTPATH/images/efiboot.img
 
     # make a boot image with just boot*.efi in it...
