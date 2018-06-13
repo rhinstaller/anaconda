@@ -46,6 +46,11 @@ AUTO_PARTITIONING = DBusObjectIdentifier(
     basename="Automatic"
 )
 
+MANUAL_PARTITIONING = DBusObjectIdentifier(
+    namespace=PARTITIONING_NAMESPACE,
+    basename="Manual"
+)
+
 ZFCP = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="zFCP"
