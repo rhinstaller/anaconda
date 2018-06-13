@@ -22,6 +22,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import ZFCP
+from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
 
 log = get_module_logger(__name__)
@@ -33,3 +34,15 @@ class ZFCPModule(KickstartBaseModule):
     def publish(self):
         """Publish the module."""
         DBus.publish_object(ZFCP.object_path, ZFCPInterface(self))
+
+    def discover_with_task(self, device_number, wwpn, lun):
+        """Discover a zFCP device.
+
+        :param device_number: a device number
+        :param wwpn: a worldwide port name
+        :param lun: an FCP LUN number
+        :return: a DBus path to a task
+        """
+        task = ZFCPDiscoverTask(device_number, wwpn, lun)
+        path = self.publish_task(ZFCP.namespace, task)
+        return path

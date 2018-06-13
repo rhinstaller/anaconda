@@ -26,3 +26,13 @@ from pyanaconda.modules.common.constants.objects import ZFCP
 @dbus_interface(ZFCP.interface_name)
 class ZFCPInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the zFCP module."""
+
+    def DiscoverWithTask(self, device_number: Str, wwpn: Str, lun: Str) -> ObjPath:
+        """Discover a zFCP device.
+
+        :param device_number: a device number
+        :param wwpn: a worldwide port name
+        :param lun: an FCP LUN number
+        :return: a DBus path to a task
+        """
+        return self.implementation.discover_with_task(device_number, wwpn, lun)
