@@ -27,6 +27,13 @@ from pyanaconda.modules.common.constants.objects import ZFCP
 class ZFCPInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the zFCP module."""
 
+    def ReloadModule(self):
+        """Reload the module.
+
+        FIXME: This is just a temporary method.
+        """
+        self.implementation.reload_module()
+
     def DiscoverWithTask(self, device_number: Str, wwpn: Str, lun: Str) -> ObjPath:
         """Discover a zFCP device.
 
@@ -36,3 +43,10 @@ class ZFCPInterface(KickstartModuleInterfaceTemplate):
         :return: a DBus path to a task
         """
         return self.implementation.discover_with_task(device_number, wwpn, lun)
+
+    def WriteConfiguration(self, sysroot: Str):
+        """Write the configuration to sysroot.
+
+        FIXME: This is just a temporary method.
+        """
+        self.implementation.write_configuration(sysroot)

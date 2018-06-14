@@ -33,7 +33,6 @@ import warnings
 import blivet.arch
 import blivet.fcoe
 import blivet.iscsi
-import blivet.zfcp
 
 import pykickstart.commands as commands
 
@@ -66,7 +65,6 @@ from pyanaconda.storage_utils import device_matches, try_populate_devicetree, st
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
-from blivet import udev
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
@@ -116,7 +114,6 @@ autopart_log = log.getChild("kickstart.autopart")
 logvol_log = log.getChild("kickstart.logvol")
 iscsi_log = log.getChild("kickstart.iscsi")
 fcoe_log = log.getChild("kickstart.fcoe")
-zfcp_log = log.getChild("kickstart.zfcp")
 network_log = log.getChild("kickstart.network")
 selinux_log = log.getChild("kickstart.selinux")
 timezone_log = log.getChild("kickstart.timezone")
@@ -2370,16 +2367,6 @@ class SnapshotData(commands.snapshot.F26_SnapshotData):
             log.debug("Generating new UUID for XFS snapshot")
             self.thin_snapshot.format.reset_uuid()
 
-class ZFCP(commands.zfcp.F14_ZFCP):
-    def parse(self, args):
-        fcp = super().parse(args)
-        try:
-            blivet.zfcp.zfcp.add_fcp(fcp.devnum, fcp.wwpn, fcp.fcplun)
-        except ValueError as e:
-            zfcp_log.warning(str(e))
-
-        return fcp
-
 class Keyboard(RemovedCommand):
 
     def __str__(self):
@@ -2535,7 +2522,7 @@ commandMap = {
     "volgroup": VolGroup,
     "xconfig": XConfig,
     "zerombr": UselessCommand,
-    "zfcp": ZFCP,
+    "zfcp": UselessCommand,
 }
 
 dataMap = {
@@ -2656,12 +2643,9 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
     handler = AnacondaKSHandler(addon_paths["ks"])
     ksparser = AnacondaKSParser(handler)
 
-    # We need this so all the /dev/disk/* stuff is set up before parsing.
-    udev.trigger(subsystem="block", action="change")
     # So that drives onlined by these can be used in the ks file
     blivet.iscsi.iscsi.startup()
     blivet.fcoe.fcoe.startup()
-    blivet.zfcp.zfcp.startup()
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
 

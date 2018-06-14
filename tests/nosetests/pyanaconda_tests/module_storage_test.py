@@ -70,7 +70,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'raid',
                 'reqpart',
                 'volgroup',
-                'zerombr'
+                'zerombr',
+                'zfcp'
             ]
         )
         self.assertEqual(self.storage_interface.KickstartSections, [])

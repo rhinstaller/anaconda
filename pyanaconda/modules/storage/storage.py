@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import arch
+from blivet import arch, udev
 
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
@@ -40,6 +40,9 @@ class StorageModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
+        # We need this so all the /dev/disk/* stuff is set up.
+        udev.trigger(subsystem="block", action="change")
+
         self._modules = []
 
         self._disk_init_module = DiskInitializationModule()
