@@ -17,11 +17,16 @@
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
+import os
+import tempfile
 import unittest
 from textwrap import dedent
-from mock import Mock
+
+from mock import Mock, patch
 
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.modules.localization.installation import LanguageInstallationTask
 from pyanaconda.modules.localization.localization import LocalizationModule
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
@@ -123,6 +128,21 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.localization_interface.LanguageKickstarted, True)
         self.callback.assert_called_once_with(LOCALIZATION.interface_name, {'LanguageKickstarted': True}, [])
 
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def install_language_with_task_test(self, publisher):
+        """Test InstallLanguageWithTask."""
+        self.localization_interface.SetLanguage("cs_CZ.UTF-8")
+        task_path = self.localization_interface.InstallLanguageWithTask("/")
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, LanguageInstallationTask)
+        self.assertEqual(obj.implementation._sysroot, "/")
+        self.assertEqual(obj.implementation._lang, "cs_CZ.UTF-8")
+
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.localization_interface, ks_in, ks_out)
 
@@ -205,3 +225,23 @@ class LocalizationInterfaceTestCase(unittest.TestCase):
         keyboard --xlayouts='cz (qwerty)','en'
         """
         self._test_kickstart(ks_in, ks_out)
+
+
+class LocalizationTasksTestCase(unittest.TestCase):
+    """Test tasks of the localization module."""
+
+    def language_installation_test(self):
+        """Test the language installation task."""
+        # Prepare sysroot.
+        with tempfile.TemporaryDirectory() as root:
+
+            # Prepare for the installation task.
+            conf = root + "/etc/locale.conf"
+            os.makedirs(os.path.dirname(conf), exist_ok=True)
+
+            # Run the installation task.
+            LanguageInstallationTask(root, "cs_CZ.UTF-8").run()
+
+            # Check the result.
+            with open(root + "/etc/locale.conf") as f:
+                self.assertEqual(f.read(), "LANG=\"cs_CZ.UTF-8\"\n")

@@ -23,6 +23,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
+from pyanaconda.modules.localization.installation import LanguageInstallationTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -134,6 +135,18 @@ class LocalizationModule(KickstartModule):
         self._language_seen = seen
         self.language_seen_changed.emit()
         log.debug("Language seen set to %s.", seen)
+
+    def install_language_with_task(self, sysroot):
+        """Install language with an installation task.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a DBus path of an installation task
+        """
+        task = LanguageInstallationTask(sysroot, self.language)
+        path = self.publish_task(LOCALIZATION.namespace, task)
+        return path
 
     @property
     def keyboard(self):

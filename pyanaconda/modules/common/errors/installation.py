@@ -31,3 +31,9 @@ class InstallationError(AnacondaError):
 class InstallationNotRunning(InstallationError):
     """Exception will be raised when action requires running installation."""
     pass
+
+
+@dbus_error("LanguageInstallationError", namespace=ANACONDA_NAMESPACE)
+class LanguageInstallationError(InstallationError):
+    """Exception for the language installation errors."""
+    pass
