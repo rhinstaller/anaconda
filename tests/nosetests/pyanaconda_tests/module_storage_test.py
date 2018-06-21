@@ -18,15 +18,22 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
-from mock import patch
+from unittest.mock import patch
+
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED, \
     BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION, AUTOPART_TYPE_DEFAULT
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
     DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
+from pyanaconda.modules.storage.dasd import DASDModule
+from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
+from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
+from pyanaconda.modules.storage.dasd.format import DASDFormatTask
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
     DiskInitializationInterface
@@ -787,3 +794,65 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             "BackupPassphraseEnabled",
             True
         )
+
+
+class DASDInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the DASD module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.dasd_module = DASDModule()
+        self.dasd_interface = DASDInterface(self.dasd_module)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def discover_with_task_test(self, publisher):
+        """Test DiscoverWithTask."""
+        task_path = self.dasd_interface.DiscoverWithTask("0.0.A100")
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, DASDDiscoverTask)
+        self.assertEqual(obj.implementation._device_number, "0.0.A100")
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def format_with_task_test(self, publisher):
+        """Test the discover task."""
+        task_path = self.dasd_interface.FormatWithTask(["/dev/sda", "/dev/sdb"])
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, DASDFormatTask)
+        self.assertEqual(obj.implementation._dasds, ["/dev/sda", "/dev/sdb"])
+
+
+class DASDTasksTestCase(unittest.TestCase):
+    """Test DASD tasks."""
+
+    def discovery_fails_test(self):
+        """Test the failing discovery task."""
+        with self.assertRaises(StorageDiscoveryError):
+            DASDDiscoverTask("x.y.z").run()
+
+    @unittest.mock.patch('pyanaconda.modules.storage.dasd.discover.blockdev')
+    def discovery_test(self, blockdev):
+        """Test the discovery task."""
+        DASDDiscoverTask("0.0.A100").run()
+        blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.A100")
+
+        sanitized_input = blockdev.s390.sanitize_dev_input.return_value
+        blockdev.s390.dasd_online.assert_called_once_with(sanitized_input)
+
+    @unittest.mock.patch('pyanaconda.modules.storage.dasd.format.blockdev')
+    def format_test(self, blockdev):
+        """Test the format task."""
+        DASDFormatTask(["/dev/sda", "/dev/sdb"]).run()
+        blockdev.s390.dasd_format.assert_has_calls([
+            unittest.mock.call("/dev/sda"),
+            unittest.mock.call("/dev/sdb")
+        ])
