@@ -17,8 +17,9 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, call
 
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
@@ -43,6 +44,9 @@ from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
+from pyanaconda.modules.storage.zfcp import ZFCPModule
+from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
+from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 
 
@@ -486,6 +490,20 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    @patch("pyanaconda.modules.storage.kickstart.zfcp")
+    @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
+    def zfcp_kickstart_test(self, arch, zfcp):
+        """Test the zfcp command."""
+        self.setUp()  # set up for s390x
+
+        ks_in = """
+        zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9
+        """
+        ks_out = """
+        zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9
+        """
+        self._test_kickstart(ks_in, ks_out)
+
 
 class DiskInitializationInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the disk initialization module."""
@@ -815,6 +833,7 @@ class DASDInterfaceTestCase(unittest.TestCase):
 
         self.assertEqual(task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
+
         self.assertIsInstance(obj.implementation, DASDDiscoverTask)
         self.assertEqual(obj.implementation._device_number, "0.0.A100")
 
@@ -840,7 +859,7 @@ class DASDTasksTestCase(unittest.TestCase):
         with self.assertRaises(StorageDiscoveryError):
             DASDDiscoverTask("x.y.z").run()
 
-    @unittest.mock.patch('pyanaconda.modules.storage.dasd.discover.blockdev')
+    @patch('pyanaconda.modules.storage.dasd.discover.blockdev')
     def discovery_test(self, blockdev):
         """Test the discovery task."""
         DASDDiscoverTask("0.0.A100").run()
@@ -849,11 +868,86 @@ class DASDTasksTestCase(unittest.TestCase):
         sanitized_input = blockdev.s390.sanitize_dev_input.return_value
         blockdev.s390.dasd_online.assert_called_once_with(sanitized_input)
 
-    @unittest.mock.patch('pyanaconda.modules.storage.dasd.format.blockdev')
+    @patch('pyanaconda.modules.storage.dasd.format.blockdev')
     def format_test(self, blockdev):
         """Test the format task."""
         DASDFormatTask(["/dev/sda", "/dev/sdb"]).run()
         blockdev.s390.dasd_format.assert_has_calls([
-            unittest.mock.call("/dev/sda"),
-            unittest.mock.call("/dev/sdb")
+            call("/dev/sda"),
+            call("/dev/sdb")
         ])
+
+
+class ZFCPInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the zFCP module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.zfcp_module = ZFCPModule()
+        self.zfcp_interface = ZFCPInterface(self.zfcp_module)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def discover_with_task_test(self, publisher):
+        """Test the discover task."""
+        task_path = self.zfcp_interface.DiscoverWithTask(
+            "0.0.fc00",
+            "0x5105074308c212e9",
+            "0x401040a000000000"
+        )
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, ZFCPDiscoverTask)
+        self.assertEqual(obj.implementation._device_number, "0.0.fc00")
+        self.assertEqual(obj.implementation._wwpn, "0x5105074308c212e9")
+        self.assertEqual(obj.implementation._lun, "0x401040a000000000")
+
+    @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
+    def reload_module_test(self, zfcp):
+        """Test ReloadModule."""
+        self.zfcp_interface.ReloadModule()
+        zfcp.startup.assert_called_once_with()
+
+    @patch('pyanaconda.modules.storage.zfcp.zfcp.zfcp')
+    def write_configuration_test(self, zfcp):
+        """Test WriteConfiguration."""
+
+        with tempfile.TemporaryDirectory() as root:
+            self.zfcp_interface.WriteConfiguration(root)
+            zfcp.write.assert_called_once_with(root)
+
+
+class ZFCPTasksTestCase(unittest.TestCase):
+    """Test zFCP tasks."""
+
+    def discovery_fails_test(self):
+        """Test the failing discovery task."""
+
+        with self.assertRaises(StorageDiscoveryError):
+            ZFCPDiscoverTask("", "", "").run()
+
+        with self.assertRaises(StorageDiscoveryError):
+            ZFCPDiscoverTask("0.0.fc00", "", "").run()
+
+        with self.assertRaises(StorageDiscoveryError):
+            ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "").run()
+
+    @patch('pyanaconda.modules.storage.zfcp.discover.zfcp')
+    @patch('pyanaconda.modules.storage.zfcp.discover.blockdev')
+    def discovery_test(self, blockdev, zfcp):
+        """Test the discovery task."""
+        ZFCPDiscoverTask("0.0.fc00", "0x5105074308c212e9", "0x401040a000000000").run()
+
+        blockdev.s390.sanitize_dev_input.assert_called_once_with("0.0.fc00")
+        blockdev.s390.zfcp_sanitize_wwpn_input.assert_called_once_with("0x5105074308c212e9")
+        blockdev.s390.zfcp_sanitize_lun_input.assert_called_once_with("0x401040a000000000")
+
+        sanitized_dev = blockdev.s390.sanitize_dev_input.return_value
+        sanitized_wwpn = blockdev.s390.zfcp_sanitize_wwpn_input.return_value
+        sanitized_lun = blockdev.s390.zfcp_sanitize_lun_input.return_value
+
+        zfcp.add_fcp.asser_called_once_with(sanitized_dev, sanitized_lun, sanitized_wwpn)
