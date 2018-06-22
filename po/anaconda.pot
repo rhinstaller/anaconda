@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.141\n"
+"Project-Id-Version: anaconda 21.48.22.142\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2018-06-05 13:17+0200\n"
+"POT-Creation-Date: 2018-06-22 16:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,93 +137,93 @@ msgstr ""
 msgid "Use text mode"
 msgstr ""
 
-#: pyanaconda/constants.py:139
+#: pyanaconda/constants.py:141
 #, python-format
 msgid "The %(password)s is empty."
 msgstr ""
 
-#: pyanaconda/constants.py:140
+#: pyanaconda/constants.py:142
 #, python-format
 msgid "The %(passwords)s do not match."
 msgstr ""
 
-#: pyanaconda/constants.py:141
+#: pyanaconda/constants.py:143
 #, python-format
 msgid "The %(passwords)s you entered were different.  Please try again."
 msgstr ""
 
-#: pyanaconda/constants.py:144
+#: pyanaconda/constants.py:146
 #, python-format
 msgid "The %(password)s is too short"
 msgstr ""
 
-#: pyanaconda/constants.py:145
+#: pyanaconda/constants.py:147
 #, python-format
 msgid "The %(password)s you have provided is weak."
 msgstr ""
 
-#: pyanaconda/constants.py:146
+#: pyanaconda/constants.py:148
 #, python-format
 msgid "The %(password)s you have provided is weak: %(error_message)s."
 msgstr ""
 
-#: pyanaconda/constants.py:147
+#: pyanaconda/constants.py:149
 msgid "Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:148
+#: pyanaconda/constants.py:150
 #, python-format
 msgid ""
 "The %(password)s you have provided contains non-ASCII characters. You may "
 "not be able to switch between keyboard layouts when typing it."
 msgstr ""
 
-#: pyanaconda/constants.py:150
+#: pyanaconda/constants.py:152
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:151
+#: pyanaconda/constants.py:153
 msgid "Press Done to continue."
 msgstr ""
 
-#: pyanaconda/constants.py:154
+#: pyanaconda/constants.py:156
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:155
+#: pyanaconda/constants.py:157
 msgid "Too short"
 msgstr ""
 
-#: pyanaconda/constants.py:156
+#: pyanaconda/constants.py:158
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:7
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:157
+#: pyanaconda/constants.py:159
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:158
+#: pyanaconda/constants.py:160
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:159
+#: pyanaconda/constants.py:161
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/constants.py:162
+#: pyanaconda/constants.py:164
 msgid "password"
 msgstr ""
 
-#: pyanaconda/constants.py:163
+#: pyanaconda/constants.py:165
 msgid "passwords"
 msgstr ""
 
-#: pyanaconda/constants.py:166
+#: pyanaconda/constants.py:168
 msgid "passphrase"
 msgstr ""
 
-#: pyanaconda/constants.py:167
+#: pyanaconda/constants.py:169
 msgid "passphrases"
 msgstr ""
 
@@ -482,7 +482,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2445
+#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2481
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -511,12 +511,12 @@ msgstr ""
 msgid "URL has no host component"
 msgstr ""
 
-#: pyanaconda/kickstart.py:189
+#: pyanaconda/kickstart.py:191
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:197
+#: pyanaconda/kickstart.py:199
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -525,295 +525,305 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:271
+#: pyanaconda/kickstart.py:273
 #, python-format
 msgid "%s is missing. Cannot setup authentication."
 msgstr ""
 
-#: pyanaconda/kickstart.py:296
+#: pyanaconda/kickstart.py:298
 #, python-format
 msgid "autopart fstype of %s is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:340
+#: pyanaconda/kickstart.py:342
 msgid "GRUB2 does not support installation to a partition."
 msgstr ""
 
-#: pyanaconda/kickstart.py:433
+#: pyanaconda/kickstart.py:435
 #, python-format
 msgid "More than one match found for given boot drive \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:438
+#: pyanaconda/kickstart.py:440
 #, python-format
 msgid "Requested boot drive \"%s\" doesn't exist or cannot be used."
 msgstr ""
 
-#: pyanaconda/kickstart.py:512
+#: pyanaconda/kickstart.py:514
 #, python-format
 msgid ""
 "Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"Btrfs\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:517
+#: pyanaconda/kickstart.py:519
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Btrfs volume specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:530
+#: pyanaconda/kickstart.py:532
 msgid ""
 "Btrfs volume defined without any member devices.  Either specify member "
 "devices or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:539 pyanaconda/kickstart.py:926
-#: pyanaconda/kickstart.py:1554
+#: pyanaconda/kickstart.py:541 pyanaconda/kickstart.py:928
+#: pyanaconda/kickstart.py:1589
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
 
-#: pyanaconda/kickstart.py:554
+#: pyanaconda/kickstart.py:556
 #, python-format
 msgid "Btrfs volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:638
+#: pyanaconda/kickstart.py:640
 #, python-format
 msgid ""
 "Disklabel \"%s\" given in clearpart command is not supported on this "
 "platform."
 msgstr ""
 
-#: pyanaconda/kickstart.py:650
+#: pyanaconda/kickstart.py:652
 #, python-format
 msgid "Disk \"%s\" given in clearpart command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:663
+#: pyanaconda/kickstart.py:665
 #, python-format
 msgid "Device \"%s\" given in clearpart device list does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:690
+#: pyanaconda/kickstart.py:692
 #, python-format
 msgid "NIC \"%s\" given in fcoe command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:750
+#: pyanaconda/kickstart.py:752
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:805 pyanaconda/kickstart.py:816
+#: pyanaconda/kickstart.py:807 pyanaconda/kickstart.py:818
 #, python-format
 msgid "Disk \"%s\" given in ignoredisk command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:829
+#: pyanaconda/kickstart.py:831
 #, python-format
 msgid ""
 "Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target "
 "is not up."
 msgstr ""
 
-#: pyanaconda/kickstart.py:839
+#: pyanaconda/kickstart.py:841
 msgid ""
 "iscsi --iface must be specified (binding used) either for all targets or for "
 "none"
 msgstr ""
 
-#: pyanaconda/kickstart.py:932
+#: pyanaconda/kickstart.py:934
 #, python-format
 msgid ""
 "No volume group exists with the name \"%s\".  Specify volume groups before "
 "logical volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:939
+#: pyanaconda/kickstart.py:941
 msgid "Cache PVs must belong to the same VG as the cached LV"
 msgstr ""
 
-#: pyanaconda/kickstart.py:946
+#: pyanaconda/kickstart.py:948
 #, python-format
 msgid ""
 "No thin pool exists with the name \"%s\". Specify thin pools before thin "
 "volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:954
+#: pyanaconda/kickstart.py:956
 msgid "logvol --noformat must also use the --name= option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:959 pyanaconda/kickstart.py:1029
+#: pyanaconda/kickstart.py:961 pyanaconda/kickstart.py:1031
 #, python-format
 msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:970 pyanaconda/kickstart.py:979
-#: pyanaconda/kickstart.py:1039 pyanaconda/kickstart.py:1346
-#: pyanaconda/kickstart.py:1355 pyanaconda/kickstart.py:1438
+#: pyanaconda/kickstart.py:972 pyanaconda/kickstart.py:981
+#: pyanaconda/kickstart.py:1041 pyanaconda/kickstart.py:1381
+#: pyanaconda/kickstart.py:1390 pyanaconda/kickstart.py:1473
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:993
+#: pyanaconda/kickstart.py:995
 #, python-format
 msgid ""
 "Logical volume name \"%(logvol)s\" is already in use in volume group "
 "\"%(volgroup)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1000
+#: pyanaconda/kickstart.py:1002
 #, python-format
 msgid ""
 "No size given for logical volume \"%s\".  Use one of --useexisting, --size, "
 "or --percent."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1003
+#: pyanaconda/kickstart.py:1005
 #, python-format
 msgid ""
 "Logical volume size \"%(logvolSize)s\" must be larger than the volume group "
 "extent size of \"%(extentSize)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1007
+#: pyanaconda/kickstart.py:1009
 msgid "Percentage must be between 0 and 100."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1018 pyanaconda/kickstart.py:1374
-#: pyanaconda/kickstart.py:1607
+#: pyanaconda/kickstart.py:1020 pyanaconda/kickstart.py:1409
+#: pyanaconda/kickstart.py:1642
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1171
+#: pyanaconda/kickstart.py:1173
 #, python-format
 msgid "Unknown or invalid device '%s' specified"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1176
+#: pyanaconda/kickstart.py:1178
 #, python-format
 msgid ""
 "Unknown or invalid format '%(format)s' specified for device '%(device)s'"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1183
+#: pyanaconda/kickstart.py:1185
 #, python-format
 msgid "No format on device '%s'"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1217 pyanaconda/kickstart.py:1221
+#: pyanaconda/kickstart.py:1225 pyanaconda/kickstart.py:1233
+#, python-format
+msgid "nvdimm: namespace %s not found."
+msgstr ""
+
+#: pyanaconda/kickstart.py:1244
+#, python-format
+msgid "Disk \"%s\" given in nvdimm command does not exist."
+msgstr ""
+
+#: pyanaconda/kickstart.py:1252 pyanaconda/kickstart.py:1256
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1246
+#: pyanaconda/kickstart.py:1281
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1281
+#: pyanaconda/kickstart.py:1316
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1292 pyanaconda/kickstart.py:1529
+#: pyanaconda/kickstart.py:1327 pyanaconda/kickstart.py:1564
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1303 pyanaconda/kickstart.py:1539
+#: pyanaconda/kickstart.py:1338 pyanaconda/kickstart.py:1574
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1323
+#: pyanaconda/kickstart.py:1358
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1330
+#: pyanaconda/kickstart.py:1365
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1335 pyanaconda/kickstart.py:1429
+#: pyanaconda/kickstart.py:1370 pyanaconda/kickstart.py:1464
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1389 pyanaconda/kickstart.py:1403
+#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1438
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1392
+#: pyanaconda/kickstart.py:1427
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1399
+#: pyanaconda/kickstart.py:1434
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1412
+#: pyanaconda/kickstart.py:1447
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1561
+#: pyanaconda/kickstart.py:1596
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1566
+#: pyanaconda/kickstart.py:1601
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1589
+#: pyanaconda/kickstart.py:1624
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1594
+#: pyanaconda/kickstart.py:1629
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1628
+#: pyanaconda/kickstart.py:1663
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1637
+#: pyanaconda/kickstart.py:1672
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1926
+#: pyanaconda/kickstart.py:1961
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1931
+#: pyanaconda/kickstart.py:1966
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1937
+#: pyanaconda/kickstart.py:1972
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1947
+#: pyanaconda/kickstart.py:1982
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -821,40 +831,40 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1954
+#: pyanaconda/kickstart.py:1989
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1959
+#: pyanaconda/kickstart.py:1994
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1962
+#: pyanaconda/kickstart.py:1997
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2085
+#: pyanaconda/kickstart.py:2120
 msgid ""
 "Incorrectly specified origin of the snapshot. Use format \"VolGroup/LV_name\""
 msgstr ""
 
-#: pyanaconda/kickstart.py:2096
+#: pyanaconda/kickstart.py:2131
 #, python-format
 msgid ""
 "Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\" is not a valid thin "
 "LV device."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2104
+#: pyanaconda/kickstart.py:2139
 #, python-format
 msgid "Snapshot %s already exists."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2140
+#: pyanaconda/kickstart.py:2175
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
@@ -1924,21 +1934,21 @@ msgid "Custom partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:181
-#: pyanaconda/ui/gui/spokes/storage.py:709
+#: pyanaconda/ui/gui/spokes/storage.py:711
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:183
-#: pyanaconda/ui/gui/spokes/storage.py:713
+#: pyanaconda/ui/gui/spokes/storage.py:715
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:198
 #: pyanaconda/ui/tui/spokes/source.py:397
 #: pyanaconda/ui/gui/spokes/source.py:697
-#: pyanaconda/ui/gui/spokes/storage.py:657
+#: pyanaconda/ui/gui/spokes/storage.py:659
 msgid "Probing storage..."
 msgstr ""
 
@@ -2688,12 +2698,12 @@ msgstr ""
 msgid "NTP service failed to stop."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.py:486
+#: pyanaconda/ui/gui/spokes/filter.py:572
 msgctxt "GUI|Spoke"
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.py:592
+#: pyanaconda/ui/gui/spokes/filter.py:690
 #, python-format
 msgctxt "GUI|Installation Destination|Filter"
 msgid "%d _storage device selected"
@@ -3149,8 +3159,8 @@ msgid "Failed to save storage configuration..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/storage.py:438
-#: pyanaconda/ui/gui/spokes/storage.py:743
-#: pyanaconda/ui/gui/spokes/storage.py:762
+#: pyanaconda/ui/gui/spokes/storage.py:745
+#: pyanaconda/ui/gui/spokes/storage.py:764
 msgid "Formatting DASDs"
 msgstr ""
 
@@ -3172,68 +3182,73 @@ msgid ""
 "LUN %(lun)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:641
+#: pyanaconda/ui/gui/spokes/storage.py:634
+#, python-format
+msgid "NVDIMM device %(namespace)s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/storage.py:643
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:691
+#: pyanaconda/ui/gui/spokes/storage.py:693
 #, python-format
 msgid "%(count)d disk selected; %(capacity)s capacity; %(free)s free"
 msgid_plural "%(count)d disks selected; %(capacity)s capacity; %(free)s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:804
+#: pyanaconda/ui/gui/spokes/storage.py:806
 msgid ""
 "You have chosen to skip boot loader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:906
+#: pyanaconda/ui/gui/spokes/storage.py:908
 msgid "There was a problem with your disk selection. Click here for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1081
+#: pyanaconda/ui/gui/spokes/storage.py:1083
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1101
+#: pyanaconda/ui/gui/spokes/storage.py:1103
 msgid ""
 "The following errors were encountered when checking your disk selection. You "
 "can modify your selection or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1106
-#: pyanaconda/ui/gui/spokes/storage.py:1127
+#: pyanaconda/ui/gui/spokes/storage.py:1108
+#: pyanaconda/ui/gui/spokes/storage.py:1129
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1107
+#: pyanaconda/ui/gui/spokes/storage.py:1109
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Disk Selection"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1122
+#: pyanaconda/ui/gui/spokes/storage.py:1124
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1128
+#: pyanaconda/ui/gui/spokes/storage.py:1130
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1142
+#: pyanaconda/ui/gui/spokes/storage.py:1144
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:1146
+#: pyanaconda/ui/gui/spokes/storage.py:1148
 msgid "_OK"
 msgstr ""
 
@@ -3796,131 +3811,172 @@ msgid "Vendor"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:20
+msgid "Namespace"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:21
+msgid "Mode"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:22
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Searc_h"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:21
+#: pyanaconda/ui/gui/spokes/filter.glade.h:23
 msgctxt "GUI|Installation Destination|Filter|Multipath"
 msgid "Filter _By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:22
+#: pyanaconda/ui/gui/spokes/filter.glade.h:24
 msgctxt "GUI|Installation Destination|Filter|Multipath|Vendor"
 msgid "Show Only _Devices From:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:23
+#: pyanaconda/ui/gui/spokes/filter.glade.h:25
 msgctxt "GUI|Installation Destination|Filter|Multipath|Interconnect"
 msgid "Show Only _Devices With:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:24
+#: pyanaconda/ui/gui/spokes/filter.glade.h:26
 msgctxt "GUI|Installation Destination|Filter|Multipath|WWID"
 msgid "Show Only _Devices Containing:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:25
+#: pyanaconda/ui/gui/spokes/filter.glade.h:27
 msgid "Paths"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:26
+#: pyanaconda/ui/gui/spokes/filter.glade.h:28
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Multipath Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:27
+#: pyanaconda/ui/gui/spokes/filter.glade.h:29
 msgctxt "GUI|Installation Destination|Filter|Other"
 msgid "Filter _By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:28
+#: pyanaconda/ui/gui/spokes/filter.glade.h:30
 msgid "ID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:29
+#: pyanaconda/ui/gui/spokes/filter.glade.h:31
 msgctxt "GUI|Installation Destination|Filter|Other|Vendor"
 msgid "Show Only _Devices From:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:30
+#: pyanaconda/ui/gui/spokes/filter.glade.h:32
 msgctxt "GUI|Installation Destination|Filter|Other|Interconnect"
 msgid "Show Only _Devices With:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:31
+#: pyanaconda/ui/gui/spokes/filter.glade.h:33
 msgctxt "GUI|Installation Destination|Filter|Other|ID"
 msgid "Show Only _Devices Containing:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:32
+#: pyanaconda/ui/gui/spokes/filter.glade.h:34
 msgid "Identifier"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:33
+#: pyanaconda/ui/gui/spokes/filter.glade.h:35
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Other SAN Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:34
-msgctxt "GUI|Installation Destination|Filter|zSeries"
+#: pyanaconda/ui/gui/spokes/filter.glade.h:36
+msgctxt "GUI|Installation Destination|Filter|NVDIMM Devices"
 msgid "Filter B_y:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:35
-msgid "CCW"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/filter.glade.h:36
-msgid "WWPN"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/filter.glade.h:37
-msgctxt "GUI|Installation Destination|Filter|zSeries|CCW"
-msgid "_CCW:"
+msgctxt "GUI|Installation Destination|Filter|NVDIMM Devices|Mode"
+msgid "Show Only Devices in _Mode:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:38
-msgctxt "GUI|Installation Destination|Filter|zSeries|WWPN"
-msgid "_WWPN:"
+msgid "Sector"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:39
-msgctxt "GUI|Installation Destination|Filter|zSeries|LUN"
-msgid "_LUN:"
+msgid "Memory"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:40
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:7
-msgid "Type"
+msgctxt "GUI|Installation Destination|Filter|NVDIMM Devices|Namespace"
+msgid "_Namespace:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:41
 msgctxt "GUI|Installation Destination|Filter"
-msgid "_zSeries Devices"
+msgid "_NVDIMM Devices"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:42
+msgctxt "GUI|Installation Destination|Filter|zSeries"
+msgid "Filter B_y:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:43
+msgid "CCW"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:44
+msgid "WWPN"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:45
+msgctxt "GUI|Installation Destination|Filter|zSeries|CCW"
+msgid "_CCW:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:46
+msgctxt "GUI|Installation Destination|Filter|zSeries|WWPN"
+msgid "_WWPN:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:47
+msgctxt "GUI|Installation Destination|Filter|zSeries|LUN"
+msgid "_LUN:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:48
+#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:7
+msgid "Type"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:49
+msgctxt "GUI|Installation Destination|Filter"
+msgid "_zSeries Devices"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:50
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Add zFCP LUN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:43
+#: pyanaconda/ui/gui/spokes/filter.glade.h:51
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add EC_KD DASD..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:44
+#: pyanaconda/ui/gui/spokes/filter.glade.h:52
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add _iSCSI Target..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:45
+#: pyanaconda/ui/gui/spokes/filter.glade.h:53
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add FCo_E SAN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:46
+#: pyanaconda/ui/gui/spokes/filter.glade.h:54
+msgctxt "GUI|Installation Destination|Filter"
+msgid "Reconfigure _NVDIMM..."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:55
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Refresh _List"
 msgstr ""

@@ -320,6 +320,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 22 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.143-1
+- Add data loss warning to nvdimm reconfigure dialog. (rvykydal)
+  Resolves: rhbz#1280500
+- Add UI feedback for disk repopulating after nvdimm reconfiguration.
+  (rvykydal)
+  Resolves: rhbz#1280500
+- Use only devices specified by nvdimm command for installation. (rvykydal)
+  Resolves: rhbz#1280500
+- Add option to reconfigure nvdimm devices into sector mode. (rvykydal)
+  Resolves: rhbz#1280500
+- Allow only devices in sector mode to be selected. (rvykydal)
+  Resolves: rhbz#1280500
+- Add nvdimm devices to Advanced Storage spoke. (rvykydal)
+  Resolves: rhbz#1280500
+- Add kickstart support for nvdimm reconfiguration to sector mode. (rvykydal)
+  Resolves: rhbz#1280500
+
 * Tue Jun 05 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.142-1
 - If someone really wants to eject the cdrom, then do it. (sbueno)
   Resolves: rhbz#1499792
