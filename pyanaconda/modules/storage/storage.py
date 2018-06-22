@@ -17,10 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet import arch
+
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
+from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
@@ -49,6 +52,12 @@ class StorageModule(KickstartModule):
 
         self._autopart_module = AutoPartitioningModule()
         self._add_module(self._autopart_module)
+
+        if arch.is_s390():
+            self._dasd_module = DASDModule()
+            self._add_module(self._dasd_module)
+        else:
+            self._dasd_module = None
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""

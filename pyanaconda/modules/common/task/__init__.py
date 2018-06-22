@@ -38,15 +38,22 @@ def publish_task(message_bus, namespace, task_instance):
     return object_path
 
 
-def sync_run_task(task_proxy):
+def sync_run_task(task_proxy, callback=None):
     """Run a remote task synchronously.
 
+    The given callback will be called every iteration.
+
     :param task_proxy: a proxy of the remote task
+    :param callback: a callback
     :raise: a remote error
     """
     task_proxy.Start()
 
     while task_proxy.IsRunning:
+
+        if callback:
+            callback(task_proxy)
+
         sleep(1)
 
     task_proxy.Finish()
