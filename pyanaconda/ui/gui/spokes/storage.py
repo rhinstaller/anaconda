@@ -66,7 +66,7 @@ from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
 from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice
+from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
 from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib
@@ -548,7 +548,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         for disk in filter(isLocalDisk, self.disks):
             # While technically local disks, zFCP devices are specialized
             # storage and should not be shown here.
-            if disk.type is not "zfcp":
+            if disk.type not in ("zfcp", "nvdimm"):
                 self._add_disk_overview(disk, self.local_disks_box)
 
         # Advanced disks are different.  Because there can potentially be a lot
@@ -563,7 +563,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # manually, specifically check the disk type here to make sure
             # we won't accidentally bypass adding zfcp devices to the disk
             # overview
-            if isLocalDisk(obj) and obj.type is not "zfcp":
+            if isLocalDisk(obj) and obj.type not in ("zfcp", "nvdimm"):
                 continue
 
             self._add_disk_overview(obj, self.specialized_disks_box)
@@ -630,6 +630,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # it's so long it makes the disk selection screen look odd
             description = _("FCP device %(hba_id)s\nWWPN %(wwpn)s\nLUN %(lun)s") % \
                             {"hba_id": disk.hba_id, "wwpn": disk.wwpn, "lun": disk.fcp_lun}
+        elif isinstance(disk, NVDIMMNamespaceDevice):
+            description = _("NVDIMM device %(namespace)s") % {"namespace": disk.devname}
         else:
             description = getDiskDescription(disk)
 

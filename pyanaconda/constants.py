@@ -111,6 +111,8 @@ THREAD_DASDFMT = "AnaDasdfmtThread"
 THREAD_KEYBOARD_INIT = "AnaKeyboardThread"
 THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
 THREAD_NTP_SERVER_CHECK = "AnaNTPserver"
+THREAD_NVDIMM_RECONFIGURE = "AnaNVDIMMReconfigureThread"
+THREAD_NVDIMM_REPOPULATE = "AnaNVDIMMRepopulateThread"
 
 # Geolocation constants
 
