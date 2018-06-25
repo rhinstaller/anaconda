@@ -30,8 +30,9 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.storage_utils import on_disk_storage
 from pyanaconda.core.i18n import _
 from pyanaconda.storage.osinstall import storage_initialize
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, DASD
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.task import sync_run_task
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -48,6 +49,9 @@ class DasdFormatting(object):
 
         self._report = Signal()
         self._report.connect(log.debug)
+        self._last_message = ""
+
+        self._dasd_module = STORAGE.get_proxy(DASD)
 
     @staticmethod
     def is_supported():
@@ -133,14 +137,21 @@ class DasdFormatting(object):
         """Should we run the formatting?"""
         return bool(self._dasds)
 
-    def do_format(self, disk):
-        """Format a disk."""
-        try:
-            self.report.emit(_("Formatting %s") % self.get_dasd_info(disk))
-            blockdev.s390.dasd_format(disk.name)
-        except blockdev.S390Error as err:
-            self.report.emit(_("Failed formatting %s") % self.get_dasd_info(disk))
-            log.error(err)
+    def do_format(self):
+        """Format with a remote task."""
+        disk_names = [disk.name for disk in self._dasds]
+        task_path = self._dasd_module.FormatWithTask(disk_names)
+
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy, callback=self._report_progress)
+
+    def _report_progress(self, task_proxy):
+        """Report progress of the remote task."""
+        _step, msg = task_proxy.Progress
+
+        if self._last_message != msg:
+            self._last_message = msg
+            self._report.emit(msg)
 
     def run(self, storage, data):
         """Format all found DASDs and update the storage.
@@ -154,12 +165,11 @@ class DasdFormatting(object):
 
         # Format all found DASDs.
         self.report.emit(_("Formatting DASDs"))
-        for disk in self._dasds:
-            self.do_format(disk)
+        self.do_format()
 
         # Update the storage.
         self.report.emit(_("Probing storage"))
-        storage_initialize(storage, data, storage.devicetree.protected_dev_names)
+        storage_initialize(storage, data, storage.protected_dev_names)
 
         # Update also the storage snapshot to reflect the changes.
         if on_disk_storage.created:

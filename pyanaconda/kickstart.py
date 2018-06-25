@@ -39,7 +39,7 @@ import pykickstart.commands as commands
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, localization, network, nm, ntp, screen_access, timezone
+from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
 from pyanaconda.core import util
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
@@ -57,6 +57,7 @@ from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZ
     USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
     AUTO_PARTITIONING
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -1024,8 +1025,9 @@ class Lang(RemovedCommand):
 
     def execute(self, *args, **kwargs):
         localization_proxy = LOCALIZATION.get_proxy()
-        lang = localization_proxy.Language
-        localization.write_language_configuration(lang, util.getSysroot())
+        task_path = localization_proxy.InstallLanguageWithTask(util.getSysroot())
+        task_proxy = LOCALIZATION.get_proxy(task_path)
+        sync_run_task(task_proxy)
 
 # no overrides needed here
 Eula = commands.eula.F20_Eula

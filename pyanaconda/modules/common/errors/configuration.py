@@ -1,5 +1,5 @@
 #
-# DBus errors related to the installation.
+# DBus errors related to the configuration.
 #
 # Copyright (C) 2018  Red Hat, Inc.  All rights reserved.
 #
@@ -21,19 +21,13 @@ from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE
 from pyanaconda.modules.common.errors import AnacondaError
 
 
-@dbus_error("InstallationError", namespace=ANACONDA_NAMESPACE)
-class InstallationError(AnacondaError):
-    """General exception for the installation errors."""
+@dbus_error("ConfigurationError", namespace=ANACONDA_NAMESPACE)
+class ConfigurationError(AnacondaError):
+    """General exception for the configuration errors."""
     pass
 
 
-@dbus_error("InstallationNotRunning", namespace=ANACONDA_NAMESPACE)
-class InstallationNotRunning(InstallationError):
-    """Exception will be raised when action requires running installation."""
-    pass
-
-
-@dbus_error("LanguageInstallationError", namespace=ANACONDA_NAMESPACE)
-class LanguageInstallationError(InstallationError):
-    """Exception for the language installation errors."""
+@dbus_error("StorageDiscoveryError", namespace=ANACONDA_NAMESPACE)
+class StorageDiscoveryError(ConfigurationError):
+    """Exception for storage discovery errors."""
     pass

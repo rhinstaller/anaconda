@@ -26,6 +26,11 @@ BOOTLOADER = DBusObjectIdentifier(
     basename="Bootloader"
 )
 
+DASD = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="DASD"
+)
+
 DISK_INITIALIZATION = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="DiskInitialization"

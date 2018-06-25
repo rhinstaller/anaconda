@@ -2219,7 +2219,8 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
             else:
                 log.debug("%s / %s will be ignored - NVDIMM device has not been configured to be used",
                           ns_name, ns_info.blockdev)
-        ignored_blockdevs.add(ns_info.blockdev)
+        if ns_info.blockdev:
+            ignored_blockdevs.add(ns_info.blockdev)
 
     return ignored_blockdevs
 
