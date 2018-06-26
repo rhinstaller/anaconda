@@ -54,7 +54,7 @@ import dnf.logging
 import dnf.exceptions
 import dnf.repo
 import dnf.callback
-import dnf.conf.parser
+import libdnf.conf
 import dnf.conf.substitutions
 import rpm
 import librepo
@@ -325,7 +325,7 @@ class DNFPayload(payload.PackagePayload):
         Currently supports $releasever and $basearch.
         """
         if url:
-            return dnf.conf.parser.substitute(url, self._base.conf.substitutions)
+            return libdnf.conf.ConfigParser.substitute(url, self._base.conf.substitutions)
 
         return None
 
