@@ -54,6 +54,7 @@ import dnf.logging
 import dnf.exceptions
 import dnf.repo
 import dnf.callback
+import dnf.transaction
 import libdnf.conf
 import dnf.conf.substitutions
 import rpm
@@ -176,7 +177,7 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
         # Process DNF actions, communicating with anaconda via the queue
         # A normal installation consists of 'install' messages followed by
         # the 'post' message.
-        if action == self.PKG_INSTALL and ti_done == 0:
+        if action == dnf.transaction.PKG_INSTALL and ti_done == 0:
             # do not report same package twice
             if self._last_ts == ts_done:
                 return
@@ -192,13 +193,13 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
             log_msg = "Installed: %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
             self._queue.put(('log', log_msg))
 
-        elif action == self.TRANS_POST:
+        elif action == dnf.transaction.TRANS_POST:
             self._queue.put(('post', None))
             log_msg = "Post installation setup phase started."
             self._queue.put(('log', log_msg))
             self._postinst_phase = True
 
-        elif action == self.PKG_SCRIPTLET:
+        elif action == dnf.transaction.PKG_SCRIPTLET:
             # Log the exact package nevra, build time and checksum
             nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
             log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
@@ -210,7 +211,7 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
                 #self.cnt += 1
                 self._queue.put(('configure', msg))
 
-        elif action == self.PKG_VERIFY:
+        elif action == dnf.transaction.PKG_VERIFY:
             msg = '%s.%s (%d/%d)' % (package.name, package.arch, ts_done, ts_total)
             self._queue.put(('verify', msg))
 
