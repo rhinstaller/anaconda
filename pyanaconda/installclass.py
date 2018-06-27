@@ -47,6 +47,7 @@ class BaseInstallClass(object):
     name = "base"
     bootloaderTimeoutDefault = None
     bootloaderExtraArgs = []
+    bootloader_menu_autohide = False
 
     # Anaconda flags several packages to be installed based on the configuration
     # of the system -- things like fs utilities, bootloader, &c. This is a list
