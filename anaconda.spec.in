@@ -347,6 +347,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 27 2018 Martin Kolman <mkolman@redhat.com> - 29.19-1
+- DNF 3: progress callback constants moved to dnf.transaction (awilliam)
+- DNF 3: Update size calculations for transaction item changes (awilliam)
+- DNF 3: config substitutions moved from dnf to libdnf (awilliam)
+
 * Mon Jun 25 2018 Martin Kolman <mkolman@redhat.com> - 29.18-1
 - Add tests for the DASD module (vponcova)
 - Run the DASD formatting task in UI (vponcova)
