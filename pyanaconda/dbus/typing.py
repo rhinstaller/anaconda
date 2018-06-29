@@ -28,7 +28,8 @@ from pydbus import Variant
 
 __all__ = ["Bool", "Double", "Str", "Int", "Byte", "Int16", "UInt16",
            "Int32", "UInt32", "Int64", "UInt64", "File", "ObjPath",
-           "Tuple", "List", "Dict", "Variant", "get_variant"]
+           "Tuple", "List", "Dict", "Variant", "Structure",
+           "get_variant"]
 
 # Basic types.
 Bool = bool
@@ -56,6 +57,8 @@ ObjPath = NewType('ObjPath', str)
 # Container types.
 # Use Tuple, Dict and List from typing.
 # Use Variant from pydbus and get_variant.
+# Use Structure instead of Dict[Str, Variant].
+Structure = Dict[Str, Variant]
 
 
 def get_dbus_type(type_hint):
