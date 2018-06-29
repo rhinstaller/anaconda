@@ -168,11 +168,21 @@ class Anaconda(object):
         if self.stage2 and self.stage2.startswith("hd:"):
             specs.append(self.stage2[3:].split(":", 3)[0])
 
+        for additional_repo in self.additional_repos:
+            _name, repo_url = self._get_additional_repo_name(additional_repo)
+            if repo_url.startswith("hd:"):
+                specs.append(repo_url[3:].split(":", 3)[0])
+
         # zRAM swap devices need to be protected
         for zram_dev in glob("/dev/zram*"):
             specs.append(zram_dev)
 
         return specs
+
+    @staticmethod
+    def _get_additional_repo_name(repo):
+        name, rest = repo.split(',', maxsplit=1)
+        return name, rest
 
     @property
     def storage(self):
