@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.zfcp import zfcp
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from pykickstart.commands.autopart import F26_AutoPart
@@ -30,6 +31,7 @@ from pykickstart.commands.raid import F25_Raid, F25_RaidData
 from pykickstart.commands.reqpart import F23_ReqPart
 from pykickstart.commands.volgroup import F21_VolGroup, F21_VolGroupData
 from pykickstart.commands.zerombr import F9_ZeroMbr
+from pykickstart.commands.zfcp import F14_ZFCP, F14_ZFCPData
 from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
 from pykickstart.version import F28
@@ -37,6 +39,9 @@ from pykickstart.version import F28
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import KickstartSpecification
 from pyanaconda.storage_utils import device_matches
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["StorageKickstartSpecification"]
 
@@ -127,6 +132,22 @@ class IgnoreDisk(F29_IgnoreDisk):
         return retval
 
 
+class ZFCP(F14_ZFCP):
+    """The zfcp kickstart command."""
+
+    def parse(self, args):
+        fcp = super().parse(args)
+
+        # We need to bring the device online before we check
+        # device names in other commands. See commit: 4e038ca
+        try:
+            zfcp.add_fcp(fcp.devnum, fcp.wwpn, fcp.fcplun)
+        except ValueError as e:
+            log.warning(str(e))
+
+        return fcp
+
+
 class StorageKickstartSpecification(KickstartSpecification):
     """Kickstart specification of the storage module."""
 
@@ -144,6 +165,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "reqpart": F23_ReqPart,
         "volgroup": F21_VolGroup,
         "zerombr": F9_ZeroMbr,
+        "zfcp": ZFCP,
     }
 
     commands_data = {
@@ -152,4 +174,5 @@ class StorageKickstartSpecification(KickstartSpecification):
         "PartData": F29_PartData,
         "RaidData": F25_RaidData,
         "VolGroupData": F21_VolGroupData,
+        "ZFCPData": F14_ZFCPData,
     }
