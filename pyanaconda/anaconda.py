@@ -56,6 +56,7 @@ class Anaconda(object):
         self.isHeadless = False
         self.ksdata = None
         self.methodstr = None
+        self.additional_repos = None
         self.opts = None
         self._payload = None
         self.proxy = None
@@ -80,6 +81,16 @@ class Anaconda(object):
 
         # Create class for launching our dbus session
         self._dbus_launcher = DBusLauncher()
+
+    def set_from_opts(self, opts):
+        """Load argument to variables from self.opts."""
+        self.opts = opts
+        self.decorated = opts.decorated
+        self.proxy = opts.proxy
+        self.updateSrc = opts.updateSrc
+        self.methodstr = opts.method
+        self.stage2 = opts.stage2
+        self.additional_repos = opts.addRepo
 
     @property
     def bootloader(self):

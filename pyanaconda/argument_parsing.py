@@ -446,6 +446,9 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("repo"))
     ap.add_argument("--stage2", dest="stage2", default=None, metavar="STAGE2_URL",
                     help=help_parser.help_text("stage2"))
+    ap.add_argument("--addrepo", dest="addRepo", default=[], metavar="NAME,ADDITIONAL_REPO_URL",
+                    nargs='*', action="append",
+                    help=help_parser.help_text("addrepo"))
     ap.add_argument("--noverifyssl", action="store_true", default=False,
                     help=help_parser.help_text("noverifyssl"))
     ap.add_argument("--liveinst", action="store_true", default=False,
