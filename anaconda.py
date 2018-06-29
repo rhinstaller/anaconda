@@ -437,7 +437,7 @@ if __name__ == "__main__":
     flags.rescue_mode = opts.rescue
 
     if opts.liveinst:
-        startup_utils.live_startup(anaconda, opts)
+        startup_utils.live_startup(anaconda)
     elif "LIVECMD" in os.environ:
         log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 

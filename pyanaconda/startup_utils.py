@@ -373,11 +373,10 @@ def print_startup_note(options):
         print(separate_attachements_note)
 
 
-def live_startup(anaconda, options):
+def live_startup(anaconda):
     """Live environment startup tasks.
 
     :param anaconda: instance of the Anaconda class
-    :param options: command line/boot options
     """
     flags.livecdInstall = True
 
