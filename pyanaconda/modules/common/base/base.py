@@ -33,6 +33,46 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
+class SignalChangedProperty(object):
+    """Descriptor to implement signal changed 'property'."""
+
+    def __init__(self):
+        self._changed = Signal()
+
+    def __get__(self, obj, objtype):
+        return self._changed
+
+
+def prop_changed_signal(func):
+    """Decorator to add signal changed to the object."""
+
+    def new_func(self, *args, **kwargs):
+        klass = self.__class__
+        signal_name = func.__name__ + "_changed"
+        if not hasattr(klass, signal_name):
+            setattr(klass, signal_name, SignalChangedProperty())
+
+        return func(self, *args, **kwargs)
+
+    return new_func
+
+
+def emit_changed_signal(func):
+    """Emit signal after this method call is finished automatically."""
+
+    def new_func(self, *args, **kwargs):
+        signal_name = func.__name__[4:] + "_changed"
+
+        ret = func(self, *args, **kwargs)
+
+        changed_signal = getattr(self, signal_name)
+        changed_signal.emit()
+
+        return ret
+
+    return new_func
+
+
 class BaseModule(ABC):
     """Implementation of a base module."""
 

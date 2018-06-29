@@ -18,8 +18,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus import DBus
-from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.base import KickstartModule, prop_changed_signal, \
+    emit_changed_signal
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.modules.localization.localization_interface import LocalizationInterface
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
@@ -34,28 +34,13 @@ class LocalizationModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
-        self.language_changed = Signal()
         self._language = ""
-
-        self.language_support_changed = Signal()
         self._language_support = []
-
-        self.language_seen_changed = Signal()
         self._language_seen = False
-
-        self.keyboard_changed = Signal()
         self._keyboard = ""
-
-        self.vc_keymap_changed = Signal()
         self._vc_keymap = ""
-
-        self.x_layouts_changed = Signal()
         self._x_layouts = []
-
-        self.switch_options_changed = Signal()
         self._switch_options = []
-
-        self.keyboard_seen_changed = Signal()
         self._keyboard_seen = False
 
     def publish(self):
@@ -104,36 +89,39 @@ class LocalizationModule(KickstartModule):
         return str(data)
 
     @property
+    @prop_changed_signal
     def language(self):
         """Return the language."""
         return self._language
 
+    @emit_changed_signal
     def set_language(self, language):
         """Set the language."""
         self._language = language
-        self.language_changed.emit()
         log.debug("Language is set to %s.", language)
 
     @property
+    @prop_changed_signal
     def language_support(self):
         """Return suppored languages."""
         return self._language_support
 
+    @emit_changed_signal
     def set_language_support(self, language_support):
         """Set supported languages."""
         self._language_support = language_support
-        self.language_support_changed.emit()
         log.debug("Language support is set to %s.", language_support)
 
     @property
+    @prop_changed_signal
     def language_seen(self):
         """Was language command seen in kickstart?"""
         return self._language_seen
 
+    @emit_changed_signal
     def set_language_seen(self, seen):
         """Set whether language command was seen in kickstart."""
         self._language_seen = seen
-        self.language_seen_changed.emit()
         log.debug("Language seen set to %s.", seen)
 
     def install_language_with_task(self, sysroot):
@@ -149,56 +137,61 @@ class LocalizationModule(KickstartModule):
         return path
 
     @property
+    @prop_changed_signal
     def keyboard(self):
         """Return keyboard."""
         return self._keyboard
 
+    @emit_changed_signal
     def set_keyboard(self, keyboard):
         """Set the keyboard."""
         self._keyboard = keyboard
-        self.keyboard_changed.emit()
         log.debug("Keyboard is set to %s.", keyboard)
 
     @property
+    @prop_changed_signal
     def vc_keymap(self):
         """Return virtual console keymap."""
         return self._vc_keymap
 
+    @emit_changed_signal
     def set_vc_keymap(self, vc_keymap):
         """Set virtual console keymap."""
         self._vc_keymap = vc_keymap
-        self.vc_keymap_changed.emit()
         log.debug("Virtual console keymap is set to %s.", vc_keymap)
 
     @property
+    @prop_changed_signal
     def x_layouts(self):
         """Return X Keyboard Layouts."""
         return self._x_layouts
 
+    @emit_changed_signal
     def set_x_layouts(self, x_layouts):
         """Set X Keyboard Layouts."""
         self._x_layouts = x_layouts
-        self.x_layouts_changed.emit()
         log.debug("X Layouts are set to %s.", x_layouts)
 
     @property
+    @prop_changed_signal
     def switch_options(self):
         """Return X layout switching options."""
         return self._switch_options
 
+    @emit_changed_signal
     def set_switch_options(self, switch_options):
         """Set X layout switching options."""
         self._switch_options = switch_options
-        self.switch_options_changed.emit()
         log.debug("X layout switch options are set to %s.", switch_options)
 
     @property
+    @prop_changed_signal
     def keyboard_seen(self):
         """Was keyboard command seen in kickstart?"""
         return self._keyboard_seen
 
+    @emit_changed_signal
     def set_keyboard_seen(self, keyboard_seen):
         """Set whether keyboard command was seen in kickstart."""
         self._keyboard_seen = keyboard_seen
-        self.keyboard_seen_changed.emit()
         log.debug("keyboard command considered seen in kicksatart: %s.", keyboard_seen)
