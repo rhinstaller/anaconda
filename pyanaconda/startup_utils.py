@@ -43,6 +43,7 @@ from pyanaconda.screensaver import inhibit_screensaver
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.constants import DBUS_FLAG_NONE
 from pyanaconda.modules.common.constants.services import BOSS, ALL_KICKSTART_MODULES
+from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 import blivet
 
@@ -397,48 +398,32 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
     :param anaconda: instance of the Anaconda class
     :param ksdata: data model corresponding to the installation kickstart
     """
-    if anaconda.methodstr.startswith("cdrom"):
-        ksdata.method.method = "cdrom"
-    elif anaconda.methodstr.startswith("nfs"):
-        ksdata.method.method = "nfs"
-        nfs_options, server, path = util.parseNfsUrl(anaconda.methodstr)
-        ksdata.method.server = server
-        ksdata.method.dir = path
-        ksdata.method.opts = nfs_options
-    elif anaconda.methodstr.startswith("hd:"):
-        ksdata.method.method = "harddrive"
-        url = anaconda.methodstr.split(":", 1)[1]
-        url_parts = url.split(":")
-        device = url_parts[0]
-        path = ""
-        if len(url_parts) == 2:
-            path = url_parts[1]
-        elif len(url_parts) == 3:
-            path = url_parts[2]
+    try:
+        source = SourceFactory.parse_repo_cmdline_string(anaconda.methodstr)
+    except PayloadSourceTypeUnrecognized:
+        log.error("Unknown method: %s", anaconda.methodstr)
+        return
 
-        ksdata.method.partition = device
-        ksdata.method.dir = path
-    elif anaconda.methodstr.startswith("http") or anaconda.methodstr.startswith("ftp") or anaconda.methodstr.startswith("file"):
-        ksdata.method.method = "url"
-        ksdata.method.url = anaconda.methodstr
-        # installation source specified by bootoption
-        # overrides source set from kickstart;
-        # the kickstart might have specified a mirror list,
-        # so we need to clear it here if plain url source is provided
-        # by a bootoption, because having both url & mirror list
-        # set at once is not supported and breaks dnf in
-        # unpredictable ways
-        # FIXME: Is this still needed for dnf?
+    ksdata.method.method = source.method_type
+
+    if source.is_nfs:
+        ksdata.method.server = source.server
+        ksdata.method.dir = source.path
+        ksdata.method.opts = source.options
+    elif source.is_harddrive:
+        ksdata.method.partition = source.partition
+        ksdata.method.dir = source.path
+    elif source.is_http or source.is_https or source.is_ftp:
+        ksdata.method.url = source.url
         ksdata.method.mirrorlist = None
         ksdata.method.metalink = None
-    elif anaconda.methodstr.startswith("livecd"):
-        ksdata.method.method = "harddrive"
-        device = anaconda.methodstr.split(":", 1)[1]
-        ksdata.method.partition = os.path.normpath(device)
-    elif anaconda.methodstr.startswith("hmc"):
-        ksdata.method.method = "hmc"
-    else:
-        log.error("Unknown method: %s", anaconda.methodstr)
+    # file is not url based but it is stored same way
+    elif source.is_file:
+        ksdata.method.url = source.path
+        ksdata.method.mirrorlist = None
+        ksdata.method.metalink = None
+    elif source.is_livecd:
+        ksdata.method.partition = source.partition
 
 
 def wait_for_modules(timeout=600):

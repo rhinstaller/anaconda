@@ -32,6 +32,7 @@ from pyanaconda.core import util, constants
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.startup_utils import run_boss, stop_boss
+from pyanaconda.payload.source import SourceFactory
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -162,15 +163,15 @@ class Anaconda(object):
 
         # methodstr and stage2 become strings in ways that pylint can't figure out
         # pylint: disable=unsubscriptable-object
-        if self.methodstr and self.methodstr.startswith("hd:"):
+        if self.methodstr and SourceFactory.is_harddrive(self.methodstr):
             specs.append(self.methodstr[3:].split(":", 3)[0])
 
-        if self.stage2 and self.stage2.startswith("hd:"):
+        if self.stage2 and SourceFactory.is_harddrive(self.stage2):
             specs.append(self.stage2[3:].split(":", 3)[0])
 
         for additional_repo in self.additional_repos:
             _name, repo_url = self._get_additional_repo_name(additional_repo)
-            if repo_url.startswith("hd:"):
+            if SourceFactory.is_harddrive(repo_url):
                 specs.append(repo_url[3:].split(":", 3)[0])
 
         # zRAM swap devices need to be protected
