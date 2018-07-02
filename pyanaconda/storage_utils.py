@@ -31,6 +31,7 @@ from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats
 from blivet.formats.fs import FS
+from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -945,3 +946,25 @@ def get_supported_filesystems():
 
 def get_supported_autopart_choices():
     return [c for c in AUTOPART_CHOICES if is_supported_device_type(AUTOPART_DEVICE_TYPES[c[1]])]
+
+def get_pbkdf_args(luks_version, pbkdf_type=None, max_memory_kb=0, iterations=0, time_ms=0):
+    """Get the pbkdf arguments.
+
+    :param luks_version: a version of LUKS
+    :param pbkdf_type: a type of PBKDF
+    :param max_memory_kb: a memory cost for PBKDF
+    :param iterations: a number of iterations
+    :param time_ms: an iteration time in ms
+    :return:
+    """
+    # PBKDF arguments are not supported for LUKS 1.
+    if luks_version != "luks2":
+        return None
+
+    # Use defaults.
+    if not pbkdf_type and not max_memory_kb and not iterations and not time_ms:
+        log.debug("Using default PBKDF args.")
+        return None
+
+    # Use specified arguments.
+    return LUKS2PBKDFArgs(pbkdf_type or None, max_memory_kb or 0, iterations or 0, time_ms or 0)
