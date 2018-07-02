@@ -26,6 +26,7 @@ class FedoraWorkstationInstallClass(FedoraBaseInstallClass):
     stylesheet = "/usr/share/anaconda/pixmaps/workstation/fedora-workstation.css"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
     defaultPackageEnvironment = "workstation-product-environment"
+    bootloader_menu_autohide = True
 
     if productVariant != "Workstation":
         hidden = True
