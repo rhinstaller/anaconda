@@ -1286,8 +1286,9 @@ class InstallerStorage(Blivet):
         iscsi.write(sysroot, self)
         fcoe.write(sysroot)
 
-        zfcp_proxy = STORAGE.get_proxy(ZFCP)
-        zfcp_proxy.WriteConfiguration(sysroot)
+        if arch.is_s390():
+            zfcp_proxy = STORAGE.get_proxy(ZFCP)
+            zfcp_proxy.WriteConfiguration(sysroot)
 
         self.write_dasd_conf(sysroot)
 
@@ -1681,8 +1682,9 @@ class InstallerStorage(Blivet):
             iscsi.startup()
             fcoe.startup()
 
-            zfcp_proxy = STORAGE.get_proxy(ZFCP)
-            zfcp_proxy.ReloadModule()
+            if arch.is_s390():
+                zfcp_proxy = STORAGE.get_proxy(ZFCP)
+                zfcp_proxy.ReloadModule()
 
         super().reset(cleanup_only=cleanup_only)
 
