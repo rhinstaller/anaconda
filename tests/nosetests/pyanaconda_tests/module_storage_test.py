@@ -566,6 +566,56 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    def autopart_luks_version_kickstart_test(self):
+        """Test the autopart command with the luks version option."""
+        ks_in = """
+        autopart --encrypted --luks-version=luks1
+        """
+        ks_out = """
+        autopart --encrypted --luks-version=luks1
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def autopart_pbkdf_kickstart_test(self):
+        """Test the autopart command with the pbkdf option."""
+        ks_in = """
+        autopart --encrypted --pbkdf=pbkdf2
+        """
+        ks_out = """
+        autopart --encrypted --pbkdf=pbkdf2
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def autopart_pbkdf_memory_kickstart_test(self):
+        """Test the autopart command with the pbkdf memory option."""
+        ks_in = """
+        autopart --encrypted --pbkdf-memory=256
+        """
+        ks_out = """
+        autopart --encrypted --pbkdf-memory=256
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def autopart_pbkdf_time_kickstart_test(self):
+        """Test the autopart command with the pbkdf time option."""
+        ks_in = """
+        autopart --encrypted --pbkdf-time=100
+        """
+        ks_out = """
+        autopart --encrypted --pbkdf-time=100
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def autopart_pbkdf_iterations_kickstart_test(self):
+        """Test the autopart command with the pbkdf iterations option."""
+        ks_in = """
+        autopart --encrypted --pbkdf-iterations=1000
+        """
+        ks_out = """
+        autopart --encrypted --pbkdf-iterations=1000
+        """
+        self._test_kickstart(ks_in, ks_out)
+
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
     @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
     def zfcp_kickstart_test(self, arch, zfcp):
@@ -874,6 +924,41 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self._test_dbus_property(
             "Passphrase",
             "123456"
+        )
+
+    def luks_version_property_test(self):
+        """Test the luks version property."""
+        self._test_dbus_property(
+            "LUKSVersion",
+            "luks1"
+        )
+
+    def pbkdf_property_test(self):
+        """Test the PBKDF property."""
+        self._test_dbus_property(
+            "PBKDF",
+            "argon2i"
+        )
+
+    def pbkdf_memory_property_test(self):
+        """Test the PBKDF memory property."""
+        self._test_dbus_property(
+            "PBKDFMemory",
+            256
+        )
+
+    def pbkdf_time_property_test(self):
+        """Test the PBKDF time property."""
+        self._test_dbus_property(
+            "PBKDFTime",
+            100
+        )
+
+    def pbkdf_iterations_property_test(self):
+        """Test the PBKDF iterations property."""
+        self._test_dbus_property(
+            "PBKDFIterations",
+            1000
         )
 
     def escrowcert_property_test(self):
