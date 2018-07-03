@@ -17,6 +17,7 @@ depends() {
 installkernel() {
     case "$(uname -m)" in
         s390*) instmods hmcdrv ;;
+        aarch64|i?86|x86_64) instmods nd_pmem nfit ;;
     esac
 }
 

@@ -13,8 +13,11 @@ MODULE_LIST="cramfs squashfs iscsi_tcp "
 # we need this when any ko file cannot be found
 shopt -s nullglob
 
-SCSI_MODULES=/lib/modules/$KERNEL/kernel/drivers/scsi/device_handler/
-for m in $SCSI_MODULES/*.ko; do
+DRIVERDIR=/lib/modules/$KERNEL/kernel/drivers
+SCSI_MODULES=$DRIVERDIR/scsi/device_handler
+NFIT_MODULE=$DRIVERDIR/acpi/nfit/nfit.ko
+NVDIMM_MODULES=$DRIVERDIR/nvdimm
+for m in $SCSI_MODULES/*.ko $NFIT_MODULE $NVDIMM_MODULES/*.ko ; do
     # Shell spew to work around not having basename
     # Trim the paths off the prefix, then the . suffix
     a="${m##*/}"
