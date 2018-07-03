@@ -219,10 +219,10 @@ def setup_environment():
     # pylint: disable=environment-modify
 
     # Silly GNOME stuff
-    if 'HOME' in os.environ and not "XAUTHORITY" in os.environ:
-        os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
-    os.environ['HOME'] = '/tmp'
-    os.environ['LC_NUMERIC'] = 'C'
+    if "HOME" in os.environ and not "XAUTHORITY" in os.environ:
+        os.environ["XAUTHORITY"] = os.environ["HOME"] + "/.Xauthority"
+    os.environ["HOME"] = "/tmp"
+    os.environ["LC_NUMERIC"] = "C"
     os.environ["GCONF_GLOBAL_LOCKS"] = "1"
 
     # In theory, this gets rid of our LVM file descriptor warnings
@@ -237,7 +237,7 @@ def setup_environment():
         del os.environ["LD_PRELOAD"]
 
     # Go ahead and set $DISPLAY whether we're going to use X or not
-    if 'DISPLAY' in os.environ:
+    if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
     else:
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
