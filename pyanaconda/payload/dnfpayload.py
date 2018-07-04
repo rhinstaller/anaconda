@@ -1133,8 +1133,8 @@ class DNFPayload(payload.PackagePayload):
     def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
-        url, mirrorlist, metalink = self._setupInstallDevice(self.storage,
-                                                             checkmount)
+        url, mirrorlist, metalink = self._setupInstallDevice(self.storage, checkmount)
+
         method = self.data.method
         sslverify = True
         if method.method == "url":
