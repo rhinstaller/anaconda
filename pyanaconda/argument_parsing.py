@@ -198,7 +198,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 log.warning("boot option specified without expected number of "
                             "arguments and will be ignored: %s", arg)
                 continue
-            if option.nargs == 0 and option.const is not None:
+            elif option.nargs == 0 and option.const is not None:
                 # nargs == 0 & constr == True -> store_true
                 # (we could also check the class, but it begins with an
                 # underscore, so it would be ugly)
@@ -214,6 +214,13 @@ class AnacondaArgumentParser(ArgumentParser):
                 # we hate you.
 
                 continue
+            elif option.nargs in ("*", "?", "+"):
+                # store multiple values under one key
+                # parsing of these values to list is done in BootArgs object
+                if type(val) is list:
+                    setattr(namespace, option.dest, val)
+                    continue
+
             option(self, namespace, val)
         return namespace
 
