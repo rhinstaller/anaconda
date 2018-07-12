@@ -230,7 +230,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     icon_theme = gtk_icon_theme_get_default();
     icon_info = gtk_icon_theme_lookup_by_gicon(icon_theme,
                                                icon,
-                                               16, 0);
+                                               32, 0);
     if (NULL == icon_info) {
         gchar *icon_str = g_icon_to_string(icon);
         fprintf(stderr, "unable to lookup icon %s\n", icon_str);
@@ -250,11 +250,11 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     }
 
     widget->priv->icon = gtk_image_new_from_pixbuf(pixbuf);
-    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->icon), 16);
+    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->icon), 32);
     gtk_widget_set_valign(widget->priv->icon, GTK_ALIGN_START);
     gtk_widget_set_margin_start(widget->priv->icon, 3);
     gtk_widget_set_margin_end(widget->priv->icon, 3);
-    gtk_widget_set_margin_bottom(widget->priv->icon, 32);
+    gtk_widget_set_margin_bottom(widget->priv->icon, 16);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->icon, 0, 0, 1, 2);
 }
 

@@ -206,6 +206,7 @@ class Hub(GUIObject, common.Hub):
             label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
                               use_markup=True, halign=Gtk.Align.START,
                               valign=Gtk.Align.END, margin_bottom=6)
+
             grid.attach(label, col, category_row, 1, 1)
             row += 1
 
