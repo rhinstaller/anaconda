@@ -254,6 +254,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     gtk_widget_set_valign(widget->priv->icon, GTK_ALIGN_START);
     gtk_widget_set_margin_start(widget->priv->icon, 3);
     gtk_widget_set_margin_end(widget->priv->icon, 3);
+    gtk_widget_set_margin_bottom(widget->priv->icon, 32);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->icon, 0, 0, 1, 2);
 }
 
@@ -303,7 +304,9 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_label_set_yalign(GTK_LABEL(spoke->priv->status_label), 0.0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 25);
+    gtk_label_set_lines(GTK_LABEL(spoke->priv->status_label), 2);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);
+    gtk_widget_set_vexpand(GTK_WIDGET(spoke->priv->status_label), TRUE);
     gtk_widget_set_name(spoke->priv->status_label, "anaconda-spoke-selector-status");
 
     /* Add everything to the grid, add the grid to the widget.  The icon is attached by

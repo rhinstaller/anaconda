@@ -129,7 +129,8 @@ class Hub(GUIObject, common.Hub):
 
         grid = Gtk.Grid(row_spacing=12, column_spacing=12, column_homogeneous=True,
                         margin_bottom=12, margin_left=12, margin_right=12,
-                        halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER)
+                        halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
+                        row_homogeneous=True)
 
         max_row = category_row = 0
         col = 0
@@ -202,8 +203,9 @@ class Hub(GUIObject, common.Hub):
 
             row = category_row
 
-            label = Gtk.Label(label="<b>%s</b>" % escape_markup(_(obj.title)),
-                              use_markup=True, halign=Gtk.Align.START, margin_top=12, margin_bottom=6)
+            label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
+                              use_markup=True, halign=Gtk.Align.START,
+                              valign=Gtk.Align.END, margin_bottom=6)
             grid.attach(label, col, category_row, 1, 1)
             row += 1
 
