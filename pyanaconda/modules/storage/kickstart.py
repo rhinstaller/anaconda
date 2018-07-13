@@ -32,7 +32,7 @@ from pykickstart.commands.volgroup import F21_VolGroup, F21_VolGroupData
 from pykickstart.commands.zerombr import F9_ZeroMbr
 from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import KickstartSpecification
@@ -130,7 +130,7 @@ class IgnoreDisk(F29_IgnoreDisk):
 class StorageKickstartSpecification(KickstartSpecification):
     """Kickstart specification of the storage module."""
 
-    version = F28
+    version = RHEL8
     commands = {
         "autopart": AutoPart,
         "bootloader": F29_Bootloader,
