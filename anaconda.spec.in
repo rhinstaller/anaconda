@@ -347,6 +347,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 16 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.1-1
+- Define zanata branch statically for rhel-devel branch (rvykydal)
+
 * Wed Jun 27 2018 Martin Kolman <mkolman@redhat.com> - 29.19-1
 - DNF 3: progress callback constants moved to dnf.transaction (awilliam)
 - DNF 3: Update size calculations for transaction item changes (awilliam)
