@@ -245,6 +245,22 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
+    def _no_module_stream_specified(self, exn):
+        message = _("Stream was not specified for a module without a default stream. This is "
+                    "a fatal error and installation will be aborted. The details "
+                    "of this error are:\n\n%(exception)s") % \
+                            {"exception": exn}
+        self.ui.showError(message)
+        return ERROR_RAISE
+
+    def  _multiple_module_streams_specified(self, exn):
+        message = _("Multiple streams have been specified for a single module. This is "
+                    "a fatal error and installation will be aborted. The details "
+                    "of this error are:\n\n%(exception)s") % \
+                            {"exception": exn}
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def _scriptErrorHandler(self, exn):
         message = _("There was an error running the kickstart script at line "
                     "%(lineno)s.  This is a fatal error and installation will be "
@@ -326,6 +342,8 @@ class ErrorHandler(object):
                 "MissingImageError": self._missingImageHandler,
                 "NoSuchGroup": self._noSuchGroupHandler,
                 "NoSuchPackage": self._noSuchPackageHandler,
+                "NoStreamSpecifiedException": self._no_module_stream_specified,
+                "InstallMoreStreamsException": self._multiple_module_streams_specified,
                 "InstallSpecsMissing" : self._install_specs_missing,
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
