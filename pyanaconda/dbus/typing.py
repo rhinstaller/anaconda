@@ -125,13 +125,14 @@ class DBusType(object):
 
         :raises ValueError: for unknown types
         """
-        # Try base types.
+        # Try basic types.
         if DBusType._is_basic_type(type_hint):
             return DBusType._get_basic_type(type_hint)
 
         # Try container types.
-        if DBusType._is_container_type(type_hint):
-            return DBusType._get_container_type(type_hint)
+        base_type = _get_container_base_type(type_hint)
+        if base_type:
+            return DBusType._get_container_type(type_hint, base_type)
 
         # Or raise an error.
         raise TypeError("Unknown type: %s" % type_hint)
@@ -147,26 +148,35 @@ class DBusType(object):
         return DBusType._basic_type_mapping[type_hint]
 
     @staticmethod
-    def _is_container_type(type_hint):
-        """Is it a container type?"""
-        # Try to get the "base" type of the container type.
+    def _get_container_base_type(type_hint):
+        """Returns the "base" type via the "origin" of the hint, if
+        it's a container type; otherwise returns None.
+        """
+        # Try to get the "origin" of the hint.
         origin = getattr(type_hint, "__origin__", None)
-        return origin in DBusType._container_type_mapping
+        if origin:
+            try:
+                # Get the "base" type via the "origin"
+                # see https://bugzilla.redhat.com/show_bug.cgi?id=1598574
+                return tuple(contype for contype in DBusType._container_type_mapping
+                             if issubclass(origin, contype))[0]
+            except IndexError:
+                return None
+        return None
 
     @staticmethod
-    def _get_container_type(type_hint):
-        """Return a container type."""
-        # Get the "base" type of the container.
-        origin = type_hint.__origin__
+    def _get_container_type(type_hint, base_type):
+        """Return a DBus container type for a base type retrieved via
+        _get_container_base_type."""
         # Get the arguments of the container.
         args = type_hint.__args__
 
         # Check the typing.
-        if origin == Dict:
+        if base_type == Dict:
             DBusType._check_if_valid_dictionary(type_hint)
 
         # Generate string.
-        container = DBusType._container_type_mapping[origin]
+        container = DBusType._container_type_mapping[base_type]
         items = [DBusType.get_dbus_representation(arg) for arg in args]
         return container % "".join(items)
 
@@ -178,5 +188,5 @@ class DBusType(object):
         """
         key, _ = type_hint.__args__
 
-        if DBusType._is_container_type(key) or key == Variant:
+        if DBusType._get_container_base_type(key) or key == Variant:
             raise TypeError("Dictionary key cannot be of type %s." % key)
