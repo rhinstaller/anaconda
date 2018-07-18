@@ -62,6 +62,7 @@ PROTOCOL_HTTP = 'http'
 PROTOCOL_HTTPS = 'https'
 PROTOCOL_FTP = 'ftp'
 PROTOCOL_NFS = 'nfs'
+PROTOCOL_FILE = 'file'
 PROTOCOL_MIRROR = 'Closest mirror'
 
 URL_TYPE_URL = 'url'
@@ -73,10 +74,15 @@ REPO_ENABLED_COL = 0
 REPO_NAME_COL = 1
 REPO_OBJ = 2
 
+# Additional repo protocol combobox fields
+MODEL_ROW_VALUE = 0
+MODEL_ROW_NAME = 1
+
 REPO_PROTO = {PROTOCOL_HTTP:  "http://",
               PROTOCOL_HTTPS: "https://",
               PROTOCOL_FTP:   "ftp://",
-              PROTOCOL_NFS:   "nfs://"
+              PROTOCOL_NFS:   "nfs://",
+              PROTOCOL_FILE:  "file://"
               }
 
 CLICK_FOR_DETAILS = N_(' <a href="">Click for details.</a>')
@@ -567,6 +573,41 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return url != old_mirrorlist
         else:
             return url != old_metalink
+
+    def _update_file_protocol(self, ksrepo):
+        """Show file protocol for repositories that already have it. Remove it when unselected."""
+        if ksrepo.baseurl and ksrepo.baseurl.startswith(REPO_PROTO[PROTOCOL_FILE]):
+            self._set_file_protocol_to_repo_combobox()
+            self._repoProtocolComboBox.set_sensitive(False)
+        else:
+            self._remove_file_protocol_from_repo_combobox()
+            self._repoProtocolComboBox.set_sensitive(True)
+
+    def _set_file_protocol_to_repo_combobox(self):
+        # file protocol will be always the last one
+        model = self._repoProtocolComboBox.get_model()
+        row = self._get_protocol_row(PROTOCOL_FILE)
+
+        if row is None:
+            model.append([REPO_PROTO[PROTOCOL_FILE], PROTOCOL_FILE])
+
+        self._protocolComboBox.set_active_id(PROTOCOL_FILE)
+
+    def _remove_file_protocol_from_repo_combobox(self):
+        model = self._repoProtocolComboBox.get_model()
+        row = self._get_protocol_row(PROTOCOL_FILE)
+
+        if row:
+            model.remove(row.iter)
+
+    def _get_protocol_row(self, protocol):
+        model = self._repoProtocolComboBox.get_model()
+
+        for row in model:
+            if row[MODEL_ROW_NAME] == protocol:
+                return row
+
+        return None
 
     @property
     def changed(self):
@@ -1586,9 +1627,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return
         repo = self._repoStore[itr][REPO_OBJ]
         combo_protocol = self._repoProtocolComboBox.get_active_id()
-        url_prefix = REPO_PROTO[combo_protocol]
 
+        # not user editable protocol (e.g. file://) was selected on the old repo and
+        # removed when repo line changed
+        if not combo_protocol:
+            return
+
+        url_prefix = REPO_PROTO[combo_protocol]
         url = self._repoUrlEntry.get_text().strip()
+
         if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS):
             url_type = self._repoUrlTypeComboBox.get_active_id()
             repo.baseurl = repo.mirrorlist = repo.metalink = ""
@@ -1641,6 +1688,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def on_repoStore_row_changed(self, model, path, itr, user_data=None):
         self._duplicateRepoCheck.update_check_status()
 
+        repo = model[itr][REPO_OBJ]
+        self._update_file_protocol(repo)
+
     def on_repoStore_row_deleted(self, model, path, user_data=None):
         self._duplicateRepoCheck.update_check_status()
 
@@ -1685,6 +1735,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         can_have_mirror = protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS)
         fancy_set_sensitive(self._repoUrlTypeComboBox, can_have_mirror)
+
+        can_be_edited = protocol != PROTOCOL_FILE
+        fancy_set_sensitive(self._repoUrlEntry, can_be_edited)
 
         # Re-run the proxy check
         itr = self._repoSelection.get_selected()[1]
