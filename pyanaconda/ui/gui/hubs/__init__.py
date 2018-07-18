@@ -127,7 +127,7 @@ class Hub(GUIObject, common.Hub):
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
 
-        grid = Gtk.Grid(row_spacing=12, column_spacing=12, column_homogeneous=True,
+        grid = Gtk.Grid(row_spacing=18, column_spacing=18, column_homogeneous=True,
                         margin_bottom=12, margin_left=12, margin_right=12,
                         halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
                         row_homogeneous=True)
@@ -204,8 +204,8 @@ class Hub(GUIObject, common.Hub):
             row = category_row
 
             label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
-                              use_markup=True, halign=Gtk.Align.START,
-                              valign=Gtk.Align.END, margin_bottom=6)
+                              use_markup=True, halign=Gtk.Align.START, valign=Gtk.Align.END,
+                              margin_bottom=6, wrap=True, xalign=0.0)
 
             grid.attach(label, col, category_row, 1, 1)
             row += 1
