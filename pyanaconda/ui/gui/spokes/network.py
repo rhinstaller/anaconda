@@ -1533,7 +1533,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     uiFile = "spokes/network.glade"
     helpFile = "NetworkSpoke.xml"
 
-    title = CN_("GUI|Spoke", "_NETWORK & HOST NAME")
+    title = CN_("GUI|Spoke", "_Network & Host Name")
     icon = "network-transmit-receive-symbolic"
 
     category = SystemCategory
