@@ -1705,7 +1705,7 @@ class InstallerStorage(Blivet):
         self._resolve_protected_device_specs()
         self._find_live_backing_device()
         for devname in self.protected_dev_names:
-            dev = self.devicetree.get_device_by_name(devname)
+            dev = self.devicetree.get_device_by_name(devname, hidden=True)
             self._mark_protected_device(dev)
 
         self.roots = []
