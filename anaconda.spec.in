@@ -347,6 +347,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 18 2018 Martin Kolman <mkolman@redhat.com> - 29.20-1
+- Make pyanaconda.dbus.typing work with Python 3.7 (#1598574) (awilliam)
+- Protected devices might be hidden (#1561766) (vponcova)
+- fstab: include a note about systemctl daemon-reload (zbyszek)
+- Access the ZFCP module only on s390x (vponcova)
+- Tell libreport if it is a final release or not (#1596392) (vpodzime)
+- bootloader: GRUB2: Set menu_auto_hide when enabled by the instClass
+  (hdegoede)
+- installclass: Add bootloader_menu_autohide property (hdegoede)
+- Add tests for the zFCP module (vponcova)
+- Handle the zfcp command in the zFCP module (vponcova)
+- Use the zFCP discovery task in UI (vponcova)
+- Create the zFCP discovery task (vponcova)
+- Create the zFCP module (vponcova)
+
 * Wed Jun 27 2018 Martin Kolman <mkolman@redhat.com> - 29.19-1
 - DNF 3: progress callback constants moved to dnf.transaction (awilliam)
 - DNF 3: Update size calculations for transaction item changes (awilliam)
