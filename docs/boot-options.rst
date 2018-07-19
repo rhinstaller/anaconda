@@ -99,6 +99,39 @@ different ways:
     'NN' is the hexidecimal representation of the character (e.g. ``\x20`` for
     the space character (' ').
 
+.. inst.addrepo:
+
+inst.addrepo
+^^^^^^^^^^^^
+
+Add additional repository which can be used as another *Instalation Source*
+next to the main repository (see `inst.repo`_). This option can be used multiple
+times during one boot. This can be specified in a few different ways:
+
+``inst.addrepo=REPO_NAME,[http,https,ftp]://<host>/<path>``
+    Look for the installable tree at the given URL.
+
+``inst.addrepo=REPO_NAME,nfs://<server>:/<path>``
+    Look for the installable tree at the given nfs path. Note that there is a
+    colon after the host. Anaconda passes everything after “nfs:// ” directly
+    to the mount command instead of parsing URLs according to RFC 2224.
+
+``inst.addrepo=REPO_NAME,file://<path>``
+    Look for the installable tree at the given location in the installation
+    environment. Beware, to be able to use this variant the repo needs to
+    be mounted before Anaconda tries to use it (load available software groups).
+    The main usage for this command is having multiple repositories on one
+    bootable ISO and install both the main repo and additional repositories from
+    this ISO. The path to the additional repositories will be then
+    `/run/install/source/REPO_ISO_PATH`. Another solution can be to mount this repo
+    directory in the `%pre` section in the kickstart file.
+    NOTE: The path must be absolute and start with `/` so the final url starts
+    with `file:///...`.
+
+The `REPO_NAME` is name of the repository and it is a required part. The name will be
+used in the installation process. These repositories will be used only during the
+installation but they **will not** be installed to the installed system.
+
 .. inst.noverifyssl:
 
 inst.noverifyssl
