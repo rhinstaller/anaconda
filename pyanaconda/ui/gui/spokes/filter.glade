@@ -1282,7 +1282,7 @@
                                       <object class="GtkLabel" id="nvdimmModeLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices|Mode">Show Only Devices in _Mode:</property>
+                                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices|Mode">Show Only Devices in Mo_de:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">nvdimmModeCombo</property>
                                       </object>
@@ -1327,7 +1327,7 @@
                                       <object class="GtkLabel" id="nvdimmNamespaceLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices|Namespace">_Namespace:</property>
+                                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|NVDIMM Devices|Namespace">Names_pace:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">nvdimmNamespaceEntry</property>
                                       </object>
@@ -1938,7 +1938,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="reconfigureNVDIMMButton">
-                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">Reconfigure _NVDIMM...</property>
+                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">Recon_figure NVDIMM...</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -1953,7 +1953,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="refresh">
-                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">Refresh _List</property>
+                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">_Refresh List</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
