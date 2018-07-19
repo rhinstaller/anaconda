@@ -89,7 +89,7 @@ The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
 Summary: Core of the Anaconda installer
-Requires: python-blivet >= 1:0.61.15.70
+Requires: python-blivet >= 1:0.61.15.71
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libreport-rhel-anaconda-bugzilla >= 2.1.11-1
@@ -134,6 +134,7 @@ Requires: rsync
 Requires: systemd
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
+Requires: libblockdev-nvdimm
 %endif
 Requires: iscsi-initiator-utils >= %{iscsiver}
 %ifarch %{ix86} x86_64 ia64
