@@ -1,7 +1,5 @@
 #
-# Authors: Jiri Konecny <jkonecny@redhat.com>
-#
-## Copyright (C) 2017  Red Hat, Inc.
+# Copyright (C) 2018  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,6 +14,8 @@
 # source code or documentation are not subject to the GNU General Public
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
+#
+# Authors: Jiri Konecny <jkonecny@redhat.com>
 #
 
 from pyanaconda.payload import dnfpayload
@@ -150,7 +150,8 @@ or it should be. Nah it's just a test!
         os.remove(self._md_file)
         self.assertFalse(r.verify_repoMD())
 
-class  PayloadRequirementsTestCase(unittest.TestCase):
+
+class PayloadRequirementsTestCase(unittest.TestCase):
 
     def requirements_test(self):
         """Check that requirements work correctly."""
