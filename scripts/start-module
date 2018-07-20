@@ -8,4 +8,4 @@ if [ -d "/run/install" ]; then
   export PYTHONPATH=/run/install/updates:/run/install/product:/tmp/updates:/tmp/product
 fi
 
-python3 -m $1
+/usr/libexec/platform-python -m $1
