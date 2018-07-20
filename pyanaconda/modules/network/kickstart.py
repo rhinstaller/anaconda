@@ -19,13 +19,13 @@
 #
 from pykickstart.commands.network import F27_Network, F27_NetworkData
 from pykickstart.commands.firewall import F28_Firewall
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class NetworkKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = RHEL8
     commands = {
         "network": F27_Network,
         "firewall" : F28_Firewall,

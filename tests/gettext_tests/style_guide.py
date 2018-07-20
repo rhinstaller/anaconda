@@ -44,7 +44,6 @@ bad_strings = {'(?i)bootloader': 'boot loader',
 # {'filename': {'matched string', occurrences}}
 expected_badness = {'pyanaconda/bootloader.py':    {'mountpoint': 1,   # format string specifier
                                                     'bootloader': 2},  # format string specifier
-                    'pyanaconda/kickstart.py':     {'btrfs': 1},       # quoted filesystem type
                     'pyanaconda/network.py':       {'vlan': 1},        # format string specifier
                     'pyanaconda/rescue.py':        {'mountpoint': 1},  # format string specifier
                     'pyanaconda/startup_utils.py': {'HOSTNAME': 1}}    # ssh to install@HOSTNAME

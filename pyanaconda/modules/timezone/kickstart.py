@@ -18,13 +18,13 @@
 # Red Hat, Inc.
 #
 from pykickstart.commands.timezone import F25_Timezone
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class TimezoneKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = RHEL8
     commands = {
         "timezone": F25_Timezone,
     }

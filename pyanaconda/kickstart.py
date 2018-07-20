@@ -73,7 +73,7 @@ from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, iScsiDiskDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm
-from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.errors import PartitioningError, StorageError
 from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
@@ -91,7 +91,7 @@ from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
                                  OnErrorScriptSection, TracebackScriptSection, Section
-from pykickstart.version import returnClassForVersion, F27
+from pykickstart.version import returnClassForVersion, F27, RHEL8
 
 from pyanaconda import anaconda_logging
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_blivet_logger,\
@@ -676,93 +676,14 @@ class Bootloader(RemovedCommand):
         if not dry_run and bootloader_proxy.Drive != boot_drive:
             bootloader_proxy.SetDrive(boot_drive)
 
-class BTRFS(commands.btrfs.F23_BTRFS):
-    def execute(self, storage, ksdata, instClass):
-        for b in self.btrfsList:
-            b.execute(storage, ksdata, instClass)
 
-class BTRFSData(commands.btrfs.F23_BTRFSData):
-    def execute(self, storage, ksdata, instClass):
-        devicetree = storage.devicetree
+class BTRFS(commands.btrfs.RHEL8_BTRFS):
+    def parse(self, args):
+        commands.btrfs.RHEL8_BTRFS.parse(self, args)
+        raise KickstartParseError(lineno=self.lineno, msg=_("Btrfs file system is not supported."))
 
-        storage.do_autopart = False
-
-        members = []
-
-        # Get a list of all the devices that make up this volume.
-        for member in self.devices:
-            dev = devicetree.resolve_device(member)
-            if not dev:
-                # if using --onpart, use original device
-                member_name = ksdata.onPart.get(member, member)
-                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
-
-            if dev and dev.format.type == "luks":
-                try:
-                    dev = dev.children[0]
-                except IndexError:
-                    dev = None
-
-            if dev and dev.format.type != "btrfs":
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
-                             {"device": member, "format": dev.format.type})
-
-            if not dev:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Tried to use undefined partition \"%s\" in Btrfs volume specification.") % member)
-
-            members.append(dev)
-
-        if self.subvol:
-            name = self.name
-        elif self.label:
-            name = self.label
-        else:
-            name = None
-
-        if len(members) == 0 and not self.preexist:
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("Btrfs volume defined without any member devices.  Either specify member devices or use --useexisting."))
-
-        # allow creating btrfs vols/subvols without specifying mountpoint
-        if self.mountpoint in ("none", "None"):
-            self.mountpoint = ""
-
-        # Sanity check mountpoint
-        if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint)
-
-        # If a previous device has claimed this mount point, delete the
-        # old one.
-        try:
-            if self.mountpoint:
-                device = storage.mountpoints[self.mountpoint]
-                storage.destroy_device(device)
-        except KeyError:
-            pass
-
-        if self.preexist:
-            device = devicetree.resolve_device(self.name)
-            if not device:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name)
-
-            device.format.mountpoint = self.mountpoint
-        else:
-            try:
-                request = storage.new_btrfs(name=name,
-                                            subvol=self.subvol,
-                                            mountpoint=self.mountpoint,
-                                            metadata_level=self.metaDataLevel,
-                                            data_level=self.dataLevel,
-                                            parents=members,
-                                            create_options=self.mkfsopts)
-            except BTRFSValueError as e:
-                raise KickstartParseError(lineno=self.lineno, msg=str(e))
-
-            storage.create_device(request)
+    def execute(self, *args, **kwargs):
+        pass
 
 class Realm(RemovedCommand):
     def __init__(self, *args):
@@ -855,7 +776,7 @@ class ClearPart(RemovedCommand):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F28_Fcoe):
+class Fcoe(commands.fcoe.RHEL8_Fcoe):
     def parse(self, args):
         fc = super().parse(args)
 
@@ -1032,7 +953,7 @@ class Lang(RemovedCommand):
 # no overrides needed here
 Eula = commands.eula.F20_Eula
 
-class LogVol(commands.logvol.F23_LogVol):
+class LogVol(commands.logvol.RHEL8_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -1428,7 +1349,7 @@ class Nvdimm(commands.nvdimm.F28_Nvdimm):
 
         return action
 
-class Partition(commands.partition.F29_Partition):
+class Partition(commands.partition.RHEL8_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1722,7 +1643,7 @@ class PartitionData(commands.partition.F29_PartData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class Raid(commands.raid.F25_Raid):
+class Raid(commands.raid.RHEL8_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
@@ -2136,12 +2057,12 @@ class User(commands.user.F24_User):
             except ValueError as e:
                 user_log.warning(str(e))
 
-class VolGroup(commands.volgroup.F21_VolGroup):
+class VolGroup(commands.volgroup.RHEL8_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.F21_VolGroupData):
+class VolGroupData(commands.volgroup.RHEL8_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
@@ -2539,7 +2460,6 @@ commandMap = {
 }
 
 dataMap = {
-    "BTRFSData": BTRFSData,
     "LogVolData": LogVolData,
     "MountData": MountData,
     "PartData": PartitionData,
@@ -2549,7 +2469,7 @@ dataMap = {
     "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(version=RHEL8)
 
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
@@ -2788,7 +2708,7 @@ def runTracebackScripts(scripts):
     script_log.info("All kickstart %%traceback script(s) have been run")
 
 def resetCustomStorageData(ksdata):
-    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
+    for command in ["partition", "raid", "volgroup", "logvol"]:
         ksdata.resetCommand(command)
 
 def doKickstartStorage(storage, ksdata, instClass):

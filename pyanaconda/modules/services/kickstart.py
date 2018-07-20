@@ -21,13 +21,13 @@ from pykickstart.commands.firstboot import FC3_Firstboot
 from pykickstart.commands.services import FC6_Services
 from pykickstart.commands.skipx import FC3_SkipX
 from pykickstart.commands.xconfig import F14_XConfig
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class ServicesKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = RHEL8
     commands = {
         "firstboot": FC3_Firstboot,
         "services": FC6_Services,

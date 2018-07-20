@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 from pykickstart.commands.realm import F19_Realm
 from pykickstart.commands.authconfig import F28_Authconfig
 from pykickstart.commands.authselect import F28_Authselect
@@ -27,7 +27,7 @@ from pyanaconda.core.kickstart import KickstartSpecification
 
 class SecurityKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = RHEL8
 
     commands = {
         "auth": F28_Authconfig,

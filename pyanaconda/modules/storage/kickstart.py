@@ -19,20 +19,20 @@
 #
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
-from pykickstart.commands.autopart import F26_AutoPart
-from pykickstart.commands.bootloader import F29_Bootloader
+from pykickstart.commands.autopart import RHEL8_AutoPart
+from pykickstart.commands.bootloader import RHEL8_Bootloader
 from pykickstart.commands.clearpart import F28_ClearPart
 from pykickstart.commands.ignoredisk import F29_IgnoreDisk
-from pykickstart.commands.logvol import F23_LogVol, F23_LogVolData
+from pykickstart.commands.logvol import RHEL8_LogVol, F23_LogVolData
 from pykickstart.commands.mount import F27_Mount, F27_MountData
-from pykickstart.commands.partition import F29_Partition, F29_PartData
-from pykickstart.commands.raid import F25_Raid, F25_RaidData
+from pykickstart.commands.partition import RHEL8_Partition, F29_PartData
+from pykickstart.commands.raid import RHEL8_Raid, F25_RaidData
 from pykickstart.commands.reqpart import F23_ReqPart
-from pykickstart.commands.volgroup import F21_VolGroup, F21_VolGroupData
+from pykickstart.commands.volgroup import RHEL8_VolGroup, RHEL8_VolGroupData
 from pykickstart.commands.zerombr import F9_ZeroMbr
 from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import KickstartSpecification
@@ -55,7 +55,7 @@ def get_device_names(specs, disks_only=False, msg="{}", lineno=None):
     return drives
 
 
-class AutoPart(F26_AutoPart):
+class AutoPart(RHEL8_AutoPart):
     """The autopart kickstart command."""
 
     def parse(self, args):
@@ -130,19 +130,19 @@ class IgnoreDisk(F29_IgnoreDisk):
 class StorageKickstartSpecification(KickstartSpecification):
     """Kickstart specification of the storage module."""
 
-    version = F28
+    version = RHEL8
     commands = {
         "autopart": AutoPart,
-        "bootloader": F29_Bootloader,
+        "bootloader": RHEL8_Bootloader,
         "clearpart": ClearPart,
         "ignoredisk": IgnoreDisk,
-        "logvol": F23_LogVol,
+        "logvol": RHEL8_LogVol,
         "mount": F27_Mount,
-        "part": F29_Partition,
-        "partition": F29_Partition,
-        "raid": F25_Raid,
+        "part": RHEL8_Partition,
+        "partition": RHEL8_Partition,
+        "raid": RHEL8_Raid,
         "reqpart": F23_ReqPart,
-        "volgroup": F21_VolGroup,
+        "volgroup": RHEL8_VolGroup,
         "zerombr": F9_ZeroMbr,
     }
 
@@ -151,5 +151,5 @@ class StorageKickstartSpecification(KickstartSpecification):
         "MountData": F27_MountData,
         "PartData": F29_PartData,
         "RaidData": F25_RaidData,
-        "VolGroupData": F21_VolGroupData,
+        "VolGroupData": RHEL8_VolGroupData,
     }

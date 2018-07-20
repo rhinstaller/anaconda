@@ -19,13 +19,13 @@
 #
 from pykickstart.commands.rootpw import F18_RootPw
 from pykickstart.commands.user import F24_User, F19_UserData
-from pykickstart.version import F28
+from pykickstart.version import RHEL8
 from pyanaconda.core.kickstart import KickstartSpecification
 
 
 class UsersKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = RHEL8
     commands = {
         "rootpw": F18_RootPw,
         "user": F24_User
