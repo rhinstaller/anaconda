@@ -227,8 +227,7 @@ class AnacondaLog(object):
         packaging_logger.setLevel(logging.DEBUG)
         packaging_logger.propagate = False
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
-                            minLevel=logging.INFO,
-                            autoLevel=True)
+                            minLevel=logging.DEBUG)
         forwardToJournal(packaging_logger)
 
         # Create the dnf logger and link it to packaging
