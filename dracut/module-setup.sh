@@ -24,6 +24,8 @@ install() {
     # binaries we want in initramfs
     dracut_install eject -o pigz
     dracut_install depmod blkid
+    # Deps for fetch-kickstart-disk
+    dracut_install mount umount cp mkdir rmdir
     inst_binary /usr/libexec/anaconda/dd_list /bin/dd_list
     inst_binary /usr/libexec/anaconda/dd_extract /bin/dd_extract
 
