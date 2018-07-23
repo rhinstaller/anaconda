@@ -155,4 +155,3 @@ def kill_yelp():
     yelp_process.wait()
     yelp_process = None
     return True
-

@@ -358,6 +358,8 @@ class LiveImageKSPayload(LiveImagePayload):
                 error = "Failed to download %s, file doesn't exist" % self.data.method.url
                 log.error(error)
 
+        return error
+
     def preInstall(self):
         """ Get image and loopback mount it.
 

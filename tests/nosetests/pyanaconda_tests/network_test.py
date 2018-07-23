@@ -464,4 +464,3 @@ class NetworkIfcfgTests(unittest.TestCase):
                 network.dracutBootArguments("eth0", ifcfg, "10.34.102.77"),
                 set(["rd.znet=qeth,0.0.f5f0,0.0.f5f1,0.0.f5f2,layer2=1,portname=OSAPORT",
                      "ip=10.34.102.233::10.34.102.254:255.255.255.0::eth0:none"]))
-

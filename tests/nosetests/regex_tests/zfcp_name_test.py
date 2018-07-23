@@ -83,4 +83,3 @@ class ZFCPNameRegexTestCase(unittest.TestCase):
 
         if not regex_match(ZFCP_WWPN_NUMBER, good_tests, bad_tests):
             self.fail()
-

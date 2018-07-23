@@ -103,11 +103,11 @@ user.info                                            ~
 # option parsing
 class OptParserError(Exception):
     def __str__(self):
-        return self.args[0]
+        return self.args[0]  # pylint: disable=unsubscriptable-object
 
     @property
     def parser(self):
-        return self.args[1]
+        return self.args[1]  # pylint: disable=unsubscriptable-object
 
 def absolute_path(input_path):
     """
