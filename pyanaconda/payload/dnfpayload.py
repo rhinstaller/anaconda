@@ -391,7 +391,7 @@ class DNFPayload(payload.PackagePayload):
             with self._repos_lock:
                 self._base.repos.add(repo)
 
-        log.debug("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
+        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
     def _fetch_md(self, repo):
         """Download repo metadata
