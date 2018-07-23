@@ -88,6 +88,16 @@ class BaseInstallClass(object):
     # geolocation
     use_geolocation_with_kickstart = False
 
+    # EULA path (if any)
+    #
+    # If the given distribution has an EULA & feels the need to
+    # tell the user about it fill in this variable by a path
+    # pointing to a file with the EULA on the installed system.
+    #
+    # This is currently used just to show the path to the file to
+    # the user at the end of the installation.
+    eula_path = None
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:
