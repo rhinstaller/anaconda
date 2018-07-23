@@ -47,7 +47,6 @@ from blivet.formats import get_format
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
 from blivet.fcoe import fcoe
-from blivet.zfcp import zfcp
 from blivet.static_data import nvdimm
 from blivet.size import Size
 
@@ -63,7 +62,7 @@ from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    AUTO_PARTITIONING
+    AUTO_PARTITIONING, ZFCP
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -906,8 +905,11 @@ class FSSet(object):
 # /etc/fstab
 # Created by anaconda on %s
 #
-# Accessible filesystems, by reference, are maintained under '/dev/disk'
-# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
 #
 """ % time.asctime()
 
@@ -1286,7 +1288,11 @@ class InstallerStorage(Blivet):
         self.fsset.write()
         iscsi.write(sysroot, self)
         fcoe.write(sysroot)
-        zfcp.write(sysroot)
+
+        if arch.is_s390():
+            zfcp_proxy = STORAGE.get_proxy(ZFCP)
+            zfcp_proxy.WriteConfiguration(sysroot)
+
         self.write_dasd_conf(sysroot)
 
     @property
@@ -1678,7 +1684,10 @@ class InstallerStorage(Blivet):
         if not flags.imageInstall:
             iscsi.startup()
             fcoe.startup()
-            zfcp.startup()
+
+            if arch.is_s390():
+                zfcp_proxy = STORAGE.get_proxy(ZFCP)
+                zfcp_proxy.ReloadModule()
 
         super().reset(cleanup_only=cleanup_only)
 
@@ -1696,7 +1705,7 @@ class InstallerStorage(Blivet):
         self._resolve_protected_device_specs()
         self._find_live_backing_device()
         for devname in self.protected_dev_names:
-            dev = self.devicetree.get_device_by_name(devname)
+            dev = self.devicetree.get_device_by_name(devname, hidden=True)
             self._mark_protected_device(dev)
 
         self.roots = []

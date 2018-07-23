@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = disk_initialization disk_selection bootloader partitioning dasd zfcp
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-storage_moduledir = $(pkgpyexecdir)/modules/storage
-storage_module_PYTHON = $(srcdir)/*.py
+zfcp_moduledir = $(pkgpyexecdir)/modules/storage/zfcp
+zfcp_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

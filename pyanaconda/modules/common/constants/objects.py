@@ -46,6 +46,11 @@ AUTO_PARTITIONING = DBusObjectIdentifier(
     basename="Automatic"
 )
 
+ZFCP = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="zFCP"
+)
+
 FIREWALL = DBusObjectIdentifier(
     namespace=NETWORK_NAMESPACE,
     basename="Firewall"

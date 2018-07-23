@@ -212,6 +212,7 @@ class BootLoader(object):
     config_file_mode = 0o600
     can_dual_boot = False
     can_update = False
+    menu_auto_hide = False
     image_label_attr = "label"
 
     encryption_support = False
@@ -1614,6 +1615,14 @@ class GRUB2(GRUB):
             if rc:
                 log.error("failed to set default menu entry to %s", productName)
 
+        # set menu_auto_hide grubenv variable if we should enable menu_auto_hide
+        # set boot_success so that the menu is hidden on the boot after install
+        if self.menu_auto_hide:
+            rc = util.execInSysroot("grub2-editenv",
+                            ["-", "set", "menu_auto_hide=1", "boot_success=1"])
+            if rc:
+                log.error("failed to set menu_auto_hide=1")
+
         # now tell grub2 to generate the main configuration file
         rc = util.execInSysroot("grub2-mkconfig",
                                 ["-o", self.config_file])
@@ -2526,6 +2535,8 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         log.info("boot loader stage1 target device is %s", stage1_device.name)
         stage2_device = storage.bootloader.stage2_device
         log.info("boot loader stage2 target device is %s", stage2_device.name)
+
+    storage.bootloader.menu_auto_hide = instClass.bootloader_menu_autohide
 
     # Bridge storage EFI configuration to bootloader
     if hasattr(storage.bootloader, 'efi_dir'):

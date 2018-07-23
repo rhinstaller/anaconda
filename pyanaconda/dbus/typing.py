@@ -149,24 +149,39 @@ class DBusType(object):
     @staticmethod
     def _is_container_type(type_hint):
         """Is it a container type?"""
-        # Try to get the "base" type of the container type.
+        return DBusType._get_container_base_type(type_hint) is not None
+
+    @staticmethod
+    def _get_container_base_type(type_hint):
+        """Return a container base type."""
+        # Try to get the "origin" of the hint.
         origin = getattr(type_hint, "__origin__", None)
-        return origin in DBusType._container_type_mapping
+
+        if not origin:
+            return None
+
+        # Return the container base type of the "origin" or None.
+        # See: https://bugzilla.redhat.com/show_bug.cgi?id=1598574
+        for basetype in DBusType._container_type_mapping:
+            if issubclass(origin, basetype):
+                return basetype
+
+        return None
 
     @staticmethod
     def _get_container_type(type_hint):
         """Return a container type."""
-        # Get the "base" type of the container.
-        origin = type_hint.__origin__
+        basetype = DBusType._get_container_base_type(type_hint)
+
         # Get the arguments of the container.
         args = type_hint.__args__
 
         # Check the typing.
-        if origin == Dict:
+        if basetype == Dict:
             DBusType._check_if_valid_dictionary(type_hint)
 
         # Generate string.
-        container = DBusType._container_type_mapping[origin]
+        container = DBusType._container_type_mapping[basetype]
         items = [DBusType.get_dbus_representation(arg) for arg in args]
         return container % "".join(items)
 

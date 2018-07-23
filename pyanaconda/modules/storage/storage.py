@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import arch
+from blivet import arch, udev
 
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
@@ -29,6 +29,7 @@ from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
+from pyanaconda.modules.storage.zfcp import ZFCPModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -39,6 +40,9 @@ class StorageModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
+        # We need this so all the /dev/disk/* stuff is set up.
+        udev.trigger(subsystem="block", action="change")
+
         self._modules = []
 
         self._disk_init_module = DiskInitializationModule()
@@ -53,11 +57,15 @@ class StorageModule(KickstartModule):
         self._autopart_module = AutoPartitioningModule()
         self._add_module(self._autopart_module)
 
+        self._dasd_module = None
+        self._zfcp_module = None
+
         if arch.is_s390():
             self._dasd_module = DASDModule()
             self._add_module(self._dasd_module)
-        else:
-            self._dasd_module = None
+
+            self._zfcp_module = ZFCPModule()
+            self._add_module(self._zfcp_module)
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
