@@ -62,6 +62,7 @@ class Flags(object):
         self.askmethod = False
         self.eject = True
         self.extlinux = False
+        self.blscfg = True
         self.nombr = False
         self.gpt = False
         self.leavebootorder = False
