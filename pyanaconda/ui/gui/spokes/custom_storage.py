@@ -69,7 +69,8 @@ from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.osinstall import find_existing_installations, Root
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
     verify_luks_devices_have_key, get_supported_filesystems
-from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
+from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
+    DEVICE_TEXT_UNSUPPORTED
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
 from pyanaconda.storage_utils import try_populate_devicetree
@@ -116,6 +117,8 @@ DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. <a href=\"\"
                                     "details.</a>")
 UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
                              "error. <a href=\"\">Click for details.</a>")
+
+DEVICE_TYPE_CONST_UNSUPPORTED = "DEVICE_TYPE_UNSUPPORTED"
 
 def dev_type_from_const(dev_type_const):
     """ Return integer corresponding to name for device type defined as
@@ -679,6 +682,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _add_device_type(self, dev_type_const):
         self._typeStore.append([_(DEVICE_TEXT_MAP[dev_type_from_const(dev_type_const)]),
                                 dev_type_const])
+
+    def _set_device_type(self, dev_type_const):
+        itr = self._typeStore.get_iter_first()
+        while itr:
+            if dev_type_from_const(self._typeStore[itr][1]) == dev_type_const:
+                self._typeCombo.set_active_iter(itr)
+                return True
+            itr = self._typeStore.iter_next(itr)
+        return False
 
     def _validate_mountpoint(self, mountpoint, device, device_type, new_fs_type,
                             reformat, encrypted, raid_level):
@@ -1430,7 +1442,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if use_dev.is_disk:
             should_appear.add("DEVICE_TYPE_DISK")
 
-        should_appear = set(dt for dt in should_appear if is_supported_device_type(dev_type_from_const(dt)))
+        should_appear_supported = set(dt for dt in should_appear
+                                      if is_supported_device_type(dev_type_from_const(dt)))
 
         # go through the store and remove things that shouldn't be included
         # store.remove() updates or invalidates the passed iterator
@@ -1438,15 +1451,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         valid = True
         while itr and valid:
             dev_type_const = self._typeStore[itr][1]
-            if dev_type_const not in should_appear:
+            if dev_type_const not in should_appear_supported:
                 valid = self._typeStore.remove(itr)
-            elif dev_type_const in should_appear:
+            else:
                 # already seen, shouldn't be added to the list again
-                should_appear.remove(dev_type_const)
+                should_appear_supported.remove(dev_type_const)
                 itr = self._typeStore.iter_next(itr)
 
         # add missing device types
-        for dev_type_const in should_appear:
+        for dev_type_const in should_appear_supported:
             self._add_device_type(dev_type_const)
 
         device_type = devicefactory.get_device_type(device)
@@ -1467,15 +1480,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
             self._device_name_dict[_type] = name
 
-        itr = self._typeStore.get_iter_first()
-        while itr:
-            if dev_type_from_const(self._typeStore[itr][1]) == device_type:
+        if not self._set_device_type(device_type):
+            unsupported = device_type in (dev_type_from_const(dc) for dc
+                                          in should_appear - should_appear_supported)
+            if unsupported:
+                # For existing unsupported device add the information in the UI
+                log.debug("Existing device with unsupported type %s found", DEVICE_TEXT_MAP[device_type])
+                itr = self._typeStore.append([_(DEVICE_TEXT_UNSUPPORTED), DEVICE_TYPE_CONST_UNSUPPORTED])
                 self._typeCombo.set_active_iter(itr)
-                break
-            itr = self._typeStore.iter_next(itr)
-        else:
-            msg = "Didn't find device type %s in device type combobox" % device_type
-            raise KeyError(msg)
+            else:
+                msg = "Didn't find device type %s in device type combobox" % device_type
+                raise KeyError(msg)
 
         return device_type
 
