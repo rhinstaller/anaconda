@@ -1,3 +1,4 @@
+# pylint: skip-file
 # livepayload.py
 # Live media software payload management.
 #
