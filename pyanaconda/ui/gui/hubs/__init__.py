@@ -135,7 +135,7 @@ class Hub(GUIObject, common.Hub):
         max_row = category_row = 0
         col = 0
 
-        for c in sorted(categories, key=lambda c: c.title):
+        for c in sorted(categories, key=lambda c: c.sortOrder):
             obj = c()
 
             selectors = []
