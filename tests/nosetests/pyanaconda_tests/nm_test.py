@@ -41,4 +41,3 @@ class UtilityFunctionsTests(unittest.TestCase):
         # The result will be 23505088 little-endian or 3232261633 big-endian
         self.assertEqual(nm.nm_ipv4_to_dbus_int("192.168.102.1"),
                          socket.ntohl(3232261633))
-

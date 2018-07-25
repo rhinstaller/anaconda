@@ -59,4 +59,3 @@ class RHELBaseInstallClass(BaseInstallClass):
         if nm.nm_device_type_is_wifi(dev):
             return
         network.update_onboot_value(dev, True, ksdata=ksdata)
-
