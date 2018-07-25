@@ -34,12 +34,11 @@ import blivet.arch
 import blivet.fcoe
 import blivet.iscsi
 
-import pykickstart.commands as commands
-
 from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
 from pyanaconda.core import util
+from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
@@ -673,12 +672,12 @@ class Bootloader(RemovedCommand):
         if not dry_run and bootloader_proxy.Drive != boot_drive:
             bootloader_proxy.SetDrive(boot_drive)
 
-class BTRFS(commands.btrfs.F23_BTRFS):
+class BTRFS(COMMANDS.BTRFS):
     def execute(self, storage, ksdata, instClass):
         for b in self.btrfsList:
             b.execute(storage, ksdata, instClass)
 
-class BTRFSData(commands.btrfs.F23_BTRFSData):
+class BTRFSData(COMMANDS.BTRFSData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -852,7 +851,7 @@ class ClearPart(RemovedCommand):
 
         storage.clear_partitions()
 
-class Fcoe(commands.fcoe.F28_Fcoe):
+class Fcoe(COMMANDS.Fcoe):
     def parse(self, args):
         fc = super().parse(args)
 
@@ -967,7 +966,7 @@ class Firstboot(RemovedCommand):
         log.debug("The %s service will be enabled.", unit_name)
         util.enable_service(unit_name)
 
-class Group(commands.group.F12_Group):
+class Group(COMMANDS.Group):
     def execute(self, storage, ksdata, instClass, users):
         for grp in self.groupList:
             kwargs = grp.__dict__
@@ -977,7 +976,7 @@ class Group(commands.group.F12_Group):
             except ValueError as e:
                 group_log.warning(str(e))
 
-class Iscsi(commands.iscsi.F17_Iscsi):
+class Iscsi(COMMANDS.Iscsi):
     def parse(self, args):
         tg = super().parse(args)
 
@@ -1008,7 +1007,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
 
         return tg
 
-class IscsiName(commands.iscsiname.FC6_IscsiName):
+class IscsiName(COMMANDS.IscsiName):
     def parse(self, args):
         retval = super().parse(args)
 
@@ -1027,9 +1026,9 @@ class Lang(RemovedCommand):
         sync_run_task(task_proxy)
 
 # no overrides needed here
-Eula = commands.eula.F20_Eula
+Eula = COMMANDS.Eula
 
-class LogVol(commands.logvol.F23_LogVol):
+class LogVol(COMMANDS.LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -1037,7 +1036,7 @@ class LogVol(commands.logvol.F23_LogVol):
         if self.lvList:
             grow_lvm(storage)
 
-class LogVolData(commands.logvol.F23_LogVolData):
+class LogVolData(COMMANDS.LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -1300,7 +1299,7 @@ class LogVolData(commands.logvol.F23_LogVolData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class Logging(commands.logging.FC6_Logging):
+class Logging(COMMANDS.Logging):
     def execute(self, *args):
         if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
             # not set from the command line
@@ -1319,7 +1318,7 @@ class Logging(commands.logging.FC6_Logging):
             anaconda_logging.logger.updateRemote(remote_server)
 
 
-class Mount(commands.mount.F27_Mount):
+class Mount(COMMANDS.Mount):
     def execute(self, storage, ksdata, instClass):
         for md in self.dataList():
             md.execute(storage, ksdata, instClass)
@@ -1333,7 +1332,7 @@ class Mount(commands.mount.F27_Mount):
     def clear_mount_data(self):
         self.mount_points = list()
 
-class MountData(commands.mount.F27_MountData):
+class MountData(COMMANDS.MountData):
     def execute(self, storage, ksdata, instClass):
         storage.do_autopart = False
 
@@ -1367,7 +1366,7 @@ class MountData(commands.mount.F27_MountData):
         dev.format.options = self.mount_opts
 
 
-class Network(commands.network.F27_Network):
+class Network(COMMANDS.Network):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.packages = []
@@ -1393,9 +1392,9 @@ class Network(commands.network.F27_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, util.getSysroot())
 
-class Nvdimm(commands.nvdimm.F28_Nvdimm):
+class Nvdimm(COMMANDS.Nvdimm):
     def parse(self, args):
-        action = commands.nvdimm.F28_Nvdimm.parse(self, args)
+        action = super().parse(args)
 
         if action.action == NVDIMM_ACTION_RECONFIGURE:
             if action.namespace not in nvdimm.namespaces:
@@ -1425,7 +1424,7 @@ class Nvdimm(commands.nvdimm.F28_Nvdimm):
 
         return action
 
-class Partition(commands.partition.F29_Partition):
+class Partition(COMMANDS.Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1433,7 +1432,7 @@ class Partition(commands.partition.F29_Partition):
         if self.partitions:
             do_partitioning(storage)
 
-class PartitionData(commands.partition.F29_PartData):
+class PartitionData(COMMANDS.PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
@@ -1719,12 +1718,12 @@ class PartitionData(commands.partition.F29_PartData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class Raid(commands.raid.F25_Raid):
+class Raid(COMMANDS.Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
 
-class RaidData(commands.raid.F25_RaidData):
+class RaidData(COMMANDS.RaidData):
     def execute(self, storage, ksdata, instClass):
         raidmems = []
         devicetree = storage.devicetree
@@ -1909,7 +1908,7 @@ class RaidData(commands.raid.F25_RaidData):
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
 
-class RepoData(commands.repo.F27_RepoData):
+class RepoData(COMMANDS.RepoData):
     def __init__(self, *args, **kwargs):
         """ Add enabled kwarg
 
@@ -1928,7 +1927,7 @@ class RepoData(commands.repo.F27_RepoData):
         else:
             return ''
 
-class ReqPart(commands.reqpart.F23_ReqPart):
+class ReqPart(COMMANDS.ReqPart):
     def execute(self, storage, ksdata, instClass):
         if not self.reqpart:
             return
@@ -2029,7 +2028,7 @@ class Services(RemovedCommand):
             log.debug("Enabling the service %s.", svc)
             util.enable_service(svc)
 
-class SshKey(commands.sshkey.F22_SshKey):
+class SshKey(COMMANDS.SshKey):
     def execute(self, storage, ksdata, instClass, users):
         for usr in self.sshUserList:
             users.setUserSshKey(usr.username, usr.key)
@@ -2116,7 +2115,7 @@ class Timezone(RemovedCommand):
                 except ntp.NTPconfigError as ntperr:
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
-class User(commands.user.F24_User):
+class User(COMMANDS.User):
     def execute(self, storage, ksdata, instClass, users):
 
         for usr in self.userList:
@@ -2133,12 +2132,12 @@ class User(commands.user.F24_User):
             except ValueError as e:
                 user_log.warning(str(e))
 
-class VolGroup(commands.volgroup.F21_VolGroup):
+class VolGroup(COMMANDS.VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.F21_VolGroupData):
+class VolGroupData(COMMANDS.VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
@@ -2238,7 +2237,7 @@ class XConfig(RemovedCommand):
 
         desktop.write()
 
-class Snapshot(commands.snapshot.F26_Snapshot):
+class Snapshot(COMMANDS.Snapshot):
     def _post_snapshots(self):
         return filter(lambda snap: snap.when == SNAPSHOT_WHEN_POST_INSTALL, self.dataList())
 
@@ -2316,7 +2315,7 @@ class Snapshot(commands.snapshot.F26_Snapshot):
 
             try_populate_devicetree(storage.devicetree)
 
-class SnapshotData(commands.snapshot.F26_SnapshotData):
+class SnapshotData(COMMANDS.SnapshotData):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.thin_snapshot = None
@@ -2536,7 +2535,7 @@ dataMap = {
     "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(VERSION)
 
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData

@@ -17,20 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.firstboot import FC3_Firstboot
-from pykickstart.commands.services import FC6_Services
-from pykickstart.commands.skipx import FC3_SkipX
-from pykickstart.commands.xconfig import F14_XConfig
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
 
 class ServicesKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = VERSION
     commands = {
-        "firstboot": FC3_Firstboot,
-        "services": FC6_Services,
-        "skipx": FC3_SkipX,
-        "xconfig": F14_XConfig,
+        "firstboot": COMMANDS.Firstboot,
+        "services": COMMANDS.Services,
+        "skipx": COMMANDS.SkipX,
+        "xconfig": COMMANDS.XConfig,
     }
