@@ -413,7 +413,7 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
     netargs = set()
 
     if ifcfg.get('BOOTPROTO') == 'ibft':
-        netargs.add("ip=ibft")
+        netargs.add("rd.iscsi.ibft")
     elif storage_ipaddr:
         if hostname is None:
             hostname = ""

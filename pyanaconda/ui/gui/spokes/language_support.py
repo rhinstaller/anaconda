@@ -58,7 +58,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     category = LocalizationCategory
 
     icon = "accessories-character-map-symbolic"
-    title = CN_("GUI|Spoke", "_LANGUAGE SUPPORT")
+    title = CN_("GUI|Spoke", "_Language Support")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

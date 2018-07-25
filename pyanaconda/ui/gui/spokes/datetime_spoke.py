@@ -414,7 +414,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     category = LocalizationCategory
 
     icon = "preferences-system-time-symbolic"
-    title = CN_("GUI|Spoke", "_TIME & DATE")
+    title = CN_("GUI|Spoke", "_Time & Date")
 
     # Hack to get libtimezonemap loaded for GtkBuilder
     # see https://bugzilla.gnome.org/show_bug.cgi?id=712184
