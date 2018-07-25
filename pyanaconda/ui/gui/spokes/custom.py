@@ -2208,6 +2208,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._save_right_side(self._current_selector)
         self._clear_current_selector()
 
+    def _is_decryptable(self, device):
+        return device.format.type == "luks" \
+               and device.format.luks_version == "luks1" \
+               and device.format.exists
+
+    def _is_uneditable(self, device):
+        return devicefactory.get_device_type(device) is None \
+               or (device.format.type == "luks"
+                   and device.format.luks_version != "luks1"
+                   and device.format.exists)
+
     def on_selector_clicked(self, selector):
         if not self._initialized or (self._current_selector is selector):
             return
@@ -2220,8 +2231,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("new selector: %s", selector.device)
 
         no_edit = False
-        if selector.device.format.type == "luks" and \
-           selector.device.format.exists:
+        if self._is_decryptable(selector.device):
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
             selectedDeviceLabel = self._encryptedDeviceLabel
             selectedDeviceDescLabel = self._encryptedDeviceDescLabel
@@ -2245,7 +2255,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                         "device.") % {"missingPVs": missing, "totalPVs": total}
             self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
-        elif devicefactory.get_device_type(selector.device) is None:
+        elif self._is_uneditable(selector.device):
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
             selectedDeviceLabel = self._uneditableDeviceLabel
             selectedDeviceDescLabel = self._uneditableDeviceDescLabel

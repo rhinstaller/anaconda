@@ -226,6 +226,9 @@ class RescueMode(NormalTUISpoke):
             if device.format.type != "luks":
                 continue
 
+            if device.format.luks_version != "luks1":
+                continue
+
             skip = False
             unlocked = False
             while not (skip or unlocked):
