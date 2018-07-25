@@ -346,6 +346,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 25 2018 Martin Kolman <mkolman@redhat.com> - 29.21-1
+- Pylint should skip the file livepayload.py (vponcova)
+- Fix pylint errors (vponcova)
+- Change the pop-up text with the pre-release warning (#1542998) (vpodzime)
+- Sort categories on the hub by defined order (#1584160) (rvykydal)
+- Show a note about EULA where relevant (mkolman)
+- Change message log level to INFO when adding repo (jkonecny)
+- Set packaging log level to DEBUG by default (jkonecny)
+- Remove the python-wrapt dependency (vponcova)
+- Do not use capitals for spoke names (#1584160) (rvykydal)
+- Wrap category label and add space between columns (#1584160) (rvykydal)
+- Use 32 px icons (instead of 16 px) on hubs (#1584160) (rvykydal)
+- Replace deprecated dracut options for booting with ibft. (rvykydal)
+- Improve handling of unsupported filesystems in UI. (rvykydal)
+- Reserve two lines for status message (#1584160) (rvykydal)
+- Use three spoke columns on hub for better scaling (#1584160) (rvykydal)
+
 * Wed Jul 18 2018 Martin Kolman <mkolman@redhat.com> - 29.20-1
 - Make pyanaconda.dbus.typing work with Python 3.7 (#1598574) (awilliam)
 - Protected devices might be hidden (#1561766) (vponcova)
