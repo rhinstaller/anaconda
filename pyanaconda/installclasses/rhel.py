@@ -45,6 +45,8 @@ class RHELBaseInstallClass(BaseInstallClass):
     help_placeholder = "RHEL7Placeholder.html"
     help_placeholder_with_links = "RHEL7PlaceholderWithLinks.html"
 
+    eula_path="/usr/share/redhat-release/EULA"
+
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
@@ -57,4 +59,3 @@ class RHELBaseInstallClass(BaseInstallClass):
         if nm.nm_device_type_is_wifi(dev):
             return
         network.update_onboot_value(dev, True, ksdata=ksdata)
-

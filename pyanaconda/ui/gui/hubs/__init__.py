@@ -114,6 +114,8 @@ class Hub(GUIObject, common.Hub):
         self._spokesToStepIn = []
         self._spokeAutostepIndex = 0
 
+        self._gridColumns = 3
+
     def _createBox(self):
         import gi
 
@@ -125,12 +127,15 @@ class Hub(GUIObject, common.Hub):
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
 
-        grid = Gtk.Grid(row_spacing=6, column_spacing=6, column_homogeneous=True,
-                        margin_bottom=12)
+        grid = Gtk.Grid(row_spacing=18, column_spacing=18, column_homogeneous=True,
+                        margin_bottom=12, margin_left=12, margin_right=12,
+                        halign=Gtk.Align.CENTER, valign=Gtk.Align.CENTER,
+                        row_homogeneous=True)
 
-        row = 0
+        max_row = category_row = 0
+        col = 0
 
-        for c in sorted(categories, key=lambda c: c.title):
+        for c in sorted(categories, key=lambda c: c.sortOrder):
             obj = c()
 
             selectors = []
@@ -196,24 +201,24 @@ class Hub(GUIObject, common.Hub):
             if not selectors:
                 continue
 
-            label = Gtk.Label(label="<span font-desc=\"Sans 14\">%s</span>" % escape_markup(_(obj.title)),
-                              use_markup=True, halign=Gtk.Align.START, margin_top=12, margin_bottom=12)
-            grid.attach(label, 0, row, 2, 1)
+            row = category_row
+
+            label = Gtk.Label(label="<span size=\"larger\" weight=\"bold\">%s</span>" % escape_markup(_(obj.title)),
+                              use_markup=True, halign=Gtk.Align.START, valign=Gtk.Align.END,
+                              margin_bottom=6, wrap=True, xalign=0.0)
+
+            grid.attach(label, col, category_row, 1, 1)
             row += 1
 
-            col = 0
             for selector in selectors:
-                selector.set_margin_start(12)
                 grid.attach(selector, col, row, 1, 1)
-                col = int(not col)
-                if col == 0:
-                    row += 1
-
-            # If this category contains an odd number of selectors, the above
-            # row += 1 will not have run for the last row, which puts the next
-            # category's title in the wrong place.
-            if len(selectors) % 2:
                 row += 1
+
+            max_row = max(row, max_row)
+
+            col = (col + 1) % self._gridColumns
+            if col == 0:
+                category_row = max_row
 
         # initialization of all expected spokes has been started, so notify the controller
         hub_controller = lifecycle.get_controller_by_name(self.__class__.__name__)

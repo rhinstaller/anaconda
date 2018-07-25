@@ -53,4 +53,3 @@ class FedoraBaseInstallClass(BaseInstallClass):
             if link_up:
                 network.update_onboot_value(dev, True, ksdata=ksdata)
                 break
-

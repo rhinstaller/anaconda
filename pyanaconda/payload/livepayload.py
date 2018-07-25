@@ -1,3 +1,4 @@
+# pylint: skip-file
 # livepayload.py
 # Live media software payload management.
 #
@@ -357,6 +358,8 @@ class LiveImageKSPayload(LiveImagePayload):
             if not os.path.exists(self.image_path):
                 error = "Failed to download %s, file doesn't exist" % self.data.method.url
                 log.error(error)
+
+        return error
 
     def preInstall(self):
         """ Get image and loopback mount it.

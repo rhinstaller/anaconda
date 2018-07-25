@@ -390,4 +390,3 @@ class XklWrapper(object):
         if not self._rec.activate(self._engine):
             msg = "Failed to set switching options to: %s" % ",".join(options)
             raise XklWrapperError(msg)
-

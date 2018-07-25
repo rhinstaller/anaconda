@@ -221,7 +221,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     category = UserSettingsCategory
 
     icon = "avatar-default-symbolic"
-    title = CN_("GUI|Spoke", "_USER CREATION")
+    title = CN_("GUI|Spoke", "_User Creation")
 
     @classmethod
     def should_run(cls, environment, data):

@@ -377,7 +377,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     category = SoftwareCategory
 
     icon = "media-optical-symbolic"
-    title = CN_("GUI|Spoke", "_INSTALLATION SOURCE")
+    title = CN_("GUI|Spoke", "_Installation Source")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

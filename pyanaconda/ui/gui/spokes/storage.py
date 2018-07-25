@@ -264,7 +264,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"
-    title = CN_("GUI|Spoke", "INSTALLATION _DESTINATION")
+    title = CN_("GUI|Spoke", "Installation _Destination")
 
     def __init__(self, *args, **kwargs):
         StorageCheckHandler.__init__(self)

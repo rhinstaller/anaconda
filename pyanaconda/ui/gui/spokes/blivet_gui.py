@@ -62,7 +62,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     category = SystemCategory
 
     # title of the spoke (will be displayed on the hub)
-    title = CN_("GUI|Spoke", "_BLIVET-GUI PARTITIONING")
+    title = CN_("GUI|Spoke", "_Blivet-GUI Partitioning")
 
     helpFile = "blivet-gui/index.page"
 

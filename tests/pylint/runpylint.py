@@ -22,6 +22,10 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E1101.*: FedoraGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: HostipGeoIPProvider._refresh: Instance of 'LookupDict' has no 'ok' member"),
                                 FalsePositive(r"^E1101.*: Geocoder._reverse_geocode_nominatim: Instance of 'LookupDict' has no 'ok' member"),
+                                FalsePositive(r"^E1101.*: Instance of 'Namespace' has no '.*' member$"),
+                                FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_MD5' member$"),
+                                FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_SHA256' member$"),
+                                FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_SHA512' member$"),
 
                                 # TODO: BlockDev introspection needs to be added to pylint to handle these
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),

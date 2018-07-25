@@ -25,7 +25,6 @@ from systemd.journal import JournalHandler
 import os
 import sys
 import warnings
-import wrapt
 
 from pyanaconda.flags import flags
 from pyanaconda.core import constants
@@ -107,25 +106,32 @@ class _AnacondaLogFixer(object):
         return self._stream
 
     @stream.setter
-    def stream(self, value):
+    def stream(self, stream):
+        handler = self
+
         # Wrap the stream write in a lock acquisition
         # Use an object proxy in order to work with types that may not allow
         # the write property to be set.
-        class WriteProxy(wrapt.ObjectProxy):
-            # pylint: disable=no-self-argument
-            # rename self so we can reference the Handler object
-            def write(wrapped_self, *args, **kwargs):
-                self.acquire()      # pylint: disable=no-member
+        class WriteProxy(object):
+
+            def write(self, *args, **kwargs):
+                handler.acquire()  # pylint: disable=no-member
                 try:
-                    wrapped_self.__wrapped__.write(*args, **kwargs)
+                    stream.write(*args, **kwargs)
                 finally:
-                    self.release()  # pylint: disable=no-member
+                    handler.release()  # pylint: disable=no-member
+
+            def __getattr__(self, name):
+                return getattr(stream, name)
+
+            def __setattr__(self, name, value):
+                return setattr(stream, name, value)
 
         # Live with this attribute being defined outside of init to avoid the
         # hassle of having an init. If _stream is not set, then stream was
         # never set on the StreamHandler object, so accessing it in that case
         # is supposed to be an error.
-        self._stream = WriteProxy(value)  # pylint: disable=attribute-defined-outside-init
+        self._stream = WriteProxy()  # pylint: disable=attribute-defined-outside-init
 
 class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
     def __init__(self, tag='', facility=ANACONDA_SYSLOG_FACILITY,
@@ -227,8 +233,7 @@ class AnacondaLog(object):
         packaging_logger.setLevel(logging.DEBUG)
         packaging_logger.propagate = False
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
-                            minLevel=logging.INFO,
-                            autoLevel=True)
+                            minLevel=logging.DEBUG)
         forwardToJournal(packaging_logger)
 
         # Create the dnf logger and link it to packaging

@@ -37,6 +37,7 @@ from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
+from blivet.devicefactory import is_supported_device_type
 
 from pyanaconda.core.i18n import _, N_
 from pyanaconda import isys
@@ -62,6 +63,9 @@ DEVICE_TEXT_MD = N_("RAID")
 DEVICE_TEXT_PARTITION = N_("Standard Partition")
 DEVICE_TEXT_BTRFS = N_("Btrfs")
 DEVICE_TEXT_DISK = N_("Disk")
+
+# Used for info about device with no more supported type (ie btrfs).
+DEVICE_TEXT_UNSUPPORTED = N_("Unsupported")
 
 DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_MD: DEVICE_TEXT_MD,
@@ -938,3 +942,6 @@ def get_supported_filesystems():
             fs_types.append(obj)
 
     return fs_types
+
+def get_supported_autopart_choices():
+    return [c for c in AUTOPART_CHOICES if is_supported_device_type(AUTOPART_DEVICE_TYPES[c[1]])]

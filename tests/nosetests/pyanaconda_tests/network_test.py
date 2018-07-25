@@ -352,13 +352,13 @@ class NetworkIfcfgTests(unittest.TestCase):
         ifcfg = self.ifcfg_mock({"BOOTPROTO": "ibft"})
         self.assertEqual(
                 network.dracutBootArguments("em1", ifcfg, ""),
-                set(["ip=ibft"]))
+                set(["rd.iscsi.ibft"]))
 
         ifcfg = self.ifcfg_mock({"BOOTPROTO": "ibft",
                                  "HWADDR": "00:00:00:00:00:00"})
         self.assertEqual(
                 network.dracutBootArguments("em1", ifcfg, ""),
-                set(["ip=ibft"]))
+                set(["rd.iscsi.ibft"]))
 
         ifcfg = self.ifcfg_mock({"BOOTPROTO": "dhcp"})
         self.assertEqual(
@@ -464,4 +464,3 @@ class NetworkIfcfgTests(unittest.TestCase):
                 network.dracutBootArguments("eth0", ifcfg, "10.34.102.77"),
                 set(["rd.znet=qeth,0.0.f5f0,0.0.f5f1,0.0.f5f2,layer2=1,portname=OSAPORT",
                      "ip=10.34.102.233::10.34.102.254:255.255.255.0::eth0:none"]))
-

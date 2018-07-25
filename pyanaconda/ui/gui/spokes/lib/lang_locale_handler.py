@@ -189,4 +189,3 @@ class LangLocaleHandler(object):
     @timed_action()
     def on_entry_changed(self, *args):
         self._languageStoreFilter.refilter()
-

@@ -56,7 +56,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "package-x-generic-symbolic"
-    title = CN_("GUI|Spoke", "_SOFTWARE SELECTION")
+    title = CN_("GUI|Spoke", "_Software Selection")
 
     # Add-on selection states
     # no user interaction with this add-on

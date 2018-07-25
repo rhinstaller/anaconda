@@ -574,7 +574,7 @@ class FilterSpoke(NormalSpoke):
 
     category = SystemCategory
 
-    title = CN_("GUI|Spoke", "_INSTALLATION DESTINATION")
+    title = CN_("GUI|Spoke", "_Installation Destination")
 
     def __init__(self, *args):
         super().__init__(*args)

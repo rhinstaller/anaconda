@@ -96,4 +96,3 @@ class EntropyDialog(GUIObject):
 
             # keep updating
             return True
-
