@@ -346,6 +346,48 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 25 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.2-1
+- Change the pop-up text with the pre-release warning (#1542998) (vpodzime)
+  Resolves: rhbz#1608243
+- Sort categories on the hub by defined order (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- Show a note about EULA where relevant (mkolman)
+  Resolves: rhbz#1569596
+- Change message log level to INFO when adding repo (jkonecny)
+  Related: rhbz#1603178
+- Set packaging log level to DEBUG by default (jkonecny)
+  Resolves: rhbz#1603178
+- Remove the python-wrapt dependency (vponcova)
+- Do not use capitals for spoke names (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- Wrap category label and add space between columns (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- Use 32 px icons (instead of 16 px) on hubs (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- Make pyanaconda.dbus.typing work with Python 3.7 (#1598574) (awilliam)
+- Use Platform Python where appropriate (mkolman)
+- Replace deprecated dracut options for booting with ibft. (rvykydal)
+  Resolves: rhbz#1566052
+- Protected devices might be hidden (#1561766) (vponcova)
+- Improve handling of unsupported filesystems in UI. (rvykydal)
+  Resolves: rhbz#1533904
+- Reserve two lines for status message (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- Use three spoke columns on hub for better scaling (#1584160) (rvykydal)
+  Resolves: rhbz#1584166
+- fstab: include a note about systemctl daemon-reload (zbyszek)
+- Access the ZFCP module only on s390x (vponcova)
+- Tell libreport if it is a final release or not (#1596392) (vpodzime)
+  Resolves: rhbz#1596392
+- bootloader: GRUB2: Set menu_auto_hide when enabled by the instClass
+  (hdegoede)
+- installclass: Add bootloader_menu_autohide property (hdegoede)
+- Add tests for the zFCP module (vponcova)
+- Handle the zfcp command in the zFCP module (vponcova)
+- Use the zFCP discovery task in UI (vponcova)
+- Create the zFCP discovery task (vponcova)
+- Create the zFCP module (vponcova)
+
 * Mon Jul 16 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.1-1
 - Define zanata branch statically for rhel-devel branch (rvykydal)
 
