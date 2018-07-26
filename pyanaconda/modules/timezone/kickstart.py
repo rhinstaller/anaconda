@@ -17,14 +17,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.timezone import F25_Timezone
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
 
 class TimezoneKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = VERSION
+
     commands = {
-        "timezone": F25_Timezone,
+        "timezone": COMMANDS.Timezone,
     }

@@ -17,22 +17,17 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.version import F28
-from pykickstart.commands.realm import F19_Realm
-from pykickstart.commands.authconfig import F28_Authconfig
-from pykickstart.commands.authselect import F28_Authselect
-from pykickstart.commands.selinux import FC3_SELinux
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
 
 class SecurityKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = VERSION
 
     commands = {
-        "auth": F28_Authconfig,
-        "authconfig": F28_Authconfig,
-        "authselect": F28_Authselect,
-        "selinux": FC3_SELinux,
-        "realm": F19_Realm
+        "auth": COMMANDS.Authconfig,
+        "authconfig": COMMANDS.Authconfig,
+        "authselect": COMMANDS.Authselect,
+        "selinux": COMMANDS.SELinux,
+        "realm": COMMANDS.Realm
     }
