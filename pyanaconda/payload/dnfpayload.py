@@ -1133,7 +1133,10 @@ class DNFPayload(payload.PackagePayload):
     def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
-        url, mirrorlist, metalink = self._setupInstallDevice(self.storage, checkmount)
+        install_tree_url, mirrorlist, metalink = self._setupInstallDevice(self.storage, checkmount)
+
+        # Fallback to installation root
+        base_repo_url = install_tree_url
 
         method = self.data.method
         sslverify = True
@@ -1163,9 +1166,11 @@ class DNFPayload(payload.PackagePayload):
 
         if method.method:
             try:
-                self._refreshTreeInfo(url)
-                self._base.conf.releasever = self._getReleaseVersion(url)
-                log.debug("releasever from %s is %s", url, self._base.conf.releasever)
+                self._refreshTreeInfo(install_tree_url)
+                self._base.conf.releasever = self._getReleaseVersion(install_tree_url)
+                base_repo_url = self._getBaseRepoLocation(install_tree_url)
+
+                log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s",
                           method.method, e)
@@ -1173,14 +1178,14 @@ class DNFPayload(payload.PackagePayload):
             try:
                 proxy = getattr(method, "proxy", None)
                 base_ksrepo = self.data.RepoData(
-                    name=constants.BASE_REPO_NAME, baseurl=url,
+                    name=constants.BASE_REPO_NAME, baseurl=base_repo_url,
                     mirrorlist=mirrorlist, metalink=metalink,
                     noverifyssl=not sslverify, proxy=proxy)
                 self._add_repo(base_ksrepo)
                 self._fetch_md(base_ksrepo.name)
             except (payload.MetadataError, payload.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
-                          method.method, url)
+                          method.method, base_repo_url)
                 log.error("reason for repo removal: %s", e)
                 with self._repos_lock:
                     self._base.repos.pop(constants.BASE_REPO_NAME, None)
@@ -1235,6 +1240,49 @@ class DNFPayload(payload.PackagePayload):
             for repo in self.addOns:
                 if repo in enabled_repos:
                     self._fetch_md(repo)
+
+    def _getBaseRepoLocation(self, install_tree_url):
+        """Try to find base repository from the treeinfo file.
+
+        The URL can be installation tree root or a subfolder in the installation root.
+        The structure of the installation root can be similar to this.
+
+        / -
+          | - .treeinfo
+          | - BaseRepo -
+          |            | - repodata
+          |            | - Packages
+          | - AddonRepo -
+                        | - repodata
+                        | - Packages
+
+        The .treeinfo file contains information where repositories are placed from the
+        installation root.
+
+        User can provide us URL to the installation root or directly to the repository folder.
+        Both options are valid.
+        * If the URL points to an installation root we need to find position of
+        repositories in the .treeinfo file.
+        * If URL points to repo directly then no .treeinfo file is present. We will just use this
+        repo.
+        """
+        if self._treeinfo:
+            variants = self._treeinfo.variants
+
+            for variant in variants:
+                if variant in self.DEFAULT_REPOS:
+                    variant_obj = variants[variant]
+                    log.info("Found base repository in treeinfo file.")
+                    if variant_obj.paths.repository == ".":
+                        log.debug("Treeinfo points base repository to installation tree root.")
+                        base_repo_url = install_tree_url
+                    else:
+                        base_repo_url = install_tree_url + "/" + variant_obj.paths.repository
+                        log.debug("Treeinfo points base repository to %s.", base_repo_url)
+                    return base_repo_url
+
+        log.debug("No base repository found in treeinfo file. Using installation tree root.")
+        return install_tree_url
 
     def _writeDNFRepo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
