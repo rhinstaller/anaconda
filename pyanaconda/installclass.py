@@ -105,6 +105,8 @@ class BaseInstallClass(object):
     # in the UI.
     mirrors_available = True
 
+    blivet_gui_supported = True
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:
