@@ -1218,6 +1218,10 @@ class Nvdimm(commands.nvdimm.RHEL7_Nvdimm):
     def parse(self, args):
         action = commands.nvdimm.RHEL7_Nvdimm.parse(self, args)
 
+        if not blivet.nvdimm.nvdimm().nvdimm_plugin_available:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("nvdimm: nvdimm plugin not available.")))
+
         namespaces = blivet.nvdimm.nvdimm().namespaces
         if action.action == NVDIMM_ACTION_RECONFIGURE:
             if action.namespace not in namespaces:

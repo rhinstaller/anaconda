@@ -30,6 +30,7 @@ from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, \
     ZFCPDiskDevice, NVDIMMNamespaceDevice
 from blivet.fcoe import has_fcoe
+from blivet.nvdimm import nvdimm
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
@@ -502,6 +503,9 @@ class NvdimmPage(FilterPage):
         return isinstance(device, NVDIMMNamespaceDevice)
 
     def setup(self, store, selectedNames, disks):
+        if not nvdimm().nvdimm_plugin_available:
+            return
+
         modes = []
 
         for disk in disks:
@@ -613,13 +617,30 @@ class FilterSpoke(NormalSpoke):
 
         self._notebook = self.builder.get_object("advancedNotebook")
 
+        # Order of pages in the notebook (glade)
+        self._notebook_pages = [
+            PAGE_SEARCH,
+            PAGE_MULTIPATH,
+            PAGE_OTHER,
+            PAGE_NVDIMM,
+            PAGE_Z,
+        ]
+
         if not arch.isS390():
-            self._notebook.remove_page(-1)
+            nb_idx = self._notebook_pages.index(PAGE_Z)
+            self._notebook.remove_page(nb_idx)
+            self._notebook_pages.remove(PAGE_Z)
             self.builder.get_object("addZFCPButton").destroy()
             self.builder.get_object("addDASDButton").destroy()
 
         if not has_fcoe():
             self.builder.get_object("addFCOEButton").destroy()
+
+        if not nvdimm().nvdimm_plugin_available:
+            nb_idx = self._notebook_pages.index(PAGE_NVDIMM)
+            self._notebook.remove_page(nb_idx)
+            self._notebook_pages.remove(PAGE_NVDIMM)
+            self.builder.get_object("reconfigureNVDIMMButton").destroy()
 
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
@@ -715,16 +736,18 @@ class FilterSpoke(NormalSpoke):
 
     @timed_action(delay=1200, busy_cursor=False)
     def on_filter_changed(self, *args):
-        n = self._notebook.get_current_page()
-        self.pages[n].filterActive = True
-        self.pages[n].model.refilter()
+        page_index = self._notebook.get_current_page()
+        page = self._notebook_pages[page_index]
+        self.pages[page].filterActive = True
+        self.pages[page].model.refilter()
 
     def on_clear_icon_clicked(self, entry, icon_pos, event):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
             entry.set_text("")
 
     def on_page_switched(self, notebook, newPage, newPageNum, *args):
-        self.pages[newPageNum].model.refilter()
+        page = self._notebook_pages[newPageNum]
+        self.pages[page].model.refilter()
         notebook.get_nth_page(newPageNum).show_all()
         self._reconfigureNVDIMMButton.set_sensitive(newPageNum == 3)
 
@@ -733,7 +756,9 @@ class FilterSpoke(NormalSpoke):
             return
 
         page_index = self._notebook.get_current_page()
-        filter_model = self.pages[page_index].model
+        page = self._notebook_pages[page_index]
+
+        filter_model = self.pages[page].model
         model_itr = filter_model.get_iter(path)
         itr = filter_model.convert_iter_to_child_iter(model_itr)
         self._store[itr][1] = not self._store[itr][1]
