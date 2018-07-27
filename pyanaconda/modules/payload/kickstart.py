@@ -17,12 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification
 
 
 class PayloadKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = VERSION
+
     commands = {
     }

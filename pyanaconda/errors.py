@@ -222,6 +222,45 @@ class ErrorHandler(object):
             else:
                 return ERROR_RAISE
 
+    def _install_specs_missing(self, exn):
+        message = ""
+        if exn.missing_packages:
+            if len(exn.missing_packages) > 1:
+                packages = ", ".join(exn.missing_packages)
+                message = message + _("The following packages are missing:\n%s\n\n") % packages
+            else:
+                message = message + _("The following package is missing:\n%s\n\n") % exn.missing_packages[0]
+
+        if exn.missing_groups_and_modules:
+            if len(exn.missing_groups_and_modules) > 1:
+                groups_modules = ", ".join(exn.missing_groups_and_modules)
+                message = message + _("The following groups or modules are missing:\n%s\n\n") % groups_modules
+            else:
+                message = message + _("The following group or module is missing:\n%s\n\n") % exn.missing_groups_and_modules[0]
+
+        message = message + _("Would you like to ignore this and continue with installation?")
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _no_module_stream_specified(self, exn):
+        message = _("Stream was not specified for a module without a default stream. This is "
+                    "a fatal error and installation will be aborted. The details "
+                    "of this error are:\n\n%(exception)s") % \
+                            {"exception": exn}
+        self.ui.showError(message)
+        return ERROR_RAISE
+
+    def  _multiple_module_streams_specified(self, exn):
+        message = _("Multiple streams have been specified for a single module. This is "
+                    "a fatal error and installation will be aborted. The details "
+                    "of this error are:\n\n%(exception)s") % \
+                            {"exception": exn}
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def _scriptErrorHandler(self, exn):
         message = _("There was an error running the kickstart script at line "
                     "%(lineno)s.  This is a fatal error and installation will be "
@@ -303,6 +342,9 @@ class ErrorHandler(object):
                 "MissingImageError": self._missingImageHandler,
                 "NoSuchGroup": self._noSuchGroupHandler,
                 "NoSuchPackage": self._noSuchPackageHandler,
+                "NoStreamSpecifiedException": self._no_module_stream_specified,
+                "InstallMoreStreamsException": self._multiple_module_streams_specified,
+                "InstallSpecsMissing" : self._install_specs_missing,
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
                 "DependencyError": self._dependencyErrorHandler,

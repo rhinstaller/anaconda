@@ -40,8 +40,23 @@ from pykickstart.version import returnClassForVersion
 from pykickstart.errors import KickstartError
 # pylint: disable=wildcard-import,unused-wildcard-import
 from pykickstart.constants import *
-from pykickstart import commands
 from collections import OrderedDict
+
+# Import the kickstart version.
+from pykickstart.version import DEVEL as VERSION
+
+# Import all kickstart commands as version-less.
+from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
+from pykickstart.commands.harddrive import FC3_HardDrive as HardDrive
+from pykickstart.commands.hmc import F28_Hmc as Hmc
+from pykickstart.commands.nfs import FC6_NFS as NFS
+from pykickstart.commands.url import F27_Url as Url
+from pykickstart.commands.updates import F7_Updates as Updates
+from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
+from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
+from pykickstart.commands.network import F27_Network as Network
+from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
+from pykickstart.commands.bootloader import F29_Bootloader as Bootloader
 
 # Default logging: none
 log = logging.getLogger('parse-kickstart').addHandler(logging.NullHandler())
@@ -115,22 +130,22 @@ class DracutArgsMixin(object):
 
 # Here are the kickstart commands we care about:
 
-class Cdrom(commands.cdrom.FC3_Cdrom, DracutArgsMixin):
+class DracutCdrom(Cdrom, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         return "inst.repo=cdrom"
 
-class HardDrive(commands.harddrive.FC3_HardDrive, DracutArgsMixin):
+class DracutHardDrive(HardDrive, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.biospart:
             return "inst.repo=bd:%s:%s" % (self.partition, self.dir)
         else:
             return "inst.repo=hd:%s:%s" % (self.partition, self.dir)
 
-class Hmc(commands.hmc.F28_Hmc, DracutArgsMixin):
+class DracutHmc(Hmc, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         return "inst.repo=hmc"
 
-class NFS(commands.nfs.FC6_NFS, DracutArgsMixin):
+class DracutNFS(NFS, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.opts:
             method = "nfs:%s:%s:%s" % (self.opts, self.server, self.dir)
@@ -141,7 +156,7 @@ class NFS(commands.nfs.FC6_NFS, DracutArgsMixin):
         method = method.replace(" ", "\\ ")
         return "inst.repo=%s" % method
 
-class URL(commands.url.F27_Url, DracutArgsMixin):
+class DracutURL(Url, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         # Spaces in the url need to be %20
         if self.url:
@@ -158,19 +173,19 @@ class URL(commands.url.F27_Url, DracutArgsMixin):
 
         return "\n".join(args)
 
-class Updates(commands.updates.F7_Updates, DracutArgsMixin):
+class DracutUpdates(Updates, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.url == "floppy":
             return "live.updates=/dev/fd0"
         elif self.url:
             return "live.updates=%s" % self.url
 
-class MediaCheck(commands.mediacheck.FC4_MediaCheck, DracutArgsMixin):
+class DracutMediaCheck(MediaCheck, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.mediacheck:
             return "rd.live.check"
 
-class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
+class DracutDriverDisk(DriverDisk, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         dd_args = []
         for dd in self.driverdiskList:
@@ -183,7 +198,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
 
         return "\n".join(dd_args)
 
-class Network(commands.network.F27_Network, DracutArgsMixin):
+class DracutNetwork(Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -231,7 +246,7 @@ class Network(commands.network.F27_Network, DracutArgsMixin):
 
         return netline
 
-class DisplayMode(commands.displaymode.F26_DisplayMode, DracutArgsMixin):
+class DracutDisplayMode(DisplayMode, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         ret = ""
         if self.displayMode == DISPLAY_MODE_CMDLINE:
@@ -246,7 +261,7 @@ class DisplayMode(commands.displaymode.F26_DisplayMode, DracutArgsMixin):
 
         return ret
 
-class Bootloader(commands.bootloader.F29_Bootloader, DracutArgsMixin):
+class DracutBootloader(Bootloader, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.extlinux:
             return "extlinux"
@@ -254,21 +269,23 @@ class Bootloader(commands.bootloader.F29_Bootloader, DracutArgsMixin):
 # FUTURE: keymap, lang... device? selinux?
 
 dracutCmds = {
-    'cdrom': Cdrom,
-    'harddrive': HardDrive,
-    'hmc': Hmc,
-    'nfs': NFS,
-    'url': URL,
-    'updates': Updates,
-    'mediacheck': MediaCheck,
-    'driverdisk': DriverDisk,
-    'network': Network,
-    'cmdline': DisplayMode,
-    'graphical': DisplayMode,
-    'text': DisplayMode,
-    'bootloader': Bootloader,
+    'cdrom': DracutCdrom,
+    'harddrive': DracutHardDrive,
+    'hmc': DracutHmc,
+    'nfs': DracutNFS,
+    'url': DracutURL,
+    'updates': DracutUpdates,
+    'mediacheck': DracutMediaCheck,
+    'driverdisk': DracutDriverDisk,
+    'network': DracutNetwork,
+    'cmdline': DracutDisplayMode,
+    'graphical': DracutDisplayMode,
+    'text': DracutDisplayMode,
+    'bootloader': DracutBootloader,
 }
-handlerclass = returnClassForVersion()
+
+handlerclass = returnClassForVersion(VERSION)
+
 class DracutHandler(handlerclass):
     def __init__(self):
         handlerclass.__init__(self, commandUpdates=dracutCmds)
