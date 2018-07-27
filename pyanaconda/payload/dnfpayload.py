@@ -29,6 +29,7 @@ from pyanaconda.core import constants
 from pyanaconda.core import util
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.kickstart import RepoData
 
 import pyanaconda.errors as errors
 import pyanaconda.localization
@@ -1170,6 +1171,9 @@ class DNFPayload(payload.PackagePayload):
                 self._base.conf.releasever = self._getReleaseVersion(install_tree_url)
                 base_repo_url = self._getBaseRepoLocation(install_tree_url)
 
+                if self.first_payload_reset:
+                    self._add_treeinfo_repositories(install_tree_url, base_repo_url)
+
                 log.debug("releasever from %s is %s", base_repo_url, self._base.conf.releasever)
             except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s",
@@ -1284,6 +1288,37 @@ class DNFPayload(payload.PackagePayload):
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
 
+    def _add_treeinfo_repositories(self, install_tree_url, base_repo_url=None):
+        """Add all repositories from treeinfo file which are not already loaded.
+
+        :param install_tree_url: Url to the installation tree root.
+        :param base_repo_url: Base repository url. This is not saved anywhere when the function
+        is called. It will be add to the existing urls if not None.
+        """
+        if self._treeinfo:
+            variants = self._treeinfo.variants
+
+            existing_urls = []
+
+            if base_repo_url is not None:
+                existing_urls.append(base_repo_url)
+
+            for ksrepo in self.data.repo.dataList():
+                existing_urls.append(ksrepo.baseurl)
+
+            for variant in variants:
+                variant_obj = variants[variant]
+                variant_url = install_tree_url
+
+                if not variant_obj.paths.repository == ".":
+                    variant_url = install_tree_url + "/" + variant_obj.paths.repository
+
+                if variant_url not in existing_urls:
+                    repo = RepoData(name=variant, baseurl=variant_url, install=False)
+                    self.data.repo.dataList().append(repo)
+
+        return install_tree_url
+
     def _writeDNFRepo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
 
@@ -1341,6 +1376,7 @@ class DNFPayload(payload.PackagePayload):
 
         Save repomd hash to test if the repositories can be reached.
         """
+        super().postSetup()
         self._repoMD_list = []
         for repo in self._base.repos.iter_enabled():
             repoMD = RepoMDMetaHash(self, repo)

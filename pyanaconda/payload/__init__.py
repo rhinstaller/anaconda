@@ -322,6 +322,8 @@ class Payload(object):
 
         self._treeinfo = None
 
+        self._first_reset = True
+
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
 
@@ -335,6 +337,10 @@ class Payload(object):
         #   be overridden by value from the current
         #   install class in the setup() method
         self._mirrors_available = True
+
+    @property
+    def first_payload_reset(self):
+        return self._first_reset
 
     def setup(self, storage, instClass):
         """Do any payload-specific setup."""
@@ -350,6 +356,14 @@ class Payload(object):
         self.storage = None
         self.instclass = None
         self._treeinfo = None
+
+    def postSetup(self):
+        """Run specific payload post-configuration tasks on the end of
+        the restartThread call.
+
+        This method could be overriden.
+        """
+        self._first_reset = False
 
     def preStorage(self):
         """Do any payload-specific work necessary before writing the storage
@@ -983,6 +997,7 @@ class Payload(object):
             self.storage.write()
 
 
+
 # Inherit abstract methods from Payload
 # pylint: disable=abstract-method
 class ImagePayload(Payload):
@@ -1064,14 +1079,6 @@ class PackagePayload(Payload):
             self.requirements.add_groups([groupid], reason="platform")
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
-
-    def postSetup(self):
-        """Run specific payload post-configuration tasks on the end of
-        the restartThread call.
-
-        This method could be overriden.
-        """
-        pass
 
     @property
     def kernelPackages(self):
