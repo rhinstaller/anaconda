@@ -1131,6 +1131,7 @@ class DNFPayload(payload.PackagePayload):
 
         if method.method:
             try:
+                self._refreshTreeInfo(url)
                 self._base.conf.releasever = self._getReleaseVersion(url)
                 log.debug("releasever from %s is %s", url, self._base.conf.releasever)
             except configparser.MissingSectionHeaderError as e:
