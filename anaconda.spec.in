@@ -347,6 +347,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 27 2018 Martin Kolman <mkolman@redhat.com> - 29.22-1
+- Handle new module specific error states (mkolman)
+- Handle missing package errors reported by the install_specs() function
+  (mkolman)
+- Initial module enablement and installation support (mkolman)
+- Use productmd library to parse .treeinfo (#1411673) (jkonecny)
+- Import kickstart classes as version-less in the dracut script (vponcova)
+- Use only version-less kickstart classes (vponcova)
+- Define version-less variants of kickstart classes (vponcova)
+
 * Wed Jul 25 2018 Martin Kolman <mkolman@redhat.com> - 29.21-1
 - Pylint should skip the file livepayload.py (vponcova)
 - Fix pylint errors (vponcova)
