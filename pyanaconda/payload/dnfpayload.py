@@ -37,6 +37,7 @@ import configparser
 import collections
 import itertools
 import multiprocessing
+import multiprocessing.dummy
 import operator
 import hashlib
 import shutil
@@ -59,6 +60,8 @@ import libdnf.conf
 import dnf.conf.substitutions
 import rpm
 import librepo
+
+from dnf.const import GROUP_PACKAGE_TYPES
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
@@ -87,6 +90,18 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 # 6KiB = 4K(max default fragment size) + 2K(rpm db could be taken for a header file)
 BONUS_SIZE_ON_FILE = Size("6 KiB")
 
+class InstallSpecsMissing(Exception):
+    """Raised is some of the requested install specs seems to be missing from the repos."""
+    def __init__(self, missing_specs):
+        super().__init__()
+        self.missing_specs = missing_specs
+        self.missing_packages = []
+        self.missing_groups_and_modules=[]
+        for spec in missing_specs:
+            if spec.startswith("@"):
+                self.missing_groups_and_modules.append(spec)
+            else:
+                self.missing_packages.append(spec)
 
 def _failure_limbo():
     progressQ.send_quit(1)
@@ -307,6 +322,8 @@ class DNFPayload(payload.PackagePayload):
         # save repomd metadata
         self._repoMD_list = []
 
+        self._req_groups = set()
+        self._req_packages = set()
         self.requirements.set_apply_callback(self._apply_requirements)
 
     def unsetup(self):
@@ -435,61 +452,129 @@ class DNFPayload(payload.PackagePayload):
         ksrepo.disable()
         self._add_repo(ksrepo)
         super().addDisabledRepo(ksrepo)
+    def _enable_modules(self):
+        """Enable modules (if any)."""
+        for module in self.data.module.dataList():
+            # stream definition is optional
+            if module.stream:
+                module_spec = "{name}:{stream}".format(name=module.name, stream=module.stream)
+            else:
+                module_spec = module.name
+            log.debug("enabling module: %s", module_spec)
+            try:
+                self._base.enable_module([module_spec])
+            except dnf.module.exceptions.NoModuleException as e:
+                self._payload_setup_error(e)
 
     def _apply_selections(self):
+        log.debug("applying DNF package/group/module selection")
+
+        # note about package/group/module spec formatting:
+        # - leading @ signifies a group or module
+        # - no leading @ means a package
+
+        include_list = []
+        exclude_list = []
+
+        # handle "normal" groups
+        for group in self.data.packages.excludedGroupList:
+            log.debug("excluding group %s", group.name)
+            exclude_list.append("@{}".format(group.name))
+
+        # core groups
         if self.data.packages.nocore:
             log.info("skipping core group due to %%packages --nocore; system may not be complete")
+            exclude_list.append("@core")
         else:
-            try:
-                self._select_group('core', required=True)
-                log.info("selected group: core")
-            except payload.NoSuchGroup as e:
-                self._miss(e)
+            log.info("selected group: core")
+            include_list.append("@core")
 
+        # environment
         env = None
-
         if self.data.packages.default and self.environments:
             env = self.environments[0]
+            log.info("selecting default environment: %s", env)
         elif self.data.packages.environment:
             env = self.data.packages.environment
-
-        excludedGroups = [group.name for group in self.data.packages.excludedGroupList]
-
+            log.info("selected environment: %s", env)
         if env:
-            try:
-                self._select_environment(env, excludedGroups)
-                log.info("selected env: %s", env)
-            except payload.NoSuchGroup as e:
-                self._miss(e)
+            include_list.append("@{}".format(env))
 
+        # groups from kickstart data
         for group in self.data.packages.groupList:
-            if group.name == 'core' or group.name in excludedGroups:
-                continue
-
             default = group.include in (GROUP_ALL,
                                         GROUP_DEFAULT)
             optional = group.include == GROUP_ALL
 
-            try:
-                self._select_group(group.name, default=default, optional=optional)
-                log.info("selected group: %s", group.name)
-            except payload.NoSuchGroup as e:
-                self._miss(e)
+            # Packages in groups can have different types
+            # and we provide an option to users to set
+            # which types are going to be installed
+            # via the --nodefaults and --optional options.
+            #
+            # To not clash with module definitions we
+            # only use type specififcations if --nodefault,
+            # --optional or both are used
+            if not default or optional:
+                type_list = list(GROUP_PACKAGE_TYPES)
+                if not default:
+                    type_list.remove("default")
+                if optional:
+                    type_list.append("optional")
 
+                types = ",".join(type_list)
+                group_spec = "@{group_name}/{types}".format(group_name=group.name, types=types)
+            else:
+                # if group is a regular group this is equal to @group/mandatory,default,conditional
+                # (current content of the DNF GROUP_PACKAGE_TYPES constant)
+                group_spec = "@{}".format(group.name)
+
+            include_list.append(group_spec)
+
+        # handle packages
         for pkg_name in self.data.packages.excludedList:
-            self._exclude_package(pkg_name)
             log.info("excluded package: '%s'", pkg_name)
+            exclude_list.append(pkg_name)
 
         for pkg_name in self.data.packages.packageList:
-            try:
-                self._install_package(pkg_name)
-                log.info("selected package: '%s'", pkg_name)
-            except payload.NoSuchPackage as e:
-                self._miss(e)
+            log.info("selected package: '%s'", pkg_name)
+            include_list.append(pkg_name)
 
-        self._select_kernel_package()
+        # add kernel package
+        kernel_package = self._get_kernel_package()
+        if kernel_package:
+            include_list.append(kernel_package)
+
+        # resolve packages and groups required by Anaconda
+        self.requirements.apply()
+
+        # add required groups
+        for group_name in self._req_groups:
+            include_list.append("@{}".format(group_name))
+        # add packages
+        include_list.extend(self._req_packages)
+
+        # log the resulting set
+        log.debug("transaction include list")
+        log.debug(include_list)
+        log.debug("transaction exclude list")
+        log.debug(exclude_list)
+
+        # feed it to DNF
+        try:
+            # install_specs() returns a list of specs that appear to be missing
+            missing_specs = self._base.install_specs(install=include_list, exclude=exclude_list)
+            if missing_specs:
+                if self.data.packages.handleMissing == KS_MISSING_IGNORE:
+                    log.info("ignoring missing package/group/module specs due to --ingoremissing flag in kickstart: %s", missing_specs)
+                else:
+                    log.debug("install_specs() reports that some specs are missing: %s", missing_specs)
+                    raise InstallSpecsMissing(missing_specs)
+        except Exception as e:  # pylint: disable=broad-except
+            self._payload_setup_error(e)
 
     def _apply_requirements(self, requirements):
+        self._req_groups = set()
+        self._req_packages = set()
         for req in self.requirements.packages:
             ignore_msgs = []
             if req.id in self.instclass.ignoredPackages:
@@ -497,20 +582,16 @@ class DNFPayload(payload.PackagePayload):
             if req.id in self.data.packages.excludedList:
                 ignore_msgs.append("IGNORED because excluded")
             if not ignore_msgs:
-                try:
-                    self._install_package(req.id, required=req.strong)
-                except payload.NoSuchPackage as e:
-                    self._miss(e)
+                # NOTE: req.strong not handled yet
+                self._req_packages.add(req.id)
             log.debug("selected package: %s, requirement for %s %s",
                        req.id, req.reasons, ", ".join(ignore_msgs))
 
         for req in self.requirements.groups:
-            try:
-                self._select_group(req.id, required=req.strong)
-                log.debug("selected group: %s, requirement for %s",
-                           req.id, req.reasons)
-            except payload.NoSuchGroup as e:
-                self._miss(e)
+            # NOTE: req.strong not handled yet
+            log.debug("selected group: %s, requirement for %s",
+                       req.id, req.reasons)
+            self._req_groups.add(req.id)
 
         return True
 
@@ -607,24 +688,8 @@ class DNFPayload(payload.PackagePayload):
         # reserve extra
         return Size(size) + Size("150 MB")
 
-    def _exclude_package(self, pkg_name):
-        subj = dnf.subject.Subject(pkg_name)
-        pkgs = subj.get_best_query(self._base.sack)
-        # The only way to get expected behavior is to declare it
-        # as excluded from the installable set
-        return self._base.sack.add_excludes(pkgs)
-
-    def _install_package(self, pkg_name, required=False):
-        try:
-            return self._base.install(pkg_name)
-        except dnf.exceptions.MarkingError:
-            raise payload.NoSuchPackage(pkg_name, required=required)
-
-    def _miss(self, exn):
-        if self.data.packages.handleMissing == KS_MISSING_IGNORE:
-            return
-
-        log.error('Missed: %r', exn)
+    def _payload_setup_error(self, exn):
+        log.error('Payload setup error: %r', exn)
         if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
@@ -651,43 +716,24 @@ class DNFPayload(payload.PackagePayload):
 
         return pkgdir
 
-    def _select_group(self, group_id, default=True, optional=False, required=False):
-        grp = self._base.comps.group_by_pattern(group_id)
-        if grp is None:
-            raise payload.NoSuchGroup(group_id, required=required)
-        types = {'mandatory'}
-        if default:
-            types.add('default')
-        if optional:
-            types.add('optional')
-        try:
-            self._base.group_install(grp.id, types)
-        except dnf.exceptions.MarkingError as e:
-            # dnf-1.1.9 raises this error when a package is missing from a group
-            raise payload.NoSuchPackage(str(e), required=True)
-        except dnf.exceptions.CompsError as e:
-            # DNF raises this when it is already selected
-            log.debug(e)
+    def _package_name_installable(self, package_name):
+        """Check if the given package name looks instalable."""
+        subj = dnf.subject.Subject(package_name)
+        return bool(subj.get_best_query(self._base.sack))
 
-    def _select_environment(self, env_id, excluded):
-        # dnf.base.environment_install excludes on packages instead of groups,
-        # which is unhelpful. Instead, use group_install for each group in
-        # the environment so we can skip the ones that are excluded.
-        for groupid in set(self.environmentGroups(env_id, optional=False)) - set(excluded):
-            self._select_group(groupid)
-
-    def _select_kernel_package(self):
+    def _get_kernel_package(self):
         kernels = self.kernelPackages
-        for kernel in kernels:
-            try:
-                self._install_package(kernel)
-            except payload.NoSuchPackage:
-                log.info('kernel: no such package %s', kernel)
+        selected_kernel_package = None
+        for kernel_package in kernels:
+            if self._package_name_installable(kernel_package):
+                log.info('kernel: selected %s', kernel_package)
+                selected_kernel_package = kernel_package
+                break  # one kernel is good enough
             else:
-                log.info('kernel: selected %s', kernel)
-                break
+                log.info('kernel: no such package %s', kernel_package)
         else:
             log.error('kernel: failed to select a kernel from %s', kernels)
+        return selected_kernel_package
 
     def langpacks(self):
         # get all available languages in repos
@@ -810,8 +856,8 @@ class DNFPayload(payload.PackagePayload):
         log.info("checking software selection")
         self._bump_tx_id()
         self._base.reset(goal=True)
+        self._enable_modules()
         self._apply_selections()
-        self.requirements.apply()
 
         try:
             if self._base.resolve():
@@ -964,7 +1010,7 @@ class DNFPayload(payload.PackagePayload):
         progress_message(pre_msg)
 
         queue_instance = multiprocessing.Queue()
-        process = multiprocessing.Process(target=do_transaction,
+        process = multiprocessing.dummy.Process(target=do_transaction,
                                           args=(self._base, queue_instance))
         process.start()
         (token, msg) = queue_instance.get()
