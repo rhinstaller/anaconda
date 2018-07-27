@@ -1172,4 +1172,3 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 self._show_no_ntp_server_warning()
             else:
                 self.clear_info()
-

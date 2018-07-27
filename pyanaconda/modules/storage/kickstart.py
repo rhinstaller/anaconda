@@ -20,24 +20,11 @@
 from blivet.zfcp import zfcp
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
-from pykickstart.commands.autopart import F26_AutoPart
-from pykickstart.commands.bootloader import F29_Bootloader
-from pykickstart.commands.clearpart import F28_ClearPart
-from pykickstart.commands.ignoredisk import F29_IgnoreDisk
-from pykickstart.commands.logvol import F23_LogVol, F23_LogVolData
-from pykickstart.commands.mount import F27_Mount, F27_MountData
-from pykickstart.commands.partition import F29_Partition, F29_PartData
-from pykickstart.commands.raid import F25_Raid, F25_RaidData
-from pykickstart.commands.reqpart import F23_ReqPart
-from pykickstart.commands.volgroup import F21_VolGroup, F21_VolGroupData
-from pykickstart.commands.zerombr import F9_ZeroMbr
-from pykickstart.commands.zfcp import F14_ZFCP, F14_ZFCPData
 from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
-from pykickstart.version import F28
 
 from pyanaconda.core.i18n import _
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 from pyanaconda.storage_utils import device_matches
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -60,7 +47,7 @@ def get_device_names(specs, disks_only=False, msg="{}", lineno=None):
     return drives
 
 
-class AutoPart(F26_AutoPart):
+class AutoPart(COMMANDS.AutoPart):
     """The autopart kickstart command."""
 
     def parse(self, args):
@@ -75,7 +62,7 @@ class AutoPart(F26_AutoPart):
         return retval
 
 
-class ClearPart(F28_ClearPart):
+class ClearPart(COMMANDS.ClearPart):
     """The ignoredisk kickstart command."""
 
     def parse(self, args):
@@ -109,7 +96,7 @@ class ClearPart(F28_ClearPart):
         return retval
 
 
-class IgnoreDisk(F29_IgnoreDisk):
+class IgnoreDisk(COMMANDS.IgnoreDisk):
     """The ignoredisk kickstart command."""
 
     def parse(self, args):
@@ -132,7 +119,7 @@ class IgnoreDisk(F29_IgnoreDisk):
         return retval
 
 
-class ZFCP(F14_ZFCP):
+class ZFCP(COMMANDS.ZFCP):
     """The zfcp kickstart command."""
 
     def parse(self, args):
@@ -151,28 +138,29 @@ class ZFCP(F14_ZFCP):
 class StorageKickstartSpecification(KickstartSpecification):
     """Kickstart specification of the storage module."""
 
-    version = F28
+    version = VERSION
+
     commands = {
         "autopart": AutoPart,
-        "bootloader": F29_Bootloader,
+        "bootloader": COMMANDS.Bootloader,
         "clearpart": ClearPart,
         "ignoredisk": IgnoreDisk,
-        "logvol": F23_LogVol,
-        "mount": F27_Mount,
-        "part": F29_Partition,
-        "partition": F29_Partition,
-        "raid": F25_Raid,
-        "reqpart": F23_ReqPart,
-        "volgroup": F21_VolGroup,
-        "zerombr": F9_ZeroMbr,
+        "logvol": COMMANDS.LogVol,
+        "mount": COMMANDS.Mount,
+        "part": COMMANDS.Partition,
+        "partition": COMMANDS.Partition,
+        "raid": COMMANDS.Raid,
+        "reqpart": COMMANDS.ReqPart,
+        "volgroup": COMMANDS.VolGroup,
+        "zerombr": COMMANDS.ZeroMbr,
         "zfcp": ZFCP,
     }
 
     commands_data = {
-        "LogVolData": F23_LogVolData,
-        "MountData": F27_MountData,
-        "PartData": F29_PartData,
-        "RaidData": F25_RaidData,
-        "VolGroupData": F21_VolGroupData,
-        "ZFCPData": F14_ZFCPData,
+        "LogVolData": COMMANDS.LogVolData,
+        "MountData": COMMANDS.MountData,
+        "PartData": COMMANDS.PartData,
+        "RaidData": COMMANDS.RaidData,
+        "VolGroupData": COMMANDS.VolGroupData,
+        "ZFCPData": COMMANDS.ZFCPData,
     }

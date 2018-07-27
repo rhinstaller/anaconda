@@ -1,5 +1,5 @@
 #
-# Kickstart handler for the services.
+# Supported kickstart version.
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -17,15 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
+from pykickstart.version import DEVEL as VERSION
 
-class ServicesKickstartSpecification(KickstartSpecification):
-
-    version = VERSION
-    commands = {
-        "firstboot": COMMANDS.Firstboot,
-        "services": COMMANDS.Services,
-        "skipx": COMMANDS.SkipX,
-        "xconfig": COMMANDS.XConfig,
-    }
+__all__ = ["VERSION"]

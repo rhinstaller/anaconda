@@ -17,19 +17,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.commands.network import F27_Network, F27_NetworkData
-from pykickstart.commands.firewall import F28_Firewall
-from pykickstart.version import F28
-from pyanaconda.core.kickstart import KickstartSpecification
+from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
 
 class NetworkKickstartSpecification(KickstartSpecification):
 
-    version = F28
+    version = VERSION
+
     commands = {
-        "network": F27_Network,
-        "firewall" : F28_Firewall,
+        "network": COMMANDS.Network,
+        "firewall": COMMANDS.Firewall,
     }
+
     commands_data = {
-        "NetworkData": F27_NetworkData,
+        "NetworkData": COMMANDS.NetworkData,
     }

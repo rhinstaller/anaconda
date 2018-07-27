@@ -27,8 +27,8 @@ from pykickstart.parser import Packages
 from pykickstart.sections import PackageSection
 
 from pyanaconda import kickstart
-from pyanaconda.core.kickstart import KickstartSpecification, KickstartSpecificationHandler, \
-    KickstartSpecificationParser
+from pyanaconda.core.kickstart.specification import KickstartSpecification,\
+    KickstartSpecificationHandler, KickstartSpecificationParser
 from pyanaconda.modules.localization.kickstart import LocalizationKickstartSpecification
 from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
