@@ -411,7 +411,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             flags.askmethod = False
 
         payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                checkmount=False)
+                                 checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -704,6 +704,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoProxyUsernameEntry = self.builder.get_object("repoProxyUsernameEntry")
         self._repoProxyPasswordEntry = self.builder.get_object("repoProxyPasswordEntry")
         self._repoView = self.builder.get_object("repoTreeView")
+        self._repoRemoveButton = self.builder.get_object("removeButton")
 
         # Create a check for duplicate repo ids
         # Call InputCheckHandler directly since this check operates on rows of a TreeModel
@@ -1398,7 +1399,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                                              mirrorlist=repo.mirrorlist,
                                              metalink=repo.metalink,
                                              proxy=repo.proxy,
-                                             enabled=repo.enabled)
+                                             enabled=repo.enabled,
+                                             treeinfo_origin=repo.treeinfo_origin)
                 # Track the original name, user may change .name
                 ks_repo.orig_name = name
                 # Add addon repository id for identification
@@ -1457,14 +1459,19 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
-        self._update_repo_info(self._repoStore[itr][REPO_OBJ])
+
+        repo = self._repoStore[itr][REPO_OBJ]
+        self._update_repo_info(repo)
 
     def on_repoEnable_toggled(self, renderer, path):
         """ Called when the repo Enable checkbox is clicked
         """
         enabled = not self._repoStore[path][REPO_ENABLED_COL]
-        self._repoStore[path][REPO_ENABLED_COL] = enabled
-        self._repoStore[path][REPO_OBJ].enabled = enabled
+        self._set_repo_enabled(path, enabled)
+
+    def _set_repo_enabled(self, repo_model_path, enabled):
+        self._repoStore[repo_model_path][REPO_ENABLED_COL] = enabled
+        self._repoStore[repo_model_path][REPO_OBJ].enabled = enabled
 
     def _clear_repo_info(self):
         """ Clear the text from the repo entry fields
@@ -1527,7 +1534,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._repoProxyUrlEntry.set_text(proxy.noauth_url)
             except ProxyStringError as e:
                 log.error("Failed to parse proxy for repo %s: %s", repo.name, e)
-                return
+
+        self._configure_treeinfo_repo(repo.treeinfo_origin)
+
+    def _configure_treeinfo_repo(self, is_treeinfo_repository):
+        self._repoRemoveButton.set_sensitive(not is_treeinfo_repository)
+        self._repoEntryBox.set_sensitive(not is_treeinfo_repository)
 
     def _removeUrlPrefix(self, editable, combo, handler):
         # If there is a protocol in the URL, and the protocol matches the

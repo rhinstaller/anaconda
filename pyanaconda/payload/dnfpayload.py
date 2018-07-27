@@ -1314,7 +1314,8 @@ class DNFPayload(payload.PackagePayload):
                     variant_url = install_tree_url + "/" + variant_obj.paths.repository
 
                 if variant_url not in existing_urls:
-                    repo = RepoData(name=variant, baseurl=variant_url, install=False)
+                    repo = RepoData(name=variant, baseurl=variant_url, install=False, enabled=True)
+                    repo.treeinfo_origin = True
                     self.data.repo.dataList().append(repo)
 
         return install_tree_url
