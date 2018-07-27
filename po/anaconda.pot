@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.142\n"
+"Project-Id-Version: anaconda 21.48.22.143\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2018-06-22 16:37+0200\n"
+"POT-Creation-Date: 2018-07-27 13:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -482,7 +482,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2481
+#: pyanaconda/install.py:213 pyanaconda/kickstart.py:2485
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -568,7 +568,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/kickstart.py:541 pyanaconda/kickstart.py:928
-#: pyanaconda/kickstart.py:1589
+#: pyanaconda/kickstart.py:1593
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
@@ -651,8 +651,8 @@ msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
 #: pyanaconda/kickstart.py:972 pyanaconda/kickstart.py:981
-#: pyanaconda/kickstart.py:1041 pyanaconda/kickstart.py:1381
-#: pyanaconda/kickstart.py:1390 pyanaconda/kickstart.py:1473
+#: pyanaconda/kickstart.py:1041 pyanaconda/kickstart.py:1385
+#: pyanaconda/kickstart.py:1394 pyanaconda/kickstart.py:1477
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
@@ -682,8 +682,8 @@ msgstr ""
 msgid "Percentage must be between 0 and 100."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1020 pyanaconda/kickstart.py:1409
-#: pyanaconda/kickstart.py:1642
+#: pyanaconda/kickstart.py:1020 pyanaconda/kickstart.py:1413
+#: pyanaconda/kickstart.py:1646
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
@@ -704,126 +704,130 @@ msgstr ""
 msgid "No format on device '%s'"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1225 pyanaconda/kickstart.py:1233
+#: pyanaconda/kickstart.py:1223
+msgid "nvdimm: nvdimm plugin not available."
+msgstr ""
+
+#: pyanaconda/kickstart.py:1229 pyanaconda/kickstart.py:1237
 #, python-format
 msgid "nvdimm: namespace %s not found."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1244
+#: pyanaconda/kickstart.py:1248
 #, python-format
 msgid "Disk \"%s\" given in nvdimm command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1252 pyanaconda/kickstart.py:1256
+#: pyanaconda/kickstart.py:1256 pyanaconda/kickstart.py:1260
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1281
+#: pyanaconda/kickstart.py:1285
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1316
+#: pyanaconda/kickstart.py:1320
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1327 pyanaconda/kickstart.py:1564
+#: pyanaconda/kickstart.py:1331 pyanaconda/kickstart.py:1568
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1338 pyanaconda/kickstart.py:1574
+#: pyanaconda/kickstart.py:1342 pyanaconda/kickstart.py:1578
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1358
+#: pyanaconda/kickstart.py:1362
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1365
+#: pyanaconda/kickstart.py:1369
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1370 pyanaconda/kickstart.py:1464
+#: pyanaconda/kickstart.py:1374 pyanaconda/kickstart.py:1468
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1438
+#: pyanaconda/kickstart.py:1428 pyanaconda/kickstart.py:1442
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1427
+#: pyanaconda/kickstart.py:1431
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1434
+#: pyanaconda/kickstart.py:1438
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1447
+#: pyanaconda/kickstart.py:1451
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1596
+#: pyanaconda/kickstart.py:1600
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1601
+#: pyanaconda/kickstart.py:1605
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1624
+#: pyanaconda/kickstart.py:1628
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1629
+#: pyanaconda/kickstart.py:1633
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1663
+#: pyanaconda/kickstart.py:1667
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1672
+#: pyanaconda/kickstart.py:1676
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1961
+#: pyanaconda/kickstart.py:1965
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1966
+#: pyanaconda/kickstart.py:1970
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1972
+#: pyanaconda/kickstart.py:1976
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1982
+#: pyanaconda/kickstart.py:1986
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -831,40 +835,40 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1989
+#: pyanaconda/kickstart.py:1993
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1994
+#: pyanaconda/kickstart.py:1998
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1997
+#: pyanaconda/kickstart.py:2001
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2120
+#: pyanaconda/kickstart.py:2124
 msgid ""
 "Incorrectly specified origin of the snapshot. Use format \"VolGroup/LV_name\""
 msgstr ""
 
-#: pyanaconda/kickstart.py:2131
+#: pyanaconda/kickstart.py:2135
 #, python-format
 msgid ""
 "Snapshot: origin \"%(origin)s\" of snapshot \"%(name)s\" is not a valid thin "
 "LV device."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2139
+#: pyanaconda/kickstart.py:2143
 #, python-format
 msgid "Snapshot %s already exists."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2175
+#: pyanaconda/kickstart.py:2179
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
@@ -1008,15 +1012,15 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:264
+#: pyanaconda/rescue.py:267
 msgid "Root Selection"
 msgstr ""
 
-#: pyanaconda/rescue.py:281
+#: pyanaconda/rescue.py:284
 msgid "The following installations were discovered on your system.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:293
+#: pyanaconda/rescue.py:296
 msgid ""
 "Please make your selection from the above list.\n"
 "Press 'c' to continue after you have made your selection.  "
@@ -1027,7 +1031,7 @@ msgstr ""
 #. TRANSLATORS: 'c' to continue
 #. TRANSLATORS:'c' to continue
 #. TRANSLATORS: 'c' to continue
-#: pyanaconda/rescue.py:302 pyanaconda/ui/tui/hubs/summary.py:153
+#: pyanaconda/rescue.py:305 pyanaconda/ui/tui/hubs/summary.py:153
 #: pyanaconda/ui/tui/hubs/__init__.py:123
 #: pyanaconda/ui/tui/hubs/__init__.py:149
 #: pyanaconda/ui/tui/simpleline/base.py:462
@@ -1041,17 +1045,17 @@ msgctxt "TUI|Spoke Navigation"
 msgid "c"
 msgstr ""
 
-#: pyanaconda/rescue.py:324
+#: pyanaconda/rescue.py:327
 msgid "Rescue Mount"
 msgstr ""
 
-#: pyanaconda/rescue.py:346
+#: pyanaconda/rescue.py:349
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  From a "
 "shell, you can fsck and mount your partitions manually.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:355
+#: pyanaconda/rescue.py:358
 #, python-format
 msgid ""
 "Your system has been mounted under %(mountpoint)s.\n"
@@ -1062,12 +1066,12 @@ msgid ""
 "\tchroot %(mountpoint)s\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:394
+#: pyanaconda/rescue.py:397
 #, python-format
 msgid "Run %s to unmount the system when you are finished.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:396
+#: pyanaconda/rescue.py:399
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system.  Some of it "
@@ -1075,20 +1079,20 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:403
+#: pyanaconda/rescue.py:406
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:410
+#: pyanaconda/rescue.py:413
 msgid "The system will reboot automatically when you exit from the shell.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:414
+#: pyanaconda/rescue.py:417
 #, python-format
 msgid "You don't have any Linux partitions. %s\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:443
+#: pyanaconda/rescue.py:446
 msgid "Please press <return> to get a shell. "
 msgstr ""
 
@@ -2608,49 +2612,49 @@ msgstr ""
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2237
+#: pyanaconda/ui/gui/spokes/custom.py:2247
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2243
+#: pyanaconda/ui/gui/spokes/custom.py:2253
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2325
+#: pyanaconda/ui/gui/spokes/custom.py:2335
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2330
+#: pyanaconda/ui/gui/spokes/custom.py:2340
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2335
-#: pyanaconda/ui/gui/spokes/custom.py:2341
-#: pyanaconda/ui/gui/spokes/custom.py:2366
+#: pyanaconda/ui/gui/spokes/custom.py:2345
+#: pyanaconda/ui/gui/spokes/custom.py:2351
+#: pyanaconda/ui/gui/spokes/custom.py:2376
 msgid "Automatic partitioning failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2580
+#: pyanaconda/ui/gui/spokes/custom.py:2590
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2588
+#: pyanaconda/ui/gui/spokes/custom.py:2598
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2588
+#: pyanaconda/ui/gui/spokes/custom.py:2598
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2667
+#: pyanaconda/ui/gui/spokes/custom.py:2677
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
@@ -2698,12 +2702,12 @@ msgstr ""
 msgid "NTP service failed to stop."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.py:572
+#: pyanaconda/ui/gui/spokes/filter.py:576
 msgctxt "GUI|Spoke"
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.py:690
+#: pyanaconda/ui/gui/spokes/filter.py:711
 #, python-format
 msgctxt "GUI|Installation Destination|Filter"
 msgid "%d _storage device selected"
@@ -3286,6 +3290,15 @@ msgid ""
 "The following nodes have been discovered using the iSCSI initiator <b>"
 "%(initiatorName)s</b> using the target IP address <b>%(targetAddress)s</b>.  "
 "Please select which nodes you wish to log into:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.py:75
+msgctxt "GUI|Advanced Storage|NVDIM"
+msgid "No device to be reconfigured selected."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.py:145
+msgid "Rescanning disks finished."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:171
@@ -3892,7 +3905,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:37
 msgctxt "GUI|Installation Destination|Filter|NVDIMM Devices|Mode"
-msgid "Show Only Devices in _Mode:"
+msgid "Show Only Devices in Mo_de:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:38
@@ -3905,7 +3918,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:40
 msgctxt "GUI|Installation Destination|Filter|NVDIMM Devices|Namespace"
-msgid "_Namespace:"
+msgid "Names_pace:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:41
@@ -3973,12 +3986,12 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:54
 msgctxt "GUI|Installation Destination|Filter"
-msgid "Reconfigure _NVDIMM..."
+msgid "Recon_figure NVDIMM..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:55
 msgctxt "GUI|Installation Destination|Filter"
-msgid "Refresh _List"
+msgid "_Refresh List"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade.h:5
@@ -5337,6 +5350,53 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:38
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Retry"
 msgid "Retry _Log In"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:1
+msgctxt "GUI|Advanced Storage|NVDIMM|Reconfigure"
+msgid "_Cancel"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:2
+msgid ""
+"The following NVDIMM devices selected from the list will be reconfigured to "
+"sector mode:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:3
+msgctxt "GUI|Advanced Storage|NVDIMM|Reconfigure"
+msgid "_Sector size:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:4
+msgctxt "GUI|Advanced Storage|NVDIMM|Reconfigure"
+msgid "Start _Reconfiguration"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:5
+msgid "Reconfiguring NVDIMM devices. This may take a moment..."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:6
+msgid "Device reconfiguration failed."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:7
+msgid "The following error occurred reconfiguring NVDIMM devices:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:8
+msgid "Devices reconfiguration succeeded."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:9
+msgid ""
+"Rescanning disks after reconfiguration.\n"
+"This may take a moment ..."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/nvdimm.glade.h:11
+msgid "Warning: Existing data on reconfigured devices will be lost."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/zfcp.glade.h:1

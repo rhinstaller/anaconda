@@ -321,6 +321,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 27 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.144-1
+- Don't allow unlocking and using of LUKS2 devices (vponcova)
+  Resolves: rhbz#1608251
+- Fix glade accelerator conflicts (rvykydal)
+  Related: rhbz#1602436
+- Add nvdimm files to POTFILES.in (rvykydal)
+  Related: rhbz#1602436
+- Support nvdimm only on x86_64 (rvykydal)
+  Resolves: rhbz#1602436
+
 * Fri Jun 22 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.143-1
 - Add data loss warning to nvdimm reconfigure dialog. (rvykydal)
   Resolves: rhbz#1280500
