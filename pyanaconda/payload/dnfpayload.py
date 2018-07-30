@@ -408,6 +408,9 @@ class DNFPayload(payload.PackagePayload):
             with self._repos_lock:
                 self._base.repos.add(repo)
 
+        if not ksrepo.enabled:
+            self.disableRepo(repo.id)
+
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
     def _fetch_md(self, repo):
