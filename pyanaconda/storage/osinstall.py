@@ -1199,6 +1199,9 @@ class InstallerStorage(Blivet):
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
 
+        self.autopart_luks_version = None
+        self.autopart_pbkdf_args = None
+
     def copy(self):
         """Copy the storage.
 
@@ -1551,6 +1554,15 @@ class InstallerStorage(Blivet):
         auto_part_proxy.SetEnabled(self.do_autopart)
         auto_part_proxy.SetType(self.autopart_type)
         auto_part_proxy.SetEncrypted(self.encrypted_autopart)
+
+        if self.encrypted_autopart:
+            auto_part_proxy.SetLUKSVersion(self.autopart_luks_version)
+
+            if self.autopart_pbkdf_args:
+                auto_part_proxy.SetPBKDF(self.autopart_pbkdf_args.type or "")
+                auto_part_proxy.SetPBKDFMemory(self.autopart_pbkdf_args.max_memory_kb)
+                auto_part_proxy.SetPBKDFIterations(self.autopart_pbkdf_args.iterations)
+                auto_part_proxy.SetPBKDFTime(self.autopart_pbkdf_args.time_ms)
 
         # clearpart
         disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)

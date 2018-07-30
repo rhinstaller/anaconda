@@ -412,6 +412,22 @@ class AutoPart(RemovedCommand):
                                                                 auto_part_proxy.Escrowcert)
             storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
 
+            luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=luks_version,
+                pbkdf_type=auto_part_proxy.PBKDF or None,
+                max_memory_kb=auto_part_proxy.PBKDFMemory,
+                iterations=auto_part_proxy.PBKDFIterations,
+                time_ms=auto_part_proxy.PBKDFTime
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
+            storage.autopart_luks_version = luks_version
+            storage.autopart_pbkdf_args = pbkdf_args
+
         if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
             storage.autopart_type = auto_part_proxy.Type
 
