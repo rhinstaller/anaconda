@@ -404,6 +404,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
 
+        self._treeinfo_repos_already_disabled = False
+
     def apply(self):
         # If askmethod was provided on the command line, entering the source
         # spoke wipes that out.
@@ -1424,6 +1426,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._clear_repo_info()
             self._repoEntryBox.set_sensitive(False)
 
+        self._treeinfo_repos_already_disabled = False
+
     def _unique_repo_name(self, name):
         """ Return a unique variation of the name if it already
             exists in the repo store.
@@ -1484,6 +1488,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def _disable_treeinfo_repositories(self):
         """Disable all repositories loaded from the .treeinfo file"""
+        if not self._treeinfo_repos_already_disabled:
+            self._treeinfo_repos_already_disabled = True
             for repo_item in self._repoStore:
                 if repo_item[REPO_OBJ].treeinfo_origin:
                     self._set_repo_enabled(repo_item.path, False)

@@ -322,7 +322,7 @@ class Payload(object):
 
         self._treeinfo = None
 
-        self._first_reset = True
+        self._first_payload_reset = True
 
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
@@ -340,7 +340,7 @@ class Payload(object):
 
     @property
     def first_payload_reset(self):
-        return self._first_reset
+        return self._first_payload_reset
 
     def setup(self, storage, instClass):
         """Do any payload-specific setup."""
@@ -363,7 +363,7 @@ class Payload(object):
 
         This method could be overriden.
         """
-        self._first_reset = False
+        self._first_payload_reset = False
 
     def preStorage(self):
         """Do any payload-specific work necessary before writing the storage
