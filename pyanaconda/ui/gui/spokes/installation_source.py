@@ -974,7 +974,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # outwards
 
         # First check the protocol combo in the network box
-        self.on_protocol_changed(self._protocolComboBox)
+        self._on_protocol_changed()
 
         # Then simulate changes for the radio buttons, which may override the
         # sensitivities set for the network box.
@@ -982,10 +982,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Whichever radio button is selected should have gotten a signal
         # already, but the ones that are not selected need a signal in order
         # to disable the related box.
-        self.on_source_toggled(self._autodetectButton, self._autodetectBox)
-        self.on_source_toggled(self._hmcButton, None)
-        self.on_source_toggled(self._isoButton, self._isoBox)
-        self.on_source_toggled(self._networkButton, self._networkBox)
+        self._on_source_toggled(self._autodetectButton, self._autodetectBox)
+        self._on_source_toggled(self._hmcButton, None)
+        self._on_source_toggled(self._isoButton, self._isoBox)
+        self._on_source_toggled(self._networkButton, self._networkBox)
 
         # Lastly, if the stage2 image is mounted from an HDISO source, there's
         # really no way we can tear down that source to allow the user to
@@ -1197,6 +1197,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # When a radio button is clicked, this handler gets called for both
         # the newly enabled button as well as the previously enabled (now
         # disabled) button.
+        self._on_source_toggled(button, relatedBox)
+        self._disable_treeinfo_repositories()
+
+    def _on_source_toggled(self, button, relatedBox):
         enabled = button.get_active()
 
         if relatedBox:
@@ -1272,6 +1276,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             button.set_label(os.path.basename(f))
             button.set_use_underline(False)
             self._verifyIsoButton.set_sensitive(True)
+            self._disable_treeinfo_repositories()
 
     def on_proxy_clicked(self, button):
         dialog = ProxyDialog(self.data, self._proxyUrl)
@@ -1315,6 +1320,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             dialog.run("/dev/" + self._cdrom.name)
 
     def on_protocol_changed(self, combo):
+        self._on_protocol_changed()
+        self._disable_treeinfo_repositories()
+
+    def _on_protocol_changed(self):
         # Only allow the URL entry to be used if we're using an HTTP/FTP
         # method that's not the mirror list, or an NFS method.
         self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or self._nfs_active())
@@ -1331,7 +1340,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Emitting the urlEntry 'changed' signal will see if the entered URL
         # contains the protocol that's just been selected and strip it if so;
         # _updateURLEntryCheck() does the other validity checks.
-        self._urlEntry.emit("changed")
+        self._on_urlEtry_changed(self._urlEntry)
         self._updateURLEntryCheck()
 
     def _update_payload_repos(self):
@@ -1473,6 +1482,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoStore[repo_model_path][REPO_ENABLED_COL] = enabled
         self._repoStore[repo_model_path][REPO_OBJ].enabled = enabled
 
+    def _disable_treeinfo_repositories(self):
+        """Disable all repositories loaded from the .treeinfo file"""
+            for repo_item in self._repoStore:
+                if repo_item[REPO_OBJ].treeinfo_origin:
+                    self._set_repo_enabled(repo_item.path, False)
+
     def _clear_repo_info(self):
         """ Clear the text from the repo entry fields
 
@@ -1562,6 +1577,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def on_urlEntry_changed(self, editable, data=None):
         # Check for and remove a URL prefix that matches the protocol dropdown
+        self._on_urlEtry_changed(editable)
+        self._disable_treeinfo_repositories()
+
+    def _on_urlEtry_changed(self, editable):
         self._removeUrlPrefix(editable, self._protocolComboBox, self.on_urlEntry_changed)
 
     def on_noUpdatesCheckbox_toggled(self, *args):
