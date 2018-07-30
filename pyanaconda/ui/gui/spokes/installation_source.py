@@ -768,7 +768,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         # If there's no fallback mirror to use, we should just disable that option
         # in the UI.
-        if not self.payload.mirrorEnabled:
+        if not self.payload.mirrors_available:
             model = self._protocolComboBox.get_model()
             itr = model.get_iter_first()
             while itr and model[itr][self._protocolComboBox.get_id_column()] != PROTOCOL_MIRROR:

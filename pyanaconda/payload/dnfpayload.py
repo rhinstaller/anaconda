@@ -786,10 +786,6 @@ class DNFPayload(payload.PackagePayload):
         return [g.id for g in groups]
 
     @property
-    def mirrorEnabled(self):
-        return True
-
-    @property
     def repos(self):
         # known repo ids
         with self._repos_lock:
