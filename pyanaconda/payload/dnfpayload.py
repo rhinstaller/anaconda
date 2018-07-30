@@ -912,6 +912,9 @@ class DNFPayload(payload.PackagePayload):
 
     def environmentId(self, environment):
         """Return environment id for the environment specified by id or name."""
+        # the enviroment must be string or else DNF >=3 throws an assert error
+        if not isinstance(environment, str):
+            log.warning("environmentId() called with non-string argument: %s", environment)
         env = self._base.comps.environment_by_pattern(environment)
         if env is None:
             raise payload.NoSuchGroup(environment)
