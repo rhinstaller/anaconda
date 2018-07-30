@@ -36,8 +36,8 @@ from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 
-from blivetgui import osinstall
-from blivetgui.config import config
+from blivetgui import osinstall # pylint: disable=import-error
+from blivetgui.config import config # pylint: disable=import-error
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
