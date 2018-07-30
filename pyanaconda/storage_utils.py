@@ -43,9 +43,9 @@ from blivet.devicefactory import is_supported_device_type
 from pyanaconda.core.i18n import _, N_
 from pyanaconda import isys
 from pyanaconda.core.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, \
-                                      STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
-                                      STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, \
-                                      STORAGE_MIN_RAM
+    STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
+    STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, \
+    STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform
 
@@ -420,15 +420,36 @@ def verify_luks_devices_have_key(storage, constraints, report_error, report_warn
 
     Note: LUKS device creation will fail without a key.
     """
-    devices = (d for d in storage.devices
+    devices = [d for d in storage.devices
                if d.format.type == "luks"
                and not d.format.exists
-               and not d.format.has_key)
+               and not d.format.has_key]
 
     for dev in devices:
         report_error(_("Encryption requested for LUKS device %s but no "
                        "encryption key specified for this device.") % (dev.name,))
 
+def verify_luks2_memory_requirements(storage, constraints, report_error, report_warning):
+    """ Verify that there is enough available memory for LUKS2 format.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    devices = [d for d in storage.devices
+               if d.format.type == "luks"
+               and d.format.luks_version == "luks2"
+               and d.format.pbkdf_args is None
+               and not d.format.exists]
+
+    available_memory = util.available_memory()
+    log.debug("Available memory: %s", available_memory)
+
+    if devices and available_memory < constraints[STORAGE_LUKS2_MIN_RAM]:
+        report_warning(_("The available memory is less than %(size)s which can "
+                         "be too small for LUKS2 format. It may fail.")
+                       % {"size": constraints[STORAGE_LUKS2_MIN_RAM]})
 
 def verify_mounted_partitions(storage, constraints, report_error, report_warning):
     """ Check the selected disks to make sure all their partitions are unmounted.
@@ -650,6 +671,7 @@ class StorageChecker(object):
         })
 
         self.add_new_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
+        self.add_new_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
 
     def set_default_checks(self):
         """Set the default checks."""
@@ -665,6 +687,7 @@ class StorageChecker(object):
         self.add_check(verify_mountpoints_on_linuxfs)
         self.add_check(verify_mountpoints_on_root)
         self.add_check(verify_luks_devices_have_key)
+        self.add_check(verify_luks2_memory_requirements)
         self.add_check(verify_mounted_partitions)
 
 
