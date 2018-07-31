@@ -43,7 +43,7 @@ from pykickstart.constants import *
 from collections import OrderedDict
 
 # Import the kickstart version.
-from pykickstart.version import DEVEL as VERSION
+from pykickstart.version import RHEL8 as VERSION
 
 # Import all kickstart commands as version-less.
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
@@ -56,7 +56,7 @@ from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
 from pykickstart.commands.network import F27_Network as Network
 from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
-from pykickstart.commands.bootloader import F29_Bootloader as Bootloader
+from pykickstart.commands.bootloader import RHEL8_Bootloader as Bootloader
 
 # Default logging: none
 log = logging.getLogger('parse-kickstart').addHandler(logging.NullHandler())

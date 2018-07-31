@@ -24,9 +24,9 @@
 # Supported kickstart commands.
 from pykickstart.commands.authconfig import F28_Authconfig as Authconfig
 from pykickstart.commands.authselect import F28_Authselect as Authselect
-from pykickstart.commands.autopart import F26_AutoPart as AutoPart
+from pykickstart.commands.autopart import RHEL8_AutoPart as AutoPart
 from pykickstart.commands.autostep import FC3_AutoStep as AutoStep
-from pykickstart.commands.bootloader import F29_Bootloader as Bootloader
+from pykickstart.commands.bootloader import RHEL8_Bootloader as Bootloader
 from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
 from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
@@ -37,7 +37,7 @@ from pykickstart.commands.dmraid import F24_DmRaid as DmRaid
 from pykickstart.commands.driverdisk import F14_DriverDisk as DriverDisk
 from pykickstart.commands.module import F29_Module as Module
 from pykickstart.commands.eula import F20_Eula as Eula
-from pykickstart.commands.fcoe import F28_Fcoe as Fcoe
+from pykickstart.commands.fcoe import RHEL8_Fcoe as Fcoe
 from pykickstart.commands.firewall import F28_Firewall as Firewall
 from pykickstart.commands.firstboot import FC3_Firstboot as Firstboot
 from pykickstart.commands.group import F12_Group as Group
@@ -51,7 +51,7 @@ from pykickstart.commands.keyboard import F18_Keyboard as Keyboard
 from pykickstart.commands.lang import F19_Lang as Lang
 from pykickstart.commands.liveimg import F19_Liveimg as Liveimg
 from pykickstart.commands.logging import FC6_Logging as Logging
-from pykickstart.commands.logvol import F23_LogVol as LogVol
+from pykickstart.commands.logvol import RHEL8_LogVol as LogVol
 from pykickstart.commands.mediacheck import FC4_MediaCheck as MediaCheck
 from pykickstart.commands.method import F28_Method as Method
 from pykickstart.commands.mount import F27_Mount as Mount
@@ -59,9 +59,9 @@ from pykickstart.commands.multipath import F24_MultiPath as MultiPath
 from pykickstart.commands.network import F27_Network as Network
 from pykickstart.commands.nfs import FC6_NFS as NFS
 from pykickstart.commands.nvdimm import F28_Nvdimm as Nvdimm
-from pykickstart.commands.ostreesetup import F21_OSTreeSetup as OSTreeSetup
-from pykickstart.commands.partition import F29_Partition as Partition
-from pykickstart.commands.raid import F25_Raid as Raid
+from pykickstart.commands.ostreesetup import RHEL8_OSTreeSetup as OSTreeSetup
+from pykickstart.commands.partition import RHEL8_Partition as Partition
+from pykickstart.commands.raid import RHEL8_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
 from pykickstart.commands.repo import F27_Repo as Repo
@@ -79,7 +79,7 @@ from pykickstart.commands.updates import F7_Updates as Updates
 from pykickstart.commands.url import F27_Url as Url
 from pykickstart.commands.user import F24_User as User
 from pykickstart.commands.vnc import F9_Vnc as Vnc
-from pykickstart.commands.volgroup import F21_VolGroup as VolGroup
+from pykickstart.commands.volgroup import RHEL8_VolGroup as VolGroup
 from pykickstart.commands.xconfig import F14_XConfig as XConfig
 from pykickstart.commands.zerombr import F9_ZeroMbr as ZeroMbr
 from pykickstart.commands.zfcp import F14_ZFCP as ZFCP
@@ -105,5 +105,5 @@ from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
 from pykickstart.commands.sshpw import F24_SshPwData as SshPwData
 from pykickstart.commands.sshkey import F22_SshKeyData as SshKeyData
 from pykickstart.commands.user import F19_UserData as UserData
-from pykickstart.commands.volgroup import F21_VolGroupData as VolGroupData
+from pykickstart.commands.volgroup import RHEL8_VolGroupData as VolGroupData
 from pykickstart.commands.zfcp import F14_ZFCPData as ZFCPData
