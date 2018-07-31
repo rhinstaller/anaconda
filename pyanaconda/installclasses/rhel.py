@@ -49,6 +49,8 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     mirrors_available = False
 
+    blivet_gui_supported = False
+
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
