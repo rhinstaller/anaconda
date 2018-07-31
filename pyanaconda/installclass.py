@@ -98,6 +98,13 @@ class BaseInstallClass(object):
     # the user at the end of the installation.
     eula_path = None
 
+    # A hint if mirrors are expected to be available for the distribution
+    # installed by the given install class.
+    #
+    # At the moment this just used to show/hide the "closest mirror" option
+    # in the UI.
+    mirrors_available = True
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:
