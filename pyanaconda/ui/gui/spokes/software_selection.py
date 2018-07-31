@@ -145,6 +145,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if it is valid and use this property when we need
         the "machine readable" form.
         """
+        if environment is None:
+            # None means environment is not set, no need to try translate that to an id
+            return None
         try:
             return self.payload.environmentId(self.environment)
         except NoSuchGroup:
