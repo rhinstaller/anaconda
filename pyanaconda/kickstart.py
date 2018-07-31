@@ -45,7 +45,8 @@ from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE,
     REALM_NAME, REALM_DISCOVER, REALM_JOIN, SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
     CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_SKIPPED, BOOTLOADER_ENABLED, \
     BOOTLOADER_TIMEOUT_UNSET, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS, \
-    AUTOPART_TYPE_DEFAULT
+    AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
+    MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
 from pyanaconda.flags import flags, can_touch_runtime_system
@@ -54,7 +55,7 @@ from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
-    AUTO_PARTITIONING
+    AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -1318,40 +1319,46 @@ class Logging(COMMANDS.Logging):
             anaconda_logging.logger.updateRemote(remote_server)
 
 
-class Mount(COMMANDS.Mount):
-    def execute(self, storage, ksdata, instClass):
-        for md in self.dataList():
-            md.execute(storage, ksdata, instClass)
+class Mount(RemovedCommand):
 
-    def add_mount_data(self, md):
-        self.mount_points.append(md)
+    def __str__(self):
+        return ""
 
-    def remove_mount_data(self, md):
-        self.mount_points.remove(md)
+    def execute(self, storage, *args, **kwargs):
+        manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
-    def clear_mount_data(self):
-        self.mount_points = list()
+        if not manual_part_proxy.Enabled:
+            return
 
-class MountData(COMMANDS.MountData):
-    def execute(self, storage, ksdata, instClass):
+        # Disable autopart.
         storage.do_autopart = False
 
-        dev = storage.devicetree.resolve_device(self.device)
+        # Set up mount points.
+        for data in manual_part_proxy.MountPoints:
+            self._setup_mount_point(storage, data)
+
+    def _setup_mount_point(self, storage, data):
+        device = data[MOUNT_POINT_DEVICE]
+        device_reformat = data[MOUNT_POINT_REFORMAT]
+        device_format = data[MOUNT_POINT_FORMAT]
+
+        dev = storage.devicetree.resolve_device(device)
         if dev is None:
             raise KickstartParseError(lineno=self.lineno,
-                                      msg=_("Unknown or invalid device '%s' specified") % self.device)
-        if self.reformat:
-            if self.format:
-                fmt = get_format(self.format)
+                                      msg=_("Unknown or invalid device '%s' specified") % device)
+
+        if device_reformat:
+            if device_format:
+                fmt = get_format(device_format)
                 if not fmt:
                     msg = _("Unknown or invalid format '%(format)s' specified for device '%(device)s'") % \
-                            {"format" : self.format, "device" : self.device}
+                            {"format": device_format, "device": device}
                     raise KickstartParseError(lineno=self.lineno, msg=msg)
             else:
                 old_fmt = dev.format
                 if not old_fmt or old_fmt.type is None:
                     raise KickstartParseError(lineno=self.lineno,
-                                              msg=_("No format on device '%s'") % self.device)
+                                              msg=_("No format on device '%s'") % device)
                 fmt = get_format(old_fmt.type)
             storage.format_device(dev, fmt)
             # make sure swaps end up in /etc/fstab
@@ -1359,11 +1366,13 @@ class MountData(COMMANDS.MountData):
                 storage.add_fstab_swap(dev)
 
         # only set mount points for mountable formats
-        if dev.format.mountable and self.mount_point is not None and self.mount_point != "none":
-            dev.format.mountpoint = self.mount_point
+        mount_point = data[MOUNT_POINT_PATH]
 
-        dev.format.create_options = self.mkfs_opts
-        dev.format.options = self.mount_opts
+        if dev.format.mountable and mount_point and mount_point != "none":
+            dev.format.mountpoint = mount_point
+
+        dev.format.create_options = data[MOUNT_POINT_FORMAT_OPTIONS]
+        dev.format.options = data[MOUNT_POINT_MOUNT_OPTIONS]
 
 
 class Network(COMMANDS.Network):
@@ -2527,7 +2536,6 @@ commandMap = {
 dataMap = {
     "BTRFSData": BTRFSData,
     "LogVolData": LogVolData,
-    "MountData": MountData,
     "PartData": PartitionData,
     "RaidData": RaidData,
     "RepoData": RepoData,
