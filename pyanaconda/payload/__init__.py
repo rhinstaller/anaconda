@@ -26,7 +26,6 @@
 """
 import os
 import requests
-import configparser
 import shutil
 from glob import glob
 from fnmatch import fnmatch
@@ -35,6 +34,8 @@ import re
 import functools
 import time
 from collections import OrderedDict, namedtuple
+
+from productmd.treeinfo import TreeInfo
 
 from blivet.size import Size, ROUND_HALF_UP
 
@@ -108,12 +109,18 @@ class NoSuchGroup(PayloadError):
         self.adding = adding
         self.required = required
 
+    def __str__(self):
+        return "The group '{}' does not exist".format(self.group)
+
 
 class NoSuchPackage(PayloadError):
     def __init__(self, package, required=False):
         super().__init__(package)
         self.package = package
         self.required = required
+
+    def __str__(self):
+        return "The package '{}' does not exist".format(self.package)
 
 
 class DependencyError(PayloadError):
@@ -313,6 +320,8 @@ class Payload(object):
         self.instclass = None
         self.txID = None
 
+        self._treeinfo = None
+
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
 
@@ -321,16 +330,26 @@ class Payload(object):
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
 
+        # are mirrors available ?
+        # - this is an initial default value that will
+        #   be overridden by value from the current
+        #   install class in the setup() method
+        self._mirrors_available = True
+
     def setup(self, storage, instClass):
         """Do any payload-specific setup."""
         self.storage = storage
         self.instclass = instClass
         self.verbose_errors = []
+        # At the moment we set if mirrors are expected to be
+        # available just based on an current install class.
+        self._mirrors_available = instClass.mirrors_available
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
         self.storage = None
         self.instclass = None
+        self._treeinfo = None
 
     def preStorage(self):
         """Do any payload-specific work necessary before writing the storage
@@ -383,11 +402,11 @@ class Payload(object):
         return None
 
     @property
-    def mirrorEnabled(self):
+    def mirrors_available(self):
         """Is the closest/fastest mirror option enabled?  This does not make
         sense for those payloads that do not support this concept.
         """
-        return True
+        return self._mirrors_available
 
     @property
     def disabledRepos(self):
@@ -615,20 +634,21 @@ class Payload(object):
     ##
     ## METHODS FOR TREE VERIFICATION
     ##
-    def _getTreeInfo(self, url, proxy_url, sslverify):
-        """Retrieve treeinfo and return the path to the local file.
+    def _refreshTreeInfo(self, url):
+        """Retrieve treeinfo and store it in the self._treeinfo.
 
-        :param baseurl: url of the repo
-        :type baseurl: string
-        :param proxy_url: Optional full proxy URL of or ""
-        :type proxy_url: string
-        :param sslverify: True if SSL certificate should be verified
-        :type sslverify: bool
-        :returns: Path to retrieved .treeinfo file or None
-        :rtype: string or None
+        :param url: url of the repo
+        :type url: string
         """
         if not url:
-            return None
+            return
+
+        if hasattr(self.data.method, "proxy"):
+            proxy_url = self.data.method.proxy
+        else:
+            proxy_url = None
+
+        sslverify = not flags.noverifyssl
 
         log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)",
                   url, proxy_url, sslverify)
@@ -686,21 +706,17 @@ class Payload(object):
                 log.error(err_msg)
                 self.verbose_errors.append(err_msg)
                 response = None
+
         if response:
             # get the treeinfo contents
             text = response.text
 
-            # close the response
             response.close()
 
-            # write the local treeinfo file
-            with open("/tmp/.treeinfo", "w") as f:
-                f.write(text)
-
-            # and also return the treeinfo contents as a string
-            return text
+            self._treeinfo = TreeInfo()
+            self._treeinfo.loads(text)
         else:
-            return None
+            self._treeinfo = None
 
     def _download_treeinfo_file(self, url, file_name, headers, proxies, verify):
         try:
@@ -725,21 +741,8 @@ class Payload(object):
 
         log.debug("getting release version from tree at %s (%s)", url, version)
 
-        if hasattr(self.data.method, "proxy"):
-            proxy = self.data.method.proxy
-        else:
-            proxy = None
-        treeinfo = self._getTreeInfo(url, proxy, not flags.noverifyssl)
-        if treeinfo:
-            c = configparser.ConfigParser()
-            c.read(treeinfo)
-            try:
-                # Trim off any -Alpha or -Beta
-                version = re.match(VERSION_DIGITS, c.get("general", "version")).group(1)
-            except AttributeError:
-                version = "rawhide"
-            except configparser.Error:
-                pass
+        if self._treeinfo:
+            version = self._treeinfo.release.version.lower()
             log.debug("using treeinfo release version of %s", version)
         else:
             log.debug("using default release version of %s", version)

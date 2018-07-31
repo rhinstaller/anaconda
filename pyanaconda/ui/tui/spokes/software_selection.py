@@ -125,6 +125,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def _translate_env_name_to_id(self, environment):
         """ Return the id of the selected environment or None. """
         if environment is None:
+            # None means environment is not set, no need to try translate that to an id
             return None
         try:
             return self.payload.environmentId(environment)

@@ -45,6 +45,8 @@ class CentOSBaseInstallClass(BaseInstallClass):
     help_placeholder = "CentOSPlaceholder.html"
     help_placeholder_with_links = "CentOSPlaceholder.html"
 
+    blivet_gui_supported = False
+
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return
