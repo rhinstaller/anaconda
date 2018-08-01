@@ -349,6 +349,43 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.3-1
+- Typo fixup (rvykydal)
+- Define if blivet-gui is supported via installclasses (rvykydal)
+  Related: rhbz#1599838
+- Offer Blivet-GUI partitioning only if supported (rvykydal)
+  Related: rhbz#1599838
+- Only show the "closest mirror" source option where appropriate (mkolman)
+  Resolves: rhbz#1608241
+- Starting from 3.0 DNF expects strings in comps queries (mkolman)
+- Remove blivet-gui spoke and its dependencies (rvykydal)
+  Resolves: rhbz#1599838
+- Use the manual partitioning module in TUI (vponcova)
+- Use the manual partitioning module in UI (vponcova)
+- Add tests for the manual partitioning module (vponcova)
+- Create the manual partitioning module (vponcova)
+- Reserve enough static space for 2 lines in spoke status on hub (#1584160) (rvykydal)
+- Handle new module specific error states (mkolman)
+- Handle missing package errors reported by the install_specs() function (mkolman)
+- Initial module enablement and installation support (mkolman)
+- Fix disable additional repositories (jkonecny)
+- Show better messages for NoSuchPackage and NoSuchGroup (#1599190) (vponcova)
+  Resolves: rhbz#1599190
+- Bootloader stage2 can't be on btrfs on rhel (#1533904) (rvykydal)
+  Related: rhbz#1533904
+- Remove --fstype=btrfs support from LogVol, Raid and Partition (rvykydal)
+  Resolves: rhbz#1533904
+- Remove btrfs support. (rvykydal)
+  Resolves: rhbz#1533904
+- Use RHEL8 versions of commands added to RHEL8 handler for test (rvykydal)
+- Use RHEL8 kickstart handler (rvykydal)
+- Use productmd library to parse .treeinfo (#1411673) (jkonecny)
+- Import kickstart classes as version-less in the dracut script (vponcova)
+- Use only version-less kickstart classes (vponcova)
+- Define version-less variants of kickstart classes (vponcova)
+- Pylint should skip the file livepayload.py (vponcova)
+- Fix pylint errors (vponcova)
+
 * Wed Jul 25 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.2-1
 - Change the pop-up text with the pre-release warning (#1542998) (vpodzime)
   Resolves: rhbz#1608243
