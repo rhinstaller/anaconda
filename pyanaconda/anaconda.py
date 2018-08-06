@@ -264,6 +264,10 @@ class Anaconda(object):
             if source.is_nfs or source.is_http or source.is_https or source.is_ftp \
                     or source.is_file:
                 repo.enabled = True
+            elif source.is_harddrive:
+                repo.enabled = True
+                repo.partition = source.partition
+                repo.iso_path = source.path
             else:
                 log.error("Source type %s for additional repository %s is not supported!",
                           source.source_type.value, add_repo)

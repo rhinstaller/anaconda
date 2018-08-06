@@ -2001,6 +2001,8 @@ class RepoData(COMMANDS.RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
         self.treeinfo_origin = kwargs.pop("treeinfo_origin", False)
+        self.partition = kwargs.pop("partition", None)
+        self.iso_path = kwargs.pop("iso_path", None)
 
         super().__init__(*args, **kwargs)
 
@@ -2010,6 +2012,9 @@ class RepoData(COMMANDS.RepoData):
             return super().__str__()
         else:
             return ''
+
+    def is_harddrive_based(self):
+        return self.partition is not None
 
 class ReqPart(COMMANDS.ReqPart):
     def execute(self, storage, ksdata, instClass):

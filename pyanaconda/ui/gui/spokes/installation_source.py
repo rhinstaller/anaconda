@@ -1411,7 +1411,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                                              metalink=repo.metalink,
                                              proxy=repo.proxy,
                                              enabled=repo.enabled,
-                                             treeinfo_origin=repo.treeinfo_origin)
+                                             treeinfo_origin=repo.treeinfo_origin,
+                                             partition=repo.partition,
+                                             iso_path=repo.iso_path)
                 # Track the original name, user may change .name
                 ks_repo.orig_name = name
                 # Add addon repository id for identification
