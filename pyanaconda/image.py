@@ -17,14 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda import isys
 import os, os.path, stat, tempfile
 
+from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
 
 import blivet.util
 import blivet.arch
+
 from blivet.errors import FSError
+
+from productmd.discinfo import DiscInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -68,16 +71,15 @@ def findFirstIsoImage(path):
             continue
 
         log.debug("Reading .discinfo")
-        f = open("/mnt/install/cdimage/.discinfo")
-        f.readline()  # skip timestamp
-        f.readline()  # skip release description
-        discArch = f.readline().strip()  # read architecture
-        f.close()
+        disc_info = DiscInfo()
 
-        log.debug("discArch = %s", discArch)
-        if discArch != arch:
+        disc_info.load("/mnt/install/cdimage/.discinfo")
+        disc_arch = disc_info.arch
+
+        log.debug("discArch = %s", disc_arch)
+        if disc_arch != arch:
             log.warning("findFirstIsoImage: architectures mismatch: %s, %s",
-                        discArch, arch)
+                        disc_arch, arch)
             blivet.util.umount("/mnt/install/cdimage")
             continue
 
