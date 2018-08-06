@@ -73,8 +73,12 @@ def findFirstIsoImage(path):
         log.debug("Reading .discinfo")
         disc_info = DiscInfo()
 
-        disc_info.load("/mnt/install/cdimage/.discinfo")
-        disc_arch = disc_info.arch
+        try:
+            disc_info.load("/mnt/install/cdimage/.discinfo")
+            disc_arch = disc_info.arch
+        except Exception as ex:  # pylint: disable=broad-except
+            log.warning(".discinfo file can't be loaded: %s", ex)
+            continue
 
         log.debug("discArch = %s", disc_arch)
         if disc_arch != arch:
