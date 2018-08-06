@@ -406,7 +406,7 @@ fake_enhancement = Driver(
 
 def dd_list_output(driver):
     out='{0.source}\n{0.name}\n{0.flags}\n{0.description}\n---\n'.format(driver)
-    return out.encode('utf-8')
+    return out
 
 
 class DDUtilsTestCase(unittest.TestCase):
@@ -575,7 +575,7 @@ class LoadDriversTestCase(unittest.TestCase):
         intfs = ["ens3", "", "ens3"]
         list_net_intfs.side_effect = lambda: set(intfs.pop())
 
-        def patched_check_output(command, stderr=None):
+        def patched_check_output(command, stderr=None, universal_newlines=True):
             if command[0] == "modprobe":
                 return "mod1"
             elif command[0] == "find-net-intfs-by-driver":
@@ -730,7 +730,7 @@ class FinishedTestCase(FileTestCaseBase):
 
 
 from driver_updates import get_deviceinfo, DeviceInfo
-blkid_out = b'''\
+blkid_out = '''\
 DEVNAME=/dev/sda2
 UUID=0f21a3d1-dcd3-4ab4-a292-c5556850d561
 TYPE=ext4
@@ -842,5 +842,5 @@ class ListAliasesTestCase(unittest.TestCase):
         modname = "fake_module"
         alias_list = list_aliases(modname)
 
-        check_output.assert_called_once_with(["modinfo", "-F", "alias", modname])
+        check_output.assert_called_once_with(["modinfo", "-F", "alias", modname], universal_newlines=True)
         self.assertEqual(alias_list, ["alias1", "alias2", modname])

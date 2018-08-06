@@ -159,8 +159,7 @@ def dd_list(dd_path, anaconda_ver=None, kernel_ver=None):
     if not kernel_ver:
         kernel_ver = KERNELVER
     cmd = ["dd_list", '-d', dd_path, '-k', kernel_ver, '-a', anaconda_ver]
-    out = subprocess.check_output(cmd, stderr=DEVNULL)
-    out = out.decode('utf-8')
+    out = subprocess.check_output(cmd, stderr=DEVNULL, universal_newlines=True)
     drivers = [Driver(*d.split('\n',3)) for d in out.split('\n---\n') if d]
     log.debug("dd_list: found drivers: %s", ' '.join(d.name for d in drivers))
     for d in drivers: d.repo = dd_path
@@ -336,7 +335,7 @@ def list_aliases(module):
     parsed from modinfo.
     """
     cmd = ["modinfo", "-F", "alias", module]
-    out = subprocess.check_output(cmd)
+    out = subprocess.check_output(cmd, universal_newlines=True)
 
     # Turn the output into a list, and add the module itself
     out = out.strip()
@@ -369,7 +368,8 @@ def net_intfs_by_modules(mods):
     """get list of network interfaces which are depending on given kernel module"""
     ret = set()
     for mod in mods:
-        out = subprocess.check_output(["find-net-intfs-by-driver", mod])
+        out = subprocess.check_output(["find-net-intfs-by-driver", mod],
+                                      universal_newlines=True)
         ret.update([line.strip() for line in out.split('\n') if line])
 
     log.debug("Found %s interfaces for %s mods", ret, mods)
@@ -418,7 +418,7 @@ def load_drivers(moddict):
     for modname in moddict.keys():
         cmd = ["modprobe", "-R", modname]
         try:
-            out = subprocess.check_output(cmd, stderr=DEVNULL)
+            out = subprocess.check_output(cmd, stderr=DEVNULL, universal_newlines=True)
             if out:
                 unload_modules.update(out.strip().split('\n'))
         except subprocess.CalledProcessError:
@@ -568,8 +568,8 @@ class DeviceInfo(object):
 
 def blkid():
     try:
-        out = subprocess.check_output("blkid -o export -s UUID -s TYPE".split())
-        out = out.decode('ascii')
+        out = subprocess.check_output("blkid -o export -s UUID -s TYPE".split(),
+                                      universal_newlines=True)
         return [dict(kv.split('=',1) for kv in block.splitlines())
                                      for block in out.split('\n\n')]
     except subprocess.CalledProcessError:
