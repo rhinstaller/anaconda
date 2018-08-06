@@ -349,6 +349,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 06 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.4-1
+- DD: Use text mode when calling tools with subprocess (rvykydal)
+  Resolves: rhbz#1609744
+- Update RHEL placeholder names (mkolman)
+  Related: rhbz#1593723
+
 * Wed Aug 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.3-1
 - Typo fixup (rvykydal)
 - Define if blivet-gui is supported via installclasses (rvykydal)
