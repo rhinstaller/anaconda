@@ -264,7 +264,7 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 mkdir %{buildroot}%{_datadir}/anaconda/addons
 
 %ifarch %livearches
-desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 %endif
 # NOTE: If you see "error: Installed (but unpackaged) file(s) found" that include liveinst files,
 #       check the IS_LIVEINST_ARCH in configure.ac to make sure your architecture is properly defined
