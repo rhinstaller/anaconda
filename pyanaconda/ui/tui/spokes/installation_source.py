@@ -156,7 +156,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             return
 
         if args == self.SET_NETWORK_INSTALL_MODE:
-            self._container.add(TextWidget(_("Closest mirror")), self._set_network_close_mirror)
+            if self.payload.mirrors_available:
+                self._container.add(TextWidget(_("Closest mirror")), self._set_network_close_mirror)
             self._container.add(TextWidget("http://"), self._set_network_url, SpecifyRepoSpoke.HTTP)
             self._container.add(TextWidget("https://"), self._set_network_url, SpecifyRepoSpoke.HTTPS)
             self._container.add(TextWidget("ftp://"), self._set_network_url, SpecifyRepoSpoke.FTP)

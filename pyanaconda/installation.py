@@ -22,7 +22,8 @@ from blivet import callbacks
 from blivet.devices import BTRFSDevice
 
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
+    MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
@@ -257,7 +258,9 @@ def doInstall(storage, payload, ksdata, instClass):
     early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
 
     # put custom storage info into ksdata, but not if just assigning mount points
-    if not ksdata.mount.dataList():
+    manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
+
+    if not manual_part_proxy.Enabled:
         early_storage.append(Task("Insert custom storage to ksdata", storage.update_ksdata))
 
     # pre-storage tasks

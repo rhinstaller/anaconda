@@ -1410,6 +1410,21 @@ def collect(module_pattern, path, pred):
 
     return retval
 
+def parse_os_release():
+    """Parse the /etc/os-release file and return its contents as a dict.
+
+    :returns: /etc/os-release as a dict
+    :rtype: dict of strings
+    """
+    d = {}
+    if os.path.exists("/etc/os-release"):
+        with open("/etc/os-release") as f:
+            for line in f:
+                k,v = line.rstrip().split("=")
+                d[k] = v.strip('"')
+    else:
+        log.error("/etc/os-release does not exist and thus can't be parsed")
+    return d
 
 def item_counter(item_count):
     """A generator for easy counting of items.

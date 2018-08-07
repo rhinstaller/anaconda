@@ -19,9 +19,10 @@
 
 from collections import OrderedDict
 
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER, AUTO_PARTITIONING
+    BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, \
     getDisksByNames
@@ -42,10 +43,10 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT, SecretType
+    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT, SecretType, \
+    MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda import kickstart
 from pyanaconda.storage.osinstall import storage_initialize
 
 from pykickstart.base import BaseData
@@ -542,7 +543,8 @@ class PartTypeSpoke(NormalTUISpoke):
         # remember the original values so that we can detect a change
         self._disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
         self._orig_clearpart_type = self._disk_init_proxy.InitializationMode
-        self._orig_mount_assign = len(self.data.mount.dataList()) != 0
+        self._manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
+        self._orig_mount_assign = self._manual_part_proxy.Enabled
 
         # Create the auto partitioning proxy
         self._auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
@@ -597,11 +599,12 @@ class PartTypeSpoke(NormalTUISpoke):
         # issues. (rhbz#1001061)
         if not self._do_mount_assign:
             self._auto_part_proxy.SetEnabled(True)
+            self._manual_part_proxy.SetEnabled(False)
             self._disk_init_proxy.SetInitializationMode(self.clearPartType)
             self._disk_init_proxy.SetInitializeLabelsEnabled(True)
-            self.data.mount.clear_mount_data()
         else:
             self._auto_part_proxy.SetEnabled(False)
+            self._manual_part_proxy.SetEnabled(True)
             self._disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
             self._disk_init_proxy.SetInitializeLabelsEnabled(False)
 
@@ -632,7 +635,7 @@ class PartTypeSpoke(NormalTUISpoke):
         storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
-        self.data.mount.clear_mount_data()
+        self._manual_part_proxy.SetMountPoints([])
 
     def input(self, args, key):
         """Grab the choice and update things"""
@@ -714,14 +717,6 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         self._auto_part_proxy.SetType(self._selected_scheme_value)
 
 
-class MountDataRecorder(kickstart.MountData):
-    """ An artificial subclass also recording changes. """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.modified = False
-        self.orig_format = None
-
-
 class MountPointAssignSpoke(NormalTUISpoke):
     """ Assign mount points to block devices. """
     category = SystemCategory
@@ -730,188 +725,256 @@ class MountPointAssignSpoke(NormalTUISpoke):
         super().__init__(data, storage, payload, instclass)
         self.title = N_("Assign mount points")
         self._container = None
-        self._mds = None
 
-        self._gather_mount_data_info()
-
-    def _is_dev_usable(self, dev, selected_disks):
-        maybe = not dev.protected and dev.size != Size(0)
-        if maybe and selected_disks:
-            # all device's disks have to be in selected disks
-            maybe = set(selected_disks).issuperset({d.name for d in dev.disks})
-
-        return maybe
-
-    def _gather_mount_data_info(self):
-        self._mds = OrderedDict()
-
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-
-        for device in self.storage.devicetree.leaves:
-            if not self._is_dev_usable(device, selected_disks):
-                continue
-
-            fmt = device.format.type
-
-            for ks_md in self.data.mount.dataList():
-                if device is self.storage.devicetree.resolve_device(ks_md.device):
-                    # already have a configuration for the device in ksdata,
-                    # let's just copy it
-                    mdrec = MountDataRecorder(device=ks_md.device, mount_point=ks_md.mount_point,
-                                              format=ks_md.format, reformat=ks_md.reformat)
-                    # and make sure the new version is put back
-                    self.data.mount.remove_mount_data(ks_md)
-                    mdrec.modified = True
-                    break
-            else:
-                if device.format.mountable and device.format.mountpoint:
-                    mpoint = device.format.mountpoint
-                else:
-                    mpoint = None
-
-                mdrec = MountDataRecorder(device=device.path, mount_point=mpoint, format=fmt, reformat=False)
-
-            mdrec.orig_format = fmt
-            self._mds[device.name] = mdrec
+        self._disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        self._manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
+        self._mount_info = self._gather_mount_info()
 
     @property
     def indirect(self):
         return True
 
-    def prompt(self, args=None):
-        prompt = super().prompt(args)
-        # TRANSLATORS: 's' to rescan devices
-        prompt.add_option(C_('TUI|Spoke Navigation|Partitioning', 's'), _("rescan devices"))
-        return prompt
-
     def refresh(self, args=None):
+        """Refresh the window."""
         super().refresh(args)
-
         self._container = ListColumnContainer(2)
 
-        for md in self._mds.values():
-            device = self.storage.devicetree.resolve_device(md.device)
-            devspec = "%s (%s)" % (md.device, device.size)
-            if md.format:
-                devspec += "\n %s" % md.format
-                if md.reformat:
-                    devspec += "*"
-                if md.mount_point:
-                    devspec += ", %s" % md.mount_point
-            w = TextWidget(devspec)
-            self._container.add(w, self._configure_device, device)
+        for info in self._mount_info:
+            widget = TextWidget(self._get_mount_info_description(info))
+            self._container.add(widget, self._configure_mount_info, info)
+
+        message = _(
+            "Choose device from above to assign mount point and set format.\n"
+            "Formats marked with * are new formats meaning ALL DATA on the "
+            "original format WILL BE LOST!"
+        )
 
         self.window.add_with_separator(self._container)
-
-        message = _("Choose device from above to assign mount point and set format.\n" +
-                    "Formats marked with * are new formats meaning ALL DATA on the "
-                    "original format WILL BE LOST!")
         self.window.add_with_separator(TextWidget(message))
 
-    def _configure_device(self, device):
-        md = self._mds[device.name]
-        new_spoke = ConfigureDeviceSpoke(self.data, self.storage,
-                                         self.payload, self.instclass, md)
-        ScreenHandler.push_screen(new_spoke)
+    def prompt(self, args=None):
+        prompt = super().prompt(args)
+
+        # TRANSLATORS: 's' to rescan devices
+        prompt.add_option(C_('TUI|Spoke Navigation|Partitioning', 's'), _("rescan devices"))
+
+        return prompt
 
     def input(self, args, key):
         """ Grab the choice and update things. """
-        if not self._container.process_user_input(key):
-            # TRANSLATORS: 's' to rescan devices
-            if key.lower() == C_('TUI|Spoke Navigation|Partitioning', 's'):
-                text = _("Warning: This will revert all changes done so far.\n"
-                         "Do you want to proceed?\n")
-                question_window = YesNoDialog(text)
-                ScreenHandler.push_screen_modal(question_window)
-                if question_window.answer:
-                    # unset selected disks temporarily so that
-                    # storage_initialize() processes all devices
-                    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-                    selected_disks = disk_select_proxy.SelectedDisks
-                    disk_select_proxy.SetSelectedDisks([])
+        if self._container.process_user_input(key):
+            return InputState.PROCESSED
 
-                    print(_("Scanning disks. This may take a moment..."))
-                    storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
+        # TRANSLATORS: 's' to rescan devices
+        if key.lower() == C_('TUI|Spoke Navigation|Partitioning', 's'):
+            self._rescan_devices()
+            return InputState.PROCESSED_AND_REDRAW
 
-                    disk_select_proxy.SetSelectedDisks(selected_disks)
-                    self.data.mount.clear_mount_data()
-                    self._gather_mount_data_info()
-                return InputState.PROCESSED_AND_REDRAW
-            # TRANSLATORS: 'c' to continue
-            elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
-                self.apply()
+        # TRANSLATORS: 'c' to continue
+        elif key.lower() == C_('TUI|Spoke Navigation', 'c'):
+            self.apply()
 
-            return super().input(args, key)
-
-        return InputState.PROCESSED
+        return super().input(args, key)
 
     def apply(self):
         """ Apply our selections. """
-        for mount_data in self._mds.values():
-            if mount_data.modified and (mount_data.reformat or mount_data.mount_point):
-                self.data.mount.add_mount_data(mount_data)
+        mount_points = []
+
+        for _device, data in self._mount_info:
+            if data[MOUNT_POINT_REFORMAT] or data[MOUNT_POINT_PATH]:
+                mount_points.append({
+                    MOUNT_POINT_PATH: get_variant(Str, data[MOUNT_POINT_PATH] or "none"),
+                    MOUNT_POINT_DEVICE: get_variant(Str, data[MOUNT_POINT_DEVICE]),
+                    MOUNT_POINT_REFORMAT: get_variant(Bool, data[MOUNT_POINT_REFORMAT]),
+                    MOUNT_POINT_FORMAT: get_variant(Str, data[MOUNT_POINT_FORMAT])
+                })
+
+        self._manual_part_proxy.SetMountPoints(mount_points)
+
+    def _gather_mount_info(self):
+        """Gather info about mount points."""
+        selected_disks = self._disk_select_proxy.SelectedDisks
+        mount_points = self._manual_part_proxy.MountPoints
+
+        mount_info = []
+
+        for device in self.storage.devicetree.leaves:
+            # Is the device usable?
+            if device.protected or device.size == Size(0):
+                continue
+
+            # All device's disks have to be in selected disks.
+            device_disks = {d.name for d in device.disks}
+            if selected_disks and not set(selected_disks).issuperset(device_disks):
+                continue
+
+            # Append new info about this device.
+            data = self._get_mount_point_data(device, mount_points)
+            mount_info.append((device, data))
+
+            # Use the data only once.
+            if data in mount_points:
+                mount_points.remove(data)
+
+        return mount_info
+
+    def _get_mount_point_data(self, device, mount_points):
+        """Get the mount point data for the given device."""
+
+        # Try to find existing assignment for this device.
+        for data in mount_points:
+            if device is self.storage.devicetree.resolve_device(data[MOUNT_POINT_DEVICE]):
+                return data
+
+        # Or create a new assignment.
+        if device.format.mountable and device.format.mountpoint:
+            mount_point = device.format.mountpoint
+        else:
+            mount_point = ""
+
+        return {
+            MOUNT_POINT_DEVICE: device.path,
+            MOUNT_POINT_PATH: mount_point,
+            MOUNT_POINT_FORMAT: device.format.type,
+            MOUNT_POINT_REFORMAT: False
+        }
+
+    def _get_mount_info_description(self, info):
+        """Get description of the given mount info."""
+        device, data = info
+        description = "{} ({})".format(data[MOUNT_POINT_DEVICE], device.size)
+
+        if data[MOUNT_POINT_FORMAT]:
+            description += "\n {}".format(data[MOUNT_POINT_FORMAT])
+
+            if data[MOUNT_POINT_REFORMAT]:
+                description += "*"
+
+            if data[MOUNT_POINT_PATH]:
+                description += ", {}".format(data[MOUNT_POINT_PATH])
+
+        return description
+
+    def _configure_mount_info(self, info):
+        """Configure the given mount info."""
+        spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, self.instclass, *info)
+        ScreenHandler.push_screen(spoke)
+
+    def _rescan_devices(self):
+        """Rescan devices."""
+        text = _("Warning: This will revert all changes done so far.\n"
+                 "Do you want to proceed?\n")
+
+        question_window = YesNoDialog(text)
+        ScreenHandler.push_screen_modal(question_window)
+
+        if not question_window.answer:
+            return
+
+        # unset selected disks temporarily so that
+        # storage_initialize() processes all devices
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        selected_disks = disk_select_proxy.SelectedDisks
+        disk_select_proxy.SetSelectedDisks([])
+
+        print(_("Scanning disks. This may take a moment..."))
+        storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
+
+        disk_select_proxy.SetSelectedDisks(selected_disks)
+        self._manual_part_proxy.SetMountPoints([])
+        self._mount_info = self._gather_mount_info()
 
 
 class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Assign mount point to a block device and (optionally) reformat it. """
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass, mount_data):
+    def __init__(self, data, storage, payload, instclass, device, mount_data):
         super().__init__(data, storage, payload, instclass)
+        self.title = N_("Configure device: %s") % mount_data[MOUNT_POINT_DEVICE]
         self._container = None
-        self._mount_data = mount_data
-        self.title = N_("Configure device: %s") % mount_data.device
 
         self._supported_filesystems = [fmt.type for fmt in get_supported_filesystems()]
+        self._mount_data = mount_data
+        self._device = device
 
     @property
     def indirect(self):
         return True
 
     def refresh(self, args=None):
+        """Refresh window."""
         super().refresh(args)
-
         self._container = ListColumnContainer(1)
+        self._add_mount_point_widget()
+        self._add_format_widget()
+        self._add_reformat_widget()
 
-        mount_point_title = _("Mount point")
-        reformat_title = _("Reformat")
-        none_msg = _("none")
+        self.window.add_with_separator(self._container)
+        self.window.add_with_separator(TextWidget(
+            _("Choose from above to assign mount point and/or set format.")
+        ))
 
-        fmt = get_format(self._mount_data.format)
+    def input(self, args, key):
+        """Grab the choice and update things."""
+        if not self._container.process_user_input(key):
+            return super().input(args, key)
+
+        return InputState.PROCESSED_AND_REDRAW
+
+    def apply(self):
+        """Nothing to apply here."""
+        pass
+
+    def _add_mount_point_widget(self):
+        """Add a widget for mount point assignment."""
+        title = _("Mount point")
+        fmt = get_format(self._mount_data[MOUNT_POINT_FORMAT])
+
         if fmt and fmt.mountable:
-            dialog = Dialog(mount_point_title, conditions=[self._check_assign_mount_point])
-            value = self._mount_data.mount_point or none_msg
-            self._container.add(EntryWidget(dialog.title, value), self._assign_mount_point, dialog)
+            # mount point can be set
+            value = self._mount_data[MOUNT_POINT_PATH] or _("none")
+            callback = self._assign_mount_point
         elif fmt and fmt.type is None:
             # mount point cannot be set for no format
             # (fmt.name = "Unknown" in this case which would look weird)
-            self._container.add(EntryWidget(mount_point_title, none_msg))
+            value = _("none")
+            callback = None
         else:
             # mount point cannot be set for format that is not mountable, just
             # show the format's name in square brackets instead
-            self._container.add(EntryWidget(mount_point_title, fmt.name))
+            value = fmt.name
+            callback = None
 
-        dialog = Dialog(_("Format"), conditions=[self._check_format])
-        value = self._mount_data.format or none_msg
-        self._container.add(EntryWidget(dialog.title, value), self._set_format, dialog)
+        dialog = Dialog(title, conditions=[self._check_assign_mount_point])
+        widget = EntryWidget(dialog.title, value)
+        self._container.add(widget, callback, dialog)
 
-        if ((self._mount_data.orig_format and
-             self._mount_data.orig_format != self._mount_data.format)
-           or self._mount_data.mount_point == "/"):
-            # changing format implies reformat and so does "/" mount point
-            self._container.add(CheckboxWidget(title=reformat_title,
-                                               completed=self._mount_data.reformat))
+    def _check_assign_mount_point(self, user_input, report_func):
+        """Check the mount point assignment."""
+        # a valid mount point must start with / or user set nothing
+        if user_input == "" or user_input.startswith("/"):
+            return True
         else:
-            self._container.add(CheckboxWidget(title=reformat_title,
-                                               completed=self._mount_data.reformat),
-                                self._switch_reformat)
+            report_func(_("Invalid mount point given"))
+            return False
 
-        self.window.add_with_separator(self._container)
-        self.window.add_with_separator(TextWidget(_("Choose from above to assign "
-                                                    "mount point and/or set format.")))
+    def _assign_mount_point(self, dialog):
+        """Change the mount point assignment."""
+        self._mount_data[MOUNT_POINT_PATH] = dialog.run()
+
+        # Always reformat root.
+        if self._mount_data[MOUNT_POINT_PATH] == "/":
+            self._mount_data[MOUNT_POINT_REFORMAT] = True
+
+    def _add_format_widget(self):
+        """Add a widget for format."""
+        dialog = Dialog(_("Format"), conditions=[self._check_format])
+        widget = EntryWidget(dialog.title, self._mount_data[MOUNT_POINT_FORMAT] or _("none"))
+        self._container.add(widget, self._set_format, dialog)
 
     def _check_format(self, user_input, report_func):
+        """Check value of format."""
         user_input = user_input.lower()
         if user_input in self._supported_filesystems:
             return True
@@ -922,44 +985,33 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
             report_func(msg)
             return False
 
-    def _check_assign_mount_point(self, user_input, report_func):
-        # a valid mount point must start with / or user set nothing
-        if user_input == "" or user_input.startswith("/"):
-            return True
-        else:
-            report_func(_("Invalid mount point given"))
-            return False
-
-    def input(self, args, key):
-        """ Grab the choice and update things. """
-        if not self._container.process_user_input(key):
-            return super().input(args, key)
-
-        return InputState.PROCESSED_AND_REDRAW
-
-    def apply(self):
-        # nothing to do here, the callbacks below directly modify the data
-        pass
-
-    def _switch_reformat(self, args):
-        self._mount_data.modified = True
-        self._mount_data.reformat = not self._mount_data.reformat
-
     def _set_format(self, dialog):
-        self._mount_data.modified = True
-        value = dialog.run()
+        """Change value of format."""
+        old_format = self._mount_data[MOUNT_POINT_FORMAT]
+        new_format = dialog.run()
 
-        if value != self._mount_data.format:
-            self._mount_data.reformat = True
-            self._mount_data.format = value
+        # Reformat to a new format.
+        if new_format != old_format:
+            self._mount_data[MOUNT_POINT_FORMAT] = new_format
+            self._mount_data[MOUNT_POINT_REFORMAT] = True
 
-    def _assign_mount_point(self, dialog):
-        self._mount_data.modified = True
-        value = dialog.run()
+    def _add_reformat_widget(self):
+        """Add a widget for reformat."""
+        widget = CheckboxWidget(
+            title=_("Reformat"),
+            completed=self._mount_data[MOUNT_POINT_REFORMAT]
+        )
+        self._container.add(widget, self._switch_reformat)
 
-        if value:
-            self._mount_data.mount_point = value
+    def _switch_reformat(self, data):
+        """Change value of reformat."""
+        device_format = self._device.format.type
+
+        if device_format and device_format != self._mount_data[MOUNT_POINT_FORMAT]:
+            reformat = True
+        elif self._mount_data[MOUNT_POINT_PATH] == "/":
+            reformat = True
         else:
-            self._mount_data.mount_point = None
-        if self._mount_data.mount_point == "/":
-            self._mount_data.reformat = True
+            reformat = not self._mount_data[MOUNT_POINT_REFORMAT]
+
+        self._mount_data[MOUNT_POINT_REFORMAT] = reformat

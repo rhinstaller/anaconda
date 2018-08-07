@@ -24,9 +24,12 @@ from unittest.mock import patch, call
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED, \
-    BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION, AUTOPART_TYPE_DEFAULT
+    BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION, AUTOPART_TYPE_DEFAULT, \
+    MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
+    MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
+from pyanaconda.dbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
-    DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING
+    DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootloaderModule
@@ -40,8 +43,9 @@ from pyanaconda.modules.storage.disk_initialization.initialization_interface imp
     DiskInitializationInterface
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
-from pyanaconda.modules.storage.partitioning import AutoPartitioningModule
+from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
@@ -487,6 +491,78 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         ks_out = """
         autopart --encrypted --escrowcert="file:///tmp/escrow.crt" --backuppassphrase
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def mount_kickstart_test(self):
+        """Test the mount command."""
+        ks_in = """
+        mount /dev/sda1 /boot
+        """
+        ks_out = """
+        # Mount points configuration
+        mount /dev/sda1 /boot
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def mount_none_kickstart_test(self):
+        """Test the mount command with none."""
+        ks_in = """
+        mount /dev/sda1 none
+        """
+        ks_out = """
+        # Mount points configuration
+        mount /dev/sda1 none
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def mount_mountoptions_kickstart_test(self):
+        """Test the mount command with the mountoptions."""
+        ks_in = """
+        mount /dev/sda1 /boot --mountoptions="user"
+        """
+        ks_out = """
+        # Mount points configuration
+        mount /dev/sda1 /boot --mountoptions="user"
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def mount_reformat_kickstart_test(self):
+        """Test the mount command with the reformat option."""
+        ks_in = """
+        mount /dev/sda1 /boot --reformat
+        """
+        ks_out = """
+        # Mount points configuration
+        mount /dev/sda1 /boot --reformat
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def mount_mkfsoptions_kickstart_test(self):
+        """Test the mount command with the mkfsoptions."""
+        ks_in = """
+        mount /dev/sda1 /boot --reformat=xfs --mkfsoptions="-L BOOT"
+        """
+        ks_out = """
+        # Mount points configuration
+        mount /dev/sda1 /boot --reformat=xfs --mkfsoptions="-L BOOT"
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def mount_multiple_kickstart_test(self):
+        """Test multiple mount commands."""
+        ks_in = """
+        mount /dev/sda1 /boot
+        mount /dev/sda2 /
+        mount /dev/sdb1 /home
+        mount /dev/sdb2 none
+        """
+        ks_out = """
+        # Mount points configuration
+        mount /dev/sda1 /boot
+        mount /dev/sda2 /
+        mount /dev/sdb1 /home
+        mount /dev/sdb2 none
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -951,3 +1027,128 @@ class ZFCPTasksTestCase(unittest.TestCase):
         sanitized_lun = blockdev.s390.zfcp_sanitize_lun_input.return_value
 
         zfcp.add_fcp.asser_called_once_with(sanitized_dev, sanitized_lun, sanitized_wwpn)
+
+
+class ManualPartitioningInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the manual partitioning module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.manual_part_module = ManualPartitioningModule()
+        self.manual_part_interface = ManualPartitioningInterface(self.manual_part_module)
+
+    def _test_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            MANUAL_PARTITIONING,
+            self.manual_part_interface,
+            *args, **kwargs
+        )
+
+    def enabled_property_test(self):
+        """Test the enabled property."""
+        self._test_dbus_property(
+            "Enabled",
+            True
+        )
+
+        self._test_dbus_property(
+            "Enabled",
+            False
+        )
+
+    def mount_points_property_test(self):
+        """Test the mount points property."""
+        self._test_dbus_property(
+            "MountPoints",
+            []
+        )
+
+        in_value = [
+            {
+                "mount-point": "/boot",
+                "device": "/dev/sda1"
+            }
+        ]
+
+        out_value = [
+            {
+                MOUNT_POINT_PATH: get_variant(Str, "/boot"),
+                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda1"),
+                MOUNT_POINT_REFORMAT: get_variant(Bool, False),
+                MOUNT_POINT_FORMAT: get_variant(Str, ""),
+                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, ""),
+                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "")
+            }
+        ]
+
+        self._test_dbus_property(
+            "MountPoints",
+            in_value,
+            out_value
+        )
+
+        in_value = [
+            {
+                "mount-point":  "/boot",
+                "device": "/dev/sda1",
+                "reformat": True,
+                "format": "xfs",
+                "format-options": "-L BOOT",
+                "mount-options": "user"
+            }
+        ]
+
+        out_value = [
+            {
+                MOUNT_POINT_PATH: get_variant(Str, "/boot"),
+                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda1"),
+                MOUNT_POINT_REFORMAT: get_variant(Bool, True),
+                MOUNT_POINT_FORMAT: get_variant(Str, "xfs"),
+                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, "-L BOOT"),
+                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "user")
+            }
+        ]
+
+        self._test_dbus_property(
+            "MountPoints",
+            in_value,
+            out_value,
+        )
+
+        in_value = [
+            {
+                "mount-point": "/boot",
+                "device": "/dev/sda1"
+            },
+            {
+                "mount-point": "/",
+                "device": "/dev/sda2",
+                "reformat": True
+            }
+        ]
+
+        out_value = [
+            {
+                MOUNT_POINT_PATH: get_variant(Str, "/boot"),
+                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda1"),
+                MOUNT_POINT_REFORMAT: get_variant(Bool, False),
+                MOUNT_POINT_FORMAT: get_variant(Str, ""),
+                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, ""),
+                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "")
+            },
+            {
+                MOUNT_POINT_PATH: get_variant(Str, "/"),
+                MOUNT_POINT_DEVICE: get_variant(Str, "/dev/sda2"),
+                MOUNT_POINT_REFORMAT: get_variant(Bool, True),
+                MOUNT_POINT_FORMAT: get_variant(Str, ""),
+                MOUNT_POINT_FORMAT_OPTIONS: get_variant(Str, ""),
+                MOUNT_POINT_MOUNT_OPTIONS: get_variant(Str, "")
+            }
+        ]
+
+        self._test_dbus_property(
+            "MountPoints",
+            in_value,
+            out_value
+        )

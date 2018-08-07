@@ -408,6 +408,9 @@ class DNFPayload(payload.PackagePayload):
             with self._repos_lock:
                 self._base.repos.add(repo)
 
+        if not ksrepo.enabled:
+            self.disableRepo(repo.id)
+
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
     def _fetch_md(self, repo):
@@ -632,6 +635,14 @@ class DNFPayload(payload.PackagePayload):
         conf.logdir = '/tmp/'
         # enable depsolver debugging if in debug mode
         self._base.conf.debug_solver = flags.debug
+        # set the platform id based on the /os/release
+        # present in the installation environment
+        platform_id = util.parse_os_release().get("PLATFORM_ID")
+        if platform_id is None:
+            log.error("platform id not found in os-release")
+        else:
+            log.info("setting DNF platform id to: %s", platform_id)
+            self._base.conf.module_platform_id = platform_id
 
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = util.getSysroot()
@@ -783,10 +794,6 @@ class DNFPayload(payload.PackagePayload):
         return [g.id for g in groups]
 
     @property
-    def mirrorEnabled(self):
-        return True
-
-    @property
     def repos(self):
         # known repo ids
         with self._repos_lock:
@@ -912,6 +919,9 @@ class DNFPayload(payload.PackagePayload):
 
     def environmentId(self, environment):
         """Return environment id for the environment specified by id or name."""
+        # the enviroment must be string or else DNF >=3 throws an assert error
+        if not isinstance(environment, str):
+            log.warning("environmentId() called with non-string argument: %s", environment)
         env = self._base.comps.environment_by_pattern(environment)
         if env is None:
             raise payload.NoSuchGroup(environment)

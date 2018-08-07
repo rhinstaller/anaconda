@@ -254,7 +254,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     gtk_widget_set_valign(widget->priv->icon, GTK_ALIGN_START);
     gtk_widget_set_margin_start(widget->priv->icon, 3);
     gtk_widget_set_margin_end(widget->priv->icon, 3);
-    gtk_widget_set_margin_bottom(widget->priv->icon, 16);
+    gtk_widget_set_margin_bottom(widget->priv->icon, 20);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->icon, 0, 0, 1, 2);
 }
 

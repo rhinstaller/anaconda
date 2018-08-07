@@ -314,27 +314,39 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         self._autoPart.connect("toggled", self._method_radio_button_toggled)
         self._customPart.connect("toggled", self._method_radio_button_toggled)
-        self._blivetGuiPart.connect("toggled", self._method_radio_button_toggled)
 
         # hide radio buttons for spokes that have been marked as visited by the
         # user interaction config file
         if sam.get_screen_visited("CustomPartitioningSpoke"):
             self._customPart.set_visible(False)
             self._customPart.set_no_show_all(True)
-        if sam.get_screen_visited("BlivetGuiSpoke"):
-            self._blivetGuiPart.set_visible(False)
-            self._blivetGuiPart.set_no_show_all(True)
+
+        if not self.instclass.blivet_gui_supported:
+            log.info("Blivet-gui is not supported on %s", self.instclass.name)
+
+        self._enable_blivet_gui(self.instclass.blivet_gui_supported)
 
         self._last_partitioning_method = self._get_selected_partitioning_method()
+
 
     def _grabObjects(self):
         self._autoPart = self.builder.get_object("autopartRadioButton")
         self._customPart = self.builder.get_object("customRadioButton")
         self._blivetGuiPart = self.builder.get_object("blivetguiRadioButton")
+        self._partitioningTypeBox = self.builder.get_object("partitioningTypeBox")
         self._encrypted = self.builder.get_object("encryptionCheckbox")
         self._encryption_revealer = self.builder.get_object("encryption_revealer")
         self._reclaim = self.builder.get_object("reclaimCheckbox")
         self._reclaim_revealer = self.builder.get_object("reclaim_checkbox_revealer")
+
+    def _enable_blivet_gui(self, supported):
+        if supported:
+            self._blivetGuiPart.connect("toggled", self._method_radio_button_toggled)
+            if sam.get_screen_visited("BlivetGuiSpoke"):
+                self._blivetGuiPart.set_visible(False)
+                self._blivetGuiPart.set_no_show_all(True)
+        else:
+            self._partitioningTypeBox.remove(self._blivetGuiPart)
 
     def _get_selected_partitioning_method(self):
         """Return partitioning method according to which method selection radio button is currently active."""
@@ -1127,13 +1139,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # 2) user wants to reclaim some more space => run the ResizeDialog
         # 3) we are just asked to do autopart => check free space and see if we need
         #                                        user to do anything more
-        self.autopart = not self._customPart.get_active() and not self._blivetGuiPart.get_active()
+        self.autopart = self._get_selected_partitioning_method() == PartitioningMethod.AUTO
         disks = [d for d in self.disks if d.name in self.selected_disks]
         dialog = None
         if not self.autopart:
-            if self._customPart.get_active():
+            if self._get_selected_partitioning_method() == PartitioningMethod.CUSTOM:
                 self.skipTo = "CustomPartitioningSpoke"
-            if self._blivetGuiPart.get_active():
+            if self._get_selected_partitioning_method() == PartitioningMethod.BLIVET_GUI:
                 self.skipTo = "BlivetGuiSpoke"
         elif self._reclaim.get_active():
             # HINT: change the logic of this 'if' statement if we are asked to
