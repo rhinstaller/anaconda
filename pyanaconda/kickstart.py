@@ -2006,6 +2006,18 @@ class RepoData(COMMANDS.RepoData):
 
         super().__init__(*args, **kwargs)
 
+    @classmethod
+    def create_copy(cls, other):
+        return cls(name=other.name,
+                   baseurl=other.baseurl,
+                   mirrorlist=other.mirrorlist,
+                   metalink=other.metalink,
+                   proxy=other.proxy,
+                   enabled=other.enabled,
+                   treeinfo_origin=other.treeinfo_origin,
+                   partition=other.partition,
+                   iso_path=other.iso_path)
+
     def __str__(self):
         """Don't output disabled repos"""
         if self.enabled:
