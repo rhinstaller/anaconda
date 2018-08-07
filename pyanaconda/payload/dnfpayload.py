@@ -635,6 +635,14 @@ class DNFPayload(payload.PackagePayload):
         conf.logdir = '/tmp/'
         # enable depsolver debugging if in debug mode
         self._base.conf.debug_solver = flags.debug
+        # set the platform id based on the /os/release
+        # present in the installation environment
+        platform_id = util.parse_os_release().get("PLATFORM_ID")
+        if platform_id is None:
+            log.error("platform id not found in os-release")
+        else:
+            log.info("setting DNF platform id to: %s", platform_id)
+            base.conf.module_platform_id = platform_id
 
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = util.getSysroot()
