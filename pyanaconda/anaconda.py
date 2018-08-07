@@ -268,6 +268,7 @@ class Anaconda(object):
                 repo.enabled = True
                 repo.partition = source.partition
                 repo.iso_path = source.path
+                repo.baseurl = "file://"
             else:
                 log.error("Source type %s for additional repository %s is not supported!",
                           source.source_type.value, add_repo)
