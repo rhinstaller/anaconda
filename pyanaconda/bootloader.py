@@ -2440,7 +2440,6 @@ bootloader_by_platform = {
     platform.S390: ZIPL,
     platform.Aarch64EFI: Aarch64EFIGRUB,
     platform.ARM: EXTLINUX,
-    platform.omapARM: EXTLINUX,
 }
 
 if flags.cmdline.get("legacygrub") == "1":
