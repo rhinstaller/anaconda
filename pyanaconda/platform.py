@@ -260,29 +260,6 @@ class ARM(Platform):
         return self._arm_machine
 
 
-class omapARM(ARM):
-    _boot_stage1_format_types = ["vfat"]
-    _boot_stage1_device_types = ["partition"]
-    _boot_stage1_mountpoints = ["/boot/uboot"]
-    _boot_uboot_description = N_("U-Boot Partition")
-    _boot_descriptions = {"partition": _boot_uboot_description}
-    _boot_stage1_missing_error = N_("You must include a U-Boot Partition on a "
-                                    "FAT-formatted disk, mounted at /boot/uboot.")
-
-    def set_platform_bootloader_reqs(self):
-        """Return the ARM-OMAP platform-specific partitioning information."""
-        ret = [PartSpec(mountpoint="/boot/uboot", fstype="vfat",
-                        size=Size("20MiB"), max_size=Size("200MiB"),
-                        grow=True)]
-        return ret
-
-    def set_default_partitioning(self):
-        ret = ARM.set_default_partitioning(self)
-        ret.append(PartSpec(mountpoint="/", fstype="ext4",
-                            size=Size("2GiB"), max_size=Size("3GiB")))
-        return ret
-
-
 def get_platform():
     """Check the architecture of the system and return an instance of a
        Platform subclass to match.  If the architecture could not be determined,
@@ -311,10 +288,7 @@ def get_platform():
         return X86()
     elif arch.is_arm():
         arm_machine = arch.get_arm_machine()
-        if arm_machine == "omap":
-            return omapARM()
-        else:
-            return ARM()
+        return ARM()
     else:
         raise SystemError("Could not determine system architecture.")
 
