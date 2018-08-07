@@ -148,6 +148,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self.environment is None:
             # None means environment is not set, no need to try translate that to an id
             return None
+        elif self.environment is False:
+            # False means environment is not valid and must be set manually
+            return False
         try:
             return self.payload.environmentId(self.environment)
         except NoSuchGroup:
