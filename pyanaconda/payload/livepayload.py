@@ -156,7 +156,7 @@ class LiveImagePayload(ImagePayload):
             msg = "%s exited with code %d" % (cmd, rc)
             log.info(msg)
 
-        if err or rc == 12:
+        if err or rc == 11:
             exn = PayloadInstallError(err or msg)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
