@@ -1417,7 +1417,7 @@ def parse_os_release():
     :rtype: dict of strings
     """
     d = {}
-    if os.path.exists("/etc/os/release"):
+    if os.path.exists("/etc/os-release"):
         with open("/etc/os-release") as f:
             for line in f:
                 k,v = line.rstrip().split("=")

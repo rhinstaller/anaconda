@@ -642,7 +642,7 @@ class DNFPayload(payload.PackagePayload):
             log.error("platform id not found in os-release")
         else:
             log.info("setting DNF platform id to: %s", platform_id)
-            base.conf.module_platform_id = platform_id
+            self._base.conf.module_platform_id = platform_id
 
         conf.releasever = self._getReleaseVersion(None)
         conf.installroot = util.getSysroot()
