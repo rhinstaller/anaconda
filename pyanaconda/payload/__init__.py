@@ -1458,8 +1458,10 @@ class PackagePayload(Payload):
             raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
                                     ksrepo.partition)
 
-        device_mount_dir = ISO_DIR + "-" + ksrepo.name
-        install_root_dir = INSTALL_TREE + "-" + ksrepo.name
+        ksrepo.generate_mount_dir()
+
+        device_mount_dir = ISO_DIR + "-" + ksrepo.mount_dir_suffix
+        install_root_dir = INSTALL_TREE + "-" + ksrepo.mount_dir_suffix
 
         self._find_and_mount_iso(isodevice, device_mount_dir, ksrepo.iso_path, install_root_dir)
         url = "file://" + install_root_dir
