@@ -1134,6 +1134,7 @@ class PackagePayload(Payload):
 
     def reset(self):
         self.reset_install_device()
+        self.reset_additional_repos()
 
     def reset_install_device(self):
         """Unmount the previous base repo and reset the install_device."""
@@ -1162,6 +1163,33 @@ class PackagePayload(Payload):
             #    blivet.util.umount(ISO_DIR)
 
         self.install_device = None
+
+    def reset_additional_repos(self):
+        for name in self._find_mounted_additional_repos():
+            installation_dir = INSTALL_TREE + "-" + name
+            self._unmount_source_directory(installation_dir)
+
+            iso_dir = ISO_DIR + "-" + name
+            self._unmount_source_directory(iso_dir)
+
+    def _find_mounted_additional_repos(self):
+        prefix = ISO_DIR + "-"
+        prefix_len = len(prefix)
+        result = []
+
+        for dir_path in glob(prefix + "*"):
+            result.append(dir_path[prefix_len:])
+
+        return result
+
+    def _unmount_source_directory(self, mount_point):
+        if os.path.ismount(mount_point):
+            device_path = blivet.util.get_mount_device(mount_point)
+            device = self.storage.devicetree.get_device_by_path(device_path)
+            if device:
+                device.teardown(recursive=True)
+            else:
+                blivet.util.umount(mount_point)
 
     def _setupMedia(self, device):
         method = self.data.method
