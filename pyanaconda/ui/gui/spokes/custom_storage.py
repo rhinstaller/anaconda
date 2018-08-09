@@ -1973,6 +1973,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         if not self._accordion.is_multiselection:
             if root_name and "_" in root_name:
                 root_name = root_name.replace("_", "__")
+
+            if root_name:
                 checkbox_text = (C_("GUI|Custom Partitioning|Confirm Delete Dialog",
                                     "Delete _all file systems which are only used by %s.")
                                     % root_name)
