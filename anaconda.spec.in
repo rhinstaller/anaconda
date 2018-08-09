@@ -349,6 +349,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 09 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.5-1
+- Fix a 5 year old typo in the spec file (mkolman)
+  Resolves: rhbz#1613488
+- Bump required DNF version (mkolman)
+  Related: rhbz#1613296
+- Fix some small issues with the platform id patch (mkolman)
+  Related: rhbz#1613296
+- Set platform id for DNF (mkolman)
+  Related: rhbz#1613296
+- Fix crash when software environment is False (jkonecny)
+  Resolves: rhbz#1612942
+- Allow to delete all file systems used by Unknown (#1597199) (vponcova)
+  Resolves: rhbz#1597199
+
 * Mon Aug 06 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.4-1
 - DD: Use text mode when calling tools with subprocess (rvykydal)
   Resolves: rhbz#1609744
