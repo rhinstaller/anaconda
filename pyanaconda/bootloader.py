@@ -1917,6 +1917,14 @@ class Aarch64EFIGRUB(EFIGRUB):
         super().__init__()
         self._packages64 = ["grub2-efi-aa64", "shim-aa64"]
 
+class ArmEFIGRUB(EFIGRUB):
+    _serial_consoles = ["ttyAMA", "ttyS"]
+    _efi_binary = "\\grubarm.efi"
+
+    def __init__(self):
+        super().__init__()
+        self._packages64 = ["grub2-efi-arm"]
+
 class MacEFIGRUB(EFIGRUB):
     def __init__(self):
         super().__init__()
@@ -2440,6 +2448,7 @@ bootloader_by_platform = {
     platform.S390: ZIPL,
     platform.Aarch64EFI: Aarch64EFIGRUB,
     platform.ARM: EXTLINUX,
+    platform.ArmEFI: ArmEFIGRUB,
 }
 
 if flags.cmdline.get("legacygrub") == "1":
