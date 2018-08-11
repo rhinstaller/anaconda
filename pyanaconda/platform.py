@@ -182,6 +182,10 @@ class Aarch64EFI(EFI):
     _non_linux_format_types = ["vfat", "ntfs"]
 
 
+class ArmEFI(EFI):
+    _non_linux_format_types = ["vfat", "ntfs"]
+
+
 class PPC(Platform):
     _ppc_machine = arch.get_ppc_machine()
     _boot_stage1_device_types = ["partition"]
@@ -275,6 +279,8 @@ def get_platform():
             return MacEFI()
         elif arch.is_aarch64():
             return Aarch64EFI()
+        elif arch.is_arm():
+            return ArmEFI()
         else:
             return EFI()
     elif arch.is_x86():
