@@ -68,6 +68,9 @@ class BaseInstallClass(object):
     # Blivet uses by default.
     defaultFS = None
 
+    # Default version of LUKS.
+    default_luks_version = None
+
     # help
     help_folder = "/usr/share/anaconda/help"
     help_main_page = "Installation_Guide.xml"

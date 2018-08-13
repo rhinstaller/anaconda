@@ -65,6 +65,7 @@ from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
+
 from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.osinstall import find_existing_installations, Root
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
@@ -146,7 +147,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     builderObjects = ["customStorageWindow", "containerStore", "deviceTypeStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
-                      "mountPointCompletion", "mountPointStore", "fileSystemStore"]
+                      "mountPointCompletion", "mountPointStore", "fileSystemStore",
+                      "luksVersionStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom_storage.glade"
     helpFile = "CustomSpoke.xml"
@@ -255,6 +257,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self._encryptCheckbox = self.builder.get_object("encryptCheckbox")
         self._fsCombo = self.builder.get_object("fileSystemTypeCombo")
         self._fsStore = self.builder.get_object("fileSystemStore")
+        self._luksCombo = self.builder.get_object("luksVersionCombo")
+        self._luksStore = self.builder.get_object("luksVersionStore")
+        self._luksLabel = self.builder.get_object("luksVersionLabel")
         self._labelEntry = self.builder.get_object("labelEntry")
         self._mountPointEntry = self.builder.get_object("mountPointEntry")
         self._nameEntry = self.builder.get_object("nameEntry")
@@ -857,7 +862,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._update_size_props()
 
     @ui_storage_logged
-    def _handle_encryption_change(self, encrypted, device, old_device, selector):
+    def _handle_encryption_change(self, encrypted, luks_version, device, old_device, selector):
         if not encrypted:
             log.info("removing encryption from %s", device.name)
             self._storage_playground.destroy_device(device)
@@ -869,7 +874,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         else:
             log.info("applying encryption to %s", device.name)
             old_device = device
-            new_fmt = get_format("luks", device=device.path)
+            new_fmt = get_format("luks", device=device.path, luks_version=luks_version)
             self._storage_playground.format_device(device, new_fmt)
             luks_dev = LUKSDevice("luks-" + device.name,
                                   parents=[device])
@@ -885,16 +890,26 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         return (device, old_device)
 
     @ui_storage_logged
-    def _do_reformat(self, device, mountpoint, label, changed_encryption,
-                     encrypted, selector, fs_type):
+    def _do_reformat(self, device, mountpoint, label, changed_encryption, encrypted,
+                     changed_luks_version, luks_version, selector, fs_type):
         self.clear_errors()
         #
         # ENCRYPTION
         #
         old_device = None
         if changed_encryption:
-            device, old_device = self._handle_encryption_change(encrypted,
-                                                device, old_device, selector)
+            device, old_device = self._handle_encryption_change(
+                encrypted, luks_version, device, old_device, selector
+            )
+        elif encrypted and changed_luks_version:
+
+            device, old_device = self._handle_encryption_change(
+                False, luks_version, device, old_device, selector
+            )
+
+            device, old_device = self._handle_encryption_change(
+                True, luks_version, device, old_device, selector
+            )
         #
         # FORMATTING
         #
@@ -1032,6 +1047,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         old_device_info["encrypted"] = old_encrypted
         new_device_info["encrypted"] = encrypted
 
+        old_luks_version = device.format.luks_version if device.format.type == "luks" else None
+        luks_version_index = self._luksCombo.get_active()
+        luks_version_str = self._luksCombo.get_model()[luks_version_index][0]
+        luks_version = luks_version_str if encrypted else None
+        changed_luks_version = (old_luks_version != luks_version)
+        old_device_info["luks_version"] = old_luks_version
+        new_device_info["luks_version"] = luks_version
+
         # FS LABEL
         label = self._labelEntry.get_text()
         old_label = getattr(device.format, "label", "")
@@ -1111,6 +1134,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                                       size=size,
                                                       disks=device.disks,
                                                       encrypted=encrypted,
+                                                      luks_version=luks_version,
                                                       raid_level=raid_level,
                                                       min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
 
@@ -1184,8 +1208,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         changed = (changed_name or changed_size or changed_device_type or
                    changed_label or changed_mountpoint or changed_disk_set or
-                   changed_encryption or changed_raid_level or
-                   changed_fs_type or
+                   changed_encryption or changed_luks_version or
+                   changed_raid_level or changed_fs_type or
                    changed_container or changed_container_encrypted or
                    changed_container_raid_level or changed_container_size)
 
@@ -1246,13 +1270,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
         do_reformat = (reformat and (changed_encryption or
+                                     changed_luks_version or
                                      changed_fs_type or
                                      device.format.exists))
 
         # Handle reformat
         if do_reformat:
-            device = self._do_reformat(device, mountpoint, label, changed_encryption,
-                                       encrypted, selector, fs_type)
+            device = self._do_reformat(device, mountpoint, label, changed_encryption, encrypted,
+                                       changed_luks_version, luks_version, selector, fs_type)
         else:
             # Set various attributes that do not require actions.
             if old_label != label and hasattr(device.format, "label") and \
@@ -1322,6 +1347,32 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 break
         for widget in [self._raidLevelLabel, self._raidLevelCombo]:
             really_show(widget)
+
+    def _populate_luks(self, device):
+        """Set up the LUKS version combo box.
+
+        :param device: an instance of blivet.devices.Device
+        """
+        device = device.raw_device
+
+        # Add the values.
+        self._luksStore.clear()
+        for luks_version in crypto.LUKS_VERSIONS:
+            self._luksStore.append([luks_version])
+
+        # Get the selected value.
+        if device.format.type == "luks":
+            luks_version = device.format.luks_version
+        else:
+            luks_version = self.storage.default_luks_version
+
+        # Set the selected value.
+        idx = next(
+            i for i, data in enumerate(self._luksCombo.get_model())
+            if data[0] == luks_version
+        )
+        self._luksCombo.set_active(idx)
+        self.on_encrypt_toggled(self._encryptCheckbox)
 
     def _get_current_device_type_name(self):
         """ Return name for type combo selection.
@@ -1553,13 +1604,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                             use_dev.exists and not use_dev.format_immutable)
 
         self._encryptCheckbox.set_active(isinstance(device, LUKSDevice))
-        self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
+        fancy_set_sensitive(self._encryptCheckbox, self._reformatCheckbox.get_active())
+
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
         if any(a.format.type == "luks" for a in ancestors):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
-            self._encryptCheckbox.set_sensitive(False)
+            fancy_set_sensitive(self._encryptCheckbox, False)
             self._encryptCheckbox.set_active(True)
             self._encryptCheckbox.set_tooltip_text(_("The container is encrypted."))
         else:
@@ -1609,6 +1661,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         self._populate_raid(get_raid_level(device))
         self._populate_container(device=use_dev)
+        self._populate_luks(device)
 
         # do this last to override the decision made by on_device_type_changed if necessary
         if use_dev.exists or use_dev.type == "btrfs volume":
@@ -2132,6 +2185,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         elif old_encrypted and not new_encrypted:
             fancy_set_sensitive(self._encryptCheckbox, True)
 
+        self.on_encrypt_toggled(self._encryptCheckbox)
+
     def run_container_editor(self, container=None, name=None, new_container=False):
         """ Run container edit dialog and return True if changes were made. """
         size = Size(0)
@@ -2549,8 +2604,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         device_type = self._get_current_device_type()
         if device_type == DEVICE_TYPE_BTRFS:
             self._encryptCheckbox.set_active(False)
+            encrypt_sensitive = False
 
-        self._encryptCheckbox.set_sensitive(encrypt_sensitive and device_type != DEVICE_TYPE_BTRFS)
+        fancy_set_sensitive(self._encryptCheckbox, encrypt_sensitive)
+        self.on_encrypt_toggled(self._encryptCheckbox)
+
         fancy_set_sensitive(self._fsCombo, active)
 
     def on_fs_type_changed(self, combo):
@@ -2565,6 +2623,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         fmt = get_format(new_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
+
+    def on_encrypt_toggled(self, encrypted):
+        hide_or_show = really_show if encrypted.get_active() else really_hide
+
+        for widget in [self._luksLabel, self._luksCombo]:
+            hide_or_show(widget)
+
+        fancy_set_sensitive(self._luksCombo, encrypted.get_active() and encrypted.get_sensitive())
 
     def _populate_container(self, device=None):
         """ Set up the vg widgets for lvm or hide them for other types. """

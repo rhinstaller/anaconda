@@ -62,6 +62,21 @@ class AutoPartitioningModule(KickstartBaseModule):
         self.passphrase_changed = Signal()
         self._passphrase = ""
 
+        self.luks_version_changed = Signal()
+        self._luks_version = ""
+
+        self.pbkdf_changed = Signal()
+        self._pbkdf = ""
+
+        self.pbkdf_memory_changed = Signal()
+        self._pbkdf_memory = 0
+
+        self.pbkdf_time_changed = Signal()
+        self._pbkdf_time = 0
+
+        self.pbkdf_iterations_changed = Signal()
+        self._pbkdf_iterations = 0
+
         self.escrowcert_changed = Signal()
         self._escrowcert = ""
 
@@ -90,6 +105,11 @@ class AutoPartitioningModule(KickstartBaseModule):
         if data.autopart.encrypted:
             self.set_encrypted(data.autopart.encrypted)
             self.set_passphrase(data.autopart.passphrase)
+            self.set_luks_version(data.autopart.luks_version)
+            self.set_pbkdf(data.autopart.pbkdf)
+            self.set_pbkdf_memory(data.autopart.pbkdf_memory)
+            self.set_pbkdf_time(data.autopart.pbkdf_time)
+            self.set_pbkdf_iterations(data.autopart.pbkdf_iterations)
             self.set_escrowcert(data.autopart.escrowcert)
             self.set_backup_passphrase_enabled(data.autopart.backuppassphrase)
             self.set_cipher(data.autopart.cipher)
@@ -109,6 +129,11 @@ class AutoPartitioningModule(KickstartBaseModule):
 
         data.autopart.encrypted = self.encrypted
         data.autopart.passphrase = self.passphrase
+        data.autopart.luks_version = self.luks_version
+        data.autopart.pbkdf = self.pbkdf
+        data.autopart.pbkdf_memory = self.pbkdf_memory
+        data.autopart.pbkdf_time = self.pbkdf_time
+        data.autopart.pbkdf_iterations = self.pbkdf_iterations
         data.autopart.escrowcert = self.escrowcert
         data.autopart.backuppassphrase = self.backup_passphrase_enabled
         data.autopart.cipher = self.cipher
@@ -238,6 +263,84 @@ class AutoPartitioningModule(KickstartBaseModule):
         self._passphrase = passphrase
         self.passphrase_changed.emit()
         log.debug("Passphrase is set.")
+
+    @property
+    def luks_version(self):
+        """Version of LUKS."""
+        return self._luks_version
+
+    def set_luks_version(self, version):
+        """Set the version of LUKS.
+
+        :param version: a string with the LUKS version
+        """
+        self._luks_version = version
+        self.luks_version_changed.emit()
+        log.debug("LUKS version is set to '%s'.", version)
+
+    @property
+    def pbkdf(self):
+        """The PBKDF algorithm."""
+        return self._pbkdf
+
+    def set_pbkdf(self, pbkdf):
+        """Set the PBKDF algorithm.
+
+        Set Password-Based Key Derivation Function (PBKDF)
+        algorithm for LUKS keyslot.
+
+        :param pbkdf: a name of the algorithm
+        """
+        self._pbkdf = pbkdf
+        self.pbkdf_changed.emit()
+        log.debug("PBKDF is set to '%s'.", pbkdf)
+
+    @property
+    def pbkdf_memory(self):
+        """The memory cost for PBKDF."""
+        return self._pbkdf_memory
+
+    def set_pbkdf_memory(self, memory):
+        """Set the memory cost for PBKDF.
+
+        :param memory: the memory cost in kilobytes
+        """
+        self._pbkdf_memory = memory
+        self.pbkdf_memory_changed.emit()
+        log.debug("PBKDF memory is set to '%s'.", memory)
+
+    @property
+    def pbkdf_time(self):
+        """The time to spend with PBKDF processing."""
+        return self._pbkdf_time
+
+    def set_pbkdf_time(self, time_ms):
+        """Set the time to spend with PBKDF processing.
+
+        Sets the number of milliseconds to spend with PBKDF
+        passphrase processing.
+
+        :param time_ms: a number of milliseconds
+        """
+        self._pbkdf_time = time_ms
+        self.pbkdf_time_changed.emit()
+        log.debug("PBKDF time is set to '%s'.", time_ms)
+
+    @property
+    def pbkdf_iterations(self):
+        """The number of iterations for PBKDF."""
+        return self._pbkdf_iterations
+
+    def set_pbkdf_iterations(self, iterations):
+        """Set the number of iterations for PBKDF.
+
+        Avoid PBKDF benchmark and set time cost (iterations) directly.
+
+        :param iterations: a number of iterations
+        """
+        self._pbkdf_iterations = iterations
+        self.pbkdf_iterations_changed.emit()
+        log.debug("PBKDF iterations are set to '%s'.", iterations)
 
     @property
     def escrowcert(self):

@@ -39,6 +39,8 @@ class FedoraBaseInstallClass(BaseInstallClass):
     help_placeholder_plain_text = "FedoraPlaceholder.txt"
     help_placeholder_with_links = "FedoraPlaceholderWithLinks.html"
 
+    default_luks_version = "luks1"
+
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return

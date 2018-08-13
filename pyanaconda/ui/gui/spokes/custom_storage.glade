@@ -47,6 +47,12 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="luksVersionStore">
+    <columns>
+      <!-- column-name luks_version -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkListStore" id="mountPointStore">
     <columns>
       <!-- column-name path -->
@@ -341,7 +347,7 @@
                                       <object class="GtkGrid" id="grid4">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="row_spacing">36</property>
+                                        <property name="row_spacing">30</property>
                                         <property name="column_spacing">24</property>
                                         <child>
                                           <object class="GtkBox" id="firstLeftBox">
@@ -677,6 +683,7 @@
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_value_changed" swapped="no"/>
+                                                    <signal name="toggled" handler="on_encrypt_toggled" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -787,6 +794,8 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="orientation">vertical</property>
+                                            <property name="vexpand">True</property>
+                                            <property name="valign">start</property>
                                             <property name="spacing">6</property>
                                             <child>
                                               <object class="GtkBox" id="vgSpecBox">
@@ -931,6 +940,70 @@
                                                 <property name="position">1</property>
                                               </packing>
                                             </child>
+                                            <child>
+                                              <object class="GtkBox" id="luksSpecBox">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="spacing">6</property>
+                                                <child>
+                                                  <object class="GtkBox" id="luksBox">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">False</property>
+                                                    <property name="orientation">vertical</property>
+                                                    <property name="spacing">3</property>
+                                                    <child>
+                                                      <object class="GtkLabel" id="luksVersionLabel">
+                                                        <property name="visible">True</property>
+                                                        <property name="can_focus">False</property>
+                                                        <property name="xalign">0</property>
+                                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">LUKS Version:</property>
+                                                        <property name="use_underline">True</property>
+                                                        <property name="mnemonic_widget">luksVersionCombo</property>
+                                                        <attributes>
+                                                          <attribute name="weight" value="bold"/>
+                                                        </attributes>
+                                                      </object>
+                                                      <packing>
+                                                        <property name="expand">False</property>
+                                                        <property name="fill">True</property>
+                                                        <property name="position">0</property>
+                                                      </packing>
+                                                    </child>
+                                                    <child>
+                                                      <object class="GtkComboBox" id="luksVersionCombo">
+                                                        <property name="visible">True</property>
+                                                        <property name="can_focus">False</property>
+                                                        <property name="model">luksVersionStore</property>
+                                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                        <child>
+                                                          <object class="GtkCellRendererText" id="luksVersionRenderer">
+                                                            <property name="ellipsize">end</property>
+                                                          </object>
+                                                          <attributes>
+                                                            <attribute name="text">0</attribute>
+                                                          </attributes>
+                                                        </child>
+                                                      </object>
+                                                      <packing>
+                                                        <property name="expand">False</property>
+                                                        <property name="fill">True</property>
+                                                        <property name="position">1</property>
+                                                      </packing>
+                                                    </child>
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">0</property>
+                                                  </packing>
+                                                </child>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">2</property>
+                                              </packing>
+                                            </child>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -950,7 +1023,6 @@
                                         <property name="can_focus">False</property>
                                         <property name="valign">end</property>
                                         <property name="hexpand">True</property>
-                                        <property name="vexpand">True</property>
                                         <property name="orientation">vertical</property>
                                         <property name="spacing">6</property>
                                         <child>
@@ -962,7 +1034,7 @@
                                             <property name="receives_default">True</property>
                                             <property name="halign">end</property>
                                             <property name="valign">start</property>
-                                            <property name="margin_top">30</property>
+                                            <property name="margin_top">35</property>
                                             <property name="use_underline">True</property>
                                             <signal name="clicked" handler="on_update_settings_clicked" swapped="no"/>
                                           </object>
