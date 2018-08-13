@@ -183,8 +183,7 @@ class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
     _args = ["intel_iommu=on"]
 
     def __init__(self, device=None, label=None, short=None, version=None):
-        super().__init__(device=device, label=label,
-                                                        short=short, version=version)
+        super().__init__(device=device, label=label, short=short, version=version)
 
     @property
     def multiboot(self):
@@ -827,8 +826,9 @@ class BootLoader(object):
         if usr_device:
             dracut_devices.extend([usr_device])
 
-        netdevs = [d for d in storage.devices if (getattr(d, "complete", True) and
-                   isinstance(d, NetworkStorageDevice))]
+        netdevs = [d for d in storage.devices \
+                   if (getattr(d, "complete", True) and
+                       isinstance(d, NetworkStorageDevice))]
         rootdev = storage.root_device
         if any(rootdev.depends_on(netdev) for netdev in netdevs):
             dracut_devices = set(dracut_devices)
@@ -1602,7 +1602,8 @@ class GRUB2(GRUB):
         # set boot_success so that the menu is hidden on the boot after install
         if self.menu_auto_hide:
             rc = util.execInSysroot("grub2-editenv",
-                            ["-", "set", "menu_auto_hide=1", "boot_success=1"])
+                                    ["-", "set", "menu_auto_hide=1",
+                                     "boot_success=1"])
             if rc:
                 log.error("failed to set menu_auto_hide=1")
 
