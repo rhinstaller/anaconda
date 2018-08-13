@@ -38,7 +38,6 @@ import configparser
 import collections
 import itertools
 import multiprocessing
-import multiprocessing.dummy
 import operator
 import hashlib
 import shutil
@@ -1043,7 +1042,7 @@ class DNFPayload(payload.PackagePayload):
         progress_message(pre_msg)
 
         queue_instance = multiprocessing.Queue()
-        process = multiprocessing.dummy.Process(target=do_transaction,
+        process = multiprocessing.Process(target=do_transaction,
                                           args=(self._base, queue_instance))
         process.start()
         (token, msg) = queue_instance.get()
