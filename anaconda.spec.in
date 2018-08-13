@@ -349,6 +349,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 13 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.7-1
+- Revert back to running DNF in a subprocess (mkolman)
+  Related: rhbz#1613296
+
 * Mon Aug 13 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.6-1
 - Check the LUKS2 memory requirements (vponcova)
   Related: rhbz#1547908
