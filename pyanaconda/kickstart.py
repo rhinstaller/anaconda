@@ -61,7 +61,8 @@ from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
-from pyanaconda.storage_utils import device_matches, try_populate_devicetree, storage_checker
+from pyanaconda.storage_utils import device_matches, try_populate_devicetree, storage_checker, \
+    get_pbkdf_args
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
@@ -70,7 +71,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, iScsiDiskDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
-from blivet.static_data import nvdimm
+from blivet.static_data import nvdimm, luks_data
 from blivet.errors import PartitioningError, StorageError
 from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
@@ -410,6 +411,22 @@ class AutoPart(RemovedCommand):
             storage.autopart_escrow_cert = getEscrowCertificate(storage.escrow_certificates,
                                                                 auto_part_proxy.Escrowcert)
             storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
+
+            luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=luks_version,
+                pbkdf_type=auto_part_proxy.PBKDF or None,
+                max_memory_kb=auto_part_proxy.PBKDFMemory,
+                iterations=auto_part_proxy.PBKDFIterations,
+                time_ms=auto_part_proxy.PBKDFTime
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
+            storage.autopart_luks_version = luks_version
+            storage.autopart_pbkdf_args = pbkdf_args
 
         if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
             storage.autopart_type = auto_part_proxy.Type
@@ -1191,12 +1208,29 @@ class LogVolData(COMMANDS.LogVolData):
             self.passphrase = self.passphrase or storage.encryption_passphrase
 
             cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
+
+            # Get the version of LUKS and PBKDF arguments.
+            self.luks_version = self.luks_version or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=self.luks_version,
+                pbkdf_type=self.pbkdf,
+                max_memory_kb=self.pbkdf_memory,
+                iterations=self.pbkdf_iterations,
+                time_ms=self.pbkdf_time
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
             if self.preexist:
                 luksformat = fmt
                 device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase)
+                                           add_backup_passphrase=self.backuppassphrase,
+                                           luks_version=self.luks_version,
+                                           pbkdf_args=pbkdf_args)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
@@ -1206,7 +1240,9 @@ class LogVolData(COMMANDS.LogVolData):
                                             cipher=self.cipher,
                                             escrow_cert=cert,
                                             add_backup_passphrase=self.backuppassphrase,
-                                            min_luks_entropy=MIN_CREATE_ENTROPY)
+                                            min_luks_entropy=MIN_CREATE_ENTROPY,
+                                            luks_version=self.luks_version,
+                                            pbkdf_args=pbkdf_args)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
@@ -1616,13 +1652,30 @@ class PartitionData(COMMANDS.PartData):
             self.passphrase = self.passphrase or storage.encryption_passphrase
 
             cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
+
+            # Get the version of LUKS and PBKDF arguments.
+            self.luks_version = self.luks_version or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=self.luks_version,
+                pbkdf_type=self.pbkdf,
+                max_memory_kb=self.pbkdf_memory,
+                iterations=self.pbkdf_iterations,
+                time_ms=self.pbkdf_time
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
             if self.onPart:
                 luksformat = kwargs["fmt"]
                 device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase,
-                                           min_luks_entropy=MIN_CREATE_ENTROPY)
+                                           min_luks_entropy=MIN_CREATE_ENTROPY,
+                                           luks_version=self.luks_version,
+                                           pbkdf_args=pbkdf_args)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
@@ -1632,7 +1685,9 @@ class PartitionData(COMMANDS.PartData):
                                             cipher=self.cipher,
                                             escrow_cert=cert,
                                             add_backup_passphrase=self.backuppassphrase,
-                                            min_luks_entropy=MIN_CREATE_ENTROPY)
+                                            min_luks_entropy=MIN_CREATE_ENTROPY,
+                                            luks_version=self.luks_version,
+                                            pbkdf_args=pbkdf_args)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)
@@ -1808,12 +1863,29 @@ class RaidData(COMMANDS.RaidData):
                 storage.encryption_passphrase = self.passphrase
 
             cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
+
+            # Get the version of LUKS and PBKDF arguments.
+            self.luks_version = self.luks_version or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=self.luks_version,
+                pbkdf_type=self.pbkdf,
+                max_memory_kb=self.pbkdf_memory,
+                iterations=self.pbkdf_iterations,
+                time_ms=self.pbkdf_time
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
             if self.preexist:
                 luksformat = kwargs["fmt"]
                 device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase)
+                                           add_backup_passphrase=self.backuppassphrase,
+                                           luks_version=self.luks_version,
+                                           pbkdf_args=pbkdf_args)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=device)
@@ -1822,7 +1894,9 @@ class RaidData(COMMANDS.RaidData):
                 request.format = get_format("luks", passphrase=self.passphrase,
                                             cipher=self.cipher,
                                             escrow_cert=cert,
-                                            add_backup_passphrase=self.backuppassphrase)
+                                            add_backup_passphrase=self.backuppassphrase,
+                                            luks_version=self.luks_version,
+                                            pbkdf_args=pbkdf_args)
                 luksdev = LUKSDevice("luks%d" % storage.next_id,
                                      fmt=luksformat,
                                      parents=request)

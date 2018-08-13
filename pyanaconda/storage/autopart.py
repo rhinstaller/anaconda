@@ -169,7 +169,10 @@ def _schedule_implicit_partitions(storage, disks):
                         "cipher": storage.encryption_cipher,
                         "escrow_cert": storage.autopart_escrow_cert,
                         "add_backup_passphrase": storage.autopart_add_backup_passphrase,
-                        "min_luks_entropy": luks_data.min_entropy}
+                        "min_luks_entropy": luks_data.min_entropy,
+                        "luks_version": storage.autopart_luks_version,
+                        "pbkdf_args": storage.autopart_pbkdf_args
+                        }
         else:
             if storage.autopart_type in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
                 fmt_type = "lvmpv"
@@ -283,7 +286,10 @@ def _schedule_partitions(storage, disks, implicit_devices, requests=None):
                         "cipher": storage.encryption_cipher,
                         "escrow_cert": storage.autopart_escrow_cert,
                         "add_backup_passphrase": storage.autopart_add_backup_passphrase,
-                        "min_luks_entropy": luks_data.min_entropy}
+                        "min_luks_entropy": luks_data.min_entropy,
+                        "luks_version": storage.autopart_luks_version,
+                        "pbkdf_args": storage.autopart_pbkdf_args
+                        }
         else:
             fmt_type = request.fstype
             fmt_args = {}

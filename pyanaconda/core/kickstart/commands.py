@@ -93,13 +93,13 @@ from pykickstart.commands.module import F29_ModuleData as ModuleData
 from pykickstart.commands.fcoe import F28_FcoeData as FcoeData
 from pykickstart.commands.group import F12_GroupData as GroupData
 from pykickstart.commands.iscsi import F17_IscsiData as IscsiData
-from pykickstart.commands.logvol import F23_LogVolData as LogVolData
+from pykickstart.commands.logvol import RHEL8_LogVolData as LogVolData
 from pykickstart.commands.mount import F27_MountData as MountData
 from pykickstart.commands.multipath import FC6_MultiPathData as MultiPathData
 from pykickstart.commands.network import F27_NetworkData as NetworkData
 from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
-from pykickstart.commands.partition import F29_PartData as PartData
-from pykickstart.commands.raid import F25_RaidData as RaidData
+from pykickstart.commands.partition import RHEL8_PartData as PartData
+from pykickstart.commands.raid import RHEL8_RaidData as RaidData
 from pykickstart.commands.repo import F27_RepoData as RepoData
 from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
 from pykickstart.commands.sshpw import F24_SshPwData as SshPwData

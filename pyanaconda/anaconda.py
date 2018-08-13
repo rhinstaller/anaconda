@@ -249,6 +249,12 @@ class Anaconda(object):
         if boot_fstype:
             storage.set_default_boot_fstype(boot_fstype)
 
+        # Set the default LUKS version.
+        luks_version = self.instClass.default_luks_version
+
+        if luks_version:
+            storage.set_default_luks_version(luks_version)
+
     def _load_plugin_s390(self):
         # Make sure s390 plugin is loaded.
         import gi

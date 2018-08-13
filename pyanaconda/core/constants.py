@@ -264,6 +264,7 @@ STORAGE_MIN_PARTITION_SIZES = "min_partition_sizes"
 STORAGE_MUST_BE_ON_LINUXFS = "must_be_on_linuxfs"
 STORAGE_MUST_BE_ON_ROOT = "must_be_on_root"
 STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
+STORAGE_LUKS2_MIN_RAM = "luks2_min_ram"
 
 # Display modes
 class DisplayModes(Enum):
