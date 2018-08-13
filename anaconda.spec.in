@@ -349,6 +349,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 13 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.6-1
+- Check the LUKS2 memory requirements (vponcova)
+  Related: rhbz#1547908
+- Add an option for choosing version of LUKS in GUI (vponcova)
+  Related: rhbz#1547908
+- Add tests for LUKS2 in the auto partitioning module (vponcova)
+  Related: rhbz#1547908
+- Apply the LUKS2 options from the auto partitioning module (vponcova)
+  Related: rhbz#1547908
+- Support LUKS2 options in the auto partitioning module (vponcova)
+  Related: rhbz#1547908
+- Support LUKS2 options in logvol, part and raid commands (vponcova)
+  Related: rhbz#1547908
+- Enable to set a default version of LUKS (vponcova)
+  Related: rhbz#1547908
+- Update dependencies and kickstart commands to support LUKS2 (vponcova)
+  Resolves: rhbz#1547908
+- Use SimpleConfigFile to get PLATFORM_ID from /etc/os-release (mkolman)
+  Related: rhbz#1613296
+- Use wwn attr instead of removed wwid. (#1565693) (dlehman)
+  Resolves: rhbz#1615408
+
 * Thu Aug 09 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.5-1
 - Fix a 5 year old typo in the spec file (mkolman)
   Resolves: rhbz#1613488
