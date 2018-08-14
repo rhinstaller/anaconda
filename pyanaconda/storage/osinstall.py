@@ -46,7 +46,6 @@ from blivet.formats import get_device_format_class
 from blivet.formats import get_format
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
-from blivet.fcoe import fcoe
 from blivet.static_data import nvdimm
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
@@ -1731,7 +1730,9 @@ class InstallerStorage(Blivet):
 
         if not flags.imageInstall:
             iscsi.startup()
-            fcoe.startup()
+
+            fcoe_proxy = STORAGE.get_proxy(FCOE)
+            fcoe_proxy.ReloadModule()
 
             if arch.is_s390():
                 zfcp_proxy = STORAGE.get_proxy(ZFCP)
