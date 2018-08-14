@@ -26,6 +26,7 @@ from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
+from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
@@ -59,6 +60,9 @@ class StorageModule(KickstartModule):
 
         self._manual_part_module = ManualPartitioningModule()
         self._add_module(self._manual_part_module)
+
+        self._fcoe_module = FCOEModule()
+        self._add_module(self._fcoe_module)
 
         self._dasd_module = None
         self._zfcp_module = None

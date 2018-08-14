@@ -144,6 +144,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "autopart": AutoPart,
         "bootloader": COMMANDS.Bootloader,
         "clearpart": ClearPart,
+        "fcoe": COMMANDS.Fcoe,
         "ignoredisk": IgnoreDisk,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
@@ -157,6 +158,7 @@ class StorageKickstartSpecification(KickstartSpecification):
     }
 
     commands_data = {
+        "FcoeData": COMMANDS.FcoeData,
         "LogVolData": COMMANDS.LogVolData,
         "MountData": COMMANDS.MountData,
         "PartData": COMMANDS.PartData,
