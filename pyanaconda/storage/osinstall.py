@@ -63,7 +63,7 @@ from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    AUTO_PARTITIONING, ZFCP
+    AUTO_PARTITIONING, ZFCP, FCOE
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -1291,7 +1291,9 @@ class InstallerStorage(Blivet):
         self.make_mtab()
         self.fsset.write()
         iscsi.write(sysroot, self)
-        fcoe.write(sysroot)
+
+        fcoe_proxy = STORAGE.get_proxy(FCOE)
+        fcoe_proxy.WriteConfiguration(sysroot)
 
         if arch.is_s390():
             zfcp_proxy = STORAGE.get_proxy(ZFCP)
