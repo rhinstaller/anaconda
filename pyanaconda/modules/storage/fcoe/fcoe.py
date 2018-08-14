@@ -60,6 +60,37 @@ class FCOEModule(KickstartBaseModule):
         log.debug("Write FCoE configuration to %s.", sysroot)
         fcoe.write(sysroot)
 
+    def get_nics(self):
+        """Get all NICs.
+
+        :return: a list of names of network devices connected to FCoE switches
+        """
+        return [nic for nic, dcb, auto_vlan in fcoe().nics]
+
+    def get_dracut_arguments(self, nic):
+        """Get dracut arguments for the given FCoE device.
+
+        :param nic: a name of the network device
+        :return: a list of dracut arguments
+
+        FIXME: This is just a temporary method taken from blivet.
+        """
+        dcb = True
+
+        for _nic, _dcb, _auto_vlan in fcoe().nics:
+            if nic == _nic:
+                dcb = _dcb
+                break
+        else:
+            return list()
+
+        dcb_opt = "dcb" if dcb else "nodcb"
+
+        if nic in fcoe().added_nics:
+            return ["fcoe=%s:%s" % (nic, dcb_opt)]
+        else:
+            return ["fcoe=edd:%s" % dcb_opt]
+
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self._fcoe_data = data.fcoe.fcoe

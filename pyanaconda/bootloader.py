@@ -31,9 +31,11 @@ from ordered_set import OrderedSet
 from pyanaconda.core import util
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
+
+from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
-from blivet.fcoe import fcoe
 import pyanaconda.network
 from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.nm import nm_device_hwaddress
@@ -795,6 +797,7 @@ class BootLoader(object):
             method.
         """
         storage = kwargs.pop("storage", None)
+        fcoe_proxy = STORAGE.get_proxy(FCOE)
 
         #
         # FIPS
@@ -848,7 +851,11 @@ class BootLoader(object):
                 if device != dep and not device.depends_on(dep):
                     continue
 
-                setup_args = dep.dracut_setup_args()
+                if isinstance(dep, blivet.devices.FcoeDiskDevice):
+                    setup_args = fcoe_proxy.GetDracutArguments(dep.nic)
+                else:
+                    setup_args = dep.dracut_setup_args()
+
                 if not setup_args:
                     continue
 
@@ -885,7 +892,7 @@ class BootLoader(object):
         # (in Network.dracutSetupArgs).
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
-        for nic, _dcb, _auto_vlan in fcoe().nics:
+        for nic in fcoe_proxy.GetNics():
             try:
                 hwaddr = nm_device_hwaddress(nic)
             except ValueError:

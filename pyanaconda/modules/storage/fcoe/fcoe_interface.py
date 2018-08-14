@@ -47,3 +47,20 @@ class FCOEInterface(KickstartModuleInterfaceTemplate):
         FIXME: This is just a temporary method.
         """
         self.implementation.write_configuration(sysroot)
+
+    def GetNics(self) -> List[Str]:
+        """Get all NICs.
+
+        :return: a list of names of network devices connected to FCoE switches
+        """
+        return self.implementation.get_nics()
+
+    def GetDracutArguments(self, nic: Str) -> List[Str]:
+        """Get dracut arguments for the given FCoE device.
+
+        :param nic: a name of the network device connected to the FCoE switch
+        :return: a list of dracut arguments
+
+        FIXME: This is just a temporary method.
+        """
+        return self.implementation.get_dracut_arguments(nic)
