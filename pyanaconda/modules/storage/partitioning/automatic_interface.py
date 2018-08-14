@@ -42,6 +42,11 @@ class AutoPartitioningInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("Encrypted", self.implementation.encrypted_changed)
         self.watch_property("Cipher", self.implementation.cipher_changed)
         self.watch_property("Passphrase", self.implementation.passphrase_changed)
+        self.watch_property("LUKSVersion", self.implementation.luks_version_changed)
+        self.watch_property("PBKDF", self.implementation.pbkdf_changed)
+        self.watch_property("PBKDFMemory", self.implementation.pbkdf_memory_changed)
+        self.watch_property("PBKDFTime", self.implementation.pbkdf_time_changed)
+        self.watch_property("PBKDFIterations", self.implementation.pbkdf_iterations_changed)
         self.watch_property("Escrowcert", self.implementation.escrowcert_changed)
 
         self.watch_property(
@@ -157,6 +162,83 @@ class AutoPartitioningInterface(KickstartModuleInterfaceTemplate):
         :param passphrase: a string with a passphrase
         """
         self.implementation.set_passphrase(passphrase)
+
+    @property
+    def LUKSVersion(self) -> Str:
+        """Version of LUKS."""
+        return self.implementation.luks_version
+
+    @emits_properties_changed
+    def SetLUKSVersion(self, version: Str):
+        """Set the version of LUKS.
+
+        Example: 'luks2'
+
+        :param version: a string with the LUKS version
+        """
+        self.implementation.set_luks_version(version)
+
+    @property
+    def PBKDF(self) -> Str:
+        """The PBKDF algorithm."""
+        return self.implementation.pbkdf
+
+    @emits_properties_changed
+    def SetPBKDF(self, pbkdf: Str):
+        """Set the PBKDF algorithm.
+
+        Set Password-Based Key Derivation Function (PBKDF)
+        algorithm for LUKS keyslot.
+
+        Example: 'argon2i'
+
+        :param pbkdf: a name of the algorithm
+        """
+        self.implementation.set_pbkdf(pbkdf)
+
+    @property
+    def PBKDFMemory(self) -> Int:
+        """The memory cost for PBKDF."""
+        return self.implementation.pbkdf_memory
+
+    @emits_properties_changed
+    def SetPBKDFMemory(self, memory: Int):
+        """Set the memory cost for PBKDF.
+
+        :param memory: the memory cost in kilobytes
+        """
+        self.implementation.set_pbkdf_memory(memory)
+
+    @property
+    def PBKDFTime(self) -> Int:
+        """The time to spend with PBKDF processing."""
+        return self.implementation.pbkdf_time
+
+    @emits_properties_changed
+    def SetPBKDFTime(self, time_ms: Int):
+        """Set the time to spend with PBKDF processing.
+
+        Sets the number of milliseconds to spend with PBKDF
+        passphrase processing.
+
+        :param time_ms: a number of milliseconds
+        """
+        self.implementation.set_pbkdf_time(time_ms)
+
+    @property
+    def PBKDFIterations(self) -> Int:
+        """The number of iterations for PBKDF."""
+        return self.implementation.pbkdf_iterations
+
+    @emits_properties_changed
+    def SetPBKDFIterations(self, iterations: Int):
+        """Set the number of iterations for PBKDF.
+
+        Avoid PBKDF benchmark and set time cost (iterations) directly.
+
+        :param iterations: a number of iterations
+        """
+        self.implementation.set_pbkdf_iterations(iterations)
 
     @property
     def Escrowcert(self) -> Str:

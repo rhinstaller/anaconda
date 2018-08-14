@@ -49,6 +49,7 @@ from blivet.iscsi import iscsi
 from blivet.fcoe import fcoe
 from blivet.static_data import nvdimm
 from blivet.size import Size
+from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
 from pyanaconda.core import util
 from pyanaconda.anaconda_logging import program_log_lock
@@ -1196,6 +1197,10 @@ class InstallerStorage(Blivet):
         self.live_backing_device = None
 
         self._short_product_name = shortProductName
+        self._default_luks_version = DEFAULT_LUKS_VERSION
+
+        self.autopart_luks_version = None
+        self.autopart_pbkdf_args = None
 
     def copy(self):
         """Copy the storage.
@@ -1338,6 +1343,24 @@ class InstallerStorage(Blivet):
         # This will raise ValueError if it isn't valid
         self._check_valid_fstype(newtype)
         self._default_boot_fstype = newtype
+
+    @property
+    def default_luks_version(self):
+        """The default LUKS version."""
+        return self._default_luks_version
+
+    def set_default_luks_version(self, version):
+        """Set the default LUKS version.
+
+        :param version: a string with LUKS version
+        :raises: ValueError on invalid input
+        """
+        log.debug("trying to set new default luks version to '%s'", version)
+        self._check_valid_luks_version(version)
+        self._default_luks_version = version
+
+    def _check_valid_luks_version(self, version):
+        get_format("luks", luks_version=version)
 
     def set_up_bootloader(self, early=False):
         """ Propagate ksdata into BootLoader.
@@ -1531,6 +1554,15 @@ class InstallerStorage(Blivet):
         auto_part_proxy.SetEnabled(self.do_autopart)
         auto_part_proxy.SetType(self.autopart_type)
         auto_part_proxy.SetEncrypted(self.encrypted_autopart)
+
+        if self.encrypted_autopart:
+            auto_part_proxy.SetLUKSVersion(self.autopart_luks_version)
+
+            if self.autopart_pbkdf_args:
+                auto_part_proxy.SetPBKDF(self.autopart_pbkdf_args.type or "")
+                auto_part_proxy.SetPBKDFMemory(self.autopart_pbkdf_args.max_memory_kb)
+                auto_part_proxy.SetPBKDFIterations(self.autopart_pbkdf_args.iterations)
+                auto_part_proxy.SetPBKDFTime(self.autopart_pbkdf_args.time_ms)
 
         # clearpart
         disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)

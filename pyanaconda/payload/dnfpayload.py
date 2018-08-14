@@ -28,6 +28,7 @@ from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
 from pyanaconda.core import util
 from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.simpleconfig import SimpleConfigFile
 
 import pyanaconda.errors as errors
 import pyanaconda.localization
@@ -37,7 +38,6 @@ import configparser
 import collections
 import itertools
 import multiprocessing
-import multiprocessing.dummy
 import operator
 import hashlib
 import shutil
@@ -627,6 +627,30 @@ class DNFPayload(payload.PackagePayload):
             conf.proxy_username = None
             conf.proxy_password = None
 
+    def get_platform_id(self):
+        """Obtain the platform id (if available).
+
+        At the moment we get the platform id from /etc/os-release
+        but treeinfo or something similar that maps to the current
+        repository looks like a better bet longer term.
+
+        :return: platform id or None if not found
+        :rtype: str or None
+        """
+        platform_id = None
+        if os.path.exists("/etc/os-release"):
+            config = SimpleConfigFile()
+            config.read("/etc/os-release")
+            os_release_platform_id = config.get("PLATFORM_ID")
+            # simpleconfig return "" for keys that are not found
+            if os_release_platform_id:
+                platform_id = os_release_platform_id
+            else:
+                log.error("PLATFORM_ID missing from /etc/os-release")
+        else:
+            log.error("/etc/os-release is missing, platform id can't be obtained")
+        return platform_id
+
     def _configure(self):
         self._base = dnf.Base()
         conf = self._base.conf
@@ -637,10 +661,8 @@ class DNFPayload(payload.PackagePayload):
         self._base.conf.debug_solver = flags.debug
         # set the platform id based on the /os/release
         # present in the installation environment
-        platform_id = util.parse_os_release().get("PLATFORM_ID")
-        if platform_id is None:
-            log.error("platform id not found in os-release")
-        else:
+        platform_id = self.get_platform_id()
+        if platform_id is not None:
             log.info("setting DNF platform id to: %s", platform_id)
             self._base.conf.module_platform_id = platform_id
 
@@ -1020,7 +1042,7 @@ class DNFPayload(payload.PackagePayload):
         progress_message(pre_msg)
 
         queue_instance = multiprocessing.Queue()
-        process = multiprocessing.dummy.Process(target=do_transaction,
+        process = multiprocessing.Process(target=do_transaction,
                                           args=(self._base, queue_instance))
         process.start()
         (token, msg) = queue_instance.get()
