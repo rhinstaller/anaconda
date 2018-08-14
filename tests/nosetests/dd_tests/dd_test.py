@@ -220,6 +220,7 @@ class DD_Extract_TestCase(unittest.TestCase):
         self.outdir = os.path.join(self.tmpdir, "outdir")
         os.mkdir(self.outdir)
 
+    @unittest.skip("Blocked by bz#1581757")
     def dd_extract(self, flags='-bmlf'):
         dd_extract(self.rpmfile, self.outdir, self.k_ver, flags=flags)
         return listfiles(self.outdir)
