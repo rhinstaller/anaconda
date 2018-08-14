@@ -17,12 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.fcoe import fcoe
 from blivet.zfcp import zfcp
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from pykickstart.constants import CLEARPART_TYPE_NONE
 from pykickstart.errors import KickstartParseError
 
+from pyanaconda import nm
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 from pyanaconda.storage_utils import device_matches
@@ -119,6 +121,28 @@ class IgnoreDisk(COMMANDS.IgnoreDisk):
         return retval
 
 
+class Fcoe(COMMANDS.Fcoe):
+    def parse(self, args):
+        fc = super().parse(args)
+
+        if fc.nic not in nm.nm_devices():
+            raise KickstartParseError(_("NIC \"{}\" given in fcoe command does not "
+                                        "exist.").format(fc.nic), lineno=self.lineno)
+
+        if fc.nic in (info[0] for info in fcoe.nics):
+            log.info("Kickstart fcoe device %s was already added from EDD, ignoring.", fc.nic)
+        else:
+            msg = fcoe.add_san(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+
+            if not msg:
+                msg = "Succeeded."
+                fcoe.added_nics.append(fc.nic)
+
+            log.info("Adding FCoE SAN on %s: %s", fc.nic, msg)
+
+        return fc
+
+
 class ZFCP(COMMANDS.ZFCP):
     """The zfcp kickstart command."""
 
@@ -144,7 +168,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "autopart": AutoPart,
         "bootloader": COMMANDS.Bootloader,
         "clearpart": ClearPart,
-        "fcoe": COMMANDS.Fcoe,
+        "fcoe": Fcoe,
         "ignoredisk": IgnoreDisk,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
