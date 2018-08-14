@@ -46,12 +46,15 @@ class FCOEModule(KickstartBaseModule):
         log.debug("Start up the FCoE module.")
         fcoe.startup()
 
-    def discover_with_task(self):
+    def discover_with_task(self, nic, dcb, auto_vlan):
         """Discover a FCoE device.
 
+        :param nic: a name of the network device
+        :param dcb: Data Center Bridging awareness enabled
+        :param auto_vlan: automatic VLAN discovery and setup enabled
         :return: a DBus path to a task
         """
-        task = FCOEDiscoverTask()
+        task = FCOEDiscoverTask(nic, dcb, auto_vlan)
         path = self.publish_task(FCOE.namespace, task)
         return path
 

@@ -34,12 +34,15 @@ class FCOEInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.reload_module()
 
-    def DiscoverWithTask(self) -> ObjPath:
+    def DiscoverWithTask(self, nic: Str, dcb: Bool, auto_vlan: Bool) -> ObjPath:
         """Discover a FCoE device.
 
+        :param nic: a name of the network device
+        :param dcb: Data Center Bridging awareness enabled
+        :param auto_vlan: automatic VLAN discovery and setup enabled
         :return: a DBus path to a task
         """
-        return self.implementation.discover_with_task()
+        return self.implementation.discover_with_task(nic, dcb, auto_vlan)
 
     def WriteConfiguration(self, sysroot: Str):
         """Write the configuration to sysroot.

@@ -25,8 +25,11 @@ from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 class FCOEDiscoverTask(Task):
     """A task for discovering a FCoE device"""
 
-    def __init__(self):
+    def __init__(self, nic, dcb, auto_vlan):
         super().__init__()
+        self._nic = nic
+        self._dcb = dcb
+        self._auto_vlan = auto_vlan
 
     @property
     def name(self):
@@ -34,4 +37,16 @@ class FCOEDiscoverTask(Task):
 
     def run(self):
         """Run the discovery."""
-        pass
+        self._discover_device()
+
+    def _discover_device(self):
+        """Discover the device."""
+        try:
+            error_message = fcoe.add_san(self._nic, self._dcb, self._auto_vlan)
+        except (IOError, OSError) as e:
+            raise StorageDiscoveryError(str(e))
+
+        if error_message:
+            raise StorageDiscoveryError(error_message)
+
+        fcoe.added_nics.append(self._nic)
