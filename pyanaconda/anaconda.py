@@ -274,7 +274,17 @@ class Anaconda(object):
                           source.source_type.value, add_repo)
                 continue
 
+            self._check_repo_name_uniqueness(repo)
             self.ksdata.repo.dataList().append(repo)
+
+    def _check_repo_name_uniqueness(self, repo):
+        """Log if we are adding repository with already used name
+
+        In automatic kickstart installation this will result in using the first defined repo.
+        """
+        if repo in self.ksdata.repo.dataList():
+            log.warning("Repository name %s is not unique. Only the first repo will be used!",
+                        repo.name)
 
     def _set_default_fstype(self, storage):
         fstype = None
