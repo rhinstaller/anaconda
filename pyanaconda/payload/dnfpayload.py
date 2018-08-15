@@ -1185,6 +1185,8 @@ class DNFPayload(payload.PackagePayload):
                         log.debug("repo %s: fall back enabled from default repos", id_)
                         repo.enable()
 
+        self._check_repo_name_duplicates()
+
         for repo in self.addOns:
             ksrepo = self.getAddOnRepo(repo)
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
@@ -1213,6 +1215,26 @@ class DNFPayload(payload.PackagePayload):
             for repo in self.addOns:
                 if repo in enabled_repos:
                     self._fetch_md(repo)
+
+    def _check_repo_name_duplicates(self):
+        duplicates = self._find_repo_name_duplicates()
+        if duplicates:
+            str_dups = ", ".join(duplicates)
+            log.warning("Repository name(s) %s are not unique", str_dups)
+
+    def _find_repo_name_duplicates(self):
+        names = self.addOns
+
+        checked = set()
+        duplicates = set()
+
+        for name in names:
+            if name in checked:
+                duplicates.add(name)
+            else:
+                checked.add(name)
+
+        return duplicates
 
     def _writeDNFRepo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
