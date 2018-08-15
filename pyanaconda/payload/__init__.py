@@ -322,6 +322,8 @@ class Payload(object):
 
         self._treeinfo = None
 
+        self._first_payload_reset = True
+
         # A list of verbose error strings from the subclass
         self.verbose_errors = []
 
@@ -335,6 +337,10 @@ class Payload(object):
         #   be overridden by value from the current
         #   install class in the setup() method
         self._mirrors_available = True
+
+    @property
+    def first_payload_reset(self):
+        return self._first_payload_reset
 
     def setup(self, storage, instClass):
         """Do any payload-specific setup."""
@@ -350,6 +356,14 @@ class Payload(object):
         self.storage = None
         self.instclass = None
         self._treeinfo = None
+
+    def postSetup(self):
+        """Run specific payload post-configuration tasks on the end of
+        the restartThread call.
+
+        This method could be overriden.
+        """
+        self._first_payload_reset = False
 
     def preStorage(self):
         """Do any payload-specific work necessary before writing the storage
@@ -983,6 +997,7 @@ class Payload(object):
             self.storage.write()
 
 
+
 # Inherit abstract methods from Payload
 # pylint: disable=abstract-method
 class ImagePayload(Payload):
@@ -1010,7 +1025,10 @@ class ArchivePayload(ImagePayload):
 class PackagePayload(Payload):
     """A PackagePayload installs a set of packages onto the target system."""
 
-    DEFAULT_REPOS = [productName.split('-')[0].lower(), "fedora-modular-server", "rawhide"]  # pylint: disable=no-member
+    DEFAULT_REPOS = [productName.split('-')[0].lower(),
+                     "fedora-modular-server",
+                     "rawhide",
+                     "BaseOS"]  # pylint: disable=no-member
 
     def __init__(self, data):
         if self.__class__ is PackagePayload:
@@ -1061,14 +1079,6 @@ class PackagePayload(Payload):
             self.requirements.add_groups([groupid], reason="platform")
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
-
-    def postSetup(self):
-        """Run specific payload post-configuration tasks on the end of
-        the restartThread call.
-
-        This method could be overriden.
-        """
-        pass
 
     @property
     def kernelPackages(self):
@@ -1206,170 +1216,202 @@ class PackagePayload(Payload):
         device = blivet.util.get_mount_device(DRACUT_REPODIR)
 
         if method.method == "harddrive":
-            if method.biospart:
-                log.warning("biospart support is not implemented")
-                devspec = method.biospart
-            else:
-                devspec = method.partition
-                needmount = True
-                # See if we used this method for stage2, thus dracut left it
-                if isodev and method.partition and method.partition in isodev and DRACUT_ISODIR in device:
-                    # Everything should be setup
-                    url = "file://" + DRACUT_REPODIR
-                    needmount = False
-                    # We don't setup an install_device here
-                    # because we can't tear it down
-
-            isodevice = storage.devicetree.resolve_device(devspec)
-            if needmount:
-                if not isodevice:
-                    raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
-
-                self._setupMedia(isodevice)
-                url = "file://" + INSTALL_TREE
-                self.install_device = isodevice
+            log.debug("Setting up harddrive install device")
+            url = self._setup_harddrive_device(storage, method, isodev, device)
         elif method.method == "nfs":
-            # There are several possible scenarios here:
-            # 1. dracut could have mounted both the nfs repo and an iso and used
-            #    the stage2 from inside the iso to boot from.
-            #    isodev and device will be set in this case.
-            # 2. dracut could have mounted the nfs repo and used a stage2 from
-            #    the NFS mount w/o mounting the iso.
-            #    isodev will be None and device will be the nfs: path
-            # 3. dracut did not mount the nfs (eg. stage2 came from elsewhere)
-            #    isodev and/or device are None
-            # 4. The repo may not contain an iso, in that case use it as is
-            if isodev and device:
-                path = util.parseNfsUrl('nfs:%s' % isodev)[2]
-                # See if the dir holding the iso is what we want
-                # and also if we have an iso mounted to /run/install/repo
-                if path and path in isodev and DRACUT_ISODIR in device:
-                    # Everything should be setup
-                    url = "file://" + DRACUT_REPODIR
-            else:
-                # see if the nfs dir is mounted
-                needmount = True
-                if device:
-                    _options, host, path = util.parseNfsUrl('nfs:%s' % device)
-                    if method.server and method.server == host and \
-                       method.dir and method.dir == path:
-                        needmount = False
-                        path = DRACUT_REPODIR
-                elif isodev:
-                    # isodev with no device can happen when options on an existing
-                    # nfs mount have changed. It is already mounted, but on INSTALL_TREE
-                    # which is the same as DRACUT_ISODIR, making it hard for _setupNFS
-                    # to detect that it is already mounted.
-                    _options, host, path = util.parseNfsUrl('nfs:%s' % isodev)
-                    if path and path in isodev:
-                        needmount = False
-                        path = DRACUT_ISODIR
-
-                if needmount:
-                    # Mount the NFS share on INSTALL_TREE. If it ends up
-                    # being nfsiso we will move the mountpoint to ISO_DIR.
-                    if method.dir.endswith(".iso"):
-                        nfsdir = os.path.dirname(method.dir)
-                    else:
-                        nfsdir = method.dir
-                    self._setupNFS(INSTALL_TREE, method.server, nfsdir,
-                                   method.opts)
-                    path = INSTALL_TREE
-
-                # check for ISO images in the newly mounted dir
-                if method.dir.endswith(".iso"):
-                    # if the given URL includes a specific ISO image file, use it
-                    image_file = os.path.basename(method.dir)
-                    path = os.path.normpath("%s/%s" % (path, image_file))
-
-                image = findFirstIsoImage(path)
-
-                # An image was found, mount it on INSTALL_TREE
-                if image:
-                    if path.startswith(INSTALL_TREE):
-                        # move the INSTALL_TREE mount to ISO_DIR so we can
-                        # mount the contents of the iso there.
-                        # work around inability to move shared filesystems
-                        util.execWithRedirect("mount",
-                                              ["--make-rprivate", "/"])
-                        util.execWithRedirect("mount",
-                                              ["--move", INSTALL_TREE, ISO_DIR])
-                        # The iso is now under ISO_DIR
-                        path = ISO_DIR
-                    elif path.endswith(".iso"):
-                        path = os.path.dirname(path)
-
-                    # mount the ISO on a loop
-                    image = os.path.normpath("%s/%s" % (path, image))
-                    mountImage(image, INSTALL_TREE)
-
-                    url = "file://" + INSTALL_TREE
-                else:
-                    # Fall back to the mount path instead of a mounted iso
-                    url = "file://" + path
+            log.debug("Setting up nfs install device")
+            url = self._setup_nfs_device(storage, method, isodev, device)
         elif method.method == "url":
             url = method.url
             mirrorlist = method.mirrorlist
             metalink = method.metalink
         elif method.method == "hmc":
-            # Check if /dev/hmcdrv is already mounted.
-            if device == "/dev/hmcdrv":
-                log.debug("HMC is already mounted at %s.", DRACUT_REPODIR)
-                url = "file://" + DRACUT_REPODIR
-            else:
-                log.debug("Trying to mount the content of HMC media drive.")
-
-                # Test the SE/HMC file access.
-                if util.execWithRedirect("/usr/sbin/lshmc", []):
-                    raise PayloadSetupError("The content of HMC media drive couldn't be accessed.")
-
-                # Test if a path is a mount point.
-                if os.path.ismount(INSTALL_TREE):
-                    log.debug("Don't mount the content of HMC media drive yet.")
-                else:
-                    # Make sure that the directories exists.
-                    util.mkdirChain(INSTALL_TREE)
-
-                    # Mount the device.
-                    if util.execWithRedirect("/usr/bin/hmcdrvfs", [INSTALL_TREE]):
-                        raise PayloadSetupError("The content of HMC media drive couldn't be mounted.")
-
-                log.debug("We are ready to use the HMC at %s.", INSTALL_TREE)
-                url = "file://" + INSTALL_TREE
+            log.debug("Setting up hmc install device")
+            url = self._setup_hmc_device(storage, method, isodev, device)
         elif method.method == "cdrom" or (checkmount and not method.method):
-            # Did dracut leave the DVD or NFS mounted for us?
-            device = blivet.util.get_mount_device(DRACUT_REPODIR)
-
-            # Check for valid optical media if we didn't boot from one
-            if not verifyMedia(DRACUT_REPODIR):
-                self.install_device = opticalInstallMedia(storage.devicetree)
-
-            # Only look at the dracut mount if we don't already have a cdrom
-            if device and not self.install_device:
-                self.install_device = storage.devicetree.get_device_by_path(device)
-                url = "file://" + DRACUT_REPODIR
-                if not method.method:
-                    # See if this is a nfs mount
-                    if ':' in device:
-                        # prepend nfs: to the url as that's what the parser
-                        # wants.  Note we don't get options from this, but
-                        # that's OK for the UI at least.
-                        _options, host, path = util.parseNfsUrl("nfs:%s" % device)
-                        method.method = "nfs"
-                        method.server = host
-                        method.dir = path
-                    else:
-                        method.method = "cdrom"
-            else:
-                if self.install_device:
-                    if not method.method:
-                        method.method = "cdrom"
-                    self._setupMedia(self.install_device)
-                    url = "file://" + INSTALL_TREE
-                elif method.method == "cdrom":
-                    raise PayloadSetupError("no usable optical media found")
+            log.debug("Setting up cdrom install device")
+            url = self._setup_cdrom_device(storage, method, isodev, device)
 
         return url, mirrorlist, metalink
+
+    def _setup_harddrive_device(self, storage, method, isodev, device):
+        url = None
+        needmount = False
+
+        if method.biospart:
+            log.warning("biospart support is not implemented")
+            devspec = method.biospart
+        else:
+            devspec = method.partition
+            needmount = True
+            # See if we used this method for stage2, thus dracut left it
+            if isodev and method.partition and method.partition in isodev and DRACUT_ISODIR in device:
+                # Everything should be setup
+                url = "file://" + DRACUT_REPODIR
+                needmount = False
+                # We don't setup an install_device here
+                # because we can't tear it down
+
+        isodevice = storage.devicetree.resolve_device(devspec)
+        if needmount:
+            if not isodevice:
+                raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
+
+            self._setupMedia(isodevice)
+            url = "file://" + INSTALL_TREE
+            self.install_device = isodevice
+
+        return url
+
+    def _setup_nfs_device(self, storage, method, isodev, device):
+        # There are several possible scenarios here:
+        # 1. dracut could have mounted both the nfs repo and an iso and used
+        #    the stage2 from inside the iso to boot from.
+        #    isodev and device will be set in this case.
+        # 2. dracut could have mounted the nfs repo and used a stage2 from
+        #    the NFS mount w/o mounting the iso.
+        #    isodev will be None and device will be the nfs: path
+        # 3. dracut did not mount the nfs (eg. stage2 came from elsewhere)
+        #    isodev and/or device are None
+        # 4. The repo may not contain an iso, in that case use it as is
+        url = None
+        path = None
+
+        if isodev and device:
+            path = util.parseNfsUrl('nfs:%s' % isodev)[2]
+            # See if the dir holding the iso is what we want
+            # and also if we have an iso mounted to /run/install/repo
+            if path and path in isodev and DRACUT_ISODIR in device:
+                # Everything should be setup
+                url = "file://" + DRACUT_REPODIR
+        else:
+            # see if the nfs dir is mounted
+            needmount = True
+            if device:
+                _options, host, path = util.parseNfsUrl('nfs:%s' % device)
+                if method.server and method.server == host and \
+                   method.dir and method.dir == path:
+                    needmount = False
+                    path = DRACUT_REPODIR
+            elif isodev:
+                # isodev with no device can happen when options on an existing
+                # nfs mount have changed. It is already mounted, but on INSTALL_TREE
+                # which is the same as DRACUT_ISODIR, making it hard for _setupNFS
+                # to detect that it is already mounted.
+                _options, host, path = util.parseNfsUrl('nfs:%s' % isodev)
+                if path and path in isodev:
+                    needmount = False
+                    path = DRACUT_ISODIR
+
+            if needmount:
+                # Mount the NFS share on INSTALL_TREE. If it ends up
+                # being nfsiso we will move the mountpoint to ISO_DIR.
+                if method.dir.endswith(".iso"):
+                    nfsdir = os.path.dirname(method.dir)
+                else:
+                    nfsdir = method.dir
+                self._setupNFS(INSTALL_TREE, method.server, nfsdir,
+                               method.opts)
+                path = INSTALL_TREE
+
+            # check for ISO images in the newly mounted dir
+            if method.dir.endswith(".iso"):
+                # if the given URL includes a specific ISO image file, use it
+                image_file = os.path.basename(method.dir)
+                path = os.path.normpath("%s/%s" % (path, image_file))
+
+            image = findFirstIsoImage(path)
+
+            # An image was found, mount it on INSTALL_TREE
+            if image:
+                if path.startswith(INSTALL_TREE):
+                    # move the INSTALL_TREE mount to ISO_DIR so we can
+                    # mount the contents of the iso there.
+                    # work around inability to move shared filesystems
+                    util.execWithRedirect("mount",
+                                          ["--make-rprivate", "/"])
+                    util.execWithRedirect("mount",
+                                          ["--move", INSTALL_TREE, ISO_DIR])
+                    # The iso is now under ISO_DIR
+                    path = ISO_DIR
+                elif path.endswith(".iso"):
+                    path = os.path.dirname(path)
+
+                # mount the ISO on a loop
+                image = os.path.normpath("%s/%s" % (path, image))
+                mountImage(image, INSTALL_TREE)
+
+                url = "file://" + INSTALL_TREE
+            else:
+                # Fall back to the mount path instead of a mounted iso
+                url = "file://" + path
+
+        return url
+
+    def _setup_hmc_device(self, storage, method, isodev, device):
+        # Check if /dev/hmcdrv is already mounted.
+        if device == "/dev/hmcdrv":
+            log.debug("HMC is already mounted at %s.", DRACUT_REPODIR)
+            url = "file://" + DRACUT_REPODIR
+        else:
+            log.debug("Trying to mount the content of HMC media drive.")
+
+            # Test the SE/HMC file access.
+            if util.execWithRedirect("/usr/sbin/lshmc", []):
+                raise PayloadSetupError("The content of HMC media drive couldn't be accessed.")
+
+            # Test if a path is a mount point.
+            if os.path.ismount(INSTALL_TREE):
+                log.debug("Don't mount the content of HMC media drive yet.")
+            else:
+                # Make sure that the directories exists.
+                util.mkdirChain(INSTALL_TREE)
+
+                # Mount the device.
+                if util.execWithRedirect("/usr/bin/hmcdrvfs", [INSTALL_TREE]):
+                    raise PayloadSetupError("The content of HMC media drive couldn't be mounted.")
+
+            log.debug("We are ready to use the HMC at %s.", INSTALL_TREE)
+            url = "file://" + INSTALL_TREE
+
+        return url
+
+    def _setup_cdrom_device(self, storage, method, isodev, device):
+        url = None
+
+        # Did dracut leave the DVD or NFS mounted for us?
+        device = blivet.util.get_mount_device(DRACUT_REPODIR)
+
+        # Check for valid optical media if we didn't boot from one
+        if not verifyMedia(DRACUT_REPODIR):
+            self.install_device = opticalInstallMedia(storage.devicetree)
+
+        # Only look at the dracut mount if we don't already have a cdrom
+        if device and not self.install_device:
+            self.install_device = storage.devicetree.get_device_by_path(device)
+            url = "file://" + DRACUT_REPODIR
+            if not method.method:
+                # See if this is a nfs mount
+                if ':' in device:
+                    # prepend nfs: to the url as that's what the parser
+                    # wants.  Note we don't get options from this, but
+                    # that's OK for the UI at least.
+                    _options, host, path = util.parseNfsUrl("nfs:%s" % device)
+                    method.method = "nfs"
+                    method.server = host
+                    method.dir = path
+                else:
+                    method.method = "cdrom"
+        else:
+            if self.install_device:
+                if not method.method:
+                    method.method = "cdrom"
+                self._setupMedia(self.install_device)
+                url = "file://" + INSTALL_TREE
+            elif method.method == "cdrom":
+                raise PayloadSetupError("no usable optical media found")
+
+        return url
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
