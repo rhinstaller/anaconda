@@ -823,8 +823,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # And then we need to re-check that the max size is actually
         # different from the current size.
         _changed_size = False
-        if use_size != device.size and size == device.current_size:
-            # size has been set back to its original value
+        if use_size == device.size or use_size == use_dev.size:
+            # the size hasn't changed
+            log.debug("canceled resize of device %s to %s", use_dev.name, use_size)
+
+        elif size == device.current_size or use_size == device.current_size:
+            # the size has been set back to its original value
+            log.debug("removing resize of device %s", use_dev.name)
+
             actions = self._storage_playground.devicetree.actions.find(
                action_type="resize",
                devid=use_dev.id
@@ -832,12 +838,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             for action in reversed(actions):
                 self._storage_playground.devicetree.actions.remove(action)
                 _changed_size = True
-        elif use_size != use_dev.size:
+        else:
+            # the size has changed
             log.debug("scheduling resize of device %s to %s", use_dev.name, use_size)
 
             try:
                 self._storage_playground.resize_device(use_dev, use_size)
-            except StorageError as e:
+            except (StorageError, ValueError) as e:
                 log.error("failed to schedule device resize: %s", e)
                 use_dev.size = use_old_size
                 self._error = e
