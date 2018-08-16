@@ -128,6 +128,12 @@ times during one boot. This can be specified in a few different ways:
     NOTE: The path must be absolute and start with `/` so the final url starts
     with `file:///...`.
 
+``inst.addrepo=REPO_NAME,hd:<device>:<path>``
+    Mount the given `<device>` partition and install from ISO specified by the `<path>`.
+    If the `<path>` is not specified Anaconda will look for the valid installation ISO
+    on the `<device>`. This installation method requires ISO with a valid installable tree.
+    For more detail how to specify `<device>` argument part please see `diskdev`_.
+
 The `REPO_NAME` is name of the repository and it is a required part. The name will be
 used in the installation process. These repositories will be used only during the
 installation but they **will not** be installed to the installed system.
