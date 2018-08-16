@@ -1134,6 +1134,7 @@ class PackagePayload(Payload):
 
     def reset(self):
         self.reset_install_device()
+        self.reset_additional_repos()
 
     def reset_install_device(self):
         """Unmount the previous base repo and reset the install_device."""
@@ -1163,46 +1164,84 @@ class PackagePayload(Payload):
 
         self.install_device = None
 
+    def reset_additional_repos(self):
+        for name in self._find_mounted_additional_repos():
+            installation_dir = INSTALL_TREE + "-" + name
+            self._unmount_source_directory(installation_dir)
+
+            iso_dir = ISO_DIR + "-" + name
+            self._unmount_source_directory(iso_dir)
+
+    def _find_mounted_additional_repos(self):
+        prefix = ISO_DIR + "-"
+        prefix_len = len(prefix)
+        result = []
+
+        for dir_path in glob(prefix + "*"):
+            result.append(dir_path[prefix_len:])
+
+        return result
+
+    def _unmount_source_directory(self, mount_point):
+        if os.path.ismount(mount_point):
+            device_path = blivet.util.get_mount_device(mount_point)
+            device = self.storage.devicetree.get_device_by_path(device_path)
+            if device:
+                device.teardown(recursive=True)
+            else:
+                blivet.util.umount(mount_point)
+
     def _setupMedia(self, device):
         method = self.data.method
         if method.method == "harddrive":
-            self._setupDevice(device, mountpoint=ISO_DIR)
-
-            # check for ISO images in the newly mounted dir
-            path = ISO_DIR
-            if method.dir:
-                path = os.path.normpath("%s/%s" % (path, method.dir))
-
-            # XXX it would be nice to streamline this when we're just setting
-            #     things back up after storage activation instead of having to
-            #     pretend we don't already know which ISO image we're going to
-            #     use
-            image = findFirstIsoImage(path)
-            if not image:
-                device.teardown(recursive=True)
-                raise PayloadSetupError("failed to find valid iso image")
-
-            if path.endswith(".iso"):
-                path = os.path.dirname(path)
-
-            # this could already be set up the first time through
-            if not os.path.ismount(INSTALL_TREE):
-                # mount the ISO on a loop
-                image = os.path.normpath("%s/%s" % (path, image))
-                mountImage(image, INSTALL_TREE)
-
-            if not method.dir.endswith(".iso"):
-                method.dir = os.path.normpath("%s/%s" % (method.dir,
-                                                         os.path.basename(image)))
-                while method.dir.startswith("/"):
-                    # riduculous
-                    method.dir = method.dir[1:]
+            method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
         # Check to see if the device is already mounted, in which case
         # we don't need to mount it again
         elif method.method == "cdrom" and blivet.util.get_mount_paths(device.path):
             return
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
+
+    def _find_and_mount_iso(self, device, device_mount_dir, iso_path, iso_mount_dir):
+        """Find and mount installation source from ISO on device.
+
+        Return changed path to the iso to save looking for iso in the future call.
+        """
+        self._setupDevice(device, mountpoint=device_mount_dir)
+
+        # check for ISO images in the newly mounted dir
+        path = device_mount_dir
+        if iso_path:
+            path = os.path.normpath("%s/%s" % (path, iso_path))
+
+        # XXX it would be nice to streamline this when we're just setting
+        #     things back up after storage activation instead of having to
+        #     pretend we don't already know which ISO image we're going to
+        #     use
+        image = findFirstIsoImage(path)
+        if not image:
+            device.teardown(recursive=True)
+            raise PayloadSetupError("failed to find valid iso image")
+
+        if path.endswith(".iso"):
+            path = os.path.dirname(path)
+
+        # this could already be set up the first time through
+        if not os.path.ismount(iso_mount_dir):
+            # mount the ISO on a loop
+            image = os.path.normpath("%s/%s" % (path, image))
+            mountImage(image, iso_mount_dir)
+
+        if not iso_path.endswith(".iso"):
+            result_path = os.path.normpath("%s/%s" % (iso_path,
+                                                      os.path.basename(image)))
+            while result_path.startswith("/"):
+                # riduculous
+                result_path = result_path[1:]
+
+            return result_path
+
+        return iso_path
 
     def _setupInstallDevice(self, storage, checkmount):
         # XXX FIXME: does this need to handle whatever was set up by dracut?
@@ -1410,6 +1449,22 @@ class PackagePayload(Payload):
                 url = "file://" + INSTALL_TREE
             elif method.method == "cdrom":
                 raise PayloadSetupError("no usable optical media found")
+
+        return url
+
+    def _setup_harddrive_addon_repo(self, storage, ksrepo):
+        isodevice = storage.devicetree.resolve_device(ksrepo.partition)
+        if not isodevice:
+            raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
+                                    ksrepo.partition)
+
+        ksrepo.generate_mount_dir()
+
+        device_mount_dir = ISO_DIR + "-" + ksrepo.mount_dir_suffix
+        install_root_dir = INSTALL_TREE + "-" + ksrepo.mount_dir_suffix
+
+        self._find_and_mount_iso(isodevice, device_mount_dir, ksrepo.iso_path, install_root_dir)
+        url = "file://" + install_root_dir
 
         return url
 

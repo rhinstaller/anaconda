@@ -1405,13 +1405,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             log.debug("Setting up repos: %s", repos)
             for name in repos:
                 repo = self.payload.getAddOnRepo(name)
-                ks_repo = self.data.RepoData(name=repo.name,
-                                             baseurl=repo.baseurl,
-                                             mirrorlist=repo.mirrorlist,
-                                             metalink=repo.metalink,
-                                             proxy=repo.proxy,
-                                             enabled=repo.enabled,
-                                             treeinfo_origin=repo.treeinfo_origin)
+                ks_repo = self.data.RepoData.create_copy(repo)
                 # Track the original name, user may change .name
                 ks_repo.orig_name = name
                 # Add addon repository id for identification

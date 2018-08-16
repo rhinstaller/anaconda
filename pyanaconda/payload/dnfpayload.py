@@ -1218,6 +1218,10 @@ class DNFPayload(payload.PackagePayload):
 
         for repo in self.addOns:
             ksrepo = self.getAddOnRepo(repo)
+
+            if ksrepo.is_harddrive_based():
+                ksrepo.baseurl = self._setup_harddrive_addon_repo(self.storage, ksrepo)
+
             log.debug("repo %s: mirrorlist %s, baseurl %s, metalink %s",
                       ksrepo.name, ksrepo.mirrorlist, ksrepo.baseurl, ksrepo.metalink)
             # one of these must be set to create new repo

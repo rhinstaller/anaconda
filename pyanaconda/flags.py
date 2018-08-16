@@ -20,7 +20,8 @@
 import selinux
 import shlex
 import glob
-from pyanaconda.core.constants import SELINUX_DEFAULT, CMDLINE_APPEND, ANACONDA_ENVIRON
+from pyanaconda.core.constants import SELINUX_DEFAULT, CMDLINE_APPEND, CMDLINE_LIST, \
+    ANACONDA_ENVIRON
 from collections import OrderedDict
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -174,6 +175,12 @@ class BootArgs(OrderedDict):
             if key in CMDLINE_APPEND and self.get(key, None):
                 if val:
                     self[key] = self[key] + " " + val
+            # Some arguments can contain spaces so adding them in one string is not that helpful
+            elif key in CMDLINE_LIST:
+                if val:
+                    if not self.get(key, None):
+                        self[key] = []
+                    self[key].append(val)
             else:
                 self[key] = val
 

@@ -1992,6 +1992,9 @@ class RaidData(COMMANDS.RaidData):
             storage.add_fstab_swap(add_fstab_swap)
 
 class RepoData(COMMANDS.RepoData):
+
+    __mount_counter = 0
+
     def __init__(self, *args, **kwargs):
         """ Add enabled kwarg
 
@@ -2001,8 +2004,39 @@ class RepoData(COMMANDS.RepoData):
         self.enabled = kwargs.pop("enabled", True)
         self.repo_id = kwargs.pop("repo_id", None)
         self.treeinfo_origin = kwargs.pop("treeinfo_origin", False)
+        self.partition = kwargs.pop("partition", None)
+        self.iso_path = kwargs.pop("iso_path", None)
+
+        self.mount_dir_suffix = kwargs.pop("mount_dir_suffix", None)
 
         super().__init__(*args, **kwargs)
+
+    @classmethod
+    def create_copy(cls, other):
+        return cls(name=other.name,
+                   baseurl=other.baseurl,
+                   mirrorlist=other.mirrorlist,
+                   metalink=other.metalink,
+                   proxy=other.proxy,
+                   enabled=other.enabled,
+                   treeinfo_origin=other.treeinfo_origin,
+                   partition=other.partition,
+                   iso_path=other.iso_path,
+                   mount_dir_suffix=other.mount_dir_suffix)
+
+    def generate_mount_dir(self):
+        """Generate persistent mount directory suffix
+
+        This is valid only for HD repositories
+        """
+        if self.is_harddrive_based() and self.mount_dir_suffix is None:
+            self.mount_dir_suffix = "addition_" + self._generate_mount_dir_suffix()
+
+    @classmethod
+    def _generate_mount_dir_suffix(cls):
+        suffix = str(cls.__mount_counter)
+        cls.__mount_counter += 1
+        return suffix
 
     def __str__(self):
         """Don't output disabled repos"""
@@ -2010,6 +2044,9 @@ class RepoData(COMMANDS.RepoData):
             return super().__str__()
         else:
             return ''
+
+    def is_harddrive_based(self):
+        return self.partition is not None
 
 class ReqPart(COMMANDS.ReqPart):
     def execute(self, storage, ksdata, instClass):
