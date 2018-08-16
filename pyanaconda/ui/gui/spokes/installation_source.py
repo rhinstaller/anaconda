@@ -62,6 +62,7 @@ PROTOCOL_HTTP = 'http'
 PROTOCOL_HTTPS = 'https'
 PROTOCOL_FTP = 'ftp'
 PROTOCOL_NFS = 'nfs'
+PROTOCOL_FILE = 'file'
 PROTOCOL_MIRROR = 'Closest mirror'
 
 URL_TYPE_URL = 'url'
@@ -73,10 +74,15 @@ REPO_ENABLED_COL = 0
 REPO_NAME_COL = 1
 REPO_OBJ = 2
 
+# Additional repo protocol combobox fields
+MODEL_ROW_VALUE = 0
+MODEL_ROW_NAME = 1
+
 REPO_PROTO = {PROTOCOL_HTTP:  "http://",
               PROTOCOL_HTTPS: "https://",
               PROTOCOL_FTP:   "ftp://",
-              PROTOCOL_NFS:   "nfs://"
+              PROTOCOL_NFS:   "nfs://",
+              PROTOCOL_FILE:  "file://"
               }
 
 CLICK_FOR_DETAILS = N_(' <a href="">Click for details.</a>')
@@ -398,6 +404,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
 
+        self._treeinfo_repos_already_disabled = False
+
     def apply(self):
         # If askmethod was provided on the command line, entering the source
         # spoke wipes that out.
@@ -405,7 +413,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             flags.askmethod = False
 
         payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                checkmount=False)
+                                 checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -568,6 +576,41 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             return url != old_metalink
 
+    def _update_file_protocol(self, ksrepo):
+        """Show file protocol for repositories that already have it. Remove it when unselected."""
+        if ksrepo.baseurl and ksrepo.baseurl.startswith(REPO_PROTO[PROTOCOL_FILE]):
+            self._set_file_protocol_to_repo_combobox()
+            self._repoProtocolComboBox.set_sensitive(False)
+        else:
+            self._remove_file_protocol_from_repo_combobox()
+            self._repoProtocolComboBox.set_sensitive(True)
+
+    def _set_file_protocol_to_repo_combobox(self):
+        # file protocol will be always the last one
+        model = self._repoProtocolComboBox.get_model()
+        row = self._get_protocol_row(PROTOCOL_FILE)
+
+        if row is None:
+            model.append([REPO_PROTO[PROTOCOL_FILE], PROTOCOL_FILE])
+
+        self._protocolComboBox.set_active_id(PROTOCOL_FILE)
+
+    def _remove_file_protocol_from_repo_combobox(self):
+        model = self._repoProtocolComboBox.get_model()
+        row = self._get_protocol_row(PROTOCOL_FILE)
+
+        if row:
+            model.remove(row.iter)
+
+    def _get_protocol_row(self, protocol):
+        model = self._repoProtocolComboBox.get_model()
+
+        for row in model:
+            if row[MODEL_ROW_NAME] == protocol:
+                return row
+
+        return None
+
     @property
     def changed(self):
         method_changed = self._method_changed()
@@ -663,6 +706,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoProxyUsernameEntry = self.builder.get_object("repoProxyUsernameEntry")
         self._repoProxyPasswordEntry = self.builder.get_object("repoProxyPasswordEntry")
         self._repoView = self.builder.get_object("repoTreeView")
+        self._repoRemoveButton = self.builder.get_object("removeButton")
 
         # Create a check for duplicate repo ids
         # Call InputCheckHandler directly since this check operates on rows of a TreeModel
@@ -932,7 +976,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # outwards
 
         # First check the protocol combo in the network box
-        self.on_protocol_changed(self._protocolComboBox)
+        self._on_protocol_changed()
 
         # Then simulate changes for the radio buttons, which may override the
         # sensitivities set for the network box.
@@ -940,10 +984,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Whichever radio button is selected should have gotten a signal
         # already, but the ones that are not selected need a signal in order
         # to disable the related box.
-        self.on_source_toggled(self._autodetectButton, self._autodetectBox)
-        self.on_source_toggled(self._hmcButton, None)
-        self.on_source_toggled(self._isoButton, self._isoBox)
-        self.on_source_toggled(self._networkButton, self._networkBox)
+        self._on_source_toggled(self._autodetectButton, self._autodetectBox)
+        self._on_source_toggled(self._hmcButton, None)
+        self._on_source_toggled(self._isoButton, self._isoBox)
+        self._on_source_toggled(self._networkButton, self._networkBox)
 
         # Lastly, if the stage2 image is mounted from an HDISO source, there's
         # really no way we can tear down that source to allow the user to
@@ -1155,6 +1199,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # When a radio button is clicked, this handler gets called for both
         # the newly enabled button as well as the previously enabled (now
         # disabled) button.
+        self._on_source_toggled(button, relatedBox)
+        self._disable_treeinfo_repositories()
+
+    def _on_source_toggled(self, button, relatedBox):
         enabled = button.get_active()
 
         if relatedBox:
@@ -1230,6 +1278,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             button.set_label(os.path.basename(f))
             button.set_use_underline(False)
             self._verifyIsoButton.set_sensitive(True)
+            self._disable_treeinfo_repositories()
 
     def on_proxy_clicked(self, button):
         dialog = ProxyDialog(self.data, self._proxyUrl)
@@ -1273,6 +1322,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             dialog.run("/dev/" + self._cdrom.name)
 
     def on_protocol_changed(self, combo):
+        self._on_protocol_changed()
+        self._disable_treeinfo_repositories()
+
+    def _on_protocol_changed(self):
         # Only allow the URL entry to be used if we're using an HTTP/FTP
         # method that's not the mirror list, or an NFS method.
         self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or self._nfs_active())
@@ -1289,7 +1342,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Emitting the urlEntry 'changed' signal will see if the entered URL
         # contains the protocol that's just been selected and strip it if so;
         # _updateURLEntryCheck() does the other validity checks.
-        self._urlEntry.emit("changed")
+        self._on_urlEtry_changed(self._urlEntry)
         self._updateURLEntryCheck()
 
     def _update_payload_repos(self):
@@ -1352,12 +1405,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             log.debug("Setting up repos: %s", repos)
             for name in repos:
                 repo = self.payload.getAddOnRepo(name)
-                ks_repo = self.data.RepoData(name=repo.name,
-                                             baseurl=repo.baseurl,
-                                             mirrorlist=repo.mirrorlist,
-                                             metalink=repo.metalink,
-                                             proxy=repo.proxy,
-                                             enabled=repo.enabled)
+                ks_repo = self.data.RepoData.create_copy(repo)
                 # Track the original name, user may change .name
                 ks_repo.orig_name = name
                 # Add addon repository id for identification
@@ -1371,6 +1419,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             self._clear_repo_info()
             self._repoEntryBox.set_sensitive(False)
+
+        self._treeinfo_repos_already_disabled = False
 
     def _unique_repo_name(self, name):
         """ Return a unique variation of the name if it already
@@ -1416,14 +1466,27 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
-        self._update_repo_info(self._repoStore[itr][REPO_OBJ])
+
+        repo = self._repoStore[itr][REPO_OBJ]
+        self._update_repo_info(repo)
 
     def on_repoEnable_toggled(self, renderer, path):
         """ Called when the repo Enable checkbox is clicked
         """
         enabled = not self._repoStore[path][REPO_ENABLED_COL]
-        self._repoStore[path][REPO_ENABLED_COL] = enabled
-        self._repoStore[path][REPO_OBJ].enabled = enabled
+        self._set_repo_enabled(path, enabled)
+
+    def _set_repo_enabled(self, repo_model_path, enabled):
+        self._repoStore[repo_model_path][REPO_ENABLED_COL] = enabled
+        self._repoStore[repo_model_path][REPO_OBJ].enabled = enabled
+
+    def _disable_treeinfo_repositories(self):
+        """Disable all repositories loaded from the .treeinfo file"""
+        if not self._treeinfo_repos_already_disabled:
+            self._treeinfo_repos_already_disabled = True
+            for repo_item in self._repoStore:
+                if repo_item[REPO_OBJ].treeinfo_origin:
+                    self._set_repo_enabled(repo_item.path, False)
 
     def _clear_repo_info(self):
         """ Clear the text from the repo entry fields
@@ -1486,7 +1549,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._repoProxyUrlEntry.set_text(proxy.noauth_url)
             except ProxyStringError as e:
                 log.error("Failed to parse proxy for repo %s: %s", repo.name, e)
-                return
+
+        self._configure_treeinfo_repo(repo.treeinfo_origin)
+
+    def _configure_treeinfo_repo(self, is_treeinfo_repository):
+        self._repoRemoveButton.set_sensitive(not is_treeinfo_repository)
+        self._repoEntryBox.set_sensitive(not is_treeinfo_repository)
 
     def _removeUrlPrefix(self, editable, combo, handler):
         # If there is a protocol in the URL, and the protocol matches the
@@ -1509,6 +1577,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def on_urlEntry_changed(self, editable, data=None):
         # Check for and remove a URL prefix that matches the protocol dropdown
+        self._on_urlEtry_changed(editable)
+        self._disable_treeinfo_repositories()
+
+    def _on_urlEtry_changed(self, editable):
         self._removeUrlPrefix(editable, self._protocolComboBox, self.on_urlEntry_changed)
 
     def on_noUpdatesCheckbox_toggled(self, *args):
@@ -1586,9 +1658,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return
         repo = self._repoStore[itr][REPO_OBJ]
         combo_protocol = self._repoProtocolComboBox.get_active_id()
-        url_prefix = REPO_PROTO[combo_protocol]
 
+        # not user editable protocol (e.g. file://) was selected on the old repo and
+        # removed when repo line changed
+        if not combo_protocol:
+            return
+
+        url_prefix = REPO_PROTO[combo_protocol]
         url = self._repoUrlEntry.get_text().strip()
+
         if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS):
             url_type = self._repoUrlTypeComboBox.get_active_id()
             repo.baseurl = repo.mirrorlist = repo.metalink = ""
@@ -1641,6 +1719,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def on_repoStore_row_changed(self, model, path, itr, user_data=None):
         self._duplicateRepoCheck.update_check_status()
 
+        repo = model[itr][REPO_OBJ]
+        self._update_file_protocol(repo)
+
     def on_repoStore_row_deleted(self, model, path, user_data=None):
         self._duplicateRepoCheck.update_check_status()
 
@@ -1685,6 +1766,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         can_have_mirror = protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS)
         fancy_set_sensitive(self._repoUrlTypeComboBox, can_have_mirror)
+
+        can_be_edited = protocol != PROTOCOL_FILE
+        fancy_set_sensitive(self._repoUrlEntry, can_be_edited)
 
         # Re-run the proxy check
         itr = self._repoSelection.get_selected()[1]

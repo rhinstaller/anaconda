@@ -212,6 +212,7 @@ SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
 
 # cmdline arguments that append instead of overwrite
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
+CMDLINE_LIST = ["addrepo"]
 
 # The default autopart type is lvm.
 # FIXME: Move this constant to the storage module.

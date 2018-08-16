@@ -1,0 +1,145 @@
+#
+# Copyright (C) 2018  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Authors: Jiri Konecny <jkonecny@redhat.com>
+#
+
+
+import unittest
+import enum
+
+from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
+from pyanaconda.payload.source.sources import *  # pylint: disable=wildcard-import
+
+
+class TestValues(enum.Enum):
+    http = "http://server.example.com/test"
+    https = "https://server.example.com/test"
+    ftp = "ftp://server.example.com/test"
+    nfs_ks = "nfs://server.nfs.com:/path/on/server"
+    nfs_main_repo = "nfs:soft,async:server.example.com:/path/to/install_tree"
+    nfs_main_repo2 = "nfs:server.example.com:/path/to/install_tree"
+    file = "file:///root/extremely_secret_file.txt"
+
+    cdrom = "cdrom"
+    cdrom_test = "cdrom:/dev/cdrom"
+    harddrive = "hd:/dev/sda2:/path/to/iso.iso"
+    harddrive_label = "hd:LABEL=TEST:/path/to/iso.iso"
+    harddrive_uuid = "hd:UUID=8176c7bf-04ff-403a-a832-9557f94e61db:/path/to/iso.iso"
+    livecd = "livecd:///dev/mapper/live-base"
+    livecd2 = "livecd:///dev/mapper/live-osimg-min"
+    hmc = "hmc"
+
+    broken_http = "htttp://broken.server.com/test"
+    broken_https = "htttps://broken.server.com/test"
+    broken_ftp = "ftp2://broken.server.com/test"
+
+    def map_to_classes(self):
+        if self == self.http:
+            return HTTPSource
+        elif self == self.https:
+            return HTTPSSource
+        elif self == self.ftp:
+            return FTPSource
+        elif self in (self.nfs_ks, self.nfs_main_repo, self.nfs_main_repo2):
+            return NFSSource
+        elif self == self.file:
+            return FileSource
+        elif self in (self.cdrom, self.cdrom_test):
+            return CDRomSource
+        elif self in (self.harddrive, self.harddrive_label, self.harddrive_uuid):
+            return HDDSource
+        elif self in (self.livecd, self.livecd2):
+            return LiveSource
+        elif self == self.hmc:
+            return HMCSource
+        else:
+            return None
+
+
+class TestSourceFactoryTests(unittest.TestCase):
+
+    def parse_repo_cmdline_test(self):
+        for val in TestValues:
+            klass = val.map_to_classes()
+
+            if klass is None:
+                with self.assertRaises(PayloadSourceTypeUnrecognized):
+                    SourceFactory.parse_repo_cmdline_string(val.value)
+                continue
+
+            source = SourceFactory.parse_repo_cmdline_string(val.value)
+            self.assertIsInstance(source, klass,
+                                  "Instance of source {} expected - get {}".format(klass, source))
+
+    def _check_is_methods(self, check_method, valid_array, type_str):
+        for val in TestValues:
+
+            ret = check_method(val.value)
+            if val in valid_array:
+                self.assertTrue(ret, "Value {} is not marked as {}".format(val.value, type_str))
+            else:
+                self.assertFalse(ret, "Value {} should non be marked as {}".format(val.value,
+                                                                                   type_str))
+
+    def is_cdrom_test(self):
+        self._check_is_methods(SourceFactory.is_cdrom,
+                               [TestValues.cdrom, TestValues.cdrom_test],
+                               "cdrom")
+
+    def is_harddrive_test(self):
+        self._check_is_methods(SourceFactory.is_harddrive,
+                               [TestValues.harddrive, TestValues.harddrive_uuid,
+                                TestValues.harddrive_label],
+                               "harddrive")
+
+    def is_nfs_test(self):
+        self._check_is_methods(SourceFactory.is_nfs,
+                               [TestValues.nfs_ks, TestValues.nfs_main_repo,
+                                TestValues.nfs_main_repo2],
+                               "nfs")
+
+    def is_http_test(self):
+        self._check_is_methods(SourceFactory.is_http,
+                               [TestValues.http],
+                               "http")
+
+    def is_https_test(self):
+        self._check_is_methods(SourceFactory.is_https,
+                               [TestValues.https],
+                               "https")
+
+    def is_ftp_test(self):
+        self._check_is_methods(SourceFactory.is_ftp,
+                               [TestValues.ftp],
+                               "ftp")
+
+    def is_file_test(self):
+        self._check_is_methods(SourceFactory.is_file,
+                               [TestValues.file],
+                               "file")
+
+    def is_livecd_test(self):
+        self._check_is_methods(SourceFactory.is_livecd,
+                               [TestValues.livecd, TestValues.livecd2],
+                               "livecd")
+
+    def is_hmc_test(self):
+        self._check_is_methods(SourceFactory.is_hmc,
+                               [TestValues.hmc],
+                               "hmc")
+

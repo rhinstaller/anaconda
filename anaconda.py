@@ -219,10 +219,10 @@ def setup_environment():
     # pylint: disable=environment-modify
 
     # Silly GNOME stuff
-    if 'HOME' in os.environ and not "XAUTHORITY" in os.environ:
-        os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
-    os.environ['HOME'] = '/tmp'
-    os.environ['LC_NUMERIC'] = 'C'
+    if "HOME" in os.environ and not "XAUTHORITY" in os.environ:
+        os.environ["XAUTHORITY"] = os.environ["HOME"] + "/.Xauthority"
+    os.environ["HOME"] = "/tmp"
+    os.environ["LC_NUMERIC"] = "C"
     os.environ["GCONF_GLOBAL_LOCKS"] = "1"
 
     # In theory, this gets rid of our LVM file descriptor warnings
@@ -237,7 +237,7 @@ def setup_environment():
         del os.environ["LD_PRELOAD"]
 
     # Go ahead and set $DISPLAY whether we're going to use X or not
-    if 'DISPLAY' in os.environ:
+    if "DISPLAY" in os.environ:
         flags.preexisting_x11 = True
     else:
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
@@ -420,7 +420,8 @@ if __name__ == "__main__":
     # add our own additional signal handlers
     signal.signal(signal.SIGHUP, start_debugger)
 
-    anaconda.opts = opts
+    # assign the other anaconda variables from options
+    anaconda.set_from_opts(opts)
 
     # check memory, just the text mode for now:
     startup_utils.check_memory(anaconda, opts, display_mode=constants.DisplayModes.TUI)
@@ -428,20 +429,8 @@ if __name__ == "__main__":
     # Now that we've got command line/boot options, do some extra processing.
     startup_utils.setup_logging_from_options(opts)
 
-    # assign the other anaconda variables from options
-    anaconda.decorated = opts.decorated
-    anaconda.proxy = opts.proxy
-    anaconda.updateSrc = opts.updateSrc
-    anaconda.methodstr = opts.method
-    anaconda.stage2 = opts.stage2
-    flags.rescue_mode = opts.rescue
-
-    if opts.liveinst:
-        startup_utils.live_startup(anaconda, opts)
-    elif "LIVECMD" in os.environ:
-        log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
-
     # set flags
+    flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
     flags.armPlatform = opts.armPlatform
     flags.extlinux = opts.extlinux
@@ -457,6 +446,11 @@ if __name__ == "__main__":
     flags.eject = opts.eject
     flags.kexec = opts.kexec
     flags.singlelang = opts.singlelang
+
+    if opts.liveinst:
+        startup_utils.live_startup(anaconda)
+    elif "LIVECMD" in os.environ:
+        log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 
     # Switch to tty1 on exception in case something goes wrong during X start.
     # This way if, for example, metacity doesn't start, we switch back to a
@@ -744,6 +738,9 @@ if __name__ == "__main__":
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
     anaconda.postConfigureInstallClass()
+
+    # add additional repositories from the cmdline to kickstart data
+    anaconda.add_additional_repositories_to_ksdata()
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
