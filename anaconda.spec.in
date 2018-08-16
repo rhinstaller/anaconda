@@ -349,6 +349,68 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 16 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.8-1
+- Add inst.addrepo documentation for HD variant (jkonecny)
+  Related: rhbz#1595415
+- Warn when repo names are not unique (jkonecny)
+  Related: rhbz#1595415
+- HD addon repos have mount directories permanent (jkonecny)
+  Related: rhbz#1595415
+- Unmount hard drive additional repositories (jkonecny)
+  Related: rhbz#1595415
+- Move RepoData copy creation to the RepoData class (jkonecny)
+  Related: rhbz#1595415
+- Show empty file protocol on HD addon repo fail (jkonecny)
+  Related: rhbz#1595415
+- Mount and use HDD additional repositories (jkonecny)
+  Related: rhbz#1595415
+- Separate _find_and_mount_iso from _setup_media (jkonecny)
+  Related: rhbz#1595415
+- Load hard drive repo type from inst.addrepo (jkonecny)
+  Related: rhbz#1595415
+- Do not fail if .discinfo file can't be read (jkonecny)
+  Related: rhbz#1595415
+- Use productmd to parse .discinfo file (jkonecny)
+  Related: rhbz#1595415
+- Add payload sources tests (jkonecny)
+  Related: rhbz#1595415
+- Cleanup payload tests source file (jkonecny)
+  Related: rhbz#1595415
+- Add documentation for inst.addrepo boot option (jkonecny)
+  Related: rhbz#1595415
+- Add additional repositories to KS data (jkonecny)
+  Resolves: rhbz#1595415
+- Use new source solution (jkonecny)
+  Related: rhbz#1595415
+- Add payload sources implementation (jkonecny)
+  Related: rhbz#1595415
+- Mark disks with additional repos as protected (jkonecny)
+  Related: rhbz#1595415
+- Support boot args parsing to list (jkonecny)
+  Related: rhbz#1595415
+- Add inst.addrepo new options (jkonecny)
+  Related: rhbz#1595415
+- Make parenthesis consistent (jkonecny)
+  Related: rhbz#1595415
+- Remove unused parameter from live_startup method (jkonecny)
+  Related: rhbz#1595415
+- Disable treeinfo based repos only once (jkonecny)
+  Related: rhbz#1610806
+- Disable treeinfo repos when base repo change (jkonecny)
+  Related: rhbz#1610806
+- Treeinfo repos can't be changed nor removed (jkonecny)
+  Related: rhbz#1610806
+- Add all repositories from the treeinfo file (jkonecny)
+  Resolves: rhbz#1610806
+- Load base repository location from treeinfo (jkonecny)
+  Related: rhbz#1610806
+- Add limited file:// protocol to GUI Source spoke (jkonecny)
+  Related: rhbz#1610806
+- Add BaseOS between default base repositories (jkonecny)
+  Related: rhbz#1610806
+- Split _setupInstallDevice method in payload (jkonecny)
+  Related: rhbz#1610806
+
 * Mon Aug 13 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.7-1
 - Revert back to running DNF in a subprocess (mkolman)
   Related: rhbz#1613296
