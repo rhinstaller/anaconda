@@ -45,6 +45,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define utillinuxver 2.15.1
 
 BuildRequires: audit-libs-devel
+BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
 BuildRequires: gtk3-devel >= %{gtk3ver}
 BuildRequires: gtk-doc
