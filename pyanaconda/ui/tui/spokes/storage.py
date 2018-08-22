@@ -674,7 +674,11 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         if pre_select == AUTOPART_TYPE_DEFAULT:
             pre_select = DEFAULT_AUTOPART_TYPE
 
-        for item in get_supported_autopart_choices():
+        supported_choices = get_supported_autopart_choices()
+        if supported_choices:
+            # Fallback value (eg when default is not supported)
+            self._selected_scheme_value = supported_choices[0][1]
+        for item in supported_choices:
             self.part_schemes[item[0]] = item[1]
             if item[1] == pre_select:
                 self._selected_scheme_value = item[1]

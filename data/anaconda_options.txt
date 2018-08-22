@@ -76,6 +76,12 @@ If only the stage2 option is given without repo, Anaconda will use whatever repo
 system would have enabled by default for installation. For instance, an install of a Fedora release
 will attempt to use the Fedora mirrorlist given by /etc/yum.repos.d/fedora.repo from that release.
 
+addrepo
+This option adds additional repositories to the installation. These repositories are used during
+installation but they are not saved to the installed system. Repository must be specified in the
+'<name>,<url>' format, where name can't contain space and <url> have to be in a supported format.
+Supported formats can be found here: http://rhinstaller.github.io/anaconda/boot-options.html#inst-addrepo
+
 noverifyssl
 Prevents Anaconda from verifying the ssl certificate for all HTTPS connections with an exception of the
 additional kickstart repos (where --noverifyssl can be set per repo).

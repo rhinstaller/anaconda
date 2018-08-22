@@ -32,6 +32,7 @@ from pyanaconda.core import util, constants
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.startup_utils import run_boss, stop_boss
+from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -56,6 +57,7 @@ class Anaconda(object):
         self.isHeadless = False
         self.ksdata = None
         self.methodstr = None
+        self.additional_repos = None
         self.opts = None
         self._payload = None
         self.proxy = None
@@ -80,6 +82,16 @@ class Anaconda(object):
 
         # Create class for launching our dbus session
         self._dbus_launcher = DBusLauncher()
+
+    def set_from_opts(self, opts):
+        """Load argument to variables from self.opts."""
+        self.opts = opts
+        self.decorated = opts.decorated
+        self.proxy = opts.proxy
+        self.updateSrc = opts.updateSrc
+        self.methodstr = opts.method
+        self.stage2 = opts.stage2
+        self.additional_repos = opts.addRepo
 
     @property
     def bootloader(self):
@@ -151,17 +163,27 @@ class Anaconda(object):
 
         # methodstr and stage2 become strings in ways that pylint can't figure out
         # pylint: disable=unsubscriptable-object
-        if self.methodstr and self.methodstr.startswith("hd:"):
+        if self.methodstr and SourceFactory.is_harddrive(self.methodstr):
             specs.append(self.methodstr[3:].split(":", 3)[0])
 
-        if self.stage2 and self.stage2.startswith("hd:"):
+        if self.stage2 and SourceFactory.is_harddrive(self.stage2):
             specs.append(self.stage2[3:].split(":", 3)[0])
+
+        for additional_repo in self.additional_repos:
+            _name, repo_url = self._get_additional_repo_name(additional_repo)
+            if SourceFactory.is_harddrive(repo_url):
+                specs.append(repo_url[3:].split(":", 3)[0])
 
         # zRAM swap devices need to be protected
         for zram_dev in glob("/dev/zram*"):
             specs.append(zram_dev)
 
         return specs
+
+    @staticmethod
+    def _get_additional_repo_name(repo):
+        name, rest = repo.split(',', maxsplit=1)
+        return name, rest
 
     @property
     def storage(self):
@@ -225,6 +247,44 @@ class Anaconda(object):
         log.info("Display mode is set to '%s %s'.",
                  constants.INTERACTIVE_MODE_NAME[self.interactive_mode],
                  constants.DISPLAY_MODE_NAME[self.display_mode])
+
+    def add_additional_repositories_to_ksdata(self):
+        from pyanaconda.kickstart import RepoData
+
+        for add_repo in self.additional_repos:
+            name, repo_url = self._get_additional_repo_name(add_repo)
+            try:
+                source = SourceFactory.parse_repo_cmdline_string(repo_url)
+            except PayloadSourceTypeUnrecognized:
+                log.error("Type for additional repository %s is not recognized!", add_repo)
+                return
+
+            repo = RepoData(name=name, baseurl=repo_url, install=False)
+
+            if source.is_nfs or source.is_http or source.is_https or source.is_ftp \
+                    or source.is_file:
+                repo.enabled = True
+            elif source.is_harddrive:
+                repo.enabled = True
+                repo.partition = source.partition
+                repo.iso_path = source.path
+                repo.baseurl = "file://"
+            else:
+                log.error("Source type %s for additional repository %s is not supported!",
+                          source.source_type.value, add_repo)
+                continue
+
+            self._check_repo_name_uniqueness(repo)
+            self.ksdata.repo.dataList().append(repo)
+
+    def _check_repo_name_uniqueness(self, repo):
+        """Log if we are adding repository with already used name
+
+        In automatic kickstart installation this will result in using the first defined repo.
+        """
+        if repo in self.ksdata.repo.dataList():
+            log.warning("Repository name %s is not unique. Only the first repo will be used!",
+                        repo.name)
 
     def _set_default_fstype(self, storage):
         fstype = None

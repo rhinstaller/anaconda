@@ -198,7 +198,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 log.warning("boot option specified without expected number of "
                             "arguments and will be ignored: %s", arg)
                 continue
-            if option.nargs == 0 and option.const is not None:
+            elif option.nargs == 0 and option.const is not None:
                 # nargs == 0 & constr == True -> store_true
                 # (we could also check the class, but it begins with an
                 # underscore, so it would be ugly)
@@ -214,6 +214,13 @@ class AnacondaArgumentParser(ArgumentParser):
                 # we hate you.
 
                 continue
+            elif option.nargs in ("*", "?", "+"):
+                # store multiple values under one key
+                # parsing of these values to list is done in BootArgs object
+                if type(val) is list:
+                    setattr(namespace, option.dest, val)
+                    continue
+
             option(self, namespace, val)
         return namespace
 
@@ -446,6 +453,9 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("repo"))
     ap.add_argument("--stage2", dest="stage2", default=None, metavar="STAGE2_URL",
                     help=help_parser.help_text("stage2"))
+    ap.add_argument("--addrepo", dest="addRepo", default=[], metavar="NAME,ADDITIONAL_REPO_URL",
+                    nargs='*', action="append",
+                    help=help_parser.help_text("addrepo"))
     ap.add_argument("--noverifyssl", action="store_true", default=False,
                     help=help_parser.help_text("noverifyssl"))
     ap.add_argument("--liveinst", action="store_true", default=False,
