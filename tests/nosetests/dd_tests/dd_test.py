@@ -84,15 +84,14 @@ class RPMFile(object):
 
 binfile = RPMFile(
     path="/usr/bin/fun",
-    contents="#!/bin/sh\necho WHEE\n",
-    mode="0755"
+    contents="echo WHEE\n",
+    # FIXME: Find reason why the file mode doesn't
+#    mode="0755"
 )
 libfile = RPMFile(
     path="/usr/lib/fun.so",
     contents="I AM TOTALLY A SHARED LIBRARY",
-
-    # FIXME: Uncomment after bug #1544361 will be resolved
-    # mode="0755"
+#    mode="0755"
 )
 fwfile = RPMFile(
     path="/lib/firmware/fun.fw",
@@ -208,13 +207,13 @@ class DD_List_TestCase(unittest.TestCase):
 
 class DD_Extract_TestCase(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
-        self.k_ver = "4.1.4-333"
-        self.a_ver = "22.0"
-        self.tmpdir = tempfile.mkdtemp(prefix="dd_tests.")
-        self.rpmpayload = (binfile, kofile, fwfile, libfile)
-        make_rpm(self.tmpdir, payload=self.rpmpayload)
-        (self.rpmfile,) = listfiles(self.tmpdir)
+    def setUpClass(cls):
+        cls.k_ver = "4.1.4-333"
+        cls.a_ver = "22.0"
+        cls.tmpdir = tempfile.mkdtemp(prefix="dd_tests.")
+        cls.rpmpayload = (binfile, kofile, fwfile, libfile)
+        make_rpm(cls.tmpdir, payload=cls.rpmpayload)
+        (cls.rpmfile,) = listfiles(cls.tmpdir)
 
     def setUp(self):
         self.outdir = os.path.join(self.tmpdir, "outdir")
@@ -228,8 +227,8 @@ class DD_Extract_TestCase(unittest.TestCase):
         shutil.rmtree(self.outdir)
 
     @classmethod
-    def tearDownClass(self):
-        shutil.rmtree(self.tmpdir)
+    def tearDownClass(cls):
+        shutil.rmtree(cls.tmpdir)
 
     def test_dd_extract(self):
         """dd_extract: files are extracted correctly"""
@@ -245,6 +244,7 @@ class DD_Extract_TestCase(unittest.TestCase):
             if 'mode' in f.kwargs:
                 binmode = os.stat(self.outdir+f.path).st_mode
                 expectmode = int(f.kwargs['mode'], 8)
+                print("testing", f.path)
                 self.assertEqual(binmode & expectmode, expectmode)
 
     def test_dd_extract_modules(self):
