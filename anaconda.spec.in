@@ -349,6 +349,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 24 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.10-1
+- Revert "Don't allow booting from nvdimm devices" (rvykydal)
+  Resolves: rhbz#1620566
+- Fix pylint errors (vponcova)
+  Related: rhbz#1618633
+
 * Wed Aug 22 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.9-1
 - Fix crash in tui when default partitioning scheme is not supported
   (rvykydal)
