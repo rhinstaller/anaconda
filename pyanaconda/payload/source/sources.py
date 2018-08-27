@@ -22,7 +22,7 @@ from enum import Enum
 
 class SourceType(Enum):
     CDROM = "cdrom"
-    HARDDRIVE = "Harddrive"
+    HARDDRIVE = "harddrive"
     NFS = "nfs"
     HTTP = "http"
     HTTPS = "https"
@@ -280,7 +280,7 @@ class LiveSource(BasePayloadSource):
     """Source object for live image sources."""
 
     def __init__(self, partition):
-        super().__init__(SourceType.LIVECD, "livecd")
+        super().__init__(SourceType.LIVECD, "harddrive")
 
         self._partition = partition
 
