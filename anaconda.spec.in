@@ -348,6 +348,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 27 2018 Martin Kolman <mkolman@redhat.com> - 29.24.1-1
+- Fix the processing of the live CD source (#1622248) (vponcova)
+
 * Wed Aug 22 2018 Martin Kolman <mkolman@redhat.com> - 29.24-1
 - Fix crash in tui when default partitioning scheme is not supported.
   (rvykydal)
