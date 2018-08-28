@@ -78,6 +78,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test getting current hostname does not fail."""
         self.network_interface.GetCurrentHostname()
 
+    def dont_touch_runtime_system_test(self):
+        """Test setting of can_touch_runtime_system property."""
+        self.network_interface.DontTouchRuntimeSystem()
+
     def connected_test(self):
         """Test getting connectivity status does not fail."""
         connected = self.network_interface.Connected
