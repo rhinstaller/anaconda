@@ -43,6 +43,9 @@ supported_device_types = [
     NM.DeviceType.TEAM,
 ]
 
+DEFAULT_PROXY_FLAGS = \
+    Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
+
 class UnknownDeviceError(ValueError):
     """Device of specified name was not found by NM"""
     def __str__(self):
@@ -94,7 +97,7 @@ class BondOptionsError(AddConnectionError):
     pass
 
 def _get_proxy(bus_type=Gio.BusType.SYSTEM,
-               proxy_flags=Gio.DBusProxyFlags.NONE,
+               proxy_flags=DEFAULT_PROXY_FLAGS,
                info=None,
                name="org.freedesktop.NetworkManager",
                object_path="/org/freedesktop/NetworkManager",
