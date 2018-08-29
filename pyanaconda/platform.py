@@ -244,7 +244,6 @@ class S390(Platform):
 
 
 class ARM(Platform):
-    _arm_machine = None
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
     _boot_descriptions = {"disk": _boot_mbr_description,
@@ -252,12 +251,6 @@ class ARM(Platform):
 
     _boot_stage1_missing_error = N_("You must include at least one MBR-formatted "
                                     "disk as an install target.")
-
-    @property
-    def arm_machine(self):
-        if not self._arm_machine:
-            self._arm_machine = arch.get_arm_machine()
-        return self._arm_machine
 
 
 def get_platform():
@@ -287,7 +280,6 @@ def get_platform():
     elif arch.is_x86():
         return X86()
     elif arch.is_arm():
-        arm_machine = arch.get_arm_machine()
         return ARM()
     else:
         raise SystemError("Could not determine system architecture.")
