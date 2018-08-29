@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartHandler
 from pykickstart.parser import KickstartParser
-from pykickstart.version import DEVEL
+from pykickstart.version import F29
 
 __all__ = ["KickstartSpecification", "NoKickstartSpecification",
            "KickstartSpecificationHandler", "KickstartSpecificationParser"]
@@ -52,7 +52,7 @@ class KickstartSpecification(object):
 
     """
 
-    version = DEVEL
+    version = F29
     commands = {}
     commands_data = {}
     sections = {}

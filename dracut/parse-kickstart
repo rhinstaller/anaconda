@@ -43,7 +43,7 @@ from pykickstart.constants import *
 from collections import OrderedDict
 
 # Import the kickstart version.
-from pykickstart.version import DEVEL as VERSION
+from pykickstart.version import F29 as VERSION
 
 # Import all kickstart commands as version-less.
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
