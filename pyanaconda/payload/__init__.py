@@ -53,7 +53,6 @@ from pyanaconda.core.i18n import _, N_
 
 from pyanaconda.core import util
 from pyanaconda import isys
-from pyanaconda.platform import platform
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
@@ -1090,11 +1089,8 @@ class PackagePayload(Payload):
         if blivet.arch.is_x86(32) and isys.isPaeAvailable():
             kernels.insert(0, "kernel-PAE")
 
-        # most ARM systems use platform-specific kernels
+        # ARM systems use either the standard Multiplatform or LPAE platform
         if blivet.arch.is_arm():
-            if platform.arm_machine is not None:
-                kernels = ["kernel-%s" % platform.arm_machine]
-
             if isys.isLpaeAvailable():
                 kernels.insert(0, "kernel-lpae")
 
