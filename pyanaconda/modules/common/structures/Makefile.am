@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = base task errors constants structures
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-modules_commondir = $(pkgpyexecdir)/modules/common
-modules_common_PYTHON = $(srcdir)/*.py
+structures_commondir = $(pkgpyexecdir)/modules/common/structures
+structures_common_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
