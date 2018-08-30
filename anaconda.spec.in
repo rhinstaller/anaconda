@@ -348,6 +348,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 30 2018 Martin Kolman <mkolman@redhat.com> - 29.24.2-1
+- Set kickstart version for Fedora 29 (mkolman)
+- Add initial 32-bit ARMv7 EFI support (pbrobinson)
+- Drop legacy get_arm_machine pieces (pbrobinson)
+- arch: arm: drop omap checks and specifics (pbrobinson)
+
 * Mon Aug 27 2018 Martin Kolman <mkolman@redhat.com> - 29.24.1-1
 - Fix the processing of the live CD source (#1622248) (vponcova)
 
