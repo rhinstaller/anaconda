@@ -12,7 +12,7 @@ following are rules to follow when committing a change to the git repo:
    summary line.  Lastly, the summary lines need to be short.  Ideally
    less than 75 characters, but certainly not longer than 80.
 
-   Here are acceptable first lines for git commit messages:
+   Here are acceptable first lines for git commit messages::
 
        Check partition and filesystem type on upgrade (#123456)
        Fix bootloader configuration setup on ppc64 (#987654)
