@@ -184,6 +184,10 @@ class Aarch64EFI(EFI):
     _non_linux_format_types = ["vfat", "ntfs"]
 
 
+class ArmEFI(EFI):
+    _non_linux_format_types = ["vfat", "ntfs"]
+
+
 class PPC(Platform):
     _ppc_machine = arch.get_ppc_machine()
     _boot_stage1_device_types = ["partition"]
@@ -246,7 +250,6 @@ class S390(Platform):
 
 
 class ARM(Platform):
-    _arm_machine = None
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
     _boot_descriptions = {"disk": _boot_mbr_description,
@@ -254,35 +257,6 @@ class ARM(Platform):
 
     _boot_stage1_missing_error = N_("You must include at least one MBR-formatted "
                                     "disk as an install target.")
-
-    @property
-    def arm_machine(self):
-        if not self._arm_machine:
-            self._arm_machine = arch.get_arm_machine()
-        return self._arm_machine
-
-
-class omapARM(ARM):
-    _boot_stage1_format_types = ["vfat"]
-    _boot_stage1_device_types = ["partition"]
-    _boot_stage1_mountpoints = ["/boot/uboot"]
-    _boot_uboot_description = N_("U-Boot Partition")
-    _boot_descriptions = {"partition": _boot_uboot_description}
-    _boot_stage1_missing_error = N_("You must include a U-Boot Partition on a "
-                                    "FAT-formatted disk, mounted at /boot/uboot.")
-
-    def set_platform_bootloader_reqs(self):
-        """Return the ARM-OMAP platform-specific partitioning information."""
-        ret = [PartSpec(mountpoint="/boot/uboot", fstype="vfat",
-                        size=Size("20MiB"), max_size=Size("200MiB"),
-                        grow=True)]
-        return ret
-
-    def set_default_partitioning(self):
-        ret = ARM.set_default_partitioning(self)
-        ret.append(PartSpec(mountpoint="/", fstype="ext4",
-                            size=Size("2GiB"), max_size=Size("3GiB")))
-        return ret
 
 
 def get_platform():
@@ -307,16 +281,14 @@ def get_platform():
             return MacEFI()
         elif arch.is_aarch64():
             return Aarch64EFI()
+        elif arch.is_arm():
+            return ArmEFI()
         else:
             return EFI()
     elif arch.is_x86():
         return X86()
     elif arch.is_arm():
-        arm_machine = arch.get_arm_machine()
-        if arm_machine == "omap":
-            return omapARM()
-        else:
-            return ARM()
+        return ARM()
     else:
         raise SystemError("Could not determine system architecture.")
 
