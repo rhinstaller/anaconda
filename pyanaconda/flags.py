@@ -66,7 +66,6 @@ class Flags(object):
         self.nombr = False
         self.gpt = False
         self.leavebootorder = False
-        self.testing = False
         self.mpathFriendlyNames = True
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
@@ -223,10 +222,6 @@ def can_touch_runtime_system(msg, touch_live=False):
 
     if flags.dirInstall:
         log.info("Not doing '%s' in directory installation", msg)
-        return False
-
-    if flags.testing:
-        log.info("Not doing '%s', because we are just testing", msg)
         return False
 
     return True

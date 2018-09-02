@@ -115,7 +115,6 @@ def update_blivet_flags(blivet_flags, anaconda_flags):  # pylint: disable=redefi
     :param anaconda_flags: anaconda flags
     :type anaconda_flags: :class:`pyanaconda.flags.Flags`
     """
-    blivet_flags.testing = anaconda_flags.testing
     blivet_flags.automated_install = anaconda_flags.automatedInstall
     blivet_flags.live_install = anaconda_flags.livecdInstall
     blivet_flags.image_install = anaconda_flags.imageInstall
