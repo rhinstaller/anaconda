@@ -78,9 +78,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _load_new_devices(self):
         devices = nm.nm_devices()
-        intf_dumped = network.dumpMissingDefaultIfcfgs()
-        if intf_dumped:
-            log.debug("dumped interfaces: %s", intf_dumped)
 
         for name in devices:
             if name in self.supported_devices:
