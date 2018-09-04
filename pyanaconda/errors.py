@@ -222,28 +222,47 @@ class ErrorHandler(object):
             else:
                 return ERROR_RAISE
 
-    def _install_specs_missing(self, exn):
+    def _install_specs_handler(self, exn):
+        missing_packages = exn.no_match_pkg_specs
+        missing_groups_modules = exn.no_match_group_specs
+        broken_packages = exn.error_pkg_specs
+        broken_groups_modules = exn.error_group_specs
+
         message = ""
-        if exn.missing_packages:
-            if len(exn.missing_packages) > 1:
-                packages = ", ".join(exn.missing_packages)
-                message = message + _("The following packages are missing:\n%s\n\n") % packages
-            else:
-                message = message + _("The following package is missing:\n%s\n\n") % exn.missing_packages[0]
 
-        if exn.missing_groups_and_modules:
-            if len(exn.missing_groups_and_modules) > 1:
-                groups_modules = ", ".join(exn.missing_groups_and_modules)
-                message = message + _("The following groups or modules are missing:\n%s\n\n") % groups_modules
-            else:
-                message = message + _("The following group or module is missing:\n%s\n\n") % exn.missing_groups_and_modules[0]
+        # missing packages/groups/modules
 
-        message = message + _("Would you like to ignore this and continue with installation?")
+        if missing_packages:
+            packages = ", ".join(missing_packages)
+            message = message + _("The following packages are missing:\n%s\n\n") % packages
 
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_CONTINUE
-        else:
+        if missing_groups_modules:
+            groups_modules = ", ".join(missing_groups_modules)
+            message = message + _("The following groups or modules are missing:\n%s\n\n") % groups_modules
+
+        # broken packages/groups/modules
+
+        if broken_packages:
+            packages = ", ".join(broken_packages)
+            message = message + _("The following packages are broken:\n%s\n\n") % packages
+
+        if broken_groups_modules:
+            groups_modules = ", ".join(broken_groups_modules)
+            message = message + _("The following groups or modules are broken:\n%s\n\n") % groups_modules
+
+        # if we have at least one broken package, group or module we will abort the installation
+        if broken_packages or broken_groups_modules:
+            message = message + _("Some packages, groups or modules are broken, the installation will be aborted.")
+
+            self.ui.showError(message)
             return ERROR_RAISE
+        # "just" missing packages, groups or modules - we give the user an option to continue
+        else:
+            message = message + _("Would you like to ignore this and continue with installation?")
+            if self.ui.showYesNoQuestion(message):
+                return ERROR_CONTINUE
+            else:
+                return ERROR_RAISE
 
     def _no_module_stream_specified(self, exn):
         message = _("Stream was not specified for a module without a default stream. This is "
@@ -344,7 +363,7 @@ class ErrorHandler(object):
                 "NoSuchPackage": self._noSuchPackageHandler,
                 "NoStreamSpecifiedException": self._no_module_stream_specified,
                 "InstallMoreStreamsException": self._multiple_module_streams_specified,
-                "InstallSpecsMissing" : self._install_specs_missing,
+                "MarkingErrors" : self._install_specs_handler,
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
                 "DependencyError": self._dependencyErrorHandler,
