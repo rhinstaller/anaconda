@@ -91,8 +91,10 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 # 6KiB = 4K(max default fragment size) + 2K(rpm db could be taken for a header file)
 BONUS_SIZE_ON_FILE = Size("6 KiB")
 
+
 class InstallSpecsMissing(Exception):
     """Raised is some of the requested install specs seems to be missing from the repos."""
+
     def __init__(self, missing_specs):
         super().__init__()
         self.missing_specs = missing_specs
@@ -103,6 +105,11 @@ class InstallSpecsMissing(Exception):
                 self.missing_groups_and_modules.append(spec)
             else:
                 self.missing_packages.append(spec)
+
+    def __str__(self):
+        return "The following packages, groups and modules don't exist: " \
+               "{}".format(", ".join(self.missing_specs))
+
 
 def _failure_limbo():
     progressQ.send_quit(1)
