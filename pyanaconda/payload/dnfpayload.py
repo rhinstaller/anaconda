@@ -91,18 +91,6 @@ USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 # 6KiB = 4K(max default fragment size) + 2K(rpm db could be taken for a header file)
 BONUS_SIZE_ON_FILE = Size("6 KiB")
 
-class InstallSpecsMissing(Exception):
-    """Raised is some of the requested install specs seems to be missing from the repos."""
-    def __init__(self, missing_specs):
-        super().__init__()
-        self.missing_specs = missing_specs
-        self.missing_packages = []
-        self.missing_groups_and_modules=[]
-        for spec in missing_specs:
-            if spec.startswith("@"):
-                self.missing_groups_and_modules.append(spec)
-            else:
-                self.missing_packages.append(spec)
 
 def _failure_limbo():
     progressQ.send_quit(1)
@@ -466,7 +454,8 @@ class DNFPayload(payload.PackagePayload):
                 module_spec = module.name
             log.debug("enabling module: %s", module_spec)
             try:
-                self._base.enable_module([module_spec])
+                module_base = dnf.module.module_base.ModuleBase(self._base)
+                module_base.enable([module_spec])
             except dnf.module.exceptions.NoModuleException as e:
                 self._payload_setup_error(e)
 
@@ -566,13 +555,23 @@ class DNFPayload(payload.PackagePayload):
         # feed it to DNF
         try:
             # install_specs() returns a list of specs that appear to be missing
-            missing_specs = self._base.install_specs(install=include_list, exclude=exclude_list)
-            if missing_specs:
-                if self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                    log.info("ignoring missing package/group/module specs due to --ingoremissing flag in kickstart: %s", missing_specs)
-                else:
-                    log.debug("install_specs() reports that some specs are missing: %s", missing_specs)
-                    raise InstallSpecsMissing(missing_specs)
+            self._base.install_specs(install=include_list, exclude=exclude_list)
+        except dnf.exceptions.MarkingErrors as e:
+            log.debug("install_specs(): some packages, groups or modules are missing or broken")
+            if e.no_match_pkg_specs:
+                log.debug("install_specs(): missing packages: %s", e.no_match_pkg_specs)
+            if e.no_match_group_specs:
+                log.debug("install_specs(): missing groups or modules: %s", e.no_match_group_specs)
+            if e.error_pkg_specs:
+                log.debug("install_specs(): broken packages: %s", e.error_pkg_specs)
+            if e.error_group_specs:
+                log.debug("install_specs(): broken groups or modules: %s", e.error_group_specs)
+
+            # if no errors were reported and --ignoremissing was used we can continue
+            if not e.error_group_specs and not e.error_pkg_specs and self.data.packages.handleMissing == KS_MISSING_IGNORE:
+                log.info("ignoring missing package/group/module specs due to --ingoremissing flag in kickstart")
+            else:
+                self._payload_setup_error(e)
         except Exception as e:  # pylint: disable=broad-except
             self._payload_setup_error(e)
 
