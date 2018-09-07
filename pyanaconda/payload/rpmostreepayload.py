@@ -319,7 +319,8 @@ class RPMOSTreePayload(ArchivePayload):
         # to do the default ostree one.
         # https://github.com/ostreedev/ostree/issues/855
         varroot = '/ostree/deploy/' + ostreesetup.osname + '/var'
-        if storage.mountpoints.get("/var") is None:
+        if storage.mountpoints.get("/var") is None \
+           and storage.mountpoints.get("/var/") is None:
             self._setupInternalBindmount(varroot, dest='/var', recurse=False)
         else:
             # Otherwise, bind it
