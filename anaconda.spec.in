@@ -349,6 +349,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 07 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.11-1
+- DNF 3.5 compatibility (mkolman)
+  Related: rhbz#1613296
+- Don't try to get hostnamed proxy in non-installer-image environments
+  (rvykydal)
+  Resolves: rhbz#1622917
+
 * Fri Aug 24 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.10-1
 - Revert "Don't allow booting from nvdimm devices" (rvykydal)
   Resolves: rhbz#1620566
