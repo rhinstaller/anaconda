@@ -298,7 +298,7 @@ def initExceptionHandling(anaconda):
                   localSkipList=["passphrase", "password", "_oldweak", "_password", "try_passphrase"],
                   fileList=file_list)
 
-    conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
+    conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=False)
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
 
