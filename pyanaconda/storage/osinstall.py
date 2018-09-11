@@ -115,7 +115,6 @@ def update_blivet_flags(blivet_flags, anaconda_flags):  # pylint: disable=redefi
     :param anaconda_flags: anaconda flags
     :type anaconda_flags: :class:`pyanaconda.flags.Flags`
     """
-    blivet_flags.testing = anaconda_flags.testing
     blivet_flags.automated_install = anaconda_flags.automatedInstall
     blivet_flags.live_install = anaconda_flags.livecdInstall
     blivet_flags.image_install = anaconda_flags.imageInstall
@@ -1199,7 +1198,7 @@ class InstallerStorage(Blivet):
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
 
-        self.autopart_luks_version = None
+        self._autopart_luks_version = None
         self.autopart_pbkdf_args = None
 
     def copy(self):
@@ -1358,6 +1357,21 @@ class InstallerStorage(Blivet):
         log.debug("trying to set new default luks version to '%s'", version)
         self._check_valid_luks_version(version)
         self._default_luks_version = version
+
+    @property
+    def autopart_luks_version(self):
+        """The autopart LUKS version."""
+        return self._autopart_luks_version or self._default_luks_version
+
+    @autopart_luks_version.setter
+    def autopart_luks_version(self, version):
+        """Set the autopart LUKS version.
+
+        :param version: a string with LUKS version
+        :raises: ValueError on invalid input
+        """
+        self._check_valid_luks_version(version)
+        self._autopart_luks_version = version
 
     def _check_valid_luks_version(self, version):
         get_format("luks", luks_version=version)

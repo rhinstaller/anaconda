@@ -262,7 +262,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 def initExceptionHandling(anaconda):
     file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
-                 "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
+                 "/tmp/hawkey.log",
                  "/tmp/lvm.log", util.getSysroot() + "/root/install.log",
                  "/proc/cmdline", "/root/lorax-packages.log",
                  "/tmp/blivet-gui-utils.log", "/tmp/dbus.log"]
@@ -298,7 +298,7 @@ def initExceptionHandling(anaconda):
                   localSkipList=["passphrase", "password", "_oldweak", "_password", "try_passphrase"],
                   fileList=file_list)
 
-    conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
+    conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=False)
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
 
