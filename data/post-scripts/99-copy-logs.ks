@@ -10,7 +10,7 @@ if [ -e ${NOSAVE_LOGS_FILE} ]; then
     rm -f ${NOSAVE_LOGS_FILE}
 else
     mkdir -p $ANA_INSTALL_PATH/var/log/anaconda
-    for log in anaconda.log syslog X.log program.log packaging.log storage.log ifcfg.log lvm.log dnf.librepo.log hawkey.log dbus.log; do
+    for log in anaconda.log syslog X.log program.log packaging.log storage.log ifcfg.log lvm.log hawkey.log dbus.log; do
         [ -e /tmp/$log ] && cp /tmp/$log $ANA_INSTALL_PATH/var/log/anaconda/
     done
     [ -e /tmp/pre-anaconda-logs ] && cp -r $PRE_ANA_LOGS $ANA_INSTALL_PATH/var/log/anaconda
