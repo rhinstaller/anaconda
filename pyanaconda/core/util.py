@@ -42,7 +42,6 @@ import requests
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
-from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
                                       UNSUPPORTED_HW, IPMI_ABORTED, X_TIMEOUT
@@ -366,11 +365,6 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
         :param binary_output: whether to treat the output of command as binary data
         :return: The return code of the command
     """
-    if flags.testing:
-        log.info("not running command because we're testing: %s %s",
-                 command, " ".join(argv))
-        return 0
-
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
                         log_output=log_output, binary_output=binary_output)[0]
@@ -387,11 +381,6 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
         :param filter_stderr: Whether stderr should be excluded from the returned output
         :return: The output of the command
     """
-    if flags.testing:
-        log.info("not running command because we're testing: %s %s",
-                 command, " ".join(argv))
-        return ""
-
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr)[1]
@@ -409,11 +398,6 @@ def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False,
         :param filter_stderr: Whether stderr should be excluded from the returned output
         :return: The output of the command
     """
-    if flags.testing:
-        log.info("not running command because we're testing: %s %s",
-                 command, " ".join(argv))
-        return ""
-
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr, binary_output=True)[1]
