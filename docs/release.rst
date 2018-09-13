@@ -293,17 +293,22 @@ First checkout the ``f<version>-release`` branch and merge ``f<version>-devel`` 
     git merge --no-ff f<version>-devel
 
 
-Then correct pykickstart version for the new Fedora release by changing all occurrences of:
+Then correct pykickstart version for the new Fedora release by changing all occurrences of
+the DEVEL constant imported from pykickstart for the F<version> constant, for example:
 
 ::
 
-    returnClassForVersion()
+    from pykickstart.version import DEVEL as VERSION
 
 to
 
 ::
 
-    returnClassForVersion(version=F<new version>)
+    from pykickstart.version import F29 as VERSION
+
+
+Pykickstart generally does not do per Fedora version branches, so this needs to be done
+in the Fedora version specific branch on Anaconda side.
 
 Commit the result. The commit will become one of the few exclusive release branch commits,
 as we can't let it be merged back to master via the devel branch for obvious reasons.
@@ -311,6 +316,7 @@ as we can't let it be merged back to master via the devel branch for obvious rea
 Next add the third (release) version number:
 
 ::
+
     ./scripts/makebumpver --skip-zanata -c --add-version-number
 
 If everything looks fine (changelog, the version number & tag) push the changes to the origin:
