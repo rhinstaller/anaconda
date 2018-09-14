@@ -225,6 +225,11 @@ class NewWorldPPC(PPC):
         return ret
 
 
+class PowerNV(PPC):
+    _boot_descriptions = {"partition": Platform._boot_partition_description}
+    _boot_stage1_missing_error = N_("You must include at least one disk as an install target.")
+
+
 class PS3(PPC):
     pass
 
@@ -268,6 +273,8 @@ def get_platform():
             return NewWorldPPC()
         elif ppc_machine in ["iSeries", "pSeries"]:
             return IPSeriesPPC()
+        elif ppc_machine == "PowerNV":
+            return PowerNV()
         elif ppc_machine == "PS3":
             return PS3()
         else:
