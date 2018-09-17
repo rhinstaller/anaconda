@@ -61,6 +61,8 @@ INSTALL_TREE = MOUNT_DIR + "/source"
 BASE_REPO_NAME = "anaconda"
 ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 ANACONDA_DATA_DIR = "/usr/share/anaconda"
+ANACONDA_CONFIG_DIR = "/etc/anaconda/"
+ANACONDA_CONFIG_TMP = "/run/anaconda/anaconda.conf"
 
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
