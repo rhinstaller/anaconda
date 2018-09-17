@@ -18,6 +18,8 @@
 #
 
 import selinux
+
+from pykickstart.constants import SELINUX_DISABLED
 from pyanaconda.core.constants import SELINUX_DEFAULT, ANACONDA_ENVIRON
 from pyanaconda.core.kernel import KernelArguments
 
@@ -34,14 +36,7 @@ class Flags(object):
         else:
             self.__dict__[attr] = val
 
-    def get(self, attr, val=None):
-        return getattr(self, attr, val)
-
-    def set_cmdline_bool(self, flag):
-        if flag in self.cmdline:
-            setattr(self, flag, self.cmdline.getbool(flag))
-
-    def __init__(self, read_cmdline=True):
+    def __init__(self):
         self.__dict__['_in_init'] = True
         self.livecdInstall = False
         self.ibft = True
@@ -50,7 +45,12 @@ class Flags(object):
         self.vncquestion = True
         self.mpath = True
         self.dmraid = True
+
         self.selinux = SELINUX_DEFAULT
+
+        if not selinux.is_selinux_enabled():
+            self.selinux = SELINUX_DISABLED
+
         self.debug = False
         self.armPlatform = None
         self.preexisting_x11 = False
@@ -68,7 +68,6 @@ class Flags(object):
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         self.rescue_mode = False
-        self.noefi = False
         self.kexec = False
         # nosave options
         self.nosave_input_ks = False
@@ -84,16 +83,6 @@ class Flags(object):
         self.cmdline = KernelArguments.from_defaults()
         # Lock it down: no more creating new flags!
         self.__dict__['_in_init'] = False
-        if read_cmdline:
-            self.read_cmdline()
-
-    def read_cmdline(self):
-        for f in ("selinux", "debug", "leavebootorder", "testing", "extlinux",
-                  "nombr", "gpt", "noefi"):
-            self.set_cmdline_bool(f)
-
-        if not selinux.is_selinux_enabled():
-            self.selinux = 0
 
 
 def can_touch_runtime_system(msg, touch_live=False):
