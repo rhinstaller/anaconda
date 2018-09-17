@@ -60,7 +60,6 @@ import dnf.transaction
 import libdnf.conf
 import dnf.conf.substitutions
 import rpm
-import librepo
 
 from dnf.const import GROUP_PACKAGE_TYPES
 
@@ -702,7 +701,8 @@ class DNFPayload(payload.PackagePayload):
             conf.install_weak_deps = False
 
         # Setup librepo logging
-        librepo.log_set_file(DNF_LIBREPO_LOG)
+        libdnf.repo.LibrepoLog.removeAllHandlers()
+        libdnf.repo.LibrepoLog.addHandler(DNF_LIBREPO_LOG)
 
         # Increase dnf log level to custom DDEBUG level
         # Do this here to prevent import side-effects in anaconda_logging
