@@ -349,6 +349,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 17 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.12-1
+- Don't connect to signals of the Network Manager DBus objects
+  (vponcova)
+  Resolves: rhbz#1582233
+- Fix librepo logging with new DNF (jkonecny)
+  Resolves: rhbz#1626609
+
 * Fri Sep 07 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.11-1
 - DNF 3.5 compatibility (mkolman)
   Related: rhbz#1613296
