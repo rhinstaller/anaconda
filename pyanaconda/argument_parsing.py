@@ -513,6 +513,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("nompath"))
     ap.add_argument("--mpath", action="store_true", help=help_parser.help_text("mpath"))
 
+    ap.add_argument("--gpt", action="store_true", default=False, help=help_parser.help_text("gpt"))
+
     ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
                     help=help_parser.help_text("nodmraid"))
     ap.add_argument("--dmraid", action="store_true", help=help_parser.help_text("dmraid"))
