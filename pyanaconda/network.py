@@ -52,6 +52,7 @@ log = get_module_logger(__name__)
 
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
+prefixdevnameDir = "/etc/systemd/network"
 networkConfFile = "%s/network" % (sysconfigDir)
 hostnameFile = "/etc/hostname"
 ipv6ConfFile = "/etc/sysctl.d/anaconda.conf"
@@ -1228,6 +1229,13 @@ def copyIfcfgFiles(destPath):
             srcfile = os.path.join(netscriptsDir, cfgFile)
             copyFileToPath(srcfile, destPath)
 
+def copyPrefixdevnameFiles(destPath):
+    files = os.listdir(prefixdevnameDir)
+    for cfgFile in files:
+        if cfgFile.startswith("71-net-ifnames-prefix-"):
+            srcfile = os.path.join(prefixdevnameDir, cfgFile)
+            copyFileToPath(srcfile, destPath)
+
 # /etc/dhcp/dhclient-DEVICE.conf
 # TODORV: do we really don't want overwrite on live cd?
 def copyDhclientConfFiles(destPath):
@@ -1370,6 +1378,8 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     disable_ipv6_on_target_system(rootpath)
     copyIfcfgFiles(rootpath)
     copyDhclientConfFiles(rootpath)
+    if is_using_persistent_device_names():
+        copyPrefixdevnameFiles(rootpath)
     copyFileToPath("/etc/resolv.conf", rootpath, overwrite=overwrite)
     instClass.setNetworkOnbootDefault(ksdata)
     autostartFCoEDevices(rootpath, storage, ksdata)
