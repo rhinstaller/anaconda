@@ -1828,6 +1828,9 @@ def update_onboot_value(devname, value, ksdata=None, root_path=None):
 def is_using_team_device():
     return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
 
+def is_using_persistent_device_names():
+    return 'net.ifnames.prefix' in flags.cmdline
+
 def is_libvirt_device(iface):
     return iface.startswith("virbr")
 
