@@ -1352,7 +1352,9 @@ class Network(COMMANDS.Network):
 
     def setup(self):
         if network.is_using_team_device():
-            self.packages = ["teamd"]
+            self.packages.append("teamd")
+        if network.is_using_persistent_device_names():
+            self.packages.append("prefixdevname")
 
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, util.getSysroot())
