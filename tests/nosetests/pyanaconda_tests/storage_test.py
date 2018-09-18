@@ -3,7 +3,6 @@ import unittest
 from unittest.mock import patch
 
 from blivet import util
-from blivet.flags import flags
 from blivet.size import Size
 
 from pyanaconda.storage.osinstall import InstallerStorage, storage_initialize
@@ -35,8 +34,6 @@ class setupDiskImagesNonZeroSizeTestCase(unittest.TestCase):
         # at this point the DMLinearDevice has correct size
         self.storage.setup_disk_images()
 
-        # emulates setting the anaconda flags which later update
-        flags.image_install = True
         # no kickstart available
         ksdata = kickstart.AnacondaKSHandler([])
         # anaconda calls storage_initialize regardless of whether or not
@@ -52,8 +49,6 @@ class setupDiskImagesNonZeroSizeTestCase(unittest.TestCase):
         for fn in self.storage.disk_images.values():
             if os.path.exists(fn):
                 os.unlink(fn)
-
-        flags.image_install = False
 
     def runTest(self):
         disk = self.storage.disks[0]
