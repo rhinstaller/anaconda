@@ -349,6 +349,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 18 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.13-1
+- prefixdevname: fix a typo in filename (rvykydal)
+  Related: rhbz#1615997
+- prefixdevname: pass persistent configuration to installed system (rvykydal)
+  Resolves: rhbz#1615997
+- prefixdevname: pass net.ifnames.prefix option to installed system (rvykydal)
+  Resolves: rhbz#1615997
+- prefixdevname: install package to target system if needed (rvykydal)
+  Resolves: rhbz#1615997
+- prefixdevname: import state from initramfs to stage 2 (rvykydal)
+  Resolves: rhbz#1615997
+
 * Mon Sep 17 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.12-1
 - Don't connect to signals of the Network Manager DBus objects
   (vponcova)
