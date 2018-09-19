@@ -45,7 +45,8 @@ from requests_ftp import FTPAdapter
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
-                                      UNSUPPORTED_HW, IPMI_ABORTED, X_TIMEOUT
+    IPMI_ABORTED, X_TIMEOUT, TAINT_HARDWARE_UNSUPPORTED, TAINT_SUPPORT_REMOVED, \
+    WARNING_HARDWARE_UNSUPPORTED, WARNING_SUPPORT_REMOVED
 from pyanaconda.core.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
 from pyanaconda.core.regexes import URL_PARSE
 from pyanaconda.errors import RemovedModuleError, ExitError
@@ -959,21 +960,72 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
                                                           from_gid_only))
 
 
-def is_unsupported_hw():
-    """ Check to see if the hardware is supported or not.
+def get_kernel_taint(flag):
+    """Get a value of a kernel taint.
 
-        :returns:   ``True`` if this is unsupported hardware, ``False`` otherwise
-        :rtype:     bool
+    :param flag: a kernel taint flag
+    :return: False if the value of taint is 0, otherwise True
     """
     try:
         tainted = int(open("/proc/sys/kernel/tainted").read())
     except (IOError, ValueError):
         tainted = 0
 
-    status = bool(tainted & UNSUPPORTED_HW)
-    if status:
-        log.debug("Installing on Unsupported Hardware")
-    return status
+    return bool(tainted & (1 << flag))
+
+
+def find_hardware_with_removed_support():
+    """Find hardware with removed support.
+
+    :return: a list of hardware specifications
+    """
+    pattern = "Warning: (.*) - Support for this device has been removed in this major release."
+    hardware = []
+
+    for line in execReadlines("journalctl", ["-b", "-k", "-g", pattern, "-o", "cat"]):
+        matched = re.match(pattern, line)
+
+        if matched:
+            hardware.append(matched.group(1))
+
+    return hardware
+
+
+def detect_unsupported_hardware(install_class):
+    """Detect unsupported hardware.
+
+    :param install_class: an install class
+    :return: a list of warnings
+    """
+    warnings = []
+
+    if flags.automatedInstall or flags.dirInstall or flags.imageInstall:
+        log.info("Skipping detection of unsupported hardware.")
+        return []
+
+    # Check TAINT_HARDWARE_UNSUPPORTED
+    if not install_class.detect_unsupported_hardware:
+        log.debug("Skipping detection of TAINT_HARDWARE_UNSUPPORTED.")
+    elif get_kernel_taint(TAINT_HARDWARE_UNSUPPORTED):
+        warnings.append(WARNING_HARDWARE_UNSUPPORTED)
+
+    # Check TAINT_SUPPORT_REMOVED
+    if not install_class.detect_support_removed:
+        log.debug("Skipping detection of TAINT_SUPPORT_REMOVED.")
+    elif get_kernel_taint(TAINT_SUPPORT_REMOVED):
+        warning = WARNING_SUPPORT_REMOVED
+        hardware = find_hardware_with_removed_support()
+
+        if hardware:
+            warning += "\n\n" + "\n".join(hardware)
+
+        warnings.append(warning)
+
+    # Log all warnings.
+    for msg in warnings:
+        log.warning(msg)
+
+    return warnings
 
 
 def ensure_str(str_or_bytes, keep_none=True):
