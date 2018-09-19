@@ -94,10 +94,6 @@ def exitHandler(rebootData, storage, payload, exitCode=None):
             for cdrom in storage.devicetree.getDevicesByType("cdrom"):
                 if iutil.get_mount_paths(cdrom.path):
                     iutil.dracut_eject(cdrom.path)
-                else:
-                    # it's possible the cdrom is not mounted, e.g. if a user
-                    # boots from DVD, but does not install from it (#1499792)
-                    iutil.dracut_eject(cdrom.path)
 
         if flags.kexec:
             iutil.execWithRedirect("systemctl", ["--no-wall", "kexec"])
