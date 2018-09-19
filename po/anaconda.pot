@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.144\n"
+"Project-Id-Version: anaconda 21.48.22.145\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2018-08-28 13:40+0200\n"
+"POT-Creation-Date: 2018-09-19 14:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1651,7 +1651,7 @@ msgstr ""
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:617 anaconda:542
+#: pyanaconda/ui/tui/simpleline/base.py:617 anaconda:538
 msgid "Press ENTER to continue"
 msgstr ""
 
@@ -5904,14 +5904,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:494
+#: anaconda:490
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:496
+#: anaconda:492
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5919,17 +5919,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:499
+#: anaconda:495
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:501
+#: anaconda:497
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:502
+#: anaconda:498
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5938,35 +5938,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:505
+#: anaconda:501
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:541
+#: anaconda:537
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda:668
+#: anaconda:664
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:676
+#: anaconda:672
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:684
+#: anaconda:680
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:780
+#: anaconda:776
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:782
+#: anaconda:778
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
