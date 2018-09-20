@@ -166,6 +166,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/common/task/Makefile
                  pyanaconda/modules/common/errors/Makefile
                  pyanaconda/modules/common/constants/Makefile
+                 pyanaconda/modules/common/structures/Makefile
                  pyanaconda/modules/boss/Makefile
                  pyanaconda/modules/boss/install_manager/Makefile
                  pyanaconda/modules/boss/kickstart_manager/Makefile

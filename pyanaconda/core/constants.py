@@ -311,11 +311,6 @@ class PayloadRequirementType(Enum):
 # Timeout for starting X
 X_TIMEOUT = 60
 
-# Realm
-REALM_NAME = "name"
-REALM_DISCOVER = "discover"
-REALM_JOIN = "join"
-
 # Setup on boot actions.
 SETUP_ON_BOOT_DEFAULT = -1
 SETUP_ON_BOOT_DISABLED = 0
