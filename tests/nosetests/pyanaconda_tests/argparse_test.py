@@ -18,9 +18,10 @@
 #
 
 from pyanaconda import argument_parsing
-from pyanaconda.flags import BootArgs
+from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.core.constants import DisplayModes
 import unittest
+
 
 class ArgparseTest(unittest.TestCase):
     def _parseCmdline(self, argv, version="", boot_cmdline=None):
@@ -50,7 +51,8 @@ class ArgparseTest(unittest.TestCase):
         self.assertFalse(opts.noninteractive)
 
         # console=whatever in the boot args defaults to --text
-        opts, _deprecated = self._parseCmdline([], boot_cmdline=BootArgs("console=/dev/ttyS0"))
+        boot_cmdline = KernelArguments.from_string("console=/dev/ttyS0")
+        opts, _deprecated = self._parseCmdline([], boot_cmdline=boot_cmdline)
         self.assertEqual(opts.display_mode, DisplayModes.TUI)
 
     def selinux_test(self):

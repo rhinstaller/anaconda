@@ -210,6 +210,13 @@ TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
 SCREENSHOTS_DIRECTORY = "/tmp/anaconda-screenshots"
 SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
 
+CMDLINE_FILES = [
+    "/proc/cmdline",
+    "/run/install/cmdline",
+    "/run/install/cmdline.d/*.conf",
+    "/etc/cmdline"
+]
+
 # cmdline arguments that append instead of overwrite
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 CMDLINE_LIST = ["addrepo"]
