@@ -26,8 +26,6 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_MD5' member$"),
                                 FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_SHA256' member$"),
                                 FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_SHA512' member$"),
-                                FalsePositive(r"^E1120.*: No value for argument 'self' in function call$"),
-                                FalsePositive(r"^E1120.*: No value for argument 'self' in unbound method call$"),
 
                                 # TODO: BlockDev introspection needs to be added to pylint to handle these
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
