@@ -79,7 +79,7 @@ def enable_installer_mode():
 
     # We don't want image installs writing backups of the *image* metadata
     # into the *host's* /etc/lvm. This can get real messy on build systems.
-    if blivet_flags.image_install:
+    if flags.imageInstall:
         blivet_flags.lvm_metadata_backup = False
 
     blivet_flags.auto_dev_updates = True
@@ -115,10 +115,6 @@ def update_blivet_flags(blivet_flags, anaconda_flags):  # pylint: disable=redefi
     :param anaconda_flags: anaconda flags
     :type anaconda_flags: :class:`pyanaconda.flags.Flags`
     """
-    blivet_flags.automated_install = anaconda_flags.automatedInstall
-    blivet_flags.live_install = anaconda_flags.livecdInstall
-    blivet_flags.image_install = anaconda_flags.imageInstall
-
     blivet_flags.selinux = anaconda_flags.selinux
 
     blivet_flags.arm_platform = anaconda_flags.armPlatform
