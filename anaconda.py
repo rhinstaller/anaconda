@@ -515,6 +515,13 @@ if __name__ == "__main__":
 
     anaconda.ksdata = ksdata
 
+    # setup network module mode depending on anaconda runtime environment
+    if not can_touch_runtime_system("setup network module mode"):
+        from pyanaconda.modules.common.constants.services import NETWORK
+        network_proxy = NETWORK.get_proxy()
+        network_proxy.DontTouchRuntimeSystem()
+        log.debug("Network module set up to not touch runtime system")
+
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
 
