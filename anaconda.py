@@ -446,6 +446,8 @@ if __name__ == "__main__":
     flags.eject = opts.eject
     flags.kexec = opts.kexec
     flags.singlelang = opts.singlelang
+    flags.gpt = opts.gpt
+    flags.leavebootorder = opts.leavebootorder
 
     if opts.liveinst:
         startup_utils.live_startup(anaconda)
