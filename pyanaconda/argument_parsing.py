@@ -214,12 +214,10 @@ class AnacondaArgumentParser(ArgumentParser):
                 # we hate you.
 
                 continue
-            elif option.nargs in ("*", "?", "+"):
-                # store multiple values under one key
-                # parsing of these values to list is done in BootArgs object
-                if type(val) is list:
-                    setattr(namespace, option.dest, val)
-                    continue
+            elif type(val) is list:
+                for item in val:
+                    option(self, namespace, item)
+                continue
 
             option(self, namespace, val)
         return namespace
