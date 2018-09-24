@@ -350,6 +350,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 24 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.15-1
+- Add system purpose support (mkolman)
+  Resolves: rhbz#1612060
+
 * Wed Sep 19 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.14-1
 - Update the spoke for unsupported hardware in TUI (#1601545) (vponcova)
   Resolves: rhbz#1601545
