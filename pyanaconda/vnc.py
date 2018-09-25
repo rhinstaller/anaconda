@@ -82,21 +82,24 @@ class VncServer(object):
 
     def setVNCPassword(self):
         """Set the vnc server password. Output to file. """
-
-        r, w = os.pipe()
         password_string = "%s\n" % self.password
-        os.write(w, password_string.encode("utf-8"))
+
+        # the -f option makes sure vncpasswd does not ask for the password again
+        proc = util.startProgram(
+            ["vncpasswd", "-f"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+
+        out, err = proc.communicate(password_string.encode("utf-8"))
+
+        if proc.returncode != 0:
+            log.error("vncpasswd has failed with %d: %s", proc.returncode, err.decode("utf-8"))
+            raise OSError("Unable to set the VNC password.")
 
         with open(self.pw_file, "wb") as pw_file:
-            # the -f option makes sure vncpasswd does not ask for the password again
-            rc = util.execWithRedirect("vncpasswd", ["-f"],
-                                       stdin=r, stdout=pw_file,
-                                       binary_output=True, log_output=False)
-
-            os.close(r)
-            os.close(w)
-
-        return rc
+            pw_file.write(out)
 
     def initialize(self):
         """Here is were all the relative vars get initialized. """
