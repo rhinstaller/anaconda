@@ -108,7 +108,14 @@ class BaseInstallClass(object):
     # in the UI.
     mirrors_available = True
 
+    # Is the partitioning with blivet-gui supported?
     blivet_gui_supported = True
+
+    # Should the installer show a warning about unsupported hardware?
+    detect_unsupported_hardware = False
+
+    # Should the installer show a warning about removed support for hardware?
+    detect_support_removed = False
 
     @property
     def l10n_domain(self):

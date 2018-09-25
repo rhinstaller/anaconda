@@ -1,4 +1,3 @@
-# Ask vnc text spoke
 #
 # Copyright (C) 2013  Red Hat, Inc.
 #
@@ -16,56 +15,38 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from simpleline.render.widgets import TextWidget
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import N_
+from pyanaconda.core.util import detect_unsupported_hardware
 
-from pyanaconda.core.util import is_unsupported_hw
-from pyanaconda.product import productName
-
-from simpleline.render.widgets import TextWidget
-
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
-__all__ = ["WarningsSpoke"]
+__all__ = ["UnsupportedHardwareSpoke"]
 
 
-class WarningsSpoke(StandaloneTUISpoke):
-    """
-       .. inheritance-diagram:: WarningsSpoke
-          :parts: 3
+class UnsupportedHardwareSpoke(StandaloneTUISpoke):
+    """Spoke for warnings about unsupported hardware.
+
+    Show this spoke if the unsupported hardware was detected.
     """
     preForHub = SummaryHub
     priority = 0
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title = N_("Warnings")
-        self.initialize_start()
-
-        self._message = _("This hardware (or a combination thereof) is not "
-                          "supported by Red Hat.  For more information on "
-                          "supported hardware, please refer to "
-                          "http://www.redhat.com/hardware.")
-        # Does anything need to be displayed?
-        # pylint: disable=no-member
-        self._unsupported = productName.startswith("Red Hat ") and \
-                            is_unsupported_hw() and \
-                            not self.data.unsupportedhardware.unsupported_hardware
-
-        self.initialize_done()
+        self.title = N_("Unsupported Hardware Detected")
+        self._warnings = detect_unsupported_hardware(self.instclass)
 
     @property
     def completed(self):
-        return not self._unsupported
+        return not self._warnings
 
     def refresh(self, args=None):
         super().refresh(args)
 
-        self.window.add_with_separator(TextWidget(self._message))
+        for warning in self._warnings:
+            self.window.add_with_separator(TextWidget(warning))
 
-    # Override Spoke.apply
     def apply(self):
         pass
