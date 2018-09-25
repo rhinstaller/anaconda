@@ -22,7 +22,7 @@ from pyanaconda.core import util
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_, C_
+from pyanaconda.core.i18n import _, N_
 from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -179,10 +179,7 @@ class Rescue(object):
         self.mount = False
         self.ro = False
 
-        self._roots = None
-        self._selected_root = 1
         self._luks_devices_states = None
-
         self.status = RescueModeStatus.NOT_SET
 
         if rescue_data:
@@ -194,38 +191,21 @@ class Rescue(object):
         threadMgr.wait(THREAD_STORAGE)
         create_etc_symlinks()
 
-    @property
-    def roots(self):
+    def find_roots(self):
         """List of found roots."""
-        if self._roots is None:
-            self._roots = find_existing_installations(self._storage.devicetree)
-            if not self._roots:
-                self.status = RescueModeStatus.ROOT_NOT_FOUND
-        return self._roots
+        roots = find_existing_installations(self._storage.devicetree)
 
-    def get_found_root_infos(self):
-        """List of descriptions of found roots."""
-        roots = [(root.name, root.device.path) for root in self.roots]
+        if not roots:
+            self.status = RescueModeStatus.ROOT_NOT_FOUND
+
         return roots
 
-    @property
-    def root(self):
-        """Selected root."""
-        if self._selected_root <= len(self.roots):
-            return self.roots[self._selected_root-1]
-        else:
-            return None
-
-    def select_root(self, index):
-        """Select root from a list of found roots."""
-        self._selected_root = index
-
     # TODO separate running post scripts?
-    def mount_root(self):
+    def mount_root(self, root):
         """Mounts selected root and runs scripts."""
         # mount root fs
         try:
-            mount_existing_system(self._storage.fsset, self.root.device, read_only=self.ro)
+            mount_existing_system(self._storage.fsset, root.device, read_only=self.ro)
             log.info("System has been mounted under: %s", util.getSysroot())
         except StorageError as e:
             log.error("Mounting system under %s failed: %s", util.getSysroot(), e)
@@ -418,14 +398,22 @@ class RescueModeSpoke(NormalTUISpoke):
     def _mount_root(self):
         # decrypt all luks devices
         self._unlock_devices()
-        found_roots = self._rescue.get_found_root_infos()
-        if len(found_roots) > 1:
+        roots = self._rescue.find_roots()
+
+        if not roots:
+            return
+
+        if len(roots) == 1:
+            root = roots[0]
+        else:
             # have to prompt user for which root to mount
-            root_spoke = RootSelectionSpoke(found_roots)
+            root_spoke = RootSelectionSpoke(roots)
             ScreenHandler.push_screen_modal(root_spoke)
             self.redraw()
-            self._rescue.select_root(root_spoke.selection)
-        self._rescue.mount_root()
+
+            root = root_spoke.selection
+
+        self._rescue.mount_root(root)
 
     def _show_result_and_prompt_for_shell(self):
         new_spoke = RescueStatusAndShellSpoke(self._rescue)
@@ -495,7 +483,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
                 text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\n"
                                     "If you would like to make the root of your system the "
                                     "root of the active system, run the command:\n\n"
-                                    "\tchroot %(mountpoint)s\n")
+                                    "\tchroot %(mountpoint)s\n\n")
                                   % {"mountpoint": util.getSysroot()} + finish_msg)
             elif status == RescueModeStatus.MOUNT_FAILED:
                 if self._rescue.reboot:
@@ -549,7 +537,13 @@ class RootSelectionSpoke(NormalTUISpoke):
         super().__init__(data=None, storage=None, payload=None, instclass=None)
         self.title = N_("Root Selection")
         self._roots = roots
-        self._selection = 0
+        self._selection = roots[0]
+        self._container = None
+
+    @property
+    def selection(self):
+        """The selected root fs to mount."""
+        return self._selection
 
     @property
     def indirect(self):
@@ -557,48 +551,40 @@ class RootSelectionSpoke(NormalTUISpoke):
 
     def refresh(self, args=None):
         super().refresh(args)
+        self._container = ListColumnContainer(1)
 
-        message = _("The following installations were discovered on your system.\n")
+        for root in self._roots:
+            box = CheckboxWidget(
+                title="{} on {}".format(root.name, root.device.path),
+                completed=(self._selection == root)
+            )
+
+            self._container.add(box, self._select_root, root)
+
+        message = _("The following installations were discovered on your system.")
         self.window.add_with_separator(TextWidget(message))
+        self.window.add_with_separator(self._container)
 
-        for i, root_desc in enumerate(self._roots):
-            root_name, root_device_path = root_desc
-            box = CheckboxWidget(title="%i) %s on %s" % (i + 1, _(root_name), root_device_path),
-                                 completed=(self._selection == i))
-            self.window.add_with_separator(box)
+    def _select_root(self, root):
+        self._selection = root
 
     def prompt(self, args=None):
         """ Override the default TUI prompt."""
-        return Prompt(
-                 _("Please make your selection from the above list.\n"
-                   "Press '%(continue)s' to continue after you have made your selection") % {
-                     # TRANSLATORS:'c' to continue
-                     'continue': C_('TUI|Root Selection', 'c'),
-                   })
+        prompt = Prompt()
+        prompt.add_continue_option()
+        return prompt
 
     def input(self, args, key):
-        """Move along home."""
-        try:
-            keyid = int(key) - 1
-        except ValueError:
-            # TRANSLATORS: 'c' to continue
-            if key.lower() == C_('TUI|Spoke Navigation', 'c'):
-                self.apply()
-                return InputState.PROCESSED_AND_CLOSE
-            else:
-                return key
-
-        if 0 <= keyid < len(self._roots):
-            self._selection = keyid
-        return InputState.PROCESSED_AND_REDRAW
-
-    @property
-    def selection(self):
-        """The selected root fs to mount."""
-        return self._selection + 1
+        """Override any input so we can launch rescue mode."""
+        if self._container.process_user_input(key):
+            return InputState.PROCESSED_AND_REDRAW
+        elif key == Prompt.CONTINUE:
+            return InputState.PROCESSED_AND_CLOSE
+        else:
+            return key
 
     def apply(self):
-        """Passing the result via selection property."""
+        """Define the abstract method."""
         pass
 
 
