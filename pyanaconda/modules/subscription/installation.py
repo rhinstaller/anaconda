@@ -15,8 +15,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-import os
-
 from pyanaconda.modules.common.task import Task
 from pyanaconda.modules.subscription import system_purpose
 

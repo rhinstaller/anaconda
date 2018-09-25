@@ -18,11 +18,10 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.subscription.subscription import SubscriptionInterface, SubscriptionModule
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class SubscriptionInterfaceTestCase(unittest.TestCase):
@@ -46,9 +45,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
 
     def default_property_values_test(self):
         """Test the default subscription module values are as expected."""
-        self.assertEqual(self.subscription_interface.Role, None)
-        self.assertEqual(self.subscription_interface.SLA, None)
-        self.assertEqual(self.subscription_interface.Usage, None)
+        self.assertEqual(self.subscription_interface.Role, "")
+        self.assertEqual(self.subscription_interface.SLA, "")
+        self.assertEqual(self.subscription_interface.Usage, "")
         self.assertEqual(self.subscription_interface.Addons, [])
         # check the lists of valid values look reasonably sane:
         # - they are either an empty list
@@ -64,24 +63,25 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
         """Test if setting role from DBUS works correctly."""
         self.subscription_interface.SetRole("FOO ROLE")
         self.assertEqual(self.subscription_interface.Role, "FOO ROLE")
-        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'Role': 'FOO ROLE'}, [])
+        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'Role': 'FOO ROLE', 'IsSystemPurposeSet': True}, [])
 
     def set_sla_test(self):
         """Test if setting SLA from DBUS works correctly."""
         self.subscription_interface.SetSLA("BAR SLA")
         self.assertEqual(self.subscription_interface.SLA, "BAR SLA")
-        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'SLA': 'BAR SLA'}, [])
+        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'SLA': 'BAR SLA', 'IsSystemPurposeSet': True}, [])
 
     def set_usage_test(self):
         """Test if setting usage from DBUS works correctly."""
         self.subscription_interface.SetUsage("BAZ USAGE")
-        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'Usage': 'BAZ USAGE'}, [])
+        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'Usage': 'BAZ USAGE', 'IsSystemPurposeSet': True}, [])
         self.assertEqual(self.subscription_interface.Usage, "BAZ USAGE")
 
     def set_addons_test(self):
         """Test if setting addons from DBUS works correctly."""
         self.subscription_interface.SetAddons(["foo product", "bar feature"])
-        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'Addons': ["foo product", "bar feature"]}, [])
+        self.callback.assert_called_once_with(SUBSCRIPTION.interface_name, {'Addons': ["foo product", "bar feature"],
+                                                                            'IsSystemPurposeSet': True}, [])
         self.assertEqual(self.subscription_interface.Addons, ["foo product", "bar feature"])
 
     def ks_set_role_test(self):
@@ -115,9 +115,9 @@ class SubscriptionInterfaceTestCase(unittest.TestCase):
     def ks_set_nothing_test(self):
         """Test what happens if just the syspurpose command is used."""
         self.subscription_interface.ReadKickstart('syspurpose')
-        self.assertEqual(self.subscription_interface.Role, None)
-        self.assertEqual(self.subscription_interface.SLA, None)
-        self.assertEqual(self.subscription_interface.Usage, None)
+        self.assertEqual(self.subscription_interface.Role, "")
+        self.assertEqual(self.subscription_interface.SLA, "")
+        self.assertEqual(self.subscription_interface.Usage, "")
         self.assertEqual(self.subscription_interface.Addons, [])
 
     def _test_kickstart(self, ks_in, ks_out):
