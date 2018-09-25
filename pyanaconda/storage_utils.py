@@ -309,7 +309,7 @@ def verify_gpt_biosboot(storage, constraints, report_error, report_warning):
         stage1 = storage.bootloader.stage1_device
 
         if arch.is_x86() and not arch.is_efi() and stage1 and stage1.is_disk \
-                and getattr(stage1.format, "labelType", None) == "gpt":
+                and getattr(stage1.format, "label_type", None) == "gpt":
 
             missing = True
             for part in [p for p in storage.partitions if p.disk == stage1]:
