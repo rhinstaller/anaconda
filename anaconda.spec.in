@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 26 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.147-1
+- Pull in new translations (rvykydal)
+  Related: rhbz#1569416
+
 * Wed Sep 19 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.146-1
 - Revert "If someone really wants to eject the cdrom, then do it. (jkonecny)"
   Resolves: rhbz#1618408
