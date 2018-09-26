@@ -61,11 +61,6 @@ USERS_NAMESPACE = (
     "Users"
 )
 
-SUBSCRIPTION_NAMESPACE = (
-    *MODULES_NAMESPACE,
-    "Subscription"
-)
-
 PAYLOAD_NAMESPACE = (
     *MODULES_NAMESPACE,
     "Payload"

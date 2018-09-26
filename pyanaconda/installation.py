@@ -24,7 +24,7 @@ from blivet.devices import BTRFSDevice
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE, SUBSCRIPTION
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
@@ -99,7 +99,6 @@ def doConfiguration(storage, payload, ksdata, instClass):
     os_config.append(Task("Configure language", ksdata.lang.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure firewall", ksdata.firewall.execute, (storage, ksdata, instClass)))
     os_config.append(Task("Configure X", ksdata.xconfig.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure system purpose", ksdata.syspurpose.execute, (storage, ksdata, instClass)))
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
@@ -328,13 +327,6 @@ def doInstall(storage, payload, ksdata, instClass):
         payload.requirements.add_groups(payload.languageGroups(), reason="language groups")
         payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
         payload.preInstall()
-
-        # check if we need the syspurpose package needed for system purpose support
-        subscription_proxy = SUBSCRIPTION.get_proxy()
-        if subscription_proxy.IsSystemPurposeSet:
-            # at least one value has been set, so we need the utility being installed in the target system
-            # chroot so we can call it
-            payload.requirements.add_packages(["python3-syspurpose"], reason="system purpose", strong=False)
 
     pre_install.append(Task("Find additional packages & run preInstall()", run_pre_install))
     installation_queue.append(pre_install)
