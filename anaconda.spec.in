@@ -352,6 +352,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 26 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.16-1
+- Sync spec file (rvykydal)
+  Related: rhbz#1619153
+- Fix python3 requires in spec file (rvykydal)
+  Resolves: rhbz#1619153
+- Revert "Add system purpose support" (rvykydal)
+  Related: rhbz#1619153
+- Add support for GRUB_ENABLE_BLSCFG and inst.noblscfg (pjones)
+  Resolves: rhbz#1615442
+- Get rid of new-kernel-pkg invocations (pjones)
+  Related: rhbz#1615442
+- Minor pylint cleanups (pjones)
+  Related: rhbz#1615442
+
 * Mon Sep 24 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.15-1
 - Add system purpose support (mkolman)
   Resolves: rhbz#1612060
