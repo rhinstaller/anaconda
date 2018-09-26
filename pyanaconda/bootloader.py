@@ -24,7 +24,7 @@ import re
 import blivet
 from parted import PARTITION_BIOS_GRUB
 from glob import glob
-from itertools import chain
+from itertools import chain, zip_longest
 import crypt
 from ordered_set import OrderedSet
 
@@ -35,7 +35,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.fcoe import fcoe
 import pyanaconda.network
-from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
+from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError, FirmwareCompatError
 from pyanaconda.nm import nm_device_hwaddress
 from pyanaconda import platform
 from blivet.size import Size
@@ -97,6 +97,35 @@ def _is_on_ibft(device):
     """Tells whether a given device is ibft disk or not."""
 
     return all(getattr(disk, "ibft", False) for disk in device.disks)
+
+def _get_petitboot_version():
+    """
+    get the version of the petitboot loader that OF expresses as:
+        v1.6.1-pd8c7a0a
+    in the form:
+        ('v1.6.1-pd8c7a0a', (1, 6, 1), 'pd8c7a0a')
+    """
+    path = "/sys/firmware/devicetree/base/ibm,firmware-versions/petitboot"
+    if not os.access(path, os.F_OK):
+        raise FileNotFoundError
+    for line in open(path).readlines():
+        if line.startswith('v'):
+            line = line[1:]
+        (components, digest) = line.split('-')
+        components = [int(x) for x in components.split('.')]
+        return (line, tuple(components), digest)
+
+    return (None, (), None)
+
+def _version_ge(version, goal):
+    """
+    Compare two version tuples and tell you if version is >= goal
+    """
+    for ver0, ver1 in zip_longest(version, goal, fillvalue=0):
+        if ver0 != ver1:
+            return ver0 > ver1
+    return True
+
 
 class BootLoaderError(Exception):
     pass
@@ -183,8 +212,7 @@ class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
     _args = ["intel_iommu=on"]
 
     def __init__(self, device=None, label=None, short=None, version=None):
-        super().__init__(device=device, label=label,
-                                                        short=short, version=version)
+        super().__init__(device=device, label=label, short=short, version=version)
 
     @property
     def multiboot(self):
@@ -827,8 +855,9 @@ class BootLoader(object):
         if usr_device:
             dracut_devices.extend([usr_device])
 
-        netdevs = [d for d in storage.devices if (getattr(d, "complete", True) and
-                   isinstance(d, NetworkStorageDevice))]
+        netdevs = [d for d in storage.devices \
+                   if (getattr(d, "complete", True) and
+                       isinstance(d, NetworkStorageDevice))]
         rootdev = storage.root_device
         if any(rootdev.depends_on(netdev) for netdev in netdevs):
             dracut_devices = set(dracut_devices)
@@ -1535,7 +1564,12 @@ class GRUB2(GRUB):
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
+        if flags.blscfg:
+            defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
+
+    def _test_firmware_compat(self):
+        """ Check that this platform is configured in a compatible way """
 
     def _encrypt_password(self):
         """ Make sure self.encrypted_password is set up properly. """
@@ -1602,7 +1636,8 @@ class GRUB2(GRUB):
         # set boot_success so that the menu is hidden on the boot after install
         if self.menu_auto_hide:
             rc = util.execInSysroot("grub2-editenv",
-                            ["-", "set", "menu_auto_hide=1", "boot_success=1"])
+                                    ["-", "set", "menu_auto_hide=1",
+                                     "boot_success=1"])
             if rc:
                 log.error("failed to set menu_auto_hide=1")
 
@@ -1648,6 +1683,9 @@ class GRUB2(GRUB):
         if self.update_only:
             self.update()
             return
+
+        if flags.blscfg:
+            self._test_firmware_compat()
 
         try:
             self.write_device_map()
@@ -2198,6 +2236,23 @@ class IPSeriesGRUB2(GRUB2):
         defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
 
+    def _test_firmware_compat(self):
+        """ Check that this platform is configured in a compatible way """
+
+        super()._test_firmware_compat()
+        if not os.access("/sys/firmware/opal", os.F_OK):
+            return
+        try:
+            vstr, vtuple, _ = _get_petitboot_version()
+
+        except FileNotFoundError as err:
+            msg = "Could not get OPAL version: %s" % (err,)
+            errorHandler.cb(FirmwareCompatError(msg))
+
+        if not _version_ge(vtuple, (1, 8, 0)):
+            msg = "Incompatible firmware version %s" % (vstr,)
+            errorHandler.cb(FirmwareCompatError(msg))
+
 
 class MacYaboot(Yaboot):
     prog = "mkofboot"
@@ -2249,6 +2304,9 @@ class ZIPL(BootLoader):
         return "/boot"
 
     def write_config_images(self, config):
+        if flags.blscfg:
+            return
+
         for image in self.images:
             if "kdump" in (image.initrd or image.kernel):
                 # no need to create bootloader entries for kdump
@@ -2279,12 +2337,11 @@ class ZIPL(BootLoader):
         header = ("[defaultboot]\n"
                   "defaultauto\n"
                   "prompt=1\n"
-                  "timeout=%(timeout)d\n"
-                  "default=%(default)s\n"
-                  "target=/boot\n"
-                  % {"timeout": self.timeout,
-                     "default": self.image_label(self.default)})
-        config.write(header)
+                  "timeout={}\n"
+                  "target=/boot\n")
+        config.write(header.format(self.timeout))
+        if not flags.blscfg:
+            config.write("default={}\n".format(self.image_label(self.default)))
 
     #
     # installation
