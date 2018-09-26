@@ -53,7 +53,7 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
-    USERS, SERVICES, STORAGE, SUBSCRIPTION, NETWORK
+    USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
     AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.task import sync_run_task
@@ -961,17 +961,6 @@ class Lang(RemovedCommand):
         localization_proxy = LOCALIZATION.get_proxy()
         task_path = localization_proxy.InstallLanguageWithTask(util.getSysroot())
         task_proxy = LOCALIZATION.get_proxy(task_path)
-        sync_run_task(task_proxy)
-
-class Syspurpose(RemovedCommand):
-    def __str__(self):
-        subscription_proxy = SUBSCRIPTION.get_proxy()
-        return subscription_proxy.GenerateKickstart()
-
-    def execute(self, *args, **kwargs):
-        subscription_proxy = SUBSCRIPTION.get_proxy()
-        task_path = subscription_proxy.SetSystemPurposeWithTask(util.getSysroot())
-        task_proxy = SUBSCRIPTION.get_proxy(task_path)
         sync_run_task(task_proxy)
 
 # no overrides needed here
@@ -2568,7 +2557,6 @@ commandMap = {
     "selinux": SELinux,
     "services": Services,
     "sshkey": SshKey,
-    "syspurpose": Syspurpose,
     "skipx": UselessCommand,
     "snapshot": Snapshot,
     "timezone": Timezone,
