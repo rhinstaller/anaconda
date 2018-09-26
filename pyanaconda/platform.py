@@ -156,7 +156,7 @@ class EFI(Platform):
     def set_platform_bootloader_reqs(self):
         ret = super().set_platform_bootloader_reqs()
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi",
-                            size=Size("20MiB"), max_size=Size("200MiB"),
+                            size=Size("200MiB"), max_size=Size("600MiB"),
                             grow=True))
         return ret
 
@@ -173,7 +173,7 @@ class MacEFI(EFI):
     def set_platform_bootloader_reqs(self):
         ret = super().set_platform_bootloader_reqs()
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="macefi",
-                            size=Size("20MiB"), max_size=Size("200MiB"),
+                            size=Size("200MiB"), max_size=Size("600MiB"),
                             grow=True))
         return ret
 
