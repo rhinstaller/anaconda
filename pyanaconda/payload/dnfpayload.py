@@ -670,10 +670,6 @@ class DNFPayload(payload.PackagePayload):
 
         self._base.conf.substitutions.update_from_etc(conf.installroot)
 
-        # NSS won't survive the forking we do to shield out chroot during
-        # transaction, disable it in RPM:
-        conf.tsflags.append('nocrypto')
-
         if self.data.packages.multiLib:
             conf.multilib_policy = "all"
 
