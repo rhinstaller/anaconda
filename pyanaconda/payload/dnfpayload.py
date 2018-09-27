@@ -66,6 +66,7 @@ from dnf.const import GROUP_PACKAGE_TYPES
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
+DNF_LIBREPO_LOG = '/tmp/dnf.librepo.log'
 DOWNLOAD_MPOINTS = {'/tmp',
                     '/',
                     '/var/tmp',
@@ -698,6 +699,10 @@ class DNFPayload(payload.PackagePayload):
         # 2. Installs aren't reproducible due to weak deps. failing silently.
         if self.data.packages.excludeWeakdeps:
             conf.install_weak_deps = False
+
+        # Setup librepo logging
+        libdnf.repo.LibrepoLog.removeAllHandlers()
+        libdnf.repo.LibrepoLog.addHandler(DNF_LIBREPO_LOG)
 
         # Increase dnf log level to custom DDEBUG level
         # Do this here to prevent import side-effects in anaconda_logging
