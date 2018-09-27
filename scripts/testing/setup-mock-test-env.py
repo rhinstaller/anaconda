@@ -351,7 +351,6 @@ if __name__ == "__main__":
     ns = parse_args()
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
-    mock_init_run = False
     success = True
 
     if not any([ns.init, ns.copy, ns.run_tests, ns.install]):
@@ -365,11 +364,8 @@ if __name__ == "__main__":
 
     if ns.init:
         setup_mock(mock_cmd)
-        mock_init_run = True
-        if ns.install:
-            install_packages_to_mock(mock_cmd, ns.install)
 
-    if ns.install and not mock_init_run:
+    if ns.install:
         install_packages_to_mock(mock_cmd, ns.install)
 
     if ns.copy:
