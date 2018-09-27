@@ -855,6 +855,15 @@ class Payload(object):
                                        ["--mkinitrd", "--dracut", "--depmod",
                                         "--update", kernel])
 
+                # if the installation is running in fips mode then make sure
+                # fips is also correctly enabled in the installed system
+                if flags.cmdline.get("fips") == "1":
+                    # We use the --no-bootcfg option as we don't want fips-mode-setup to
+                    # modify the bootloader configuration.
+                    # Anaconda already does everything needed & it would require gruby to
+                    # be available on the system.
+                    util.execInSysroot("fips-mode-setup", ["--enable", "--no-bootcfg"])
+
             else:
                 # hostonly is not sensible for disk image installations
                 # using /dev/disk/by-uuid/ is necessary due to disk image naming
