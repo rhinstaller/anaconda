@@ -20,4 +20,16 @@
 gladedir	= $(datadir)/glade/catalogs
 dist_glade_DATA	= AnacondaWidgets.xml
 
+glade_moduledir = $(libdir)/glade/modules
+glade_module_LTLIBRARIES = libAnacondaWidgets.la
+
+# Create a glade plugin containing the adaptor file that links
+# to the regular libAnacondaWidgets
+libAnacondaWidgets_la_SOURCES = glade-adaptor.c
+libAnacondaWidgets_la_CFLAGS  = $(GLADEUI_CFLAGS) \
+				-I$(top_srcdir)/src
+libAnacondaWidgets_la_LDFLAGS = -module -avoid-version
+libAnacondaWidgets_la_LIBADD  = $(GLADEUI_LIBS) \
+				$(top_builddir)/src/libAnacondaWidgets.la
+
 MAINTAINERCLEANFILES = Makefile.in

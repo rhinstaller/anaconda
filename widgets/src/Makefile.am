@@ -56,12 +56,11 @@ WIDGETSDATA = '"$(datadir)/anaconda"'
 noinst_HEADERS = gettext.h intl.h
 
 lib_LTLIBRARIES = libAnacondaWidgets.la
-libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) $(LIBXKLAVIER_CFLAGS) -Wall -g\
+libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(LIBXKLAVIER_CFLAGS) -Wall -g\
 			       -DWIDGETS_DATADIR=$(WIDGETSDATA)
-libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS) $(LIBXKLAVIER_LIBS)
+libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(LIBXKLAVIER_LIBS)
 libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL) -version-info 4:0:0
-libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
-	  glade-adaptor.c
+libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS)
 
 lib_includedir=$(includedir)/AnacondaWidgets
 lib_include_HEADERS = $(HDRS)
