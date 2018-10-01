@@ -93,8 +93,6 @@ class Platform(object):
     @property
     def packages(self):
         _packages = self._packages
-        if flags.boot_cmdline.get('fips', None) == '1':
-            _packages.append('dracut-fips')
         return _packages
 
     def set_platform_bootloader_reqs(self):
