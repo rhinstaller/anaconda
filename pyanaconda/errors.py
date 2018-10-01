@@ -222,37 +222,17 @@ class ErrorHandler(object):
                 return ERROR_RAISE
 
     def _install_specs_handler(self, exn):
-        missing_packages = exn.no_match_pkg_specs
-        missing_groups_modules = exn.no_match_group_specs
         broken_packages = exn.error_pkg_specs
         broken_groups_modules = exn.error_group_specs
+        module_debsolv_errors = exn.module_debsolv_errors
 
-        message = ""
-
-        # missing packages/groups/modules
-
-        if missing_packages:
-            packages = ", ".join(missing_packages)
-            message = message + _("The following packages are missing:\n%s\n\n") % packages
-
-        if missing_groups_modules:
-            groups_modules = ", ".join(missing_groups_modules)
-            message = message + _("The following groups or modules are missing:\n%s\n\n") % groups_modules
-
-        # broken packages/groups/modules
-
-        if broken_packages:
-            packages = ", ".join(broken_packages)
-            message = message + _("The following packages are broken:\n%s\n\n") % packages
-
-        if broken_groups_modules:
-            groups_modules = ", ".join(broken_groups_modules)
-            message = message + _("The following groups or modules are broken:\n%s\n\n") % groups_modules
+        # We use the nice exception string representation
+        # provided by DNF as the base of our error message.
+        message = "{}\n\n".format(exn)
 
         # if we have at least one broken package, group or module we will abort the installation
-        if broken_packages or broken_groups_modules:
+        if broken_packages or broken_groups_modules or module_debsolv_errors:
             message = message + _("Some packages, groups or modules are broken, the installation will be aborted.")
-
             self.ui.showError(message)
             return ERROR_RAISE
         # "just" missing packages, groups or modules - we give the user an option to continue
