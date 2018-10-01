@@ -353,6 +353,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.17-1
+- Syspurpose related test & pylint fixes (mkolman)
+  Related: rhbz#1612060
+- Add missing folder to Makefile (mkolman)
+  Related: rhbz#1612060
+- Add system purpose support (mkolman)
+  Resolves: rhbz#1612060
+
 * Wed Sep 26 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.16-1
 - Sync spec file (rvykydal)
   Related: rhbz#1619153
