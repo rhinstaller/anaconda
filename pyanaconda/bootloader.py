@@ -2303,35 +2303,68 @@ class ZIPL(BootLoader):
     def boot_dir(self):
         return "/boot"
 
-    def write_config_images(self, config):
-        if flags.blscfg:
+    def write_config_image(self, config, image, args):
+        if image.initrd:
+            initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir, image.initrd)
+        else:
+            initrd_line = ""
+
+        stanza = ("[%(label)s]\n"
+                  "\timage=%(boot_dir)s/%(kernel)s\n"
+                  "%(initrd_line)s"
+                  "\tparameters=\"%(args)s\"\n"
+                  % {"label": self.image_label(image),
+                     "kernel": image.kernel, "initrd_line": initrd_line,
+                     "args": args,
+                     "boot_dir": self.boot_dir})
+        config.write(stanza)
+
+    def update_bls_args(self, image, args):
+        machine_id_path = util.getSysroot() + "/etc/machine-id"
+        if not os.access(machine_id_path, os.R_OK):
+            log.error("failed to read machine-id file")
             return
 
+        with open(machine_id_path, "r") as fd:
+            machine_id = fd.readline().strip()
+
+        bls_dir = "%s%s/loader/entries/" % (util.getSysroot(), self.boot_dir)
+
+        if image.kernel == "vmlinuz-0-rescue-" + machine_id:
+            bls_path = "%s%s-0-rescue.conf" % (bls_dir, machine_id)
+        else:
+            bls_path = "%s%s-%s.conf" % (bls_dir, machine_id, image.version)
+
+        if not os.access(bls_path, os.W_OK):
+            log.error("failed to update boot args in BLS file %s", bls_path)
+            return
+
+        with open(bls_path, "r") as bls:
+            lines = bls.readlines()
+            for i, line in enumerate(lines):
+                if line.startswith("options "):
+                    lines[i] = "options %s\n" % (args)
+
+        with open(bls_path, "w") as bls:
+            bls.writelines(lines)
+
+    def write_config_images(self, config):
         for image in self.images:
             if "kdump" in (image.initrd or image.kernel):
                 # no need to create bootloader entries for kdump
                 continue
 
             args = Arguments()
-            if image.initrd:
-                initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir,
-                                                     image.initrd)
-            else:
-                initrd_line = ""
             args.add("root=%s" % image.device.fstab_spec)
             args.update(self.boot_args)
             if image.device.type == "btrfs subvolume":
                 args.update(["rootflags=subvol=%s" % image.device.name])
             log.info("bootloader.py: used boot args: %s ", args)
-            stanza = ("[%(label)s]\n"
-                      "\timage=%(boot_dir)s/%(kernel)s\n"
-                      "%(initrd_line)s"
-                      "\tparameters=\"%(args)s\"\n"
-                      % {"label": self.image_label(image),
-                         "kernel": image.kernel, "initrd_line": initrd_line,
-                         "args": args,
-                         "boot_dir": self.boot_dir})
-            config.write(stanza)
+
+            if flags.blscfg:
+                self.update_bls_args(image, args)
+            else:
+                self.write_config_image(config, image, args)
 
     def write_config_header(self, config):
         header = ("[defaultboot]\n"
