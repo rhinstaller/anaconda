@@ -62,6 +62,10 @@ def _get_script_dir():
     return os.path.dirname(os.path.realpath(__file__))
 
 
+def _get_dependency_script_path():
+    return _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
+
+
 def _resolve_top_dir():
     script_dir = _get_script_dir()
     # go up two dirs to get top path
@@ -206,7 +210,7 @@ def check_args(namespace):
 
 def get_required_packages():
     """Get required packages for running Anaconda tests."""
-    script = _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
+    script = _get_dependency_script_path()
     cmd = [script]
 
     proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
@@ -216,7 +220,7 @@ def get_required_packages():
 
 def get_required_pip_packages():
     """Get pip packages for running Anaconda tests."""
-    script = _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
+    script = _get_dependency_script_path()
     cmd = [script, "--pip"]
 
     proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
