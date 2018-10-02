@@ -353,6 +353,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 02 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.18-1
+- Update kernel command line parameters in BLS files (javierm)
+  Resolves: rhbz#1635180
+- Drop attempt to add 'nocrypto' to tsflags (#1634791) (awilliam)
+  Resolves: rhbz#1634791
+- Make sure fips is correctly enabled on target system (#1619568) (mkolman)
+  Resolves: rhbz#1619568
+
 * Mon Oct 01 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.17-1
 - Syspurpose related test & pylint fixes (mkolman)
   Related: rhbz#1612060
