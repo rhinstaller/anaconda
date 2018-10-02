@@ -155,6 +155,15 @@ One of these commands must be used. These commands can be combined.
     group.add_argument('--install', '-i', metavar='<packages>', action='store', type=str,
                        dest='install',
                        help="""install additional packages to the mock""")
+    group.add_argument('--install-pip', '-P', metavar='<pip packages>', action='store', type=str,
+                       dest='install_pip', default=None,
+                       help="""
+                       install additional packages from Python Package Index repository to the
+                       mock environment via the pip tool;
+                       there is a default set of pip packages which can be replaced by this
+                       parameter;
+                       set this command with empty string to disable pip completely
+                       """)
 
     group.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
                        help="""
@@ -205,7 +214,7 @@ def get_required_packages():
     return proc_res.stdout.decode('utf-8').strip()
 
 
-def get_pip_packages():
+def get_required_pip_packages():
     """Get pip packages for running Anaconda tests."""
     script = _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
     cmd = [script, "--pip"]
@@ -219,8 +228,10 @@ def install_required_packages(mock_command):
     packages = get_required_packages()
     install_packages_to_mock(mock_command, packages)
 
-    pip_packages = get_pip_packages()
-    install_pip_packages_to_mock(mock_command, pip_packages)
+
+def install_required_pip_packages(mock_command):
+    packages = get_required_pip_packages()
+    install_pip_packages_to_mock(mock_command, packages)
 
 
 def remove_anaconda_in_mock(mock_command):
@@ -353,7 +364,7 @@ if __name__ == "__main__":
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
     success = True
 
-    if not any([ns.init, ns.copy, ns.run_tests, ns.install]):
+    if not any([ns.init, ns.copy, ns.run_tests, ns.install, ns.install_pip]):
         print("You need to specify one of the main commands!", file=sys.stderr)
         print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
         exit(1)
@@ -364,9 +375,14 @@ if __name__ == "__main__":
 
     if ns.init:
         setup_mock(mock_cmd)
+        if ns.install_pip is None:
+            install_required_pip_packages(mock_cmd)
 
     if ns.install:
         install_packages_to_mock(mock_cmd, ns.install)
+
+    if ns.install_pip is not None:
+        install_pip_packages_to_mock(mock_cmd, ns.install_pip)
 
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)
