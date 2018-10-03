@@ -92,7 +92,7 @@ class TUIObject(UIScreen, common.UIObject):
     """Base class for Anaconda specific TUI screens. Implements the
     common pyanaconda.ui.common.UIObject interface"""
 
-    helpFile = None
+    help_id = None
 
     def __init__(self, data):
         UIScreen.__init__(self)
@@ -105,7 +105,9 @@ class TUIObject(UIScreen, common.UIObject):
 
     @property
     def has_help(self):
-        return self.helpFile is not None
+        # Help content for the TUI is not available at the moment,
+        # so don't show the help option in TUI for the time being.
+        return False
 
     def refresh(self, args=None):
         """Put everything to display into self.window list."""

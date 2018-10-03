@@ -34,7 +34,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: PasswordSpoke
           :parts: 3
     """
-    helpFile = "PasswordSpoke.txt"
+    help_id = "RootPasswordSpoke"
     category = UserSettingsCategory
 
     def __init__(self, data, storage, payload, instclass):

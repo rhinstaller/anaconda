@@ -99,10 +99,10 @@ class GUIObject(common.UIObject):
                            that use GUI elements (Hubs & Spokes) from Anaconda
                            can override the translation domain with their own,
                            so that their subclasses are properly translated.
-       helpFile         -- The location of the yelp-compatible help file for the
-                           given GUI object. The default value of "" indicates
+       help_id          -- The id of of the documentation corresponding to the
+                           given GUI object. The default value of None indicates
                            that the object has not specific help file assigned
-                           and the default help file should be used.
+                           and the default help placeholder should be used.
     """
     builderObjects = []
     mainWidgetName = None
@@ -113,7 +113,7 @@ class GUIObject(common.UIObject):
     focusWidgetName = None
 
     uiFile = ""
-    helpFile = None
+    help_id = None
     translationDomain = "anaconda"
 
     handles_autostep = False
@@ -1018,7 +1018,7 @@ class GraphicalUserInterface(UserInterface):
     def _on_help_clicked(self, window, obj):
         # the help button has been clicked, start the yelp viewer with
         # content for the current screen
-        ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
+        ihelp.start_yelp(obj.help_id, self.instclass)
 
     def _on_quit_clicked(self, win, userData=None):
         if not win.get_quit_button():

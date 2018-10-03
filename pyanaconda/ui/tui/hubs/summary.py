@@ -39,7 +39,7 @@ class SummaryHub(TUIHub):
        .. inheritance-diagram:: SummaryHub
           :parts: 3
     """
-    helpFile = "SummaryHub.txt"
+    help_id = "SummaryHub"
 
     def __init__(self, data, storage, payload, instclass):
         super().__init__(data, storage, payload, instclass)

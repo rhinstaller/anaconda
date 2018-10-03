@@ -44,7 +44,7 @@ class SoftwareSpoke(NormalTUISpoke):
        .. inheritance-diagram:: SoftwareSpoke
           :parts: 3
     """
-    helpFile = "SoftwareSpoke.txt"
+    help_id = "SoftwareSelectionSpoke"
     category = SoftwareCategory
 
     def __init__(self, data, storage, payload, instclass):
