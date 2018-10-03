@@ -43,7 +43,6 @@ class CentOSBaseInstallClass(BaseInstallClass):
     efi_dir = "centos"
 
     help_placeholder = "CentOSPlaceholder.html"
-    help_placeholder_with_links = "CentOSPlaceholder.html"
 
     blivet_gui_supported = False
 

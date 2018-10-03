@@ -37,7 +37,6 @@ class ScientificBaseInstallClass(RHELBaseInstallClass):
     installUpdates = True
 
     help_placeholder = "SLPlaceholder.html"
-    help_placeholder_with_links = "SLPlaceholder.html"
 
     def configurePayload(self, payload):  # pylint: disable=line-too-long
         '''
