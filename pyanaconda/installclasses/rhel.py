@@ -54,6 +54,10 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     blivet_gui_supported = False
 
+    detect_unsupported_hardware = True
+
+    detect_support_removed = True
+
     def setNetworkOnbootDefault(self, ksdata):
         if any(nd.onboot for nd in ksdata.network.network if nd.device):
             return

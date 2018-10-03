@@ -22,6 +22,7 @@ import re
 import os
 
 import gi
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
@@ -30,13 +31,14 @@ from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
+from pyanaconda.ui.gui.spokes.lib.unsupported_hardware import UnsupportedHardwareDialog
 
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.core.i18n import _, C_
-from pyanaconda.core.util import is_unsupported_hw, ipmi_abort
+from pyanaconda.core.util import ipmi_abort
 from pyanaconda.core.constants import DEFAULT_LANG, WINDOW_TITLE_TEXT
 from pyanaconda.modules.common.constants.services import TIMEZONE, LOCALIZATION
 
@@ -55,7 +57,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     uiFile = "spokes/welcome.glade"
     helpFile = "WelcomeSpoke.xml"
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
-                      "welcomeWindow", "betaWarnDialog", "unsupportedHardwareDialog"]
+                      "welcomeWindow", "betaWarnDialog"]
 
     preForHub = SummaryHub
     priority = 0
@@ -324,13 +326,13 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
-        # pylint: disable=no-member
-        if productName.startswith("Red Hat ") and \
-          is_unsupported_hw() and not self.data.unsupportedhardware.unsupported_hardware:
-            dlg = self.builder.get_object("unsupportedHardwareDialog")
-            with self.main_window.enlightbox(dlg):
-                rc = dlg.run()
-                dlg.destroy()
+        dialog = UnsupportedHardwareDialog(self.data, self.instclass)
+        if not dialog.supported:
+
+            with self.main_window.enlightbox(dialog.window):
+                dialog.refresh()
+                rc = dialog.run()
+
             if rc != 1:
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)

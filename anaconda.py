@@ -446,6 +446,8 @@ if __name__ == "__main__":
     flags.eject = opts.eject
     flags.kexec = opts.kexec
     flags.singlelang = opts.singlelang
+    flags.gpt = opts.gpt
+    flags.leavebootorder = opts.leavebootorder
 
     if opts.liveinst:
         startup_utils.live_startup(anaconda)
@@ -514,6 +516,13 @@ if __name__ == "__main__":
     ksdata.logging.execute()
 
     anaconda.ksdata = ksdata
+
+    # setup network module mode depending on anaconda runtime environment
+    if not can_touch_runtime_system("setup network module mode"):
+        from pyanaconda.modules.common.constants.services import NETWORK
+        network_proxy = NETWORK.get_proxy()
+        network_proxy.DontTouchRuntimeSystem()
+        log.debug("Network module set up to not touch runtime system")
 
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
