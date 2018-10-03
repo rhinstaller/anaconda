@@ -93,9 +93,13 @@ class RPMOSTreePayload(ArchivePayload):
             else:
                 percent = (fetched * 1.0 / requested) * 100
 
-            progressQ.send_message("Receiving objects: %d%% (%d/%d) %s" % (percent, fetched, requested, formatted_bytes))
+            progressQ.send_message(_("Receiving objects: %(percent)d%% "
+                                     "(%(fetched)d/%(requested)d) %(bytes)s") %
+                                   {"percent": percent, "fetched": fetched,
+                                    "requested": requested, "bytes": formatted_bytes}
+                                   )
         else:
-            progressQ.send_message("Writing objects")
+            progressQ.send_message(_("Writing objects"))
 
     def _copyBootloaderData(self):
         # Copy bootloader data files from the deployment
