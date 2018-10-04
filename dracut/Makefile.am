@@ -36,6 +36,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
                       anaconda-copy-prefixdevname.sh \
                       anaconda-copy-s390ccwconf.sh \
                       anaconda-ifcfg.sh \
+                      anaconda-set-kernel-hung-timeout.sh \
                       fetch-kickstart-net.sh \
                       fetch-kickstart-disk \
                       fetch-updates-disk \
