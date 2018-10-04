@@ -35,7 +35,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.fcoe import fcoe
 import pyanaconda.network
-from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError, FirmwareCompatError
+from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.nm import nm_device_hwaddress
 from pyanaconda import platform
 from blivet.size import Size
@@ -1568,9 +1568,6 @@ class GRUB2(GRUB):
             defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
 
-    def _test_firmware_compat(self):
-        """ Check that this platform is configured in a compatible way """
-
     def _encrypt_password(self):
         """ Make sure self.encrypted_password is set up properly. """
         if self.encrypted_password:
@@ -1683,9 +1680,6 @@ class GRUB2(GRUB):
         if self.update_only:
             self.update()
             return
-
-        if flags.blscfg:
-            self._test_firmware_compat()
 
         try:
             self.write_device_map()
@@ -2235,24 +2229,6 @@ class IPSeriesGRUB2(GRUB2):
         #       PowerVM / POWER on qemu/kvm
         defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
-
-    def _test_firmware_compat(self):
-        """ Check that this platform is configured in a compatible way """
-
-        super()._test_firmware_compat()
-        if not os.access("/sys/firmware/opal", os.F_OK):
-            return
-        try:
-            vstr, vtuple, _ = _get_petitboot_version()
-
-        except FileNotFoundError as err:
-            msg = "Could not get OPAL version: %s" % (err,)
-            errorHandler.cb(FirmwareCompatError(msg))
-
-        if not _version_ge(vtuple, (1, 8, 0)):
-            msg = "Incompatible firmware version %s" % (vstr,)
-            errorHandler.cb(FirmwareCompatError(msg))
-
 
 class MacYaboot(Yaboot):
     prog = "mkofboot"
