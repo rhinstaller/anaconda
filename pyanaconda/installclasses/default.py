@@ -16,12 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
+from pyanaconda.installclasses.rhel import RHELBaseInstallClass
 
 __all__ = ["DefaultInstallClass"]
 
 
-class DefaultInstallClass(FedoraBaseInstallClass):
+class DefaultInstallClass(RHELBaseInstallClass):
     """This install class will be used by default.
 
     In case, that anaconda cannot use any other install class,
