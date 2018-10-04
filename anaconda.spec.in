@@ -353,6 +353,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 04 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.19-1
+- Add option to set kernel.hung_task_timeout_secs option (rvykydal)
+  Resolves: rhbz#1633549
+- Change default install class to RHEL (jkonecny)
+  Resolves: rhbz#1634094
+- Don't check for firmware compatibility to enable BootLoaderSpec support
+  (javierm)
+  Resolves: rhbz#1635547
+
 * Tue Oct 02 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.18-1
 - Update kernel command line parameters in BLS files (javierm)
   Resolves: rhbz#1635180
