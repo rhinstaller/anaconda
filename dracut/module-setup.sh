@@ -45,6 +45,7 @@ install() {
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-cmdline.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-s390ccwconf.sh"
     inst_hook pre-pivot 90 "$moddir/anaconda-copy-dhclient.sh"
+    inst_hook pre-pivot 95 "$moddir/anaconda-set-kernel-hung-timeout.sh"
     inst_hook pre-pivot 99 "$moddir/save-initramfs.sh"
     inst_hook pre-shutdown 50 "$moddir/anaconda-pre-shutdown.sh"
     # kickstart parsing, WOOOO
