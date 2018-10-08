@@ -246,6 +246,9 @@ class MakeBumpVer:
             m = re.match(branch_pattern, fields[1])
             if m:
                 return m.group(1)
+            elif self.git_branch == "rhel-devel":
+                return "8"
+
         return False
 
     def _getCommitDetail(self, commit, field):
