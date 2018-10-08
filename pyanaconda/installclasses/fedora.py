@@ -37,7 +37,6 @@ class FedoraBaseInstallClass(BaseInstallClass):
 
     help_placeholder = "FedoraPlaceholder.html"
     help_placeholder_plain_text = "FedoraPlaceholder.txt"
-    help_placeholder_with_links = "FedoraPlaceholderWithLinks.html"
 
     default_luks_version = "luks1"
 

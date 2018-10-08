@@ -200,7 +200,6 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'help_main_page'))
         self.assertTrue(hasattr(testclass, 'help_main_page_plain_text'))
         self.assertTrue(hasattr(testclass, 'help_placeholder'))
-        self.assertTrue(hasattr(testclass, 'help_placeholder_with_links'))
         self.assertTrue(hasattr(testclass, 'help_placeholder_plain_text'))
         self.assertTrue(hasattr(testclass, 'stylesheet'))
         self.assertTrue(hasattr(testclass, 'defaultPackageEnvironment'))

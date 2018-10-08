@@ -43,7 +43,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: LangSpoke
           :parts: 3
     """
-    helpFile = "LangSupportSpoke.txt"
+    help_id = "LangSupportSpoke"
     category = LocalizationCategory
 
     def __init__(self, data, storage, payload, instclass):

@@ -71,7 +71,7 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
     def _on_help_clicked(self, window):
         # the help button has been clicked, start the yelp viewer with
         # content for the current spoke
-        ihelp.start_yelp(ihelp.get_help_path(self.helpFile, self.instclass))
+        ihelp.start_yelp(self.help_id, self.instclass)
 
     def on_back_clicked(self, button):
         # Notify the hub that we're finished.

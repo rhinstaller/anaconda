@@ -151,7 +151,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                       "luksVersionStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom_storage.glade"
-    helpFile = "CustomSpoke.xml"
+    help_id = "ManualPartitioningSpoke"
 
     category = SystemCategory
     title = N_("MANUAL PARTITIONING")

@@ -378,7 +378,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/installation_source.glade"
-    helpFile = "SourceSpoke.xml"
+    help_id = "InstallationSourceSpoke"
 
     category = SoftwareCategory
 

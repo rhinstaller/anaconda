@@ -51,7 +51,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     builderObjects = ["addonStore", "environmentStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
     uiFile = "spokes/software_selection.glade"
-    helpFile = "SoftwareSpoke.xml"
+    help_id = "SoftwareSelectionSpoke"
 
     category = SoftwareCategory
 

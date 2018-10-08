@@ -409,7 +409,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     mainWidgetName = "datetimeWindow"
     uiFile = "spokes/datetime_spoke.glade"
-    helpFile = "DateTimeSpoke.xml"
+    help_id = "DateTimeSpoke"
 
     category = LocalizationCategory
 

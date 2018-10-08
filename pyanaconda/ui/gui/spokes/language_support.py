@@ -53,7 +53,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     mainWidgetName = "langsupportWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/language_support.glade"
-    helpFile = "LangSupportSpoke.xml"
+    help_id = "LanguageSupportSpoke"
 
     category = LocalizationCategory
 

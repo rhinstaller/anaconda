@@ -139,7 +139,7 @@ class TUIHub(TUIObject, common.Hub):
             # TRANSLATORS: 'h' to help
             elif key == Prompt.HELP:
                 if self.has_help:
-                    help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
+                    help_path = ihelp.get_placeholder_path(self.instclass, plain_text=True)
                     ScreenHandler.push_screen_modal(HelpScreen(help_path))
                     return InputState.PROCESSED_AND_REDRAW
             return key

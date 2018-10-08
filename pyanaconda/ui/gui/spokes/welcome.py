@@ -55,7 +55,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     mainWidgetName = "welcomeWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/welcome.glade"
-    helpFile = "WelcomeSpoke.xml"
+    help_id = "WelcomeSpoke"
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
                       "welcomeWindow", "betaWarnDialog"]
 

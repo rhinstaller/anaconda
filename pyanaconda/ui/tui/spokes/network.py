@@ -53,7 +53,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
        .. inheritance-diagram:: NetworkSpoke
           :parts: 3
     """
-    helpFile = "NetworkSpoke.txt"
+    help_id = "NetworkSpoke"
     category = SystemCategory
 
     def __init__(self, data, storage, payload, instclass):

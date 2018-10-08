@@ -45,7 +45,7 @@ class SystemPurposeSpoke(NormalSpoke):
 
     mainWidgetName = "system_purpose_window"
     uiFile = "spokes/system_purpose.glade"
-    helpFile = "SystemPurposeSpoke.xml"
+    help_id = "SystemPurposeSpoke"
 
     category = SystemCategory
 

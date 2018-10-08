@@ -19,6 +19,7 @@
 Anaconda built-in help module
 """
 import os
+import json
 
 from pyanaconda.flags import flags
 from pyanaconda.localization import find_best_locale_match
@@ -28,12 +29,59 @@ from pyanaconda.core.util import startProgram
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+# Help structure
+#
+# There is a docbook file called anaconda-help.xml with sections that have anchors,
+# we expect yelp to be able to show the sections when we specify them when launching
+# yelp via CLI.
+#
+# Anaconda screens that should have documentation each have a unique help id,
+# which is converted into an anchor via a dictionary loaded from the anaconda-help-anchors.json file.
+#
+# There are also placeholders (docbook & plain text) that are shown:
+# - where screen has no help id set (None)
+# - no anchor is found for a help id
+# - anaconda-help.xml is missing
+#
+# Help in TUI
+#
+# The help system is disabled in TUI as we don't have any plain text help content
+# suitable for TUI at the moment.
+
+MAIN_HELP_FILE = "anaconda-help.xml"
+HELP_ID_MAPPING_FILE_NAME = "anaconda-help-anchors.json"
+
 yelp_process = None
 
-def _get_best_help_file(help_folder, help_file):
+help_id_mapping = None
+
+def _load_anchors_file(instclass):
+    """Parse the json file containing the help id -> document anchor mapping.
+
+    The mappings file is located in the root of the current help folder,
+    for example for rhel it is expected to be in:
+    /usr/share/anaconda/help/rhel/anaconda-help-anchors.json
+
+    :param instclass: currently active install class instance
     """
-    Return the path to the best help file for the current language and available
-    help content
+    mapping = {}
+    anchors_file_path = os.path.join(instclass.help_folder, HELP_ID_MAPPING_FILE_NAME)
+    if os.path.exists(anchors_file_path):
+        try:
+            with open(anchors_file_path, "rt") as f:
+                mapping = json.load(f)
+        except (IOError, json.JSONDecodeError):
+            log.exception("failed to parse the help id -> anchors mapping file %s", anchors_file_path)
+    else:
+        log.error("help id -> anchors mapping file not found in %s", anchors_file_path)
+
+    # assign help id -> anchors mapping from the anchors file (or an empty dict if the file could not be
+    # loaded) to the module level property
+    global help_id_mapping
+    help_id_mapping = mapping
+
+def _get_best_help_file(help_folder, help_file):
+    """Return the path to the best help file for current language and help content.
 
     :param str help_folder: a path to folder where we should look for the help files
     :param str help_file: name of the requested help file
@@ -57,8 +105,6 @@ def _get_best_help_file(help_folder, help_file):
     if not best_lang and current_lang != DEFAULT_LANG:
         # nothing found for current language, fallback to the default language,
         # if available & different from current language
-        log.warning("help file %s not found in lang %s, falling back to default lang (%s)",
-                    help_file, current_lang, DEFAULT_LANG)
         best_lang = find_best_locale_match(DEFAULT_LANG, help_langs)
 
     # did we get something usable ?
@@ -71,77 +117,66 @@ def _get_best_help_file(help_folder, help_file):
         log.warning("no help content found for file %s", help_file)
         return None
 
-def get_help_path(help_file, instclass, plain_text=False):
+def get_placeholder_path(instclass, plain_text=False):
+    """Get path to appropriate placeholder for given install class.
+
+    :param instclass: currently active install class instance
+    :param str plain_text: point to plain text version of the placeholder
+    :returns: path to placeholder or None if no placeholder is found
+    :rtype: str or None
     """
-    Return the full path for the given help file name,
-    if the help file path does not exist a fallback path is returned.
-    There are actually two possible fallback paths that might be returned:
-
-    * first we try to return path to the main page of the installation guide
-      (if it exists)
-    * if we can't find the main page of the installation page, path to a
-      "no help found" placeholder bundled with Anaconda is returned
-
-    Regarding help l10n, we try to respect the current locale as defined by the
-    "LANG" environmental variable, but fallback to English if localized content
-    is not available.
-
-    :param help_file: help file name
-    :type help_file: str or NoneType
-
-    :param instclass: current install class instance
-
-    :param plain_text: should we find the help in plain text?
-    :type plain_text: bool
-
-    :return str: full path to the help file requested or to a placeholder
-    """
-    # help l10n handling
-
-    if help_file:
-        help_path = _get_best_help_file(instclass.help_folder, help_file)
-        if help_path is not None:
-            return help_path
-
-    # setup the fallback files
-    if not plain_text:
-        main_page = instclass.help_main_page
+    if plain_text:
+        placeholder = installclass.help_placeholder_plain_text
+    else:
         placeholder = instclass.help_placeholder
-        placeholder_with_links = instclass.help_placeholder_with_links
+    placeholder_path = _get_best_help_file(instclass.help_folder, placeholder)
+    if placeholder_path:
+        return placeholder_path
     else:
-        main_page = instclass.help_main_page_plain_text
-        placeholder = instclass.help_placeholder_plain_text
-        placeholder_with_links = instclass.help_placeholder_plain_text
+        log.error("placeholder %s not found in %s", instclass.help_placeholder, instclass.help_folder)
+        return None
 
-    # the screen did not have a helpFile defined or the defined help file
-    # does not exist, so next try to check if we can find the main page
-    # of the installation guide and use it instead
-    help_path = _get_best_help_file(instclass.help_folder, main_page)
-    if help_path is not None:
-        return help_path
+def start_yelp(help_id, instclass):
+    """Start a new yelp process and make sure to kill any existing ones.
 
-    # looks like the installation guide is not available, so just return
-    # a placeholder page, which should be always present
-    if flags.livecdInstall:
-        return _get_best_help_file(instclass.help_folder, placeholder_with_links)
-    else:
-        return _get_best_help_file(instclass.help_folder, placeholder)
+    We will try to resolve the help id to appropriate content and show it to the user.
 
-def start_yelp(help_path):
+    :param str help_id: help id to be shown to the user
+    :param instclass: currently active install class instance
     """
-    Start a new yelp process and make sure to kill any existing ones
-
-    :param help_path: path to the help file yelp should load
-    :type help_path: str or NoneType
-    """
-
     kill_yelp()
-    log.debug("starting yelp")
-    global yelp_process
-    # under some extreme circumstances (placeholders missing)
-    # the help path can be None and we need to prevent Popen
-    # receiving None as an argument instead of a string
-    yelp_process = startProgram(["yelp", help_path or ""], reset_lang=False)
+
+    log.info("help requested for help id %s", help_id)
+
+    # first make sure the help id -> mapping has been loaded
+    if help_id_mapping is None:
+        _load_anchors_file(instclass)
+
+    # we initially set the yelp string to the placeholder path, just in case
+    yelp_string = get_placeholder_path(instclass)
+
+    # resolve the help id to docbook document anchor (if there is one for the help id)
+    help_anchor = help_id_mapping.get(help_id, None)
+    if help_anchor is None:
+        log.error("no anchor found for help id %s, starting yelp with placeholder", help_id)
+    else:
+        log.info("help id %s was resolved to anchor %s", help_id, help_anchor)
+        # check if main help file is available
+        main_help_file_path = _get_best_help_file(instclass.help_folder, MAIN_HELP_FILE)
+        if main_help_file_path:
+            log.info("starting yelp with anchor %s for help id %s", help_anchor, help_id)
+            # construct string for yelp with anchor based document section access
+            yelp_string = "ghelp:{path_to_file}?{anchor}".format(path_to_file=main_help_file_path, anchor=help_anchor)
+        else:
+            # main help file not found, switch to placeholder
+            log.error("main help file %s not found in %s, starting yelp with placeholder", MAIN_HELP_FILE, instclass.help_folder)
+
+    if yelp_string:
+        log.debug("starting yelp with args: %s", yelp_string)
+        global yelp_process
+        yelp_process = startProgram(["yelp", yelp_string], reset_lang=False)
+    else:
+        log.error("no content found for yelp to display, not starting yelp")
 
 def kill_yelp():
     """Try to kill any existing yelp processes"""
