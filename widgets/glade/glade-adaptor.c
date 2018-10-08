@@ -30,9 +30,9 @@
 
 #include <gtk/gtk.h>
 
-#include "BaseWindow.h"
-#include "HubWindow.h"
-#include "SpokeWindow.h"
+#include <BaseWindow.h>
+#include <HubWindow.h>
+#include <SpokeWindow.h>
 
 void anaconda_standalone_window_post_create(GladeWidgetAdaptor *adaptor,
                                             GObject *object, GladeCreateReason reason) {

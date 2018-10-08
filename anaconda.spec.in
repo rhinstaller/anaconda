@@ -338,6 +338,7 @@ update-desktop-database &> /dev/null || :
 
 %files widgets-devel
 %{_libdir}/libAnacondaWidgets.so
+%{_libdir}/glade/modules/libAnacondaWidgets.so
 %{_includedir}/*
 %{_datadir}/glade/catalogs/AnacondaWidgets.xml
 %{_datadir}/gtk-doc

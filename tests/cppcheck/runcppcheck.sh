@@ -32,6 +32,8 @@ cppcheck_output="$(echo "$filelist" |
         --enable=warning,unusedFunction \
         --suppress=unusedFunction:*/widgets/src/* \
         --suppress=unusedFunction:widgets/src/* \
+        --suppress=unusedFunction:*/widgets/glade/* \
+        --suppress=unusedFunction:widgets/glade/* \
         2>&1 )"
 
 if [ -n "$cppcheck_output" ]; then
