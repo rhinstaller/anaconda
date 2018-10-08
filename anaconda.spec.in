@@ -353,6 +353,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 08 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.20-1
+- Ignore errors when trying to activate unsupported swaps (vtrefny)
+  Resolves: rhbz#1635253
+- Adapt built in help system to new content structure (mkolman)
+  Resolves: rhbz#1593723
+- Update help folder paths (mkolman)
+  Related: rhbz#1593723
+- Replace helpFile property with help_id (mkolman)
+  Related: rhbz#1593723
+- Small optimization in boot arg parsing method (jkonecny)
+  Related: rhbz#1622429
+- Fix bad --addrepo command line parsing (jkonecny)
+  Related: rhbz#1622429
+- Raise correct exception on bad addrepo boot param (jkonecny)
+  Resolves: rhbz#1622429
+
 * Thu Oct 04 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.19-1
 - Add option to set kernel.hung_task_timeout_secs option (rvykydal)
   Resolves: rhbz#1633549
