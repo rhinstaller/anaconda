@@ -33,9 +33,8 @@ from argparse import ArgumentParser
 ANACONDA_SPEC_NAME = "anaconda.spec.in"
 
 TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pykickstart",
-                     "python3-rpmfluff", "python3-mock", "python3-pocketlint",
+                     "python3-mock",
                      "python3-nose-testconfig", "python3-sphinx_rtd_theme", "python3-lxml",
-                     "python3-dogtail",
                      # contains restorecon which was removed in Fedora 28 mock
                      "policycoreutils"]
 
