@@ -28,9 +28,8 @@ import struct
 
 from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Action
 
-from pyanaconda.flags import BootArgs
 from pyanaconda.flags import flags as flags_instance
-
+from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.core.constants import DisplayModes, X_TIMEOUT
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -161,10 +160,10 @@ class AnacondaArgumentParser(ArgumentParser):
         Parse the boot cmdline and create an appropriate Namespace instance
         according to the option definitions set by add_argument.
 
-        boot_cmdline can be given as a string (to be parsed by BootArgs), or a
+        boot_cmdline can be given as a string (to be parsed by KernelArguments), or a
         dict (or any object with .items()) of {bootarg:value} pairs.
 
-        If boot_cmdline is None, the boot_cmdline data will be whatever BootArgs reads
+        If boot_cmdline is None, the boot_cmdline data will be whatever KernelArguments reads
         by default (/proc/cmdline, /run/initramfs/etc/cmdline, /etc/cmdline).
 
         If an option requires a value but the boot arg doesn't provide one,
@@ -179,10 +178,14 @@ class AnacondaArgumentParser(ArgumentParser):
         :rtype: Namespace
         """
         namespace = Namespace()
-        if boot_cmdline is None or isinstance(boot_cmdline, str):
-            bootargs = BootArgs(boot_cmdline)
+
+        if boot_cmdline is None:
+            bootargs = KernelArguments.from_defaults()
+        elif isinstance(boot_cmdline, str):
+            bootargs = KernelArguments.from_string(boot_cmdline)
         else:
             bootargs = boot_cmdline
+
         self.deprecated_bootargs = []
         # go over all options corresponding to current boot cmdline
         # and do any modifications necessary
@@ -216,7 +219,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 continue
             elif option.nargs in ("*", "?", "+"):
                 # store multiple values under one key
-                # parsing of these values to list is done in BootArgs object
+                # parsing of these values to list is done in KernelArguments object
                 if type(val) is list:
                     setattr(namespace, option.dest, val)
                     continue
@@ -366,7 +369,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     """Return the anaconda argument parser.
 
        :param str version_string: The version string, e.g. 23.19.5.
-       :param pyanaconda.flags.BootArgs: The boot command line options
+       :param KernelArguments boot_cmdline: The boot command line options
        :rtype: AnacondaArgumentParser
     """
 
@@ -376,7 +379,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     # checks the boot arguments for bootarg_prefix+option ('inst.repo').
     # If require_prefix is False, it also accepts the option without the
     # bootarg_prefix ('repo').
-    # See anaconda_optparse.py and BootArgs (in flags.py) for details.
+    # See anaconda_optparse.py and KernelArguments (in flags.py) for details.
     ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=False)
     help_parser = HelpTextParser(os.path.join(datadir, "anaconda_options.txt"))
 
@@ -509,6 +512,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
                     help=help_parser.help_text("nompath"))
     ap.add_argument("--mpath", action="store_true", help=help_parser.help_text("mpath"))
+
+    ap.add_argument("--gpt", action="store_true", default=False, help=help_parser.help_text("gpt"))
 
     ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
                     help=help_parser.help_text("nodmraid"))

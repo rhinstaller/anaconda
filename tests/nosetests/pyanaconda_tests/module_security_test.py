@@ -21,7 +21,6 @@ import unittest
 from mock import Mock
 from pykickstart.constants import SELINUX_ENFORCING
 
-from pyanaconda.core.constants import REALM_NAME, REALM_DISCOVER, REALM_JOIN
 from pyanaconda.modules.common.constants.services import SECURITY
 from pyanaconda.dbus.typing import get_variant, Str, List
 from pyanaconda.modules.security.security import SecurityModule
@@ -71,15 +70,15 @@ class SecurityInterfaceTestCase(unittest.TestCase):
     def realm_property_test(self):
         """Test the realm property."""
         realm_in = {
-            REALM_NAME: "domain.example.com",
-            REALM_DISCOVER: ["--client-software=sssd"],
-            REALM_JOIN: ["--one-time-password=password"]
+            "name": "domain.example.com",
+            "discover-options": ["--client-software=sssd"],
+            "join-options": ["--one-time-password=password"]
         }
 
         realm_out = {
-            REALM_NAME: get_variant(Str, "domain.example.com"),
-            REALM_DISCOVER: get_variant(List[Str], ["--client-software=sssd"]),
-            REALM_JOIN: get_variant(List[Str], ["--one-time-password=password"])
+            "name": get_variant(Str, "domain.example.com"),
+            "discover-options": get_variant(List[Str], ["--client-software=sssd"]),
+            "join-options": get_variant(List[Str], ["--one-time-password=password"])
         }
 
         self.security_interface.SetRealm(realm_in)

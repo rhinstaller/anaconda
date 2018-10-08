@@ -137,7 +137,18 @@ ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"
 
 # Tainted hardware
-UNSUPPORTED_HW = 1 << 28
+TAINT_SUPPORT_REMOVED = 27
+TAINT_HARDWARE_UNSUPPORTED = 28
+
+WARNING_SUPPORT_REMOVED = N_(
+    "Support for this hardware has been removed in this major OS release. Please check the"
+    "removed functionality section of the release notes."
+)
+
+WARNING_HARDWARE_UNSUPPORTED = N_(
+    "This hardware (or a combination thereof) is not supported by Red Hat. For more information "
+    "on supported hardware, please refer to http://www.redhat.com/hardware."
+)
 
 # Password type
 class SecretType(Enum):
@@ -209,6 +220,13 @@ TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
 # screenshots
 SCREENSHOTS_DIRECTORY = "/tmp/anaconda-screenshots"
 SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
+
+CMDLINE_FILES = [
+    "/proc/cmdline",
+    "/run/install/cmdline",
+    "/run/install/cmdline.d/*.conf",
+    "/etc/cmdline"
+]
 
 # cmdline arguments that append instead of overwrite
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
@@ -303,11 +321,6 @@ class PayloadRequirementType(Enum):
 
 # Timeout for starting X
 X_TIMEOUT = 60
-
-# Realm
-REALM_NAME = "name"
-REALM_DISCOVER = "discover"
-REALM_JOIN = "join"
 
 # Setup on boot actions.
 SETUP_ON_BOOT_DEFAULT = -1
