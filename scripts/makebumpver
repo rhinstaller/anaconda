@@ -349,9 +349,8 @@ class MakeBumpVer:
             return True
 
         bzentry = self._queryBug(bug)
-        ack_pattern = r"rhel-%s\.\d+\.\d+" % self.rhel
         for f in bzentry.flags:
-            if re.match(ack_pattern, f['name']) and f['status'] == '+':
+            if f['name'] == 'release' and f['status'] == '+':
                 return True
 
         print("*** Bug %s does not have ACK" % bug)
