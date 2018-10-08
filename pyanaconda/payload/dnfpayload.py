@@ -443,20 +443,27 @@ class DNFPayload(payload.PackagePayload):
         ksrepo.disable()
         self._add_repo(ksrepo)
         super().addDisabledRepo(ksrepo)
+
     def _enable_modules(self):
         """Enable modules (if any)."""
+        # convert data from kickstart to module specs
+        module_specs = []
         for module in self.data.module.dataList():
             # stream definition is optional
             if module.stream:
                 module_spec = "{name}:{stream}".format(name=module.name, stream=module.stream)
             else:
                 module_spec = module.name
-            log.debug("enabling module: %s", module_spec)
-            try:
-                module_base = dnf.module.module_base.ModuleBase(self._base)
-                module_base.enable([module_spec])
-            except dnf.module.exceptions.NoModuleException as e:
-                self._payload_setup_error(e)
+            module_specs.append(module_spec)
+
+        # forward the module specs to enable to DNF
+        log.debug("enabling modules: %s", module_specs)
+        try:
+            module_base = dnf.module.module_base.ModuleBase(self._base)
+            module_base.enable(module_specs)
+        except dnf.exceptions.MarkingErrors as e:
+            log.debug("ModuleBase.enable(): some packages, groups or modules are missing or broken:\n%s", e)
+            self._payload_setup_error(e)
 
     def _apply_selections(self):
         log.debug("applying DNF package/group/module selection")
@@ -556,18 +563,10 @@ class DNFPayload(payload.PackagePayload):
             # install_specs() returns a list of specs that appear to be missing
             self._base.install_specs(install=include_list, exclude=exclude_list)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("install_specs(): some packages, groups or modules are missing or broken")
-            if e.no_match_pkg_specs:
-                log.debug("install_specs(): missing packages: %s", e.no_match_pkg_specs)
-            if e.no_match_group_specs:
-                log.debug("install_specs(): missing groups or modules: %s", e.no_match_group_specs)
-            if e.error_pkg_specs:
-                log.debug("install_specs(): broken packages: %s", e.error_pkg_specs)
-            if e.error_group_specs:
-                log.debug("install_specs(): broken groups or modules: %s", e.error_group_specs)
-
+            log.debug("install_specs(): some packages, groups or modules are missing or broken:\n%s", e)
             # if no errors were reported and --ignoremissing was used we can continue
-            if not e.error_group_specs and not e.error_pkg_specs and self.data.packages.handleMissing == KS_MISSING_IGNORE:
+            transaction_too_broken = e.error_group_specs or e.error_pkg_specs or e.module_debsolv_errors
+            if not transaction_too_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
                 log.info("ignoring missing package/group/module specs due to --ingoremissing flag in kickstart")
             else:
                 self._payload_setup_error(e)
