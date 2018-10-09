@@ -267,8 +267,7 @@ def copy_result(mock_command, out_dir):
     cmd.append('{}/result'.format(ANACONDA_MOCK_PATH))
     cmd.append(out_dir)
 
-    _check_subprocess(cmd, "Con't copy Anaconda tests results out of mock. "
-                           "Destination folder must not exists!")
+    _check_subprocess(cmd, "Con't copy Anaconda tests results out of mock.")
 
 
 def create_mock_command(mock_conf, uniqueext):
