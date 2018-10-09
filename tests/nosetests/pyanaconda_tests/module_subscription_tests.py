@@ -18,6 +18,7 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 import unittest
+from unittest.mock import Mock
 
 from pyanaconda.modules.common.constants.services import SUBSCRIPTION
 from pyanaconda.modules.subscription.subscription import SubscriptionInterface, SubscriptionModule
