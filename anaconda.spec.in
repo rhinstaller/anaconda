@@ -353,6 +353,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 10 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.21-1
+- Add Not Specified option for System Purpose lists (mkolman)
+  Resolves: rhbz#1637602
+- Set the VNC password directly (vponcova)
+  Resolves: rhbz#1634667
+
 * Mon Oct 08 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.20-1
 - Ignore errors when trying to activate unsupported swaps (vtrefny)
   Resolves: rhbz#1635253
