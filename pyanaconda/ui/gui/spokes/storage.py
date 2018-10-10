@@ -74,7 +74,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UN
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, AUTOPART_TYPE_DEFAULT
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
-from pyanaconda.storage_utils import on_disk_storage
+from pyanaconda.storage_utils import on_disk_storage, nvdimm_update_ksdata_for_used_devices
 from pyanaconda.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
@@ -458,6 +458,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                         break
                 else:
                     self.data.iscsi.iscsi.append(iscsi_data)
+
+        # Update kickstart data for NVDIMM devices used in GUI.
+        selected_nvdimm_namespaces = [d.devname for d in getDisks(self.storage.devicetree)
+                                      if d.name in self.selected_disks
+                                      and isinstance(d, NVDIMMNamespaceDevice)]
+        nvdimm_update_ksdata_for_used_devices(self.data, selected_nvdimm_namespaces)
 
     def _doExecute(self):
         self._ready = False
