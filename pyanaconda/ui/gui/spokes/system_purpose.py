@@ -62,15 +62,6 @@ class SystemPurposeSpoke(NormalSpoke):
         # record if the spoke has been visited by the user at least once
         self._spoke_visited = False
 
-        # Add three invisible radio buttons so that we can show list boxes
-        # with no radio buttons ticked
-        self._fakeRoleButton = Gtk.RadioButton(group=None)
-        self._fakeRoleButton.set_active(True)
-        self._fakeSLAButton = Gtk.RadioButton(group=None)
-        self._fakeSLAButton.set_active(True)
-        self._fakeUsageButton = Gtk.RadioButton(group=None)
-        self._fakeUsageButton.set_active(True)
-
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
@@ -91,19 +82,16 @@ class SystemPurposeSpoke(NormalSpoke):
 
         # role
         self._fill_listbox(self._role_list_box,
-                           self._fakeRoleButton,
                            self.on_role_toggled,
                            self._subscription_module.proxy.Role,
                            self._subscription_module.proxy.ValidRoles)
         # SLA
         self._fill_listbox(self._sla_list_box,
-                           self._fakeSLAButton,
                            self.on_sla_toggled,
                            self._subscription_module.proxy.SLA,
                            self._subscription_module.proxy.ValidSLAs)
         # usage
         self._fill_listbox(self._usage_list_box,
-                           self._fakeUsageButton,
                            self.on_usage_toggled,
                            self._subscription_module.proxy.Usage,
                            self._subscription_module.proxy.ValidUsageTypes)
@@ -114,7 +102,7 @@ class SystemPurposeSpoke(NormalSpoke):
         # report that we are done
         self.initialize_done()
 
-    def _fill_listbox(self, listbox, radio_button_group, clicked_callback, user_provided_value, valid_values):
+    def _fill_listbox(self, listbox, clicked_callback, user_provided_value, valid_values):
         """Fill the given list box with data based on current value & valid values.
 
         Please note that it is possible that the list box will be empty if no
@@ -122,7 +110,6 @@ class SystemPurposeSpoke(NormalSpoke):
         via kickstart or the DBUS API.
 
         :param listbox: the listbox to fill
-        :param radio_button_group: radio button group for the list box
         :param callable clicked_callback: called when a radio button in the list box is clicked
         :param user_provided_value: the value provided by the user (if any)
         :type user_provided_value: str or None
@@ -131,10 +118,21 @@ class SystemPurposeSpoke(NormalSpoke):
         preselected_value_list = self._handle_user_provided_value(user_provided_value,
                                                                   valid_values)
 
-        for value, display_string, preselected in preselected_value_list:
-            radio_button = Gtk.RadioButton(group=radio_button_group)
-            radio_button.set_active(preselected)
-            self._add_row(listbox, value, display_string, radio_button, clicked_callback)
+        if preselected_value_list:
+            # the not-specified radio button is used to create the initial radio button group
+            radio_button_group = Gtk.RadioButton(group=None)
+            radio_button_group.set_active(True)
+
+            for value, display_string, preselected in preselected_value_list:
+                radio_button = Gtk.RadioButton(group=radio_button_group)
+                radio_button.set_active(preselected)
+                self._add_row(listbox, value, display_string, radio_button, clicked_callback)
+
+            # add the "Not Specified" option as the last row
+            # - otherwise the user would not be able to unselect option clicked previously
+            #   or selected via kickstart
+            self._add_row(listbox, "", _("Not Specified"), radio_button_group, clicked_callback)
+
 
     def _add_row(self, listbox, original_value, name, button, clicked_callback):
         """Add a row to a listbox on the system purpose screen."""
