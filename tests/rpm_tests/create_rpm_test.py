@@ -23,6 +23,10 @@ import os
 from tests.rpm_tests import RPMTestCase
 
 
+# list of source files which should be ignored in tests
+IGNORED_SOURCE_FILES = ["pyanaconda/ui/gui/spokes/blivet_gui.py"]
+
+
 class InstallRPMTestCase(RPMTestCase):
     """Test if Anaconda rpm files can be installed to the system."""
 
@@ -61,7 +65,8 @@ class InstalledFilesTestCase(RPMTestCase):
                 FileFilters.makefiles_exclude,
                 FileFilters.isys_exclude,
                 FileFilters.glade_files_exclude,
-                FileFilters.text_files_exclude
+                FileFilters.text_files_exclude,
+                FileFilters.src_ignore_exlude
             ], self._get_source_files()
         )
 
@@ -320,6 +325,10 @@ class FileFilters(object):
     @staticmethod
     def specific_file_exclude(name, path):
         return not FileFilters.specific_file_only(name, path)
+
+    @staticmethod
+    def src_ignore_exlude(path):
+        return path not in IGNORED_SOURCE_FILES
 
 
 class RPMFilters(object):
