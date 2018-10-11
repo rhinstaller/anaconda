@@ -163,10 +163,11 @@ One of these commands must be used. These commands can be combined.
                        dest='install_pip', default=None,
                        help="""
                        install additional packages from Python Package Index repository to the
-                       mock environment via the pip tool;
-                       there is a default set of pip packages which can be replaced by this
-                       parameter;
-                       set this command with empty string to disable pip completely
+                       mock environment via the pip tool
+                       """)
+    group.add_argument('--no-pip', action='store_true', default=False, dest='no_pip',
+                       help="""
+                       do not install the default pip package set
                        """)
 
     group.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
@@ -356,9 +357,13 @@ def init_mock(mock_command):
     _check_subprocess(cmd, "Can't initialize mock.")
 
 
-def setup_mock(mock_command):
+def setup_mock(mock_command, no_pip):
     init_mock(mock_command)
+
     install_required_packages(mock_command)
+
+    if not no_pip:
+        install_required_pip_packages(mock_command)
 
 
 if __name__ == "__main__":
@@ -377,14 +382,12 @@ if __name__ == "__main__":
         _check_dir_exists(ns.result_folder)
 
     if ns.init:
-        setup_mock(mock_cmd)
-        if ns.install_pip is None:
-            install_required_pip_packages(mock_cmd)
+        setup_mock(mock_cmd, ns.no_pip)
 
     if ns.install:
         install_packages_to_mock(mock_cmd, ns.install)
 
-    if ns.install_pip is not None:
+    if ns.install_pip:
         install_pip_packages_to_mock(mock_cmd, ns.install_pip)
 
     if ns.copy:
