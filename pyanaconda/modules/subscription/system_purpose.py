@@ -114,21 +114,21 @@ def give_the_system_purpose(sysroot, role, sla, usage, addons):
             # Also as the values can contain white space ween need to make sure the
             # values passed to arguments are all properly quoted.
             if role:
-                args = ["set-role", '"{}"'.format(role)]
+                args = ["set-role", '{}'.format(role)]
                 util.execInSysroot("syspurpose", args)
 
             if sla:
-                args = ["set-sla", '"{}"'.format(sla)]
+                args = ["set-sla", '{}'.format(sla)]
                 util.execInSysroot("syspurpose", args)
 
             if usage:
-                args = ["set-usage", '"{}"'.format(usage)]
+                args = ["set-usage", '{}'.format(usage)]
                 util.execInSysroot("syspurpose", args)
 
             if addons:
-                args = ["add", '"addons"']
+                args = ["add", 'addons']
                 for addon in addons:
-                    args.append('"{}"'.format(addon))
+                    args.append('{}'.format(addon))
                 util.execInSysroot("syspurpose", args)
         else:
             log.error("the syspurpose tool is missing, cannot set system purpose")
