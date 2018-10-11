@@ -21,7 +21,6 @@ Anaconda built-in help module
 import os
 import json
 
-from pyanaconda.flags import flags
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.core.util import startProgram
@@ -126,7 +125,7 @@ def get_placeholder_path(instclass, plain_text=False):
     :rtype: str or None
     """
     if plain_text:
-        placeholder = installclass.help_placeholder_plain_text
+        placeholder = instclass.help_placeholder_plain_text
     else:
         placeholder = instclass.help_placeholder
     placeholder_path = _get_best_help_file(instclass.help_folder, placeholder)
