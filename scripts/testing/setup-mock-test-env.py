@@ -62,6 +62,10 @@ def _get_script_dir():
     return os.path.dirname(os.path.realpath(__file__))
 
 
+def _get_dependency_script_path():
+    return _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
+
+
 def _resolve_top_dir():
     script_dir = _get_script_dir()
     # go up two dirs to get top path
@@ -155,6 +159,16 @@ One of these commands must be used. These commands can be combined.
     group.add_argument('--install', '-i', metavar='<packages>', action='store', type=str,
                        dest='install',
                        help="""install additional packages to the mock""")
+    group.add_argument('--install-pip', '-P', metavar='<pip packages>', action='store', type=str,
+                       dest='install_pip', default=None,
+                       help="""
+                       install additional packages from Python Package Index repository to the
+                       mock environment via the pip tool
+                       """)
+    group.add_argument('--no-pip', action='store_true', default=False, dest='no_pip',
+                       help="""
+                       do not install the default pip package set
+                       """)
 
     group.add_argument('--run-tests', '-t', action='store_true', dest='run_tests',
                        help="""
@@ -197,8 +211,18 @@ def check_args(namespace):
 
 def get_required_packages():
     """Get required packages for running Anaconda tests."""
-    script = _get_script_dir() + os.path.sep + DEPENDENCY_SOLVER
+    script = _get_dependency_script_path()
     cmd = [script]
+
+    proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
+
+    return proc_res.stdout.decode('utf-8').strip()
+
+
+def get_required_pip_packages():
+    """Get pip packages for running Anaconda tests."""
+    script = _get_dependency_script_path()
+    cmd = [script, "--pip"]
 
     proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
 
@@ -208,6 +232,11 @@ def get_required_packages():
 def install_required_packages(mock_command):
     packages = get_required_packages()
     install_packages_to_mock(mock_command, packages)
+
+
+def install_required_pip_packages(mock_command):
+    packages = get_required_pip_packages()
+    install_pip_packages_to_mock(mock_command, packages)
 
 
 def remove_anaconda_in_mock(mock_command):
@@ -239,8 +268,7 @@ def copy_result(mock_command, out_dir):
     cmd.append('{}/result'.format(ANACONDA_MOCK_PATH))
     cmd.append(out_dir)
 
-    _check_subprocess(cmd, "Con't copy Anaconda tests results out of mock. "
-                           "Destination folder must not exists!")
+    _check_subprocess(cmd, "Con't copy Anaconda tests results out of mock.")
 
 
 def create_mock_command(mock_conf, uniqueext):
@@ -260,6 +288,15 @@ def install_packages_to_mock(mock_command, packages):
     cmd.extend(packages.split(" "))
 
     _check_subprocess(cmd, "Can't install packages to mock.")
+
+
+def install_pip_packages_to_mock(mock_command, packages):
+    cmd = _prepare_command(mock_command)
+
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('pip3.6 install {}'.format(packages))
+
+    _check_subprocess(cmd, "Can't install packages via pip to mock.")
 
 
 def prepare_anaconda(mock_command):
@@ -320,19 +357,22 @@ def init_mock(mock_command):
     _check_subprocess(cmd, "Can't initialize mock.")
 
 
-def setup_mock(mock_command):
+def setup_mock(mock_command, no_pip):
     init_mock(mock_command)
+
     install_required_packages(mock_command)
+
+    if not no_pip:
+        install_required_pip_packages(mock_command)
 
 
 if __name__ == "__main__":
     ns = parse_args()
 
     mock_cmd = create_mock_command(ns.mock_config, ns.uniqueext)
-    mock_init_run = False
     success = True
 
-    if not any([ns.init, ns.copy, ns.run_tests, ns.install]):
+    if not any([ns.init, ns.copy, ns.run_tests, ns.install, ns.install_pip]):
         print("You need to specify one of the main commands!", file=sys.stderr)
         print("Run './setup-mock-test-env.py --help' for more info.", file=sys.stderr)
         exit(1)
@@ -342,13 +382,13 @@ if __name__ == "__main__":
         _check_dir_exists(ns.result_folder)
 
     if ns.init:
-        setup_mock(mock_cmd)
-        mock_init_run = True
-        if ns.install:
-            install_packages_to_mock(mock_cmd, ns.install)
+        setup_mock(mock_cmd, ns.no_pip)
 
-    if ns.install and not mock_init_run:
+    if ns.install:
         install_packages_to_mock(mock_cmd, ns.install)
+
+    if ns.install_pip:
+        install_pip_packages_to_mock(mock_cmd, ns.install_pip)
 
     if ns.copy:
         copy_anaconda_to_mock(mock_cmd)

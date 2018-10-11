@@ -55,9 +55,6 @@ BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: pango-devel
 BuildRequires: python3-kickstart >= %{pykickstartver}
-%if ! 0%{?rhel}
-BuildRequires: python3-bugzilla
-%endif
 BuildRequires: python3-devel
 BuildRequires: python3-nose
 BuildRequires: systemd
@@ -160,12 +157,6 @@ Requires: realmd
 Requires: isomd5sum >= %{isomd5sum}
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
-%endif
-# likely HFS+ resize support
-%ifarch %{ix86} x86_64
-%if ! 0%{?rhel}
-Requires: hfsplus-tools
-%endif
 %endif
 # kexec support
 Requires: kexec-tools

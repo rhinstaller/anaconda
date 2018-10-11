@@ -61,7 +61,7 @@ RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 MOCKCHROOT ?= fedora-$(DIST_NAME)-$(ARCH_NAME)
 MOCK_EXTRA_ARGS ?=
 
-COVERAGE ?= coverage3
+COVERAGE ?= coverage-3.6
 USER_SITE_BASE ?= $(abs_top_builddir)/python-site
 USER_SITE_PACKAGES ?= $(shell PYTHONUSERBASE=$(USER_SITE_BASE) $(PYTHON) -m site --user-site)
 
