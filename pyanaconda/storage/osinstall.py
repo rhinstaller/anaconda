@@ -41,7 +41,8 @@ from blivet.storage_log import log_exception_info
 from blivet.devices import FileDevice, NFSDevice, NoDevice, OpticalDevice, NetworkStorageDevice, \
     DirectoryDevice, MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, \
     LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
-from blivet.errors import FSTabTypeMismatchError, UnrecognizedFSTabEntryError, StorageError, FSResizeError, FormatResizeError, UnknownSourceDeviceError
+from blivet.errors import FSTabTypeMismatchError, UnrecognizedFSTabEntryError, StorageError, \
+    FSResizeError, FormatResizeError, UnknownSourceDeviceError
 from blivet.formats import get_device_format_class
 from blivet.formats import get_format
 from blivet.flags import flags as blivet_flags

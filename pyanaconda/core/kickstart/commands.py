@@ -27,7 +27,7 @@ from pykickstart.commands.authselect import F28_Authselect as Authselect
 from pykickstart.commands.autopart import RHEL8_AutoPart as AutoPart
 from pykickstart.commands.autostep import FC3_AutoStep as AutoStep
 from pykickstart.commands.bootloader import RHEL8_Bootloader as Bootloader
-from pykickstart.commands.btrfs import F23_BTRFS as BTRFS
+from pykickstart.commands.btrfs import RHEL8_BTRFS as BTRFS
 from pykickstart.commands.cdrom import FC3_Cdrom as Cdrom
 from pykickstart.commands.clearpart import F28_ClearPart as ClearPart
 from pykickstart.commands.displaymode import F26_DisplayMode as DisplayMode
