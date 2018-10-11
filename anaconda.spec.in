@@ -344,6 +344,54 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 11 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.22-1
+- Remove EXPERIMENTAL label for mountpoint assignment in TUI (mkolman)
+  Resolves: rhbz#1636940
+- Wrap line in storage/osinstall.py to 99 chars (jkonecny)
+  Related: rhbz#1637096
+- Add missing pylint false positive (jkonecny)
+  Related: rhbz#1637096
+- Make syspurpose description text size biger (mkolman)
+  Related: rhbz#1612060
+- Fix double quoting in syspurpose values (mkolman)
+  Resolves: rhbz#1637135
+- Fix ihelp pylint issues (jkonecny)
+  Related: rhbz#1637096
+- Add ignored field to rpm_tests (jkonecny)
+  Related: rhbz#1637096
+- Remove unused false positives (jkonecny)
+  Related: rhbz#1637096
+- Use new BTRFS pykickstart version (jkonecny)
+  Related: rhbz#1637096
+- Add back missing import (jkonecny)
+  Related: rhbz#1637096
+- Add --no-pip to setup-mock-test-env script (jkonecny)
+  Related: rhbz#1637096
+- Rename coverage3 to coverage-3.6 (jkonecny)
+  Related: rhbz#1637096
+- Fix error message in setup-mock-test-env script (jkonecny)
+  Related: rhbz#1637096
+- Rename nosetests binary to 3.6 - link is missing (jkonecny)
+  Resolves: rhbz#1637096
+- Remove not used BuildRequires for RHEL (jkonecny)
+  Related: rhbz#1637096
+- Add shortcut function to get dependency script (jkonecny)
+  Related: rhbz#1637096
+- Add install-pip parameter to setup-mock-test-env (jkonecny)
+  Related: rhbz#1637096
+- Add initial 32-bit ARMv7 EFI support (pbrobinson)
+  Resolves: rhbz#1637618
+- Drop legacy get_arm_machine pieces (pbrobinson)
+  Related: rhbz#1637618
+- arch: arm: drop omap checks and specifics (pbrobinson)
+  Related: rhbz#1637618
+- Small optimalization in setup-mock-test-env (jkonecny)
+  Related: rhbz#1637096
+- Add package installation from pip for test script (jkonecny)
+  Related: rhbz#1637096
+- Remove hfsplus-tools not used on RHEL (jkonecny)
+  Related: rhbz#1637096
+
 * Wed Oct 10 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.21-1
 - Add Not Specified option for System Purpose lists (mkolman)
   Resolves: rhbz#1637602
