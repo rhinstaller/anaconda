@@ -24,6 +24,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.storage_utils import try_populate_devicetree
+from pykickstart.constants import NVDIMM_MODE_SECTOR
 
 from pyanaconda.core.i18n import _, CN_
 
@@ -98,7 +99,7 @@ class NVDIMMDialog(GUIObject):
         self._reconfigureSpinner.start()
 
         threadMgr.add(AnacondaThread(name=THREAD_NVDIMM_RECONFIGURE, target=self._reconfigure,
-                                     args=(self.namespaces, "sector", self.sector_size)))
+                                     args=(self.namespaces, NVDIMM_MODE_SECTOR, self.sector_size)))
 
     def _reconfigure(self, namespaces, mode, sector_size):
         for namespace in namespaces:
