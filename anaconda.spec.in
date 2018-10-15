@@ -344,6 +344,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 15 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.23-1
+- nvdimm: update ks data for actions in UI (rvykydal)
+  Resolves: rhbz#1620093
+- nvdimm: use pykickstart constant for setting reconfigure mode (rvykydal)
+  Related: rhbz#1620093
+- Fix strings not marked for translation (jkonecny)
+  Resolves: rhbz#1637399
+- Increase EFI System Partition (ESP) size to 200-600 MiB (javierm)
+  Resolves: rhbz#1633640
+- Save lsblk output to the Anaconda traceback file (vtrefny)
+  Resolves: rhbz#1627220
+
 * Thu Oct 11 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.22-1
 - Remove EXPERIMENTAL label for mountpoint assignment in TUI (mkolman)
   Resolves: rhbz#1636940
