@@ -33,11 +33,13 @@ from argparse import ArgumentParser
 ANACONDA_SPEC_NAME = "anaconda.spec.in"
 
 TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pykickstart",
-                     "python3-rpmfluff", "python3-mock", "python3-pocketlint",
-                     "python3-nose-testconfig", "python3-sphinx_rtd_theme", "python3-lxml",
-                     "python3-dogtail",
+                     "python3-mock", "python3-nose-testconfig", "python3-sphinx_rtd_theme",
+                     "python3-lxml", "python3-pip",
+
                      # contains restorecon which was removed in Fedora 28 mock
                      "policycoreutils"]
+
+PIP_DEPENDENCIES = ["rpmfluff", "dogtail", "pocketlint"]
 
 
 def _resolve_top_dir():
@@ -66,6 +68,8 @@ def parse_args():
                         help="resolve runtime dependencies")
     parser.add_argument('-t', '--test', action='store_true', dest='test',
                         help="resolve test dependencies")
+    parser.add_argument('-p', '--pip', action='store_true', dest='pip',
+                        help="resolve pip dependencies")
     parser.add_argument('--s390', action='store_true', dest='s390',
                         help="""this is s390 mock environment""")
 
@@ -105,6 +109,13 @@ def test_dependencies():
     return result
 
 
+def pip_dependencies():
+    """Install these test dependencies via pip."""
+    result = set()
+    result.update(PIP_DEPENDENCIES)
+    return result
+
+
 if __name__ == "__main__":
     args = parse_args()
     spec = ""
@@ -121,5 +132,7 @@ if __name__ == "__main__":
         res_packages.update(build_dependencies(spec, args.s390))
     if args.test or nothing_specified:
         res_packages.update(test_dependencies())
+    if args.pip:
+        res_packages = pip_dependencies()
 
     print(" ".join(res_packages))
