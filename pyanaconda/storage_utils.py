@@ -51,6 +51,8 @@ from pyanaconda.platform import platform as _platform
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
+from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE, \
+    NVDIMM_MODE_SECTOR
 
 import logging
 
@@ -991,3 +993,78 @@ def get_pbkdf_args(luks_version, pbkdf_type=None, max_memory_kb=0, iterations=0,
 
     # Use specified arguments.
     return LUKS2PBKDFArgs(pbkdf_type or None, max_memory_kb or 0, iterations or 0, time_ms or 0)
+
+
+def nvdimm_update_ksdata_for_used_devices(data, namespaces=None):
+    """Update ks data with NVDIMM devices used for installation.
+
+    Updates "nvdimm use" commands.  Doesn't add use command for devices which
+    are reconfigured with "nvdimm reconfigure" because reconfigure in kickstart
+    implies use.
+    """
+    if namespaces is None:
+        namespaces_to_add = set()
+    else:
+        namespaces_to_add = set(namespaces)
+
+    new_actionList = []
+
+    # Keep all commands except for use, track reconfigured namespaces
+    reconfigured_namespaces = set()
+    for nvdimm_command in data.nvdimm.actionList:
+        if nvdimm_command.action == NVDIMM_ACTION_USE:
+            continue
+        if nvdimm_command.action == NVDIMM_ACTION_RECONFIGURE:
+            reconfigured_namespaces.add(nvdimm_command.namespace)
+        new_actionList.append(nvdimm_command)
+
+    # Reconfigured namespaces are used implicitly, don't add them as use
+    namespaces_to_add.difference_update(reconfigured_namespaces)
+
+    # Add use commands
+    for ns in sorted(namespaces_to_add):
+        added_nvdimm_command = _nvdimm_create_ksdata(action=NVDIMM_ACTION_USE,
+                                                     namespace=ns)
+        new_actionList.append(added_nvdimm_command)
+
+    data.nvdimm.actionList = new_actionList
+
+
+def nvdimm_update_ksdata_after_reconfiguration(data, namespace, mode=NVDIMM_MODE_SECTOR,
+                                               sectorsize=None):
+    """Update ks data after reconfiguration of NVDIMM device.
+
+    Updates "nvdimm reconfigure" commands.
+    """
+    for nvdimm_command in data.nvdimm.actionList:
+        # If use or reconfigure already exists, modify it
+        if namespace and nvdimm_command.namespace == namespace and \
+                nvdimm_command.action in [NVDIMM_ACTION_RECONFIGURE,
+                                          NVDIMM_ACTION_USE]:
+            nvdimm_command.mode = mode
+            nvdimm_command.sectorsize = sectorsize
+            nvdimm_command.action = NVDIMM_ACTION_RECONFIGURE
+            break
+    else:
+        # If neither use nor reconfigure already exists, add it
+        added_nvdimm_command = _nvdimm_create_ksdata(action=NVDIMM_ACTION_RECONFIGURE,
+                                                     namespace=namespace,
+                                                     sectorsize=sectorsize,
+                                                     mode=mode)
+        data.nvdimm.actionList.append(added_nvdimm_command)
+
+
+def _nvdimm_create_ksdata(action=None, namespace=None, mode=None, sectorsize=None):
+    from pyanaconda.kickstart import AnacondaKSHandler
+    handler = AnacondaKSHandler()
+    # pylint: disable=E1101
+    nvdimm_data = handler.NvdimmData()
+    if action is not None:
+        nvdimm_data.action = action
+    if namespace is not None:
+        nvdimm_data.namespace = namespace
+    if mode is not None:
+        nvdimm_data.mode = mode
+    if sectorsize is not None:
+        nvdimm_data.sectorsize = sectorsize
+    return nvdimm_data
