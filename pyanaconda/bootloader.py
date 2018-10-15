@@ -98,12 +98,6 @@ def _is_on_ibft(device):
 
     return all(getattr(disk, "ibft", False) for disk in device.disks)
 
-def _is_on_nvdimm(device):
-    """Tells whether a given device is on an NVDIMM disk."""
-
-    return all(isinstance(disk, blivet.devices.NVDIMMNamespaceDevice)
-               for disk in device.disks)
-
 class BootLoaderError(Exception):
     pass
 
@@ -579,10 +573,6 @@ class BootLoader(object):
                                          "an iSCSI disk which is not configured in iBFT."))
                     return False
 
-        if _is_on_nvdimm(device):
-            log.debug("stage1 device cannot be on an NVDIMM disk")
-            self.errors.append(_("Boot loader stage1 device cannot be on an NVDIMM disk."))
-
         description = self.device_description(device)
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
@@ -708,12 +698,6 @@ class BootLoader(object):
                                        % {"bootloader_stage2_description":
                                           self.stage2_description})
                     valid = False
-
-        if _is_on_nvdimm(device):
-            self.errors.append(_("%(bootloader_stage2_description)s cannot be on an NVDIMM disk.")
-                               % {"bootloader_stage2_description" : self.stage2_description})
-            valid = False
-
 
         if not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("%(desc)s cannot be of type %(type)s")
