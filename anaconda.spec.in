@@ -349,6 +349,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 15 2018 Martin Kolman <mkolman@redhat.com> - 30.6-1
+- nvdimm: update ks data for actions in UI (rvykydal)
+- nvdimm: use pykickstart constant for setting reconfigure mode (rvykydal)
+- Revert "Don't allow booting from nvdimm devices" (rvykydal)
+- Add --no-pip to setup-mock-test-env script (jkonecny)
+- Fix error message in setup-mock-test-env script (jkonecny)
+- Add shortcut function to get dependency script (jkonecny)
+- Add install-pip parameter to setup-mock-test-env (jkonecny)
+- Small optimalization in setup-mock-test-env (jkonecny)
+- Add package installation from pip for test script (jkonecny)
+- Fix wrong pylint false positive regex (jkonecny)
+
 * Mon Oct 08 2018 Martin Kolman <mkolman@redhat.com> - 30.5-1
 - Adjust to some DNF 3.6 changes (#1637021) (mkolman)
 - Ignore errors when trying to activate unsupported swaps (#1635252) (vtrefny)
