@@ -796,7 +796,7 @@ class DNFPayload(payload.PackagePayload):
     @property
     def baseRepo(self):
         # is any locking needed here?
-        repo_names = [constants.BASE_REPO_NAME] + self.DEFAULT_REPOS
+        repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
                 if repo.id in repo_names:
@@ -1274,7 +1274,7 @@ class DNFPayload(payload.PackagePayload):
             variants = self._treeinfo.variants
 
             for variant in variants:
-                if variant in self.DEFAULT_REPOS:
+                if variant in constants.DEFAULT_REPOS:
                     variant_obj = variants[variant]
                     log.info("Found base repository in treeinfo file.")
                     if variant_obj.paths.repository == ".":
