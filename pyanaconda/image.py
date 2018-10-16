@@ -47,6 +47,8 @@ def findFirstIsoImage(path):
         return None
 
     arch = _arch
+    mount_path = "/mnt/install/cdimage"
+    discinfo_path = os.path.join(mount_path, ".discinfo")
 
     if os.path.isfile(path) and path.endswith(".iso"):
         files = [os.path.basename(path)]
@@ -55,26 +57,26 @@ def findFirstIsoImage(path):
         files = os.listdir(path)
 
     for fn in files:
-        what = path + '/' + fn
+        what = os.path.join(path, fn)
         log.debug("Checking %s", what)
         if not isys.isIsoImage(what):
             continue
 
-        log.debug("mounting %s on /mnt/install/cdimage", what)
+        log.debug("mounting %s on %s", what, mount_path)
         try:
-            blivet.util.mount(what, "/mnt/install/cdimage", fstype="iso9660", options="ro")
+            blivet.util.mount(what, mount_path, fstype="iso9660", options="ro")
         except OSError:
             continue
 
-        if not os.access("/mnt/install/cdimage/.discinfo", os.R_OK):
-            blivet.util.umount("/mnt/install/cdimage")
+        if not os.access(discinfo_path, os.R_OK):
+            blivet.util.umount(mount_path)
             continue
 
         log.debug("Reading .discinfo")
         disc_info = DiscInfo()
 
         try:
-            disc_info.load("/mnt/install/cdimage/.discinfo")
+            disc_info.load(discinfo_path)
             disc_arch = disc_info.arch
         except Exception as ex:  # pylint: disable=broad-except
             log.warning(".discinfo file can't be loaded: %s", ex)
@@ -84,14 +86,14 @@ def findFirstIsoImage(path):
         if disc_arch != arch:
             log.warning("findFirstIsoImage: architectures mismatch: %s, %s",
                         disc_arch, arch)
-            blivet.util.umount("/mnt/install/cdimage")
+            blivet.util.umount(mount_path)
             continue
 
         # If there's no repodata, there's no point in trying to
         # install from it.
-        if not os.access("/mnt/install/cdimage/repodata", os.R_OK):
+        if not os.access(os.path.join(mount_path, "repodata"), os.R_OK):
             log.warning("%s doesn't have repodata, skipping", what)
-            blivet.util.umount("/mnt/install/cdimage")
+            blivet.util.umount(mount_path)
             continue
 
         # warn user if images appears to be wrong size
@@ -102,7 +104,7 @@ def findFirstIsoImage(path):
                 raise exn
 
         log.info("Found disc at %s", fn)
-        blivet.util.umount("/mnt/install/cdimage")
+        blivet.util.umount(mount_path)
         return fn
 
     return None
