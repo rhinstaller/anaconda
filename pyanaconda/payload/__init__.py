@@ -25,17 +25,13 @@
 
 """
 import os
-import requests
 import shutil
 from glob import glob
 from fnmatch import fnmatch
 import threading
 import re
 import functools
-import time
 from collections import OrderedDict, namedtuple
-
-from productmd.treeinfo import TreeInfo
 
 from blivet.size import Size, ROUND_HALF_UP
 
@@ -59,6 +55,7 @@ from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
+from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 
 from pykickstart.parser import Group
 
@@ -73,8 +70,6 @@ from pyanaconda.product import productName, productVersion
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 from distutils.version import LooseVersion
-
-MAX_TREEINFO_DOWNLOAD_RETRIES = 6
 
 
 def versionCmp(v1, v2):
@@ -319,7 +314,7 @@ class Payload(object):
         self.instclass = None
         self.txID = None
 
-        self._treeinfo = None
+        self._install_tree_metadata = None
 
         self._first_payload_reset = True
 
@@ -354,7 +349,7 @@ class Payload(object):
         """Invalidate a previously setup payload."""
         self.storage = None
         self.instclass = None
-        self._treeinfo = None
+        self._install_tree_metadata = None
 
     def postSetup(self):
         """Run specific payload post-configuration tasks on the end of
@@ -647,8 +642,8 @@ class Payload(object):
     ##
     ## METHODS FOR TREE VERIFICATION
     ##
-    def _refreshTreeInfo(self, url):
-        """Retrieve treeinfo and store it in the self._treeinfo.
+    def _refreshInstallTree(self, url):
+        """Refresh installation tree metadata.
 
         :param url: url of the repo
         :type url: string
@@ -676,74 +671,19 @@ class Payload(object):
                 log.info("Failed to parse proxy for _getTreeInfo %s: %s",
                          proxy_url, e)
 
-        # Retry treeinfo downloads with a progressively longer pause,
-        # so NetworkManager have a chance setup a network and we have
-        # full connectivity before trying to download things. (#1292613)
-        xdelay = util.xprogressive_delay()
-        response = None
-        ret_code = [None, None]
         headers = {"user-agent": USER_AGENT}
-
-        for retry_count in range(0, MAX_TREEINFO_DOWNLOAD_RETRIES + 1):
-            if retry_count > 0:
-                time.sleep(next(xdelay))
-            # Downloading .treeinfo
-            log.info("Trying to download '.treeinfo'")
-            (response, ret_code[0]) = self._download_treeinfo_file(url, ".treeinfo",
-                                                                   headers, proxies, sslverify)
-            if response:
-                break
-            # Downloading treeinfo
-            log.info("Trying to download 'treeinfo'")
-            (response, ret_code[1]) = self._download_treeinfo_file(url, "treeinfo",
-                                                                   headers, proxies, sslverify)
-            if response:
-                break
-
-            # The [.]treeinfo wasn't downloaded. Try it again if [.]treeinfo
-            # is on the server.
-            #
-            # Server returned HTTP 404 code -> no need to try again
-            if (ret_code[0] is not None and ret_code[0] == 404 and ret_code[1] is not None and ret_code[1] == 404):
-                response = None
-                log.error("Got HTTP 404 Error when downloading [.]treeinfo files")
-                break
-            if retry_count < MAX_TREEINFO_DOWNLOAD_RETRIES:
-                # retry
-                log.info("Retrying repo info download for %s, retrying (%d/%d)",
-                         url, retry_count + 1, MAX_TREEINFO_DOWNLOAD_RETRIES)
-            else:
-                # run out of retries
-                err_msg = ("Repo info download for %s failed after %d retries" %
-                           (url, retry_count))
-                log.error(err_msg)
-                self.verbose_errors.append(err_msg)
-                response = None
-
-        if response:
-            # get the treeinfo contents
-            text = response.text
-
-            response.close()
-
-            self._treeinfo = TreeInfo()
-            self._treeinfo.loads(text)
-        else:
-            self._treeinfo = None
-
-    def _download_treeinfo_file(self, url, file_name, headers, proxies, verify):
+        self._install_tree_metadata = InstallTreeMetadata()
         try:
-            result = self._session.get("%s/%s" % (url, file_name), headers=headers,
-                                       proxies=proxies, verify=verify)
-            # Server returned HTTP 4XX or 5XX codes
-            if result.status_code >= 400 and result.status_code < 600:
-                log.info("Server returned %i code", result.status_code)
-                return (None, result.status_code)
-            log.debug("Retrieved '%s' from %s", file_name, url)
-        except requests.exceptions.RequestException as e:
-            log.info("Error downloading '%s': %s", file_name, e)
-            return (None, None)
-        return (result, result.status_code)
+            ret = self._install_tree_metadata.load_url(url, proxies, sslverify, headers)
+        except IOError as e:
+            self._install_tree_metadata = None
+            self.verbose_errors.append(str(e))
+            log.warning("Install tree metadata fetching failed: %s", str(e))
+            return
+
+        if not ret:
+            log.warning("Install tree metadata can't be loaded!")
+            self._install_tree_metadata = None
 
     def _getReleaseVersion(self, url):
         """Return the release version of the tree at the specified URL."""
@@ -754,8 +694,8 @@ class Payload(object):
 
         log.debug("getting release version from tree at %s (%s)", url, version)
 
-        if self._treeinfo:
-            version = self._treeinfo.release.version.lower()
+        if self._install_tree_metadata:
+            version = self._install_tree_metadata.get_release_version()
             log.debug("using treeinfo release version of %s", version)
         else:
             log.debug("using default release version of %s", version)

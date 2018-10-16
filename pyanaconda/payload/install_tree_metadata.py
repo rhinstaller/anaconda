@@ -19,6 +19,7 @@
 
 import time
 import requests
+import os
 
 from productmd.treeinfo import TreeInfo
 from pyanaconda.core import util, constants
@@ -34,15 +35,26 @@ class InstallTreeMetadata(object):
     def __init__(self):
         self._tree_info = TreeInfo()
         self._meta_repos = []
+        self._path = ""
 
-    def load_text(self, text):
-        """Loads .treeinfo content."""
-        self._tree_info.loads(text)
+    def load_file(self, root_path):
+        """Loads installation tree metadata from root path.
 
-    def load_file(self, path):
-        """Loads installation tree metadata from root path."""
+        :param root_path: Path to the installation root.
+        :type root_path: str
+        :returns: True if the metadata were loaded, False otherwise.
+        """
         self._clear()
-        self._tree_info.load(path)
+        self._path = root_path
+
+        if os.access(os.path.join(root_path, ".treeinfo"), os.R_OK):
+            self._tree_info.load(os.path.join(root_path, ".treeinfo"))
+        elif os.access(os.path.join(root_path, "treeinfo"), os.R_OK):
+            self._tree_info.load(os.path.join(root_path, "treeinfo"))
+        else:
+            return False
+
+        return True
 
     def load_url(self, url, proxies, sslverify, headers):
         """Load URL link.
@@ -62,12 +74,12 @@ class InstallTreeMetadata(object):
         # Retry treeinfo downloads with a progressively longer pause,
         # so NetworkManager have a chance setup a network and we have
         # full connectivity before trying to download things. (#1292613)
+        self._clear()
+
         xdelay = util.xprogressive_delay()
         response = None
         ret_code = [None, None]
         session = util.requests_session()
-
-        self._clear()
 
         for retry_count in range(0, MAX_TREEINFO_DOWNLOAD_RETRIES + 1):
             if retry_count > 0:
@@ -111,7 +123,8 @@ class InstallTreeMetadata(object):
 
             response.close()
 
-            self.load_text(text)
+            self._tree_info.loads(text)
+            self._path = url
             return True
 
         return False
@@ -135,6 +148,7 @@ class InstallTreeMetadata(object):
         """Clear metadata repositories."""
         self._tree_info = TreeInfo()
         self._meta_repos = []
+        self._path = ""
 
     def get_release_version(self):
         """Get release version from the repository.
@@ -150,7 +164,7 @@ class InstallTreeMetadata(object):
 
         return version.lower()
 
-    def get_repos_metadata(self):
+    def get_metadata_repos(self):
         """Get all repository metadata objects."""
         if not self._meta_repos:
             self._read_variants()
@@ -163,17 +177,20 @@ class InstallTreeMetadata(object):
         :param name: Name of the variant to return.
         :rtype name: VariantRepo object or None.
         """
-        for variant in self.get_repos_metadata():
+        for variant in self.get_metadata_repos():
             if name == variant.name:
                 return variant
 
         return None
 
-    def get_base_repo_metadata(self, additional_names):
+    def get_base_repo_metadata(self, additional_names=None):
         """Get repo metadata about base repository."""
-        repos = additional_names + constants.DEFAULT_REPOS
+        repos = constants.DEFAULT_REPOS
 
-        for repo_md in self.get_repos_metadata():
+        if additional_names:
+            repos.extend(additional_names)
+
+        for repo_md in self.get_metadata_repos():
             if repo_md.name in repos:
                 return repo_md
 
@@ -182,18 +199,19 @@ class InstallTreeMetadata(object):
     def _read_variants(self):
         for variant_name in self._tree_info.variants:
             variant_object = self._tree_info.variants[variant_name]
-            self._meta_repos.append(RepoMetadata(variant_name, variant_object))
+            self._meta_repos.append(RepoMetadata(variant_name, variant_object, self._path))
 
 
 class RepoMetadata(object):
     """Metadata repo object contains metadata about repository."""
 
-    def __init__(self, name, obj):
+    def __init__(self, name, obj, root_path):
         """Do not instantiate this class directly.
         Use InstallTreeMetadata to instantiate this class.
         """
         self._name = name
         self._obj = obj
+        self._root_path = root_path
 
     @property
     def name(self):
@@ -201,6 +219,14 @@ class RepoMetadata(object):
         return self._name
 
     @property
-    def path(self):
+    def relative_path(self):
         """Get relative repository root path."""
         return self._obj.paths.repository
+
+    @property
+    def path(self):
+        """Get absolute repository root path."""
+        if self.relative_path == ".":
+            return self._root_path
+        else:
+            return os.path.join(self._root_path, self.relative_path)
