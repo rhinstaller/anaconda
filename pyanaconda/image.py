@@ -17,7 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os, os.path, stat, tempfile
+import os
+import os.path
+import stat
+import tempfile
 
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
@@ -31,9 +34,11 @@ from blivet.errors import FSError
 from productmd.discinfo import DiscInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
+
 log = get_module_logger(__name__)
 
 _arch = blivet.arch.get_arch()
+
 
 def findFirstIsoImage(path):
     """
@@ -150,6 +155,7 @@ def mountImage(isodir, tree):
         else:
             break
 
+
 # Return the first Device instance containing valid optical install media
 # for this product.
 def opticalInstallMedia(devicetree):
@@ -188,11 +194,14 @@ def opticalInstallMedia(devicetree):
 
     return retval
 
-# Return a generator yielding Device instances that may have HDISO install
-# media somewhere.  Candidate devices are simply any that we can mount.
+
 def potentialHdisoSources(devicetree):
+    """ Return a generator yielding Device instances that may have HDISO install
+        media somewhere. Candidate devices are simply any that we can mount.
+    """
     return (d for d in devicetree.devices
             if d.type == "partition" and d.format.exists and d.format.mountable)
+
 
 def verifyMedia(tree, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):
