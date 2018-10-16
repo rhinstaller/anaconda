@@ -21,6 +21,7 @@ import os, os.path, stat, tempfile
 
 from pyanaconda import isys
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MissingImageError
+from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 
 import blivet.util
 import blivet.arch
@@ -91,7 +92,7 @@ def findFirstIsoImage(path):
 
         # If there's no repodata, there's no point in trying to
         # install from it.
-        if not os.access(os.path.join(mount_path, "repodata"), os.R_OK):
+        if not _check_repodata(mount_path):
             log.warning("%s doesn't have repodata, skipping", what)
             blivet.util.umount(mount_path)
             continue
@@ -108,6 +109,20 @@ def findFirstIsoImage(path):
         return fn
 
     return None
+
+
+def _check_repodata(mount_path):
+    install_tree_meta = InstallTreeMetadata()
+    if not install_tree_meta.load_file(mount_path):
+        log.warning("Can't read install tree metadata!")
+
+    repo_md = install_tree_meta.get_base_repo_metadata()
+
+    if not repo_md:
+        return False
+
+    return repo_md.is_valid()
+
 
 def mountImage(isodir, tree):
     while True:

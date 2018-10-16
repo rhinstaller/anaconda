@@ -230,3 +230,11 @@ class RepoMetadata(object):
             return self._root_path
         else:
             return os.path.join(self._root_path, self.relative_path)
+
+    def is_valid(self):
+        """Quick check if the repo is a valid repository.
+
+        This is only check if the repository is invalid. If success it doesn't mean it is valid.
+
+        :returns: True if repository is not invalid, False otherwise."""
+        return os.access(os.path.join(self.path, "repodata"), os.R_OK)
