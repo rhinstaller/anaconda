@@ -21,6 +21,7 @@ from abc import ABC, abstractmethod
 
 import pydbus
 
+from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
 from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
 from pyanaconda.dbus.observer import DBusObjectObserver, DBusCachedObserver
 
@@ -188,7 +189,24 @@ class DBusSessionConnection(Connection):
         return pydbus.SessionBus()
 
 
-class DBusDefaultConnection(Connection):
+class DBusAnacondaConnection(Connection):
+    """Representation of an Anaconda bus connection."""
+
+    def get_new_connection(self):
+        """Get an Anaconda bus connection."""
+        if DBUS_ANACONDA_SESSION_ADDRESS in os.environ:
+            bus_address = os.environ.get(DBUS_ANACONDA_SESSION_ADDRESS)
+        elif os.path.exists(ANACONDA_BUS_ADDR_FILE):
+            with open(ANACONDA_BUS_ADDR_FILE, 'rt') as f:
+                bus_address = f.read().strip()
+        else:
+            raise ConnectionError("Can't find Anaconda bus address!")
+
+        log.info("Connecting to an Anaconda bus at %s.", bus_address)
+        return pydbus.connect(bus_address)
+
+
+class DBusDefaultConnection(DBusAnacondaConnection):
     """Representation of a default bus connection."""
 
     def get_new_connection(self):
@@ -196,14 +214,11 @@ class DBusDefaultConnection(Connection):
 
         Connect to the bus specified by the environmental variable
         DBUS_STARTER_ADDRESS. If it is not specified, connect to
-        the session bus.
+        the Anaconda bus.
         """
         if DBUS_STARTER_ADDRESS in os.environ:
             bus_address = os.environ.get(DBUS_STARTER_ADDRESS)
-        elif DBUS_ANACONDA_SESSION_ADDRESS in os.environ:
-            bus_address = os.environ.get(DBUS_ANACONDA_SESSION_ADDRESS)
-        else:
-            raise ConnectionError("Can't find usable bus address!")
+            log.info("Connecting to a default bus at %s.", bus_address)
+            return pydbus.connect(bus_address)
 
-        log.info("Connecting to a default bus at %s.", bus_address)
-        return pydbus.connect(bus_address)
+        return super().get_new_connection()
