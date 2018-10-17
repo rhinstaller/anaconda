@@ -569,7 +569,7 @@ class PartTypeSpoke(NormalTUISpoke):
             c = CheckboxWidget(title=_(part_type),
                                completed=(not self._do_mount_assign and PARTTYPES[part_type] == self.clearPartType))
             self._container.add(c, self._select_partition_type_callback, part_type)
-        c = CheckboxWidget(title=_("Manually assign mount points") + _(" (EXPERIMENTAL)"),
+        c = CheckboxWidget(title=_("Manually assign mount points"),
                            completed=self._do_mount_assign)
         self._container.add(c, self._select_mount_assign)
 
