@@ -25,13 +25,12 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda import addons
-from pyanaconda.dbus.launcher import DBusLauncher
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
+from pyanaconda.dbus.launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.startup_utils import run_boss, stop_boss
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
@@ -81,7 +80,7 @@ class Anaconda(object):
         self.gui_initialized = threading.Lock()
 
         # Create class for launching our dbus session
-        self._dbus_launcher = DBusLauncher()
+        self._dbus_launcher = None
 
     def set_from_opts(self, opts):
         """Load argument to variables from self.opts."""
@@ -92,6 +91,13 @@ class Anaconda(object):
         self.methodstr = opts.method
         self.stage2 = opts.stage2
         self.additional_repos = opts.addRepo
+
+    @property
+    def dbus_launcher(self):
+        if not self._dbus_launcher:
+            self._dbus_launcher = AnacondaDBusLauncher()
+
+        return self._dbus_launcher
 
     @property
     def bootloader(self):
@@ -420,17 +426,3 @@ class Anaconda(object):
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
-
-    def run_boss_with_dbus(self):
-        """Ensure suitable DBus is running. If not, start a new session."""
-        self._dbus_launcher.start_dbus_session()
-        self._dbus_launcher.write_bus_address()
-        run_boss()
-
-    def cleanup_dbus_session(self):
-        """Stop our DBus services and our DBus session if it is our private DBus session.
-
-        Our DBus is started when no session DBus is available.
-        """
-        stop_boss()
-        self._dbus_launcher.stop()

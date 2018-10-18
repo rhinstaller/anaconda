@@ -40,9 +40,6 @@ from pyanaconda.flags import flags
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
 
-from pyanaconda.dbus import DBus
-from pyanaconda.dbus.constants import DBUS_FLAG_NONE
-from pyanaconda.modules.common.constants.services import BOSS
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
 import blivet
@@ -81,21 +78,6 @@ def module_exists(module_path):
         return True
     except ImportError:
         return False
-
-
-def stop_boss():
-    """Stop boss by calling Quit() on DBus."""
-    boss_proxy = BOSS.get_proxy()
-    boss_proxy.Quit()
-
-
-def run_boss():
-    """Start Boss service on DBus."""
-    bus_proxy = DBus.get_dbus_proxy()
-    bus_proxy.StartServiceByName(BOSS.service_name, DBUS_FLAG_NONE)
-
-    boss_proxy = BOSS.get_proxy()
-    boss_proxy.StartModules()
 
 
 def get_anaconda_version_string(build_time_version=False):
@@ -417,26 +399,6 @@ def set_installation_method_from_anaconda_options(anaconda, ksdata):
         ksdata.method.metalink = None
     elif source.is_livecd:
         ksdata.method.partition = source.partition
-
-
-def wait_for_modules(timeout=600):
-    """Wait for the DBus modules.
-
-    :param timeout: seconds to the timeout
-    :return: True if the modules are ready, otherwise False
-    """
-    boss = BOSS.get_proxy()
-
-    while not boss.AllModulesAvailable and timeout > 0:
-        log.info("Waiting %d sec for modules to be started.", timeout)
-        time.sleep(1)
-        timeout = timeout - 1
-
-    if not timeout:
-        log.error("Waiting for modules to be started timed out.")
-        return False
-
-    return True
 
 
 def parse_kickstart(options, addon_paths, pass_to_boss=False):
