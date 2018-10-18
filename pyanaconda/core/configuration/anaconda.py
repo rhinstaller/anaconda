@@ -60,6 +60,16 @@ class AnacondaSection(Section):
         """Run Anaconda in the debugging mode."""
         return self._get_option("debug", bool)
 
+    @property
+    def addons_enabled(self):
+        """Enable Anaconda addons."""
+        return self._get_option("addons_enabled", bool)
+
+    @property
+    def kickstart_modules(self):
+        """List of enabled kickstart modules."""
+        return self._get_option("kickstart_modules").split()
+
 
 class ServicesSection(Section):
     """The Services section."""
