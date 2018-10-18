@@ -39,3 +39,6 @@ export UIPATH="${top_srcdir}/pyanaconda/ui/gui/"
 export GLADE_CATALOG_SEARCH_PATH="${top_srcdir}/widgets/glade"
 export GLADE_MODULE_SEARCH_PATH="${top_builddir}/widgets/src/.libs"
 export ANACONDA_DATA="${top_srcdir}/data"
+
+# Use the default configuration in tests.
+export ANACONDA_CONFIG_TMP="${top_srcdir}/data/anaconda.conf"

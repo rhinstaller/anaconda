@@ -26,4 +26,7 @@ dist_pkgdata_DATA          = interactive-defaults.ks \
 helpdir               = $(datadir)/$(PACKAGE_NAME)
 dist_help_DATA        = anaconda_options.txt
 
+configdir           = $(sysconfdir)/$(PACKAGE_NAME)
+dist_config_DATA    = anaconda.conf
+
 MAINTAINERCLEANFILES = Makefile.in

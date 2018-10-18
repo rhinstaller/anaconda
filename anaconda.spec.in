@@ -313,6 +313,8 @@ update-desktop-database &> /dev/null || :
 %exclude %{python3_sitearch}/pyanaconda/ui/tui/*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
+%dir %{_sysconfdir}/%{name}
+%config %{_sysconfdir}/%{name}/*
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst

@@ -37,6 +37,7 @@ class InstallRPMTestCase(RPMTestCase):
 class InstalledFilesTestCase(RPMTestCase):
     """Test if files in anaconda directory are correctly placed in the rpm files."""
 
+    ANACONDA_CONF = "anaconda.conf"
     ANACONDA_BUS_CONF = "anaconda-bus.conf"
     ANACONDA_GENERATOR = "anaconda-generator"
 
@@ -132,6 +133,29 @@ class InstalledFilesTestCase(RPMTestCase):
                 ModifyingFilters.apply_services_prefix,
                 ModifyingFilters.apply_dbus_prefix,
                 ModifyingFilters.apply_share_anaconda_prefix
+            ], src_files
+        )
+
+        self._check_files_in_rpm(src_files, rpm_files)
+
+    def test_anaconda_conf_file(self):
+        rpm_files = self._get_core_rpm_content()
+
+        rpm_files = filter(lambda f: FileFilters.specific_file_only(self.ANACONDA_CONF, f),
+                           rpm_files)
+
+        src_files = self._apply_filters(
+            [
+                FileFilters.src_data_only,
+                FileFilters.confs_only,
+                lambda f: FileFilters.specific_file_only(self.ANACONDA_CONF, f)
+            ], self._get_source_files()
+        )
+
+        src_files = self._apply_maps(
+            [
+                ModifyingFilters.remove_data_prefix,
+                lambda x: ModifyingFilters.apply_rpm_prefix("/etc/anaconda", x)
             ], src_files
         )
 
@@ -314,6 +338,10 @@ class FileFilters(object):
         return "systemd/" in path
 
     @staticmethod
+    def src_data_only(path):
+        return "data/" in path
+
+    @staticmethod
     def specific_file_only(name, path):
         return path.endswith(name)
 
@@ -356,18 +384,23 @@ class ModifyingFilters(object):
         return path
 
     @staticmethod
-    def remove_data_dbus_prefix(path):
-        if path.startswith("data/dbus/"):
-            return path[10:]
+    def remove_prefix(prefix, path):
+        if path.startswith(prefix):
+            return path[len(prefix):]
 
         return path
 
     @staticmethod
-    def remove_data_systemd_prefix(path):
-        if path.startswith("data/systemd/"):
-            return path[13:]
+    def remove_data_prefix(path):
+        return ModifyingFilters.remove_prefix("data/", path)
 
-        return path
+    @staticmethod
+    def remove_data_dbus_prefix(path):
+        return ModifyingFilters.remove_prefix("data/dbus/", path)
+
+    @staticmethod
+    def remove_data_systemd_prefix(path):
+        return ModifyingFilters.remove_prefix("data/systemd/", path)
 
     @staticmethod
     def apply_rpm_prefix(prefix, path):
