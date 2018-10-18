@@ -344,6 +344,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 18 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.24-1
+- Make the pyanaconda/image.py more pep8 (jkonecny)
+  Related: rhbz#1631673
+- Test image repodata folder based on treeinfo file (jkonecny)
+  Resolves: rhbz#1631673
+- Use var instead of strings in findFirstIsoImage (jkonecny)
+  Related: rhbz#1631673
+- Use new InstallTreeMetadata instead of TreeInfo (jkonecny)
+  Related: rhbz#1631673
+- Add InstallTreeMetadata class (jkonecny)
+  Related: rhbz#1631673
+- Move DEFAULT_REPOS to the constants (jkonecny)
+  Related: rhbz#1631673
+
 * Mon Oct 15 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.23-1
 - nvdimm: update ks data for actions in UI (rvykydal)
   Resolves: rhbz#1620093
