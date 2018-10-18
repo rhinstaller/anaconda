@@ -59,6 +59,14 @@ ISO_DIR = MOUNT_DIR + "/isodir"
 IMAGE_DIR = MOUNT_DIR + "/image"
 INSTALL_TREE = MOUNT_DIR + "/source"
 BASE_REPO_NAME = "anaconda"
+
+# Get list of repo names witch should be used as base repo
+DEFAULT_REPOS = [productName.split('-')[0].lower(),
+                 "fedora-modular-server",
+                 "rawhide",
+                 "BaseOS"]
+
+
 ANACONDA_BUS_ADDR_FILE = "/run/anaconda/bus.address"
 ANACONDA_DATA_DIR = "/usr/share/anaconda"
 

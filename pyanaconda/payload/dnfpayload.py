@@ -795,7 +795,7 @@ class DNFPayload(payload.PackagePayload):
     @property
     def baseRepo(self):
         # is any locking needed here?
-        repo_names = [constants.BASE_REPO_NAME] + self.DEFAULT_REPOS
+        repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
                 if repo.id in repo_names:
@@ -1162,7 +1162,7 @@ class DNFPayload(payload.PackagePayload):
 
         if method.method:
             try:
-                self._refreshTreeInfo(install_tree_url)
+                self._refreshInstallTree(install_tree_url)
                 self._base.conf.releasever = self._getReleaseVersion(install_tree_url)
                 base_repo_url = self._getBaseRepoLocation(install_tree_url)
 
@@ -1269,20 +1269,11 @@ class DNFPayload(payload.PackagePayload):
         * If URL points to repo directly then no .treeinfo file is present. We will just use this
         repo.
         """
-        if self._treeinfo:
-            variants = self._treeinfo.variants
-
-            for variant in variants:
-                if variant in self.DEFAULT_REPOS:
-                    variant_obj = variants[variant]
-                    log.info("Found base repository in treeinfo file.")
-                    if variant_obj.paths.repository == ".":
-                        log.debug("Treeinfo points base repository to installation tree root.")
-                        base_repo_url = install_tree_url
-                    else:
-                        base_repo_url = install_tree_url + "/" + variant_obj.paths.repository
-                        log.debug("Treeinfo points base repository to %s.", base_repo_url)
-                    return base_repo_url
+        if self._install_tree_metadata:
+            repo_md = self._install_tree_metadata.get_base_repo_metadata()
+            if repo_md:
+                log.debug("Treeinfo points base repository to %s.", repo_md.path)
+                return repo_md.path
 
         log.debug("No base repository found in treeinfo file. Using installation tree root.")
         return install_tree_url
@@ -1294,9 +1285,7 @@ class DNFPayload(payload.PackagePayload):
         :param base_repo_url: Base repository url. This is not saved anywhere when the function
         is called. It will be add to the existing urls if not None.
         """
-        if self._treeinfo:
-            variants = self._treeinfo.variants
-
+        if self._install_tree_metadata:
             existing_urls = []
 
             if base_repo_url is not None:
@@ -1305,15 +1294,10 @@ class DNFPayload(payload.PackagePayload):
             for ksrepo in self.data.repo.dataList():
                 existing_urls.append(ksrepo.baseurl)
 
-            for variant in variants:
-                variant_obj = variants[variant]
-                variant_url = install_tree_url
-
-                if not variant_obj.paths.repository == ".":
-                    variant_url = install_tree_url + "/" + variant_obj.paths.repository
-
-                if variant_url not in existing_urls:
-                    repo = RepoData(name=variant, baseurl=variant_url, install=False, enabled=True)
+            for repo_md in self._install_tree_metadata.get_metadata_repos():
+                if repo_md.path not in existing_urls:
+                    repo = RepoData(name=repo_md.name, baseurl=repo_md.path,
+                                    install=False, enabled=True)
                     repo.treeinfo_origin = True
                     self.data.repo.dataList().append(repo)
 
