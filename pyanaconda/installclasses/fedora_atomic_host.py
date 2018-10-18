@@ -36,7 +36,7 @@ class AtomicHostInstallClass(FedoraBaseInstallClass):
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
     defaultFS = "xfs"
 
-    if productVariant != "Atomic":
+    if productVariant != "AtomicHost":
         hidden = True
 
     def __init__(self):
