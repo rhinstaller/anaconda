@@ -73,16 +73,3 @@ HOSTNAME = DBusServiceIdentifier(
     interface_version=1,
     message_bus=SystemBus
 )
-
-# Other constants.
-
-ALL_KICKSTART_MODULES = [
-    TIMEZONE,
-    NETWORK,
-    LOCALIZATION,
-    SECURITY,
-    USERS,
-    PAYLOAD,
-    STORAGE,
-    SERVICES,
-]
