@@ -348,6 +348,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 19 2018 Martin Kolman <mkolman@redhat.com> - 29.24.7-1
+- Fix local repo files aren't enabled (#1636739) (jkonecny)
+
 * Thu Oct 18 2018 Martin Kolman <mkolman@redhat.com> - 29.24.6-1
 - installclass: fix variant string for Atomic Host (#1640409) (dusty)
 
