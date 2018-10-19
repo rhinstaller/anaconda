@@ -125,13 +125,18 @@ class BootloaderExecutor(object):
     def _is_usable_disk(self, d):
         """Is the disk usable for the bootloader?
 
-        Throw out drives that don't exist or cannot be used
-        (iSCSI device on an s390 machine).
+        Throw out drives that cannot be used as the boot device:
+            - disk w/ 'hidden' format (member of a RAID/multipath set)
+            - 'protected' disk (we cannot modify the disk's contents)
+            - any iSCSI disk on s390
+            - any non-local disk other than an iSCSI disk using iBFT (these are the
+              only type of remotely-connected disk that we know we can boot from)
         """
         return \
             not d.format.hidden and \
             not d.protected and \
-            not (blivet.arch.is_s390() and isinstance(d, iScsiDiskDevice))
+            not (blivet.arch.is_s390() and isinstance(d, iScsiDiskDevice)) and \
+            ('local' in d.tags or getattr(d, 'ibft', False))
 
     def _get_usable_disks(self, storage):
         """Get a list of usable disks."""
