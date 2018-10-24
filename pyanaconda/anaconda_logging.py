@@ -26,7 +26,6 @@ import os
 import sys
 import warnings
 
-from pyanaconda.flags import flags
 from pyanaconda.core import constants
 
 DEFAULT_LEVEL = logging.INFO
@@ -55,35 +54,16 @@ logLevelMap = {"debug": logging.DEBUG,
                "error": logging.ERROR,
                "critical": logging.CRITICAL}
 
+
 # sets autoSetLevel for the given handler
 def autoSetLevel(handler, value):
     handler.autoSetLevel = value
+
 
 # all handlers of given logger with autoSetLevel == True are set to level
 def setHandlersLevel(logr, level):
     for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
         handler.setLevel(level)
-
-def forwardToJournal(logr, log_formatter=None, log_filter=None):
-    """Forward everything that goes in the logger to the journal daemon."""
-    if flags.imageInstall or flags.dirInstall:
-        # don't clutter up the system logs when doing an image install
-        return
-
-    # Don't add syslog tag if custom formatter is in use.
-    # This also means that custom formatters need to make sure they
-    # add the tag correctly themselves.
-    if log_formatter:
-        tag = None
-    else:
-        tag = logr.name
-    journal_handler = AnacondaJournalHandler(tag=tag)
-    journal_handler.setLevel(logging.DEBUG)
-    if log_filter:
-        journal_handler.addFilter(log_filter)
-    if log_formatter:
-        journal_handler.setFormatter(log_formatter)
-    logr.addHandler(journal_handler)
 
 
 class _AnacondaLogFixer(object):
@@ -133,6 +113,7 @@ class _AnacondaLogFixer(object):
         # is supposed to be an error.
         self._stream = WriteProxy()  # pylint: disable=attribute-defined-outside-init
 
+
 class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
     def __init__(self, tag='', facility=ANACONDA_SYSLOG_FACILITY,
                  identifier=ANACONDA_SYSLOG_IDENTIFIER):
@@ -150,15 +131,19 @@ class AnacondaJournalHandler(_AnacondaLogFixer, JournalHandler):
         else:
             JournalHandler.emit(self, record)
 
+
 class AnacondaSocketHandler(_AnacondaLogFixer, SocketHandler):
     def makePickle(self, record):
         return bytes(self.formatter.format(record) + "\n", "utf-8")
 
+
 class AnacondaFileHandler(_AnacondaLogFixer, logging.FileHandler):
     pass
 
+
 class AnacondaStreamHandler(_AnacondaLogFixer, logging.StreamHandler):
     pass
+
 
 class AnacondaPrefixFilter(logging.Filter):
     """Add a log_prefix field, which is based on the name property,
@@ -179,13 +164,14 @@ class AnacondaPrefixFilter(logging.Filter):
                 record.log_prefix = record.name[9:]
         return True
 
+
 class AnacondaLog(object):
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
-    VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 
-    def __init__(self):
+    def __init__(self, write_to_journal=False):
         self.loglevel = DEFAULT_LEVEL
         self.remote_syslog = None
+        self.write_to_journal = write_to_journal
         # Rename the loglevels so they are the same as in syslog.
         logging.addLevelName(logging.CRITICAL, "CRT")
         logging.addLevelName(logging.ERROR, "ERR")
@@ -215,10 +201,10 @@ class AnacondaLog(object):
             logr.setLevel(logging.DEBUG)
 
         # forward both logs to syslog
-        forwardToJournal(self.anaconda_logger,
-                         log_filter=AnacondaPrefixFilter(),
-                         log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
-        forwardToJournal(storage_logger)
+        self.forwardToJournal(self.anaconda_logger,
+                              log_filter=AnacondaPrefixFilter(),
+                              log_formatter=logging.Formatter(ANACONDA_SYSLOG_FORMAT))
+        self.forwardToJournal(storage_logger)
 
         # External program output log
         program_logger = logging.getLogger(constants.LOGGER_PROGRAM)
@@ -226,7 +212,7 @@ class AnacondaLog(object):
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             minLevel=logging.DEBUG)
-        forwardToJournal(program_logger)
+        self.forwardToJournal(program_logger)
 
         # Create the packaging logger.
         packaging_logger = logging.getLogger(constants.LOGGER_PACKAGING)
@@ -234,21 +220,21 @@ class AnacondaLog(object):
         packaging_logger.propagate = False
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
                             minLevel=logging.DEBUG)
-        forwardToJournal(packaging_logger)
+        self.forwardToJournal(packaging_logger)
 
         # Create the dnf logger and link it to packaging
         dnf_logger = logging.getLogger(constants.LOGGER_DNF)
         dnf_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, dnf_logger,
                             minLevel=logging.NOTSET)
-        forwardToJournal(dnf_logger)
+        self.forwardToJournal(dnf_logger)
 
         # Create the simpleline logger and link it to anaconda
         simpleline_logger = logging.getLogger(constants.LOGGER_SIMPLELINE)
         simpleline_logger.setLevel(logging.DEBUG)
         self.addFileHandler(MAIN_LOG_FILE, simpleline_logger,
                             minLevel=logging.NOTSET)
-        forwardToJournal(simpleline_logger)
+        self.forwardToJournal(simpleline_logger)
 
         # Create the sensitive information logger
         # * the sensitive-info.log file is not copied to the installed
@@ -295,6 +281,26 @@ class AnacondaLog(object):
         except IOError:
             pass
 
+    def forwardToJournal(self, logr, log_formatter=None, log_filter=None):
+        """Forward everything that goes in the logger to the journal daemon."""
+        # Don't add syslog tag if custom formatter is in use.
+        # This also means that custom formatters need to make sure they
+        # add the tag correctly themselves.
+        if not self.write_to_journal:
+            return
+
+        if log_formatter:
+            tag = None
+        else:
+            tag = logr.name
+        journal_handler = AnacondaJournalHandler(tag=tag)
+        journal_handler.setLevel(logging.DEBUG)
+        if log_filter:
+            journal_handler.addFilter(log_filter)
+        if log_formatter:
+            journal_handler.setFormatter(log_formatter)
+        logr.addHandler(journal_handler)
+
     # pylint: disable=redefined-builtin
     def showwarning(self, message, category, filename, lineno,
                     file=sys.stderr, line=None):
@@ -331,13 +337,10 @@ class AnacondaLog(object):
             cfgfile.write(forward_line)
         self.restartSyslog()
 
-    def setupVirtio(self):
+    def setupVirtio(self, vport):
         """Setup virtio rsyslog logging.
         """
-
         template = "*.* %s;anaconda_syslog\n"
-
-        vport = flags.cmdline.get('virtiolog') or self.VIRTIO_PORT
 
         if not os.access(vport, os.W_OK):
             return
@@ -347,7 +350,9 @@ class AnacondaLog(object):
         self.restartSyslog()
 
 
-logger = None
-def init():
+def init(write_to_journal=False):
     global logger
-    logger = AnacondaLog()
+    logger = AnacondaLog(write_to_journal=write_to_journal)
+
+
+logger = None

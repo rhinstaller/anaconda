@@ -30,7 +30,7 @@ from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace, Ac
 
 from pyanaconda.flags import flags as flags_instance
 from pyanaconda.core.kernel import KernelArguments
-from pyanaconda.core.constants import DisplayModes, X_TIMEOUT
+from pyanaconda.core.constants import DisplayModes, X_TIMEOUT, VIRTIO_PORT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -491,6 +491,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
     ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
     ap.add_argument("--remotelog", metavar="HOST:PORT", help=help_parser.help_text("remotelog"))
+    ap.add_argument("--virtiolog", metavar="/dev/virtio-ports/NAME", default=VIRTIO_PORT,
+                    help=help_parser.help_text("virtiolog"))
 
     from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
     from pyanaconda.core.constants import SELINUX_DEFAULT
