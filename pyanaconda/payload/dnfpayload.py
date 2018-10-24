@@ -907,12 +907,14 @@ class DNFPayload(payload.PackagePayload):
 
         if self._updates_enabled:
             self.enableRepo("updates")
-            if not constants.isFinal:
-                self.enableRepo("updates-testing")
+# disabled as F29 hotfix for bug 1642089
+#            if not constants.isFinal:
+#                self.enableRepo("updates-testing")
         else:
             self.disableRepo("updates")
-            if not constants.isFinal:
-                self.disableRepo("updates-testing")
+# disabled as F29 hotfix for bug 1642089
+#            if not constants.isFinal:
+#                self.disableRepo("updates-testing")
 
     def disableRepo(self, repo_id):
         try:
