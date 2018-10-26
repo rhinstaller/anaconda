@@ -117,7 +117,6 @@ def update_blivet_flags(blivet_flags, anaconda_flags):  # pylint: disable=redefi
     """
     blivet_flags.selinux = anaconda_flags.selinux
 
-    blivet_flags.arm_platform = anaconda_flags.armPlatform
     blivet_flags.gpt = anaconda_flags.gpt
 
     blivet_flags.multipath_friendly_names = anaconda_flags.mpathFriendlyNames

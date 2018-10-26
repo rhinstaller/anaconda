@@ -86,11 +86,6 @@ class StorageSection(Section):
     """The Storage section."""
 
     @property
-    def arm_platform(self):
-        """The platform id of the ARM processor."""
-        return self._get_option("arm_platform", str)
-
-    @property
     def dmraid(self):
         """Enable dmraid usage during the installation."""
         return self._get_option("dmraid", bool)

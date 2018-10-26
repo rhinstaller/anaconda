@@ -444,7 +444,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--rescue", dest="rescue", action="store_true", default=False,
                     help=help_parser.help_text("rescue"))
     ap.add_argument("--armplatform", dest="armPlatform", type=str, metavar="PLATFORM_ID",
-                    help=help_parser.help_text("armplatform"))
+                    help="This option is deprecated.")
     ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False,
                     help=help_parser.help_text("multilib"))
 

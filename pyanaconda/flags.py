@@ -52,7 +52,6 @@ class Flags(object):
             self.selinux = SELINUX_DISABLED
 
         self.debug = False
-        self.armPlatform = None
         self.preexisting_x11 = False
         self.noverifyssl = False
         self.imageInstall = False

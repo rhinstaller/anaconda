@@ -432,7 +432,6 @@ if __name__ == "__main__":
     # set flags
     flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
-    flags.armPlatform = opts.armPlatform
     flags.extlinux = opts.extlinux
     flags.nombr = opts.nombr
     flags.mpathFriendlyNames = opts.mpathfriendlynames
