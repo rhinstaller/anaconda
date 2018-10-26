@@ -54,6 +54,7 @@ from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 from pyanaconda.core import util
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
@@ -104,26 +105,19 @@ def copy_to_system(source):
     return True
 
 
-def update_blivet_flags(blivet_flags, anaconda_flags):  # pylint: disable=redefined-outer-name
+def update_blivet_flags():
     """
     Set installer-specific flags. This changes blivet default flags by
     either flipping the original value, or it assigns the flag value
     based on anaconda settings that are passed in.
-
-    :param blivet_flags: Blivet flags
-    :type flags: :class:`blivet.flags.Flags`
-    :param anaconda_flags: anaconda flags
-    :type anaconda_flags: :class:`pyanaconda.flags.Flags`
     """
-    blivet_flags.selinux = anaconda_flags.selinux
+    blivet_flags.selinux = flags.selinux
+    blivet_flags.allow_imperfect_devices = flags.rescue_mode
 
-    blivet_flags.gpt = anaconda_flags.gpt
-
-    blivet_flags.multipath_friendly_names = anaconda_flags.mpathFriendlyNames
-    blivet_flags.allow_imperfect_devices = anaconda_flags.rescue_mode
-
-    blivet_flags.ibft = anaconda_flags.ibft
-    blivet_flags.dmraid = anaconda_flags.dmraid
+    blivet_flags.dmraid = conf.storage.dmraid
+    blivet_flags.ibft = conf.storage.ibft
+    blivet_flags.gpt = conf.storage.gpt
+    blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
 
 
 def release_from_redhat_release(fn):
@@ -885,6 +879,7 @@ class FSSet(object):
         if not arrays:
             return ""
 
+        # pylint: disable=redefined-outer-name
         conf = "# mdadm.conf written out by anaconda\n"
         conf += "MAILADDR root\n"
         conf += "AUTO +imsm +1.x -all\n"
@@ -2280,7 +2275,7 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
 
 def storage_initialize(storage, ksdata, protected):
     """ Perform installer-specific storage initialization. """
-    update_blivet_flags(blivet_flags, flags)
+    update_blivet_flags()
 
     # Platform class setup depends on flags, re-initialize it.
     _platform.update_from_flags()

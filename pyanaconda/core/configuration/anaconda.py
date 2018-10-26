@@ -216,5 +216,23 @@ class AnacondaConfiguration(object):
             if isinstance(obj, AnacondaConfiguration) and isinstance(value, Section):
                 self._validate_members(value)
 
+    def set_from_opts(self, opts):
+        """Set the configuration from the Anaconda cmdline options.
+
+        This code is too related to the Anaconda cmdline options, so it shouldn't
+        be part of this class. We should find a better, more universal, way to change
+        the Anaconda configuration.
+
+        FIXME: This is a temporary solution.
+
+        :param opts: a namespace of options
+        """
+        self.storage._set_option("dmraid", opts.dmraid)
+        self.storage._set_option("ibft", opts.ibft)
+        self.storage._set_option("gpt", opts.gpt)
+        self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
+
+        self.validate()
+
 
 conf = AnacondaConfiguration.from_defaults()

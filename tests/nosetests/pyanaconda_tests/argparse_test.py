@@ -18,6 +18,7 @@
 #
 
 from pyanaconda import argument_parsing
+from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.kernel import KernelArguments
 from pyanaconda.core.constants import DisplayModes
 import unittest
@@ -87,3 +88,18 @@ class ArgparseTest(unittest.TestCase):
         # with an argument, dirinstall should use that
         opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
         self.assertEqual(opts.dirinstall, "/what/ever")
+
+    def conf_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        opts, _deprecated = self._parseCmdline([])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.storage.dmraid, True)
+        self.assertEqual(conf.storage.ibft, True)
+
+        opts, _deprecated = self._parseCmdline(['--nodmraid', '--ibft'])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.storage.dmraid, False)
+        self.assertEqual(conf.storage.ibft, True)

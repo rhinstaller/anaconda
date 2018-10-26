@@ -39,12 +39,10 @@ class Flags(object):
     def __init__(self):
         self.__dict__['_in_init'] = True
         self.livecdInstall = False
-        self.ibft = True
         self.nonibftiscsiboot = False
         self.usevnc = False
         self.vncquestion = True
         self.mpath = True
-        self.dmraid = True
 
         self.selinux = SELINUX_DEFAULT
 
@@ -61,9 +59,7 @@ class Flags(object):
         self.eject = True
         self.extlinux = False
         self.nombr = False
-        self.gpt = False
         self.leavebootorder = False
-        self.mpathFriendlyNames = True
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         self.rescue_mode = False
