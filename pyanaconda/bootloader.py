@@ -844,6 +844,10 @@ class BootLoader(object):
         swap_devices = storage.fsset.swap_devices
         dracut_devices.extend(swap_devices)
 
+        # rhbz#1643717 hotfix: set kernel watchdog timeout to work around kernel
+        #                      lookup issues with systems that have many LUNs
+        self.boot_args.add("watchdog_thresh=30")
+
         # Add resume= option to enable hibernation on x86.
         # Choose the largest swap device for that.
         if blivet.arch.is_x86() and swap_devices:
