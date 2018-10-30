@@ -96,7 +96,7 @@ def exitHandler(rebootData, storage):
 
     anaconda.dbus_launcher.stop()
 
-    if not flags.imageInstall and not flags.livecdInstall \
+    if not conf.target.is_image and not flags.livecdInstall \
        and not flags.dirInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
@@ -291,15 +291,13 @@ if __name__ == "__main__":
     from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
 
-    if opts.images:
-        flags.imageInstall = True
-    elif opts.dirinstall:
+    if not opts.images and opts.dirinstall:
         flags.dirInstall = True
 
     # Set up logging as early as possible.
     from pyanaconda import anaconda_logging
     from pyanaconda import anaconda_loggers
-    anaconda_logging.init(write_to_journal=not flags.imageInstall and not flags.dirInstall)
+    anaconda_logging.init(write_to_journal=not conf.target.is_image and not flags.dirInstall)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     from pyanaconda import network
@@ -325,7 +323,7 @@ if __name__ == "__main__":
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
     if uname[4] == 's390x':
-        if 'TMUX' not in os.environ and 'ks' not in flags.cmdline and not flags.imageInstall:
+        if 'TMUX' not in os.environ and 'ks' not in flags.cmdline and not conf.target.is_image:
             startup_utils.prompt_for_ssh()
             sys.exit(0)
 
@@ -685,7 +683,6 @@ if __name__ == "__main__":
             log.info("naming disk image '%s' '%s'", path, name)
             anaconda.storage.disk_images[name] = path
             image_count += 1
-            flags.imageInstall = True
     except ValueError as e:
         stdout_log.error("error specifying image file: %s", e)
         util.ipmi_abort(scripts=ksdata.scripts)

@@ -27,6 +27,7 @@ from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import constants
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import LOCALIZATION
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.kickstart import RepoData
@@ -112,7 +113,7 @@ def _df_map():
         structured[key] = Size(int(val) * 1024)
 
     # Add /var/tmp/ if this is a directory or image installation
-    if flags.dirInstall or flags.imageInstall:
+    if flags.dirInstall or conf.target.is_image:
         var_tmp = os.statvfs("/var/tmp")
         structured["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
     return structured
@@ -605,6 +606,7 @@ class DNFPayload(payload.PackagePayload):
             self.txID += 1
         return self.txID
 
+    # pylint: disable=redefined-outer-name
     def _configure_proxy(self):
         """Configure the proxy on the dnf.Base object."""
         conf = self._base.conf

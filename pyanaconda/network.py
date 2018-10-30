@@ -44,6 +44,7 @@ from pyanaconda import nm
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
+from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 
@@ -1563,7 +1564,7 @@ def _get_ntp_servers_from_dhcp():
 
     # check if some NTP servers were specified from kickstart
     if not timezone_proxy.NTPServers \
-       and not (flags.imageInstall or flags.dirInstall):
+       and not (conf.target.is_image or flags.dirInstall):
         # no NTP servers were specified, add those from DHCP
         timezone_proxy.SetNTPServers(hostnames)
 

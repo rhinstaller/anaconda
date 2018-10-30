@@ -81,7 +81,7 @@ def enable_installer_mode():
 
     # We don't want image installs writing backups of the *image* metadata
     # into the *host's* /etc/lvm. This can get real messy on build systems.
-    if flags.imageInstall:
+    if conf.target.is_image:
         blivet_flags.lvm_metadata_backup = False
 
     blivet_flags.auto_dev_updates = True
@@ -868,6 +868,7 @@ class FSSet(object):
 
         return self.crypt_tab.crypttab()
 
+    # pylint: disable=redefined-outer-name
     def mdadm_conf(self):
         """ Return the contents of mdadm.conf. """
         arrays = [d for d in self.devices if isinstance(d, MDRaidArrayDevice)]
@@ -1729,7 +1730,7 @@ class InstallerStorage(Blivet):
         else:
             self.ignored_disks.extend(ignored_nvdimm_devs)
 
-        if not flags.imageInstall:
+        if not conf.target.is_image:
             iscsi.startup()
             fcoe.startup()
 
@@ -2004,7 +2005,7 @@ class InstallerStorage(Blivet):
         else:
             template = prefix
 
-        if flags.imageInstall:
+        if conf.target.is_image:
             template = "%s_image" % template
 
         return template
@@ -2191,7 +2192,7 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
 
     """
     if not mount_only:
-        if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
+        if (flags.livecdInstall and not conf.target.is_image and not storage.fsset.active):
             # turn off any swaps that we didn't turn on
             # needed for live installs
             blivet_util.run_program(["swapoff", "-a"])

@@ -21,6 +21,7 @@
 from blivet import callbacks
 from blivet.devices import BTRFSDevice
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
@@ -102,7 +103,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
-    will_write_network = not flags.flags.imageInstall and not flags.flags.dirInstall
+    will_write_network = not conf.target.is_image and not flags.flags.dirInstall
     if will_write_network:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
@@ -174,7 +175,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # But make sure it's not written out in the image and directory installation mode,
     # as that might result in spokes being inadvertently hidden when the actual installation
     # starts from the generate image or directory contents.
-    if flags.flags.imageInstall:
+    if conf.target.is_image:
         log.info("Not writing out user interaction config file due to image install mode.")
     elif flags.flags.dirInstall:
         log.info("Not writing out user interaction config file due to directory install mode.")

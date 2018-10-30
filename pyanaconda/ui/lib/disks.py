@@ -19,10 +19,10 @@
 
 from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 
-from pyanaconda.flags import flags
 from pyanaconda.core.i18n import P_
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.core.configuration.anaconda import conf
 
 __all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk"]
 
@@ -49,7 +49,7 @@ class FakeDisk(object):
 def getDisks(devicetree, fake=False):
     if not fake:
         devices = devicetree.devices
-        if flags.imageInstall:
+        if conf.target.is_image:
             hidden_images = [d for d in devicetree._hidden \
                              if d.name in devicetree.disk_images]
             devices += hidden_images
