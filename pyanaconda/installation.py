@@ -103,8 +103,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
-    will_write_network = not conf.target.is_image and not conf.target.is_directory
-    if will_write_network:
+    if conf.target.is_hardware:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
                                    ksdata.network.execute, (storage, ksdata, instClass)))
@@ -279,7 +278,7 @@ def doInstall(storage, payload, ksdata, instClass):
     early_storage.append(Task("Activate filesystems",
                               task=turn_on_filesystems,
                               task_args=(storage,),
-                              task_kwargs={"mount_only": conf.target.is_directory, "callbacks": callbacks_reg}))
+                              task_kwargs={"callbacks": callbacks_reg}))
 
     early_storage.append(Task("Write early storage", payload.writeStorageEarly))
     installation_queue.append(early_storage)

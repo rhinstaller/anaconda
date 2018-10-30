@@ -2183,7 +2183,7 @@ def get_containing_device(path, devicetree):
     return devicetree.get_device_by_name(device_name)
 
 
-def turn_on_filesystems(storage, mount_only=False, callbacks=None):
+def turn_on_filesystems(storage, callbacks=None):
     """
     Perform installer-specific activation of storage configuration.
 
@@ -2191,8 +2191,8 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
     :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
 
     """
-    if not mount_only:
-        if (flags.livecdInstall and not conf.target.is_image and not storage.fsset.active):
+    if not conf.target.is_directory:
+        if flags.livecdInstall and conf.target.is_hardware and not storage.fsset.active:
             # turn off any swaps that we didn't turn on
             # needed for live installs
             blivet_util.run_program(["swapoff", "-a"])
@@ -2208,7 +2208,7 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
     # FIXME:  For livecd, skip_root needs to be True.
     storage.mount_filesystems()
 
-    if not mount_only:
+    if not conf.target.is_directory:
         write_escrow_packets(storage)
 
 

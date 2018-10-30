@@ -80,7 +80,7 @@ def exitHandler(rebootData, storage):
     if anaconda.payload:
         anaconda.payload.unsetup()
 
-    if image_count or conf.target.is_directory:
+    if not conf.target.is_hardware:
         anaconda.storage.umount_filesystems(swapoff=False)
         devicetree = anaconda.storage.devicetree
         devicetree.teardown_all()
@@ -96,8 +96,7 @@ def exitHandler(rebootData, storage):
 
     anaconda.dbus_launcher.stop()
 
-    if not conf.target.is_image and not flags.livecdInstall \
-       and not conf.target.is_directory:
+    if conf.target.is_hardware and not flags.livecdInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
@@ -294,7 +293,7 @@ if __name__ == "__main__":
     # Set up logging as early as possible.
     from pyanaconda import anaconda_logging
     from pyanaconda import anaconda_loggers
-    anaconda_logging.init(write_to_journal=not conf.target.is_image and not conf.target.is_directory)
+    anaconda_logging.init(write_to_journal=conf.target.is_hardware)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     from pyanaconda import network
