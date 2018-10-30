@@ -89,7 +89,7 @@ class ArgparseTest(unittest.TestCase):
         opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
         self.assertEqual(opts.dirinstall, "/what/ever")
 
-    def conf_test(self):
+    def storage_test(self):
         conf = AnacondaConfiguration.from_defaults()
 
         opts, _deprecated = self._parseCmdline([])
@@ -103,3 +103,30 @@ class ArgparseTest(unittest.TestCase):
 
         self.assertEqual(conf.storage.dmraid, False)
         self.assertEqual(conf.storage.ibft, True)
+
+    def target_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        opts, _deprecated = self._parseCmdline([])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.target.is_hardware, True)
+        self.assertEqual(conf.target.is_image, False)
+        self.assertEqual(conf.target.is_directory, False)
+        self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
+
+        opts, _deprecated = self._parseCmdline(['--image=/what/ever.img'])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.target.is_hardware, False)
+        self.assertEqual(conf.target.is_image, True)
+        self.assertEqual(conf.target.is_directory, False)
+        self.assertEqual(conf.target.physical_root, "/mnt/sysimage")
+
+        opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.target.is_hardware, False)
+        self.assertEqual(conf.target.is_image, False)
+        self.assertEqual(conf.target.is_directory, True)
+        self.assertEqual(conf.target.physical_root, "/what/ever")
