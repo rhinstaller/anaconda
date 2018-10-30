@@ -113,7 +113,7 @@ def _df_map():
         structured[key] = Size(int(val) * 1024)
 
     # Add /var/tmp/ if this is a directory or image installation
-    if flags.dirInstall or conf.target.is_image:
+    if conf.target.is_directory or conf.target.is_image:
         var_tmp = os.statvfs("/var/tmp")
         structured["/var/tmp"] = Size(var_tmp.f_frsize * var_tmp.f_bfree)
     return structured

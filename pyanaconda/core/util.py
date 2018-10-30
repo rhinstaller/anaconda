@@ -976,7 +976,7 @@ def detect_unsupported_hardware(install_class):
     """
     warnings = []
 
-    if flags.automatedInstall or flags.dirInstall or conf.target.is_image:
+    if flags.automatedInstall or conf.target.is_directory or conf.target.is_image:
         log.info("Skipping detection of unsupported hardware.")
         return []
 

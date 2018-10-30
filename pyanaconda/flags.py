@@ -53,7 +53,6 @@ class Flags(object):
         self.preexisting_x11 = False
         self.noverifyssl = False
         self.automatedInstall = False
-        self.dirInstall = False
         self.askmethod = False
         self.eject = True
         self.extlinux = False
@@ -101,7 +100,7 @@ def can_touch_runtime_system(msg, touch_live=False):
         log.info("Not doing '%s' in image installation", msg)
         return False
 
-    if flags.dirInstall:
+    if conf.target.is_directory:
         log.info("Not doing '%s' in directory installation", msg)
         return False
 

@@ -19,9 +19,10 @@
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
-from pyanaconda.flags import flags
+from pyanaconda.core.configuration.anaconda import conf
 
 __all__ = ["SummaryHub"]
+
 
 class SummaryHub(Hub):
     """
@@ -57,7 +58,7 @@ class SummaryHub(Hub):
         """
         super().__init__(data, storage, payload, instclass)
 
-        if not flags.dirInstall:
+        if not conf.target.is_directory:
             self._checker = FileSystemSpaceChecker(storage, payload)
         else:
             self._checker = DirInstallSpaceChecker(storage, payload)

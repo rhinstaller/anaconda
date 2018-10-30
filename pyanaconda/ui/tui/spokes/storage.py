@@ -40,6 +40,7 @@ from blivet.formats import get_format
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
@@ -134,7 +135,7 @@ class StorageSpoke(NormalTUISpoke):
 
     @property
     def showable(self):
-        return not flags.dirInstall
+        return not conf.target.is_directory
 
     @property
     def status(self):

@@ -80,7 +80,7 @@ def exitHandler(rebootData, storage):
     if anaconda.payload:
         anaconda.payload.unsetup()
 
-    if image_count or flags.dirInstall:
+    if image_count or conf.target.is_directory:
         anaconda.storage.umount_filesystems(swapoff=False)
         devicetree = anaconda.storage.devicetree
         devicetree.teardown_all()
@@ -97,7 +97,7 @@ def exitHandler(rebootData, storage):
     anaconda.dbus_launcher.stop()
 
     if not conf.target.is_image and not flags.livecdInstall \
-       and not flags.dirInstall:
+       and not conf.target.is_directory:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
@@ -291,13 +291,10 @@ if __name__ == "__main__":
     from pyanaconda.core.configuration.anaconda import conf
     conf.set_from_opts(opts)
 
-    if not opts.images and opts.dirinstall:
-        flags.dirInstall = True
-
     # Set up logging as early as possible.
     from pyanaconda import anaconda_logging
     from pyanaconda import anaconda_loggers
-    anaconda_logging.init(write_to_journal=not conf.target.is_image and not flags.dirInstall)
+    anaconda_logging.init(write_to_journal=not conf.target.is_image and not conf.target.is_directory)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     from pyanaconda import network
@@ -350,10 +347,6 @@ if __name__ == "__main__":
         stdout_log.error("--images and --dirinstall cannot be used at the same time")
         util.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
-    elif opts.dirinstall:
-        root_path = opts.dirinstall
-        util.setTargetPhysicalRoot(root_path)
-        util.setSysroot(root_path)
 
     from pyanaconda import vnc
     from pyanaconda import kickstart
@@ -708,7 +701,7 @@ if __name__ == "__main__":
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
 
-    if not flags.dirInstall:
+    if not conf.target.is_directory:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storage_initialize,
                                      args=(anaconda.storage, ksdata, anaconda.protected)))
 

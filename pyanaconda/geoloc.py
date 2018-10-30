@@ -180,7 +180,7 @@ class Geolocation(object):
         """
         geolocation_enabled = True
         # don't use geolocation during image and directory installation
-        if conf.target.is_image or flags.dirInstall:
+        if conf.target.is_image or conf.target.is_directory:
             log.info("Geolocation is disabled for image or directory installation.")
             geolocation_enabled = False
         # don't use geolocation during kickstart installation unless explicitly
@@ -218,7 +218,7 @@ class Geolocation(object):
             else:
                 log.info("Geolocation is enabled.")
         else:
-            if conf.target.is_image or flags.dirInstall:
+            if conf.target.is_image or conf.target.is_directory:
                 log.info("Geolocation is disabled for image or directory installation.")
             elif flags.automatedInstall:
                 log.info("Geolocation is disabled due to automated kickstart based installation.")

@@ -22,6 +22,7 @@ from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
 from pyanaconda.core.i18n import N_, _, C_
+from pyanaconda.core.configuration.anaconda import conf
 
 from simpleline import App
 from simpleline.render.screen import InputState
@@ -45,7 +46,7 @@ class SummaryHub(TUIHub):
         super().__init__(data, storage, payload, instclass)
         self.title = N_("Installation")
 
-        if not flags.dirInstall:
+        if not conf.target.is_directory:
             self._checker = FileSystemSpaceChecker(storage, payload)
         else:
             self._checker = DirInstallSpaceChecker(storage, payload)

@@ -103,7 +103,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
-    will_write_network = not conf.target.is_image and not flags.flags.dirInstall
+    will_write_network = not conf.target.is_image and not conf.target.is_directory
     if will_write_network:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
@@ -177,7 +177,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # starts from the generate image or directory contents.
     if conf.target.is_image:
         log.info("Not writing out user interaction config file due to image install mode.")
-    elif flags.flags.dirInstall:
+    elif conf.target.is_directory:
         log.info("Not writing out user interaction config file due to directory install mode.")
     else:
         write_configs.append(Task("Store user interaction config", screen_access.sam.write_out_config_file))
@@ -214,7 +214,7 @@ def doInstall(storage, payload, ksdata, instClass):
     """
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
-    can_install_bootloader = not flags.flags.dirInstall and bootloader_enabled
+    can_install_bootloader = not conf.target.is_directory and bootloader_enabled
 
     installation_queue = TaskQueue("Installation queue")
     # connect progress reporting
@@ -279,7 +279,7 @@ def doInstall(storage, payload, ksdata, instClass):
     early_storage.append(Task("Activate filesystems",
                               task=turn_on_filesystems,
                               task_args=(storage,),
-                              task_kwargs={"mount_only": flags.flags.dirInstall, "callbacks": callbacks_reg}))
+                              task_kwargs={"mount_only": conf.target.is_directory, "callbacks": callbacks_reg}))
 
     early_storage.append(Task("Write early storage", payload.writeStorageEarly))
     installation_queue.append(early_storage)

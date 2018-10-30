@@ -928,7 +928,7 @@ class Payload(object):
         dnfpayload.  Payloads should only implement one of these methods
         by overriding the unneeded one with a pass.
         """
-        if not flags.dirInstall:
+        if not conf.target.is_directory:
             self.storage.write()
 
     def writeStorageLate(self):
@@ -939,7 +939,7 @@ class Payload(object):
         """
         if util.getSysroot() != util.getTargetPhysicalRoot():
             self.prepareMountTargets(self.storage)
-        if not flags.dirInstall:
+        if not conf.target.is_directory:
             self.storage.write()
 
 

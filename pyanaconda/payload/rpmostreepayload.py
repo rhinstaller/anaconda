@@ -40,6 +40,7 @@ log = get_module_logger(__name__)
 
 from pyanaconda.payload import ArchivePayload, PayloadInstallError
 from pyanaconda.bootloader import EFIBase
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 import pyanaconda.errors as errors
 
@@ -417,7 +418,7 @@ class RPMOSTreePayload(ArchivePayload):
             os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
         # Skip kernel args setup for dirinstall, there is no bootloader or rootDevice setup.
-        if not flags.dirInstall:
+        if not conf.target.is_directory:
             # OSTree owns the bootloader configuration, so here we give it
             # the argument list we computed from storage, architecture and
             # such.

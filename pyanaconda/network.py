@@ -1564,7 +1564,7 @@ def _get_ntp_servers_from_dhcp():
 
     # check if some NTP servers were specified from kickstart
     if not timezone_proxy.NTPServers \
-       and not (conf.target.is_image or flags.dirInstall):
+       and not (conf.target.is_image or conf.target.is_directory):
         # no NTP servers were specified, add those from DHCP
         timezone_proxy.SetNTPServers(hostnames)
 

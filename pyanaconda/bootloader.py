@@ -1728,7 +1728,7 @@ class EFIBase(object):
         return "efi/EFI/%s" % (efi_dir,)
 
     def efibootmgr(self, *args, **kwargs):
-        if conf.target.is_image or flags.dirInstall:
+        if conf.target.is_image or conf.target.is_directory:
             log.info("Skipping efibootmgr for image/directory install.")
             return ""
 
