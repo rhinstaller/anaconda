@@ -868,7 +868,6 @@ class FSSet(object):
 
         return self.crypt_tab.crypttab()
 
-    # pylint: disable=redefined-outer-name
     def mdadm_conf(self):
         """ Return the contents of mdadm.conf. """
         arrays = [d for d in self.devices if isinstance(d, MDRaidArrayDevice)]
@@ -881,18 +880,17 @@ class FSSet(object):
         if not arrays:
             return ""
 
-        # pylint: disable=redefined-outer-name
-        conf = "# mdadm.conf written out by anaconda\n"
-        conf += "MAILADDR root\n"
-        conf += "AUTO +imsm +1.x -all\n"
+        content = "# mdadm.conf written out by anaconda\n"
+        content += "MAILADDR root\n"
+        content += "AUTO +imsm +1.x -all\n"
         devices = list(self.mountpoints.values()) + self.swap_devices
         for array in arrays:
             for device in devices:
                 if device == array or device.depends_on(array):
-                    conf += array.mdadm_conf_entry
+                    content += array.mdadm_conf_entry
                     break
 
-        return conf
+        return content
 
     def fstab(self):
         fmt_str = "%-23s %-23s %-7s %-15s %d %d\n"

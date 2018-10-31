@@ -606,28 +606,27 @@ class DNFPayload(payload.PackagePayload):
             self.txID += 1
         return self.txID
 
-    # pylint: disable=redefined-outer-name
     def _configure_proxy(self):
         """Configure the proxy on the dnf.Base object."""
-        conf = self._base.conf
+        config = self._base.conf
 
         if hasattr(self.data.method, "proxy") and self.data.method.proxy:
             try:
                 proxy = ProxyString(self.data.method.proxy)
-                conf.proxy = proxy.noauth_url
+                config.proxy = proxy.noauth_url
                 if proxy.username:
-                    conf.proxy_username = proxy.username
+                    config.proxy_username = proxy.username
                 if proxy.password:
-                    conf.proxy_password = proxy.password
+                    config.proxy_password = proxy.password
                 log.info("Using %s as proxy", self.data.method.proxy)
             except ProxyStringError as e:
                 log.error("Failed to parse proxy for dnf configure %s: %s",
                           self.data.method.proxy, e)
         else:
             # No proxy configured
-            conf.proxy = None
-            conf.proxy_username = None
-            conf.proxy_password = None
+            config.proxy = None
+            config.proxy_username = None
+            config.proxy_password = None
 
     def get_platform_id(self):
         """Obtain the platform id (if available).
@@ -655,10 +654,10 @@ class DNFPayload(payload.PackagePayload):
 
     def _configure(self):
         self._base = dnf.Base()
-        conf = self._base.conf
-        conf.cachedir = DNF_CACHE_DIR
-        conf.pluginconfpath = DNF_PLUGINCONF_DIR
-        conf.logdir = '/tmp/'
+        config = self._base.conf
+        config.cachedir = DNF_CACHE_DIR
+        config.pluginconfpath = DNF_PLUGINCONF_DIR
+        config.logdir = '/tmp/'
         # enable depsolver debugging if in debug mode
         self._base.conf.debug_solver = flags.debug
         # set the platform id based on the /os/release
@@ -668,36 +667,36 @@ class DNFPayload(payload.PackagePayload):
             log.info("setting DNF platform id to: %s", platform_id)
             self._base.conf.module_platform_id = platform_id
 
-        conf.releasever = self._getReleaseVersion(None)
-        conf.installroot = util.getSysroot()
-        conf.prepend_installroot('persistdir')
+        config.releasever = self._getReleaseVersion(None)
+        config.installroot = util.getSysroot()
+        config.prepend_installroot('persistdir')
 
-        self._base.conf.substitutions.update_from_etc(conf.installroot)
+        self._base.conf.substitutions.update_from_etc(config.installroot)
 
         if self.data.packages.multiLib:
-            conf.multilib_policy = "all"
+            config.multilib_policy = "all"
 
         if self.data.packages.timeout is not None:
-            conf.timeout = self.data.packages.timeout
+            config.timeout = self.data.packages.timeout
 
         if self.data.packages.retries is not None:
-            conf.retries = self.data.packages.retries
+            config.retries = self.data.packages.retries
 
         self._configure_proxy()
 
         # Start with an empty comps so we can go ahead and use the environment
         # and group properties. Unset reposdir to ensure dnf has nothing it can
         # check automatically
-        conf.reposdir = []
+        config.reposdir = []
         self._base.read_comps()
 
-        conf.reposdir = REPO_DIRS
+        config.reposdir = REPO_DIRS
 
         # Two reasons to turn this off:
         # 1. Minimal installs don't want all the extras this brings in.
         # 2. Installs aren't reproducible due to weak deps. failing silently.
         if self.data.packages.excludeWeakdeps:
-            conf.install_weak_deps = False
+            config.install_weak_deps = False
 
         # Setup librepo logging
         libdnf.repo.LibrepoLog.removeAllHandlers()
@@ -708,7 +707,7 @@ class DNFPayload(payload.PackagePayload):
         dnf_logger = get_dnf_logger()
         dnf_logger.setLevel(dnf.logging.DDEBUG)
 
-        log.debug("Dnf configuration:\n%s", conf.dump())
+        log.debug("Dnf configuration:\n%s", config.dump())
 
     @property
     def _download_space(self):
