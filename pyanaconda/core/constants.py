@@ -51,6 +51,9 @@ DD_RPMS = "/tmp/DD-*"
 
 TRANSLATIONS_UPDATE_DIR = "/tmp/updates/po"
 
+# The default virtio port.
+VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
+
 ANACONDA_CLEANUP = "anaconda-cleanup"
 MOUNT_DIR = "/run/install"
 DRACUT_REPODIR = "/run/install/repo"

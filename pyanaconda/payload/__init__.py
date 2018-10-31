@@ -38,11 +38,6 @@ from collections import OrderedDict, namedtuple
 from productmd.treeinfo import TreeInfo
 
 from blivet.size import Size, ROUND_HALF_UP
-
-if __name__ == "__main__":
-    from pyanaconda import anaconda_logging
-    anaconda_logging.init()
-
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
     DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
     THREAD_WAIT_FOR_CONNECTING_NM, PayloadRequirementType, GRAPHICAL_TARGET, TEXT_ONLY_TARGET

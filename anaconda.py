@@ -296,8 +296,8 @@ if __name__ == "__main__":
     # Set up logging as early as possible.
     from pyanaconda import anaconda_logging
     from pyanaconda import anaconda_loggers
-    anaconda_logging.init()
-    anaconda_logging.logger.setupVirtio()
+    anaconda_logging.init(write_to_journal=not flags.imageInstall and not flags.dirInstall)
+    anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     from pyanaconda import network
     network.setup_ifcfg_log()
