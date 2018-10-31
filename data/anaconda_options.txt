@@ -41,9 +41,6 @@ rescue
 Start the rescue environment instead of installation.  This option is not supported for
 live installations.
 
-armplatform
-Can be used to specify the ARM platform for the installation by passing the appropriate PLATFORM_ID.
-
 multilib
 Enable dnf's multlib_policy of "all" instead of the default of "best".
 

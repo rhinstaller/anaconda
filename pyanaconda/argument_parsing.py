@@ -444,7 +444,7 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--rescue", dest="rescue", action="store_true", default=False,
                     help=help_parser.help_text("rescue"))
     ap.add_argument("--armplatform", dest="armPlatform", type=str, metavar="PLATFORM_ID",
-                    help=help_parser.help_text("armplatform"))
+                    help="This option is deprecated.")
     ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False,
                     help=help_parser.help_text("multilib"))
 
@@ -583,8 +583,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("extlinux"))
     ap.add_argument("--nombr", action="store_true", default=False,
                     help=help_parser.help_text("nombr"))
-    ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
-                    help=help_parser.help_text("mpathfriendlynames"))
+    ap.add_argument("--mpathfriendlynames", dest="multipath_friendly_names", action="store_true",
+                    default=True, help=help_parser.help_text("mpathfriendlynames"))
     ap.add_argument("--kexec", action="store_true", default=False,
                     help=help_parser.help_text("kexec"))
 

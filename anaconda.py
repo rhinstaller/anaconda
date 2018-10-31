@@ -288,6 +288,9 @@ if __name__ == "__main__":
     from pyanaconda.flags import flags, can_touch_runtime_system
     (opts, depr) = parse_arguments(boot_cmdline=flags.cmdline)
 
+    from pyanaconda.core.configuration.anaconda import conf
+    conf.set_from_opts(opts)
+
     if opts.images:
         flags.imageInstall = True
     elif opts.dirinstall:
@@ -432,21 +435,16 @@ if __name__ == "__main__":
     # set flags
     flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
-    flags.armPlatform = opts.armPlatform
     flags.extlinux = opts.extlinux
     flags.nombr = opts.nombr
-    flags.mpathFriendlyNames = opts.mpathfriendlynames
     flags.debug = opts.debug
     flags.askmethod = opts.askmethod
-    flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
-    flags.ibft = opts.ibft
     flags.nonibftiscsiboot = opts.nonibftiscsiboot
     flags.selinux = opts.selinux
     flags.eject = opts.eject
     flags.kexec = opts.kexec
     flags.singlelang = opts.singlelang
-    flags.gpt = opts.gpt
     flags.leavebootorder = opts.leavebootorder
 
     if opts.liveinst:
