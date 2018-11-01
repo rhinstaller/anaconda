@@ -27,6 +27,7 @@ import sys
 import subprocess
 
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
+from os.path import expanduser
 
 
 DEPENDENCY_SOLVER = "dependency_solver.py"
@@ -182,6 +183,10 @@ One of these commands must be used. These commands can be combined.
                        you can specify which tests will run by giving paths to tests files
                        from anaconda root dir as additional parameters
                        """)
+    group.add_argument('--release', action='store_true', dest='release',
+                       help="""
+                       prepare mock environment to be able to make a release from there
+                       """)
 
     group.add_argument('--copy', '-c', action='store_true', dest='copy',
                        help="""
@@ -219,6 +224,16 @@ def get_required_packages():
     return proc_res.stdout.decode('utf-8').strip()
 
 
+def get_release_packages():
+    """Get packages required to make release."""
+    script = _get_dependency_script_path()
+    cmd = [script, "--release"]
+
+    proc_res = _check_subprocess(cmd, "Can't call dependency_solver script.", stdout_pipe=True)
+
+    return proc_res.stdout.decode('utf-8').strip()
+
+
 def get_required_pip_packages():
     """Get pip packages for running Anaconda tests."""
     script = _get_dependency_script_path()
@@ -229,14 +244,28 @@ def get_required_pip_packages():
     return proc_res.stdout.decode('utf-8').strip()
 
 
-def install_required_packages(mock_command):
+def install_required_packages(mock_command, release=False):
     packages = get_required_packages()
+
+    if release:
+        release_packages = get_release_packages()
+        packages = " ".join([packages, release_packages])
+
     install_packages_to_mock(mock_command, packages)
 
 
 def install_required_pip_packages(mock_command):
     packages = get_required_pip_packages()
     install_pip_packages_to_mock(mock_command, packages)
+
+
+def create_dir_in_mock(mock_command, path):
+    cmd = _prepare_command(mock_command)
+
+    cmd = _run_cmd_in_chroot(cmd)
+    cmd.append('mkdir ' + path)
+
+    _check_subprocess(cmd, "Can't create directory {} to the mock.".format(path))
 
 
 def remove_anaconda_in_mock(mock_command):
@@ -259,6 +288,18 @@ def copy_anaconda_to_mock(mock_command):
     cmd.append(ANACONDA_MOCK_PATH)
 
     _check_subprocess(cmd, "Can't copy Anaconda to mock.")
+
+
+def copy_zanata_config_to_mock(mock_command):
+    create_dir_in_mock(mock_command, '/builddir/.config')
+
+    cmd = _prepare_command(mock_command)
+
+    cmd.append('--copyin')
+    cmd.append(expanduser('~/.config/zanata.ini'))
+    cmd.append('/builddir/.config/zanata.ini')
+
+    _check_subprocess(cmd, "Can't copy zanata ini file to the mock.")
 
 
 def copy_result(mock_command, out_dir):
@@ -357,10 +398,10 @@ def init_mock(mock_command):
     _check_subprocess(cmd, "Can't initialize mock.")
 
 
-def setup_mock(mock_command, no_pip):
+def setup_mock(mock_command, no_pip, release):
     init_mock(mock_command)
 
-    install_required_packages(mock_command)
+    install_required_packages(mock_command, release=release)
 
     if not no_pip:
         install_required_pip_packages(mock_command)
@@ -382,7 +423,7 @@ if __name__ == "__main__":
         _check_dir_exists(ns.result_folder)
 
     if ns.init:
-        setup_mock(mock_cmd, ns.no_pip)
+        setup_mock(mock_cmd, ns.no_pip, ns.release)
 
     if ns.install:
         install_packages_to_mock(mock_cmd, ns.install)
@@ -395,6 +436,9 @@ if __name__ == "__main__":
 
     if ns.prepare:
         prepare_anaconda(mock_cmd)
+
+    if ns.release:
+        copy_zanata_config_to_mock(mock_cmd)
 
     if ns.run_tests:
         success = run_tests(mock_cmd)
