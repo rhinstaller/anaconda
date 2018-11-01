@@ -41,6 +41,8 @@ TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pyk
 
 PIP_DEPENDENCIES = ["rpmfluff", "dogtail", "pocketlint"]
 
+RELEASE_DEPENDENCIES = ["python2-zanata-client"]
+
 
 def _resolve_top_dir():
     top_dir = os.path.dirname(os.path.realpath(__file__))
@@ -62,7 +64,7 @@ def _read_spec_file():
 def parse_args():
     parser = ArgumentParser(description="Resolve Anaconda all dependencies.",
                             epilog="Without any options the '-b -r -t' options will be used.")
-    parser.add_argument('-b', '--build', action='store_true',  dest="build",
+    parser.add_argument('-b', '--build', action='store_true', dest='build',
                         help="resolve build dependencies")
     parser.add_argument('-r', '--runtime', action='store_true', dest='runtime',
                         help="resolve runtime dependencies")
@@ -70,8 +72,10 @@ def parse_args():
                         help="resolve test dependencies")
     parser.add_argument('-p', '--pip', action='store_true', dest='pip',
                         help="resolve pip dependencies")
+    parser.add_argument('--release', action='store_true', dest='release',
+                        help="packages required to make a new release")
     parser.add_argument('--s390', action='store_true', dest='s390',
-                        help="""this is s390 mock environment""")
+                        help="this is s390 mock environment")
 
     return parser.parse_args()
 
@@ -110,9 +114,16 @@ def test_dependencies():
 
 
 def pip_dependencies():
-    """Install these test dependencies via pip."""
+    """Install these test dependencies via pip"""
     result = set()
     result.update(PIP_DEPENDENCIES)
+    return result
+
+
+def release_dependencies():
+    """Dependencies required to make a new release"""
+    result = set()
+    result.update(RELEASE_DEPENDENCIES)
     return result
 
 
@@ -121,7 +132,7 @@ if __name__ == "__main__":
     spec = ""
     res_packages = set()
 
-    nothing_specified = not any([args.runtime, args.build, args.test])
+    nothing_specified = not any([args.runtime, args.build, args.release, args.test])
 
     if args.build or args.runtime or nothing_specified:
         spec = _read_spec_file()
@@ -132,6 +143,8 @@ if __name__ == "__main__":
         res_packages.update(build_dependencies(spec, args.s390))
     if args.test or nothing_specified:
         res_packages.update(test_dependencies())
+    if args.release:
+        res_packages.update(release_dependencies())
     if args.pip:
         res_packages = pip_dependencies()
 
