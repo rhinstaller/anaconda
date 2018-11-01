@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
@@ -47,7 +47,8 @@ class NetworkModule(KickstartModule):
 
         self.current_hostname_changed = Signal()
         self._hostname_service_proxy = None
-        if SystemBus.check_connection():
+
+        if conf.system.provides_system_bus:
             self._hostname_service_proxy = HOSTNAME.get_proxy()
             self._hostname_service_proxy.PropertiesChanged.connect(self._hostname_service_properties_changed)
 
