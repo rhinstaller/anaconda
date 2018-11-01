@@ -46,11 +46,10 @@ class NetworkModule(KickstartModule):
         self._hostname = "localhost.localdomain"
 
         self.current_hostname_changed = Signal()
-        # Will be initialized on the first property access either to the proxy or
-        # False if the proxy is not available or should not be used
-        self._hostname_service_proxy_ = None
-
-        self._can_touch_runtime_system = True
+        self._hostname_service_proxy = None
+        if SystemBus.check_connection():
+            self._hostname_service_proxy = HOSTNAME.get_proxy()
+            self._hostname_service_proxy.PropertiesChanged.connect(self._hostname_service_properties_changed)
 
         self.connected_changed = Signal()
         self.nm_client = None
@@ -104,34 +103,6 @@ class NetworkModule(KickstartModule):
         self._hostname = hostname
         self.hostname_changed.emit()
         log.debug("Hostname is set to %s", hostname)
-
-    @property
-    def can_touch_runtime_system(self):
-        """Can anaconda touch runtime system?."""
-        return self._can_touch_runtime_system
-
-    @can_touch_runtime_system.setter
-    def can_touch_runtime_system(self, allow):
-        """Set if anaconda can touch runtime system."""
-        self._can_touch_runtime_system = allow
-        log.debug("Can touch runtime system is set to %s",
-                  self._can_touch_runtime_system)
-
-    @property
-    def _hostname_service_proxy(self):
-        if self._hostname_service_proxy_ is None:
-            if not self.can_touch_runtime_system:
-                # Don't even try to get the HOSTNAME proxy in this
-                # case as it can hang on selinux denial (#1616214).
-                self._hostname_service_proxy_ = False
-            else:
-                if SystemBus.check_connection():
-                    self._hostname_service_proxy_ = HOSTNAME.get_proxy()
-                    self._hostname_service_proxy_.PropertiesChanged.connect(
-                        self._hostname_service_properties_changed)
-                else:
-                    self._hostname_service_proxy_ = False
-        return self._hostname_service_proxy_
 
     def _hostname_service_properties_changed(self, interface, changed, invalid):
         if interface == HOSTNAME.interface_name and "Hostname" in changed:
