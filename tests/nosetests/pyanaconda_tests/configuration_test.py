@@ -25,6 +25,7 @@ from textwrap import dedent
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
     get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError
+from pyanaconda.modules.common.constants import services
 
 
 class ConfigurationTestCase(unittest.TestCase):
@@ -222,3 +223,20 @@ class AnacondaConfigurationTestCase(unittest.TestCase):
             conf.write(f.name)
             f.flush()
             self.assertTrue(f.read(), "The file shouldn't be empty.")
+
+    def kickstart_modules_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        self.assertEqual(
+            set(conf.anaconda.kickstart_modules),
+            set(service.service_name for service in (
+                services.TIMEZONE,
+                services.NETWORK,
+                services.LOCALIZATION,
+                services.SECURITY,
+                services.USERS,
+                services.PAYLOAD,
+                services.STORAGE,
+                services.SERVICES
+            ))
+        )

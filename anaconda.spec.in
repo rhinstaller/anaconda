@@ -315,6 +315,8 @@ update-desktop-database &> /dev/null || :
 %{_bindir}/anaconda-cleanup
 %dir %{_sysconfdir}/%{name}
 %config %{_sysconfdir}/%{name}/*
+%dir %{_sysconfdir}/%{name}/conf.d
+%config %{_sysconfdir}/%{name}/conf.d/*
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst

@@ -19,6 +19,7 @@
 #
 
 from pyanaconda.core.async_utils import run_in_loop
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.boss.boss_interface import AnacondaBossInterface
 from pyanaconda.modules.boss.module_manager import ModuleManager
@@ -70,13 +71,13 @@ class Boss(MainModule):
         log.info("Start the main loop.")
         self._loop.run()
 
-    def start_modules(self, service_names, addons_enabled=True):
+    def start_modules(self):
         """Start the given kickstart modules."""
-        for service_name in service_names:
+        for service_name in conf.anaconda.kickstart_modules:
             log.debug("Add module %s.", service_name)
             self._module_manager.add_module(service_name)
 
-        if addons_enabled:
+        if conf.anaconda.addons_enabled:
             log.debug("Addons are enabled.")
             self._module_manager.add_addon_modules()
 

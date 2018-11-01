@@ -60,6 +60,16 @@ class AnacondaSection(Section):
         """Run Anaconda in the debugging mode."""
         return self._get_option("debug", bool)
 
+    @property
+    def addons_enabled(self):
+        """Enable Anaconda addons."""
+        return self._get_option("addons_enabled", bool)
+
+    @property
+    def kickstart_modules(self):
+        """List of enabled kickstart modules."""
+        return self._get_option("kickstart_modules").split()
+
 
 class ServicesSection(Section):
     """The Services section."""
@@ -126,12 +136,17 @@ class AnacondaConfiguration(object):
 
         # Read the temporary configuration file.
         config_path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
+        if config_path and os.path.exists(config_path):
+            config.read(config_path)
 
         # Or use the defaults if it doesn't exist.
-        if not config_path or not os.path.exists(config_path):
+        else:
             config_path = os.path.join(ANACONDA_CONFIG_DIR, "anaconda.conf")
+            config.read(config_path)
 
-        config.read(config_path)
+            config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
+            for config_path in sorted(os.listdir(config_dir)):
+                config.read(os.path.join(config_dir, config_path))
 
         # Validate the configuration.
         config.validate()

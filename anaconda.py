@@ -94,7 +94,7 @@ def exitHandler(rebootData, storage):
     if pidfile:
         pidfile.close()
 
-    anaconda.cleanup_dbus_session()
+    anaconda.dbus_launcher.stop()
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
@@ -476,17 +476,17 @@ if __name__ == "__main__":
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
     # start dbus session (if not already running) and run boss in it
-    anaconda.run_boss_with_dbus()
-
-    # Collect all addon paths
-    addon_paths = collect_addon_paths(constants.ADDON_PATHS)
-
-    # Make sure that all DBus modules are ready.
-    if not startup_utils.wait_for_modules():
-        stdout_log.error("Anaconda DBus modules failed to start on time.")
+    try:
+        anaconda.dbus_launcher.start()
+    except TimeoutError as e:
+        stdout_log.error(str(e))
+        anaconda.dbus_launcher.stop()
         util.ipmi_report(constants.IPMI_ABORTED)
         time.sleep(10)
         sys.exit(1)
+
+    # Collect all addon paths
+    addon_paths = collect_addon_paths(constants.ADDON_PATHS)
 
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files

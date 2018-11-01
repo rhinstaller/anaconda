@@ -37,7 +37,6 @@ class InstallRPMTestCase(RPMTestCase):
 class InstalledFilesTestCase(RPMTestCase):
     """Test if files in anaconda directory are correctly placed in the rpm files."""
 
-    ANACONDA_CONF = "anaconda.conf"
     ANACONDA_BUS_CONF = "anaconda-bus.conf"
     ANACONDA_GENERATOR = "anaconda-generator"
 
@@ -139,16 +138,18 @@ class InstalledFilesTestCase(RPMTestCase):
         self._check_files_in_rpm(src_files, rpm_files)
 
     def test_anaconda_conf_file(self):
-        rpm_files = self._get_core_rpm_content()
+        self.assertIn("data/anaconda.conf", self._get_source_files())
+        self.assertIn("/etc/anaconda/anaconda.conf", self._get_core_rpm_content())
 
-        rpm_files = filter(lambda f: FileFilters.specific_file_only(self.ANACONDA_CONF, f),
-                           rpm_files)
+    def test_anaconda_conf_dir(self):
+        rpm_files = self._get_core_rpm_content()
+        rpm_files = filter(FileFilters.confd_only, rpm_files)
 
         src_files = self._apply_filters(
             [
                 FileFilters.src_data_only,
+                FileFilters.confd_only,
                 FileFilters.confs_only,
-                lambda f: FileFilters.specific_file_only(self.ANACONDA_CONF, f)
             ], self._get_source_files()
         )
 
@@ -320,6 +321,10 @@ class FileFilters(object):
     @staticmethod
     def src_dbus_only(path):
         return "data/dbus" in path
+
+    @staticmethod
+    def confd_only(path):
+        return "/conf.d/" in path
 
     @staticmethod
     def confs_only(path):
