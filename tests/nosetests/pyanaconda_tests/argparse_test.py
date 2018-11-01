@@ -130,3 +130,34 @@ class ArgparseTest(unittest.TestCase):
         self.assertEqual(conf.target.is_image, False)
         self.assertEqual(conf.target.is_directory, True)
         self.assertEqual(conf.target.physical_root, "/what/ever")
+
+    def system_test(self):
+        conf = AnacondaConfiguration.from_defaults()
+
+        opts, _deprecated = self._parseCmdline([])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.system._is_boot_iso, True)
+        self.assertEqual(conf.system._is_live_os, False)
+        self.assertEqual(conf.system._is_unknown, False)
+
+        opts, _deprecated = self._parseCmdline(['--liveinst'])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.system._is_boot_iso, False)
+        self.assertEqual(conf.system._is_live_os, True)
+        self.assertEqual(conf.system._is_unknown, False)
+
+        opts, _deprecated = self._parseCmdline(['--dirinstall=/what/ever'])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.system._is_boot_iso, False)
+        self.assertEqual(conf.system._is_live_os, False)
+        self.assertEqual(conf.system._is_unknown, True)
+
+        opts, _deprecated = self._parseCmdline(['--image=/what/ever.img'])
+        conf.set_from_opts(opts)
+
+        self.assertEqual(conf.system._is_boot_iso, False)
+        self.assertEqual(conf.system._is_live_os, False)
+        self.assertEqual(conf.system._is_unknown, True)
