@@ -32,7 +32,6 @@ log = get_module_logger(__name__)
 
 from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.flags import can_touch_runtime_system
 
 supported_device_types = [
     NM.DeviceType.ETHERNET,
@@ -113,7 +112,7 @@ def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                                                interface_name,
                                                cancellable)
     except GError as e:
-        if can_touch_runtime_system("raise GLib.GError", touch_live=True):
+        if conf.system.provides_system_bus:
             raise
 
         log.error("_get_proxy failed: %s", e)

@@ -38,6 +38,7 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.core import util, constants
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import isys
 from pyanaconda import network
 from pyanaconda import ntp
@@ -273,7 +274,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         if rc == 1:
             new_pools, new_servers = self.pools_servers
 
-            if flags.can_touch_runtime_system("save NTP servers configuration"):
+            if conf.system.can_set_time_synchronization:
                 ntp.save_servers_to_config(new_pools, new_servers)
                 util.restart_service(NTP_SERVICE)
 
@@ -506,7 +507,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # Set the initial sensitivity of the AM/PM toggle based on the time-type selected
         self._radioButton24h.emit("toggled")
 
-        if not flags.can_touch_runtime_system("modify system time and date"):
+        if not conf.system.can_set_system_clock:
             self._set_date_time_setting_sensitive(False)
 
         self._config_dialog = NTPconfigDialog(self.data, self._timezone_module)
@@ -645,7 +646,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.clear_info()
             gtk_call_once(self._config_dialog.refresh_servers_state)
 
-        if flags.can_touch_runtime_system("get NTP service state"):
+        if conf.system.can_set_time_synchronization:
             ntp_working = has_active_network and util.service_running(NTP_SERVICE)
         else:
             ntp_working = self._timezone_module.proxy.NTPEnabled
@@ -791,7 +792,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._start_updating_timer = None
 
-        if not flags.can_touch_runtime_system("save system time"):
+        if not conf.system.can_set_system_clock:
             return False
 
         month = self._get_combo_selection(self._monthCombo)[0]
@@ -1115,7 +1116,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def on_ntp_switched(self, switch, *args):
         if switch.get_active():
             #turned ON
-            if not flags.can_touch_runtime_system("start NTP service"):
+            if not conf.system.can_set_time_synchronization:
                 #cannot touch runtime system, not much to do here
                 return
 
@@ -1144,7 +1145,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         else:
             #turned OFF
-            if not flags.can_touch_runtime_system("stop NTP service"):
+            if not conf.system.can_set_time_synchronization:
                 #cannot touch runtime system, nothing to do here
                 return
 

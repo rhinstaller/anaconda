@@ -240,9 +240,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Save system time to HW clock.
     # - this used to be before waiting on threads, but I don't think that's needed
-    if flags.can_touch_runtime_system("save system time to HW clock"):
+    if conf.system.can_set_hardware_clock:
         # lets just do this as a top-level task - no
-
         save_hwclock = Task("Save system time to HW clock", timezone.save_hw_clock)
         installation_queue.append(save_hwclock)
 
@@ -305,7 +304,7 @@ def doInstall(storage, payload, ksdata, instClass):
     pre_install.append(Task("Setup timezone", ksdata.timezone.setup, (ksdata,)))
 
     # make name resolution work for rpm scripts in chroot
-    if flags.can_touch_runtime_system("copy /etc/resolv.conf to sysroot"):
+    if conf.system.provides_resolver_config:
         # we use a custom Task subclass as the sysroot path has to be resolved
         # only when the task is actually started, not at task creation time
         pre_install.append(WriteResolvConfTask("Copy /resolv.conf to sysroot"))

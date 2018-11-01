@@ -27,7 +27,6 @@ gi.require_version("NM", "1.0")
 from gi.repository import Gtk
 from gi.repository import GObject, Pango, Gio, NM
 
-from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.core.i18n import _, N_, C_, CN_
 from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.ui.communication import hubQ
@@ -37,6 +36,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, really_hide, really_show
 from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import startProgram
 from pyanaconda.core.process_watchers import PidWatcher
 from pyanaconda.core.constants import ANACONDA_ENVIRON
@@ -1507,7 +1507,7 @@ class SecretAgent(dbus.service.Object):
 
 def register_secret_agent(spoke):
 
-    if not can_touch_runtime_system("register anaconda secret agent"):
+    if not conf.system.can_require_network_connection:
         return False
 
     global secret_agent
@@ -1583,7 +1583,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
-        return (not can_touch_runtime_system("require network connection")
+        return (not conf.system.can_require_network_connection
                 or nm.nm_activated_devices())
 
     @property
@@ -1602,7 +1602,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.initialize(self)
         self.initialize_start()
         self.network_control_box.initialize()
-        if not can_touch_runtime_system("hide hint to use network configuration in DE"):
+        if not conf.system.can_require_network_connection:
             self.builder.get_object("network_config_vbox").set_no_show_all(True)
             self.builder.get_object("network_config_vbox").hide()
         else:
@@ -1726,7 +1726,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        return (not can_touch_runtime_system("require network connection")
+        return (not conf.system.can_require_network_connection
                 or nm.nm_activated_devices()
                 or self.data.method.method not in ("url", "nfs"))
 

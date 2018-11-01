@@ -19,8 +19,9 @@
 
 from pyanaconda import network
 from pyanaconda import nm
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.flags import can_touch_runtime_system, flags
+from pyanaconda.flags import flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, report_if_failed
@@ -102,7 +103,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             check if we're installing from CD/DVD, since a network connection
             should not be required in this case.
         """
-        return (not can_touch_runtime_system("require network connection")
+        return (not conf.system.can_require_network_connection
                 or nm.nm_activated_devices())
 
     @property

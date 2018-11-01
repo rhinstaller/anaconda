@@ -28,12 +28,12 @@ import re
 import shutil
 import langtable
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import GError, Variant
 from pyanaconda.core import util
 from pyanaconda import safe_dbus
 from pyanaconda import localization
 from pyanaconda.core.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
-from pyanaconda.flags import can_touch_runtime_system
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -375,14 +375,14 @@ def set_x_keyboard_defaults(localization_proxy, xkl_wrapper):
         new_layouts = [DEFAULT_KEYBOARD]
 
     localization_proxy.SetXLayouts(new_layouts)
-    if can_touch_runtime_system("replace runtime X layouts", touch_live=True):
+    if conf.system.can_configure_keyboard:
         xkl_wrapper.replace_layouts(new_layouts)
 
     if len(new_layouts) >= 2 and not localization_proxy.LayoutSwitchOptions:
         # initialize layout switching if needed
         localization_proxy.SetLayoutSwitchOptions(["grp:alt_shift_toggle"])
 
-        if can_touch_runtime_system("init layout switching", touch_live=True):
+        if conf.system.can_configure_keyboard:
             xkl_wrapper.set_switching_options(["grp:alt_shift_toggle"])
             # activate the language-default layout instead of the additional
             # one
@@ -400,7 +400,7 @@ class LocaledWrapper(object):
         try:
             self._connection = safe_dbus.get_new_system_connection()
         except GError as e:
-            if can_touch_runtime_system("raise GLib.GError", touch_live=True):
+            if conf.system.provides_system_bus:
                 raise
 
             log.error("Failed to get safe_dbus connection: %s", e)
