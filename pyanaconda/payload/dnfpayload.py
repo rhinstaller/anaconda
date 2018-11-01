@@ -387,7 +387,9 @@ class DNFPayload(payload.PackagePayload):
         #     and use this new one.  The highest profile user of this is livecd
         #     kickstarts.
         if repo.id in self._base.repos:
-            if url or mirrorlist or metalink:
+            if not url and not mirrorlist and not metalink:
+                self._base.repos[repo.id].enable()
+            else:
                 with self._repos_lock:
                     self._base.repos.pop(repo.id)
                     self._base.repos.add(repo)
