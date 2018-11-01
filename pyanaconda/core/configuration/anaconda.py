@@ -105,6 +105,103 @@ class InstallationSystem(Section):
         """Are we running in the unknown OS?"""
         return self._type is SystemType.UNKNOWN
 
+    @property
+    def can_reboot(self):
+        """Can we reboot the system?"""
+        return self._is_boot_iso
+
+    @property
+    def can_switch_tty(self):
+        """Can we change the foreground virtual terminal?"""
+        return self._is_boot_iso
+
+    @property
+    def can_audit(self):
+        """Can we run the audit daemon?"""
+        return self._is_boot_iso
+
+    @property
+    def can_set_hardware_clock(self):
+        """Can we set the Hardware Clock?"""
+        return self._is_boot_iso
+
+    @property
+    def can_initialize_system_clock(self):
+        """Can we initialize the System Clock?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def can_set_system_clock(self):
+        """Can we set the System Clock?"""
+        return self._is_boot_iso
+
+    @property
+    def can_set_time_synchronization(self):
+        """Can we run the NTP daemon?"""
+        return self._is_boot_iso
+
+    @property
+    def can_activate_keyboard(self):
+        """Can we activate the keyboard?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso
+
+    @property
+    def can_activate_layouts(self):
+        """Can we activate the layouts?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso
+
+    @property
+    def can_configure_keyboard(self):
+        """Can we configure the keyboard?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def can_modify_syslog(self):
+        """Can we modify syslog?"""
+        return self._is_boot_iso
+
+    @property
+    def can_change_hostname(self):
+        """Can we change the hostname?"""
+        return self._is_boot_iso
+
+    @property
+    def can_configure_network(self):
+        """Can we configure the network?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def can_require_network_connection(self):
+        """Can the system require network connection?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso
+
+    @property
+    def provides_system_bus(self):
+        """Can we access the system DBus?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def provides_resolver_config(self):
+        """Can we copy /etc/resolv.conf to the target system?"""
+        return self._is_boot_iso
+
+    @property
+    def provides_user_interaction_config(self):
+        """Can we read /etc/sysconfig/anaconda?"""
+        return self._is_boot_iso or self._is_live_os
+
 
 class ServicesSection(Section):
     """The Services section."""
