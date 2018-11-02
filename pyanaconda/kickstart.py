@@ -1415,8 +1415,8 @@ class Network(COMMANDS.Network):
         if network.is_using_team_device():
             self.packages = ["teamd"]
 
-    def execute(self, storage, ksdata, instClass):
-        network.write_network_config(storage, ksdata, instClass, util.getSysroot())
+    def execute(self, storage, payload, ksdata, instClass):
+        network.write_network_config(storage, payload, ksdata, instClass, util.getSysroot())
 
 class Nvdimm(COMMANDS.Nvdimm):
     def parse(self, args):

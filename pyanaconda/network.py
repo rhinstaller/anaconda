@@ -48,6 +48,7 @@ from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFI
 from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
+from pyanaconda.payload.livepayload import LiveImagePayload
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
 log = get_module_logger(__name__)
@@ -1366,9 +1367,9 @@ def write_sysconfig_network(rootpath, overwrite=False):
         f.write("# Created by anaconda\n")
     return True
 
-def write_network_config(storage, ksdata, instClass, rootpath):
+def write_network_config(storage, payload, ksdata, instClass, rootpath):
     # overwrite previous settings for LiveCD or liveimg installations
-    overwrite = flags.livecdInstall or ksdata.method.method == "liveimg"
+    overwrite = isinstance(payload, LiveImagePayload)
 
     network_proxy = NETWORK.get_proxy()
     hostname = network_proxy.Hostname

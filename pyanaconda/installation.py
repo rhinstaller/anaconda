@@ -106,7 +106,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     if conf.target.is_hardware:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
-                                   ksdata.network.execute, (storage, ksdata, instClass)))
+                                   ksdata.network.execute, (storage, payload, ksdata, instClass)))
         configuration_queue.append(network_config)
 
     # creating users and groups requires some pre-configuration.
