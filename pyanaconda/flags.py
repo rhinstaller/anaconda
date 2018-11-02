@@ -38,7 +38,6 @@ class Flags(object):
 
     def __init__(self):
         self.__dict__['_in_init'] = True
-        self.livecdInstall = False
         self.nonibftiscsiboot = False
         self.usevnc = False
         self.vncquestion = True

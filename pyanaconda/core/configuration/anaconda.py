@@ -202,6 +202,11 @@ class InstallationSystem(Section):
         """Can we read /etc/sysconfig/anaconda?"""
         return self._is_boot_iso or self._is_live_os
 
+    @property
+    def provides_web_browser(self):
+        """Can we redirect users to web pages?"""
+        return self._is_live_os
+
 
 class ServicesSection(Section):
     """The Services section."""

@@ -28,6 +28,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITI
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
+from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import Users
 from pyanaconda import flags
@@ -135,7 +136,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
-    if flags.flags.livecdInstall and boot_on_btrfs and bootloader_enabled:
+    if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
         generate_initramfs.append(Task("Write BTRFS bootloader fix", writeBootLoader, (storage, payload, instClass, ksdata)))
     configuration_queue.append(generate_initramfs)
 

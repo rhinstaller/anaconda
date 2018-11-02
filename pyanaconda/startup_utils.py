@@ -354,8 +354,6 @@ def live_startup(anaconda):
 
     :param anaconda: instance of the Anaconda class
     """
-    flags.livecdInstall = True
-
     try:
         anaconda.dbus_session_connection = safe_dbus.get_new_session_connection()
     except safe_dbus.DBusCallError as e:

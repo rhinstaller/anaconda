@@ -34,6 +34,7 @@ from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
@@ -217,7 +218,7 @@ class ProgressHub(Hub):
     def initialize(self):
         super().initialize()
 
-        if flags.livecdInstall:
+        if not conf.system.can_reboot and conf.target.is_hardware:
             continueText = self.builder.get_object("rebootLabel")
             continueText.set_text(_("%s is now successfully installed on your system and ready "
                                     "for you to use!  When you are ready, reboot your system to start using it!"))

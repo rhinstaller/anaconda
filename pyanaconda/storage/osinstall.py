@@ -2193,10 +2193,12 @@ def turn_on_filesystems(storage, callbacks=None):
 
     """
     if not conf.target.is_directory:
-        if flags.livecdInstall and conf.target.is_hardware and not storage.fsset.active:
+        # FIXME: This is a temporary workaround for live OS.
+        if conf.system._is_live_os and conf.target.is_hardware and not storage.fsset.active:
             # turn off any swaps that we didn't turn on
             # needed for live installs
             blivet_util.run_program(["swapoff", "-a"])
+
         storage.devicetree.teardown_all()
 
         try:
@@ -2308,7 +2310,8 @@ def storage_initialize(storage, ksdata, protected):
         else:
             break
 
-    if protected and not flags.livecdInstall and \
+    # FIXME: This is a temporary workaround for live OS.
+    if protected and not conf.system._is_live_os and \
        not any(d.protected for d in storage.devices):
         raise UnknownSourceDeviceError(protected)
 
