@@ -38,8 +38,6 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     installUpdates = False
 
-    _l10n_domain = "comps"
-
     efi_dir = "redhat"
 
     help_placeholder = "rhel_help_placeholder.xml"

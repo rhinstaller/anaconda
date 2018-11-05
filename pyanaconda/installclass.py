@@ -57,8 +57,6 @@ class BaseInstallClass(object):
     # install the latest updates during installation source selection.
     installUpdates = True
 
-    _l10n_domain = None
-
     # EFI directory.
     efi_dir = "default"
 
@@ -114,13 +112,6 @@ class BaseInstallClass(object):
 
     # Should the installer show a warning about removed support for hardware?
     detect_support_removed = False
-
-    @property
-    def l10n_domain(self):
-        if self._l10n_domain is None:
-            raise RuntimeError("Localization domain for '%s' not set." %
-                               self.name)
-        return self._l10n_domain
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,

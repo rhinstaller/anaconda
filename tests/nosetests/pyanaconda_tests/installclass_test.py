@@ -191,7 +191,6 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'name'))
         self.assertTrue(hasattr(testclass, 'ignoredPackages'))
         self.assertTrue(hasattr(testclass, 'installUpdates'))
-        self.assertTrue(hasattr(testclass, '_l10n_domain'))
         self.assertTrue(hasattr(testclass, 'efi_dir'))
         self.assertTrue(hasattr(testclass, 'defaultFS'))
         self.assertTrue(hasattr(testclass, 'help_folder'))
