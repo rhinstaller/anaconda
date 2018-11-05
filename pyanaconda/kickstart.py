@@ -2062,9 +2062,8 @@ class ReqPart(COMMANDS.ReqPart):
             log.debug("Looking for platform-specific boot requirements.")
             bootPartitions = platform.set_platform_boot_partition()
 
-            # blivet doesn't know this - anaconda sets up the default boot fstype
-            # in various places in this file, as well as in setDefaultPartitioning
-            # in the install classes.  We need to duplicate that here.
+            # Blivet doesn't know this - anaconda sets up the default boot fstype
+            # in various places in this file. We need to duplicate that here.
             for part in bootPartitions:
                 if part.mountpoint == "/boot":
                     part.fstype = storage.default_boot_fstype

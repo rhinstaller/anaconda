@@ -20,8 +20,8 @@
 import os
 import shutil
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
-from pyanaconda.installclasses.fedora_server import FedoraServerInstallClass
 from pyanaconda.product import productVariant
+from pyanaconda.storage.partitioning import SERVER_PARTITIONING
 from pyanaconda.core import util
 
 import logging
@@ -35,6 +35,7 @@ class AtomicHostInstallClass(FedoraBaseInstallClass):
     stylesheet = "/usr/share/anaconda/pixmaps/atomic/fedora-atomic.css"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
     defaultFS = "xfs"
+    default_partitioning = SERVER_PARTITIONING
 
     if productVariant != "AtomicHost":
         hidden = True
@@ -42,9 +43,6 @@ class AtomicHostInstallClass(FedoraBaseInstallClass):
     def __init__(self):
         self.localemap = {}  # loaded lazily
         super().__init__()
-
-    def setDefaultPartitioning(self, storage):
-        FedoraServerInstallClass.createDefaultPartitioning(storage)
 
     def filterSupportedLangs(self, ksdata, langs):
         self._initialize_localemap(ksdata.ostreesetup.ref,
