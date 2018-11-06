@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 06 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.25-1
+- Hotfix - disable unsupported hardware detection (mkolman)
+  Resolves: rhbz#1645686
+
 * Thu Oct 18 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.24-1
 - Make the pyanaconda/image.py more pep8 (jkonecny)
   Related: rhbz#1631673
