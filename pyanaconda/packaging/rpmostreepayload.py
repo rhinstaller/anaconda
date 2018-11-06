@@ -310,6 +310,17 @@ class RPMOSTreePayload(ArchivePayload):
         # systemd-tmpfiles doesn't have a --prefix-only=/var/lib. We rely on
         # 80-setfilecons.ks to set the label correctly.
         iutil.mkdirChain(iutil.getSysroot() + '/var/lib')
+
+        # systemd-tmpfiles qurries nss directory to get the user list, and nss
+        # is not capable of switching root while doing so. Hence we temporarily
+        # change the livefs passwd and group files
+        
+        self._safeExecWithRedirect("mv", ["/etc/passwd", "/etc/passwd.orig"])
+        self._safeExecWithRedirect("cp", [iutil.getSysroot() + "/usr/lib/passwd", "/etc/passwd"])
+        
+        self._safeExecWithRedirect("mv", ["/etc/group", "/etc/group.orig"])
+        self._safeExecWithRedirect("cp", [iutil.getSysroot() + "/usr/lib/group", "/etc/group"])
+        
         # Next, run tmpfiles to make subdirectories of /var. We need this for
         # both mounts like /home (really /var/home) and %post scripts might
         # want to write to e.g. `/srv`, `/root`, `/usr/local`, etc. The
@@ -323,6 +334,11 @@ class RPMOSTreePayload(ArchivePayload):
             self._safeExecWithRedirect("systemd-tmpfiles",
                                        ["--create", "--boot", "--root=" + iutil.getSysroot(),
                                         "--prefix=/var/" + varsubdir])
+                                        
+        # We now restore the original passwd and group files
+        self._safeExecWithRedirect("rm", ["-rf", "/etc/passwd", "/etc/group"])
+        self._safeExecWithRedirect("mv", ["/etc/passwd.orig", "/etc/passwd"])
+        self._safeExecWithRedirect("mv", ["/etc/group.orig", "/etc/group"])
 
     def recreateInitrds(self, force=False):
         # For rpmostree payloads, we're replicating an initramfs from
@@ -384,6 +400,16 @@ class RPMOSTreePayload(ArchivePayload):
         set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
         self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
 
+        # systemd-tmpfiles qurries nss directory to get the user list, and nss
+        # is not capable of switching root while doing so. Hence we temporarily
+        # change the livefs passwd and group files
+        
+        self._safeExecWithRedirect("mv", ["/etc/passwd", "/etc/passwd.orig"])
+        self._safeExecWithRedirect("cp", [iutil.getSysroot() + "/usr/lib/passwd", "/etc/passwd"])
+        
+        self._safeExecWithRedirect("mv", ["/etc/group", "/etc/group.orig"])
+        self._safeExecWithRedirect("cp", [iutil.getSysroot() + "/usr/lib/group", "/etc/group"])
+
         # Now, ensure that all other potential mount point directories such as
         # (/home) are created.  We run through the full tmpfiles here in order
         # to also allow Anaconda and %post scripts to write to directories like
@@ -396,6 +422,11 @@ class RPMOSTreePayload(ArchivePayload):
             self._safeExecWithRedirect("systemd-tmpfiles",
                                        ["--create", "--boot", "--root=" + iutil.getSysroot(),
                                         "--prefix=/var/" + varsubdir])
+                                        
+        # We now restore the original passwd and group files
+        self._safeExecWithRedirect("rm", ["-rf", "/etc/passwd", "/etc/group"])
+        self._safeExecWithRedirect("mv", ["/etc/passwd.orig", "/etc/passwd"])
+        self._safeExecWithRedirect("mv", ["/etc/group.orig", "/etc/group"])
 
     def preShutdown(self):
         # A crude hack for 7.2; forcibly recursively unmount
