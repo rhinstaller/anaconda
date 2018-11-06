@@ -45,7 +45,6 @@ class BaseInstallClass(object):
     sortPriority = 0
     hidden = False
     name = "base"
-    bootloaderTimeoutDefault = None
     bootloader_menu_autohide = False
 
     # Anaconda flags several packages to be installed based on the configuration
@@ -184,8 +183,6 @@ class BaseInstallClass(object):
                                      and req.fstype not in skipped_fstypes]
 
     def configure(self, anaconda):
-        anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
-
         # The default partitioning should be always set.
         self.setDefaultPartitioning(anaconda.storage)
 

@@ -189,7 +189,6 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'sortPriority'))
         self.assertTrue(hasattr(testclass, 'hidden'))
         self.assertTrue(hasattr(testclass, 'name'))
-        self.assertTrue(hasattr(testclass, 'bootloaderTimeoutDefault'))
         self.assertTrue(hasattr(testclass, 'ignoredPackages'))
         self.assertTrue(hasattr(testclass, 'installUpdates'))
         self.assertTrue(hasattr(testclass, '_l10n_domain'))

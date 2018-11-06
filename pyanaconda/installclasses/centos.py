@@ -32,8 +32,6 @@ class CentOSBaseInstallClass(BaseInstallClass):
         hidden = True
     defaultFS = "xfs"
 
-    bootloaderTimeoutDefault = 5
-
     ignoredPackages = ["ntfsprogs"]
 
     installUpdates = False
