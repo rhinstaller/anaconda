@@ -124,9 +124,6 @@ class BaseInstallClass(object):
                                self.name)
         return self._l10n_domain
 
-    def setPackageSelection(self, anaconda):
-        pass
-
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
                                  size=Size("1GiB"),
@@ -203,7 +200,7 @@ class BaseInstallClass(object):
         This is called after payload is created.
         Beware: This method is called before payload is restarted so it is not completely set up.
         """
-        self.setPackageSelection(payload)
+        pass
 
     # sets default ONBOOT values and updates ksdata accordingly
     def setNetworkOnbootDefault(self, ksdata):
