@@ -35,6 +35,7 @@ from uuid import uuid4
 import itertools
 import glob
 import logging
+from enum import Enum
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice
@@ -63,6 +64,13 @@ ifcfglog = None
 
 network_connected = None
 network_connected_condition = threading.Condition()
+
+
+class NetworkOnBoot(Enum):
+    """Network device to be activated on boot if none was configured so."""
+    NONE = "NONE"
+    DEFAULT_ROUTE_DEVICE = "DEFAULT_ROUTE_DEVICE"
+    FIRST_WIRED_WITH_LINK = "FIRST_WIRED_WITH_LINK"
 
 
 def setup_ifcfg_log():
@@ -1372,7 +1380,7 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     copyIfcfgFiles(rootpath)
     copyDhclientConfFiles(rootpath)
     copyFileToPath("/etc/resolv.conf", rootpath, overwrite=overwrite)
-    instClass.setNetworkOnbootDefault(ksdata)
+    set_default_onboot_network(instClass.network_on_boot, ksdata)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
 def update_hostname_data(ksdata, hostname):
@@ -1836,3 +1844,63 @@ def is_ibft_configured_device(iface):
 
 def device_type_is_supported_wired(name):
     return nm.nm_device_type_is_ethernet(name) or nm.nm_device_type_is_infiniband(name)
+
+def set_default_onboot_network(policy, ksdata):
+    """Sets default ONBOOT values and updates ksdata accordingly.
+
+    :param policy: an instance of NetworkOnBoot
+    :param ksdata: a kickstart data
+    """
+    if any(nd.onboot for nd in ksdata.network.network if nd.device):
+        # no need to choose a device
+        return
+
+    device = None
+
+    if policy is NetworkOnBoot.FIRST_WIRED_WITH_LINK:
+        # choose first wired device having link
+        log.info("Choosing the first wired device having link.")
+        device = _get_first_wired_with_link()
+
+    elif policy is NetworkOnBoot.DEFAULT_ROUTE_DEVICE:
+        # choose the device used during installation
+        # (ie for majority of cases the one having the default route)
+        log.info("Choosing the default route device.")
+        device = _get_default_root_device()
+
+    if device:
+        update_onboot_value(device, True, ksdata=ksdata)
+
+def _get_first_wired_with_link():
+    """Get the first wired network device with a link.
+
+    :return: a name of a network device
+    """
+    for dev in nm.nm_devices():
+
+        if nm.nm_device_type_is_wifi(dev):
+            continue
+        try:
+            link_up = nm.nm_device_carrier(dev)
+        except (nm.UnknownDeviceError, nm.PropertyNotFoundError):
+            continue
+
+        if link_up:
+            return dev
+
+    return None
+
+def _get_default_root_device():
+    """Get the default root device.
+
+    :return: a name of a network device
+    """
+    dev = default_route_device() or default_route_device(family="inet6")
+    if not dev:
+        return None
+
+    # ignore wireless (its ifcfgs would need to be handled differently)
+    if nm.nm_device_type_is_wifi(dev):
+        return None
+
+    return dev
