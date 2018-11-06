@@ -353,6 +353,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 06 2018 Martin Kolman <mkolman@redhat.com> - 30.10-1
+- Make the pyanaconda/image.py more pep8 (jkonecny)
+- Test image repodata folder based on treeinfo file (jkonecny)
+- Use var instead of strings in findFirstIsoImage (jkonecny)
+- Use new InstallTreeMetadata instead of TreeInfo (jkonecny)
+- Add InstallTreeMetadata class (jkonecny)
+- Move DEFAULT_REPOS to the constants (jkonecny)
+- Don't check for firmware compatibility to enable BootLoaderSpec support
+  (javierm)
+- Update kernel command line parameters in BLS files (javierm)
+- Add support for GRUB_ENABLE_BLSCFG and inst.noblscfg (pjones)
+- Get rid of new-kernel-pkg invocations (pjones)
+- Minor pylint cleanups (pjones)
+
 * Mon Nov 05 2018 Martin Kolman <mkolman@redhat.com> - 30.9-1
 - Load configuration files from /etc/anaconda/conf.d (vponcova)
 - Let the DBus launcher to set up the modules (vponcova)
