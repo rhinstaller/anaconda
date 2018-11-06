@@ -127,12 +127,6 @@ class BaseInstallClass(object):
     def setPackageSelection(self, anaconda):
         pass
 
-    def getBackend(self):
-        # The default is to return None here, which means anaconda should
-        # use live or dnf (whichever can be detected).  This method is
-        # provided as a way for other products to specify their own.
-        return None
-
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
                                  size=Size("1GiB"),
