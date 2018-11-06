@@ -527,6 +527,9 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--nonibftiscsiboot", action="store_true", default=False,
                     help=help_parser.help_text("nonibftiscsiboot"))
 
+    ap.add_argument("--noblscfg", dest="blscfg", action="store_false", default=True,
+                    help=help_parser.help_text("nobls"))
+
     # Geolocation
     ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))
     ap.add_argument("--geoloc-use-with-ks", action="store_true", default=False,

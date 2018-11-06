@@ -61,7 +61,6 @@ class PasswordCryptError(Exception):
 class ZIPLError(Exception):
     pass
 
-
 class ExitError(RuntimeError):
     pass
 

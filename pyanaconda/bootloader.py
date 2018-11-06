@@ -98,6 +98,7 @@ def _is_on_ibft(device):
 
     return all(getattr(disk, "ibft", False) for disk in device.disks)
 
+
 class BootLoaderError(Exception):
     pass
 
@@ -183,8 +184,7 @@ class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
     _args = ["intel_iommu=on"]
 
     def __init__(self, device=None, label=None, short=None, version=None):
-        super().__init__(device=device, label=label,
-                                                        short=short, version=version)
+        super().__init__(device=device, label=label, short=short, version=version)
 
     @property
     def multiboot(self):
@@ -827,8 +827,9 @@ class BootLoader(object):
         if usr_device:
             dracut_devices.extend([usr_device])
 
-        netdevs = [d for d in storage.devices if (getattr(d, "complete", True) and
-                   isinstance(d, NetworkStorageDevice))]
+        netdevs = [d for d in storage.devices \
+                   if (getattr(d, "complete", True) and
+                       isinstance(d, NetworkStorageDevice))]
         rootdev = storage.root_device
         if any(rootdev.depends_on(netdev) for netdev in netdevs):
             dracut_devices = set(dracut_devices)
@@ -1535,6 +1536,8 @@ class GRUB2(GRUB):
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
+        if flags.blscfg:
+            defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
 
     def _encrypt_password(self):
@@ -1602,7 +1605,8 @@ class GRUB2(GRUB):
         # set boot_success so that the menu is hidden on the boot after install
         if self.menu_auto_hide:
             rc = util.execInSysroot("grub2-editenv",
-                            ["-", "set", "menu_auto_hide=1", "boot_success=1"])
+                                    ["-", "set", "menu_auto_hide=1",
+                                     "boot_success=1"])
             if rc:
                 log.error("failed to set menu_auto_hide=1")
 
@@ -2206,7 +2210,6 @@ class IPSeriesGRUB2(GRUB2):
         defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
 
-
 class MacYaboot(Yaboot):
     prog = "mkofboot"
     can_dual_boot = True
@@ -2256,6 +2259,51 @@ class ZIPL(BootLoader):
     def boot_dir(self):
         return "/boot"
 
+    def write_config_image(self, config, image, args):
+        if image.initrd:
+            initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir, image.initrd)
+        else:
+            initrd_line = ""
+
+        stanza = ("[%(label)s]\n"
+                  "\timage=%(boot_dir)s/%(kernel)s\n"
+                  "%(initrd_line)s"
+                  "\tparameters=\"%(args)s\"\n"
+                  % {"label": self.image_label(image),
+                     "kernel": image.kernel, "initrd_line": initrd_line,
+                     "args": args,
+                     "boot_dir": self.boot_dir})
+        config.write(stanza)
+
+    def update_bls_args(self, image, args):
+        machine_id_path = util.getSysroot() + "/etc/machine-id"
+        if not os.access(machine_id_path, os.R_OK):
+            log.error("failed to read machine-id file")
+            return
+
+        with open(machine_id_path, "r") as fd:
+            machine_id = fd.readline().strip()
+
+        bls_dir = "%s%s/loader/entries/" % (util.getSysroot(), self.boot_dir)
+
+        if image.kernel == "vmlinuz-0-rescue-" + machine_id:
+            bls_path = "%s%s-0-rescue.conf" % (bls_dir, machine_id)
+        else:
+            bls_path = "%s%s-%s.conf" % (bls_dir, machine_id, image.version)
+
+        if not os.access(bls_path, os.W_OK):
+            log.error("failed to update boot args in BLS file %s", bls_path)
+            return
+
+        with open(bls_path, "r") as bls:
+            lines = bls.readlines()
+            for i, line in enumerate(lines):
+                if line.startswith("options "):
+                    lines[i] = "options %s\n" % (args)
+
+        with open(bls_path, "w") as bls:
+            bls.writelines(lines)
+
     def write_config_images(self, config):
         for image in self.images:
             if "kdump" in (image.initrd or image.kernel):
@@ -2263,36 +2311,26 @@ class ZIPL(BootLoader):
                 continue
 
             args = Arguments()
-            if image.initrd:
-                initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir,
-                                                     image.initrd)
-            else:
-                initrd_line = ""
             args.add("root=%s" % image.device.fstab_spec)
             args.update(self.boot_args)
             if image.device.type == "btrfs subvolume":
                 args.update(["rootflags=subvol=%s" % image.device.name])
             log.info("bootloader.py: used boot args: %s ", args)
-            stanza = ("[%(label)s]\n"
-                      "\timage=%(boot_dir)s/%(kernel)s\n"
-                      "%(initrd_line)s"
-                      "\tparameters=\"%(args)s\"\n"
-                      % {"label": self.image_label(image),
-                         "kernel": image.kernel, "initrd_line": initrd_line,
-                         "args": args,
-                         "boot_dir": self.boot_dir})
-            config.write(stanza)
+
+            if flags.blscfg:
+                self.update_bls_args(image, args)
+            else:
+                self.write_config_image(config, image, args)
 
     def write_config_header(self, config):
         header = ("[defaultboot]\n"
                   "defaultauto\n"
                   "prompt=1\n"
-                  "timeout=%(timeout)d\n"
-                  "default=%(default)s\n"
-                  "target=/boot\n"
-                  % {"timeout": self.timeout,
-                     "default": self.image_label(self.default)})
-        config.write(header)
+                  "timeout={}\n"
+                  "target=/boot\n")
+        config.write(header.format(self.timeout))
+        if not flags.blscfg:
+            config.write("default={}\n".format(self.image_label(self.default)))
 
     #
     # installation

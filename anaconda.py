@@ -436,6 +436,7 @@ if __name__ == "__main__":
     flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
     flags.extlinux = opts.extlinux
+    flags.blscfg = opts.blscfg
     flags.nombr = opts.nombr
     flags.debug = opts.debug
     flags.askmethod = opts.askmethod

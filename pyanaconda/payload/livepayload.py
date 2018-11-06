@@ -166,14 +166,25 @@ class LiveImagePayload(ImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
-        if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-            log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
-            return
+        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            useNKP = True
+        else:
+            log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
+            useNKP = False
 
         for kernel in self.kernelVersionList:
             log.info("Generating rescue image for %s", kernel)
-            util.execInSysroot("new-kernel-pkg",
-                               ["--rpmposttrans", kernel])
+            if useNKP:
+                util.execInSysroot("new-kernel-pkg",
+                                   ["--rpmposttrans", kernel])
+            else:
+                files = glob.glob(util.getSysroot() + "/etc/kernel/postinst.d/*")
+                srlen = len(util.getSysroot())
+                files = sorted([f[srlen:] for f in files
+                                if os.access(f, os.X_OK)])
+                for file in files:
+                    util.execInSysroot(file,
+                                       [kernel, "/boot/vmlinuz-%s" % kernel])
 
     def postInstall(self):
         """ Perform post-installation tasks. """
