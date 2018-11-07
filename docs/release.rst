@@ -11,9 +11,15 @@ In that case just ignore all section that require you to be an Anaconda maintain
 - you need an up to date anaconda source code checkout
 - you need to have commit access to the anaconda repository (so that you can push release commits)
 - you need to have write access to the corresponding Fedora Zanata project so that you can push .pot file updates
-- you need to have the ``rpmbuild`` and ``fedpkg`` tools installed
+- you need to have the ``rpmbuild`` or ``mock`` and ``fedpkg`` tools installed
 - you need to have the Fedora Kerberos based authentication setup
 - you need to have committer access to the anaconda package on Fedora distgit
+
+Using ``rpmbuild`` path
+-----------------------
+This is more standard and stable way to make Anaconda release. The drawback of this method is you need to have
+everything installed locally so you are required to install a lot of dependencies to your system. For the mock
+environment way see mock path below.
 
 
 1. do any changes that are needed to anaconda.spec.in
@@ -58,7 +64,6 @@ In that case just ignore all section that require you to be an Anaconda maintain
 
 8. create SRPM
 
-
 ::
 
     rpmbuild -bs --nodeps anaconda.spec
@@ -81,12 +86,115 @@ In that case just ignore all section that require you to be an Anaconda maintain
 
 11. this will stage a commit, check it's content and commit
 
- - the header should be: ``New version <version number>``
- - content of the commit message should be the same as the changelog in the spec for the given version
+ - Do not forget to replace the ``<new-version>`` with correct version!!
 
 ::
 
-  git commit
+  fedpkg commit --with-changelog --message "New version <new-version>"
+
+12. push the update
+
+::
+
+    fedpkg push
+
+13. start the build
+
+::
+
+    fedpkg build
+
+
+
+Using mock path solution
+------------------------
+This is an alternative to the ``rpmbuild`` tutorial above using ``mock`` container environment.
+This way has the benefit that you don't need to install all Anaconda dependencies to your system. To be able
+to use the mock without root privileges you should be member of a ``mock`` group.
+
+1. allow network access in a mock environment
+
+::
+
+    vim /etc/mock/site-defaults.cfg
+
+find line which contains
+
+::
+
+    config_opts['rpmbuild_networking']
+
+uncomment it and set it to True instead
+
+1. do any changes that are needed to anaconda.spec.in
+
+::
+
+   vim anaconda.spec.in
+
+2. do a release commit
+
+::
+
+    ./scripts/makebumpver -c --skip-zanata
+
+3. check the commit and tag are correct
+
+4. push the master branch to the remote
+
+::
+
+    git push origin master --tags
+
+5. prepare mock environment
+
+::
+
+    ./scripts/testing/setup-mock-test-env.py --init -c -p --release fedora-rawhide-x86_64
+
+6. connect to the prepared mock environment
+
+::
+
+    mock -r fedora-rawhide-x86_64 --chroot -- "cd anaconda && make clean; ./autogen.sh && ./configure && make release"
+
+7. copy tarball to SOURCES from a mock
+
+::
+
+    mock -r fedora-rawhide-x86_64 --copyout "/anaconda/anaconda-*.tar.bz2" .
+    mock -r fedora-rawhide-x86_64 --copyout "/anaconda/anaconda.spec" .
+
+8. create SRPM
+
+::
+
+    mock -r fedora-rawhide-x86_64 --buildsrpm --spec ./anaconda.spec --sources ./anaconda-*.tar.bz2 --resultdir /tmp/anaconda-srpm/
+    cp /tmp/anaconda-srpm/anaconda-*.src.rpm .
+
+9. if you don't have it yet checkout Anaconda from Fedora distgit, switch to the master branch & make sure it's up to date
+
+::
+
+    cd <some folder>
+    fedpkg clone anaconda
+    cd anaconda
+    fedpkg switch-branch master
+    git pull
+
+10. switch to Fedora distgit folder and import the SRPM; to make this work you have to be authenticated in FAS by a kerberos ticket
+
+::
+
+    fedpkg import <anaconda directory>/anaconda-<version>.src.rpm
+
+11. this will stage a commit, check it's content and commit
+
+ - Do not forget to replace the ``<new-version>`` with correct version!!
+
+::
+
+  fedpkg commit --with-changelog --message "New version <new-version>"
 
 12. push the update
 
