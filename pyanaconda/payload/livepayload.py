@@ -48,6 +48,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
 
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.flags import flags
 from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
@@ -143,6 +144,7 @@ class LiveImagePayload(ImagePayload):
         # file system boundaries
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
+                "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
                 "--exclude", "/etc/machine-id", INSTALL_TREE + "/", util.getSysroot()]
         try:
             rc = util.execWithRedirect(cmd, args)
@@ -194,8 +196,15 @@ class LiveImagePayload(ImagePayload):
         super().postInstall()
 
         # Make sure the new system has a machine-id, it won't boot without it
+        # (and nor will some of the subsequent commands)
         if not os.path.exists(util.getSysroot() + "/etc/machine-id"):
+            log.info("Generating machine ID")
             util.execInSysroot("systemd-machine-id-setup", [])
+
+        for kernel in self.kernelVersionList:
+            if flags.blscfg:
+                log.info("Regenerating BLS info for %s", kernel)
+                util.execInSysroot("kernel-install", ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)])
 
     @property
     def spaceRequired(self):
