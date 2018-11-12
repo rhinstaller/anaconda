@@ -138,23 +138,20 @@ class Anaconda(object):
         # Try to find the payload class.  First try the install
         # class.  If it doesn't give us one, fall back to the default.
         if not self._payload:
-            klass = self.instClass.getBackend()
+            from pyanaconda.flags import flags
 
-            if not klass:
-                from pyanaconda.flags import flags
-
-                if self.ksdata.ostreesetup.seen:
-                    from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
-                    klass = RPMOSTreePayload
-                elif flags.livecdInstall:
-                    from pyanaconda.payload.livepayload import LiveImagePayload
-                    klass = LiveImagePayload
-                elif self.ksdata.method.method == "liveimg":
-                    from pyanaconda.payload.livepayload import LiveImageKSPayload
-                    klass = LiveImageKSPayload
-                else:
-                    from pyanaconda.payload.dnfpayload import DNFPayload
-                    klass = DNFPayload
+            if self.ksdata.ostreesetup.seen:
+                from pyanaconda.payload.rpmostreepayload import RPMOSTreePayload
+                klass = RPMOSTreePayload
+            elif flags.livecdInstall:
+                from pyanaconda.payload.livepayload import LiveImagePayload
+                klass = LiveImagePayload
+            elif self.ksdata.method.method == "liveimg":
+                from pyanaconda.payload.livepayload import LiveImageKSPayload
+                klass = LiveImageKSPayload
+            else:
+                from pyanaconda.payload.dnfpayload import DNFPayload
+                klass = DNFPayload
 
             self._payload = klass(self.ksdata)
 

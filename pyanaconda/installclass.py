@@ -45,8 +45,6 @@ class BaseInstallClass(object):
     sortPriority = 0
     hidden = False
     name = "base"
-    bootloaderTimeoutDefault = None
-    bootloaderExtraArgs = []
     bootloader_menu_autohide = False
 
     # Anaconda flags several packages to be installed based on the configuration
@@ -124,15 +122,6 @@ class BaseInstallClass(object):
                                self.name)
         return self._l10n_domain
 
-    def setPackageSelection(self, anaconda):
-        pass
-
-    def getBackend(self):
-        # The default is to return None here, which means anaconda should
-        # use live or dnf (whichever can be detected).  This method is
-        # provided as a way for other products to specify their own.
-        return None
-
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
                                  size=Size("1GiB"),
@@ -194,9 +183,6 @@ class BaseInstallClass(object):
                                      and req.fstype not in skipped_fstypes]
 
     def configure(self, anaconda):
-        anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
-        anaconda.bootloader.boot_args.update(self.bootloaderExtraArgs)
-
         # The default partitioning should be always set.
         self.setDefaultPartitioning(anaconda.storage)
 
@@ -209,12 +195,6 @@ class BaseInstallClass(object):
         This is called after payload is created.
         Beware: This method is called before payload is restarted so it is not completely set up.
         """
-        self.setPackageSelection(payload)
-
-    def setStorageChecker(self, storage_checker):
-        # Update constraints and add or remove some checks in
-        # the storage checker to customize the storage sanity
-        # checking.
         pass
 
     # sets default ONBOOT values and updates ksdata accordingly

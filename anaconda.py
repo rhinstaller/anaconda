@@ -676,7 +676,6 @@ if __name__ == "__main__":
 
     from pyanaconda.storage_utils import storage_checker
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
-    anaconda.instClass.setStorageChecker(storage_checker)
 
     from pyanaconda.argument_parsing import name_path_pairs
 
