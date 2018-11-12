@@ -193,6 +193,7 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'installUpdates'))
         self.assertTrue(hasattr(testclass, 'efi_dir'))
         self.assertTrue(hasattr(testclass, 'defaultFS'))
+        self.assertTrue(hasattr(testclass, 'default_partitioning'))
         self.assertTrue(hasattr(testclass, 'help_folder'))
         self.assertTrue(hasattr(testclass, 'help_main_page'))
         self.assertTrue(hasattr(testclass, 'help_main_page_plain_text'))

@@ -195,7 +195,7 @@ class Anaconda(object):
             import blivet.arch
 
             self._storage = InstallerStorage(ksdata=self.ksdata)
-            self._set_default_fstype(self._storage)
+            self._set_storage_defaults(self._storage)
 
             if blivet.arch.is_s390():
                 self._load_plugin_s390()
@@ -289,7 +289,7 @@ class Anaconda(object):
             log.warning("Repository name %s is not unique. Only the first repo will be used!",
                         repo.name)
 
-    def _set_default_fstype(self, storage):
+    def _set_storage_defaults(self, storage):
         fstype = None
         boot_fstype = None
 
@@ -317,6 +317,9 @@ class Anaconda(object):
 
         if luks_version:
             storage.set_default_luks_version(luks_version)
+
+        # Set the default partitioning.
+        storage.set_default_partitioning(self.instClass.default_partitioning)
 
     def _load_plugin_s390(self):
         # Make sure s390 plugin is loaded.

@@ -334,5 +334,3 @@ def setup_display(anaconda, options, addon_paths=None):
 
     # with X running we can initialize the UI interface
     anaconda.initInterface(addon_paths=addon_paths)
-    # and the install class
-    anaconda.instClass.configure(anaconda)

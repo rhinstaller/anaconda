@@ -62,6 +62,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
+from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     AUTO_PARTITIONING, ZFCP
@@ -1369,6 +1370,13 @@ class InstallerStorage(Blivet):
 
     def _check_valid_luks_version(self, version):
         get_format("luks", luks_version=version)
+
+    def set_default_partitioning(self, requests):
+        """Set the default partitioning.
+
+        :param requests: a list of partitioning specs
+        """
+        self.autopart_requests = get_full_partitioning_requests(self, _platform, requests)
 
     def set_up_bootloader(self, early=False):
         """ Propagate ksdata into BootLoader.

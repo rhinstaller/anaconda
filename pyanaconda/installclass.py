@@ -25,16 +25,9 @@ from distutils.sysconfig import get_python_lib
 import os
 import sys
 
-from blivet.size import Size
-
-from pyanaconda.kickstart import getAvailableDiskSpace
-from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED, SETUP_ON_BOOT_DEFAULT
+from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT
 from pyanaconda.core.util import collect
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.storage.autopart import swap_suggestion
-from pyanaconda.storage.partspec import PartSpec
-from pyanaconda.platform import platform
+from pyanaconda.storage.partitioning import WORKSTATION_PARTITIONING
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -66,6 +59,9 @@ class BaseInstallClass(object):
 
     # Default version of LUKS.
     default_luks_version = None
+
+    # Default partitioning.
+    default_partitioning = WORKSTATION_PARTITIONING
 
     # help
     help_folder = "/usr/share/anaconda/help"
@@ -112,73 +108,6 @@ class BaseInstallClass(object):
 
     # Should the installer show a warning about removed support for hardware?
     detect_support_removed = False
-
-    def setDefaultPartitioning(self, storage):
-        autorequests = [PartSpec(mountpoint="/", fstype=storage.default_fstype,
-                                 size=Size("1GiB"),
-                                 max_size=Size("50GiB"),
-                                 grow=True,
-                                 btr=True, lv=True, thin=True, encrypted=True),
-                        PartSpec(mountpoint="/home",
-                                 fstype=storage.default_fstype,
-                                 size=Size("500MiB"), grow=True,
-                                 required_space=Size("50GiB"),
-                                 btr=True, lv=True, thin=True, encrypted=True)]
-
-        bootreqs = platform.set_default_partitioning()
-        if bootreqs:
-            autorequests.extend(bootreqs)
-
-
-        disk_space = getAvailableDiskSpace(storage)
-        swp = swap_suggestion(disk_space=disk_space)
-        autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
-                                     lv=True, encrypted=True))
-
-        for autoreq in autorequests:
-            if autoreq.fstype is None:
-                if autoreq.mountpoint == "/boot":
-                    autoreq.fstype = storage.default_boot_fstype
-                else:
-                    autoreq.fstype = storage.default_fstype
-
-        storage.autopart_requests = autorequests
-
-    def customizeDefaultPartitioning(self, storage, data):
-        # Customize the default partitioning with kickstart data.
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-        skipped_mountpoints = set()
-        skipped_fstypes = set()
-
-        # Create sets of mountpoints and fstypes to remove from autorequests.
-        if auto_part_proxy.Enabled:
-            # Remove /home if --nohome is selected.
-            if auto_part_proxy.NoHome:
-                skipped_mountpoints.add("/home")
-
-            # Remove /boot if --noboot is selected.
-            if auto_part_proxy.NoBoot:
-                skipped_mountpoints.add("/boot")
-
-            # Remove swap if --noswap is selected.
-            if auto_part_proxy.NoSwap:
-                skipped_fstypes.add("swap")
-
-                # Swap will not be recommended by the storage checker.
-                from pyanaconda.storage_utils import storage_checker
-                storage_checker.add_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
-
-        # Skip mountpoints we want to remove.
-        storage.autopart_requests = [req for req in storage.autopart_requests
-                                     if req.mountpoint not in skipped_mountpoints
-                                     and req.fstype not in skipped_fstypes]
-
-    def configure(self, anaconda):
-        # The default partitioning should be always set.
-        self.setDefaultPartitioning(anaconda.storage)
-
-        # Customize the default partitioning with kickstart data.
-        self.customizeDefaultPartitioning(anaconda.storage, anaconda.ksdata)
 
     def configurePayload(self, payload):
         """Configure install class specific payload operations.
