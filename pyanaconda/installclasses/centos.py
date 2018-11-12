@@ -36,8 +36,6 @@ class CentOSBaseInstallClass(BaseInstallClass):
 
     installUpdates = False
 
-    _l10n_domain = "comps"
-
     efi_dir = "centos"
 
     help_placeholder = "CentOSPlaceholder.html"
