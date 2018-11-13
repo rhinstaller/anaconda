@@ -744,8 +744,6 @@ if __name__ == "__main__":
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
-    anaconda.postConfigureInstallClass()
-
     # add additional repositories from the cmdline to kickstart data
     anaconda.add_additional_repositories_to_ksdata()
 

@@ -16,9 +16,7 @@
 #
 
 from pyanaconda.installclasses.rhel import RHELBaseInstallClass
-from pyanaconda.kickstart import RepoData
-from pyanaconda.product import productName, productVersion, productArch
-from pyanaconda.payload import PackagePayload
+from pyanaconda.product import productName
 
 __all__ = ["ScientificBaseInstallClass"]
 
@@ -38,17 +36,3 @@ class ScientificBaseInstallClass(RHELBaseInstallClass):
 
     help_placeholder = "SLPlaceholder.html"
     help_placeholder_with_links = "SLPlaceholder.html"
-
-    def configurePayload(self, payload):  # pylint: disable=line-too-long
-        '''
-            Load SL specific payload repos
-        '''
-        if isinstance(payload, PackagePayload):
-            major_version = productVersion.replace('rolling','').split('.')[0]
-
-            # A number of users like EPEL, seed it disabled
-            payload.addDisabledRepo(RepoData(name='epel', metalink="https://mirrors.fedoraproject.org/metalink?repo=epel-"+major_version+"&arch="+productArch))
-            # ELRepo provides handy hardware drivers, seed it disabled
-            payload.addDisabledRepo(RepoData(name='elrepo', mirrorlist="http://mirrors.elrepo.org/mirrors-elrepo.el"+major_version))
-
-        super().configurePayload(payload)

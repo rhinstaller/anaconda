@@ -435,17 +435,6 @@ class DNFPayload(payload.PackagePayload):
         self._fetch_md(ksrepo.name)
         super().addRepo(ksrepo)
 
-    def addDisabledRepo(self, ksrepo):
-        """Add a disabled repo to dnf and kickstart repo lists.
-
-        :param ksrepo: Kickstart Repository to add
-        :type ksrepo: Kickstart RepoData object.
-        :returns: None
-        """
-        ksrepo.disable()
-        self._add_repo(ksrepo)
-        super().addDisabledRepo(ksrepo)
-
     def _enable_modules(self):
         """Enable modules (if any)."""
         # convert data from kickstart to module specs
