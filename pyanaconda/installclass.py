@@ -103,12 +103,6 @@ class BaseInstallClass(object):
     # The default network on boot.
     network_on_boot = NetworkOnBoot.NONE
 
-    def filterSupportedLangs(self, ksdata, langs):
-        return langs
-
-    def filterSupportedLocales(self, ksdata, lang, locales):
-        return locales
-
     def __init__(self):
         pass
 

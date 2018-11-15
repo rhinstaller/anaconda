@@ -63,7 +63,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self)
+        LangLocaleHandler.__init__(self, self.payload)
         self._selected_locales = set()
 
         self._l12_module = LOCALIZATION.get_observer()
@@ -145,16 +145,10 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     def completed(self):
         return True
 
-    def _filter_languages(self, langs):
-        return self.instclass.filterSupportedLangs(self.data, langs)
-
     def _add_language(self, store, native, english, lang):
         native_span = '<span lang="%s">%s</span>' % \
                 (escape_markup(lang), escape_markup(native))
         store.append([native_span, english, lang])
-
-    def _filter_locales(self, lang, locales):
-        return self.instclass.filterSupportedLocales(self.data, lang, locales)
 
     def _add_locale(self, store, native, locale):
         native_span = '<span lang="%s">%s</span>' % \

@@ -20,6 +20,7 @@
 import gettext
 import os
 import re
+import shutil
 import langtable
 import locale as locale_mod
 import glob
@@ -27,7 +28,7 @@ from collections import namedtuple
 import sys
 import io
 
-from pyanaconda.core import constants
+from pyanaconda.core import constants, util
 from pyanaconda.core.util import upcase_first_letter, setenv, execWithRedirect
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -751,3 +752,66 @@ def setup_locale_environment(locale=None, text_mode=False, prefer_environment=Fa
     for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES"):
         if varname in os.environ:
             del os.environ[varname]
+
+
+def get_locale_map_from_ostree(repo, ref):
+    """Get a map of languages and locales from the given OSTree.
+
+    For example: {"en": ["en_US"]}
+
+    :param repo: the OSTree repository url
+    :param ref: the name of branch inside the repository
+    :return: a map of languages and locales
+    """
+    # Fallback to just en_US in case of errors.
+    locale_map = {"en": ["en_US"]}
+
+    # Let's only handle local embedded repos for now. Anyway, it'd probably
+    # not be very common to only override ostreesetup through kickstart and
+    # still want the interactive installer. Though to be nice, let's handle
+    # that case.
+    if not repo.startswith("file://"):
+        log.info("ostree repo is not local; defaulting to en_US")
+        return
+
+    # Convert to regular UNIX path.
+    repo = repo[len("file://"):]
+
+    util.mkdirChain(os.path.join(repo, "tmp/usr/lib"))
+    rc = util.execWithRedirect("/usr/bin/ostree",
+                               ["checkout", "--repo", repo, ref,
+                                "--subpath", "/usr/lib/locale/locale-archive",
+                                "%s/tmp/usr/lib/locale" % repo])
+    if rc != 0:
+        log.error("failed to check out locale-archive; check program.log")
+        return
+
+    for line in util.execReadlines("/usr/bin/localedef",
+                                   ["--prefix", os.path.join(repo, "tmp"),
+                                    "--list-archive"]):
+        line = strip_codeset_and_modifier(line)
+        if '_' in line:
+            (lang, _territory) = line.split('_', 1)
+        else:
+            lang = line
+        if lang not in locale_map:
+            locale_map[lang] = [line]
+        else:
+            locale_map[lang].append(line)
+
+    # Nuke the checkout for good measure.
+    shutil.rmtree(os.path.join(repo, "tmp/usr"))
+    return locale_map
+
+
+def strip_codeset_and_modifier(locale):
+    """Return a striped version of the given locale.
+
+    :param locale: a name of the locale
+    :return: a stripped locale
+    """
+    if '@' in locale:
+        locale = locale[:locale.find('@')]
+    if '.' in locale:
+        locale = locale[:locale.find('.')]
+    return locale
