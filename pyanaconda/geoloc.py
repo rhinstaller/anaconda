@@ -122,6 +122,7 @@ log = get_module_logger(__name__)
 sensitive_info_log = get_sensitive_info_logger()
 
 from pyanaconda.core import constants
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 from pyanaconda.flags import flags
@@ -179,7 +180,7 @@ class Geolocation(object):
         """
         geolocation_enabled = True
         # don't use geolocation during image and directory installation
-        if flags.imageInstall or flags.dirInstall:
+        if not conf.target.is_hardware:
             log.info("Geolocation is disabled for image or directory installation.")
             geolocation_enabled = False
         # don't use geolocation during kickstart installation unless explicitly
@@ -217,7 +218,7 @@ class Geolocation(object):
             else:
                 log.info("Geolocation is enabled.")
         else:
-            if flags.imageInstall or flags.dirInstall:
+            if not conf.target.is_hardware:
                 log.info("Geolocation is disabled for image or directory installation.")
             elif flags.automatedInstall:
                 log.info("Geolocation is disabled due to automated kickstart based installation.")

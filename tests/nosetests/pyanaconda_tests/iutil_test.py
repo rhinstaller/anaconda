@@ -823,3 +823,15 @@ class MiscTests(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             test_function()
+
+    def sysroot_test(self):
+        self.assertEqual(util.getTargetPhysicalRoot(), "/mnt/sysimage")
+        self.assertEqual(util.getSysroot(), "/mnt/sysimage")
+
+        util.setSysroot("/what/ever")
+        self.assertEqual(util.getTargetPhysicalRoot(), "/mnt/sysimage")
+        self.assertEqual(util.getSysroot(), "/what/ever")
+
+        util.setSysroot(None)
+        self.assertEqual(util.getTargetPhysicalRoot(), "/mnt/sysimage")
+        self.assertEqual(util.getSysroot(), "/mnt/sysimage")

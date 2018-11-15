@@ -42,6 +42,7 @@ import requests
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.flags import flags
 from pyanaconda.core.process_watchers import WatchProcesses
 from pyanaconda.core.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, \
@@ -84,9 +85,6 @@ def augmentEnv():
     return env
 
 
-_root_path = "/mnt/sysimage"
-
-
 def getTargetPhysicalRoot():
     """Returns the path to the "physical" storage root, traditionally /mnt/sysimage.
 
@@ -99,19 +97,10 @@ def getTargetPhysicalRoot():
     # target is never mounted anywhere else.  This API call just
     # allows us to have a clean "git grep ROOT_PATH" in other parts of
     # the code.
-    return _root_path
+    return conf.target.physical_root
 
 
-def setTargetPhysicalRoot(path):
-    """Change the physical root path
-
-    :param string path: Path to use instead of /mnt/sysimage/
-    """
-    global _root_path
-    _root_path = path
-
-
-_sysroot = _root_path
+_sysroot = None
 
 
 def getSysroot():
@@ -120,7 +109,10 @@ def getSysroot():
     For ordinary package-based installations, this is the same as the
     target root.
     """
-    return _sysroot
+    if _sysroot:
+        return _sysroot
+
+    return getTargetPhysicalRoot()
 
 
 def setSysroot(path):
@@ -161,7 +153,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     # Transparently redirect callers requesting root=_root_path to the
     # configured system root.
     target_root = root
-    if target_root == _root_path:
+    if target_root == getTargetPhysicalRoot():
         target_root = getSysroot()
 
     # Check for and save a preexec_fn argument
@@ -984,7 +976,7 @@ def detect_unsupported_hardware(install_class):
     """
     warnings = []
 
-    if flags.automatedInstall or flags.dirInstall or flags.imageInstall:
+    if flags.automatedInstall or not conf.target.is_hardware:
         log.info("Skipping detection of unsupported hardware.")
         return []
 

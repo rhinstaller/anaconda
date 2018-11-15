@@ -19,6 +19,7 @@
 #
 import os
 from abc import ABC
+from enum import Enum
 
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
 from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
@@ -92,6 +93,42 @@ class ServicesSection(Section):
         return value
 
 
+class TargetType(Enum):
+    """Type of the installation target."""
+    HARDWARE = "HARDWARE"
+    IMAGE = "IMAGE"
+    DIRECTORY = "DIRECTORY"
+
+
+class InstallationTarget(Section):
+    """The Installation Target section."""
+
+    @property
+    def type(self):
+        """Type of the installation target."""
+        return self._get_option("type", TargetType)
+
+    @property
+    def physical_root(self):
+        """A path to the physical root of the target."""
+        return self._get_option("physical_root")
+
+    @property
+    def is_hardware(self):
+        """Are we installing on hardware?"""
+        return self.type is TargetType.HARDWARE
+
+    @property
+    def is_image(self):
+        """Are we installing on an image?"""
+        return self.type is TargetType.IMAGE
+
+    @property
+    def is_directory(self):
+        """Are we installing to a directory?"""
+        return self.type is TargetType.DIRECTORY
+
+
 class StorageSection(Section):
     """The Storage section."""
 
@@ -158,6 +195,7 @@ class AnacondaConfiguration(object):
         self._parser = create_parser()
 
         self._anaconda = AnacondaSection("Anaconda", self.get_parser())
+        self._target = InstallationTarget("Installation Target", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
 
@@ -165,6 +203,11 @@ class AnacondaConfiguration(object):
     def anaconda(self):
         """The Anaconda section."""
         return self._anaconda
+
+    @property
+    def target(self):
+        """The Installation Target section."""
+        return self._target
 
     @property
     def storage(self):
@@ -242,10 +285,19 @@ class AnacondaConfiguration(object):
 
         :param opts: a namespace of options
         """
+        # Set the storage flags.
         self.storage._set_option("dmraid", opts.dmraid)
         self.storage._set_option("ibft", opts.ibft)
         self.storage._set_option("gpt", opts.gpt)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
+
+        if opts.images:
+            # The image installation is requested.
+            self.target._set_option("type", TargetType.IMAGE.value)
+        elif opts.dirinstall:
+            # The dir installation is requested.
+            self.target._set_option("type", TargetType.DIRECTORY.value)
+            self.target._set_option("physical_root", opts.dirinstall)
 
         self.validate()
 

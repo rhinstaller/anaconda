@@ -19,6 +19,7 @@
 from blivet.errors import StorageError
 
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
@@ -70,7 +71,7 @@ def makeFStab(instPath=""):
 
 def makeResolvConf(instPath):
     """Make the resolv.conf file in the chroot."""
-    if flags.imageInstall:
+    if conf.target.is_image:
         return
 
     if not os.access("/etc/resolv.conf", os.R_OK):
@@ -156,7 +157,6 @@ class Rescue(object):
         Dependencies:
         - storage module
         - storage initialization thread
-        - global flags: imageInstall
 
         Initialization:
         storage     - storage object
@@ -213,7 +213,7 @@ class Rescue(object):
             return False
 
         # turn on swap
-        if not flags.imageInstall or not self.ro:
+        if not conf.target.is_image or not self.ro:
             try:
                 self._storage.turn_on_swap()
             except StorageError:
@@ -597,7 +597,7 @@ def start_rescue_mode_ui(anaconda):
     scripts = anaconda.ksdata.scripts
     storage = anaconda.storage
     reboot = True
-    if flags.imageInstall:
+    if conf.target.is_image:
         reboot = False
     if flags.automatedInstall and anaconda.ksdata.reboot.action not in [KS_REBOOT, KS_SHUTDOWN]:
         reboot = False

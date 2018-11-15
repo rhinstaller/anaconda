@@ -38,6 +38,7 @@ from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
@@ -489,7 +490,7 @@ class Bootloader(RemovedCommand):
 
         # Skip bootloader for s390x image installation.
         if blivet.arch.is_s390() \
-                and flags.imageInstall \
+                and conf.target.is_image \
                 and bootloader_proxy.BootloaderMode == BOOTLOADER_ENABLED:
             bootloader_proxy.SetBootloaderMode(BOOTLOADER_SKIPPED)
 

@@ -40,6 +40,7 @@ from pyanaconda.nm import nm_device_hwaddress
 from pyanaconda import platform
 from blivet.size import Size
 from pyanaconda.core.i18n import _, N_
+from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -651,7 +652,7 @@ class BootLoader(object):
                 continue
 
             if self.is_valid_stage1_device(device):
-                if flags.imageInstall and device.is_disk:
+                if conf.target.is_image and device.is_disk:
                     # GRUB2 will install to /dev/loop0 but not to
                     # /dev/mapper/<image_name>
                     self.stage1_device = device.parents[0]
@@ -1727,7 +1728,7 @@ class EFIBase(object):
         return "efi/EFI/%s" % (efi_dir,)
 
     def efibootmgr(self, *args, **kwargs):
-        if flags.imageInstall or flags.dirInstall:
+        if not conf.target.is_hardware:
             log.info("Skipping efibootmgr for image/directory install.")
             return ""
 

@@ -70,6 +70,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, AUTOPART_TYPE_DEFAULT
 from pyanaconda.bootloader import BootLoaderError
@@ -562,7 +563,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     @property
     def showable(self):
-        return not flags.dirInstall
+        return not conf.target.is_directory
 
     @property
     def status(self):

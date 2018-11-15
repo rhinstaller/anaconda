@@ -31,7 +31,8 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
-from pyanaconda.flags import flags, can_touch_runtime_system
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.flags import can_touch_runtime_system
 
 supported_device_types = [
     NM.DeviceType.ETHERNET,
@@ -148,7 +149,7 @@ def nm_state():
     prop = _get_property("/org/freedesktop/NetworkManager", "State")
 
     # If this is an image/dir install assume the network is up
-    if not prop and (flags.imageInstall or flags.dirInstall):
+    if not prop and not conf.target.is_hardware:
         return NM.State.CONNECTED_GLOBAL
     else:
         return prop

@@ -81,7 +81,7 @@ def enable_installer_mode():
 
     # We don't want image installs writing backups of the *image* metadata
     # into the *host's* /etc/lvm. This can get real messy on build systems.
-    if flags.imageInstall:
+    if conf.target.is_image:
         blivet_flags.lvm_metadata_backup = False
 
     blivet_flags.auto_dev_updates = True
@@ -880,18 +880,17 @@ class FSSet(object):
         if not arrays:
             return ""
 
-        # pylint: disable=redefined-outer-name
-        conf = "# mdadm.conf written out by anaconda\n"
-        conf += "MAILADDR root\n"
-        conf += "AUTO +imsm +1.x -all\n"
+        content = "# mdadm.conf written out by anaconda\n"
+        content += "MAILADDR root\n"
+        content += "AUTO +imsm +1.x -all\n"
         devices = list(self.mountpoints.values()) + self.swap_devices
         for array in arrays:
             for device in devices:
                 if device == array or device.depends_on(array):
-                    conf += array.mdadm_conf_entry
+                    content += array.mdadm_conf_entry
                     break
 
-        return conf
+        return content
 
     def fstab(self):
         fmt_str = "%-23s %-23s %-7s %-15s %d %d\n"
@@ -1729,7 +1728,7 @@ class InstallerStorage(Blivet):
         else:
             self.ignored_disks.extend(ignored_nvdimm_devs)
 
-        if not flags.imageInstall:
+        if not conf.target.is_image:
             iscsi.startup()
             fcoe.startup()
 
@@ -2004,7 +2003,7 @@ class InstallerStorage(Blivet):
         else:
             template = prefix
 
-        if flags.imageInstall:
+        if conf.target.is_image:
             template = "%s_image" % template
 
         return template
@@ -2182,7 +2181,7 @@ def get_containing_device(path, devicetree):
     return devicetree.get_device_by_name(device_name)
 
 
-def turn_on_filesystems(storage, mount_only=False, callbacks=None):
+def turn_on_filesystems(storage, callbacks=None):
     """
     Perform installer-specific activation of storage configuration.
 
@@ -2190,8 +2189,8 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
     :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
 
     """
-    if not mount_only:
-        if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
+    if not conf.target.is_directory:
+        if flags.livecdInstall and conf.target.is_hardware and not storage.fsset.active:
             # turn off any swaps that we didn't turn on
             # needed for live installs
             blivet_util.run_program(["swapoff", "-a"])
@@ -2207,7 +2206,7 @@ def turn_on_filesystems(storage, mount_only=False, callbacks=None):
     # FIXME:  For livecd, skip_root needs to be True.
     storage.mount_filesystems()
 
-    if not mount_only:
+    if not conf.target.is_directory:
         write_escrow_packets(storage)
 
 

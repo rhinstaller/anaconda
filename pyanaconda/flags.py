@@ -52,9 +52,7 @@ class Flags(object):
         self.debug = False
         self.preexisting_x11 = False
         self.noverifyssl = False
-        self.imageInstall = False
         self.automatedInstall = False
-        self.dirInstall = False
         self.askmethod = False
         self.eject = True
         self.extlinux = False
@@ -92,16 +90,17 @@ def can_touch_runtime_system(msg, touch_live=False):
     :rtype: bool
 
     """
+    from pyanaconda.core.configuration.anaconda import conf
 
     if flags.livecdInstall and not touch_live:
         log.info("Not doing '%s' in live installation", msg)
         return False
 
-    if flags.imageInstall:
+    if conf.target.is_image:
         log.info("Not doing '%s' in image installation", msg)
         return False
 
-    if flags.dirInstall:
+    if conf.target.is_directory:
         log.info("Not doing '%s' in directory installation", msg)
         return False
 
