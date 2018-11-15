@@ -274,11 +274,14 @@ def doInstall(storage, payload, ksdata, instClass):
     callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
                                                             resize_format_pre=message_clbk,
                                                             wait_for_entropy=entropy_wait_clbk)
-
-    early_storage.append(Task("Activate filesystems",
-                              task=turn_on_filesystems,
-                              task_args=(storage,),
-                              task_kwargs={"callbacks": callbacks_reg}))
+    if conf.target.is_directory:
+        early_storage.append(Task("Mount filesystems",
+                                  task=storage.mount_filesystems))
+    else:
+        early_storage.append(Task("Activate filesystems",
+                                  task=turn_on_filesystems,
+                                  task_args=(storage,),
+                                  task_kwargs={"callbacks": callbacks_reg}))
 
     early_storage.append(Task("Write early storage", payload.writeStorageEarly))
     installation_queue.append(early_storage)

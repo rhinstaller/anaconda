@@ -2192,27 +2192,26 @@ def turn_on_filesystems(storage, callbacks=None):
     :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
 
     """
-    if not conf.target.is_directory:
-        # FIXME: This is a temporary workaround for live OS.
-        if conf.system._is_live_os and conf.target.is_hardware and not storage.fsset.active:
-            # turn off any swaps that we didn't turn on
-            # needed for live installs
-            blivet_util.run_program(["swapoff", "-a"])
+    # FIXME: This is a temporary workaround for live OS.
+    if conf.system._is_live_os and conf.target.is_hardware and not storage.fsset.active:
+        # turn off any swaps that we didn't turn on
+        # needed for live installs
+        blivet_util.run_program(["swapoff", "-a"])
 
-        storage.devicetree.teardown_all()
+    storage.devicetree.teardown_all()
 
-        try:
-            storage.do_it(callbacks)
-        except (FSResizeError, FormatResizeError) as e:
-            if error_handler.cb(e) == ERROR_RAISE:
-                raise
+    try:
+        storage.do_it(callbacks)
+    except (FSResizeError, FormatResizeError) as e:
+        if error_handler.cb(e) == ERROR_RAISE:
+            raise
 
-        storage.turn_on_swap()
+    storage.turn_on_swap()
+
     # FIXME:  For livecd, skip_root needs to be True.
     storage.mount_filesystems()
 
-    if not conf.target.is_directory:
-        write_escrow_packets(storage)
+    write_escrow_packets(storage)
 
 
 def write_escrow_packets(storage):
