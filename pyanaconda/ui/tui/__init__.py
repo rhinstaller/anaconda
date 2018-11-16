@@ -223,7 +223,19 @@ class TextUserInterface(ui.UserInterface):
         This should do little more than just pass through to something else's run method,
         but is provided here in case more is needed.  This method must be provided by all subclasses.
         """
-        return App.run()
+        # App.run() starts the Simpline managed GLib main loop, so we need to make sure
+        # it's only called if some screens are actually scheduled.
+        #
+        # While not likely to ever happen in Anaconda, this is a valid case for Initial Setup,
+        # where it can happen that no screens are needed to be shown and thus not scheduled
+        # and calling App.run() in such a case will effectively deadlock the boot process without
+        # showing anything on the console (prompt is provided by screens, if no screens are scheduled,
+        # not even a prompt is shown). By not calling App.run() Initial Setup will simply exit,
+        # which is the expected behavior as nothing needs to be done.
+        if App.get_scheduler().nothing_to_render:
+            log.info("TUI main loop will not be started as no TUI screens have been scheduled")
+        else:
+            return App.run()
 
     ###
     ### MESSAGE HANDLING METHODS
