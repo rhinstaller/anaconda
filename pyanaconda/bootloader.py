@@ -2372,7 +2372,8 @@ class EXTLINUX(BootLoader):
     stage2_device_types = ["partition"]
     stage2_bootable = True
 
-    packages = ["syslinux-extlinux"]
+    # The extlinux bootloader doesn't have BLS support, the old grubby is needed
+    packages = ["syslinux-extlinux", "grubby-deprecated"]
 
     @property
     def config_file(self):
