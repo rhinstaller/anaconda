@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 19 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.26-1
+- Pull in fixed translations
+  Resolves: rhbz#1650431
+
 * Tue Nov 06 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.25-1
 - Hotfix - disable unsupported hardware detection (mkolman)
   Resolves: rhbz#1645686
