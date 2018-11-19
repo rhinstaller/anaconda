@@ -515,16 +515,6 @@ class Payload(object):
         ksrepo.enabled = True
         self.data.repo.dataList().append(ksrepo)
 
-    def addDisabledRepo(self, ksrepo):
-        """Add the repo given by the pykickstart Repo object ksrepo to the
-        system.
-
-        Duplicate repos will not raise an error.  They should just silently
-        take the place of the previous value.
-        """
-        ksrepo.enabled = False
-        self.data.repo.dataList().append(ksrepo)
-
     def removeRepo(self, repo_id):
         repos = self.data.repo.dataList()
         try:

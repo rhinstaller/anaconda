@@ -109,14 +109,6 @@ class BaseInstallClass(object):
     # Should the installer show a warning about removed support for hardware?
     detect_support_removed = False
 
-    def configurePayload(self, payload):
-        """Configure install class specific payload operations.
-
-        This is called after payload is created.
-        Beware: This method is called before payload is restarted so it is not completely set up.
-        """
-        pass
-
     # sets default ONBOOT values and updates ksdata accordingly
     def setNetworkOnbootDefault(self, ksdata):
         pass
