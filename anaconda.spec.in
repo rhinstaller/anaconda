@@ -353,6 +353,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 19 2018 Martin Kolman <mkolman@redhat.com> - 30.11-1
+- Install grubby-deprecated when using the extlinux bootloader (javierm)
+- Remove configurePayload (vponcova)
+- Resolve the name conflicts with conf (vponcova)
+- Write tests for the target support (vponcova)
+- Simplify the code (vponcova)
+- Replace the dirInstall flag (vponcova)
+- Replace the imageInstall flag (vponcova)
+- Configure the installation target (vponcova)
+- Write tests for the default partitioning (vponcova)
+- Define the default partitioning statically (vponcova)
+- Remove l10n_domain from the install classes (vponcova)
+- Re-generate BLS loader file snippets on live installs (#1648472) (awilliam)
+- Remove the attribute bootloaderTimeoutDefault (vponcova)
+- Remove the attribute bootloaderExtraArgs (vponcova)
+- Remove the method setPackageSelection (vponcova)
+- Remove the setStorageChecker method (vponcova)
+- Remove the getBackend method (vponcova)
+- Add doc to make a release in a mock environment (jkonecny)
+- Support in our scripts creating release in a mock (jkonecny)
+- Add dependencies to make a new release to dependency_solver (jkonecny)
+
 * Tue Nov 06 2018 Martin Kolman <mkolman@redhat.com> - 30.10-1
 - Make the pyanaconda/image.py more pep8 (jkonecny)
 - Test image repodata folder based on treeinfo file (jkonecny)
