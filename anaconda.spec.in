@@ -1,5 +1,3 @@
-%define livearches %{ix86} x86_64 ppc ppc64 ppc64le
-
 # Avoid anaconda-core requiring gjs-console due to the GNOME welcome
 # screen that's shipped in it
 %global __requires_exclude_from ^%{_datadir}/anaconda/gnome/fedora-welcome.*$
@@ -63,9 +61,6 @@ BuildRequires: systemd
 # rpm and libarchive are needed for driver disk handling
 BuildRequires: rpm-devel >= %{rpmver}
 BuildRequires: libarchive-devel >= %{libarchivever}
-%ifarch %livearches
-BuildRequires: desktop-file-utils
-%endif
 %ifarch s390 s390x
 BuildRequires: s390utils-devel
 %endif
@@ -114,9 +109,6 @@ Requires: cracklib-dicts
 
 Requires: python3-pytz
 Requires: teamd
-%ifarch %livearches
-Requires: usermode
-%endif
 %ifarch s390 s390x
 Requires: openssh
 %endif
@@ -135,6 +127,11 @@ Requires: python3-coverage >= 4.0-0.12.b3
 
 # required because of the rescue mode and VNC question
 Requires: anaconda-tui = %{version}-%{release}
+# required during the transition period until
+# anaconda-live is added to the kickstarts used to
+# create live images
+Requires: anaconda-live = %{version}-%{release}
+
 
 # Make sure we get the en locale one way or another
 Requires: glibc-langpack-en
@@ -152,6 +149,18 @@ Obsoletes: booty <= 0.107-1
 %description core
 The anaconda-core package contains the program which was used to install your
 system.
+
+%package live
+Summary: Live installation specific files and dependencies
+BuildRequires: desktop-file-utils
+# live installation currently implies a graphical installation
+Requires: anaconda-gui = %{version}-%{release}
+Requires: usermode
+Requires: zenity
+
+%description live
+The anaconda-live package contains scripts, data and dependencies required
+for live installations.
 
 %package install-env-deps
 Summary: Installation environment specific dependencies
@@ -194,9 +203,6 @@ Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
 Requires: libtimezonemap >= %{libtimezonemapver}
 Requires: nm-connection-editor
-%ifarch %livearches
-Requires: zenity
-%endif
 Requires: keybinder3
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
@@ -268,28 +274,22 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 # Create an empty directory for addons
 mkdir %{buildroot}%{_datadir}/anaconda/addons
 
-%ifarch %livearches
+# required for live installations
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
-%endif
-# NOTE: If you see "error: Installed (but unpackaged) file(s) found" that include liveinst files,
-#       check the IS_LIVEINST_ARCH in configure.ac to make sure your architecture is properly defined
 
 # If no langs found, keep going
 %find_lang %{name} || :
+
+%post live
+update-desktop-database &> /dev/null || :
+
+%postun live
+update-desktop-database &> /dev/null || :
 
 %post widgets -p /sbin/ldconfig
 %postun widgets -p /sbin/ldconfig
 
 
-%ifarch %livearches
-%post
-update-desktop-database &> /dev/null || :
-%endif
-
-%ifarch %livearches
-%postun
-update-desktop-database &> /dev/null || :
-%endif
 
 # main package and install-env-deps are metapackages
 %files
@@ -309,6 +309,7 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
+%exclude %{_datadir}/anaconda/gnome
 %exclude %{_prefix}/libexec/anaconda/dd_*
 %{python3_sitearch}/pyanaconda
 %exclude %{python3_sitearch}/pyanaconda/rescue.py*
@@ -323,15 +324,16 @@ update-desktop-database &> /dev/null || :
 %config %{_sysconfdir}/%{name}/conf.d/*
 %dir %{_sysconfdir}/%{name}/product.d
 %config %{_sysconfdir}/%{name}/product.d/*
-%ifarch %livearches
+
+%files live
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
 %config(noreplace) %{_sysconfdir}/pam.d/*
 %config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_libexecdir}/liveinst-setup.sh
 %{_datadir}/applications/*.desktop
+%{_datadir}/anaconda/gnome
 %{_sysconfdir}/xdg/autostart/*.desktop
-%endif
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*

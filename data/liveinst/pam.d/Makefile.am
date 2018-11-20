@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if IS_LIVEINST_ARCH
 pamdir        = $(sysconfdir)/pam.d
 dist_pam_DATA = liveinst
-endif
 
 MAINTAINERCLEANFILES = Makefile.in

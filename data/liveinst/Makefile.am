@@ -17,7 +17,6 @@
 
 SUBDIRS = console.apps gnome pam.d
 
-if IS_LIVEINST_ARCH
 dist_sbin_SCRIPTS  = liveinst
 
 desktopdir         = $(datadir)/applications
@@ -46,7 +45,6 @@ install-data-hook:
 
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/liveinst
-endif
 
 EXTRA_DIST = README
 
