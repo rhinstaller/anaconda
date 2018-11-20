@@ -16,17 +16,16 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-from blivet.fcoe import fcoe
-
-from pyanaconda.core import constants
-from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.storage_utils import try_populate_devicetree
 from pyanaconda import nm
 
 __all__ = ["FCoEDialog"]
+
 
 class FCoEDialog(GUIObject):
     """
@@ -39,20 +38,16 @@ class FCoEDialog(GUIObject):
 
     def __init__(self, data, storage):
         super().__init__(data)
-
-        self._addError = None
-
-        self.storage = storage
-        self.fcoe = fcoe
+        self._storage = storage
         self._update_devicetree = False
+        self._fcoe_proxy = STORAGE.get_proxy(FCOE)
 
         self._addButton = self.builder.get_object("addButton")
         self._cancelButton = self.builder.get_object("cancelButton")
-        self._addSpinner = self.builder.get_object("addSpinner")
+        self._spinner = self.builder.get_object("addSpinner")
         self._errorBox = self.builder.get_object("errorBox")
-
+        self._errorLabel = self.builder.get_object("errorLabel")
         self._nicCombo = self.builder.get_object("nicCombo")
-
         self._dcbCheckbox = self.builder.get_object("dcbCheckbox")
         self._autoCheckbox = self.builder.get_object("autoCheckbox")
 
@@ -68,8 +63,10 @@ class FCoEDialog(GUIObject):
     def run(self):
         rc = self.window.run()
         self.window.destroy()
+
         if self._update_devicetree:
-            try_populate_devicetree(self.storage.devicetree)
+            try_populate_devicetree(self._storage.devicetree)
+
         return rc
 
     @property
@@ -85,53 +82,48 @@ class FCoEDialog(GUIObject):
     def use_auto_vlan(self):
         return self._autoCheckbox.get_active()
 
-    def _add(self):
-        try:
-            self._addError = self.fcoe.add_san(self.nic, self.use_dcb, self.use_auto_vlan)
-        except (IOError, OSError) as e:
-            self._addError = str(e)
-
-        self._after_add()
-
-    @async_action_wait
-    def _after_add(self):
-        # When fcoe discovery is done, update the UI.  We don't need to worry
-        # about the user escaping from the dialog because all the buttons are
-        # marked insensitive.
-        self._addSpinner.stop()
-        self._addSpinner.hide()
-
-        for widget in [self._addButton, self._cancelButton, self._nicCombo,
-                       self._dcbCheckbox, self._autoCheckbox]:
-            widget.set_sensitive(True)
-
-        if self._addError:
-            # Failure.  Display some error message and leave the user on the
-            # dialog to try again.
-            self.builder.get_object("errorLabel").set_text(self._addError)
-            self._errorBox.set_visible(True)
-            self._errorBox.set_no_show_all(False)
-            self._errorBox.show()
-
-            self._addError = None
-            self._addButton.set_sensitive(True)
-            self._cancelButton.set_sensitive(True)
-        else:
-            # Success.  There's nothing else the user can do on this dialog.
-            self.fcoe.added_nics.append(self.nic)
-            self._update_devicetree = True
-            self.window.response(1)
+    def _set_configure_sensitive(self, sensitivity):
+        """Set widgets to the given sensitivity."""
+        self._addButton.set_sensitive(sensitivity)
+        self._cancelButton.set_sensitive(sensitivity)
+        self._nicCombo.set_sensitive(sensitivity)
+        self._dcbCheckbox.set_sensitive(sensitivity)
+        self._autoCheckbox.set_sensitive(sensitivity)
 
     def on_add_clicked(self, *args):
-        # Set some widgets to visible/not while we work.
+        """Start the discovery task."""
+        # First update widgets.
+        self._set_configure_sensitive(False)
         self._errorBox.hide()
-        self._addSpinner.set_visible(True)
-        self._addSpinner.show()
 
-        for widget in [self._addButton, self._cancelButton, self._nicCombo,
-                       self._dcbCheckbox, self._autoCheckbox]:
-            widget.set_sensitive(False)
+        # Get the discovery task.
+        task_path = self._fcoe_proxy.DiscoverWithTask(self.nic, self.use_dcb, self.use_auto_vlan)
+        task_proxy = STORAGE.get_proxy(task_path)
 
-        self._addSpinner.start()
+        # Start the discovery.
+        async_run_task(task_proxy, self.process_result)
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_FCOE, target=self._add))
+        self._spinner.start()
+        self._spinner.show()
+
+    def process_result(self, task_proxy):
+        """Process the result of the task.
+
+        :param task_proxy: a task proxy
+        """
+        # Stop the spinner.
+        self._spinner.stop()
+        self._spinner.hide()
+
+        try:
+            # Finish the task
+            task_proxy.Finish()
+        except StorageDiscoveryError as e:
+            # Discovery has failed, show the error.
+            self._set_configure_sensitive(True)
+            self._errorLabel.set_text(str(e))
+            self._errorBox.show()
+        else:
+            # Discovery succeeded.
+            self._update_devicetree = True
+            self.window.response(1)

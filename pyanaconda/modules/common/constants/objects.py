@@ -51,6 +51,11 @@ MANUAL_PARTITIONING = DBusObjectIdentifier(
     basename="Manual"
 )
 
+FCOE = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="FCoE"
+)
+
 ZFCP = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="zFCP"

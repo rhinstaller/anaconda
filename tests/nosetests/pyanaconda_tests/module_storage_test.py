@@ -43,6 +43,9 @@ from pyanaconda.modules.storage.disk_initialization.initialization_interface imp
     DiskInitializationInterface
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
+from pyanaconda.modules.storage.fcoe import FCOEModule
+from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
+from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
@@ -70,6 +73,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'autopart',
                 'bootloader',
                 'clearpart',
+                'fcoe',
                 'ignoredisk',
                 'logvol',
                 'mount',
@@ -616,6 +620,22 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
+    @patch("pyanaconda.modules.storage.kickstart.fcoe")
+    @patch("pyanaconda.modules.storage.kickstart.nm")
+    def fcoe_kickstart_test(self, nm, fcoe):
+        """Test the fcoe command."""
+        ks_in = """
+        fcoe --nic=eth0 --dcb --autovlan
+        """
+        ks_out = """
+        fcoe --nic=eth0 --dcb --autovlan
+        """
+        nm.nm_devices.return_value = ["eth0"]
+        self._test_kickstart(ks_in, ks_out)
+
+        nm.nm_devices.return_value = ["eth1"]
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
     @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
     def zfcp_kickstart_test(self, arch, zfcp):
@@ -1039,6 +1059,81 @@ class DASDTasksTestCase(unittest.TestCase):
         ])
 
 
+class FCOEInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the FCoE module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.fcoe_module = FCOEModule()
+        self.fcoe_interface = FCOEInterface(self.fcoe_module)
+
+    def get_nics_test(self):
+        """Test the get nics method."""
+        self.assertEqual(self.fcoe_interface.GetNics(), list())
+
+    def get_dracut_arguments(self):
+        """Test the get dracut arguments method."""
+        self.assertEqual(self.fcoe_interface.GetDracutArguments("eth0"), list())
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def discover_with_task_test(self, publisher):
+        """Test the discover task."""
+        task_path = self.fcoe_interface.DiscoverWithTask(
+            "eth0",  # nic
+            False,  # dcb
+            True  # auto_vlan
+        )
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, FCOEDiscoverTask)
+        self.assertEqual(obj.implementation._nic, "eth0")
+        self.assertEqual(obj.implementation._dcb, False)
+        self.assertEqual(obj.implementation._auto_vlan, True)
+
+    @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
+    def reload_module_test(self, fcoe):
+        """Test ReloadModule."""
+        self.fcoe_interface.ReloadModule()
+        fcoe.startup.assert_called_once_with()
+
+    @patch('pyanaconda.modules.storage.fcoe.fcoe.fcoe')
+    def write_configuration_test(self, fcoe):
+        """Test WriteConfiguration."""
+
+        with tempfile.TemporaryDirectory() as root:
+            self.fcoe_interface.WriteConfiguration(root)
+            fcoe.write.assert_called_once_with(root)
+
+
+class FCOETasksTestCase(unittest.TestCase):
+    """Test FCoE tasks."""
+
+    @patch('pyanaconda.modules.storage.fcoe.discover.fcoe')
+    def discovery_fails_test(self, fcoe):
+        """Test the failing discovery task."""
+        fcoe.add_san.return_value = "Fake error message"
+
+        with self.assertRaises(StorageDiscoveryError) as cm:
+            FCOEDiscoverTask(nic="eth0", dcb=False, auto_vlan=True).run()
+
+        self.assertEqual(str(cm.exception), "Fake error message")
+
+    @patch('pyanaconda.modules.storage.fcoe.discover.fcoe')
+    def discovery_test(self, fcoe):
+        """Test the discovery task."""
+        fcoe.add_san.return_value = ""
+
+        FCOEDiscoverTask(nic="eth0", dcb=False, auto_vlan=True).run()
+
+        fcoe.add_san.assert_called_once_with("eth0", False, True)
+        fcoe.added_nics.append.assert_called_once_with("eth0")
+
+
 class ZFCPInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the zFCP module."""
 
@@ -1111,7 +1206,7 @@ class ZFCPTasksTestCase(unittest.TestCase):
         sanitized_wwpn = blockdev.s390.zfcp_sanitize_wwpn_input.return_value
         sanitized_lun = blockdev.s390.zfcp_sanitize_lun_input.return_value
 
-        zfcp.add_fcp.asser_called_once_with(sanitized_dev, sanitized_lun, sanitized_wwpn)
+        zfcp.add_fcp.assert_called_once_with(sanitized_dev, sanitized_wwpn, sanitized_lun)
 
 
 class ManualPartitioningInterfaceTestCase(unittest.TestCase):

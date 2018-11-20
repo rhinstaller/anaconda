@@ -31,7 +31,6 @@ import time
 import warnings
 
 import blivet.arch
-import blivet.fcoe
 import blivet.iscsi
 
 from contextlib import contextmanager
@@ -117,7 +116,6 @@ clearpart_log = log.getChild("kickstart.clearpart")
 autopart_log = log.getChild("kickstart.autopart")
 logvol_log = log.getChild("kickstart.logvol")
 iscsi_log = log.getChild("kickstart.iscsi")
-fcoe_log = log.getChild("kickstart.fcoe")
 network_log = log.getChild("kickstart.network")
 selinux_log = log.getChild("kickstart.selinux")
 timezone_log = log.getChild("kickstart.timezone")
@@ -871,26 +869,6 @@ class ClearPart(RemovedCommand):
                                       DiskLabel.get_platform_label_types()[0])
 
         storage.clear_partitions()
-
-class Fcoe(COMMANDS.Fcoe):
-    def parse(self, args):
-        fc = super().parse(args)
-
-        if fc.nic not in nm.nm_devices():
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("NIC \"%s\" given in fcoe command does not exist.") % fc.nic)
-
-        if fc.nic in (info[0] for info in blivet.fcoe.fcoe.nics):
-            fcoe_log.info("Kickstart fcoe device %s already added from EDD, ignoring", fc.nic)
-        else:
-            msg = blivet.fcoe.fcoe.add_san(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
-            if not msg:
-                msg = "Succeeded."
-                blivet.fcoe.fcoe.added_nics.append(fc.nic)
-
-            fcoe_log.info("adding FCoE SAN on %s: %s", fc.nic, msg)
-
-        return fc
 
 class Firewall(RemovedCommand):
     def __init__(self, *args, **kwargs):
@@ -2614,7 +2592,7 @@ commandMap = {
     "bootloader": Bootloader,
     "clearpart": ClearPart,
     "eula": Eula,
-    "fcoe": Fcoe,
+    "fcoe": UselessCommand,
     "firewall": Firewall,
     "firstboot": Firstboot,
     "group": Group,
@@ -2766,7 +2744,6 @@ def parseKickstart(f, strict_mode=False, pass_to_boss=False):
 
     # So that drives onlined by these can be used in the ks file
     blivet.iscsi.iscsi.startup()
-    blivet.fcoe.fcoe.startup()
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
 

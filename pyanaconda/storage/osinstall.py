@@ -46,7 +46,6 @@ from blivet.formats import get_device_format_class
 from blivet.formats import get_format
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
-from blivet.fcoe import fcoe
 from blivet.static_data import nvdimm
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
@@ -65,7 +64,7 @@ from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    AUTO_PARTITIONING, ZFCP
+    AUTO_PARTITIONING, ZFCP, FCOE
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -1285,7 +1284,9 @@ class InstallerStorage(Blivet):
         self.make_mtab()
         self.fsset.write()
         iscsi.write(sysroot, self)
-        fcoe.write(sysroot)
+
+        fcoe_proxy = STORAGE.get_proxy(FCOE)
+        fcoe_proxy.WriteConfiguration(sysroot)
 
         if arch.is_s390():
             zfcp_proxy = STORAGE.get_proxy(ZFCP)
@@ -1730,7 +1731,9 @@ class InstallerStorage(Blivet):
 
         if not conf.target.is_image:
             iscsi.startup()
-            fcoe.startup()
+
+            fcoe_proxy = STORAGE.get_proxy(FCOE)
+            fcoe_proxy.ReloadModule()
 
             if arch.is_s390():
                 zfcp_proxy = STORAGE.get_proxy(ZFCP)
