@@ -310,6 +310,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %exclude %{_datadir}/anaconda/gnome
+%exclude %{_datadir}/anaconda/pixmaps
+%exclude %{_datadir}/anaconda/ui
+%exclude %{_datadir}/anaconda/window-manager
+%exclude %{_datadir}/anaconda/anaconda-gtk.css
 %exclude %{_prefix}/libexec/anaconda/dd_*
 %{python3_sitearch}/pyanaconda
 %exclude %{python3_sitearch}/pyanaconda/rescue.py*
@@ -337,6 +341,10 @@ update-desktop-database &> /dev/null || :
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*
+%{_datadir}/anaconda/pixmaps
+%{_datadir}/anaconda/ui
+%{_datadir}/anaconda/window-manager
+%{_datadir}/anaconda/anaconda-gtk.css
 
 %files tui
 %{python3_sitearch}/pyanaconda/rescue.py
