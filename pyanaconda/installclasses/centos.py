@@ -18,9 +18,8 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
+from pyanaconda.network import NetworkOnBoot
 from pyanaconda.product import productName
-from pyanaconda import network
-from pyanaconda import nm
 
 __all__ = ["CentOSBaseInstallClass"]
 
@@ -43,15 +42,4 @@ class CentOSBaseInstallClass(BaseInstallClass):
 
     blivet_gui_supported = False
 
-    def setNetworkOnbootDefault(self, ksdata):
-        if any(nd.onboot for nd in ksdata.network.network if nd.device):
-            return
-        # choose the device used during installation
-        # (ie for majority of cases the one having the default route)
-        dev = network.default_route_device() or network.default_route_device(family="inet6")
-        if not dev:
-            return
-        # ignore wireless (its ifcfgs would need to be handled differently)
-        if nm.nm_device_type_is_wifi(dev):
-            return
-        network.update_onboot_value(dev, True, ksdata=ksdata)
+    network_on_boot = NetworkOnBoot.DEFAULT_ROUTE_DEVICE

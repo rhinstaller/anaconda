@@ -203,6 +203,7 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'stylesheet'))
         self.assertTrue(hasattr(testclass, 'defaultPackageEnvironment'))
         self.assertTrue(hasattr(testclass, 'setup_on_boot'))
+        self.assertTrue(hasattr(testclass, 'network_on_boot'))
         self.assertTrue(hasattr(testclass, 'use_geolocation_with_kickstart'))
 
 

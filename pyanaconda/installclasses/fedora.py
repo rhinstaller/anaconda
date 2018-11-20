@@ -18,9 +18,8 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
+from pyanaconda.network import NetworkOnBoot
 from pyanaconda.product import productName
-from pyanaconda import network
-from pyanaconda import nm
 
 __all__ = ["FedoraBaseInstallClass"]
 
@@ -39,17 +38,4 @@ class FedoraBaseInstallClass(BaseInstallClass):
 
     default_luks_version = "luks1"
 
-    def setNetworkOnbootDefault(self, ksdata):
-        if any(nd.onboot for nd in ksdata.network.network if nd.device):
-            return
-        # choose first wired device having link
-        for dev in nm.nm_devices():
-            if nm.nm_device_type_is_wifi(dev):
-                continue
-            try:
-                link_up = nm.nm_device_carrier(dev)
-            except (nm.UnknownDeviceError, nm.PropertyNotFoundError):
-                continue
-            if link_up:
-                network.update_onboot_value(dev, True, ksdata=ksdata)
-                break
+    network_on_boot = NetworkOnBoot.FIRST_WIRED_WITH_LINK

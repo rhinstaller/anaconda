@@ -28,6 +28,7 @@ import sys
 from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT
 from pyanaconda.core.util import collect
 from pyanaconda.storage.partitioning import WORKSTATION_PARTITIONING
+from pyanaconda.network import NetworkOnBoot
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -109,9 +110,8 @@ class BaseInstallClass(object):
     # Should the installer show a warning about removed support for hardware?
     detect_support_removed = False
 
-    # sets default ONBOOT values and updates ksdata accordingly
-    def setNetworkOnbootDefault(self, ksdata):
-        pass
+    # The default network on boot.
+    network_on_boot = NetworkOnBoot.NONE
 
     def filterSupportedLangs(self, ksdata, langs):
         return langs
