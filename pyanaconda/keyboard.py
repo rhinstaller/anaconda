@@ -147,8 +147,8 @@ def populate_missing_items(localization_proxy=None):
         vc_keymap = new_vc_keymap
 
     if not x_layouts:
-        c_lay_var = localed.convert_keymap(vc_keymap)
-        localization_proxy.SetXLayouts([c_lay_var])
+        c_lay_vars = localed.convert_keymap(vc_keymap)
+        localization_proxy.SetXLayouts(c_lay_vars)
 
 def write_keyboard_config(localization_proxy, root, convert=True):
     """
@@ -309,10 +309,7 @@ def activate_keyboard(localization_proxy):
             vc_keymap = None
         else:
             # activate VConsole keymap and get converted layout and variant
-            converted = localed.set_and_convert_keymap(vc_keymap)
-
-            # localed may give us multiple comma-separated layouts+variants
-            c_lays_vars = converted.split(",")
+            c_lays_vars = localed.set_and_convert_keymap(vc_keymap)
 
     if not x_layouts:
         if c_lays_vars:
@@ -511,7 +508,7 @@ class LocaledWrapper(object):
         :type keymap: str
         :return: X11 layouts and variants that (systemd-localed thinks) match
                  given keymap best
-        :rtype: str
+        :rtype: a list of strings
 
         """
 
@@ -528,15 +525,11 @@ class LocaledWrapper(object):
         Method that sets VConsole keymap and returns X11 layouts and
         variants that (systemd-localed thinks) match given keymap best.
 
-        :return: string containing comma-separated "layout (variant)" or
-                 "layout" layout specifications
-        :rtype: string
-
+        :return: a list of "layout (variant)" or "layout" layout specifications
+        :rtype: a list of strings
         """
-
         self.set_keymap(keymap, convert=True)
-
-        return ",".join(self.layouts_variants)
+        return list(self.layouts_variants)
 
     def set_layouts(self, layouts_variants, options=None, convert=False):
         """
