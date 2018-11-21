@@ -63,7 +63,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, self.payload)
+        LangLocaleHandler.__init__(self, self.payload, self.instclass)
         self._selected_locales = set()
 
         self._l12_module = LOCALIZATION.get_observer()

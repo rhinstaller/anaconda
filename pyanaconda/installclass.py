@@ -74,6 +74,10 @@ class BaseInstallClass(object):
     # comps environment id to select by default
     defaultPackageEnvironment = None
 
+    # Should the installer check if the available languages
+    # and locales are supported by the payload?
+    check_supported_locales = False
+
     # EULA path (if any)
     #
     # If the given distribution has an EULA & feels the need to

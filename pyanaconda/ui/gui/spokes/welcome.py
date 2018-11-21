@@ -64,7 +64,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, self.payload)
+        LangLocaleHandler.__init__(self, self.payload, self.instclass)
         self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_observer()
