@@ -353,6 +353,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Nov 22 2018 Martin Kolman <mkolman@redhat.com> - 30.12-1
+- Simplify the task Activate filesystems (vponcova)
+- Remove the flag livecdInstall (vponcova)
+- Overwrite network configuration for the live image payload (vponcova)
+- Write tests for the installation system configuration (vponcova)
+- Resolve the name conflicts in exception.py (vponcova)
+- Use the Anaconda configuration in the network module (vponcova)
+- Revert "Don't try to get hostnamed proxy in non-installer-image environments
+  (#1616214)" (vponcova)
+- Remove the function can_touch_runtime_system (vponcova)
+- Add rules for the installation system (vponcova)
+- Configure the installation system (vponcova)
+- Replace setNetworkOnbootDefault (vponcova)
+- Add tests for the FCoE module (vponcova)
+- Discover an FCoE device with a DBus task (vponcova)
+- Reload the FCoE module on the storage reset (vponcova)
+- Let the FCoE module to provide the dracut arguments (vponcova)
+- Let the FCoE module to write the configuration (vponcova)
+- Move kickstart support to the FCoE module (vponcova)
+- Create the basic structure for the FCoE module (vponcova)
+
 * Mon Nov 19 2018 Martin Kolman <mkolman@redhat.com> - 30.11-1
 - Install grubby-deprecated when using the extlinux bootloader (javierm)
 - Remove configurePayload (vponcova)
