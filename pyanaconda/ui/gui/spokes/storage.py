@@ -81,6 +81,7 @@ from pyanaconda.screen_access import sam
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.payload.livepayload import LiveImagePayload
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
@@ -134,7 +135,7 @@ class InstallOptionsDialogBase(GUIObject):
     def _get_sw_needs_text(self, required_space, sw_space, auto_swap):
         tooltip = _("Please wait... software metadata still loading.")
 
-        if flags.livecdInstall:
+        if isinstance(self.payload, LiveImagePayload):
             sw_text = (_("Your current <b>%(product)s</b> software "
                          "selection requires <b>%(total)s</b> of available "
                          "space, including <b>%(software)s</b> for software and "
@@ -199,7 +200,7 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
         label = self.builder.get_object("need_space_desc_label")
         label.set_markup(label_text)
 
-        if not flags.livecdInstall:
+        if not isinstance(self.payload, LiveImagePayload):
             label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
@@ -235,7 +236,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
         label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
 
-        if not flags.livecdInstall:
+        if not isinstance(self.payload, LiveImagePayload):
             label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)

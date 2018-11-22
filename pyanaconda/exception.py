@@ -33,12 +33,12 @@ from meh import Config
 from meh.dump import ReverseExceptionDump
 from meh.handler import ExceptionHandler
 
-from pyanaconda import flags
 from pyanaconda import kickstart
 from pyanaconda.core import util
 from pyanaconda import startup_utils
 from pyanaconda import product
 from pyanaconda.core.async_utils import run_in_loop
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.errors import NonInteractiveError
 from pyanaconda.core.i18n import _
@@ -231,8 +231,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         util.ipmi_report(IPMI_FAILED)
 
     def runDebug(self, exc_info):
-        if flags.can_touch_runtime_system("switch console") \
-                and self._intf_tty_num != 1:
+        if conf.system.can_switch_tty and self._intf_tty_num != 1:
             util.vtActivate(1)
 
         os.open("/dev/console", os.O_RDWR)   # reclaim stdin
@@ -254,8 +253,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         import pdb
         pdb.post_mortem(exc_info.stack)
 
-        if flags.can_touch_runtime_system("switch console") \
-                and self._intf_tty_num != 1:
+        if conf.system.can_switch_tty and self._intf_tty_num != 1:
             util.vtActivate(self._intf_tty_num)
 
 
@@ -273,7 +271,7 @@ def initExceptionHandling(anaconda):
     if anaconda.opts and anaconda.opts.ksfile:
         file_list.extend([anaconda.opts.ksfile])
 
-    conf = Config(programName="anaconda",
+    config = Config(programName="anaconda",
                   programVersion=startup_utils.get_anaconda_version_string(),
                   programArch=os.uname()[4],
                   attrSkipList=["_intf._actions",
@@ -298,28 +296,28 @@ def initExceptionHandling(anaconda):
                   localSkipList=["passphrase", "password", "_oldweak", "_password", "try_passphrase"],
                   fileList=file_list)
 
-    conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=False)
-    conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
+    config.register_callback("lsblk_output", lsblk_callback, attchmnt_only=False)
+    config.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
 
     # provide extra information for libreport
-    conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
-    conf.register_callback("addons", list_addons_callback, attchmnt_only=False)
+    config.register_callback("type", lambda: "anaconda", attchmnt_only=True)
+    config.register_callback("addons", list_addons_callback, attchmnt_only=False)
 
     if "/tmp/syslog" not in file_list:
         # no syslog, grab output from journalctl and put it also to the
         # anaconda-tb file
-        conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
+        config.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
 
     if not product.isFinal:
-        conf.register_callback("release_type", lambda: "pre-release", attchmnt_only=True)
+        config.register_callback("release_type", lambda: "pre-release", attchmnt_only=True)
 
-    handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
+    handler = AnacondaExceptionHandler(config, anaconda.intf.meh_interface,
                                        AnacondaReverseExceptionDump, anaconda.intf.tty_num,
                                        anaconda.gui_initialized, anaconda.interactive_mode)
     handler.install(anaconda)
 
-    return conf
+    return config
 
 
 def lsblk_callback():

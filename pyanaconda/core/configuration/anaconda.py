@@ -72,6 +72,142 @@ class AnacondaSection(Section):
         return self._get_option("kickstart_modules").split()
 
 
+class SystemType(Enum):
+    """The type of the installation system."""
+    BOOT_ISO = "BOOT_ISO"
+    LIVE_OS = "LIVE_OS"
+    UNKNOWN = "UNKNOWN"
+
+
+class InstallationSystem(Section):
+    """The Installation System section."""
+
+    @property
+    def _type(self):
+        """Type of the installation system.
+
+        FIXME: This is a temporary solution.
+        """
+        return self._get_option("type", SystemType)
+
+    @property
+    def _is_boot_iso(self):
+        """Are we running in the boot.iso?"""
+        return self._type is SystemType.BOOT_ISO
+
+    @property
+    def _is_live_os(self):
+        """Are we running in the live OS?"""
+        return self._type is SystemType.LIVE_OS
+
+    @property
+    def _is_unknown(self):
+        """Are we running in the unknown OS?"""
+        return self._type is SystemType.UNKNOWN
+
+    @property
+    def can_reboot(self):
+        """Can we reboot the system?"""
+        return self._is_boot_iso
+
+    @property
+    def can_switch_tty(self):
+        """Can we change the foreground virtual terminal?"""
+        return self._is_boot_iso
+
+    @property
+    def can_audit(self):
+        """Can we run the audit daemon?"""
+        return self._is_boot_iso
+
+    @property
+    def can_set_hardware_clock(self):
+        """Can we set the Hardware Clock?"""
+        return self._is_boot_iso
+
+    @property
+    def can_initialize_system_clock(self):
+        """Can we initialize the System Clock?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def can_set_system_clock(self):
+        """Can we set the System Clock?"""
+        return self._is_boot_iso
+
+    @property
+    def can_set_time_synchronization(self):
+        """Can we run the NTP daemon?"""
+        return self._is_boot_iso
+
+    @property
+    def can_activate_keyboard(self):
+        """Can we activate the keyboard?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso
+
+    @property
+    def can_activate_layouts(self):
+        """Can we activate the layouts?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso
+
+    @property
+    def can_configure_keyboard(self):
+        """Can we configure the keyboard?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def can_modify_syslog(self):
+        """Can we modify syslog?"""
+        return self._is_boot_iso
+
+    @property
+    def can_change_hostname(self):
+        """Can we change the hostname?"""
+        return self._is_boot_iso
+
+    @property
+    def can_configure_network(self):
+        """Can we configure the network?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def can_require_network_connection(self):
+        """Can the system require network connection?
+
+        FIXME: This is a temporary workaround.
+        """
+        return self._is_boot_iso
+
+    @property
+    def provides_system_bus(self):
+        """Can we access the system DBus?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def provides_resolver_config(self):
+        """Can we copy /etc/resolv.conf to the target system?"""
+        return self._is_boot_iso
+
+    @property
+    def provides_user_interaction_config(self):
+        """Can we read /etc/sysconfig/anaconda?"""
+        return self._is_boot_iso or self._is_live_os
+
+    @property
+    def provides_web_browser(self):
+        """Can we redirect users to web pages?"""
+        return self._is_live_os
+
+
 class ServicesSection(Section):
     """The Services section."""
 
@@ -195,6 +331,7 @@ class AnacondaConfiguration(object):
         self._parser = create_parser()
 
         self._anaconda = AnacondaSection("Anaconda", self.get_parser())
+        self._system = InstallationSystem("Installation System", self.get_parser())
         self._target = InstallationTarget("Installation Target", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
@@ -203,6 +340,11 @@ class AnacondaConfiguration(object):
     def anaconda(self):
         """The Anaconda section."""
         return self._anaconda
+
+    @property
+    def system(self):
+        """The Installation System section."""
+        return self._system
 
     @property
     def target(self):
@@ -291,6 +433,15 @@ class AnacondaConfiguration(object):
         self.storage._set_option("gpt", opts.gpt)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
 
+        # Set the type of the installation system.
+        if opts.liveinst:
+            self.system._set_option("type", SystemType.LIVE_OS.value)
+        elif opts.images or opts.dirinstall:
+            self.system._set_option("type", SystemType.UNKNOWN.value)
+        else:
+            self.system._set_option("type", SystemType.BOOT_ISO.value)
+
+        # Set the type of the installation target.
         if opts.images:
             # The image installation is requested.
             self.target._set_option("type", TargetType.IMAGE.value)

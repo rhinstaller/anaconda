@@ -2192,25 +2192,26 @@ def turn_on_filesystems(storage, callbacks=None):
     :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
 
     """
-    if not conf.target.is_directory:
-        if flags.livecdInstall and conf.target.is_hardware and not storage.fsset.active:
-            # turn off any swaps that we didn't turn on
-            # needed for live installs
-            blivet_util.run_program(["swapoff", "-a"])
-        storage.devicetree.teardown_all()
+    # FIXME: This is a temporary workaround for live OS.
+    if conf.system._is_live_os and conf.target.is_hardware and not storage.fsset.active:
+        # turn off any swaps that we didn't turn on
+        # needed for live installs
+        blivet_util.run_program(["swapoff", "-a"])
 
-        try:
-            storage.do_it(callbacks)
-        except (FSResizeError, FormatResizeError) as e:
-            if error_handler.cb(e) == ERROR_RAISE:
-                raise
+    storage.devicetree.teardown_all()
 
-        storage.turn_on_swap()
+    try:
+        storage.do_it(callbacks)
+    except (FSResizeError, FormatResizeError) as e:
+        if error_handler.cb(e) == ERROR_RAISE:
+            raise
+
+    storage.turn_on_swap()
+
     # FIXME:  For livecd, skip_root needs to be True.
     storage.mount_filesystems()
 
-    if not conf.target.is_directory:
-        write_escrow_packets(storage)
+    write_escrow_packets(storage)
 
 
 def write_escrow_packets(storage):
@@ -2308,7 +2309,8 @@ def storage_initialize(storage, ksdata, protected):
         else:
             break
 
-    if protected and not flags.livecdInstall and \
+    # FIXME: This is a temporary workaround for live OS.
+    if protected and not conf.system._is_live_os and \
        not any(d.protected for d in storage.devices):
         raise UnknownSourceDeviceError(protected)
 

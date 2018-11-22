@@ -41,7 +41,7 @@ from threading import RLock
 
 from pyanaconda import startup_utils
 from pyanaconda.core import util
-from pyanaconda.flags import can_touch_runtime_system
+from pyanaconda.core.configuration.anaconda import conf
 
 
 class ScreenAccessManager(object):
@@ -68,8 +68,7 @@ class ScreenAccessManager(object):
             # But load the config if a path is specified,
             # so that it is possible to hide spokes in
             # image and directory installation modes.
-            if config_path is None and can_touch_runtime_system(msg="write user interaction config file",
-                                                                touch_live=True):
+            if config_path is None and conf.system.provides_user_interaction_config:
                 config_path = CONFIG_FILE_PATH
             if config_path and os.path.exists(config_path):
                 log.info("parsing existing user interaction config file in %s", config_path)

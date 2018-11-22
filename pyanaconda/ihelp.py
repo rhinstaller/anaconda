@@ -20,7 +20,7 @@ Anaconda built-in help module
 """
 import os
 
-from pyanaconda.flags import flags
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.core.constants import DEFAULT_LANG
 from pyanaconda.core.util import startProgram
@@ -122,7 +122,7 @@ def get_help_path(help_file, instclass, plain_text=False):
 
     # looks like the installation guide is not available, so just return
     # a placeholder page, which should be always present
-    if flags.livecdInstall:
+    if conf.system.provides_web_browser:
         return _get_best_help_file(instclass.help_folder, placeholder_with_links)
     else:
         return _get_best_help_file(instclass.help_folder, placeholder)

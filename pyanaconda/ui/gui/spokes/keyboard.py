@@ -32,6 +32,7 @@ from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.core.i18n import _, N_, CN_
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.util import strip_accents, have_word_match
@@ -342,8 +343,7 @@ class KeyboardSpoke(NormalSpoke):
         self._add_dialog = AddLayoutDialog(self.data)
         self._add_dialog.initialize()
 
-        if flags.can_touch_runtime_system("hide runtime keyboard configuration "
-                                          "warning", touch_live=True):
+        if conf.system.can_configure_keyboard:
             self.builder.get_object("warningBox").hide()
 
         # We want to store layouts' names but show layouts as
@@ -363,7 +363,7 @@ class KeyboardSpoke(NormalSpoke):
 
         self._layoutSwitchLabel = self.builder.get_object("layoutSwitchLabel")
 
-        if not flags.can_touch_runtime_system("test X layouts", touch_live=True):
+        if not conf.system.can_configure_keyboard:
             # Disable area for testing layouts as we cannot make
             # it work without modifying runtime system
 
@@ -415,7 +415,7 @@ class KeyboardSpoke(NormalSpoke):
 
     def _addLayout(self, store, name):
         # first try to add the layout
-        if flags.can_touch_runtime_system("add runtime X layout", touch_live=True):
+        if conf.system.can_configure_keyboard:
             self._xkl_wrapper.add_layout(name)
 
         # valid layout, append it to the store
@@ -428,7 +428,7 @@ class KeyboardSpoke(NormalSpoke):
 
         """
 
-        if flags.can_touch_runtime_system("remove runtime X layout", touch_live=True):
+        if conf.system.can_configure_keyboard:
             self._xkl_wrapper.remove_layout(store[itr][0])
         store.remove(itr)
 
@@ -520,7 +520,7 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, prev)
-        if flags.can_touch_runtime_system("reorder runtime X layouts", touch_live=True):
+        if conf.system.can_configure_keyboard:
             self._flush_layouts_to_X()
 
         if not store.iter_previous(cur):
@@ -543,7 +543,7 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, nxt)
-        if flags.can_touch_runtime_system("reorder runtime X layouts", touch_live=True):
+        if conf.system.can_configure_keyboard:
             self._flush_layouts_to_X()
 
         if activate_default:

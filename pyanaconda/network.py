@@ -42,12 +42,13 @@ from blivet.devices import FcoeDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
-from pyanaconda.flags import flags, can_touch_runtime_system
+from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
+from pyanaconda.payload.livepayload import LiveImagePayload
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
 log = get_module_logger(__name__)
@@ -1296,7 +1297,7 @@ def ks_spec_to_device_name(ksspec=""):
 
 # TODO MOD remove, call module when can_touch_runtime_system is resolved
 def set_hostname(hn):
-    if can_touch_runtime_system("set hostname", touch_live=True):
+    if conf.system.can_change_hostname:
         log.info("setting installation environment host name to %s", hn)
         network_proxy = NETWORK.get_proxy()
         network_proxy.SetCurrentHostname(hn)
@@ -1366,9 +1367,9 @@ def write_sysconfig_network(rootpath, overwrite=False):
         f.write("# Created by anaconda\n")
     return True
 
-def write_network_config(storage, ksdata, instClass, rootpath):
+def write_network_config(storage, payload, ksdata, instClass, rootpath):
     # overwrite previous settings for LiveCD or liveimg installations
-    overwrite = flags.livecdInstall or ksdata.method.method == "liveimg"
+    overwrite = isinstance(payload, LiveImagePayload)
 
     network_proxy = NETWORK.get_proxy()
     hostname = network_proxy.Hostname
@@ -1511,7 +1512,7 @@ def apply_kickstart(ksdata):
     return applied_devices
 
 def networkInitialize(ksdata):
-    if not can_touch_runtime_system("networkInitialize", touch_live=True):
+    if not conf.system.can_configure_network:
         return
 
     log.debug("devices found %s", nm.nm_devices())

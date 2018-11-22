@@ -37,8 +37,8 @@ import threading
 import gettext
 from collections import namedtuple
 
-from pyanaconda import flags
 from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DEFAULT_KEYBOARD
 from pyanaconda.keyboard import join_layout_variant, parse_layout_variant, KeyboardConfigError, InvalidLayoutVariantSpec
 from pyanaconda.core.async_utils import async_action_wait
@@ -92,7 +92,7 @@ class XklWrapper(object):
         #variants lists to have the same length. Add "" padding to variants.
         #See docstring of the add_layout method for details.
         diff = len(self._rec.layouts) - len(self._rec.variants)
-        if diff > 0 and flags.can_touch_runtime_system("activate layouts"):
+        if diff > 0 and conf.system.can_activate_layouts:
             self._rec.set_variants(self._rec.variants + (diff * [""]))
             if not self._rec.activate(self._engine):
                 # failed to activate layouts given e.g. by a kickstart (may be

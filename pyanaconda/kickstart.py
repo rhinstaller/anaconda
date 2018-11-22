@@ -50,7 +50,7 @@ from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE,
 from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
-from pyanaconda.flags import flags, can_touch_runtime_system
+from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
@@ -1415,8 +1415,8 @@ class Network(COMMANDS.Network):
         if network.is_using_team_device():
             self.packages = ["teamd"]
 
-    def execute(self, storage, ksdata, instClass):
-        network.write_network_config(storage, ksdata, instClass, util.getSysroot())
+    def execute(self, storage, payload, ksdata, instClass):
+        network.write_network_config(storage, payload, ksdata, instClass, util.getSysroot())
 
 class Nvdimm(COMMANDS.Nvdimm):
     def parse(self, args):
@@ -2153,8 +2153,7 @@ class Timezone(RemovedCommand):
 
         # do not install and use NTP package
         if not timezone_proxy.NTPEnabled or NTP_PACKAGE in ksdata.packages.excludedList:
-            if util.service_running(NTP_SERVICE) and \
-                    can_touch_runtime_system("stop NTP service"):
+            if util.service_running(NTP_SERVICE) and conf.system.can_set_time_synchronization:
                 ret = util.stop_service(NTP_SERVICE)
                 if ret != 0:
                     timezone_log.error("Failed to stop NTP service")
@@ -2164,8 +2163,7 @@ class Timezone(RemovedCommand):
                 services_proxy.SetDisabledServices(disabled_services)
         # install and use NTP package
         else:
-            if not util.service_running(NTP_SERVICE) and \
-                    can_touch_runtime_system("start NTP service"):
+            if not util.service_running(NTP_SERVICE) and conf.system.can_set_time_synchronization:
                 ret = util.start_service(NTP_SERVICE)
                 if ret != 0:
                     timezone_log.error("Failed to start NTP service")

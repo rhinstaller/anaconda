@@ -28,6 +28,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITI
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import turn_on_filesystems
 from pyanaconda.bootloader import writeBootLoader
+from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import Users
 from pyanaconda import flags
@@ -106,7 +107,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     if conf.target.is_hardware:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
-                                   ksdata.network.execute, (storage, ksdata, instClass)))
+                                   ksdata.network.execute, (storage, payload, ksdata, instClass)))
         configuration_queue.append(network_config)
 
     # creating users and groups requires some pre-configuration.
@@ -135,7 +136,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
-    if flags.flags.livecdInstall and boot_on_btrfs and bootloader_enabled:
+    if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
         generate_initramfs.append(Task("Write BTRFS bootloader fix", writeBootLoader, (storage, payload, instClass, ksdata)))
     configuration_queue.append(generate_initramfs)
 
@@ -240,9 +241,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Save system time to HW clock.
     # - this used to be before waiting on threads, but I don't think that's needed
-    if flags.can_touch_runtime_system("save system time to HW clock"):
+    if conf.system.can_set_hardware_clock:
         # lets just do this as a top-level task - no
-
         save_hwclock = Task("Save system time to HW clock", timezone.save_hw_clock)
         installation_queue.append(save_hwclock)
 
@@ -274,11 +274,14 @@ def doInstall(storage, payload, ksdata, instClass):
     callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
                                                             resize_format_pre=message_clbk,
                                                             wait_for_entropy=entropy_wait_clbk)
-
-    early_storage.append(Task("Activate filesystems",
-                              task=turn_on_filesystems,
-                              task_args=(storage,),
-                              task_kwargs={"callbacks": callbacks_reg}))
+    if conf.target.is_directory:
+        early_storage.append(Task("Mount filesystems",
+                                  task=storage.mount_filesystems))
+    else:
+        early_storage.append(Task("Activate filesystems",
+                                  task=turn_on_filesystems,
+                                  task_args=(storage,),
+                                  task_kwargs={"callbacks": callbacks_reg}))
 
     early_storage.append(Task("Write early storage", payload.writeStorageEarly))
     installation_queue.append(early_storage)
@@ -305,7 +308,7 @@ def doInstall(storage, payload, ksdata, instClass):
     pre_install.append(Task("Setup timezone", ksdata.timezone.setup, (ksdata,)))
 
     # make name resolution work for rpm scripts in chroot
-    if flags.can_touch_runtime_system("copy /etc/resolv.conf to sysroot"):
+    if conf.system.provides_resolver_config:
         # we use a custom Task subclass as the sysroot path has to be resolved
         # only when the task is actually started, not at task creation time
         pre_install.append(WriteResolvConfTask("Copy /resolv.conf to sysroot"))

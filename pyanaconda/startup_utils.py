@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_loggers import get_stdout_logger, get_storage_logger, get_packaging_logger
@@ -37,7 +38,6 @@ from pyanaconda import network
 from pyanaconda import safe_dbus
 from pyanaconda import kickstart
 from pyanaconda.flags import flags
-from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.screensaver import inhibit_screensaver
 
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
@@ -243,7 +243,7 @@ def setup_logging_from_options(options):
         packaging_log = get_packaging_logger()
         anaconda_logging.setHandlersLevel(packaging_log, level)
 
-    if can_touch_runtime_system("syslog setup"):
+    if conf.system.can_modify_syslog:
         if options.syslog:
             anaconda_logging.logger.updateRemote(options.syslog)
 
@@ -354,8 +354,6 @@ def live_startup(anaconda):
 
     :param anaconda: instance of the Anaconda class
     """
-    flags.livecdInstall = True
-
     try:
         anaconda.dbus_session_connection = safe_dbus.get_new_session_connection()
     except safe_dbus.DBusCallError as e:

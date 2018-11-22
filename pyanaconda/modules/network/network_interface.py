@@ -50,18 +50,6 @@ class NetworkInterface(KickstartModuleInterface):
         """
         self.implementation.set_hostname(hostname)
 
-    def DontTouchRuntimeSystem(self):
-        """Prevent the module from touching runtime system.
-
-        This is a temporary module-specific solution.
-        To be used for dirinstall, live install, etc... .
-        For example it prohibits changing current hostname and
-        prevents using hostnamed service.
-
-        To be called as early as possible after module initialization.
-        """
-        self.implementation.can_touch_runtime_system = False
-
     @dbus_signal
     def CurrentHostnameChanged(self, hostname: Str):
         """Signal current hostname change."""

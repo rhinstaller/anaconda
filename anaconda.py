@@ -96,7 +96,7 @@ def exitHandler(rebootData, storage):
 
     anaconda.dbus_launcher.stop()
 
-    if conf.target.is_hardware and not flags.livecdInstall:
+    if conf.system.can_reboot:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
 
         if flags.eject or rebootData.eject:
@@ -284,7 +284,7 @@ if __name__ == "__main__":
     from pyanaconda import startup_utils
 
     # do this early so we can set flags before initializing logging
-    from pyanaconda.flags import flags, can_touch_runtime_system
+    from pyanaconda.flags import flags
     (opts, depr) = parse_arguments(boot_cmdline=flags.cmdline)
 
     from pyanaconda.core.configuration.anaconda import conf
@@ -440,15 +440,13 @@ if __name__ == "__main__":
 
     if opts.liveinst:
         startup_utils.live_startup(anaconda)
-    elif "LIVECMD" in os.environ:
-        log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 
     # Switch to tty1 on exception in case something goes wrong during X start.
     # This way if, for example, metacity doesn't start, we switch back to a
     # text console with a traceback instead of being left looking at a blank
     # screen. python-meh will replace this excepthook with its own handler
     # once it gets going.
-    if can_touch_runtime_system("early exception handler"):
+    if conf.system.can_switch_tty:
         def _earlyExceptionHandler(ty, value, traceback):
             util.ipmi_report(constants.IPMI_FAILED)
             util.vtActivate(1)
@@ -456,7 +454,7 @@ if __name__ == "__main__":
 
         sys.excepthook = _earlyExceptionHandler
 
-    if can_touch_runtime_system("start audit daemon"):
+    if conf.system.can_audit:
         # auditd will turn into a daemon and exit. Ignore startup errors
         try:
             util.execWithRedirect("/sbin/auditd", [])
@@ -506,13 +504,6 @@ if __name__ == "__main__":
 
     anaconda.ksdata = ksdata
 
-    # setup network module mode depending on anaconda runtime environment
-    if not can_touch_runtime_system("setup network module mode"):
-        from pyanaconda.modules.common.constants.services import NETWORK
-        network_proxy = NETWORK.get_proxy()
-        network_proxy.DontTouchRuntimeSystem()
-        log.debug("Network module set up to not touch runtime system")
-
     # setup keyboard layout from the command line option and let
     # it override from kickstart if/when X is initialized
 
@@ -528,7 +519,7 @@ if __name__ == "__main__":
         configured = True
 
     if configured:
-        if can_touch_runtime_system("activate keyboard"):
+        if conf.system.can_activate_keyboard:
             keyboard.activate_keyboard(localization_proxy)
         else:
             # at least make sure we have all the values
@@ -707,7 +698,7 @@ if __name__ == "__main__":
     from pyanaconda.modules.common.constants.services import TIMEZONE
     timezone_proxy = TIMEZONE.get_proxy()
 
-    if can_touch_runtime_system("initialize time", touch_live=True):
+    if conf.system.can_initialize_system_clock:
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
                                      target=time_initialize,
                                      args=(timezone_proxy,
@@ -750,7 +741,7 @@ if __name__ == "__main__":
         geoloc.geoloc.refresh()
 
     # setup ntp servers and start NTP daemon if not requested otherwise
-    if can_touch_runtime_system("start chronyd"):
+    if conf.system.can_set_time_synchronization:
         kickstart_ntpservers = timezone_proxy.NTPServers
 
         if kickstart_ntpservers:

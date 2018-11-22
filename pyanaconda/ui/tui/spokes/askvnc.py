@@ -19,12 +19,12 @@
 
 import sys
 
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.core.constants import USEVNC, USETEXT
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.core.util import execWithRedirect, ipmi_abort
-from pyanaconda.flags import can_touch_runtime_system
 
 from simpleline import App
 from simpleline.event_loop.signals import ExceptionSignal
@@ -105,7 +105,7 @@ class AskVNCSpoke(NormalTUISpoke):
                 ScreenHandler.push_screen_modal(d)
                 if d.answer:
                     ipmi_abort(scripts=self.data.scripts)
-                    if can_touch_runtime_system("Quit and Reboot"):
+                    if conf.system.can_reboot:
                         execWithRedirect("systemctl", ["--no-wall", "reboot"])
                     else:
                         sys.exit(1)
