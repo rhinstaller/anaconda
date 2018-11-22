@@ -26,7 +26,6 @@ class FedoraServerInstallClass(FedoraBaseInstallClass):
     defaultFS = "xfs"
     default_partitioning = SERVER_PARTITIONING
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
-    defaultPackageEnvironment = "server-product-environment"
 
     if productVariant != "Server":
         hidden = True

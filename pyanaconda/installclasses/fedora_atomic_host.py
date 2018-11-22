@@ -32,8 +32,5 @@ class AtomicHostInstallClass(FedoraBaseInstallClass):
     defaultFS = "xfs"
     default_partitioning = SERVER_PARTITIONING
 
-    # Atomic Host supports only a subset of the available languages and locales.
-    check_supported_locales = True
-
     if productVariant != "AtomicHost":
         hidden = True

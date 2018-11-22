@@ -39,16 +39,6 @@ class BaseInstallClass(object):
     name = "base"
     bootloader_menu_autohide = False
 
-    # Anaconda flags several packages to be installed based on the configuration
-    # of the system -- things like fs utilities, bootloader, &c. This is a list
-    # of packages that we should not try to install using the aforementioned
-    # mechanism.
-    ignoredPackages = []
-
-    # This flag controls whether or not Anaconda should provide an option to
-    # install the latest updates during installation source selection.
-    installUpdates = True
-
     # EFI directory.
     efi_dir = "default"
 
@@ -61,20 +51,6 @@ class BaseInstallClass(object):
 
     # Default partitioning.
     default_partitioning = WORKSTATION_PARTITIONING
-
-    # comps environment id to select by default
-    defaultPackageEnvironment = None
-
-    # Should the installer check if the available languages
-    # and locales are supported by the payload?
-    check_supported_locales = False
-
-    # A hint if mirrors are expected to be available for the distribution
-    # installed by the given install class.
-    #
-    # At the moment this just used to show/hide the "closest mirror" option
-    # in the UI.
-    mirrors_available = True
 
     def __init__(self):
         pass

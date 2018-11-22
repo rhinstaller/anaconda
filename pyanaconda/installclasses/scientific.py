@@ -31,5 +31,3 @@ class ScientificBaseInstallClass(RHELBaseInstallClass):
     name = "Scientific Linux"
 
     hidden = not productName.startswith("Scientific")  # pylint: disable=no-member
-
-    installUpdates = True

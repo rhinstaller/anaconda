@@ -322,12 +322,6 @@ class Payload(object):
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
 
-        # are mirrors available ?
-        # - this is an initial default value that will
-        #   be overridden by value from the current
-        #   install class in the setup() method
-        self._mirrors_available = True
-
     @property
     def first_payload_reset(self):
         return self._first_payload_reset
@@ -337,9 +331,6 @@ class Payload(object):
         self.storage = storage
         self.instclass = instClass
         self.verbose_errors = []
-        # At the moment we set if mirrors are expected to be
-        # available just based on an current install class.
-        self._mirrors_available = instClass.mirrors_available
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
@@ -410,7 +401,7 @@ class Payload(object):
         """Is the closest/fastest mirror option enabled?  This does not make
         sense for those payloads that do not support this concept.
         """
-        return self._mirrors_available
+        return conf.payload.enable_closest_mirror
 
     @property
     def disabledRepos(self):

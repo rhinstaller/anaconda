@@ -25,6 +25,7 @@ from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
@@ -398,9 +399,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # If no environment is selected, use the default from the instclass.
         # If nothing is set in the instclass, the first environment will be
         # selected below.
-        if not self.environment and self.payload.instclass and \
-                self.payload.instclass.defaultPackageEnvironment in self.payload.environments:
-            self.environment = self.payload.instclass.defaultPackageEnvironment
+        if not self.environment and conf.payload.default_environment in self.payload.environments:
+            self.environment = conf.payload.default_environment
 
         # create rows for all valid environments
         for environmentid in self.payload.environments:

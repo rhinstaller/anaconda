@@ -24,7 +24,6 @@ __all__ = ["FedoraSilverblueInstallClass"]
 class FedoraSilverblueInstallClass(FedoraBaseInstallClass):
     name = "Fedora Silverblue"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
-    defaultPackageEnvironment = "workstation-product-environment"
 
     if productVariant != "Silverblue":
         hidden = True

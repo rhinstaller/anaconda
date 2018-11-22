@@ -30,8 +30,4 @@ class CentOSBaseInstallClass(BaseInstallClass):
         hidden = True
     defaultFS = "xfs"
 
-    ignoredPackages = ["ntfsprogs"]
-
-    installUpdates = False
-
     efi_dir = "centos"

@@ -1,0 +1,71 @@
+#
+# Copyright (C) 2018 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+#  Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
+from pyanaconda.core.configuration.base import Section
+
+
+class PayloadSection(Section):
+    """The Payload section."""
+
+    @property
+    def default_environment(self):
+        """Default package environment."""
+        return self._get_option("default_environment", str)
+
+    @property
+    def ignored_packages(self):
+        """List of ignored packages.
+
+        Anaconda flags several packages to be installed based on the configuration
+        of the system -- things like fs utilities, boot loader, etc. This is a list
+        of packages that we should not try to install using the aforementioned
+        mechanism.
+        """
+        return self._get_option("ignored_packages", str).split()
+
+    @property
+    def enable_updates(self):
+        """Enable installation of latest updates.
+
+        This flag controls whether or not Anaconda should provide an option to
+        install the latest updates during installation source selection.
+
+        The installation of latest updates is selected by default, if the closest
+        mirror is selected, and the "updates" repo is enabled.
+        """
+        return self._get_option("enable_updates", bool)
+
+    @property
+    def enable_closest_mirror(self):
+        """Enable installation from the closest mirror.
+
+        A hint if mirrors are expected to be available for the distribution
+        installed by the given product. At the moment this just used to show/hide
+        the "closest mirror" option in the UI.
+        """
+        return self._get_option("enable_closest_mirror", bool)
+
+    @property
+    def check_supported_locales(self):
+        """Check if payload supports the locales.
+
+        Should the installer check if the available locales and languages
+        are supported by the payload?
+        """
+        return self._get_option("check_supported_locales", bool)

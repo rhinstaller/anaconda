@@ -84,10 +84,16 @@ class RPMOSTreePayload(ArchivePayload):
 
     def is_language_supported(self, language):
         """Is the given language supported by the payload?"""
+        if not conf.payload.check_supported_locales:
+            return True
+
         return language in self._get_locale_map()
 
     def is_locale_supported(self, language, locale):
         """Is the given locale supported by the payload?"""
+        if not conf.payload.check_supported_locales:
+            return True
+
         locale_map = self._get_locale_map()
         locale = strip_codeset_and_modifier(locale)
         return locale in locale_map.get(language, [])

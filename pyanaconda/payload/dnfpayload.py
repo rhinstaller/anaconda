@@ -570,7 +570,7 @@ class DNFPayload(payload.PackagePayload):
         self._req_packages = set()
         for req in self.requirements.packages:
             ignore_msgs = []
-            if req.id in self.instclass.ignoredPackages:
+            if req.id in conf.payload.ignored_packages:
                 ignore_msgs.append("IGNORED by install class %s" % self.instclass)
             if req.id in self.data.packages.excludedList:
                 ignore_msgs.append("IGNORED because excluded")

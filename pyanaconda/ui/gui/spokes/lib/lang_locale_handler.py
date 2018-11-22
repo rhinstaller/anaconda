@@ -119,9 +119,6 @@ class LangLocaleHandler(object):
 
     def _filter_languages(self, langs):
         """Override this method with a valid implementation"""
-        if not self.instclass.check_supported_locales:
-            return langs
-
         return list(filter(self.payload.is_language_supported, langs))
 
     def _add_language(self, store, native, english, lang):
@@ -131,9 +128,6 @@ class LangLocaleHandler(object):
 
     def _filter_locales(self, lang, locales):
         """Override this method with a valid implementation"""
-        if not self.instclass.check_supported_locales:
-            return locales
-
         return list(filter(lambda l: self.payload.is_locale_supported(lang, l), locales))
 
     def _add_locale(self, store, native, locale):

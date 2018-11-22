@@ -24,7 +24,6 @@ __all__ = ["FedoraWorkstationInstallClass"]
 class FedoraWorkstationInstallClass(FedoraBaseInstallClass):
     name = "Fedora Workstation"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
-    defaultPackageEnvironment = "workstation-product-environment"
     bootloader_menu_autohide = True
 
     if productVariant != "Workstation":

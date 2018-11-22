@@ -187,12 +187,9 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'sortPriority'))
         self.assertTrue(hasattr(testclass, 'hidden'))
         self.assertTrue(hasattr(testclass, 'name'))
-        self.assertTrue(hasattr(testclass, 'ignoredPackages'))
-        self.assertTrue(hasattr(testclass, 'installUpdates'))
         self.assertTrue(hasattr(testclass, 'efi_dir'))
         self.assertTrue(hasattr(testclass, 'defaultFS'))
         self.assertTrue(hasattr(testclass, 'default_partitioning'))
-        self.assertTrue(hasattr(testclass, 'defaultPackageEnvironment'))
 
 class F27_Installclass_TestCase(unittest.TestCase):
 

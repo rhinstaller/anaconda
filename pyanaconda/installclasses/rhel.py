@@ -32,10 +32,4 @@ class RHELBaseInstallClass(BaseInstallClass):
     defaultFS = "xfs"
     default_luks_version = "luks2"
 
-    ignoredPackages = ["ntfsprogs"]
-
-    installUpdates = False
-
     efi_dir = "redhat"
-
-    mirrors_available = False
