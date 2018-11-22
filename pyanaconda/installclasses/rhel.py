@@ -31,5 +31,3 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     defaultFS = "xfs"
     default_luks_version = "luks2"
-
-    efi_dir = "redhat"

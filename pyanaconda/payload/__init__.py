@@ -1061,7 +1061,7 @@ class PackagePayload(Payload):
             # Find all /boot/vmlinuz- files and strip off vmlinuz-
             files.extend((f.split("/")[-1][8:] for f in unicode_fnames
                 if fnmatch(f, "/boot/vmlinuz-*") or
-                   fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir)))
+                   fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
 
         return sorted(files, key=functools.cmp_to_key(versionCmp))
 

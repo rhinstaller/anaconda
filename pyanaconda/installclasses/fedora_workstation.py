@@ -24,7 +24,6 @@ __all__ = ["FedoraWorkstationInstallClass"]
 class FedoraWorkstationInstallClass(FedoraBaseInstallClass):
     name = "Fedora Workstation"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
-    bootloader_menu_autohide = True
 
     if productVariant != "Workstation":
         hidden = True

@@ -29,5 +29,3 @@ class CentOSBaseInstallClass(BaseInstallClass):
     if not productName.startswith("CentOS"):          # pylint: disable=no-member
         hidden = True
     defaultFS = "xfs"
-
-    efi_dir = "centos"

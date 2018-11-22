@@ -29,6 +29,4 @@ class FedoraBaseInstallClass(BaseInstallClass):
     if not productName.startswith("Fedora"):          # pylint: disable=no-member
         hidden = True
 
-    efi_dir = "fedora"
-
     default_luks_version = "luks1"

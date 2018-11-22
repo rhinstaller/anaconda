@@ -19,6 +19,7 @@
 #
 import os
 
+from pyanaconda.core.configuration.bootloader import BootloaderSection
 from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.payload import PayloadSection
@@ -76,6 +77,7 @@ class AnacondaConfiguration(Configuration):
         self._target = TargetSection("Installation Target", self.get_parser())
         self._network = NetworkSection("Network", self.get_parser())
         self._payload = PayloadSection("Payload", self.get_parser())
+        self._bootloader = BootloaderSection("Bootloader", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
         self._ui = UserInterfaceSection("User Interface", self.get_parser())
@@ -105,6 +107,11 @@ class AnacondaConfiguration(Configuration):
     def payload(self):
         """The Payload section."""
         return self._payload
+
+    @property
+    def bootloader(self):
+        """The Bootloader section."""
+        return self._bootloader
 
     @property
     def storage(self):

@@ -37,10 +37,6 @@ class BaseInstallClass(object):
     sortPriority = 0
     hidden = False
     name = "base"
-    bootloader_menu_autohide = False
-
-    # EFI directory.
-    efi_dir = "default"
 
     # The default filesystem type to use.  If None, we will use whatever
     # Blivet uses by default.

@@ -32,6 +32,8 @@ import stat
 from time import sleep
 from threading import Lock
 import requests
+
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import ProxyString, ProxyStringError
 import hashlib
 import glob
@@ -211,7 +213,7 @@ class LiveImagePayload(ImagePayload):
 
     def _updateKernelVersionList(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
-        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir))
+        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir))
 
         self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
            if os.path.isfile(f) and "-rescue-" not in f), key=functools.cmp_to_key(versionCmp))

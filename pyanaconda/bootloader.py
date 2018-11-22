@@ -2518,7 +2518,7 @@ def writeSysconfigKernel(storage, version, instClass):
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
     if not os.path.isfile(util.getSysroot() + kernel_file):
-        efi_dir = instClass.efi_dir
+        efi_dir = conf.bootloader.efi_dir
         if flags.cmdline.get("force_efi_dir") is not None:
             efi_dir = flags.cmdline.get("force_efi_dir")
         kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
@@ -2586,11 +2586,11 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         stage2_device = storage.bootloader.stage2_device
         log.info("boot loader stage2 target device is %s", stage2_device.name)
 
-    storage.bootloader.menu_auto_hide = instClass.bootloader_menu_autohide
+    storage.bootloader.menu_auto_hide = conf.bootloader.menu_auto_hide
 
     # Bridge storage EFI configuration to bootloader
     if hasattr(storage.bootloader, 'efi_dir'):
-        storage.bootloader.efi_dir = instClass.efi_dir
+        storage.bootloader.efi_dir = conf.bootloader.efi_dir
 
     # Currently just rpmostreepayload shortcuts the rest of everything below
     if payload.handlesBootloaderConfiguration:
@@ -2606,7 +2606,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
 
     rescue_versions = glob(util.getSysroot() + "/boot/vmlinuz-*-rescue-*")
     rescue_versions += glob(
-        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
     kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
 
     if not kernel_versions:
