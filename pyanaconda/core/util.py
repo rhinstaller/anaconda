@@ -968,10 +968,9 @@ def find_hardware_with_removed_support():
     return hardware
 
 
-def detect_unsupported_hardware(install_class):
+def detect_unsupported_hardware():
     """Detect unsupported hardware.
 
-    :param install_class: an install class
     :return: a list of warnings
     """
     warnings = []
@@ -981,14 +980,14 @@ def detect_unsupported_hardware(install_class):
         return []
 
     # Check TAINT_HARDWARE_UNSUPPORTED
-    if not install_class.detect_unsupported_hardware:
-        log.debug("%s doesn't support TAINT_HARDWARE_UNSUPPORTED.", install_class.name)
+    if not conf.system.can_detect_unsupported_hardware:
+        log.debug("This system doesn't support TAINT_HARDWARE_UNSUPPORTED.")
     elif get_kernel_taint(TAINT_HARDWARE_UNSUPPORTED):
         warnings.append(WARNING_HARDWARE_UNSUPPORTED)
 
     # Check TAINT_SUPPORT_REMOVED
-    if not install_class.detect_support_removed:
-        log.debug("%s doesn't support TAINT_SUPPORT_REMOVED.", install_class.name)
+    if not conf.system.can_detect_support_removed:
+        log.debug("This system doesn't support TAINT_SUPPORT_REMOVED.")
     elif get_kernel_taint(TAINT_SUPPORT_REMOVED):
         warning = WARNING_SUPPORT_REMOVED
         hardware = find_hardware_with_removed_support()

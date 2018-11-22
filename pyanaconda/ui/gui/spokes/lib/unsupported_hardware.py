@@ -30,9 +30,9 @@ class UnsupportedHardwareDialog(GUIObject):
     mainWidgetName = "unsupportedHardwareDialog"
     uiFile = "spokes/lib/unsupported_hardware.glade"
 
-    def __init__(self, data, install_class):
+    def __init__(self, data):
         super().__init__(data)
-        self._warnings = detect_unsupported_hardware(install_class)
+        self._warnings = detect_unsupported_hardware()
 
     @property
     def supported(self):

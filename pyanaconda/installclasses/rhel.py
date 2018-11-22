@@ -49,8 +49,4 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     blivet_gui_supported = False
 
-    detect_unsupported_hardware = True
-
-    detect_support_removed = True
-
     network_on_boot = NetworkOnBoot.DEFAULT_ROUTE_DEVICE

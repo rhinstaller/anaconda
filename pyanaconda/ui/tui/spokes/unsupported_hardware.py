@@ -36,7 +36,7 @@ class UnsupportedHardwareSpoke(StandaloneTUISpoke):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title = N_("Unsupported Hardware Detected")
-        self._warnings = detect_unsupported_hardware(self.instclass)
+        self._warnings = detect_unsupported_hardware()
 
     @property
     def completed(self):

@@ -320,7 +320,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
-        dialog = UnsupportedHardwareDialog(self.data, self.instclass)
+        dialog = UnsupportedHardwareDialog(self.data)
         if not dialog.supported:
 
             with self.main_window.enlightbox(dialog.window):

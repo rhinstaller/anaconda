@@ -98,12 +98,6 @@ class BaseInstallClass(object):
     # Is the partitioning with blivet-gui supported?
     blivet_gui_supported = True
 
-    # Should the installer show a warning about unsupported hardware?
-    detect_unsupported_hardware = False
-
-    # Should the installer show a warning about removed support for hardware?
-    detect_support_removed = False
-
     # The default network on boot.
     network_on_boot = NetworkOnBoot.NONE
 
