@@ -81,9 +81,6 @@ class BaseInstallClass(object):
     # should we run the initial setup on the first boot?
     setup_on_boot = SETUP_ON_BOOT_DEFAULT
 
-    # geolocation
-    use_geolocation_with_kickstart = False
-
     # EULA path (if any)
     #
     # If the given distribution has an EULA & feels the need to
