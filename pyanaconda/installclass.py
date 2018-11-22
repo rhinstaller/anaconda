@@ -26,7 +26,6 @@ import os
 import sys
 
 from pyanaconda.core.util import collect
-from pyanaconda.storage.partitioning import WORKSTATION_PARTITIONING
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -37,16 +36,6 @@ class BaseInstallClass(object):
     sortPriority = 0
     hidden = False
     name = "base"
-
-    # The default filesystem type to use.  If None, we will use whatever
-    # Blivet uses by default.
-    defaultFS = None
-
-    # Default version of LUKS.
-    default_luks_version = None
-
-    # Default partitioning.
-    default_partitioning = WORKSTATION_PARTITIONING
 
     def __init__(self):
         pass

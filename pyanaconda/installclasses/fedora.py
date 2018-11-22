@@ -28,5 +28,3 @@ class FedoraBaseInstallClass(BaseInstallClass):
     sortPriority = 10000
     if not productName.startswith("Fedora"):          # pylint: disable=no-member
         hidden = True
-
-    default_luks_version = "luks1"

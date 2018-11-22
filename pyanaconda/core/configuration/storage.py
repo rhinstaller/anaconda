@@ -17,7 +17,15 @@
 #
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
+from enum import Enum
+
 from pyanaconda.core.configuration.base import Section
+
+
+class PartitioningType(Enum):
+    """Type of the default partitioning."""
+    SERVER = "SERVER"
+    WORKSTATION = "WORKSTATION"
 
 
 class StorageSection(Section):
@@ -46,3 +54,43 @@ class StorageSection(Section):
         during the installation.
         """
         return self._get_option("multipath_friendly_names", bool)
+
+    @property
+    def file_system_type(self):
+        """Default file system type.
+
+        If no type is specified, we will use whatever Blivet uses by default.
+
+        For example: xfs
+        """
+        return self._get_option("file_system_type", str)
+
+    @property
+    def default_partitioning(self):
+        """Default partitioning.
+
+        Valid values:
+
+          SERVER       Choose partitioning for servers.
+          WORKSTATION  Choose partitioning for workstations.
+
+        :return: an instance of PartitioningType
+        """
+        return self._get_option("default_partitioning", PartitioningType)
+
+    @property
+    def luks_version(self):
+        """Default version of LUKS.
+
+        Valid values:
+
+          luks1  Use version 1 by default.
+          luks2  Use version 2 by default.
+
+        """
+        value = self._get_option("luks_version", str)
+
+        if value not in ("luks1", "luks2"):
+            raise ValueError("Invalid value: {}".format(value))
+
+        return value

@@ -28,6 +28,3 @@ class RHELBaseInstallClass(BaseInstallClass):
     sortPriority = 10000
     if not productName.startswith("Red Hat "):          # pylint: disable=no-member
         hidden = True
-
-    defaultFS = "xfs"
-    default_luks_version = "luks2"

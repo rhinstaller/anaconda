@@ -18,7 +18,6 @@
 #
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
 from pyanaconda.product import productVariant
-from pyanaconda.storage.partitioning import SERVER_PARTITIONING
 
 import logging
 log = logging.getLogger("anaconda")
@@ -29,8 +28,6 @@ __all__ = ['AtomicHostInstallClass']
 class AtomicHostInstallClass(FedoraBaseInstallClass):
     name = "Atomic Host"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
-    defaultFS = "xfs"
-    default_partitioning = SERVER_PARTITIONING
 
     if productVariant != "AtomicHost":
         hidden = True

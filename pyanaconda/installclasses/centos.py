@@ -28,4 +28,3 @@ class CentOSBaseInstallClass(BaseInstallClass):
     sortPriority = 10000
     if not productName.startswith("CentOS"):          # pylint: disable=no-member
         hidden = True
-    defaultFS = "xfs"

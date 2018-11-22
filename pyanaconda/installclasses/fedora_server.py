@@ -16,15 +16,12 @@
 #
 from pyanaconda.installclasses.fedora import FedoraBaseInstallClass
 from pyanaconda.product import productVariant
-from pyanaconda.storage.partitioning import SERVER_PARTITIONING
 
 __all__ = ["FedoraServerInstallClass"]
 
 
 class FedoraServerInstallClass(FedoraBaseInstallClass):
     name = "Fedora Server"
-    defaultFS = "xfs"
-    default_partitioning = SERVER_PARTITIONING
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
 
     if productVariant != "Server":

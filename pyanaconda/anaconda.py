@@ -26,12 +26,14 @@ import threading
 
 from pyanaconda import addons
 from pyanaconda.bootloader import get_bootloader
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
 from pyanaconda.dbus.launcher import AnacondaDBusLauncher
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
+from pyanaconda.storage.partitioning import get_default_partitioning
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -291,8 +293,8 @@ class Anaconda(object):
             fstype = auto_part_proxy.FilesystemType
             boot_fstype = fstype
         # Or from an install class.
-        elif self.instClass.defaultFS:
-            fstype = self.instClass.defaultFS
+        elif conf.storage.file_system_type:
+            fstype = conf.storage.file_system_type
             boot_fstype = None
 
         # Set the default fstype.
@@ -304,13 +306,13 @@ class Anaconda(object):
             storage.set_default_boot_fstype(boot_fstype)
 
         # Set the default LUKS version.
-        luks_version = self.instClass.default_luks_version
+        luks_version = conf.storage.luks_version
 
         if luks_version:
             storage.set_default_luks_version(luks_version)
 
         # Set the default partitioning.
-        storage.set_default_partitioning(self.instClass.default_partitioning)
+        storage.set_default_partitioning(get_default_partitioning())
 
     def _load_plugin_s390(self):
         # Make sure s390 plugin is loaded.
