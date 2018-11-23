@@ -18,7 +18,6 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.network import NetworkOnBoot
 from pyanaconda.product import productName
 
 __all__ = ["CentOSBaseInstallClass"]
@@ -36,5 +35,3 @@ class CentOSBaseInstallClass(BaseInstallClass):
     installUpdates = False
 
     efi_dir = "centos"
-
-    network_on_boot = NetworkOnBoot.DEFAULT_ROUTE_DEVICE

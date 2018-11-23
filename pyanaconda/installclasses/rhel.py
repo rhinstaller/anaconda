@@ -18,7 +18,6 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.network import NetworkOnBoot
 from pyanaconda.product import productName
 
 __all__ = ["RHELBaseInstallClass"]
@@ -40,5 +39,3 @@ class RHELBaseInstallClass(BaseInstallClass):
     efi_dir = "redhat"
 
     mirrors_available = False
-
-    network_on_boot = NetworkOnBoot.DEFAULT_ROUTE_DEVICE

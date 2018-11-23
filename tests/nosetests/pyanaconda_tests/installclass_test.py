@@ -193,8 +193,6 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'defaultFS'))
         self.assertTrue(hasattr(testclass, 'default_partitioning'))
         self.assertTrue(hasattr(testclass, 'defaultPackageEnvironment'))
-        self.assertTrue(hasattr(testclass, 'network_on_boot'))
-
 
 class F27_Installclass_TestCase(unittest.TestCase):
 

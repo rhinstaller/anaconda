@@ -35,7 +35,6 @@ from uuid import uuid4
 import itertools
 import glob
 import logging
-from enum import Enum
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice
@@ -46,6 +45,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.configuration.network import NetworkOnBoot
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.payload.livepayload import LiveImagePayload
@@ -65,13 +65,6 @@ ifcfglog = None
 
 network_connected = None
 network_connected_condition = threading.Condition()
-
-
-class NetworkOnBoot(Enum):
-    """Network device to be activated on boot if none was configured so."""
-    NONE = "NONE"
-    DEFAULT_ROUTE_DEVICE = "DEFAULT_ROUTE_DEVICE"
-    FIRST_WIRED_WITH_LINK = "FIRST_WIRED_WITH_LINK"
 
 
 def setup_ifcfg_log():
@@ -1381,7 +1374,7 @@ def write_network_config(storage, payload, ksdata, instClass, rootpath):
     copyIfcfgFiles(rootpath)
     copyDhclientConfFiles(rootpath)
     copyFileToPath("/etc/resolv.conf", rootpath, overwrite=overwrite)
-    set_default_onboot_network(instClass.network_on_boot, ksdata)
+    set_default_onboot_network(conf.network.default_on_boot, ksdata)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
 def update_hostname_data(ksdata, hostname):

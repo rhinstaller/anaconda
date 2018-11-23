@@ -18,7 +18,6 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.network import NetworkOnBoot
 from pyanaconda.product import productName
 
 __all__ = ["FedoraBaseInstallClass"]
@@ -33,5 +32,3 @@ class FedoraBaseInstallClass(BaseInstallClass):
     efi_dir = "fedora"
 
     default_luks_version = "luks1"
-
-    network_on_boot = NetworkOnBoot.FIRST_WIRED_WITH_LINK

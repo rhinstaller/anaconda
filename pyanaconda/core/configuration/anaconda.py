@@ -20,6 +20,7 @@
 import os
 
 from pyanaconda.core.configuration.license import LicenseSection
+from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.services import ServicesSection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.system import SystemType, SystemSection
@@ -72,6 +73,7 @@ class AnacondaConfiguration(Configuration):
         self._anaconda = AnacondaSection("Anaconda", self.get_parser())
         self._system = SystemSection("Installation System", self.get_parser())
         self._target = TargetSection("Installation Target", self.get_parser())
+        self._network = NetworkSection("Network", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
         self._ui = UserInterfaceSection("User Interface", self.get_parser())
@@ -91,6 +93,11 @@ class AnacondaConfiguration(Configuration):
     def target(self):
         """The Installation Target section."""
         return self._target
+
+    @property
+    def network(self):
+        """The Network section."""
+        return self._network
 
     @property
     def storage(self):

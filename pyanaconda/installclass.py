@@ -27,7 +27,6 @@ import sys
 
 from pyanaconda.core.util import collect
 from pyanaconda.storage.partitioning import WORKSTATION_PARTITIONING
-from pyanaconda.network import NetworkOnBoot
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -76,9 +75,6 @@ class BaseInstallClass(object):
     # At the moment this just used to show/hide the "closest mirror" option
     # in the UI.
     mirrors_available = True
-
-    # The default network on boot.
-    network_on_boot = NetworkOnBoot.NONE
 
     def __init__(self):
         pass
