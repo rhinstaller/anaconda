@@ -139,6 +139,10 @@ Requires: anaconda-tui = %{version}-%{release}
 # Make sure we get the en locale one way or another
 Requires: glibc-langpack-en
 
+# anaconda literally runs its own dbus-daemon, so it needs this,
+# even though the distro default is dbus-broker in F30+
+Requires: dbus-daemon
+
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
