@@ -136,7 +136,7 @@ OFFICIALLY_SUPPORTED_GEOLOCATION_PROVIDER_IDS = {
 class Geolocation(object):
     """Top level geolocation handler."""
 
-    def __init__(self, geoloc_option=None, options_override=False, install_class_override=False):
+    def __init__(self, geoloc_option=None, options_override=False):
         # Prepare the geolocation module for handling geolocation queries.
         #
         # This sets-up the Geolocation instance with the given
@@ -144,7 +144,7 @@ class Geolocation(object):
         # is given. Please note that calling this method doesn't actually
         # execute any queries by itself, you need to call refresh()
         # to do that.
-        self._geolocation_enabled = self._check_if_geolocation_should_be_used(options_override, install_class_override)
+        self._geolocation_enabled = self._check_if_geolocation_should_be_used(options_override)
         provider_id = constants.GEOLOC_DEFAULT_PROVIDER
 
         # check if a provider was specified by an option
@@ -157,7 +157,7 @@ class Geolocation(object):
 
         self._location_info = LocationInfo(provider_id=provider_id)
 
-    def _check_if_geolocation_should_be_used(self, options_override, install_class_override):
+    def _check_if_geolocation_should_be_used(self, options_override):
         """Check if geolocation can be used during this installation run.
 
         And set the geolocation_enabled module attribute accordingly.
@@ -167,8 +167,7 @@ class Geolocation(object):
         "geoloc*" boot/CLI options.
 
         By default geolocation is not enabled during a kickstart based installation,
-        unless the geoloc_use_with_ks boot/CLI option is used or the Install Class
-        indicates geolocation should be used with kickstart.
+        unless the geoloc_use_with_ks boot/CLI option is used.
 
         Also the geoloc boot/CLI option can be used to make sure geolocation
         will not be used during an installation, like this:
@@ -176,7 +175,6 @@ class Geolocation(object):
         inst.geoloc=0
 
         :param bool options_override: use with kickstart due to CLI/boot option override
-        :param bool install_class_override: use with kickstart due to install class override
         """
         geolocation_enabled = True
         # don't use geolocation during image and directory installation
@@ -187,7 +185,7 @@ class Geolocation(object):
         # requested by the user
         elif flags.automatedInstall:
             # check for use-with-kickstart overrides
-            if options_override or install_class_override:
+            if options_override:
                 geolocation_enabled = True
             else:
                 # otherwise disable geolocation during a kickstart installation
@@ -201,20 +199,17 @@ class Geolocation(object):
             geolocation_enabled = False
 
         # log the result
-        self._log_geolocation_status(geolocation_enabled, options_override, install_class_override)
+        self._log_geolocation_status(geolocation_enabled, options_override)
 
         return geolocation_enabled
 
-    def _log_geolocation_status(self, geolocation_enabled, options_override, install_class_override):
+    def _log_geolocation_status(self, geolocation_enabled, options_override):
         """Log geolocation usage status."""
         if geolocation_enabled:
             if flags.automatedInstall:
                 if options_override:
                     log.info("Geolocation is enabled during kickstart installation due to use of the "
                              "geoloc-use-with-ks option.")
-                if install_class_override:
-                    log.info("Geolocation is enabled during kickstart installation due to "
-                             "install class override.")
             else:
                 log.info("Geolocation is enabled.")
         else:
@@ -814,13 +809,10 @@ class WiFiAccessPoint(object):
 
 geoloc = None
 
-def init_geolocation(geoloc_option, options_override, install_class_override):
+def init_geolocation(geoloc_option, options_override):
     """Initialize the geolocation singleton."""
     global geoloc
-    geoloc = Geolocation(geoloc_option=geoloc_option,
-                         options_override=options_override,
-                         install_class_override=install_class_override)
-
+    geoloc = Geolocation(geoloc_option=geoloc_option, options_override=options_override)
 
 
 if __name__ == "__main__":
