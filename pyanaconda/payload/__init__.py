@@ -871,7 +871,6 @@ class Payload(object):
 
             # XXX one day this might need to account for anaconda's display mode
             if ts.dbMatch("provides", 'service(graphical-login)').count() and \
-               ts.dbMatch('provides', 'xorg-x11-server-Xorg').count() and \
                not flags.usevnc:
                 # We only manipulate the ksdata.  The symlink is made later
                 # during the config write out.
