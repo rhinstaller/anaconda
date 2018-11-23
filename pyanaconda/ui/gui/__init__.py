@@ -34,6 +34,7 @@ from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GObje
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_
 from pyanaconda.core.constants import WINDOW_TITLE_TEXT
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda import product
 from pyanaconda.core import util, constants
 from pyanaconda import threading as anaconda_threading
@@ -850,16 +851,16 @@ class GraphicalUserInterface(UserInterface):
             icon_theme = Gtk.IconTheme.get_default()
             icon_theme.append_search_path(icon_path)
 
-            # Apply the installclass stylesheet
-            if self.instclass.stylesheet:
+            # Apply the custom stylesheet
+            if conf.ui.custom_stylesheet:
                 try:
                     provider = Gtk.CssProvider()
-                    provider.load_from_path(self.instclass.stylesheet)
+                    provider.load_from_path(conf.ui.custom_stylesheet)
                     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                             STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
                 except GError as e:
-                    log.error("Install class stylesheet %s failed to load:\n%s",
-                              self.instclass.stylesheet, e)
+                    log.error("Custom stylesheet %s failed to load:\n%s",
+                              conf.ui.custom_stylesheet, e)
 
             # Look for updates to the stylesheet and apply them at a higher priority
             for updates_dir in ("updates", "product"):

@@ -23,7 +23,6 @@ __all__ = ["FedoraSilverblueInstallClass"]
 
 class FedoraSilverblueInstallClass(FedoraBaseInstallClass):
     name = "Fedora Silverblue"
-    stylesheet = "/usr/share/anaconda/pixmaps/workstation/fedora-workstation.css"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
     defaultPackageEnvironment = "workstation-product-environment"
 

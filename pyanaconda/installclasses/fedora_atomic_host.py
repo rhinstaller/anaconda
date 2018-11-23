@@ -28,7 +28,6 @@ __all__ = ['AtomicHostInstallClass']
 
 class AtomicHostInstallClass(FedoraBaseInstallClass):
     name = "Atomic Host"
-    stylesheet = "/usr/share/anaconda/pixmaps/atomic/fedora-atomic.css"
     sortPriority = FedoraBaseInstallClass.sortPriority + 1
     defaultFS = "xfs"
     default_partitioning = SERVER_PARTITIONING

@@ -23,7 +23,6 @@ __all__ = ["FedoraServerInstallClass"]
 
 class FedoraServerInstallClass(FedoraBaseInstallClass):
     name = "Fedora Server"
-    stylesheet = "/usr/share/anaconda/pixmaps/server/fedora-server.css"
     defaultFS = "xfs"
     default_partitioning = SERVER_PARTITIONING
     sortPriority = FedoraBaseInstallClass.sortPriority + 1

@@ -63,14 +63,6 @@ class BaseInstallClass(object):
     # Default partitioning.
     default_partitioning = WORKSTATION_PARTITIONING
 
-    # help
-    help_placeholder = None
-    help_placeholder_with_links = None
-    help_placeholder_plain_text = None
-
-    # path to the installclass stylesheet, if any
-    stylesheet = None
-
     # comps environment id to select by default
     defaultPackageEnvironment = None
 
@@ -84,9 +76,6 @@ class BaseInstallClass(object):
     # At the moment this just used to show/hide the "closest mirror" option
     # in the UI.
     mirrors_available = True
-
-    # Is the partitioning with blivet-gui supported?
-    blivet_gui_supported = True
 
     # The default network on boot.
     network_on_boot = NetworkOnBoot.NONE

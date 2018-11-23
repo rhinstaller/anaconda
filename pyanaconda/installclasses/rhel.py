@@ -39,12 +39,6 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     efi_dir = "redhat"
 
-    help_placeholder = "rhel_help_placeholder.xml"
-    help_placeholder_with_links = "rhel_help_placeholder.xml"
-    help_placeholder_plain_text = "rhel_help_placeholder.txt"
-
     mirrors_available = False
-
-    blivet_gui_supported = False
 
     network_on_boot = NetworkOnBoot.DEFAULT_ROUTE_DEVICE

@@ -192,10 +192,6 @@ class Installclass_AttribsTestCase(unittest.TestCase):
         self.assertTrue(hasattr(testclass, 'efi_dir'))
         self.assertTrue(hasattr(testclass, 'defaultFS'))
         self.assertTrue(hasattr(testclass, 'default_partitioning'))
-        self.assertTrue(hasattr(testclass, 'help_placeholder'))
-        self.assertTrue(hasattr(testclass, 'help_placeholder_with_links'))
-        self.assertTrue(hasattr(testclass, 'help_placeholder_plain_text'))
-        self.assertTrue(hasattr(testclass, 'stylesheet'))
         self.assertTrue(hasattr(testclass, 'defaultPackageEnvironment'))
         self.assertTrue(hasattr(testclass, 'network_on_boot'))
 

@@ -26,6 +26,7 @@ from pyanaconda.core.configuration.system import SystemType, SystemSection
 from pyanaconda.core.configuration.target import TargetType, TargetSection
 from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
 from pyanaconda.core.configuration.product import ProductLoader
+from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
 from pyanaconda.product import productName, productVariant
 
@@ -73,6 +74,7 @@ class AnacondaConfiguration(Configuration):
         self._target = TargetSection("Installation Target", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
+        self._ui = UserInterfaceSection("User Interface", self.get_parser())
         self._license = LicenseSection("License", self.get_parser())
 
     @property
@@ -99,6 +101,11 @@ class AnacondaConfiguration(Configuration):
     def services(self):
         """The Services section."""
         return self._services
+
+    @property
+    def ui(self):
+        """The User Interface section."""
+        return self._ui
 
     @property
     def license(self):
