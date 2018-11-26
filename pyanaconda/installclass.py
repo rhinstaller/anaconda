@@ -25,7 +25,6 @@ from distutils.sysconfig import get_python_lib
 import os
 import sys
 
-from pyanaconda.core.constants import SETUP_ON_BOOT_DEFAULT
 from pyanaconda.core.util import collect
 from pyanaconda.storage.partitioning import WORKSTATION_PARTITIONING
 from pyanaconda.network import NetworkOnBoot
@@ -77,9 +76,6 @@ class BaseInstallClass(object):
 
     # comps environment id to select by default
     defaultPackageEnvironment = None
-
-    # should we run the initial setup on the first boot?
-    setup_on_boot = SETUP_ON_BOOT_DEFAULT
 
     # EULA path (if any)
     #

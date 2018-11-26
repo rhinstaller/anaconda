@@ -759,9 +759,6 @@ if __name__ == "__main__":
         if flags.automatedInstall:
             # Disable by default after kickstart installations.
             services_proxy.SetSetupOnBoot(SETUP_ON_BOOT_DISABLED)
-        else:
-            # Otherwise use the install class's default value.
-            services_proxy.SetSetupOnBoot(anaconda.instClass.setup_on_boot)
 
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
