@@ -180,14 +180,6 @@ class InstallationSystem(Section):
         return self._is_boot_iso or self._is_live_os
 
     @property
-    def can_require_network_connection(self):
-        """Can the system require network connection?
-
-        FIXME: This is a temporary workaround.
-        """
-        return self._is_boot_iso
-
-    @property
     def provides_system_bus(self):
         """Can we access the system DBus?"""
         return self._is_boot_iso or self._is_live_os

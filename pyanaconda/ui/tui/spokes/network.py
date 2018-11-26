@@ -99,11 +99,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        """ Check whether this spoke is complete or not. Do an additional
-            check if we're installing from CD/DVD, since a network connection
-            should not be required in this case.
-        """
-        return (not conf.system.can_require_network_connection
+        """ Check whether this spoke is complete or not."""
+        # If we can't configure network, don't require it
+        return (not conf.system.can_configure_network
                 or nm.nm_activated_devices())
 
     @property
