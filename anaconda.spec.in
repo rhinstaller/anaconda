@@ -321,6 +321,8 @@ update-desktop-database &> /dev/null || :
 %config %{_sysconfdir}/%{name}/*
 %dir %{_sysconfdir}/%{name}/conf.d
 %config %{_sysconfdir}/%{name}/conf.d/*
+%dir %{_sysconfdir}/%{name}/product.d
+%config %{_sysconfdir}/%{name}/product.d/*
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
