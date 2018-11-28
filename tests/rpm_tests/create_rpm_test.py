@@ -162,6 +162,27 @@ class InstalledFilesTestCase(RPMTestCase):
 
         self._check_files_in_rpm(src_files, rpm_files)
 
+    def test_product_conf_dir(self):
+        rpm_files = self._get_core_rpm_content()
+        rpm_files = filter(FileFilters.productd_only, rpm_files)
+
+        src_files = self._apply_filters(
+            [
+                FileFilters.src_data_only,
+                FileFilters.productd_only,
+                FileFilters.confs_only,
+            ], self._get_source_files()
+        )
+
+        src_files = self._apply_maps(
+            [
+                ModifyingFilters.remove_data_prefix,
+                lambda x: ModifyingFilters.apply_rpm_prefix("/etc/anaconda", x)
+            ], src_files
+        )
+
+        self._check_files_in_rpm(src_files, rpm_files)
+
     def test_anaconda_service_files(self):
         rpm_files = self._get_core_rpm_content()
 
@@ -325,6 +346,10 @@ class FileFilters(object):
     @staticmethod
     def confd_only(path):
         return "/conf.d/" in path
+
+    @staticmethod
+    def productd_only(path):
+        return "/product.d/" in path
 
     @staticmethod
     def confs_only(path):
