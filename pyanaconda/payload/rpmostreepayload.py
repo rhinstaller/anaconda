@@ -25,6 +25,7 @@ from subprocess import CalledProcessError
 from pyanaconda.core import util
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
+from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.progress import progressQ
 
 import gi
@@ -50,6 +51,7 @@ class RPMOSTreePayload(ArchivePayload):
         super().__init__(data)
         self._remoteOptions = None
         self._internal_mounts = []
+        self._locale_map = None
 
     @property
     def handlesBootloaderConfiguration(self):
@@ -69,6 +71,26 @@ class RPMOSTreePayload(ArchivePayload):
     def needsNetwork(self):
         """Test ostree repository if it requires network."""
         return not (self.data.ostreesetup.url and self.data.ostreesetup.url.startswith("file://"))
+
+    def _get_locale_map(self):
+        """Return a map of supported languages and locales."""
+        if self._locale_map is None:
+            self._locale_map = get_locale_map_from_ostree(
+                self.data.ostreesetup.url,
+                self.data.ostreesetup.ref
+            )
+
+        return self._locale_map
+
+    def is_language_supported(self, language):
+        """Is the given language supported by the payload?"""
+        return language in self._get_locale_map()
+
+    def is_locale_supported(self, language, locale):
+        """Is the given locale supported by the payload?"""
+        locale_map = self._get_locale_map()
+        locale = strip_codeset_and_modifier(locale)
+        return locale in locale_map.get(language, [])
 
     def _safeExecWithRedirect(self, cmd, argv, **kwargs):
         """Like util.execWithRedirect, but treat errors as fatal"""

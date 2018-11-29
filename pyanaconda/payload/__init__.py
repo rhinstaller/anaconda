@@ -550,6 +550,21 @@ class Payload(object):
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
+    def is_language_supported(self, language):
+        """Is the given language supported by the payload?
+
+        :param language: a name of the language
+        """
+        return True
+
+    def is_locale_supported(self, language, locale):
+        """Is the given locale supported by the payload?
+
+        :param language: a name of the language
+        :param locale: a name of the locale
+        """
+        return True
+
     def languageGroups(self):
         return []
 

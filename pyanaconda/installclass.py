@@ -74,6 +74,10 @@ class BaseInstallClass(object):
     # comps environment id to select by default
     defaultPackageEnvironment = None
 
+    # Should the installer check if the available languages
+    # and locales are supported by the payload?
+    check_supported_locales = False
+
     # EULA path (if any)
     #
     # If the given distribution has an EULA & feels the need to
@@ -102,12 +106,6 @@ class BaseInstallClass(object):
 
     # The default network on boot.
     network_on_boot = NetworkOnBoot.NONE
-
-    def filterSupportedLangs(self, ksdata, langs):
-        return langs
-
-    def filterSupportedLocales(self, ksdata, lang, locales):
-        return locales
 
     def __init__(self):
         pass
