@@ -268,6 +268,8 @@ class BootLoader(object):
         self._update_only = False
         self.skip_bootloader = False
 
+        self.use_bls = flags.blscfg
+
         self.errors = []
         self.warnings = []
 
@@ -1544,7 +1546,12 @@ class GRUB2(GRUB):
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
-        if flags.blscfg:
+
+        if self.use_bls and os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            log.warning("BLS support disabled due new-kernel-pkg being present")
+            self.use_bls = False
+
+        if self.use_bls:
             defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
 
@@ -2325,7 +2332,7 @@ class ZIPL(BootLoader):
                 args.update(["rootflags=subvol=%s" % image.device.name])
             log.info("bootloader.py: used boot args: %s ", args)
 
-            if flags.blscfg:
+            if self.use_bls:
                 self.update_bls_args(image, args)
             else:
                 self.write_config_image(config, image, args)
@@ -2337,7 +2344,12 @@ class ZIPL(BootLoader):
                   "timeout={}\n"
                   "target=/boot\n")
         config.write(header.format(self.timeout))
-        if not flags.blscfg:
+
+        if self.use_bls and os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            log.warning("BLS support disabled due new-kernel-pkg being present")
+            self.use_bls = False
+
+        if not self.use_bls:
             config.write("default={}\n".format(self.image_label(self.default)))
 
     #
