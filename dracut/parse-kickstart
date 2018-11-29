@@ -229,7 +229,6 @@ class DracutNetwork(Network, DracutArgsMixin):
                 net.device = first_device_with_link()
                 if not net.device:
                     log.warning("No device with link found for --device=link")
-                    return
                 else:
                     log.info("Using %s as first device with link found", net.device)
             # tell dracut to bring this device up if it's not already done by user
