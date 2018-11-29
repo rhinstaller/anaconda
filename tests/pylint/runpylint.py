@@ -13,10 +13,7 @@ class AnacondaLintConfig(PocketLintConfig):
     def __init__(self):
         PocketLintConfig.__init__(self)
 
-        self.falsePositives = [ FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: GError$"),
-                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: S390Error$"),
-                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: BlockDevError$"),
-                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from (Base|)Exception: Swap\w*Error$"),
+        self.falsePositives = [
                                 FalsePositive(r"^E1101.*: Instance of 'KickstartSpecificationHandler' has no '.*' member$"),
                                 FalsePositive(r"^E1101.*: Method 'PropertiesChanged' has no 'connect' member$"),
                                 FalsePositive(r"^E1101.*: Instance of 'GError' has no 'message' member"),
@@ -27,6 +24,7 @@ class AnacondaLintConfig(PocketLintConfig):
                                 FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_MD5' member$"),
                                 FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_SHA256' member$"),
                                 FalsePositive(r"^E1101.*: Module 'crypt' has no 'METHOD_SHA512' member$"),
+                                FalsePositive(r"^W0107.*: Unnecessary pass statement$"),
 
                                 # TODO: BlockDev introspection needs to be added to pylint to handle these
                                 FalsePositive(r"E1101.*: Instance of 'int' has no 'dasd_needs_format' member"),
