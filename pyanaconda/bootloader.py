@@ -1437,9 +1437,6 @@ class GRUB2(GRUB):
 
     """
     name = "GRUB2"
-    # grub2 is a virtual provides that's provided by grub2-pc, grub2-ppc64le,
-    # and all of the primary grub components that aren't grub2-efi-${EFIARCH}
-    packages = ["grub2", "grub2-tools"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
     _passwd_file = "user.cfg"
@@ -1455,6 +1452,16 @@ class GRUB2(GRUB):
 
     # XXX we probably need special handling for raid stage1 w/ gpt disklabel
     #     since it's unlikely there'll be a bios boot partition on each disk
+
+    @property
+    def packages(self):
+        # grub2 is a virtual provides that's provided by grub2-pc, grub2-ppc64le,
+        # and all of the primary grub components that aren't grub2-efi-${EFIARCH}
+        packages = ["grub2", "grub2-tools"]
+        # non-BLS installs require grubby-deprecated for kernel updates to work
+        if not flags.blscfg:
+            packages.append("grubby-deprecated")
+        return packages
 
     @property
     def stage2_format_types(self):
