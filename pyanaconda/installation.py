@@ -104,7 +104,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
-    if conf.target.is_hardware:
+    if conf.system.provides_network_config:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
                                    ksdata.network.execute, (storage, payload, ksdata, instClass)))

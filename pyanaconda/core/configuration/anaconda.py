@@ -180,6 +180,16 @@ class InstallationSystem(Section):
         return self._is_boot_iso or self._is_live_os
 
     @property
+    def provides_network_config(self):
+        """Can we copy network configuration to the target system?
+
+        We can do it only if the current system configuration is created by
+        anaconda (or installation process in general, as on Live OS) and
+        therefore can be copied to the target system.
+        """
+        return self._is_boot_iso or self._is_live_os
+
+    @property
     def can_require_network_connection(self):
         """Can the system require network connection?
 
