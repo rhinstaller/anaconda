@@ -296,6 +296,10 @@ if __name__ == "__main__":
     anaconda_logging.init(write_to_journal=conf.target.is_hardware)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
+    # Load the product configuration after a logging is set up.
+    conf.set_from_product()
+    conf.set_from_opts(opts)
+
     from pyanaconda import network
     network.setup_ifcfg_log()
 

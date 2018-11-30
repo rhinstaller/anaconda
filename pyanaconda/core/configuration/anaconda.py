@@ -23,8 +23,10 @@ from pyanaconda.core.configuration.services import ServicesSection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.system import SystemType, SystemSection
 from pyanaconda.core.configuration.target import TargetType, TargetSection
-from pyanaconda.core.configuration.base import Section, Configuration
+from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
+from pyanaconda.core.configuration.product import ProductLoader
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
+from pyanaconda.product import productName, productVariant
 
 
 __all__ = ["conf", "AnacondaConfiguration"]
@@ -116,6 +118,46 @@ class AnacondaConfiguration(Configuration):
 
             config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
             self.read_from_directory(config_dir)
+
+        self.validate()
+
+    def set_from_product(self):
+        """Set the configuration from the product configuration files.
+
+        We will try to use configuration files of a product specified by
+        the .buildstamp file. Otherwise, we will use a default product.
+
+        The configuration files are loaded from /etc/anaconda/product.d.
+        """
+        loader = ProductLoader()
+        loader.load_products(os.path.join(ANACONDA_CONFIG_DIR, "product.d"))
+
+        # Use the product name and the variant name from .buildstamp.
+        if loader.check_product(productName, productVariant):
+            product_name = productName
+            variant_name = productVariant
+
+        # Or the product name from .buildstamp.
+        elif loader.check_product(productName):
+            product_name = productName
+            variant_name = ""
+
+        # Or use the default product name.
+        elif loader.check_product("Fedora"):
+            product_name = "Fedora"
+            variant_name = ""
+
+        # Or fail.
+        else:
+            raise ConfigurationError(
+                "Unable to find any suitable configuration files for this product."
+            )
+
+        # Read the configuration files of the product.
+        config_paths = loader.collect_configurations(product_name, variant_name)
+
+        for config_path in config_paths:
+            self.read(config_path)
 
         self.validate()
 
