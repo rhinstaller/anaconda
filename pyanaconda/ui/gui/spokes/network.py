@@ -1507,7 +1507,7 @@ class SecretAgent(dbus.service.Object):
 
 def register_secret_agent(spoke):
 
-    if not conf.system.can_require_network_connection:
+    if not conf.system.can_configure_network:
         return False
 
     global secret_agent
@@ -1583,7 +1583,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
-        return (not conf.system.can_require_network_connection
+        # If we can't configure network, don't require it
+        return (not conf.system.can_configure_network
                 or nm.nm_activated_devices())
 
     @property
@@ -1602,7 +1603,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.initialize(self)
         self.initialize_start()
         self.network_control_box.initialize()
-        if not conf.system.can_require_network_connection:
+        if not conf.system.can_configure_network:
             self.builder.get_object("network_config_vbox").set_no_show_all(True)
             self.builder.get_object("network_config_vbox").hide()
         else:
@@ -1726,7 +1727,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        return (not conf.system.can_require_network_connection
+        # If we can't configure network, don't require it
+        return (not conf.system.can_configure_network
                 or nm.nm_activated_devices()
                 or self.data.method.method not in ("url", "nfs"))
 
