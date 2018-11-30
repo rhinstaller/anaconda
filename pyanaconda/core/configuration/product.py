@@ -20,7 +20,6 @@
 import os
 from collections import namedtuple
 
-from pyanaconda.core.constants import ANACONDA_CONFIG_DIR
 from pyanaconda.core.configuration.base import create_parser, read_config, get_option, \
     ConfigurationError
 
@@ -43,18 +42,6 @@ ProductData.__doc__ = "Data of the product."
 class ProductLoader(object):
     """A class for loading information about products from configuration files."""
 
-    @classmethod
-    def from_defaults(cls):
-        """Create a default loader.
-
-        It loads the directory /etc/anaconda/product.d by default.
-
-        :return: an instance of ProductLoader
-        """
-        loader = cls()
-        loader.load_products(os.path.join(ANACONDA_CONFIG_DIR, "product.d"))
-        return loader
-
     def __init__(self):
         """Create a new loader."""
         self._products = {}
@@ -66,6 +53,8 @@ class ProductLoader(object):
 
         :param config_dir: a path to a directory
         """
+        log.info("Loading information about products from %s.", config_dir)
+
         for file_name in os.listdir(config_dir):
             if not file_name.endswith(".conf"):
                 continue
@@ -109,24 +98,25 @@ class ProductLoader(object):
         self._products[key] = ProductData(base, config_path)
 
     def check_product(self, product_name, variant_name=""):
-        """Check if the specified product is valid.
+        """Check if the specified product is supported.
 
         :param product_name: a name of the product
         :param variant_name: a name of the variant
-        :return: True if the product is valid, otherwise False
+        :return: True if the product is supported, otherwise False
         """
         product_key = ProductKey(product_name, variant_name)
 
         if product_key not in self._products:
-            log.warning("The product %s doesn't exist.", product_key)
+            log.warning("No support for the product %s.", product_key)
             return False
 
         try:
             self._get_product_bases(product_key)
         except ConfigurationError as e:
-            log.warning("The product %s is not valid: %s", product_key, e)
+            log.warning("Invalid support for the product %s: %s", product_key, e)
             return False
 
+        log.info("The product %s is supported.", product_key)
         return True
 
     def collect_configurations(self, product_name, variant_name=""):
