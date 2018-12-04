@@ -22,8 +22,6 @@ import unittest
 from mock import patch
 from pyanaconda.installclass import BaseInstallClass, InstallClassFactory
 from pyanaconda import kickstart
-from pykickstart.errors import KickstartParseError
-
 
 class FactoryTest(unittest.TestCase):
 
@@ -219,24 +217,3 @@ class F27_Installclass_TestCase(unittest.TestCase):
     def assert_parse_error(self, s, error):
         with self.assertRaises(error):
             self.parse(s)
-
-    def parse_test(self):
-        """Test parsing of the installclass command."""
-        # pass
-        self.assert_parse("installclass --name='An Install Class'",
-                          "installclass --name=\"An Install Class\"\n")
-
-        self.assert_parse("installclass --name=\"An Install Class\"",
-                          "installclass --name=\"An Install Class\"\n")
-
-        # fail
-        self.assert_parse_error("installclass", KickstartParseError)
-        self.assert_parse_error("installclass --name", KickstartParseError)
-        self.assert_parse_error("installclass --xyz", KickstartParseError)
-        self.assert_parse_error("installclass --name=\"An Install Class\" --xyz", KickstartParseError)
-
-    def command_test(self):
-        """Test the installclass command."""
-        handler = self.parse("installclass --name='An Install Class'")
-        self.assertTrue(handler.anaconda.installclass.seen)  # pylint: disable=no-member
-        self.assertEqual(handler.anaconda.installclass.name, "An Install Class")  # pylint: disable=no-member

@@ -82,7 +82,6 @@ from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size, KiB
 
 from pykickstart.base import BaseHandler, KickstartCommand
-from pykickstart.options import KSOptionParser
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
     KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE, \
     SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL, NVDIMM_ACTION_RECONFIGURE, \
@@ -92,7 +91,7 @@ from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, \
                                  OnErrorScriptSection, TracebackScriptSection, Section
-from pykickstart.version import returnClassForVersion, F27
+from pykickstart.version import returnClassForVersion
 
 from pyanaconda import anaconda_logging
 from pyanaconda.anaconda_loggers import get_module_logger, get_stdout_logger, get_blivet_logger,\
@@ -2480,51 +2479,9 @@ class Keyboard(RemovedCommand):
 ###
 ### %anaconda Section
 ###
-
-
-class F27_InstallClass(KickstartCommand):
-    removedKeywords = KickstartCommand.removedKeywords
-    removedAttrs = KickstartCommand.removedAttrs
-
-    def __init__(self, *args, **kwargs):
-        KickstartCommand.__init__(self, *args, **kwargs)
-        self.op = self._getParser()
-        self.name = kwargs.get("name", "")
-
-    def __str__(self):
-        retval = KickstartCommand.__str__(self)
-        if not self.seen:
-            return retval
-
-        retval += "installclass%s\n" % self._getArgsAsStr()
-        return retval
-
-    def _getArgsAsStr(self):
-        retval = ""
-        if self.name:
-            retval += ' --name="%s"' % self.name
-        return retval
-
-    def _getParser(self):
-        op = KSOptionParser(prog="installclass", version=F27, description="""
-                            Require the specified install class to be used for
-                            the installation. Otherwise, the best available
-                            install class will be used.""")
-
-        op.add_argument("--name", dest="name", required=True, type=str,
-                        version=F27, help="""
-                        Name of the required install class.""")
-        return op
-
-    def parse(self, args):
-        ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self.set_to_self(ns)
-        return self
-
 class AnacondaSectionHandler(BaseHandler):
     """A handler for only the anaconda ection's commands."""
     commandMap = {
-        "installclass": F27_InstallClass,
         "pwpolicy": F22_PwPolicy
     }
 

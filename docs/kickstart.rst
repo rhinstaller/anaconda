@@ -73,3 +73,7 @@ installclass
     ``--name=``
 
         Name of the required install class.
+
+*Removed since Fedora 30.*
+
+.. note:: You can use the boot options ``inst.product`` and ``inst.variant``.

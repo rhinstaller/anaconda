@@ -110,14 +110,7 @@ class Anaconda(object):
     def instClass(self):
         if not self._instClass:
             from pyanaconda.installclass import factory
-
-            # Get install class by name.
-            if self.ksdata.anaconda.installclass.seen:
-                name = self.ksdata.anaconda.installclass.name
-                self._instClass = factory.get_install_class_by_name(name)
-            # Or just find the best one.
-            else:
-                self._instClass = factory.get_best_install_class()
+            self._instClass = factory.get_best_install_class()
 
         return self._instClass
 
