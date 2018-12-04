@@ -294,7 +294,7 @@ if __name__ == "__main__":
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
     # Load the product configuration after a logging is set up.
-    conf.set_from_product()
+    conf.set_from_product(opts.product_name, opts.variant_name)
     conf.set_from_opts(opts)
 
     from pyanaconda import network

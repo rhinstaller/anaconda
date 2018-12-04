@@ -121,19 +121,36 @@ class AnacondaConfiguration(Configuration):
 
         self.validate()
 
-    def set_from_product(self):
+    def set_from_product(self, requested_product="", requested_variant=""):
         """Set the configuration from the product configuration files.
 
-        We will try to use configuration files of a product specified by
-        the .buildstamp file. Otherwise, we will use a default product.
+        We will use configuration files of a product requested by the user
+        if any. Otherwise, we will use a product specified by the .buildstamp
+        file or a default product.
 
         The configuration files are loaded from /etc/anaconda/product.d.
+
+        :param str requested_product: a name of the requested product
+        :param str requested_variant: a name of the requested variant
         """
         loader = ProductLoader()
         loader.load_products(os.path.join(ANACONDA_CONFIG_DIR, "product.d"))
 
-        # Use the product name and the variant name from .buildstamp.
-        if loader.check_product(productName, productVariant):
+        # Use the requested product name and variant name.
+        if requested_product:
+
+            if not loader.check_product(requested_product, requested_variant):
+                raise ConfigurationError(
+                    "Unable to find any suitable configuration files for "
+                    "the product name '{}' and the variant name '{}'."
+                    "".format(requested_product, requested_variant)
+                )
+
+            product_name = requested_product
+            variant_name = requested_variant
+
+        # Or use the product name and the variant name from .buildstamp.
+        elif loader.check_product(productName, productVariant):
             product_name = productName
             variant_name = productVariant
 
