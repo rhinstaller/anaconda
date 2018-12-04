@@ -321,6 +321,9 @@ class AnacondaConfiguration(object):
 
             config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
             for config_path in sorted(os.listdir(config_dir)):
+                if not config_path.endswith(".conf"):
+                    continue
+
                 config.read(os.path.join(config_dir, config_path))
 
         # Validate the configuration.
