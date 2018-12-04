@@ -24,7 +24,8 @@ from textwrap import dedent
 
 from pyanaconda.core.configuration.anaconda import AnacondaConfiguration
 from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
-    get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError
+    get_option, set_option, ConfigurationError, ConfigurationDataError, ConfigurationFileError, \
+    Configuration
 from pyanaconda.modules.common.constants import services
 
 
@@ -85,6 +86,9 @@ class ConfigurationTestCase(unittest.TestCase):
             write_config(parser, "nonexistent/path/to/file")
 
         self.assertEqual(cm.exception._filename, "nonexistent/path/to/file")
+        self.assertTrue(str(cm.exception).startswith(
+            "The following error has occurred while handling the configuration file"
+        ))
 
     def get_test(self):
         parser = create_parser()
@@ -156,6 +160,26 @@ class ConfigurationTestCase(unittest.TestCase):
 
         self.assertEqual(cm.exception._section, "Unknown")
         self.assertEqual(cm.exception._option, "unknown")
+
+        self.assertTrue(str(cm.exception).startswith(
+            "The following error has occurred while handling the option"
+        ))
+
+    def configuration_test(self):
+        config = Configuration()
+
+        with tempfile.TemporaryDirectory() as directory:
+
+            for filename in ["d.conf", "a.conf", "c", "b.conf"]:
+                with open(os.path.join(directory, filename), mode="w") as f:
+                    f.write("")
+
+            config.read_from_directory(directory)
+
+            self.assertEqual(
+                [os.path.relpath(path, directory) for path in config.get_sources()],
+                ["a.conf", "b.conf", "d.conf"]
+            )
 
 
 class AnacondaConfigurationTestCase(unittest.TestCase):

@@ -18,6 +18,8 @@
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
 import configparser
+import os
+from abc import ABC
 
 
 class ConfigurationError(Exception):
@@ -134,3 +136,105 @@ def set_option(parser, section_name, option_name, value):
 
     except (configparser.Error, ValueError) as e:
         raise ConfigurationDataError(str(e), section_name, option_name)
+
+
+class Section(ABC):
+    """A base class for representation of a configuration section."""
+
+    def __init__(self, section_name, parser):
+        self._section_name = section_name
+        self._parser = parser
+
+    def _get_option(self, option_name, converter=None):
+        """Get a converted value of the option.
+
+        :param option_name: an option name
+        :param converter: a function or None
+        :return: a converted value
+        """
+        return get_option(self._parser, self._section_name, option_name, converter)
+
+    def _set_option(self, option_name, value):
+        """Set the option.
+
+        :param option_name: an option name
+        :param value: an option value
+        """
+        set_option(self._parser, self._section_name, option_name, value)
+
+
+class Configuration(object):
+    """A base class for representation of a configuration handler."""
+
+    def __init__(self):
+        """Initialize the configuration."""
+        self._sources = []
+        self._parser = create_parser()
+
+    def get_parser(self):
+        """Get the configuration parser.
+
+        :return: instance of the ConfigParser
+        """
+        return self._parser
+
+    def get_sources(self):
+        """Get the configuration sources.
+
+        :return: a list of file names
+        """
+        return self._sources
+
+    def read(self, path):
+        """Read a configuration file.
+
+        :param path: a path to the file
+        """
+        read_config(self._parser, path)
+        self._sources.append(path)
+
+    def read_from_directory(self, path):
+        """Read all configuration files in a directory
+
+        Find and read all *.conf files sorted by their name.
+
+        :return: a path to the directory
+        """
+        for filename in sorted(os.listdir(path)):
+            if not filename.endswith(".conf"):
+                continue
+
+            self.read(os.path.join(path, filename))
+
+    def write(self, path):
+        """Write a configuration file.
+
+        :param path: a path to the file
+        """
+        write_config(self._parser, path)
+
+    def validate(self):
+        """Validate the configuration."""
+        self._validate_members(self)
+
+    def _validate_members(self, obj):
+        """Validate members of the object.
+
+        The main goal of this method is to check if all sections
+        are accessible and all options readable and convertible.
+
+        The implementation actually tries to access all public
+        members of the given object and its sections.
+        """
+        for member_name in dir(obj):
+
+            # Skip private members.
+            if member_name.startswith("_"):
+                continue
+
+            # Try to get the value of the member.
+            value = getattr(obj, member_name)
+
+            # Validate the sections of the configuration object.
+            if isinstance(obj, Configuration) and isinstance(value, Section):
+                self._validate_members(value)

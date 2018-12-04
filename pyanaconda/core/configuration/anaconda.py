@@ -18,39 +18,16 @@
 #  Author(s):  Vendula Poncova <vponcova@redhat.com>
 #
 import os
-from abc import ABC
-from enum import Enum
 
+from pyanaconda.core.configuration.services import ServicesSection
+from pyanaconda.core.configuration.storage import StorageSection
+from pyanaconda.core.configuration.system import SystemType, SystemSection
+from pyanaconda.core.configuration.target import TargetType, TargetSection
+from pyanaconda.core.configuration.base import Section, Configuration
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
-from pyanaconda.core.configuration.base import create_parser, read_config, write_config, \
-    get_option, set_option
+
 
 __all__ = ["conf", "AnacondaConfiguration"]
-
-
-class Section(ABC):
-    """A base class for representation of a configuration section."""
-
-    def __init__(self, section_name, parser):
-        self._section_name = section_name
-        self._parser = parser
-
-    def _get_option(self, option_name, converter=None):
-        """Get a converted value of the option.
-
-        :param option_name: an option name
-        :param converter: a function or None
-        :return: a converted value
-        """
-        return get_option(self._parser, self._section_name, option_name, converter)
-
-    def _set_option(self, option_name, value):
-        """Set the option.
-
-        :param option_name: an option name
-        :param value: an option value
-        """
-        set_option(self._parser, self._section_name, option_name, value)
 
 
 class AnacondaSection(Section):
@@ -72,272 +49,25 @@ class AnacondaSection(Section):
         return self._get_option("kickstart_modules").split()
 
 
-class SystemType(Enum):
-    """The type of the installation system."""
-    BOOT_ISO = "BOOT_ISO"
-    LIVE_OS = "LIVE_OS"
-    UNKNOWN = "UNKNOWN"
-
-
-class InstallationSystem(Section):
-    """The Installation System section."""
-
-    @property
-    def _type(self):
-        """Type of the installation system.
-
-        FIXME: This is a temporary solution.
-        """
-        return self._get_option("type", SystemType)
-
-    @property
-    def _is_boot_iso(self):
-        """Are we running in the boot.iso?"""
-        return self._type is SystemType.BOOT_ISO
-
-    @property
-    def _is_live_os(self):
-        """Are we running in the live OS?"""
-        return self._type is SystemType.LIVE_OS
-
-    @property
-    def _is_unknown(self):
-        """Are we running in the unknown OS?"""
-        return self._type is SystemType.UNKNOWN
-
-    @property
-    def can_reboot(self):
-        """Can we reboot the system?"""
-        return self._is_boot_iso
-
-    @property
-    def can_switch_tty(self):
-        """Can we change the foreground virtual terminal?"""
-        return self._is_boot_iso
-
-    @property
-    def can_audit(self):
-        """Can we run the audit daemon?"""
-        return self._is_boot_iso
-
-    @property
-    def can_set_hardware_clock(self):
-        """Can we set the Hardware Clock?"""
-        return self._is_boot_iso
-
-    @property
-    def can_initialize_system_clock(self):
-        """Can we initialize the System Clock?
-
-        FIXME: This is a temporary workaround.
-        """
-        return self._is_boot_iso or self._is_live_os
-
-    @property
-    def can_set_system_clock(self):
-        """Can we set the System Clock?"""
-        return self._is_boot_iso
-
-    @property
-    def can_set_time_synchronization(self):
-        """Can we run the NTP daemon?"""
-        return self._is_boot_iso
-
-    @property
-    def can_activate_keyboard(self):
-        """Can we activate the keyboard?
-
-        FIXME: This is a temporary workaround.
-        """
-        return self._is_boot_iso
-
-    @property
-    def can_activate_layouts(self):
-        """Can we activate the layouts?
-
-        FIXME: This is a temporary workaround.
-        """
-        return self._is_boot_iso
-
-    @property
-    def can_configure_keyboard(self):
-        """Can we configure the keyboard?"""
-        return self._is_boot_iso or self._is_live_os
-
-    @property
-    def can_modify_syslog(self):
-        """Can we modify syslog?"""
-        return self._is_boot_iso
-
-    @property
-    def can_change_hostname(self):
-        """Can we change the hostname?"""
-        return self._is_boot_iso
-
-    @property
-    def can_configure_network(self):
-        """Can we configure the network?"""
-        return self._is_boot_iso
-
-    @property
-    def provides_network_config(self):
-        """Can we copy network configuration to the target system?
-
-        We can do it only if the current system configuration is created by
-        anaconda (or installation process in general, as on Live OS) and
-        therefore can be copied to the target system.
-        """
-        return self._is_boot_iso or self._is_live_os
-
-    @property
-    def provides_system_bus(self):
-        """Can we access the system DBus?"""
-        return self._is_boot_iso or self._is_live_os
-
-    @property
-    def provides_resolver_config(self):
-        """Can we copy /etc/resolv.conf to the target system?"""
-        return self._is_boot_iso
-
-    @property
-    def provides_user_interaction_config(self):
-        """Can we read /etc/sysconfig/anaconda?"""
-        return self._is_boot_iso or self._is_live_os
-
-    @property
-    def provides_web_browser(self):
-        """Can we redirect users to web pages?"""
-        return self._is_live_os
-
-
-class ServicesSection(Section):
-    """The Services section."""
-
-    @property
-    def selinux(self):
-        """Enable SELinux usage in the installed system.
-
-        Valid values:
-
-         -1  The value is not set.
-          0  SELinux is disabled (permissive).
-          1  SELinux is enabled (enforcing).
-        """
-        value = self._get_option("selinux", int)
-
-        if value not in (-1, 0, 1):
-            raise ValueError("Invalid value: {}".format(value))
-
-        return value
-
-
-class TargetType(Enum):
-    """Type of the installation target."""
-    HARDWARE = "HARDWARE"
-    IMAGE = "IMAGE"
-    DIRECTORY = "DIRECTORY"
-
-
-class InstallationTarget(Section):
-    """The Installation Target section."""
-
-    @property
-    def type(self):
-        """Type of the installation target."""
-        return self._get_option("type", TargetType)
-
-    @property
-    def physical_root(self):
-        """A path to the physical root of the target."""
-        return self._get_option("physical_root")
-
-    @property
-    def is_hardware(self):
-        """Are we installing on hardware?"""
-        return self.type is TargetType.HARDWARE
-
-    @property
-    def is_image(self):
-        """Are we installing on an image?"""
-        return self.type is TargetType.IMAGE
-
-    @property
-    def is_directory(self):
-        """Are we installing to a directory?"""
-        return self.type is TargetType.DIRECTORY
-
-
-class StorageSection(Section):
-    """The Storage section."""
-
-    @property
-    def dmraid(self):
-        """Enable dmraid usage during the installation."""
-        return self._get_option("dmraid", bool)
-
-    @property
-    def ibft(self):
-        """Enable iBFT usage during the installation."""
-        return self._get_option("ibft", bool)
-
-    @property
-    def gpt(self):
-        """Do you prefer creation of GPT disk labels?"""
-        return self._get_option("gpt", bool)
-
-    @property
-    def multipath_friendly_names(self):
-        """Use user friendly names for multipath devices.
-
-        Tell multipathd to use user friendly names when naming devices
-        during the installation.
-        """
-        return self._get_option("multipath_friendly_names", bool)
-
-
-class AnacondaConfiguration(object):
+class AnacondaConfiguration(Configuration):
     """Representation of the Anaconda configuration."""
 
     @classmethod
     def from_defaults(cls):
         """Get the default Anaconda configuration.
 
-        Read the current configuration from the temporary config file.
-        Or load the configuration from the configuration directory.
-
         :return: an instance of AnacondaConfiguration
         """
         config = cls()
-
-        # Read the temporary configuration file.
-        config_path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
-        if config_path and os.path.exists(config_path):
-            config.read(config_path)
-
-        # Or use the defaults if it doesn't exist.
-        else:
-            config_path = os.path.join(ANACONDA_CONFIG_DIR, "anaconda.conf")
-            config.read(config_path)
-
-            config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
-            for config_path in sorted(os.listdir(config_dir)):
-                if not config_path.endswith(".conf"):
-                    continue
-
-                config.read(os.path.join(config_dir, config_path))
-
-        # Validate the configuration.
-        config.validate()
+        config.set_from_defaults()
         return config
 
     def __init__(self):
         """Initialize the configuration."""
-        self._sources = []
-        self._parser = create_parser()
-
+        super().__init__()
         self._anaconda = AnacondaSection("Anaconda", self.get_parser())
-        self._system = InstallationSystem("Installation System", self.get_parser())
-        self._target = InstallationTarget("Installation Target", self.get_parser())
+        self._system = SystemSection("Installation System", self.get_parser())
+        self._target = TargetSection("Installation Target", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
 
@@ -366,60 +96,28 @@ class AnacondaConfiguration(object):
         """The Services section."""
         return self._services
 
-    def get_parser(self):
-        """Get the configuration parser.
+    def set_from_defaults(self):
+        """"Set the configuration from the default configuration files.
 
-        :return: instance of the ConfigParser
+        Read the current configuration from the temporary config file.
+        Or load the configuration from these files:
+
+            /etc/anaconda/anaconda.conf
+            /etc/anaconda/conf.d/*.conf
+
         """
-        return self._parser
+        config_path = os.environ.get("ANACONDA_CONFIG_TMP", ANACONDA_CONFIG_TMP)
 
-    def get_sources(self):
-        """Get the configuration sources.
+        if config_path and os.path.exists(config_path):
+            self.read(config_path)
+        else:
+            config_path = os.path.join(ANACONDA_CONFIG_DIR, "anaconda.conf")
+            self.read(config_path)
 
-        :return: a list of file names
-        """
-        return self._sources
+            config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
+            self.read_from_directory(config_dir)
 
-    def read(self, path):
-        """Read a configuration file.
-
-        :param path: a path to the file
-        """
-        read_config(self._parser, path)
-        self._sources.append(path)
-
-    def write(self, path):
-        """Write a configuration file.
-
-        :param path: a path to the file
-        """
-        write_config(self._parser, path)
-
-    def validate(self):
-        """Validate the configuration."""
-        self._validate_members(self)
-
-    def _validate_members(self, obj):
-        """Validate members of the object.
-
-        The main goal of this method is to check if all sections
-        are accessible and all options readable and convertible.
-
-        The implementation actually tries to access all public
-        members of the given object and its sections.
-        """
-        for member_name in dir(obj):
-
-            # Skip private members.
-            if member_name.startswith("_"):
-                continue
-
-            # Try to get the value of the member.
-            value = getattr(obj, member_name)
-
-            # Validate the sections of the configuration object.
-            if isinstance(obj, AnacondaConfiguration) and isinstance(value, Section):
-                self._validate_members(value)
+        self.validate()
 
     def set_from_opts(self, opts):
         """Set the configuration from the Anaconda cmdline options.
