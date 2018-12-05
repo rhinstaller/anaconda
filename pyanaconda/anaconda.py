@@ -110,11 +110,7 @@ class Anaconda(object):
 
     @property
     def instClass(self):
-        if not self._instClass:
-            from pyanaconda.installclass import factory
-            self._instClass = factory.get_best_install_class()
-
-        return self._instClass
+        return None
 
     def _getInterface(self):
         return self._intf
