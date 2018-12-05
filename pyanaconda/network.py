@@ -268,46 +268,6 @@ class IfcfgFile(SimpleConfigFile):
         ifcfglog.debug("IfcfgFile.unset %s: %s", self.filename, args)
         SimpleConfigFile.unset(self, *args)
 
-def ensure_single_initramfs_connections():
-    """Ensure device configured in initramfs has no more than one NM connection.
-
-    In case of multiple connections for device having ifcfg configuration from
-    boot options, the connection should correspond to the ifcfg file.
-    NetworkManager can be generating additional in-memory connection in case it
-    fails to match device configuration to the ifcfg (#1433891).  By
-    reactivating the device with ifcfg connection the generated in-memory
-    connection will be deleted by NM.
-
-    Don't enforce on slave devices for which having multiple connections can be
-    valid (slave connection, regular device connection).
-    """
-
-    rv = []
-
-    for dev_name in nm.nm_devices():
-        try:
-            nm.nm_device_setting_value(dev_name, "connection", "uuid")
-        except nm.SettingsNotFoundError:
-            pass
-        except nm.MultipleSettingsFoundError:
-            if nm.nm_device_is_slave(dev_name):
-                continue
-
-            ifcfg_path = find_ifcfg_file_of_device(dev_name)
-            if not ifcfg_path:
-                log.error("multiple settings but no ifcfg for %s", dev_name)
-                continue
-
-            # Handle only ifcfgs created from boot options in initramfs
-            # (Kickstart based ifcfgs are handled in apply_kickstart)
-            if ifcfg_is_from_kickstart(ifcfg_path):
-                continue
-
-            ensure_active_ifcfg_connection_for_device(ifcfg_path, dev_name, only_replace=True)
-            rv.append(dev_name)
-
-    return rv
-
 def ensure_active_ifcfg_connection_for_device(ifcfg_path, dev_name, only_replace=False):
     """Make sure active connection of a device is the one of ifcfg file
 
@@ -1512,7 +1472,8 @@ def networkInitialize(ksdata):
     logIfcfgFiles("network initialization")
 
     log.debug("ensure single initramfs connections")
-    devnames = ensure_single_initramfs_connections()
+    network_proxy = NETWORK.get_proxy()
+    devnames = network_proxy.ConsolidateInitramfsConnections()
     if devnames:
         msg = "single connection ensured for devices %s" % devnames
         log.debug("%s", msg)
@@ -1541,7 +1502,6 @@ def networkInitialize(ksdata):
         logIfcfgFiles(msg)
 
     # initialize ksdata hostname
-    network_proxy = NETWORK.get_proxy()
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
         bootopts_hostname = hostname_from_cmdline(flags.cmdline)
         if bootopts_hostname:
