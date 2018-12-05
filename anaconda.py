@@ -479,6 +479,10 @@ if __name__ == "__main__":
     if ksdevice:
         network_proxy.SetDefaultKickstartDeviceSpecification(ksdevice)
         log.debug("value for missing network --device set from ksdevice to %s", ksdevice)
+    if "BOOTIF" in flags.cmdline:
+        bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
+        network_proxy.SetBootifKickstartDeviceSpecification(bootif_mac)
+        log.debug("value for network --device=bootif set to  %s", bootif_mac)
 
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
