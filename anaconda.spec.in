@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 05 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.27-1
+- Fix module installation error reporting (mkolman)
+  Resolves: rhbz#1644635
+- Drop xorg-x11-server-Xorg check from graphical target detection (mkolman)
+  Resolves: rhbz#1583958
+
 * Mon Nov 19 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.26-1
 - Pull in fixed translations
   Resolves: rhbz#1650431
