@@ -78,16 +78,6 @@ class BaseInstallClass(object):
     # and locales are supported by the payload?
     check_supported_locales = False
 
-    # EULA path (if any)
-    #
-    # If the given distribution has an EULA & feels the need to
-    # tell the user about it fill in this variable by a path
-    # pointing to a file with the EULA on the installed system.
-    #
-    # This is currently used just to show the path to the file to
-    # the user at the end of the installation.
-    eula_path = None
-
     # A hint if mirrors are expected to be available for the distribution
     # installed by the given install class.
     #

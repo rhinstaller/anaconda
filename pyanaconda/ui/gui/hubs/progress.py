@@ -144,8 +144,9 @@ class ProgressHub(Hub):
 
         util.ipmi_report(IPMI_FINISHED)
 
-        if self.instclass.eula_path:
-            self.set_warning(_("Use of this product is subject to the license agreement found at %s") % self.instclass.eula_path)
+        if conf.license.eula:
+            self.set_warning(_("Use of this product is subject to the license agreement "
+                               "found at %s") % conf.license.eula)
             self.window.show_all()
 
         # kickstart install, continue automatically if reboot or shutdown selected

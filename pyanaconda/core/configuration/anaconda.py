@@ -19,6 +19,7 @@
 #
 import os
 
+from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.services import ServicesSection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.system import SystemType, SystemSection
@@ -72,6 +73,7 @@ class AnacondaConfiguration(Configuration):
         self._target = TargetSection("Installation Target", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
+        self._license = LicenseSection("License", self.get_parser())
 
     @property
     def anaconda(self):
@@ -97,6 +99,11 @@ class AnacondaConfiguration(Configuration):
     def services(self):
         """The Services section."""
         return self._services
+
+    @property
+    def license(self):
+        """The License section."""
+        return self._license
 
     def set_from_defaults(self):
         """"Set the configuration from the default configuration files.

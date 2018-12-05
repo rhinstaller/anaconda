@@ -43,8 +43,6 @@ class RHELBaseInstallClass(BaseInstallClass):
     help_placeholder_with_links = "rhel_help_placeholder.xml"
     help_placeholder_plain_text = "rhel_help_placeholder.txt"
 
-    eula_path="/usr/share/redhat-release/EULA"
-
     mirrors_available = False
 
     blivet_gui_supported = False
