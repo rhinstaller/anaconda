@@ -82,7 +82,7 @@ class ProductConfigurationTestCase(unittest.TestCase):
             ["fedora.conf", "fedora-workstation.conf"]
         )
         self._check_default_product(
-            "Fedora", "Atomic Host",
+            "Fedora", "AtomicHost",
             ["fedora.conf", "fedora-atomic-host.conf"]
 
         )
