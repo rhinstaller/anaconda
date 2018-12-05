@@ -1539,10 +1539,18 @@ class GRUB2(GRUB):
         else:
             defaults.write("GRUB_TERMINAL_OUTPUT=\"%s\"\n" % self.terminal_type)
 
+        bls_comment = ("# If GRUB_ENABLE_BLSCFG is enabled, GRUB_CMDLINE_LINUX is only used to set\n"
+                       "# the kernelopts environment variable defined in /boot/grub2/grubenv once.\n"
+                       "# If kernelopts is already set then grub2-mkconfig will ignore the value in\n"
+                       "# GRUB_CMDLINE_LINUX. To edit kernel command line parameters the kernelopts\n"
+                       "# variable needs to be modified using the grub2-editenv tool.\n")
+
         # this is going to cause problems for systems containing multiple
         # linux installations or even multiple boot entries with different
         # boot arguments
         log.info("bootloader.py: used boot args: %s ", self.boot_args)
+        if self.use_bls:
+            defaults.write(bls_comment)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
