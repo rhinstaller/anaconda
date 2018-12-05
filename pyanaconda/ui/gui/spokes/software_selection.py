@@ -396,8 +396,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._clear_listbox(self._environmentListBox)
 
-        # If no environment is selected, use the default from the instclass.
-        # If nothing is set in the instclass, the first environment will be
+        # If no environment is selected, use the default from the config.
+        # If nothing is set in the config, the first environment will be
         # selected below.
         if not self.environment and conf.payload.default_environment in self.payload.environments:
             self.environment = conf.payload.default_environment
@@ -411,7 +411,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             radio = Gtk.RadioButton(group=self._fakeRadio)
 
             # automatically select the first environment if we are on
-            # manual install and the install class does not specify one
+            # manual install and the configuration does not specify one
             if firstEnvironment and not flags.automatedInstall:  # manual installation
                 #
                 # Note about self.environment being None:

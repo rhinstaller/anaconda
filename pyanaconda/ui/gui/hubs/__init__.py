@@ -64,7 +64,7 @@ class Hub(GUIObject, common.Hub):
     # override it to True in it's hub.
     continue_if_empty = False
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         """Create a new Hub instance.
 
            The arguments this base class accepts defines the API that Hubs
@@ -81,13 +81,9 @@ class Hub(GUIObject, common.Hub):
            payload      -- An instance of a payload.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
-           instclass    -- An instance of a BaseInstallClass subclass.  This
-                           is useful for determining distribution-specific
-                           installation information like default package
-                           selections and default partitioning.
         """
         GUIObject.__init__(self, data)
-        common.Hub.__init__(self, storage, payload, instclass)
+        common.Hub.__init__(self, storage, payload)
 
         # enable the autoContinue feature if we are in kickstart
         # mode, but if the user interacts with the hub, it will be
@@ -146,7 +142,7 @@ class Hub(GUIObject, common.Hub):
 
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
-                spoke = spokeClass(self.data, self.storage, self.payload, self.instclass)
+                spoke = spokeClass(self.data, self.storage, self.payload)
                 spoke.window.set_beta(self.window.get_beta())
                 spoke.window.set_property("distribution", distributionText().upper())
 

@@ -1360,7 +1360,7 @@ def write_sysconfig_network(rootpath, overwrite=False):
         f.write("# Created by anaconda\n")
     return True
 
-def write_network_config(storage, payload, ksdata, instClass, rootpath):
+def write_network_config(storage, payload, ksdata, rootpath):
     # overwrite previous settings for LiveCD or liveimg installations
     overwrite = isinstance(payload, LiveImagePayload)
 

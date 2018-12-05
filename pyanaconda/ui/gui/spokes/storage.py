@@ -487,7 +487,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             hubQ.send_ready(self.__class__.__name__, True)
             return
         try:
-            doKickstartStorage(self.storage, self.data, self.instclass)
+            doKickstartStorage(self.storage, self.data)
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py
         except (StorageError, KickstartParseError, ValueError) as e:
             log.error("storage configuration failed: %s", e)

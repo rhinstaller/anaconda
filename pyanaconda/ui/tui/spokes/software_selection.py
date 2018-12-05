@@ -47,8 +47,8 @@ class SoftwareSpoke(NormalTUISpoke):
     helpFile = "SoftwareSpoke.txt"
     category = SoftwareCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
         self.title = N_("Software selection")
         self._container = None
         self.errors = []
@@ -82,7 +82,7 @@ class SoftwareSpoke(NormalTUISpoke):
         threadMgr.wait(THREAD_PAYLOAD)
 
         if not self._kickstarted:
-            # If an environment was specified in the instclass, use that.
+            # If an environment was specified in the configuration, use that.
             # Otherwise, select the first environment.
             if self.payload.environments:
                 environments = self.payload.environments

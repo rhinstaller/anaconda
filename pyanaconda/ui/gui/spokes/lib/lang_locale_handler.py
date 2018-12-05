@@ -40,7 +40,7 @@ class LangLocaleHandler(object):
 
     """
 
-    def __init__(self, payload, instclass):
+    def __init__(self, payload):
         # the class inheriting from this class is responsible for populating
         # these items with actual objects
         self._languageStore = None
@@ -58,7 +58,6 @@ class LangLocaleHandler(object):
         self._left_arrow = None
 
         self.payload = payload
-        self.instclass = instclass
 
     def initialize(self):
         # Load arrows from resources. Unfortunately, Gtk.Image.new_from_resource does not

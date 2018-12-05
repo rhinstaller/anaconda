@@ -36,8 +36,8 @@ class ShellSpoke(NormalTUISpoke):
     """
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
         self.title = N_("Shell")
 
     @classmethod

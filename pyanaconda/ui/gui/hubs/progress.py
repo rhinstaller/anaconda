@@ -54,8 +54,8 @@ class ProgressHub(Hub):
     uiFile = "hubs/progress.glade"
     helpFile = "ProgressHub.xml"
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
 
         self._totalSteps = 0
         self._currentStep = 0
@@ -82,7 +82,7 @@ class ProgressHub(Hub):
         self._update_progress_timer.timeout_msec(250, self._update_progress,
                                                  self._configuration_done)
         threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
-                                     args=(self.storage, self.payload, self.data, self.instclass)))
+                                     args=(self.storage, self.payload, self.data)))
 
     def _start_ransom_notes(self):
         # Adding this as a timeout below means it'll get called after 60
@@ -270,7 +270,7 @@ class ProgressHub(Hub):
         self._start_ransom_notes()
         self._update_progress_timer.timeout_msec(250, self._update_progress, self._install_done)
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
-                                     args=(self.storage, self.payload, self.data, self.instclass)))
+                                     args=(self.storage, self.payload, self.data)))
 
     def _updateContinueButton(self):
         if self._configurationDone:

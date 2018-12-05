@@ -36,9 +36,9 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
 
     handles_autostep = True
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         GUIObject.__init__(self, data)
-        common.StandaloneSpoke.__init__(self, storage, payload, instclass)
+        common.StandaloneSpoke.__init__(self, storage, payload)
 
         # Add a continue-clicked handler to save the data before leaving the window
         self.window.connect("continue-clicked", self._on_continue_clicked)
@@ -58,9 +58,9 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
        .. inheritance-diagram:: NormalSpoke
           :parts: 3
     """
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         GUIObject.__init__(self, data)
-        common.NormalSpoke.__init__(self, storage, payload, instclass)
+        common.NormalSpoke.__init__(self, storage, payload)
 
         # Add a help handler
         self.window.connect_after("help-button-clicked", self._on_help_clicked)
@@ -71,7 +71,7 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
     def _on_help_clicked(self, window):
         # the help button has been clicked, start the yelp viewer with
         # content for the current spoke
-        ihelp.start_yelp(ihelp.get_help_path(self.helpFile, self.instclass))
+        ihelp.start_yelp(ihelp.get_help_path(self.helpFile))
 
     def on_back_clicked(self, button):
         # Notify the hub that we're finished.

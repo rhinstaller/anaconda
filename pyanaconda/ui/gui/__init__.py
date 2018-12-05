@@ -56,10 +56,10 @@ __all__ = ["GraphicalUserInterface", "QuitDialog"]
 ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
 
 # Stylesheet priorities to use for product-specific stylesheets.
-# installclass stylesheets should be higher than our base stylesheet, and
+# Custom stylesheets should be higher than our base stylesheet, and
 # stylesheets from updates.img and product.img should be higher than that.  All
 # levels should be lower than GTK_STYLE_PROVIDER_PRIORITY_USER.
-STYLE_PROVIDER_PRIORITY_INSTALLCLASS = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 15
+STYLE_PROVIDER_PRIORITY_CUSTOM = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 15
 STYLE_PROVIDER_PRIORITY_UPDATES = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 20
 assert STYLE_PROVIDER_PRIORITY_UPDATES < Gtk.STYLE_PROVIDER_PRIORITY_USER
 
@@ -644,11 +644,11 @@ class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
     """
-    def __init__(self, storage, payload, instclass,
+    def __init__(self, storage, payload,
                  distributionText=product.distributionText, isFinal=product.isFinal,
                  quitDialog=QuitDialog, gui_lock=None, fullscreen=False, decorated=False):
 
-        super().__init__(storage, payload, instclass)
+        super().__init__(storage, payload)
 
         self._actions = []
         self._currentAction = None
@@ -771,7 +771,7 @@ class GraphicalUserInterface(UserInterface):
     def _instantiateAction(self, actionClass):
         # Instantiate an action on-demand, passing the arguments defining our
         # spoke API and setting up continue/quit signal handlers.
-        obj = actionClass(self.data, self.storage, self.payload, self.instclass)
+        obj = actionClass(self.data, self.storage, self.payload)
 
         # set spoke search paths in Hubs
         if hasattr(obj, "set_path"):
@@ -857,7 +857,7 @@ class GraphicalUserInterface(UserInterface):
                     provider = Gtk.CssProvider()
                     provider.load_from_path(conf.ui.custom_stylesheet)
                     Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                            STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
+                            STYLE_PROVIDER_PRIORITY_CUSTOM)
                 except GError as e:
                     log.error("Custom stylesheet %s failed to load:\n%s",
                               conf.ui.custom_stylesheet, e)
@@ -1019,7 +1019,7 @@ class GraphicalUserInterface(UserInterface):
     def _on_help_clicked(self, window, obj):
         # the help button has been clicked, start the yelp viewer with
         # content for the current screen
-        ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
+        ihelp.start_yelp(ihelp.get_help_path(obj.helpFile))
 
     def _on_quit_clicked(self, win, userData=None):
         if not win.get_quit_button():

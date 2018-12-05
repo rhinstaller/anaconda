@@ -413,8 +413,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if flags.askmethod:
             flags.askmethod = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                 checkmount=False)
+        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -746,7 +745,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
         self._networkButton.connect("toggled", self._updateURLEntryCheck)
 
-        # Show or hide the updates option based on the installclass
+        # Show or hide the updates option based on the configuration
         if conf.payload.enable_updates:
             really_show(self._updatesBox)
         else:

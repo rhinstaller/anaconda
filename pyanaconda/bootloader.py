@@ -2513,7 +2513,7 @@ def get_bootloader():
 
 # anaconda-specific functions
 
-def writeSysconfigKernel(storage, version, instClass):
+def writeSysconfigKernel(storage, version):
     # get the name of the default kernel package based on the version
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
@@ -2559,7 +2559,7 @@ def writeSysconfigKernel(storage, version, instClass):
         f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
-def writeBootLoaderFinal(storage, payload, instClass, ksdata):
+def writeBootLoaderFinal(storage, payload, ksdata):
     """ Do the final write of the bootloader. """
 
     # set up dracut/fips boot args
@@ -2573,7 +2573,7 @@ def writeBootLoaderFinal(storage, payload, instClass, ksdata):
         if errorHandler.cb(e) == ERROR_RAISE:
             raise
 
-def writeBootLoader(storage, payload, instClass, ksdata):
+def writeBootLoader(storage, payload, ksdata):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
@@ -2597,7 +2597,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         if storage.bootloader.skip_bootloader:
             log.info("skipping boot loader install per user request")
             return
-        writeBootLoaderFinal(storage, payload, instClass, ksdata)
+        writeBootLoaderFinal(storage, payload, ksdata)
         return
 
     # get a list of installed kernel packages
@@ -2628,7 +2628,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     storage.bootloader.default = default_image
 
     # write out /etc/sysconfig/kernel
-    writeSysconfigKernel(storage, version, instClass)
+    writeSysconfigKernel(storage, version)
 
     if storage.bootloader.skip_bootloader:
         log.info("skipping boot loader install per user request")
@@ -2648,4 +2648,4 @@ def writeBootLoader(storage, payload, instClass, ksdata):
                                          label=label, short=short)
         storage.bootloader.add_image(image)
 
-    writeBootLoaderFinal(storage, payload, instClass, ksdata)
+    writeBootLoaderFinal(storage, payload, ksdata)

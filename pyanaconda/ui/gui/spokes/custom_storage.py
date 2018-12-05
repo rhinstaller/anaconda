@@ -162,9 +162,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         StorageCheckHandler.__init__(self)
-        NormalSpoke.__init__(self, data, storage, payload, instclass)
+        NormalSpoke.__init__(self, data, storage, payload)
 
         self._back_already_clicked = False
         self._storage_playground = None

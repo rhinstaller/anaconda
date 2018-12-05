@@ -45,9 +45,9 @@ class ProgressSpoke(StandaloneTUISpoke):
     postForHub = SummaryHub
     priority = 0
 
-    def __init__(self, ksdata, storage, payload, instclass):
+    def __init__(self, ksdata, storage, payload):
         self.initialize_start()
-        super().__init__(ksdata, storage, payload, instclass)
+        super().__init__(ksdata, storage, payload)
         self.title = N_("Progress")
         self._stepped = False
         self.initialize_done()
@@ -118,7 +118,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         from pyanaconda.installation import doInstall, doConfiguration
         from pyanaconda.threading import threadMgr, AnacondaThread
 
-        thread_args = (self.storage, self.payload, self.data, self.instclass)
+        thread_args = (self.storage, self.payload, self.data)
 
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall, args=thread_args))
 

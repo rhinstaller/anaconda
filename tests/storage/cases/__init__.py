@@ -201,7 +201,7 @@ class TestCaseComponent(object):
 
             self.setupDisks(parser.handler)
 
-            doKickstartStorage(self._storage, parser.handler, None)
+            doKickstartStorage(self._storage, parser.handler)
             self._storage.update_ksdata()
             self._storage.devicetree.teardown_all()
             self._storage.do_it()

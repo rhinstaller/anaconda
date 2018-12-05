@@ -46,8 +46,8 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     helpFile = "LangSupportSpoke.txt"
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         self.title = N_("Language settings")
         self.initialize_start()
         self._container = None

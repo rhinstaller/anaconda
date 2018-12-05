@@ -71,7 +71,7 @@ def _get_best_help_file(help_folder, help_file):
         log.warning("no help content found for file %s", help_file)
         return None
 
-def get_help_path(help_file, instclass, plain_text=False):
+def get_help_path(help_file, plain_text=False):
     """
     Return the full path for the given help file name,
     if the help file path does not exist a fallback path is returned.
@@ -88,8 +88,6 @@ def get_help_path(help_file, instclass, plain_text=False):
 
     :param help_file: help file name
     :type help_file: str or NoneType
-
-    :param instclass: current install class instance
 
     :param plain_text: should we find the help in plain text?
     :type plain_text: bool

@@ -391,7 +391,7 @@ class AutoPart(RemovedCommand):
     def __str__(self):
         return ""
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         # Create the auto partitioning proxy.
         auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
 
@@ -468,7 +468,7 @@ class Bootloader(RemovedCommand):
             raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
                                       lineno=self.lineno)
 
-    def execute(self, storage, ksdata, instClass, dry_run=False):
+    def execute(self, storage, ksdata, dry_run=False):
         """ Resolve and execute the bootloader installation.
 
             :param storage: object storing storage-related information
@@ -476,8 +476,6 @@ class Bootloader(RemovedCommand):
             :type storage: blivet.Blivet
             :param payload: object storing payload-related information
             :type payload: pyanaconda.payload.Payload
-            :param instclass: distribution-specific information
-            :type instclass: pyanaconda.installclass.BaseInstallClass
             :param dry_run: flag if this is only dry run before the partitioning
                             will be resolved
             :type dry_run: bool
@@ -691,12 +689,12 @@ class Bootloader(RemovedCommand):
             bootloader_proxy.SetDrive(boot_drive)
 
 class BTRFS(COMMANDS.BTRFS):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         for b in self.btrfsList:
-            b.execute(storage, ksdata, instClass)
+            b.execute(storage, ksdata)
 
 class BTRFSData(COMMANDS.BTRFSData):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         devicetree = storage.devicetree
 
         storage.do_autopart = False
@@ -853,7 +851,7 @@ class ClearPart(RemovedCommand):
         storage_module_proxy = STORAGE.get_proxy()
         return storage_module_proxy.GenerateTemporaryKickstart()
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
         storage.config.clear_part_type = disk_init_proxy.InitializationMode
         storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
@@ -883,7 +881,7 @@ class Firewall(RemovedCommand):
         if firewall_proxy.FirewallKickstarted:
             self.packages = ["firewalld"]
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         args = []
 
         firewall_proxy = NETWORK.get_proxy(FIREWALL)
@@ -965,7 +963,7 @@ class Firstboot(RemovedCommand):
         util.enable_service(unit_name)
 
 class Group(COMMANDS.Group):
-    def execute(self, storage, ksdata, instClass, users):
+    def execute(self, storage, ksdata, users):
         for grp in self.groupList:
             kwargs = grp.__dict__
             kwargs.update({"root": util.getSysroot()})
@@ -1027,15 +1025,15 @@ class Lang(RemovedCommand):
 Eula = COMMANDS.Eula
 
 class LogVol(COMMANDS.LogVol):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         for l in self.lvList:
-            l.execute(storage, ksdata, instClass)
+            l.execute(storage, ksdata)
 
         if self.lvList:
             grow_lvm(storage)
 
 class LogVolData(COMMANDS.LogVolData):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         devicetree = storage.devicetree
 
         storage.do_autopart = False
@@ -1414,8 +1412,8 @@ class Network(COMMANDS.Network):
         if network.is_using_team_device():
             self.packages = ["teamd"]
 
-    def execute(self, storage, payload, ksdata, instClass):
-        network.write_network_config(storage, payload, ksdata, instClass, util.getSysroot())
+    def execute(self, storage, payload, ksdata):
+        network.write_network_config(storage, payload, ksdata, util.getSysroot())
 
 class Nvdimm(COMMANDS.Nvdimm):
     def parse(self, args):
@@ -1450,15 +1448,15 @@ class Nvdimm(COMMANDS.Nvdimm):
         return action
 
 class Partition(COMMANDS.Partition):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         for p in self.partitions:
-            p.execute(storage, ksdata, instClass)
+            p.execute(storage, ksdata)
 
         if self.partitions:
             do_partitioning(storage)
 
 class PartitionData(COMMANDS.PartData):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         devicetree = storage.devicetree
         kwargs = {}
 
@@ -1763,12 +1761,12 @@ class PartitionData(COMMANDS.PartData):
             storage.add_fstab_swap(add_fstab_swap)
 
 class Raid(COMMANDS.Raid):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         for r in self.raidList:
-            r.execute(storage, ksdata, instClass)
+            r.execute(storage, ksdata)
 
 class RaidData(COMMANDS.RaidData):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         raidmems = []
         devicetree = storage.devicetree
         devicename = self.device
@@ -2029,7 +2027,7 @@ class RepoData(COMMANDS.RepoData):
         return self.partition is not None
 
 class ReqPart(COMMANDS.ReqPart):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         if not self.reqpart:
             return
 
@@ -2058,7 +2056,7 @@ class RootPw(RemovedCommand):
         users_proxy = USERS.get_proxy()
         return users_proxy.GenerateTemporaryKickstart()
 
-    def execute(self, storage, ksdata, instClass, users):
+    def execute(self, storage, ksdata, users):
 
         users_proxy = USERS.get_proxy()
 
@@ -2117,7 +2115,7 @@ class Services(RemovedCommand):
         services_proxy = SERVICES.get_proxy()
         return services_proxy.GenerateKickstart()
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         services_proxy = SERVICES.get_proxy()
 
         for svc in services_proxy.DisabledServices:
@@ -2129,7 +2127,7 @@ class Services(RemovedCommand):
             util.enable_service(svc)
 
 class SshKey(COMMANDS.SshKey):
-    def execute(self, storage, ksdata, instClass, users):
+    def execute(self, storage, ksdata, users):
         for usr in self.sshUserList:
             users.setUserSshKey(usr.username, usr.key)
 
@@ -2214,7 +2212,7 @@ class Timezone(RemovedCommand):
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
 class User(COMMANDS.User):
-    def execute(self, storage, ksdata, instClass, users):
+    def execute(self, storage, ksdata, users):
 
         for usr in self.userList:
             kwargs = usr.__dict__
@@ -2231,12 +2229,12 @@ class User(COMMANDS.User):
                 user_log.warning(str(e))
 
 class VolGroup(COMMANDS.VolGroup):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         for v in self.vgList:
-            v.execute(storage, ksdata, instClass)
+            v.execute(storage, ksdata)
 
 class VolGroupData(COMMANDS.VolGroupData):
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         pvs = []
 
         devicetree = storage.devicetree
@@ -2352,15 +2350,15 @@ class Snapshot(COMMANDS.Snapshot):
         """
         return any(snap.when == when for snap in self.dataList())
 
-    def setup(self, storage, ksdata, instClass):
+    def setup(self, storage, ksdata):
         """ Prepare post installation snapshots.
 
             This will also do the checking of snapshot validity.
         """
         for snap_data in self._post_snapshots():
-            snap_data.setup(storage, ksdata, instClass)
+            snap_data.setup(storage, ksdata)
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         """ Create ThinLV snapshot after post section stops.
 
             Blivet must be reset before creation of the snapshot. This is
@@ -2372,9 +2370,9 @@ class Snapshot(COMMANDS.Snapshot):
             try_populate_devicetree(storage.devicetree)
             for snap_data in post_snapshots:
                 log.debug("Snapshot: creating post-install snapshot %s", snap_data.name)
-                snap_data.execute(storage, ksdata, instClass)
+                snap_data.execute(storage, ksdata)
 
-    def pre_setup(self, storage, ksdata, instClass):
+    def pre_setup(self, storage, ksdata):
         """ Prepare pre installation snapshots.
 
             This will also do the checking of snapshot validity.
@@ -2386,9 +2384,9 @@ class Snapshot(COMMANDS.Snapshot):
             threadMgr.wait(THREAD_STORAGE)
 
         for snap_data in pre_snapshots:
-            snap_data.setup(storage, ksdata, instClass)
+            snap_data.setup(storage, ksdata)
 
-    def pre_execute(self, storage, ksdata, instClass):
+    def pre_execute(self, storage, ksdata):
         """ Create ThinLV snapshot before installation starts.
 
             This must be done before user can change anything
@@ -2409,7 +2407,7 @@ class Snapshot(COMMANDS.Snapshot):
 
             for snap_data in pre_snapshots:
                 log.debug("Snapshot: creating pre-install snapshot %s", snap_data.name)
-                snap_data.execute(storage, ksdata, instClass)
+                snap_data.execute(storage, ksdata)
 
             try_populate_devicetree(storage.devicetree)
 
@@ -2418,7 +2416,7 @@ class SnapshotData(COMMANDS.SnapshotData):
         super().__init__(*args, **kwargs)
         self.thin_snapshot = None
 
-    def setup(self, storage, ksdata, instClass):
+    def setup(self, storage, ksdata):
         """ Add ThinLV snapshot to Blivet model but do not create it.
 
             This will plan snapshot creation on the end of the installation. This way
@@ -2457,7 +2455,7 @@ class SnapshotData(COMMANDS.SnapshotData):
         except ValueError as e:
             raise KickstartParseError(lineno=self.lineno, msg=e)
 
-    def execute(self, storage, ksdata, instClass):
+    def execute(self, storage, ksdata):
         """ Execute an action for snapshot creation. """
         self.thin_snapshot.create()
         if isinstance(self.thin_snapshot.format, XFS):
@@ -2828,9 +2826,9 @@ def resetCustomStorageData(ksdata):
     for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
         ksdata.resetCommand(command)
 
-def doKickstartStorage(storage, ksdata, instClass):
+def doKickstartStorage(storage, ksdata):
     """ Setup storage state from the kickstart data """
-    ksdata.clearpart.execute(storage, ksdata, instClass)
+    ksdata.clearpart.execute(storage, ksdata)
     if not any(d for d in storage.disks
                if not d.format.hidden and not d.protected):
         return
@@ -2838,17 +2836,17 @@ def doKickstartStorage(storage, ksdata, instClass):
     # snapshot free space now so that we know how much we had available
     storage.create_free_space_snapshot()
 
-    ksdata.bootloader.execute(storage, ksdata, instClass, dry_run=True)
-    ksdata.autopart.execute(storage, ksdata, instClass)
-    ksdata.reqpart.execute(storage, ksdata, instClass)
-    ksdata.partition.execute(storage, ksdata, instClass)
-    ksdata.raid.execute(storage, ksdata, instClass)
-    ksdata.volgroup.execute(storage, ksdata, instClass)
-    ksdata.logvol.execute(storage, ksdata, instClass)
-    ksdata.btrfs.execute(storage, ksdata, instClass)
-    ksdata.mount.execute(storage, ksdata, instClass)
+    ksdata.bootloader.execute(storage, ksdata, dry_run=True)
+    ksdata.autopart.execute(storage, ksdata)
+    ksdata.reqpart.execute(storage, ksdata)
+    ksdata.partition.execute(storage, ksdata)
+    ksdata.raid.execute(storage, ksdata)
+    ksdata.volgroup.execute(storage, ksdata)
+    ksdata.logvol.execute(storage, ksdata)
+    ksdata.btrfs.execute(storage, ksdata)
+    ksdata.mount.execute(storage, ksdata)
     # setup snapshot here, that means add it to model and do the tests
     # snapshot will be created on the end of the installation
-    ksdata.snapshot.setup(storage, ksdata, instClass)
+    ksdata.snapshot.setup(storage, ksdata)
     # also calls ksdata.bootloader.execute
     storage.set_up_bootloader()

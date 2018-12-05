@@ -53,7 +53,6 @@ class Anaconda(object):
         self._interactive_mode = True
         self.gui_startup_failed = False
         self.id = None
-        self._instClass = None
         self._intf = None
         self.isHeadless = False
         self.ksdata = None
@@ -107,10 +106,6 @@ class Anaconda(object):
             self._bootloader = get_bootloader()
 
         return self._bootloader
-
-    @property
-    def instClass(self):
-        return None
 
     def _getInterface(self):
         return self._intf
@@ -288,7 +283,7 @@ class Anaconda(object):
         if auto_part_proxy.Enabled and auto_part_proxy.FilesystemType:
             fstype = auto_part_proxy.FilesystemType
             boot_fstype = fstype
-        # Or from an install class.
+        # Or from the configuration.
         elif conf.storage.file_system_type:
             fstype = conf.storage.file_system_type
             boot_fstype = None
@@ -370,7 +365,7 @@ class Anaconda(object):
             # Run the GUI in non-fullscreen mode, so live installs can still
             # use the window manager
             self._intf = GraphicalUserInterface(self.storage, self.payload,
-                                                self.instClass, gui_lock=self.gui_initialized,
+                                                gui_lock=self.gui_initialized,
                                                 fullscreen=False, decorated=self.decorated)
 
             # needs to be refreshed now we know if gui or tui will take place
@@ -379,8 +374,7 @@ class Anaconda(object):
         elif self.tui_mode:
             # TUI and noninteractive TUI are the same in this regard
             from pyanaconda.ui.tui import TextUserInterface
-            self._intf = TextUserInterface(self.storage, self.payload,
-                                           self.instClass)
+            self._intf = TextUserInterface(self.storage, self.payload)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,

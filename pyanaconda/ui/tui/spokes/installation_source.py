@@ -60,8 +60,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     SET_NETWORK_INSTALL_MODE = "network_install"
 
-    def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Installation source")
         self._container = None
@@ -187,9 +187,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self.close()
 
     def _set_iso_install_source(self, data):
-        new_spoke = SelectDeviceSpoke(self.data,
-                                      self.storage, self.payload,
-                                      self.instclass)
+        new_spoke = SelectDeviceSpoke(self.data, self.storage, self.payload)
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
         self.close()
@@ -205,16 +203,14 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         self.close()
 
     def _set_network_url(self, data):
-        new_spoke = SpecifyRepoSpoke(self.data, self.storage,
-                                     self.payload, self.instclass, data)
+        new_spoke = SpecifyRepoSpoke(self.data, self.storage, self.payload, data)
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
         self.close()
 
     def _set_network_nfs(self, data):
         self.set_source_nfs()
-        new_spoke = SpecifyNFSRepoSpoke(self.data, self.storage,
-                                        self.payload, self.instclass, self._error)
+        new_spoke = SpecifyNFSRepoSpoke(self.data, self.storage, self.payload, self._error)
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
         self.close()
@@ -244,8 +240,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # clear them at this point
         self._error = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                 checkmount=False)
+        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
@@ -256,8 +251,8 @@ class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     HTTPS = 2
     FTP = 3
 
-    def __init__(self, data, storage, payload, instclass, protocol):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, protocol):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Specify Repo Options")
         self.protocol = protocol
@@ -309,8 +304,8 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Specify server and mount opts here if NFS selected. """
     category = SoftwareCategory
 
-    def __init__(self, data, storage, payload, instclass, error):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, error):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Specify Repo Options")
         self._container = None
@@ -386,8 +381,8 @@ class SelectDeviceSpoke(NormalTUISpoke):
     """ Select device containing the install source ISO file. """
     category = SoftwareCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
         self.title = N_("Select device containing the ISO file")
         self._container = None
         self._mountable_devices = self._get_mountable_devices()
@@ -440,9 +435,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
 
     def _select_mountable_device(self, data):
         self._device = data
-        new_spoke = SelectISOSpoke(self.data,
-                                   self.storage, self.payload,
-                                   self.instclass, self._device)
+        new_spoke = SelectISOSpoke(self.data, self.storage, self.payload, self._device)
         ScreenHandler.push_screen_modal(new_spoke)
         self.close()
 
@@ -463,8 +456,8 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Select an ISO to use as install source. """
     category = SoftwareCategory
 
-    def __init__(self, data, storage, payload, instclass, device):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, device):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         SourceSwitchHandler.__init__(self)
         self.title = N_("Select an ISO to use as install source")
         self._container = None

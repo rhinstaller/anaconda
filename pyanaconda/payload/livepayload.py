@@ -69,8 +69,8 @@ class LiveImagePayload(ImagePayload):
 
         self._kernelVersionList = []
 
-    def setup(self, storage, instClass):
-        super().setup(storage, instClass)
+    def setup(self, storage):
+        super().setup(storage)
 
         # Mount the live device and copy from it instead of the overlay at /
         osimg = storage.devicetree.get_device_by_path(self.data.method.partition)
@@ -318,11 +318,11 @@ class LiveImageKSPayload(LiveImagePayload):
         self._min_size = os.stat(self.data.method.url[7:])[stat.ST_SIZE] * 3
         return None
 
-    def setup(self, storage, instClass):
+    def setup(self, storage):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        ImagePayload.setup(self, storage, instClass)
+        ImagePayload.setup(self, storage)
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()

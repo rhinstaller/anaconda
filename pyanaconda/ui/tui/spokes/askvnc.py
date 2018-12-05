@@ -50,8 +50,8 @@ class AskVNCSpoke(NormalTUISpoke):
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
-    def __init__(self, data, storage=None, payload=None, instclass=None, message=""):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage=None, payload=None, message=""):
+        super().__init__(data, storage, payload)
         self.input_required = True
         self.initialize_start()
         self._container = None
@@ -86,8 +86,7 @@ class AskVNCSpoke(NormalTUISpoke):
 
     def _use_vnc_callback(self, data):
         self._usevnc = True
-        new_spoke = VNCPassSpoke(self.data, self.storage,
-                                 self.payload, self.instclass)
+        new_spoke = VNCPassSpoke(self.data, self.storage, self.payload)
         ScreenHandler.push_screen_modal(new_spoke)
 
     def _use_text_callback(self, data):
@@ -122,8 +121,8 @@ class VNCPassSpoke(NormalTUISpoke):
           :parts: 3
     """
 
-    def __init__(self, data, storage, payload, instclass, message=None):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, message=None):
+        super().__init__(data, storage, payload)
         self.title = N_("VNC Password")
         self._password = ""
         if message:

@@ -729,7 +729,7 @@ if __name__ == "__main__":
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
-    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass, fallback=fallback)
+    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton
     geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)
@@ -765,8 +765,8 @@ if __name__ == "__main__":
     from pyanaconda.kickstart import check_kickstart_error
     if ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_PRE_INSTALL):
         with check_kickstart_error():
-            ksdata.snapshot.pre_setup(anaconda.storage, ksdata, anaconda.instClass)
-            ksdata.snapshot.pre_execute(anaconda.storage, ksdata, anaconda.instClass)
+            ksdata.snapshot.pre_setup(anaconda.storage, ksdata)
+            ksdata.snapshot.pre_execute(anaconda.storage, ksdata)
 
     anaconda._intf.setup(ksdata)
     anaconda._intf.run()
