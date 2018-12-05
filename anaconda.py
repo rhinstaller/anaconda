@@ -472,6 +472,14 @@ if __name__ == "__main__":
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
 
+    # Pass ksdevice boot options value to network module
+    from pyanaconda.modules.common.constants.services import NETWORK
+    network_proxy = NETWORK.get_proxy()
+    ksdevice = flags.cmdline.get('ksdevice')
+    if ksdevice:
+        network_proxy.SetDefaultKickstartDeviceSpecification(ksdevice)
+        log.debug("value for missing network --device set from ksdevice to %s", ksdevice)
+
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.
