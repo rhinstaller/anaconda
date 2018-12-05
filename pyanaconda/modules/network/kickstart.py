@@ -20,12 +20,24 @@
 from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 
 
+class Network(COMMANDS.Network):
+    def parse(self, args):
+        hostname_only_command = is_hostname_only_network_args(args)
+        # call the overridden command to do it's job first
+        retval = super().parse(args)
+
+        if hostname_only_command:
+            retval.bootProto = ""
+
+        return retval
+
+
 class NetworkKickstartSpecification(KickstartSpecification):
 
     version = VERSION
 
     commands = {
-        "network": COMMANDS.Network,
+        "network": Network,
         "firewall": COMMANDS.Firewall,
     }
 
@@ -43,6 +55,12 @@ def update_network_hostname_data(network_data_list, hostname_data):
             hostname_found = True
     if not hostname_found:
         network_data_list.append(hostname_data)
+
+
+def is_hostname_only_network_args(args):
+    return (len(args) == 1 and args[0].startswith("--hostname") or
+            len(args) == 2 and "--hostname" in args)
+
 
 def default_ks_vlan_interface_name(parent, vlanid):
     return "%s.%s" % (parent, vlanid)
