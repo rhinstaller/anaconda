@@ -18,10 +18,13 @@
 # Red Hat, Inc.
 #
 
+import copy
+
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network import ifcfg
 from pyanaconda.modules.network.nm_client import get_iface_from_connection
+from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 
 import gi
 gi.require_version("NM", "1.0")
@@ -41,65 +44,6 @@ supported_device_types = [
     NM.DeviceType.TEAM,
 ]
 
-# TODO provide DeviceConfiguration.to_dbus
-
-
-class DeviceConfiguration(object):
-    """Holds references to persistent configuration of a device.
-
-    Binds device name and NM connection (by its uuid). Device type is
-    additional information useful for clients.
-    """
-
-    def __init__(self, device_name=None, connection_uuid=None, device_type=None):
-        """Create DeviceConfiguration instance.
-
-        :param device_name: name of the device
-        :type device_name: str
-        :param connection_uuid: uuid of NetworkManager persistent connection
-        :type connection_uuid: str
-        :param device_type: type of device
-        :type device_type: NM.DeviceType
-        """
-        self.device_name = device_name
-        self.connection_uuid = connection_uuid
-        self.device_type = device_type
-
-    def get_ifcfg_path(self):
-        """Path to ifcfg file for the configuration.
-
-        return: ifcfg file path or None if it does not exist
-        rtype: str
-        """
-        if not self.connection_uuid:
-            return None
-        return ifcfg.find_ifcfg_file([("UUID", self.connection_uuid)])
-
-    def get_values(self):
-        """Dictionary representation of the configuration.
-
-        Should be used for signals and DBus API (as variant).
-
-        return: dictionary keyed by string describing the attribute
-        rtype: dict
-        """
-        return {"device-name": self.device_name,
-                "connection-uuid": self.connection_uuid,
-                "device-type": self.device_type}
-
-    def get_kickstart_network_data(self, network_data_class):
-        """Get kickstart data corresponding to the configuration."""
-        if self.device_type == NM.DeviceType.WIFI:
-            return None
-        ifcfg_path = self.get_ifcfg_path()
-        if ifcfg_path:
-            ifcfg_file = ifcfg.IfcfgFile(ifcfg_path)
-            ifcfg_file.read()
-            return ifcfg_file.get_kickstart_data(network_data_class)
-
-    def __repr__(self):
-        return "DeviceConfiguration(device_name={}, connection_uuid={}, device_type={})".format(
-            self.device_name, self.connection_uuid, self.device_type)
 
 
 class DeviceConfigurations(object):
@@ -113,7 +57,7 @@ class DeviceConfigurations(object):
     is the device. Connection uuid is not mandatory.
 
     For virtual devices there can be multiple configurations (persistent
-    connections). The devices exist only when activated, the connection uuid :w
+    connections). The devices exist only when activated, the connection uuid
     is mandatory persistent element of the configuration.
 
     signals:
@@ -168,12 +112,16 @@ class DeviceConfigurations(object):
                     log.debug("%s", e)
 
     def add(self, device_name=None, connection_uuid=None, device_type=None):
-        """Add a new DeviceConfiguration."""
-        new_dev_cfg = DeviceConfiguration(device_name,
-                                          connection_uuid,
-                                          device_type)
+        """Add a new NetworkDeviceConfiguration."""
+        new_dev_cfg = NetworkDeviceConfiguration()
+        if device_name is not None:
+            new_dev_cfg.device_name = device_name
+        if connection_uuid is not None:
+            new_dev_cfg.connection_uuid = connection_uuid
+        if device_type is not None:
+            new_dev_cfg.device_type = device_type
         self._device_configurations.append(new_dev_cfg)
-        self.configuration_changed.emit({}, new_dev_cfg.get_values())
+        self.configuration_changed.emit(NetworkDeviceConfiguration(), new_dev_cfg)
 
     def add_device(self, device):
         """Add or update configuration for libnm network device object.
@@ -259,10 +207,10 @@ class DeviceConfigurations(object):
         existing_cfgs = self.get_for_uuid(connection_uuid)
         if connection_uuid and existing_cfgs:
             # If we already have a connection for the device it is a virtual device appearing
-            old_values = existing_cfgs[0].get_values()
-            existing_cfgs[0].device_name = iface
-            new_values = existing_cfgs[0].get_values()
-            self.configuration_changed.emit(old_values, new_values)
+            updated_cfg = existing_cfgs[0]
+            old_cfg = copy.deepcopy(updated_cfg)
+            updated_cfg.device_name = iface
+            self.configuration_changed.emit(old_cfg, updated_cfg)
             log.debug("attached device %s to connection %s", iface, connection_uuid)
         else:
             self.add(device_name=iface, connection_uuid=connection_uuid,
@@ -355,10 +303,9 @@ class DeviceConfigurations(object):
                             uuid, cfg.connection_uuid, cfg.device_name)
                     return False
                 else:
-                    old_values = cfg.get_values()
+                    old_cfg = copy.deepcopy(cfg)
                     cfg.connection_uuid = uuid
-                    new_values = cfg.get_values()
-                    self.configuration_changed.emit(old_values, new_values)
+                    self.configuration_changed.emit(old_cfg, cfg)
                     log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
         else:
             self.add(connection_uuid=uuid, device_type=device_type)
@@ -398,15 +345,14 @@ class DeviceConfigurations(object):
         dev_cfgs = self.get_for_device(iface)
         for cfg in dev_cfgs:
             if cfg.connection_uuid:
-                old_values = cfg.get_values()
-                cfg.device_name = None
-                new_values = cfg.get_values()
-                self.configuration_changed.emit(old_values, new_values)
+                old_cfg = copy.deepcopy(cfg)
+                cfg.device_name = ""
+                self.configuration_changed.emit(old_cfg, cfg)
                 log.debug("device name %s removed from %s", iface, cfg)
             else:
-                values = cfg.get_values()
+                empty_cfg = NetworkDeviceConfiguration()
                 self._device_configurations.remove(cfg)
-                self.configuration_changed.emit(values, {})
+                self.configuration_changed.emit(cfg, empty_cfg)
                 log.debug("%s removed", cfg)
 
     def _connection_added_cb(self, client, connection):
@@ -421,15 +367,14 @@ class DeviceConfigurations(object):
         dev_cfgs = self.get_for_uuid(uuid)
         for cfg in dev_cfgs:
             if cfg.device_name:
-                old_values = cfg.get_values()
-                cfg.connection_uuid = None
-                new_values = cfg.get_values()
-                self.configuration_changed.emit(old_values, new_values)
+                old_cfg = copy.deepcopy(cfg)
+                cfg.connection_uuid = ""
+                self.configuration_changed.emit(old_cfg, cfg)
                 log.debug("connection uuid %s removed from %s", uuid, cfg)
             else:
-                values = cfg.get_values()
+                empty_cfg = NetworkDeviceConfiguration()
                 self._device_configurations.remove(cfg)
-                self.configuration_changed.emit(values, {})
+                self.configuration_changed.emit(cfg, empty_cfg)
                 log.debug("%s removed", cfg)
 
     def __str__(self):
@@ -445,7 +390,10 @@ class DeviceConfigurations(object):
     def get_kickstart_data(self, network_data_class):
         rv = []
         for i, cfg in enumerate(self._device_configurations or []):
-            network_data = cfg.get_kickstart_network_data(network_data_class)
+            network_data = None
+            if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
+                network_data = ifcfg.get_kickstart_network_data(cfg.connection_uuid,
+                                                                network_data_class)
             if not network_data:
                 log.debug("Device configuration %s does not generate any kickstart data", cfg)
                 continue

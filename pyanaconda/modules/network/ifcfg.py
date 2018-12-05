@@ -337,3 +337,14 @@ def get_slaves_from_ifcfgs(master_option, master_specs, root_path=""):
             if iface:
                 slaves.append((iface, ifcfg.get("UUID")))
     return slaves
+
+def get_kickstart_network_data(connection_uuid, network_data_class):
+    """Get kickstart data corresponding to connection_uuid.
+
+    Ifcfg file is used to get the data.
+    """
+    ifcfg_path = find_ifcfg_file([("UUID", connection_uuid)])
+    if ifcfg_path:
+        ifcfg_file = IfcfgFile(ifcfg_path)
+        ifcfg_file.read()
+        return ifcfg_file.get_kickstart_data(network_data_class)

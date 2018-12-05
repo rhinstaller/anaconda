@@ -23,6 +23,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
+from pyanaconda.dbus.structure import get_structure
 
 
 @dbus_interface(NETWORK.interface_name)
@@ -94,21 +95,11 @@ class NetworkInterface(KickstartModuleInterface):
     def CreateDeviceConfigurations(self):
         self.implementation.create_device_configurations()
 
-    def GetDeviceConfigurations(self) -> List[Dict[Str, Variant]]:
+    def GetDeviceConfigurations(self) -> List[Structure]:
         dev_cfgs = self.implementation.get_device_configurations()
-        return [device_configuration_to_dbus(dev_cfg) for dev_cfg in dev_cfgs]
+        return [get_structure(dev_cfg) for dev_cfg in dev_cfgs]
 
     @dbus_signal
-    def DeviceConfigurationChanged(self, changes: List[Tuple[Dict[Str, Variant], Dict[Str, Variant]]]):
+    def DeviceConfigurationChanged(self, changes: List[Tuple[Structure, Structure]]):
         """Signal change of network devices configurations."""
         pass
-
-
-def device_configuration_to_dbus(dev_cfg):
-    if not dev_cfg:
-        return {}
-    return {
-        "device-name": get_variant(Str, dev_cfg["device-name"] or ""),
-        "connection-uuid": get_variant(Str, dev_cfg["connection-uuid"] or ""),
-        "device-type": get_variant(Int, dev_cfg["device-type"])
-    }
