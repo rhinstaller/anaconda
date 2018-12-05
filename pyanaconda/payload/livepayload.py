@@ -48,7 +48,6 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
 
 from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.flags import flags
 from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
@@ -202,7 +201,7 @@ class LiveImagePayload(ImagePayload):
             util.execInSysroot("systemd-machine-id-setup", [])
 
         for kernel in self.kernelVersionList:
-            if flags.blscfg:
+            if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
                 log.info("Regenerating BLS info for %s", kernel)
                 util.execInSysroot("kernel-install", ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)])
 
