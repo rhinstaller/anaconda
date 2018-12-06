@@ -18,7 +18,7 @@
 # Red Hat, Inc.
 #
 
-from blivet import callbacks
+from blivet import callbacks, arch
 from blivet.devices import BTRFSDevice
 
 from pyanaconda.core.configuration.anaconda import conf
@@ -138,6 +138,11 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
         generate_initramfs.append(Task("Write BTRFS bootloader fix", writeBootLoader, (storage, payload, instClass, ksdata)))
+
+    # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
+    if arch.is_s390() and not conf.target.is_directory and bootloader_enabled:
+        generate_initramfs.append(Task("Rerun zipl", lambda: util.execInSysroot("zipl", [])))
+
     configuration_queue.append(generate_initramfs)
 
     # join a realm (if required)
