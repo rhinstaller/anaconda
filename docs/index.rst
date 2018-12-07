@@ -22,4 +22,5 @@ Contents:
    multipath
    list-harddrives
    User interaction config spec <user-interaction-config-file-spec>
+   Boot iso and live image creation <image-creation>
    Testing <testing>
