@@ -142,6 +142,8 @@ class AnacondaArgumentParser(ArgumentParser):
         :returns: argparse option object or None if no suitable option is found
         :rtype argparse option or None
         """
+        if arg == "version":  # skip option not supported from boot options
+            return None
         if self.bootarg_prefix and arg.startswith(self.bootarg_prefix):
             prefixed_option = True
             arg = arg[len(self.bootarg_prefix):]
