@@ -55,7 +55,6 @@ class Flags(object):
         self.askmethod = False
         self.eject = True
         self.extlinux = False
-        self.blscfg = True
         self.nombr = False
         self.leavebootorder = False
         # ksprompt is whether or not to prompt for missing ksdata

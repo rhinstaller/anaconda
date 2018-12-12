@@ -673,15 +673,6 @@ the newly installed drive on Power Systems servers and EFI systems. This is
 useful for systems that, for example, should network boot first before falling
 back to a local boot.
 
-.. inst.noblscfg:
-
-inst.noblscfg
-^^^^^^^^^^^^^
-
-Disable the use of the "BootLoader Spec" boot option configuration format with
-GRUB.
-
-
 Storage options
 ---------------
 

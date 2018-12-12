@@ -268,7 +268,7 @@ class BootLoader(object):
         self._update_only = False
         self.skip_bootloader = False
 
-        self.use_bls = flags.blscfg
+        self.use_bls = True
 
         self.errors = []
         self.warnings = []
