@@ -273,10 +273,7 @@ if __name__ == "__main__":
     setup_python_path()
 
     # init threading before Gtk can do anything and before we start using threads
-    # initThreading initializes the threadMgr instance, import it afterwards
-    from pyanaconda.threading import initThreading, AnacondaThread, threadMgr
-    initThreading()
-
+    from pyanaconda.threading import AnacondaThread, threadMgr
     from pyanaconda.core.i18n import _
 
     from pyanaconda.addons import collect_addon_paths
