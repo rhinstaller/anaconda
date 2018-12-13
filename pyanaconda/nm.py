@@ -456,19 +456,6 @@ def nm_device_type(name):
     """
     return nm_device_property(name, "DeviceType")
 
-def nm_device_carrier(name):
-    """Return whether physical carrier of device is found.
-       ('Carrier' property)
-
-       :param name: name of device
-       :type name: str
-       :return: True if physical carrier is found, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if 'Carrier' property is not found
-    """
-    return nm_device_property(name, "Carrier")
-
 def nm_device_ip_addresses(name, version=4):
     """Return IP addresses of device in ACTIVATED state.
 
@@ -1165,11 +1152,6 @@ def test():
         except ValueError as e:
             print("     %s" % e)
             hwaddr = ""
-
-        try:
-            print("     Carrier: %s" % nm_device_carrier(devname))
-        except ValueError as e:
-            print("     %s" % e)
 
         try:
             print("     IP4 config: %s" % nm_device_ip_config(devname))

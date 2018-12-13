@@ -122,34 +122,6 @@ class NetworkTests(unittest.TestCase):
 
         self.assertEqual(network.prefix2netmask(33), "255.255.255.255")
 
-    @patch("pyanaconda.network.flags.cmdline",
-           {"BOOTIF":"01-11-11-11-11-11-11"})
-    @patch("pyanaconda.nm.nm_device_valid_hwaddress")
-    @patch("pyanaconda.nm.nm_device_carrier",
-            lambda dev: dev == "eth1")
-    @patch("pyanaconda.nm.nm_devices",
-            lambda: ["eth0", "eth1"])
-    def nm_ks_spec_to_device_name_test(self, nm_hwaddr_mock):
-        def hwaddr_mock(dev):
-            h = {"eth0" : "00:00:00:00:00:00",
-                 "eth1" : "11:11:11:11:11:11"}
-            try:
-                mac = h[dev]
-            except KeyError:
-                raise ValueError
-            return mac
-
-        nm_hwaddr_mock.side_effect = hwaddr_mock
-        self.assertEqual(network.ks_spec_to_device_name("eth0"), "eth0")
-        self.assertEqual(network.ks_spec_to_device_name("eth1"), "eth1")
-        self.assertEqual(network.ks_spec_to_device_name("nonexisting"), "nonexisting")
-        self.assertEqual(network.ks_spec_to_device_name("link"), "eth1")
-        self.assertNotEqual(network.ks_spec_to_device_name("link"), "eth0")
-        self.assertEqual(network.ks_spec_to_device_name("00:00:00:00:00:00"), "eth0")
-        self.assertNotEqual(network.ks_spec_to_device_name("00:00:00:00:00:00"), "eth1")
-        self.assertEqual(network.ks_spec_to_device_name("bootif"), "eth1")
-        self.assertNotEqual(network.ks_spec_to_device_name("bootif"), "eth0")
-
     def nm_check_ip_address_test(self,):
         good_IPv4_tests = [
                 '1.2.3.4',

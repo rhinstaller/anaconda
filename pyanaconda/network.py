@@ -1166,56 +1166,6 @@ def copyDhclientConfFiles(destPath):
         dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
         copyFileToPath(dhclientfile, destPath)
 
-def ks_spec_to_device_name(ksspec=""):
-    """
-    Find the first network device which matches the kickstart specification.
-    Will not match derived types such as bonds and vlans.
-
-    :param ksspec: kickstart-specified device name
-    :returns: a string naming a physical device, or "" meaning none matched
-    :rtype: str
-
-    """
-    bootif_mac = ''
-    if ksspec == 'bootif' and "BOOTIF" in flags.cmdline:
-        bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
-    for dev in sorted(nm.nm_devices()):
-        # "eth0"
-        if ksspec == dev:
-            break
-        # "link" - match the first device which is plugged (has a carrier)
-        elif ksspec == 'link':
-            try:
-                link_up = nm.nm_device_carrier(dev)
-            except ValueError as e:
-                log.debug("ks_spec_to_device_name: %s", e)
-                continue
-            if link_up:
-                ksspec = dev
-                break
-        # "XX:XX:XX:XX:XX:XX" (mac address)
-        elif ':' in ksspec:
-            try:
-                hwaddr = nm.nm_device_valid_hwaddress(dev)
-            except ValueError as e:
-                log.debug("ks_spec_to_device_name: %s", e)
-                continue
-            if ksspec.lower() == hwaddr.lower():
-                ksspec = dev
-                break
-        # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
-        elif ksspec == 'bootif':
-            try:
-                hwaddr = nm.nm_device_valid_hwaddress(dev)
-            except ValueError as e:
-                log.debug("ks_spec_to_device_name: %s", e)
-                continue
-            if bootif_mac.lower() == hwaddr.lower():
-                ksspec = dev
-                break
-
-    return ksspec
-
 # TODO MOD remove, call module when can_touch_runtime_system is resolved
 def set_hostname(hn):
     if conf.system.can_change_hostname:
@@ -1318,73 +1268,6 @@ def update_hostname_data(ksdata, hostname):
     network_proxy = NETWORK.get_proxy()
     network_proxy.SetHostname(hostname)
 
-def get_device_name(network_data):
-    """
-    Find the first network device which matches the kickstart specification.
-
-    :param network_data: A pykickstart NetworkData object
-    :returns: a string naming a physical device, or "" meaning none matched
-    :rtype: str
-    """
-    ksspec = network_data.device or ""
-    dev_name = ks_spec_to_device_name(ksspec)
-    if not dev_name:
-        return ""
-    if dev_name not in nm.nm_devices():
-        if not any((network_data.vlanid, network_data.bondslaves, network_data.teamslaves, network_data.bridgeslaves)):
-            return ""
-    if network_data.vlanid:
-        network_data.parent = dev_name
-        dev_name = network_data.interfacename or default_ks_vlan_interface_name(network_data.parent, network_data.vlanid)
-
-    return dev_name
-
-def setOnboot(ksdata):
-    updated_devices = []
-    for network_data in ksdata.network.network:
-
-        devname = get_device_name(network_data)
-        if not devname:
-            log.warning("set ONBOOT: --device %s does not exist", network_data.device)
-            continue
-
-        devices_to_update = [devname]
-        master = devname
-        # When defining both bond/team and vlan in one command we need more care
-        # network --onboot yes --device bond0 --bootproto static --bondslaves ens9,ens10
-        # --bondopts mode=active-backup,miimon=100,primary=ens9,fail_over_mac=2
-        # --ip 192.168.111.1 --netmask 255.255.255.0 --gateway 192.168.111.222 --noipv6
-        # --vlanid 222 --no-activate
-        if network_data.vlanid and (network_data.bondslaves or network_data.teamslaves):
-            master = network_data.device
-            devices_to_update.append(master)
-
-        for devname in devices_to_update:
-            if network_data.onboot:
-                # We need to handle "no" -> "yes" change by changing ifcfg file instead of the NM connection
-                # so the device does not get autoactivated (BZ #1261864)
-                if not update_onboot_value(devname, network_data.onboot, root_path=""):
-                    continue
-            else:
-                try:
-                    nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
-                    log.debug("setting ONBOOT value of %s to %s", devname, network_data.onboot)
-                except (nm.SettingsNotFoundError, nm.UnknownDeviceError) as e:
-                    log.debug("setOnboot: %s", e)
-                    continue
-                except nm.MultipleSettingsFoundError:
-                    # In case of multiple connections for a device, update ifcfg directly
-                    if not update_onboot_value(devname, network_data.onboot, root_path=""):
-                        continue
-
-            updated_devices.append(devname)
-
-        if network_data.bondslaves or network_data.teamslaves or network_data.bridgeslaves:
-            updated_slaves = update_slaves_onboot_value(master, network_data.onboot)
-            updated_devices.extend(updated_slaves)
-
-    return updated_devices
-
 def networkInitialize(ksdata):
     if not conf.system.can_configure_network:
         return
@@ -1416,7 +1299,7 @@ def networkInitialize(ksdata):
     # in dracut to get devices activated by NM. The real network --onboot
     # value is set here.
     log.debug("set real ONBOOT value")
-    devnames = setOnboot(ksdata)
+    devnames = network_proxy.SetRealOnbootValuesFromKickstart()
     if devnames:
         msg = "real kickstart ONBOOT value set for devices %s" % devnames
         log.debug("%s", msg)
@@ -1623,48 +1506,6 @@ def default_ks_vlan_interface_name(parent, vlanid):
 def _update_vlan_interfacename_ksdata(devname, ndata):
     if devname != default_ks_vlan_interface_name(ndata.device, ndata.vlanid):
         ndata.interfacename = devname
-
-def update_slaves_onboot_value(devname, value):
-    """Update onboot value in ifcfg files of device slaves
-
-    :param devname: name of device
-    :type devname: str
-    :param value: value of onboot setting
-    :type value: bool
-    :returns: list of names of updated connections
-    :rtype: list of strings
-
-    """
-    retval = []
-    if value:
-        ifcfg_value = 'yes'
-    else:
-        ifcfg_value = 'no'
-
-    # Master can be identified by devname or uuid, find master uuid
-    try:
-        uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
-    except nm.UnknownDeviceError:
-        # Until activated, the device does not exist, so look in its ifcfg file
-        uuid = find_ifcfg_uuid_of_device(devname)
-        if not uuid:
-            return retval
-    except nm.MultipleSettingsFoundError as e:
-        uuid = None
-        log.debug("%s when updating onboot value of slave %s", e, devname)
-
-    # Find and update ifcfg files of slaves
-    for filepath in _ifcfg_files(netscriptsDir):
-        ifcfg = IfcfgFile(filepath)
-        ifcfg.read()
-        master = ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER") or ifcfg.get("BRIDGE")
-        if master in (devname, uuid):
-            ifcfg.set(('ONBOOT', ifcfg_value))
-            ifcfg.write()
-            log.debug("setting ONBOOT value of slave %s to %s", filepath, value)
-            retval.append(ifcfg.get("NAME"))
-
-    return retval
 
 def update_onboot_value(devname, value, ksdata=None, root_path=None):
     """Update onboot value in ifcfg files and optionally ksdata
