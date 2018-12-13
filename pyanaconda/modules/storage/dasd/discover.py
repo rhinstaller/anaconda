@@ -60,11 +60,6 @@ class DASDDiscoverTask(Task):
         """Discover the device."""
         # pylint: disable=try-except-raise
         try:
-            online = blockdev.s390.dasd_online(self._device_number)
+            blockdev.s390.dasd_online(self._device_number)
         except blockdev.S390Error as e:
             raise StorageDiscoveryError(str(e))
-
-        if not online:
-            raise StorageDiscoveryError(
-                "The device could not be switched online. It may not exist."
-            )
