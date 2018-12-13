@@ -27,28 +27,6 @@ class NetworkTests(unittest.TestCase):
         self.assertEqual(network.default_ks_vlan_interface_name("em1", "171"),
                          "em1.171")
 
-    def bond_options_ksdata_to_dbus_test(self):
-        cases = [("mode=802.3ad,miimon=100,xmit_hash_policy=layer2+3,lacp_rate=fast",
-                  {"mode":"802.3ad",
-                     "miimon":"100",
-                     "xmit_hash_policy":"layer2+3",
-                     "lacp_rate":"fast"}),
-                 ("mode=balance-alb,arp_interval=100,arp_ip_target=192.168.122.1",
-                  {"mode":"balance-alb",
-                   "arp_interval":"100",
-                   "arp_ip_target":"192.168.122.1"}),
-                 ("mode=active-backup,primary=eth1,miimon=100,fail_over_mac=2",
-                  {"mode":"active-backup",
-                   "primary":"eth1",
-                   "miimon":"100",
-                   "fail_over_mac":"2"}),
-                 ("option1=value1,value2;option2=value3",
-                  {"option1":"value1,value2",
-                   "option2":"value3"}),
-                ]
-        for bondopts, dbus_dict in cases:
-            self.assertEqual(network.bond_options_ksdata_to_dbus(bondopts), dbus_dict)
-
     def sanityCheckHostname_test(self):
 
         self.assertFalse(network.sanityCheckHostname("")[0])

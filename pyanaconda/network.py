@@ -31,9 +31,7 @@ import threading
 import re
 import dbus
 import ipaddress
-from uuid import uuid4
 import itertools
-import glob
 import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -268,50 +266,6 @@ class IfcfgFile(SimpleConfigFile):
         ifcfglog.debug("IfcfgFile.unset %s: %s", self.filename, args)
         SimpleConfigFile.unset(self, *args)
 
-def dumpMissingDefaultIfcfgs():
-    """
-    Dump missing default ifcfg file for wired devices.
-    For default auto connections created by NM upon start - which happens
-    in case of missing ifcfg file - rename the connection using device name
-    and dump its ifcfg file. (For server, default auto connections will
-    be turned off in NetworkManager.conf.)
-    The connection id (and consequently ifcfg file) is set to device name.
-
-    :return: list of devices for which ifcfg file was dumped.
-    """
-    rv = []
-
-    for devname in nm.nm_devices():
-        if not device_type_is_supported_wired(devname):
-            continue
-
-        if find_ifcfg_file_of_device(devname):
-            continue
-        try:
-            uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
-        except nm.SettingsNotFoundError:
-            from pyanaconda.kickstart import AnacondaKSHandler
-            handler = AnacondaKSHandler()
-            # pylint: disable=E1101
-            network_data = handler.NetworkData(onboot=False, ipv6="auto")
-            add_connection_for_ksdata(network_data, devname)
-            rv.append(devname)
-            log.debug("network: creating default ifcfg file for %s", devname)
-            continue
-        except nm.MultipleSettingsFoundError as e:
-            if not nm.nm_device_is_slave(devname):
-                log.debug("%s while checking missing ifcfgs, device %s", e, devname)
-            continue
-        nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
-        nm.nm_update_settings_of_device(devname, [['connection', 'interface-name', devname, None]])
-        if not _bound_hwaddr_of_device(devname):
-            nm.nm_update_settings_of_device(devname, [['802-3-ethernet', 'mac-address', [], None]])
-
-        log.debug("dumping ifcfg file for %s from default autoconnection %s", devname, uuid)
-        rv.append(devname)
-
-    return rv
-
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
 
@@ -515,228 +469,6 @@ def update_settings_with_ksdata(devname, networkdata):
         new_values.append(['connection', 'interface-name', None, 's'])
     nm.nm_update_settings(uuid, new_values)
     return uuid
-
-def bond_options_ksdata_to_dbus(opts_str):
-    retval = {}
-    for option in opts_str.split(";" if ';' in opts_str else ","):
-        key, _sep, value = option.partition("=")
-        retval[key] = value
-    return retval
-
-def add_connection_for_ksdata(networkdata, devname):
-
-    added_connections = []
-    con_uuid = str(uuid4())
-    values = _get_ip_setting_values_from_ksdata(networkdata)
-    # HACK preventing NM to autoactivate the connection
-    # The real network --onboot value (ifcfg ONBOOT) will be set later by setOnboot
-    #values.append(['connection', 'autoconnect', networkdata.onboot, 'b'])
-    values.append(['connection', 'autoconnect', False, 'b'])
-    values.append(['connection', 'uuid', con_uuid, 's'])
-
-    # type "bond"
-    if networkdata.bondslaves:
-        # bond connection is autoactivated
-        values.append(['connection', 'type', 'bond', 's'])
-        values.append(['connection', 'id', devname, 's'])
-        values.append(['bond', 'interface-name', devname, 's'])
-        options = bond_options_ksdata_to_dbus(networkdata.bondopts)
-        values.append(['bond', 'options', options, 'a{ss}'])
-        for i, slave in enumerate(networkdata.bondslaves.split(","), 1):
-            suuid = _add_slave_connection('bond', i, slave, devname,
-                                          networkdata.activate,
-                                          bindto=networkdata.bindto)
-            added_connections.append((suuid, slave))
-        dev_spec = None
-    # type "team"
-    elif networkdata.teamslaves:
-        values.append(['connection', 'type', 'team', 's'])
-        values.append(['connection', 'id', devname, 's'])
-        values.append(['team', 'interface-name', devname, 's'])
-        values.append(['team', 'config', networkdata.teamconfig, 's'])
-        for i, (slave, cfg) in enumerate(networkdata.teamslaves, 1):
-            svalues = [['team-port', 'config', cfg, 's']]
-            suuid = _add_slave_connection('team', i, slave, devname,
-                                          networkdata.activate,
-                                          values=svalues,
-                                          bindto=networkdata.bindto)
-            added_connections.append((suuid, slave))
-        dev_spec = None
-    # type "vlan"
-    elif networkdata.vlanid:
-        values.append(['vlan', 'parent', networkdata.parent, 's'])
-        values.append(['connection', 'type', 'vlan', 's'])
-        values.append(['connection', 'id', devname, 's'])
-        values.append(['vlan', 'interface-name', devname, 's'])
-        values.append(['vlan', 'id', int(networkdata.vlanid), 'u'])
-        dev_spec = None
-    # type "bridge"
-    elif networkdata.bridgeslaves:
-        # bridge connection is autoactivated
-        values.append(['connection', 'type', 'bridge', 's'])
-        values.append(['connection', 'id', devname, 's'])
-        values.append(['bridge', 'interface-name', devname, 's'])
-        for opt in networkdata.bridgeopts.split(","):
-            key, _sep, value = opt.partition("=")
-            if key == "stp":
-                if value == "yes":
-                    values.append(['bridge', key, True, 'b'])
-                elif value == "no":
-                    values.append(['bridge', key, False, 'b'])
-                continue
-            try:
-                value = int(value)
-            except ValueError:
-                log.error("Invalid bridge option %s", opt)
-                continue
-            values.append(['bridge', key, int(value), 'u'])
-        for i, slave in enumerate(networkdata.bridgeslaves.split(","), 1):
-            suuid = _add_slave_connection('bridge', i, slave, devname,
-                                          networkdata.activate,
-                                          bindto=networkdata.bindto)
-            added_connections.append((suuid, slave))
-        dev_spec = None
-    # type "infiniband"
-    elif nm.nm_device_type_is_infiniband(devname):
-        values.append(['infiniband', 'transport-mode', 'datagram', 's'])
-        values.append(['connection', 'type', 'infiniband', 's'])
-        values.append(['connection', 'id', devname, 's'])
-        values.append(['connection', 'interface-name', devname, 's'])
-
-        dev_spec = None
-    # type "802-3-ethernet"
-    else:
-        mac = _bound_hwaddr_of_device(devname)
-        if mac:
-            mac = [int(b, 16) for b in mac.split(":")]
-            values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
-            values.append(['connection', 'interface-name', devname, 's'])
-        else:
-            values.append(connection_binding_setting(devname, networkdata.bindto))
-        values.append(['connection', 'type', '802-3-ethernet', 's'])
-        values.append(['connection', 'id', devname, 's'])
-
-        if blivet.arch.is_s390():
-            # Add s390 settings
-            s390cfg = _get_s390_settings(devname)
-            if s390cfg['SUBCHANNELS']:
-                subchannels = s390cfg['SUBCHANNELS'].split(",")
-                values.append(['802-3-ethernet', 's390-subchannels', subchannels, 'as'])
-            if s390cfg['NETTYPE']:
-                values.append(['802-3-ethernet', 's390-nettype', s390cfg['NETTYPE'], 's'])
-            if s390cfg['OPTIONS']:
-                opts = s390cfg['OPTIONS'].split(" ")
-                opts_dict = {k: v for k, v in (o.split("=") for o in opts)}
-                values.append(['802-3-ethernet', 's390-options', opts_dict, 'a{ss}'])
-
-        dev_spec = devname
-
-    try:
-        nm.nm_add_connection(values)
-    except nm.BondOptionsError as e:
-        log.error(e)
-        return []
-    added_connections.insert(0, (con_uuid, dev_spec))
-    return added_connections
-
-def connection_binding_setting(devname, bindto):
-    if bindto == BIND_TO_MAC:
-        hwaddr = nm.nm_device_perm_hwaddress(devname)
-        hwaddr = [int(b, 16) for b in hwaddr.split(":")]
-        setting = ['802-3-ethernet', 'mac-address', hwaddr, 'ay']
-    else:
-        setting = ['connection', 'interface-name', devname, 's']
-    return setting
-
-def _bound_hwaddr_of_device(devname):
-    """Return hwaddr of the device if it's bound by ifname= dracut boot option
-
-    For example ifname=ens3:f4:ce:46:2c:44:7a should bind the device name ens3
-    to the MAC address (and rename the device in initramfs eventually).  If
-    hwaddress of the device devname is the same as the MAC address, its value
-    is returned.
-
-    :param devname: device name
-    :type devname: str
-    :return: hwaddress of the device if bound, or None
-    :rtype: str or None
-
-    """
-    ifname_values = flags.cmdline.get("ifname", "").split()
-    for ifname in ifname_values:
-        dev, mac = ifname.split(":", 1)
-        if dev == devname:
-            try:
-                hwaddr = nm.nm_device_perm_hwaddress(devname)
-            except nm.PropertyNotFoundError:
-                continue
-            else:
-                if mac.upper() == hwaddr.upper():
-                    return hwaddr.upper()
-                else:
-                    log.warning("ifname=%s does not match device's hwaddr %s", ifname, hwaddr)
-    return None
-
-# We duplicate this in dracut/parse-kickstart
-def _get_s390_settings(devname):
-    cfg = {
-        'SUBCHANNELS': '',
-        'NETTYPE': '',
-        'OPTIONS': ''
-    }
-
-    subchannels = []
-    for symlink in sorted(glob.glob("/sys/class/net/%s/device/cdev[0-9]*" % devname)):
-        subchannels.append(os.path.basename(os.readlink(symlink)))
-    if not subchannels:
-        return cfg
-    cfg['SUBCHANNELS'] = ','.join(subchannels)
-
-    ## cat /etc/ccw.conf
-    #qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
-    #
-    #SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
-    #NETTYPE="qeth"
-    #OPTIONS="layer2=1 portname=FOOBAR portno=0"
-    if not os.path.exists('/run/install/ccw.conf'):
-        return cfg
-    with open('/run/install/ccw.conf') as f:
-        # pylint: disable=redefined-outer-name
-        for line in f:
-            if cfg['SUBCHANNELS'] in line:
-                items = line.strip().split(',')
-                cfg['NETTYPE'] = items[0]
-                cfg['OPTIONS'] = " ".join(i for i in items[1:] if '=' in i)
-                break
-
-    return cfg
-
-def _add_slave_connection(slave_type, slave_idx, slave, master, activate, values=None, bindto=None):
-    values = values or []
-    slave_name = "%s slave %d" % (master, slave_idx)
-
-    suuid = str(uuid4())
-    # assume ethernet, TODO: infiniband, wifi, vlan
-    values.append(['connection', 'uuid', suuid, 's'])
-    values.append(['connection', 'id', slave_name, 's'])
-    values.append(['connection', 'slave-type', slave_type, 's'])
-    values.append(['connection', 'master', master, 's'])
-    values.append(['connection', 'type', '802-3-ethernet', 's'])
-    values.append(connection_binding_setting(slave, bindto))
-    # HACK preventing NM to autoactivate the connection
-    # The real network --onboot value (ifcfg ONBOOT) will be set later by setOnboot
-    values.append(['connection', 'autoconnect', False, 'b'])
-
-    # disconnect slaves
-    if activate:
-        try:
-            nm.nm_disconnect_device(slave)
-        except nm.DeviceNotActiveError:
-            pass
-
-    nm.nm_add_connection(values)
-
-    return suuid
 
 def ksdata_from_ifcfg(devname, uuid=None):
 
@@ -1289,7 +1021,7 @@ def networkInitialize(ksdata):
         log.debug("%s", msg)
         logIfcfgFiles(msg)
     log.debug("create missing ifcfg files")
-    devnames = dumpMissingDefaultIfcfgs()
+    devnames = network_proxy.DumpMissingIfcfgFiles()
     if devnames:
         msg = "missing ifcfgs created for devices %s" % devnames
         log.debug("%s", msg)

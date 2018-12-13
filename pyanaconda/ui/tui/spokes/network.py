@@ -79,7 +79,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _load_new_devices(self):
         devices = nm.nm_devices()
-        intf_dumped = network.dumpMissingDefaultIfcfgs()
+        intf_dumped = self._network_module.proxy.DumpMissingIfcfgFiles()
         if intf_dumped:
             log.debug("dumped interfaces: %s", intf_dumped)
 
