@@ -47,7 +47,7 @@ from pyanaconda.core import util
 from pyanaconda import isys
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
-from pyanaconda.image import opticalInstallMedia, verifyMedia
+from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_installtree
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
@@ -1133,7 +1133,17 @@ class PackagePayload(Payload):
     def _setupMedia(self, device):
         method = self.data.method
         if method.method == "harddrive":
-            method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
+            try:
+                method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
+            except PayloadSetupError as ex:
+                log.debug(str(ex))
+
+                try:
+                    self._setup_install_tree(device, method.dir, INSTALL_TREE)
+                except PayloadSetupError as ex:
+                    log.debug(str(ex))
+                    raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
+
         # Check to see if the device is already mounted, in which case
         # we don't need to mount it again
         elif method.method == "cdrom" and blivet.util.get_mount_paths(device.path):
@@ -1175,12 +1185,20 @@ class PackagePayload(Payload):
             result_path = os.path.normpath("%s/%s" % (iso_path,
                                                       os.path.basename(image)))
             while result_path.startswith("/"):
-                # riduculous
+                # ridiculous
                 result_path = result_path[1:]
 
             return result_path
 
         return iso_path
+
+    def _setup_install_tree(self, device, install_tree_path, device_mount_dir):
+        self._setupDevice(device, mountpoint=device_mount_dir)
+        path = os.path.normpath("%s/%s" % (device_mount_dir, install_tree_path))
+
+        if not verify_valid_installtree(path):
+            device.teardown(recursive=True)
+            raise PayloadSetupError("failed to find valid installation tree")
 
     def _setupInstallDevice(self, storage, checkmount):
         # XXX FIXME: does this need to handle whatever was set up by dracut?
@@ -1357,6 +1375,7 @@ class PackagePayload(Payload):
     def _setup_cdrom_device(self, storage, method, isodev, device):
         url = None
 
+        # FIXME: We really should not talk about NFS here - regression from re-factorization?
         # Did dracut leave the DVD or NFS mounted for us?
         device = blivet.util.get_mount_device(DRACUT_REPODIR)
 

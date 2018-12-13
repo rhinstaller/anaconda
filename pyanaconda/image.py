@@ -116,6 +116,22 @@ def findFirstIsoImage(path):
     return None
 
 
+def verify_valid_installtree(path):
+    """Check if the given path is a valid installtree repository
+
+    :param str path: install tree path
+    :returns: True if repository is valid false otherwise
+    :rtype: bool
+    """
+    # TODO: This can be enhanced to check for repodata folder.
+    if os.path.exists(os.path.join(path, ".treeinfo")):
+        return True
+    elif os.path.exists(os.path.join(path, "treeinfo")):
+        return True
+
+    return False
+
+
 def _check_repodata(mount_path):
     install_tree_meta = InstallTreeMetadata()
     if not install_tree_meta.load_file(mount_path):
