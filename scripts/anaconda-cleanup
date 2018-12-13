@@ -63,7 +63,9 @@ for mounted in reversed(open("/proc/mounts").readlines()):
         continue
 
     # Always clean up anaconda's mountpoints.
-    if mountpoint.startswith("/mnt/sysimage") or mountpoint.startswith("/mnt/install"):
+    if mountpoint.startswith("/mnt/sysimage") \
+            or mountpoint.startswith("/mnt/install") \
+            or mountpoint.startswith("/run/install"):
         os.system("umount %s" % mountpoint)
 
     # If this is for a live install, unmount any non-nodev filesystem that
