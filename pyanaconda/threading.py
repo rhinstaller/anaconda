@@ -44,10 +44,6 @@ class ThreadManager(object):
         self._objs_lock = threading.RLock()
         self._errors = {}
         self._errors_lock = threading.RLock()
-        self._main_thread = threading.main_thread()
-
-    def set_current_thread_as_main(self):
-        self._main_thread = threading.current_thread()
 
     def __call__(self):
         return self
@@ -176,9 +172,7 @@ class ThreadManager(object):
 
     def in_main_thread(self):
         """Return True if it is run in the main thread."""
-
-        cur_thread = threading.current_thread()
-        return cur_thread is self._main_thread
+        return threading.current_thread() is threading.main_thread()
 
     @property
     def running(self):
@@ -291,15 +285,6 @@ class AnacondaThread(threading.Thread):
         finally:
             threadMgr.remove(self.name)
             self._target_stopped()
-
-
-def initThreading():
-    """Set up threading for anaconda's use. This method must be called before
-       any GTK or threading code is called, or else threads will only run when
-       an event is triggered in the GTK main loop. And IT HAS TO BE CALLED IN
-       THE MAIN THREAD.
-    """
-    threadMgr.set_current_thread_as_main()
 
 
 threadMgr = ThreadManager()
