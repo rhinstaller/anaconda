@@ -612,9 +612,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.needs_waiver = True
 
         # This shortcut is done to make it possible for the user to leave the spoke
-        # without inputting any root password. Separate logic makes sure an
+        # without inputting anything. Separate logic makes sure an
         # empty string is not unexpectedly set as the user password.
-        if self.checker.success:
+        if not self.username and not self.password and not self.password_confirmation:
+            self.can_go_back = True
+            self.needs_waiver = False
+        elif self.checker.success:
             # if all checks were successful we can always go back to the hub
             self.can_go_back = True
             self.needs_waiver = False
