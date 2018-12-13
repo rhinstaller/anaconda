@@ -147,6 +147,9 @@ class Anaconda(object):
             elif self.ksdata.method.method == "liveimg":
                 from pyanaconda.payload.livepayload import LiveImageKSPayload
                 klass = LiveImageKSPayload
+            elif self.opts.skippackages:
+                from pyanaconda.payload.nullpayload import NullPayload
+                klass = NullPayload
             else:
                 from pyanaconda.payload.dnfpayload import DNFPayload
                 klass = DNFPayload

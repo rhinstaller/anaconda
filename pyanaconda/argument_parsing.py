@@ -463,6 +463,8 @@ def getArgumentParser(version_string, boot_cmdline=None):
                     help=help_parser.help_text("noverifyssl"))
     ap.add_argument("--liveinst", action="store_true", default=False,
                     help=help_parser.help_text("liveinst"))
+    ap.add_argument("--skippackages", dest="skippackages", action="store_true", default=False,
+                    help=help_parser.help_text("skippackages"))
 
     # Display
     ap.add_argument("--resolution", dest="runres", default=None, metavar="WIDTHxHEIGHT",

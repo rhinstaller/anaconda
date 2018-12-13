@@ -86,6 +86,9 @@ additional kickstart repos (where --noverifyssl can be set per repo).
 liveinst
 Run in live installation mode.
 
+skippackages
+Skip package installation. Only valid with --dirinstall.
+
 resolution
 Run GUI installer in the resolution specified, "1024x768" for example.
 
