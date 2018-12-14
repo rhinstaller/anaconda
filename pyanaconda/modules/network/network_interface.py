@@ -92,6 +92,33 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.is_connecting()
 
+    @property
+    def DisableIPv6(self) -> Bool:
+        """Disable IPv6 on target system."""
+        return self.implementation.disable_ipv6
+
+    @emits_properties_changed
+    def SetDisableIPv6(self, disable: Bool):
+        """Set disable IPv6 on target system.
+
+        Disables IPv6 on target system if all the network devices have IPv6
+        configuration set to Ignore (kickstart option --noipv6).
+
+        param disable: True if IPv6 on target system should be disabled
+        """
+        self.implementation.set_disable_ipv6(disable)
+
+    def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
+        """Install network with an installation task.
+
+        :param sysroot: a path to the root of the installed system
+        :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
+        FIXME: does overwrite still apply?
+        :param overwrite: overwrite existing configuration
+        :return: a DBus path of an installation task
+        """
+        return self.implementation.install_network_with_task(sysroot, onboot_ifaces, overwrite)
+
     def CreateDeviceConfigurations(self):
         self.implementation.create_device_configurations()
 

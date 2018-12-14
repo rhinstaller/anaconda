@@ -21,6 +21,11 @@
 import os
 import glob
 
+from pyanaconda.core import util
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 # TODO use anaconda.core
 def is_s390():
     return os.uname()[4].startswith('s390')
@@ -84,3 +89,24 @@ def netmask2prefix(netmask):
         prefix += 1
 
     return prefix
+
+def get_default_route_iface(family="inet"):
+    """Get the device having default route.
+
+    :return: the name of the network device having default route
+    """
+    routes = util.execWithCapture("ip", ["-f", family, "route", "show"])
+    if not routes:
+        log.debug("Could not get default %s route device", family)
+        return None
+
+    for line in routes.split("\n"):
+        if line.startswith("default"):
+            parts = line.split()
+            if len(parts) >= 5 and parts[3] == "dev":
+                return parts[4]
+            else:
+                log.debug("Could not parse default %s route device", family)
+                return None
+
+    return None

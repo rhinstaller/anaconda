@@ -626,3 +626,21 @@ def update_iface_setting_values(iface, new_values):
                   iface, setting_name, setting_property, value)
     con.commit_changes(True, None)
     return n_cons
+
+def devices_ignore_ipv6(device_types):
+    """All connections of devices of given type ignore ipv6."""
+    device_types = device_types or []
+    for device in nm_client.get_devices():
+        if device.get_device_type() in device_types:
+            cons = device.get_available_connections()
+            for con in cons:
+                s_ipv6 = con.get_setting_ipv6_config()
+                if s_ipv6 and s_ipv6.method() != NM.SETTING_IP6_CONFIG_METHOD_IGNORE:
+                    return False
+    return True
+
+def get_first_iface_with_link(device_types):
+    for device in nm_client.get_devices():
+        if device.get_device_type() in device_types and device.get_carrier():
+            return device.get_iface()
+    return None

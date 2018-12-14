@@ -1412,7 +1412,19 @@ class Network(COMMANDS.Network):
             self.packages = ["teamd"]
 
     def execute(self, storage, payload, ksdata):
-        network.write_network_config(storage, payload, ksdata, util.getSysroot())
+        fcoe_ifaces = network.devices_used_by_fcoe(storage)
+        overwrite = network.can_overwrite_configuration(payload)
+        network_proxy = NETWORK.get_proxy()
+        task_path = network_proxy.InstallNetworkWithTask(util.getSysroot(),
+                                                         fcoe_ifaces,
+                                                         overwrite)
+        task_proxy = NETWORK.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+        hostname = network_proxy.Hostname
+        if hostname != network.DEFAULT_HOSTNAME:
+            network.set_hostname(hostname)
+
 
 class Nvdimm(COMMANDS.Nvdimm):
     def parse(self, args):

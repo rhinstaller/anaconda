@@ -43,7 +43,6 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.configuration.network import NetworkOnBoot
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.payload.livepayload import LiveImagePayload
@@ -869,6 +868,7 @@ def default_route_device(family="inet"):
 
     return None
 
+# TODO remove
 def copyFileToPath(fileName, destPath='', overwrite=False):
     if not os.path.isfile(fileName):
         return False
@@ -880,23 +880,6 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     shutil.copy(fileName, destfile)
     return True
 
-# /etc/sysconfig/network-scripts/ifcfg-*
-# /etc/sysconfig/network-scripts/keys-*
-# static routes
-# /etc/sysconfig/network-scripts/route-*
-def copyIfcfgFiles(destPath):
-    files = os.listdir(netscriptsDir)
-    for cfgFile in files:
-        if cfgFile.startswith(("ifcfg-", "keys-", "route-")):
-            srcfile = os.path.join(netscriptsDir, cfgFile)
-            copyFileToPath(srcfile, destPath)
-
-# /etc/dhcp/dhclient-DEVICE.conf
-# TODORV: do we really don't want overwrite on live cd?
-def copyDhclientConfFiles(destPath):
-    for devName in nm.nm_devices():
-        dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
-        copyFileToPath(dhclientfile, destPath)
 
 # TODO MOD remove, call module when can_touch_runtime_system is resolved
 def set_hostname(hn):
@@ -905,87 +888,11 @@ def set_hostname(hn):
         network_proxy = NETWORK.get_proxy()
         network_proxy.SetCurrentHostname(hn)
 
-def write_hostname(rootpath, hostname, overwrite=False):
-    cfgfile = os.path.normpath(rootpath + hostnameFile)
-    if (os.path.isfile(cfgfile) and not overwrite):
-        return False
 
-    f = open(cfgfile, "w")
-    f.write("%s\n" % hostname)
-    f.close()
-
-    return True
-
-def disable_ipv6_on_target_system(rootpath):
-    """Disable ipv6 if noipv6 boot option is set and all ethernet devices ignore ipv6"""
-    if 'noipv6' in flags.cmdline:
-        for devname in nm.nm_devices():
-            if nm.nm_device_type_is_ethernet(devname):
-                try:
-                    ipv6_method = nm.nm_device_setting_value(devname, "ipv6", "method")
-                except nm.MultipleSettingsFoundError as e:
-                    log.debug("%s when getting ipv6 method of %s", e, devname)
-                    ipv6_method = None
-                if ipv6_method != "ignore":
-                    return
-        log.info('disabling ipv6 on target system')
-        cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
-        with open(cfgfile, "a") as f:
-            f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
-            f.write("net.ipv6.conf.all.disable_ipv6=1\n")
-            f.write("net.ipv6.conf.default.disable_ipv6=1\n")
-
-# sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
-def autostartFCoEDevices(rootpath, storage, ksdata):
-    for devname in nm.nm_devices():
-        if usedByFCoE(devname, storage):
-            ifcfg_path = find_ifcfg_file_of_device(devname, root_path=rootpath)
-            if not ifcfg_path:
-                log.warning("autoconnectFCoEDevices: ifcfg file for %s not found", devname)
-                continue
-
-            ifcfg = IfcfgFile(ifcfg_path)
-            ifcfg.read()
-            ifcfg.set(('ONBOOT', 'yes'))
-            ifcfg.write()
-            log.debug("setting ONBOOT=yes for network device %s used by fcoe", devname)
-            for nd in ksdata.network.network:
-                if nd.device == devname:
-                    nd.onboot = True
-                    break
-
-def usedByFCoE(iface, storage):
-    for d in storage.devices:
-        if (isinstance(d, FcoeDiskDevice) and d.nic == iface):
-            return True
-    return False
-
-def write_sysconfig_network(rootpath, overwrite=False):
-
-    cfgfile = os.path.normpath(rootpath + networkConfFile)
-    if (os.path.isfile(cfgfile) and not overwrite):
-        return False
-
-    with open(cfgfile, "w") as f:
-        f.write("# Created by anaconda\n")
-    return True
-
-def write_network_config(storage, payload, ksdata, rootpath):
-    # overwrite previous settings for LiveCD or liveimg installations
-    overwrite = isinstance(payload, LiveImagePayload)
-
-    network_proxy = NETWORK.get_proxy()
-    hostname = network_proxy.Hostname
-    write_hostname(rootpath, hostname, overwrite=overwrite)
-    if hostname != DEFAULT_HOSTNAME:
-        set_hostname(hostname)
-    write_sysconfig_network(rootpath, overwrite=overwrite)
-    disable_ipv6_on_target_system(rootpath)
-    copyIfcfgFiles(rootpath)
-    copyDhclientConfFiles(rootpath)
-    copyFileToPath("/etc/resolv.conf", rootpath, overwrite=overwrite)
-    set_default_onboot_network(conf.network.default_on_boot, ksdata)
-    autostartFCoEDevices(rootpath, storage, ksdata)
+def devices_used_by_fcoe(storage):
+    fcoe_nics = {d.nic for d in storage.devices if isinstance(d, FcoeDiskDevice)}
+    fcoe_devices = [device for device in nm.nm_devices() if device in fcoe_nics]
+    return fcoe_devices
 
 def update_hostname_data(ksdata, hostname):
     log.debug("updating host name %s", hostname)
@@ -1293,62 +1200,5 @@ def is_ibft_configured_device(iface):
 def device_type_is_supported_wired(name):
     return nm.nm_device_type_is_ethernet(name) or nm.nm_device_type_is_infiniband(name)
 
-def set_default_onboot_network(policy, ksdata):
-    """Sets default ONBOOT values and updates ksdata accordingly.
-
-    :param policy: an instance of NetworkOnBoot
-    :param ksdata: a kickstart data
-    """
-    if any(nd.onboot for nd in ksdata.network.network if nd.device):
-        # no need to choose a device
-        return
-
-    device = None
-
-    if policy is NetworkOnBoot.FIRST_WIRED_WITH_LINK:
-        # choose first wired device having link
-        log.info("Choosing the first wired device having link.")
-        device = _get_first_wired_with_link()
-
-    elif policy is NetworkOnBoot.DEFAULT_ROUTE_DEVICE:
-        # choose the device used during installation
-        # (ie for majority of cases the one having the default route)
-        log.info("Choosing the default route device.")
-        device = _get_default_root_device()
-
-    if device:
-        update_onboot_value(device, True, ksdata=ksdata)
-
-def _get_first_wired_with_link():
-    """Get the first wired network device with a link.
-
-    :return: a name of a network device
-    """
-    for dev in nm.nm_devices():
-
-        if nm.nm_device_type_is_wifi(dev):
-            continue
-        try:
-            link_up = nm.nm_device_carrier(dev)
-        except (nm.UnknownDeviceError, nm.PropertyNotFoundError):
-            continue
-
-        if link_up:
-            return dev
-
-    return None
-
-def _get_default_root_device():
-    """Get the default root device.
-
-    :return: a name of a network device
-    """
-    dev = default_route_device() or default_route_device(family="inet6")
-    if not dev:
-        return None
-
-    # ignore wireless (its ifcfgs would need to be handled differently)
-    if nm.nm_device_type_is_wifi(dev):
-        return None
-
-    return dev
+def can_overwrite_configuration(payload):
+    return isinstance(payload, LiveImagePayload)
