@@ -1564,8 +1564,7 @@ class GRUB2(GRUB):
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
         #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
-        if flags.blscfg:
-            defaults.write("GRUB_ENABLE_BLSCFG=true\n")
+        defaults.write("GRUB_ENABLE_BLSCFG=true\n")
         defaults.close()
 
     def _encrypt_password(self):
@@ -2345,10 +2344,7 @@ class ZIPL(BootLoader):
                 args.update(["rootflags=subvol=%s" % image.device.name])
             log.info("bootloader.py: used boot args: %s ", args)
 
-            if flags.blscfg:
-                self.update_bls_args(image, args)
-            else:
-                self.write_config_image(config, image, args)
+            self.update_bls_args(image, args)
 
     def write_config_header(self, config):
         header = ("[defaultboot]\n"
@@ -2357,8 +2353,6 @@ class ZIPL(BootLoader):
                   "timeout={}\n"
                   "target=/boot\n")
         config.write(header.format(self.timeout))
-        if not flags.blscfg:
-            config.write("default={}\n".format(self.image_label(self.default)))
 
     #
     # installation
