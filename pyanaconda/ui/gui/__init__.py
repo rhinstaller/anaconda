@@ -1032,7 +1032,7 @@ class GraphicalUserInterface(UserInterface):
         if rc == 1:
             self._currentAction.exited.emit(self._currentAction)
             util.ipmi_abort(scripts=self.data.scripts)
-            sys.exit(0)
+            Gtk.main_quit()
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
     """
