@@ -33,7 +33,7 @@ from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 from pyanaconda.modules.network.nm_client import nm_client, get_device_name_from_network_data, \
     add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device, \
     update_iface_setting_values, bound_hwaddr_of_device
-from pyanaconda.modules.network.ifcfg import find_ifcfg_file_of_device, update_onboot_value, \
+from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, update_onboot_value, \
     update_slaves_onboot_value
 
 import gi
@@ -266,7 +266,7 @@ class NetworkModule(KickstartModule):
                           number_of_connections, iface)
                 continue
 
-            ifcfg_file = find_ifcfg_file_of_device(iface)
+            ifcfg_file = get_ifcfg_file_of_device(iface)
             if not ifcfg_file:
                 log.error("consolidate %d initramfs connections for %s: no ifcfg file",
                           number_of_connections, iface)
@@ -336,7 +336,7 @@ class NetworkModule(KickstartModule):
                 log.warning("apply kickstart: --device %s not found", network_data.device)
                 continue
 
-            ifcfg_file = find_ifcfg_file_of_device(device_name)
+            ifcfg_file = get_ifcfg_file_of_device(device_name)
             if ifcfg_file and ifcfg_file.is_from_kickstart:
                 if network_data.activate:
                     if ensure_active_connection_for_device(ifcfg_file.uuid, device_name):
@@ -463,7 +463,7 @@ class NetworkModule(KickstartModule):
                 continue
 
             iface = device.get_iface()
-            if find_ifcfg_file_of_device(iface):
+            if get_ifcfg_file_of_device(iface):
                 continue
 
             cons = device.get_available_connections()

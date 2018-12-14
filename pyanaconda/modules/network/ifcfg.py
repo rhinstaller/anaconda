@@ -33,6 +33,7 @@ log = get_module_logger(__name__)
 
 IFCFG_DIR = "/etc/sysconfig/network-scripts"
 
+
 class IfcfgFile(SimpleConfigFile):
     def __init__(self, filename):
         SimpleConfigFile.__init__(self, always_quote=True, filename=filename)
@@ -240,7 +241,8 @@ def _ifcfg_files(directory):
             rv.append(os.path.join(directory, name))
     return rv
 
-def find_ifcfg_file(values, root_path=""):
+
+def get_ifcfg_file(values, root_path=""):
     for file_path in _ifcfg_files(os.path.normpath(root_path + IFCFG_DIR)):
         ifcfg = IfcfgFile(file_path)
         ifcfg.read()
@@ -255,15 +257,16 @@ def find_ifcfg_file(values, root_path=""):
             return ifcfg
     return None
 
+
 def find_ifcfg_uuid_of_device(device_name, hwaddr=None, root_path=""):
     uuid = None
-    ifcfg = find_ifcfg_file_of_device(device_name, hwaddr, root_path)
+    ifcfg = get_ifcfg_file_of_device(device_name, hwaddr, root_path)
     if ifcfg:
         uuid = ifcfg.uuid
     return uuid
 
-# TODO check usage of the original function wrt slaves
-def find_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
+
+def get_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
     # hwaddr is supplementary (--bindto=mac)
     ifcfgs = []
     for file_path in _ifcfg_files(os.path.normpath(root_path + IFCFG_DIR)):
@@ -321,6 +324,7 @@ def find_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
     else:
         log.debug("Ifcfg file for %s not found", device_name)
 
+
 def get_slaves_from_ifcfgs(master_option, master_specs, root_path=""):
     """List of slaves of master specified by master_specs in master_option.
 
@@ -343,14 +347,16 @@ def get_slaves_from_ifcfgs(master_option, master_specs, root_path=""):
                 slaves.append((iface, ifcfg.get("UUID")))
     return slaves
 
+
 def get_kickstart_network_data(connection_uuid, network_data_class):
     """Get kickstart data corresponding to connection_uuid.
 
     Ifcfg file is used to get the data.
     """
-    ifcfg = find_ifcfg_file([("UUID", connection_uuid)])
+    ifcfg = get_ifcfg_file([("UUID", connection_uuid)])
     if ifcfg:
         return ifcfg.get_kickstart_data(network_data_class)
+
 
 def update_onboot_value(devname, onboot, root_path=""):
     """Update onboot value in ifcfg files.
@@ -365,7 +371,7 @@ def update_onboot_value(devname, onboot, root_path=""):
     :rtype: bool
     """
 
-    ifcfg = find_ifcfg_file_of_device(devname, root_path=root_path)
+    ifcfg = get_ifcfg_file_of_device(devname, root_path=root_path)
     if not ifcfg:
         log.debug("can't find ifcfg file of %s", devname)
         return False
@@ -378,6 +384,7 @@ def update_onboot_value(devname, onboot, root_path=""):
     ifcfg.write()
 
     return True
+
 
 def update_slaves_onboot_value(master_devname, onboot, root_path="", uuid=None):
     """Update onboot value in slave ifcfg files of given master.
