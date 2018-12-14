@@ -150,3 +150,22 @@ class NetworkInterface(KickstartModuleInterface):
         :returns: list of devices for which ONBOOT was updated
         """
         return self.implementation.set_real_onboot_values_from_kickstart()
+
+    def DumpMissingIfcfgFiles(self) -> List[Str]:
+        """Dump missing default ifcfg file for wired devices.
+
+        Make sure each supported wired device has ifcfg file.
+
+        For default auto connections created by NM upon start (which happens in
+        case of missing ifcfg file, eg the file was not created in initramfs)
+        rename the in-memory connection using device name and dump it into
+        ifcfg file.
+
+        If default auto connections are turned off by NM configuration (based
+        on policy, eg on RHEL or server), the connection will be created by Anaconda
+        and dumped into ifcfg file.
+
+        The connection id (and consequently ifcfg file name) is set to device
+        name.
+        """
+        return self.implementation.dump_missing_ifcfg_files()

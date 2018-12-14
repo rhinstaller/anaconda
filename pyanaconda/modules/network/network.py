@@ -28,10 +28,11 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
     update_network_hostname_data, update_network_data_with_default_device, DEFAULT_DEVICE_SPECIFICATION, \
     update_first_network_command_activate_value
 from pyanaconda.modules.network.firewall import FirewallModule
-from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types
+from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
+    supported_wired_device_types
 from pyanaconda.modules.network.nm_client import nm_client, get_device_name_from_network_data, \
     add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device, \
-    update_iface_setting_values
+    update_iface_setting_values, bound_hwaddr_of_device
 from pyanaconda.modules.network.ifcfg import find_ifcfg_file_of_device, update_onboot_value, \
     update_slaves_onboot_value
 
@@ -437,3 +438,64 @@ class NetworkModule(KickstartModule):
                 updated_devices.extend(updated_slaves)
 
         return updated_devices
+
+    def dump_missing_ifcfg_files(self):
+        """Dump missing default ifcfg file for wired devices.
+
+        Make sure each supported wired device has ifcfg file.
+
+        For default auto connections created by NM upon start (which happens in
+        case of missing ifcfg file, eg the file was not created in initramfs)
+        rename the in-memory connection using device name and dump it into
+        ifcfg file.
+
+        If default auto connections are turned off by NM configuration (based
+        on policy, eg on RHEL or server), the connection will be created by Anaconda
+        and dumped into ifcfg file.
+
+        The connection id (and consequently ifcfg file name) is set to device
+        name.
+        """
+        new_ifcfgs = []
+
+        for device in self.nm_client.get_devices():
+            if device.get_device_type() not in supported_wired_device_types:
+                continue
+
+            iface = device.get_iface()
+            if find_ifcfg_file_of_device(iface):
+                continue
+
+            cons = device.get_available_connections()
+            n_cons = len(cons)
+            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
+
+            if n_cons == 0:
+                data = self.get_kickstart_handler()
+                default_data = data.NetworkData(onboot=False, ipv6="auto")
+                log.debug("dump missing ifcfgs: creating default connection for %s", iface)
+                add_connection_from_ksdata(default_data, iface)
+            elif n_cons == 1:
+                if device_is_slave:
+                    log.debug("dump missing ifcfgs: not creating default connection for slave device %s",
+                              iface)
+                    continue
+                con = cons[0]
+                log.debug("dump missing ifcfg: dumping default autoconnection %s for %s",
+                          con.get_uuid(), iface)
+                s_con = con.get_setting_connection()
+                s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
+                s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
+                if not bound_hwaddr_of_device(iface):
+                    s_wired = con.get_setting_wired()
+                    s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
+                con.commit_changes(True, None)
+            elif n_cons > 1:
+                if not device_is_slave:
+                    log.warning("dump missing ifcfgs: %d non-slave connections found for device %s",
+                                n_cons, iface)
+                continue
+
+            new_ifcfgs.append(iface)
+
+        return new_ifcfgs

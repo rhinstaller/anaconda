@@ -44,7 +44,10 @@ supported_device_types = [
     NM.DeviceType.TEAM,
 ]
 
-
+supported_wired_device_types = [
+    NM.DeviceType.ETHERNET,
+    NM.DeviceType.INFINIBAND,
+]
 
 class DeviceConfigurations(object):
     """Holds state of persistent configuration of network devices.
