@@ -101,8 +101,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._empty_check = input_checking.PasswordEmptyCheck()
         # check that the content of the password field & the conformation field are the same
         self._confirm_check = input_checking.PasswordConfirmationCheck()
-        # regards both fields empty as success to let the user escape
-        self._confirm_check.success_if_confirmation_empty = True
         # check password validity, quality and strength
         self._validity_check = input_checking.PasswordValidityCheck()
         # connect UI updates to validity check results
