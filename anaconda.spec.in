@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 17 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.29-1
+- Pull in fixed translations
+  Resolves: rhbz#1659890
+
 * Fri Dec 14 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.28-1
 - Update python-coverage dependency (rvykydal)
   Resolves: rhbz#1658777
