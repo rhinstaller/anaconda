@@ -50,6 +50,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.storage_utils import device_matches
 
 from blivet.util import get_mount_device, get_mount_paths
 
@@ -658,12 +659,25 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return _("Local media via SE/HMC")
         elif self.data.method.method == "harddrive":
             if not self._currentIsoFile:
-                return _("Error setting up ISO file")
+                if self.payload.baseRepo:
+                    return "{}:{}".format(self._get_harddrive_partition_name(),
+                                          self.data.method.dir)
+                return _("Error setting up installation from HDD")
             return os.path.basename(self._currentIsoFile)
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
+
+    def _get_harddrive_partition_name(self):
+        devices = device_matches(self.data.method.partition)
+        if not devices:
+            log.warning("Device for installation from HDD can't be found!")
+            return ""
+        elif len(devices) > 1:
+            log.warning("More than one device is found for HDD installation!")
+
+        return devices[0]
 
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")
