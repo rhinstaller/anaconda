@@ -59,7 +59,7 @@ const WelcomeWindow = new Lang.Class({
                                                 default_width: 600,
                                                 default_height: 550,
                                                 skip_taskbar_hint: true,
-                                                title: _("Welcome to Fedora"),
+                                                title: _("Welcome to Red Hat Enterprise Linux"),
                                                 window_position: Gtk.WindowPosition.CENTER });
       this.window.connect('key-press-event', Lang.bind(this,
           function(w, event) {
@@ -88,7 +88,7 @@ const WelcomeWindow = new Lang.Class({
                                      spacing: 16 });
       tryContent.add(new Gtk.Image({ icon_name: 'media-optical',
                                      pixel_size: 256 }));
-      tryContent.add(makeLabel(_("Try Fedora"), true));
+      tryContent.add(makeLabel(_("Try RHEL"), true));
 
       let tryButton = new Gtk.Button({ child: tryContent });
       buttonBox.add(tryButton);
@@ -104,7 +104,7 @@ const WelcomeWindow = new Lang.Class({
       let installButton = new Gtk.Button({ child: installContent });
       buttonBox.add(installButton);
 
-      this._label = makeLabel(_("You are currently running Fedora from live media.\nYou can install Fedora now, or choose \"Install to Hard Drive\" in the Activities Overview at any later time."), false);
+      this._label = makeLabel(_("You are currently running Red Hat Enterprise Linux from live media.\nYou can install Red Hat Enterprise Linux now, or choose \"Install to Hard Drive\" in the Activities Overview at any later time."), false);
       mainGrid.add(this._label);
 
       installButton.connect('clicked', Lang.bind(this,
@@ -145,7 +145,7 @@ const WelcomeWindow = new Lang.Class({
 Gettext.bindtextdomain('anaconda', LOCALE_DIR);
 Gettext.textdomain('anaconda');
 
-GLib.set_prgname('fedora-welcome');
+GLib.set_prgname('rhel-welcome');
 Gtk.init(null, null);
 Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
 
