@@ -845,16 +845,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
         if self._cdrom:
-            fire_gtk_action(self._autodetectDeviceLabel.set_text, _("Device: %s") % self._cdrom.name)
-            fire_gtk_action(self._autodetectLabel.set_text, _("Label: %s") % (getattr(self._cdrom.format, "label", "") or ""))
-
-            # These UI elements default to not being showable.  If optical install
-            # media were found, mark them to be shown.
-            gtk_call_once(self._autodetectBox.set_no_show_all, False)
-            gtk_call_once(self._autodetectButton.set_no_show_all, False)
+            self._show_autodetect_box_with_device(self._cdrom)
 
         if self.data.method.method == "harddrive":
-            self._currentIsoFile = self.payload.ISOImage
+            if self.payload.ISOImage:
+                self._currentIsoFile = self.payload.ISOImage
+            else:  # Installation from an expanded install tree
+                device_name = self._get_harddrive_partition_name()
+                self._show_autodetect_box(device_name, self.data.method.partition)
 
         # Enable the SE/HMC option.
         if flags.hmc:
@@ -876,6 +874,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         # report that the source spoke has been initialized
         self.initialize_done()
+
+    def _show_autodetect_box_with_device(self, device):
+        device_label = getattr(device.format, "label", "") or ""
+        self._show_autodetect_box(device.name, device_label)
+
+    def _show_autodetect_box(self, device_name, device_label):
+        fire_gtk_action(self._autodetectDeviceLabel.set_text, _("Device: %s") % device_name)
+        fire_gtk_action(self._autodetectLabel.set_text, _("Label: %s") % device_label)
+
+        gtk_call_once(self._autodetectBox.set_no_show_all, False)
+        gtk_call_once(self._autodetectButton.set_no_show_all, False)
 
     def refresh(self):
         NormalSpoke.refresh(self)
@@ -957,14 +966,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._updateURLEntryCheck()
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
         elif self.data.method.method == "harddrive":
-            self._isoButton.set_active(True)
-            self._verifyIsoButton.set_sensitive(True)
-
-            if self._currentIsoFile:
-                self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
+            if not self._currentIsoFile:
+                self._autodetectButton.set_active(True)
             else:
-                self._isoChooserButton.set_label("")
-            self._isoChooserButton.set_use_underline(False)
+                self._isoButton.set_active(True)
+                self._verifyIsoButton.set_sensitive(True)
+
+                if self._currentIsoFile:
+                    self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
+                else:
+                    self._isoChooserButton.set_label("")
+                self._isoChooserButton.set_use_underline(False)
         elif self.data.method.method == "hmc":
             self._hmcButton.set_active(True)
         else:
