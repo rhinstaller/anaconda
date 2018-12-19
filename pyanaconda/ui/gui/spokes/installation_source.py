@@ -892,7 +892,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         idx = 0
 
         if self.data.method.method == "harddrive":
-            methodDev = self.storage.devicetree.resolve_device(self.data.method.partition)
+            method_dev_name = self._get_harddrive_partition_name()
 
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
@@ -909,7 +909,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 dev_info["label"] = "\n" + dev_info["label"]
 
             store.append([dev, "%(model)s %(path)s (%(size)s) %(format)s %(label)s" % dev_info])
-            if self.data.method.method == "harddrive" and dev == methodDev:
+            if self.data.method.method == "harddrive" and dev.name == method_dev_name:
                 active = idx
             added = True
             idx += 1
