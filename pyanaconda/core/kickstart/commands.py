@@ -64,7 +64,7 @@ from pykickstart.commands.partition import RHEL8_Partition as Partition
 from pykickstart.commands.raid import RHEL8_Raid as Raid
 from pykickstart.commands.realm import F19_Realm as Realm
 from pykickstart.commands.reboot import F23_Reboot as Reboot
-from pykickstart.commands.repo import F27_Repo as Repo
+from pykickstart.commands.repo import RHEL8_Repo as Repo
 from pykickstart.commands.reqpart import F23_ReqPart as ReqPart
 from pykickstart.commands.rescue import F10_Rescue as Rescue
 from pykickstart.commands.rootpw import F18_RootPw as RootPw
@@ -77,7 +77,7 @@ from pykickstart.commands.sshkey import F22_SshKey as SshKey
 from pykickstart.commands.syspurpose import RHEL8_Syspurpose as Syspurpose
 from pykickstart.commands.timezone import F25_Timezone as Timezone
 from pykickstart.commands.updates import F7_Updates as Updates
-from pykickstart.commands.url import F27_Url as Url
+from pykickstart.commands.url import RHEL8_Url as Url
 from pykickstart.commands.user import F24_User as User
 from pykickstart.commands.vnc import F9_Vnc as Vnc
 from pykickstart.commands.volgroup import RHEL8_VolGroup as VolGroup
@@ -101,7 +101,7 @@ from pykickstart.commands.network import F27_NetworkData as NetworkData
 from pykickstart.commands.nvdimm import F28_NvdimmData as NvdimmData
 from pykickstart.commands.partition import RHEL8_PartData as PartData
 from pykickstart.commands.raid import RHEL8_RaidData as RaidData
-from pykickstart.commands.repo import F27_RepoData as RepoData
+from pykickstart.commands.repo import RHEL8_RepoData as RepoData
 from pykickstart.commands.snapshot import F26_SnapshotData as SnapshotData
 from pykickstart.commands.sshpw import F24_SshPwData as SshPwData
 from pykickstart.commands.sshkey import F22_SshKeyData as SshKeyData

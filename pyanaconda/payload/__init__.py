@@ -656,7 +656,15 @@ class Payload(object):
         else:
             proxy_url = None
 
-        sslverify = not flags.noverifyssl
+        # sslverify can be:
+        #   - the path to a cert file
+        #   - True, to use the system's certificates
+        #   - False, to not verify
+        sslverify = getattr(self.data.method, "sslcacert", not flags.noverifyssl)
+
+        sslclientcert = getattr(self.data.method, "sslclientcert", None)
+        sslclientkey = getattr(self.data.method, "sslclientkey", None)
+        sslcert = (sslclientcert, sslclientkey) if sslclientcert else None
 
         log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)",
                   url, proxy_url, sslverify)
@@ -674,7 +682,7 @@ class Payload(object):
         headers = {"user-agent": USER_AGENT}
         self._install_tree_metadata = InstallTreeMetadata()
         try:
-            ret = self._install_tree_metadata.load_url(url, proxies, sslverify, headers)
+            ret = self._install_tree_metadata.load_url(url, proxies, sslverify, sslcert, headers)
         except IOError as e:
             self._install_tree_metadata = None
             self.verbose_errors.append(str(e))
