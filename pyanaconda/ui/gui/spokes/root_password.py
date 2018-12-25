@@ -72,6 +72,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._password_confirmation_entry = self.builder.get_object("password_confirmation_entry")
         self._password_bar = self.builder.get_object("password_bar")
         self._password_label = self.builder.get_object("password_label")
+        self._lock = self.builder.get_object("lock")
 
         # set state based on kickstart
         # NOTE: this will stop working once the module supports multiple kickstart commands
@@ -141,11 +142,15 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     def refresh(self):
         # focus on the password field if password was not kickstarted
-        if not self.password_kickstarted:
+        if not self.password_kickstarted or not self._lock.get_active():
             self.password_entry.grab_focus()
 
-        # rerun checks so that we have a correct status message, if any
-        self.checker.run_checks()
+        self._lock.set_active(self._users_module.proxy.IsRootAccountLocked)
+        self.on_lock_clicked(self._lock)
+
+        if not self._lock.get_active():
+            # rerun checks so that we have a correct status message, if any
+            self.checker.run_checks()
 
     @property
     def status(self):
@@ -154,7 +159,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
             reconfig_mode = self._services_module.proxy.SetupOnBoot == constants.SETUP_ON_BOOT_RECONFIG
             # reconfig mode currently allows re-enabling a locked root account if
             # user sets a new root password
-            if reconfig_mode:
+            if reconfig_mode and not self._lock.get_active():
                 return _("Disabled, set password to enable.")
             else:
                 return _("Root account is disabled.")
@@ -177,7 +182,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self._users_module.proxy.SetRootpwKickstarted(False)
         self.password_kickstarted = False
 
-        self._users_module.proxy.SetRootAccountLocked(False)
+        self._users_module.proxy.SetRootAccountLocked(self._lock.get_active())
 
         if not pw:
             self._users_module.proxy.ClearRootPassword()
@@ -213,7 +218,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         unwaivable_check_failed = not self._confirm_check.result.success
 
         # set appropriate status bar message
-        if not error_message:
+        if not error_message or self._lock.get_active():
             # all is fine, just clear the message
             self.clear_info()
         elif not self.password and not self.password_confirmation:
@@ -297,7 +302,13 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     def on_back_clicked(self, button):
         # the GUI spoke input check handler handles the spoke exit logic for us
-        if self.try_to_go_back():
+        if self.try_to_go_back() or self._lock.get_active():
             NormalSpoke.on_back_clicked(self, button)
         else:
             log.info("Return to hub prevented by password checking rules.")
+
+    def on_lock_clicked(self, lock):
+        self.password_entry.set_sensitive(not lock.get_active())
+        self.password_confirmation_entry.set_sensitive(not lock.get_active())
+        if not lock.get_active():
+            self.password_entry.grab_focus()
