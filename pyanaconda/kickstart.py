@@ -1421,9 +1421,10 @@ class Network(COMMANDS.Network):
         task_proxy = NETWORK.get_proxy(task_path)
         sync_run_task(task_proxy)
 
-        hostname = network_proxy.Hostname
-        if hostname != network.DEFAULT_HOSTNAME:
-            network.set_hostname(hostname)
+        if conf.system.can_change_hostname:
+            hostname = network_proxy.Hostname
+            if hostname != network.DEFAULT_HOSTNAME:
+                network_proxy.SetCurrentHostname(hostname)
 
 
 class Nvdimm(COMMANDS.Nvdimm):

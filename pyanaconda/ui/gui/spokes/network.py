@@ -1643,7 +1643,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.network_control_box.entry_hostname.grab_focus()
         else:
             self.clear_info()
-            network.set_hostname(hostname)
+            if conf.system.can_change_hostname:
+                self._network_module.proxy.SetCurrentHostname(hostname)
 
     def _update_status(self):
         hubQ.send_message(self.__class__.__name__, self.status)
@@ -1770,7 +1771,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             self.network_control_box.entry_hostname.grab_focus()
         else:
             self.clear_info()
-            network.set_hostname(hostname)
+            if conf.system.can_change_hostname:
+                self._network_module.proxy.SetCurrentHostname(hostname)
 
     def _update_hostname(self):
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()

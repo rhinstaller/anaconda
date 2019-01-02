@@ -881,12 +881,6 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     return True
 
 
-# TODO MOD remove, call module when can_touch_runtime_system is resolved
-def set_hostname(hn):
-    if conf.system.can_change_hostname:
-        log.info("setting installation environment host name to %s", hn)
-        network_proxy = NETWORK.get_proxy()
-        network_proxy.SetCurrentHostname(hn)
 
 
 def devices_used_by_fcoe(storage):
