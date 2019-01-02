@@ -359,6 +359,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 02 2019 Martin Kolman <mkolman@redhat.com> - 30.14-1
+- Require password confirmation in GUI (#1584064) (mkolman)
+- Run zipl again after generating initramfs (#1652727) (vponcova)
+- Preserve the boot option zfcp.allow_lun_scan (#1561662) (vponcova)
+- Don't allow /boot on LVM (#1641986) (vponcova)
+- The encoding should be always set to UTF-8 (#1642857) (vponcova)
+- Make sure fips is correctly enabled on target system (#1619568) (mkolman)
+- Remove workaround for bd_s390_dasd_online (vponcova)
+- Clean up /run/install (#1562239) (vponcova)
+- Make it possible to exit empty user spoke (#1620135) (mkolman)
+- Don't allow to use LDL DASD disks (#1635825) (vponcova)
+- Remove initThreading method from pyanaconda.threading (vponcova)
+- Drop the inst.noblscfg option (javierm)
+
 * Tue Dec 04 2018 Martin Kolman <mkolman@redhat.com> - 30.13-1
 - Extend tests for the configuration support (vponcova)
 - Split the Anaconda configuration handler to more files (vponcova)
