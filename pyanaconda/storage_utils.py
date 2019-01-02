@@ -18,6 +18,10 @@
 
 """UI-independent storage utility functions"""
 
+import gi
+gi.require_version("BlockDev", "2.0")
+from gi.repository import BlockDev as blockdev
+
 import re
 import locale
 import os
@@ -189,8 +193,8 @@ def verify_s390_constraints(storage, constraints, report_error, report_warning):
     """ Verify constraints for s390x.
 
         Prevent users from installing on s390x with (a) no /boot volume, (b) the
-        root volume on LVM, and (c) the root volume not restricted to a single
-        PV
+        root volume on LVM, (c) the root volume not restricted to a single PV,
+        and (d) LDL DASD disks.
 
         NOTE: There is not really a way for users to create a / volume
         restricted to a single PV.  The backend support is there, but there are
@@ -202,14 +206,22 @@ def verify_s390_constraints(storage, constraints, report_error, report_warning):
         :param report_error: a function for error reporting
         :param report_warning: a function for warning reporting
     """
-    root = storage.fsset.root_device
+    if not arch.is_s390():
+        return
 
-    if arch.is_s390() and '/boot' not in storage.mountpoints and root:
+    root = storage.fsset.root_device
+    if '/boot' not in storage.mountpoints and root:
         if root.type == 'lvmlv' and not root.single_pv:
             report_error(_("This platform requires /boot on a dedicated "
                            "partition or logical volume. If you do not "
                            "want a /boot volume, you must place / on a "
                            "dedicated non-LVM partition."))
+
+    for disk in storage.disks:
+        if disk.type == "dasd" and blockdev.s390.dasd_is_ldl(disk.name):
+            report_error(_("The LDL DASD disk {name} ({busid}) cannot be used "
+                           "for the installation. Please format it.")
+                         .format(name="/dev/" + disk.name, busid=disk.busid))
 
 
 def verify_partition_sizes(storage, constraints, report_error, report_warning):
