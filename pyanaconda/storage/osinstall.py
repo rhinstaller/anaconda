@@ -2039,16 +2039,6 @@ class InstallerStorage(Blivet):
         # be safe for anything else and default to off
         return False
 
-    def must_format(self, device):
-        """ Return a string explaining why the device must be reformatted.
-
-            Return None if the device need not be reformatted.
-        """
-        if device.format.mountable and device.format.mountpoint == "/":
-            return _("You must create a new file system on the root device.")
-
-        return None
-
     def turn_on_swap(self):
         self.fsset.turn_on_swap(root_path=util.getSysroot())
 

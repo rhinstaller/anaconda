@@ -183,10 +183,8 @@ def verify_root(storage, constraints, report_error, report_warning):
                        "which is required for installation of %s"
                        " to continue.") % (productName,))
 
-    if storage.root_device and storage.root_device.format.exists:
-        e = storage.must_format(storage.root_device)
-        if e:
-            report_error(e)
+    if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/":
+        report_error(_("You must create a new file system on the root device."))
 
 
 def verify_s390_constraints(storage, constraints, report_error, report_warning):
