@@ -300,6 +300,8 @@ STORAGE_MIN_ROOT = "min_root"
 STORAGE_MIN_PARTITION_SIZES = "min_partition_sizes"
 STORAGE_MUST_BE_ON_LINUXFS = "must_be_on_linuxfs"
 STORAGE_MUST_BE_ON_ROOT = "must_be_on_root"
+STORAGE_REFORMAT_WHITELIST = "reformat_whitelist"
+STORAGE_REFORMAT_BLACKLIST = "reformat_blacklist"
 STORAGE_SWAP_IS_RECOMMENDED = "swap_is_recommended"
 STORAGE_LUKS2_MIN_RAM = "luks2_min_ram"
 
