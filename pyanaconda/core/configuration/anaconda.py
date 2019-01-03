@@ -23,7 +23,7 @@ from pyanaconda.core.configuration.bootloader import BootloaderSection
 from pyanaconda.core.configuration.license import LicenseSection
 from pyanaconda.core.configuration.network import NetworkSection
 from pyanaconda.core.configuration.payload import PayloadSection
-from pyanaconda.core.configuration.services import ServicesSection
+from pyanaconda.core.configuration.security import SecuritySection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.system import SystemType, SystemSection
 from pyanaconda.core.configuration.target import TargetType, TargetSection
@@ -79,7 +79,7 @@ class AnacondaConfiguration(Configuration):
         self._payload = PayloadSection("Payload", self.get_parser())
         self._bootloader = BootloaderSection("Bootloader", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
-        self._services = ServicesSection("Services", self.get_parser())
+        self._security = SecuritySection("Security", self.get_parser())
         self._ui = UserInterfaceSection("User Interface", self.get_parser())
         self._license = LicenseSection("License", self.get_parser())
 
@@ -119,9 +119,9 @@ class AnacondaConfiguration(Configuration):
         return self._storage
 
     @property
-    def services(self):
-        """The Services section."""
-        return self._services
+    def security(self):
+        """The Security section."""
+        return self._security
 
     @property
     def ui(self):
