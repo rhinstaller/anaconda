@@ -56,6 +56,15 @@ class StorageSection(Section):
         return self._get_option("multipath_friendly_names", bool)
 
     @property
+    def allow_imperfect_devices(self):
+        """Do you want to allow imperfect devices?
+
+        Imperfect devices are for example degraded mdraid arrays.
+        This option should be enabled only in the rescue mode.
+        """
+        return self._get_option("allow_imperfect_devices", bool)
+
+    @property
     def file_system_type(self):
         """Default file system type.
 
