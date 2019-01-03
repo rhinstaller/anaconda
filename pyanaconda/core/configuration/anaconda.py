@@ -233,6 +233,9 @@ class AnacondaConfiguration(Configuration):
         self.storage._set_option("gpt", opts.gpt)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
 
+        # Set the security flags.
+        self.security._set_option("selinux", opts.selinux)
+
         # Set the type of the installation system.
         if opts.liveinst:
             self.system._set_option("type", SystemType.LIVE_OS.value)
