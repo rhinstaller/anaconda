@@ -431,7 +431,6 @@ if __name__ == "__main__":
     flags.debug = opts.debug
     flags.askmethod = opts.askmethod
     flags.mpath = opts.mpath
-    flags.nonibftiscsiboot = opts.nonibftiscsiboot
     flags.selinux = opts.selinux
     flags.eject = opts.eject
     flags.kexec = opts.kexec

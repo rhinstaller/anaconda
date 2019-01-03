@@ -32,3 +32,12 @@ class BootloaderSection(Section):
     def menu_auto_hide(self):
         """Hide the GRUB menu."""
         return self._get_option("menu_auto_hide", bool)
+
+    @property
+    def nonibft_iscsi_boot(self):
+        """Are non-iBFT iSCSI disks allowed?
+
+        The option allows to place boot loader on iSCSI devices
+        which were not configured in iBFT.
+        """
+        return self._get_option("nonibft_iscsi_boot", bool)
