@@ -210,6 +210,7 @@ class BootLoader(object):
     can_update = False
     menu_auto_hide = False
     keep_boot_order = False
+    keep_mbr = False
     image_label_attr = "label"
 
     encryption_support = False
@@ -1648,7 +1649,7 @@ class GRUB2(GRUB):
                 # to install to a partition's boot block without --force.
                 grub_args.insert(0, '--force')
             else:
-                if flags.nombr:
+                if self.keep_mbr:
                     grub_args.insert(0, '--grub-setup=/bin/true')
                     log.info("bootloader.py: mbr update by grub2 disabled")
                 else:

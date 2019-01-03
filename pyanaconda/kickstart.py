@@ -508,7 +508,7 @@ class Bootloader(RemovedCommand):
         """Update flags."""
         if bootloader_proxy.KeepMBR:
             bootloader_log.debug("Don't update the MBR.")
-            flags.nombr = True
+            storage.bootloader.keep_mbr = True
 
         if bootloader_proxy.KeepBootOrder:
             bootloader_log.debug("Don't change the existing boot order.")

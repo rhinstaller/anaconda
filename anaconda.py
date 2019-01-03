@@ -427,7 +427,6 @@ if __name__ == "__main__":
     flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
     flags.extlinux = opts.extlinux
-    flags.nombr = opts.nombr
     flags.debug = opts.debug
     flags.askmethod = opts.askmethod
     flags.mpath = opts.mpath
@@ -491,6 +490,9 @@ if __name__ == "__main__":
 
     if opts.leavebootorder:
         bootloader_proxy.SetKeepBootOrder(True)
+
+    if opts.nombr:
+        bootloader_proxy.SetKeepMBR(True)
 
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
