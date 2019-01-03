@@ -209,6 +209,7 @@ class BootLoader(object):
     can_dual_boot = False
     can_update = False
     menu_auto_hide = False
+    keep_boot_order = False
     image_label_attr = "label"
 
     encryption_support = False
@@ -1826,7 +1827,7 @@ class EFIBase(object):
         return True
 
     def install(self, args=None):
-        if not flags.leavebootorder:
+        if not self.keep_boot_order:  # pylint: disable=no-member
             self.remove_efi_boot_target()
         self.add_efi_boot_target()
 
@@ -2163,7 +2164,7 @@ class IPSeriesGRUB2(GRUB2):
     #
 
     def install(self, args=None):
-        if flags.leavebootorder:
+        if self.keep_boot_order:
             log.info("leavebootorder passed as an option. Will not update the NVRAM boot list.")
         else:
             self.updateNVRAMBootList()

@@ -496,7 +496,7 @@ class Bootloader(RemovedCommand):
             return
 
         # Apply the settings.
-        self._update_flags(bootloader_proxy)
+        self._update_flags(storage, bootloader_proxy)
         self._apply_args(storage, bootloader_proxy)
         self._apply_location(storage, bootloader_proxy)
         self._apply_password(storage, bootloader_proxy)
@@ -504,7 +504,7 @@ class Bootloader(RemovedCommand):
         self._apply_drive_order(storage, bootloader_proxy, dry_run=dry_run)
         self._apply_boot_drive(storage, bootloader_proxy, dry_run=dry_run)
 
-    def _update_flags(self, bootloader_proxy):
+    def _update_flags(self, storage, bootloader_proxy):
         """Update flags."""
         if bootloader_proxy.KeepMBR:
             bootloader_log.debug("Don't update the MBR.")
@@ -512,7 +512,7 @@ class Bootloader(RemovedCommand):
 
         if bootloader_proxy.KeepBootOrder:
             bootloader_log.debug("Don't change the existing boot order.")
-            flags.leavebootorder = True
+            storage.bootloader.keep_boot_order = True
 
     def _apply_args(self, storage, bootloader_proxy):
         """Apply the arguments."""

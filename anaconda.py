@@ -435,7 +435,6 @@ if __name__ == "__main__":
     flags.eject = opts.eject
     flags.kexec = opts.kexec
     flags.singlelang = opts.singlelang
-    flags.leavebootorder = opts.leavebootorder
 
     if opts.liveinst:
         startup_utils.live_startup(anaconda)
@@ -489,6 +488,9 @@ if __name__ == "__main__":
 
     if bootloader_proxy.BootloaderType == constants.BOOTLOADER_TYPE_EXTLINUX:
         flags.extlinux = True
+
+    if opts.leavebootorder:
+        bootloader_proxy.SetKeepBootOrder(True)
 
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
