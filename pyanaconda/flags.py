@@ -53,7 +53,6 @@ class Flags(object):
         self.automatedInstall = False
         self.askmethod = False
         self.eject = True
-        self.extlinux = False
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         self.rescue_mode = False

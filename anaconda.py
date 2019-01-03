@@ -426,7 +426,6 @@ if __name__ == "__main__":
     # set flags
     flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
-    flags.extlinux = opts.extlinux
     flags.debug = opts.debug
     flags.askmethod = opts.askmethod
     flags.mpath = opts.mpath
@@ -485,8 +484,8 @@ if __name__ == "__main__":
     from pyanaconda.modules.common.constants.objects import BOOTLOADER
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
-    if bootloader_proxy.BootloaderType == constants.BOOTLOADER_TYPE_EXTLINUX:
-        flags.extlinux = True
+    if opts.extlinux:
+        bootloader_proxy.SetBootloaderType(constants.BOOTLOADER_TYPE_EXTLINUX)
 
     if opts.leavebootorder:
         bootloader_proxy.SetKeepBootOrder(True)

@@ -32,7 +32,8 @@ from pyanaconda.core import util
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
 
-from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX
+from pyanaconda.modules.common.constants.objects import FCOE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -2504,8 +2505,10 @@ if flags.cmdline.get("legacygrub") == "1":
     })
 
 def get_bootloader():
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     platform_name = platform.platform.__class__.__name__
-    if flags.extlinux:
+
+    if bootloader_proxy.BootloaderType == BOOTLOADER_TYPE_EXTLINUX:
         cls = EXTLINUX
     else:
         cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
