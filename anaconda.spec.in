@@ -359,6 +359,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 03 2019 Martin Kolman <mkolman@redhat.com> - 30.15-1
+- Remove install classes from the code (vponcova)
+- Remove files with install classes (vponcova)
+- Use the Anaconda configuration to configure the storage (vponcova)
+- Use the Anaconda configuration to configure the bootloader (vponcova)
+- Use the correct name of the variant AtomicHost (vponcova)
+- Use the Anaconda configuration to configure payload (vponcova)
+- Use the Anaconda configuration to configure network devices (vponcova)
+- Use the Anaconda configuration to customize the user interface (vponcova)
+- Use the Anaconda configuration to show EULA (vponcova)
+- Use the Anaconda configuration to detect unsupported hardware (vponcova)
+- Remove the kickstart command installclass (vponcova)
+- Fix the anaconda documentation (vponcova)
+- Add support for inst.product and inst.variant (vponcova)
+- Use the product configuration files in Anaconda (vponcova)
+
 * Wed Jan 02 2019 Martin Kolman <mkolman@redhat.com> - 30.14-1
 - Require password confirmation in GUI (#1584064) (mkolman)
 - Run zipl again after generating initramfs (#1652727) (vponcova)
