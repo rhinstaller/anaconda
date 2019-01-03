@@ -293,6 +293,10 @@ if __name__ == "__main__":
     anaconda_logging.init(write_to_journal=conf.target.is_hardware)
     anaconda_logging.logger.setupVirtio(opts.virtiolog)
 
+    # Load the product configuration after a logging is set up.
+    conf.set_from_product(opts.product_name, opts.variant_name)
+    conf.set_from_opts(opts)
+
     from pyanaconda import network
     network.setup_ifcfg_log()
 
@@ -725,7 +729,7 @@ if __name__ == "__main__":
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
-    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass, fallback=fallback)
+    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton
     geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)
@@ -761,8 +765,8 @@ if __name__ == "__main__":
     from pyanaconda.kickstart import check_kickstart_error
     if ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_PRE_INSTALL):
         with check_kickstart_error():
-            ksdata.snapshot.pre_setup(anaconda.storage, ksdata, anaconda.instClass)
-            ksdata.snapshot.pre_execute(anaconda.storage, ksdata, anaconda.instClass)
+            ksdata.snapshot.pre_setup(anaconda.storage, ksdata)
+            ksdata.snapshot.pre_execute(anaconda.storage, ksdata)
 
     anaconda._intf.setup(ksdata)
     anaconda._intf.run()

@@ -82,7 +82,7 @@ def _writeKS(ksdata):
     with util.open_with_perm(path, "w", 0o600) as f:
         f.write(str(ksdata))
 
-def doConfiguration(storage, payload, ksdata, instClass):
+def doConfiguration(storage, payload, ksdata):
     """Configure the installed system."""
 
     configuration_queue = TaskQueue("Configuration queue")
@@ -92,36 +92,36 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
-    os_config.append(Task("Configure authselect", ksdata.authselect.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure SELinux", ksdata.selinux.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure first boot tasks", ksdata.firstboot.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure services", ksdata.services.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure keyboard", ksdata.keyboard.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure timezone", ksdata.timezone.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure language", ksdata.lang.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure firewall", ksdata.firewall.execute, (storage, ksdata, instClass)))
-    os_config.append(Task("Configure X", ksdata.xconfig.execute, (storage, ksdata, instClass)))
+    os_config.append(Task("Configure authselect", ksdata.authselect.execute, (storage, ksdata)))
+    os_config.append(Task("Configure SELinux", ksdata.selinux.execute, (storage, ksdata)))
+    os_config.append(Task("Configure first boot tasks", ksdata.firstboot.execute, (storage, ksdata)))
+    os_config.append(Task("Configure services", ksdata.services.execute, (storage, ksdata)))
+    os_config.append(Task("Configure keyboard", ksdata.keyboard.execute, (storage, ksdata)))
+    os_config.append(Task("Configure timezone", ksdata.timezone.execute, (storage, ksdata)))
+    os_config.append(Task("Configure language", ksdata.lang.execute, (storage, ksdata)))
+    os_config.append(Task("Configure firewall", ksdata.firewall.execute, (storage, ksdata)))
+    os_config.append(Task("Configure X", ksdata.xconfig.execute, (storage, ksdata)))
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
     if conf.system.provides_network_config:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
-                                   ksdata.network.execute, (storage, payload, ksdata, instClass)))
+                                   ksdata.network.execute, (storage, payload, ksdata)))
         configuration_queue.append(network_config)
 
     # creating users and groups requires some pre-configuration.
     u = Users()
     user_config = TaskQueue("User creation", N_("Creating users"))
-    user_config.append(Task("Configure root", ksdata.rootpw.execute, (storage, ksdata, instClass, u)))
-    user_config.append(Task("Configure user groups", ksdata.group.execute, (storage, ksdata, instClass, u)))
-    user_config.append(Task("Configure user", ksdata.user.execute, (storage, ksdata, instClass, u)))
-    user_config.append(Task("Configure SSH key", ksdata.sshkey.execute, (storage, ksdata, instClass, u)))
+    user_config.append(Task("Configure root", ksdata.rootpw.execute, (storage, ksdata, u)))
+    user_config.append(Task("Configure user groups", ksdata.group.execute, (storage, ksdata, u)))
+    user_config.append(Task("Configure user", ksdata.user.execute, (storage, ksdata, u)))
+    user_config.append(Task("Configure SSH key", ksdata.sshkey.execute, (storage, ksdata, u)))
     configuration_queue.append(user_config)
 
     # Anaconda addon configuration
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
-    addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, instClass, u, payload)))
+    addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, u, payload)))
     configuration_queue.append(addon_config)
 
     # Initramfs generation
@@ -137,7 +137,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
     if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
-        generate_initramfs.append(Task("Write BTRFS bootloader fix", writeBootLoader, (storage, payload, instClass, ksdata)))
+        generate_initramfs.append(Task("Write BTRFS bootloader fix", writeBootLoader, (storage, payload, ksdata)))
 
     # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
     if arch.is_s390() and not conf.target.is_directory and bootloader_enabled:
@@ -148,7 +148,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # join a realm (if required)
     if ksdata.realm.discovered:
         join_realm = TaskQueue("Realm join", N_("Joining realm: %s") % ksdata.realm.discovered)
-        join_realm.append(Task("Join a realm", ksdata.realm.execute, (storage, ksdata, instClass)))
+        join_realm.append(Task("Join a realm", ksdata.realm.execute, (storage, ksdata)))
         configuration_queue.append(join_realm)
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
@@ -211,7 +211,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # done
     progress_complete()
 
-def doInstall(storage, payload, ksdata, instClass):
+def doInstall(storage, payload, ksdata):
     """Perform an installation.  This method takes the ksdata as prepared by
        the UI (the first hub, in graphical mode) and applies it to the disk.
        The two main tasks for this are putting filesystems onto disks and
@@ -253,7 +253,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # setup the installation environment
     setup_environment = TaskQueue("Installation environment setup", N_("Setting up the installation environment"))
-    setup_environment.append(Task("Setup addons", ksdata.addons.setup, (storage, ksdata, instClass, payload)))
+    setup_environment.append(Task("Setup addons", ksdata.addons.setup, (storage, ksdata, payload)))
     installation_queue.append(setup_environment)
 
     # Do partitioning.
@@ -351,7 +351,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do bootloader.
     if can_install_bootloader:
         bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
-        bootloader_install.append(Task("Install bootloader", writeBootLoader, (storage, payload, instClass, ksdata)))
+        bootloader_install.append(Task("Install bootloader", writeBootLoader, (storage, payload, ksdata)))
         installation_queue.append(bootloader_install)
 
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
@@ -361,7 +361,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Create snapshot
     if ksdata.snapshot and ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_POST_INSTALL):
         snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
-        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, ksdata, instClass)))
+        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, ksdata)))
         installation_queue.append(snapshot_creation)
 
     # notify progress tracking about the number of steps

@@ -34,7 +34,7 @@ class SummaryHub(Hub):
     uiFile = "hubs/summary.glade"
     helpFile = "SummaryHub.xml"
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         """Create a new Hub instance.
 
            The arguments this base class accepts defines the API that Hubs
@@ -51,12 +51,8 @@ class SummaryHub(Hub):
            payload      -- An instance of a payload.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
-           instclass    -- An instance of a BaseInstallClass subclass.  This
-                           is useful for determining distribution-specific
-                           installation information like default package
-                           selections and default partitioning.
         """
-        super().__init__(data, storage, payload, instclass)
+        super().__init__(data, storage, payload)
 
         if not conf.target.is_directory:
             self._checker = FileSystemSpaceChecker(storage, payload)

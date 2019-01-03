@@ -189,7 +189,7 @@ class Spoke(object, metaclass=ABCMeta):
     icon = None
     title = None
 
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload):
         """Create a new Spoke instance.
 
            The arguments this base class accepts defines the API that spokes
@@ -208,14 +208,9 @@ class Spoke(object, metaclass=ABCMeta):
            payload      -- An instance of a payload.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
-           instclass    -- An instance of a BaseInstallClass subclass.  This
-                           is useful for determining distribution-specific
-                           installation information like default package
-                           selections and default partitioning.
         """
         self._storage = storage
         self.payload = payload
-        self.instclass = instclass
         self.applyOnSkip = False
 
         self.visitedSinceApplied = True
@@ -425,9 +420,9 @@ class NormalSpoke(Spoke):
        installing, how to get back to the Hub) at the top of the screen.
     """
 
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload):
         """Create a NormalSpoke instance."""
-        super().__init__(storage, payload, instclass)
+        super().__init__(storage, payload)
         self.selector = None
 
     @property
@@ -488,12 +483,12 @@ class StandaloneSpoke(Spoke):
     preForHub = None
     postForHub = None
 
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload):
         """Create a StandaloneSpoke instance."""
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        super().__init__(storage, payload, instclass)
+        super().__init__(storage, payload)
 
     # Standalone spokes are not part of a hub, and thus have no status.
     # Provide a concrete implementation of status here so that subclasses
@@ -524,7 +519,7 @@ class Hub(object, metaclass=ABCMeta):
        additional standalone screens either before or after them.
     """
 
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload):
         """Create a new Hub instance.
 
            The arguments this base class accepts defines the API that Hubs
@@ -543,14 +538,9 @@ class Hub(object, metaclass=ABCMeta):
            payload      -- An instance of a payload.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
-           instclass    -- An instance of a BaseInstallClass subclass.  This
-                           is useful for determining distribution-specific
-                           installation information like default package
-                           selections and default partitioning.
         """
         self._storage = storage
         self.payload = payload
-        self.instclass = instclass
 
         self.paths = {}
         self._spokes = {}

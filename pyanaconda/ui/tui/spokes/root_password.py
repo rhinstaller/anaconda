@@ -37,8 +37,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     helpFile = "PasswordSpoke.txt"
     category = UserSettingsCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         self.initialize_start()
         self.title = N_("Root password")
         self.input_required = False

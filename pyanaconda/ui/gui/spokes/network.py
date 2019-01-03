@@ -1568,7 +1568,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 if ANACONDA_ENVIRON in anaconda_flags.environs:
                     log.debug("network spoke (apply), network configuration changed - restarting payload thread")
                     from pyanaconda.payload import payloadMgr
-                    payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                    payloadMgr.restartThread(self.storage, self.data, self.payload,
                                              fallback=not anaconda_flags.automatedInstall, onlyOnChange=True)
                 else:
                     log.debug("network spoke (apply), network configuration changed - "
@@ -1719,7 +1719,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         if (not self.payload.baseRepo and not self._initially_available
             and self._now_available and self.payload.needsNetwork):
             from pyanaconda.payload import payloadMgr
-            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+            payloadMgr.restartThread(self.storage, self.data, self.payload,
                     fallback=not anaconda_flags.automatedInstall)
 
         self.network_control_box.kill_nmce(msg="leaving standalone network spoke")

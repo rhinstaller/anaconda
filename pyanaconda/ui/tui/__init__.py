@@ -85,7 +85,7 @@ class TextUserInterface(ui.UserInterface):
 
     ENVIRONMENT = "anaconda"
 
-    def __init__(self, storage, payload, instclass,
+    def __init__(self, storage, payload,
                  productTitle=u"Anaconda", isFinal=True,
                  quitMessage=None):
         """
@@ -97,9 +97,6 @@ class TextUserInterface(ui.UserInterface):
 
         :param payload: payload (usually dnf) reference
         :type payload: instance of payload handler
-
-        :param instclass: install class reference
-        :type instclass: instance of install class
 
         :param productTitle: the name of the product
         :type productTitle: str
@@ -116,7 +113,7 @@ class TextUserInterface(ui.UserInterface):
         :type quitMessage: str
         """
 
-        super().__init__(storage, payload, instclass)
+        super().__init__(storage, payload)
         self._meh_interface = meh.ui.text.TextIntf()
 
         self.productTitle = productTitle
@@ -192,7 +189,7 @@ class TextUserInterface(ui.UserInterface):
         actionClasses = self._orderActionClasses(spokes, _hubs)
 
         for klass in actionClasses:
-            obj = klass(data, self.storage, self.payload, self.instclass)
+            obj = klass(data, self.storage, self.payload)
 
             # If we are doing a kickstart install, some standalone spokes
             # could already be filled out.  In that case, we do not want

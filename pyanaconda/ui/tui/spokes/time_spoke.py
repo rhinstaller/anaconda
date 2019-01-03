@@ -60,8 +60,8 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     helpFile = "DateTimeSpoke.txt"
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         self.title = N_("Time settings")
         self._timezone_spoke = None
         self._container = None
@@ -183,8 +183,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def timezone_spoke(self):
         if not self._timezone_spoke:
-            self._timezone_spoke = TimeZoneSpoke(self.data, self.storage,
-                                                 self.payload, self.instclass)
+            self._timezone_spoke = TimeZoneSpoke(self.data, self.storage, self.payload)
         return self._timezone_spoke
 
     @property
@@ -255,8 +254,7 @@ class TimeSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.close()
 
     def _configure_ntp_server_callback(self, data):
-        new_spoke = NTPServersSpoke(self.data, self.storage,
-                                    self.payload, self.instclass, self)
+        new_spoke = NTPServersSpoke(self.data, self.storage, self.payload, self)
         ScreenHandler.push_screen_modal(new_spoke)
         self.apply()
         self.close()
@@ -280,8 +278,8 @@ class TimeZoneSpoke(NormalTUISpoke):
     """
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
 
         self.title = N_("Timezone settings")
         self._container = None
@@ -378,8 +376,8 @@ class TimeZoneSpoke(NormalTUISpoke):
 class NTPServersSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, instclass, time_spoke):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, time_spoke):
+        super().__init__(data, storage, payload)
         self.title = N_("NTP configuration")
         self._container = None
         self._time_spoke = time_spoke
@@ -415,14 +413,12 @@ class NTPServersSpoke(NormalTUISpoke):
         self.window.add_with_separator(self._container)
 
     def _add_ntp_server(self, data):
-        new_spoke = AddNTPServerSpoke(self.data, self.storage, self.payload,
-                                      self.instclass, self._time_spoke)
+        new_spoke = AddNTPServerSpoke(self.data, self.storage, self.payload, self._time_spoke)
         ScreenHandler.push_screen_modal(new_spoke)
         self.redraw()
 
     def _remove_ntp_server(self, data):
-        new_spoke = RemoveNTPServerSpoke(self.data, self.storage, self.payload,
-                                         self.instclass, self._time_spoke)
+        new_spoke = RemoveNTPServerSpoke(self.data, self.storage, self.payload, self._time_spoke)
         ScreenHandler.push_screen_modal(new_spoke)
         self.redraw()
 
@@ -439,8 +435,8 @@ class NTPServersSpoke(NormalTUISpoke):
 class AddNTPServerSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, instclass, time_spoke):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, time_spoke):
+        super().__init__(data, storage, payload)
         self.title = N_("Add NTP server address")
         self._time_spoke = time_spoke
         self._new_ntp_server = None
@@ -479,8 +475,8 @@ class AddNTPServerSpoke(NormalTUISpoke):
 class RemoveNTPServerSpoke(NormalTUISpoke):
     category = LocalizationCategory
 
-    def __init__(self, data, storage, payload, instclass, timezone_spoke):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, timezone_spoke):
+        super().__init__(data, storage, payload)
         self.title = N_("Select an NTP server to remove")
         self._time_spoke = timezone_spoke
         self._ntp_server_index = None

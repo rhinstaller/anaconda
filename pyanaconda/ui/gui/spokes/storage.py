@@ -323,10 +323,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._customPart.set_visible(False)
             self._customPart.set_no_show_all(True)
 
-        if not self.instclass.blivet_gui_supported:
-            log.info("Blivet-gui is not supported on %s", self.instclass.name)
-
-        self._enable_blivet_gui(self.instclass.blivet_gui_supported)
+        self._enable_blivet_gui(conf.ui.blivet_gui_supported)
 
         self._last_partitioning_method = self._get_selected_partitioning_method()
 
@@ -348,6 +345,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 self._blivetGuiPart.set_visible(False)
                 self._blivetGuiPart.set_no_show_all(True)
         else:
+            log.info("Blivet-GUI is not supported.")
             self._partitioningTypeBox.remove(self._blivetGuiPart)
 
     def _get_selected_partitioning_method(self):
@@ -489,7 +487,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             hubQ.send_ready(self.__class__.__name__, True)
             return
         try:
-            doKickstartStorage(self.storage, self.data, self.instclass)
+            doKickstartStorage(self.storage, self.data)
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py
         except (StorageError, KickstartParseError, ValueError) as e:
             log.error("storage configuration failed: %s", e)

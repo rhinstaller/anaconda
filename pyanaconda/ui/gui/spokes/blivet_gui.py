@@ -67,7 +67,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     helpFile = "blivet-gui/index.page"
 
     ### methods defined by API ###
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         """
         :see: pyanaconda.ui.common.Spoke.__init__
         :param data: data object passed to every spoke to load/store data
@@ -78,9 +78,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         :type storage: blivet.Blivet
         :param payload: object storing payload-related information
         :type payload: pyanaconda.payload.Payload
-        :param instclass: distribution-specific information
-        :type instclass: pyanaconda.installclass.BaseInstallClass
-
         """
 
         self._error = None
@@ -94,7 +91,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self._bootloader_observer.connect()
 
         StorageCheckHandler.__init__(self)
-        NormalSpoke.__init__(self, data, storage, payload, instclass)
+        NormalSpoke.__init__(self, data, storage, payload)
 
     def initialize(self):
         """

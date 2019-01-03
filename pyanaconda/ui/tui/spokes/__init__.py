@@ -45,13 +45,13 @@ class TUISpoke(TUIObject, Widget, Spoke):
           :parts: 3
     """
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         if self.__class__ is TUISpoke:
             raise TypeError("TUISpoke is an abstract class")
 
         TUIObject.__init__(self, data)
         Widget.__init__(self)
-        Spoke.__init__(self, storage, payload, instclass)
+        Spoke.__init__(self, storage, payload)
 
         self.input_required = True
         self.title = N_("Default spoke title")
@@ -101,7 +101,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
         # TRANSLATORS: 'h' to help
         if key.lower() == Prompt.HELP:
             if self.has_help:
-                help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
+                help_path = ihelp.get_help_path(self.helpFile, True)
                 ScreenHandler.push_screen_modal(HelpScreen(help_path))
                 return InputState.PROCESSED_AND_REDRAW
 

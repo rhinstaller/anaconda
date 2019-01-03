@@ -16,6 +16,9 @@
 # Red Hat, Inc.
 #
 from blivet.size import Size
+
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.configuration.storage import PartitioningType
 from pyanaconda.core.constants import STORAGE_SWAP_IS_RECOMMENDED
 
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
@@ -68,6 +71,20 @@ WORKSTATION_PARTITIONING = [
         encrypted=True
     )
 ]
+
+
+def get_default_partitioning():
+    """Get the default partitioning requests.
+
+    :return: a list of partitioning specs
+    """
+    if conf.storage.default_partitioning is PartitioningType.SERVER:
+        return SERVER_PARTITIONING
+
+    if conf.storage.default_partitioning is PartitioningType.WORKSTATION:
+        return WORKSTATION_PARTITIONING
+
+    raise ValueError("Invalid partitioning type: {}".format(conf.storage.default_partitioning))
 
 
 def get_full_partitioning_requests(storage, platform, requests):

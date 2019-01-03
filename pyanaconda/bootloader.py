@@ -2513,12 +2513,12 @@ def get_bootloader():
 
 # anaconda-specific functions
 
-def writeSysconfigKernel(storage, version, instClass):
+def writeSysconfigKernel(storage, version):
     # get the name of the default kernel package based on the version
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
     if not os.path.isfile(util.getSysroot() + kernel_file):
-        efi_dir = instClass.efi_dir
+        efi_dir = conf.bootloader.efi_dir
         if flags.cmdline.get("force_efi_dir") is not None:
             efi_dir = flags.cmdline.get("force_efi_dir")
         kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
@@ -2559,7 +2559,7 @@ def writeSysconfigKernel(storage, version, instClass):
         f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
-def writeBootLoaderFinal(storage, payload, instClass, ksdata):
+def writeBootLoaderFinal(storage, payload, ksdata):
     """ Do the final write of the bootloader. """
 
     # set up dracut/fips boot args
@@ -2573,7 +2573,7 @@ def writeBootLoaderFinal(storage, payload, instClass, ksdata):
         if errorHandler.cb(e) == ERROR_RAISE:
             raise
 
-def writeBootLoader(storage, payload, instClass, ksdata):
+def writeBootLoader(storage, payload, ksdata):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
@@ -2586,18 +2586,18 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         stage2_device = storage.bootloader.stage2_device
         log.info("boot loader stage2 target device is %s", stage2_device.name)
 
-    storage.bootloader.menu_auto_hide = instClass.bootloader_menu_autohide
+    storage.bootloader.menu_auto_hide = conf.bootloader.menu_auto_hide
 
     # Bridge storage EFI configuration to bootloader
     if hasattr(storage.bootloader, 'efi_dir'):
-        storage.bootloader.efi_dir = instClass.efi_dir
+        storage.bootloader.efi_dir = conf.bootloader.efi_dir
 
     # Currently just rpmostreepayload shortcuts the rest of everything below
     if payload.handlesBootloaderConfiguration:
         if storage.bootloader.skip_bootloader:
             log.info("skipping boot loader install per user request")
             return
-        writeBootLoaderFinal(storage, payload, instClass, ksdata)
+        writeBootLoaderFinal(storage, payload, ksdata)
         return
 
     # get a list of installed kernel packages
@@ -2606,7 +2606,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
 
     rescue_versions = glob(util.getSysroot() + "/boot/vmlinuz-*-rescue-*")
     rescue_versions += glob(
-        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
     kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
 
     if not kernel_versions:
@@ -2628,7 +2628,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     storage.bootloader.default = default_image
 
     # write out /etc/sysconfig/kernel
-    writeSysconfigKernel(storage, version, instClass)
+    writeSysconfigKernel(storage, version)
 
     if storage.bootloader.skip_bootloader:
         log.info("skipping boot loader install per user request")
@@ -2648,4 +2648,4 @@ def writeBootLoader(storage, payload, instClass, ksdata):
                                          label=label, short=short)
         storage.bootloader.add_image(image)
 
-    writeBootLoaderFinal(storage, payload, instClass, ksdata)
+    writeBootLoaderFinal(storage, payload, ksdata)

@@ -307,7 +307,6 @@ class Payload(object):
 
         self.data = data
         self.storage = None
-        self.instclass = None
         self.txID = None
 
         self._install_tree_metadata = None
@@ -322,29 +321,18 @@ class Payload(object):
         # Additional packages required by installer based on used features
         self.requirements = PayloadRequirements()
 
-        # are mirrors available ?
-        # - this is an initial default value that will
-        #   be overridden by value from the current
-        #   install class in the setup() method
-        self._mirrors_available = True
-
     @property
     def first_payload_reset(self):
         return self._first_payload_reset
 
-    def setup(self, storage, instClass):
+    def setup(self, storage):
         """Do any payload-specific setup."""
         self.storage = storage
-        self.instclass = instClass
         self.verbose_errors = []
-        # At the moment we set if mirrors are expected to be
-        # available just based on an current install class.
-        self._mirrors_available = instClass.mirrors_available
 
     def unsetup(self):
         """Invalidate a previously setup payload."""
         self.storage = None
-        self.instclass = None
         self._install_tree_metadata = None
 
     def postSetup(self):
@@ -410,7 +398,7 @@ class Payload(object):
         """Is the closest/fastest mirror option enabled?  This does not make
         sense for those payloads that do not support this concept.
         """
-        return self._mirrors_available
+        return conf.payload.enable_closest_mirror
 
     @property
     def disabledRepos(self):
@@ -1070,7 +1058,7 @@ class PackagePayload(Payload):
             # Find all /boot/vmlinuz- files and strip off vmlinuz-
             files.extend((f.split("/")[-1][8:] for f in unicode_fnames
                 if fnmatch(f, "/boot/vmlinuz-*") or
-                   fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir)))
+                   fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
 
         return sorted(files, key=functools.cmp_to_key(versionCmp))
 
@@ -1647,7 +1635,7 @@ class PayloadManager(object):
             elif event_id <= self._thread_state:
                 func()
 
-    def restartThread(self, storage, ksdata, payload, instClass,
+    def restartThread(self, storage, ksdata, payload,
                       fallback=False, checkmount=True, onlyOnChange=False):
         """Start or restart the payload thread.
 
@@ -1659,7 +1647,6 @@ class PayloadManager(object):
         :param pyanaconda.storage.InstallerStorage storage: The blivet storage instance
         :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
         :param payload.Payload payload: The payload instance
-        :param installclass.BaseInstallClass instClass: The install class instance
         :param bool fallback: Whether to fall back to the default repo in case of error
         :param bool checkmount: Whether to check for valid mounted media
         :param bool onlyOnChange: Restart thread only if existing repositories changed.
@@ -1671,7 +1658,7 @@ class PayloadManager(object):
         if threadMgr.get(THREAD_PAYLOAD_RESTART):
             return
 
-        thread_args = (storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange)
+        thread_args = (storage, ksdata, payload, fallback, checkmount, onlyOnChange)
         # Launch a new thread so that this method can return immediately
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
                                      args=thread_args))
@@ -1681,11 +1668,11 @@ class PayloadManager(object):
         """Is the payload thread running right now?"""
         return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
 
-    def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange):
+    def _restartThread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
         # Wait for the old thread to finish
         threadMgr.wait(THREAD_PAYLOAD)
 
-        thread_args = (storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange)
+        thread_args = (storage, ksdata, payload, fallback, checkmount, onlyOnChange)
         # Start a new payload thread
         threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._runThread,
                                      args=thread_args))
@@ -1702,7 +1689,7 @@ class PayloadManager(object):
             for func in self._event_listeners[event_id]:
                 func()
 
-    def _runThread(self, storage, ksdata, payload, instClass, fallback, checkmount, onlyOnChange):
+    def _runThread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
         # This is the thread entry
         # Set the initial state
         self._error = None
@@ -1718,7 +1705,7 @@ class PayloadManager(object):
         # (set and use payload.needsNetwork ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
-        payload.setup(storage, instClass)
+        payload.setup(storage)
 
         # If this is a non-package Payload, we're done
         if not isinstance(payload, PackagePayload):

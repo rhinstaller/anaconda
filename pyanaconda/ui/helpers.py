@@ -130,7 +130,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         """
         self._clean_hdd_iso()
         self.data.method.method = None
-        payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass, checkmount=False)   # pylint: disable=no-member
+        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)   # pylint: disable=no-member
         threadMgr.wait(constants.THREAD_PAYLOAD_RESTART)
         threadMgr.wait(constants.THREAD_PAYLOAD)
 

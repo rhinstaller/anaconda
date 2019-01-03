@@ -83,8 +83,8 @@ class StorageSpoke(NormalTUISpoke):
     helpFile = "StorageSpoke.txt"
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
 
         self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
         self._bootloader_observer.connect()
@@ -322,8 +322,7 @@ class StorageSpoke(NormalTUISpoke):
                         return InputState.PROCESSED_AND_REDRAW
 
                     self.apply()
-                    new_spoke = PartTypeSpoke(self.data, self.storage,
-                                              self.payload, self.instclass)
+                    new_spoke = PartTypeSpoke(self.data, self.storage, self.payload)
                     ScreenHandler.push_screen_modal(new_spoke)
                     self.apply()
                     self.execute()
@@ -450,7 +449,7 @@ class StorageSpoke(NormalTUISpoke):
     def execute(self):
         print(_("Generating updated storage configuration"))
         try:
-            doKickstartStorage(self.storage, self.data, self.instclass)
+            doKickstartStorage(self.storage, self.data)
         except (StorageError, KickstartParseError) as e:
             log.error("storage configuration failed: %s", e)
             print(_("storage configuration failed: %s") % e)
@@ -535,8 +534,8 @@ class PartTypeSpoke(NormalTUISpoke):
     """
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
         self.title = N_("Partitioning Options")
         self._container = None
         self.parttypelist = sorted(PARTTYPES.keys())
@@ -646,11 +645,9 @@ class PartTypeSpoke(NormalTUISpoke):
                 self.apply()
                 self._ensure_init_storage()
                 if self._do_mount_assign:
-                    new_spoke = MountPointAssignSpoke(self.data, self.storage,
-                                                      self.payload, self.instclass)
+                    new_spoke = MountPointAssignSpoke(self.data, self.storage, self.payload)
                 else:
-                    new_spoke = PartitionSchemeSpoke(self.data, self.storage,
-                                                     self.payload, self.instclass)
+                    new_spoke = PartitionSchemeSpoke(self.data, self.storage, self.payload)
                 ScreenHandler.push_screen_modal(new_spoke)
                 return InputState.PROCESSED_AND_CLOSE
             else:
@@ -663,8 +660,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     """ Spoke to select what partitioning scheme to use on disk(s). """
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
         self.title = N_("Partition Scheme Options")
         self._container = None
         self.part_schemes = OrderedDict()
@@ -726,8 +723,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
     """ Assign mount points to block devices. """
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        super().__init__(data, storage, payload)
         self.title = N_("Assign mount points")
         self._container = None
 
@@ -862,7 +859,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
 
     def _configure_mount_info(self, info):
         """Configure the given mount info."""
-        spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, self.instclass, *info)
+        spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, *info)
         ScreenHandler.push_screen(spoke)
 
     def _rescan_devices(self):
@@ -894,8 +891,8 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Assign mount point to a block device and (optionally) reformat it. """
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass, device, mount_data):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, device, mount_data):
+        super().__init__(data, storage, payload)
         self.title = N_("Configure device: %s") % mount_data[MOUNT_POINT_DEVICE]
         self._container = None
 

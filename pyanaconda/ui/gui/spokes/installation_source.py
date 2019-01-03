@@ -48,6 +48,7 @@ from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
 
@@ -412,8 +413,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if flags.askmethod:
             flags.askmethod = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
-                                 checkmount=False)
+        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -745,8 +745,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
         self._networkButton.connect("toggled", self._updateURLEntryCheck)
 
-        # Show or hide the updates option based on the installclass
-        if self.instclass.installUpdates:
+        # Show or hide the updates option based on the configuration
+        if conf.payload.enable_updates:
             really_show(self._updatesBox)
         else:
             really_hide(self._updatesBox)

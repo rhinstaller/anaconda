@@ -58,9 +58,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         return False
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         FirstbootSpokeMixIn.__init__(self)
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+        NormalTUISpoke.__init__(self, data, storage, payload)
 
         self.initialize_start()
 

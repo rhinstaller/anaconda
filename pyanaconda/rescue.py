@@ -329,7 +329,7 @@ class RescueModeSpoke(NormalTUISpoke):
     # If it acts like a spoke and looks like a spoke, is it a spoke? Not
     # always. This is independent of any hub(s), so pass in some fake data
     def __init__(self, rescue):
-        super().__init__(data=None, storage=None, payload=None, instclass=None)
+        super().__init__(data=None, storage=None, payload=None)
         self.title = N_("Rescue")
         self._container = None
         self._rescue = rescue
@@ -457,7 +457,7 @@ class RescueStatusAndShellSpoke(NormalTUISpoke):
     """UI displaying status of rescue mode mount and prompt for shell."""
 
     def __init__(self, rescue):
-        super().__init__(data=None, storage=None, payload=None, instclass=None)
+        super().__init__(data=None, storage=None, payload=None)
         self.title = N_("Rescue Shell")
         self._rescue = rescue
 
@@ -534,7 +534,7 @@ class RootSelectionSpoke(NormalTUISpoke):
     """UI for selection of installed system root to be mounted."""
 
     def __init__(self, roots):
-        super().__init__(data=None, storage=None, payload=None, instclass=None)
+        super().__init__(data=None, storage=None, payload=None)
         self.title = N_("Root Selection")
         self._roots = roots
         self._selection = roots[0]

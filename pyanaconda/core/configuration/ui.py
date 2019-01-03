@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018  Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,34 +15,33 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.util import detect_unsupported_hardware
-from pyanaconda.ui.gui import GUIObject
+#  Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
+from pyanaconda.core.configuration.base import Section
 
-__all__ = ["UnsupportedHardwareDialog"]
 
-
-class UnsupportedHardwareDialog(GUIObject):
-    """Dialog for warnings about unsupported hardware.
-
-    Show this dialog if the unsupported hardware was detected.
-    """
-    builderObjects = ["unsupportedHardwareDialog"]
-    mainWidgetName = "unsupportedHardwareDialog"
-    uiFile = "spokes/lib/unsupported_hardware.glade"
-
-    def __init__(self, data):
-        super().__init__(data)
-        self._warnings = detect_unsupported_hardware()
+class UserInterfaceSection(Section):
+    """The User Interface section."""
 
     @property
-    def supported(self):
-        return not self._warnings
+    def custom_stylesheet(self):
+        """The path to a custom stylesheet."""
+        return self._get_option("custom_stylesheet", str)
 
-    def refresh(self):
-        message_label = self.builder.get_object("messageLabel")
-        message_label.set_label("\n\n".join(self._warnings))
+    @property
+    def default_help_pages(self):
+        """Default help pages for TUI, GUI and Live OS."""
+        values = self._get_option("default_help_pages", str).split()
 
-    def run(self):
-        rc = self.window.run()
-        self.window.destroy()
-        return rc
+        if not values:
+            return "", "", ""
+
+        if len(values) != 3:
+            raise ValueError("Invalid number of values: {}".format(values))
+
+        return tuple(values)
+
+    @property
+    def blivet_gui_supported(self):
+        """Is the partitioning with blivet-gui supported?"""
+        return self._get_option("blivet_gui_supported", bool)

@@ -19,12 +19,19 @@
 #
 import os
 
+from pyanaconda.core.configuration.bootloader import BootloaderSection
+from pyanaconda.core.configuration.license import LicenseSection
+from pyanaconda.core.configuration.network import NetworkSection
+from pyanaconda.core.configuration.payload import PayloadSection
 from pyanaconda.core.configuration.services import ServicesSection
 from pyanaconda.core.configuration.storage import StorageSection
 from pyanaconda.core.configuration.system import SystemType, SystemSection
 from pyanaconda.core.configuration.target import TargetType, TargetSection
-from pyanaconda.core.configuration.base import Section, Configuration
+from pyanaconda.core.configuration.base import Section, Configuration, ConfigurationError
+from pyanaconda.core.configuration.product import ProductLoader
+from pyanaconda.core.configuration.ui import UserInterfaceSection
 from pyanaconda.core.constants import ANACONDA_CONFIG_TMP, ANACONDA_CONFIG_DIR
+from pyanaconda.product import productName, productVariant
 
 
 __all__ = ["conf", "AnacondaConfiguration"]
@@ -68,8 +75,13 @@ class AnacondaConfiguration(Configuration):
         self._anaconda = AnacondaSection("Anaconda", self.get_parser())
         self._system = SystemSection("Installation System", self.get_parser())
         self._target = TargetSection("Installation Target", self.get_parser())
+        self._network = NetworkSection("Network", self.get_parser())
+        self._payload = PayloadSection("Payload", self.get_parser())
+        self._bootloader = BootloaderSection("Bootloader", self.get_parser())
         self._storage = StorageSection("Storage", self.get_parser())
         self._services = ServicesSection("Services", self.get_parser())
+        self._ui = UserInterfaceSection("User Interface", self.get_parser())
+        self._license = LicenseSection("License", self.get_parser())
 
     @property
     def anaconda(self):
@@ -87,6 +99,21 @@ class AnacondaConfiguration(Configuration):
         return self._target
 
     @property
+    def network(self):
+        """The Network section."""
+        return self._network
+
+    @property
+    def payload(self):
+        """The Payload section."""
+        return self._payload
+
+    @property
+    def bootloader(self):
+        """The Bootloader section."""
+        return self._bootloader
+
+    @property
     def storage(self):
         """The Storage section."""
         return self._storage
@@ -95,6 +122,16 @@ class AnacondaConfiguration(Configuration):
     def services(self):
         """The Services section."""
         return self._services
+
+    @property
+    def ui(self):
+        """The User Interface section."""
+        return self._ui
+
+    @property
+    def license(self):
+        """The License section."""
+        return self._license
 
     def set_from_defaults(self):
         """"Set the configuration from the default configuration files.
@@ -116,6 +153,63 @@ class AnacondaConfiguration(Configuration):
 
             config_dir = os.path.join(ANACONDA_CONFIG_DIR, "conf.d")
             self.read_from_directory(config_dir)
+
+        self.validate()
+
+    def set_from_product(self, requested_product="", requested_variant=""):
+        """Set the configuration from the product configuration files.
+
+        We will use configuration files of a product requested by the user
+        if any. Otherwise, we will use a product specified by the .buildstamp
+        file or a default product.
+
+        The configuration files are loaded from /etc/anaconda/product.d.
+
+        :param str requested_product: a name of the requested product
+        :param str requested_variant: a name of the requested variant
+        """
+        loader = ProductLoader()
+        loader.load_products(os.path.join(ANACONDA_CONFIG_DIR, "product.d"))
+
+        # Use the requested product name and variant name.
+        if requested_product:
+
+            if not loader.check_product(requested_product, requested_variant):
+                raise ConfigurationError(
+                    "Unable to find any suitable configuration files for "
+                    "the product name '{}' and the variant name '{}'."
+                    "".format(requested_product, requested_variant)
+                )
+
+            product_name = requested_product
+            variant_name = requested_variant
+
+        # Or use the product name and the variant name from .buildstamp.
+        elif loader.check_product(productName, productVariant):
+            product_name = productName
+            variant_name = productVariant
+
+        # Or the product name from .buildstamp.
+        elif loader.check_product(productName):
+            product_name = productName
+            variant_name = ""
+
+        # Or use the default product name.
+        elif loader.check_product("Fedora"):
+            product_name = "Fedora"
+            variant_name = ""
+
+        # Or fail.
+        else:
+            raise ConfigurationError(
+                "Unable to find any suitable configuration files for this product."
+            )
+
+        # Read the configuration files of the product.
+        config_paths = loader.collect_configurations(product_name, variant_name)
+
+        for config_path in config_paths:
+            self.read(config_path)
 
         self.validate()
 

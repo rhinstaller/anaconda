@@ -763,6 +763,30 @@ inst.nonibftiscsiboot
 
 Allows to place boot loader on iSCSI devices which were not configured in iBFT.
 
+Product options
+^^^^^^^^^^^^^^^
+
+Use the options ``inst.product`` and ``inst.variant`` to specify a product. The installer will
+be customized based on configuration files from ``/etc/anaconda/product.d`` that are specific
+for this product.
+
+.. inst.product:
+
+inst.product
+++++++++++++
+
+Set the name of a product.
+
+For example: ``inst.product=Fedora``
+
+.. inst.variant:
+
+inst.variant
+++++++++++++
+Set the name of a variant.
+
+For example: ``inst.variant=Workstation``
+
 
 Third-party options
 ^^^^^^^^^^^^^^^^^^^

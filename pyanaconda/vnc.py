@@ -295,7 +295,7 @@ class VncServer(object):
         App.initialize()
         loop = App.get_event_loop()
         loop.set_quit_callback(tui_quit_callback)
-        spoke = VNCPassSpoke(self.anaconda.ksdata, None, None, None, message)
+        spoke = VNCPassSpoke(self.anaconda.ksdata, None, None, message)
         ScreenHandler.schedule_screen(spoke)
         App.run()
 

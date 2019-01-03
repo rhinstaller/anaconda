@@ -57,8 +57,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     helpFile = "NetworkSpoke.txt"
     category = SystemCategory
 
-    def __init__(self, data, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, data, storage, payload, instclass)
+    def __init__(self, data, storage, payload):
+        NormalTUISpoke.__init__(self, data, storage, payload)
         self.title = N_("Network configuration")
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
@@ -207,8 +207,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
             ndata = network.ksdata_from_ifcfg(devname)
 
-        new_spoke = ConfigureNetworkSpoke(self.data, self.storage,
-                                          self.payload, self.instclass, ndata)
+        new_spoke = ConfigureNetworkSpoke(self.data, self.storage, self.payload, ndata)
         ScreenHandler.push_screen_modal(new_spoke)
         self.redraw()
 
@@ -256,8 +255,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self._apply = False
             if ANACONDA_ENVIRON in flags.environs:
                 from pyanaconda.payload import payloadMgr
-                payloadMgr.restartThread(self.storage, self.data, self.payload,
-                                         self.instclass, checkmount=False)
+                payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
 
     def _update_network_data(self):
         hostname = self._network_module.proxy.Hostname
@@ -291,8 +289,8 @@ class ConfigureNetworkSpoke(NormalTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     category = "network"
 
-    def __init__(self, data, storage, payload, instclass, network_data):
-        super().__init__(data, storage, payload, instclass)
+    def __init__(self, data, storage, payload, network_data):
+        super().__init__(data, storage, payload)
         self.title = N_("Device configuration")
 
         self.network_data = network_data

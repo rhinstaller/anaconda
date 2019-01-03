@@ -48,9 +48,9 @@ class TUIHub(TUIObject, common.Hub):
 
     categories = []
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, data, storage, payload):
         TUIObject.__init__(self, data)
-        common.Hub.__init__(self, storage, payload, instclass)
+        common.Hub.__init__(self, storage, payload)
         self.title = N_("Default HUB title")
         self._container = None
 
@@ -73,7 +73,7 @@ class TUIHub(TUIObject, common.Hub):
             for spoke_class in cats_and_spokes[c]:
                 # Do the checks for the spoke and create the spoke
                 if spoke_class.should_run(environment, self.data):
-                    spoke = spoke_class(self.data, self.storage, self.payload, self.instclass)
+                    spoke = spoke_class(self.data, self.storage, self.payload)
 
                     if spoke.showable:
                         spoke.initialize()
@@ -139,7 +139,7 @@ class TUIHub(TUIObject, common.Hub):
             # TRANSLATORS: 'h' to help
             elif key == Prompt.HELP:
                 if self.has_help:
-                    help_path = ihelp.get_help_path(self.helpFile, self.instclass, True)
+                    help_path = ihelp.get_help_path(self.helpFile, True)
                     ScreenHandler.push_screen_modal(HelpScreen(help_path))
                     return InputState.PROCESSED_AND_REDRAW
             return key

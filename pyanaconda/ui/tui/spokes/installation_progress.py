@@ -23,6 +23,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core import util
 from pyanaconda.core.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
+from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
@@ -44,9 +45,9 @@ class ProgressSpoke(StandaloneTUISpoke):
     postForHub = SummaryHub
     priority = 0
 
-    def __init__(self, ksdata, storage, payload, instclass):
+    def __init__(self, ksdata, storage, payload):
         self.initialize_start()
-        super().__init__(ksdata, storage, payload, instclass)
+        super().__init__(ksdata, storage, payload)
         self.title = N_("Progress")
         self._stepped = False
         self.initialize_done()
@@ -117,7 +118,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         from pyanaconda.installation import doInstall, doConfiguration
         from pyanaconda.threading import threadMgr, AnacondaThread
 
-        thread_args = (self.storage, self.payload, self.data, self.instclass)
+        thread_args = (self.storage, self.payload, self.data)
 
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall, args=thread_args))
 
@@ -131,12 +132,12 @@ class ProgressSpoke(StandaloneTUISpoke):
 
         util.ipmi_report(IPMI_FINISHED)
 
-        if self.instclass.eula_path:
+        if conf.license.eula:
             # Notify user about the EULA (if any).
             print(_("Installation complete"))
             print('')
             print(_("Use of this product is subject to the license agreement found at:"))
-            print(self.instclass.eula_path)
+            print(conf.license.eula)
             print('')
 
         # kickstart install, continue automatically if reboot or shutdown selected

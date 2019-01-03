@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018  Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,34 +15,33 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.util import detect_unsupported_hardware
-from pyanaconda.ui.gui import GUIObject
+#  Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
+from enum import Enum
 
-__all__ = ["UnsupportedHardwareDialog"]
+from pyanaconda.core.configuration.base import Section
 
 
-class UnsupportedHardwareDialog(GUIObject):
-    """Dialog for warnings about unsupported hardware.
+class NetworkOnBoot(Enum):
+    """Network device to be activated on boot if none was configured so."""
+    NONE = "NONE"
+    DEFAULT_ROUTE_DEVICE = "DEFAULT_ROUTE_DEVICE"
+    FIRST_WIRED_WITH_LINK = "FIRST_WIRED_WITH_LINK"
 
-    Show this dialog if the unsupported hardware was detected.
-    """
-    builderObjects = ["unsupportedHardwareDialog"]
-    mainWidgetName = "unsupportedHardwareDialog"
-    uiFile = "spokes/lib/unsupported_hardware.glade"
 
-    def __init__(self, data):
-        super().__init__(data)
-        self._warnings = detect_unsupported_hardware()
+class NetworkSection(Section):
+    """The Network section."""
 
     @property
-    def supported(self):
-        return not self._warnings
+    def default_on_boot(self):
+        """Network device to be activated on boot if none was configured so.
 
-    def refresh(self):
-        message_label = self.builder.get_object("messageLabel")
-        message_label.set_label("\n\n".join(self._warnings))
+        Valid values:
 
-    def run(self):
-        rc = self.window.run()
-        self.window.destroy()
-        return rc
+          NONE                   No device
+          DEFAULT_ROUTE_DEVICE   A default route device
+          FIRST_WIRED_WITH_LINK  The first wired device with link
+
+        :return: an instance of NetworkOnBoot
+        """
+        return self._get_option("default_on_boot", NetworkOnBoot)

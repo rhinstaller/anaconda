@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018  Red Hat, Inc.
+# Copyright (C) 2018 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,34 +15,23 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.core.util import detect_unsupported_hardware
-from pyanaconda.ui.gui import GUIObject
+#  Author(s):  Vendula Poncova <vponcova@redhat.com>
+#
+from pyanaconda.core.configuration.base import Section
 
-__all__ = ["UnsupportedHardwareDialog"]
 
-
-class UnsupportedHardwareDialog(GUIObject):
-    """Dialog for warnings about unsupported hardware.
-
-    Show this dialog if the unsupported hardware was detected.
-    """
-    builderObjects = ["unsupportedHardwareDialog"]
-    mainWidgetName = "unsupportedHardwareDialog"
-    uiFile = "spokes/lib/unsupported_hardware.glade"
-
-    def __init__(self, data):
-        super().__init__(data)
-        self._warnings = detect_unsupported_hardware()
+class LicenseSection(Section):
+    """The License section."""
 
     @property
-    def supported(self):
-        return not self._warnings
+    def eula(self):
+        """A path to EULA.
 
-    def refresh(self):
-        message_label = self.builder.get_object("messageLabel")
-        message_label.set_label("\n\n".join(self._warnings))
+        If the given distribution has an EULA & feels the need to
+        tell the user about it fill in this variable by a path
+        pointing to a file with the EULA on the installed system.
 
-    def run(self):
-        rc = self.window.run()
-        self.window.destroy()
-        return rc
+        This is currently used just to show the path to the file to
+        the user at the end of the installation.
+        """
+        return self._get_option("eula", str)

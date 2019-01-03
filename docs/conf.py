@@ -21,9 +21,6 @@ sys.path.insert(0, os.path.abspath('..'))
 # configuration required to import test modules
 for path in ["../pyanaconda/isys/.libs", "../pyanaconda", "../tests", "../tests/lib", "../dracut", "../widgets"]:
     sys.path.append(os.path.abspath(path))
-if not 'ANACONDA_INSTALL_CLASSES' in os.environ:
-    # pylint: disable=environment-modify
-    os.environ['ANACONDA_INSTALL_CLASSES'] = os.path.abspath('../pyanaconda/installclasses')
 
 # -- General configuration -----------------------------------------------------
 

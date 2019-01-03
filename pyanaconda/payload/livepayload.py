@@ -32,6 +32,8 @@ import stat
 from time import sleep
 from threading import Lock
 import requests
+
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import ProxyString, ProxyStringError
 import hashlib
 import glob
@@ -67,8 +69,8 @@ class LiveImagePayload(ImagePayload):
 
         self._kernelVersionList = []
 
-    def setup(self, storage, instClass):
-        super().setup(storage, instClass)
+    def setup(self, storage):
+        super().setup(storage)
 
         # Mount the live device and copy from it instead of the overlay at /
         osimg = storage.devicetree.get_device_by_path(self.data.method.partition)
@@ -211,7 +213,7 @@ class LiveImagePayload(ImagePayload):
 
     def _updateKernelVersionList(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
-        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir))
+        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir))
 
         self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
            if os.path.isfile(f) and "-rescue-" not in f), key=functools.cmp_to_key(versionCmp))
@@ -316,11 +318,11 @@ class LiveImageKSPayload(LiveImagePayload):
         self._min_size = os.stat(self.data.method.url[7:])[stat.ST_SIZE] * 3
         return None
 
-    def setup(self, storage, instClass):
+    def setup(self, storage):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        ImagePayload.setup(self, storage, instClass)
+        ImagePayload.setup(self, storage)
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()

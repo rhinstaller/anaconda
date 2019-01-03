@@ -64,7 +64,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, self.payload, self.instclass)
+        LangLocaleHandler.__init__(self, self.payload)
         self._origStrings = {}
 
         self._l12_module = LOCALIZATION.get_observer()
@@ -320,7 +320,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 ipmi_abort(scripts=self.data.scripts)
                 sys.exit(0)
 
-        dialog = UnsupportedHardwareDialog(self.data, self.instclass)
+        dialog = UnsupportedHardwareDialog(self.data)
         if not dialog.supported:
 
             with self.main_window.enlightbox(dialog.window):

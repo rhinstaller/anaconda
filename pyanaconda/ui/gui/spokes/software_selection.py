@@ -25,6 +25,7 @@ from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
@@ -395,12 +396,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._clear_listbox(self._environmentListBox)
 
-        # If no environment is selected, use the default from the instclass.
-        # If nothing is set in the instclass, the first environment will be
+        # If no environment is selected, use the default from the config.
+        # If nothing is set in the config, the first environment will be
         # selected below.
-        if not self.environment and self.payload.instclass and \
-                self.payload.instclass.defaultPackageEnvironment in self.payload.environments:
-            self.environment = self.payload.instclass.defaultPackageEnvironment
+        if not self.environment and conf.payload.default_environment in self.payload.environments:
+            self.environment = conf.payload.default_environment
 
         # create rows for all valid environments
         for environmentid in self.payload.environments:
@@ -411,7 +411,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             radio = Gtk.RadioButton(group=self._fakeRadio)
 
             # automatically select the first environment if we are on
-            # manual install and the install class does not specify one
+            # manual install and the configuration does not specify one
             if firstEnvironment and not flags.automatedInstall:  # manual installation
                 #
                 # Note about self.environment being None:
