@@ -1841,7 +1841,6 @@ class EFIGRUB1(EFIBase, GRUB):
 
     stage2_is_valid_stage1 = False
     stage2_bootable = False
-    stage2_max_end_mb = None
 
     _efi_binary = "\\grub.efi"
 
