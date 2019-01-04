@@ -2009,7 +2009,7 @@ class Yaboot(YabootBase):
 
     # stage2 device requirements
     stage2_device_types = ["partition", "mdarray"]
-    stage2_device_raid_levels = [raid.RAID1]
+    stage2_raid_levels = [raid.RAID1]
 
     #
     # configuration
