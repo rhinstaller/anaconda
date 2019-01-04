@@ -287,7 +287,6 @@ class BootLoader(object):
         self.stage2_is_preferred_stage1 = False
 
         self.errors = []
-        self.problems = []
         self.warnings = []
 
     #
@@ -586,7 +585,6 @@ class BootLoader(object):
                      self.is_valid_stage2_device(device))
 
             # we'll be checking stage2 separately so don't duplicate messages
-            self.problems = []
             self.warnings = []
             return valid
 
