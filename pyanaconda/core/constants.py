@@ -172,8 +172,8 @@ class SecretType(Enum):
     PASSWORD = "password"
     PASSPHRASE = "passphrase"
 
+
 # Password validation
-SECRET_MIN_LEN = 6
 SECRET_EMPTY_ERROR = {
     SecretType.PASSWORD : N_("The password is empty."),
     SecretType.PASSPHRASE : N_("The passphrase is empty.")
