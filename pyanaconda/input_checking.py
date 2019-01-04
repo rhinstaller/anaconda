@@ -223,7 +223,6 @@ class PasswordValidityCheckResult(CheckResult):
 
     def __init__(self):
         super().__init__()
-        self._check_request = None
         self._password_score = 0
         self.password_score_changed = Signal()
         self._status_text = ""
@@ -232,22 +231,6 @@ class PasswordValidityCheckResult(CheckResult):
         self.password_quality_changed = Signal()
         self._length_ok = False
         self.length_ok_changed = Signal()
-
-    @property
-    def check_request(self):
-        """The check request used to generate this check result object.
-
-        Can be used to get the password text and checking parameters
-        for this password check result.
-
-        :returns: the password check request that triggered this password check result
-        :rtype: a PasswordCheckRequest instance
-        """
-        return self._check_request
-
-    @check_request.setter
-    def check_request(self, new_request):
-        self._check_request = new_request
 
     @property
     def password_score(self):
@@ -479,7 +462,6 @@ class PasswordValidityCheck(InputCheck):
         success = not error_message
 
         # set the result now so that the *_changed signals fire only once the check is done
-        self.result.check_request = check_request  # pylint: disable=attribute-defined-outside-init
         self.result.success = success  # pylint: disable=attribute-defined-outside-init
         self.result.password_score = pw_score  # pylint: disable=attribute-defined-outside-init
         self.result.status_text = status_text  # pylint: disable=attribute-defined-outside-init
