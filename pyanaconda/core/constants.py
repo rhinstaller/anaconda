@@ -207,8 +207,6 @@ SECRET_ASCII = {
     SecretType.PASSPHRASE : N_("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")
 }
 PASSWORD_DONE_TWICE = N_("You will have to press <b>Done</b> twice to confirm it.")
-PASSWORD_DONE_TO_CONTINUE = N_("Press <b>Done</b> to continue.")
-
 PASSWORD_SET = N_("Password set.")
 
 class SecretStatus(Enum):
