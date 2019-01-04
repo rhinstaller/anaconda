@@ -1393,6 +1393,10 @@ class Network(COMMANDS.Network):
         super().__init__(*args, **kwargs)
         self.packages = []
 
+    def __str__(self):
+        network_proxy = NETWORK.get_proxy()
+        return network_proxy.GenerateKickstart()
+
     def parse(self, args):
         nd = super().parse(args)
         setting_only_hostname = nd.hostname and len(args) <= 2

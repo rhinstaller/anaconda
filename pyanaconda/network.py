@@ -944,6 +944,13 @@ def networkInitialize(ksdata):
         if bootopts_hostname:
             update_hostname_data(ksdata, bootopts_hostname)
 
+    # Create device configuration tracking in the module.
+    # It will be used to generate kickstart from persistent network configuration
+    # managed by NM (ifcfgs) and updated by NM signals on device configuration
+    # changes.
+    log.debug("create network configurations")
+    network_proxy.CreateDeviceConfigurations()
+
 def _get_ntp_servers_from_dhcp():
     """Check if some NTP servers were returned from DHCP and set them
     to ksdata (if not NTP servers were specified in the kickstart)"""

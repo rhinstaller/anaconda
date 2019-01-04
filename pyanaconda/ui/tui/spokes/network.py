@@ -248,6 +248,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         """Apply all of our settings."""
+        # Inform network module that device configurations might have been changed
+        # and we want to generate kickstart from device configurations
+        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        self._network_module.proxy.NetworkDeviceConfigurationChanged()
         self._update_network_data()
         log.debug("apply ksdata %s", self.data.network)
 

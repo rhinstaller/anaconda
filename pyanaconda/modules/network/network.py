@@ -83,6 +83,7 @@ class NetworkModule(KickstartModule):
         self._original_network_data = []
         self._onboot_yes_ifaces = []
         self._device_configurations = None
+        self._use_device_configurations = False
         self.configuration_changed = Signal()
 
         self._default_device_specification = DEFAULT_DEVICE_SPECIFICATION
@@ -138,7 +139,7 @@ class NetworkModule(KickstartModule):
 
         data = self.get_kickstart_handler()
 
-        if self._device_configurations:
+        if self._device_configurations and self._use_device_configurations:
             device_data = self._device_configurations.get_kickstart_data(data.NetworkData)
             log.debug("using device configurations to generate kickstart")
         else:
@@ -267,7 +268,7 @@ class NetworkModule(KickstartModule):
 
     def _get_onboot_ifaces_by_policy(self, policy):
 
-        if self._device_configurations:
+        if self._device_configurations and self._use_device_configurations:
             data = self.get_kickstart_handler()
             device_data = self._device_configurations.get_kickstart_data(data.NetworkData)
         else:
@@ -593,3 +594,8 @@ class NetworkModule(KickstartModule):
             new_ifcfgs.append(iface)
 
         return new_ifcfgs
+
+    def network_device_configuration_changed(self):
+        if not self._device_configurations:
+            log.error("Got request to use DeviceConfigurations that has not been created yet")
+        self._use_device_configurations = True

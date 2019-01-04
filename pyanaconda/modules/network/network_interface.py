@@ -196,3 +196,11 @@ class NetworkInterface(KickstartModuleInterface):
         name.
         """
         return self.implementation.dump_missing_ifcfg_files()
+
+    def NetworkDeviceConfigurationChanged(self):
+        """Inform module that network device configuration might have changed.
+
+        Therefore kickstart for device configurations should be generated
+        from persistent configuration instead of using original kickstart data.
+        """
+        return self.implementation.network_device_configuration_changed()

@@ -1558,7 +1558,11 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         gtk_call_once(self._update_hostname)
 
     def apply(self):
-        _update_network_data(self.data, self.network_control_box)
+        # Inform network module that device configurations might have been changed
+        # and we want to generate kickstart from device configurations
+        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        self._network_module.proxy.NetworkDeviceConfigurationChanged()
+        self._network_module.proxy.SetHostname(self.network_control_box.hostname)
         log.debug("apply ksdata %s", self.data.network)
 
         # if installation media or hdd aren't used and settings have changed
@@ -1609,9 +1613,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         else:
             self.builder.get_object("live_hint_label").set_no_show_all(True)
             self.builder.get_object("live_hint_label").hide()
-
-        if not self._network_module.proxy.Kickstarted:
-            _update_network_data(self.data, self.network_control_box)
 
         # report that we are done
         self.initialize_done()
@@ -1710,7 +1711,11 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         gtk_call_once(self._update_hostname)
 
     def apply(self):
-        _update_network_data(self.data, self.network_control_box)
+        # Inform network module that device configurations might have been changed
+        # and we want to generate kickstart from device configurations
+        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        self._network_module.proxy.NetworkDeviceConfigurationChanged()
+        self._network_module.proxy.SetHostname(self.network_control_box.hostname)
 
         log.debug("apply ksdata %s", self.data.network)
 
@@ -1776,25 +1781,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def _update_hostname(self):
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
-
-def _update_network_data(data, ncb):
-    data.network.network = []
-    for i, dev_cfg in enumerate(ncb.dev_cfgs):
-        devname = dev_cfg.get_iface()
-        nd = network.ksdata_from_ifcfg(devname, dev_cfg.get_uuid())
-        if not nd:
-            continue
-        if devname in nm.nm_activated_devices():
-            nd.activate = True
-        else:
-            # First network command defaults to --activate so we must
-            # use --no-activate explicitly to prevent the default
-            if i == 0:
-                nd.activate = False
-
-        data.network.network.append(nd)
-    hostname = ncb.hostname
-    network.update_hostname_data(data, hostname)
 
 
 def test():
