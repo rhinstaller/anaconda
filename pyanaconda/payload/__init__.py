@@ -1479,9 +1479,6 @@ class PackagePayload(Payload):
 
         self.data.packages.environment = environmentid
 
-    def environmentGroups(self, environmentid, optional=True):
-        raise NotImplementedError()
-
     @property
     def environmentAddons(self):
         return self._environmentAddons

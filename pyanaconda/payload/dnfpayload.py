@@ -38,7 +38,6 @@ import pyanaconda.payload as payload
 
 import configparser
 import collections
-import itertools
 import multiprocessing
 import operator
 import hashlib
@@ -935,17 +934,6 @@ class DNFPayload(payload.PackagePayload):
         if env is None:
             raise payload.NoSuchGroup(environment)
         return env.id
-
-    def environmentGroups(self, environmentid, optional=True):
-        env = self._base.comps.environment_by_pattern(environmentid)
-        if env is None:
-            raise payload.NoSuchGroup(environmentid)
-        group_ids = (id_.name for id_ in env.group_ids)
-        option_ids = (id_.name for id_ in env.option_ids)
-        if optional:
-            return list(itertools.chain(group_ids, option_ids))
-        else:
-            return list(group_ids)
 
     def environmentHasOption(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
