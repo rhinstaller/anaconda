@@ -390,7 +390,6 @@ class FSSet(object):
         self.devicetree = devicetree
         self.crypt_tab = None
         self.blkid_tab = None
-        self.orig_fstab = None
         self.active = False
         self._dev = None
         self._devpts = None
@@ -619,9 +618,6 @@ class FSSet(object):
             log.debug("parsing %s", path)
 
             lines = f.readlines()
-
-            # save the original file
-            self.orig_fstab = ''.join(lines)
 
             for line in lines:
 
