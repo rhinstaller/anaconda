@@ -2319,10 +2319,6 @@ class EXTLINUX(BootLoader):
     _config_file = "extlinux.conf"
     _config_dir = "/boot/extlinux"
 
-    # stage1 device requirements
-    stage1_device_types = ["disk"]
-
-    # stage2 device requirements
     stage2_format_types = ["ext4", "ext3", "ext2"]
     stage2_device_types = ["partition"]
     stage2_bootable = True
