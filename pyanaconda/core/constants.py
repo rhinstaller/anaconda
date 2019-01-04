@@ -36,7 +36,6 @@ from pyanaconda import product
 productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch
-bugzillaUrl = product.bugUrl
 isFinal = product.isFinal
 
 # for use in device names, eg: "fedora", "rhel"
