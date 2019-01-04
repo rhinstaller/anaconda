@@ -2086,67 +2086,6 @@ class Yaboot(YabootBase):
             raise BootLoaderError("boot loader installation failed")
 
 
-class IPSeriesYaboot(Yaboot):
-    prog = "mkofboot"
-
-    #
-    # configuration
-    #
-
-    def write_config_variant_header(self, config):
-        config.write("nonvram\n")   # only on pSeries?
-        config.write("fstype=raw\n")
-
-    #
-    # installation
-    #
-
-    def install(self, args=None):
-        self.updatePowerPCBootList()
-
-        super().install()
-
-    def updatePowerPCBootList(self):
-        if not conf.target.is_hardware:
-            return
-
-        log.debug("updatePowerPCBootList: self.stage1_device.path = %s", self.stage1_device.path)
-
-        buf = util.execWithCapture("nvram",
-                                   ["--print-config=boot-device"])
-
-        if len(buf) == 0:
-            log.error("FAIL: nvram --print-config=boot-device")
-            return
-
-        boot_list = buf.strip().split()
-        log.debug("updatePowerPCBootList: boot_list = %s", boot_list)
-
-        buf = util.execWithCapture("ofpathname",
-                                   [self.stage1_device.path])
-
-        if len(buf) > 0:
-            boot_disk = buf.strip()
-            log.debug("updatePowerPCBootList: boot_disk = %s", boot_disk)
-        else:
-            log.error("FAIL: ofpathname %s", self.stage1_device.path)
-            return
-
-        # Place the disk containing the PReP partition first.
-        # Remove all other occurances of it.
-        boot_list = [boot_disk] + [x for x in boot_list if x != boot_disk]
-
-        log.debug("updatePowerPCBootList: updated boot_list = %s", boot_list)
-
-        update_value = "boot-device=%s" % " ".join(boot_list)
-
-        rc = util.execWithRedirect("nvram", ["--update-config", update_value])
-        if rc:
-            log.error("FAIL: nvram --update-config %s", update_value)
-        else:
-            log.info("Updated PPC boot list with the command: nvram --update-config %s", update_value)
-
-
 class IPSeriesGRUB2(GRUB2):
 
     # GRUB2 sets /boot bootable and not the PReP partition.  This causes the Open Firmware BIOS not
