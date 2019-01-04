@@ -323,7 +323,6 @@ INTERACTIVE_MODE_NAME = {
 LOGGER_ANACONDA_ROOT = "anaconda"
 LOGGER_MAIN = "anaconda.main"
 LOGGER_STDOUT = "anaconda.stdout"
-LOGGER_STDERR = "anaconda.stderr"
 LOGGER_PROGRAM = "program"
 LOGGER_STORAGE = "storage"
 LOGGER_PACKAGING = "packaging"

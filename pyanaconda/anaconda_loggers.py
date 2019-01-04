@@ -51,9 +51,6 @@ def get_main_logger():
 def get_stdout_logger():
     return logging.getLogger(constants.LOGGER_STDOUT)
 
-def get_stderr_logger():
-    return logging.getLogger(constants.LOGGER_STDERR)
-
 def get_program_logger():
     return logging.getLogger(constants.LOGGER_PROGRAM)
 
