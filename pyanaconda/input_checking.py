@@ -334,53 +334,6 @@ class InputCheck(object):
         """
         raise NotImplementedError
 
-class RegexpCheck(InputCheck):
-    """A regex based input check."""
-
-    def __init__(self, regexp, error_message):
-        """
-        :param regexp: a regular expression object
-        :param error_message: error message to return if the regexp doesn't match
-        """
-        super().__init__()
-        self._regexp = regexp
-        self._error_message = error_message
-
-    def run(self, check_request):
-        """Check if the provided data matches the regexp.
-
-        :param str check_request: a string to apply the regexp on
-        """
-        if self._regexp.match(check_request):
-            self.result.error_message = ""
-            self.result.success = True
-        else:
-            self.result.error_message = self._error_message
-            self.result.success = False
-
-
-class FunctionCheck(InputCheck):
-    """A function based input check.
-
-    Run a function on a string that returns a two member tuple: (success, error message)
-    """
-
-    def __init__(self, function):
-        """
-        :param function: a function to run on the input
-        """
-        super().__init__()
-        self._function = function
-
-    def run(self, check_request):
-        """Run the function on the provided data.
-
-        :param str check_request: a string to run the function on
-        """
-        success, error_message = self._function(check_request)
-        self.result.error_message = error_message
-        self.result.success = success
-
 
 class PasswordValidityCheck(InputCheck):
     """Check the validity and quality of a password."""
