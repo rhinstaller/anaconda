@@ -202,25 +202,6 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _noSuchPackageHandler(self, exn):
-        if exn.required:
-            message = _("The package '%s' is required for this installation. "
-                        "This package does not exist. This is a fatal error and "
-                        "installation will be aborted.") % exn.package
-            self.ui.showError(message)
-            return ERROR_RAISE
-
-        else:
-            message = _("You have specified that the package '%s' should be "
-                        "installed.  This package does not exist.  Would you "
-                        "like to ignore this package and continue with "
-                        "installation?") % exn.package
-
-            if self.ui.showYesNoQuestion(message):
-                return ERROR_CONTINUE
-            else:
-                return ERROR_RAISE
-
     def _install_specs_handler(self, exn):
         broken_packages = exn.error_pkg_specs
         broken_groups_modules = exn.error_group_specs
@@ -339,7 +320,6 @@ class ErrorHandler(object):
                 "InvalidImageSizeError": self._invalidImageSizeHandler,
                 "MissingImageError": self._missingImageHandler,
                 "NoSuchGroup": self._noSuchGroupHandler,
-                "NoSuchPackage": self._noSuchPackageHandler,
                 "NoStreamSpecifiedException": self._no_module_stream_specified,
                 "InstallMoreStreamsException": self._multiple_module_streams_specified,
                 "MarkingErrors" : self._install_specs_handler,

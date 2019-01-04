@@ -103,16 +103,6 @@ class NoSuchGroup(PayloadError):
         return "The group '{}' does not exist".format(self.group)
 
 
-class NoSuchPackage(PayloadError):
-    def __init__(self, package, required=False):
-        super().__init__(package)
-        self.package = package
-        self.required = required
-
-    def __str__(self):
-        return "The package '{}' does not exist".format(self.package)
-
-
 class DependencyError(PayloadError):
     pass
 
