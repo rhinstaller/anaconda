@@ -1736,10 +1736,7 @@ class EFIBase(object):
 
     @property
     def _config_dir(self):
-        efi_dir = self.efi_dir
-        if flags.cmdline.get("force_efi_dir") is not None:
-            efi_dir = flags.cmdline.get("force_efi_dir")
-        return "efi/EFI/%s" % (efi_dir,)
+        return "efi/EFI/{}".format(self.efi_dir)
 
     def efibootmgr(self, *args, **kwargs):
         if not conf.target.is_hardware:
@@ -1850,8 +1847,6 @@ class EFIGRUB1(EFIBase, GRUB):
     def __init__(self):
         super().__init__()
         self.efi_dir = 'BOOT'
-        if flags.cmdline.get("force_efi_dir") is not None:
-            self.efi_dir = flags.cmdline.get("force_efi_dir")
 
     #
     # configuration
@@ -2519,8 +2514,6 @@ def writeSysconfigKernel(storage, version):
     kernel_file = "/boot/%s" % kernel_basename
     if not os.path.isfile(util.getSysroot() + kernel_file):
         efi_dir = conf.bootloader.efi_dir
-        if flags.cmdline.get("force_efi_dir") is not None:
-            efi_dir = flags.cmdline.get("force_efi_dir")
         kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
         if not os.path.isfile(util.getSysroot() + kernel_file):
             log.error("failed to recreate path to default kernel image")
