@@ -23,7 +23,6 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.core.i18n import N_
 from pyanaconda.ui.gui.utils import really_hide, really_show, set_password_visibility
 from pyanaconda import input_checking
 from pyanaconda.core import constants
@@ -35,8 +34,6 @@ log = get_module_logger(__name__)
 
 __all__ = ["PassphraseDialog"]
 
-ERROR_WEAK = N_("You have provided a weak passphrase: %s")
-ERROR_NOT_MATCHING = N_("Passphrases do not match.")
 
 class PassphraseDialog(GUIObject):
     builderObjects = ["passphrase_dialog"]
