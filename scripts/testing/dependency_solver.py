@@ -34,7 +34,7 @@ ANACONDA_SPEC_NAME = "anaconda.spec.in"
 
 TEST_DEPENDENCIES = ["e2fsprogs", "git", "bzip2", "cppcheck", "rpm-ostree", "pykickstart",
                      "python3-mock", "python3-nose-testconfig", "python3-sphinx_rtd_theme",
-                     "python3-lxml", "python3-pip",
+                     "python3-coverage", "python3-lxml", "python3-pip",
 
                      # contains restorecon which was removed in Fedora 28 mock
                      "policycoreutils"]
