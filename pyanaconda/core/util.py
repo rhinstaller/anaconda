@@ -1345,7 +1345,6 @@ def collect(module_pattern, path, pred):
         module_path = None
 
         try:
-            imp.acquire_lock()
             (fo, module_path, module_flags) = imp.find_module(mod_name, [path])
             module = sys.modules.get(module_pattern % mod_name)
 
@@ -1418,8 +1417,6 @@ def collect(module_pattern, path, pred):
             log.error("Failed to import module %s from path %s in collect: %s", mod_name, module_path, imperr)
             continue
         finally:
-            imp.release_lock()
-
             if mod_info and mod_info[0]:  # pylint: disable=unsubscriptable-object
                 mod_info[0].close()  # pylint: disable=unsubscriptable-object
 
