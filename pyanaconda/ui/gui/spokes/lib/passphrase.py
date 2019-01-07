@@ -145,8 +145,10 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
             self._passphrase_warning_image.set_visible(False)
             self._passphrase_warning_label.set_visible(False)
 
-        # The save button should only be sensitive if the match check passes
-        if self._confirm_check.check_status == InputCheck.CHECK_OK and \
+        # The save button should only be sensitive if there is some input and the match check passes
+        if not self.input and not self.input_confirmation:
+            self._save_button.set_sensitive(False)
+        elif self._confirm_check.check_status == InputCheck.CHECK_OK and \
                 (not self.policy.strict or self._strength_check.check_status == InputCheck.CHECK_OK):
             self._save_button.set_sensitive(True)
         else:
