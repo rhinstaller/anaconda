@@ -59,7 +59,8 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.core.timer import Timer
 
-from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
+from pyanaconda.kickstart import refreshAutoSwapSize, resetCustomStorageData
+from pyanaconda.storage.execution import do_kickstart_storage
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
 from blivet.errors import StorageError
@@ -488,7 +489,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             hubQ.send_ready(self.__class__.__name__, True)
             return
         try:
-            doKickstartStorage(self.storage, self.data)
+            do_kickstart_storage(self.storage, self.data)
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py
         except (StorageError, KickstartParseError, ValueError) as e:
             log.error("storage configuration failed: %s", e)

@@ -36,7 +36,6 @@ import blivet.iscsi
 from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
-from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -2605,27 +2604,3 @@ def runTracebackScripts(scripts):
 def resetCustomStorageData(ksdata):
     for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
         ksdata.resetCommand(command)
-
-def doKickstartStorage(storage, ksdata):
-    """ Setup storage state from the kickstart data """
-    ksdata.clearpart.execute(storage, ksdata)
-    if not any(d for d in storage.disks
-               if not d.format.hidden and not d.protected):
-        return
-
-    # snapshot free space now so that we know how much we had available
-    storage.create_free_space_snapshot()
-
-    BootloaderExecutor().execute(storage, dry_run=True)
-    ksdata.autopart.execute(storage, ksdata)
-    ksdata.reqpart.execute(storage, ksdata)
-    ksdata.partition.execute(storage, ksdata)
-    ksdata.raid.execute(storage, ksdata)
-    ksdata.volgroup.execute(storage, ksdata)
-    ksdata.logvol.execute(storage, ksdata)
-    ksdata.btrfs.execute(storage, ksdata)
-    ksdata.mount.execute(storage, ksdata)
-    # setup snapshot here, that means add it to model and do the tests
-    # snapshot will be created on the end of the installation
-    ksdata.snapshot.setup(storage, ksdata)
-    storage.set_up_bootloader()
