@@ -44,8 +44,8 @@ from pyanaconda.bootloader import get_bootloader
 from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
     SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
-    CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS, \
-    AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
+    CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, FIREWALL_ENABLED, FIREWALL_DISABLED, \
+    FIREWALL_USE_SYSTEM_DEFAULTS, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
     MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
@@ -56,7 +56,7 @@ from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
-    AUTO_PARTITIONING, MANUAL_PARTITIONING
+    MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.platform import platform
@@ -64,7 +64,6 @@ from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
 from pyanaconda.storage.utils import device_matches, try_populate_devicetree, get_pbkdf_args
-from pyanaconda.storage.checker import storage_checker
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
@@ -74,7 +73,7 @@ from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm, luks_data
-from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.errors import StorageError, BTRFSValueError
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
@@ -109,7 +108,6 @@ parsing_log = log.getChild("parsing")
 authselect_log = log.getChild("kickstart.authselect")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
-autopart_log = log.getChild("kickstart.autopart")
 logvol_log = log.getChild("kickstart.logvol")
 iscsi_log = log.getChild("kickstart.iscsi")
 network_log = log.getChild("kickstart.network")
@@ -387,52 +385,6 @@ class AutoPart(RemovedCommand):
     def __str__(self):
         return ""
 
-    def execute(self, storage, ksdata):
-        # Create the auto partitioning proxy.
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-
-        # Is the auto partitioning enabled?
-        if not auto_part_proxy.Enabled:
-            return
-
-        # Sets up default auto partitioning. Use clearpart separately if you want it.
-        # The filesystem type is already set in the storage.
-        refreshAutoSwapSize(storage)
-        storage.do_autopart = True
-
-        if auto_part_proxy.Encrypted:
-            storage.encrypted_autopart = True
-            storage.encryption_passphrase = auto_part_proxy.Passphrase
-            storage.encryption_cipher = auto_part_proxy.Cipher
-            storage.autopart_escrow_cert = getEscrowCertificate(storage.escrow_certificates,
-                                                                auto_part_proxy.Escrowcert)
-            storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
-
-            luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
-
-            pbkdf_args = get_pbkdf_args(
-                luks_version=luks_version,
-                pbkdf_type=auto_part_proxy.PBKDF or None,
-                max_memory_kb=auto_part_proxy.PBKDFMemory,
-                iterations=auto_part_proxy.PBKDFIterations,
-                time_ms=auto_part_proxy.PBKDFTime
-            )
-
-            if pbkdf_args and not luks_data.pbkdf_args:
-                luks_data.pbkdf_args = pbkdf_args
-
-            storage.autopart_luks_version = luks_version
-            storage.autopart_pbkdf_args = pbkdf_args
-
-        if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
-            storage.autopart_type = auto_part_proxy.Type
-
-        autopart.do_autopart(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
-        report = storage_checker.check(storage)
-        report.log(autopart_log)
-
-        if report.failure:
-            raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
 
 class Bootloader(RemovedCommand):
     def __str__(self):

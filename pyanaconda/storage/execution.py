@@ -15,13 +15,22 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+from blivet.errors import PartitioningError
 from blivet.formats.disklabel import DiskLabel
+from blivet.static_data import luks_data
 
 from pyanaconda.bootloader.execution import BootloaderExecutor
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT
+from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.storage import autopart
+from pyanaconda.storage.checker import storage_checker
+from pyanaconda.storage.utils import get_pbkdf_args
+
+
 log = get_module_logger(__name__)
 
 __all__ = ["do_kickstart_storage"]
@@ -46,7 +55,8 @@ def do_kickstart_storage(storage, data):
     # Prepare the boot loader.
     BootloaderExecutor().execute(storage, dry_run=True)
 
-    data.autopart.execute(storage, data)
+    AutomaticPartitioningExecutor().execute(storage, data)
+
     data.reqpart.execute(storage, data)
     data.partition.execute(storage, data)
     data.raid.execute(storage, data)
@@ -81,3 +91,61 @@ def clear_partitions(storage):
                     DiskLabel.get_platform_label_types()[0])
 
     storage.clear_partitions()
+
+
+class AutomaticPartitioningExecutor(object):
+    """The executor of the automatic partitioning."""
+
+    def execute(self, storage, data):
+        """Execute the automatic partitioning.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        # Create the auto partitioning proxy.
+        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+
+        # Is the auto partitioning enabled?
+        if not auto_part_proxy.Enabled:
+            return
+
+        # Sets up default auto partitioning. Use clearpart separately if you want it.
+        # The filesystem type is already set in the storage.
+        refreshAutoSwapSize(storage)
+        storage.do_autopart = True
+
+        if auto_part_proxy.Encrypted:
+            storage.encrypted_autopart = True
+            storage.encryption_passphrase = auto_part_proxy.Passphrase
+            storage.encryption_cipher = auto_part_proxy.Cipher
+            storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
+            storage.autopart_escrow_cert = getEscrowCertificate(
+                storage.escrow_certificates,
+                auto_part_proxy.Escrowcert
+            )
+
+            luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=luks_version,
+                pbkdf_type=auto_part_proxy.PBKDF or None,
+                max_memory_kb=auto_part_proxy.PBKDFMemory,
+                iterations=auto_part_proxy.PBKDFIterations,
+                time_ms=auto_part_proxy.PBKDFTime
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
+            storage.autopart_luks_version = luks_version
+            storage.autopart_pbkdf_args = pbkdf_args
+
+        if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
+            storage.autopart_type = auto_part_proxy.Type
+
+        autopart.do_autopart(storage, data, min_luks_entropy=MIN_CREATE_ENTROPY)
+        report = storage_checker.check(storage)
+        report.log(log)
+
+        if report.failure:
+            raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
