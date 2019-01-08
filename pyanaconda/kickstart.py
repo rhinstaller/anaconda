@@ -62,21 +62,15 @@ from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
-from pyanaconda.storage.utils import device_matches, try_populate_devicetree, get_pbkdf_args
+from pyanaconda.storage.utils import device_matches, try_populate_devicetree
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
-from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
-from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-from blivet.devicelibs.lvm import KNOWN_THPOOL_PROFILES
-from blivet.devices import LUKSDevice
-from blivet.devices.lvm import LVMCacheRequest, LVMLogicalVolumeDevice
-from blivet.static_data import nvdimm, luks_data
-from blivet.errors import StorageError, BTRFSValueError
+from blivet.devices.lvm import LVMLogicalVolumeDevice
+from blivet.static_data import nvdimm
+from blivet.errors import BTRFSValueError
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
-from blivet.partitioning import grow_lvm
-from blivet.size import Size
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
@@ -107,7 +101,6 @@ parsing_log = log.getChild("parsing")
 authselect_log = log.getChild("kickstart.authselect")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
-logvol_log = log.getChild("kickstart.logvol")
 iscsi_log = log.getChild("kickstart.iscsi")
 network_log = log.getChild("kickstart.network")
 selinux_log = log.getChild("kickstart.selinux")
@@ -737,294 +730,10 @@ class Lang(RemovedCommand):
 Eula = COMMANDS.Eula
 
 class LogVol(COMMANDS.LogVol):
-    def execute(self, storage, ksdata):
-        for l in self.lvList:
-            l.execute(storage, ksdata)
-
-        if self.lvList:
-            grow_lvm(storage)
+    pass
 
 class LogVolData(COMMANDS.LogVolData):
-    def execute(self, storage, ksdata):
-        devicetree = storage.devicetree
-
-        storage.do_autopart = False
-
-        # FIXME: we should be running sanityCheck on partitioning that is not ks
-        # autopart, but that's likely too invasive for #873135 at this moment
-        if self.mountpoint == "/boot" and blivet.arch.is_s390():
-            raise KickstartParseError(lineno=self.lineno, msg="/boot can not be of type 'lvmlv' on s390x")
-
-        # we might have truncated or otherwise changed the specified vg name
-        vgname = ksdata.onPart.get(self.vgname, self.vgname)
-
-        size = None
-
-        if self.percent:
-            size = Size(0)
-
-        if self.mountpoint == "swap":
-            ty = "swap"
-            self.mountpoint = ""
-            if self.recommended or self.hibernation:
-                disk_space = getAvailableDiskSpace(storage)
-                size = autopart.swap_suggestion(hibernation=self.hibernation, disk_space=disk_space)
-                self.grow = False
-        else:
-            if self.fstype != "":
-                ty = self.fstype
-            else:
-                ty = storage.default_fstype
-
-        if size is None and not self.preexist:
-            if not self.size:
-                raise KickstartParseError(lineno=self.lineno,
-                    msg="Size can not be decided on from kickstart nor obtained from device.")
-            try:
-                size = Size("%d MiB" % self.size)
-            except ValueError:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg="The size \"%s\" is invalid." % self.size)
-
-        if self.thin_pool:
-            self.mountpoint = ""
-            ty = None
-
-        # Sanity check mountpoint
-        if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint)
-
-        # Check that the VG this LV is a member of has already been specified.
-        vg = devicetree.get_device_by_name(vgname)
-        if not vg:
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("No volume group exists with the name \"%s\".  Specify volume groups before logical volumes.") % self.vgname)
-
-        # If cache PVs specified, check that they belong to the same VG this LV is a member of
-        if self.cache_pvs:
-            pv_devices = (lookupAlias(devicetree, pv) for pv in self.cache_pvs)
-            if not all(pv in vg.pvs for pv in pv_devices):
-                raise KickstartParseError(lineno=self.lineno,
-                    msg=_("Cache PVs must belong to the same VG as the cached LV"))
-
-        pool = None
-        if self.thin_volume:
-            pool = devicetree.get_device_by_name("%s-%s" % (vg.name, self.pool_name))
-            if not pool:
-                err = _("No thin pool exists with the name \"%s\". Specify thin pools before thin volumes.") % self.pool_name
-                raise KickstartParseError(err, lineno=self.lineno)
-
-        # If this specifies an existing request that we should not format,
-        # quit here after setting up enough information to mount it later.
-        if not self.format:
-            if not self.name:
-                raise KickstartParseError(lineno=self.lineno,
-                                          msg=_("logvol --noformat must also use the --name= option."))
-
-            dev = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
-            if not dev:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name)
-
-            if self.resize:
-                size = dev.raw_device.align_target_size(size)
-                if size < dev.currentSize:
-                    # shrink
-                    try:
-                        devicetree.actions.add(ActionResizeFormat(dev, size))
-                        devicetree.actions.add(ActionResizeDevice(dev, size))
-                    except ValueError:
-                        raise KickstartParseError(lineno=self.lineno,
-                                msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
-                                     {"size": self.size, "device": dev.name})
-                else:
-                    # grow
-                    try:
-                        devicetree.actions.add(ActionResizeDevice(dev, size))
-                        devicetree.actions.add(ActionResizeFormat(dev, size))
-                    except ValueError:
-                        raise KickstartParseError(lineno=self.lineno,
-                                msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
-                                     {"size": self.size, "device": dev.name})
-
-            dev.format.mountpoint = self.mountpoint
-            dev.format.mountopts = self.fsopts
-            if ty == "swap":
-                storage.add_fstab_swap(dev)
-            return
-
-        # Make sure this LV name is not already used in the requested VG.
-        if not self.preexist:
-            tmp = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
-            if tmp:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Logical volume name \"%(logvol)s\" is already in use in volume group \"%(volgroup)s\".") %
-                             {"logvol": self.name, "volgroup": vg.name})
-
-            if not self.percent and size and not self.grow and size < vg.pe_size:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Logical volume size \"%(logvolSize)s\" must be larger than the volume group extent size of \"%(extentSize)s\".") %
-                             {"logvolSize": size, "extentSize": vg.pe_size})
-
-        # Now get a format to hold a lot of these extra values.
-        fmt = get_format(ty,
-                         mountpoint=self.mountpoint,
-                         label=self.label,
-                         fsprofile=self.fsprofile,
-                         create_options=self.mkfsopts,
-                         mountopts=self.fsopts)
-        if not fmt.type and not self.thin_pool:
-            raise KickstartParseError(lineno=self.lineno,
-                                      msg=_("The \"%s\" file system type is not supported.") % ty)
-
-        add_fstab_swap = None
-        # If we were given a pre-existing LV to create a filesystem on, we need
-        # to verify it and its VG exists and then schedule a new format action
-        # to take place there.  Also, we only support a subset of all the
-        # options on pre-existing LVs.
-        if self.preexist:
-            device = devicetree.get_device_by_name("%s-%s" % (vg.name, self.name))
-            if not device:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name)
-
-            storage.devicetree.recursive_remove(device, remove_device=False)
-
-            if self.resize:
-                size = device.raw_device.align_target_size(size)
-                try:
-                    devicetree.actions.add(ActionResizeDevice(device, size))
-                except ValueError:
-                    raise KickstartParseError(lineno=self.lineno,
-                            msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
-                                 {"size": self.size, "device": device.name})
-
-            devicetree.actions.add(ActionCreateFormat(device, fmt))
-            if ty == "swap":
-                add_fstab_swap = device
-        else:
-            # If a previous device has claimed this mount point, delete the
-            # old one.
-            try:
-                if self.mountpoint:
-                    device = storage.mountpoints[self.mountpoint]
-                    storage.destroy_device(device)
-            except KeyError:
-                pass
-
-            if self.thin_volume:
-                parents = [pool]
-            else:
-                parents = [vg]
-
-            pool_args = {}
-            if self.thin_pool:
-                if self.profile:
-                    matching = (p for p in KNOWN_THPOOL_PROFILES if p.name == self.profile)
-                    profile = next(matching, None)
-                    if profile:
-                        pool_args["profile"] = profile
-                    else:
-                        logvol_log.warning("No matching profile for %s found in LVM configuration", self.profile)
-                if self.metadata_size:
-                    pool_args["metadata_size"] = Size("%d MiB" % self.metadata_size)
-                if self.chunk_size:
-                    pool_args["chunk_size"] = Size("%d KiB" % self.chunk_size)
-
-            if self.maxSizeMB:
-                try:
-                    maxsize = Size("%d MiB" % self.maxSizeMB)
-                except ValueError:
-                    raise KickstartParseError(lineno=self.lineno,
-                            msg="The maximum size \"%s\" is invalid." % self.maxSizeMB)
-            else:
-                maxsize = None
-
-            if self.cache_size and self.cache_pvs:
-                pv_devices = [lookupAlias(devicetree, pv) for pv in self.cache_pvs]
-                cache_size = Size("%d MiB" % self.cache_size)
-                cache_mode = self.cache_mode or None
-                cache_request = LVMCacheRequest(cache_size, pv_devices, cache_mode)
-            else:
-                cache_request = None
-
-            try:
-                request = storage.new_lv(fmt=fmt,
-                                         name=self.name,
-                                         parents=parents,
-                                         size=size,
-                                         thin_pool=self.thin_pool,
-                                         thin_volume=self.thin_volume,
-                                         grow=self.grow,
-                                         maxsize=maxsize,
-                                         percent=self.percent,
-                                         cache_request=cache_request,
-                                         **pool_args)
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=self.lineno, msg=str(e))
-
-            storage.create_device(request)
-            if ty == "swap":
-                add_fstab_swap = request
-
-        if self.encrypted:
-            if self.passphrase and not storage.encryption_passphrase:
-                storage.encryption_passphrase = self.passphrase
-
-            # try to use the global passphrase if available
-            # XXX: we require the LV/part with --passphrase to be processed
-            # before this one to setup the storage.encryption_passphrase
-            self.passphrase = self.passphrase or storage.encryption_passphrase
-
-            cert = getEscrowCertificate(storage.escrow_certificates, self.escrowcert)
-
-            # Get the version of LUKS and PBKDF arguments.
-            self.luks_version = self.luks_version or storage.default_luks_version
-
-            pbkdf_args = get_pbkdf_args(
-                luks_version=self.luks_version,
-                pbkdf_type=self.pbkdf,
-                max_memory_kb=self.pbkdf_memory,
-                iterations=self.pbkdf_iterations,
-                time_ms=self.pbkdf_time
-            )
-
-            if pbkdf_args and not luks_data.pbkdf_args:
-                luks_data.pbkdf_args = pbkdf_args
-
-            if self.preexist:
-                luksformat = fmt
-                device.format = get_format("luks", passphrase=self.passphrase, device=device.path,
-                                           cipher=self.cipher,
-                                           escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase,
-                                           luks_version=self.luks_version,
-                                           pbkdf_args=pbkdf_args)
-                luksdev = LUKSDevice("luks%d" % storage.next_id,
-                                     fmt=luksformat,
-                                     parents=device)
-            else:
-                luksformat = request.format
-                request.format = get_format("luks", passphrase=self.passphrase,
-                                            cipher=self.cipher,
-                                            escrow_cert=cert,
-                                            add_backup_passphrase=self.backuppassphrase,
-                                            min_luks_entropy=MIN_CREATE_ENTROPY,
-                                            luks_version=self.luks_version,
-                                            pbkdf_args=pbkdf_args)
-                luksdev = LUKSDevice("luks%d" % storage.next_id,
-                                     fmt=luksformat,
-                                     parents=request)
-            if ty == "swap":
-                # swap is on the LUKS device not on the LUKS' parent device,
-                # override the info here
-                add_fstab_swap = luksdev
-
-            storage.create_device(luksdev)
-
-        if add_fstab_swap:
-            storage.add_fstab_swap(add_fstab_swap)
+    pass
 
 class Logging(COMMANDS.Logging):
     def execute(self, *args):
