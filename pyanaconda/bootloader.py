@@ -32,7 +32,8 @@ from pyanaconda.core import util
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
 
-from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX
+from pyanaconda.modules.common.constants.objects import FCOE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -209,6 +210,8 @@ class BootLoader(object):
     can_dual_boot = False
     can_update = False
     menu_auto_hide = False
+    keep_boot_order = False
+    keep_mbr = False
     image_label_attr = "label"
 
     encryption_support = False
@@ -569,7 +572,7 @@ class BootLoader(object):
 
         if _is_on_sw_iscsi(device):
             if not _is_on_ibft(device):
-                if flags.nonibftiscsiboot:
+                if conf.bootloader.nonibft_iscsi_boot:
                     log.debug("stage1 device on non-iBFT iSCSI disk allowed "
                               "by boot option inst.iscsi.nonibftboot")
                 else:
@@ -694,7 +697,7 @@ class BootLoader(object):
 
         if _is_on_sw_iscsi(device):
             if not _is_on_ibft(device):
-                if flags.nonibftiscsiboot:
+                if conf.bootloader.nonibft_iscsi_boot:
                     log.info("%s on non-iBFT iSCSI disk allowed by boot option inst.nonibftiscsiboot",
                              self.stage2_description)
                 else:
@@ -1647,7 +1650,7 @@ class GRUB2(GRUB):
                 # to install to a partition's boot block without --force.
                 grub_args.insert(0, '--force')
             else:
-                if flags.nombr:
+                if self.keep_mbr:
                     grub_args.insert(0, '--grub-setup=/bin/true')
                     log.info("bootloader.py: mbr update by grub2 disabled")
                 else:
@@ -1823,7 +1826,7 @@ class EFIBase(object):
         return True
 
     def install(self, args=None):
-        if not flags.leavebootorder:
+        if not self.keep_boot_order:  # pylint: disable=no-member
             self.remove_efi_boot_target()
         self.add_efi_boot_target()
 
@@ -2159,7 +2162,7 @@ class IPSeriesGRUB2(GRUB2):
     #
 
     def install(self, args=None):
-        if flags.leavebootorder:
+        if self.keep_boot_order:
             log.info("leavebootorder passed as an option. Will not update the NVRAM boot list.")
         else:
             self.updateNVRAMBootList()
@@ -2498,8 +2501,10 @@ if flags.cmdline.get("legacygrub") == "1":
     })
 
 def get_bootloader():
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     platform_name = platform.platform.__class__.__name__
-    if flags.extlinux:
+
+    if bootloader_proxy.BootloaderType == BOOTLOADER_TYPE_EXTLINUX:
         cls = EXTLINUX
     else:
         cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)

@@ -38,7 +38,6 @@ class Flags(object):
 
     def __init__(self):
         self.__dict__['_in_init'] = True
-        self.nonibftiscsiboot = False
         self.usevnc = False
         self.vncquestion = True
         self.mpath = True
@@ -54,9 +53,6 @@ class Flags(object):
         self.automatedInstall = False
         self.askmethod = False
         self.eject = True
-        self.extlinux = False
-        self.nombr = False
-        self.leavebootorder = False
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         self.rescue_mode = False
