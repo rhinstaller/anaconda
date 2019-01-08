@@ -47,7 +47,7 @@ expected_badness = {
         'mountpoint': 1,  # format string specifier
         'bootloader': 1,  # format string specifier
     },
-    'pyanaconda/kickstart.py': {
+    'pyanaconda/storage/execution.py': {
         'btrfs': 1        # quoted filesystem type
     },
     'pyanaconda/network.py': {

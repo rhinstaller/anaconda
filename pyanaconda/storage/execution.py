@@ -21,7 +21,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
-from blivet.errors import PartitioningError, StorageError
+from blivet.errors import PartitioningError, StorageError, BTRFSValueError
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from blivet.partitioning import do_partitioning, grow_lvm
@@ -71,7 +71,6 @@ def do_kickstart_storage(storage, data):
     AutomaticPartitioningExecutor().execute(storage, data)
     CustomPartitioningExecutor().execute(storage, data)
 
-    data.btrfs.execute(storage, data)
     data.mount.execute(storage, data)
 
     # Set up the snapshot here.
@@ -174,6 +173,7 @@ class CustomPartitioningExecutor(object):
         self._execute_raid(storage, data)
         self._execute_volgroup(storage, data)
         self._execute_logvol(storage, data)
+        self._execute_btrfs(storage, data)
 
     def _execute_reqpart(self, storage, data):
         """Execute the reqpart command.
@@ -1288,3 +1288,111 @@ class CustomPartitioningExecutor(object):
 
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
+
+    def _execute_btrfs(self, storage, data):
+        """Execute the btrfs command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        for btrfs_data in data.btrfs.btrfsList:
+            self._execute_btrfs_data(storage, data, btrfs_data)
+
+    def _execute_btrfs_data(self, storage, data, btrfs_data):
+        """Execute the btrfs command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        :param btrfs_data: an instance of BTRFSData
+        """
+        devicetree = storage.devicetree
+        storage.do_autopart = False
+        members = []
+
+        # Get a list of all the devices that make up this volume.
+        for member in btrfs_data.devices:
+            dev = devicetree.resolve_device(member)
+            if not dev:
+                # if using --onpart, use original device
+                member_name = data.onPart.get(member, member)
+                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
+
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = dev.children[0]
+                except IndexError:
+                    dev = None
+
+            if dev and dev.format.type != "btrfs":
+                raise KickstartParseError(
+                    _("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but "
+                      "should have a format of \"btrfs\".")
+                    % {"device": member, "format": dev.format.type},
+                    lineno=btrfs_data.lineno
+                )
+
+            if not dev:
+                raise KickstartParseError(
+                    _("Tried to use undefined partition \"%s\" in Btrfs volume specification.")
+                    % member, lineno=btrfs_data.lineno
+                )
+
+            members.append(dev)
+
+        if btrfs_data.subvol:
+            name = btrfs_data.name
+        elif btrfs_data.label:
+            name = btrfs_data.label
+        else:
+            name = None
+
+        if len(members) == 0 and not btrfs_data.preexist:
+            raise KickstartParseError(
+                _("Btrfs volume defined without any member devices.  Either specify member "
+                  "devices or use --useexisting."), lineno=btrfs_data.lineno
+            )
+
+        # allow creating btrfs vols/subvols without specifying mountpoint
+        if btrfs_data.mountpoint in ("none", "None"):
+            btrfs_data.mountpoint = ""
+
+        # Sanity check mountpoint
+        if btrfs_data.mountpoint != "" and btrfs_data.mountpoint[0] != '/':
+            raise KickstartParseError(
+                _("The mount point \"%s\" is not valid.  It must start with a /.")
+                % btrfs_data.mountpoint, lineno=btrfs_data.lineno
+            )
+
+        # If a previous device has claimed this mount point, delete the
+        # old one.
+        try:
+            if btrfs_data.mountpoint:
+                device = storage.mountpoints[btrfs_data.mountpoint]
+                storage.destroy_device(device)
+        except KeyError:
+            pass
+
+        if btrfs_data.preexist:
+            device = devicetree.resolve_device(btrfs_data.name)
+            if not device:
+                raise KickstartParseError(
+                    _("Btrfs volume \"%s\" specified with --useexisting does not exist.")
+                    % btrfs_data.name, lineno=btrfs_data.lineno
+                )
+
+            device.format.mountpoint = btrfs_data.mountpoint
+        else:
+            try:
+                request = storage.new_btrfs(
+                    name=name,
+                    subvol=btrfs_data.subvol,
+                    mountpoint=btrfs_data.mountpoint,
+                    metadata_level=btrfs_data.metaDataLevel,
+                    data_level=btrfs_data.dataLevel,
+                    parents=members,
+                    create_options=btrfs_data.mkfsopts
+                )
+            except BTRFSValueError as e:
+                raise KickstartParseError(lineno=btrfs_data.lineno, msg=str(e))
+
+            storage.create_device(request)

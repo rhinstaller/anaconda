@@ -68,7 +68,6 @@ from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from blivet.devices.lvm import LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm
-from blivet.errors import BTRFSValueError
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 
@@ -410,92 +409,10 @@ class Bootloader(RemovedCommand):
 
 
 class BTRFS(COMMANDS.BTRFS):
-    def execute(self, storage, ksdata):
-        for b in self.btrfsList:
-            b.execute(storage, ksdata)
+    pass
 
 class BTRFSData(COMMANDS.BTRFSData):
-    def execute(self, storage, ksdata):
-        devicetree = storage.devicetree
-
-        storage.do_autopart = False
-
-        members = []
-
-        # Get a list of all the devices that make up this volume.
-        for member in self.devices:
-            dev = devicetree.resolve_device(member)
-            if not dev:
-                # if using --onpart, use original device
-                member_name = ksdata.onPart.get(member, member)
-                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
-
-            if dev and dev.format.type == "luks":
-                try:
-                    dev = dev.children[0]
-                except IndexError:
-                    dev = None
-
-            if dev and dev.format.type != "btrfs":
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
-                             {"device": member, "format": dev.format.type})
-
-            if not dev:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Tried to use undefined partition \"%s\" in Btrfs volume specification.") % member)
-
-            members.append(dev)
-
-        if self.subvol:
-            name = self.name
-        elif self.label:
-            name = self.label
-        else:
-            name = None
-
-        if len(members) == 0 and not self.preexist:
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("Btrfs volume defined without any member devices.  Either specify member devices or use --useexisting."))
-
-        # allow creating btrfs vols/subvols without specifying mountpoint
-        if self.mountpoint in ("none", "None"):
-            self.mountpoint = ""
-
-        # Sanity check mountpoint
-        if self.mountpoint != "" and self.mountpoint[0] != '/':
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("The mount point \"%s\" is not valid.  It must start with a /.") % self.mountpoint)
-
-        # If a previous device has claimed this mount point, delete the
-        # old one.
-        try:
-            if self.mountpoint:
-                device = storage.mountpoints[self.mountpoint]
-                storage.destroy_device(device)
-        except KeyError:
-            pass
-
-        if self.preexist:
-            device = devicetree.resolve_device(self.name)
-            if not device:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name)
-
-            device.format.mountpoint = self.mountpoint
-        else:
-            try:
-                request = storage.new_btrfs(name=name,
-                                            subvol=self.subvol,
-                                            mountpoint=self.mountpoint,
-                                            metadata_level=self.metaDataLevel,
-                                            data_level=self.dataLevel,
-                                            parents=members,
-                                            create_options=self.mkfsopts)
-            except BTRFSValueError as e:
-                raise KickstartParseError(lineno=self.lineno, msg=str(e))
-
-            storage.create_device(request)
+    pass
 
 class Realm(RemovedCommand):
     def __init__(self, *args):
