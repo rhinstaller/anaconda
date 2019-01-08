@@ -1926,7 +1926,8 @@ class ArmEFIGRUB(EFIGRUB):
 
     def __init__(self):
         super().__init__()
-        self._packages64 = ["grub2-efi-arm"]
+        self._packages32 = ["grub2-efi-arm"]
+        self._is_32bit_firmware = True
 
 class MacEFIGRUB(EFIGRUB):
     def __init__(self):
