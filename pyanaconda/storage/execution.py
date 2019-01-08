@@ -15,7 +15,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.formats.disklabel import DiskLabel
+
 from pyanaconda.bootloader.execution import BootloaderExecutor
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.services import STORAGE
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
 
 __all__ = ["do_kickstart_storage"]
 
@@ -27,7 +34,7 @@ def do_kickstart_storage(storage, data):
     :param data: an instance of kickstart data
     """
     # Clear partitions.
-    data.clearpart.execute(storage, data)
+    clear_partitions(storage)
 
     if not any(d for d in storage.disks
                if not d.format.hidden and not d.protected):
@@ -53,3 +60,24 @@ def do_kickstart_storage(storage, data):
 
     # Set up the boot loader.
     storage.set_up_bootloader()
+
+
+def clear_partitions(storage):
+    """Clear partitions.
+
+    :param storage: instance of the Blivet's storage object
+    """
+    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+    storage.config.clear_part_type = disk_init_proxy.InitializationMode
+    storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
+    storage.config.clear_part_devices = disk_init_proxy.DevicesToClear
+    storage.config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
+
+    disk_label = disk_init_proxy.DefaultDiskLabel
+
+    if disk_label and not DiskLabel.set_default_label_type(disk_label):
+        log.warning("%s is not a supported disklabel type on this platform. "
+                    "Using default disklabel %s instead.", disk_label,
+                    DiskLabel.get_platform_label_types()[0])
+
+    storage.clear_partitions()

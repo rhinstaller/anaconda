@@ -75,7 +75,6 @@ from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm, luks_data
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
-from blivet.formats.disklabel import DiskLabel
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
@@ -110,7 +109,6 @@ parsing_log = log.getChild("parsing")
 authselect_log = log.getChild("kickstart.authselect")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
-clearpart_log = log.getChild("kickstart.clearpart")
 autopart_log = log.getChild("kickstart.autopart")
 logvol_log = log.getChild("kickstart.logvol")
 iscsi_log = log.getChild("kickstart.iscsi")
@@ -629,22 +627,6 @@ class ClearPart(RemovedCommand):
     def __str__(self):
         storage_module_proxy = STORAGE.get_proxy()
         return storage_module_proxy.GenerateTemporaryKickstart()
-
-    def execute(self, storage, ksdata):
-        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-        storage.config.clear_part_type = disk_init_proxy.InitializationMode
-        storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
-        storage.config.clear_part_devices = disk_init_proxy.DevicesToClear
-        storage.config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
-
-        disk_label = disk_init_proxy.DefaultDiskLabel
-        if disk_label:
-            if not DiskLabel.set_default_label_type(disk_label):
-                clearpart_log.warning("%s is not a supported disklabel type on this platform. "
-                                      "Using default disklabel %s instead.", disk_label,
-                                      DiskLabel.get_platform_label_types()[0])
-
-        storage.clear_partitions()
 
 class Firewall(RemovedCommand):
     def __init__(self, *args, **kwargs):
