@@ -30,7 +30,8 @@ from pykickstart.errors import KickstartParseError
 from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT
 from pyanaconda.core.i18n import _
-from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate, getAvailableDiskSpace
+from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate, getAvailableDiskSpace, \
+    lookupAlias
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -67,7 +68,6 @@ def do_kickstart_storage(storage, data):
     AutomaticPartitioningExecutor().execute(storage, data)
     CustomPartitioningExecutor().execute(storage, data)
 
-    data.raid.execute(storage, data)
     data.volgroup.execute(storage, data)
     data.logvol.execute(storage, data)
     data.btrfs.execute(storage, data)
@@ -170,6 +170,7 @@ class CustomPartitioningExecutor(object):
         """
         self._execute_reqpart(storage, data)
         self._execute_partition(storage, data)
+        self._execute_raid(storage, data)
 
     def _execute_reqpart(self, storage, data):
         """Execute the reqpart command.
@@ -561,6 +562,258 @@ class CustomPartitioningExecutor(object):
             if ty == "swap":
                 # swap is on the LUKS device not on the LUKS' parent device,
                 # override the info here
+                add_fstab_swap = luksdev
+
+            storage.create_device(luksdev)
+
+        if add_fstab_swap:
+            storage.add_fstab_swap(add_fstab_swap)
+
+    def _execute_raid(self, storage, data):
+        """Execute the raid command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        for raid_data in data.raid.raidList:
+            self._execute_raid_data(storage, data, raid_data)
+
+    def _execute_raid_data(self, storage, data, raid_data):
+        """Execute the raid data.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        :param raid_data: an instance of RaidData
+        """
+        raidmems = []
+        devicetree = storage.devicetree
+        devicename = raid_data.device
+        if raid_data.preexist:
+            device = devicetree.resolve_device(devicename)
+            if device:
+                devicename = device.name
+
+        kwargs = {}
+
+        storage.do_autopart = False
+
+        if raid_data.mountpoint == "swap":
+            ty = "swap"
+            raid_data.mountpoint = ""
+        elif raid_data.mountpoint.startswith("pv."):
+            ty = "lvmpv"
+            kwargs["name"] = raid_data.mountpoint
+            data.onPart[kwargs["name"]] = devicename
+
+            if devicetree.get_device_by_name(kwargs["name"]):
+                raise KickstartParseError(
+                    _("PV partition \"%s\" is defined multiple times.") % kwargs["name"],
+                    lineno=raid_data.lineno
+                )
+
+            raid_data.mountpoint = ""
+        elif raid_data.mountpoint.startswith("btrfs."):
+            ty = "btrfs"
+            kwargs["name"] = raid_data.mountpoint
+            data.onPart[kwargs["name"]] = devicename
+
+            if devicetree.get_device_by_name(kwargs["name"]):
+                raise KickstartParseError(
+                    _("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"],
+                    lineno=raid_data.lineno
+                )
+
+            raid_data.mountpoint = ""
+        else:
+            if raid_data.fstype != "":
+                ty = raid_data.fstype
+            elif raid_data.mountpoint == "/boot" and "mdarray" in storage.bootloader.stage2_device_types:
+                ty = storage.default_boot_fstype
+            else:
+                ty = storage.default_fstype
+
+        # Sanity check mountpoint
+        if raid_data.mountpoint != "" and raid_data.mountpoint[0] != '/':
+            raise KickstartParseError(
+                _("The mount point \"%s\" is not valid.  It must start with a /.")
+                % raid_data.mountpoint, lineno=raid_data.lineno
+            )
+
+        # If this specifies an existing request that we should not format,
+        # quit here after setting up enough information to mount it later.
+        if not raid_data.format:
+            if not devicename:
+                raise KickstartParseError(
+                    _("raid --noformat must also use the --device option."),
+                    lineno=raid_data.lineno
+                )
+
+            dev = devicetree.get_device_by_name(devicename)
+            if not dev:
+                raise KickstartParseError(
+                    _("RAID device  \"%s\" given in raid command does not exist.") % devicename,
+                    lineno=raid_data.lineno
+                )
+
+            dev.format.mountpoint = raid_data.mountpoint
+            dev.format.mountopts = raid_data.fsopts
+            if ty == "swap":
+                storage.add_fstab_swap(dev)
+            return
+
+        # Get a list of all the RAID members.
+        for member in raid_data.members:
+            dev = devicetree.resolve_device(member)
+            if not dev:
+                # if member is using --onpart, use original device
+                mem = data.onPart.get(member, member)
+                dev = devicetree.resolve_device(mem) or lookupAlias(devicetree, member)
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = dev.children[0]
+                except IndexError:
+                    dev = None
+
+            if dev and dev.format.type != "mdmember":
+                raise KickstartParseError(
+                    _("RAID device \"%(device)s\" has a format of \"%(format)s\", but should have "
+                      "a format of \"mdmember\".") % {"device": member, "format": dev.format.type},
+                    lineno=raid_data.lineno
+                )
+
+            if not dev:
+                raise KickstartParseError(
+                    _("Tried to use undefined partition \"%s\" in RAID specification.") % member,
+                    lineno=raid_data.lineno
+                )
+
+            raidmems.append(dev)
+
+        # Now get a format to hold a lot of these extra values.
+        kwargs["fmt"] = get_format(
+            ty,
+            label=raid_data.label,
+            fsprofile=raid_data.fsprofile,
+            mountpoint=raid_data.mountpoint,
+            mountopts=raid_data.fsopts,
+            create_options=raid_data.mkfsopts
+        )
+
+        if not kwargs["fmt"].type:
+            raise KickstartParseError(
+                _("The \"%s\" file system type is not supported.") % ty,
+                lineno=raid_data.lineno
+            )
+
+        kwargs["name"] = devicename
+        kwargs["level"] = raid_data.level
+        kwargs["parents"] = raidmems
+        kwargs["member_devices"] = len(raidmems) - raid_data.spares
+        kwargs["total_devices"] = len(raidmems)
+
+        if raid_data.chunk_size:
+            kwargs["chunk_size"] = Size("%d KiB" % raid_data.chunk_size)
+
+        add_fstab_swap = None
+
+        # If we were given a pre-existing RAID to create a filesystem on,
+        # we need to verify it exists and then schedule a new format action
+        # to take place there.  Also, we only support a subset of all the
+        # options on pre-existing RAIDs.
+        if raid_data.preexist:
+            device = devicetree.get_device_by_name(devicename)
+            if not device:
+                raise KickstartParseError(
+                    _("RAID volume \"%s\" specified with --useexisting does not exist.")
+                    % devicename, lineno=raid_data.lineno
+                )
+
+            storage.devicetree.recursive_remove(device, remove_device=False)
+            devicetree.actions.add(ActionCreateFormat(device, kwargs["fmt"]))
+            if ty == "swap":
+                add_fstab_swap = device
+        else:
+            if devicename and devicename in (a.name for a in storage.mdarrays):
+                raise KickstartParseError(
+                    _("The RAID volume name \"%s\" is already in use.") % devicename,
+                    lineno=raid_data.lineno
+                )
+
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if raid_data.mountpoint:
+                    device = storage.mountpoints[raid_data.mountpoint]
+                    storage.destroy_device(device)
+            except KeyError:
+                pass
+
+            try:
+                request = storage.new_mdarray(**kwargs)
+            except (StorageError, ValueError) as e:
+                raise KickstartParseError(str(e), lineno=raid_data.lineno)
+
+            storage.create_device(request)
+            if ty == "swap":
+                add_fstab_swap = request
+
+        if raid_data.encrypted:
+            if raid_data.passphrase and not storage.encryption_passphrase:
+                storage.encryption_passphrase = raid_data.passphrase
+
+            cert = getEscrowCertificate(storage.escrow_certificates, raid_data.escrowcert)
+
+            # Get the version of LUKS and PBKDF arguments.
+            raid_data.luks_version = raid_data.luks_version or storage.default_luks_version
+
+            pbkdf_args = get_pbkdf_args(
+                luks_version=raid_data.luks_version,
+                pbkdf_type=raid_data.pbkdf,
+                max_memory_kb=raid_data.pbkdf_memory,
+                iterations=raid_data.pbkdf_iterations,
+                time_ms=raid_data.pbkdf_time
+            )
+
+            if pbkdf_args and not luks_data.pbkdf_args:
+                luks_data.pbkdf_args = pbkdf_args
+
+            if raid_data.preexist:
+                luksformat = kwargs["fmt"]
+                device.format = get_format(
+                    "luks",
+                    passphrase=raid_data.passphrase,
+                    device=device.path,
+                    cipher=raid_data.cipher,
+                    escrow_cert=cert,
+                    add_backup_passphrase=raid_data.backuppassphrase,
+                    luks_version=raid_data.luks_version,
+                    pbkdf_args=pbkdf_args
+                )
+                luksdev = LUKSDevice(
+                    "luks%d" % storage.next_id,
+                    fmt=luksformat,
+                    parents=device
+                )
+            else:
+                luksformat = request.format
+                request.format = get_format(
+                    "luks",
+                    passphrase=raid_data.passphrase,
+                    cipher=raid_data.cipher,
+                    escrow_cert=cert,
+                    add_backup_passphrase=raid_data.backuppassphrase,
+                    luks_version=raid_data.luks_version,
+                    pbkdf_args=pbkdf_args
+                )
+                luksdev = LUKSDevice(
+                    "luks%d" % storage.next_id,
+                    fmt=luksformat,
+                    parents=request
+                )
+
+            if ty == "swap":
+                # swap is on the LUKS device instead of the parent device,
+                # override the device here
                 add_fstab_swap = luksdev
 
             storage.create_device(luksdev)
