@@ -1003,7 +1003,7 @@ class PackagePayload(Payload):
             # Use nil if instLangs is empty
             self.rpmMacros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
 
-        if flags.selinux:
+        if conf.security.selinux:
             for d in ["/tmp/updates",
                       "/etc/selinux/targeted/contexts/files",
                       "/etc/security/selinux/src/policy",

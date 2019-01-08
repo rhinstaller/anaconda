@@ -111,7 +111,7 @@ def update_blivet_flags():
     either flipping the original value, or it assigns the flag value
     based on anaconda settings that are passed in.
     """
-    blivet_flags.selinux = flags.selinux
+    blivet_flags.selinux = conf.security.selinux
     blivet_flags.allow_imperfect_devices = flags.rescue_mode
 
     blivet_flags.dmraid = conf.storage.dmraid

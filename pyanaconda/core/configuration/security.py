@@ -20,8 +20,8 @@
 from pyanaconda.core.configuration.base import Section
 
 
-class ServicesSection(Section):
-    """The Services section."""
+class SecuritySection(Section):
+    """The Security section."""
 
     @property
     def selinux(self):

@@ -220,7 +220,7 @@ class Rescue(object):
                 log.error("Error enabling swap.")
 
         # turn on selinux also
-        if flags.selinux:
+        if conf.security.selinux:
             # we have to catch the possible exception, because we
             # support read-only mounting
             try:

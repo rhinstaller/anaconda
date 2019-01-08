@@ -16,11 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-import selinux
-
-from pykickstart.constants import SELINUX_DISABLED
-from pyanaconda.core.constants import SELINUX_DEFAULT, ANACONDA_ENVIRON
+from pyanaconda.core.constants import ANACONDA_ENVIRON
 from pyanaconda.core.kernel import KernelArguments
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -41,12 +37,6 @@ class Flags(object):
         self.usevnc = False
         self.vncquestion = True
         self.mpath = True
-
-        self.selinux = SELINUX_DEFAULT
-
-        if not selinux.is_selinux_enabled():
-            self.selinux = SELINUX_DISABLED
-
         self.debug = False
         self.preexisting_x11 = False
         self.noverifyssl = False
