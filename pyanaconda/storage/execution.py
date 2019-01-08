@@ -18,13 +18,15 @@
 import blivet
 from blivet.deviceaction import ActionResizeFormat, ActionResizeDevice, ActionCreateFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-from blivet.devices import LUKSDevice
+from blivet.devicelibs.lvm import LVM_PE_SIZE
+from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.errors import PartitioningError, StorageError
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from blivet.partitioning import do_partitioning
 from blivet.size import Size
 from blivet.static_data import luks_data
+from bytesize.bytesize import KiB
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.bootloader.execution import BootloaderExecutor
@@ -68,7 +70,6 @@ def do_kickstart_storage(storage, data):
     AutomaticPartitioningExecutor().execute(storage, data)
     CustomPartitioningExecutor().execute(storage, data)
 
-    data.volgroup.execute(storage, data)
     data.logvol.execute(storage, data)
     data.btrfs.execute(storage, data)
     data.mount.execute(storage, data)
@@ -171,6 +172,7 @@ class CustomPartitioningExecutor(object):
         self._execute_reqpart(storage, data)
         self._execute_partition(storage, data)
         self._execute_raid(storage, data)
+        self._execute_volgroup(storage, data)
 
     def _execute_reqpart(self, storage, data):
         """Execute the reqpart command.
@@ -820,3 +822,112 @@ class CustomPartitioningExecutor(object):
 
         if add_fstab_swap:
             storage.add_fstab_swap(add_fstab_swap)
+
+    def _execute_volgroup(self, storage, data):
+        """Execute the volgroup command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        for volgroup_data in data.volgroup.vgList:
+            self._execute_volgroup_data(storage, data, volgroup_data)
+
+    def _execute_volgroup_data(self, storage, data, volgroup_data):
+        """Execute the volgroup data.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        :param volgroup_data: an instance of VolGroupData
+        """
+        pvs = []
+        devicetree = storage.devicetree
+        storage.do_autopart = False
+
+        # Get a list of all the physical volume devices that make up this VG.
+        for pv in volgroup_data.physvols:
+            dev = devicetree.resolve_device(pv)
+            if not dev:
+                # if pv is using --onpart, use original device
+                pv_name = data.onPart.get(pv, pv)
+                dev = devicetree.resolve_device(pv_name) or lookupAlias(devicetree, pv)
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = dev.children[0]
+                except IndexError:
+                    dev = None
+
+            if dev and dev.format.type != "lvmpv":
+                raise KickstartParseError(
+                    _("Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
+                      "have a format of \"lvmpv\".") % {"device": pv, "format": dev.format.type},
+                    lineno=volgroup_data.lineno)
+
+            if not dev:
+                raise KickstartParseError(
+                    _("Tried to use undefined partition \"%s\" in Volume Group specification")
+                    % pv, lineno=volgroup_data.lineno
+                )
+
+            pvs.append(dev)
+
+        if len(pvs) == 0 and not volgroup_data.preexist:
+            raise KickstartParseError(
+                _("Volume group \"%s\" defined without any physical volumes.  Either specify"
+                  "physical volumes or use --useexisting.") % volgroup_data.vgname,
+                lineno=volgroup_data.lineno
+            )
+
+        if volgroup_data.pesize == 0:
+            # default PE size requested -- we use blivet's default in KiB
+            volgroup_data.pesize = LVM_PE_SIZE.convert_to(KiB)
+
+        pesize = Size("%d KiB" % volgroup_data.pesize)
+        possible_extents = LVMVolumeGroupDevice.get_supported_pe_sizes()
+        if pesize not in possible_extents:
+            raise KickstartParseError(
+                _("Volume group given physical extent size of \"%(extentSize)s\", but must be one "
+                  "of:\n%(validExtentSizes)s.")
+                % {
+                    "extentSize": pesize,
+                    "validExtentSizes": ", ".join(str(e) for e in possible_extents)
+                },
+                lineno=volgroup_data.lineno
+            )
+
+        # If --noformat or --useexisting was given, there's really nothing to do.
+        if not volgroup_data.format or volgroup_data.preexist:
+            if not volgroup_data.vgname:
+                raise KickstartParseError(
+                    _("volgroup --noformat and volgroup --useexisting must also use the --name= "
+                      "option."), lineno=volgroup_data.lineno
+                )
+
+            dev = devicetree.get_device_by_name(volgroup_data.vgname)
+            if not dev:
+                raise KickstartParseError(
+                    _("Volume group \"%s\" given in volgroup command does not exist.")
+                    % volgroup_data.vgname, lineno=volgroup_data.lineno
+                )
+        elif volgroup_data.vgname in (vg.name for vg in storage.vgs):
+            raise KickstartParseError(
+                _("The volume group name \"%s\" is already in use.") % volgroup_data.vgname,
+                lineno=volgroup_data.lineno
+            )
+        else:
+            try:
+                request = storage.new_vg(
+                    parents=pvs,
+                    name=volgroup_data.vgname,
+                    pe_size=pesize
+                )
+            except (StorageError, ValueError) as e:
+                raise KickstartParseError(lineno=volgroup_data.lineno, msg=str(e))
+
+            storage.create_device(request)
+            if volgroup_data.reserved_space:
+                request.reserved_space = volgroup_data.reserved_space
+            elif volgroup_data.reserved_percent:
+                request.reserved_percent = volgroup_data.reserved_percent
+
+            # in case we had to truncate or otherwise adjust the specified name
+            data.onPart[volgroup_data.vgname] = request.name

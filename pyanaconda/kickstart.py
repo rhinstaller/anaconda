@@ -68,15 +68,15 @@ from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
-from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
+from blivet.devicelibs.lvm import KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice
-from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
+from blivet.devices.lvm import LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm, luks_data
 from blivet.errors import StorageError, BTRFSValueError
 from blivet.formats.fs import XFS
 from blivet.formats import get_format
 from blivet.partitioning import grow_lvm
-from blivet.size import Size, KiB
+from blivet.size import Size
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
@@ -1410,86 +1410,10 @@ class User(COMMANDS.User):
                 user_log.warning(str(e))
 
 class VolGroup(COMMANDS.VolGroup):
-    def execute(self, storage, ksdata):
-        for v in self.vgList:
-            v.execute(storage, ksdata)
+    pass
 
 class VolGroupData(COMMANDS.VolGroupData):
-    def execute(self, storage, ksdata):
-        pvs = []
-
-        devicetree = storage.devicetree
-
-        storage.do_autopart = False
-
-        # Get a list of all the physical volume devices that make up this VG.
-        for pv in self.physvols:
-            dev = devicetree.resolve_device(pv)
-            if not dev:
-                # if pv is using --onpart, use original device
-                pv_name = ksdata.onPart.get(pv, pv)
-                dev = devicetree.resolve_device(pv_name) or lookupAlias(devicetree, pv)
-            if dev and dev.format.type == "luks":
-                try:
-                    dev = dev.children[0]
-                except IndexError:
-                    dev = None
-
-            if dev and dev.format.type != "lvmpv":
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Physical volume \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"lvmpv\".") %
-                             {"device": pv, "format": dev.format.type})
-
-            if not dev:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Tried to use undefined partition \"%s\" in Volume Group specification") % pv)
-
-            pvs.append(dev)
-
-        if len(pvs) == 0 and not self.preexist:
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("Volume group \"%s\" defined without any physical volumes.  Either specify physical volumes or use --useexisting.") % self.vgname)
-
-        if self.pesize == 0:
-            # default PE size requested -- we use blivet's default in KiB
-            self.pesize = LVM_PE_SIZE.convert_to(KiB)
-
-        pesize = Size("%d KiB" % self.pesize)
-        possible_extents = LVMVolumeGroupDevice.get_supported_pe_sizes()
-        if pesize not in possible_extents:
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("Volume group given physical extent size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %
-                         {"extentSize": pesize, "validExtentSizes": ", ".join(str(e) for e in possible_extents)})
-
-        # If --noformat or --useexisting was given, there's really nothing to do.
-        if not self.format or self.preexist:
-            if not self.vgname:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("volgroup --noformat and volgroup --useexisting must also use the --name= option."))
-
-            dev = devicetree.get_device_by_name(self.vgname)
-            if not dev:
-                raise KickstartParseError(lineno=self.lineno,
-                        msg=_("Volume group \"%s\" given in volgroup command does not exist.") % self.vgname)
-        elif self.vgname in (vg.name for vg in storage.vgs):
-            raise KickstartParseError(lineno=self.lineno,
-                    msg=_("The volume group name \"%s\" is already in use.") % self.vgname)
-        else:
-            try:
-                request = storage.new_vg(parents=pvs,
-                                         name=self.vgname,
-                                         pe_size=pesize)
-            except (StorageError, ValueError) as e:
-                raise KickstartParseError(lineno=self.lineno, msg=str(e))
-
-            storage.create_device(request)
-            if self.reserved_space:
-                request.reserved_space = self.reserved_space
-            elif self.reserved_percent:
-                request.reserved_percent = self.reserved_percent
-
-            # in case we had to truncate or otherwise adjust the specified name
-            ksdata.onPart[self.vgname] = request.name
+    pass
 
 class XConfig(RemovedCommand):
 
