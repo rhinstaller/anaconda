@@ -31,11 +31,14 @@ from bytesize.bytesize import KiB
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.bootloader.execution import BootloaderExecutor
-from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT
+from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE, \
+    MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
+    MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
 from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate, getAvailableDiskSpace, \
     lookupAlias
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
+    MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.platform import platform
@@ -70,8 +73,7 @@ def do_kickstart_storage(storage, data):
 
     AutomaticPartitioningExecutor().execute(storage, data)
     CustomPartitioningExecutor().execute(storage, data)
-
-    data.mount.execute(storage, data)
+    ManualPartitioningExecutor().execute(storage, data)
 
     # Set up the snapshot here.
     data.snapshot.setup(storage, data)
@@ -157,6 +159,80 @@ class AutomaticPartitioningExecutor(object):
 
         if report.failure:
             raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
+
+
+class ManualPartitioningExecutor(object):
+    """The executor of the manual partitioning."""
+
+    def execute(self, storage, data):
+        """Execute the manual partitioning.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
+
+        if not manual_part_proxy.Enabled:
+            return
+
+        # Disable autopart.
+        storage.do_autopart = False
+
+        # Set up mount points.
+        for mount_data in manual_part_proxy.MountPoints:
+            self._setup_mount_point(storage, data, mount_data)
+
+    def _setup_mount_point(self, storage, data, mount_data):
+        """Set up a mount point.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        :param mount_data: an instance of MountData
+        """
+        device = mount_data[MOUNT_POINT_DEVICE]
+        device_reformat = mount_data[MOUNT_POINT_REFORMAT]
+        device_format = mount_data[MOUNT_POINT_FORMAT]
+
+        dev = storage.devicetree.resolve_device(device)
+        if dev is None:
+            raise KickstartParseError(
+                _("Unknown or invalid device '%s' specified") % device,
+                lineno=data.mount.lineno
+            )
+
+        if device_reformat:
+            if device_format:
+                fmt = get_format(device_format)
+
+                if not fmt:
+                    raise KickstartParseError(
+                        _("Unknown or invalid format '%(format)s' specified for device "
+                          "'%(device)s'") % {"format": device_format, "device": device},
+                        lineno=data.mount.lineno
+                    )
+            else:
+                old_fmt = dev.format
+
+                if not old_fmt or old_fmt.type is None:
+                    raise KickstartParseError(
+                        _("No format on device '%s'") % device,
+                        lineno=data.mount.lineno
+                    )
+
+                fmt = get_format(old_fmt.type)
+            storage.format_device(dev, fmt)
+            # make sure swaps end up in /etc/fstab
+            if fmt.type == "swap":
+                storage.add_fstab_swap(dev)
+
+        # only set mount points for mountable formats
+        mount_point = mount_data[MOUNT_POINT_PATH]
+
+        if dev.format.mountable and mount_point and mount_point != "none":
+            dev.format.mountpoint = mount_point
+
+        dev.format.create_options = mount_data[MOUNT_POINT_FORMAT_OPTIONS]
+        dev.format.options = mount_data[MOUNT_POINT_MOUNT_OPTIONS]
 
 
 class CustomPartitioningExecutor(object):

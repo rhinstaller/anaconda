@@ -45,8 +45,7 @@ from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
     SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
     CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, FIREWALL_ENABLED, FIREWALL_DISABLED, \
-    FIREWALL_USE_SYSTEM_DEFAULTS, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
-    MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
+    FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
 from pyanaconda.errors import ScriptError, errorHandler
@@ -55,8 +54,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL, \
-    MANUAL_PARTITIONING
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, FIREWALL
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -69,7 +67,6 @@ from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from blivet.devices.lvm import LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm
 from blivet.formats.fs import XFS
-from blivet.formats import get_format
 
 from pykickstart.base import BaseHandler, KickstartCommand
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_TRACEBACK, \
@@ -670,62 +667,10 @@ class Logging(COMMANDS.Logging):
                 remote_server = "%s:%s" % (self.host, self.port)
             anaconda_logging.logger.updateRemote(remote_server)
 
-
 class Mount(RemovedCommand):
 
     def __str__(self):
         return ""
-
-    def execute(self, storage, *args, **kwargs):
-        manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
-
-        if not manual_part_proxy.Enabled:
-            return
-
-        # Disable autopart.
-        storage.do_autopart = False
-
-        # Set up mount points.
-        for data in manual_part_proxy.MountPoints:
-            self._setup_mount_point(storage, data)
-
-    def _setup_mount_point(self, storage, data):
-        device = data[MOUNT_POINT_DEVICE]
-        device_reformat = data[MOUNT_POINT_REFORMAT]
-        device_format = data[MOUNT_POINT_FORMAT]
-
-        dev = storage.devicetree.resolve_device(device)
-        if dev is None:
-            raise KickstartParseError(lineno=self.lineno,
-                                      msg=_("Unknown or invalid device '%s' specified") % device)
-
-        if device_reformat:
-            if device_format:
-                fmt = get_format(device_format)
-                if not fmt:
-                    msg = _("Unknown or invalid format '%(format)s' specified for device '%(device)s'") % \
-                            {"format": device_format, "device": device}
-                    raise KickstartParseError(lineno=self.lineno, msg=msg)
-            else:
-                old_fmt = dev.format
-                if not old_fmt or old_fmt.type is None:
-                    raise KickstartParseError(lineno=self.lineno,
-                                              msg=_("No format on device '%s'") % device)
-                fmt = get_format(old_fmt.type)
-            storage.format_device(dev, fmt)
-            # make sure swaps end up in /etc/fstab
-            if fmt.type == "swap":
-                storage.add_fstab_swap(dev)
-
-        # only set mount points for mountable formats
-        mount_point = data[MOUNT_POINT_PATH]
-
-        if dev.format.mountable and mount_point and mount_point != "none":
-            dev.format.mountpoint = mount_point
-
-        dev.format.create_options = data[MOUNT_POINT_FORMAT_OPTIONS]
-        dev.format.options = data[MOUNT_POINT_MOUNT_OPTIONS]
-
 
 class Network(COMMANDS.Network):
     def __init__(self, *args, **kwargs):
