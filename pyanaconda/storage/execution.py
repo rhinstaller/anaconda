@@ -26,6 +26,7 @@ from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.utils import get_pbkdf_args
@@ -56,8 +57,8 @@ def do_kickstart_storage(storage, data):
     BootloaderExecutor().execute(storage, dry_run=True)
 
     AutomaticPartitioningExecutor().execute(storage, data)
+    CustomPartitioningExecutor().execute(storage, data)
 
-    data.reqpart.execute(storage, data)
     data.partition.execute(storage, data)
     data.raid.execute(storage, data)
     data.volgroup.execute(storage, data)
@@ -149,3 +150,43 @@ class AutomaticPartitioningExecutor(object):
 
         if report.failure:
             raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
+
+
+class CustomPartitioningExecutor(object):
+    """The executor of the custom partitioning."""
+
+    def execute(self, storage, data):
+        """Execute the custom partitioning.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        self._execute_reqpart(storage, data)
+
+    def _execute_reqpart(self, storage, data):
+        """Execute the reqpart command.
+
+        :param storage: an instance of the Blivet's storage object
+        :param data: an instance of kickstart data
+        """
+        if not data.reqpart.reqpart:
+            return
+
+        log.debug("Looking for platform-specific bootloader requirements.")
+        reqs = platform.set_platform_bootloader_reqs()
+
+        if data.reqpart.addBoot:
+            log.debug("Looking for platform-specific boot requirements.")
+            boot_partitions = platform.set_platform_boot_partition()
+
+            # Blivet doesn't know this - anaconda sets up the default boot fstype
+            # in various places in this file. We need to duplicate that here.
+            for part in boot_partitions:
+                if part.mountpoint == "/boot":
+                    part.fstype = storage.default_boot_fstype
+
+            reqs += boot_partitions
+
+        if reqs:
+            log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
+            autopart.do_reqpart(storage, reqs)

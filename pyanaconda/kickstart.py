@@ -59,7 +59,6 @@ from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOO
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
-from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
@@ -1740,28 +1739,7 @@ class RepoData(COMMANDS.RepoData):
         return self.partition is not None
 
 class ReqPart(COMMANDS.ReqPart):
-    def execute(self, storage, ksdata):
-        if not self.reqpart:
-            return
-
-        log.debug("Looking for platform-specific bootloader requirements.")
-        reqs = platform.set_platform_bootloader_reqs()
-
-        if self.addBoot:
-            log.debug("Looking for platform-specific boot requirements.")
-            bootPartitions = platform.set_platform_boot_partition()
-
-            # Blivet doesn't know this - anaconda sets up the default boot fstype
-            # in various places in this file. We need to duplicate that here.
-            for part in bootPartitions:
-                if part.mountpoint == "/boot":
-                    part.fstype = storage.default_boot_fstype
-
-            reqs += bootPartitions
-
-        if reqs:
-            log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
-            autopart.do_reqpart(storage, reqs)
+    pass
 
 class RootPw(RemovedCommand):
 
