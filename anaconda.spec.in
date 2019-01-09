@@ -127,11 +127,6 @@ Requires: python3-coverage >= 4.0-0.12.b3
 
 # required because of the rescue mode and VNC question
 Requires: anaconda-tui = %{version}-%{release}
-# required during the transition period until
-# anaconda-live is added to the kickstarts used to
-# create live images
-Requires: anaconda-live = %{version}-%{release}
-
 
 # Make sure we get the en locale one way or another
 Requires: glibc-langpack-en
@@ -211,6 +206,11 @@ Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
 Requires: blivet-gui-runtime >= %{blivetguiver}
 Requires: system-logos
+
+# required during the transition period until
+# anaconda-live is added to the kickstarts used to
+# create live images
+Requires: anaconda-live = %{version}-%{release}
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
