@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import PropertyMock
 from unittest.mock import patch
 from pykickstart.version import makeVersion
+from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda.storage.osinstall import InstallerStorage
 from blivet.devices import PartitionDevice
 from blivet import formats
@@ -28,10 +29,11 @@ class BlivetTestCase(unittest.TestCase):
         mock_mountpoints.values.return_value = []
 
         # initialize ksdata
-        prepboot_blivet_obj = InstallerStorage(makeVersion())
-        prepboot_blivet_obj.update_ksdata()
+        ksdata = makeVersion()
+        prepboot_blivet_obj = InstallerStorage()
+        update_storage_ksdata(prepboot_blivet_obj, ksdata)
 
-        self.assertIn("part prepboot", str(prepboot_blivet_obj.ksdata))
+        self.assertIn("part prepboot", str(ksdata))
 
     @patch('pyanaconda.dbus.DBus.get_proxy')
     @patch('pyanaconda.storage.osinstall.InstallerStorage.devices', new_callable=PropertyMock)
@@ -48,7 +50,8 @@ class BlivetTestCase(unittest.TestCase):
         mock_mountpoints.values.return_value = []
 
         # initialize ksdata
-        biosboot_blivet_obj = InstallerStorage(makeVersion())
-        biosboot_blivet_obj.update_ksdata()
+        ksdata = makeVersion()
+        biosboot_blivet_obj = InstallerStorage()
+        update_storage_ksdata(biosboot_blivet_obj, ksdata)
 
-        self.assertIn("part biosboot", str(biosboot_blivet_obj.ksdata))
+        self.assertIn("part biosboot", str(ksdata))

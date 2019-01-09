@@ -33,8 +33,7 @@ from pykickstart.constants import AUTOPART_TYPE_LVM, NVDIMM_ACTION_USE, NVDIMM_A
 from blivet import arch, udev
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
-from blivet.devices import MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, \
-    LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
+from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.iscsi import iscsi
 from blivet.static_data import nvdimm
@@ -53,7 +52,7 @@ from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    AUTO_PARTITIONING, ZFCP, FCOE
+    ZFCP, FCOE
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -466,150 +465,6 @@ class InstallerStorage(Blivet):
             free[disk.name] = (disk_free, fs_free)
 
         return free
-
-    def update_ksdata(self):
-        """ Update ksdata to reflect the settings of this Blivet instance. """
-        if not self.ksdata or not self.mountpoints:
-            return
-
-        # clear out whatever was there before
-        self.ksdata.partition.partitions = []
-        self.ksdata.logvol.lvList = []
-        self.ksdata.raid.raidList = []
-        self.ksdata.volgroup.vgList = []
-        self.ksdata.btrfs.btrfsList = []
-
-        # iscsi?
-        # fcoe?
-        # zfcp?
-        # dmraid?
-
-        # bootloader
-
-        # disk selection
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-
-        if self.ignored_disks:
-            disk_select_proxy.SetIgnoredDisks(self.ignored_disks)
-        elif self.exclusive_disks:
-            disk_select_proxy.SetSelectedDisks(self.exclusive_disks)
-
-        # autopart
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-        auto_part_proxy.SetEnabled(self.do_autopart)
-        auto_part_proxy.SetType(self.autopart_type)
-        auto_part_proxy.SetEncrypted(self.encrypted_autopart)
-
-        if self.encrypted_autopart:
-            auto_part_proxy.SetLUKSVersion(self.autopart_luks_version)
-
-            if self.autopart_pbkdf_args:
-                auto_part_proxy.SetPBKDF(self.autopart_pbkdf_args.type or "")
-                auto_part_proxy.SetPBKDFMemory(self.autopart_pbkdf_args.max_memory_kb)
-                auto_part_proxy.SetPBKDFIterations(self.autopart_pbkdf_args.iterations)
-                auto_part_proxy.SetPBKDFTime(self.autopart_pbkdf_args.time_ms)
-
-        # clearpart
-        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-        disk_init_proxy.SetInitializationMode(self.config.clear_part_type)
-        disk_init_proxy.SetDrivesToClear(self.config.clear_part_disks)
-        disk_init_proxy.SetDevicesToClear(self.config.clear_part_devices)
-        disk_init_proxy.SetInitializeLabelsEnabled(self.config.initialize_disks)
-
-        if disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_NONE:
-            # Make a list of initialized disks and of removed partitions. If any
-            # partitions were removed from disks that were not completely
-            # cleared we'll have to use CLEAR_PARTITIONS_LIST and provide a list
-            # of all removed partitions. If no partitions were removed from a
-            # disk that was not cleared/reinitialized we can use
-            # CLEAR_PARTITIONS_ALL.
-            disk_init_proxy.SetDrivesToClear([])
-            disk_init_proxy.SetDevicesToClear([])
-
-            fresh_disks = [d.name for d in self.disks if d.partitioned and
-                           not d.format.exists]
-
-            destroy_actions = self.devicetree.actions.find(action_type="destroy",
-                                                           object_type="device")
-
-            cleared_partitions = []
-            partial = False
-            for action in destroy_actions:
-                if action.device.type == "partition":
-                    if action.device.disk.name not in fresh_disks:
-                        partial = True
-
-                    cleared_partitions.append(action.device.name)
-
-            if not destroy_actions:
-                pass
-            elif partial:
-                # make a list of removed partitions
-                disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_LIST)
-                disk_init_proxy.SetDevicesToClear(cleared_partitions)
-            else:
-                # if they didn't partially clear any disks, use the shorthand
-                disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
-                disk_init_proxy.SetDrivesToClear(fresh_disks)
-
-        if self.do_autopart:
-            return
-
-        self._update_custom_storage_ksdata()
-
-    def _update_custom_storage_ksdata(self):
-        """ Update KSData for custom storage. """
-
-        # custom storage
-        ks_map = {PartitionDevice: ("PartData", "partition"),
-                  TmpFSDevice: ("PartData", "partition"),
-                  LVMLogicalVolumeDevice: ("LogVolData", "logvol"),
-                  LVMVolumeGroupDevice: ("VolGroupData", "volgroup"),
-                  MDRaidArrayDevice: ("RaidData", "raid"),
-                  BTRFSDevice: ("BTRFSData", "btrfs")}
-
-        # list comprehension that builds device ancestors should not get None as a member
-        # when searching for bootloader devices
-        bootloader_devices = []
-        if self.bootloader_device is not None:
-            bootloader_devices.append(self.bootloader_device)
-
-        # biosboot is a special case
-        for device in self.devices:
-            if device.format.type == 'biosboot':
-                bootloader_devices.append(device)
-
-        # make a list of ancestors of all used devices
-        devices = list(set(a for d in list(self.mountpoints.values()) + self.swaps + bootloader_devices
-                           for a in d.ancestors))
-
-        # devices which share information with their distinct raw device
-        complementary_devices = [d for d in devices if d.raw_device is not d]
-
-        devices.sort(key=lambda d: len(d.ancestors))
-        for device in devices:
-            cls = next((c for c in ks_map if isinstance(device, c)), None)
-            if cls is None:
-                log.info("omitting ksdata: %s", device)
-                continue
-
-            class_attr, list_attr = ks_map[cls]
-
-            cls = getattr(self.ksdata, class_attr)
-            data = cls()    # all defaults
-
-            complements = [d for d in complementary_devices if d.raw_device is device]
-
-            if len(complements) > 1:
-                log.warning("omitting ksdata for %s, found too many (%d) complementary devices", device, len(complements))
-                continue
-
-            device = complements[0] if complements else device
-
-            device.populate_ksdata(data)
-
-            parent = getattr(self.ksdata, list_attr)
-            parent.dataList().append(data)
 
     def shutdown(self):
         """ Deactivate all devices. """
