@@ -1,10 +1,21 @@
 Testing Anaconda
 ================
 
-Testing locally
----------------
+This document describes how to run Anaconda tests. Anaconda has various tests such as
+unit tests, rpm tests and translation tests. All the tests will be run together if you follow
+the steps below.
 
-Before testing Anaconda you need to install all required dependencies.
+You have two possible ways how to run these tests:
+
+- running the tests directly on your system
+- using mock utility which run a container on your system
+
+Read below about their benefits and drawbacks.
+
+Run tests locally
+-----------------
+
+Before you are able to run Anaconda tests you need to install all required dependencies.
 To get list of dependencies you can use::
 
     [dnf|yum] install -y $(./scripts/testing/dependency_solver.py)
@@ -32,8 +43,8 @@ In case the *ci* target fails there is also a *coverage-report* target
 which can be used to combine the multiple `.coverage` files into one and
 produce a human readable report.
 
-Testing Inside Mock
--------------------
+Run tests inside Mock
+---------------------
 
 When using the `ci' target in a mock you need to use a regular user account which
 is a member of the `mock' group. You can update your account by running
@@ -95,4 +106,3 @@ represents a different class of tests. They are
 
     Some tests require root privileges and will be skipped if running as regular
     user!
-
