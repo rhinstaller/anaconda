@@ -35,7 +35,7 @@ from pyanaconda.modules.network.nm_client import nm_client, get_device_name_from
     add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device, \
     update_iface_setting_values, bound_hwaddr_of_device, devices_ignore_ipv6
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, update_onboot_value, \
-    update_slaves_onboot_value, find_ifcfg_uuid_of_device
+    update_slaves_onboot_value, find_ifcfg_uuid_of_device, get_dracut_arguments_from_ifcfg
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 
@@ -617,3 +617,21 @@ class NetworkModule(KickstartModule):
         if not self._device_configurations:
             log.error("Got request to use DeviceConfigurations that has not been created yet")
         self._use_device_configurations = True
+
+    def get_dracut_arguments(self, iface, target_ip, hostname):
+        """Get dracut arguments for the iface and iSCSI target.
+
+        The dracut arguments would activate the iface in initramfs so that the
+        iSCSI target can be attached (for example to mount root filesystem).
+
+        :param iface: network interface used to connect to the target
+        :param target_ip: IP of the iSCSI target
+        :param hostname: static hostname to be configured
+        """
+        dracut_args = []
+
+        if iface not in (device.get_iface() for device in self.nm_client.get_devices()):
+            log.error("get dracut argumetns for %s: device not found", iface)
+            return dracut_args
+
+        return get_dracut_arguments_from_ifcfg(iface, target_ip, hostname)

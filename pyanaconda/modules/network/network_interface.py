@@ -211,3 +211,15 @@ class NetworkInterface(KickstartModuleInterface):
         from persistent configuration instead of using original kickstart data.
         """
         return self.implementation.network_device_configuration_changed()
+
+    def GetDracutArguments(self, iface: Str, target_ip: Str, hostname: Str) -> List[Str]:
+        """Get dracut arguments for the iface and iSCSI target.
+
+        The dracut arguments would activate the iface in initramfs so that the
+        iSCSI target can be attached (for example to mount root filesystem).
+
+        :param iface: network interface used to connect to the target
+        :param target_ip: IP of the iSCSI target
+        :param hostname: static hostname to be configured
+        """
+        return self.implementation.get_dracut_arguments(iface, target_ip, hostname)
