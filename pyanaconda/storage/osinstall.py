@@ -1393,7 +1393,7 @@ class InstallerStorage(Blivet):
 
         # Need to make sure that boot drive has been setup from the latest information.
         # This will also set self.bootloader.stage1_disk.
-        self.ksdata.bootloader.execute(self, self.ksdata, None)
+        self.ksdata.bootloader.execute(self, None)
 
         self.bootloader.stage2_device = self.boot_device
         if not early:

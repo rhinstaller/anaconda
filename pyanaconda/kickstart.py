@@ -468,14 +468,12 @@ class Bootloader(RemovedCommand):
             raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
                                       lineno=self.lineno)
 
-    def execute(self, storage, ksdata, dry_run=False):
+    def execute(self, storage, dry_run=False):
         """ Resolve and execute the bootloader installation.
 
             :param storage: object storing storage-related information
                             (disks, partitioning, bootloader, etc.)
             :type storage: blivet.Blivet
-            :param payload: object storing payload-related information
-            :type payload: pyanaconda.payload.Payload
             :param dry_run: flag if this is only dry run before the partitioning
                             will be resolved
             :type dry_run: bool
@@ -2836,7 +2834,7 @@ def doKickstartStorage(storage, ksdata):
     # snapshot free space now so that we know how much we had available
     storage.create_free_space_snapshot()
 
-    ksdata.bootloader.execute(storage, ksdata, dry_run=True)
+    ksdata.bootloader.execute(storage, dry_run=True)
     ksdata.autopart.execute(storage, ksdata)
     ksdata.reqpart.execute(storage, ksdata)
     ksdata.partition.execute(storage, ksdata)
