@@ -82,7 +82,7 @@ def parse_args():
 
 def runtime_dependencies(spec_content):
     """Find all Requires from spec file."""
-    packages = re.findall(r"(?<!BuildRequires: )(?<=Requires: ) *[^ \n]*", spec_content)
+    packages = re.findall(r"\n *Requires: *([^ \n]*)", spec_content)
     result = set()
 
     for pkg in packages:
@@ -95,7 +95,7 @@ def runtime_dependencies(spec_content):
 
 def build_dependencies(spec_content, is_s390):
     """Find all BuildRequires from spec file."""
-    packages = re.findall(r"(?<=BuildRequires: ) *[^ \n]*", spec_content)
+    packages = re.findall(r"\n *BuildRequires: *([^ \n]*)", spec_content)
     result = set()
 
     for pkg in packages:
