@@ -268,119 +268,20 @@ class IfcfgFile(SimpleConfigFile):
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
 
+    target_ip = networkStorageDevice.host_address
+
     if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
         if getattr(networkStorageDevice, 'ibft', False):
             nic = ibftIface()
         else:
-            nic = ifaceForHostIP(networkStorageDevice.host_address)
+            nic = ifaceForHostIP(target_ip)
         if not nic:
             return ""
     else:
         nic = networkStorageDevice.nic
 
-    if nic not in nm.nm_devices():
-        log.error('Unknown network interface: %s', nic)
-        return ""
-
-    ifcfg_path = find_ifcfg_file_of_device(nic)
-    if not ifcfg_path:
-        log.error("dracutSetupArgs: can't find ifcfg file for %s", nic)
-        return ""
-    ifcfg = IfcfgFile(ifcfg_path)
-    ifcfg.read()
-    return dracutBootArguments(nic,
-                               ifcfg,
-                               networkStorageDevice.host_address)
-
-def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
-
-    netargs = set()
-
-    if ifcfg.get('BOOTPROTO') == 'ibft':
-        netargs.add("rd.iscsi.ibft")
-    elif storage_ipaddr:
-        if hostname is None:
-            hostname = ""
-        # if using ipv6
-        if ':' in storage_ipaddr:
-            if ifcfg.get('DHCPV6C') == "yes":
-                # XXX combination with autoconf not yet clear,
-                # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
-                netargs.add("ip=%s:dhcp6" % devname)
-            elif ifcfg.get('IPV6_AUTOCONF') == "yes":
-                netargs.add("ip=%s:auto6" % devname)
-            elif ifcfg.get('IPV6ADDR'):
-                ipaddr = "[%s]" % ifcfg.get('IPV6ADDR')
-                if ifcfg.get('IPV6_DEFAULTGW'):
-                    gateway = "[%s]" % ifcfg.get('IPV6_DEFAULTGW')
-                else:
-                    gateway = ""
-                netargs.add("ip=%s::%s::%s:%s:none" % (ipaddr, gateway,
-                            hostname, devname))
-        else:
-            if util.lowerASCII(ifcfg.get('bootproto')) == 'dhcp':
-                netargs.add("ip=%s:dhcp" % devname)
-            else:
-                cfgidx = ''
-                if ifcfg.get('IPADDR0'):
-                    cfgidx = '0'
-                if ifcfg.get('GATEWAY%s' % cfgidx):
-                    gateway = ifcfg.get('GATEWAY%s' % cfgidx)
-                else:
-                    gateway = ""
-                netmask = ifcfg.get('NETMASK%s' % cfgidx)
-                prefix = ifcfg.get('PREFIX%s' % cfgidx)
-                if not netmask and prefix:
-                    netmask = prefix2netmask(int(prefix))
-                ipaddr = ifcfg.get('IPADDR%s' % cfgidx)
-                netargs.add("ip=%s::%s:%s:%s:%s:none" %
-                            (ipaddr, gateway, netmask, hostname, devname))
-
-        hwaddr = ifcfg.get("HWADDR")
-        if hwaddr:
-            netargs.add("ifname=%s:%s" % (devname, hwaddr.lower()))
-
-        if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
-            slaves = get_team_slaves([devname, ifcfg.get("UUID")])
-            netargs.add("team=%s:%s" % (devname,
-                                        ",".join(dev for dev, _cfg in slaves)))
-
-        if ifcfg.get("TYPE") == "Vlan":
-            physdev_spec = ifcfg.get("PHYSDEV")
-            physdev = None
-            if physdev_spec in nm.nm_devices():
-                physdev = physdev_spec
-                ifcfg_path = find_ifcfg_file_of_device(physdev)
-                if ifcfg_path:
-                    ifcfg = IfcfgFile(ifcfg_path)
-                    ifcfg.read()
-                else:
-                    log.debug("can't find ifcfg of vlan parent %s", physdev)
-            # physical device can be specified by connection uuid (eg from nm-c-e)
-            else:
-                ifcfg_path = find_ifcfg_file([("UUID", physdev_spec)])
-                if ifcfg_path:
-                    ifcfg = IfcfgFile(ifcfg_path)
-                    ifcfg.read()
-                    # On s390 with net.ifnames=0 there is no DEVICE
-                    physdev = ifcfg.get("DEVICE") or ifcfg.get("NAME")
-
-            if physdev:
-                netargs.add("vlan=%s:%s" % (devname, physdev))
-            else:
-                log.warning("can't find parent of vlan device %s specified by %s",
-                             devname, physdev_spec)
-
-    # For vlan ifcfg now refers to the physical device file
-    nettype = ifcfg.get("NETTYPE")
-    subchannels = ifcfg.get("SUBCHANNELS")
-    if blivet.arch.is_s390() and nettype and subchannels:
-        znet = "rd.znet=%s,%s" % (nettype, subchannels)
-        options = ifcfg.get("OPTIONS").strip("'\"")
-        if options:
-            options = filter(lambda x: x != '', options.split(' '))
-            znet += ",%s" % (','.join(options))
-        netargs.add(znet)
+    network_proxy = NETWORK.get_proxy()
+    netargs = network_proxy.GetDracutArguments(nic, target_ip, "")
 
     return netargs
 

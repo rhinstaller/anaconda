@@ -436,11 +436,11 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
     :param hostname: static hostname to be configured
     :type hostname: str
     """
-    netargs = []
+    netargs = set()
     ifcfg = get_ifcfg_file_of_device(iface)
     if not ifcfg:
         log.error("get dracut arguments from ifcfg for %s: no ifcfg file found", iface)
-        return netargs
+        return list(netargs)
 
     if ifcfg.get('BOOTPROTO') == 'ibft':
         netargs.add("rd.iscsi.ibft")
@@ -509,7 +509,7 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
             else:
                 log.error("can't find ifcfg of parent of vlan device %s specified by %s",
                           iface, physdev_spec)
-                return netargs
+                return list(netargs)
 
     # For vlan ifcfg now refers to the physical device file
     nettype = ifcfg.get("NETTYPE")
@@ -522,4 +522,4 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
             znet += ",%s" % (','.join(options))
         netargs.add(znet)
 
-    return netargs
+    return list(netargs)
