@@ -233,6 +233,10 @@ class AnacondaConfiguration(Configuration):
         self.storage._set_option("gpt", opts.gpt)
         self.storage._set_option("multipath_friendly_names", opts.multipath_friendly_names)
 
+        # Set up the rescue mode.
+        if opts.rescue:
+            self.storage._set_option("allow_imperfect_devices", True)
+
         # Set the security flags.
         self.security._set_option("selinux", opts.selinux)
 

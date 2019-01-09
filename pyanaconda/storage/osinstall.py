@@ -112,12 +112,11 @@ def update_blivet_flags():
     based on anaconda settings that are passed in.
     """
     blivet_flags.selinux = conf.security.selinux
-    blivet_flags.allow_imperfect_devices = flags.rescue_mode
-
     blivet_flags.dmraid = conf.storage.dmraid
     blivet_flags.ibft = conf.storage.ibft
     blivet_flags.gpt = conf.storage.gpt
     blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
+    blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
 
 def release_from_redhat_release(fn):
