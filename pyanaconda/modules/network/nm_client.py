@@ -158,7 +158,7 @@ def get_device_name_from_network_data(network_data, supported_devices, bootif):
     return device_name
 
 
-def add_connection_from_ksdata(network_data, device_name, activate=False):
+def add_connection_from_ksdata(network_data, device_name, activate=False, ifname_option_values=None):
     """Add NM connection created from kickstart configuration.
 
     :param network_data: kickstart configuration
@@ -167,7 +167,10 @@ def add_connection_from_ksdata(network_data, device_name, activate=False):
     :type device_name: str
     :param activate: activate the added connection
     :type activate: bool
+    :param ifname_option_values: list of ifname boot option values
+    :type ifname_option_values: list(str)
     """
+    ifname_option_values = ifname_option_values or []
     added_connections = []
     device_to_activate = device_name
 
@@ -285,7 +288,7 @@ def add_connection_from_ksdata(network_data, device_name, activate=False):
         s_wired = NM.SettingWired.new()
         con.add_setting(s_wired)
 
-        bound_mac = bound_hwaddr_of_device(device_name)
+        bound_mac = bound_hwaddr_of_device(device_name, ifname_option_values)
         if bound_mac:
             s_con.props.interface_name = device_name
             s_wired.props.mac_address = bound_mac
@@ -392,8 +395,30 @@ def is_infiniband_device(device_name):
     return False
 
 
-def bound_hwaddr_of_device(device_name):
-    """Return mac address of device bound by device renaming."""
+def bound_hwaddr_of_device(device_name, ifname_option_values):
+    """Check and return mac address of device bound by device renaming.
+
+    For example ifname=ens3:f4:ce:46:2c:44:7a should bind the device name ens3
+    to the MAC address (and rename the device in initramfs eventually).  If
+    hwaddress of the device devname is the same as the MAC address, its value
+    is returned.
+
+    :param devname: device name
+    :type devname: str
+    :param ifname_option_values: list of ifname boot option values
+    :type ifname_option_values: list(str)
+    :return: hwaddress of the device if bound, or None
+    :rtype: str or None
+
+    """
+    for ifname_value in ifname_option_values:
+        iface, mac = ifname_value.split(":", 1)
+        if iface == device_name:
+            if iface ==  get_iface_from_hwaddr(mac):
+                return mac.upper()
+            else:
+                log.warning("MAC address of ifname %s does not correspond to ifname=%s",
+                            iface, ifname_value)
     return None
 
 

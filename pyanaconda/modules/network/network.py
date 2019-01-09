@@ -88,6 +88,7 @@ class NetworkModule(KickstartModule):
 
         self._default_device_specification = DEFAULT_DEVICE_SPECIFICATION
         self._bootif = None
+        self._ifname_option_values = []
 
     def publish(self):
         """Publish the module."""
@@ -399,6 +400,21 @@ class NetworkModule(KickstartModule):
         self._bootif = specification
         log.debug("bootif device specification is set to %s", specification)
 
+    @property
+    def ifname_option_values(self):
+        """Get values of ifname boot option."""
+        return self._ifname_option_values
+
+    @ifname_option_values.setter
+    def ifname_option_values(self, values):
+        """Set values of ifname boot option.
+
+        :param values: list of ifname boot option values
+        :type values: list(str)
+        """
+        self._ifname_option_values = values
+        log.debug("ifname boot option values are set to %s", values)
+
     def apply_kickstart(self):
         """Apply kickstart configuration which has not already been applied.
 
@@ -576,14 +592,16 @@ class NetworkModule(KickstartModule):
                               iface)
                     continue
                 con = cons[0]
-                log.debug("dump missing ifcfg: dumping default autoconnection %s for %s",
+                log.debug("dump missing ifcfgs: dumping default autoconnection %s for %s",
                           con.get_uuid(), iface)
                 s_con = con.get_setting_connection()
                 s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
                 s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
-                if not bound_hwaddr_of_device(iface):
+                if not bound_hwaddr_of_device(iface, self.ifname_option_values):
                     s_wired = con.get_setting_wired()
                     s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
+                else:
+                    log.debug("dump missing ifcfgs: iface %s bound to mac address by ifname boot option")
                 con.commit_changes(True, None)
             elif n_cons > 1:
                 if not device_is_slave:

@@ -154,6 +154,13 @@ class NetworkInterface(KickstartModuleInterface):
         """
         self.implementation.bootif = specification
 
+    def SetIfnameOptionValues(self, values: List[Str]):
+        """Sets values of ifname boot option.
+
+        :param values: list of values of ifname boot option
+        """
+        self.implementation.ifname_option_values = values
+
     def ApplyKickstart(self) -> List[Str]:
         """Apply kickstart configuration which has not already been applied.
 
