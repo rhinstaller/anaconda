@@ -58,7 +58,7 @@ def enable_installer_mode():
     udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
 
 
-def create_storage(ksdata):
+def create_storage():
     """Create the storage object.
 
     :return: an instance of the Blivet's storage object
@@ -66,7 +66,7 @@ def create_storage(ksdata):
     from pyanaconda.storage.osinstall import InstallerStorage
     import blivet.arch
 
-    storage = InstallerStorage(ksdata=ksdata)
+    storage = InstallerStorage()
     _set_storage_defaults(storage)
 
     if blivet.arch.is_s390():

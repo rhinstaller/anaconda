@@ -84,11 +84,8 @@ class StorageDiscoveryConfig(object):
 
 class InstallerStorage(Blivet):
     """ Top-level class for managing installer-related storage configuration. """
-    def __init__(self, ksdata=None):
-        """
-            :keyword ksdata: kickstart data store
-            :type ksdata: :class:`pykickstart.Handler`
-        """
+
+    def __init__(self):
         super().__init__()
         self.do_autopart = False
         self.encrypted_autopart = False
@@ -101,7 +98,6 @@ class InstallerStorage(Blivet):
 
         self._default_boot_fstype = None
 
-        self.ksdata = ksdata
         self._bootloader = None
         self.config = StorageDiscoveryConfig()
         self.autopart_type = AUTOPART_TYPE_LVM
@@ -116,23 +112,6 @@ class InstallerStorage(Blivet):
 
         self._autopart_luks_version = None
         self.autopart_pbkdf_args = None
-
-    def copy(self):
-        """Copy the storage.
-
-        Kickstart data are not copied.
-        """
-        # Disable the kickstart data.
-        old_data = self.ksdata
-        self.ksdata = None
-
-        # Create the copy.
-        new_storage = super().copy()
-
-        # Recover the kickstart data.
-        self.ksdata = old_data
-        new_storage.ksdata = old_data
-        return new_storage
 
     def do_it(self, callbacks=None):
         """
@@ -302,7 +281,7 @@ class InstallerStorage(Blivet):
         self.autopart_requests = get_full_partitioning_requests(self, _platform, requests)
 
     def set_up_bootloader(self, early=False):
-        """ Propagate ksdata into BootLoader.
+        """ Set up the boot loader.
 
             :keyword bool early: Set to True to skip stage1_device setup
 
@@ -312,8 +291,8 @@ class InstallerStorage(Blivet):
             not stage1_device 'early' should be set True to prevent
             it from raising BootloaderError
         """
-        if not self.bootloader or not self.ksdata:
-            log.warning("either ksdata or bootloader data missing")
+        if not self.bootloader:
+            log.warning("bootloader data missing")
             return
 
         if self.bootloader.skip_bootloader:

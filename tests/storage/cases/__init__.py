@@ -135,7 +135,7 @@ class TestCaseComponent(object):
            the storage module.  Subclasses may override this method, but they
            should be sure to call the base method as well.
         """
-        self._storage = InstallerStorage(ksdata=ksdata)
+        self._storage = InstallerStorage()
 
         # blivet only sets up the bootloader in installer_mode.  We don't
         # want installer_mode, though, because that involves running lots
@@ -293,7 +293,7 @@ class ReusingTestCaseComponent(TestCaseComponent):
             self._reusedComponents = reusedComponents
 
     def setupDisks(self, ksdata):
-        self._storage = InstallerStorage(ksdata=ksdata)
+        self._storage = InstallerStorage()
 
         # See comment in super class's method.
         from pyanaconda.bootloader import get_bootloader
