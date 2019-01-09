@@ -36,6 +36,7 @@ import blivet.iscsi
 from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
+from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -44,8 +45,7 @@ from pyanaconda.bootloader import get_bootloader
 from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, THREAD_STORAGE, SELINUX_DEFAULT, \
     SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
-    CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, BOOTLOADER_SKIPPED, BOOTLOADER_ENABLED, \
-    BOOTLOADER_TIMEOUT_UNSET, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS, \
+    CLEAR_PARTITIONS_ALL, BOOTLOADER_LOCATION_PARTITION, FIREWALL_ENABLED, FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS, \
     AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
     MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.structure import apply_structure
@@ -72,7 +72,7 @@ from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from blivet.deviceaction import ActionCreateFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
-from blivet.devices import LUKSDevice, iScsiDiskDevice
+from blivet.devices import LUKSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMCacheRequest, LVMLogicalVolumeDevice
 from blivet.static_data import nvdimm, luks_data
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
@@ -109,7 +109,6 @@ parsing_log = log.getChild("parsing")
 
 # command specific loggers
 authselect_log = log.getChild("kickstart.authselect")
-bootloader_log = log.getChild("kickstart.bootloader")
 user_log = log.getChild("kickstart.user")
 group_log = log.getChild("kickstart.group")
 clearpart_log = log.getChild("kickstart.clearpart")
@@ -468,223 +467,6 @@ class Bootloader(RemovedCommand):
             raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
                                       lineno=self.lineno)
 
-    def execute(self, storage, dry_run=False):
-        """ Resolve and execute the bootloader installation.
-
-            :param storage: object storing storage-related information
-                            (disks, partitioning, bootloader, etc.)
-            :type storage: blivet.Blivet
-            :param dry_run: flag if this is only dry run before the partitioning
-                            will be resolved
-            :type dry_run: bool
-        """
-        bootloader_log.debug("Execute the bootloader with dry run %s.", dry_run)
-        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-
-        # Skip bootloader for s390x image installation.
-        if blivet.arch.is_s390() \
-                and conf.target.is_image \
-                and bootloader_proxy.BootloaderMode == BOOTLOADER_ENABLED:
-            bootloader_proxy.SetBootloaderMode(BOOTLOADER_SKIPPED)
-
-        # Is the bootloader enabled?
-        if bootloader_proxy.BootloaderMode != BOOTLOADER_ENABLED:
-            storage.bootloader.skip_bootloader = True
-            bootloader_log.debug("Bootloader is not enabled, skipping.")
-            return
-
-        # Apply the settings.
-        self._update_flags(storage, bootloader_proxy)
-        self._apply_args(storage, bootloader_proxy)
-        self._apply_location(storage, bootloader_proxy)
-        self._apply_password(storage, bootloader_proxy)
-        self._apply_timeout(storage, bootloader_proxy)
-        self._apply_drive_order(storage, bootloader_proxy, dry_run=dry_run)
-        self._apply_boot_drive(storage, bootloader_proxy, dry_run=dry_run)
-
-    def _update_flags(self, storage, bootloader_proxy):
-        """Update flags."""
-        if bootloader_proxy.KeepMBR:
-            bootloader_log.debug("Don't update the MBR.")
-            storage.bootloader.keep_mbr = True
-
-        if bootloader_proxy.KeepBootOrder:
-            bootloader_log.debug("Don't change the existing boot order.")
-            storage.bootloader.keep_boot_order = True
-
-    def _apply_args(self, storage, bootloader_proxy):
-        """Apply the arguments."""
-        args = bootloader_proxy.ExtraArguments
-        bootloader_log.debug("Applying bootloader arguments: %s", args)
-        storage.bootloader.boot_args.update(args)
-
-    def _apply_location(self, storage, bootloader_proxy):
-        """Set the location."""
-        location = bootloader_proxy.PreferredLocation
-        bootloader_log.debug("Applying bootloader location: %s", location)
-
-        storage.bootloader.set_preferred_stage1_type(
-            "boot" if location == BOOTLOADER_LOCATION_PARTITION else "mbr"
-        )
-
-    def _apply_password(self, storage, bootloader_proxy):
-        """Set the password."""
-        if bootloader_proxy.IsPasswordSet:
-            bootloader_log.debug("Applying bootloader password.")
-
-            if bootloader_proxy.IsPasswordEncrypted:
-                storage.bootloader.encrypted_password = bootloader_proxy.Password
-            else:
-                storage.bootloader.password = bootloader_proxy.Password
-
-    def _apply_timeout(self, storage, bootloader_proxy):
-        """Set the timeout."""
-        timeout = bootloader_proxy.Timeout
-        if timeout != BOOTLOADER_TIMEOUT_UNSET:
-            bootloader_log.debug("Applying bootloader timeout: %s", timeout)
-            storage.bootloader.timeout = timeout
-
-    def _is_usable_disk(self, d):
-        """Is the disk usable for the bootloader?
-
-        Throw out drives that don't exist or cannot be used
-        (iSCSI device on an s390 machine).
-        """
-        return \
-            not d.format.hidden and \
-            not d.protected and \
-            not (blivet.arch.is_s390() and isinstance(d, iScsiDiskDevice))
-
-    def _get_usable_disks(self, storage):
-        """Get a list of usable disks."""
-        return [d.name for d in storage.disks if self._is_usable_disk(d)]
-
-    def _apply_drive_order(self, storage, bootloader_proxy, dry_run=False):
-        """Apply the drive order.
-
-        Drive specifications can contain | delimited variant specifications,
-        such as for example: "vd*|hd*|sd*"
-
-        So use the resolved disk identifiers returned by the device_matches()
-        function in place of the original specification but still remove the
-        specifications that don't match anything from the output kickstart to
-        keep existing --driveorder processing behavior.
-        """
-        drive_order = bootloader_proxy.DriveOrder
-        usable_disks = set(self._get_usable_disks(storage))
-        valid_disks = []
-
-        for drive in drive_order[:]:
-            # Resolve disk identifiers.
-            matched_disks = device_matches(drive, devicetree=storage.devicetree, disks_only=True)
-
-            # Are any of the matched disks usable?
-            if any(d in usable_disks for d in matched_disks):
-                valid_disks.extend(matched_disks)
-            else:
-                drive_order.remove(drive)
-                bootloader_log.warning("Requested drive %s in boot drive order doesn't exist "
-                                       "or cannot be used.", drive)
-
-        # Apply the drive order.
-        bootloader_log.debug("Applying drive order: %s", valid_disks)
-        storage.bootloader.disk_order = valid_disks
-
-        # Update the module.
-        if not dry_run and bootloader_proxy.DriveOrder != drive_order:
-            bootloader_proxy.SetDriveOrder(drive_order)
-
-    def _check_boot_drive(self, storage, boot_drive, usable_disks):
-        """Check the specified boot drive."""
-        # Resolve the disk identifier.
-        matched_disks = device_matches(boot_drive, devicetree=storage.devicetree, disks_only=True)
-
-        if not matched_disks:
-            raise KickstartParseError(_("No match found for given boot drive "
-                                        "\"{}\".").format(boot_drive), lineno=self.lineno)
-
-        if len(matched_disks) > 1:
-            raise KickstartParseError(_("More than one match found for given boot drive "
-                                        "\"{}\".").format(boot_drive), lineno=self.lineno)
-
-        if matched_disks[0] not in usable_disks:
-            raise KickstartParseError(_("Requested boot drive \"{}\" doesn't exist or cannot "
-                                        "be used.").format(boot_drive), lineno=self.lineno)
-
-    def _find_drive_with_boot(self, storage, usable_disks):
-        """Find a drive with the /boot partition."""
-        # Find a device for /boot.
-        device = storage.mountpoints.get("/boot", None)
-
-        if not device:
-            bootloader_log.debug("The /boot partition doesn't exist.")
-            return None
-
-        # Use a disk of the device.
-        if device.disks:
-            drive = device.disks[0].name
-
-            if drive in usable_disks:
-                bootloader_log.debug("Found a boot drive: %s", drive)
-                return drive
-
-        # No usable disk found.
-        bootloader_log.debug("No usable drive with /boot was found.")
-        return None
-
-    def _get_boot_drive(self, storage, bootloader_proxy, dry_run=False):
-        """Apply the boot drive.
-
-        When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
-        1) If present first valid disk from driveorder parameter
-        2) If present and usable, use disk where /boot partition is placed
-        3) Use first disk from Blivet
-        """
-        boot_drive = bootloader_proxy.Drive
-        drive_order = storage.bootloader.disk_order
-        usable_disks_list = self._get_usable_disks(storage)
-        usable_disks_set = set(usable_disks_list)
-
-        # Use a disk from --boot-drive.
-        if boot_drive:
-            bootloader_log.debug("Use the requested boot drive.")
-            self._check_boot_drive(storage, boot_drive, usable_disks_set)
-            return boot_drive
-
-        # Or use the first disk from --driveorder.
-        if drive_order:
-            bootloader_log.debug("Use the first usable drive from the drive order.")
-            return drive_order[0]
-
-        # Or find a disk with the /boot partition.
-        found_drive = self._find_drive_with_boot(storage, usable_disks_set)
-        if found_drive:
-            bootloader_log.debug("Use a usable drive with a /boot partition.")
-            return found_drive
-
-        # Or use the first usable drive.
-        bootloader_log.debug("Use the first usable drive.")
-        return usable_disks_list[0]
-
-    def _apply_boot_drive(self, storage, bootloader_proxy, dry_run=False):
-        """Apply the boot drive.
-
-        When bootloader doesn't have --boot-drive parameter then use this logic as fallback:
-
-        1) If present first valid disk from --driveorder parameter.
-        2) If present and usable, use disk where /boot partition is placed.
-        3) Use first disk from Blivet.
-        """
-        boot_drive = self._get_boot_drive(storage, bootloader_proxy)
-        bootloader_log.debug("Using a boot drive: %s", boot_drive)
-
-        # Apply the boot drive.
-        drive = storage.devicetree.resolve_device(boot_drive)
-        storage.bootloader.stage1_disk = drive
-
-        # Update the bootloader module.
-        if not dry_run and bootloader_proxy.Drive != boot_drive:
-            bootloader_proxy.SetDrive(boot_drive)
 
 class BTRFS(COMMANDS.BTRFS):
     def execute(self, storage, ksdata):
@@ -2834,7 +2616,7 @@ def doKickstartStorage(storage, ksdata):
     # snapshot free space now so that we know how much we had available
     storage.create_free_space_snapshot()
 
-    ksdata.bootloader.execute(storage, dry_run=True)
+    BootloaderExecutor().execute(storage, dry_run=True)
     ksdata.autopart.execute(storage, ksdata)
     ksdata.reqpart.execute(storage, ksdata)
     ksdata.partition.execute(storage, ksdata)
@@ -2846,5 +2628,4 @@ def doKickstartStorage(storage, ksdata):
     # setup snapshot here, that means add it to model and do the tests
     # snapshot will be created on the end of the installation
     ksdata.snapshot.setup(storage, ksdata)
-    # also calls ksdata.bootloader.execute
     storage.set_up_bootloader()

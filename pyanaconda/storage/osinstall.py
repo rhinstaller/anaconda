@@ -59,6 +59,7 @@ from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
+from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.platform import EFI
 from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
@@ -1393,7 +1394,7 @@ class InstallerStorage(Blivet):
 
         # Need to make sure that boot drive has been setup from the latest information.
         # This will also set self.bootloader.stage1_disk.
-        self.ksdata.bootloader.execute(self, None)
+        BootloaderExecutor().execute(self, dry_run=False)
 
         self.bootloader.stage2_device = self.boot_device
         if not early:
