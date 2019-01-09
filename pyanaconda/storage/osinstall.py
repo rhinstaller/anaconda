@@ -116,7 +116,6 @@ def update_blivet_flags():
 
     blivet_flags.dmraid = conf.storage.dmraid
     blivet_flags.ibft = conf.storage.ibft
-    blivet_flags.gpt = conf.storage.gpt
     blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
 
 

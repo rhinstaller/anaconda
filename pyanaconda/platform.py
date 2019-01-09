@@ -25,9 +25,9 @@ log = logging.getLogger("anaconda.storage")
 from blivet import arch
 from blivet.devicelibs import raid
 from blivet.formats import get_device_format_class
-from blivet.flags import flags
 from blivet.size import Size
 from pyanaconda.core.i18n import _, N_
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.storage.partspec import PartSpec
 
 
@@ -66,7 +66,7 @@ class Platform(object):
         self.update_from_flags()
 
     def update_from_flags(self):
-        if flags.gpt:
+        if conf.storage.gpt:
             disklabel_class = get_device_format_class("disklabel")
             disklabel_types = disklabel_class.get_platform_label_types()
             if "gpt" not in disklabel_types:
