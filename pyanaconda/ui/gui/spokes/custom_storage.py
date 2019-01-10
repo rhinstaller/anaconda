@@ -25,7 +25,6 @@
 # - Tabbing behavior in the accordion is weird.
 # - Implement striping and mirroring for LVM.
 # - Activating reformat should always enable resize for existing devices.
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
@@ -33,6 +32,9 @@ gi.require_version("AnacondaWidgets", "3.3")
 
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
+
+import logging
+from contextlib import contextmanager
 
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
@@ -68,7 +70,7 @@ from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
 from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.root import find_existing_installations, Root
-from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, \
+from pyanaconda.storage_utils import device_type_from_autopart, \
     get_supported_filesystems
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
@@ -101,7 +103,8 @@ from pyanaconda.ui.categories.system import SystemCategory
 from functools import wraps
 from itertools import chain
 
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ["CustomPartitioningSpoke"]
@@ -131,6 +134,26 @@ def dev_type_from_const(dev_type_const):
         :rtype: int or NoneType
     """
     return getattr(devicefactory, dev_type_const, None)
+
+
+class UIStorageFilter(logging.Filter):
+    """Logging filter for UI storage events"""
+
+    def filter(self, record):
+        record.name = "storage.ui"
+        return True
+
+
+@contextmanager
+def ui_storage_logger():
+    """Context manager that applies the UIStorageFilter for its block"""
+
+    storage_log = get_blivet_logger()
+    storage_filter = UIStorageFilter()
+    storage_log.addFilter(storage_filter)
+    yield
+    storage_log.removeFilter(storage_filter)
+
 
 def ui_storage_logged(func):
     @wraps(func)

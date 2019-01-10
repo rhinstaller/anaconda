@@ -21,8 +21,6 @@ import re
 import locale
 import os
 
-from contextlib import contextmanager
-
 from blivet import udev
 from blivet.size import Size
 from blivet.errors import StorageError
@@ -45,9 +43,8 @@ from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE, \
     NVDIMM_MODE_SECTOR
 
-import logging
+from pyanaconda.anaconda_loggers import get_module_logger
 
-from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
 log = get_module_logger(__name__)
 
 # TODO: all those constants and mappings should go to blivet
@@ -129,23 +126,6 @@ def device_type_from_autopart(autopart_type):
     """Get device type matching the given autopart type."""
 
     return AUTOPART_DEVICE_TYPES.get(autopart_type, None)
-
-class UIStorageFilter(logging.Filter):
-    """Logging filter for UI storage events"""
-
-    def filter(self, record):
-        record.name = "storage.ui"
-        return True
-
-@contextmanager
-def ui_storage_logger():
-    """Context manager that applies the UIStorageFilter for its block"""
-
-    storage_log = get_blivet_logger()
-    storage_filter = UIStorageFilter()
-    storage_log.addFilter(storage_filter)
-    yield
-    storage_log.removeFilter(storage_filter)
 
 
 def bound_size(size, device, old_size):
