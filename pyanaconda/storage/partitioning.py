@@ -153,7 +153,7 @@ def _filter_default_partitions(requests):
 
             # Swap will not be recommended by the storage checker.
             # TODO: Remove this code from this function.
-            from pyanaconda.storage_utils import storage_checker
+            from pyanaconda.storage.checker import storage_checker
             storage_checker.add_constraint(STORAGE_SWAP_IS_RECOMMENDED, False)
 
     # Skip mountpoints we want to remove.

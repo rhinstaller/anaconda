@@ -20,7 +20,7 @@
 #
 
 import unittest
-from pyanaconda.storage_utils import StorageChecker
+from pyanaconda.storage.checker import StorageChecker
 
 
 class StorageCheckerTests(unittest.TestCase):

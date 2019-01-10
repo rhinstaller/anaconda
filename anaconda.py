@@ -656,7 +656,8 @@ if __name__ == "__main__":
     else:
         min_ram = isys.MIN_RAM
 
-    from pyanaconda.storage_utils import storage_checker
+    from pyanaconda.storage.checker import storage_checker
+
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
 
     from pyanaconda.argument_parsing import name_path_pairs
