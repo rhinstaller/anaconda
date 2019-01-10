@@ -76,7 +76,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UN
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage_utils import on_disk_storage, nvdimm_update_ksdata_for_used_devices
-from pyanaconda.format_dasd import DasdFormatting
+from pyanaconda.storage.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING

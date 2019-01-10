@@ -30,7 +30,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage_utils import storage_checker, get_supported_filesystems, get_supported_autopart_choices
-from pyanaconda.format_dasd import DasdFormatting
+from pyanaconda.storage.format_dasd import DasdFormatting
 
 from blivet.size import Size
 from blivet.errors import StorageError
