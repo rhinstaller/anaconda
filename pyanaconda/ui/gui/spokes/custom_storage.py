@@ -67,7 +67,7 @@ from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
 
 from pyanaconda.storage.autopart import do_autopart
-from pyanaconda.storage.osinstall import find_existing_installations, Root
+from pyanaconda.storage.root import find_existing_installations, Root
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
     verify_luks_devices_have_key, get_supported_filesystems
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
