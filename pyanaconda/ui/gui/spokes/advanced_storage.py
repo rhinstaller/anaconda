@@ -32,7 +32,8 @@ from blivet.iscsi import iscsi
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_, CP_
-from pyanaconda.storage_utils import try_populate_devicetree, on_disk_storage
+from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
 
