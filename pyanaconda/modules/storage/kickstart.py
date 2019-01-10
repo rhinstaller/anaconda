@@ -27,7 +27,7 @@ from pykickstart.errors import KickstartParseError
 from pyanaconda import nm
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
-from pyanaconda.storage_utils import device_matches
+from pyanaconda.storage.utils import device_matches
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)

@@ -24,7 +24,7 @@ from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.timer import Timer
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
-from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.storage.utils import try_populate_devicetree
 from pyanaconda.core.i18n import _
 from pyanaconda import nm
 from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX

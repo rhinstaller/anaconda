@@ -679,7 +679,7 @@ if __name__ == "__main__":
     # Ignore disks labeled OEMDRV
     from pyanaconda.modules.common.constants.services import STORAGE
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION
-    from pyanaconda.storage_utils import device_matches
+    from pyanaconda.storage.utils import device_matches
     matched = device_matches("LABEL=OEMDRV", disks_only=True)
     for oemdrv_disk in matched:
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)

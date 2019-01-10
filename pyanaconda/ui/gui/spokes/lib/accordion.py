@@ -23,7 +23,7 @@ from pyanaconda.core.i18n import _, C_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
-from pyanaconda.storage_utils import get_supported_autopart_choices
+from pyanaconda.storage.utils import get_supported_autopart_choices
 
 import gi
 gi.require_version("AnacondaWidgets", "3.3")

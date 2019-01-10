@@ -20,7 +20,7 @@
 import unittest
 from textwrap import dedent
 
-from pyanaconda.storage_utils import nvdimm_update_ksdata_for_used_devices, \
+from pyanaconda.storage.utils import nvdimm_update_ksdata_for_used_devices, \
     nvdimm_update_ksdata_after_reconfiguration
 from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 from pyanaconda.core.kickstart.specification import KickstartSpecificationHandler, KickstartSpecificationParser

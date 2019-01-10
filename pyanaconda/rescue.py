@@ -28,7 +28,7 @@ from pyanaconda.kickstart import runPostScripts
 from pyanaconda.ui.tui import tui_quit_callback
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.storage.root import mount_existing_system, find_existing_installations
-from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.storage.utils import try_populate_devicetree
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 

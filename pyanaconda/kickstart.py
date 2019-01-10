@@ -64,7 +64,7 @@ from pyanaconda.platform import platform
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
-from pyanaconda.storage_utils import device_matches, try_populate_devicetree, get_pbkdf_args
+from pyanaconda.storage.utils import device_matches, try_populate_devicetree, get_pbkdf_args
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE

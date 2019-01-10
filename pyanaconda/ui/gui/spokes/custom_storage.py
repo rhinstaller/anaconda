@@ -70,16 +70,11 @@ from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
 from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.root import find_existing_installations, Root
-from pyanaconda.storage_utils import device_type_from_autopart, \
-    get_supported_filesystems
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
-from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
-    DEVICE_TEXT_UNSUPPORTED
-from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
-from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
-from pyanaconda.storage_utils import try_populate_devicetree
-from pyanaconda.storage_utils import filter_unsupported_disklabel_devices
-from pyanaconda import storage_utils
+from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
+    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS,\
+    NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
+    get_supported_filesystems, try_populate_devicetree, filter_unsupported_disklabel_devices
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -839,7 +834,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # bound size to boundaries given by the device
         use_size = use_dev.align_target_size(use_size)
-        use_size = storage_utils.bound_size(use_size, use_dev, use_old_size)
+        use_size = bound_size(use_size, use_dev, use_old_size)
         use_size = use_dev.align_target_size(use_size)
 
         # And then we need to re-check that the max size is actually
