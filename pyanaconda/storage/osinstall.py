@@ -36,7 +36,7 @@ from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, \
     LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
-from blivet.errors import StorageError, FSResizeError, FormatResizeError, UnknownSourceDeviceError
+from blivet.errors import StorageError, UnknownSourceDeviceError
 from blivet.formats import get_format
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
@@ -1090,63 +1090,6 @@ class InstallerStorage(Blivet):
         self.fsset.set_fstab_swaps(devices)
 
 
-def turn_on_filesystems(storage, callbacks=None):
-    """
-    Perform installer-specific activation of storage configuration.
-
-    :param callbacks: callbacks to be invoked when actions are executed
-    :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
-
-    """
-    # FIXME: This is a temporary workaround for live OS.
-    if conf.system._is_live_os and conf.target.is_hardware and not storage.fsset.active:
-        # turn off any swaps that we didn't turn on
-        # needed for live installs
-        blivet_util.run_program(["swapoff", "-a"])
-
-    storage.devicetree.teardown_all()
-
-    try:
-        storage.do_it(callbacks)
-    except (FSResizeError, FormatResizeError) as e:
-        if error_handler.cb(e) == ERROR_RAISE:
-            raise
-
-    storage.turn_on_swap()
-
-    # FIXME:  For livecd, skip_root needs to be True.
-    storage.mount_filesystems()
-
-    write_escrow_packets(storage)
-
-
-def write_escrow_packets(storage):
-    escrow_devices = [d for d in storage.devices if d.format.type == 'luks' and
-                      d.format.escrow_cert]
-
-    if not escrow_devices:
-        return
-
-    log.debug("escrow: write_escrow_packets start")
-
-    backup_passphrase = blockdev.crypto.generate_backup_passphrase()
-
-    try:
-        escrow_dir = util.getSysroot() + "/root"
-        log.debug("escrow: writing escrow packets to %s", escrow_dir)
-        blivet_util.makedirs(escrow_dir)
-        for device in escrow_devices:
-            log.debug("escrow: device %s: %s",
-                      repr(device.path), repr(device.format.type))
-            device.format.escrow(escrow_dir,
-                                 backup_passphrase)
-
-    except (IOError, RuntimeError) as e:
-        # TODO: real error handling
-        log.error("failed to store encryption key: %s", e)
-
-    log.debug("escrow: write_escrow_packets done")
-
 def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
     """Return names of nvdimm devices to be ignored.
 
@@ -1189,6 +1132,7 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
             ignored_blockdevs.add(ns_info.blockdev)
 
     return ignored_blockdevs
+
 
 def storage_initialize(storage, ksdata, protected):
     """ Perform installer-specific storage initialization. """
