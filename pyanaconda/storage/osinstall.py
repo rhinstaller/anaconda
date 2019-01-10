@@ -2010,44 +2010,6 @@ class InstallerStorage(Blivet):
 
         return template
 
-    def format_by_default(self, device):
-        """Return whether the device should be reformatted by default."""
-        formatlist = ['/boot', '/var', '/tmp', '/usr']
-        exceptlist = ['/home', '/usr/local', '/opt', '/var/www']
-
-        if not device.format.linux_native:
-            return False
-
-        if device.format.mountable:
-            if not device.format.mountpoint:
-                return False
-
-            if device.format.mountpoint == "/" or \
-               device.format.mountpoint in formatlist:
-                return True
-
-            for p in formatlist:
-                if device.format.mountpoint.startswith(p):
-                    for q in exceptlist:
-                        if device.format.mountpoint.startswith(q):
-                            return False
-                    return True
-        elif device.format.type == "swap":
-            return True
-
-        # be safe for anything else and default to off
-        return False
-
-    def must_format(self, device):
-        """ Return a string explaining why the device must be reformatted.
-
-            Return None if the device need not be reformatted.
-        """
-        if device.format.mountable and device.format.mountpoint == "/":
-            return _("You must create a new file system on the root device.")
-
-        return None
-
     def turn_on_swap(self):
         self.fsset.turn_on_swap(root_path=util.getSysroot())
 

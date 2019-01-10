@@ -49,7 +49,7 @@ from pyanaconda import isys
 from pyanaconda.core.constants import productName, STORAGE_SWAP_IS_RECOMMENDED, \
     STORAGE_MUST_BE_ON_ROOT, STORAGE_MUST_BE_ON_LINUXFS, \
     STORAGE_MIN_PARTITION_SIZES, STORAGE_MIN_ROOT, \
-    STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM
+    STORAGE_MIN_RAM, STORAGE_LUKS2_MIN_RAM, STORAGE_REFORMAT_BLACKLIST, STORAGE_REFORMAT_WHITELIST
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.platform import platform as _platform
 
@@ -183,10 +183,8 @@ def verify_root(storage, constraints, report_error, report_warning):
                        "which is required for installation of %s"
                        " to continue.") % (productName,))
 
-    if storage.root_device and storage.root_device.format.exists:
-        e = storage.must_format(storage.root_device)
-        if e:
-            report_error(e)
+    if root and root.format.exists and root.format.mountable and root.format.mountpoint == "/":
+        report_error(_("You must create a new file system on the root device."))
 
 
 def verify_s390_constraints(storage, constraints, report_error, report_warning):
@@ -222,6 +220,27 @@ def verify_s390_constraints(storage, constraints, report_error, report_warning):
             report_error(_("The LDL DASD disk {name} ({busid}) cannot be used "
                            "for the installation. Please format it.")
                          .format(name="/dev/" + disk.name, busid=disk.busid))
+
+
+def verify_partition_formatting(storage, constraints, report_error, report_warning):
+    """ Verify partitions that should be reformatted by default.
+
+    :param storage: a storage to check
+    :param constraints: a dictionary of constraints
+    :param report_error: a function for error reporting
+    :param report_warning: a function for warning reporting
+    """
+    mountpoints = [
+        mount for mount, device in storage.mountpoints.items()
+        if device.format.exists
+        and device.format.linux_native
+        and not any(filter(mount.startswith, constraints[STORAGE_REFORMAT_BLACKLIST]))
+        and any(filter(mount.startswith, constraints[STORAGE_REFORMAT_WHITELIST]))
+    ]
+
+    for mount in mountpoints:
+        report_warning(_("It is recommended to create a new file system on your "
+                         "%(mount)s partition.") % {'mount': mount})
 
 
 def verify_partition_sizes(storage, constraints, report_error, report_warning):
@@ -684,6 +703,14 @@ class StorageChecker(object):
             '/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc'
         })
 
+        self.add_new_constraint(STORAGE_REFORMAT_WHITELIST, {
+            '/boot', '/var', '/tmp', '/usr'
+        })
+
+        self.add_new_constraint(STORAGE_REFORMAT_BLACKLIST, {
+            '/home', '/usr/local', '/opt', '/var/www'
+        })
+
         self.add_new_constraint(STORAGE_SWAP_IS_RECOMMENDED, True)
         self.add_new_constraint(STORAGE_LUKS2_MIN_RAM, Size("128 MiB"))
 
@@ -692,6 +719,7 @@ class StorageChecker(object):
         self.checks = list()
         self.add_check(verify_root)
         self.add_check(verify_s390_constraints)
+        self.add_check(verify_partition_formatting)
         self.add_check(verify_partition_sizes)
         self.add_check(verify_partition_format_sizes)
         self.add_check(verify_bootloader)
