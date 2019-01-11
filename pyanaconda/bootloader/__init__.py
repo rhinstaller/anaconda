@@ -15,32 +15,23 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-import os
-import re
-from glob import glob
-
-from pyanaconda.core import util
-
-from pyanaconda.bootloader.base import BootLoaderError, Arguments, BootLoader
+from pyanaconda.bootloader.base import BootLoaderError, BootLoader
 from pyanaconda.bootloader.efi import EFIGRUB1, EFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB, MacEFIGRUB
 from pyanaconda.bootloader.extlinux import EXTLINUX
 from pyanaconda.bootloader.grub import GRUB
 from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2
-from pyanaconda.bootloader.image import LinuxBootLoaderImage, TbootLinuxBootLoaderImage
 from pyanaconda.bootloader.yaboot import MacYaboot
 from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda import platform
-from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
+__all__ = ["get_bootloader", "BootLoaderError"]
 
 
 # every platform that wants a bootloader needs to be in this dict
@@ -64,6 +55,7 @@ if flags.cmdline.get("legacygrub") == "1":
         platform.EFI: EFIGRUB1,
     })
 
+
 def get_bootloader():
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     platform_name = platform.platform.__class__.__name__
@@ -72,143 +64,6 @@ def get_bootloader():
         cls = EXTLINUX
     else:
         cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
+
     log.info("bootloader %s on %s platform", cls.__name__, platform_name)
     return cls()
-
-
-# anaconda-specific functions
-
-def writeSysconfigKernel(storage, version):
-    # get the name of the default kernel package based on the version
-    kernel_basename = "vmlinuz-" + version
-    kernel_file = "/boot/%s" % kernel_basename
-    if not os.path.isfile(util.getSysroot() + kernel_file):
-        efi_dir = conf.bootloader.efi_dir
-        kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
-        if not os.path.isfile(util.getSysroot() + kernel_file):
-            log.error("failed to recreate path to default kernel image")
-            return
-
-    try:
-        import rpm
-    except ImportError:
-        log.error("failed to import rpm python module")
-        return
-
-    ts = rpm.TransactionSet(util.getSysroot())
-    mi = ts.dbMatch('basenames', kernel_file)
-    try:
-        h = next(mi)
-    except StopIteration:
-        log.error("failed to get package name for default kernel")
-        return
-
-    kernel = h.name.decode()
-
-    f = open(util.getSysroot() + "/etc/sysconfig/kernel", "w+")
-    f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
-            "# new kernels the default\n")
-    # only update the default if we're setting the default to linux (#156678)
-    if storage.bootloader.default.device == storage.root_device:
-        f.write("UPDATEDEFAULT=yes\n")
-    else:
-        f.write("UPDATEDEFAULT=no\n")
-    f.write("\n")
-    f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
-    f.write("DEFAULTKERNEL=%s\n" % kernel)
-    if storage.bootloader.trusted_boot:
-        f.write("# HYPERVISOR specifies the default multiboot kernel\n")
-        f.write("HYPERVISOR=/boot/tboot.gz\n")
-        f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
-    f.close()
-
-def writeBootLoaderFinal(storage, payload, ksdata):
-    """ Do the final write of the bootloader. """
-
-    # set up dracut/fips boot args
-    # XXX FIXME: do this from elsewhere?
-    storage.bootloader.set_boot_args(storage=storage,
-                                     payload=payload)
-    try:
-        storage.bootloader.write()
-    except BootLoaderError as e:
-        log.error("bootloader.write failed: %s", e)
-        if errorHandler.cb(e) == ERROR_RAISE:
-            raise
-
-def writeBootLoader(storage, payload, ksdata):
-    """ Write bootloader configuration to disk.
-
-        When we get here, the bootloader will already have a default linux
-        image. We only have to add images for the non-default kernels and
-        adjust the default to reflect whatever the default variant is.
-    """
-    if not storage.bootloader.skip_bootloader:
-        stage1_device = storage.bootloader.stage1_device
-        log.info("boot loader stage1 target device is %s", stage1_device.name)
-        stage2_device = storage.bootloader.stage2_device
-        log.info("boot loader stage2 target device is %s", stage2_device.name)
-
-    storage.bootloader.menu_auto_hide = conf.bootloader.menu_auto_hide
-
-    # Bridge storage EFI configuration to bootloader
-    if hasattr(storage.bootloader, 'efi_dir'):
-        storage.bootloader.efi_dir = conf.bootloader.efi_dir
-
-    # Currently just rpmostreepayload shortcuts the rest of everything below
-    if payload.handlesBootloaderConfiguration:
-        if storage.bootloader.skip_bootloader:
-            log.info("skipping boot loader install per user request")
-            return
-        writeBootLoaderFinal(storage, payload, ksdata)
-        return
-
-    # get a list of installed kernel packages
-    # add whatever rescue kernels we can find to the end
-    kernel_versions = list(payload.kernelVersionList)
-
-    rescue_versions = glob(util.getSysroot() + "/boot/vmlinuz-*-rescue-*")
-    rescue_versions += glob(
-        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
-    kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
-
-    if not kernel_versions:
-        log.warning("no kernel was installed -- boot loader config unchanged")
-        return
-
-    # all the linux images' labels are based on the default image's
-    base_label = productName
-    base_short_label = "linux"
-
-    # The first one is the default kernel. Update the bootloader's default
-    # entry to reflect the details of the default kernel.
-    version = kernel_versions.pop(0)
-    default_image = LinuxBootLoaderImage(device=storage.root_device,
-                                         version=version,
-                                         label=base_label,
-                                         short=base_short_label)
-    storage.bootloader.add_image(default_image)
-    storage.bootloader.default = default_image
-
-    # write out /etc/sysconfig/kernel
-    writeSysconfigKernel(storage, version)
-
-    if storage.bootloader.skip_bootloader:
-        log.info("skipping boot loader install per user request")
-        return
-
-    # now add an image for each of the other kernels
-    for version in kernel_versions:
-        label = "%s-%s" % (base_label, version)
-        short = "%s-%s" % (base_short_label, version)
-        if storage.bootloader.trusted_boot:
-            image = TbootLinuxBootLoaderImage(device=storage.root_device,
-                                              version=version,
-                                              label=label, short=short)
-        else:
-            image = LinuxBootLoaderImage(device=storage.root_device,
-                                         version=version,
-                                         label=label, short=short)
-        storage.bootloader.add_image(image)
-
-    writeBootLoaderFinal(storage, payload, ksdata)
