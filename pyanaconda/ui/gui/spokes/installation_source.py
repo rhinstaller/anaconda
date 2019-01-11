@@ -51,6 +51,7 @@ from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.storage_utils import device_matches
 
 from blivet.util import get_mount_device, get_mount_paths
 
@@ -658,12 +659,25 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return _("Local media via SE/HMC")
         elif self.data.method.method == "harddrive":
             if not self._currentIsoFile:
-                return _("Error setting up ISO file")
+                if self.payload.baseRepo:
+                    return "{}:{}".format(self._get_harddrive_partition_name(),
+                                          self.data.method.dir)
+                return _("Error setting up installation from HDD")
             return os.path.basename(self._currentIsoFile)
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
+
+    def _get_harddrive_partition_name(self):
+        devices = device_matches(self.data.method.partition)
+        if not devices:
+            log.warning("Device for installation from HDD can't be found!")
+            return ""
+        elif len(devices) > 1:
+            log.warning("More than one device is found for HDD installation!")
+
+        return devices[0]
 
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")
@@ -831,16 +845,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
         if self._cdrom:
-            fire_gtk_action(self._autodetectDeviceLabel.set_text, _("Device: %s") % self._cdrom.name)
-            fire_gtk_action(self._autodetectLabel.set_text, _("Label: %s") % (getattr(self._cdrom.format, "label", "") or ""))
-
-            # These UI elements default to not being showable.  If optical install
-            # media were found, mark them to be shown.
-            gtk_call_once(self._autodetectBox.set_no_show_all, False)
-            gtk_call_once(self._autodetectButton.set_no_show_all, False)
+            self._show_autodetect_box_with_device(self._cdrom)
 
         if self.data.method.method == "harddrive":
-            self._currentIsoFile = self.payload.ISOImage
+            if self.payload.ISOImage:
+                self._currentIsoFile = self.payload.ISOImage
+            else:  # Installation from an expanded install tree
+                device_name = self._get_harddrive_partition_name()
+                self._show_autodetect_box(device_name, self.data.method.partition)
 
         # Enable the SE/HMC option.
         if flags.hmc:
@@ -863,6 +875,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # report that the source spoke has been initialized
         self.initialize_done()
 
+    def _show_autodetect_box_with_device(self, device):
+        device_label = getattr(device.format, "label", "") or ""
+        self._show_autodetect_box(device.name, device_label)
+
+    def _show_autodetect_box(self, device_name, device_label):
+        fire_gtk_action(self._autodetectDeviceLabel.set_text, _("Device: %s") % device_name)
+        fire_gtk_action(self._autodetectLabel.set_text, _("Label: %s") % device_label)
+
+        gtk_call_once(self._autodetectBox.set_no_show_all, False)
+        gtk_call_once(self._autodetectButton.set_no_show_all, False)
+
     def refresh(self):
         NormalSpoke.refresh(self)
 
@@ -878,7 +901,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         idx = 0
 
         if self.data.method.method == "harddrive":
-            methodDev = self.storage.devicetree.resolve_device(self.data.method.partition)
+            method_dev_name = self._get_harddrive_partition_name()
 
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
@@ -895,7 +918,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 dev_info["label"] = "\n" + dev_info["label"]
 
             store.append([dev, "%(model)s %(path)s (%(size)s) %(format)s %(label)s" % dev_info])
-            if self.data.method.method == "harddrive" and dev == methodDev:
+            if self.data.method.method == "harddrive" and dev.name == method_dev_name:
                 active = idx
             added = True
             idx += 1
@@ -943,14 +966,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._updateURLEntryCheck()
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
         elif self.data.method.method == "harddrive":
-            self._isoButton.set_active(True)
-            self._verifyIsoButton.set_sensitive(True)
-
-            if self._currentIsoFile:
-                self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
+            if not self._currentIsoFile:
+                self._autodetectButton.set_active(True)
             else:
-                self._isoChooserButton.set_label("")
-            self._isoChooserButton.set_use_underline(False)
+                self._isoButton.set_active(True)
+                self._verifyIsoButton.set_sensitive(True)
+
+                if self._currentIsoFile:
+                    self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
+                else:
+                    self._isoChooserButton.set_label("")
+                self._isoChooserButton.set_use_underline(False)
         elif self.data.method.method == "hmc":
             self._hmcButton.set_active(True)
         else:
