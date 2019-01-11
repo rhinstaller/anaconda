@@ -21,7 +21,9 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
-from pyanaconda.storage_utils import try_populate_devicetree
+from pyanaconda.storage_utils import try_populate_devicetree, \
+    nvdimm_update_ksdata_after_reconfiguration
+from pykickstart.constants import NVDIMM_MODE_SECTOR
 
 from pyanaconda.i18n import _, CN_
 
@@ -97,7 +99,7 @@ class NVDIMMDialog(GUIObject):
         self._reconfigureSpinner.start()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_NVDIMM_RECONFIGURE, target=self._reconfigure,
-                                     args=(self.namespaces, "sector", self.sector_size)))
+                                     args=(self.namespaces, NVDIMM_MODE_SECTOR, self.sector_size)))
 
     def _reconfigure(self, namespaces, mode, sector_size):
         for namespace in namespaces:
@@ -111,6 +113,11 @@ class NVDIMMDialog(GUIObject):
                     log.error("nvdimm: reconfiguring %s to %s mode error: %s",
                               namespace, mode, e)
                     break
+                # Update kickstart data for generated ks
+                nvdimm_update_ksdata_after_reconfiguration(self.data,
+                                                           namespace,
+                                                           mode=mode,
+                                                           sectorsize=sector_size)
             else:
                 log.error("nvdimm: namespace %s to be reconfigured not found", namespace)
         self._after_reconfigure()

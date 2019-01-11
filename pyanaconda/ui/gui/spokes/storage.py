@@ -61,7 +61,7 @@ from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageCheckHandler
-from pyanaconda.storage_utils import on_disk_storage
+from pyanaconda.storage_utils import on_disk_storage, nvdimm_update_ksdata_for_used_devices
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
@@ -344,6 +344,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                         break
                 else:
                     self.data.iscsi.iscsi.append(iscsi_data)
+
+        # Update kickstart data for NVDIMM devices used in GUI.
+        selected_nvdimm_namespaces = [d.devname for d in getDisks(self.storage.devicetree)
+                                      if d.name in self.selected_disks
+                                      and isinstance(d, NVDIMMNamespaceDevice)]
+        nvdimm_update_ksdata_for_used_devices(self.data, selected_nvdimm_namespaces)
 
     def _doExecute(self):
         self._ready = False
