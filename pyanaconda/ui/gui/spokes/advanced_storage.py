@@ -629,9 +629,7 @@ class FilterSpoke(NormalSpoke):
         if not iscsi.available:
             self.builder.get_object("addISCSIButton").destroy()
 
-
         self._store = self.builder.get_object("diskStore")
-        self._addDisksButton = self.builder.get_object("addDisksButton")
 
         # The button is sensitive only on NVDIMM page
         self._reconfigureNVDIMMButton.set_sensitive(False)

@@ -85,7 +85,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._cUid = self.builder.get_object("c_uid")
         self._cGid = self.builder.get_object("c_gid")
         self._tHome = self.builder.get_object("t_home")
-        self._lHome = self.builder.get_object("l_home")
         self._tGroups = self.builder.get_object("t_groups")
         self._spinUid = self.builder.get_object("spin_uid")
         self._spinGid = self.builder.get_object("spin_gid")

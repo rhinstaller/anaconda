@@ -231,8 +231,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         return None
 
     def _grabObjects(self):
-        self._configureBox = self.builder.get_object("configureBox")
-
         self._partitionsViewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 

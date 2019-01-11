@@ -36,7 +36,6 @@ from pyanaconda import product
 productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch
-bugzillaUrl = product.bugUrl
 isFinal = product.isFinal
 
 # for use in device names, eg: "fedora", "rhel"
@@ -173,8 +172,8 @@ class SecretType(Enum):
     PASSWORD = "password"
     PASSPHRASE = "passphrase"
 
+
 # Password validation
-SECRET_MIN_LEN = 6
 SECRET_EMPTY_ERROR = {
     SecretType.PASSWORD : N_("The password is empty."),
     SecretType.PASSPHRASE : N_("The passphrase is empty.")
@@ -208,8 +207,6 @@ SECRET_ASCII = {
     SecretType.PASSPHRASE : N_("The passphrase you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts when typing it.")
 }
 PASSWORD_DONE_TWICE = N_("You will have to press <b>Done</b> twice to confirm it.")
-PASSWORD_DONE_TO_CONTINUE = N_("Press <b>Done</b> to continue.")
-
 PASSWORD_SET = N_("Password set.")
 
 class SecretStatus(Enum):
@@ -325,7 +322,6 @@ INTERACTIVE_MODE_NAME = {
 LOGGER_ANACONDA_ROOT = "anaconda"
 LOGGER_MAIN = "anaconda.main"
 LOGGER_STDOUT = "anaconda.stdout"
-LOGGER_STDERR = "anaconda.stderr"
 LOGGER_PROGRAM = "program"
 LOGGER_STORAGE = "storage"
 LOGGER_PACKAGING = "packaging"

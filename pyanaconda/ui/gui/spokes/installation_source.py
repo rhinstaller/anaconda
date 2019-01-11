@@ -765,9 +765,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             really_hide(self._updatesBox)
 
-        self._repoNameWarningBox = self.builder.get_object("repoNameWarningBox")
-        self._repoNameWarningLabel = self.builder.get_object("repoNameWarningLabel")
-
         # Register listeners for payload events
         payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
         payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)

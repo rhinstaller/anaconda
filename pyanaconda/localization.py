@@ -434,24 +434,6 @@ def get_locale_timezones(locale):
                                     territoryId=parts.get("territory", ""),
                                     scriptId=parts.get("script", ""))
 
-def get_locale_territory(locale):
-    """
-    Function returning locale's territory.
-
-    :param locale: locale string (see LANGCODE_RE)
-    :type locale: str
-    :return: territory or None
-    :rtype: str or None
-    :raise InvalidLocaleSpec: if an invalid locale is given (see LANGCODE_RE)
-
-    """
-
-    parts = parse_langcode(locale)
-    if "language" not in parts:
-        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
-
-    return parts.get("territory", None)
-
 def get_locale_console_fonts(locale):
     """
     Function returning preferred console fonts for the given locale.

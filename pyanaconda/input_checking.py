@@ -223,7 +223,6 @@ class PasswordValidityCheckResult(CheckResult):
 
     def __init__(self):
         super().__init__()
-        self._check_request = None
         self._password_score = 0
         self.password_score_changed = Signal()
         self._status_text = ""
@@ -232,22 +231,6 @@ class PasswordValidityCheckResult(CheckResult):
         self.password_quality_changed = Signal()
         self._length_ok = False
         self.length_ok_changed = Signal()
-
-    @property
-    def check_request(self):
-        """The check request used to generate this check result object.
-
-        Can be used to get the password text and checking parameters
-        for this password check result.
-
-        :returns: the password check request that triggered this password check result
-        :rtype: a PasswordCheckRequest instance
-        """
-        return self._check_request
-
-    @check_request.setter
-    def check_request(self, new_request):
-        self._check_request = new_request
 
     @property
     def password_score(self):
@@ -351,53 +334,6 @@ class InputCheck(object):
         """
         raise NotImplementedError
 
-class RegexpCheck(InputCheck):
-    """A regex based input check."""
-
-    def __init__(self, regexp, error_message):
-        """
-        :param regexp: a regular expression object
-        :param error_message: error message to return if the regexp doesn't match
-        """
-        super().__init__()
-        self._regexp = regexp
-        self._error_message = error_message
-
-    def run(self, check_request):
-        """Check if the provided data matches the regexp.
-
-        :param str check_request: a string to apply the regexp on
-        """
-        if self._regexp.match(check_request):
-            self.result.error_message = ""
-            self.result.success = True
-        else:
-            self.result.error_message = self._error_message
-            self.result.success = False
-
-
-class FunctionCheck(InputCheck):
-    """A function based input check.
-
-    Run a function on a string that returns a two member tuple: (success, error message)
-    """
-
-    def __init__(self, function):
-        """
-        :param function: a function to run on the input
-        """
-        super().__init__()
-        self._function = function
-
-    def run(self, check_request):
-        """Run the function on the provided data.
-
-        :param str check_request: a string to run the function on
-        """
-        success, error_message = self._function(check_request)
-        self.result.error_message = error_message
-        self.result.success = success
-
 
 class PasswordValidityCheck(InputCheck):
     """Check the validity and quality of a password."""
@@ -479,7 +415,6 @@ class PasswordValidityCheck(InputCheck):
         success = not error_message
 
         # set the result now so that the *_changed signals fire only once the check is done
-        self.result.check_request = check_request  # pylint: disable=attribute-defined-outside-init
         self.result.success = success  # pylint: disable=attribute-defined-outside-init
         self.result.password_score = pw_score  # pylint: disable=attribute-defined-outside-init
         self.result.status_text = status_text  # pylint: disable=attribute-defined-outside-init

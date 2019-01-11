@@ -120,7 +120,6 @@ selinux_log = log.getChild("kickstart.selinux")
 timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
 escrow_log = log.getChild("kickstart.escrow")
-upgrade_log = log.getChild("kickstart.upgrade")
 firewall_log = log.getChild("kickstart.firewall")
 
 @contextmanager

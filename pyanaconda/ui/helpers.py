@@ -357,21 +357,6 @@ class InputCheckHandler(object, metaclass=ABCMeta):
         self._check_list.append(checkRef)
         return checkRef
 
-    def add_re_check(self, input_obj, regex, message):
-        """Add a check using a regular expression.
-
-           :param function input_obj: An object representing the input to check.
-
-           :param re.RegexObject regex: The regular expression to check input against.
-
-           :param str message: A message to return for failed checks
-
-           :returns: The InputCheck object created.
-           :rtype: InputCheck
-        """
-        return self.add_check(input_obj=input_obj, run_check=self._check_re,
-                data={'regex': regex, 'message': message})
-
     def remove_check(self, inputcheck):
         """Remove an input check.
 
