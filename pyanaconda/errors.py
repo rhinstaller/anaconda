@@ -58,9 +58,6 @@ class PasswordCryptError(Exception):
         self.algo = algo
 
 
-class ZIPLError(Exception):
-    pass
-
 class ExitError(RuntimeError):
     pass
 

@@ -28,152 +28,19 @@ from pyanaconda.bootloader.grub import GRUB
 from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2
 from pyanaconda.bootloader.image import LinuxBootLoaderImage, TbootLinuxBootLoaderImage
 from pyanaconda.bootloader.yaboot import MacYaboot
+from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
+from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda import platform
 from pyanaconda.core.configuration.anaconda import conf
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-
-class ZIPL(BootLoader):
-    name = "ZIPL"
-    config_file = "/etc/zipl.conf"
-    packages = ["s390utils-base"]
-
-    # stage2 device requirements
-    stage2_device_types = ["partition"]
-
-    @property
-    def stage2_format_types(self):
-        if productName.startswith("Red Hat "):          # pylint: disable=no-member
-            return ["xfs", "ext4", "ext3", "ext2"]
-        else:
-            return ["ext4", "ext3", "ext2", "xfs"]
-
-    image_label_attr = "short_label"
-    preserve_args = ["cio_ignore", "rd.znet", "rd_ZNET", "zfcp.allow_lun_scan"]
-
-    def __init__(self):
-        super().__init__()
-        self.stage1_name = None
-
-    #
-    # configuration
-    #
-
-    @property
-    def boot_dir(self):
-        return "/boot"
-
-    def write_config_image(self, config, image, args):
-        if image.initrd:
-            initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir, image.initrd)
-        else:
-            initrd_line = ""
-
-        stanza = ("[%(label)s]\n"
-                  "\timage=%(boot_dir)s/%(kernel)s\n"
-                  "%(initrd_line)s"
-                  "\tparameters=\"%(args)s\"\n"
-                  % {"label": self.image_label(image),
-                     "kernel": image.kernel, "initrd_line": initrd_line,
-                     "args": args,
-                     "boot_dir": self.boot_dir})
-        config.write(stanza)
-
-    def update_bls_args(self, image, args):
-        machine_id_path = util.getSysroot() + "/etc/machine-id"
-        if not os.access(machine_id_path, os.R_OK):
-            log.error("failed to read machine-id file")
-            return
-
-        with open(machine_id_path, "r") as fd:
-            machine_id = fd.readline().strip()
-
-        bls_dir = "%s%s/loader/entries/" % (util.getSysroot(), self.boot_dir)
-
-        if image.kernel == "vmlinuz-0-rescue-" + machine_id:
-            bls_path = "%s%s-0-rescue.conf" % (bls_dir, machine_id)
-        else:
-            bls_path = "%s%s-%s.conf" % (bls_dir, machine_id, image.version)
-
-        if not os.access(bls_path, os.W_OK):
-            log.error("failed to update boot args in BLS file %s", bls_path)
-            return
-
-        with open(bls_path, "r") as bls:
-            lines = bls.readlines()
-            for i, line in enumerate(lines):
-                if line.startswith("options "):
-                    lines[i] = "options %s\n" % (args)
-
-        with open(bls_path, "w") as bls:
-            bls.writelines(lines)
-
-    def write_config_images(self, config):
-        for image in self.images:
-            if "kdump" in (image.initrd or image.kernel):
-                # no need to create bootloader entries for kdump
-                continue
-
-            args = Arguments()
-            args.add("root=%s" % image.device.fstab_spec)
-            args.update(self.boot_args)
-            if image.device.type == "btrfs subvolume":
-                args.update(["rootflags=subvol=%s" % image.device.name])
-            log.info("bootloader.py: used boot args: %s ", args)
-
-            if self.use_bls:
-                self.update_bls_args(image, args)
-            else:
-                self.write_config_image(config, image, args)
-
-    def write_config_header(self, config):
-        header = ("[defaultboot]\n"
-                  "defaultauto\n"
-                  "prompt=1\n"
-                  "timeout={}\n"
-                  "target=/boot\n")
-        config.write(header.format(self.timeout))
-
-        if self.use_bls and os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-            log.warning("BLS support disabled due new-kernel-pkg being present")
-            self.use_bls = False
-
-        if not self.use_bls:
-            config.write("default={}\n".format(self.image_label(self.default)))
-
-    #
-    # installation
-    #
-
-    def install(self, args=None):
-        buf = util.execWithCapture("zipl", [], root=util.getSysroot())
-        for line in buf.splitlines():
-            if line.startswith("Preparing boot device: "):
-                # Output here may look like:
-                #     Preparing boot device: dasdb (0200).
-                #     Preparing boot device: dasdl.
-                # We want to extract the device name and pass that.
-                name = re.sub(r".+?: ", "", line)
-                self.stage1_name = re.sub(r"(\s\(.+\))?\.$", "", name)
-            # a limitation of s390x is that the kernel parameter list must not
-            # exceed 896 bytes; there is nothing we can do about this, so just
-            # catch the error and show it to the user instead of crashing
-            elif line.startswith("Error: The length of the parameters "):
-                errorHandler.cb(ZIPLError(line))
-
-        if not self.stage1_name:
-            raise BootLoaderError("could not find IPL device")
-
-        # do the reipl
-        util.reIPL(self.stage1_name)
 
 class EXTLINUX(BootLoader):
     name = "EXTLINUX"
