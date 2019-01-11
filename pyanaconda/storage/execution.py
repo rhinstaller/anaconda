@@ -58,6 +58,8 @@ def do_kickstart_storage(storage, data):
     :param storage: an instance of the Blivet's storage object
     :param data: an instance of kickstart data
     """
+    log.debug("Setting up the storage from the kickstart data.")
+
     # Clear partitions.
     clear_partitions(storage)
 
@@ -71,9 +73,23 @@ def do_kickstart_storage(storage, data):
     # Prepare the boot loader.
     BootloaderExecutor().execute(storage, dry_run=True)
 
-    AutomaticPartitioningExecutor().execute(storage, data)
-    CustomPartitioningExecutor().execute(storage, data)
-    ManualPartitioningExecutor().execute(storage, data)
+    # Is the automatic partitioning enabled?
+    if STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
+        log.debug("Executing the automatic partitioning.")
+        partitioning = AutomaticPartitioningExecutor()
+
+    # Is the manual partitioning enabled?
+    elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
+        log.debug("Setting up the mount points.")
+        partitioning = ManualPartitioningExecutor()
+
+    # Is the custom partitioning enabled?
+    else:
+        log.debug("Executing the custom partitioning.")
+        partitioning = CustomPartitioningExecutor()
+
+    # Execute the partitioning.
+    partitioning.execute(storage, data)
 
     # Set up the snapshot here.
     data.snapshot.setup(storage, data)
@@ -115,14 +131,12 @@ class AutomaticPartitioningExecutor(object):
         # Create the auto partitioning proxy.
         auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
 
-        # Is the auto partitioning enabled?
-        if not auto_part_proxy.Enabled:
-            return
+        # Enable automatic partitioning.
+        storage.do_autopart = True
 
         # Sets up default auto partitioning. Use clearpart separately if you want it.
         # The filesystem type is already set in the storage.
         refreshAutoSwapSize(storage)
-        storage.do_autopart = True
 
         if auto_part_proxy.Encrypted:
             storage.encrypted_autopart = True
@@ -172,10 +186,7 @@ class ManualPartitioningExecutor(object):
         """
         manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
-        if not manual_part_proxy.Enabled:
-            return
-
-        # Disable autopart.
+        # Disable automatic partitioning.
         storage.do_autopart = False
 
         # Set up mount points.
@@ -244,6 +255,9 @@ class CustomPartitioningExecutor(object):
         :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
+        # Disable automatic partitioning.
+        storage.do_autopart = False
+
         self._execute_reqpart(storage, data)
         self._execute_partition(storage, data)
         self._execute_raid(storage, data)
@@ -300,8 +314,6 @@ class CustomPartitioningExecutor(object):
         """
         devicetree = storage.devicetree
         kwargs = {}
-
-        storage.do_autopart = False
 
         if partition_data.onbiosdisk != "":
             # edd_dict is only modified during storage.reset(), so don't do that
@@ -674,8 +686,6 @@ class CustomPartitioningExecutor(object):
 
         kwargs = {}
 
-        storage.do_autopart = False
-
         if raid_data.mountpoint == "swap":
             ty = "swap"
             raid_data.mountpoint = ""
@@ -918,7 +928,6 @@ class CustomPartitioningExecutor(object):
         """
         pvs = []
         devicetree = storage.devicetree
-        storage.do_autopart = False
 
         # Get a list of all the physical volume devices that make up this VG.
         for pv in volgroup_data.physvols:
@@ -1029,7 +1038,6 @@ class CustomPartitioningExecutor(object):
         :param logvol_data: an instance of LogVolData
         """
         devicetree = storage.devicetree
-        storage.do_autopart = False
 
         # FIXME: we should be running sanityCheck on partitioning that is not ks
         # autopart, but that's likely too invasive for #873135 at this moment
@@ -1382,7 +1390,6 @@ class CustomPartitioningExecutor(object):
         :param btrfs_data: an instance of BTRFSData
         """
         devicetree = storage.devicetree
-        storage.do_autopart = False
         members = []
 
         # Get a list of all the devices that make up this volume.
