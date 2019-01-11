@@ -40,7 +40,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 from pyanaconda.payload import ArchivePayload, PayloadInstallError
-from pyanaconda.bootloader import EFIBase
+from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 import pyanaconda.errors as errors
