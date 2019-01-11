@@ -1,5 +1,3 @@
-# bootloader.py
-# Anaconda's bootloader configuration module.
 #
 # Copyright (C) 2011 Red Hat, Inc.
 #
