@@ -30,6 +30,7 @@ from pyanaconda.core import util
 from blivet.devicelibs import raid
 from blivet.formats.disklabel import DiskLabel
 
+from pyanaconda.bootloader.image import LinuxBootLoaderImage, TbootLinuxBootLoaderImage
 from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX
 from pyanaconda.modules.common.constants.objects import FCOE, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -147,58 +148,6 @@ class Arguments(OrderedSet):
         for key in sequence:
             self.discard(key)
             self.add(key)
-
-class BootLoaderImage(object):
-    """ Base class for bootloader images. Suitable for non-linux OS images. """
-    def __init__(self, device=None, label=None, short=None):
-        self.label = label
-        self.short_label = short
-        self.device = device
-
-
-class LinuxBootLoaderImage(BootLoaderImage):
-    def __init__(self, device=None, label=None, short=None, version=None):
-        super().__init__(device=device, label=label)
-        self.label = label              # label string
-        self.short_label = short        # shorter label string
-        self.device = device            # StorageDevice instance
-        self.version = version          # kernel version string
-        self._kernel = None             # filename string
-        self._initrd = None             # filename string
-
-    @property
-    def kernel(self):
-        filename = self._kernel
-        if self.version and not filename:
-            filename = "vmlinuz-%s" % self.version
-        return filename
-
-    @property
-    def initrd(self):
-        filename = self._initrd
-        if self.version and not filename:
-            filename = "initramfs-%s.img" % self.version
-        return filename
-
-class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
-    _multiboot = "tboot.gz"     # filename string
-    _mbargs = ["logging=vga,serial,memory"]
-    _args = ["intel_iommu=on"]
-
-    def __init__(self, device=None, label=None, short=None, version=None):
-        super().__init__(device=device, label=label, short=short, version=version)
-
-    @property
-    def multiboot(self):
-        return self._multiboot
-
-    @property
-    def mbargs(self):
-        return self._mbargs
-
-    @property
-    def args(self):
-        return self._args
 
 class BootLoader(object):
     name = "Generic Bootloader"
