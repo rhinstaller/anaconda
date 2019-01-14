@@ -2,7 +2,7 @@
 
 # Avoid anaconda-core requiring gjs-console due to the GNOME welcome
 # screen that's shipped in it
-%global __requires_exclude_from ^%{_datadir}/anaconda/gnome/fedora-welcome.*$
+%global __requires_exclude_from ^%{_datadir}/anaconda/gnome/rhel-welcome.*$
 
 Summary: Graphical system installer
 Name:    anaconda
@@ -383,7 +383,9 @@ update-desktop-database &> /dev/null || :
   Resolves: rhbz#1620135
 - Fix pylint errors (vponcova)
   Related: rhbz#1652727
-- Run zipl again after generating initramfs (vponcova)
+
+* Wed Dec 12 2018 Martin Kolman <mkolman@redhat.com> - 29.19.0.27-2
+- Run zipl again after generating initramfs (#1652727) (vponcova)
   Resolves: rhbz#1652727
 
 * Wed Dec 05 2018 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.27-1
