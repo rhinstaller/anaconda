@@ -408,9 +408,6 @@ class Bootloader(RemovedCommand):
 class BTRFS(COMMANDS.BTRFS):
     pass
 
-class BTRFSData(COMMANDS.BTRFSData):
-    pass
-
 class Realm(RemovedCommand):
     def __init__(self, *args):
         super().__init__(*args)
@@ -646,9 +643,6 @@ Eula = COMMANDS.Eula
 class LogVol(COMMANDS.LogVol):
     pass
 
-class LogVolData(COMMANDS.LogVolData):
-    pass
-
 class Logging(COMMANDS.Logging):
     def execute(self, *args):
         if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
@@ -733,13 +727,7 @@ class Nvdimm(COMMANDS.Nvdimm):
 class Partition(COMMANDS.Partition):
     pass
 
-class PartitionData(COMMANDS.PartData):
-    pass
-
 class Raid(COMMANDS.Raid):
-    pass
-
-class RaidData(COMMANDS.RaidData):
     pass
 
 class RepoData(COMMANDS.RepoData):
@@ -981,9 +969,6 @@ class User(COMMANDS.User):
                 user_log.warning(str(e))
 
 class VolGroup(COMMANDS.VolGroup):
-    pass
-
-class VolGroupData(COMMANDS.VolGroupData):
     pass
 
 class XConfig(RemovedCommand):
@@ -1255,13 +1240,8 @@ commandMap = {
 }
 
 dataMap = {
-    "BTRFSData": BTRFSData,
-    "LogVolData": LogVolData,
-    "PartData": PartitionData,
-    "RaidData": RaidData,
     "RepoData": RepoData,
     "SnapshotData": SnapshotData,
-    "VolGroupData": VolGroupData,
 }
 
 superclass = returnClassForVersion(VERSION)
