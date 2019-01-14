@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.32-1
+- Update gjs dependency filter for fedora->rhel filename changes (rvykydal)
+  Related: rhbz#1650295
+
 * Mon Jan 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.31-1
 - Change fedora-welcome to rhel-welcome (bcl)
   Related: rhbz#1650295
