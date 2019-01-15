@@ -7,7 +7,7 @@
 # - ostree payloads, where all of the labeling of /var is the installer's
 #   responsibility (see https://github.com/ostreedev/ostree/pull/872 )
 
-restorecon -ir /etc/sysconfig/network-scripts /etc/lvm \
+restorecon -ir /etc/sysconfig/network-scripts /etc/lvm /etc/X11/xorg.conf.d \
                /etc/iscsi /etc/modprobe.d /etc/sysconfig \
                /var/lib /var/lib/iscsi /var/lock /var/log /var/spool \
                /var/cache/yum \
