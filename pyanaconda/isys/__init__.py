@@ -99,6 +99,33 @@ def isLpaeAvailable():
 
     return False
 
+def get_cpu_model():
+    """Get the cpu model number.
+
+    :return: an integer value or None
+    """
+    with open("/proc/cpuinfo", "r") as f:
+        for line in f:
+            name, value = line.split(":")
+
+            if name.strip() == "model":
+                return int(value.strip())
+
+    return None
+
+def is_skylake():
+    """Is it one of the supported Skylake cpu models?
+
+    :return: True or False
+    """
+    return blivet.arch.isX86() and get_cpu_model() in {
+        0x4E,  # INTEL_FAM6_SKYLAKE_MOBILE
+        0x5E,  # INTEL_FAM6_SKYLAKE_DESKTOP
+        0x55,  # INTEL_FAM6_SKYLAKE_X
+        0x8E,  # INTEL_FAM6_KABYLAKE_MOBILE
+        0x9E,  # INTEL_FAM6_KABYLAKE_DESKTOP
+    }
+
 def set_system_time(secs):
     """
     Set system time to time given as a number of seconds since the Epoch.

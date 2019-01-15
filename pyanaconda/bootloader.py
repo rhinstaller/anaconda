@@ -30,7 +30,7 @@ from parted import PARTITION_BIOS_GRUB
 
 from pyanaconda import iutil
 from blivet.devicelibs import raid
-from pyanaconda.isys import sync
+from pyanaconda.isys import sync, is_skylake
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from blivet.errors import StorageError
@@ -825,6 +825,12 @@ class BootLoader(object):
         boot_device = storage.mountpoints.get("/boot")
         if flags.cmdline.get("fips") == "1" and boot_device:
             self.boot_args.add("boot=%s" % self.stage2_device.fstabSpec)
+
+        #
+        # Mitigation to Spectre/Meltdown
+        #
+        if is_skylake():
+            self.boot_args.add("spectre_v2=retpoline")
 
         #
         # dracut
