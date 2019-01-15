@@ -114,7 +114,6 @@ def update_blivet_flags():
     blivet_flags.selinux = conf.security.selinux
     blivet_flags.dmraid = conf.storage.dmraid
     blivet_flags.ibft = conf.storage.ibft
-    blivet_flags.gpt = conf.storage.gpt
     blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
@@ -1171,6 +1170,16 @@ class InstallerStorage(Blivet):
             :type ksdata: :class:`pykickstart.Handler`
         """
         super().__init__()
+        self.do_autopart = False
+        self.encrypted_autopart = False
+        self.encryption_cipher = None
+        self.escrow_certificates = {}
+
+        self.autopart_escrow_cert = None
+        self.autopart_add_backup_passphrase = False
+        self.autopart_requests = []
+
+        self._default_boot_fstype = None
 
         self.ksdata = ksdata
         self._bootloader = None
