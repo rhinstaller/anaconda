@@ -23,6 +23,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.structure import get_structure, apply_structure
 
 
 @dbus_interface(USERS.interface_name)
@@ -35,19 +36,6 @@ class UsersInterface(KickstartModuleInterface):
         self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
         self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
         self.watch_property("IsRootpwKickstarted", self.implementation.rootpw_seen_changed)
-
-    @property
-    def Users(self) -> List[ObjPath]:
-        """A list of object paths to available user objects."""
-        return self.implementation.object_paths_of_users
-
-    @emits_properties_changed
-    def CreateUser(self) -> ObjPath:
-        """Create a new user object.
-
-        :return: an object path to the created user
-        """
-        return self.implementation.create_user()
 
     @property
     def IsRootpwKickstarted(self) -> Bool:
@@ -130,3 +118,32 @@ class UsersInterface(KickstartModuleInterface):
         :return: True, if the root account is locked, otherwise False
         """
         return self.implementation.root_account_locked
+
+
+    @property
+    def Users(self) -> List[Structure]:
+        """List of users, each describing a single user.
+
+        :return: a list of user describing DBUS Structures
+        """
+        # internally we hold the data about users as a list of structures,
+        # which we need to turn into a list of dicts before returning it
+        # over DBUS
+        user_dicts = []
+
+        for user_struct in self.implementation.users:
+            user_dicts.append(get_structure(user_struct))
+        return user_dicts
+
+    @emits_properties_changed
+    def SetUsers(self, users: List[Structure]):
+        """Set a list of users, each corresponding to a single user.
+
+        :param users: a list of user describing DBUS structures
+        """
+        user_data_list = []
+        for user_struct in users:
+            user_data = self.implementation.create_user_data()
+            apply_structure(user_struct, user_data)
+            user_data_list.append(user_data)
+        self.implementation.set_users(user_data_list)

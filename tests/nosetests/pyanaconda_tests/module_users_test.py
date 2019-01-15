@@ -22,9 +22,10 @@ from unittest.mock import Mock, patch
 
 from pyanaconda.modules.common.constants.interfaces import USER
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.modules.users.user import UserInterface, UserModule
+from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.users.users import UsersModule
 from pyanaconda.modules.users.users_interface import UsersInterface
+from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 
 
@@ -36,9 +37,6 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # Set up the users module.
         self.users_module = UsersModule()
         self.users_interface = UsersInterface(self.users_module)
-
-        # Initialize the user interface.
-        UserInterface._user_counter = 1
 
         # Connect to the properties changed signal.
         self.callback = Mock()
@@ -137,32 +135,296 @@ class UsersInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.users_interface.Users, [])
         self.callback.assert_not_called()
 
-    @patch("pyanaconda.modules.users.users.DBus")
-    def create_user_test(self, bus):
-        """Test the create user method."""
-        object_path = self.users_interface.CreateUser()
+    def basic_users_test(self):
+        """Test that user data can be set and read again."""
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is_crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is_crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
 
-        # Check callbacks.
-        bus.publish_object.assert_called_once()
-        self.callback.assert_called_once_with(USERS.interface_name, {'Users': [object_path]}, [])
+        user_list_in = [user1, user2]
+        # set the users list via API
+        self.users_interface.SetUsers(user_list_in)
 
-        # Check results.
-        self.assertEqual("/org/fedoraproject/Anaconda/Modules/Users/User/1", object_path)
-        self.assertEqual(self.users_interface.Users, [object_path])
+        # retrieve the users list via API and validate the returned data
+        users_list_out = self.users_interface.Users
 
-    @patch("pyanaconda.modules.users.users.DBus")
-    def multiple_users_property_test(self, _bus):
-        """Test the users property with multiple users."""
+        # construct the expected result
+        user1_out = {
+                    "name" : get_variant(Str, "user1"),
+                    "uid" : get_variant(Int, 123),
+                    "groups" : get_variant(List[Str], ["foo", "bar"]),
+                    "gid" : get_variant(Int, 321),
+                    "homedir" : get_variant(Str, "user1_home"),
+                    "password" : get_variant(Str, "swordfish"),
+                    "is_crypted" : get_variant(Bool, False),
+                    "lock" : get_variant(Bool, False),
+                    "shell" : get_variant(Str, "zsh"),
+                    "gecos" : get_variant(Str, "some stuff"),
+        }
+        user2_out = {
+                    "name" : get_variant(Str, "user2"),
+                    "uid" : get_variant(Int, 456),
+                    "groups" : get_variant(List[Str], ["baz", "bar"]),
+                    "gid" : get_variant(Int, 654),
+                    "homedir" : get_variant(Str, "user2_home"),
+                    "password" : get_variant(Str, "laksdjaskldjhasjhd"),
+                    "is_crypted" : get_variant(Bool, True),
+                    "lock" : get_variant(Bool, False),
+                    "shell" : get_variant(Str, "csh"),
+                    "gecos" : get_variant(Str, "some other stuff"),
+        }
+
+        # check the output os the same as the expected result & in correct order
+        self.assertEqual(users_list_out[0], user1_out)
+        self.assertEqual(users_list_out[1], user2_out)
+
+    def users_clear_test(self):
+        """Test that user data can be se and then cleared."""
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is_crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is_crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+        user_list_in = [user1, user2]
+        # set the users list via API
+        self.users_interface.SetUsers(user_list_in)
+
+        # check the list is nonempty
+        self.assertEqual(len(self.users_interface.Users), 2)
+
+        # set an empty user list next
+        self.users_interface.SetUsers([])
+
+        # retrieve the users list via API and validate it is empty
         self.assertEqual(self.users_interface.Users, [])
 
-        object_path_1 = self.users_interface.CreateUser()
-        object_path_2 = self.users_interface.CreateUser()
-        object_path_3 = self.users_interface.CreateUser()
+    def users_modify_test(self):
+        """Test that user data can be overwritten in place."""
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is_crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user_list_in = [user1]
+        # set the users list via API
+        self.users_interface.SetUsers(user_list_in)
+        # check content is correct
+        user1_out = {
+                    "name" : get_variant(Str, "user1"),
+                    "uid" : get_variant(Int, 123),
+                    "groups" : get_variant(List[Str], ["foo", "bar"]),
+                    "gid" : get_variant(Int, 321),
+                    "homedir" : get_variant(Str, "user1_home"),
+                    "password" : get_variant(Str, "swordfish"),
+                    "is_crypted" : get_variant(Bool, False),
+                    "lock" : get_variant(Bool, False),
+                    "shell" : get_variant(Str, "zsh"),
+                    "gecos" : get_variant(Str, "some stuff"),
+        }
+        self.assertEqual(self.users_interface.Users[0], user1_out)
+        # replace the user data by changed user data
+        userG = {
+                "name" : "Gandalf",
+                "uid" : 5,
+                "groups" : ["wizzards", "vallar"],
+                "gid" : 1,
+                "homedir" : "behind_the_sea",
+                "password" : "mellon",
+                "is_crypted" : False,
+                "lock" : False,
+                "shell" : "gsh",
+                "gecos" : "Run you fools!",
+        }
+        self.users_interface.SetUsers([userG])
+        # check we get the changed data
+        userG_out = {
+                "name" : get_variant(Str, "Gandalf"),
+                "uid" : get_variant(Int, 5),
+                "groups" : get_variant(List[Str], ["wizzards", "vallar"]),
+                "gid" : get_variant(Int, 1),
+                "homedir" : get_variant(Str, "behind_the_sea"),
+                "password" : get_variant(Str, "mellon"),
+                "is_crypted" : get_variant(Bool, False),
+                "lock" : get_variant(Bool, False),
+                "shell" : get_variant(Str, "gsh"),
+                "gecos" : get_variant(Str, "Run you fools!"),
+        }
+        self.assertEqual(self.users_interface.Users[0], userG_out)
 
-        self.assertEqual("/org/fedoraproject/Anaconda/Modules/Users/User/1", object_path_1)
-        self.assertEqual("/org/fedoraproject/Anaconda/Modules/Users/User/2", object_path_2)
-        self.assertEqual("/org/fedoraproject/Anaconda/Modules/Users/User/3", object_path_3)
-        self.assertEqual(self.users_interface.Users, [object_path_1, object_path_2, object_path_3])
+    def users_type_test(self):
+        """Test that type checking works correctly when setting user data."""
+        with self.assertRaises(TypeError):
+            user = {"name" : 1}
+            self.users_interface.SetUsers([user])
+
+        with self.assertRaises(TypeError):
+            user = {"uid" : "abc"}
+            self.users_interface.SetUsers([user])
+
+        # TODO: should we prevent <0 uid/gid from being set ?
+        user = {"uid" : -500}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Int, -500), output["uid"])
+
+        # TODO: looks like the Int type accepts floating point numbers ?
+        #       (which are definitely not a valid uid/gid)
+        #       - the result seems converted to Int:
+        #       0.75 -> 0
+        #       1.75 -> 1
+
+        user = {"uid" : 1.75}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Int, 1), output["uid"])
+
+        with self.assertRaises(TypeError):
+            user = {"gid" : "abc"}
+            self.users_interface.SetUsers([user])
+
+        with self.assertRaises(TypeError):
+            user = {"groups" : [1, 2, 3]}
+            self.users_interface.SetUsers([user])
+
+        with self.assertRaises(TypeError):
+            user = {"homedir" : True}
+            self.users_interface.SetUsers([user])
+
+        with self.assertRaises(TypeError):
+            user = {"password" : None}
+            self.users_interface.SetUsers([user])
+
+        # TODO: looks like Bool also accepts almost anything,
+        #       but converts it into a True/False value on output
+        #       - None is still rejected though
+        user = {"is_crypted" : "yes"}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Bool, True), output["is_crypted"])
+
+        user = {"lock" : "secure"}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Bool, True), output["lock"])
+
+        user = {"lock" : 1}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Bool, True), output["lock"])
+
+        user = {"lock" : 0}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Bool, False), output["lock"])
+
+        user = {"lock" : ""}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Bool, False), output["lock"])
+
+        user = {"lock" : []}
+        self.users_interface.SetUsers([user])
+        output = self.users_interface.Users[0]
+        self.assertEqual(get_variant(Bool, False), output["lock"])
+
+        with self.assertRaises(TypeError):
+            user = {"shell" : True}
+            self.users_interface.SetUsers([user])
+
+        with self.assertRaises(TypeError):
+            user = {"gecos" : -1}
+            self.users_interface.SetUsers([user])
+
+    def users_kickstart_output_test(self):
+        """Check if user data values set via DBUS API are valid in the output kickstart."""
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is_crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is_crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+
+        user_list_in = [user1, user2]
+        # set the users list via API
+        self.users_interface.SetUsers(user_list_in)
+        # also set some other atributes of the users module DBUS API
+        self.users_interface.SetCryptedRootPassword("abcdef")
+        self.users_interface.SetRootAccountLocked(True)
+
+        # validate the resulting kickstart
+        ksdata = self.users_interface.GenerateKickstart()
+        self.maxDiff = None
+        expected_kickstart = """# Root password
+rootpw --iscrypted --lock abcdef
+user --groups=foo,bar --homedir=user1_home --name=user1 --password=swordfish --shell=zsh --uid=123 --gecos="some stuff" --gid=321
+user --groups=baz,bar --homedir=user2_home --name=user2 --password=laksdjaskldjhasjhd --iscrypted --shell=csh --uid=456 --gecos="some other stuff" --gid=654
+"""
+        self.assertEqual(str(ksdata), expected_kickstart)
 
     def _test_kickstart(self, ks_in, ks_out, ks_tmp=None):
         check_kickstart_interface(self, self.users_interface, ks_in, ks_out, ks_tmp=ks_tmp)
@@ -212,60 +474,147 @@ class UsersInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    @patch("pyanaconda.modules.users.users.DBus")
-    def kickstart_user_test(self, _bus):
-        """Test the user kickstart command."""
+    def kickstart_users_test(self):
+        """Test kickstart user input and output."""
         ks_in = """
-        user --name="harry"
+        user --name=user1 --homedir=user1_home --password=foo --shell=ksh --uid=123 --gecos=baz --gid=345 --groups=a,b,c,d --plaintext
+        user --name=user2 --homedir=user2_home --password=asasas --shell=csh --uid=321 --gecos=bar --gid=543 --groups=wheel,mockuser --iscrypted
+        user --name=user3 --lock
         """
         ks_out = """
-        user --name=harry
+        user --groups=a,b,c,d --homedir=user1_home --name=user1 --password=foo --shell=ksh --uid=123 --gecos="baz" --gid=345
+        user --groups=wheel,mockuser --homedir=user2_home --name=user2 --password=asasas --iscrypted --shell=csh --uid=321 --gecos="bar" --gid=543
+        user --name=user3 --lock
         """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
-
-    @patch("pyanaconda.modules.users.users.DBus")
-    def kickstart_multiple_users_test(self, _bus):
-        """Test the user kickstart commands."""
-        ks_in = """
-        user --name=harry
-        user --name=hermione
-        user --name=ron
-        """
-        ks_out = """
-        user --name=harry
-        user --name=hermione
-        user --name=ron
-        """
-        self._test_kickstart(ks_in, ks_out, ks_tmp="")
+        self._test_kickstart(ks_in, ks_out)
 
 
-class UserInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface for the user module."""
+class UsersDataTestCase(unittest.TestCase):
+    """Test the UserData data holder class."""
 
-    def setUp(self):
-        """Set up the user module."""
-        # Set up the users module.
-        self.user_module = UserModule()
-        self.user_interface = UserInterface(self.user_module)
+    def set_property_test(self):
+        """Test UserData properties can be set and read again."""
+        user_data = UserData()
+        user_data.name = "foo"
+        user_data.password = "abc"
+        user_data.is_crypted = False
+        user_data.uid = 2
+        user_data.gid = 1
+        user_data.homedir = "/home/bar"
+        user_data.groups = ["mockuser", "wheel"]
+        user_data.gecos = "some stuff"
+        user_data.lock = False
+        user_data.shell = "zsh"
+        self.assertEqual(user_data.name, "foo")
+        self.assertEqual(user_data.password, "abc")
+        self.assertEqual(user_data.is_crypted, False)
+        self.assertEqual(user_data.uid, 2)
+        self.assertEqual(user_data.gid, 1)
+        self.assertEqual(user_data.homedir, "/home/bar")
+        self.assertEqual(user_data.groups, ["mockuser", "wheel"])
+        self.assertEqual(user_data.gecos, "some stuff")
+        self.assertEqual(user_data.lock, False)
+        self.assertEqual(user_data.shell, "zsh")
 
-        # Initialize the user interface.
-        UserInterface._user_counter = 1
+    def eq_test(self):
+        """Test that the __eq__() method works correctly for UserData instances."""
+        # the comparison is name based
+        user_data_1 = UserData()
+        user_data_1.name = "foo"
 
-        # Connect to the properties changed signal.
-        self.callback = Mock()
-        self.user_interface.PropertiesChanged.connect(self.callback)
+        user_data_2 = UserData()
+        user_data_2.name = "bar"
 
-    def _test_dbus_property(self, *args, **kwargs):
-        check_dbus_property(
-            self,
-            USER,
-            self.user_interface,
-            *args, **kwargs
-        )
+        user_data_3 = UserData()
+        user_data_3.name = "foo"
 
-    def name_property_test(self):
-        """Test the user name property."""
-        self._test_dbus_property(
-            "Name",
-            "harry"
-        )
+        self.assertTrue(user_data_1 == user_data_3)
+        self.assertFalse(user_data_1 == user_data_2)
+        self.assertFalse(user_data_2 == user_data_1)
+        self.assertFalse(user_data_2 == user_data_3)
+
+        # now try changing the name on existing instance
+        user_data_1.name = "bar"
+        user_data_2.name = "foo"
+        user_data_3.name = "foo"
+
+        self.assertFalse(user_data_1 == user_data_2)
+        self.assertFalse(user_data_1 == user_data_3)
+        self.assertTrue(user_data_2 == user_data_3)
+        self.assertTrue(user_data_3 == user_data_2)
+
+        # only name is used, other attributes should not influence the comparison
+        user_data_a = UserData()
+        user_data_a.name = "foo"
+        user_data_a.uid = 1
+        user_data_a.gid = 1
+        user_data_a.homedir = "/foo"
+
+        user_data_b = UserData()
+        user_data_b.name = "foo"
+        user_data_b.uid = 2
+        user_data_b.gid = 2
+        user_data_b.homedir = "/bar"
+
+        self.assertTrue(user_data_a == user_data_b)
+
+    def i_in_list_test(self):
+        """Check if __eq__() works correctly also for lists."""
+        user_data_x = UserData()
+        user_data_x.name = "foo"
+
+        user_data_y = UserData()
+        user_data_y.name = "bar"
+
+        user_data_z = UserData()
+        user_data_z.name = "foo"
+
+        list1 = [user_data_x, user_data_y]
+        self.assertIn(user_data_x, list1)
+        self.assertIn(user_data_y, list1)
+        self.assertIn(user_data_z, list1)
+
+        list2 = [user_data_x, user_data_z]
+        self.assertIn(user_data_x, list2)
+        self.assertIn(user_data_z, list2)
+        self.assertNotIn(user_data_y, list2)
+
+        list3 = []
+        self.assertNotIn(user_data_x, list3)
+        self.assertNotIn(user_data_y, list3)
+        self.assertNotIn(user_data_z, list3)
+
+        list4 = [user_data_x]
+        self.assertIn(user_data_x, list4)
+        self.assertIn(user_data_z, list4)
+        self.assertNotIn(user_data_y, list4)
+
+        list5 = [user_data_y]
+        self.assertIn(user_data_y, list5)
+        self.assertNotIn(user_data_x, list5)
+        self.assertNotIn(user_data_z, list5)
+
+    def is_admin_test(self):
+        """Check the check_is_admin() method works correctly."""
+
+        user_data = UserData()
+        user_data.groups = ["wheel"]
+        self.assertTrue(user_data.check_is_admin())
+
+        user_data = UserData()
+        user_data.groups = ["foo"]
+        self.assertFalse(user_data.check_is_admin())
+
+        user_data = UserData()
+        user_data.groups = ["foo", "wheel", "bar"]
+        self.assertTrue(user_data.check_is_admin())
+
+        # multiple wheels
+        user_data = UserData()
+        user_data.groups = ["foo", "wheel", "bar", "wheel", "baz"]
+        self.assertTrue(user_data.check_is_admin())
+
+        # group name is case sensitive
+        user_data = UserData()
+        user_data.groups = ["WHEEL", "Wheel"]
+        self.assertFalse(user_data.check_is_admin())

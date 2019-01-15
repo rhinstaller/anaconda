@@ -19,15 +19,74 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.core.kickstart.commands import UserData as UserKickstartData
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import USERS
-from pyanaconda.modules.users.user import UserModule, UserInterface
+from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
+def apply_ksdata_to_user_data(user_data, user_ksdata):
+    """Apply kickstart user command data to UserData instance.
+
+    :param user_data: a UserData instance
+    :param user_ksdata: data for the kickstart user command
+    :return: UserData instance with kickstart data applied
+    """
+    user_data.name = user_ksdata.name
+    user_data.groups = user_ksdata.groups
+    # To denote that a value has not been set:
+    # - kickstart uses None
+    # - our DBUS API uses -1
+    # We need to make sure we correctly convert between these two.
+    if user_ksdata.uid is None:
+        user_data.uid = -1
+    else:
+        user_data.uid = user_ksdata.uid
+    if user_ksdata.gid is None:
+        user_data.gid = -1
+    else:
+        user_data.gid = user_ksdata.gid
+    user_data.homedir = user_ksdata.homedir
+    user_data.password = user_ksdata.password
+    user_data.is_crypted = user_ksdata.isCrypted
+    user_data.lock = user_ksdata.lock
+    user_data.shell = user_ksdata.shell
+    user_data.gecos = user_ksdata.gecos
+    return user_data
+
+def user_data_to_ksdata(user_data):
+    """Convert UserData instance to kickstart user command data.
+
+    :param user_structure: UserData instance
+    :return: kickstart user command data for a single user
+    """
+    user_ksdata = UserKickstartData()
+    user_ksdata.name = user_data.name
+    user_ksdata.groups = user_data.groups
+    # To denote that a value has not been set:
+    # - kickstart uses None
+    # - our DBUS API uses -1
+    # We need to make sure we correctly convert between these two.
+    if user_data.uid == -1:
+        user_ksdata.uid = None
+    else:
+        user_ksdata.uid = user_data.uid
+    if user_data.gid == -1:
+        user_ksdata.gid = None
+    else:
+        user_ksdata.gid = user_data.gid
+    user_ksdata.homedir = user_data.homedir
+    user_ksdata.password = user_data.password
+    user_ksdata.isCrypted = user_data.is_crypted
+    user_ksdata.lock = user_data.lock
+    user_ksdata.shell = user_data.shell
+    user_ksdata.gecos = user_data.gecos
+    return user_ksdata
 
 class UsersModule(KickstartModule):
     """The Users module."""
@@ -46,7 +105,7 @@ class UsersModule(KickstartModule):
         self._root_account_locked = False
 
         self.users_changed = Signal()
-        self._users = {}
+        self._users = []
 
     def publish(self):
         """Publish the module."""
@@ -65,17 +124,15 @@ class UsersModule(KickstartModule):
         self.set_root_account_locked(data.rootpw.lock)
         self.set_rootpw_seen(data.rootpw.seen)
 
-        for user_data in data.user.userList:
-            user = self._create_user_instance()
-            user.process_kickstart(data, user_data)
-            self._publish_user_instance(user)
-
-    def generate_temporary_kickstart(self):
-        """Return the temporary kickstart string."""
-        return self.generate_kickstart(skip_unsupported=True)
+        user_data_list = []
+        for user_ksdata in data.user.userList:
+            user_data = self.create_user_data()
+            user_data = apply_ksdata_to_user_data(user_data, user_ksdata)
+            user_data_list.append(user_data)
+        self.set_users(user_data_list)
 
     # pylint: disable=arguments-differ
-    def generate_kickstart(self, skip_unsupported=False):
+    def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
@@ -84,58 +141,25 @@ class UsersModule(KickstartModule):
         data.rootpw.lock = self.root_account_locked
         data.rootpw.seen = self.rootpw_seen
 
-        if skip_unsupported:
-            return str(data)
-
-        for user in self.users.values():
-            user.setup_kickstart(data)
+        for user_data in self.users:
+            data.user.userList.append(user_data_to_ksdata(user_data))
 
         return str(data)
 
     @property
     def users(self):
-        """Dictionary of users and their object paths."""
+        """List of UserData instances, one per user."""
         return self._users
 
-    @property
-    def object_paths_of_users(self):
-        """List of users object paths."""
-        return list(self._users.keys())
-
-    def create_user(self):
-        """Create and publish a new UserModule.
-
-        :return: an object path of the module
-        """
-        user_instance = self._create_user_instance()
-        object_path = self._publish_user_instance(user_instance)
-        return object_path
-
-    def _create_user_instance(self):
-        """Create a new instance of the user.
-
-        :return: an instance of UserModule
-        """
-        user_instance = UserModule()
-        log.debug("Created a new user instance.")
-        return user_instance
-
-    def _publish_user_instance(self, user_instance):
-        """Publish the user instance on DBus.
-
-        :param user_instance: an instance of UserModule
-        """
-        # Publish the DBus object.
-        publishable = UserInterface(user_instance)
-        object_path = UserInterface.get_object_path(USERS.namespace)
-        DBus.publish_object(object_path, publishable)
-
-        # Update the module.
-        self.users[object_path] = user_instance
+    def set_users(self, users):
+        """Set the list of UserData instances, one per user."""
+        self._users = users
         self.users_changed.emit()
+        log.debug("A new user list has been set (%d users).", len(self._users))
 
-        log.debug("Published a user at '%s'.", object_path)
-        return object_path
+    def create_user_data(self):
+        """Create an empty UserData instance."""
+        return UserData()
 
     @property
     def rootpw_seen(self):
