@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 16 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.33-1
+- Relabel X11/xorg.conf.d directory (jkonecny)
+  Resolves: rhbz#1660436
+- Reorder items in selinux relabeling post script (jkonecny)
+  Related: rhbz#1660436
+
 * Mon Jan 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.32-1
 - Update gjs dependency filter for fedora->rhel filename changes (rvykydal)
   Related: rhbz#1650295
