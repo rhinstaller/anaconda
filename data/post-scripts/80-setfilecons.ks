@@ -7,21 +7,25 @@
 # - ostree payloads, where all of the labeling of /var is the installer's
 #   responsibility (see https://github.com/ostreedev/ostree/pull/872 )
 
-restorecon -ir /etc/sysconfig/network-scripts /var/lib /etc/lvm \
-               /dev /etc/iscsi /var/lib/iscsi /root /var/lock /var/log \
-               /etc/modprobe.d /etc/sysconfig /var/cache/yum \
-               /var/spool
+restorecon -ir /etc/sysconfig/network-scripts /etc/lvm /etc/X11/xorg.conf.d \
+               /etc/iscsi /etc/modprobe.d /etc/sysconfig \
+               /var/lib /var/lib/iscsi /var/lock /var/log /var/spool \
+               /var/cache/yum \
+               /dev \
+               /root
 
 # Also relabel the OSTree variants of the traditional mounts if present
 restorecon -ir /var/roothome /var/home /var/opt /var/srv /var/media /var/mnt
 
-restorecon -i /etc/rpm/macros /etc/dasd.conf /etc/zfcp.conf /lib64 /usr/lib64 \
-              /etc/blkid.tab* /etc/mtab /etc/fstab /etc/resolv.conf \
-              /etc/modprobe.conf* /var/log/*tmp /etc/crypttab \
-              /etc/mdadm.conf /etc/sysconfig/network /root/install.log* \
+restorecon -i /etc/rpm/macros /etc/dasd.conf /etc/zfcp.conf /etc/blkid.tab* \
+              /etc/mtab /etc/fstab /etc/resolv.conf /etc/modprobe.conf* \
+              /etc/crypttab /etc/mdadm.conf /etc/sysconfig/network \
               /etc/*shadow* /etc/group* /etc/passwd* /etc/dhcp/dhclient-*.conf \
               /etc/localtime /etc/hostname /root/install.log* \
-              /var/run
+              /var/run /var/log/*tmp \
+              /usr/lib64 \
+              /lib64 \
+              /root/install.log*
 
 if [ -e /etc/zipl.conf ]; then
     restorecon -i /etc/zipl.conf
