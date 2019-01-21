@@ -42,12 +42,24 @@ bad_strings = {'(?i)bootloader': 'boot loader',
 # Sometimes we need to use a bad string, or it's just too much of a pain to
 # write a more specific regex. List occurrences here.
 # {'filename': {'matched string', occurrences}}
-expected_badness = {'pyanaconda/bootloader.py':    {'mountpoint': 1,   # format string specifier
-                                                    'bootloader': 1},  # format string specifier
-                    'pyanaconda/kickstart.py':     {'btrfs': 1},       # quoted filesystem type
-                    'pyanaconda/network.py':       {'vlan': 1},        # format string specifier
-                    'pyanaconda/rescue.py':        {'mountpoint': 1},  # format string specifier
-                    'pyanaconda/startup_utils.py': {'HOSTNAME': 1}}    # ssh to install@HOSTNAME
+expected_badness = {
+    'pyanaconda/bootloader/base.py': {
+        'mountpoint': 1,  # format string specifier
+        'bootloader': 1,  # format string specifier
+    },
+    'pyanaconda/kickstart.py': {
+        'btrfs': 1        # quoted filesystem type
+    },
+    'pyanaconda/network.py': {
+        'vlan': 1,        # format string specifier
+    },
+    'pyanaconda/rescue.py': {
+        'mountpoint': 1,  # format string specifier
+    },
+    'pyanaconda/startup_utils.py': {
+        'HOSTNAME': 1,    # ssh to install@HOSTNAME
+    }
+}
 
 # Use polib to parse anaconda.pot
 try:

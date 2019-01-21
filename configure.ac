@@ -138,6 +138,7 @@ AC_CONFIG_FILES([Makefile
                  scripts/Makefile
                  pyanaconda/Makefile
                  pyanaconda/version.py
+                 pyanaconda/bootloader/Makefile
                  pyanaconda/core/Makefile
                  pyanaconda/core/kickstart/Makefile
                  pyanaconda/core/configuration/Makefile
