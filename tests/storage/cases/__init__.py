@@ -28,7 +28,8 @@ blivet_log.info(sys.argv[0])
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda import platform as _platform
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
+from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser
+from pyanaconda.storage.execution import do_kickstart_storage
 from pykickstart.errors import KickstartError
 
 class FailedTest(Exception):
@@ -201,7 +202,7 @@ class TestCaseComponent(object):
 
             self.setupDisks(parser.handler)
 
-            doKickstartStorage(self._storage, parser.handler)
+            do_kickstart_storage(self._storage, parser.handler)
             self._storage.update_ksdata()
             self._storage.devicetree.teardown_all()
             self._storage.do_it()

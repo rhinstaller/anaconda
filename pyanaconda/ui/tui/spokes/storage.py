@@ -39,7 +39,8 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
     ZFCPDiskDevice
 from blivet.formats import get_format
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
+from pyanaconda.kickstart import resetCustomStorageData
+from pyanaconda.storage.execution import do_kickstart_storage
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
@@ -450,7 +451,7 @@ class StorageSpoke(NormalTUISpoke):
     def execute(self):
         print(_("Generating updated storage configuration"))
         try:
-            doKickstartStorage(self.storage, self.data)
+            do_kickstart_storage(self.storage, self.data)
         except (StorageError, KickstartParseError) as e:
             log.error("storage configuration failed: %s", e)
             print(_("storage configuration failed: %s") % e)
