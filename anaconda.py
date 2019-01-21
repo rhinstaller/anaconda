@@ -656,7 +656,8 @@ if __name__ == "__main__":
     else:
         min_ram = isys.MIN_RAM
 
-    from pyanaconda.storage_utils import storage_checker
+    from pyanaconda.storage.checker import storage_checker
+
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
 
     from pyanaconda.argument_parsing import name_path_pairs
@@ -678,7 +679,7 @@ if __name__ == "__main__":
     # Ignore disks labeled OEMDRV
     from pyanaconda.modules.common.constants.services import STORAGE
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION
-    from pyanaconda.storage_utils import device_matches
+    from pyanaconda.storage.utils import device_matches
     matched = device_matches("LABEL=OEMDRV", disks_only=True)
     for oemdrv_disk in matched:
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)

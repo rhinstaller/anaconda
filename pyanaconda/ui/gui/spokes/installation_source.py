@@ -51,7 +51,7 @@ from pyanaconda.payload import PackagePayload, payloadMgr
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.storage_utils import device_matches
+from pyanaconda.storage.utils import device_matches
 
 from blivet.util import get_mount_device, get_mount_paths
 

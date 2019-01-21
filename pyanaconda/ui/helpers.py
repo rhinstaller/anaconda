@@ -86,7 +86,7 @@ class StorageCheckHandler(object, metaclass=ABCMeta):
         return self._checking
 
     def checkStorage(self):
-        from pyanaconda.storage_utils import storage_checker
+        from pyanaconda.storage.checker import storage_checker
 
         threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
 

@@ -25,7 +25,6 @@
 # - Tabbing behavior in the accordion is weird.
 # - Implement striping and mirroring for LVM.
 # - Activating reformat should always enable resize for existing devices.
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
@@ -33,6 +32,9 @@ gi.require_version("AnacondaWidgets", "3.3")
 
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
+
+import logging
+from contextlib import contextmanager
 
 from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
@@ -67,16 +69,12 @@ from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
 
 from pyanaconda.storage.autopart import do_autopart
-from pyanaconda.storage.osinstall import find_existing_installations, Root
-from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart, storage_checker, \
-    verify_luks_devices_have_key, get_supported_filesystems
-from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
-    DEVICE_TEXT_UNSUPPORTED
-from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
-from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
-from pyanaconda.storage_utils import try_populate_devicetree
-from pyanaconda.storage_utils import filter_unsupported_disklabel_devices
-from pyanaconda import storage_utils
+from pyanaconda.storage.root import find_existing_installations, Root
+from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
+from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
+    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS,\
+    NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
+    get_supported_filesystems, try_populate_devicetree, filter_unsupported_disklabel_devices
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -100,7 +98,8 @@ from pyanaconda.ui.categories.system import SystemCategory
 from functools import wraps
 from itertools import chain
 
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.anaconda_loggers import get_module_logger, get_blivet_logger
+
 log = get_module_logger(__name__)
 
 __all__ = ["CustomPartitioningSpoke"]
@@ -130,6 +129,26 @@ def dev_type_from_const(dev_type_const):
         :rtype: int or NoneType
     """
     return getattr(devicefactory, dev_type_const, None)
+
+
+class UIStorageFilter(logging.Filter):
+    """Logging filter for UI storage events"""
+
+    def filter(self, record):
+        record.name = "storage.ui"
+        return True
+
+
+@contextmanager
+def ui_storage_logger():
+    """Context manager that applies the UIStorageFilter for its block"""
+
+    storage_log = get_blivet_logger()
+    storage_filter = UIStorageFilter()
+    storage_log.addFilter(storage_filter)
+    yield
+    storage_log.removeFilter(storage_filter)
+
 
 def ui_storage_logged(func):
     @wraps(func)
@@ -815,7 +834,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # bound size to boundaries given by the device
         use_size = use_dev.align_target_size(use_size)
-        use_size = storage_utils.bound_size(use_size, use_dev, use_old_size)
+        use_size = bound_size(use_size, use_dev, use_old_size)
         use_size = use_dev.align_target_size(use_size)
 
         # And then we need to re-check that the max size is actually
