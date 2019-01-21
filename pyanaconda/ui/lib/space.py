@@ -20,10 +20,11 @@ import os
 from blivet.size import Size
 from pyanaconda.core import util
 
-from pyanaconda.core.i18n import _, N_
+from pyanaconda.core.i18n import _
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
+
 
 class FileSystemSpaceChecker(object):
     """This object provides for a way to verify that enough space is available
@@ -32,9 +33,6 @@ class FileSystemSpaceChecker(object):
        therefore moving this step up out of both the storage and software
        spokes.
     """
-    error_template = N_("Not enough space in file systems for the current "
-                        "software selection. An additional %s is needed.")
-
     def __init__(self, storage, payload):
         """Create a new FileSystemSpaceChecker object.
 
@@ -45,16 +43,16 @@ class FileSystemSpaceChecker(object):
         """
         self.payload = payload
         self.storage = storage
-
-        self.reset()
-
-    def reset(self):
-        """Get rid of any existing error messages and prepare to run the
-           check again.
-        """
         self.success = False
-        self.deficit = Size(0)
         self.error_message = ""
+
+    def _calculate_free_space(self):
+        """Calculate the available space."""
+        return Size(self.storage.file_system_free_space)
+
+    def _calculate_needed_space(self):
+        """Calculate the needed space."""
+        return self.payload.spaceRequired
 
     def check(self):
         """Check configured storage against software selections.  When this
@@ -63,23 +61,31 @@ class FileSystemSpaceChecker(object):
 
            success       -- A simple boolean defining whether there's enough
                             space or not.
-           deficit       -- If unsuccessful, how much space the system is
-                            short for current software selections.
            error_message -- If unsuccessful, an error message describing the
                             situation.  This message is suitable for putting
                             in the info bar at the bottom of a Hub.
         """
-        self.reset()
-        free = Size(self.storage.file_system_free_space)
-        needed = self.payload.spaceRequired
+        free = self._calculate_free_space()
+        needed = self._calculate_needed_space()
         log.info("fs space: %s  needed: %s", free, needed)
-        self.success = (free > needed)
-        if not self.success:
-            dev_required_size = self.payload.requiredDeviceSize(self.storage.root_device.format)
-            self.deficit = dev_required_size - self.storage.root_device.size
-            self.error_message = _(self.error_template) % self.deficit
 
-        return self.success
+        if free > needed:
+            result = True
+            message = ""
+        elif not self.storage.root_device:
+            result = False
+            message = _("Not enough space in file systems for the current software selection.")
+        else:
+            result = False
+            required = self.payload.requiredDeviceSize(self.storage.root_device.format)
+            deficit = required - self.storage.root_device.size
+            message = _("Not enough space in file systems for the current software selection. "
+                        "An additional {} is needed.").format(deficit)
+
+        self.success = result
+        self.error_message = message
+        return result
+
 
 class DirInstallSpaceChecker(FileSystemSpaceChecker):
     """Use the amount of space available at ROOT_PATH to calculate free space.
@@ -87,28 +93,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
     This is used for the --dirinstall option where no storage is mounted and it
     is using space from the host's filesystem.
     """
-    def check(self):
-        """Check configured storage against software selections.  When this
-           method is complete (which should be pretty quickly), the following
-           attributes are available for inspection:
-
-           success       -- A simple boolean defining whether there's enough
-                            space or not.
-           deficit       -- If unsuccessful, how much space the system is
-                            short for current software selections.
-           error_message -- If unsuccessful, an error message describing the
-                            situation.  This message is suitable for putting
-                            in the info bar at the bottom of a Hub.
-        """
-        self.reset()
+    def _calculate_free_space(self):
+        """Calculate the available space."""
         stat = os.statvfs(util.getSysroot())
-        free = Size(stat.f_bsize * stat.f_bfree)
-        needed = self.payload.spaceRequired
-        log.info("fs space: %s  needed: %s", free, needed)
-        self.success = (free > needed)
-        if not self.success:
-            dev_required_size = self.payload.requiredDeviceSize(self.storage.root_device.format)
-            self.deficit = dev_required_size - self.storage.root_device.size
-            self.error_message = _(self.error_template) % self.deficit
-
-        return self.success
+        return Size(stat.f_bsize * stat.f_bfree)
