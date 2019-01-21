@@ -30,7 +30,7 @@ from blivet.devices.luks import LUKSDevice
 from blivet.devices.lvm import DEFAULT_THPOOL_RESERVE
 from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
 from blivet.formats import get_format
-from blivet.partitioning import do_partitioning, get_free_regions, grow_lvm
+from blivet.partitioning import do_partitioning, get_free_regions, grow_lvm, get_next_partition_type
 from blivet.static_data import luks_data
 
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
@@ -125,6 +125,11 @@ def _get_candidate_disks(storage):
 
         if storage.config.clear_part_disks and \
            (disk.name not in storage.config.clear_part_disks):
+            continue
+
+        if get_next_partition_type(disk.format.parted_disk) is None:
+            # new partition can't be added to the disk -- there is no free slot
+            # for a primary partition and no extended partition
             continue
 
         part = disk.format.first_partition
