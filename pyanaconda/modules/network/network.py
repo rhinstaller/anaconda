@@ -35,7 +35,7 @@ from pyanaconda.modules.network.nm_client import nm_client, get_device_name_from
     add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device, \
     update_iface_setting_values, bound_hwaddr_of_device, devices_ignore_ipv6
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, update_onboot_value, \
-    update_slaves_onboot_value
+    update_slaves_onboot_value, find_ifcfg_uuid_of_device
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 
@@ -256,11 +256,12 @@ class NetworkModule(KickstartModule):
         onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
         self._onboot_yes_ifaces = all_onboot_ifaces
+        onboot_yes_uuids = [find_ifcfg_uuid_of_device(iface) or "" for iface in all_onboot_ifaces]
 
         log.debug("Setting ONBOOT to yes for %s (fcoe) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
         task = NetworkInstallationTask(sysroot, self.hostname, disable_ipv6, overwrite,
-                                       all_onboot_ifaces, network_ifaces)
+                                       onboot_yes_uuids, network_ifaces)
         path = self.publish_task(NETWORK.namespace, task)
         return path
 
@@ -499,7 +500,8 @@ class NetworkModule(KickstartModule):
                 if network_data.onboot:
                     # We need to handle "no" -> "yes" change by changing ifcfg file instead of the NM connection
                     # so the device does not get autoactivated (BZ #1261864)
-                    if not update_onboot_value(devname, network_data.onboot, root_path=""):
+                    uuid = find_ifcfg_uuid_of_device(devname) or ""
+                    if not update_onboot_value(uuid, network_data.onboot, root_path=""):
                         continue
                 else:
                     n_cons = update_iface_setting_values(devname,
@@ -508,7 +510,8 @@ class NetworkModule(KickstartModule):
                         log.debug("set ONBOOT: %d connections found for %s", n_cons, devname)
                         if n_cons > 1:
                             # In case of multiple connections for a device, update ifcfg directly
-                            if not update_onboot_value(devname, network_data.onboot, root_path=""):
+                            uuid = find_ifcfg_uuid_of_device(devname) or ""
+                            if not update_onboot_value(uuid, network_data.onboot, root_path=""):
                                 continue
 
                 updated_devices.append(devname)

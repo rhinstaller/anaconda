@@ -358,10 +358,10 @@ def get_kickstart_network_data(connection_uuid, network_data_class):
         return ifcfg.get_kickstart_data(network_data_class)
 
 
-def update_onboot_value(devname, onboot, root_path=""):
+def update_onboot_value(connection_uuid, onboot, root_path=""):
     """Update onboot value in ifcfg files.
 
-    :param devname: name of device
+    :param connection_uuid: uuid of the connection to be updated
     :type devname: str
     :param onboot: value of ONBOOT setting
     :type onboot: bool
@@ -371,15 +371,15 @@ def update_onboot_value(devname, onboot, root_path=""):
     :rtype: bool
     """
 
-    ifcfg = get_ifcfg_file_of_device(devname, root_path=root_path)
+    ifcfg = get_ifcfg_file([("UUID", connection_uuid)])
     if not ifcfg:
-        log.debug("can't find ifcfg file of %s", devname)
+        log.debug("can't find ifcfg file of %s", connection_uuid)
         return False
 
     ifcfg.read()
     old_value = ifcfg.get('ONBOOT')
     new_value = "yes" if onboot else "no"
-    log.debug("updating ONBOOT value of %s from %s to %s", devname, old_value, new_value)
+    log.debug("updating ONBOOT value of %s from %s to %s", connection_uuid, old_value, new_value)
     ifcfg.set(('ONBOOT', new_value))
     ifcfg.write()
 

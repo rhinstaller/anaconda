@@ -39,7 +39,7 @@ class NetworkInstallationTask(Task):
     DHCLIENT_FILE_TEMPLATE = "/etc/dhcp/dhclient-{}.conf"
 
     def __init__(self, sysroot, hostname, disable_ipv6, overwrite,
-                 onboot_yes_ifaces, network_ifaces):
+                 onboot_yes_uuids, network_ifaces):
         """Create a new task,
 
         :param sysroot: a path to the root of installed system
@@ -50,7 +50,7 @@ class NetworkInstallationTask(Task):
         :type disable_ipv6: bool
         :param overwrite: overwrite config files if they already exist
         :type overwrite: bool
-        :param onboot_yes_ifaces: set ONBOOT yes to these ifaces
+        :param onboot_yes_uuids: set ONBOOT yes to ifcfg files specified by uuids
         :type onboot_yes_ifaces: list(str)
         :param network_ifaces: list of network interfaces for dhcp configuration
         :type network_ifaces: list(str)
@@ -60,7 +60,7 @@ class NetworkInstallationTask(Task):
         self._hostname = hostname
         self._disable_ipv6 = disable_ipv6
         self._overwrite = overwrite
-        self._onboot_yes_ifaces = onboot_yes_ifaces
+        self._onboot_yes_uuids = onboot_yes_uuids
         self._network_ifaces = network_ifaces
 
     @property
@@ -75,7 +75,7 @@ class NetworkInstallationTask(Task):
         self._copy_device_config_files(self._sysroot)
         self._copy_dhclient_config_files(self._sysroot, self._network_ifaces)
         self._copy_resolv_conf(self._sysroot, self._overwrite)
-        self._set_onboot_to_yes(self._sysroot, self._onboot_yes_ifaces)
+        self._set_onboot_to_yes(self._sysroot, self._onboot_yes_uuids)
 
     def _write_hostname(self, root, hostname, overwrite):
         """Write static hostname to the target system configuration file.
@@ -155,6 +155,6 @@ class NetworkInstallationTask(Task):
             dhclient_file = self.DHCLIENT_FILE_TEMPLATE.format(device_name)
             self._copy_file_to_root(root, dhclient_file)
 
-    def _set_onboot_to_yes(self, root, ifaces):
-        for device_name in ifaces:
-            update_onboot_value(device_name, True, root)
+    def _set_onboot_to_yes(self, root, connection_uuids):
+        for uuid in connection_uuids:
+            update_onboot_value(uuid, True, root)
