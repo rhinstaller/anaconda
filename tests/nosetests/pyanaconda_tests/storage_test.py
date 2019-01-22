@@ -5,7 +5,9 @@ from unittest.mock import patch
 from blivet import util
 from blivet.size import Size
 
-from pyanaconda.storage.osinstall import InstallerStorage, storage_initialize
+from pyanaconda.storage.osinstall import InstallerStorage
+from pyanaconda.storage.initialization import initialize_storage
+
 try:
     from pyanaconda import kickstart
     pyanaconda_present = True
@@ -36,12 +38,12 @@ class setupDiskImagesNonZeroSizeTestCase(unittest.TestCase):
 
         # no kickstart available
         ksdata = kickstart.AnacondaKSHandler([])
-        # anaconda calls storage_initialize regardless of whether or not
+        # anaconda calls initialize_storage regardless of whether or not
         # this is an image install. Somewhere along the line this will
         # execute setup_disk_images() once more and the DMLinearDevice created
         # in this second execution has size 0
         with patch('blivet.flags'):
-            storage_initialize(self.storage, ksdata, [])
+            initialize_storage(self.storage, ksdata, [])
 
     def tearDown(self):
         self.storage.reset()
