@@ -15,6 +15,10 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import gi
+gi.require_version("BlockDev", "2.0")
+from gi.repository import BlockDev as blockdev
+
 from blivet import util as blivet_util, udev
 from blivet.errors import StorageError, UnknownSourceDeviceError
 from blivet.flags import flags as blivet_flags
@@ -23,11 +27,13 @@ from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.platform import platform as _platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.storage.partitioning import get_default_partitioning
+
 log = get_module_logger(__name__)
 
 
@@ -50,6 +56,70 @@ def enable_installer_mode():
     blivet_flags.discard_new = True
 
     udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
+
+
+def create_storage(ksdata):
+    """Create the storage object.
+
+    :return: an instance of the Blivet's storage object
+    """
+    from pyanaconda.storage.osinstall import InstallerStorage
+    import blivet.arch
+
+    storage = InstallerStorage(ksdata=ksdata)
+    _set_storage_defaults(storage)
+
+    if blivet.arch.is_s390():
+        _load_plugin_s390()
+
+    return storage
+
+
+def _set_storage_defaults(storage):
+    """Set the storage default values."""
+    fstype = None
+    boot_fstype = None
+
+    # Get the default fstype from a kickstart file.
+    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+
+    if auto_part_proxy.Enabled and auto_part_proxy.FilesystemType:
+        fstype = auto_part_proxy.FilesystemType
+        boot_fstype = fstype
+    # Or from the configuration.
+    elif conf.storage.file_system_type:
+        fstype = conf.storage.file_system_type
+        boot_fstype = None
+
+    # Set the default fstype.
+    if fstype:
+        storage.set_default_fstype(fstype)
+
+    # Set the default boot fstype.
+    if boot_fstype:
+        storage.set_default_boot_fstype(boot_fstype)
+
+    # Set the default LUKS version.
+    luks_version = conf.storage.luks_version
+
+    if luks_version:
+        storage.set_default_luks_version(luks_version)
+
+    # Set the default partitioning.
+    storage.set_default_partitioning(get_default_partitioning())
+
+
+def _load_plugin_s390():
+    """Load the s390x plugin."""
+    # Is the plugin loaded? We are done then.
+    if "s390" in blockdev.get_available_plugin_names():
+        return
+
+    # Otherwise, load the plugin.
+    plugin = blockdev.PluginSpec()
+    plugin.name = blockdev.Plugin.S390
+    plugin.so_name = None
+    blockdev.reinit([plugin], reload=False)
 
 
 def update_blivet_flags():
