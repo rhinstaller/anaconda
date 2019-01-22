@@ -23,12 +23,7 @@
 import os
 import parted
 
-import gi
-gi.require_version("BlockDev", "2.0")
-
-from gi.repository import BlockDev as blockdev
-
-from pykickstart.constants import AUTOPART_TYPE_LVM, NVDIMM_ACTION_USE, NVDIMM_ACTION_RECONFIGURE
+from pykickstart.constants import AUTOPART_TYPE_LVM
 
 from blivet import arch, udev
 from blivet.blivet import Blivet
@@ -36,7 +31,6 @@ from blivet.storage_log import log_exception_info
 from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.iscsi import iscsi
-from blivet.static_data import nvdimm
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
@@ -50,6 +44,7 @@ from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.storage.root import find_existing_installations
+from pyanaconda.storage.utils import get_ignored_nvdimm_blockdevs
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     ZFCP, FCOE
@@ -903,47 +898,3 @@ class InstallerStorage(Blivet):
         """
 
         self.fsset.set_fstab_swaps(devices)
-
-
-def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
-    """Return names of nvdimm devices to be ignored.
-
-    By default nvdimm devices are ignored. To become available for installation,
-    the device(s) must be specified by nvdimm kickstart command.
-    Also, only devices in sector mode are allowed.
-
-    :param nvdimm_ksdata: nvdimm kickstart data
-    :type nvdimm_ksdata: Nvdimm kickstart command
-    :returns: names of nvdimm block devices that should be ignored for installation
-    :rtype: set(str)
-    """
-
-    ks_allowed_namespaces = set()
-    ks_allowed_blockdevs = set()
-    if nvdimm_ksdata:
-        # Gather allowed blockdev names and namespaces
-        for action in nvdimm_ksdata.actionList:
-            if action.action == NVDIMM_ACTION_USE:
-                if action.namespace:
-                    ks_allowed_namespaces.add(action.namespace)
-                if action.blockdevs:
-                    ks_allowed_blockdevs.update(action.blockdevs)
-            if action.action == NVDIMM_ACTION_RECONFIGURE:
-                ks_allowed_namespaces.add(action.namespace)
-
-    ignored_blockdevs = set()
-    for ns_name, ns_info in nvdimm.namespaces.items():
-        if ns_info.mode != blockdev.NVDIMMNamespaceMode.SECTOR:
-            log.debug("%s / %s will be ignored - NVDIMM device is not in sector mode",
-                      ns_name, ns_info.blockdev)
-        else:
-            if ns_name in ks_allowed_namespaces or \
-                    ns_info.blockdev in ks_allowed_blockdevs:
-                continue
-            else:
-                log.debug("%s / %s will be ignored - NVDIMM device has not been configured to be used",
-                          ns_name, ns_info.blockdev)
-        if ns_info.blockdev:
-            ignored_blockdevs.add(ns_info.blockdev)
-
-    return ignored_blockdevs
