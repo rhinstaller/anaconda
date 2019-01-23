@@ -538,10 +538,6 @@ def getArgumentParser(version_string, boot_cmdline=None):
     ap.add_argument("--geoloc-use-with-ks", action="store_true", default=False,
                     help=help_parser.help_text("geoloc-use-with-ks"))
 
-    # legacy stuff
-    ap.add_argument("--legacygrub", dest="legacygrub", action="store_true",
-                    default=False, help=help_parser.help_text("legacygrub"))
-
     # Kickstart and log saving
     # - use a custom action to convert the values of the nosave option into appropriate flags
     class ParseNosave(Action):
