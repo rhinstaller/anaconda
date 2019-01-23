@@ -2543,9 +2543,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._storage_playground.create_free_space_snapshot()
             # do_autoparts needs stage1_disk setup so it will reuse existing partitions
             self._storage_playground.set_up_bootloader(early=True)
-
-            do_autopart(self._storage_playground, self.data,
-                            min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
+            do_autopart(self._storage_playground, min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
         except NoDisksError as e:
             # No handling should be required for this.
             log.error("do_autopart failed: %s", e)

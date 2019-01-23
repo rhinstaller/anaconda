@@ -474,13 +474,11 @@ def do_reqpart(storage, requests):
     _schedule_partitions(storage, disks, [], requests=requests)
 
 
-def do_autopart(storage, data, min_luks_entropy=None):
+def do_autopart(storage, min_luks_entropy=None):
     """ Perform automatic partitioning.
 
         :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
         :type storage: :class:`pyanaconda.storage.InstallerStorage`
-        :param data: kickstart data
-        :type data: :class:`pykickstart.BaseHandler`
         :param min_luks_entropy: minimum entropy in bits required for
                                  luks format creation; uses default when None
         :type min_luks_entropy: int
@@ -499,7 +497,6 @@ def do_autopart(storage, data, min_luks_entropy=None):
     # Update the autopart requests.
     _refresh_auto_swap_size(storage)
 
-    # pylint: disable=unused-argument
     log.debug("do_autopart: %s", storage.do_autopart)
     log.debug("encrypted_autopart: %s", storage.encrypted_autopart)
     log.debug("autopart_type: %s", storage.autopart_type)

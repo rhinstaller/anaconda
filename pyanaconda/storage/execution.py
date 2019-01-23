@@ -159,7 +159,7 @@ class AutomaticPartitioningExecutor(object):
         if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
             storage.autopart_type = auto_part_proxy.Type
 
-        autopart.do_autopart(storage, data, min_luks_entropy=MIN_CREATE_ENTROPY)
+        autopart.do_autopart(storage, min_luks_entropy=MIN_CREATE_ENTROPY)
         report = storage_checker.check(storage)
         report.log(log)
 
