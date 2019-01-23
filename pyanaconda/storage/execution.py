@@ -35,7 +35,7 @@ from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE,
     MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
-from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate, getAvailableDiskSpace, \
+from pyanaconda.kickstart import refreshAutoSwapSize, getAvailableDiskSpace, \
     lookupAlias
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
@@ -45,7 +45,6 @@ from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.utils import get_pbkdf_args
-
 
 log = get_module_logger(__name__)
 
@@ -143,10 +142,7 @@ class AutomaticPartitioningExecutor(object):
             storage.encryption_passphrase = auto_part_proxy.Passphrase
             storage.encryption_cipher = auto_part_proxy.Cipher
             storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
-            storage.autopart_escrow_cert = getEscrowCertificate(
-                storage.escrow_certificates,
-                auto_part_proxy.Escrowcert
-            )
+            storage.autopart_escrow_cert = storage.get_escrow_certificate(auto_part_proxy.Escrowcert)
 
             luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
 
@@ -599,7 +595,7 @@ class CustomPartitioningExecutor(object):
             # before this one to setup the storage.encryption_passphrase
             partition_data.passphrase = partition_data.passphrase or storage.encryption_passphrase
 
-            cert = getEscrowCertificate(storage.escrow_certificates, partition_data.escrowcert)
+            cert = storage.get_escrow_certificate(partition_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
             partition_data.luks_version = partition_data.luks_version \
@@ -850,7 +846,7 @@ class CustomPartitioningExecutor(object):
             if raid_data.passphrase and not storage.encryption_passphrase:
                 storage.encryption_passphrase = raid_data.passphrase
 
-            cert = getEscrowCertificate(storage.escrow_certificates, raid_data.escrowcert)
+            cert = storage.get_escrow_certificate(raid_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
             raid_data.luks_version = raid_data.luks_version or storage.default_luks_version
@@ -1312,7 +1308,7 @@ class CustomPartitioningExecutor(object):
             # before this one to setup the storage.encryption_passphrase
             logvol_data.passphrase = logvol_data.passphrase or storage.encryption_passphrase
 
-            cert = getEscrowCertificate(storage.escrow_certificates, logvol_data.escrowcert)
+            cert = storage.get_escrow_certificate(logvol_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
             logvol_data.luks_version = logvol_data.luks_version or storage.default_luks_version

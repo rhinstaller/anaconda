@@ -23,7 +23,6 @@ import os
 import os.path
 from abc import ABCMeta, abstractmethod
 
-import requests
 import shlex
 import sys
 import tempfile
@@ -102,7 +101,6 @@ network_log = log.getChild("kickstart.network")
 selinux_log = log.getChild("kickstart.selinux")
 timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
-escrow_log = log.getChild("kickstart.escrow")
 firewall_log = log.getChild("kickstart.firewall")
 
 @contextmanager
@@ -185,38 +183,6 @@ class AnacondaInternalScript(AnacondaKSScript):
         # log files, setfilecons, etc.) should not be written to the output
         # kickstart file.
         return ""
-
-def getEscrowCertificate(escrowCerts, url):
-    if not url:
-        return None
-
-    if url in escrowCerts:
-        return escrowCerts[url]
-
-    needs_net = not url.startswith("/") and not url.startswith("file:")
-    if needs_net:
-        network_proxy = NETWORK.get_proxy()
-        if not network_proxy.Connected:
-            msg = _("Escrow certificate %s requires the network.") % url
-            raise KickstartError(msg)
-
-    escrow_log.info("escrow: downloading %s", url)
-
-    try:
-        request = util.requests_session().get(url, verify=True)
-    except requests.exceptions.SSLError as e:
-        msg = _("SSL error while downloading the escrow certificate:\n\n%s") % e
-        raise KickstartError(msg)
-    except requests.exceptions.RequestException as e:
-        msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s") % e
-        raise KickstartError(msg)
-
-    try:
-        escrowCerts[url] = request.content
-    finally:
-        request.close()
-
-    return escrowCerts[url]
 
 def lookupAlias(devicetree, alias):
     for dev in devicetree.devices:

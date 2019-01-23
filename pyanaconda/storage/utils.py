@@ -20,6 +20,7 @@
 import re
 import locale
 import os
+import requests
 
 import gi
 gi.require_version("BlockDev", "2.0")
@@ -39,9 +40,12 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import is_supported_device_type
+from pykickstart.errors import KickstartError
 
-from pyanaconda.core.i18n import N_
+from pyanaconda.core import util
+from pyanaconda.core.i18n import N_, _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.modules.common.constants.services import NETWORK
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -49,7 +53,6 @@ from pykickstart.constants import NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE, 
     NVDIMM_MODE_SECTOR
 
 from pyanaconda.anaconda_loggers import get_module_logger
-
 log = get_module_logger(__name__)
 
 # TODO: all those constants and mappings should go to blivet
@@ -482,3 +485,35 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
             ignored_blockdevs.add(ns_info.blockdev)
 
     return ignored_blockdevs
+
+
+def download_escrow_certificate(url):
+    """Download the escrow certificate.
+
+    :param url: an URL of the certificate
+    :return: a content of the certificate
+    """
+    # Do we need a network connection?
+    if not url.startswith("/") and not url.startswith("file:"):
+        network_proxy = NETWORK.get_proxy()
+
+        if not network_proxy.Connected:
+            raise KickstartError(_("Escrow certificate %s requires the network.") % url)
+
+    # Download the certificate.
+    log.info("Downloading an escrow certificate from: %s", url)
+
+    try:
+        request = util.requests_session().get(url, verify=True)
+    except requests.exceptions.SSLError as e:
+        raise KickstartError(_("SSL error while downloading the escrow certificate:\n\n%s") % e)
+    except requests.exceptions.RequestException as e:
+        raise KickstartError(_("The following error was encountered while downloading the "
+                               "escrow certificate:\n\n%s") % e)
+
+    try:
+        certificate = request.content
+    finally:
+        request.close()
+
+    return certificate

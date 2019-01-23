@@ -43,6 +43,7 @@ from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
+from pyanaconda.storage.utils import download_escrow_certificate
 from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.storage.utils import get_ignored_nvdimm_blockdevs
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
@@ -93,7 +94,7 @@ class InstallerStorage(Blivet):
         self.do_autopart = False
         self.encrypted_autopart = False
         self.encryption_cipher = None
-        self.escrow_certificates = {}
+        self._escrow_certificates = {}
 
         self.autopart_escrow_cert = None
         self.autopart_add_backup_passphrase = False
@@ -348,6 +349,23 @@ class InstallerStorage(Blivet):
             fstype = self.default_boot_fstype
 
         return fstype
+
+    def get_escrow_certificate(self, url):
+        """Get the escrow certificate.
+
+        :param url: an URL of the certificate
+        :return: a content of the certificate
+        """
+        if not url:
+            return None
+
+        certificate = self._escrow_certificates.get(url, None)
+
+        if not certificate:
+            certificate = download_escrow_certificate(url)
+            self._escrow_certificates[url] = certificate
+
+        return certificate
 
     @property
     def mountpoints(self):
