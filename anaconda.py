@@ -704,8 +704,7 @@ if __name__ == "__main__":
         threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT,
                                      target=time_initialize,
                                      args=(timezone_proxy,
-                                           anaconda.storage,
-                                           anaconda.bootloader)))
+                                           anaconda.storage)))
 
     if flags.rescue_mode:
         rescue.start_rescue_mode_ui(anaconda)

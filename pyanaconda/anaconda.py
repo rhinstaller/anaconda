@@ -25,7 +25,6 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda import addons
-from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
@@ -46,7 +45,6 @@ class Anaconda(object):
     def __init__(self):
         from pyanaconda import desktop
 
-        self._bootloader = None
         self.desktop = desktop.Desktop()
         self.dir = None
         self._display_mode = None
@@ -99,13 +97,6 @@ class Anaconda(object):
             self._dbus_launcher = AnacondaDBusLauncher()
 
         return self._dbus_launcher
-
-    @property
-    def bootloader(self):
-        if not self._bootloader:
-            self._bootloader = get_bootloader()
-
-        return self._bootloader
 
     def _getInterface(self):
         return self._intf
