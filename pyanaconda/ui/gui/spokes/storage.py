@@ -59,7 +59,7 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.core.timer import Timer
 
-from pyanaconda.kickstart import refreshAutoSwapSize, resetCustomStorageData
+from pyanaconda.kickstart import resetCustomStorageData
 from pyanaconda.storage.execution import do_kickstart_storage
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
@@ -1193,8 +1193,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 self._back_clicked = False
                 return
 
-        if self.autopart:
-            refreshAutoSwapSize(self.storage)
         self.applyOnSkip = True
         NormalSpoke.on_back_clicked(self, button)
 

@@ -36,6 +36,7 @@ from blivet.static_data import luks_data
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
 from pyanaconda.core.i18n import _
+from pyanaconda.storage.utils import get_available_disk_space
 
 import logging
 log = logging.getLogger("anaconda.autopart")
@@ -104,6 +105,21 @@ def swap_suggestion(quiet=False, hibernation=False, disk_space=None):
         log.info("Swap attempt of %s", swap)
 
     return swap
+
+
+def _refresh_auto_swap_size(storage):
+    """Refresh size of the auto partitioning request for swap device.
+
+    Refresh size of the auto partitioning request for swap device according to
+    the current state of the storage configuration.
+
+    :param storage: blivet.Blivet instance
+    """
+    for request in storage.autopart_requests:
+        if request.fstype == "swap":
+            disk_space = get_available_disk_space(storage)
+            request.size = swap_suggestion(disk_space=disk_space)
+            break
 
 
 def _get_candidate_disks(storage):
@@ -480,6 +496,9 @@ def do_autopart(storage, data, min_luks_entropy=None):
             Clearing of partitions is handled separately, in
             :meth:`pyanaconda.storage.InstallerStorage.clear_partitions`.
     """
+    # Update the autopart requests.
+    _refresh_auto_swap_size(storage)
+
     # pylint: disable=unused-argument
     log.debug("do_autopart: %s", storage.do_autopart)
     log.debug("encrypted_autopart: %s", storage.encrypted_autopart)

@@ -47,7 +47,6 @@ from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
     AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.platform import platform
 
 from blivet import devicefactory
@@ -2545,7 +2544,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             # do_autoparts needs stage1_disk setup so it will reuse existing partitions
             self._storage_playground.set_up_bootloader(early=True)
 
-            refreshAutoSwapSize(self._storage_playground)
             do_autopart(self._storage_playground, self.data,
                             min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
         except NoDisksError as e:

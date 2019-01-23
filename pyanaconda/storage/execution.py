@@ -35,7 +35,6 @@ from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE,
     MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
-from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -134,8 +133,6 @@ class AutomaticPartitioningExecutor(object):
 
         # Sets up default auto partitioning. Use clearpart separately if you want it.
         # The filesystem type is already set in the storage.
-        refreshAutoSwapSize(storage)
-
         if auto_part_proxy.Encrypted:
             storage.encrypted_autopart = True
             storage.encryption_passphrase = auto_part_proxy.Passphrase

@@ -58,9 +58,7 @@ from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.storage import autopart
-from pyanaconda.storage.utils import device_matches, try_populate_devicetree, \
-    get_available_disk_space
+from pyanaconda.storage.utils import device_matches, try_populate_devicetree
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
@@ -185,21 +183,6 @@ class AnacondaInternalScript(AnacondaKSScript):
         # kickstart file.
         return ""
 
-
-def refreshAutoSwapSize(storage):
-    """
-    Refresh size of the auto partitioning request for swap device according to
-    the current state of the storage configuration.
-
-    :param storage: blivet.Blivet instance
-
-    """
-
-    for request in storage.autopart_requests:
-        if request.fstype == "swap":
-            disk_space = get_available_disk_space(storage)
-            request.size = autopart.swap_suggestion(disk_space=disk_space)
-            break
 
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
