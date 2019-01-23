@@ -23,10 +23,12 @@ import os
 # TODO move to anaconda.core
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.core import util
-from pyanaconda.modules.network import nm_client
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, prefix2netmask
+from pyanaconda.modules.network.nm_client import get_iface_from_hwaddr, get_iface_from_connection, \
+    get_team_port_config_from_connection, get_team_config_form_connection
+
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -84,7 +86,7 @@ class IfcfgFile(SimpleConfigFile):
             return
         SimpleConfigFile.unset(self, *args)
 
-    def get_kickstart_data(self, network_data_class):
+    def get_kickstart_data(self, nm_client, network_data_class):
 
         if not self._loaded:
             self.read()
@@ -172,14 +174,14 @@ class IfcfgFile(SimpleConfigFile):
         if not iface:
             hwaddr = self.get("HWADDR")
             if hwaddr:
-                iface = nm_client.get_iface_from_hwaddr(hwaddr)
+                iface = get_iface_from_hwaddr(nm_client, hwaddr)
         if iface:
             kwargs["device"] = iface
 
         # bonding
         # FIXME: dracut has only BOND_OPTS
         if self.get("BONDING_MASTER") == "yes" or self.get("TYPE") == "Bond":
-            slaves = get_slaves_from_ifcfgs("MASTER", [self.get("DEVICE"), self.get("UUID")])
+            slaves = get_slaves_from_ifcfgs(nm_client, "MASTER", [self.get("DEVICE"), self.get("UUID")])
             if slaves:
                 kwargs["bondslaves"] = ",".join(iface for iface, uuid in slaves)
             bondopts = self.get("BONDING_OPTS")
@@ -193,7 +195,7 @@ class IfcfgFile(SimpleConfigFile):
         if self.get("VLAN") == "yes" or self.get("TYPE") == "Vlan":
             physdev = self.get("PHYSDEV")
             if len(physdev) == NM_CONNECTION_UUID_LENGTH:
-                physdev = nm_client.get_iface_from_connection(physdev)
+                physdev = get_iface_from_connection(nm_client, physdev)
             kwargs["device"] = physdev
             kwargs["vlanid"] = self.get("VLAN_ID")
             interface_name = self.get("DEVICE")
@@ -202,7 +204,7 @@ class IfcfgFile(SimpleConfigFile):
 
         # bridging
         if self.get("TYPE") == "Bridge":
-            slaves = get_slaves_from_ifcfgs("BRIDGE", [self.get("DEVICE"), self.get("UUID")])
+            slaves = get_slaves_from_ifcfgs(nm_client, "BRIDGE", [self.get("DEVICE"), self.get("UUID")])
             if slaves:
                 kwargs["bridgeslaves"] = ",".join(iface for iface, uuid in slaves)
 
@@ -218,11 +220,11 @@ class IfcfgFile(SimpleConfigFile):
 
         # teaming
         if self.get("TYPE") == "Team" or self.get("DEVICETYPE") == "Team":
-            slaves = get_slaves_from_ifcfgs("TEAM_MASTER", [self.get("DEVICE"), self.get("UUID")])
+            slaves = get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [self.get("DEVICE"), self.get("UUID")])
             for iface, uuid in slaves:
-                team_port_cfg = nm_client.get_team_port_config_from_connection(uuid)
+                team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
                 nd.teamslaves.append((iface, team_port_cfg))
-            teamconfig = nm_client.get_team_config_form_connection(self.get("UUID"))
+            teamconfig = get_team_config_form_connection(nm_client, self.get("UUID"))
             if teamconfig:
                 nd.teamconfig = teamconfig
         return nd
@@ -259,15 +261,15 @@ def get_ifcfg_file(values, root_path=""):
     return None
 
 
-def find_ifcfg_uuid_of_device(device_name, hwaddr=None, root_path=""):
+def find_ifcfg_uuid_of_device(nm_client, device_name, hwaddr=None, root_path=""):
     uuid = None
-    ifcfg = get_ifcfg_file_of_device(device_name, hwaddr, root_path)
+    ifcfg = get_ifcfg_file_of_device(nm_client, device_name, hwaddr, root_path)
     if ifcfg:
         uuid = ifcfg.uuid
     return uuid
 
 
-def get_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
+def get_ifcfg_file_of_device(nm_client, device_name, device_hwaddr=None, root_path=""):
     # hwaddr is supplementary (--bindto=mac)
     ifcfgs = []
     for file_path in _ifcfg_files(os.path.normpath(root_path + IFCFG_DIR)):
@@ -288,7 +290,7 @@ def get_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
             else:
                 physdev = ifcfg.get("PHYSDEV")
                 if len(physdev) == NM_CONNECTION_UUID_LENGTH:
-                    physdev = nm_client.get_iface_from_connection(physdev)
+                    physdev = get_iface_from_connection(nm_client, physdev)
                 vlanid = ifcfg.get("VLAN_ID")
                 generated_dev_name = default_ks_vlan_interface_name(physdev, vlanid)
                 if device_name == generated_dev_name:
@@ -308,7 +310,7 @@ def get_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
                     if device_hwaddr.upper() == hwaddr.upper():
                         ifcfgs.append(ifcfg)
                 else:
-                    iface = nm_client.get_iface_from_hwaddr(hwaddr)
+                    iface = get_iface_from_hwaddr(nm_client, hwaddr)
                     if iface == device_name:
                         ifcfgs.append(ifcfg)
             elif is_s390():
@@ -326,7 +328,7 @@ def get_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
         log.debug("Ifcfg file for %s not found", device_name)
 
 
-def get_slaves_from_ifcfgs(master_option, master_specs, root_path=""):
+def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path=""):
     """List of slaves of master specified by master_specs in master_option.
 
        master_option is ifcfg option containing spec of master
@@ -343,20 +345,20 @@ def get_slaves_from_ifcfgs(master_option, master_specs, root_path=""):
             iface = ifcfg.get("DEVICE")
             if not iface:
                 hwaddr = ifcfg.get("HWADDR")
-                iface = nm_client.get_iface_from_hwaddr(hwaddr)
+                iface = nm_client.get_iface_from_hwaddr(nm_client, hwaddr)
             if iface:
                 slaves.append((iface, ifcfg.get("UUID")))
     return slaves
 
 
-def get_kickstart_network_data(connection_uuid, network_data_class):
+def get_kickstart_network_data(nm_client, connection_uuid, network_data_class):
     """Get kickstart data corresponding to connection_uuid.
 
     Ifcfg file is used to get the data.
     """
     ifcfg = get_ifcfg_file([("UUID", connection_uuid)])
     if ifcfg:
-        return ifcfg.get_kickstart_data(network_data_class)
+        return ifcfg.get_kickstart_data(nm_client, network_data_class)
 
 
 def update_onboot_value(connection_uuid, onboot, root_path=""):
@@ -387,7 +389,7 @@ def update_onboot_value(connection_uuid, onboot, root_path=""):
     return True
 
 
-def update_slaves_onboot_value(master_devname, onboot, root_path="", uuid=None):
+def update_slaves_onboot_value(nm_client, master_devname, onboot, root_path="", uuid=None):
     """Update onboot value in slave ifcfg files of given master.
 
     Master can be identified by device name or uuid. If uuid is not provided
@@ -408,7 +410,7 @@ def update_slaves_onboot_value(master_devname, onboot, root_path="", uuid=None):
     updated_devices = []
     # Master can be identified by devname or uuid, try to find master uuid
     if not uuid:
-        uuid = find_ifcfg_uuid_of_device(master_devname, root_path=root_path)
+        uuid = find_ifcfg_uuid_of_device(nm_client, master_devname, root_path=root_path)
     for ifcfg_path in _ifcfg_files(os.path.normpath(root_path + IFCFG_DIR)):
         ifcfg = IfcfgFile(ifcfg_path)
         ifcfg.read()
@@ -424,7 +426,7 @@ def update_slaves_onboot_value(master_devname, onboot, root_path="", uuid=None):
     return updated_devices
 
 
-def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
+def get_dracut_arguments_from_ifcfg(nm_client, iface, target_ip, hostname):
     """Get dracut arguments for the iface and iSCSI target.
 
     The dracut arguments would activate the iface in initramfs so that the
@@ -438,7 +440,7 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
     :type hostname: str
     """
     netargs = set()
-    ifcfg = get_ifcfg_file_of_device(iface)
+    ifcfg = get_ifcfg_file_of_device(nm_client, iface)
     if not ifcfg:
         log.error("get dracut arguments from ifcfg for %s: no ifcfg file found", iface)
         return list(netargs)
@@ -488,7 +490,7 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
             netargs.add("ifname=%s:%s" % (iface, hwaddr.lower()))
 
         if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
-            slaves = get_slaves_from_ifcfgs("TEAM_MASTER", [iface, ifcfg.get("UUID")])
+            slaves = get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [iface, ifcfg.get("UUID")])
             netargs.add("team=%s:%s" % (iface,
                                         ",".join(s_iface for s_iface, _uuid in slaves)))
 
@@ -502,7 +504,7 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
                     # On s390 with net.ifnames=0 there is no DEVICE
                     physdev = ifcfg.get("DEVICE") or ifcfg.get("NAME")
             else:
-                ifcfg = get_ifcfg_file_of_device(physdev_spec)
+                ifcfg = get_ifcfg_file_of_device(nm_client, physdev_spec)
                 if ifcfg:
                     physdev = physdev_spec
             if physdev:

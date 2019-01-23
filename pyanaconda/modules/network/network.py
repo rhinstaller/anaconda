@@ -31,7 +31,7 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
     supported_wired_device_types
-from pyanaconda.modules.network.nm_client import nm_client, get_device_name_from_network_data, \
+from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device, \
     update_iface_setting_values, bound_hwaddr_of_device, devices_ignore_ipv6
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, update_onboot_value, \
@@ -72,6 +72,7 @@ class NetworkModule(KickstartModule):
         self.nm_client = None
         # TODO fallback solution - use Gio/GNetworkMonitor ?
         if SystemBus.check_connection():
+            nm_client = NM.Client.new(None)
             if nm_client.get_nm_running():
                 self.nm_client = nm_client
                 self.nm_client.connect("notify::%s" % NM.CLIENT_STATE, self._nm_state_changed)
@@ -252,13 +253,13 @@ class NetworkModule(KickstartModule):
         :return: a DBus path of an installation task
         """
 
-        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(supported_wired_device_types)
+        disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
         network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
         onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
         self._onboot_yes_ifaces = all_onboot_ifaces
-        onboot_yes_uuids = [find_ifcfg_uuid_of_device(iface) or "" for iface in all_onboot_ifaces]
+        onboot_yes_uuids = [find_ifcfg_uuid_of_device(self.nm_client, iface) or "" for iface in all_onboot_ifaces]
 
         log.debug("Setting ONBOOT to yes for %s (fcoe) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
@@ -308,7 +309,8 @@ class NetworkModule(KickstartModule):
             return
         for nd in network_data:
             supported_devices = self.get_supported_devices()
-            device_name = get_device_name_from_network_data(nd, supported_devices, self._bootif)
+            device_name = get_device_name_from_network_data(self.nm_client,
+                                                            nd, supported_devices, self._bootif)
             if device_name in ifaces:
                 log.debug("Updating network data onboot value: %s -> %s", nd.onboot, True)
                 nd.onboot = True
@@ -360,7 +362,7 @@ class NetworkModule(KickstartModule):
                           number_of_connections, iface)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(iface)
+            ifcfg_file = get_ifcfg_file_of_device(self.nm_client, iface)
             if not ifcfg_file:
                 log.error("consolidate %d initramfs connections for %s: no ifcfg file",
                           number_of_connections, iface)
@@ -374,7 +376,7 @@ class NetworkModule(KickstartModule):
             log.debug("consolidate %d initramfs connections for %s: ensure active ifcfg connection",
                       number_of_connections, iface)
 
-            ensure_active_connection_for_device(ifcfg_file.uuid, iface, only_replace=True)
+            ensure_active_connection_for_device(self.nm_client, ifcfg_file.uuid, iface, only_replace=True)
 
             consolidated_devices.append(iface)
 
@@ -438,17 +440,18 @@ class NetworkModule(KickstartModule):
                 continue
 
             supported_devices = self.get_supported_devices()
-            device_name = get_device_name_from_network_data(network_data,
+            device_name = get_device_name_from_network_data(self.nm_client,
+                                                            network_data,
                                                             supported_devices,
                                                             self._bootif)
             if not device_name:
                 log.warning("apply kickstart: --device %s not found", network_data.device)
                 continue
 
-            ifcfg_file = get_ifcfg_file_of_device(device_name)
+            ifcfg_file = get_ifcfg_file_of_device(self.nm_client, device_name)
             if ifcfg_file and ifcfg_file.is_from_kickstart:
                 if network_data.activate:
-                    if ensure_active_connection_for_device(ifcfg_file.uuid, device_name):
+                    if ensure_active_connection_for_device(self.nm_client, ifcfg_file.uuid, device_name):
                         applied_devices.append(device_name)
                 continue
 
@@ -460,16 +463,16 @@ class NetworkModule(KickstartModule):
                 con_uuid = ifcfg_file.uuid
                 log.debug("pre kickstart - updating settings %s of device %s",
                           con_uuid, device_name)
-                update_connection_from_ksdata(con_uuid, network_data, device_name=device_name)
+                connection = self.nm_client.get_connection_by_uuid(con_uuid)
+                update_connection_from_ksdata(self.nm_client, connection, network_data, device_name=device_name)
                 if network_data.activate:
-                    connection = self.nm_client.get_connection_by_uuid(con_uuid)
                     device = self.nm_client.get_device_by_iface(device_name)
                     self.nm_client.activate_connection_async(connection, device, None, None)
                     log.debug("pre kickstart - activating connection %s with device %s",
                               con_uuid, device_name)
             else:
                 log.debug("pre kickstart - adding connection for %s", device_name)
-                add_connection_from_ksdata(network_data, device_name,
+                add_connection_from_ksdata(self.nm_client, network_data, device_name,
                                            activate=network_data.activate)
 
         return applied_devices
@@ -496,7 +499,8 @@ class NetworkModule(KickstartModule):
 
         for network_data in self._original_network_data:
             supported_devices = self.get_supported_devices()
-            device_name = get_device_name_from_network_data(network_data,
+            device_name = get_device_name_from_network_data(self.nm_client,
+                                                            network_data,
                                                             supported_devices,
                                                             self._bootif)
             if not device_name:
@@ -517,17 +521,17 @@ class NetworkModule(KickstartModule):
                 if network_data.onboot:
                     # We need to handle "no" -> "yes" change by changing ifcfg file instead of the NM connection
                     # so the device does not get autoactivated (BZ #1261864)
-                    uuid = find_ifcfg_uuid_of_device(devname) or ""
+                    uuid = find_ifcfg_uuid_of_device(self.nm_client, devname) or ""
                     if not update_onboot_value(uuid, network_data.onboot, root_path=""):
                         continue
                 else:
-                    n_cons = update_iface_setting_values(devname,
+                    n_cons = update_iface_setting_values(self.nm_client, devname,
                         [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)])
                     if n_cons != 1:
                         log.debug("set ONBOOT: %d connections found for %s", n_cons, devname)
                         if n_cons > 1:
                             # In case of multiple connections for a device, update ifcfg directly
-                            uuid = find_ifcfg_uuid_of_device(devname) or ""
+                            uuid = find_ifcfg_uuid_of_device(self.nm_client, devname) or ""
                             if not update_onboot_value(uuid, network_data.onboot, root_path=""):
                                 continue
 
@@ -545,7 +549,7 @@ class NetworkModule(KickstartModule):
                         uuid = cons[0].get_uuid()
                     else:
                         log.debug("set ONBOOT: %d connections found for %s", n_cons, master)
-                updated_slaves = update_slaves_onboot_value(master, network_data.onboot, uuid=uuid)
+                updated_slaves = update_slaves_onboot_value(self.nm_client, master, network_data.onboot, uuid=uuid)
                 updated_devices.extend(updated_slaves)
 
         return updated_devices
@@ -574,7 +578,7 @@ class NetworkModule(KickstartModule):
                 continue
 
             iface = device.get_iface()
-            if get_ifcfg_file_of_device(iface):
+            if get_ifcfg_file_of_device(self.nm_client, iface):
                 continue
 
             cons = device.get_available_connections()
@@ -585,7 +589,7 @@ class NetworkModule(KickstartModule):
                 data = self.get_kickstart_handler()
                 default_data = data.NetworkData(onboot=False, ipv6="auto")
                 log.debug("dump missing ifcfgs: creating default connection for %s", iface)
-                add_connection_from_ksdata(default_data, iface)
+                add_connection_from_ksdata(self.nm_client, default_data, iface)
             elif n_cons == 1:
                 if device_is_slave:
                     log.debug("dump missing ifcfgs: not creating default connection for slave device %s",
@@ -597,7 +601,7 @@ class NetworkModule(KickstartModule):
                 s_con = con.get_setting_connection()
                 s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
                 s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
-                if not bound_hwaddr_of_device(iface, self.ifname_option_values):
+                if not bound_hwaddr_of_device(self.nm_client, iface, self.ifname_option_values):
                     s_wired = con.get_setting_wired()
                     s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
                 else:
@@ -634,4 +638,4 @@ class NetworkModule(KickstartModule):
             log.error("get dracut argumetns for %s: device not found", iface)
             return dracut_args
 
-        return get_dracut_arguments_from_ifcfg(iface, target_ip, hostname)
+        return get_dracut_arguments_from_ifcfg(self.nm_client, iface, target_ip, hostname)

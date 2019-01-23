@@ -1,5 +1,5 @@
 #
-# NetworkManager libnm client
+# utility functions using libnm
 #
 # Copyright (C) 2018 Red Hat, Inc.
 #
@@ -31,9 +31,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-nm_client = NM.Client.new(None)
-
-def get_iface_from_connection(uuid):
+def get_iface_from_connection(nm_client, uuid):
     """Get the name of device that would be used for the connection.
 
     In installer it should be just one device.
@@ -49,10 +47,10 @@ def get_iface_from_connection(uuid):
         if wired_setting:
             mac = wired_setting.get_mac_address()
             if mac:
-                iface = get_iface_from_hwaddr(mac)
+                iface = get_iface_from_hwaddr(nm_client, mac)
     return iface
 
-def get_iface_from_hwaddr(hwaddr):
+def get_iface_from_hwaddr(nm_client, hwaddr):
     """Find the name of device specified by mac address."""
     for device in nm_client.get_devices():
         if device.get_device_type() in (NM.DeviceType.ETHERNET,
@@ -68,7 +66,7 @@ def get_iface_from_hwaddr(hwaddr):
             return device.get_iface()
     return None
 
-def get_team_port_config_from_connection(uuid):
+def get_team_port_config_from_connection(nm_client, uuid):
     connection = nm_client.get_connection_by_uuid(uuid)
     if not connection:
         return None
@@ -78,7 +76,7 @@ def get_team_port_config_from_connection(uuid):
     config = team_port.get_config()
     return config
 
-def get_team_config_form_connection(uuid):
+def get_team_config_form_connection(nm_client, uuid):
     connection = nm_client.get_connection_by_uuid(uuid)
     if not connection:
         return None
@@ -88,7 +86,7 @@ def get_team_config_form_connection(uuid):
     config = team.get_config()
     return config
 
-def get_device_name_from_network_data(network_data, supported_devices, bootif):
+def get_device_name_from_network_data(nm_client, network_data, supported_devices, bootif):
     """Get the device name from kickstart device specification.
 
     Generally given by --device option. For vlans also --interfacename
@@ -119,11 +117,11 @@ def get_device_name_from_network_data(network_data, supported_devices, bootif):
         msg = "existing device found"
     # Specification by mac address
     elif ':' in spec:
-        device_name = get_iface_from_hwaddr(spec) or ""
+        device_name = get_iface_from_hwaddr(nm_client, spec) or ""
         msg = "existing device found"
     # Specification by BOOTIF boot option
     elif spec == 'bootif':
-        device_name = get_iface_from_hwaddr(bootif) or ""
+        device_name = get_iface_from_hwaddr(nm_client, bootif) or ""
         msg = "existing device for {} found".format(bootif)
     # First device with carrier (sorted lexicographically)
     elif spec == 'link':
@@ -158,7 +156,7 @@ def get_device_name_from_network_data(network_data, supported_devices, bootif):
     return device_name
 
 
-def add_connection_from_ksdata(network_data, device_name, activate=False, ifname_option_values=None):
+def add_connection_from_ksdata(nm_client, network_data, device_name, activate=False, ifname_option_values=None):
     """Add NM connection created from kickstart configuration.
 
     :param network_data: kickstart configuration
@@ -203,7 +201,7 @@ def add_connection_from_ksdata(network_data, device_name, activate=False, ifname
 
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
             slave_con = create_slave_connection('bond', i, slave, device_name)
-            bind_connection(slave_con, network_data.bindto, slave)
+            bind_connection(nm_client, slave_con, network_data.bindto, slave)
             added_connections.append((slave_con, slave))
 
     # type "team"
@@ -222,7 +220,7 @@ def add_connection_from_ksdata(network_data, device_name, activate=False, ifname
             s_team_port.props.config = cfg
             slave_con = create_slave_connection('team', i, slave, device_name,
                                                 settings=[s_team_port])
-            bind_connection(slave_con, network_data.bindto, slave)
+            bind_connection(nm_client, slave_con, network_data.bindto, slave)
             added_connections.append((slave_con, slave))
 
     # type "vlan"
@@ -266,11 +264,11 @@ def add_connection_from_ksdata(network_data, device_name, activate=False, ifname
 
         for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
             slave_con = create_slave_connection('bridge', i, slave, device_name)
-            bind_connection(slave_con, network_data.bindto, slave)
+            bind_connection(nm_client, slave_con, network_data.bindto, slave)
             added_connections.append((slave_con, slave))
 
     # type "infiniband"
-    elif is_infiniband_device(device_name):
+    elif is_infiniband_device(nm_client, device_name):
         s_con.props.type = "infiniband"
         s_con.props.id = device_name
         s_con.props.interface_name = device_name
@@ -288,7 +286,7 @@ def add_connection_from_ksdata(network_data, device_name, activate=False, ifname
         s_wired = NM.SettingWired.new()
         con.add_setting(s_wired)
 
-        bound_mac = bound_hwaddr_of_device(device_name, ifname_option_values)
+        bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
         if bound_mac:
             s_con.props.interface_name = device_name
             s_wired.props.mac_address = bound_mac
@@ -297,7 +295,7 @@ def add_connection_from_ksdata(network_data, device_name, activate=False, ifname
             con.add_setting(s_con)
         else:
             con.add_setting(s_con)
-            bind_connection(con, network_data.bindto, device_name)
+            bind_connection(nm_client, con, network_data.bindto, device_name)
 
         # Add s390 settings
         if is_s390():
@@ -387,7 +385,7 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     return con
 
 
-def is_infiniband_device(device_name):
+def is_infiniband_device(nm_client, device_name):
     """Is the type of the device infiniband?"""
     device = nm_client.get_device_by_iface(device_name)
     if device and device.get_device_type() == NM.DeviceType.INFINIBAND:
@@ -395,7 +393,7 @@ def is_infiniband_device(device_name):
     return False
 
 
-def bound_hwaddr_of_device(device_name, ifname_option_values):
+def bound_hwaddr_of_device(nm_client, device_name, ifname_option_values):
     """Check and return mac address of device bound by device renaming.
 
     For example ifname=ens3:f4:ce:46:2c:44:7a should bind the device name ens3
@@ -414,7 +412,7 @@ def bound_hwaddr_of_device(device_name, ifname_option_values):
     for ifname_value in ifname_option_values:
         iface, mac = ifname_value.split(":", 1)
         if iface == device_name:
-            if iface ==  get_iface_from_hwaddr(mac):
+            if iface ==  get_iface_from_hwaddr(nm_client, mac):
                 return mac.upper()
             else:
                 log.warning("MAC address of ifname %s does not correspond to ifname=%s",
@@ -422,19 +420,17 @@ def bound_hwaddr_of_device(device_name, ifname_option_values):
     return None
 
 
-def update_connection_from_ksdata(connection_uuid, network_data, device_name=None):
+def update_connection_from_ksdata(nm_client, connection, network_data, device_name=None):
     """Update NM connection specified by uuid from kickstart configuration.
 
-    :param connection_uuid: uuid of NM connection to be updated
-    :type connection_uuid: str
+    :param connection: existing NetworkManager connection to be updated
+    :type connection: NM.RemoteConnection
     :param network_data: kickstart network configuration
     :type network_data: pykickstart NetworkData
     :param device_name: device name the connection should be bound to eventually
     :type device_name: str
     """
-    connection = nm_client.get_connection_by_uuid(connection_uuid)
-
-    log.debug("updating connection %s:\n%s", connection_uuid,
+    log.debug("updating connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
     # IP configuration
@@ -444,11 +440,11 @@ def update_connection_from_ksdata(connection_uuid, network_data, device_name=Non
     s_con = connection.get_setting_connection()
     s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, False)
 
-    bind_connection(connection, network_data.bindto, device_name)
+    bind_connection(nm_client, connection, network_data.bindto, device_name)
 
     connection.commit_changes(True, None)
 
-    log.debug("updated connection %s:\n%s", connection_uuid,
+    log.debug("updated connection %s:\n%s", connection.get_uuid(),
               connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
 
 
@@ -517,7 +513,7 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
                 log.error("IP address %s is not valid", ns)
 
 
-def bind_connection(connection, bindto, device_name=None, bind_exclusively=True):
+def bind_connection(nm_client, connection, bindto, device_name=None, bind_exclusively=True):
     """Bind the connection to device name or mac address.
 
     :param connection: uuid of the connection
@@ -592,7 +588,7 @@ def bind_connection(connection, bindto, device_name=None, bind_exclusively=True)
                 return False
 
 
-def ensure_active_connection_for_device(uuid, device_name, only_replace=False):
+def ensure_active_connection_for_device(nm_client, uuid, device_name, only_replace=False):
     """Make sure active connection of a device is the one specified by uuid.
 
     :param uuid: uuid of the connection to be applied
@@ -620,7 +616,7 @@ def ensure_active_connection_for_device(uuid, device_name, only_replace=False):
                 device_name, active_uuid, uuid, msg)
     return activated
 
-def update_iface_setting_values(iface, new_values):
+def update_iface_setting_values(nm_client, iface, new_values):
     """Update settings of the connection for the interface.
 
     The values will be applied only if a single applicable connection is found
@@ -652,7 +648,7 @@ def update_iface_setting_values(iface, new_values):
     con.commit_changes(True, None)
     return n_cons
 
-def devices_ignore_ipv6(device_types):
+def devices_ignore_ipv6(nm_client, device_types):
     """All connections of devices of given type ignore ipv6."""
     device_types = device_types or []
     for device in nm_client.get_devices():
@@ -664,7 +660,7 @@ def devices_ignore_ipv6(device_types):
                     return False
     return True
 
-def get_first_iface_with_link(device_types):
+def get_first_iface_with_link(nm_client, device_types):
     for device in nm_client.get_devices():
         if device.get_device_type() in device_types and device.get_carrier():
             return device.get_iface()

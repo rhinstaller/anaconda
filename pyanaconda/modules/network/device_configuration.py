@@ -197,7 +197,7 @@ class DeviceConfigurations(object):
             # reconfiguring it via kickstart without activation.
             log.debug("%s has multiple connections: %s", iface, [c.get_uuid() for c in cons])
             hwaddr = device.get_hw_address()
-            ifcfg_uuid = find_ifcfg_uuid_of_device(iface, hwaddr=hwaddr)
+            ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
 
         for c in cons:
             # Ignore slave connections
@@ -236,7 +236,7 @@ class DeviceConfigurations(object):
                 parent = setting_vlan.get_parent()
                 # if parent is specified by UUID
                 if len(parent) == NM_CONNECTION_UUID_LENGTH:
-                    parent = get_iface_from_connection(parent)
+                    parent = get_iface_from_connection(self.nm_client, parent)
                 if vlanid is not None and parent:
                     iface = default_ks_vlan_interface_name(parent, vlanid)
         return iface
@@ -266,7 +266,7 @@ class DeviceConfigurations(object):
             log.debug("not adding %s: read-only connection", uuid)
             return False
 
-        iface = get_iface_from_connection(uuid)
+        iface = get_iface_from_connection(self.nm_client, uuid)
 
         if is_libvirt_device(iface or ""):
             log.debug("not adding %s: libvirt special device connection", uuid)
@@ -396,7 +396,8 @@ class DeviceConfigurations(object):
         for i, cfg in enumerate(self._device_configurations or []):
             network_data = None
             if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
-                network_data = get_kickstart_network_data(cfg.connection_uuid,
+                network_data = get_kickstart_network_data(self.nm_client,
+                                                          cfg.connection_uuid,
                                                           network_data_class)
             if not network_data:
                 log.debug("Device configuration %s does not generate any kickstart data", cfg)
