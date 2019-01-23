@@ -22,6 +22,7 @@ import copy
 
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
+from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device, get_kickstart_network_data
 from pyanaconda.modules.network.nm_client import get_iface_from_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
@@ -234,7 +235,7 @@ class DeviceConfigurations(object):
                 vlanid = setting_vlan.get_id()
                 parent = setting_vlan.get_parent()
                 # if parent is specified by UUID
-                if len(parent) == 36:
+                if len(parent) == NM_CONNECTION_UUID_LENGTH:
                     parent = get_iface_from_connection(parent)
                 if vlanid is not None and parent:
                     iface = default_ks_vlan_interface_name(parent, vlanid)

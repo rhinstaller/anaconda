@@ -24,6 +24,7 @@ import os
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.core import util
 from pyanaconda.modules.network import nm_client
+from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, prefix2netmask
 
@@ -191,7 +192,7 @@ class IfcfgFile(SimpleConfigFile):
         # vlan
         if self.get("VLAN") == "yes" or self.get("TYPE") == "Vlan":
             physdev = self.get("PHYSDEV")
-            if len(physdev) == 36:
+            if len(physdev) == NM_CONNECTION_UUID_LENGTH:
                 physdev = nm_client.get_iface_from_connection(physdev)
             kwargs["device"] = physdev
             kwargs["vlanid"] = self.get("VLAN_ID")
@@ -286,7 +287,7 @@ def get_ifcfg_file_of_device(device_name, device_hwaddr=None, root_path=""):
                     ifcfgs.append(ifcfg)
             else:
                 physdev = ifcfg.get("PHYSDEV")
-                if len(physdev) == 36:
+                if len(physdev) == NM_CONNECTION_UUID_LENGTH:
                     physdev = nm_client.get_iface_from_connection(physdev)
                 vlanid = ifcfg.get("VLAN_ID")
                 generated_dev_name = default_ks_vlan_interface_name(physdev, vlanid)
@@ -495,7 +496,7 @@ def get_dracut_arguments_from_ifcfg(iface, target_ip, hostname):
             physdev_spec = ifcfg.get("PHYSDEV")
             physdev = None
             # physical device can be specified by connection uuid (eg from nm-c-e)
-            if len(physdev_spec) == 36:
+            if len(physdev_spec) == NM_CONNECTION_UUID_LENGTH:
                 ifcfg = get_ifcfg_file([("UUID", physdev_spec)])
                 if ifcfg:
                     # On s390 with net.ifnames=0 there is no DEVICE
