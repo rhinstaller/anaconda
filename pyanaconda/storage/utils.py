@@ -517,3 +517,17 @@ def download_escrow_certificate(url):
         request.close()
 
     return certificate
+
+
+def lookup_alias(devicetree, alias):
+    """Look up a device of the given alias in the device tree.
+
+    :param devicetree: a device tree to look up devices
+    :param alias: an alias name
+    :return: a device object
+    """
+    for dev in devicetree.devices:
+        if getattr(dev, "req_name", None) == alias:
+            return dev
+
+    return None

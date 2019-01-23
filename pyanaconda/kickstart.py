@@ -184,13 +184,6 @@ class AnacondaInternalScript(AnacondaKSScript):
         # kickstart file.
         return ""
 
-def lookupAlias(devicetree, alias):
-    for dev in devicetree.devices:
-        if getattr(dev, "req_name", None) == alias:
-            return dev
-
-    return None
-
 def getAvailableDiskSpace(storage):
     """
     Get overall disk space available on disks we may use.

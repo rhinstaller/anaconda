@@ -35,8 +35,7 @@ from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE,
     MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
-from pyanaconda.kickstart import refreshAutoSwapSize, getAvailableDiskSpace, \
-    lookupAlias
+from pyanaconda.kickstart import refreshAutoSwapSize, getAvailableDiskSpace
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -44,7 +43,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
-from pyanaconda.storage.utils import get_pbkdf_args
+from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias
 
 log = get_module_logger(__name__)
 
@@ -752,7 +751,7 @@ class CustomPartitioningExecutor(object):
             if not dev:
                 # if member is using --onpart, use original device
                 mem = data.onPart.get(member, member)
-                dev = devicetree.resolve_device(mem) or lookupAlias(devicetree, member)
+                dev = devicetree.resolve_device(mem) or lookup_alias(devicetree, member)
             if dev and dev.format.type == "luks":
                 try:
                     dev = dev.children[0]
@@ -931,7 +930,7 @@ class CustomPartitioningExecutor(object):
             if not dev:
                 # if pv is using --onpart, use original device
                 pv_name = data.onPart.get(pv, pv)
-                dev = devicetree.resolve_device(pv_name) or lookupAlias(devicetree, pv)
+                dev = devicetree.resolve_device(pv_name) or lookup_alias(devicetree, pv)
             if dev and dev.format.type == "luks":
                 try:
                     dev = dev.children[0]
@@ -1102,7 +1101,7 @@ class CustomPartitioningExecutor(object):
 
         # If cache PVs specified, check that they belong to the same VG this LV is a member of
         if logvol_data.cache_pvs:
-            pv_devices = (lookupAlias(devicetree, pv) for pv in logvol_data.cache_pvs)
+            pv_devices = (lookup_alias(devicetree, pv) for pv in logvol_data.cache_pvs)
             if not all(pv in vg.pvs for pv in pv_devices):
                 raise KickstartParseError(
                     _("Cache PVs must belong to the same VG as the cached LV"),
@@ -1271,7 +1270,7 @@ class CustomPartitioningExecutor(object):
                 maxsize = None
 
             if logvol_data.cache_size and logvol_data.cache_pvs:
-                pv_devices = [lookupAlias(devicetree, pv) for pv in logvol_data.cache_pvs]
+                pv_devices = [lookup_alias(devicetree, pv) for pv in logvol_data.cache_pvs]
                 cache_size = Size("%d MiB" % logvol_data.cache_size)
                 cache_mode = logvol_data.cache_mode or None
                 cache_request = LVMCacheRequest(cache_size, pv_devices, cache_mode)
@@ -1394,7 +1393,7 @@ class CustomPartitioningExecutor(object):
             if not dev:
                 # if using --onpart, use original device
                 member_name = data.onPart.get(member, member)
-                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
+                dev = devicetree.resolve_device(member_name) or lookup_alias(devicetree, member)
 
             if dev and dev.format.type == "luks":
                 try:
