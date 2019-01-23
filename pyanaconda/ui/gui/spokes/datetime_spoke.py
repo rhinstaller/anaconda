@@ -508,7 +508,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._radioButton24h.emit("toggled")
 
         if not conf.system.can_set_system_clock:
-            self._set_date_time_setting_sensitive(False)
+            self._hide_date_time_setting()
 
         self._config_dialog = NTPconfigDialog(self.data, self._timezone_module)
         self._config_dialog.initialize()
@@ -1100,6 +1100,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self._amPmRevealer.set_reveal_child(True)
 
         self._hoursLabel.set_text("%0.2d" % new_hours)
+
+    def _hide_date_time_setting(self):
+        #contains all date/time setting widgets
+        footer_alignment = self.builder.get_object("footerAlignment")
+        footer_alignment.set_no_show_all(True)
+        footer_alignment.hide()
 
     def _set_date_time_setting_sensitive(self, sensitive):
         #contains all date/time setting widgets
