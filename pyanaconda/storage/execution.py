@@ -35,7 +35,7 @@ from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE,
     MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
-from pyanaconda.kickstart import refreshAutoSwapSize, getAvailableDiskSpace
+from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -43,7 +43,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
-from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias
+from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias, get_available_disk_space
 
 log = get_module_logger(__name__)
 
@@ -331,7 +331,7 @@ class CustomPartitioningExecutor(object):
             ty = "swap"
             partition_data.mountpoint = ""
             if partition_data.recommended or partition_data.hibernation:
-                disk_space = getAvailableDiskSpace(storage)
+                disk_space = get_available_disk_space(storage)
                 size = autopart.swap_suggestion(
                     hibernation=partition_data.hibernation,
                     disk_space=disk_space
@@ -1054,7 +1054,7 @@ class CustomPartitioningExecutor(object):
             ty = "swap"
             logvol_data.mountpoint = ""
             if logvol_data.recommended or logvol_data.hibernation:
-                disk_space = getAvailableDiskSpace(storage)
+                disk_space = get_available_disk_space(storage)
                 size = autopart.swap_suggestion(
                     hibernation=logvol_data.hibernation,
                     disk_space=disk_space

@@ -531,3 +531,16 @@ def lookup_alias(devicetree, alias):
             return dev
 
     return None
+
+
+def get_available_disk_space(storage):
+    """Get overall disk space available on disks we may use.
+
+    :param storage: blivet.Blivet instance
+    :return: overall disk space available
+    :rtype: :class:`blivet.size.Size`
+    """
+    free_space = storage.free_space_snapshot
+    # Blivet creates a new free space dict to instead of modifying the old one,
+    # so there is no worry about the dictionary changing during iteration.
+    return sum(disk_free for disk_free, fs_free in free_space.values())

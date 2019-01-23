@@ -59,7 +59,8 @@ from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.storage import autopart
-from pyanaconda.storage.utils import device_matches, try_populate_devicetree
+from pyanaconda.storage.utils import device_matches, try_populate_devicetree, \
+    get_available_disk_space
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 
@@ -184,20 +185,6 @@ class AnacondaInternalScript(AnacondaKSScript):
         # kickstart file.
         return ""
 
-def getAvailableDiskSpace(storage):
-    """
-    Get overall disk space available on disks we may use.
-
-    :param storage: blivet.Blivet instance
-    :return: overall disk space available
-    :rtype: :class:`blivet.size.Size`
-
-    """
-
-    free_space = storage.free_space_snapshot
-    # blivet creates a new free space dict to instead of modifying the old one,
-    # so there is no worry about the dictionary changing during iteration.
-    return sum(disk_free for disk_free, fs_free in free_space.values())
 
 def refreshAutoSwapSize(storage):
     """
@@ -210,7 +197,7 @@ def refreshAutoSwapSize(storage):
 
     for request in storage.autopart_requests:
         if request.fstype == "swap":
-            disk_space = getAvailableDiskSpace(storage)
+            disk_space = get_available_disk_space(storage)
             request.size = autopart.swap_suggestion(disk_space=disk_space)
             break
 
