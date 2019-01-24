@@ -212,6 +212,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "clearpart": ClearPart,
         "fcoe": Fcoe,
         "ignoredisk": IgnoreDisk,
+        "iscsiname": COMMANDS.IscsiName,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
         "nvdimm": Nvdimm,
