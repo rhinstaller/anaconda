@@ -104,7 +104,7 @@ different ways:
 inst.addrepo
 ^^^^^^^^^^^^
 
-Add additional repository which can be used as another *Instalation Source*
+Add additional repository which can be used as another *Installation Source*
 next to the main repository (see `inst.repo`_). This option can be used multiple
 times during one boot. This can be specified in a few different ways:
 
