@@ -53,7 +53,7 @@ class TimezoneConfigError(Exception):
     """Exception class for timezone configuration related problems"""
     pass
 
-def time_initialize(timezone_proxy, storage, bootloader):
+def time_initialize(timezone_proxy, storage):
     """
     Try to guess if RTC uses UTC time or not, set timezone.isUtc properly and
     set system time from RTC using the UTC guess.
@@ -61,8 +61,6 @@ def time_initialize(timezone_proxy, storage, bootloader):
 
     :param timezone_proxy: DBus proxy of the timezone module
     :param storage: pyanaconda.storage.InstallerStorage instance
-    :param bootloader: bootloader.Bootloader instance
-
     """
 
     if arch.is_s390():
@@ -75,7 +73,7 @@ def time_initialize(timezone_proxy, storage, bootloader):
         ntfs_devs = filter(lambda dev: dev.format.name == "ntfs",
                            storage.devices)
 
-        timezone_proxy.SetIsUTC(not bootloader.has_windows(ntfs_devs))
+        timezone_proxy.SetIsUTC(not storage.bootloader.has_windows(ntfs_devs))
 
     cmd = "hwclock"
     args = ["--hctosys"]
