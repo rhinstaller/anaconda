@@ -19,7 +19,6 @@ import os
 import re
 
 from pyanaconda.bootloader.base import BootLoaderError
-from pyanaconda.bootloader.grub import GRUB
 from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf

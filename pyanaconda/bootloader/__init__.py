@@ -18,7 +18,6 @@
 from pyanaconda.bootloader.base import BootLoaderError, BootLoader
 from pyanaconda.bootloader.efi import EFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB, MacEFIGRUB
 from pyanaconda.bootloader.extlinux import EXTLINUX
-from pyanaconda.bootloader.grub import GRUB
 from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2
 from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.core.constants import BOOTLOADER_TYPE_EXTLINUX

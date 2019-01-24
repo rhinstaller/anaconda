@@ -16,12 +16,12 @@
 # Red Hat, Inc.
 #
 import os
+import re
 from _ped import PARTITION_BIOS_GRUB
 
 from blivet.devicelibs import raid
 
-from pyanaconda.bootloader.base import BootLoaderError
-from pyanaconda.bootloader.grub import GRUB
+from pyanaconda.bootloader.base import BootLoader, BootLoaderError
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import _
@@ -32,8 +32,51 @@ log = get_module_logger(__name__)
 
 __all__ = ["GRUB2", "IPSeriesGRUB2"]
 
+class SerialConsoleOptions(object):
+    """The serial console options."""
 
-class GRUB2(GRUB):
+    def __init__(self):
+        self.speed = None
+        self.parity = None
+        self.word = None
+        self.stop = None
+        self.flow = None
+
+
+def _parse_serial_opt(arg):
+    """Parse and split serial console options.
+
+    .. NOTE::
+
+       Documentation/kernel-parameters.txt says:
+
+          ttyS<n>[,options]
+
+             Use the specified serial port.  The options are of
+             the form "bbbbpnf", where "bbbb" is the baud rate,
+             "p" is parity ("n", "o", or "e"), "n" is number of
+             bits, and "f" is flow control ("r" for RTS or
+             omit it).  Default is "9600n8".
+
+       but note that everything after the baud rate is optional, so these are
+       all valid: 9600, 19200n, 38400n8, 9600e7r.
+       Also note that the kernel assumes 1 stop bit; this can't be changed.
+    """
+    opts = SerialConsoleOptions()
+    m = re.match(r'\d+', arg)
+    if m is None:
+        return opts
+    opts.speed = m.group()
+    idx = len(opts.speed)
+    try:
+        opts.parity = arg[idx + 0]
+        opts.word = arg[idx + 1]
+        opts.flow = arg[idx + 2]
+    except IndexError:
+        pass
+    return opts
+
+class GRUB2(BootLoader):
     """GRUBv2.
 
     - configuration
@@ -63,14 +106,80 @@ class GRUB2(GRUB):
     terminal_type = "console"
     stage2_max_end = None
 
+    _device_map_file = "device.map"
+    can_dual_boot = True
+    can_update = True
+
+    stage2_is_valid_stage1 = True
+    stage2_bootable = True
+    stage2_must_be_primary = False
+
     # requirements for boot devices
     stage2_device_types = ["partition", "mdarray"]
     stage2_raid_levels = [raid.RAID0, raid.RAID1, raid.RAID4,
                           raid.RAID5, raid.RAID6, raid.RAID10]
+    stage2_raid_member_types = ["partition"]
     stage2_raid_metadata = ["0", "0.90", "1.0", "1.2"]
+
+    _serial_consoles = ["ttyS"]
 
     # XXX we probably need special handling for raid stage1 w/ gpt disklabel
     #     since it's unlikely there'll be a bios boot partition on each disk
+
+    def __init__(self):
+        super().__init__()
+        self.encrypted_password = ""
+
+    #
+    # configuration
+    #
+
+    @property
+    def config_dir(self):
+        """ Full path to configuration directory. """
+        return "/boot/" + self._config_dir
+
+    @property
+    def config_file(self):
+        """ Full path to configuration file. """
+        return "%s/%s" % (self.config_dir, self._config_file)
+
+    @property
+    def device_map_file(self):
+        """ Full path to device.map file. """
+        return "%s/%s" % (self.config_dir, self._device_map_file)
+
+    @property
+    def has_serial_console(self):
+        """ true if the console is a serial console. """
+
+        return any(self.console.startswith(sconsole) for sconsole in self._serial_consoles)
+
+    @property
+    def serial_command(self):
+        command = ""
+        if self.console and self.has_serial_console:
+            unit = self.console[-1]
+            command = ["serial"]
+            s = _parse_serial_opt(self.console_options)
+            if unit and unit != '0':
+                command.append("--unit=%s" % unit)
+            if s.speed and s.speed != '9600':
+                command.append("--speed=%s" % s.speed)
+            if s.parity:
+                if s.parity == 'o':
+                    command.append("--parity=odd")
+                elif s.parity == 'e':
+                    command.append("--parity=even")
+            if s.word and s.word != '8':
+                command.append("--word=%s" % s.word)
+            if s.stop and s.stop != '1':
+                command.append("--stop=%s" % s.stop)
+            command = " ".join(command)
+        return command
+
+    def write_config_images(self, config):
+        return True
 
     @property
     def stage2_format_types(self):
@@ -250,6 +359,49 @@ class GRUB2(GRUB):
     # installation
     #
 
+    @property
+    def install_targets(self):
+        """ List of (stage1, stage2) tuples representing install targets. """
+        targets = []
+
+        # make sure we have stage1 and stage2 installed with redundancy
+        # so that boot can succeed even in the event of failure or removal
+        # of some of the disks containing the member partitions of the
+        # /boot array. If the stage1 is not a disk, it probably needs to
+        # be a partition on a particular disk (biosboot, prepboot), so only
+        # add the redundant targets if installing stage1 to a disk that is
+        # a member of the stage2 array.
+
+        # Look for both mdraid and btrfs raid
+        if self.stage2_device.type == "mdarray" and \
+           self.stage2_device.level in self.stage2_raid_levels:
+            stage2_raid = True
+            # Set parents to the list of partitions in the RAID
+            stage2_parents = self.stage2_device.parents
+        elif self.stage2_device.type == "btrfs subvolume" and \
+           self.stage2_device.parents[0].data_level in self.stage2_raid_levels:
+            stage2_raid = True
+            # Set parents to the list of partitions in the parent volume
+            stage2_parents = self.stage2_device.parents[0].parents
+        else:
+            stage2_raid = False
+
+        if stage2_raid and \
+           self.stage1_device.is_disk and \
+           self.stage2_device.depends_on(self.stage1_device):
+            for stage2dev in stage2_parents:
+                # if target disk contains any of /boot array's member
+                # partitions, set up stage1 on each member's disk
+                stage1dev = stage2dev.disk
+                targets.append((stage1dev, self.stage2_device))
+        else:
+            targets.append((self.stage1_device, self.stage2_device))
+
+        return targets
+
+    def update(self):
+        self.install()
+
     def install(self, args=None):
         if args is None:
             args = []
@@ -344,6 +496,47 @@ class GRUB2(GRUB):
 
         return ret
 
+    #
+    # miscellaneous
+    #
+
+    def has_windows(self, devices):
+        """ Potential boot devices containing non-linux operating systems. """
+        # make sure we don't clobber error/warning lists
+        errors = self.errors[:]
+        warnings = self.warnings[:]
+        ret = [d for d in devices if self.is_valid_stage2_device(d, linux=False, non_linux=True)]
+        self.errors = errors
+        self.warnings = warnings
+        return bool(ret)
+
+    # Add a warning about certain RAID situations to is_valid_stage2_device
+    def is_valid_stage2_device(self, device, linux=True, non_linux=False):
+        valid = super().is_valid_stage2_device(device, linux, non_linux)
+
+        # If the stage2 device is on a raid1, check that the stage1 device is also redundant,
+        # either by also being part of an array or by being a disk (which is expanded
+        # to every disk in the array by install_targets).
+        if self.stage1_device and self.stage2_device and \
+                self.stage2_device.type == "mdarray" and \
+                self.stage2_device.level in self.stage2_raid_levels and \
+                self.stage1_device.type != "mdarray":
+            if not self.stage1_device.is_disk:
+                msg = _("boot loader stage2 device %(stage2dev)s is on a multi-disk array, "
+                        "but boot loader stage1 device %(stage1dev)s is not. "
+                        "A drive failure in %(stage2dev)s could render the system unbootable.") % \
+                        {"stage1dev": self.stage1_device.name,
+                         "stage2dev": self.stage2_device.name}
+                self.warnings.append(msg)
+            elif not self.stage2_device.depends_on(self.stage1_device):
+                msg = _("boot loader stage2 device %(stage2dev)s is on a multi-disk array, "
+                        "but boot loader stage1 device %(stage1dev)s is not part of this array. "
+                        "The stage1 boot loader will only be installed to a single drive.") % \
+                        {"stage1dev": self.stage1_device.name,
+                         "stage2dev": self.stage2_device.name}
+                self.warnings.append(msg)
+
+        return valid
 
 class IPSeriesGRUB2(GRUB2):
     """IPSeries GRUBv2"""

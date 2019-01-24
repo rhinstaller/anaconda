@@ -23,7 +23,7 @@ from blivet.devicelibs.raid import RAID1
 from blivet.formats import get_format
 from blivet.size import Size
 
-from pyanaconda.bootloader.grub import GRUB
+from pyanaconda.bootloader.grub2 import GRUB2
 
 import unittest
 
@@ -80,7 +80,7 @@ class GRUBRaidSimpleTest(unittest.TestCase):
         self.boot_btrfs = BTRFSSubVolumeDevice(parents=[self.btrfs_volume])
         self.boot_btrfs.format = get_format("btrfs", mountpoint="/boot")
 
-        self.grub = GRUB()
+        self.grub = GRUB2()
 
     def grub_mbr_partition_test(self):
         """Test installing GRUB to a MBR stage1 and partition stage2"""
