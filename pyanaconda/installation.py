@@ -268,10 +268,6 @@ def doInstall(storage, payload, ksdata):
     if not manual_part_proxy.Enabled:
         early_storage.append(Task("Insert custom storage to ksdata", storage.update_ksdata))
 
-    # pre-storage tasks
-    # - Is this actually needed ? It does not appear to do anything right now.
-    early_storage.append(Task("Run pre-storage tasks", payload.preStorage))
-
     # callbacks for blivet
     message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
     entropy_wait_clbk = lambda clbk_data: wait_for_entropy(clbk_data.msg,
