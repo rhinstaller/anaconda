@@ -761,7 +761,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # That makes the DO way too wide.
         if isinstance(disk, MultipathDevice):
             desc = disk.wwn
-            description = desc[0:6] + "..." + desc[-8:]
+            if desc:
+                description = desc[0:6] + "..." + desc[-8:]
+            else:
+                description = ""
         elif isinstance(disk, ZFCPDiskDevice):
             # manually mangle the desc of a zFCP device to be multi-line since
             # it's so long it makes the disk selection screen look odd
