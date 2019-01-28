@@ -369,6 +369,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 28 2019 Martin Kolman <mkolman@redhat.com> - 30.19-1
+- Move code for the storage creation (vponcova)
+- Move code for the storage initialization (vponcova)
+- Remove the GRUB class (javierm)
+- Remove support for deprecated bootloaders (javierm)
+- Spelling fix in Boot Options documentation (josephvoss14)
+- Put 'lock' checkbox under 'Confirmation field' (frederic.pierret)
+- Don't create an extra instance of the bootloader (vponcova)
+- Remove the preStorage method in payload (vponcova)
+- Use LUKS2 by default (vponcova)
+- Clean up the space checkers (#1520749) (vponcova)
+- Don't show time and date controls in live installations (#1510425) (vponcova)
+- anaconda: add option to lock root account (frederic.epitre)
+
 * Mon Jan 21 2019 Martin Kolman <mkolman@redhat.com> - 30.18-1
 - Relabel X11/xorg.conf.d directory (#1666892) (jkonecny)
 - Reorder items in selinux relabeling post script (#1666892) (jkonecny)
