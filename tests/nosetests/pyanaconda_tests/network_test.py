@@ -18,8 +18,6 @@
 
 from pyanaconda import network
 import unittest
-import mock
-from mock import patch
 
 class NetworkTests(unittest.TestCase):
 
@@ -223,69 +221,3 @@ class NetworkTests(unittest.TestCase):
             self.assertFalse(network.check_ip_address(i))
             self.assertFalse(network.check_ip_address(i, version=6))
             self.assertFalse(network.check_ip_address(i, version=4))
-
-class NetworkKSDataTests(unittest.TestCase):
-
-    def setUp(self):
-        self.ksdata_mock = mock.Mock()
-        self.ksdata_mock.network = mock.Mock()
-
-    @patch('pyanaconda.dbus.DBus.get_proxy')
-    def update_hostname_data_test(self, proxy_getter):
-        proxy = mock.Mock()
-        proxy_getter.return_value = proxy
-
-        from pyanaconda.kickstart import AnacondaKSHandler
-        handler = AnacondaKSHandler()
-        ksdata = self.ksdata_mock
-
-        # network --hostname oldhostname
-        # pylint: disable=no-member
-        nd = handler.NetworkData(hostname="oldhostname", bootProto="")
-        ksdata.network.network = [nd]
-        network.update_hostname_data(ksdata, "newhostname")
-        proxy.SetHostname.assert_called_with("newhostname")
-        # network --hostname newhostname
-        self.assertEqual(ksdata.network.network[0].hostname, "newhostname")
-
-        # no network in ks
-        ksdata.network.network = []
-        network.update_hostname_data(ksdata, "newhostname")
-        proxy.SetHostname.assert_called_with("newhostname")
-        # network --hostname newhostname
-        self.assertEqual(ksdata.network.network[0].hostname, "newhostname")
-
-        # network --bootproto dhcp --onboot no --device em1 --hostname oldhostname
-        # pylint: disable=no-member
-        nd = handler.NetworkData(bootProto="dhcp", onboot="no", device="em1", hostname="oldhostname")
-        ksdata.network.network = [nd]
-        network.update_hostname_data(ksdata, "newhostname")
-        proxy.SetHostname.assert_called_with("newhostname")
-        # network --bootproto dhcp --onboot no --device em1 --hostname newhostname
-        self.assertEqual(ksdata.network.network[0].hostname, "newhostname")
-        self.assertEqual(len(ksdata.network.network), 1)
-
-        # network --bootproto dhcp --onboot no --device em1
-        # pylint: disable=no-member
-        nd = handler.NetworkData(bootProto="dhcp", onboot="no", device="em1")
-        ksdata.network.network = [nd]
-        network.update_hostname_data(ksdata, "newhostname")
-        proxy.SetHostname.assert_called_with("newhostname")
-        # network --bootproto dhcp --onboot no --device em1
-        # network --hostname newhostname
-        self.assertEqual(ksdata.network.network[0].hostname, "")
-        self.assertEqual(ksdata.network.network[1].hostname, "newhostname")
-
-        # network --bootproto dhcp --onboot no --device em1
-        # network --hostname oldhostname
-        # pylint: disable=no-member
-        nd1 = handler.NetworkData(bootProto="dhcp", onboot="no", device="em1")
-        # pylint: disable=no-member
-        nd2 = handler.NetworkData(hostname="oldhostname", bootProto="")
-        ksdata.network.network = [nd1, nd2]
-        network.update_hostname_data(ksdata, "newhostname")
-        proxy.SetHostname.assert_called_with("newhostname")
-        # network --bootproto dhcp --onboot no --device em1
-        # network --hostname newhostname
-        self.assertEqual(ksdata.network.network[0].hostname, "")
-        self.assertEqual(ksdata.network.network[1].hostname, "newhostname")

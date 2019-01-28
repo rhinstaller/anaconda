@@ -30,7 +30,6 @@ import socket
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-from pyanaconda.core.constants import DEFAULT_DBUS_TIMEOUT
 from pyanaconda.core.configuration.anaconda import conf
 
 supported_device_types = [
@@ -361,24 +360,6 @@ def nm_device_type_is_vlan(name):
     """
     return nm_device_type(name) == NM.DeviceType.VLAN
 
-def nm_device_is_slave(name):
-    """Is the device a slave?
-
-       Exceptions:
-       UnknownDeviceError if device is not found
-    """
-    active_con = nm_device_property(name, 'ActiveConnection')
-    if active_con == "/":
-        return False
-
-    try:
-        master = _get_property(active_con, "Master", ".Connection.Active")
-    except UnknownMethodGetError:
-        # don't crash on obsolete ActiveConnection objects
-        return False
-
-    return master and master != "/"
-
 def nm_device_hwaddress(name):
     """Return active hardware address of device ('HwAddress' property)
 
@@ -425,19 +406,6 @@ def nm_device_valid_hwaddress(name):
             return nm_device_hwaddress(name)
     else:
         return nm_device_hwaddress(name)
-
-def nm_device_active_con_uuid(name):
-    """Return uuid of device's active connection
-
-       Exceptions:
-       UnknownDeviceError if device is not found
-    """
-    active_con = nm_device_property(name, 'ActiveConnection')
-    if active_con == "/":
-        return None
-
-    uuid = _get_property(active_con, "Uuid", ".Connection.Active")
-    return uuid
 
 def nm_device_type(name):
     """Return device's type ('DeviceType' property).
@@ -735,20 +703,6 @@ def _find_settings(value, key1, key2, format_value=lambda x: x):
 
     return retval
 
-def nm_get_settings(value, key1, key2, format_value=lambda x: x):
-    """Return settings having given value of key1, key2 setting
-
-       Returns list of settings(dicts) , None if settings were not found.
-    """
-    retval = []
-    settings_paths = _find_settings(value, key1, key2, format_value)
-    for settings_path in settings_paths:
-        proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        settings = proxy.GetSettings()
-        retval.append(settings)
-
-    return retval
-
 def nm_get_all_settings():
     """Return all settings for logging."""
     retval = []
@@ -804,216 +758,6 @@ def nm_device_setting_value(name, key1, key2):
         value = None
     return value
 
-def nm_activate_device_connection(dev_name, con_uuid):
-    """Activate device with specified connection.
-
-       :param dev_name: name of device or None for virtual devices
-       :type dev_name: str or None
-       :param con_uuid: uuid of connection to be activated on device
-       :type con_uuid: str
-       :raise UnknownDeviceError: if device is not found
-       :raise UnmanagedDeviceError: if device is not managed by NM
-                                    or unavailable
-       :raise SettingsNotFoundError: if conneciton with given uuid was not found
-       :raise UnknownConnectionError: if connection is not available for the device
-    """
-
-    if dev_name is None:
-        # virtual devices (eg bond, vlan)
-        device_path = "/"
-    else:
-        proxy = _get_proxy()
-        try:
-            device_path = proxy.GetDeviceByIpIface('(s)', dev_name)
-        except GError as e:
-            if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
-                raise UnknownDeviceError(dev_name, e)
-            raise
-
-    con_paths = _find_settings(con_uuid, 'connection', 'uuid')
-    if not con_paths:
-        raise SettingsNotFoundError(con_uuid)
-
-    nm_proxy = _get_proxy()
-    try:
-        nm_proxy.ActivateConnection('(ooo)', con_paths[0], device_path, "/")
-    except GError as e:
-        if "org.freedesktop.NetworkManager.UnmanagedDevice" in e.message:
-            raise UnmanagedDeviceError(dev_name, e)
-        elif "org.freedesktop.NetworkManager.UnknownConnection" in e.message:
-            raise UnknownConnectionError(dev_name, e)
-        if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
-            raise UnknownDeviceError(dev_name, e)
-        raise
-
-def nm_update_settings(uuid, new_values):
-    """Update settings of connection given by uuid.
-
-       The type of value is determined from existing settings of device.
-       If setting for key1, key2 does not exist, default_type_str is used or
-       if None, the type is inferred from the value supplied (string and bool only).
-
-       :param uuid: uuid of the connection
-       :type name: str
-       :param new_values: list of settings with new values and its types
-                          [[key1, key2, value, default_type_str]]
-                          key1: first-level key of setting (eg "connection")
-                          key2: second-level key of setting (eg "uuid")
-                          value: new value
-                          default_type_str: dbus type of new value to be used
-                                            if the setting does not already exist;
-                                            if None, the type is inferred from
-                                            value (string and bool only)
-       :type new_values: [[key1, key2, value, default_type_str], ...]
-                         key1: str
-                         key2: str
-                         value:
-                         default_type_str: str
-       :raise SettingsNotFoundError: if settings were not found (eg for "wlan0")
-    """
-    settings_paths = _find_settings(uuid, "connection", "uuid")
-    if not settings_paths:
-        raise SettingsNotFoundError(uuid)
-    return _update_settings(settings_paths[0], new_values)
-
-def nm_update_settings_of_device(name, new_values):
-    """Update setting of device.
-
-       The type of value is determined from existing settings of device.
-       If setting for key1, key2 does not exist, default_type_str is used or
-       if ``None``, the type is inferred from the value supplied (string and bool only).
-
-       :param name: name of device
-       :type name: str
-       :param new_values:
-                          | list of settings with new values and its types
-                          | [[key1, key2, value, default_type_str]]
-                          | key1: first-level key of setting (eg "connection")
-                          | key2: second-level key of setting (eg "uuid")
-                          | value: new value
-                          | default_type_str:
-
-                              dbus type of new value to be used
-                              if the setting does not already exist;
-                              if ``None``, the type is inferred from
-                              value (string and bool only)
-       :type new_values:
-                         | [[key1, key2, value, default_type_str], ...]
-                         | key1: str
-                         | key2: str
-                         | value:
-                         | default_type_str: str
-       :raise UnknownDeviceError: if device is not found
-       :raise SettingsNotFoundError: if settings were not found
-                                     (eg for "wlan0")
-       :raise MultipleSettingsFoundError: if multiple settings were found
-    """
-    settings_paths = _device_settings(name)
-    if not settings_paths:
-        raise SettingsNotFoundError(name)
-    elif len(settings_paths) > 1:
-        raise MultipleSettingsFoundError(name)
-    else:
-        settings_path = settings_paths[0]
-    return _update_settings(settings_path, new_values)
-
-def _update_settings(settings_path, new_values):
-    """Update setting of object specified by settings_path with value.
-
-       If the value is None, the setting is removed.
-
-       The type of value is determined from existing setting.
-       If setting for key1, key2 does not exist, default_type_str is used or
-       if None, the type is inferred from the value supplied (string and bool only).
-
-       :param settings_path: path of settings object
-       :type settings_path: str
-       :param new_values: list of settings with new values and its types
-                          [[key1, key2, value, default_type_str]]
-                          key1: first-level key of setting (eg "connection")
-                          key2: second-level key of setting (eg "uuid")
-                          value: new value, if None, the setting is removed
-                          default_type_str: dbus type of new value to be used
-                                            if the setting does not already exist;
-                                            if None, the type is inferred from
-                                            value (string and bool only)
-       :type new_values: [[key1, key2, value, default_type_str], ...]
-                         key1: str
-                         key2: str
-                         value:
-                         default_type_str: str
-    """
-    proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    args = None
-    settings = proxy.call_sync("GetSettings",
-                               args,
-                               Gio.DBusCallFlags.NONE,
-                               DEFAULT_DBUS_TIMEOUT,
-                               None)
-    for key1, key2, value, default_type_str in new_values:
-        settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
-
-    proxy.call_sync("Update",
-                    settings,
-                    Gio.DBusCallFlags.NONE,
-                    DEFAULT_DBUS_TIMEOUT,
-                    None)
-
-def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
-    """Update setting of updated_key1, updated_key2 of settings object with value.
-
-       If the value is None, the setting is removed.
-
-       The type of value is determined from existing setting.
-       If setting for key1, key2 does not exist, default_type_str is used or
-       the type is inferred from the value supplied (string and bool only).
-    """
-
-    type_str = default_type_str
-
-    # build copy of GVariant settings as mutable python object
-    new_settings = {}
-    dict1 = settings.get_child_value(0)
-
-    # loop over first level dict (key1)
-    for key1_idx in range(dict1.n_children()):
-
-        key_dict2 = dict1.get_child_value(key1_idx)
-        key1 = key_dict2.get_child_value(0).unpack()
-        new_settings[key1] = {}
-        dict2 = key_dict2.get_child_value(1)
-
-        # loop over second level dict (key2)
-        for key2_idx in range(dict2.n_children()):
-
-            key_val = dict2.get_child_value(key2_idx)
-            key2 = key_val.get_child_value(0).unpack()
-            val = key_val.get_child_value(1).get_child_value(0)
-
-            # get type string of updated value
-            if key1 == updated_key1 and key2 == updated_key2:
-                type_str = val.get_type_string()
-
-            # copy old value to new python object
-            new_settings[key1][key2] = val
-
-    if type_str is None:
-        # infer the new value type for string and boolean
-        if isinstance(value, bool):
-            type_str = 'b'
-        elif isinstance(value, str):
-            type_str = 's'
-
-    if type_str is not None:
-        if updated_key1 not in new_settings:
-            new_settings[updated_key1] = {}
-        if value is None:
-            new_settings[updated_key1].pop(updated_key2, None)
-        else:
-            new_settings[updated_key1][updated_key2] = Variant(type_str, value)
-
-    return Variant(settings.get_type_string(), (new_settings,))
-
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes 'ay' for dbus
 
@@ -1033,6 +777,7 @@ def nm_ipv4_to_dbus_int(address):
     :rtype: integer
     """
     return struct.unpack("=L", socket.inet_aton(address))[0]
+
 
 def nm_dbus_ay_to_ipv6(bytelist):
     """Convert ipv6 address from list of bytes (dbus 'ay') to string.
@@ -1061,8 +806,6 @@ def test():
     print("Devices: %s" % nm_devices())
     print("Activated devices: %s" % nm_activated_devices())
 
-    wireless_device = ""
-
     devs = nm_devices()
     devs.append("nonexisting")
     for devname in devs:
@@ -1078,7 +821,6 @@ def test():
             print("     type %s" % "ETHERNET")
         elif devtype == NM.DeviceType.WIFI:
             print("     type %s" % "WIFI")
-            wireless_device = devname
 
         try:
             print("     Wifi device: %s" % nm_device_type_is_wifi(devname))
@@ -1138,35 +880,6 @@ def test():
         new_value = False
     else:
         new_value = True
-
-    print("Updating to %s" % new_value)
-    nm_update_settings_of_device(devname, [[key1, key2, new_value, None]])
-    print("Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2)))
-    nm_update_settings_of_device(devname, [[key1, key2, original_value, None]])
-    print("Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2)))
-    nm_update_settings_of_device(devname, [[key1, key2, original_value, "b"]])
-    print("Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2)))
-
-    nm_update_settings_of_device(devname, [[key1, "nonexisting", new_value, None]])
-    nm_update_settings_of_device(devname, [["nonexisting", "nonexisting", new_value, None]])
-    try:
-        nm_update_settings_of_device("nonexixting", [[key1, key2, new_value, None]])
-    except UnknownDeviceError as e:
-        print("%s" % e)
-
-    if wireless_device:
-        try:
-            nm_update_settings_of_device(wireless_device, [[key1, key2, new_value, None]])
-        except SettingsNotFoundError as e:
-            print("%s" % e)
-
-    #nm_update_settings_of_device(devname, [["connection", "id", "test", None]])
-    #nm_update_settings_of_device(devname, [["connection", "timestamp", 11111111, None]])
-    #nm_update_settings_of_device(devname, [["802-3-ethernet", "mac-address", [55,55,55,55,55,55], None]])
-    #nm_update_settings_of_device(devname, [["ipv6", "method", "auto", None]])
-    #nm_update_settings_of_device(devname, [["ipv6", "addressess", [[[32,1,0,0,0,0,0,0,0,0,0,0,0,0,0,a], 64, [0]*16]], None]])
-    #nm_update_settings_of_device(devname, [["connection", "autoconnect", True, None]])
-    #nm_update_settings_of_device(devname, [["connection", "autoconnect", False, "b"]])
 
 if __name__ == "__main__":
     test()

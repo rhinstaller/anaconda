@@ -24,7 +24,6 @@ from gi.repository import NM
 import socket
 
 from pyanaconda import network
-from pyanaconda import nm
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.flags import flags
