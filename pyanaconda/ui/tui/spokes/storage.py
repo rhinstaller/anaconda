@@ -50,7 +50,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.osinstall import storage_initialize
+from pyanaconda.storage.initialization import initialize_storage
 
 from pykickstart.base import BaseData
 from pykickstart.constants import AUTOPART_TYPE_LVM
@@ -629,12 +629,12 @@ class PartTypeSpoke(NormalTUISpoke):
         # else
         print(_("Reverting previous configuration. This may take a moment..."))
         # unset selected disks temporarily so that
-        # storage_initialize() processes all devices
+        # initialize_storage() processes all devices
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
         selected_disks = disk_select_proxy.SelectedDisks
         disk_select_proxy.SetSelectedDisks([])
 
-        storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
+        initialize_storage(self.storage, self.data, self.storage.protected_dev_names)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
         self._manual_part_proxy.SetMountPoints([])
@@ -876,13 +876,13 @@ class MountPointAssignSpoke(NormalTUISpoke):
             return
 
         # unset selected disks temporarily so that
-        # storage_initialize() processes all devices
+        # initialize_storage() processes all devices
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
         selected_disks = disk_select_proxy.SelectedDisks
         disk_select_proxy.SetSelectedDisks([])
 
         print(_("Scanning disks. This may take a moment..."))
-        storage_initialize(self.storage, self.data, self.storage.protected_dev_names)
+        initialize_storage(self.storage, self.data, self.storage.protected_dev_names)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
         self._manual_part_proxy.SetMountPoints([])

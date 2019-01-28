@@ -31,27 +31,21 @@ from gi.repository import BlockDev as blockdev
 from pykickstart.constants import AUTOPART_TYPE_LVM, NVDIMM_ACTION_USE, NVDIMM_ACTION_RECONFIGURE
 
 from blivet import arch, udev
-from blivet import util as blivet_util
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import MDRaidArrayDevice, PartitionDevice, BTRFSSubVolumeDevice, TmpFSDevice, \
     LVMLogicalVolumeDevice, LVMVolumeGroupDevice, BTRFSDevice
-from blivet.errors import StorageError, UnknownSourceDeviceError
 from blivet.formats import get_format
-from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
 from blivet.static_data import nvdimm
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
 from pyanaconda.core import util
-from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
-from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.flags import flags
 from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.fsset import FSSet
@@ -63,40 +57,6 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INI
 
 import logging
 log = logging.getLogger("anaconda.storage")
-
-
-def enable_installer_mode():
-    """ Configure the module for use by anaconda (OS installer). """
-    blivet_util.program_log_lock = program_log_lock
-
-    # always enable the debug mode when in the installer mode so that we
-    # have more data in the logs for rare cases that are hard to reproduce
-    blivet_flags.debug = True
-
-    # We don't want image installs writing backups of the *image* metadata
-    # into the *host's* /etc/lvm. This can get real messy on build systems.
-    if conf.target.is_image:
-        blivet_flags.lvm_metadata_backup = False
-
-    blivet_flags.auto_dev_updates = True
-    blivet_flags.selinux_reset_fcon = True
-    blivet_flags.keep_empty_ext_partitions = False
-    blivet_flags.discard_new = True
-
-    udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
-
-
-def update_blivet_flags():
-    """
-    Set installer-specific flags. This changes blivet default flags by
-    either flipping the original value, or it assigns the flag value
-    based on anaconda settings that are passed in.
-    """
-    blivet_flags.selinux = conf.security.selinux
-    blivet_flags.dmraid = conf.storage.dmraid
-    blivet_flags.ibft = conf.storage.ibft
-    blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
-    blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
 
 class StorageDiscoveryConfig(object):
@@ -1132,45 +1092,3 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
             ignored_blockdevs.add(ns_info.blockdev)
 
     return ignored_blockdevs
-
-
-def storage_initialize(storage, ksdata, protected):
-    """ Perform installer-specific storage initialization. """
-    update_blivet_flags()
-
-    # Platform class setup depends on flags, re-initialize it.
-    _platform.update_from_flags()
-
-    storage.shutdown()
-
-    # Set up the protected partitions list now.
-    if protected:
-        storage.config.protected_dev_specs.extend(protected)
-
-    while True:
-        try:
-            # This also calls storage.config.update().
-            storage.reset()
-        except StorageError as e:
-            if error_handler.cb(e) == ERROR_RAISE:
-                raise
-            else:
-                continue
-        else:
-            break
-
-    # FIXME: This is a temporary workaround for live OS.
-    if protected and not conf.system._is_live_os and \
-       not any(d.protected for d in storage.devices):
-        raise UnknownSourceDeviceError(protected)
-
-    # kickstart uses all the disks
-    if flags.automatedInstall:
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        ignored_disks = disk_select_proxy.IgnoredDisks
-
-        if not selected_disks:
-            selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
-            disk_select_proxy.SetSelectedDisks(selected_disks)
-            log.debug("onlyuse is now: %s", ",".join(selected_disks))

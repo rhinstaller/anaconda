@@ -25,14 +25,10 @@ from tempfile import mkstemp
 import threading
 
 from pyanaconda import addons
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DisplayModes
 from pyanaconda.core import util, constants
 from pyanaconda.dbus.launcher import AnacondaDBusLauncher
-from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
-from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
-from pyanaconda.storage.partitioning import get_default_partitioning
 
 from pyanaconda.anaconda_loggers import get_stdout_logger
 stdoutLog = get_stdout_logger()
@@ -166,14 +162,8 @@ class Anaconda(object):
     @property
     def storage(self):
         if not self._storage:
-            from pyanaconda.storage.osinstall import InstallerStorage
-            import blivet.arch
-
-            self._storage = InstallerStorage(ksdata=self.ksdata)
-            self._set_storage_defaults(self._storage)
-
-            if blivet.arch.is_s390():
-                self._load_plugin_s390()
+            from pyanaconda.storage.initialization import create_storage
+            self._storage = create_storage(self.ksdata)
 
         return self._storage
 
@@ -263,54 +253,6 @@ class Anaconda(object):
         if repo in self.ksdata.repo.dataList():
             log.warning("Repository name %s is not unique. Only the first repo will be used!",
                         repo.name)
-
-    def _set_storage_defaults(self, storage):
-        fstype = None
-        boot_fstype = None
-
-        # Get the default fstype from a kickstart file.
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-
-        if auto_part_proxy.Enabled and auto_part_proxy.FilesystemType:
-            fstype = auto_part_proxy.FilesystemType
-            boot_fstype = fstype
-        # Or from the configuration.
-        elif conf.storage.file_system_type:
-            fstype = conf.storage.file_system_type
-            boot_fstype = None
-
-        # Set the default fstype.
-        if fstype:
-            storage.set_default_fstype(fstype)
-
-        # Set the default boot fstype.
-        if boot_fstype:
-            storage.set_default_boot_fstype(boot_fstype)
-
-        # Set the default LUKS version.
-        luks_version = conf.storage.luks_version
-
-        if luks_version:
-            storage.set_default_luks_version(luks_version)
-
-        # Set the default partitioning.
-        storage.set_default_partitioning(get_default_partitioning())
-
-    def _load_plugin_s390(self):
-        # Make sure s390 plugin is loaded.
-        import gi
-        gi.require_version("BlockDev", "2.0")
-        from gi.repository import BlockDev as blockdev
-
-        # Is the plugin loaded? We are done then.
-        if "s390" in blockdev.get_available_plugin_names():
-            return
-
-        # Otherwise, load the plugin.
-        plugin = blockdev.PluginSpec()
-        plugin.name = blockdev.Plugin.S390
-        plugin.so_name = None
-        blockdev.reinit([plugin], reload=False)
 
     def dumpState(self):
         from meh import ExceptionInfo
