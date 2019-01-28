@@ -250,7 +250,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def status(self):
         """ Short msg telling what devices are active. """
-        return network.status_message()
+        return network.status_message(nm_client)
 
     def _summary_text(self):
         """Devices cofiguration shown to user."""

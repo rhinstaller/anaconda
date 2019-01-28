@@ -532,28 +532,6 @@ def nm_device_ip_config(name, version=4):
 
     return [addr_list, ns_list]
 
-def nm_device_slaves(name):
-    """Return slaves of device.
-
-       :param name: name of device
-       :type name: str
-       :return: names of slaves of device or None if device has no 'Slaves' property
-       :rtype: list of strings or None
-       :raise UnknownDeviceError: if device is not found
-    """
-
-    try:
-        slaves = nm_device_property(name, "Slaves")
-    except PropertyNotFoundError:
-        return None
-
-    slave_ifaces = []
-    for slave in slaves:
-        iface = _get_property(slave, "Interface", ".Device")
-        slave_ifaces.append(iface)
-
-    return slave_ifaces
-
 def nm_hwaddr_to_device_name(hwaddr):
     """Return device name of interface with given hardware address.
 

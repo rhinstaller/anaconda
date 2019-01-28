@@ -1600,7 +1600,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def status(self):
         """ A short string describing which devices are connected. """
-        return network.status_message()
+        return network.status_message(nmclient)
 
     def initialize(self):
         register_secret_agent(self)

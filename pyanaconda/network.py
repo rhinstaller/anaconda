@@ -589,77 +589,94 @@ def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
     network_connected_condition.release()
     return connected
 
-def status_message():
+def get_activated_devices(nm_client):
+    activated_devices = []
+    for ac in nm_client.get_active_connections():
+        if ac.get_state() != NM.ActiveConnectionState.ACTIVATED:
+            continue
+        for device in ac.get_devices():
+            activated_devices.append(device)
+    return activated_devices
+
+def status_message(nm_client):
     """ A short string describing which devices are connected. """
 
     msg = _("Unknown")
 
-    state = nm.nm_state()
+    state = nm_client.get_state()
     if state == NM.State.CONNECTING:
         msg = _("Connecting...")
     elif state == NM.State.DISCONNECTING:
         msg = _("Disconnecting...")
     else:
-        active_devs = [d for d in nm.nm_activated_devices()
-                       if not is_libvirt_device(d)]
+        active_devs = [d for d in get_activated_devices(nm_client)
+                       if not is_libvirt_device(d.get_ip_iface() or d.get_iface())]
         if active_devs:
 
             slaves = {}
             ssids = {}
+            nonslaves = []
 
             # first find slaves and wireless aps
-            for devname in active_devs:
-                slaves[devname] = nm.nm_device_slaves(devname) or []
-                if nm.nm_device_type_is_wifi(devname):
-                    ssids[devname] = nm.nm_device_active_ssid(devname) or ""
-
-            all_slaves = set(itertools.chain.from_iterable(slaves.values()))
-            nonslaves = [dev for dev in active_devs if dev not in all_slaves]
+            for device in active_devs:
+                device_slaves = []
+                if hasattr(device, 'get_slaves'):
+                    device_slaves = [slave_dev.get_iface() for slave_dev in device.get_slaves()]
+                iface = device.get_iface()
+                slaves[iface] = device_slaves
+                if device.get_device_type() == NM.DeviceType.WIFI:
+                    ssid = ""
+                    ap = device.get_active_access_point()
+                    if ap:
+                        ssid = ap.get_ssid().get_data().decode()
+                    ssids[iface] = ssid
+                if not device_slaves:
+                    nonslaves.append(device)
 
             if len(nonslaves) == 1:
-                devname = nonslaves[0]
-                if device_type_is_supported_wired(devname):
+                device = nonslaves[0]
+                iface = device.get_ip_iface() or device.get_iface()
+                device_type = device.get_device_type()
+                if device_type_is_supported_wired(device_type):
                     msg = _("Wired (%(interface_name)s) connected") \
-                          % {"interface_name": devname}
-                elif nm.nm_device_type_is_wifi(devname):
+                          % {"interface_name": iface}
+                elif device_type == NM.DeviceType.WIFI:
                     msg = _("Wireless connected to %(access_point)s") \
-                          % {"access_point" : ssids[devname]}
-                elif nm.nm_device_type_is_bond(devname):
+                          % {"access_point": ssids[iface]}
+                elif device_type == NM.DeviceType.BOND:
                     msg = _("Bond %(interface_name)s (%(list_of_slaves)s) connected") \
-                          % {"interface_name": devname, \
-                             "list_of_slaves": ",".join(slaves[devname])}
-                elif nm.nm_device_type_is_team(devname):
+                          % {"interface_name": iface,
+                             "list_of_slaves": ",".join(slaves[iface])}
+                elif device_type == NM.DeviceType.TEAM:
                     msg = _("Team %(interface_name)s (%(list_of_slaves)s) connected") \
-                          % {"interface_name": devname, \
-                             "list_of_slaves": ",".join(slaves[devname])}
-                elif nm.nm_device_type_is_bridge(devname):
+                          % {"interface_name": iface,
+                             "list_of_slaves": ",".join(slaves[iface])}
+                elif device_type == NM.DeviceType.BRIDGE:
                     msg = _("Bridge %(interface_name)s (%(list_of_slaves)s) connected") \
-                          % {"interface_name": devname, \
-                             "list_of_slaves": ",".join(slaves[devname])}
-                elif nm.nm_device_type_is_vlan(devname):
-                    try:
-                        parent = nm.nm_device_setting_value(devname, "vlan", "parent")
-                        vlanid = nm.nm_device_setting_value(devname, "vlan", "id")
-                    except nm.MultipleSettingsFoundError as e:
-                        parent = vlanid = None
-                        log.debug("%s when looking for vlan settings of %s", e, devname)
+                          % {"interface_name": iface,
+                             "list_of_slaves": ",".join(slaves[iface])}
+                elif device_type == NM.DeviceType.VLAN:
+                    parent = device.get_parent()
+                    vlanid = device.get_vlan_id()
                     msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
-                          % {"interface_name": devname, "parent_device": parent, "vlanid": vlanid}
+                        % {"interface_name": iface, "parent_device": parent, "vlanid": vlanid}
             elif len(nonslaves) > 1:
                 devlist = []
-                for devname in nonslaves:
-                    if device_type_is_supported_wired(devname):
-                        devlist.append("%s" % devname)
-                    elif nm.nm_device_type_is_wifi(devname):
-                        devlist.append("%s" % ssids[devname])
-                    elif nm.nm_device_type_is_bond(devname):
-                        devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
-                    elif nm.nm_device_type_is_team(devname):
-                        devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
-                    elif nm.nm_device_type_is_bridge(devname):
-                        devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
-                    elif nm.nm_device_type_is_vlan(devname):
-                        devlist.append("%s" % devname)
+                for device in nonslaves:
+                    iface = device.get_ip_iface() or device.get_iface()
+                    device_type = device.get_device_type()
+                    if device_type_is_supported_wired(device_type):
+                        devlist.append("%s" % iface)
+                    elif device_type == NM.DeviceType.WIFI:
+                        devlist.append("%s" % ssids[iface])
+                    elif device_type == NM.DeviceType.BOND:
+                        devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
+                    elif device_type == NM.DeviceType.TEAM:
+                        devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
+                    elif device_type == NM.DeviceType.BRIDGE:
+                        devlist.append("%s (%s)" % (iface, ",".join(slaves[iface])))
+                    elif device_type == NM.DeviceType.VLAN:
+                        devlist.append("%s" % iface)
                 msg = _("Connected: %(list_of_interface_names)s") % {"list_of_interface_names": ", ".join(devlist)}
         else:
             msg = _("Not connected")
@@ -676,13 +693,13 @@ def is_using_team_device():
     return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
 
 def is_libvirt_device(iface):
-    return iface.startswith("virbr")
+    return iface and iface.startswith("virbr")
 
 def is_ibft_configured_device(iface):
     return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
 
-def device_type_is_supported_wired(name):
-    return nm.nm_device_type_is_ethernet(name) or nm.nm_device_type_is_infiniband(name)
+def device_type_is_supported_wired(device_type):
+    return device_type in [NM.DeviceType.ETHERNET, NM.DeviceType.INFINIBAND]
 
 def can_overwrite_configuration(payload):
     return isinstance(payload, LiveImagePayload)
