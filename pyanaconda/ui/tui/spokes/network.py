@@ -210,7 +210,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
         self._container = None
-        self._value = self._network_module.proxy.Hostname
+        self.hostname = self._network_module.proxy.Hostname
         self.editable_configurations = []
         self.errors = []
         self._apply = False
@@ -218,9 +218,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def initialize(self):
         self.initialize_start()
         NormalTUISpoke.initialize(self)
-        # TODO: this should not be needed
-        if not self._network_module.proxy.Kickstarted:
-            self._update_network_data()
         self._update_editable_configurations()
         self._network_module.proxy.DeviceConfigurationChanged.connect(self._device_configurations_changed)
         self.initialize_done()
@@ -327,7 +324,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.window.add_with_separator(self._container)
 
     def _set_hostname_callback(self, dialog):
-        self._value = dialog.run()
+        self.hostname = dialog.run()
         self.redraw()
         self.apply()
 
@@ -423,43 +420,19 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         # and we want to generate kickstart from device configurations
         # (persistent NM / ifcfg configuration), instead of using original kickstart.
         self._network_module.proxy.NetworkDeviceConfigurationChanged()
-        # TODO remove, add for debugging
-        self._update_network_data()
-        log.debug("apply ksdata %s", self.data.network)
+
+        (valid, error) = network.sanityCheckHostname(self.hostname)
+        if valid:
+            self._network_module.proxy.SetHostname(self.hostname)
+        else:
+            self.errors.append(_("Host name is not valid: %s") % error)
+            self.hostname = self._network_module.proxy.Hostname
 
         if self._apply:
             self._apply = False
             if ANACONDA_ENVIRON in flags.environs:
                 from pyanaconda.payload import payloadMgr
                 payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
-
-    # TODO: this should be reduced in a way similar to gui
-    def _update_network_data(self):
-        hostname = self._network_module.proxy.Hostname
-
-        self.data.network.network = []
-        for i, name in enumerate(nm.nm_devices()):
-            if network.is_ibft_configured_device(name):
-                continue
-            nd = network.ksdata_from_ifcfg(name)
-            if not nd:
-                continue
-            if name in get_activated_ifaces():
-                nd.activate = True
-            else:
-                # First network command defaults to --activate so we must
-                # use --no-activate explicitly to prevent the default
-                if i == 0:
-                    nd.activate = False
-            self.data.network.network.append(nd)
-
-        (valid, error) = network.sanityCheckHostname(self._value)
-        if valid:
-            hostname = self._value
-        else:
-            self.errors.append(_("Host name is not valid: %s") % error)
-            self._value = hostname
-        network.update_hostname_data(self.data, hostname)
 
 
 class ConfigureNetworkSpoke(NormalTUISpoke):
