@@ -18,9 +18,11 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import ISCSI
+from pyanaconda.modules.common.structures.iscsi import Target, Credentials
 
 
 @dbus_interface(ISCSI.interface_name)
@@ -34,12 +36,16 @@ class ISCSIInterface(KickstartModuleInterfaceTemplate):
         """
         self.implementation.reload_module()
 
-    def DiscoverWithTask(self) -> ObjPath:
+    def DiscoverWithTask(self, target: Structure, credentials: Structure) -> ObjPath:
         """Discover an iSCSI device.
 
+        :param target: the target information
+        :param credentials: the iSCSI credentials
         :return: a DBus path to a task
         """
-        return self.implementation.discover_with_task()
+        target = apply_structure(target, Target())
+        credentials = apply_structure(credentials, Credentials())
+        return self.implementation.discover_with_task(target, credentials)
 
     def WriteConfiguration(self, sysroot: Str):
         """Write the configuration to sysroot.

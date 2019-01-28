@@ -68,12 +68,14 @@ class ISCSIModule(KickstartBaseModule):
         self.initiator_changed.emit()
         log.debug("The iSCSI initiator is set to '%s'.", initiator)
 
-    def discover_with_task(self):
+    def discover_with_task(self, target, credentials):
         """Discover an iSCSI device.
 
+        :param target: the target information
+        :param credentials: the iSCSI credentials
         :return: a DBus path to a task
         """
-        task = ISCSIDiscoverTask()
+        task = ISCSIDiscoverTask(target, credentials)
         path = self.publish_task(ISCSI.namespace, task)
         return path
 
