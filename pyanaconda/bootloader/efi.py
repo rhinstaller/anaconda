@@ -19,7 +19,6 @@ import os
 import re
 
 from pyanaconda.bootloader.base import BootLoaderError
-from pyanaconda.bootloader.grub import GRUB
 from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
@@ -29,7 +28,7 @@ from pyanaconda.product import productName
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["EFIBase", "EFIGRUB1", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB"]
+__all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB"]
 
 
 class EFIBase(object):
@@ -133,48 +132,6 @@ class EFIBase(object):
         if not self.keep_boot_order:  # pylint: disable=no-member
             self.remove_efi_boot_target()
         self.add_efi_boot_target()
-
-
-class EFIGRUB1(EFIBase, GRUB):
-    """EFI GRUBv1"""
-    packages = ["efibootmgr"]
-    can_dual_boot = False
-
-    # list of strings representing options for boot device types
-    stage2_device_types = ["partition"]
-    stage2_raid_levels = []
-    stage2_raid_member_types = []
-    stage2_raid_metadata = []
-
-    stage2_is_valid_stage1 = False
-    stage2_bootable = False
-
-    _efi_binary = "\\grub.efi"
-
-    def __init__(self):
-        super().__init__()
-        self.efi_dir = 'BOOT'
-
-    #
-    # configuration
-    #
-
-    @property
-    def efi_product_path(self):
-        """ The EFI product path.
-
-            eg: HD(1,800,64000,faacb4ef-e361-455e-bd97-ca33632550c3)
-        """
-        buf = self.efibootmgr("-v", capture=True)
-        matches = re.search(productName + r'\s+(HD\(.+?\))', buf)
-        if matches and matches.groups():
-            return matches.group(1)
-        return ""
-
-    @property
-    def grub_conf_device_line(self):
-        return "device %s %s\n" % (self.grub_device_name(self.stage2_device),
-                                   self.efi_product_path)
 
 
 class EFIGRUB(EFIBase, GRUB2):
