@@ -286,8 +286,7 @@ update-desktop-database &> /dev/null || :
 %postun live
 update-desktop-database &> /dev/null || :
 
-%post widgets -p /sbin/ldconfig
-%postun widgets -p /sbin/ldconfig
+%ldconfig_scriptlets widgets
 
 
 
