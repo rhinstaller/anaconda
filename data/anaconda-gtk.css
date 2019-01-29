@@ -79,10 +79,14 @@ levelbar.discrete trough block.filled.high {
 
 /* vendor-specific colors/images */
 
-@define-color redhat #41413e;
+@define-color redhat #2d2d2d;
 @define-color fedora #2f4265;
 
-/* logo and sidebar classes for Fedora */
+/* theme colors/images */
+
+@define-color theme_bg_color @fedora;
+
+/* logo and sidebar classes */
 
 /* The sidebar consists of three parts: a background, a logo, and a product logo,
  * rendered in that order. The product logo is empty by default and is intended
@@ -90,7 +94,7 @@ levelbar.discrete trough block.filled.high {
  */
 .logo-sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
-    background-color: @fedora;
+    background-color: @theme_bg_color;
     background-repeat: no-repeat;
 }
 
@@ -109,7 +113,7 @@ levelbar.discrete trough block.filled.high {
 }
 
 AnacondaSpokeWindow #nav-box {
-    background-color: @fedora;
+    background-color: @theme_bg_color;
     background-image: url('/usr/share/anaconda/pixmaps/topbar-bg.png');
     background-repeat: repeat;
     color: white;
@@ -119,10 +123,6 @@ AnacondaSpokeWindow #nav-box {
  * below the buttons and makes them look dumb */
 AnacondaSpokeWindow #nav-box GtkButton {
     box-shadow: none;
-}
-
-AnacondaSpokeWindow #nav-box {
-    background-color: @fedora;
 }
 
 /* When multi-column GtkTreeViews set a row separator, the horizontal-separator
