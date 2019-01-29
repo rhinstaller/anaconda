@@ -26,6 +26,7 @@ from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda.storage.installation import turn_on_filesystems
 from pyanaconda.bootloader.installation import write_boot_loader
 from pyanaconda.payload.livepayload import LiveImagePayload
@@ -266,7 +267,9 @@ def doInstall(storage, payload, ksdata):
     manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
     if not manual_part_proxy.Enabled:
-        early_storage.append(Task("Insert custom storage to ksdata", storage.update_ksdata))
+        early_storage.append(Task("Insert custom storage to ksdata",
+                                  task=update_storage_ksdata,
+                                  task_args=(storage, ksdata)))
 
     # callbacks for blivet
     message_clbk = lambda clbk_data: progress_message(clbk_data.msg)

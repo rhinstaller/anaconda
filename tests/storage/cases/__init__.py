@@ -26,6 +26,7 @@ blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
 
 from pyanaconda.storage.osinstall import InstallerStorage
+from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda import platform as _platform
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser
@@ -203,7 +204,7 @@ class TestCaseComponent(object):
             self.setupDisks(parser.handler)
 
             do_kickstart_storage(self._storage, parser.handler)
-            self._storage.update_ksdata()
+            update_storage_ksdata(self._storage, parser.handler)
             self._storage.devicetree.teardown_all()
             self._storage.do_it()
         except (BootLoaderError, KickstartError, StorageError) as e:
