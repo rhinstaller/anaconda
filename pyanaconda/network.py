@@ -36,12 +36,11 @@ import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice
-import blivet.arch
 
 from pyanaconda import nm
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
-from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IBFT_CONFIGURED_DEVICE_NAME
+from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.core.configuration.anaconda import conf
 from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
@@ -281,74 +280,6 @@ def dracutSetupArgs(networkStorageDevice):
     netargs = network_proxy.GetDracutArguments(nic, target_ip, "")
 
     return netargs
-
-
-def find_ifcfg_file_of_device(devname, root_path=""):
-    ifcfg_path = None
-
-    if devname not in nm.nm_devices():
-        # virtual devices (bond, vlan, ...) not activated in installer
-        # are not created so just go right to searching in ifcfgs
-        return find_ifcfg_file([("DEVICE", devname)])
-
-    if nm.nm_device_type_is_wifi(devname):
-        ssid = nm.nm_device_active_ssid(devname)
-        if ssid:
-            ifcfg_path = find_ifcfg_file([("ESSID", ssid)])
-    elif nm.nm_device_type_is_bond(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
-    elif nm.nm_device_type_is_team(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
-    elif nm.nm_device_type_is_vlan(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
-    elif nm.nm_device_type_is_bridge(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
-    elif nm.nm_device_type_is_infiniband(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
-    elif nm.nm_device_type_is_ethernet(devname):
-        try:
-            hwaddr = nm.nm_device_perm_hwaddress(devname)
-        except nm.PropertyNotFoundError:
-            hwaddr = None
-        if hwaddr:
-            hwaddr_check = lambda mac: mac.upper() == hwaddr.upper()
-            nonempty = lambda x: x
-            # slave configration created in GUI takes precedence
-            ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
-                                          ("MASTER", nonempty)],
-                                         root_path)
-            if not ifcfg_path:
-                ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
-                                              ("TEAM_MASTER", nonempty)],
-                                             root_path)
-            if not ifcfg_path:
-                ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
-                                              ("BRIDGE", nonempty)],
-                                             root_path)
-            if not ifcfg_path:
-                ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
-        if not ifcfg_path:
-            ifcfg_path = find_ifcfg_file([("DEVICE", devname)], root_path)
-        if not ifcfg_path:
-            if blivet.arch.is_s390():
-                # s390 setting generated in dracut with net.ifnames=0
-                # has neither DEVICE nor HWADDR (#1249750)
-                ifcfg_path = find_ifcfg_file([("NAME", devname)], root_path)
-            else:
-                log.debug("ifcfg file for %s not found", devname)
-
-    return ifcfg_path
-
-def find_ifcfg_uuid_of_device(devname):
-    ifcfg_path = find_ifcfg_file_of_device(devname)
-    if ifcfg_path:
-        ifcfg = IfcfgFile(ifcfg_path)
-        ifcfg.read()
-        uuid = ifcfg.get('UUID')
-    else:
-        log.debug("can't find ifcfg file of %s", devname)
-        uuid = None
-    return uuid
 
 def find_ifcfg_file(values, root_path=""):
     for filepath in _ifcfg_files(os.path.normpath(root_path + netscriptsDir)):
@@ -694,9 +625,6 @@ def is_using_team_device():
 
 def is_libvirt_device(iface):
     return iface and iface.startswith("virbr")
-
-def is_ibft_configured_device(iface):
-    return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
 
 def device_type_is_supported_wired(device_type):
     return device_type in [NM.DeviceType.ETHERNET, NM.DeviceType.INFINIBAND]

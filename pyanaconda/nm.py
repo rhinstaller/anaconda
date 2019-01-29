@@ -439,29 +439,6 @@ def nm_device_ip_addresses(name, version=4):
 
     return retval
 
-def nm_device_active_ssid(name):
-    """Return ssid of device's active access point.
-
-       :param name: name of device
-       :type name: str
-       :return: ssid of active access point, ``None`` if device has no active AP
-       :rtype: str
-       :raise UnknownDeviceError: if device is not found
-    """
-
-    try:
-        aap = nm_device_property(name, "ActiveAccessPoint")
-    except PropertyNotFoundError:
-        return None
-
-    if aap == "/":
-        return None
-
-    ssid_ay = _get_property(aap, "Ssid", ".AccessPoint")
-    ssid = "".join(chr(b) for b in ssid_ay)
-
-    return ssid
-
 def nm_device_ip_config(name, version=4):
     """Return IP configurations of device in ACTIVATED state.
 
