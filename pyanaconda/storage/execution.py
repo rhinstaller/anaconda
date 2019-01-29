@@ -35,8 +35,6 @@ from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE,
     MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
-from pyanaconda.kickstart import refreshAutoSwapSize, getEscrowCertificate, getAvailableDiskSpace, \
-    lookupAlias
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -44,8 +42,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
-from pyanaconda.storage.utils import get_pbkdf_args
-
+from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias, get_available_disk_space
 
 log = get_module_logger(__name__)
 
@@ -136,17 +133,12 @@ class AutomaticPartitioningExecutor(object):
 
         # Sets up default auto partitioning. Use clearpart separately if you want it.
         # The filesystem type is already set in the storage.
-        refreshAutoSwapSize(storage)
-
         if auto_part_proxy.Encrypted:
             storage.encrypted_autopart = True
             storage.encryption_passphrase = auto_part_proxy.Passphrase
             storage.encryption_cipher = auto_part_proxy.Cipher
             storage.autopart_add_backup_passphrase = auto_part_proxy.BackupPassphraseEnabled
-            storage.autopart_escrow_cert = getEscrowCertificate(
-                storage.escrow_certificates,
-                auto_part_proxy.Escrowcert
-            )
+            storage.autopart_escrow_cert = storage.get_escrow_certificate(auto_part_proxy.Escrowcert)
 
             luks_version = auto_part_proxy.LUKSVersion or storage.default_luks_version
 
@@ -167,7 +159,7 @@ class AutomaticPartitioningExecutor(object):
         if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
             storage.autopart_type = auto_part_proxy.Type
 
-        autopart.do_autopart(storage, data, min_luks_entropy=MIN_CREATE_ENTROPY)
+        autopart.do_autopart(storage, min_luks_entropy=MIN_CREATE_ENTROPY)
         report = storage_checker.check(storage)
         report.log(log)
 
@@ -336,7 +328,7 @@ class CustomPartitioningExecutor(object):
             ty = "swap"
             partition_data.mountpoint = ""
             if partition_data.recommended or partition_data.hibernation:
-                disk_space = getAvailableDiskSpace(storage)
+                disk_space = get_available_disk_space(storage)
                 size = autopart.swap_suggestion(
                     hibernation=partition_data.hibernation,
                     disk_space=disk_space
@@ -599,7 +591,7 @@ class CustomPartitioningExecutor(object):
             # before this one to setup the storage.encryption_passphrase
             partition_data.passphrase = partition_data.passphrase or storage.encryption_passphrase
 
-            cert = getEscrowCertificate(storage.escrow_certificates, partition_data.escrowcert)
+            cert = storage.get_escrow_certificate(partition_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
             partition_data.luks_version = partition_data.luks_version \
@@ -756,7 +748,7 @@ class CustomPartitioningExecutor(object):
             if not dev:
                 # if member is using --onpart, use original device
                 mem = data.onPart.get(member, member)
-                dev = devicetree.resolve_device(mem) or lookupAlias(devicetree, member)
+                dev = devicetree.resolve_device(mem) or lookup_alias(devicetree, member)
             if dev and dev.format.type == "luks":
                 try:
                     dev = dev.children[0]
@@ -850,7 +842,7 @@ class CustomPartitioningExecutor(object):
             if raid_data.passphrase and not storage.encryption_passphrase:
                 storage.encryption_passphrase = raid_data.passphrase
 
-            cert = getEscrowCertificate(storage.escrow_certificates, raid_data.escrowcert)
+            cert = storage.get_escrow_certificate(raid_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
             raid_data.luks_version = raid_data.luks_version or storage.default_luks_version
@@ -935,7 +927,7 @@ class CustomPartitioningExecutor(object):
             if not dev:
                 # if pv is using --onpart, use original device
                 pv_name = data.onPart.get(pv, pv)
-                dev = devicetree.resolve_device(pv_name) or lookupAlias(devicetree, pv)
+                dev = devicetree.resolve_device(pv_name) or lookup_alias(devicetree, pv)
             if dev and dev.format.type == "luks":
                 try:
                     dev = dev.children[0]
@@ -1059,7 +1051,7 @@ class CustomPartitioningExecutor(object):
             ty = "swap"
             logvol_data.mountpoint = ""
             if logvol_data.recommended or logvol_data.hibernation:
-                disk_space = getAvailableDiskSpace(storage)
+                disk_space = get_available_disk_space(storage)
                 size = autopart.swap_suggestion(
                     hibernation=logvol_data.hibernation,
                     disk_space=disk_space
@@ -1106,7 +1098,7 @@ class CustomPartitioningExecutor(object):
 
         # If cache PVs specified, check that they belong to the same VG this LV is a member of
         if logvol_data.cache_pvs:
-            pv_devices = (lookupAlias(devicetree, pv) for pv in logvol_data.cache_pvs)
+            pv_devices = (lookup_alias(devicetree, pv) for pv in logvol_data.cache_pvs)
             if not all(pv in vg.pvs for pv in pv_devices):
                 raise KickstartParseError(
                     _("Cache PVs must belong to the same VG as the cached LV"),
@@ -1275,7 +1267,7 @@ class CustomPartitioningExecutor(object):
                 maxsize = None
 
             if logvol_data.cache_size and logvol_data.cache_pvs:
-                pv_devices = [lookupAlias(devicetree, pv) for pv in logvol_data.cache_pvs]
+                pv_devices = [lookup_alias(devicetree, pv) for pv in logvol_data.cache_pvs]
                 cache_size = Size("%d MiB" % logvol_data.cache_size)
                 cache_mode = logvol_data.cache_mode or None
                 cache_request = LVMCacheRequest(cache_size, pv_devices, cache_mode)
@@ -1312,7 +1304,7 @@ class CustomPartitioningExecutor(object):
             # before this one to setup the storage.encryption_passphrase
             logvol_data.passphrase = logvol_data.passphrase or storage.encryption_passphrase
 
-            cert = getEscrowCertificate(storage.escrow_certificates, logvol_data.escrowcert)
+            cert = storage.get_escrow_certificate(logvol_data.escrowcert)
 
             # Get the version of LUKS and PBKDF arguments.
             logvol_data.luks_version = logvol_data.luks_version or storage.default_luks_version
@@ -1398,7 +1390,7 @@ class CustomPartitioningExecutor(object):
             if not dev:
                 # if using --onpart, use original device
                 member_name = data.onPart.get(member, member)
-                dev = devicetree.resolve_device(member_name) or lookupAlias(devicetree, member)
+                dev = devicetree.resolve_device(member_name) or lookup_alias(devicetree, member)
 
             if dev and dev.format.type == "luks":
                 try:

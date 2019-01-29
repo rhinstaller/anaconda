@@ -23,7 +23,6 @@ import os
 import os.path
 from abc import ABCMeta, abstractmethod
 
-import requests
 import shlex
 import sys
 import tempfile
@@ -59,7 +58,6 @@ from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.storage import autopart
 from pyanaconda.storage.utils import device_matches, try_populate_devicetree
 from pyanaconda.threading import threadMgr
 from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
@@ -102,7 +100,6 @@ network_log = log.getChild("kickstart.network")
 selinux_log = log.getChild("kickstart.selinux")
 timezone_log = log.getChild("kickstart.timezone")
 realm_log = log.getChild("kickstart.realm")
-escrow_log = log.getChild("kickstart.escrow")
 firewall_log = log.getChild("kickstart.firewall")
 
 @contextmanager
@@ -186,74 +183,6 @@ class AnacondaInternalScript(AnacondaKSScript):
         # kickstart file.
         return ""
 
-def getEscrowCertificate(escrowCerts, url):
-    if not url:
-        return None
-
-    if url in escrowCerts:
-        return escrowCerts[url]
-
-    needs_net = not url.startswith("/") and not url.startswith("file:")
-    if needs_net:
-        network_proxy = NETWORK.get_proxy()
-        if not network_proxy.Connected:
-            msg = _("Escrow certificate %s requires the network.") % url
-            raise KickstartError(msg)
-
-    escrow_log.info("escrow: downloading %s", url)
-
-    try:
-        request = util.requests_session().get(url, verify=True)
-    except requests.exceptions.SSLError as e:
-        msg = _("SSL error while downloading the escrow certificate:\n\n%s") % e
-        raise KickstartError(msg)
-    except requests.exceptions.RequestException as e:
-        msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s") % e
-        raise KickstartError(msg)
-
-    try:
-        escrowCerts[url] = request.content
-    finally:
-        request.close()
-
-    return escrowCerts[url]
-
-def lookupAlias(devicetree, alias):
-    for dev in devicetree.devices:
-        if getattr(dev, "req_name", None) == alias:
-            return dev
-
-    return None
-
-def getAvailableDiskSpace(storage):
-    """
-    Get overall disk space available on disks we may use.
-
-    :param storage: blivet.Blivet instance
-    :return: overall disk space available
-    :rtype: :class:`blivet.size.Size`
-
-    """
-
-    free_space = storage.free_space_snapshot
-    # blivet creates a new free space dict to instead of modifying the old one,
-    # so there is no worry about the dictionary changing during iteration.
-    return sum(disk_free for disk_free, fs_free in free_space.values())
-
-def refreshAutoSwapSize(storage):
-    """
-    Refresh size of the auto partitioning request for swap device according to
-    the current state of the storage configuration.
-
-    :param storage: blivet.Blivet instance
-
-    """
-
-    for request in storage.autopart_requests:
-        if request.fstype == "swap":
-            disk_space = getAvailableDiskSpace(storage)
-            request.size = autopart.swap_suggestion(disk_space=disk_space)
-            break
 
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
