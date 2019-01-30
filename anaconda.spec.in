@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 30 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.34-1
+- Restore RHEL-specific stylesheet data (vponcova)
+  Resolves: rhbz#1638383
+- Do not crash on missing multipath device wwn. (rvykydal)
+  Resolves: rhbz#1666242
+
 * Wed Jan 16 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.33-1
 - Relabel X11/xorg.conf.d directory (jkonecny)
   Resolves: rhbz#1660436
