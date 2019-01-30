@@ -45,7 +45,6 @@ from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.storage.utils import download_escrow_certificate
 from pyanaconda.storage.root import find_existing_installations
-from pyanaconda.storage.utils import get_ignored_nvdimm_blockdevs
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     ZFCP, FCOE
@@ -504,27 +503,11 @@ class InstallerStorage(Blivet):
             if device.format.type == "luks" and device.format.exists:
                 self.save_passphrase(device)
 
-        if self.ksdata:
-            nvdimm_ksdata = self.ksdata.nvdimm
-        else:
-            nvdimm_ksdata = None
-        ignored_nvdimm_devs = get_ignored_nvdimm_blockdevs(nvdimm_ksdata)
-        if ignored_nvdimm_devs:
-            log.debug("adding NVDIMM devices %s to ignored disks",
-                        ",".join(ignored_nvdimm_devs))
+        self.config.update()
 
-        if self.ksdata:
-            disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-            if ignored_nvdimm_devs:
-                ignored_disks = disk_select_proxy.IgnoredDisks
-                ignored_disks.extend(ignored_nvdimm_devs)
-                disk_select_proxy.SetIgnoredDisks(ignored_disks)
-            self.config.update()
-
-            self.ignored_disks = disk_select_proxy.IgnoredDisks
-            self.exclusive_disks = disk_select_proxy.SelectedDisks
-        else:
-            self.ignored_disks.extend(ignored_nvdimm_devs)
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        self.ignored_disks = disk_select_proxy.IgnoredDisks
+        self.exclusive_disks = disk_select_proxy.SelectedDisks
 
         if not conf.target.is_image:
             iscsi.startup()

@@ -690,6 +690,10 @@ if __name__ == "__main__":
             ignored_disks.append(oemdrv_disk)
             disk_select_proxy.SetIgnoredDisks(ignored_disks)
 
+    # Ignore nvdimm devices.
+    from pyanaconda.storage.utils import ignore_nvdimm_blockdevs
+    ignore_nvdimm_blockdevs(ksdata.nvdimm)
+
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
 
