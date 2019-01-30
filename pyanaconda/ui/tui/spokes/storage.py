@@ -262,7 +262,7 @@ class StorageSpoke(NormalTUISpoke):
         if (isinstance(disk, MultipathDevice) or
                 isinstance(disk, iScsiDiskDevice) or
                 isinstance(disk, FcoeDiskDevice)):
-            if hasattr(disk, "wwn"):
+            if hasattr(disk, "wwn") and disk.wwn:
                 disk_attrs.append(disk.wwn)
         elif isinstance(disk, DASDDevice):
             if hasattr(disk, "busid"):
