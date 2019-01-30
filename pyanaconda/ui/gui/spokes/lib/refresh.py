@@ -86,7 +86,7 @@ class RefreshDialog(GUIObject):
 
         # And now to fire up the storage reinitialization.
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=initialize_storage,
-                                     args=(self.storage, self.data, self.storage.protected_dev_names)))
+                                     args=(self.storage, self.storage.protected_dev_names)))
 
         self._elapsed = 0
 

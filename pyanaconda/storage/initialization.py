@@ -135,11 +135,10 @@ def update_blivet_flags():
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
 
-def initialize_storage(storage, ksdata, protected):
+def initialize_storage(storage, protected):
     """Perform installer-specific storage initialization.
 
     :param storage: an instance of the Blivet's storage object
-    :param ksdata: an instance of the kickstart data
     :param protected: a list of protected device names
     """
     update_blivet_flags()
