@@ -26,6 +26,7 @@ from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device, get_kickstart_network_data
 from pyanaconda.modules.network.nm_client import get_iface_from_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 
 import gi
 gi.require_version("NM", "1.0")
@@ -418,6 +419,3 @@ def is_libvirt_device(iface):
 
 def is_ibft_configured_device(iface):
     return IBFT_CONFIGURED_DEVICE_NAME.match(iface)
-
-def default_ks_vlan_interface_name(parent, vlanid):
-    return "%s.%s" % (parent, vlanid)
