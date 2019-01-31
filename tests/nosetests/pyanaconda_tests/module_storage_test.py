@@ -748,6 +748,13 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             ["sda", "sdb"]
         )
 
+    def protected_disks_property_test(self):
+        """Test the protected disks property."""
+        self._test_dbus_property(
+            "ProtectedDevices",
+            ["sda", "sdb"]
+        )
+
 
 class BootloaderInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the bootloader module."""
