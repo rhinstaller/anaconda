@@ -1,7 +1,7 @@
 #
 # Persistent device configuration state for network module
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -50,6 +50,7 @@ supported_wired_device_types = [
     NM.DeviceType.ETHERNET,
     NM.DeviceType.INFINIBAND,
 ]
+
 
 class DeviceConfigurations(object):
     """Holds state of persistent configuration of network devices.
@@ -305,7 +306,7 @@ class DeviceConfigurations(object):
             for cfg in existing_cfgs:
                 if cfg.connection_uuid:
                     log.debug("not adding %s, already have %s for device %s",
-                            uuid, cfg.connection_uuid, cfg.device_name)
+                              uuid, cfg.connection_uuid, cfg.device_name)
                     return False
                 else:
                     old_cfg = copy.deepcopy(cfg)
@@ -414,8 +415,10 @@ class DeviceConfigurations(object):
             rv.append(network_data)
         return rv
 
+
 def is_libvirt_device(iface):
     return iface.startswith("virbr")
+
 
 def is_ibft_configured_device(iface):
     return IBFT_CONFIGURED_DEVICE_NAME.match(iface)

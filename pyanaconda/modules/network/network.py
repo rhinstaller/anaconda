@@ -138,7 +138,6 @@ class NetworkModule(KickstartModule):
 
     def generate_kickstart(self):
         """Return the kickstart string."""
-
         data = self.get_kickstart_handler()
 
         if self._device_configurations and self._use_device_configurations:
@@ -252,7 +251,6 @@ class NetworkModule(KickstartModule):
         :param overwrite: overwrite existing configuration
         :return: a DBus path of an installation task
         """
-
         disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
         network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
@@ -425,7 +423,6 @@ class NetworkModule(KickstartModule):
 
         :returns: list of devices to which kickstart configuration was applied
         """
-
         applied_devices = []
 
         if not self._original_network_data:
@@ -433,7 +430,6 @@ class NetworkModule(KickstartModule):
             return []
 
         for network_data in self._original_network_data:
-
             # Wireless is not supported
             if network_data.essid:
                 log.info("Wireless devices configuration is not supported.")
@@ -490,7 +486,6 @@ class NetworkModule(KickstartModule):
         :return: list of devices for which ONBOOT was updated
         :rtype: list(str)
         """
-
         updated_devices = []
 
         if not self._original_network_data:

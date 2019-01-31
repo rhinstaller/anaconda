@@ -50,6 +50,7 @@ def get_iface_from_connection(nm_client, uuid):
                 iface = get_iface_from_hwaddr(nm_client, mac)
     return iface
 
+
 def get_iface_from_hwaddr(nm_client, hwaddr):
     """Find the name of device specified by mac address."""
     for device in nm_client.get_devices():
@@ -66,6 +67,7 @@ def get_iface_from_hwaddr(nm_client, hwaddr):
             return device.get_iface()
     return None
 
+
 def get_team_port_config_from_connection(nm_client, uuid):
     connection = nm_client.get_connection_by_uuid(uuid)
     if not connection:
@@ -76,6 +78,7 @@ def get_team_port_config_from_connection(nm_client, uuid):
     config = team_port.get_config()
     return config
 
+
 def get_team_config_form_connection(nm_client, uuid):
     connection = nm_client.get_connection_by_uuid(uuid)
     if not connection:
@@ -85,6 +88,7 @@ def get_team_config_form_connection(nm_client, uuid):
         return None
     config = team.get_config()
     return config
+
 
 def get_device_name_from_network_data(nm_client, network_data, supported_devices, bootif):
     """Get the device name from kickstart device specification.
@@ -359,7 +363,6 @@ def create_slave_connection(slave_type, slave_idx, slave, master, settings=None)
     :return: created connection
     :rtype: NM.SimpleConnection
     """
-
     settings = settings or []
     slave_name = "%s slave %d" % (master, slave_idx)
 
@@ -407,12 +410,11 @@ def bound_hwaddr_of_device(nm_client, device_name, ifname_option_values):
     :type ifname_option_values: list(str)
     :return: hwaddress of the device if bound, or None
     :rtype: str or None
-
     """
     for ifname_value in ifname_option_values:
         iface, mac = ifname_value.split(":", 1)
         if iface == device_name:
-            if iface ==  get_iface_from_hwaddr(nm_client, mac):
+            if iface == get_iface_from_hwaddr(nm_client, mac):
                 return mac.upper()
             else:
                 log.warning("MAC address of ifname %s does not correspond to ifname=%s",
@@ -457,7 +459,6 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
                             to be applied to the connection
     :type network_data: pykickstart NetworkData
     """
-
     # ipv4 settings
     if network_data.noipv4:
         method4 = "disabled"
@@ -596,7 +597,7 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
     :param device_name: name of device to apply the connection to
     :type device_name: str
     :param only_replace: apply the connection only if the device has different
-                            active connection
+                         active connection
     :type only_replace: bool
     """
     activated = False
@@ -613,8 +614,9 @@ def ensure_active_connection_for_device(nm_client, uuid, device_name, only_repla
                 activated = True
     msg = "activated" if activated else "not activated"
     log.debug("ensure active ifcfg connection for %s (%s -> %s): %s",
-                device_name, active_uuid, uuid, msg)
+              device_name, active_uuid, uuid, msg)
     return activated
+
 
 def update_iface_setting_values(nm_client, iface, new_values):
     """Update settings of the connection for the interface.
@@ -648,6 +650,7 @@ def update_iface_setting_values(nm_client, iface, new_values):
     con.commit_changes(True, None)
     return n_cons
 
+
 def devices_ignore_ipv6(nm_client, device_types):
     """All connections of devices of given type ignore ipv6."""
     device_types = device_types or []
@@ -659,6 +662,7 @@ def devices_ignore_ipv6(nm_client, device_types):
                 if s_ipv6 and s_ipv6.method() != NM.SETTING_IP6_CONFIG_METHOD_IGNORE:
                     return False
     return True
+
 
 def get_first_iface_with_link(nm_client, device_types):
     for device in nm_client.get_devices():

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -40,7 +40,7 @@ class NetworkInstallationTask(Task):
 
     def __init__(self, sysroot, hostname, disable_ipv6, overwrite,
                  onboot_yes_uuids, network_ifaces):
-        """Create a new task,
+        """Create a new task.
 
         :param sysroot: a path to the root of installed system
         :type sysroot: str
