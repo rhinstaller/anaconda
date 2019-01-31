@@ -677,18 +677,8 @@ if __name__ == "__main__":
         anaconda.storage.setup_disk_images()
 
     # Ignore disks labeled OEMDRV
-    from pyanaconda.modules.common.constants.services import STORAGE
-    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
-    from pyanaconda.storage.utils import device_matches
-    matched = device_matches("LABEL=OEMDRV", disks_only=True)
-    for oemdrv_disk in matched:
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        ignored_disks = disk_select_proxy.IgnoredDisks
-
-        if oemdrv_disk not in ignored_disks:
-            log.info("Adding disk %s labeled OEMDRV to ignored disks", oemdrv_disk)
-            ignored_disks.append(oemdrv_disk)
-            disk_select_proxy.SetIgnoredDisks(ignored_disks)
+    from pyanaconda.storage.utils import ignore_oemdrv_disks
+    ignore_oemdrv_disks()
 
     # Ignore nvdimm devices.
     from pyanaconda.storage.utils import ignore_nvdimm_blockdevs
