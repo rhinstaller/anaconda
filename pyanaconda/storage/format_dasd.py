@@ -169,7 +169,7 @@ class DasdFormatting(object):
 
         # Update the storage.
         self.report.emit(_("Probing storage"))
-        initialize_storage(storage, storage.protected_dev_names)
+        initialize_storage(storage)
 
         # Update also the storage snapshot to reflect the changes.
         if on_disk_storage.created:
