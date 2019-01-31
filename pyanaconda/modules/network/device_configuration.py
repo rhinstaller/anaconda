@@ -395,7 +395,7 @@ class DeviceConfigurations(object):
 
     def get_kickstart_data(self, network_data_class):
         rv = []
-        for i, cfg in enumerate(self._device_configurations or []):
+        for cfg in self._device_configurations or []:
             network_data = None
             if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
                 network_data = get_kickstart_network_data(self.nm_client,
@@ -410,7 +410,8 @@ class DeviceConfigurations(object):
                 else:
                     # First network command defaults to --activate so we must
                     # use --no-activate explicitly to prevent the default
-                    if i == 0:
+                    # (Default value is None)
+                    if not rv:
                         network_data.activate = False
             rv.append(network_data)
         return rv
