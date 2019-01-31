@@ -31,9 +31,9 @@ from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
     DISK_INITIALIZATION, FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.storage.partitioning import get_default_partitioning
+from pyanaconda.platform import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -52,12 +52,29 @@ def enable_installer_mode():
     if conf.target.is_image:
         blivet_flags.lvm_metadata_backup = False
 
+    # Set the flags.
     blivet_flags.auto_dev_updates = True
     blivet_flags.selinux_reset_fcon = True
     blivet_flags.keep_empty_ext_partitions = False
     blivet_flags.discard_new = True
+    blivet_flags.selinux = conf.security.selinux
+    blivet_flags.dmraid = conf.storage.dmraid
+    blivet_flags.ibft = conf.storage.ibft
+    blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
+    blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
+    # Platform class setup depends on flags, re-initialize it.
+    platform.update_from_flags()
+
+    # Load plugins.
+    if arch.is_s390():
+        load_plugin_s390()
+
+    # Set the blacklist.
     udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
+
+    # We need this so all the /dev/disk/* stuff is set up.
+    udev.trigger(subsystem="block", action="change")
 
 
 def create_storage():
@@ -69,7 +86,7 @@ def create_storage():
     _set_storage_defaults(storage)
 
     if arch.is_s390():
-        _load_plugin_s390()
+        load_plugin_s390()
 
     return storage
 
@@ -108,7 +125,7 @@ def _set_storage_defaults(storage):
     storage.set_default_partitioning(get_default_partitioning())
 
 
-def _load_plugin_s390():
+def load_plugin_s390():
     """Load the s390x plugin."""
     # Is the plugin loaded? We are done then.
     if "s390" in blockdev.get_available_plugin_names():
@@ -121,29 +138,11 @@ def _load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def update_blivet_flags():
-    """Set installer-specific flags.
-
-    This changes blivet default flags by either flipping the original value,
-    or it assigns the flag value based on anaconda settings that are passed in.
-    """
-    blivet_flags.selinux = conf.security.selinux
-    blivet_flags.dmraid = conf.storage.dmraid
-    blivet_flags.ibft = conf.storage.ibft
-    blivet_flags.multipath_friendly_names = conf.storage.multipath_friendly_names
-    blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
-
-
 def initialize_storage(storage):
     """Perform installer-specific storage initialization.
 
     :param storage: an instance of the Blivet's storage object
     """
-    update_blivet_flags()
-
-    # Platform class setup depends on flags, re-initialize it.
-    _platform.update_from_flags()
-
     storage.shutdown()
 
     while True:

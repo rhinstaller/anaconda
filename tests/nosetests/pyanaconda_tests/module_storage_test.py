@@ -636,9 +636,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         nm.nm_devices.return_value = ["eth1"]
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
+    @patch("pyanaconda.storage.initialization.load_plugin_s390")
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
     @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
-    def zfcp_kickstart_test(self, arch, zfcp):
+    def zfcp_kickstart_test(self, arch, zfcp, loader):
         """Test the zfcp command."""
         self.setUp()  # set up for s390x
 

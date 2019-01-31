@@ -17,7 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import arch, udev
+from blivet import arch
 
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
@@ -31,6 +31,7 @@ from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
+from pyanaconda.storage.initialization import enable_installer_mode
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -41,9 +42,10 @@ class StorageModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
-        # We need this so all the /dev/disk/* stuff is set up.
-        udev.trigger(subsystem="block", action="change")
+        # Initialize Blivet.
+        enable_installer_mode()
 
+        # Initialize modules.
         self._modules = []
 
         self._disk_init_module = DiskInitializationModule()
