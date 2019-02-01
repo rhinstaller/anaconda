@@ -20,7 +20,6 @@
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.dbus import DBus, SystemBus
-from pyanaconda.dbus.structure import get_structure
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
@@ -85,7 +84,7 @@ class NetworkModule(KickstartModule):
         self._onboot_yes_ifaces = []
         self._device_configurations = None
         self._use_device_configurations = False
-        self.configuration_changed = Signal()
+        self.configurations_changed = Signal()
 
         self._default_device_specification = DEFAULT_DEVICE_SPECIFICATION
         self._bootif = None
@@ -316,21 +315,19 @@ class NetworkModule(KickstartModule):
     def create_device_configurations(self):
         """Create and populate the state of network devices configuration."""
         self._device_configurations = DeviceConfigurations(self.nm_client)
-        self._device_configurations.configuration_changed.connect(self.device_configurations_changed_cb)
+        self._device_configurations.configurations_changed.connect(self.device_configurations_changed_cb)
         self._device_configurations.reload()
         self._device_configurations.connect()
+        log.debug("Device configurations created: %s", self._device_configurations)
 
     def get_device_configurations(self):
         if not self._device_configurations:
             return []
         return self._device_configurations.get_all()
 
-    def device_configurations_changed_cb(self, old_dev_cfg, new_dev_cfg):
-        log.debug("Configuration changed: %s -> %s", old_dev_cfg, new_dev_cfg)
-        log.debug("%s", self._device_configurations)
-        self.configuration_changed.emit([
-            (get_structure(old_dev_cfg), get_structure(new_dev_cfg))
-        ])
+    def device_configurations_changed_cb(self, changes):
+        log.debug("Device configurations changed: %s", changes)
+        self.configurations_changed.emit(changes)
 
     def consolidate_initramfs_connections(self):
         """Ensure devices configured in initramfs have no more than one NM connection.

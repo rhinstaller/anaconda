@@ -74,11 +74,9 @@ class DeviceConfigurations(object):
     their uuid.
 
     signals:
-        configuration_changed - Provides old and new values of the configuration
-                                in the form of a dictionary to the callback.
-                                The idea here is that the configurations will have
-                                no id but can be referenced by hashed content
-                                instead.
+        configurations_changed - Provides list of changes - tuples containing
+                                 NetworkDeviceConfiguration objects with old and new
+                                 values.
     """
 
     # Maps types of connections to types of devices (both provided by NM)
@@ -95,7 +93,7 @@ class DeviceConfigurations(object):
     def __init__(self, nm_client=None):
         self._device_configurations = None
         self.nm_client = nm_client or NM.Client.new()
-        self.configuration_changed = Signal()
+        self.configurations_changed = Signal()
 
     def reload(self):
         """Reload the state from the system."""
@@ -134,7 +132,7 @@ class DeviceConfigurations(object):
         if device_type is not None:
             new_dev_cfg.device_type = device_type
         self._device_configurations.append(new_dev_cfg)
-        self.configuration_changed.emit(NetworkDeviceConfiguration(), new_dev_cfg)
+        self.configurations_changed.emit([(NetworkDeviceConfiguration(), new_dev_cfg)])
 
     def add_device(self, device):
         """Add or update configuration for libnm network device object.
@@ -223,7 +221,7 @@ class DeviceConfigurations(object):
             updated_cfg = existing_cfgs[0]
             old_cfg = copy.deepcopy(updated_cfg)
             updated_cfg.device_name = iface
-            self.configuration_changed.emit(old_cfg, updated_cfg)
+            self.configurations_changed.emit([(old_cfg, updated_cfg)])
             log.debug("attached device %s to connection %s", iface, connection_uuid)
         else:
             self.add(device_name=iface, connection_uuid=connection_uuid,
@@ -318,7 +316,7 @@ class DeviceConfigurations(object):
                 else:
                     old_cfg = copy.deepcopy(cfg)
                     cfg.connection_uuid = uuid
-                    self.configuration_changed.emit(old_cfg, cfg)
+                    self.configurations_changed.emit([(old_cfg, cfg)])
                     log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
         else:
             self.add(connection_uuid=uuid, device_type=device_type)
@@ -360,12 +358,12 @@ class DeviceConfigurations(object):
             if cfg.connection_uuid:
                 old_cfg = copy.deepcopy(cfg)
                 cfg.device_name = ""
-                self.configuration_changed.emit(old_cfg, cfg)
+                self.configurations_changed.emit([(old_cfg, cfg)])
                 log.debug("device name %s removed from %s", iface, cfg)
             else:
                 empty_cfg = NetworkDeviceConfiguration()
                 self._device_configurations.remove(cfg)
-                self.configuration_changed.emit(cfg, empty_cfg)
+                self.configurations_changed.emit([(cfg, empty_cfg)])
                 log.debug("%s removed", cfg)
 
     def _connection_added_cb(self, client, connection):
@@ -382,12 +380,12 @@ class DeviceConfigurations(object):
             if cfg.device_name:
                 old_cfg = copy.deepcopy(cfg)
                 cfg.connection_uuid = ""
-                self.configuration_changed.emit(old_cfg, cfg)
+                self.configurations_changed.emit([(old_cfg, cfg)])
                 log.debug("connection uuid %s removed from %s", uuid, cfg)
             else:
                 empty_cfg = NetworkDeviceConfiguration()
                 self._device_configurations.remove(cfg)
-                self.configuration_changed.emit(cfg, empty_cfg)
+                self.configurations_changed.emit([(cfg, empty_cfg)])
                 log.debug("%s removed", cfg)
 
     def __str__(self):

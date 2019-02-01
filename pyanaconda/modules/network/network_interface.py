@@ -35,7 +35,7 @@ class NetworkInterface(KickstartModuleInterface):
         self.implementation.hostname_changed.connect(self.changed("Hostname"))
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.implementation.connected_changed.connect(self.changed("Connected"))
-        self.implementation.configuration_changed.connect(self.DeviceConfigurationChanged)
+        self.implementation.configurations_changed.connect(self._device_configurations_changed)
         self.implementation.disable_ipv6_changed.connect(self.changed("DisableIPv6"))
 
     @property
@@ -148,6 +148,10 @@ class NetworkInterface(KickstartModuleInterface):
         """
         dev_cfgs = self.implementation.get_device_configurations()
         return [get_structure(dev_cfg) for dev_cfg in dev_cfgs]
+
+    def _device_configurations_changed(self, changes):
+        self.DeviceConfigurationChanged([(get_structure(old), get_structure(new))
+                                         for old, new in changes])
 
     @dbus_signal
     def DeviceConfigurationChanged(self, changes: List[Tuple[Structure, Structure]]):
