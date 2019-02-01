@@ -23,7 +23,7 @@ import copy
 from pyanaconda.core.regexes import IBFT_CONFIGURED_DEVICE_NAME
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
-from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device, get_kickstart_network_data
+from pyanaconda.modules.network.ifcfg import find_ifcfg_uuid_of_device
 from pyanaconda.modules.network.nm_client import get_iface_from_connection
 from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
@@ -393,33 +393,6 @@ class DeviceConfigurations(object):
 
     def __repr__(self):
         return "DeviceConfigurations({})".format(self.nm_client)
-
-    def _is_device_activated(self, iface):
-        device = self.nm_client.get_device_by_iface(iface)
-        return device and device.get_state() == NM.DeviceState.ACTIVATED
-
-    def get_kickstart_data(self, network_data_class):
-        rv = []
-        for cfg in self._device_configurations or []:
-            network_data = None
-            if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
-                network_data = get_kickstart_network_data(self.nm_client,
-                                                          cfg.connection_uuid,
-                                                          network_data_class)
-            if not network_data:
-                log.debug("Device configuration %s does not generate any kickstart data", cfg)
-                continue
-            if cfg.device_name:
-                if self._is_device_activated(cfg.device_name):
-                    network_data.activate = True
-                else:
-                    # First network command defaults to --activate so we must
-                    # use --no-activate explicitly to prevent the default
-                    # (Default value is None)
-                    if not rv:
-                        network_data.activate = False
-            rv.append(network_data)
-        return rv
 
 
 def is_libvirt_device(iface):

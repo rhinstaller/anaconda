@@ -34,7 +34,8 @@ from pyanaconda.modules.network.nm_client import get_device_name_from_network_da
     add_connection_from_ksdata, update_connection_from_ksdata, ensure_active_connection_for_device, \
     update_iface_setting_values, bound_hwaddr_of_device, devices_ignore_ipv6
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, update_onboot_value, \
-    update_slaves_onboot_value, find_ifcfg_uuid_of_device, get_dracut_arguments_from_ifcfg
+    update_slaves_onboot_value, find_ifcfg_uuid_of_device, get_dracut_arguments_from_ifcfg, \
+    get_kickstart_network_data, get_ifcfg_file
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 
@@ -138,11 +139,11 @@ class NetworkModule(KickstartModule):
         data = self.get_kickstart_handler()
 
         if self._device_configurations and self._use_device_configurations:
-            device_data = self._device_configurations.get_kickstart_data(data.NetworkData)
             log.debug("using device configurations to generate kickstart")
+            device_data = self.generate_kickstart_network_data(data.NetworkData)
         else:
-            device_data = self._original_network_data
             log.debug("using original kickstart data to generate kickstart")
+            device_data = self._original_network_data
 
         data.network.network = device_data
 
@@ -155,6 +156,37 @@ class NetworkModule(KickstartModule):
         self._firewall_module.setup_kickstart(data)
 
         return str(data)
+
+    def _is_device_activated(self, iface):
+        device = self.nm_client.get_device_by_iface(iface)
+        return device and device.get_state() == NM.DeviceState.ACTIVATED
+
+    def generate_kickstart_network_data(self, network_data_class):
+        rv = []
+        for cfg in self._device_configurations.get_all():
+            network_data = None
+            if cfg.device_type != NM.DeviceType.WIFI and cfg.connection_uuid:
+                ifcfg = get_ifcfg_file([("UUID", cfg.connection_uuid)])
+                if not ifcfg:
+                    log.debug("Ifcfg file for %s not found.")
+                    continue
+                network_data = get_kickstart_network_data(ifcfg,
+                                                          self.nm_client,
+                                                          network_data_class)
+            if not network_data:
+                log.debug("Device configuration %s does not generate any kickstart data", cfg)
+                continue
+            if cfg.device_name:
+                if self._is_device_activated(cfg.device_name):
+                    network_data.activate = True
+                else:
+                    # First network command defaults to --activate so we must
+                    # use --no-activate explicitly to prevent the default
+                    # (Default value is None)
+                    if not rv:
+                        network_data.activate = False
+            rv.append(network_data)
+        return rv
 
     @property
     def hostname(self):
@@ -265,7 +297,7 @@ class NetworkModule(KickstartModule):
 
         if self._device_configurations and self._use_device_configurations:
             data = self.get_kickstart_handler()
-            device_data = self._device_configurations.get_kickstart_data(data.NetworkData)
+            device_data = self.generate_kickstart_network_data(data.NetworkData)
         else:
             device_data = self._original_network_data
 

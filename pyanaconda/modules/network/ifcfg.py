@@ -86,149 +86,6 @@ class IfcfgFile(SimpleConfigFile):
             return
         SimpleConfigFile.unset(self, *args)
 
-    def get_kickstart_data(self, nm_client, network_data_class):
-
-        if not self._loaded:
-            self.read()
-
-        kwargs = {}
-
-        # no network command for non-virtual device slaves
-        if self.get("TYPE") not in ("Bond", "Team"):
-            if self.get("MASTER") or self.get("TEAM_MASTER") or self.get("BRIDGE"):
-                return None
-
-        # ipv4 and ipv6
-        if self.get("ONBOOT") and self.get("ONBOOT") == "no":
-            kwargs["onboot"] = False
-        if self.get('MTU') and self.get('MTU') != "0":
-            kwargs["mtu"] = self.get('MTU')
-        # ipv4
-        if not self.get('BOOTPROTO'):
-            kwargs["noipv4"] = True
-        else:
-            if util.lowerASCII(self.get('BOOTPROTO')) == 'dhcp':
-                kwargs["bootProto"] = "dhcp"
-                if self.get('DHCPCLASS'):
-                    kwargs["dhcpclass"] = self.get('DHCPCLASS')
-            elif self.get('IPADDR'):
-                kwargs["bootProto"] = "static"
-                kwargs["ip"] = self.get('IPADDR')
-                netmask = self.get('NETMASK')
-                prefix = self.get('PREFIX')
-                if not netmask and prefix:
-                    netmask = prefix2netmask(int(prefix))
-                if netmask:
-                    kwargs["netmask"] = netmask
-                # note that --gateway is common for ipv4 and ipv6
-                if self.get('GATEWAY'):
-                    kwargs["gateway"] = self.get('GATEWAY')
-            elif self.get('IPADDR0'):
-                kwargs["bootProto"] = "static"
-                kwargs["ip"] = self.get('IPADDR0')
-                prefix = self.get('PREFIX0')
-                if prefix:
-                    netmask = prefix2netmask(int(prefix))
-                    kwargs["netmask"] = netmask
-                # note that --gateway is common for ipv4 and ipv6
-                if self.get('GATEWAY0'):
-                    kwargs["gateway"] = self.get('GATEWAY0')
-
-        # ipv6
-        if not self.get('IPV6INIT') or self.get('IPV6INIT') == "no":
-            kwargs["noipv6"] = True
-        else:
-            if self.get('IPV6_AUTOCONF') in ("yes", ""):
-                kwargs["ipv6"] = "auto"
-            else:
-                if self.get('IPV6ADDR'):
-                    kwargs["ipv6"] = self.get('IPV6ADDR')
-                    if self.get('IPV6_DEFAULTGW') \
-                            and self.get('IPV6_DEFAULTGW') != "::":
-                        kwargs["ipv6gateway"] = self.get('IPV6_DEFAULTGW')
-                if self.get('DHCPV6C') == "yes":
-                    kwargs["ipv6"] = "dhcp"
-
-        # ipv4 and ipv6
-        dnsline = ''
-        for key in self.info.keys():
-            if util.upperASCII(key).startswith('DNS'):
-                if dnsline == '':
-                    dnsline = self.get(key)
-                else:
-                    dnsline += "," + self.get(key)
-        if dnsline:
-            kwargs["nameserver"] = dnsline
-
-        if self.get("ETHTOOL_OPTS"):
-            kwargs["ethtool"] = self.get("ETHTOOL_OPTS")
-
-        if self.get("ESSID"):
-            kwargs["essid"] = self.get("ESSID")
-
-        # hostname
-        if self.get("DHCP_HOSTNAME"):
-            kwargs["hostname"] = self.get("DHCP_HOSTNAME")
-
-        iface = self.get("DEVICE")
-        if not iface:
-            hwaddr = self.get("HWADDR")
-            if hwaddr:
-                iface = get_iface_from_hwaddr(nm_client, hwaddr)
-        if iface:
-            kwargs["device"] = iface
-
-        # bonding
-        # FIXME: dracut has only BOND_OPTS
-        if self.get("BONDING_MASTER") == "yes" or self.get("TYPE") == "Bond":
-            slaves = get_slaves_from_ifcfgs(nm_client, "MASTER", [self.get("DEVICE"), self.get("UUID")])
-            if slaves:
-                kwargs["bondslaves"] = ",".join(iface for iface, uuid in slaves)
-            bondopts = self.get("BONDING_OPTS")
-            if bondopts:
-                sep = ","
-                if sep in bondopts:
-                    sep = ";"
-                kwargs["bondopts"] = sep.join(bondopts.split())
-
-        # vlan
-        if self.get("VLAN") == "yes" or self.get("TYPE") == "Vlan":
-            physdev = self.get("PHYSDEV")
-            if len(physdev) == NM_CONNECTION_UUID_LENGTH:
-                physdev = get_iface_from_connection(nm_client, physdev)
-            kwargs["device"] = physdev
-            kwargs["vlanid"] = self.get("VLAN_ID")
-            interface_name = self.get("DEVICE")
-            if interface_name and interface_name != default_ks_vlan_interface_name(kwargs["device"], kwargs["vlanid"]):
-                kwargs["interfacename"] = interface_name
-
-        # bridging
-        if self.get("TYPE") == "Bridge":
-            slaves = get_slaves_from_ifcfgs(nm_client, "BRIDGE", [self.get("DEVICE"), self.get("UUID")])
-            if slaves:
-                kwargs["bridgeslaves"] = ",".join(iface for iface, uuid in slaves)
-
-            bridgeopts = self.get("BRIDGING_OPTS").replace('_', '-').split()
-            if self.get("STP"):
-                bridgeopts.append("%s=%s" % ("stp", self.get("STP")))
-            if self.get("DELAY"):
-                bridgeopts.append("%s=%s" % ("forward-delay", self.get("DELAY")))
-            if bridgeopts:
-                kwargs["bridgeopts"] = ",".join(bridgeopts)
-
-        nd = network_data_class(**kwargs)
-
-        # teaming
-        if self.get("TYPE") == "Team" or self.get("DEVICETYPE") == "Team":
-            slaves = get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [self.get("DEVICE"), self.get("UUID")])
-            for iface, uuid in slaves:
-                team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
-                nd.teamslaves.append((iface, team_port_cfg))
-            teamconfig = get_team_config_form_connection(nm_client, self.get("UUID"))
-            if teamconfig:
-                nd.teamconfig = teamconfig
-        return nd
-
     @property
     def is_from_kickstart(self):
         with open(self.path, 'r') as f:
@@ -351,14 +208,146 @@ def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path="")
     return slaves
 
 
-def get_kickstart_network_data(nm_client, connection_uuid, network_data_class):
-    """Get kickstart data corresponding to connection_uuid.
+def get_kickstart_network_data(ifcfg, nm_client, network_data_class):
+    """Get kickstart data from ifcfg object."""
+    ifcfg.read()
+    kwargs = {}
 
-    Ifcfg file is used to get the data.
-    """
-    ifcfg = get_ifcfg_file([("UUID", connection_uuid)])
-    if ifcfg:
-        return ifcfg.get_kickstart_data(nm_client, network_data_class)
+    # no network command for non-virtual device slaves
+    if ifcfg.get("TYPE") not in ("Bond", "Team"):
+        if ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER") or ifcfg.get("BRIDGE"):
+            return None
+
+    # ipv4 and ipv6
+    if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT") == "no":
+        kwargs["onboot"] = False
+    if ifcfg.get('MTU') and ifcfg.get('MTU') != "0":
+        kwargs["mtu"] = ifcfg.get('MTU')
+    # ipv4
+    if not ifcfg.get('BOOTPROTO'):
+        kwargs["noipv4"] = True
+    else:
+        if util.lowerASCII(ifcfg.get('BOOTPROTO')) == 'dhcp':
+            kwargs["bootProto"] = "dhcp"
+            if ifcfg.get('DHCPCLASS'):
+                kwargs["dhcpclass"] = ifcfg.get('DHCPCLASS')
+        elif ifcfg.get('IPADDR'):
+            kwargs["bootProto"] = "static"
+            kwargs["ip"] = ifcfg.get('IPADDR')
+            netmask = ifcfg.get('NETMASK')
+            prefix = ifcfg.get('PREFIX')
+            if not netmask and prefix:
+                netmask = prefix2netmask(int(prefix))
+            if netmask:
+                kwargs["netmask"] = netmask
+            # note that --gateway is common for ipv4 and ipv6
+            if ifcfg.get('GATEWAY'):
+                kwargs["gateway"] = ifcfg.get('GATEWAY')
+        elif ifcfg.get('IPADDR0'):
+            kwargs["bootProto"] = "static"
+            kwargs["ip"] = ifcfg.get('IPADDR0')
+            prefix = ifcfg.get('PREFIX0')
+            if prefix:
+                netmask = prefix2netmask(int(prefix))
+                kwargs["netmask"] = netmask
+            # note that --gateway is common for ipv4 and ipv6
+            if ifcfg.get('GATEWAY0'):
+                kwargs["gateway"] = ifcfg.get('GATEWAY0')
+
+    # ipv6
+    if not ifcfg.get('IPV6INIT') or ifcfg.get('IPV6INIT') == "no":
+        kwargs["noipv6"] = True
+    else:
+        if ifcfg.get('IPV6_AUTOCONF') in ("yes", ""):
+            kwargs["ipv6"] = "auto"
+        else:
+            if ifcfg.get('IPV6ADDR'):
+                kwargs["ipv6"] = ifcfg.get('IPV6ADDR')
+                if ifcfg.get('IPV6_DEFAULTGW') \
+                        and ifcfg.get('IPV6_DEFAULTGW') != "::":
+                    kwargs["ipv6gateway"] = ifcfg.get('IPV6_DEFAULTGW')
+            if ifcfg.get('DHCPV6C') == "yes":
+                kwargs["ipv6"] = "dhcp"
+
+    # ipv4 and ipv6
+    dnsline = ''
+    for key in ifcfg.info.keys():
+        if util.upperASCII(key).startswith('DNS'):
+            if dnsline == '':
+                dnsline = ifcfg.get(key)
+            else:
+                dnsline += "," + ifcfg.get(key)
+    if dnsline:
+        kwargs["nameserver"] = dnsline
+
+    if ifcfg.get("ETHTOOL_OPTS"):
+        kwargs["ethtool"] = ifcfg.get("ETHTOOL_OPTS")
+
+    if ifcfg.get("ESSID"):
+        kwargs["essid"] = ifcfg.get("ESSID")
+
+    # hostname
+    if ifcfg.get("DHCP_HOSTNAME"):
+        kwargs["hostname"] = ifcfg.get("DHCP_HOSTNAME")
+
+    iface = ifcfg.get("DEVICE")
+    if not iface:
+        hwaddr = ifcfg.get("HWADDR")
+        if hwaddr:
+            iface = get_iface_from_hwaddr(nm_client, hwaddr)
+    if iface:
+        kwargs["device"] = iface
+
+    # bonding
+    # FIXME: dracut has only BOND_OPTS
+    if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
+        slaves = get_slaves_from_ifcfgs(nm_client, "MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")])
+        if slaves:
+            kwargs["bondslaves"] = ",".join(iface for iface, uuid in slaves)
+        bondopts = ifcfg.get("BONDING_OPTS")
+        if bondopts:
+            sep = ","
+            if sep in bondopts:
+                sep = ";"
+            kwargs["bondopts"] = sep.join(bondopts.split())
+
+    # vlan
+    if ifcfg.get("VLAN") == "yes" or ifcfg.get("TYPE") == "Vlan":
+        physdev = ifcfg.get("PHYSDEV")
+        if len(physdev) == NM_CONNECTION_UUID_LENGTH:
+            physdev = get_iface_from_connection(nm_client, physdev)
+        kwargs["device"] = physdev
+        kwargs["vlanid"] = ifcfg.get("VLAN_ID")
+        interface_name = ifcfg.get("DEVICE")
+        if interface_name and interface_name != default_ks_vlan_interface_name(kwargs["device"], kwargs["vlanid"]):
+            kwargs["interfacename"] = interface_name
+
+    # bridging
+    if ifcfg.get("TYPE") == "Bridge":
+        slaves = get_slaves_from_ifcfgs(nm_client, "BRIDGE", [ifcfg.get("DEVICE"), ifcfg.get("UUID")])
+        if slaves:
+            kwargs["bridgeslaves"] = ",".join(iface for iface, uuid in slaves)
+
+        bridgeopts = ifcfg.get("BRIDGING_OPTS").replace('_', '-').split()
+        if ifcfg.get("STP"):
+            bridgeopts.append("%s=%s" % ("stp", ifcfg.get("STP")))
+        if ifcfg.get("DELAY"):
+            bridgeopts.append("%s=%s" % ("forward-delay", ifcfg.get("DELAY")))
+        if bridgeopts:
+            kwargs["bridgeopts"] = ",".join(bridgeopts)
+
+    nd = network_data_class(**kwargs)
+
+    # teaming
+    if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
+        slaves = get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")])
+        for iface, uuid in slaves:
+            team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
+            nd.teamslaves.append((iface, team_port_cfg))
+        teamconfig = get_team_config_form_connection(nm_client, ifcfg.get("UUID"))
+        if teamconfig:
+            nd.teamconfig = teamconfig
+    return nd
 
 
 def update_onboot_value(connection_uuid, onboot, root_path=""):
