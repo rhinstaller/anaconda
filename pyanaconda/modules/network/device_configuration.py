@@ -53,18 +53,25 @@ supported_wired_device_types = [
 
 
 class DeviceConfigurations(object):
-    """Holds state of persistent configuration of network devices.
+    """Stores the state of persistent configuration of network devices.
 
     Contains only configuration of devices supported by Anaconda.
 
-    Configurations are hold in DeviceConfiguration objects.
+    Configurations are hold in NetworkDeviceConfiguration objects.
 
-    For a physical device there is only single configuration, the persistent element
-    is the device. Connection uuid is not mandatory.
+    For a physical device there is only single NetworkDeviceConfiguration
+    object bound to the device name (the mandatory persistent element of
+    the object).  The uuid corresponds to the configuration of the device
+    for installed system.
 
-    For virtual devices there can be multiple configurations (persistent
-    connections). The devices exist only when activated, the connection uuid
-    is mandatory persistent element of the configuration.
+    For a virtual device there can be multiple NetworkDeviceConfiguration
+    objects, bound to uuid of the device configuration (the mandatory
+    persistent element of the object).  The device name is set in the
+    object only if there exists respective active device with the
+    configuration given by uuid applied.
+
+    Configurations correspond to NetworkManager persistent connections by
+    their uuid.
 
     signals:
         configuration_changed - Provides old and new values of the configuration
@@ -344,7 +351,7 @@ class DeviceConfigurations(object):
             self.add_device(device)
 
     def _device_removed_cb(self, client, device, *args):
-        # We just remove the device from the DeviceConfiguration, keeping the object
+        # We just remove the device from the NetworkDeviceConfiguration, keeping the object
         # assuming it is just a disconnected virtual device.
         iface = device.get_iface()
         log.debug("NM device removed: %s", iface)

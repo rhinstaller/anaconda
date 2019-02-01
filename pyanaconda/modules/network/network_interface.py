@@ -121,9 +121,31 @@ class NetworkInterface(KickstartModuleInterface):
         return self.implementation.install_network_with_task(sysroot, onboot_ifaces, overwrite)
 
     def CreateDeviceConfigurations(self):
+        """Create and populate the state of network devices configuration."""
         self.implementation.create_device_configurations()
 
     def GetDeviceConfigurations(self) -> List[Structure]:
+        """Get the state of network devices configuration.
+
+        Contains only configuration of devices supported by Anaconda.
+
+        Returns list of NetworkDeviceConfiguration objects holding
+        configuration of a network device.
+
+        For a physical device there is only single NetworkDeviceConfiguration
+        object bound to the device name (the mandatory persistent element of
+        the object).  The uuid corresponds to the configuration of the device
+        for installed system.
+
+        For a virtual device there can be multiple NetworkDeviceConfiguration
+        objects, bound to uuid of the device configuration (the mandatory
+        persistent element of the object).  The device name is set in the
+        object only if there exists respective active device with the
+        configuration given by uuid applied.
+
+        Configurations correspond to NetworkManager persistent connections by
+        their uuid.
+        """
         dev_cfgs = self.implementation.get_device_configurations()
         return [get_structure(dev_cfg) for dev_cfg in dev_cfgs]
 

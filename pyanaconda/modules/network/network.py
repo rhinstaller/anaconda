@@ -314,6 +314,7 @@ class NetworkModule(KickstartModule):
                 nd.onboot = True
 
     def create_device_configurations(self):
+        """Create and populate the state of network devices configuration."""
         self._device_configurations = DeviceConfigurations(self.nm_client)
         self._device_configurations.configuration_changed.connect(self.device_configurations_changed_cb)
         self._device_configurations.reload()
