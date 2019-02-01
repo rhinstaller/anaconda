@@ -46,8 +46,7 @@ from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    ZFCP, FCOE
+from pyanaconda.modules.common.constants.objects import ZFCP, FCOE
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -70,16 +69,6 @@ class StorageDiscoveryConfig(object):
         # Whether clear_partitions removes scheduled/non-existent devices and
         # disklabels depends on this flag.
         self.clear_non_existent = False
-
-    def update(self, *args, **kwargs):
-        """Update configuration."""
-        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-
-        self.clear_part_type = disk_init_proxy.InitializationMode
-        self.clear_part_disks = disk_init_proxy.DrivesToClear
-        self.clear_part_devices = disk_init_proxy.DevicesToClear
-        self.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
-        self.zero_mbr = disk_init_proxy.FormatUnrecognizedEnabled
 
 
 class InstallerStorage(Blivet):
@@ -480,22 +469,6 @@ class InstallerStorage(Blivet):
         for device in self.devices:
             if device.format.type == "luks" and device.format.exists:
                 self.save_passphrase(device)
-
-        self.config.update()
-
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        self.ignored_disks = disk_select_proxy.IgnoredDisks
-        self.exclusive_disks = disk_select_proxy.SelectedDisks
-
-        if not conf.target.is_image:
-            iscsi.startup()
-
-            fcoe_proxy = STORAGE.get_proxy(FCOE)
-            fcoe_proxy.ReloadModule()
-
-            if arch.is_s390():
-                zfcp_proxy = STORAGE.get_proxy(ZFCP)
-                zfcp_proxy.ReloadModule()
 
         super().reset(cleanup_only=cleanup_only)
 

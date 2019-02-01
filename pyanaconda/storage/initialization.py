@@ -19,21 +19,23 @@ import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
-from blivet import util as blivet_util, udev
+from blivet import util as blivet_util, udev, arch
 from blivet.errors import StorageError, UnknownSourceDeviceError
 from blivet.flags import flags as blivet_flags
+from blivet.iscsi import iscsi
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.flags import flags
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
+    DISK_INITIALIZATION, FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.platform import platform as _platform
-
-from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.storage.partitioning import get_default_partitioning
 
+from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
@@ -63,13 +65,10 @@ def create_storage():
 
     :return: an instance of the Blivet's storage object
     """
-    from pyanaconda.storage.osinstall import InstallerStorage
-    import blivet.arch
-
     storage = InstallerStorage()
     _set_storage_defaults(storage)
 
-    if blivet.arch.is_s390():
+    if arch.is_s390():
         _load_plugin_s390()
 
     return storage
@@ -149,7 +148,7 @@ def initialize_storage(storage):
 
     while True:
         try:
-            storage.reset()
+            reset_storage(storage)
         except StorageError as e:
             if error_handler.cb(e) == ERROR_RAISE:
                 raise
@@ -173,3 +172,46 @@ def initialize_storage(storage):
             selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
             disk_select_proxy.SetSelectedDisks(selected_disks)
             log.debug("onlyuse is now: %s", ",".join(selected_disks))
+
+
+def reset_storage(storage):
+    """Reset the storage.
+
+    FIXME: A temporary workaround for UI,
+
+    :param storage: an instance of the Blivet's storage object
+    """
+    # Update the config.
+    update_storage_config(storage.config)
+
+    # Set the ignored and exclusive disks.
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    storage.ignored_disks = disk_select_proxy.IgnoredDisks
+    storage.exclusive_disks = disk_select_proxy.SelectedDisks
+
+    # Reload additional modules.
+    if not conf.target.is_image:
+        iscsi.startup()
+
+        fcoe_proxy = STORAGE.get_proxy(FCOE)
+        fcoe_proxy.ReloadModule()
+
+        if arch.is_s390():
+            zfcp_proxy = STORAGE.get_proxy(ZFCP)
+            zfcp_proxy.ReloadModule()
+
+    # Do the reset.
+    storage.reset()
+
+
+def update_storage_config(config):
+    """Update the storage configuration.
+
+    :param config: an instance of StorageDiscoveryConfig
+    """
+    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+    config.clear_part_type = disk_init_proxy.InitializationMode
+    config.clear_part_disks = disk_init_proxy.DrivesToClear
+    config.clear_part_devices = disk_init_proxy.DevicesToClear
+    config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
+    config.zero_mbr = disk_init_proxy.FormatUnrecognizedEnabled
