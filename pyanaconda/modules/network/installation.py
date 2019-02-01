@@ -80,9 +80,12 @@ class NetworkInstallationTask(Task):
     def _write_hostname(self, root, hostname, overwrite):
         """Write static hostname to the target system configuration file.
 
-        :param hostname: static hostname
-        :param overwrite: overwrite existing configuration file
         :param root: path to the root of the target system
+        :type root: str
+        :param hostname: static hostname
+        :type hostname: str
+        :param overwrite: overwrite existing configuration file
+        :type overwrite: bool
         """
         return self._write_config_file(root, self.HOSTNAME_CONF_FILE_PATH,
                                        "{}\n".format(hostname),
@@ -92,8 +95,10 @@ class NetworkInstallationTask(Task):
     def _write_sysconfig_network(self, root, overwrite):
         """Write empty /etc/sysconfig/network target system configuration file.
 
-        :param overwrite: overwrite existing configuration file
         :param root: path to the root of the target system
+        :type root: str
+        :param overwrite: overwrite existing configuration file
+        :type overwrite: bool
         """
         return self._write_config_file(root, self.SYSCONF_NETWORK_FILE_PATH,
                                        "# Created by anaconda\n",
@@ -102,6 +107,19 @@ class NetworkInstallationTask(Task):
                                        overwrite)
 
     def _write_config_file(self, root, path, content, error_msg, overwrite):
+        """Write content into config file on the target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        :param path: config file path in target system root
+        :type path: str
+        :param content: content to be written into config file
+        :type content: str
+        :param error_msg: error message in case of failure
+        :type error_msg: str
+        :param overwrite: overwrite existing configuration file
+        :type overwrite: bool
+        """
         fpath = os.path.normpath(root + path)
         if os.path.isfile(fpath) and not overwrite:
             return
@@ -113,7 +131,11 @@ class NetworkInstallationTask(Task):
             raise NetworkInstallationError(msg)
 
     def _disable_ipv6_on_system(self, root):
-        """Disable ipv6 on target system."""
+        """Disable ipv6 on target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        """
         fpath = os.path.normpath(root + self.ANACONDA_SYSCTL_FILE_PATH)
         try:
             with open(fpath, "a") as f:
@@ -126,9 +148,25 @@ class NetworkInstallationTask(Task):
             raise NetworkInstallationError(msg)
 
     def _copy_resolv_conf(self, root, overwrite):
+        """Copy resolf.conf file to target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        :param overwrite: overwrite existing configuration file
+        :type overwrite: bool
+        """
         self._copy_file_to_root(root, self.RESOLV_CONF_FILE_PATH)
 
     def _copy_file_to_root(self, root, config_file, overwrite=False):
+        """Copy the file to target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        :param config_file: path of the file
+        :type config_file: str
+        :param overwrite: overwrite existing configuration file
+        :type overwrite: bool
+        """
         if not os.path.isfile(config_file):
             return
         fpath = os.path.normpath(root + config_file)
@@ -139,6 +177,11 @@ class NetworkInstallationTask(Task):
         shutil.copy(config_file, fpath)
 
     def _copy_device_config_files(self, root):
+        """Copy network device config (ifcfg) files to target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        """
         config_files = os.listdir(self.NETWORK_SCRIPTS_DIR_PATH)
         for config_file in config_files:
             if config_file.startswith(self.DEVICE_CONFIG_FILE_PREFIXES):
@@ -147,10 +190,24 @@ class NetworkInstallationTask(Task):
                 self._copy_file_to_root(root, config_file_path)
 
     def _copy_dhclient_config_files(self, root, network_ifaces):
+        """Copy dhclient configuration files to target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        :param network_ifaces: ifaces whose config files should be copied
+        :type network_ifaces: list(str)
+        """
         for device_name in network_ifaces:
             dhclient_file = self.DHCLIENT_FILE_TEMPLATE.format(device_name)
             self._copy_file_to_root(root, dhclient_file)
 
     def _set_onboot_to_yes(self, root, connection_uuids):
+        """Set onboot value of config (ifcfg) files on target system.
+
+        :param root: path to the root of the target system
+        :type root: str
+        :param connection_uuids: uuids of config files to be set
+        :type connection_uuids: list(str)
+        """
         for uuid in connection_uuids:
             update_onboot_value(uuid, True, root)
