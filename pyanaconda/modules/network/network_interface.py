@@ -36,6 +36,7 @@ class NetworkInterface(KickstartModuleInterface):
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.implementation.connected_changed.connect(self.changed("Connected"))
         self.implementation.configuration_changed.connect(self.DeviceConfigurationChanged)
+        self.implementation.disable_ipv6_changed.connect(self.changed("DisableIPv6"))
 
     @property
     def Hostname(self) -> Str:
