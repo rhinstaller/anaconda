@@ -253,9 +253,9 @@ class NetworkModule(KickstartModule):
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
         self._onboot_yes_ifaces = all_onboot_ifaces
         onboot_yes_uuids = [find_ifcfg_uuid_of_device(self.nm_client, iface) or "" for iface in all_onboot_ifaces]
-
-        log.debug("Setting ONBOOT to yes for %s (fcoe) %s (policy)",
+        log.debug("ONBOOT will be set to yes for %s (fcoe) %s (policy)",
                   onboot_ifaces, onboot_ifaces_by_policy)
+
         task = NetworkInstallationTask(sysroot, self.hostname, disable_ipv6, overwrite,
                                        onboot_yes_uuids, network_ifaces)
         path = self.publish_task(NETWORK.namespace, task)
