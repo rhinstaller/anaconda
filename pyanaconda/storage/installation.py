@@ -15,21 +15,27 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+
 import gi
 gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
-from blivet import util as blivet_util
+from blivet import util as blivet_util, arch
 from blivet.errors import FSResizeError, FormatResizeError
+from blivet.iscsi import iscsi
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
+from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.kickstart import ZFCP
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["turn_on_filesystems"]
+__all__ = ["turn_on_filesystems", "write_storage_configuration"]
 
 
 def turn_on_filesystems(storage, callbacks=None):
@@ -94,3 +100,71 @@ def write_escrow_packets(storage):
         log.error("failed to store encryption key: %s", e)
 
     log.debug("escrow: write_escrow_packets done")
+
+
+def write_storage_configuration(storage, sysroot):
+    """Write the storage configuration to sysroot.
+
+    :param storage: the storage object
+    :param sysroot: a path to the target OS installation
+    """
+    if not os.path.isdir("%s/etc" % sysroot):
+        os.mkdir("%s/etc" % sysroot)
+
+    storage.make_mtab()
+    storage.fsset.write()
+    iscsi.write(sysroot, storage)
+
+    fcoe_proxy = STORAGE.get_proxy(FCOE)
+    fcoe_proxy.WriteConfiguration(sysroot)
+
+    if arch.is_s390():
+        zfcp_proxy = STORAGE.get_proxy(ZFCP)
+        zfcp_proxy.WriteConfiguration(sysroot)
+
+    _write_dasd_conf(storage, sysroot)
+
+
+def _write_dasd_conf(storage, sysroot):
+    """Write DASD configuration to sysroot.
+
+    Write /etc/dasd.conf to target system for all DASD devices
+    configured during installation.
+
+    :param storage: the storage object
+    :param sysroot: a path to the target OS installation
+    """
+    dasds = [d for d in storage.devices if d.type == "dasd"]
+    dasds.sort(key=lambda d: d.name)
+    if not (arch.is_s390() and dasds):
+        return
+
+    with open(os.path.realpath(sysroot + "/etc/dasd.conf"), "w") as f:
+        for dasd in dasds:
+            fields = [dasd.busid] + dasd.get_opts()
+            f.write("%s\n" % " ".join(fields),)
+
+    # check for hyper PAV aliases; they need to get added to dasd.conf as well
+    sysfs = "/sys/bus/ccw/drivers/dasd-eckd"
+
+    # in the case that someone is installing with *only* FBA DASDs,the above
+    # sysfs path will not exist; so check for it and just bail out of here if
+    # that's the case
+    if not os.path.exists(sysfs):
+        return
+
+    # this does catch every DASD, even non-aliases, but we're only going to be
+    # checking for a very specific flag, so there won't be any duplicate entries
+    # in dasd.conf
+    devs = [d for d in os.listdir(sysfs) if d.startswith("0.0")]
+    with open(os.path.realpath(sysroot + "/etc/dasd.conf"), "a") as f:
+        for d in devs:
+            aliasfile = "%s/%s/alias" % (sysfs, d)
+            with open(aliasfile, "r") as falias:
+                alias = falias.read().strip()
+
+            # if alias == 1, then the device is an alias; otherwise it is a
+            # normal dasd (alias == 0) and we can skip it, since it will have
+            # been added to dasd.conf in the above block of code
+            if alias == "1":
+                f.write("%s\n" % d)
