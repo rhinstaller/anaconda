@@ -30,6 +30,7 @@ from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
+from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.storage.initialization import enable_installer_mode, create_storage
@@ -140,3 +141,28 @@ class StorageModule(KickstartModule):
         self._storage = storage
         self.storage_changed.emit()
         log.debug("The storage model has changed.")
+
+    def reset_with_task(self):
+        """Reset the storage model.
+
+        We will reset a copy of the current storage model
+        and switch the models if the reset is successful.
+
+        :return: a DBus path to a task
+        """
+        # Copy the storage.
+        storage = self.storage.copy()
+
+        # Set up the storage.
+        storage.ignored_disks = self._disk_selection_module.ignored_disks
+        storage.exclusive_disks = self._disk_selection_module.selected_disks
+        storage.config.protected_dev_specs = self._disk_selection_module.protected_devices
+
+        # Create the task.
+        task = StorageResetTask(storage)
+        # FIXME: Don't set the storage if the task has failed.
+        task.stopped_signal.connect(lambda: self.set_storage(storage))
+
+        # Publish the task.
+        path = self.publish_task(STORAGE.namespace, task)
+        return path
