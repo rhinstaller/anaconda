@@ -83,45 +83,30 @@ def create_storage():
     :return: an instance of the Blivet's storage object
     """
     storage = InstallerStorage()
-    _set_storage_defaults(storage)
 
-    if arch.is_s390():
-        load_plugin_s390()
+    # Set the default filesystem type.
+    storage.set_default_fstype(conf.storage.file_system_type or storage.default_fstype)
+
+    # Set the default LUKS version.
+    storage.set_default_luks_version(conf.storage.luks_version or storage.default_luks_version)
 
     return storage
 
 
-def _set_storage_defaults(storage):
-    """Set the storage default values."""
-    fstype = None
-    boot_fstype = None
+def set_storage_defaults_from_kickstart(storage):
+    """Set the storage default values from a kickstart file.
 
-    # Get the default fstype from a kickstart file.
+    FIXME: A temporary workaround for UI.
+    """
+    # Set the default filesystem types.
     auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+    fstype = auto_part_proxy.FilesystemType
 
-    if auto_part_proxy.Enabled and auto_part_proxy.FilesystemType:
-        fstype = auto_part_proxy.FilesystemType
-        boot_fstype = fstype
-    # Or from the configuration.
-    elif conf.storage.file_system_type:
-        fstype = conf.storage.file_system_type
-        boot_fstype = None
-
-    # Set the default fstype.
-    if fstype:
+    if auto_part_proxy.Enabled and fstype:
         storage.set_default_fstype(fstype)
+        storage.set_default_boot_fstype(fstype)
 
-    # Set the default boot fstype.
-    if boot_fstype:
-        storage.set_default_boot_fstype(boot_fstype)
-
-    # Set the default LUKS version.
-    luks_version = conf.storage.luks_version
-
-    if luks_version:
-        storage.set_default_luks_version(luks_version)
-
-    # Set the default partitioning.
+    # Set the default partitioning, depends on a type of a bootloader.
     storage.set_default_partitioning(get_default_partitioning())
 
 

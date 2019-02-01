@@ -165,6 +165,9 @@ class Anaconda(object):
             from pyanaconda.storage.initialization import create_storage
             self._storage = create_storage()
 
+            from pyanaconda.storage.initialization import set_storage_defaults_from_kickstart
+            set_storage_defaults_from_kickstart(self._storage)
+
         return self._storage
 
     @property
