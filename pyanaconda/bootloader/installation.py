@@ -19,7 +19,7 @@ import os
 from glob import glob
 
 from pyanaconda.bootloader.base import BootLoaderError
-from pyanaconda.bootloader.image import LinuxBootLoaderImage, TbootLinuxBootLoaderImage
+from pyanaconda.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler, ERROR_RAISE
@@ -96,14 +96,9 @@ def write_boot_loader(storage, payload, ksdata):
     for version in kernel_versions:
         label = "%s-%s" % (base_label, version)
         short = "%s-%s" % (base_short_label, version)
-        if storage.bootloader.trusted_boot:
-            image = TbootLinuxBootLoaderImage(device=storage.root_device,
-                                              version=version,
-                                              label=label, short=short)
-        else:
-            image = LinuxBootLoaderImage(device=storage.root_device,
-                                         version=version,
-                                         label=label, short=short)
+        image = LinuxBootLoaderImage(device=storage.root_device,
+                                     version=version,
+                                     label=label, short=short)
         storage.bootloader.add_image(image)
 
     write_boot_loader_final(storage, payload, ksdata)
@@ -147,10 +142,6 @@ def write_sysconfig_kernel(storage, version):
     f.write("\n")
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
     f.write("DEFAULTKERNEL=%s\n" % kernel)
-    if storage.bootloader.trusted_boot:
-        f.write("# HYPERVISOR specifies the default multiboot kernel\n")
-        f.write("HYPERVISOR=/boot/tboot.gz\n")
-        f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
 

@@ -16,7 +16,7 @@
 # Red Hat, Inc.
 #
 
-__all__ = ["BootLoaderImage", "LinuxBootLoaderImage", "TbootLinuxBootLoaderImage"]
+__all__ = ["BootLoaderImage", "LinuxBootLoaderImage"]
 
 
 class BootLoaderImage(object):
@@ -78,36 +78,3 @@ class LinuxBootLoaderImage(BootLoaderImage):
             filename = "initramfs-%s.img" % self.version
         return filename
 
-
-class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
-    """Trusted Boot Linux-OS image."""
-
-    def __init__(self, device=None, label=None, short=None, version=None):
-        super().__init__(device=device, label=label, short=short, version=version)
-        self._multiboot = "tboot.gz"
-        self._mbargs = ["logging=vga,serial,memory"]
-        self._args = ["intel_iommu=on"]
-
-    @property
-    def multiboot(self):
-        """Multi boot filename.
-
-        :return: a filename string
-        """
-        return self._multiboot
-
-    @property
-    def mbargs(self):
-        """Multi boot arguments.
-
-        :return: a list os arguments
-        """
-        return self._mbargs
-
-    @property
-    def args(self):
-        """Kernel arguments.
-
-        :return: a list os arguments
-        """
-        return self._args
