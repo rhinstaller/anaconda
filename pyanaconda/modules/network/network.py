@@ -119,7 +119,7 @@ class NetworkModule(KickstartModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        log.debug("kickstart to be processed:\n%s", str(data))
+        log.debug("Processing kickstart data...")
 
         # Handle default value for --device
         spec = self.default_device_specification
@@ -132,8 +132,6 @@ class NetworkModule(KickstartModule):
         if data.network.hostname:
             self.set_hostname(data.network.hostname)
         self._firewall_module.process_kickstart(data)
-
-        log.debug("processed kickstart:\n%s", str(data))
 
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -155,8 +153,6 @@ class NetworkModule(KickstartModule):
 
         # firewall
         self._firewall_module.setup_kickstart(data)
-
-        log.debug("generated kickstart:\n%s", str(data))
 
         return str(data)
 
