@@ -104,15 +104,13 @@ class NetworkInstallationTask(Task):
     def _write_config_file(self, root, path, content, error_msg, overwrite):
         fpath = os.path.normpath(root + path)
         if os.path.isfile(fpath) and not overwrite:
-            return False
+            return
         try:
             with open(fpath, "w") as fobj:
                 fobj.write(content)
-
         except IOError as ioerr:
             msg = "{}: {}".format(error_msg, ioerr.strerror)
             raise NetworkInstallationError(msg)
-        return True
 
     def _disable_ipv6_on_system(self, root):
         """Disable ipv6 on target system."""
@@ -126,21 +124,19 @@ class NetworkInstallationTask(Task):
         except IOError as ioerr:
             msg = "Cannot disable ipv6 on the system: {}".format(ioerr.strerror)
             raise NetworkInstallationError(msg)
-        return True
 
     def _copy_resolv_conf(self, root, overwrite):
         self._copy_file_to_root(root, self.RESOLV_CONF_FILE_PATH)
 
     def _copy_file_to_root(self, root, config_file, overwrite=False):
         if not os.path.isfile(config_file):
-            return False
+            return
         fpath = os.path.normpath(root + config_file)
         if os.path.isfile(fpath) and not overwrite:
-            return False
+            return
         if not os.path.isdir(os.path.dirname(fpath)):
             util.mkdirChain(os.path.dirname(fpath))
         shutil.copy(config_file, fpath)
-        return True
 
     def _copy_device_config_files(self, root):
         config_files = os.listdir(self.NETWORK_SCRIPTS_DIR_PATH)
