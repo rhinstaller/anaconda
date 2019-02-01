@@ -163,7 +163,7 @@ class Anaconda(object):
     def storage(self):
         if not self._storage:
             from pyanaconda.storage.initialization import create_storage
-            self._storage = create_storage(self.ksdata)
+            self._storage = create_storage()
 
         return self._storage
 

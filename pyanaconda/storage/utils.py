@@ -45,7 +45,8 @@ from pykickstart.errors import KickstartError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -485,6 +486,25 @@ def get_ignored_nvdimm_blockdevs(nvdimm_ksdata):
             ignored_blockdevs.add(ns_info.blockdev)
 
     return ignored_blockdevs
+
+
+def ignore_nvdimm_blockdevs(nvdimm_ksdata):
+    """Add nvdimm devices to be ignored to the ignored disks.
+
+    :param nvdimm_ksdata: nvdimm kickstart data
+    :type nvdimm_ksdata: Nvdimm kickstart command
+    """
+    ignored_nvdimm_devs = get_ignored_nvdimm_blockdevs(nvdimm_ksdata)
+
+    if not ignored_nvdimm_devs:
+        return
+
+    log.debug("Adding NVDIMM devices %s to ignored disks", ",".join(ignored_nvdimm_devs))
+
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    ignored_disks = disk_select_proxy.IgnoredDisks
+    ignored_disks.extend(ignored_nvdimm_devs)
+    disk_select_proxy.SetIgnoredDisks(ignored_disks)
 
 
 def download_escrow_certificate(url):

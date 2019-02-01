@@ -634,7 +634,7 @@ class PartTypeSpoke(NormalTUISpoke):
         selected_disks = disk_select_proxy.SelectedDisks
         disk_select_proxy.SetSelectedDisks([])
 
-        initialize_storage(self.storage, self.data, self.storage.protected_dev_names)
+        initialize_storage(self.storage, self.storage.protected_dev_names)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
         self._manual_part_proxy.SetMountPoints([])
@@ -882,7 +882,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
         disk_select_proxy.SetSelectedDisks([])
 
         print(_("Scanning disks. This may take a moment..."))
-        initialize_storage(self.storage, self.data, self.storage.protected_dev_names)
+        initialize_storage(self.storage, self.storage.protected_dev_names)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
         self._manual_part_proxy.SetMountPoints([])

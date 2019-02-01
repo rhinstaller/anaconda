@@ -58,7 +58,7 @@ def enable_installer_mode():
     udev.device_name_blacklist = [r'^mtd', r'^mmcblk.+boot', r'^mmcblk.+rpmb', r'^zram', '^ndblk']
 
 
-def create_storage(ksdata):
+def create_storage():
     """Create the storage object.
 
     :return: an instance of the Blivet's storage object
@@ -66,7 +66,7 @@ def create_storage(ksdata):
     from pyanaconda.storage.osinstall import InstallerStorage
     import blivet.arch
 
-    storage = InstallerStorage(ksdata=ksdata)
+    storage = InstallerStorage()
     _set_storage_defaults(storage)
 
     if blivet.arch.is_s390():
@@ -135,11 +135,10 @@ def update_blivet_flags():
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
 
-def initialize_storage(storage, ksdata, protected):
+def initialize_storage(storage, protected):
     """Perform installer-specific storage initialization.
 
     :param storage: an instance of the Blivet's storage object
-    :param ksdata: an instance of the kickstart data
     :param protected: a list of protected device names
     """
     update_blivet_flags()
