@@ -282,7 +282,8 @@ class NetworkModule(KickstartModule):
         network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
         onboot_ifaces_by_policy = []
-        if self._should_apply_onboot_policy():
+        if self._should_apply_onboot_policy() and \
+                not self._has_any_onboot_yes_device(self._device_configurations):
             onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
         self._onboot_yes_ifaces = all_onboot_ifaces
@@ -296,18 +297,32 @@ class NetworkModule(KickstartModule):
         return path
 
     def _should_apply_onboot_policy(self):
-        # Not if network is configured by kickstart
+        """Should policy for ONBOOT of devices be applied?."""
+        # Not if any network device was configured via kickstart.
         if self._original_network_data:
             return False
-        # Not if network is configured in UI
+        # Not if any network device was configured in UI.
         if self._use_device_configurations:
             return False
-        if self._device_configurations:
-            data = self.get_kickstart_handler()
-            device_data = self.generate_kickstart_network_data(data.NetworkData)
-            return device_data and not any(dd.onboot for dd in device_data if dd.device)
+        # Not if there is no configuration to apply the policy to
+        if not self._device_configurations or not self._device_configurations.get_all():
+            return False
+        return True
+
+    def _has_any_onboot_yes_device(self, device_configurations):
+        """Does any device have ONBOOT value set to 'yes'?"""
+        uuids = [dev_cfg.connection_uuid for dev_cfg in device_configurations.get_all()
+                 if dev_cfg.connection_uuid]
+        for uuid in uuids:
+            ifcfg = get_ifcfg_file([("UUID", uuid)])
+            if ifcfg:
+                ifcfg.read()
+                if ifcfg.get('ONBOOT') != "no":
+                    return True
+        return False
 
     def _get_onboot_ifaces_by_policy(self, policy):
+        """Get network interfaces that shoud have ONBOOT set to 'yes' by policy."""
         ifaces = []
         if policy is NetworkOnBoot.FIRST_WIRED_WITH_LINK:
             # choose first device having link
