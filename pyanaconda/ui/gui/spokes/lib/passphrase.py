@@ -170,6 +170,10 @@ class PassphraseDialog(GUIObject):
             else:
                 # but is totally fine under the non-strict policy
                 self._passphrase_good_enough = True
+        elif len(self._checker.failed_checks) == 1 and self._ascii_check in self._checker._failed_checks:
+            # enable the save button if only the ascii check has failed
+            self._passphrase_good_enough = True
+
         # set the save button sensitivity accordingly
         self._save_button.set_sensitive(self._passphrase_good_enough)
 
