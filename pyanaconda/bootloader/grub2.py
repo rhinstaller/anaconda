@@ -327,16 +327,16 @@ class GRUB2(BootLoader):
 
         # make sure the default entry is the OS we are installing
         if self.default is not None:
-            # find the index of the default image
-            try:
-                default_index = self.images.index(self.default)
-            except ValueError:
-                # pylint: disable=no-member
-                log.warning("Failed to find default image (%s), defaulting to 0",
-                            self.default.label)
-                default_index = 0
+            machine_id_path = util.getSysroot() + "/etc/machine-id"
+            if not os.access(machine_id_path, os.R_OK):
+                log.error("failed to read machine-id, default entry not set")
+                return
 
-            rc = util.execInSysroot("grub2-set-default", [str(default_index)])
+            with open(machine_id_path, "r") as fd:
+                machine_id = fd.readline().strip()
+
+            default_entry = "%s-%s" % (machine_id, self.default.version)
+            rc = util.execInSysroot("grub2-set-default", [default_entry])
             if rc:
                 log.error("failed to set default menu entry to %s", productName)
 
