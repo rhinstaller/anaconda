@@ -39,7 +39,7 @@ IFCFG_DIR = "/etc/sysconfig/network-scripts"
 
 class IfcfgFile(SimpleConfigFile):
     def __init__(self, filename):
-        SimpleConfigFile.__init__(self, always_quote=True, filename=filename)
+        super().__init__(always_quote=True, filename=filename)
         self._dirty = False
         self._path = filename
         self._uuid = None
@@ -57,7 +57,7 @@ class IfcfgFile(SimpleConfigFile):
 
     def read(self, filename=None):
         self.reset()
-        SimpleConfigFile.read(self)
+        super().read()
         self._loaded = True
         self._dirty = False
 
@@ -65,7 +65,7 @@ class IfcfgFile(SimpleConfigFile):
         if self._dirty or filename:
             # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
             # temporary file for new configuration
-            SimpleConfigFile.write(self, filename, use_tmp=use_tmp)
+            super().write(filename, use_tmp=use_tmp)
             self._dirty = False
 
     def set(self, *args):
@@ -74,7 +74,7 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        SimpleConfigFile.set(self, *args)
+        super().set(*args)
         self._dirty = True
 
     def unset(self, *args):
@@ -84,7 +84,7 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        SimpleConfigFile.unset(self, *args)
+        super.unset(*args)
 
     @property
     def is_from_kickstart(self):
