@@ -146,8 +146,6 @@ class BootLoader(object):
                             "net.ifnames"]
     preserve_args = []
 
-    _trusted_boot = False
-
     def __init__(self):
         super().__init__()
         self.boot_args = Arguments()
@@ -897,14 +895,6 @@ class BootLoader(object):
         self.write_config_images(config)
         config.close()
         self.write_config_post()
-
-    @property
-    def trusted_boot(self):
-        return self._trusted_boot
-
-    @trusted_boot.setter
-    def trusted_boot(self, trusted_boot):
-        self._trusted_boot = trusted_boot
 
     #
     # installation
