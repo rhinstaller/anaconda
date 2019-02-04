@@ -281,7 +281,9 @@ class NetworkModule(KickstartModule):
         disable_ipv6 = self.disable_ipv6 and devices_ignore_ipv6(self.nm_client, supported_wired_device_types)
         network_ifaces = [device.get_iface() for device in self.nm_client.get_devices()]
 
-        onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
+        onboot_ifaces_by_policy = []
+        if self._should_apply_onboot_policy():
+            onboot_ifaces_by_policy = self._get_onboot_ifaces_by_policy(conf.network.default_on_boot)
         all_onboot_ifaces = list(set(onboot_ifaces + onboot_ifaces_by_policy))
         self._onboot_yes_ifaces = all_onboot_ifaces
         onboot_yes_uuids = [find_ifcfg_uuid_of_device(self.nm_client, iface) or "" for iface in all_onboot_ifaces]
@@ -293,18 +295,20 @@ class NetworkModule(KickstartModule):
         path = self.publish_task(NETWORK.namespace, task)
         return path
 
-    def _get_onboot_ifaces_by_policy(self, policy):
-
-        if self._device_configurations and self._use_device_configurations:
+    def _should_apply_onboot_policy(self):
+        # Not if network is configured by kickstart
+        if self._original_network_data:
+            return False
+        # Not if network is configured in UI
+        if self._use_device_configurations:
+            return False
+        if self._device_configurations:
             data = self.get_kickstart_handler()
             device_data = self.generate_kickstart_network_data(data.NetworkData)
-        else:
-            device_data = self._original_network_data
+            return device_data and not any(dd.onboot for dd in device_data if dd.device)
 
+    def _get_onboot_ifaces_by_policy(self, policy):
         ifaces = []
-        if any(dd.onboot for dd in device_data if dd.device):
-            return ifaces
-
         if policy is NetworkOnBoot.FIRST_WIRED_WITH_LINK:
             # choose first device having link
             log.info("Onboot policy: choosing the first device having link.")
