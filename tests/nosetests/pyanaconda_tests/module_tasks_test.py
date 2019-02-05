@@ -139,6 +139,30 @@ class TaskInterfaceTestCase(unittest.TestCase):
         message_bus.publish_object.called_once()
         message_bus.reset_mock()
 
+    @dbus_class
+    class SimpleTaskInterface(TaskInterface):
+        pass
+
+    def publish_with_interface_test(self):
+        """Test task publishing with a specified interface."""
+        TaskInterface._task_counter = 1
+        message_bus = Mock()
+
+        object_path = publish_task(
+            message_bus=message_bus,
+            namespace=("A", "B", "C"),
+            task=self.SimpleTask(),
+            interface=self.SimpleTaskInterface
+        )
+
+        self.assertEqual("/A/B/C/Tasks/1", object_path)
+        message_bus.publish_object.called_once()
+
+        publishable = message_bus.publish_object.call_args[0][1]
+        self.assertIsInstance(publishable, self.SimpleTaskInterface)
+
+        message_bus.reset_mock()
+
     def simple_progress_reporting_test(self):
         """Test simple progress reporting."""
         self._set_up_task(self.SimpleTask())
