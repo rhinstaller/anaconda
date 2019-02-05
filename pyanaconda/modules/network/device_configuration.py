@@ -141,15 +141,127 @@ class DeviceConfigurations(object):
         if device_type is not None:
             new_dev_cfg.device_type = device_type
         self._device_configurations.append(new_dev_cfg)
+        log.debug("added %s", new_dev_cfg)
         self.configurations_changed.emit([(NetworkDeviceConfiguration(), new_dev_cfg)])
+
+    def attach(self, dev_cfg, device_name=None, connection_uuid=None):
+        """Attach device or connection to existing NetworkDeviceConfiguration."""
+        if not device_name and not connection_uuid:
+            return
+        old_dev_cfg = copy.deepcopy(dev_cfg)
+        if device_name:
+            dev_cfg.device_name = device_name
+            log.debug("attached device name to %s", dev_cfg)
+        if connection_uuid:
+            dev_cfg.connection_uuid = connection_uuid
+            log.debug("attached connection uuid to %s", dev_cfg)
+        self.configurations_changed.emit([(old_dev_cfg, dev_cfg)])
+
+    def _should_add_device(self, device):
+        """Should the network device be added ?
+
+        :param device: NetworkManager device object
+        :type device: NMDevice
+        :returns: tuple containing reply and message with reason
+        :rtype: (bool, str)
+        """
+        decline_reason = ""
+
+        # Ignore unsupported device types
+        if device.get_device_type() not in supported_device_types:
+            decline_reason = "unsupported type"
+
+        # Ignore libvirt bridges
+        elif is_libvirt_device(device.get_iface()):
+            decline_reason = "libvirt special device"
+
+        # Ignore fcoe vlan devices (can be chopped off to IFNAMSIZ kernel limit)
+        elif device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
+            decline_reason = "special FCoE vlan device"
+
+        # Ignore devices configured via iBFT, ie
+        # devices with active read-only connections (created by NM for iBFT VLAN)
+        elif self._has_read_only_active_connection(device):
+            decline_reason = "has active read-only connection (assuming configuration via iBFT)"
+
+        reply = not decline_reason
+        return reply, decline_reason
+
+    def _has_read_only_active_connection(self, device):
+        """Does the device have read-only active connection ?
+
+        :param device: NetworkManager device object
+        :type device: NMDevice
+        """
+        ac = device.get_active_connection()
+        if ac:
+            rc = ac.get_connection()
+            # Getting of NMRemoteConnection can fail (None), isn't it a bug in NM?
+            if rc:
+                con_setting = rc.get_setting_connection()
+                if con_setting and con_setting.get_read_only():
+                    return True
+            else:
+                log.debug("can't get remote connection of active connection "
+                            "of device %s", device.get_iface())
+        return False
+
+    def _find_connection_uuid_of_device(self, device):
+        """Find uuid of connection that should be bound to the device.
+
+        Assumes existence of no more than one ifcfg file per non-slave physical
+        device.
+
+        :param device: NetworkManager device object
+        :type device: NMDevice
+        :returns: uuid of NetworkManager connection
+        :rtype: str
+
+        """
+        uuid = None
+        iface = device.get_iface()
+
+        # For virtual device only the active connection could be the connection
+        if device.get_device_type() in virtual_device_types:
+            ac = device.get_active_connection()
+            if ac:
+                uuid = ac.get_connection().get_uuid()
+            else:
+                log.debug("no active connection for virtual device %s", iface)
+        # For physical device we need to pick the right connection in some
+        # cases.
+        else:
+            cons = device.get_available_connections()
+            ifcfg_uuid = None
+            if not cons:
+                log.debug("no available connection for physical device %s", iface)
+            elif len(cons) > 1:
+                # This can happen when activating device in initramfs and
+                # reconfiguring it via kickstart without activation.
+                log.debug("physical device %s has multiple connections: %s",
+                          iface, [c.get_uuid() for c in cons])
+                hwaddr = device.get_hw_address()
+                ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
+
+            for c in cons:
+                # Ignore slave connections
+                if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
+                    continue
+                candidate_uuid = c.get_uuid()
+                # In case of multiple connections choose the ifcfg connection
+                if not ifcfg_uuid or candidate_uuid == ifcfg_uuid:
+                    uuid = candidate_uuid
+
+        return uuid
 
     def add_device(self, device):
         """Add or update configuration for libnm network device object.
 
         Filters out unsupported or special devices.
 
-        For virtual devices it can only attach the device name to existing configuration
-        with connection uuid (typically when the virtual device is activated).
+        For virtual devices it may only attach the device name to existing
+        configuration with connection uuid (typically when the virtual device
+        is activated).
 
         :param device: NetworkManager device object
         :type device: NMDevice
@@ -161,89 +273,32 @@ class DeviceConfigurations(object):
         # Only single configuration per existing device
         existing_cfgs = self.get_for_device(iface)
         if existing_cfgs:
-            log.debug("not adding %s: already there: %s", iface, existing_cfgs)
+            log.debug("add_device: not adding %s: already there: %s", iface, existing_cfgs)
             return False
 
-        # Ignore unsupported devices
-        if device.get_device_type() not in supported_device_types:
-            log.debug("not adding %s: unsuported type", iface)
+        # Filter out special or unsupported devices
+        should_add, reason = self._should_add_device(device)
+        if not should_add:
+            log.debug("add_device: not adding %s: %s", iface, reason)
             return False
 
-        # Ignore libvirt bridges
-        if is_libvirt_device(iface):
-            log.debug("not adding %s: libvirt special device", iface)
-            return False
+        log.debug("add device: adding device %s", iface)
 
-        # Ignore fcoe vlan devices (can be chopped off to IFNAMSIZ kernel limit)
-        if iface.endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
-            log.debug("not adding %s: special fcoe vlan device", iface)
-            return False
-
-        # Ignore devices with active read-only connections (created by NM for iBFT VLAN)
-        ac = device.get_active_connection()
-        if ac:
-            rc = ac.get_connection()
-            # Getting of NMRemoteConnection can fail (None), isn't it a bug in NM?
-            if rc:
-                con_setting = rc.get_setting_connection()
-                if con_setting and con_setting.get_read_only():
-                    log.debug("not adding read-only connection "
-                              "(assuming iBFT) for device %s", iface)
-                    return False
-                else:
-                    log.debug("can't get remote connection of active connection "
-                              "of device %s", iface)
-
+        # Handle wireless device
         # TODO needs testing
         if device.get_device_type() == NM.DeviceType.WIFI:
             self.add(device_name=iface, device_type=NM.DeviceType.WIFI)
             return True
 
-        # Find the connection for the device (assuming existence of single
-        # ifcfg per non-slave device)
-        connection_uuid = None
+        existing_connection_uuid = self._find_connection_uuid_of_device(device)
+        existing_cfgs_for_uuid = self.get_for_uuid(existing_connection_uuid)
 
-
-        # virtual device
-        if device.get_device_type() in virtual_device_types:
-            ac = device.get_active_connection()
-            if ac:
-                connection_uuid = ac.get_connection().get_uuid()
-            else:
-                log.debug("no active connection when adding device %s", iface)
-        # physical device
+        if existing_connection_uuid and existing_cfgs_for_uuid:
+            existing_cfg = existing_cfgs_for_uuid[0]
+            self.attach(existing_cfg, device_name=iface)
         else:
-            cons = device.get_available_connections()
-            if not cons:
-                log.debug("no connection when adding device %s", iface)
-            ifcfg_uuid = None
-            if len(cons) > 1:
-                # This can happen when activating device in initramfs and
-                # reconfiguring it via kickstart without activation.
-                log.debug("%s has multiple connections: %s", iface, [c.get_uuid() for c in cons])
-                hwaddr = device.get_hw_address()
-                ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
-
-            for c in cons:
-                # Ignore slave connections
-                if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
-                    continue
-                uuid = c.get_uuid()
-                # In case of multiple connections ifcfg connections it the one.
-                if not ifcfg_uuid or uuid == ifcfg_uuid:
-                    connection_uuid = uuid
-
-        existing_cfgs = self.get_for_uuid(connection_uuid)
-        if connection_uuid and existing_cfgs:
-            updated_cfg = existing_cfgs[0]
-            old_cfg = copy.deepcopy(updated_cfg)
-            updated_cfg.device_name = iface
-            self.configurations_changed.emit([(old_cfg, updated_cfg)])
-            log.debug("attached device %s to connection %s", iface, connection_uuid)
-        else:
-            self.add(device_name=iface, connection_uuid=connection_uuid,
+            self.add(device_name=iface, connection_uuid=existing_connection_uuid,
                      device_type=device.get_device_type())
-            log.debug("added device configuration for device %s", iface)
         return True
 
     def _get_vlan_interface_name_from_connection(self, connection):
@@ -265,16 +320,68 @@ class DeviceConfigurations(object):
                     iface = default_ks_vlan_interface_name(parent, vlanid)
         return iface
 
+    def _should_add_connection(self, connection):
+        """Should the connection be added ?
+
+        :param connection: NetworkManager connection object
+        :type connection: NMConnection
+        :returns: tuple containing reply and message with reason
+        :rtype: (bool, str)
+        """
+        decline_reason = ""
+
+        uuid = connection.get_uuid()
+        iface = get_iface_from_connection(self.nm_client, uuid)
+        connection_type = connection.get_connection_type()
+        device_type = self.setting_types.get(connection_type, None)
+        con_setting = connection.get_setting_connection()
+
+        # Ignore read-only connections
+        if con_setting and con_setting.get_read_only():
+            decline_reason = "read-only connection"
+
+        # Ignore libvirt devices
+        elif is_libvirt_device(iface or ""):
+            decline_reason = "libvirt special device connection"
+
+        # Ignore devices configured via iBFT
+        elif is_ibft_configured_device(iface or ""):
+            decline_reason = "configured from iBFT"
+
+        # Ignore unsupported device types
+        elif device_type not in supported_device_types:
+            decline_reason = "unsupported type"
+
+        # Ignore slave connections
+        elif device_type == NM.DeviceType.ETHERNET:
+            if con_setting and con_setting.get_master():
+                decline_reason = "slave connection"
+
+        # Wireless settings are handled in scope of configuration of its device
+        elif device_type == NM.DeviceType.WIFI:
+            decline_reason = "wireless connection"
+
+        reply = not decline_reason
+        return reply, decline_reason
+
+    def _find_existing_cfg_for_iface(self, iface):
+        cfgs = self.get_for_device(iface)
+        if cfgs:
+            if len(cfgs) > 1:
+                log.error("multiple configurations for device %s: %s", iface, cfgs)
+            return cfgs[0]
+        return None
+
     def add_connection(self, connection):
         """Add or update configuration for libnm connection object.
 
         Filters out unsupported or special devices.
 
-        Only single configuration for given uuid is allowed.
-        For devices without persistent connection it will just update the configuration.
+        Only single configuration for given uuid is allowed.  For devices
+        without persistent connection it will just update the configuration.
 
-        :param device: NetworkManager conenction object
-        :type device: NMConnection
+        :param connection: NetworkManager conenction object
+        :type connection: NMConnection
         :return: True if any configuration was added or modified, False otherwise
         :rtype: bool
         """
@@ -282,87 +389,52 @@ class DeviceConfigurations(object):
 
         existing_cfg = self.get_for_uuid(uuid)
         if existing_cfg:
-            log.debug("not adding %s: already existing: %s", uuid, existing_cfg)
+            log.debug("add_connection: not adding %s: already existing: %s", uuid, existing_cfg)
             return False
 
-        con_setting = connection.get_setting_connection()
-        if con_setting and con_setting.get_read_only():
-            log.debug("not adding %s: read-only connection", uuid)
-            return False
-
-        iface = get_iface_from_connection(self.nm_client, uuid)
-
-        if is_libvirt_device(iface or ""):
-            log.debug("not adding %s: libvirt special device connection", uuid)
-            return False
-
-        if is_ibft_configured_device(iface or ""):
-            log.debug("not adding %s: configured from iBFT", uuid)
+        # Filter out special or unsupported devices
+        should_add, reason = self._should_add_connection(connection)
+        if not should_add:
+            log.debug("add_connection: not adding %s: %s", uuid, reason)
             return False
 
         connection_type = connection.get_connection_type()
         device_type = self.setting_types.get(connection_type, None)
-
-        if device_type not in supported_device_types:
-            log.debug("not adding %s: unsupported type", uuid)
-            return False
-
-        if device_type == NM.DeviceType.ETHERNET:
-            if con_setting and con_setting.get_master():
-                log.debug("not adding %s: slave connection", uuid)
-                return False
-
-        # Wireless settings are handled in scope of configuration of its device
-        if device_type == NM.DeviceType.WIFI:
-            log.debug("not adding %s: wireless connection", uuid)
-            return False
+        iface = get_iface_from_connection(self.nm_client, uuid)
 
         # Handle also vlan connections without interface-name specified
         if device_type == NM.DeviceType.VLAN:
             if not iface:
                 iface = self._get_vlan_interface_name_from_connection(connection)
-                log.debug("interface name for vlan connection %s inferred: %s", uuid, iface)
+                log.debug("add_connection: interface name for vlan connection %s inferred: %s",
+                          uuid, iface)
 
-        existing_cfgs_for_iface = self.get_for_device(iface)
-        # physical devices
-        if device_type not in virtual_device_types:
-            if existing_cfgs_for_iface:
-                if len(existing_cfgs_for_iface) > 1:
-                    log.error("multiple configurations for device %s: %s", iface,
-                              existing_cfgs_for_iface)
-                cfg = existing_cfgs_for_iface[0]
-                if cfg.connection_uuid:
-                    log.debug("not adding %s, already have %s for device %s",
-                            uuid, cfg.connection_uuid, cfg.device_name)
-                    return False
-                else:
-                    old_cfg = copy.deepcopy(cfg)
-                    cfg.connection_uuid = uuid
-                    self.configurations_changed.emit([(old_cfg, cfg)])
-                    log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
-            else:
-                self.add(connection_uuid=uuid, device_type=device_type)
-                log.debug("added connection %s", uuid)
+        iface_cfg = self._find_existing_cfg_for_iface(iface)
+
+        log.debug("add_connection: adding connection %s", uuid)
+
         # virtual devices
-        else:
-            if existing_cfgs_for_iface:
-                if len(existing_cfgs_for_iface) > 1:
-                    log.error("multiple configurations for device %s: %s", iface,
-                              existing_cfgs_for_iface)
-                cfg = existing_cfgs_for_iface[0]
-                if not cfg.connection_uuid:
-                    # TODO check that the device has this connection as active
-                    log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
-                    old_cfg = copy.deepcopy(cfg)
-                    cfg.connection_uuid = uuid
-                    self.configurations_changed.emit([(old_cfg, cfg)])
+        if device_type in virtual_device_types:
+            if iface_cfg:
+                if not iface_cfg.connection_uuid:
+                    self.attach(iface_cfg, connection_uuid=uuid)
                     return True
                 else:
                     # TODO check that the device shouldn't be reattached?
-                    log.debug("already have %s for device %s, adding another one",
-                            uuid, cfg.connection_uuid, cfg.device_name)
+                    log.debug("add_connection: already have %s for device %s, adding another one",
+                              iface_cfg.connection_uuid, iface_cfg.device_name)
             self.add(connection_uuid=uuid, device_type=device_type)
-            log.debug("added connection %s", uuid)
+        # physical devices
+        else:
+            if iface_cfg:
+                if iface_cfg.connection_uuid:
+                    log.debug("add_connection: already have %s for device %s, not adding %s",
+                              iface_cfg.connection_uuid, iface_cfg.device_name, uuid)
+                    return False
+                else:
+                    self.attach(iface_cfg, connection_uuid=uuid)
+            else:
+                self.add(connection_uuid=uuid, device_type=device_type)
         return True
 
     def get_for_device(self, device_name):
@@ -420,11 +492,8 @@ class DeviceConfigurations(object):
             if not cfg.device_name:
                 devices = connection.get_devices()
                 if devices:
-                    iface = devices[0].get_iface()
-                    old_cfg = copy.deepcopy(cfg)
-                    cfg.device_name = iface
-                    self.configurations_changed.emit([(old_cfg, cfg)])
-                    log.debug("attached device %s to connection %s", iface, connection_uuid)
+                    log.debug("adding active connection %s", connection_uuid)
+                    self.attach(cfg, device_name=devices[0].get_iface())
 
     def _connection_removed_cb(self, client, connection):
         uuid = connection.get_uuid()
