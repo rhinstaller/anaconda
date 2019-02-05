@@ -564,3 +564,28 @@ def get_available_disk_space(storage):
     # Blivet creates a new free space dict to instead of modifying the old one,
     # so there is no worry about the dictionary changing during iteration.
     return sum(disk_free for disk_free, fs_free in free_space.values())
+
+
+def find_live_backing_device():
+    """Find the backing device for the live image.
+
+    Note that this is a little bit of a hack since we're assuming
+    that /run/initramfs/live will exist
+
+    :return: a device name or None
+    """
+    for mnt in open("/proc/mounts").readlines():
+        if " /run/initramfs/live " not in mnt:
+            continue
+
+        live_device_path = mnt.split()[0]
+        udev_device = udev.get_device(device_node=live_device_path)
+
+        if udev_device and udev.device_is_partition(udev_device):
+            live_device_name = udev.device_get_partition_disk(udev_device)
+        else:
+            live_device_name = live_device_path.split("/")[-1]
+
+        return live_device_name or None
+
+    return None

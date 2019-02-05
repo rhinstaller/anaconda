@@ -135,11 +135,10 @@ def update_blivet_flags():
     blivet_flags.allow_imperfect_devices = conf.storage.allow_imperfect_devices
 
 
-def initialize_storage(storage, protected):
+def initialize_storage(storage):
     """Perform installer-specific storage initialization.
 
     :param storage: an instance of the Blivet's storage object
-    :param protected: a list of protected device names
     """
     update_blivet_flags()
 
@@ -148,13 +147,8 @@ def initialize_storage(storage, protected):
 
     storage.shutdown()
 
-    # Set up the protected partitions list now.
-    if protected:
-        storage.config.protected_dev_specs.extend(protected)
-
     while True:
         try:
-            # This also calls storage.config.update().
             storage.reset()
         except StorageError as e:
             if error_handler.cb(e) == ERROR_RAISE:
@@ -165,9 +159,9 @@ def initialize_storage(storage, protected):
             break
 
     # FIXME: This is a temporary workaround for live OS.
-    if protected and not conf.system._is_live_os and \
-       not any(d.protected for d in storage.devices):
-        raise UnknownSourceDeviceError(protected)
+    # TODO: Shouldn't we move this somewhere else?
+    if not conf.system._is_live_os and not any(d.protected for d in storage.devices):
+        raise UnknownSourceDeviceError()
 
     # kickstart uses all the disks
     if flags.automatedInstall:

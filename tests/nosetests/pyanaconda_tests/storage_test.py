@@ -35,7 +35,7 @@ class SetupDiskImagesNonZeroSizeTestCase(unittest.TestCase):
         # execute setup_disk_images() once more and the DMLinearDevice created
         # in this second execution has size 0
         with patch('blivet.flags'):
-            initialize_storage(self.storage, [])
+            initialize_storage(self.storage)
 
     def tearDown(self):
         self.storage.reset()

@@ -694,12 +694,16 @@ if __name__ == "__main__":
     from pyanaconda.storage.utils import ignore_nvdimm_blockdevs
     ignore_nvdimm_blockdevs(ksdata.nvdimm)
 
+    # Specify protected devices.
+    anaconda.storage.config.protected_dev_specs.extend(anaconda.protected)
+
     from pyanaconda.payload import payloadMgr
     from pyanaconda.timezone import time_initialize
 
     if not conf.target.is_directory:
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=initialize_storage,
-                                     args=(anaconda.storage, anaconda.protected)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
+                                     target=initialize_storage,
+                                     args=(anaconda.storage, )))
 
     from pyanaconda.modules.common.constants.services import TIMEZONE
     timezone_proxy = TIMEZONE.get_proxy()

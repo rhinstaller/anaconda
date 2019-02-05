@@ -25,7 +25,7 @@ import parted
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
 
-from blivet import arch, udev
+from blivet import arch
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
@@ -43,7 +43,7 @@ from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
-from pyanaconda.storage.utils import download_escrow_certificate
+from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
@@ -105,7 +105,6 @@ class InstallerStorage(Blivet):
         self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
         self._free_space_snapshot = None
-        self.live_backing_device = None
 
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
@@ -508,66 +507,42 @@ class InstallerStorage(Blivet):
             self.bootloader.reset()
 
         self.update_bootloader_disk_list()
-
-        # protected device handling
-        self.protected_dev_names = []
-        self._resolve_protected_device_specs()
-        self._find_live_backing_device()
-        for devname in self.protected_dev_names:
-            dev = self.devicetree.get_device_by_name(devname, hidden=True)
-            self._mark_protected_device(dev)
+        self._mark_protected_devices()
 
         self.roots = []
         self.roots = find_existing_installations(self.devicetree)
         self.dump_state("initial")
 
-    def _resolve_protected_device_specs(self):
-        """ Resolve the protected device specs to device names. """
+    def _mark_protected_devices(self):
+        """Mark protected devices.
+
+        If a device is protected, mark it as such now. Once the tree
+        has been populated, devices' protected attribute is how we will
+        identify protected devices.
+        """
+        protected = []
+
+        # Resolve the protected device specs to devices.
         for spec in self.config.protected_dev_specs:
             dev = self.devicetree.resolve_device(spec)
+
             if dev is not None:
-                log.debug("protected device spec %s resolved to %s", spec, dev.name)
-                self.protected_dev_names.append(dev.name)
+                log.debug("Protected device spec %s resolved to %s.", spec, dev.name)
+                protected.append(dev)
 
-    def _find_live_backing_device(self):
-        # FIXME: the backing dev for the live image can't be used as an
-        # install target.  note that this is a little bit of a hack
-        # since we're assuming that /run/initramfs/live will exist
-        for mnt in open("/proc/mounts").readlines():
-            if " /run/initramfs/live " not in mnt:
-                continue
+        # Find the live backing device and its parents.
+        live_device_name = find_live_backing_device()
 
-            live_device_path = mnt.split()[0]
-            udev_device = udev.get_device(device_node=live_device_path)
-            if udev_device and udev.device_is_partition(udev_device):
-                live_device_name = udev.device_get_partition_disk(udev_device)
-            else:
-                live_device_name = live_device_path.split("/")[-1]
+        if live_device_name:
+            log.debug("Resolved live device to %s.", live_device_name)
+            dev = self.devicetree.get_device_by_name(live_device_name, hidden=True)
+            protected.append(dev)
+            protected.extend(dev.parents)
 
-            log.info("resolved live device to %s", live_device_name)
-            if live_device_name:
-                log.info("marking live device %s protected", live_device_name)
-                self.protected_dev_names.append(live_device_name)
-                self.live_backing_device = live_device_name
-
-            break
-
-    def _mark_protected_device(self, device):
-        """
-          If this device is protected, mark it as such now. Once the tree
-          has been populated, devices' protected attribute is how we will
-          identify protected devices.
-
-         :param :class: `blivet.devices.storage.StorageDevice` device: device to
-          mark as protected
-        """
-        if device.name in self.protected_dev_names:
-            device.protected = True
-            # if this is the live backing device we want to mark its parents
-            # as protected also
-            if device.name == self.live_backing_device:
-                for parent in device.parents:
-                    parent.protected = True
+        # Mark the collected devices as protected.
+        for dev in protected:
+            log.debug("Marking device %s as protected.", dev.name)
+            dev.protected = True
 
     def empty_device(self, device):
         empty = True
