@@ -63,13 +63,14 @@ class SystemInstallationTask(AbstractTask):
         """Start the next installation task."""
         self._disconnect_all()
 
-        if not self._subtasks:
-            log.info("Installation is complete.")
+        if self.check_cancel():
+            log.info("Installation is canceled.")
             self._task_stopped_callback()
             return
 
-        if self.check_cancel():
-            log.info("Installation is canceled.")
+        if not self._subtasks:
+            log.info("Installation is complete.")
+            self._task_succeeded_callback()
             self._task_stopped_callback()
             return
 

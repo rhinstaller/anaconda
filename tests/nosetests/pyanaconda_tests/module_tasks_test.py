@@ -54,6 +54,8 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.task_interface.Stopped.connect(lambda: self.task_life_cycle.append("stopped"))
         # pylint: disable=no-member
         self.task_interface.Failed.connect(lambda: self.task_life_cycle.append("failed"))
+        # pylint: disable=no-member
+        self.task_interface.Succeeded.connect(lambda: self.task_life_cycle.append("succeeded"))
 
         # Check the initial state.
         self.assertEqual(self.task_interface.Progress, (0, ""))
@@ -62,7 +64,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def _check_steps(self, steps=1):
         self.assertEqual(self.task_interface.Steps, steps)
 
-    def _check_task_signals(self, started=True, failed=False, stopped=True):
+    def _check_task_signals(self, started=True, failed=False, succeeded=True, stopped=True):
         # Check the life cycle of the task.
         expected = []
 
@@ -70,6 +72,8 @@ class TaskInterfaceTestCase(unittest.TestCase):
             expected.append("started")
         if failed:
             expected.append("failed")
+        if succeeded:
+            expected.append("succeeded")
         if stopped:
             expected.append("stopped")
 
@@ -98,6 +102,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def properties_test(self):
         """Test task properties."""
         self._set_up_task(self.SimpleTask())
+
         self.assertEqual(self.task_interface.Name, "Simple Task")
         self.assertEqual(self.task_interface.IsRunning, False)
         self.assertEqual(self.task_interface.Steps, 1)
@@ -295,7 +300,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         with self.assertRaises(TaskFailedException):
             self.task_interface.Finish()
 
-        self._check_task_signals(failed=True)
+        self._check_task_signals(failed=True, succeeded=False)
 
     class CanceledTask(Task):
 
@@ -319,8 +324,13 @@ class TaskInterfaceTestCase(unittest.TestCase):
         """Run a canceled task."""
         self._set_up_task(self.CanceledTask())
         self._run_and_cancel_task()
-        self._finish_task()
+        self._finish_canceled_task()
         self._check_progress_changed(1, "Canceled Task")
+
+    def _finish_canceled_task(self):
+        """Finish a task."""
+        self.task_interface.Finish()
+        self._check_task_signals(failed=False, succeeded=False)
 
     @run_in_glib(TIMEOUT)
     def _run_and_cancel_task(self):
@@ -394,7 +404,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         )
         self._check_steps(1)
         self._run_and_cancel_task()
-        self._finish_task()
+        self._finish_canceled_task()
         self._check_progress_changed(1, "Canceled Task")
 
     class InstallationTaskA(Task):

@@ -31,6 +31,7 @@ class Runnable(ABC):
         self._started_signal = Signal()
         self._stopped_signal = Signal()
         self._failed_signal = Signal()
+        self._succeeded_signal = Signal()
 
     @property
     def started_signal(self):
@@ -48,6 +49,11 @@ class Runnable(ABC):
         return self._failed_signal
 
     @property
+    def succeeded_signal(self):
+        """Signal emitted when the task succeeds."""
+        return self._succeeded_signal
+
+    @property
     @abstractmethod
     def is_running(self):
         """Is the task running."""
@@ -62,6 +68,7 @@ class Runnable(ABC):
             self._task_started_callback
             self._task_run_callback
             self._task_failed_callback
+            self._task_succeeded_callback
             self._task_stopped_callback
 
         Make sure that you call self._task_started_callback at the
@@ -72,6 +79,9 @@ class Runnable(ABC):
         In a case of failure, call self._task_failed_callback to
         inform that the task has failed. You will still need to
         call also self._task_stopped_callback.
+
+        In a case of success, call self._task_succeeded_callback to
+        inform that the task has succeeded.
 
         Make sure that you always call self._task_stopped_callback
         at the end of the task lifetime to inform that the task is
@@ -93,6 +103,11 @@ class Runnable(ABC):
     def _task_failed_callback(self):
         """Callback for a failed task."""
         self._failed_signal.emit()
+
+    @async_action_nowait
+    def _task_succeeded_callback(self):
+        """Callback for a successful task."""
+        self._succeeded_signal.emit()
 
     @async_action_nowait
     def _task_stopped_callback(self):

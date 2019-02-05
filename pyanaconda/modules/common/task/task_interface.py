@@ -57,6 +57,7 @@ class TaskInterface(InterfaceTemplate):
         self.implementation.started_signal.connect(self.Started)
         self.implementation.stopped_signal.connect(self.Stopped)
         self.implementation.failed_signal.connect(self.Failed)
+        self.implementation.succeeded_signal.connect(self.Succeeded)
 
     @property
     def Name(self) -> Str:
@@ -104,6 +105,11 @@ class TaskInterface(InterfaceTemplate):
     @dbus_signal
     def Failed(self):
         """Signal when this task fails."""
+        pass
+
+    @dbus_signal
+    def Succeeded(self):
+        """Signal when this task succeeds."""
         pass
 
     def Start(self):

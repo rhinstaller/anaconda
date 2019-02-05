@@ -86,6 +86,12 @@ class Task(AbstractTask):
         """Report the first step and run the task."""
         self.report_progress(self.name, step_number=1)
         self.run()
+        self._task_succeeded_callback()
+
+    def _task_succeeded_callback(self):
+        """Don't report the success if the task was canceled."""
+        if not self.check_cancel():
+            super()._task_succeeded_callback()
 
     def _task_failed_with_info_callback(self, *exc_info):
         """Log the error and report the failure."""
