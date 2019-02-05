@@ -129,11 +129,8 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
         msg = "existing device for {} found".format(bootif)
     # First device with carrier (sorted lexicographically)
     elif spec == 'link':
-        for candidate_name in sorted(supported_devices):
-            device = nm_client.get_device_by_iface(candidate_name)
-            if device and device.get_carrier():
-                device_name = device.get_iface()
-                break
+        device_name = get_first_iface_with_link(nm_client, supported_devices) or ""
+        msg = "first device with link found"
 
     if device_name:
         if device_name not in supported_devices:
@@ -664,8 +661,9 @@ def devices_ignore_ipv6(nm_client, device_types):
     return True
 
 
-def get_first_iface_with_link(nm_client, device_types):
-    for device in nm_client.get_devices():
-        if device.get_device_type() in device_types and device.get_carrier():
+def get_first_iface_with_link(nm_client, ifaces):
+    for iface in sorted(ifaces):
+        device = nm_client.get_device_by_iface(iface)
+        if device and device.get_carrier():
             return device.get_iface()
     return None
