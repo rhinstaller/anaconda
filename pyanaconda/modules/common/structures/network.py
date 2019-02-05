@@ -64,3 +64,6 @@ class NetworkDeviceConfiguration(object):
     @device_type.setter
     def device_type(self, device_type: Int):
         self._device_type = device_type
+
+    def __eq__(self, other):
+        return (self._device_name, self._connection_uuid) == (other.device_name, other.connection_uuid)

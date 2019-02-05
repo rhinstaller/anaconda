@@ -73,6 +73,8 @@ AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
 IPV4_CONFIG = "IPv4"
 IPV6_CONFIG = "IPv6"
 
+DEVICES_COLUMN_ICON_NAME = 0
+DEVICES_COLUMN_SORT = 1
 DEVICES_COLUMN_TITLE = 2
 DEVICES_COLUMN_OBJECT = 3
 
@@ -222,6 +224,13 @@ class NetworkControlBox(GObject.GObject):
         NM.DeviceType.BRIDGE,
     ]
 
+    virtual_device_types = [
+        NM.DeviceType.TEAM,
+        NM.DeviceType.BOND,
+        NM.DeviceType.VLAN,
+        NM.DeviceType.BRIDGE,
+    ]
+
     wired_ui_device_types = [
         NM.DeviceType.ETHERNET,
         NM.DeviceType.TEAM,
@@ -360,7 +369,7 @@ class NetworkControlBox(GObject.GObject):
                             self.on_nm_state_changed)
 
 
-        self._update_device_configurations()
+        self._load_device_configurations()
         self._dev_cfg_subscription = self._network_module.proxy.DeviceConfigurationChanged.connect(
             self.on_device_configurations_changed)
 
@@ -374,17 +383,50 @@ class NetworkControlBox(GObject.GObject):
 
     def on_device_configurations_changed(self, changes):
         log.debug("device configurations changed: %s", changes)
-        self._update_device_configurations(changes=None)
+        self._update_device_configurations(changes)
         self.refresh_ui()
 
-    def _update_device_configurations(self, changes=None):
-        if not changes:
-            # Populate the store from scratch
-            device_configurations = self._network_module.proxy.GetDeviceConfigurations()
-            self.dev_cfg_store.clear()
-            for device_configuration in device_configurations:
-                dev_cfg = apply_structure(device_configuration, NetworkDeviceConfiguration())
-                self.add_dev_cfg(dev_cfg)
+    def _update_device_configurations(self, changes):
+        for old_values, new_values in changes:
+            old_cfg = apply_structure(old_values, NetworkDeviceConfiguration())
+            new_cfg = apply_structure(new_values, NetworkDeviceConfiguration())
+
+            device_type = old_cfg.device_type or new_cfg.device_type
+            # physical devices - devices persist in store
+            if device_type not in self.virtual_device_types:
+                # device added
+                if not old_cfg.device_name and new_cfg.device_name:
+                    self.add_dev_cfg(new_cfg)
+                    self.watch_dev_cfg_device(new_cfg)
+                # device removed
+                elif old_cfg.device_name and not new_cfg.device_name:
+                    self.remove_dev_cfg(old_cfg)
+                # connection modified
+                else:
+                    self.update_dev_cfg(old_cfg, new_cfg)
+
+            # virtual devices - connections persist in store
+            else:
+                # connection added
+                if not old_cfg.connection_uuid and new_cfg.connection_uuid:
+                    self.add_dev_cfg(new_cfg)
+                # connection removed
+                elif old_cfg.connection_uuid and not new_cfg.connection_uuid:
+                    self.remove_dev_cfg(old_cfg)
+                # virtual device added or removed
+                elif old_cfg.connection_uuid:
+                    self.update_dev_cfg(old_cfg, new_cfg)
+                    # added
+                    if not old_cfg.device_name and new_cfg.device_name:
+                        self.watch_dev_cfg_device(new_cfg)
+
+    def _load_device_configurations(self):
+        device_configurations = self._network_module.proxy.GetDeviceConfigurations()
+        self.dev_cfg_store.clear()
+        for device_configuration in device_configurations:
+            dev_cfg = apply_structure(device_configuration, NetworkDeviceConfiguration())
+            self.add_dev_cfg(dev_cfg)
+            self.watch_dev_cfg_device(dev_cfg)
 
     def refresh(self):
         self.refresh_ui()
@@ -616,7 +658,6 @@ class NetworkControlBox(GObject.GObject):
         if not itr:
             return None
         dev_cfg = model[itr][DEVICES_COLUMN_OBJECT]
-        model.remove(itr)
         con = self.client.get_connection_by_uuid(dev_cfg.connection_uuid)
         if con:
             con.delete()
@@ -641,17 +682,41 @@ class NetworkControlBox(GObject.GObject):
 
     def add_dev_cfg(self, dev_cfg):
         log.debug("adding device configuration: %s", dev_cfg)
-        self.dev_cfg_store.append([
-            self._dev_icon_name(dev_cfg),
-            self.device_type_sort_value.get(dev_cfg.device_type, "100"),
-            self._dev_title(dev_cfg),
-            dev_cfg
-        ])
+        row = [None, None, None, dev_cfg]
+        self._update_row_from_object(row)
+        self.dev_cfg_store.append(row)
+
+    def _update_row_from_object(self, row):
+        dev_cfg = row[DEVICES_COLUMN_OBJECT]
+        row[DEVICES_COLUMN_ICON_NAME] = self._dev_icon_name(dev_cfg)
+        row[DEVICES_COLUMN_SORT] = self.device_type_sort_value.get(dev_cfg.device_type, "100")
+        row[DEVICES_COLUMN_TITLE] = self._dev_title(dev_cfg)
+
+    def watch_dev_cfg_device(self, dev_cfg):
         device = self.client.get_device_by_iface(dev_cfg.device_name)
         if device:
             device.connect("notify::ip4-config", self.on_ip_obj_changed, IPV4_CONFIG)
             device.connect("notify::ip6-config", self.on_ip_obj_changed, IPV6_CONFIG)
             device.connect("state-changed", self.on_device_state_changed)
+
+    def remove_dev_cfg(self, dev_cfg):
+        log.debug("removing device configuration: %s", dev_cfg)
+        for row in self.dev_cfg_store:
+            stored_cfg = row[DEVICES_COLUMN_OBJECT]
+            if stored_cfg == dev_cfg:
+                self.dev_cfg_store.remove(row.iter)
+                return
+        log.debug("configuration to be removed not found")
+
+    def update_dev_cfg(self, old_cfg, new_cfg):
+        log.debug("updating device configuration: %s -> %s", old_cfg, new_cfg)
+        for row in self.dev_cfg_store:
+            stored_cfg = row[DEVICES_COLUMN_OBJECT]
+            if stored_cfg == old_cfg:
+                row[DEVICES_COLUMN_OBJECT] = new_cfg
+                self._update_row_from_object(row)
+                return
+        log.debug("configuration to be updated not found")
 
     def on_ip_obj_changed(self, device, *args):
         """Callback when ipX-config objects will be changed.
@@ -705,9 +770,17 @@ class NetworkControlBox(GObject.GObject):
                 and not device.get_carrier()):
                 # TRANSLATORS: ethernet cable is unplugged
                 unplugged = ', <i>%s</i>' % escape_markup(_("unplugged"))
+        connection_name = ""
+        if dev_cfg.device_type in self.virtual_device_types:
+            con = self.client.get_connection_by_uuid(dev_cfg.connection_uuid)
+            if con:
+                con_id = con.get_setting_connection().get_id()
+                if con_id:
+                    connection_name = " - {}".format(con_id)
         # pylint: disable=unescaped-markup
-        title = '<span size="large">%s (%s%s)</span>' % \
+        title = '<span size="large">%s%s (%s%s)</span>' % \
                  (escape_markup(_(self.device_type_name.get(dev_cfg.device_type, ""))),
+                  escape_markup(connection_name),
                   escape_markup(dev_cfg.device_name),
                   unplugged)
 
@@ -912,8 +985,8 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ap is not None)
 
     def _refresh_carrier_info(self):
-        for i in self.dev_cfg_store:
-            i[DEVICES_COLUMN_TITLE] = self._dev_title(i[DEVICES_COLUMN_OBJECT])
+        for row in self.dev_cfg_store:
+            row[DEVICES_COLUMN_TITLE] = self._dev_title(row[DEVICES_COLUMN_OBJECT])
 
     def _refresh_header_ui(self, dev_cfg, state=None):
         if dev_cfg.device_type in self.wired_ui_device_types:
