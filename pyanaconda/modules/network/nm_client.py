@@ -511,6 +511,83 @@ def update_connection_ip_settings_from_ksdata(connection, network_data):
                 log.error("IP address %s is not valid", ns)
 
 
+def bind_settings_to_mac(nm_client, s_connection, s_wired, device_name=None, bind_exclusively=True):
+    """Bind the settings to the mac address of the device.
+
+    :param s_connection: connection setting to be updated
+    :type s_connection: NM.SettingConnection
+    :param s_wired: wired setting to be updated
+    :type s_wired: NM.SettingWired
+    :param device_name: name of the device to be bound
+    :type evice_name: str
+    :param bind_exclusively: remove reference to the device name from the settings
+    :type bind_exclusively: bool
+    :returns: True if the settings were modified, False otherwise
+    :rtype: bool
+    """
+    mac_address = s_wired.get_mac_address()
+    interface_name = s_connection.get_interface_name()
+    modified = False
+
+    if mac_address:
+        log.debug("Bind to mac: already bound to %s", mac_address)
+    else:
+        iface = device_name or interface_name
+        if not iface:
+            log.warning("Bind to mac: no device name provided to look for mac")
+            return False
+        device = nm_client.get_device_by_iface(iface)
+        if device:
+            hwaddr = device.get_permanent_hw_address() or device.get_hw_address()
+            s_wired.props.mac_address = hwaddr
+            log.debug("Bind to mac: bound to %s", hwaddr)
+            modified = True
+
+    if bind_exclusively and interface_name:
+        s_connection.props.interface_name = None
+        log.debug("Bind to mac: removed interface-name %s from connection", interface_name)
+        modified = True
+
+    return modified
+
+
+def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None, bind_exclusively=True):
+    """Bind the settings to the name of the device.
+
+    :param s_connection: connection setting to be updated
+    :type s_connection: NM.SettingConnection
+    :param s_wired: wired setting to be updated
+    :type s_wired: NM.SettingWired
+    :param device_name: name of the device to be bound
+    :type evice_name: str
+    :param bind_exclusively: remove reference to the mac address from the settings
+    :type bind_exclusively: bool
+    :returns: True if the settings were modified, False otherwise
+    :rtype: bool
+    """
+    mac_address = s_wired.get_mac_address()
+    interface_name = s_connection.get_interface_name()
+    modified = False
+
+    if device_name:
+        s_connection.props.interface_name = device_name
+        log.debug("Bind to device: %s -> %s", interface_name, device_name)
+        modified = interface_name != device_name
+    else:
+        if not interface_name:
+            log.debug("Bind to device: no device to bind to")
+            return False
+        else:
+            log.debug("Bind to device: already bound to %s", interface_name)
+
+    if bind_exclusively and mac_address:
+        s_wired.props.mac_address = None
+        log.debug("Bind to device: removed mac-address from connection")
+        modified = True
+
+    return modified
+
+
 def bind_connection(nm_client, connection, bindto, device_name=None, bind_exclusively=True):
     """Bind the connection to device name or mac address.
 
@@ -524,66 +601,26 @@ def bind_connection(nm_client, connection, bindto, device_name=None, bind_exclus
     :type device_name: str
     :param bind_exclusively: when binding to an entity, remove reference to the other
     :type bind_exclusively: bool
+    :returns: True if the connection was modified, False otherwise
+    :rtype: bool
     """
-    msg = "bind connection {} to {}:".format(connection.get_uuid(), bindto or "iface")
+    msg = "Bind connection {} to {}:".format(connection.get_uuid(), bindto or "iface")
 
     s_con = connection.get_setting_connection()
     if not s_con:
-        log.warning("%s no connection settings", msg)
+        log.warning("%s no connection settings, bailing", msg)
         return False
-    interface_name = s_con.get_interface_name()
     s_wired = connection.get_setting_wired()
-    if s_wired:
-        mac_address = s_wired.get_mac_address()
-    else:
-        mac_address = None
 
-    # bind to mac address
     if bindto == BIND_TO_MAC:
         if not s_wired:
-            log.warning("%s no wired settings", msg)
+            log.warning("%s no wired settings, bailing", msg)
             return False
-        if mac_address:
-            log.debug("%s already bound to %s", msg, mac_address)
-            if interface_name and bind_exclusively:
-                connection.get_setting_connection().props.interface_name = None
-                log.debug("%s removed interface-name from connection", msg)
-                return True
-            return False
-        else:
-            device_name = device_name or interface_name
-            if not device_name:
-                log.warning("%s no device to look for mac", msg)
-                return False
-            device = nm_client.get_device_by_iface(device_name)
-            if device:
-                hwaddr = device.get_permanent_hw_address() or device.get_hw_address()
-                if interface_name and bind_exclusively:
-                    connection.get_setting_connection().props.interface_name = None
-                    log.debug("%s removed interface-name from connection", msg)
-                s_wired.props.mac_address = hwaddr
-                log.debug("%s bound to %s", msg, hwaddr)
-                return True
-    # bind to device name
+        modified = bind_settings_to_mac(nm_client, s_con, s_wired, device_name, bind_exclusively)
     else:
-        if device_name:
-            if mac_address and bind_exclusively:
-                s_wired.props.mac_address = None
-                log.debug("%s removed mac-address from connection", msg)
-            s_con.props.interface_name = device_name
-            log.debug("%s %s -> %s", msg, interface_name, device_name)
-            return True
-        else:
-            if not interface_name:
-                log.debug("%s no device to bind to", msg)
-                return False
-            else:
-                log.debug("%s already bound to %s", msg, interface_name)
-                if mac_address and bind_exclusively:
-                    s_wired.props.mac_address = None
-                    log.debug("%s removed mac-address from connection", msg)
-                    return True
-                return False
+        modified = bind_settings_to_device(nm_client, s_con, s_wired, device_name, bind_exclusively)
+
+    return modified
 
 
 def ensure_active_connection_for_device(nm_client, uuid, device_name, only_replace=False):
@@ -662,6 +699,7 @@ def devices_ignore_ipv6(nm_client, device_types):
 
 
 def get_first_iface_with_link(nm_client, ifaces):
+    """Find first iface having link (in lexicographical order)."""
     for iface in sorted(ifaces):
         device = nm_client.get_device_by_iface(iface)
         if device and device.get_carrier():
