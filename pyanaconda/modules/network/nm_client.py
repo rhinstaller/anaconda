@@ -157,6 +157,153 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
     return device_name
 
 
+def _update_bond_connection_from_ksdata(connection, network_data):
+    """Update connection with values from bond kickstart configuration.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    """
+    s_con = connection.get_setting_connection()
+    s_con.props.type = "bond"
+
+    s_bond = NM.SettingBond.new()
+    opts = network_data.bondopts
+    for option in opts.split(';' if ';' in opts else ','):
+        key, _sep, value = option.partition("=")
+        if not s_bond.add_option(key, value):
+            log.warning("adding bond option %s failed (invalid?)")
+    connection.add_setting(s_bond)
+
+
+def _update_team_connection_from_ksdata(connection, network_data):
+    """Update connection with values from team kickstart configuration.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    """
+    s_con = connection.get_setting_connection()
+    s_con.props.type = "team"
+
+    s_team = NM.SettingTeam.new()
+    s_team.props.config = network_data.teamconfig
+    connection.add_setting(s_team)
+
+
+def _update_vlan_connection_from_ksdata(connection, network_data):
+    """Update connection with values from vlan kickstart configuration.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    :returns: interface name of the device
+    :rtype: str
+    """
+    s_con = connection.get_setting_connection()
+    s_con.props.type = "vlan"
+    if network_data.interfacename:
+        s_con.props.id = network_data.interfacename
+        s_con.props.interface_name = network_data.interfacename
+    # FIXME: fix also the test
+    # else:
+    #    s_con.props.interface_name = None
+
+    s_vlan = NM.SettingVlan.new()
+    s_vlan.props.id = int(network_data.vlanid)
+    s_vlan.props.parent = network_data.parent
+    connection.add_setting(s_vlan)
+
+    return s_con.props.interface_name
+
+
+def _update_bridge_connection_from_ksdata(connection, network_data):
+    """Update connection with values from bridge kickstart configuration.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    """
+    s_con = connection.get_setting_connection()
+    s_con.props.type = "bridge"
+
+    s_bridge = NM.SettingBridge.new()
+    for opt in network_data.bridgeopts.split(","):
+        key, _sep, value = opt.partition("=")
+        if key in ("stp", "multicast-snooping"):
+            if value == "yes":
+                value = True
+            elif value == "no":
+                value = False
+        else:
+            try:
+                value = int(value)
+            except ValueError:
+                log.error("Invalid bridge option %s", opt)
+                continue
+        s_bridge.set_property(key, value)
+    connection.add_setting(s_bridge)
+
+
+def _update_infiniband_connection_from_ksdata(connection, network_data):
+    """Update connection with values from infiniband kickstart configuration.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    """
+    s_con = connection.get_setting_connection()
+    s_con.props.type = "infiniband"
+
+    s_ib = NM.SettingInfiniband.new()
+    s_ib.props.transport_mode = "datagram"
+    connection.add_settings(s_ib)
+
+
+def _update_ethernet_connection_from_ksdata(connection, network_data, bound_mac):
+    """Update connection with values from ethernet kickstart configuration.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param network_data: kickstart configuration
+    :type network_data: pykickstart NetworkData
+    :param bound_mac: MAC address the device name is bound to (ifname=)
+    :type bound_mac: str
+    """
+    s_con = connection.get_setting_connection()
+    s_con.props.type = "802-3-ethernet"
+
+    s_wired = NM.SettingWired.new()
+    if bound_mac:
+        s_wired.props.mac_address = bound_mac
+    connection.add_setting(s_wired)
+
+
+def _update_wired_connection_with_s390_settings(connection, s390cfg):
+    """Update connection with values specific for s390 architecture.
+
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
+    :param s390cfg: dictionary storing s390 specific settings
+    :type s390cfg: dict
+    """
+    s_wired = connection.get_setting_wired()
+    if s390cfg['SUBCHANNELS']:
+        subchannels = s390cfg['SUBCHANNELS'].split(",")
+        s_wired.props.s390_subchannels = subchannels
+    if s390cfg['NETTYPE']:
+        s_wired.props.s390_nettype = s390cfg['NETTYPE']
+    if s390cfg['OPTIONS']:
+        opts = s390cfg['OPTIONS'].split(" ")
+        opts_dict = {k: v for k, v in (o.split("=") for o in opts)}
+        s_wired.props.s90_options = opts_dict
+
+
 def add_connection_from_ksdata(nm_client, network_data, device_name, activate=False, ifname_option_values=None):
     """Add NM connection created from kickstart configuration.
 
@@ -180,25 +327,17 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
     s_con = NM.SettingConnection.new()
     s_con.props.uuid = con_uuid
+    s_con.props.id = device_name
+    s_con.props.interface_name = device_name
     # HACK preventing NM to autoactivate the connection
     # The real network --onboot value (ifcfg ONBOOT) will be set later by
     # update_onboot
     s_con.props.autoconnect = False
+    con.add_setting(s_con)
 
     # type "bond"
     if network_data.bondslaves:
-        s_con.props.type = "bond"
-        s_con.props.id = device_name
-        s_con.props.interface_name = device_name
-        con.add_setting(s_con)
-
-        s_bond = NM.SettingBond.new()
-        opts = network_data.bondopts
-        for option in opts.split(';' if ';' in opts else ','):
-            key, _sep, value = option.partition("=")
-            if not s_bond.add_option(key, value):
-                log.warning("adding bond option %s failed (invalid?)")
-        con.add_setting(s_bond)
+        _update_bond_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bondslaves.split(","), 1):
             slave_con = create_slave_connection('bond', i, slave, device_name)
@@ -207,14 +346,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
     # type "team"
     elif network_data.teamslaves:
-        s_con.props.type = "team"
-        s_con.props.id = device_name
-        s_con.props.interface_name = device_name
-        con.add_setting(s_con)
-
-        s_team = NM.SettingTeam.new()
-        s_team.props.config = network_data.teamconfig
-        con.add_setting(s_team)
+        _update_team_connection_from_ksdata(con, network_data)
 
         for i, (slave, cfg) in enumerate(network_data.teamslaves, 1):
             s_team_port = NM.SettingTeamPort.new()
@@ -226,42 +358,12 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
     # type "vlan"
     elif network_data.vlanid:
-        s_con.props.type = "vlan"
-        s_con.props.id = network_data.interfacename or device_name
-        # FIXME: fix also the test
-        # s_con.props.interface_name = network_data.interfacename or None
-        s_con.props.interface_name = network_data.interfacename or device_name
-        con.add_setting(s_con)
-
-        s_vlan = NM.SettingVlan.new()
-        s_vlan.props.id = int(network_data.vlanid)
-        s_vlan.props.parent = network_data.parent
-        con.add_setting(s_vlan)
+        device_to_activate = _update_vlan_connection_from_ksdata(con, network_data)
 
     # type "bridge"
     elif network_data.bridgeslaves:
         # bridge connection is autoactivated
-        s_con.props.type = "bridge"
-        s_con.props.id = device_name
-        s_con.props.interface_name = device_name
-        con.add_setting(s_con)
-
-        s_bridge = NM.SettingBridge.new()
-        for opt in network_data.bridgeopts.split(","):
-            key, _sep, value = opt.partition("=")
-            if key in ("stp", "multicast-snooping"):
-                if value == "yes":
-                    value = True
-                elif value == "no":
-                    value = False
-            else:
-                try:
-                    value = int(value)
-                except ValueError:
-                    log.error("Invalid bridge option %s", opt)
-                    continue
-            s_bridge.set_property(key, value)
-        con.add_setting(s_bridge)
+        _update_bridge_connection_from_ksdata(con, network_data)
 
         for i, slave in enumerate(network_data.bridgeslaves.split(","), 1):
             slave_con = create_slave_connection('bridge', i, slave, device_name)
@@ -270,46 +372,22 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
     # type "infiniband"
     elif is_infiniband_device(nm_client, device_name):
-        s_con.props.type = "infiniband"
-        s_con.props.id = device_name
-        s_con.props.interface_name = device_name
-        con.add_setting(s_con)
-
-        s_ib = NM.SettingInfiniband.new()
-        s_ib.props.transport_mode = "datagram"
-        con.add_settings(s_ib)
+        _update_infiniband_connection_from_ksdata(con, network_data)
 
     # type "802-3-ethernet"
     else:
-        s_con.props.type = "802-3-ethernet"
-        s_con.props.id = device_name
-
-        s_wired = NM.SettingWired.new()
-        con.add_setting(s_wired)
-
         bound_mac = bound_hwaddr_of_device(nm_client, device_name, ifname_option_values)
+        _update_ethernet_connection_from_ksdata(con, network_data, bound_mac)
         if bound_mac:
-            s_con.props.interface_name = device_name
-            s_wired.props.mac_address = bound_mac
             log.debug("add connection: mac %s is bound to name %s",
                       bound_mac, device_name)
-            con.add_setting(s_con)
         else:
-            con.add_setting(s_con)
             bind_connection(nm_client, con, network_data.bindto, device_name)
 
         # Add s390 settings
         if is_s390():
             s390cfg = get_s390_settings(device_name)
-            if s390cfg['SUBCHANNELS']:
-                subchannels = s390cfg['SUBCHANNELS'].split(",")
-                s_wired.props.s390_subchannels = subchannels
-            if s390cfg['NETTYPE']:
-                s_wired.props.s390_nettype = s390cfg['NETTYPE']
-            if s390cfg['OPTIONS']:
-                opts = s390cfg['OPTIONS'].split(" ")
-                opts_dict = {k: v for k, v in (o.split("=") for o in opts)}
-                s_wired.props.s90_options = opts_dict
+            _update_wired_connection_with_s390_settings(con, s390cfg)
 
     added_connections.insert(0, (con, device_to_activate))
 
@@ -591,8 +669,8 @@ def bind_settings_to_device(nm_client, s_connection, s_wired, device_name=None, 
 def bind_connection(nm_client, connection, bindto, device_name=None, bind_exclusively=True):
     """Bind the connection to device name or mac address.
 
-    :param connection: uuid of the connection
-    :type connection: str
+    :param connection: connection to be updated before adding to NM
+    :type connection: NM.SimpleConnection
     :param bindto: type of binding of the connection (mac address of device name)
                     - BIND_TO_MAC for mac address
                     - None for device name (default)
