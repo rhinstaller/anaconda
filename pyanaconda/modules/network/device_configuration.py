@@ -51,6 +51,13 @@ supported_wired_device_types = [
     NM.DeviceType.INFINIBAND,
 ]
 
+virtual_device_types = [
+    NM.DeviceType.BOND,
+    NM.DeviceType.VLAN,
+    NM.DeviceType.BRIDGE,
+    NM.DeviceType.TEAM,
+]
+
 
 class DeviceConfigurations(object):
     """Stores the state of persistent configuration of network devices.
@@ -109,13 +116,15 @@ class DeviceConfigurations(object):
         self.nm_client.connect("device-removed", self._device_removed_cb)
         self.nm_client.connect("connection-added", self._connection_added_cb)
         self.nm_client.connect("connection-removed", self._connection_removed_cb)
+        self.nm_client.connect("active-connection-added", self._active_connection_added_cb)
 
     def disconnect(self):
         """Disconnect from NetworkManager devices and connections updates."""
         for cb in [self._device_added_cb,
                    self._device_removed_cb,
                    self._connection_added_cb,
-                   self._connection_removed_cb]:
+                   self._connection_removed_cb,
+                   self._active_connection_added_cb]:
             try:
                 self.nm_client.disconnect_by_func(cb)
             except TypeError as e:
@@ -194,30 +203,38 @@ class DeviceConfigurations(object):
         # ifcfg per non-slave device)
         connection_uuid = None
 
-        cons = device.get_available_connections()
-        if not cons:
-            log.debug("no connection when adding device %s", iface)
 
-        ifcfg_uuid = None
-        if len(cons) > 1:
-            # This can happen when activating device in initramfs and
-            # reconfiguring it via kickstart without activation.
-            log.debug("%s has multiple connections: %s", iface, [c.get_uuid() for c in cons])
-            hwaddr = device.get_hw_address()
-            ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
+        # virtual device
+        if device.get_device_type() in virtual_device_types:
+            ac = device.get_active_connection()
+            if ac:
+                connection_uuid = ac.get_connection().get_uuid()
+            else:
+                log.debug("no active connection when adding device %s", iface)
+        # physical device
+        else:
+            cons = device.get_available_connections()
+            if not cons:
+                log.debug("no connection when adding device %s", iface)
+            ifcfg_uuid = None
+            if len(cons) > 1:
+                # This can happen when activating device in initramfs and
+                # reconfiguring it via kickstart without activation.
+                log.debug("%s has multiple connections: %s", iface, [c.get_uuid() for c in cons])
+                hwaddr = device.get_hw_address()
+                ifcfg_uuid = find_ifcfg_uuid_of_device(self.nm_client, iface, hwaddr=hwaddr)
 
-        for c in cons:
-            # Ignore slave connections
-            if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
-                continue
-            uuid = c.get_uuid()
-            # In case of multiple connections ifcfg connections it the one.
-            if not ifcfg_uuid or uuid == ifcfg_uuid:
-                connection_uuid = uuid
+            for c in cons:
+                # Ignore slave connections
+                if c.get_setting_connection() and c.get_setting_connection().get_slave_type():
+                    continue
+                uuid = c.get_uuid()
+                # In case of multiple connections ifcfg connections it the one.
+                if not ifcfg_uuid or uuid == ifcfg_uuid:
+                    connection_uuid = uuid
 
         existing_cfgs = self.get_for_uuid(connection_uuid)
         if connection_uuid and existing_cfgs:
-            # If we already have a connection for the device it is a virtual device appearing
             updated_cfg = existing_cfgs[0]
             old_cfg = copy.deepcopy(updated_cfg)
             updated_cfg.device_name = iface
@@ -306,19 +323,44 @@ class DeviceConfigurations(object):
                 iface = self._get_vlan_interface_name_from_connection(connection)
                 log.debug("interface name for vlan connection %s inferred: %s", uuid, iface)
 
-        existing_cfgs = self.get_for_device(iface)
-        if existing_cfgs:
-            for cfg in existing_cfgs:
+        existing_cfgs_for_iface = self.get_for_device(iface)
+        # physical devices
+        if device_type not in virtual_device_types:
+            if existing_cfgs_for_iface:
+                if len(existing_cfgs_for_iface) > 1:
+                    log.error("multiple configurations for device %s: %s", iface,
+                              existing_cfgs_for_iface)
+                cfg = existing_cfgs_for_iface[0]
                 if cfg.connection_uuid:
                     log.debug("not adding %s, already have %s for device %s",
-                              uuid, cfg.connection_uuid, cfg.device_name)
+                            uuid, cfg.connection_uuid, cfg.device_name)
                     return False
                 else:
                     old_cfg = copy.deepcopy(cfg)
                     cfg.connection_uuid = uuid
                     self.configurations_changed.emit([(old_cfg, cfg)])
                     log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
+            else:
+                self.add(connection_uuid=uuid, device_type=device_type)
+                log.debug("added connection %s", uuid)
+        # virtual devices
         else:
+            if existing_cfgs_for_iface:
+                if len(existing_cfgs_for_iface) > 1:
+                    log.error("multiple configurations for device %s: %s", iface,
+                              existing_cfgs_for_iface)
+                cfg = existing_cfgs_for_iface[0]
+                if not cfg.connection_uuid:
+                    # TODO check that the device has this connection as active
+                    log.debug("attaching connection %s to device %s", uuid, cfg.device_name)
+                    old_cfg = copy.deepcopy(cfg)
+                    cfg.connection_uuid = uuid
+                    self.configurations_changed.emit([(old_cfg, cfg)])
+                    return True
+                else:
+                    # TODO check that the device shouldn't be reattached?
+                    log.debug("already have %s for device %s, adding another one",
+                            uuid, cfg.connection_uuid, cfg.device_name)
             self.add(connection_uuid=uuid, device_type=device_type)
             log.debug("added connection %s", uuid)
         return True
@@ -355,7 +397,7 @@ class DeviceConfigurations(object):
         log.debug("NM device removed: %s", iface)
         dev_cfgs = self.get_for_device(iface)
         for cfg in dev_cfgs:
-            if cfg.connection_uuid:
+            if cfg.connection_uuid and cfg.device_type in virtual_device_types:
                 old_cfg = copy.deepcopy(cfg)
                 cfg.device_name = ""
                 self.configurations_changed.emit([(old_cfg, cfg)])
@@ -369,6 +411,20 @@ class DeviceConfigurations(object):
     def _connection_added_cb(self, client, connection):
         log.debug("NM connection added: %s", connection.get_uuid())
         self.add_connection(connection)
+
+    def _active_connection_added_cb(self, client, connection):
+        connection_uuid = connection.get_uuid()
+        log.debug("NM active connection added: %s", connection_uuid)
+        dev_cfgs = self.get_for_uuid(connection_uuid)
+        for cfg in dev_cfgs:
+            if not cfg.device_name:
+                devices = connection.get_devices()
+                if devices:
+                    iface = devices[0].get_iface()
+                    old_cfg = copy.deepcopy(cfg)
+                    cfg.device_name = iface
+                    self.configurations_changed.emit([(old_cfg, cfg)])
+                    log.debug("attached device %s to connection %s", iface, connection_uuid)
 
     def _connection_removed_cb(self, client, connection):
         uuid = connection.get_uuid()
