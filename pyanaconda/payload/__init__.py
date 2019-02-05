@@ -49,6 +49,7 @@ from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_installtree
 from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.storage.installation import write_storage_configuration
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
@@ -922,7 +923,7 @@ class Payload(object):
         by overriding the unneeded one with a pass.
         """
         if not conf.target.is_directory:
-            self.storage.write()
+            write_storage_configuration(self.storage, util.getSysroot())
 
     def writeStorageLate(self):
         """Some payloads require that the storage configuration be written out
@@ -933,7 +934,7 @@ class Payload(object):
         if util.getSysroot() != util.getTargetPhysicalRoot():
             self.prepareMountTargets(self.storage)
         if not conf.target.is_directory:
-            self.storage.write()
+            write_storage_configuration(self.storage, util.getSysroot())
 
 
 

@@ -50,7 +50,8 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.initialization import initialize_storage
+from pyanaconda.storage.initialization import initialize_storage, update_storage_config, \
+    reset_storage
 
 from pykickstart.base import BaseData
 from pykickstart.constants import AUTOPART_TYPE_LVM
@@ -440,7 +441,7 @@ class StorageSpoke(NormalTUISpoke):
             self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self.storage.bootloader.reset()
 
-        self.storage.config.update()
+        update_storage_config(self.storage.config)
 
         # If autopart is selected we want to remove whatever has been
         # created/scheduled to make room for autopart.
@@ -464,7 +465,7 @@ class StorageSpoke(NormalTUISpoke):
             self.storage.autopart_type = self._auto_part_observer.proxy.Type
 
             # The reset also calls self.storage.config.update().
-            self.storage.reset()
+            reset_storage(self.storage.reset)
 
             # Now set data back to the user's specified config.
             applyDiskSelection(self.storage, self.data, self.selected_disks)

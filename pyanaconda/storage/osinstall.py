@@ -25,12 +25,10 @@ import parted
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
 
-from blivet import arch
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
 from blivet.formats import get_format
-from blivet.iscsi import iscsi
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 
@@ -45,9 +43,7 @@ from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.partitioning import get_full_partitioning_requests
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
-from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    ZFCP, FCOE
+from pyanaconda.modules.common.constants.services import NETWORK
 
 import logging
 log = logging.getLogger("anaconda.storage")
@@ -70,16 +66,6 @@ class StorageDiscoveryConfig(object):
         # Whether clear_partitions removes scheduled/non-existent devices and
         # disklabels depends on this flag.
         self.clear_non_existent = False
-
-    def update(self, *args, **kwargs):
-        """Update configuration."""
-        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-
-        self.clear_part_type = disk_init_proxy.InitializationMode
-        self.clear_part_disks = disk_init_proxy.DrivesToClear
-        self.clear_part_devices = disk_init_proxy.DevicesToClear
-        self.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
-        self.zero_mbr = disk_init_proxy.FormatUnrecognizedEnabled
 
 
 class InstallerStorage(Blivet):
@@ -176,24 +162,6 @@ class InstallerStorage(Blivet):
                 dev.disk.format.commit_to_disk()
 
         self.dump_state("final")
-
-    def write(self):
-        sysroot = util.getSysroot()
-        if not os.path.isdir("%s/etc" % sysroot):
-            os.mkdir("%s/etc" % sysroot)
-
-        self.make_mtab()
-        self.fsset.write()
-        iscsi.write(sysroot, self)
-
-        fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_proxy.WriteConfiguration(sysroot)
-
-        if arch.is_s390():
-            zfcp_proxy = STORAGE.get_proxy(ZFCP)
-            zfcp_proxy.WriteConfiguration(sysroot)
-
-        self.write_dasd_conf(sysroot)
 
     @property
     def bootloader(self):
@@ -481,22 +449,6 @@ class InstallerStorage(Blivet):
             if device.format.type == "luks" and device.format.exists:
                 self.save_passphrase(device)
 
-        self.config.update()
-
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        self.ignored_disks = disk_select_proxy.IgnoredDisks
-        self.exclusive_disks = disk_select_proxy.SelectedDisks
-
-        if not conf.target.is_image:
-            iscsi.startup()
-
-            fcoe_proxy = STORAGE.get_proxy(FCOE)
-            fcoe_proxy.ReloadModule()
-
-            if arch.is_s390():
-                zfcp_proxy = STORAGE.get_proxy(ZFCP)
-                zfcp_proxy.ReloadModule()
-
         super().reset(cleanup_only=cleanup_only)
 
         self.fsset = FSSet(self.devicetree)
@@ -763,45 +715,6 @@ class InstallerStorage(Blivet):
 
     def create_swap_file(self, device, size):
         self.fsset.create_swap_file(device, size)
-
-    def write_dasd_conf(self, root):
-        """ Write /etc/dasd.conf to target system for all DASD devices
-            configured during installation.
-        """
-        dasds = [d for d in self.devices if d.type == "dasd"]
-        dasds.sort(key=lambda d: d.name)
-        if not (arch.is_s390() and dasds):
-            return
-
-        with open(os.path.realpath(root + "/etc/dasd.conf"), "w") as f:
-            for dasd in dasds:
-                fields = [dasd.busid] + dasd.get_opts()
-                f.write("%s\n" % " ".join(fields),)
-
-        # check for hyper PAV aliases; they need to get added to dasd.conf as well
-        sysfs = "/sys/bus/ccw/drivers/dasd-eckd"
-
-        # in the case that someone is installing with *only* FBA DASDs,the above
-        # sysfs path will not exist; so check for it and just bail out of here if
-        # that's the case
-        if not os.path.exists(sysfs):
-            return
-
-        # this does catch every DASD, even non-aliases, but we're only going to be
-        # checking for a very specific flag, so there won't be any duplicate entries
-        # in dasd.conf
-        devs = [d for d in os.listdir(sysfs) if d.startswith("0.0")]
-        with open(os.path.realpath(root + "/etc/dasd.conf"), "a") as f:
-            for d in devs:
-                aliasfile = "%s/%s/alias" % (sysfs, d)
-                with open(aliasfile, "r") as falias:
-                    alias = falias.read().strip()
-
-                # if alias == 1, then the device is an alias; otherwise it is a
-                # normal dasd (alias == 0) and we can skip it, since it will have
-                # been added to dasd.conf in the above block of code
-                if alias == "1":
-                    f.write("%s\n" % d)
 
     def make_mtab(self):
         path = "/etc/mtab"

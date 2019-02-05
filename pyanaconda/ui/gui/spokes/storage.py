@@ -76,6 +76,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UN
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, AUTOPART_TYPE_DEFAULT
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
+from pyanaconda.storage.initialization import update_storage_config, reset_storage
 from pyanaconda.storage.utils import nvdimm_update_ksdata_for_used_devices
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.storage.format_dasd import DasdFormatting
@@ -84,7 +85,6 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INI
     BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.livepayload import LiveImagePayload
-
 from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
@@ -412,7 +412,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self.clearPartType = CLEAR_PARTITIONS_NONE
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
-        self.storage.config.update()
+        update_storage_config(self.storage.config)
         self.storage.autopart_type = self._auto_part_observer.proxy.Type
         self.storage.encrypted_autopart = self._auto_part_observer.proxy.Encrypted
         self.storage.encryption_passphrase = self._auto_part_observer.proxy.Passphrase
@@ -501,7 +501,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._disk_select_observer.proxy.SetSelectedDisks([])
 
             # The reset also calls self.storage.config.update().
-            self.storage.reset()
+            reset_storage(self.storage)
 
             # Now set data back to the user's specified config.
             self.disks = getDisks(self.storage.devicetree)
