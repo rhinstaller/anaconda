@@ -505,7 +505,7 @@ def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname
     :param hostname: static hostname to be configured
     :type hostname: str
     :returns: dracut arguments
-    :rtype: list(str)
+    :rtype: set(str)
     """
     netargs = set()
 
@@ -576,7 +576,7 @@ def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname
             else:
                 log.error("can't find ifcfg of parent of vlan device %s specified by %s",
                           iface, physdev_spec)
-                return list(netargs)
+                return netargs
 
     # For vlan ifcfg now refers to the physical device file
     nettype = ifcfg.get("NETTYPE")
@@ -589,4 +589,4 @@ def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname
             znet += ",%s" % (','.join(options))
         netargs.add(znet)
 
-    return list(netargs)
+    return netargs

@@ -683,4 +683,5 @@ class NetworkModule(KickstartModule):
             log.error("get dracut arguments for %s: no ifcfg file found", iface)
             return dracut_args
 
-        return get_dracut_arguments_from_ifcfg(self.nm_client, ifcfg, iface, target_ip, hostname)
+        dracut_args = list(get_dracut_arguments_from_ifcfg(self.nm_client, ifcfg, iface, target_ip, hostname))
+        return dracut_args
