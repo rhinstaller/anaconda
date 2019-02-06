@@ -675,7 +675,12 @@ class NetworkModule(KickstartModule):
         dracut_args = []
 
         if iface not in (device.get_iface() for device in self.nm_client.get_devices()):
-            log.error("get dracut argumetns for %s: device not found", iface)
+            log.error("get dracut arguments for %s: device not found", iface)
             return dracut_args
 
-        return get_dracut_arguments_from_ifcfg(self.nm_client, iface, target_ip, hostname)
+        ifcfg = get_ifcfg_file_of_device(self.nm_client, iface)
+        if not ifcfg:
+            log.error("get dracut arguments for %s: no ifcfg file found", iface)
+            return dracut_args
+
+        return get_dracut_arguments_from_ifcfg(self.nm_client, ifcfg, iface, target_ip, hostname)

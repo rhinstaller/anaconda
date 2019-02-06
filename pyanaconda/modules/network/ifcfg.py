@@ -488,7 +488,7 @@ def update_slaves_onboot_value(nm_client, master_devname, onboot, root_path="", 
     return updated_devices
 
 
-def get_dracut_arguments_from_ifcfg(nm_client, iface, target_ip, hostname):
+def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname):
     """Get dracut arguments for the iface and iSCSI target.
 
     The dracut arguments would activate the iface in initramfs so that the
@@ -496,6 +496,8 @@ def get_dracut_arguments_from_ifcfg(nm_client, iface, target_ip, hostname):
 
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
+    :param ifcfg: ifcfg file object
+    :type ifcfg: IfcfgFile
     :param iface: network interface used to connect to the target
     :type iface: str
     :param target_ip: IP of the iSCSI target
@@ -506,10 +508,6 @@ def get_dracut_arguments_from_ifcfg(nm_client, iface, target_ip, hostname):
     :rtype: list(str)
     """
     netargs = set()
-    ifcfg = get_ifcfg_file_of_device(nm_client, iface)
-    if not ifcfg:
-        log.error("get dracut arguments from ifcfg for %s: no ifcfg file found", iface)
-        return list(netargs)
 
     if ifcfg.get('BOOTPROTO') == 'ibft':
         netargs.add("rd.iscsi.ibft")
