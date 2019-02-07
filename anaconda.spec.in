@@ -355,6 +355,88 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 07 2019 Martin Kolman <mkolman@redhat.com> - 30.21-1
+- Drop the temporary anaconda-live dependency (mkolman)
+- network module: update tests for generating dracut arguments (rvykydal)
+- network_module: return set from function for getting dracut arguments
+  (rvykydal)
+- network module: pass ifcfg to the function for getting dracut arguments
+  (rvykydal)
+- network module: split add_connection_from_ksdata function (rvykydal)
+- network module: split bind_connection function (rvykydal)
+- network module: move looking for first device with link into a function
+  (rvykydal)
+- network module: split and fix device configuration functions (rvykydal)
+- network module: fix device configuration update for GUI (rvykydal)
+- network module: add docstring to ifcfg.py (rvykydal)
+- network module: use super() (rvykydal)
+- network module: update docstrings and style of kickstart.py (rvykydal)
+- network module: do not generate kickstart data for onboot value tweaking
+  (rvykydal)
+- network module: decide better when to apply onboot policy (rvykydal)
+- network module: move functions getting network data to better places
+  (rvykydal)
+- network module: update docstrings of installation task methods (rvykydal)
+- network module: remove unused return values from installation task methods
+  (rvykydal)
+- network module: fix ONBOOT log message for installation task (rvykydal)
+- network module: remove devel debugging log messages (rvykydal)
+- network module: transform device configurations to structures in interface
+  (rvykydal)
+- network module: update doc strings for DeviceConfigurations API (rvykydal)
+- network module: connect DisableIPv6 to implementation signal (rvykydal)
+- network module: fix generating of kickstart --activate option (rvykydal)
+- network module: clean up typos and style (rvykydal)
+- network module: use already existing function (rvykydal)
+- Reset the storage object in the Storage module (vponcova)
+- Protect devices in the Storage module (vponcova)
+- Create the storage object in the Storage module (vponcova)
+- Initialize Blivet in the Storage module (vponcova)
+- Create a task with a result in the Baz module (vponcova)
+- Allow to publish a task with a different interface (vponcova)
+- Add the GetResult method (vponcova)
+- Add the Succeeded signal (vponcova)
+- network module: update unit tests (rvykydal)
+- newtork module: put use of NM client under control of network module
+  (rvykydal)
+- network module: use constant for nm connection uuid length (rvykydal)
+- network module: use network module to get dracut arguments (rvykydal)
+- network module: add support for getting dracut arguments (rvykydal)
+- network module: support renaming of devices with ifname= boot option
+  (rvykydal)
+- network module: generate kickstart from network module (rvykydal)
+- network module: set current hostname using network module directly (rvykydal)
+- network module: remove dependency of configuration task on nm_client
+  (rvykydal)
+- network module: use module task for network configuration writing (rvykydal)
+- network module: ifcfg.py cleanup (rvykydal)
+- network module: dump missing ifcfg files via network module (rvykydal)
+- network module: add support for dumping missing ifcfg files (rvykydal)
+- network module: set real ONBOOT values via network module (rvykydal)
+- network module: add support for updating ONBOOT ifcfg value (rvykydal)
+- network module: apply kickstart via network module (rvykydal)
+- network module: fix list of devices for which kickstart was applied
+  (rvykydal)
+- network module: work with ifcfg file objects, not paths (rvykydal)
+- network module: set bootif kickstart value from boot options (rvykydal)
+- network module: provide apply_kickstart (rvykydal)
+- network module: consolidate initramfs connections via Network module
+  (rvykydal)
+- network module: provide initramfs connections consolidation (rvykydal)
+- network module: set default value for missing network --device from ksdevice.
+  (rvykydal)
+- network module: handle default network --device value (rvykydal)
+- network module: handle hostname only network commands correctly (rvykydal)
+- network module: use DBus Structure for DeviceConfiguration (rvykydal)
+- network module: provide dbus API for DeviceConfigurations (rvykydal)
+- network module: fix looking up vlan parent if specified by UUID (rvykydal)
+- network module: fix kickstart generating for vlan interface name (rvykydal)
+- network module: generate kickstart data from DeviceConfigurations (rvykydal)
+- network module: add a module providing NM.Client (rvykydal)
+- network module: connect DeviceConfigurations to signals from NM (rvykydal)
+- network module: add DeviceConfigurations for persistent config state
+  (rvykydal)
+
 * Wed Feb 06 2019 Martin Kolman <mkolman@redhat.com> - 30.20-1
 - Remove obsolete Group tag & obsolete scriptlets (mkolman)
 - Move the write method of the InstallerStorage class (vponcova)
