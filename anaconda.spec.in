@@ -207,11 +207,6 @@ Requires: yelp
 Requires: blivet-gui-runtime >= %{blivetguiver}
 Requires: system-logos
 
-# required during the transition period until
-# anaconda-live is added to the kickstarts used to
-# create live images
-Requires: anaconda-live = %{version}-%{release}
-
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
 BuildRequires: metacity
