@@ -17,12 +17,26 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.interface import dbus_interface, dbus_class
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.modules.common.constants.services import BAZ
+from pyanaconda.modules.common.task import TaskInterface
 
 
 @dbus_interface(BAZ.interface_name)
 class BazInterface(KickstartModuleInterface):
     """The interface for Baz."""
-    pass
+
+    def CalculateWithTask(self) -> ObjPath:
+        """Get a result with a task."""
+        return self.implementation.calculate_with_task()
+
+
+@dbus_class
+class BazCalculationTaskInterface(TaskInterface):
+    """The interface for the Baz calculation task."""
+
+    @staticmethod
+    def convert_result(value):
+        return get_variant(Int, value)

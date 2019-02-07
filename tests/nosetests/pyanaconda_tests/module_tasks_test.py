@@ -19,7 +19,10 @@ import unittest
 from time import sleep
 from mock import Mock, call
 
+from pyanaconda.dbus.interface import dbus_class
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.boss.install_manager.installation import SystemInstallationTask
+from pyanaconda.modules.common.errors.task import NoResultError
 from pyanaconda.modules.common.task import Task, TaskInterface, publish_task, sync_run_task, \
     async_run_task
 from tests.nosetests.pyanaconda_tests import run_in_glib
@@ -41,9 +44,9 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.progress_changed_callback = Mock()
         self.task_life_cycle = []
 
-    def _set_up_task(self, task):
+    def _set_up_task(self, task, interface=TaskInterface):
         self.task = task
-        self.task_interface = TaskInterface(task)
+        self.task_interface = interface(task)
 
         # Connect callbacks.
         # pylint: disable=no-member
@@ -54,15 +57,18 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self.task_interface.Stopped.connect(lambda: self.task_life_cycle.append("stopped"))
         # pylint: disable=no-member
         self.task_interface.Failed.connect(lambda: self.task_life_cycle.append("failed"))
+        # pylint: disable=no-member
+        self.task_interface.Succeeded.connect(lambda: self.task_life_cycle.append("succeeded"))
 
         # Check the initial state.
         self.assertEqual(self.task_interface.Progress, (0, ""))
         self.assertEqual(self.task_life_cycle, [])
+        self._check_no_result()
 
     def _check_steps(self, steps=1):
         self.assertEqual(self.task_interface.Steps, steps)
 
-    def _check_task_signals(self, started=True, failed=False, stopped=True):
+    def _check_task_signals(self, started=True, failed=False, succeeded=True, stopped=True):
         # Check the life cycle of the task.
         expected = []
 
@@ -70,6 +76,8 @@ class TaskInterfaceTestCase(unittest.TestCase):
             expected.append("started")
         if failed:
             expected.append("failed")
+        if succeeded:
+            expected.append("succeeded")
         if stopped:
             expected.append("stopped")
 
@@ -86,6 +94,13 @@ class TaskInterfaceTestCase(unittest.TestCase):
         else:
             self.progress_changed_callback.assert_not_called()
 
+    def _check_no_result(self):
+        with self.assertRaises(NoResultError):
+            self.task.get_result()
+
+        with self.assertRaises(NoResultError):
+            self.task_interface.GetResult()
+
     class SimpleTask(Task):
 
         @property
@@ -98,6 +113,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
     def properties_test(self):
         """Test task properties."""
         self._set_up_task(self.SimpleTask())
+
         self.assertEqual(self.task_interface.Name, "Simple Task")
         self.assertEqual(self.task_interface.IsRunning, False)
         self.assertEqual(self.task_interface.Steps, 1)
@@ -121,6 +137,30 @@ class TaskInterfaceTestCase(unittest.TestCase):
         object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
         self.assertEqual("/A/B/C/Tasks/3", object_path)
         message_bus.publish_object.called_once()
+        message_bus.reset_mock()
+
+    @dbus_class
+    class SimpleTaskInterface(TaskInterface):
+        pass
+
+    def publish_with_interface_test(self):
+        """Test task publishing with a specified interface."""
+        TaskInterface._task_counter = 1
+        message_bus = Mock()
+
+        object_path = publish_task(
+            message_bus=message_bus,
+            namespace=("A", "B", "C"),
+            task=self.SimpleTask(),
+            interface=self.SimpleTaskInterface
+        )
+
+        self.assertEqual("/A/B/C/Tasks/1", object_path)
+        message_bus.publish_object.called_once()
+
+        publishable = message_bus.publish_object.call_args[0][1]
+        self.assertIsInstance(publishable, self.SimpleTaskInterface)
+
         message_bus.reset_mock()
 
     def simple_progress_reporting_test(self):
@@ -260,6 +300,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._run_task()
         self._finish_task()
         self._check_progress_changed(1, "Running Task")
+        self._check_no_result()
 
     @run_in_glib(TIMEOUT)
     def _run_task(self):
@@ -289,13 +330,14 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._run_task()
         self._finish_failed_task()
         self._check_progress_changed(1, "Failing Task")
+        self._check_no_result()
 
     def _finish_failed_task(self):
         """Finish a task."""
         with self.assertRaises(TaskFailedException):
             self.task_interface.Finish()
 
-        self._check_task_signals(failed=True)
+        self._check_task_signals(failed=True, succeeded=False)
 
     class CanceledTask(Task):
 
@@ -319,8 +361,14 @@ class TaskInterfaceTestCase(unittest.TestCase):
         """Run a canceled task."""
         self._set_up_task(self.CanceledTask())
         self._run_and_cancel_task()
-        self._finish_task()
+        self._finish_canceled_task()
         self._check_progress_changed(1, "Canceled Task")
+        self._check_no_result()
+
+    def _finish_canceled_task(self):
+        """Finish a task."""
+        self.task_interface.Finish()
+        self._check_task_signals(failed=False, succeeded=False)
 
     @run_in_glib(TIMEOUT)
     def _run_and_cancel_task(self):
@@ -360,6 +408,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._check_steps(0)
         self._run_task()
         self._finish_task()
+        self._check_no_result()
 
     def install_with_one_task_test(self):
         """Install with one task."""
@@ -372,6 +421,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._run_task()
         self._finish_task()
         self._check_progress_changed(1, "Simple Task")
+        self._check_no_result()
 
     def install_with_failing_task_test(self):
         """Install with one failing task."""
@@ -384,6 +434,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         self._run_task()
         self._finish_failed_task()
         self._check_progress_changed(1, "Failing Task")
+        self._check_no_result()
 
     def install_with_canceled_task_test(self):
         """Install with one canceled task."""
@@ -394,8 +445,9 @@ class TaskInterfaceTestCase(unittest.TestCase):
         )
         self._check_steps(1)
         self._run_and_cancel_task()
-        self._finish_task()
+        self._finish_canceled_task()
         self._check_progress_changed(1, "Canceled Task")
+        self._check_no_result()
 
     class InstallationTaskA(Task):
 
@@ -476,3 +528,67 @@ class TaskInterfaceTestCase(unittest.TestCase):
             call(7, "Install B"),
             call(8, "Install C")
         ])
+
+    class NoReturningTask(Task):
+
+        @property
+        def name(self):
+            return "No Returning Task"
+
+        def run(self):
+            pass
+
+    class ReturningTask(Task):
+
+        @property
+        def name(self):
+            return "Returning Task"
+
+        def run(self):
+            return 1
+
+    @dbus_class
+    class ReturningTaskInterface(TaskInterface):
+
+        @staticmethod
+        def convert_result(value):
+            return get_variant(Int, value)
+
+    def get_result_test(self):
+        """Run a task that returns a result."""
+        self._set_up_task(self.ReturningTask(), self.ReturningTaskInterface)
+        self._run_task()
+        self._finish_task()
+
+        # The task provides a result.
+        self.assertEqual(self.task.get_result(), 1)
+
+        # The result is publishable.
+        self.assertEqual(self.task_interface.GetResult(), get_variant(Int, 1))
+
+    def get_unpublishable_result_test(self):
+        """Run a task that returns an unpublishable result."""
+        self._set_up_task(self.ReturningTask())
+        self._run_task()
+        self._finish_task()
+
+        # The task provides a result.
+        self.assertEqual(self.task.get_result(), 1)
+
+        # But the result is not publishable.
+        with self.assertRaises(NoResultError):
+            self.task_interface.GetResult()
+
+    def get_no_result_test(self):
+        """Run a task that returns no result."""
+        self._set_up_task(self.NoReturningTask(), self.ReturningTaskInterface)
+        self._run_task()
+        self._finish_task()
+
+        # The task provides no result.
+        with self.assertRaises(NoResultError):
+            self.assertEqual(self.task.get_result(), 1)
+
+        # The result is publishable, but there is no result.
+        with self.assertRaises(NoResultError):
+            self.task_interface.GetResult()

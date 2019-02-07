@@ -20,7 +20,7 @@
 from time import sleep
 
 from pyanaconda.dbus import DBus
-from pyanaconda.dbus_addons.baz.baz_interface import BazInterface
+from pyanaconda.dbus_addons.baz.baz_interface import BazInterface, BazCalculationTaskInterface
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import BAZ
 from pyanaconda.modules.common.task import Task
@@ -40,6 +40,10 @@ class Baz(KickstartModule):
     def install_with_tasks(self):
         """Return installation tasks."""
         return [self.publish_task(BAZ.namespace, BazTask())]
+
+    def calculate_with_task(self):
+        """Return a calculation task."""
+        return self.publish_task(BAZ.namespace, BazCalculationTask(), BazCalculationTaskInterface)
 
 
 class BazTask(Task):
@@ -62,3 +66,20 @@ class BazTask(Task):
 
         self.report_progress("Finishing...", step_size=1)
         sleep(5)
+
+
+class BazCalculationTask(Task):
+    """The task that calculates something."""
+
+    @property
+    def name(self):
+        return "Calculate something"
+
+    def run(self):
+        result = 0
+
+        for i in range(3):
+            result = result + i
+            sleep(5)
+
+        return result

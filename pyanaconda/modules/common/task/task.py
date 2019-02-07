@@ -26,6 +26,7 @@ from abc import abstractmethod
 from pyanaconda.core.constants import THREAD_DBUS_TASK
 from pyanaconda.modules.common.task.cancellable import Cancellable
 from pyanaconda.modules.common.task.progress import ProgressReporter
+from pyanaconda.modules.common.task.result import ResultProvider
 from pyanaconda.modules.common.task.runnable import Runnable
 from pyanaconda.threading import threadMgr, AnacondaThread
 
@@ -35,7 +36,7 @@ log = get_module_logger(__name__)
 __all__ = ['AbstractTask', 'Task']
 
 
-class AbstractTask(Runnable, Cancellable, ProgressReporter):
+class AbstractTask(Runnable, Cancellable, ProgressReporter, ResultProvider):
     """Abstract class for running a long-term task."""
 
     @property
@@ -85,7 +86,13 @@ class Task(AbstractTask):
     def _task_run_callback(self):
         """Report the first step and run the task."""
         self.report_progress(self.name, step_number=1)
-        self.run()
+        self._set_result(self.run())
+        self._task_succeeded_callback()
+
+    def _task_succeeded_callback(self):
+        """Don't report the success if the task was canceled."""
+        if not self.check_cancel():
+            super()._task_succeeded_callback()
 
     def _task_failed_with_info_callback(self, *exc_info):
         """Log the error and report the failure."""
@@ -103,8 +110,13 @@ class Task(AbstractTask):
 
         Call self.check_cancel to check if the task should be canceled
         and terminate the task immediately if it returns True.
+
+        Return a result of the task or None if the task doesn't provide
+        a result.
+
+        :return: a result of the task
         """
-        pass
+        return None
 
     def finish(self):
         """Finish the task run.

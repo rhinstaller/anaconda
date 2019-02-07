@@ -25,3 +25,9 @@ from pyanaconda.modules.common.errors import AnacondaError
 class TaskError(AnacondaError):
     """General exception for task errors."""
     pass
+
+
+@dbus_error("NoResultError", namespace=ANACONDA_NAMESPACE)
+class NoResultError(TaskError):
+    """There is no result of a task."""
+    pass

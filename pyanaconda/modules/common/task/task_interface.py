@@ -25,6 +25,7 @@ from pyanaconda.dbus.namespace import get_dbus_path
 from pyanaconda.modules.common.constants.interfaces import TASK
 from pyanaconda.dbus.template import InterfaceTemplate
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.modules.common.errors.task import NoResultError
 
 __all__ = ['TaskInterface']
 
@@ -57,6 +58,7 @@ class TaskInterface(InterfaceTemplate):
         self.implementation.started_signal.connect(self.Started)
         self.implementation.stopped_signal.connect(self.Stopped)
         self.implementation.failed_signal.connect(self.Failed)
+        self.implementation.succeeded_signal.connect(self.Succeeded)
 
     @property
     def Name(self) -> Str:
@@ -106,6 +108,11 @@ class TaskInterface(InterfaceTemplate):
         """Signal when this task fails."""
         pass
 
+    @dbus_signal
+    def Succeeded(self):
+        """Signal when this task succeeds."""
+        pass
+
     def Start(self):
         """Run the task work."""
         self.implementation.start()
@@ -117,6 +124,27 @@ class TaskInterface(InterfaceTemplate):
     def Finish(self):
         """Finish the task after it stopped.
 
-        This method will return an error if the task failed.
+        This method will raise an error if the task has failed.
         """
         self.implementation.finish()
+
+    @staticmethod
+    def convert_result(value) -> Variant:
+        """Convert the value of the result.
+
+        Convert the value into a variant.
+
+        :param value: a value of the result
+        :return: a variant with the value
+        :raises: NoResultError by default
+        """
+        raise NoResultError("The result is not publishable.")
+
+    def GetResult(self) -> Variant:
+        """Get the result of the task if any.
+
+        :return: a variant with the result
+        :raises: NoResultError by default
+        """
+        result = self.implementation.get_result()
+        return self.convert_result(result)
