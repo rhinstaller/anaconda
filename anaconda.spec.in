@@ -321,6 +321,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 07 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.148-1
+- Change Skylake Spectre_V2 default to Retpolines (vponcova)
+  Resolves: rhbz#1659626
+- nvdimm: update ks data for actions in UI (rvykydal)
+  Resolves: rhbz#1620109
+- nvdimm: use pykickstart constant for setting reconfigure mode (rvykydal)
+  Related: rhbz#1620109
+- Skip version when processing kernel boot args (jkonecny)
+  Resolves: rhbz#1637112
+- Make save button insensitive in LUKS dialog with no input (mkolman)
+  Resolves: rhbz#1489713
+
 * Wed Sep 26 2018 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.147-1
 - Pull in new translations (rvykydal)
   Related: rhbz#1569416
