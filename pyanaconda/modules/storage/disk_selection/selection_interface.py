@@ -33,6 +33,7 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         super().connect_signals()
         self.watch_property("SelectedDisks", self.implementation.selected_disks_changed)
         self.watch_property("IgnoredDisks", self.implementation.ignored_disks_changed)
+        self.watch_property("ProtectedDevices", self.implementation.protected_devices_changed)
 
     @property
     def SelectedDisks(self) -> List[Str]:
@@ -65,3 +66,18 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         :param drives: a list of drive names
         """
         self.implementation.set_ignored_disks(drives)
+
+    @property
+    def ProtectedDevices(self) -> List[Str]:
+        """The list of devices to protect."""
+        return self.implementation.protected_devices
+
+    @emits_properties_changed
+    def SetProtectedDevices(self, devices: List[Str]):
+        """Set the list of protected devices.
+
+        Specifies those disks that anaconda should protect.
+
+        :param devices: a list of device names
+        """
+        self.implementation.set_protected_devices(devices)

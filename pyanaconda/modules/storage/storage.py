@@ -17,8 +17,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet import arch, udev
+from blivet import arch
 
+from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -29,8 +30,10 @@ from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
+from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
+from pyanaconda.storage.initialization import enable_installer_mode, create_storage
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -41,9 +44,14 @@ class StorageModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
-        # We need this so all the /dev/disk/* stuff is set up.
-        udev.trigger(subsystem="block", action="change")
+        # Initialize Blivet.
+        enable_installer_mode()
 
+        # The storage model.
+        self._storage = None
+        self.storage_changed = Signal()
+
+        # Initialize modules.
         self._modules = []
 
         self._disk_init_module = DiskInitializationModule()
@@ -95,8 +103,13 @@ class StorageModule(KickstartModule):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
 
+        # Process the kickstart data in modules.
         for kickstart_module in self._modules:
             kickstart_module.process_kickstart(data)
+
+        # Set the default filesystem type.
+        if data.autopart.autopart and data.autopart.fstype:
+            self.storage.set_default_fstype(data.autopart.fstype)
 
     def generate_temporary_kickstart(self):
         """Return the temporary kickstart string."""
@@ -111,3 +124,45 @@ class StorageModule(KickstartModule):
             kickstart_module.setup_kickstart(data)
 
         return str(data)
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if not self._storage:
+            self._storage = create_storage()
+
+        return self._storage
+
+    def set_storage(self, storage):
+        """Set the storage model."""
+        self._storage = storage
+        self.storage_changed.emit()
+        log.debug("The storage model has changed.")
+
+    def reset_with_task(self):
+        """Reset the storage model.
+
+        We will reset a copy of the current storage model
+        and switch the models if the reset is successful.
+
+        :return: a DBus path to a task
+        """
+        # Copy the storage.
+        storage = self.storage.copy()
+
+        # Set up the storage.
+        storage.ignored_disks = self._disk_selection_module.ignored_disks
+        storage.exclusive_disks = self._disk_selection_module.selected_disks
+        storage.config.protected_dev_specs = self._disk_selection_module.protected_devices
+
+        # Create the task.
+        task = StorageResetTask(storage)
+        # FIXME: Don't set the storage if the task has failed.
+        task.stopped_signal.connect(lambda: self.set_storage(storage))
+
+        # Publish the task.
+        path = self.publish_task(STORAGE.namespace, task)
+        return path

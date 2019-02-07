@@ -19,7 +19,7 @@
 #
 import tempfile
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import patch, call, Mock
 
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
@@ -49,6 +49,7 @@ from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
+from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
@@ -64,6 +65,26 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """Set up the module."""
         self.storage_module = StorageModule()
         self.storage_interface = StorageInterface(self.storage_module)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def reset_with_task_test(self, publisher):
+        task_path = self.storage_interface.ResetWithTask()
+
+        # Check the task.
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+        self.assertIsInstance(obj.implementation, StorageResetTask)
+        self.assertIsNotNone(obj.implementation._storage)
+
+        # Check the side affects.
+        storage_changed_callback = Mock()
+        self.storage_module.storage_changed.connect(storage_changed_callback)
+
+        obj.implementation.stopped_signal.emit()
+        storage_changed_callback.called_once()
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
@@ -636,9 +657,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         nm.nm_devices.return_value = ["eth1"]
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
+    @patch("pyanaconda.storage.initialization.load_plugin_s390")
     @patch("pyanaconda.modules.storage.kickstart.zfcp")
     @patch("pyanaconda.modules.storage.storage.arch.is_s390", return_value=True)
-    def zfcp_kickstart_test(self, arch, zfcp):
+    def zfcp_kickstart_test(self, arch, zfcp, loader):
         """Test the zfcp command."""
         self.setUp()  # set up for s390x
 
@@ -649,6 +671,17 @@ class StorageInterfaceTestCase(unittest.TestCase):
         zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9
         """
         self._test_kickstart(ks_in, ks_out)
+
+
+class StorageTasksTestCase(unittest.TestCase):
+    """Test the storage tasks."""
+
+    def reset_test(self):
+        """Test the reset."""
+        storage = Mock()
+        task = StorageResetTask(storage)
+        task.run()
+        storage.reset.called_once()
 
 
 class DiskInitializationInterfaceTestCase(unittest.TestCase):
@@ -744,6 +777,13 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         """Test the ignored disks property."""
         self._test_dbus_property(
             "IgnoredDisks",
+            ["sda", "sdb"]
+        )
+
+    def protected_disks_property_test(self):
+        """Test the protected disks property."""
+        self._test_dbus_property(
+            "ProtectedDevices",
             ["sda", "sdb"]
         )
 

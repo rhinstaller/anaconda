@@ -38,6 +38,9 @@ class DiskSelectionModule(KickstartBaseModule):
         self.ignored_disks_changed = Signal()
         self._ignored_disks = []
 
+        self.protected_devices_changed = Signal()
+        self._protected_devices = []
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(DISK_SELECTION.object_path, DiskSelectionInterface(self))
@@ -76,7 +79,7 @@ class DiskSelectionModule(KickstartBaseModule):
         return self._ignored_disks
 
     def set_ignored_disks(self, drives):
-        """Set the list ignored disks.
+        """Set the list of ignored disks.
 
         Specifies those disks that anaconda should not touch
         when it does partitioning, formatting, and clearing.
@@ -86,3 +89,19 @@ class DiskSelectionModule(KickstartBaseModule):
         self._ignored_disks = drives
         self.ignored_disks_changed.emit()
         log.debug("Ignored disks are set to '%s'.", drives)
+
+    @property
+    def protected_devices(self):
+        """The list of devices to protect."""
+        return self._protected_devices
+
+    def set_protected_devices(self, devices):
+        """Set the list of protected devices.
+
+        Specifies those disks that anaconda should protect.
+
+        :param devices: a list of device names
+        """
+        self._protected_devices = devices
+        self.protected_devices_changed.emit()
+        log.debug("Protected devices are set to '%s'.", devices)

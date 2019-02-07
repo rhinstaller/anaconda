@@ -20,8 +20,16 @@
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 
 @dbus_interface(STORAGE.interface_name)
 class StorageInterface(KickstartModuleInterface):
     """DBus interface for Storage module."""
+
+    def ResetWithTask(self) -> ObjPath:
+        """Reset the storage model.
+
+        :return: a path to a task
+        """
+        return self.implementation.reset_with_task()
