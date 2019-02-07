@@ -150,14 +150,16 @@ class NetworkInterfaceTestCase(unittest.TestCase):
     def network_kickstart_test(self):
         """Test the network command.
 
-        Only hostname is implemented directly in the module for now.
+        In case of kickstart-only network configuration the original commands are
+        preserved instead of generating the commands from ifcfg files which happens
+        if there has been any non-kickstart (UI) configuration.
         """
         ks_in = """
         network --device ens7 --bootproto static --ip 192.168.124.200 --netmask 255.255.255.0 --gateway 192.168.124.255 --nameserver 10.34.39.2 --activate --onboot=no --hostname=dot.dot
         """
         ks_out = """
         # Network information
-        network  --hostname=dot.dot
+        network  --bootproto=static --device=ens7 --gateway=192.168.124.255 --hostname=dot.dot --ip=192.168.124.200 --nameserver=10.34.39.2 --netmask=255.255.255.0 --onboot=off --activate
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -165,10 +167,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test basic firewall command usage."""
         ks_in = "firewall --enable --port=imap:tcp,1234:udp,47 --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh"
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         # Firewall configuration
         firewall --enabled --port=imap:tcp,1234:udp,47:tcp --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh
+        # Network information
+        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -176,10 +178,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test firewall --disabled."""
         ks_in = "firewall --disabled"
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         # Firewall configuration
         firewall --disabled
+        # Network information
+        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -188,10 +190,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         # apparently Pykickstart dumps any additional options if --disabled is used
         ks_in = "firewall --disable --port=imap:tcp,1234:udp,47 --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh"
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         # Firewall configuration
         firewall --disabled
+        # Network information
+        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -199,10 +201,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """Test firewall --use-system-defaults."""
         ks_in = "firewall --use-system-defaults"
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         # Firewall configuration
         firewall --use-system-defaults
+        # Network information
+        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -211,10 +213,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         # looks like --use-system-defaults also eats any additional options
         ks_in = "firewall --use-system-defaults --port=imap:tcp,1234:udp,47 --trust=eth0,eth1 --service=ptp,syslog,ssh --remove-service=tftp,ssh"
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         # Firewall configuration
         firewall --use-system-defaults
+        # Network information
+        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 
@@ -226,10 +228,10 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         """
         ks_in = "firewall --ftp --http --smtp --ssh"
         ks_out = """
-        # Network information
-        network  --hostname=localhost.localdomain
         # Firewall configuration
         firewall --enabled --service=ftp,http,smtp,ssh
+        # Network information
+        network  --hostname=localhost.localdomain
         """
         self._test_kickstart(ks_in, ks_out)
 

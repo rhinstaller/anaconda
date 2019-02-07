@@ -23,6 +23,7 @@ from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
 from pyanaconda.dbus.interface import dbus_interface, dbus_signal
+from pyanaconda.dbus.structure import get_structure
 
 
 @dbus_interface(NETWORK.interface_name)
@@ -34,6 +35,8 @@ class NetworkInterface(KickstartModuleInterface):
         self.implementation.hostname_changed.connect(self.changed("Hostname"))
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.implementation.connected_changed.connect(self.changed("Connected"))
+        self.implementation.configurations_changed.connect(self._device_configurations_changed)
+        self.implementation.disable_ipv6_changed.connect(self.changed("DisableIPv6"))
 
     @property
     def Hostname(self) -> Str:
@@ -89,3 +92,161 @@ class NetworkInterface(KickstartModuleInterface):
         To be removed after reworking the synchronization.
         """
         return self.implementation.is_connecting()
+
+    @property
+    def DisableIPv6(self) -> Bool:
+        """Disable IPv6 on target system."""
+        return self.implementation.disable_ipv6
+
+    @emits_properties_changed
+    def SetDisableIPv6(self, disable: Bool):
+        """Set disable IPv6 on target system.
+
+        Disables IPv6 on target system if all the network devices have IPv6
+        configuration set to Ignore (kickstart option --noipv6).
+
+        param disable: True if IPv6 on target system should be disabled
+        """
+        self.implementation.set_disable_ipv6(disable)
+
+    def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
+        """Install network with an installation task.
+
+        :param sysroot: a path to the root of the installed system
+        :param onboot_ifaces: list of network interfaces which should have ONBOOT=yes
+        FIXME: does overwrite still apply?
+        :param overwrite: overwrite existing configuration
+        :return: a DBus path of an installation task
+        """
+        return self.implementation.install_network_with_task(sysroot, onboot_ifaces, overwrite)
+
+    def CreateDeviceConfigurations(self):
+        """Create and populate the state of network devices configuration."""
+        self.implementation.create_device_configurations()
+
+    def GetDeviceConfigurations(self) -> List[Structure]:
+        """Get the state of network devices configuration.
+
+        Contains only configuration of devices supported by Anaconda.
+
+        Returns list of NetworkDeviceConfiguration objects holding
+        configuration of a network device.
+
+        For a physical device there is only single NetworkDeviceConfiguration
+        object bound to the device name (the mandatory persistent element of
+        the object).  The uuid corresponds to the configuration of the device
+        for installed system.
+
+        For a virtual device there can be multiple NetworkDeviceConfiguration
+        objects, bound to uuid of the device configuration (the mandatory
+        persistent element of the object).  The device name is set in the
+        object only if there exists respective active device with the
+        configuration given by uuid applied.
+
+        Configurations correspond to NetworkManager persistent connections by
+        their uuid.
+        """
+        dev_cfgs = self.implementation.get_device_configurations()
+        return [get_structure(dev_cfg) for dev_cfg in dev_cfgs]
+
+    def _device_configurations_changed(self, changes):
+        self.DeviceConfigurationChanged([(get_structure(old), get_structure(new))
+                                         for old, new in changes])
+
+    @dbus_signal
+    def DeviceConfigurationChanged(self, changes: List[Tuple[Structure, Structure]]):
+        """Signal change of network devices configurations."""
+        pass
+
+    def SetDefaultKickstartDeviceSpecification(self, specification: Str):
+        """Sets device specification for missing --device kickstart option.
+
+        :param specification: kickstart network --device option specification
+        """
+        self.implementation.default_device_specification = specification
+
+    def ConsolidateInitramfsConnections(self) -> List[Str]:
+        """Ensure devices configured in initramfs have no more than one NM connection.
+
+        This should be used only in installer environment.
+
+        :returns: list of device names which have been cosolidated
+        """
+        return self.implementation.consolidate_initramfs_connections()
+
+    def SetBootifKickstartDeviceSpecification(self, specification: Str):
+        """Sets value of network --bootif kickstart option.
+
+        :param specification: kickstart network --bootif option specification
+        """
+        self.implementation.bootif = specification
+
+    def SetIfnameOptionValues(self, values: List[Str]):
+        """Sets values of ifname boot option.
+
+        :param values: list of values of ifname boot option
+        """
+        self.implementation.ifname_option_values = values
+
+    def ApplyKickstart(self) -> List[Str]:
+        """Apply kickstart configuration which has not already been applied.
+
+        * activate configurations created in initramfs if --activate is True
+        * create configurations for %pre kickstart commands and activate eventually
+
+        :returns: list of devices to which kickstart configuration was applied
+        """
+        return self.implementation.apply_kickstart()
+
+    def SetRealOnbootValuesFromKickstart(self) -> List[Str]:
+        """Update ifcfg ONBOOT values according to kickstart configuration.
+
+        So it reflects the --onboot option.
+
+        This is needed because:
+        1) For ifcfg files created in initramfs we use ONBOOT for --activate
+        2) For kickstart applied in stage 2 we can't set the autoconnect
+           setting of connection because the device would be activated immediately.
+
+        :returns: list of devices for which ONBOOT was updated
+        """
+        return self.implementation.set_real_onboot_values_from_kickstart()
+
+    def DumpMissingIfcfgFiles(self) -> List[Str]:
+        """Dump missing default ifcfg file for wired devices.
+
+        Make sure each supported wired device has ifcfg file.
+
+        For default auto connections created by NM upon start (which happens in
+        case of missing ifcfg file, eg the file was not created in initramfs)
+        rename the in-memory connection using device name and dump it into
+        ifcfg file.
+
+        If default auto connections are turned off by NM configuration (based
+        on policy, eg on RHEL or server), the connection will be created by Anaconda
+        and dumped into ifcfg file.
+
+        The connection id (and consequently ifcfg file name) is set to device
+        name.
+        """
+        return self.implementation.dump_missing_ifcfg_files()
+
+    def NetworkDeviceConfigurationChanged(self):
+        """Inform module that network device configuration might have changed.
+
+        Therefore kickstart for device configurations should be generated
+        from persistent configuration instead of using original kickstart data.
+        """
+        return self.implementation.network_device_configuration_changed()
+
+    def GetDracutArguments(self, iface: Str, target_ip: Str, hostname: Str) -> List[Str]:
+        """Get dracut arguments for the iface and iSCSI target.
+
+        The dracut arguments would activate the iface in initramfs so that the
+        iSCSI target can be attached (for example to mount root filesystem).
+
+        :param iface: network interface used to connect to the target
+        :param target_ip: IP of the iSCSI target
+        :param hostname: static hostname to be configured
+        """
+        return self.implementation.get_dracut_arguments(iface, target_ip, hostname)

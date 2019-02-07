@@ -79,7 +79,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _load_new_devices(self):
         devices = nm.nm_devices()
-        intf_dumped = network.dumpMissingDefaultIfcfgs()
+        intf_dumped = self._network_module.proxy.DumpMissingIfcfgFiles()
         if intf_dumped:
             log.debug("dumped interfaces: %s", intf_dumped)
 
@@ -248,6 +248,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         """Apply all of our settings."""
+        # Inform network module that device configurations might have been changed
+        # and we want to generate kickstart from device configurations
+        # (persistent NM / ifcfg configuration), instead of using original kickstart.
+        self._network_module.proxy.NetworkDeviceConfigurationChanged()
         self._update_network_data()
         log.debug("apply ksdata %s", self.data.network)
 

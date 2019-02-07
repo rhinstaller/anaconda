@@ -23,6 +23,9 @@ from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_DISABLED, \
         FIREWALL_ENABLED, FIREWALL_USE_SYSTEM_DEFAULTS
 
 
+NM_CONNECTION_UUID_LENGTH = 36
+
+
 @unique
 class FirewallMode(Enum):
     """Firewall mode for the installed system."""

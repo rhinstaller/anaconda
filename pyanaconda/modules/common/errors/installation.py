@@ -37,3 +37,9 @@ class InstallationNotRunning(InstallationError):
 class LanguageInstallationError(InstallationError):
     """Exception for the language installation errors."""
     pass
+
+
+@dbus_error("NetworkInstallationError", namespace=ANACONDA_NAMESPACE)
+class NetworkInstallationError(InstallationError):
+    """Exception for the network installation errors."""
+    pass

@@ -472,6 +472,21 @@ if __name__ == "__main__":
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)
 
+    # Pass important boot option values to network module
+    from pyanaconda.modules.common.constants.services import NETWORK
+    network_proxy = NETWORK.get_proxy()
+    ksdevice = flags.cmdline.get('ksdevice')
+    if ksdevice:
+        network_proxy.SetDefaultKickstartDeviceSpecification(ksdevice)
+        log.debug("value for missing network --device set from ksdevice to %s", ksdevice)
+    if "BOOTIF" in flags.cmdline:
+        bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
+        network_proxy.SetBootifKickstartDeviceSpecification(bootif_mac)
+        log.debug("value for network --device=bootif set to  %s", bootif_mac)
+    ifname_option_values = flags.cmdline.get("ifname", "").split()
+    if ifname_option_values:
+        network_proxy.SetIfnameOptionValues(ifname_option_values)
+
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.

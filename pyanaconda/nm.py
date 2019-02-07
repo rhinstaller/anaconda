@@ -56,11 +56,6 @@ class UnmanagedDeviceError(Exception):
     def __str__(self):
         return self.__repr__()
 
-class DeviceNotActiveError(Exception):
-    """Device of specified name is not active"""
-    def __str__(self):
-        return self.__repr__()
-
 class PropertyNotFoundError(ValueError):
     """Property of NM object was not found"""
     def __str__(self):
@@ -456,19 +451,6 @@ def nm_device_type(name):
     """
     return nm_device_property(name, "DeviceType")
 
-def nm_device_carrier(name):
-    """Return whether physical carrier of device is found.
-       ('Carrier' property)
-
-       :param name: name of device
-       :type name: str
-       :return: True if physical carrier is found, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if 'Carrier' property is not found
-    """
-    return nm_device_property(name, "Carrier")
-
 def nm_device_ip_addresses(name, version=4):
     """Return IP addresses of device in ACTIVATED state.
 
@@ -822,27 +804,6 @@ def nm_device_setting_value(name, key1, key2):
         value = None
     return value
 
-def nm_disconnect_device(name):
-    """Disconnect the device.
-
-       :raise UnknownDeviceError: if device is not found
-    """
-    proxy = _get_proxy()
-    try:
-        device = proxy.GetDeviceByIpIface('(s)', name)
-    except GError as e:
-        if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
-            raise UnknownDeviceError(name, e)
-        raise
-
-    device_proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
-    try:
-        device_proxy.Disconnect()
-    except GError as e:
-        if "org.freedesktop.NetworkManager.Device.NotActive" in e.message:
-            raise DeviceNotActiveError(name, e)
-        raise
-
 def nm_activate_device_connection(dev_name, con_uuid):
     """Activate device with specified connection.
 
@@ -884,41 +845,6 @@ def nm_activate_device_connection(dev_name, con_uuid):
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(dev_name, e)
         raise
-
-def nm_add_connection(values):
-    """Add new connection specified by values.
-
-       :param values:
-                     | list of settings with new values and its types
-                     | [[key1, key2, value, type_str], ...]
-                     | key1: first-level key of setting (eg "connection")
-                     | key2: second-level key of setting (eg "uuid")
-                     | value: new value
-                     | type_str: dbus type of new value (eg "ay")
-       :type values:
-                     | [[key1, key2, value, type_str], ...]
-                     | key1: str
-                     | key2: str
-                     | value: object
-                     | type_str: str
-    """
-
-    settings = {}
-    for key1, key2, value, type_str in values:
-        gvalue = Variant(type_str, value)
-        if key1 not in settings:
-            settings[key1] = {}
-        settings[key1][key2] = gvalue
-
-    proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings",
-                       interface_name="org.freedesktop.NetworkManager.Settings")
-    try:
-        connection = proxy.AddConnection('(a{sa{sv}})', settings)
-    except GError as e:
-        if "bond.options: invalid option" in e.message:
-            raise BondOptionsError(e)
-        raise
-    return connection
 
 def nm_update_settings(uuid, new_values):
     """Update settings of connection given by uuid.
@@ -1165,11 +1091,6 @@ def test():
         except ValueError as e:
             print("     %s" % e)
             hwaddr = ""
-
-        try:
-            print("     Carrier: %s" % nm_device_carrier(devname))
-        except ValueError as e:
-            print("     %s" % e)
 
         try:
             print("     IP4 config: %s" % nm_device_ip_config(devname))
