@@ -25,3 +25,9 @@ from pyanaconda.modules.common.errors import AnacondaError
 class UnavailableStorageError(AnacondaError):
     """The storage model is not available."""
     pass
+
+
+@dbus_error("InvalidStorageError", namespace=STORAGE_NAMESPACE)
+class InvalidStorageError(AnacondaError):
+    """The storage model is not valid."""
+    pass
