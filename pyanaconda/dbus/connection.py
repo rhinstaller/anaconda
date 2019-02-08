@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 import os
+import threading
 from abc import ABC, abstractmethod
 
 import pydbus
@@ -88,7 +89,8 @@ class Connection(ABC):
         reg = self.connection.request_name(service_name,
                                            allow_replacement=True,
                                            replace=False)
-        self._service_registrations.append(reg)
+
+        self._service_registrations.append((service_name, reg))
 
     def publish_object(self, object_path, obj):
         """Publish an object on DBus.
@@ -98,7 +100,7 @@ class Connection(ABC):
         """
         log.debug("Publishing an object at %s.", object_path)
         reg = self.connection.register_object(object_path, obj, None)
-        self._object_registrations.append(reg)
+        self._object_registrations.append((object_path, reg))
 
     def get_dbus_proxy(self):
         """Returns a proxy of DBus.
@@ -114,7 +116,31 @@ class Connection(ABC):
         :param object_path: a DBus path an object
         :return: a proxy object
         """
+        self._check_service_access(service_name)
         return self.connection.get(service_name, object_path)
+
+    def _check_service_access(self, service_name):
+        """Check if we can access a DBus service.
+
+        FIXME: This is a temporary check that should be later removed.
+
+        This is useful during the transition of the Anaconda code from
+        UI to DBus modules. This check prevents a deadlock in case that
+        a DBus module tries to access a service, that it provides, from
+        the main thread.
+
+        :param service_name: a DBus name of a service
+        :raises: RuntimeError if the service cannot be accessed
+        """
+        if service_name not in (name for name, registration in self._service_registrations):
+            # We don't provide this service.
+            return
+
+        if threading.current_thread() is not threading.main_thread():
+            # We don't try to access this service from the main thread.
+            return
+
+        raise RuntimeError("Cannot access {} from the main thread.".format(service_name))
 
     def get_observer(self, service_name, object_path):
         """Returns an observer of a remote DBus object.
@@ -140,11 +166,11 @@ class Connection(ABC):
         log.debug("Disconnecting from the bus.")
 
         while self._object_registrations:
-            registration = self._object_registrations.pop()
+            _, registration = self._object_registrations.pop()
             registration.unregister()
 
         while self._service_registrations:
-            registration = self._service_registrations.pop()
+            _, registration = self._service_registrations.pop()
             registration.unown()
 
         self._connection = None
