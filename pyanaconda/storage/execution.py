@@ -15,6 +15,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from abc import ABC, abstractmethod
+
 import blivet
 from blivet.deviceaction import ActionResizeFormat, ActionResizeDevice, ActionCreateFormat
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
@@ -74,9 +76,9 @@ def do_kickstart_storage(storage, data=None, partitioning=None):
 
     # Execute the partitioning.
     if not partitioning:
-        partitioning = get_partitioning_executor()
+        partitioning = get_partitioning_executor(data)
 
-    partitioning.execute(storage, data)
+    partitioning.execute(storage)
 
     # Set up the snapshot here.
     if data is not None:
@@ -86,9 +88,10 @@ def do_kickstart_storage(storage, data=None, partitioning=None):
     storage.set_up_bootloader()
 
 
-def get_partitioning_executor():
+def get_partitioning_executor(data):
     """Get the executor of the enabled partitioning.
 
+    :param data: an instance of kickstart data
     :return: an partitioning executor
     """
     if STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
@@ -96,7 +99,7 @@ def get_partitioning_executor():
     elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
         return ManualPartitioningExecutor()
     else:
-        return CustomPartitioningExecutor()
+        return CustomPartitioningExecutor(data)
 
 
 def clear_partitions(storage):
@@ -120,15 +123,23 @@ def clear_partitions(storage):
     storage.clear_partitions()
 
 
-class AutomaticPartitioningExecutor(object):
+class PartitioningExecutor(ABC):
+    """Base class for partitioning executors."""
+
+    @abstractmethod
+    def execute(self, storage):
+        """Execute the partitioning.
+
+        :param storage: an instance of Blivet
+        """
+        pass
+
+
+class AutomaticPartitioningExecutor(PartitioningExecutor):
     """The executor of the automatic partitioning."""
 
-    def execute(self, storage, data):
-        """Execute the automatic partitioning.
-
-        :param storage: an instance of the Blivet's storage object
-        :param data: an instance of kickstart data
-        """
+    def execute(self, storage):
+        """Execute the automatic partitioning."""
         log.debug("Executing the automatic partitioning.")
 
         # Create the auto partitioning proxy.
@@ -183,15 +194,11 @@ class AutomaticPartitioningExecutor(object):
             raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
 
 
-class ManualPartitioningExecutor(object):
+class ManualPartitioningExecutor(PartitioningExecutor):
     """The executor of the manual partitioning."""
 
-    def execute(self, storage, data):
-        """Execute the manual partitioning.
-
-        :param storage: an instance of the Blivet's storage object
-        :param data: an instance of kickstart data
-        """
+    def execute(self, storage):
+        """Execute the manual partitioning."""
         log.debug("Setting up the mount points.")
         manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
@@ -200,13 +207,12 @@ class ManualPartitioningExecutor(object):
 
         # Set up mount points.
         for mount_data in manual_part_proxy.MountPoints:
-            self._setup_mount_point(storage, data, mount_data)
+            self._setup_mount_point(storage, mount_data)
 
-    def _setup_mount_point(self, storage, data, mount_data):
+    def _setup_mount_point(self, storage, mount_data):
         """Set up a mount point.
 
         :param storage: an instance of the Blivet's storage object
-        :param data: an instance of kickstart data
         :param mount_data: an instance of MountData
         """
         device = mount_data[MOUNT_POINT_DEVICE]
@@ -215,10 +221,7 @@ class ManualPartitioningExecutor(object):
 
         dev = storage.devicetree.resolve_device(device)
         if dev is None:
-            raise KickstartParseError(
-                _("Unknown or invalid device '%s' specified") % device,
-                lineno=data.mount.lineno
-            )
+            raise KickstartParseError(_("Unknown or invalid device '%s' specified") % device)
 
         if device_reformat:
             if device_format:
@@ -227,17 +230,13 @@ class ManualPartitioningExecutor(object):
                 if not fmt:
                     raise KickstartParseError(
                         _("Unknown or invalid format '%(format)s' specified for device "
-                          "'%(device)s'") % {"format": device_format, "device": device},
-                        lineno=data.mount.lineno
+                          "'%(device)s'") % {"format": device_format, "device": device}
                     )
             else:
                 old_fmt = dev.format
 
                 if not old_fmt or old_fmt.type is None:
-                    raise KickstartParseError(
-                        _("No format on device '%s'") % device,
-                        lineno=data.mount.lineno
-                    )
+                    raise KickstartParseError(_("No format on device '%s'") % device)
 
                 fmt = get_format(old_fmt.type)
             storage.format_device(dev, fmt)
@@ -255,16 +254,21 @@ class ManualPartitioningExecutor(object):
         dev.format.options = mount_data[MOUNT_POINT_MOUNT_OPTIONS]
 
 
-class CustomPartitioningExecutor(object):
+class CustomPartitioningExecutor(PartitioningExecutor):
     """The executor of the custom partitioning."""
 
-    def execute(self, storage, data):
-        """Execute the custom partitioning.
+    def __init__(self, data):
+        """Create a new instance.
 
-        :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
+        super().__init__()
+        self._data = data
+
+    def execute(self, storage):
+        """Execute the custom partitioning."""
         log.debug("Executing the custom partitioning.")
+        data = self._data
 
         # Disable automatic partitioning.
         storage.do_autopart = False
