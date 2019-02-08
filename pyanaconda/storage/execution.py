@@ -42,6 +42,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
+from pyanaconda.storage.partitioning import get_default_partitioning
 from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias, get_available_disk_space
 
 log = get_module_logger(__name__)
@@ -49,11 +50,12 @@ log = get_module_logger(__name__)
 __all__ = ["do_kickstart_storage"]
 
 
-def do_kickstart_storage(storage, data):
+def do_kickstart_storage(storage, data=None, partitioning=None):
     """Setup storage state from the kickstart data.
 
     :param storage: an instance of the Blivet's storage object
-    :param data: an instance of kickstart data
+    :param data: an instance of kickstart data or None
+    :param partitioning: an instance of the partitioning executor or None
     """
     log.debug("Setting up the storage from the kickstart data.")
 
@@ -70,29 +72,31 @@ def do_kickstart_storage(storage, data):
     # Prepare the boot loader.
     BootloaderExecutor().execute(storage, dry_run=True)
 
-    # Is the automatic partitioning enabled?
-    if STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
-        log.debug("Executing the automatic partitioning.")
-        partitioning = AutomaticPartitioningExecutor()
-
-    # Is the manual partitioning enabled?
-    elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
-        log.debug("Setting up the mount points.")
-        partitioning = ManualPartitioningExecutor()
-
-    # Is the custom partitioning enabled?
-    else:
-        log.debug("Executing the custom partitioning.")
-        partitioning = CustomPartitioningExecutor()
-
     # Execute the partitioning.
+    if not partitioning:
+        partitioning = get_partitioning_executor()
+
     partitioning.execute(storage, data)
 
     # Set up the snapshot here.
-    data.snapshot.setup(storage, data)
+    if data is not None:
+        data.snapshot.setup(storage, data)
 
     # Set up the boot loader.
     storage.set_up_bootloader()
+
+
+def get_partitioning_executor():
+    """Get the executor of the enabled partitioning.
+
+    :return: an partitioning executor
+    """
+    if STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
+        return AutomaticPartitioningExecutor()
+    elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
+        return ManualPartitioningExecutor()
+    else:
+        return CustomPartitioningExecutor()
 
 
 def clear_partitions(storage):
@@ -125,14 +129,25 @@ class AutomaticPartitioningExecutor(object):
         :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
+        log.debug("Executing the automatic partitioning.")
+
         # Create the auto partitioning proxy.
         auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
 
         # Enable automatic partitioning.
         storage.do_autopart = True
 
-        # Sets up default auto partitioning. Use clearpart separately if you want it.
-        # The filesystem type is already set in the storage.
+        # Set the filesystem type.
+        fstype = auto_part_proxy.FilesystemType
+
+        if fstype:
+            storage.set_default_fstype(fstype)
+            storage.set_default_boot_fstype(fstype)
+
+        # Set the default partitioning.
+        storage.set_default_partitioning(get_default_partitioning())
+
+        # Set the encryption.
         if auto_part_proxy.Encrypted:
             storage.encrypted_autopart = True
             storage.encryption_passphrase = auto_part_proxy.Passphrase
@@ -160,6 +175,7 @@ class AutomaticPartitioningExecutor(object):
             storage.autopart_type = auto_part_proxy.Type
 
         autopart.do_autopart(storage, min_luks_entropy=MIN_CREATE_ENTROPY)
+
         report = storage_checker.check(storage)
         report.log(log)
 
@@ -176,6 +192,7 @@ class ManualPartitioningExecutor(object):
         :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
+        log.debug("Setting up the mount points.")
         manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
         # Disable automatic partitioning.
@@ -247,6 +264,8 @@ class CustomPartitioningExecutor(object):
         :param storage: an instance of the Blivet's storage object
         :param data: an instance of kickstart data
         """
+        log.debug("Executing the custom partitioning.")
+
         # Disable automatic partitioning.
         storage.do_autopart = False
 
