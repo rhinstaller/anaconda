@@ -20,13 +20,13 @@
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.storage.constants import AutoPartitioningType
+from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
 
 @dbus_interface(AUTO_PARTITIONING.interface_name)
-class AutoPartitioningInterface(KickstartModuleInterfaceTemplate):
+class AutoPartitioningInterface(PartitioningInterface):
     """DBus interface for the auto partitioning module."""
 
     def connect_signals(self):
