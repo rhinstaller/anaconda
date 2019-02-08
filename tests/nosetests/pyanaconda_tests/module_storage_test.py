@@ -34,7 +34,8 @@ from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
     DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
     StorageConfigurationError, BootloaderConfigurationError
-from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError
+from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError, \
+    UnavailableDataError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
@@ -50,8 +51,10 @@ from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSe
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
-from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
+from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
+    ManualPartitioningModule, CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
@@ -1455,6 +1458,56 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.manual_part_module.storage)
+
+
+class CustomPartitioningInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the custom partitioning module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.custom_part_module = CustomPartitioningModule()
+        self.custom_part_interface = PartitioningInterface(self.custom_part_module)
+
+    def data_test(self, ):
+        """Test the data property."""
+        with self.assertRaises(UnavailableDataError):
+            if self.custom_part_module.data:
+                self.fail("The data should not be available.")
+
+        data = Mock()
+        self.custom_part_module.process_kickstart(data)
+        self.assertEqual(self.custom_part_module.data, data)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_with_task_test(self, publisher):
+        """Test ConfigureWithTask."""
+        self.custom_part_module.on_storage_reset(Mock())
+        self.custom_part_module.process_kickstart(Mock())
+        task_path = self.custom_part_interface.ConfigureWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, StorageConfigureTask)
+        self.assertEqual(obj.implementation._storage, self.custom_part_module.storage)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def validate_with_task_test(self, publisher):
+        """Test ValidateWithTask."""
+        self.custom_part_module.on_storage_reset(Mock())
+        task_path = self.custom_part_interface.ValidateWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, StorageValidateTask)
+        self.assertEqual(obj.implementation._storage, self.custom_part_module.storage)
 
 
 class StorageConfigurationTasksTestCase(unittest.TestCase):
