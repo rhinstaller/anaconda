@@ -520,6 +520,7 @@ def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
     network_connected_condition.release()
     return connected
 
+
 def get_activated_devices(nm_client):
     activated_devices = []
     for ac in nm_client.get_active_connections():
@@ -528,6 +529,13 @@ def get_activated_devices(nm_client):
         for device in ac.get_devices():
             activated_devices.append(device)
     return activated_devices
+
+
+# TODO this will be provided by network module API
+def get_activated_ifaces(nm_client):
+    return [device.get_ip_iface() or device.get_iface()
+            for device in get_activated_devices(nm_client)]
+
 
 def status_message(nm_client):
     """ A short string describing which devices are connected. """

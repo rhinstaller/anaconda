@@ -239,7 +239,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Check whether this spoke is complete or not."""
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or get_activated_ifaces())
+                or network.get_activated_ifaces(nm_client))
 
     @property
     def mandatory(self):
@@ -255,7 +255,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def _summary_text(self):
         """Devices cofiguration shown to user."""
         msg = ""
-        activated_devs = get_activated_ifaces()
+        activated_devs = network.get_activated_ifaces(nm_client)
         for device_configuration in self.editable_configurations:
             name = device_configuration.device_name
             if name in activated_devs:
@@ -567,19 +567,6 @@ class ConfigureNetworkSpoke(NormalTUISpoke):
         """ Apply our changes. """
         # save this back to network data, this will be applied in upper layer
         pass
-
-
-# TODO this will be provided by network module API
-def get_activated_ifaces():
-    activated_ifaces = []
-    for ac in nm_client.get_active_connections():
-        if ac.get_state() != NM.ActiveConnectionState.ACTIVATED:
-            continue
-        for device in ac.get_devices():
-            iface = device.get_ip_iface() or device.get_iface()
-            if iface:
-                activated_ifaces.append(iface)
-    return activated_ifaces
 
 
 def get_default_connection(iface, device_type, autoconnect=False):

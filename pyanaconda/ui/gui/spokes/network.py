@@ -46,7 +46,6 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceConfigurat
 from pyanaconda.dbus.structure import apply_structure
 
 from pyanaconda import network
-from pyanaconda import nm
 
 import dbus
 import dbus.service
@@ -1474,7 +1473,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # TODO: check also if source requires updates when implemented
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or nm.nm_activated_devices())
+                or network.get_activated_ifaces(nmclient))
 
     @property
     def mandatory(self):
@@ -1620,7 +1619,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def completed(self):
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or nm.nm_activated_devices()
+                or network.get_activated_ifaces(nmclient)
                 or self.data.method.method not in ("url", "nfs"))
 
     def initialize(self):
