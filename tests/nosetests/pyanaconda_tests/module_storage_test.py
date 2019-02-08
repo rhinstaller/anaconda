@@ -21,6 +21,8 @@ import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
+from blivet.errors import StorageError
+from pyanaconda.bootloader import BootLoaderError
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED, \
@@ -30,7 +32,9 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED
 from pyanaconda.dbus.typing import get_variant, Str, Bool
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
     DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
-from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
+    StorageConfigurationError, BootloaderConfigurationError
+from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError
 from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
@@ -48,13 +52,16 @@ from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
+from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
+from pyanaconda.storage.checker import StorageCheckerReport
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 
 
@@ -1035,6 +1042,51 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             True
         )
 
+    def reset_test(self):
+        """Test the reset of the storage."""
+        with self.assertRaises(UnavailableStorageError):
+            if self.autopart_module.storage:
+                self.fail("The storage shouldn't be available.")
+
+        storage = Mock()
+        self.autopart_module.on_storage_reset(storage)
+
+        self.assertEqual(self.autopart_module._current_storage, storage)
+        self.assertIsNone(self.autopart_module._storage_playground)
+
+        self.assertNotEqual(self.autopart_module.storage, storage)
+        self.assertIsNotNone(self.autopart_module._storage_playground)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_with_task_test(self, publisher):
+        """Test ConfigureWithTask."""
+        self.autopart_module.on_storage_reset(Mock())
+        task_path = self.autopart_interface.ConfigureWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, StorageConfigureTask)
+        self.assertEqual(obj.implementation._storage, self.autopart_module.storage)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def validate_with_task_test(self, publisher):
+        """Test ValidateWithTask."""
+        self.autopart_module.on_storage_reset(Mock())
+        task_path = self.autopart_interface.ValidateWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, StorageValidateTask)
+        self.assertEqual(obj.implementation._storage, self.autopart_module.storage)
+
 
 class DASDInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the DASD module."""
@@ -1372,3 +1424,92 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
             in_value,
             out_value
         )
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_with_task_test(self, publisher):
+        """Test ConfigureWithTask."""
+        self.manual_part_module.on_storage_reset(Mock())
+        task_path = self.manual_part_interface.ConfigureWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, StorageConfigureTask)
+        self.assertEqual(obj.implementation._storage, self.manual_part_module.storage)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def validate_with_task_test(self, publisher):
+        """Test ValidateWithTask."""
+        self.manual_part_module.on_storage_reset(Mock())
+        task_path = self.manual_part_interface.ValidateWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, StorageValidateTask)
+        self.assertEqual(obj.implementation._storage, self.manual_part_module.storage)
+
+
+class StorageConfigurationTasksTestCase(unittest.TestCase):
+    """Test the storage configuration tasks."""
+
+    @patch('pyanaconda.modules.storage.partitioning.configure.do_kickstart_storage')
+    def configuration_test(self, do_kickstart_storage):
+        """Test the configuration task."""
+        storage = Mock()
+        partitioning = Mock()
+
+        StorageConfigureTask(storage, partitioning).run()
+        do_kickstart_storage.called_once_with(storage, partitioning)
+
+    @patch('pyanaconda.modules.storage.partitioning.configure.do_kickstart_storage')
+    def configuration_failed_test(self, do_kickstart_storage):
+        """Test the failing configuration task."""
+        storage = Mock()
+        partitioning = Mock()
+        do_kickstart_storage.side_effect = StorageError("Fake storage error.")
+
+        with self.assertRaises(StorageConfigurationError) as cm:
+            StorageConfigureTask(storage, partitioning).run()
+
+        self.assertEqual(str(cm.exception), "Fake storage error.")
+        do_kickstart_storage.side_effect = BootLoaderError("Fake bootloader error.")
+
+        with self.assertRaises(BootloaderConfigurationError) as cm:
+            StorageConfigureTask(storage, partitioning).run()
+
+        self.assertEqual(str(cm.exception), "Fake bootloader error.")
+
+
+class StorageValidationTasksTestCase(unittest.TestCase):
+    """Test the storage validation tasks."""
+
+    @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
+    def validation_test(self, storage_checker):
+        """Test the validation task."""
+        storage = Mock()
+
+        report = StorageCheckerReport()
+        storage_checker.check.return_value = report
+
+        StorageValidateTask(storage).run()
+
+    @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
+    def validation_failed_test(self, storage_checker):
+        """Test the validation task."""
+        storage = Mock()
+
+        report = StorageCheckerReport()
+        report.add_error("Fake error.")
+        storage_checker.check.return_value = report
+
+        with self.assertRaises(InvalidStorageError) as cm:
+            StorageValidateTask(storage).run()
+
+        self.assertEqual(str(cm.exception), "Fake error.")
