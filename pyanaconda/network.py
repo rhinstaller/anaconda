@@ -31,7 +31,6 @@ import threading
 import re
 import dbus
 import ipaddress
-import itertools
 import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -42,7 +41,6 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.core.configuration.anaconda import conf
-from pykickstart.constants import BIND_TO_MAC
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.payload.livepayload import LiveImagePayload
 
@@ -51,9 +49,6 @@ log = get_module_logger(__name__)
 
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
-networkConfFile = "%s/network" % (sysconfigDir)
-hostnameFile = "/etc/hostname"
-ipv6ConfFile = "/etc/sysctl.d/anaconda.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 DEFAULT_HOSTNAME = "localhost.localdomain"
 
@@ -351,9 +346,6 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
         util.mkdirChain(os.path.dirname(destfile))
     shutil.copy(fileName, destfile)
     return True
-
-
-
 
 def devices_used_by_fcoe(storage):
     fcoe_nics = {d.nic for d in storage.devices if isinstance(d, FcoeDiskDevice)}

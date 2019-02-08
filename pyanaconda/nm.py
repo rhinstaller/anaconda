@@ -23,7 +23,7 @@ gi.require_version("NM", "1.0")
 
 from gi.repository import Gio
 from gi.repository import NM
-from pyanaconda.core.glib import GError, Variant, VariantType
+from pyanaconda.core.glib import GError, VariantType
 import struct
 import socket
 
@@ -50,11 +50,6 @@ class UnknownDeviceError(ValueError):
     def __str__(self):
         return self.__repr__()
 
-class UnmanagedDeviceError(Exception):
-    """Device of specified name is not managed by NM or unavailable"""
-    def __str__(self):
-        return self.__repr__()
-
 class PropertyNotFoundError(ValueError):
     """Property of NM object was not found"""
     def __str__(self):
@@ -65,30 +60,10 @@ class SettingsNotFoundError(ValueError):
     def __str__(self):
         return self.__repr__()
 
-class MultipleSettingsFoundError(ValueError):
-    """Too many NMRemoteConnection objects were found"""
-    def __str__(self):
-        return self.__repr__()
-
 class UnknownMethodGetError(Exception):
     """Object does not have Get, most probably being invalid"""
     def __str__(self):
         return self.__repr__()
-
-# bug #1062417 e.g. for ethernet device without link
-class UnknownConnectionError(Exception):
-    """Connection is not available for the device"""
-    def __str__(self):
-        return self.__repr__()
-
-class AddConnectionError(Exception):
-    """Connection is not available for the device"""
-    def __str__(self):
-        return self.__repr__()
-
-# bug #1039006
-class BondOptionsError(AddConnectionError):
-    pass
 
 def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                proxy_flags=DEFAULT_PROXY_FLAGS,
@@ -146,28 +121,6 @@ def nm_state():
         return NM.State.CONNECTED_GLOBAL
     else:
         return prop
-
-# FIXME - use just GLOBAL? There is some connectivity checking
-# for GLOBAL in NM (nm_connectivity_get_connected), not sure if
-# and how it is implemented.
-# Also see Gio g_network_monitor_can_reach.
-def nm_is_connected():
-    """Is NetworkManager connected?
-
-    :return: True if NM is connected, False otherwise.
-    :rtype: bool
-    """
-    return nm_state() in (NM.State.CONNECTED_GLOBAL,
-                          NM.State.CONNECTED_SITE,
-                          NM.State.CONNECTED_LOCAL)
-
-def nm_is_connecting():
-    """Is NetworkManager connecting?
-
-    :return: True if NM is in CONNECTING state, False otherwise.
-    :rtype: bool
-    """
-    return nm_state() == NM.State.CONNECTING
 
 def nm_devices():
     """Return names of network devices supported in installer.
@@ -303,27 +256,6 @@ def nm_device_type_is_ethernet(name):
     """
     return nm_device_type(name) == NM.DeviceType.ETHERNET
 
-def nm_device_type_is_infiniband(name):
-    """Is the type of device infiniband?
-
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if type is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.INFINIBAND
-
-def nm_device_type_is_bond(name):
-    """Is the type of device bond?
-
-       :param name: name of device
-       :type name: str
-       :return: True if type of device is BOND, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.BOND
-
 def nm_device_type_is_team(name):
     """Is the type of device team?
 
@@ -335,30 +267,6 @@ def nm_device_type_is_team(name):
        :raise PropertyNotFoundError: if property is not found
     """
     return nm_device_type(name) == NM.DeviceType.TEAM
-
-def nm_device_type_is_bridge(name):
-    """Is the type of device bridge?
-
-       :param name: name of device
-       :type name: str
-       :return: True if type of device is BRIDGE, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.BRIDGE
-
-def nm_device_type_is_vlan(name):
-    """Is the type of device vlan?
-
-       :param name: name of device
-       :type name: str
-       :return: True if type of device is VLAN, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.VLAN
 
 def nm_device_hwaddress(name):
     """Return active hardware address of device ('HwAddress' property)
@@ -509,19 +417,6 @@ def nm_device_ip_config(name, version=4):
 
     return [addr_list, ns_list]
 
-def nm_hwaddr_to_device_name(hwaddr):
-    """Return device name of interface with given hardware address.
-
-        :param hwaddr: hardware address
-        :type hwaddr: str
-        :return: device name of interface having hwaddr
-        :rtype: str
-    """
-    for device in nm_devices():
-        if nm_device_valid_hwaddress(device).upper() == hwaddr.upper():
-            return device
-    return None
-
 def nm_ntp_servers_from_dhcp():
     """Return NTP servers obtained by DHCP.
 
@@ -547,80 +442,6 @@ def nm_ntp_servers_from_dhcp():
 
         # NetworkManager does not request NTP/SNTP options for DHCP6
     return ntp_servers
-
-def _is_s390_setting(path):
-    """Check if setting of given object path is an s390 setting
-
-       :param path: object path of setting object
-       :type path: str
-       :return: True if the setting is s390 setting, False otherwise
-       :rtype: bool
-    """
-
-    proxy = _get_proxy(object_path=path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    settings = proxy.GetSettings()
-    return "s390-subchannels" in settings["802-3-ethernet"]
-
-def _device_settings(name):
-    """Return list of object paths of device settings
-
-       :param name: name of device
-       :type name: str
-       :return: list of paths of settings of device
-       :rtype: []
-       :raise UnknownDeviceError: if device is not found
-    """
-    devtype = nm_device_type(name)
-    if devtype == NM.DeviceType.BOND:
-        settings = _find_settings(name, 'bond', 'interface-name')
-    elif devtype == NM.DeviceType.BRIDGE:
-        settings = _find_settings(name, 'bridge', 'interface-name')
-    elif devtype == NM.DeviceType.VLAN:
-        settings = _find_settings(name, 'vlan', 'interface-name')
-        if not settings:
-            # connections generated by NM from iBFT
-            _parent, _sep, vlanid = name.partition(".")
-
-            # If we are not able to convert the VLAN id to an int this
-            # is probably a FCoE interface and we're not going to be able
-            # to do much with it.
-            try:
-                vlanid = int(vlanid)
-            except ValueError:
-                return []
-
-            settings = _find_settings(vlanid, 'vlan', 'id')
-    else:
-        # device name bound settings
-        settings = _find_settings(name, 'connection', 'interface-name')
-        # mac address bound settings
-        try:
-            hwaddr_str = nm_device_valid_hwaddress(name)
-        except PropertyNotFoundError:
-            log.debug("hwaddress of device %s not found", name)
-        else:
-            mac_bound_settings = _settings_for_hwaddr(hwaddr_str)
-            for ms in mac_bound_settings:
-                if ms not in settings:
-                    settings.append(ms)
-        if not settings:
-            # s390 setting generated in dracut with net.ifnames=0
-            # has neither DEVICE nor HWADDR (#1249750)
-            settings = [s for s in _find_settings(name, 'connection', 'id')
-                        if _is_s390_setting(s)]
-
-    return settings
-
-def _settings_for_hwaddr(hwaddr):
-    """Return list of object paths of settings of device specified by hw address.
-
-       :param hwaddr: hardware address (uppercase)
-       :type hwaddr: str
-       :return: list of paths of settings found for hw address
-       :rtype: list
-    """
-    return _find_settings(hwaddr, '802-3-ethernet', 'mac-address',
-                          format_value=lambda ba: ":".join("%02X" % b for b in ba))
 
 def _find_settings(value, key1, key2, format_value=lambda x: x):
     """Return list of object paths of settings having given value of key1, key2 setting
@@ -677,42 +498,6 @@ def nm_get_all_settings():
 
     return retval
 
-def nm_device_setting_value(name, key1, key2):
-    """Return value of device's setting specified by key1 and key2.
-
-       :param name: name of device
-       :type name: str
-       :param key1: first-level key of setting (eg "connection")
-       :type key1: str
-       :param key2: second-level key of setting (eg "uuid")
-       :type key2: str
-       :return: value of setting or None if the setting was not found
-                which means it does not exist or default value is used
-                by NM
-       :rtype: unpacked GDBus variant or None
-       :raise UnknownDeviceError: if device is not found
-       :raise SettingsNotFoundError: if settings were not found (eg for "wlan0")
-       :raise MultipleSettingsFoundError: if multiple settings were found
-    """
-    settings_paths = _device_settings(name)
-    if not settings_paths:
-        raise SettingsNotFoundError(name)
-    elif len(settings_paths) > 1:
-        raise MultipleSettingsFoundError(name)
-    else:
-        settings_path = settings_paths[0]
-    proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    try:
-        settings = proxy.GetSettings()
-    except GError as e:
-        log.debug("nm_device_setting_value: %s", e)
-        raise SettingsNotFoundError(name)
-    try:
-        value = settings[key1][key2]
-    except KeyError:
-        value = None
-    return value
-
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes 'ay' for dbus
 
@@ -756,7 +541,6 @@ def nm_dbus_int_to_ipv4(address):
 
 def test():
     print("NM state: %s:" % nm_state())
-    print("NM is connected: %s" % nm_is_connected())
 
     print("Devices: %s" % nm_devices())
     print("Activated devices: %s" % nm_activated_devices())
@@ -807,34 +591,6 @@ def test():
             print("     Nonexisting: %s" % nm_device_property(devname, "Nonexisting"))
         except ValueError as e:
             print("     %s" % e)
-
-        try:
-            print("     Settings: %s" % _device_settings(devname))
-        except UnknownDeviceError as e:
-            print("     %s" % e)
-        try:
-            print("     Settings for hwaddr %s: %s" % (hwaddr, _settings_for_hwaddr(hwaddr)))
-        except UnknownDeviceError as e:
-            print("     %s" % e)
-        try:
-            print("     Setting value %s %s: %s" % ("ipv6", "method", nm_device_setting_value(devname, "ipv6", "method")))
-        except ValueError as e:
-            print("     %s" % e)
-        try:
-            print("     Setting value %s %s: %s" % ("ipv7", "method", nm_device_setting_value(devname, "ipv7", "method")))
-        except ValueError as e:
-            print("     %s" % e)
-
-    devname = devs[0]
-    key1 = "connection"
-    key2 = "autoconnect"
-    original_value = nm_device_setting_value(devname, key1, key2)
-    print("Value of setting %s %s: %s" % (key1, key2, original_value))
-    # None means default in this case, which is true
-    if original_value in (None, True):
-        new_value = False
-    else:
-        new_value = True
 
 if __name__ == "__main__":
     test()
