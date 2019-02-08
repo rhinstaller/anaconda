@@ -33,6 +33,7 @@ class UsersInterface(KickstartModuleInterface):
     def connect_signals(self):
         super().connect_signals()
         self.watch_property("Users", self.implementation.users_changed)
+        self.watch_property("Groups", self.implementation.groups_changed)
         self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
         self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
         self.watch_property("IsRootpwKickstarted", self.implementation.rootpw_seen_changed)
@@ -147,3 +148,31 @@ class UsersInterface(KickstartModuleInterface):
             apply_structure(user_struct, user_data)
             user_data_list.append(user_data)
         self.implementation.set_users(user_data_list)
+
+    @property
+    def Groups(self) -> List[Structure]:
+        """List of groups, each describing a single group.
+
+        :return: a list of group describing DBUS Structures
+        """
+        # internally we hold the data about groups as a list of structures,
+        # which we need to turn into a list of dicts before returning it
+        # over DBUS
+        group_dicts = []
+
+        for group_struct in self.implementation.groups:
+            group_dicts.append(get_structure(group_struct))
+        return group_dicts
+
+    @emits_properties_changed
+    def SetGroups(self, groups: List[Structure]):
+        """Set a list of groups, each corresponding to a single group.
+
+        :param groups: a list of group describing DBUS structures
+        """
+        group_data_list = []
+        for group_struct in groups:
+            group_data = self.implementation.create_group_data()
+            apply_structure(group_struct, group_data)
+            group_data_list.append(group_data)
+        self.implementation.set_groups(group_data_list)

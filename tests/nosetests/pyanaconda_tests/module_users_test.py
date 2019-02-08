@@ -44,7 +44,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.users_interface.KickstartCommands, ["rootpw", "user"])
+        self.assertEqual(self.users_interface.KickstartCommands, ["rootpw", "user", "group"])
         self.assertEqual(self.users_interface.KickstartSections, [])
         self.assertEqual(self.users_interface.KickstartAddons, [])
         self.callback.assert_not_called()
@@ -423,6 +423,127 @@ class UsersInterfaceTestCase(unittest.TestCase):
 rootpw --iscrypted --lock abcdef
 user --groups=foo,bar --homedir=user1_home --name=user1 --password=swordfish --shell=zsh --uid=123 --gecos="some stuff" --gid=321
 user --groups=baz,bar --homedir=user2_home --name=user2 --password=laksdjaskldjhasjhd --iscrypted --shell=csh --uid=456 --gecos="some other stuff" --gid=654
+"""
+        self.assertEqual(str(ksdata), expected_kickstart)
+
+    def no_groups_property_test(self):
+        """Test the groups property with no groups."""
+        self.assertEqual(self.users_interface.Groups, [])
+        self.callback.assert_not_called()
+
+    def basic_groups_test(self):
+        """Test that the group data can be set and read again."""
+        group1 = {
+                "name" : "group1",
+                "gid" : 321,
+        }
+        group2 = {
+                "name" : "group2",
+                "gid" : 654,
+        }
+
+        group_list_in = [group1, group2]
+        # set the groups list via API
+        self.users_interface.SetGroups(group_list_in)
+
+        # retrieve the group list via API and validate the returned data
+        group_list_out = self.users_interface.Groups
+
+        # construct the expected result
+        group1_out = {
+                    "name" : get_variant(Str, "group1"),
+                    "gid" : get_variant(Int, 321),
+        }
+        group2_out = {
+                    "name" : get_variant(Str, "group2"),
+                    "gid" : get_variant(Int, 654),
+        }
+
+        # check the output os the same as the expected result & in correct order
+        self.assertEqual(group_list_out[0], group1_out)
+        self.assertEqual(group_list_out[1], group2_out)
+
+    def groups_clear_test(self):
+        """Test that we can set group data and then clear it again."""
+        group1 = {
+                "name" : "group1",
+                "gid" : 321,
+        }
+        group2 = {
+                "name" : "group2",
+                "gid" : 654,
+        }
+        group_list_in = [group1, group2]
+        # set the group list via API
+        self.users_interface.SetGroups(group_list_in)
+
+        # check the list is nonempty
+        self.assertEqual(len(self.users_interface.Groups), 2)
+
+        # set an empty group list next
+        self.users_interface.SetGroups([])
+
+        # retrieve the groups list via API and validate it is empty
+        self.assertEqual(self.users_interface.Groups, [])
+
+    def groups_modify_test(self):
+        """Test that group data can be overwritten in place."""
+        group = {
+                "name" : "group1",
+                "gid" : 321,
+        }
+        group_list_in = [group]
+        # set the groups list via API
+        self.users_interface.SetGroups(group_list_in)
+        # check content is correct
+        group_out = {
+                    "name" : get_variant(Str, "group1"),
+                    "gid" : get_variant(Int, 321),
+        }
+        self.assertEqual(self.users_interface.Groups[0], group_out)
+        # replace the group data by changed user data
+        different_group = {
+                "name" : "different",
+                "gid" : 1337,
+        }
+        self.users_interface.SetGroups([different_group])
+        # check we get the changed data
+        different_group_out = {
+                "name" : get_variant(Str, "different"),
+                "gid" : get_variant(Int, 1337),
+        }
+        self.assertEqual(self.users_interface.Groups[0], different_group_out)
+
+    def group_kickstart_output_test(self):
+        """Check if group data values set via DBUS API are valid in the output kickstart."""
+        group1 = {
+                "name" : "group1",
+                "gid" : 321,
+        }
+        group2 = {
+                "name" : "group2",
+                "gid" : 654,
+        }
+        # lets try a gid-less group as well
+        group3 = {
+                "name" : "group3",
+        }
+
+        group_list_in = [group1, group2, group3]
+        # set the group list via API
+        self.users_interface.SetGroups(group_list_in)
+        # also set some other atributes of the users module DBUS API
+        self.users_interface.SetCryptedRootPassword("abcdef")
+        self.users_interface.SetRootAccountLocked(True)
+
+        # validate the resulting kickstart
+        ksdata = self.users_interface.GenerateKickstart()
+        self.maxDiff = None
+        expected_kickstart = """group --name=group1 --gid=321
+group --name=group2 --gid=654
+group --name=group3
+# Root password
+rootpw --iscrypted --lock abcdef
 """
         self.assertEqual(str(ksdata), expected_kickstart)
 

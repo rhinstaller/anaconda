@@ -25,9 +25,11 @@ class UsersKickstartSpecification(KickstartSpecification):
     version = VERSION
     commands = {
         "rootpw": COMMANDS.RootPw,
-        "user": COMMANDS.User
+        "user": COMMANDS.User,
+        "group": COMMANDS.Group
     }
 
     commands_data = {
-        "UserData": COMMANDS.UserData
+        "UserData": COMMANDS.UserData,
+        "GroupData": COMMANDS.GroupData
     }
