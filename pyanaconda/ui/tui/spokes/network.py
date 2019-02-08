@@ -26,6 +26,8 @@ import socket
 from pyanaconda import network
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK
+from pyanaconda.modules.common.structures.network import NetworkDeviceConfiguration
+from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.flags import flags
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
@@ -228,7 +230,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _update_editable_configurations(self):
         device_configurations = self._network_module.proxy.GetDeviceConfigurations()
-        self.editable_configurations = [dc for dc in device_configurations
+        self.editable_configurations = [apply_structure(dc, NetworkDeviceConfiguration())
+                                        for dc in device_configurations
                                         if dc['device-type'] in self.configurable_device_types]
 
     @property
@@ -254,7 +257,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         msg = ""
         activated_devs = get_activated_ifaces()
         for device_configuration in self.editable_configurations:
-            name = device_configuration['device-name']
+            name = device_configuration.device_name
             if name in activated_devs:
                 msg += self._activated_device_msg(name)
             else:
@@ -316,7 +319,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._container.add(TextWidget(_("Set host name")), callback=self._set_hostname_callback, data=dialog)
 
         for device_configuration in self.editable_configurations:
-            iface = device_configuration['device-name']
+            iface = device_configuration.device_name
             text = (_("Configure device %s") % iface)
             self._container.add(TextWidget(text), callback=self._ensure_connection_and_configure,
                                 data=iface)
@@ -330,8 +333,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def _ensure_connection_and_configure(self, iface):
         for device_configuration in self.editable_configurations:
-            if device_configuration['device-name'] == iface:
-                connection_uuid = device_configuration['connection-uuid']
+            if device_configuration.device_name == iface:
+                connection_uuid = device_configuration.connection_uuid
                 if connection_uuid:
                     self._configure_connection(iface, connection_uuid)
                 else:
