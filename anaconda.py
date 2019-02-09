@@ -785,8 +785,8 @@ if __name__ == "__main__":
     from pyanaconda.kickstart import check_kickstart_error
     if ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_PRE_INSTALL):
         with check_kickstart_error():
-            ksdata.snapshot.pre_setup(anaconda.storage, ksdata)
-            ksdata.snapshot.pre_execute(anaconda.storage, ksdata)
+            ksdata.snapshot.pre_setup(anaconda.storage)
+            ksdata.snapshot.pre_execute(anaconda.storage)
 
     anaconda._intf.setup(ksdata)
     anaconda._intf.run()
