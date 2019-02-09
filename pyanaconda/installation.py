@@ -138,7 +138,7 @@ def doConfiguration(storage, payload, ksdata):
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
     if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
-        generate_initramfs.append(Task("Write BTRFS bootloader fix", write_boot_loader, (storage, payload, ksdata)))
+        generate_initramfs.append(Task("Write BTRFS bootloader fix", write_boot_loader, (storage, payload)))
 
     # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
     if arch.is_s390() and not conf.target.is_directory and bootloader_enabled:
@@ -350,7 +350,7 @@ def doInstall(storage, payload, ksdata):
     # Do bootloader.
     if can_install_bootloader:
         bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
-        bootloader_install.append(Task("Install bootloader", write_boot_loader, (storage, payload, ksdata)))
+        bootloader_install.append(Task("Install bootloader", write_boot_loader, (storage, payload)))
         installation_queue.append(bootloader_install)
 
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
