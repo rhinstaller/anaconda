@@ -883,24 +883,6 @@ class Payload(object):
             else:
                 services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
-    def dracutSetupArgs(self):
-        args = []
-        try:
-            import rpm
-        except ImportError:
-            pass
-        else:
-            util.resetRpmDb()
-            ts = rpm.TransactionSet(util.getSysroot())
-
-            # Only add "rhgb quiet" on non-s390, non-serial installs
-            if util.isConsoleOnVirtualTerminal() and \
-               (ts.dbMatch('provides', 'rhgb').count() or \
-                ts.dbMatch('provides', 'plymouth').count()):
-                args.extend(["rhgb", "quiet"])
-
-        return args
-
     def postInstall(self):
         """Perform post-installation tasks."""
 
