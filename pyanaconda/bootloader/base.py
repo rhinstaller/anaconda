@@ -18,9 +18,9 @@
 import collections
 import os
 from glob import glob
-from itertools import chain
 
 import blivet
+from blivet.devices import NetworkStorageDevice
 from blivet.formats.disklabel import DiskLabel
 from blivet.size import Size
 from ordered_set import OrderedSet
@@ -692,32 +692,22 @@ class BootLoader(object):
         elif self.can_update:
             self._update_only = value
 
-    def set_boot_args(self, *args, **kwargs):
-        """ Set up the boot command line.
+    def set_boot_args(self, storage):
+        """Set up the boot command line."""
+        self._set_storage_boot_args(storage)
+        self._preserve_some_boot_args()
+        self._set_graphical_boot_args()
 
-            Keyword Arguments:
-
-                storage - a blivet.Storage instance
-
-            All other arguments are expected to have a dracutSetupArgs()
-            method.
-        """
-        storage = kwargs.pop("storage", None)
+    def _set_storage_boot_args(self, storage):
+        """Set the storage boot args."""
         fcoe_proxy = STORAGE.get_proxy(FCOE)
 
-        #
         # FIPS
-        #
         boot_device = storage.mountpoints.get("/boot")
         if flags.cmdline.get("fips") == "1" and boot_device:
             self.boot_args.add("boot=%s" % self.stage2_device.fstab_spec)
 
-        #
-        # dracut
-        #
-
-        # storage
-        from blivet.devices import NetworkStorageDevice
+        # Storage
         dracut_devices = [storage.root_device]
         if self.stage2_device != storage.root_device:
             dracut_devices.append(self.stage2_device)
@@ -739,6 +729,7 @@ class BootLoader(object):
         netdevs = [d for d in storage.devices \
                    if (getattr(d, "complete", True) and
                        isinstance(d, NetworkStorageDevice))]
+
         rootdev = storage.root_device
         if any(rootdev.depends_on(netdev) for netdev in netdevs):
             dracut_devices = set(dracut_devices)
@@ -777,21 +768,6 @@ class BootLoader(object):
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
-        # passed-in objects
-        for cfg_obj in chain(args, kwargs.values()):
-            if hasattr(cfg_obj, "dracutSetupArgs"):
-                setup_args = cfg_obj.dracutSetupArgs()
-                self.boot_args.update(setup_args)
-                self.dracut_args.update(setup_args)
-            elif hasattr(cfg_obj, "dracut_setup_args"):
-                setup_args = cfg_obj.dracut_setup_args()
-                self.boot_args.update(setup_args)
-                self.dracut_args.update(setup_args)
-            else:
-                setup_string = cfg_obj.dracutSetupString()
-                self.boot_args.add(setup_string)
-                self.dracut_args.add(setup_string)
-
         # This is needed for FCoE, bug #743784. The case:
         # We discover LUN on an iface which is part of multipath setup.
         # If the iface is disconnected after discovery anaconda doesn't
@@ -811,10 +787,8 @@ class BootLoader(object):
         if len(glob("/sys/firmware/iscsi_boot*")) > 0:
             self.boot_args.add("rd.iscsi.firmware")
 
-        #
-        # preservation of some of our boot args
-        # FIXME: this is stupid.
-        #
+    def _preserve_some_boot_args(self):
+        """Preserve some of the boot args."""
         for opt in self.global_preserve_args + self.preserve_args:
             if opt not in flags.cmdline:
                 continue
@@ -826,20 +800,27 @@ class BootLoader(object):
 
             self.boot_args.add(new_arg)
 
-        # passed-in objects
-        for cfg_obj in chain(args, kwargs.values()):
-            if hasattr(cfg_obj, "dracutSetupArgs"):
-                setup_args = cfg_obj.dracutSetupArgs()
-                self.boot_args.update(setup_args)
-                self.dracut_args.update(setup_args)
-            elif hasattr(cfg_obj, "dracut_setup_args"):
-                setup_args = cfg_obj.dracut_setup_args()
-                self.boot_args.update(setup_args)
-                self.dracut_args.update(setup_args)
-            else:
-                setup_string = cfg_obj.dracutSetupString()
-                self.boot_args.add(setup_string)
-                self.dracut_args.add(setup_string)
+    def _set_graphical_boot_args(self):
+        """Set up the graphical boot."""
+        args = []
+
+        try:
+            import rpm
+        except ImportError:
+            pass
+        else:
+            util.resetRpmDb()
+            ts = rpm.TransactionSet(util.getSysroot())
+
+            # Only add "rhgb quiet" on non-s390, non-serial installs.
+            if util.isConsoleOnVirtualTerminal() \
+                    and (ts.dbMatch('provides', 'rhgb').count()
+                         or ts.dbMatch('provides', 'plymouth').count()):
+
+                args = ["rhgb", "quiet"]
+
+        self.boot_args.update(args)
+        self.dracut_args.update(args)
 
     #
     # configuration
