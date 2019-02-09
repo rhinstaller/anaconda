@@ -31,7 +31,7 @@ log = get_module_logger(__name__)
 __all__ = ["write_boot_loader"]
 
 
-def write_boot_loader(storage, payload, ksdata):
+def write_boot_loader(storage, payload):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
@@ -55,7 +55,7 @@ def write_boot_loader(storage, payload, ksdata):
         if storage.bootloader.skip_bootloader:
             log.info("skipping boot loader install per user request")
             return
-        write_boot_loader_final(storage, payload, ksdata)
+        write_boot_loader_final(storage, payload)
         return
 
     # get a list of installed kernel packages
@@ -101,7 +101,7 @@ def write_boot_loader(storage, payload, ksdata):
                                      label=label, short=short)
         storage.bootloader.add_image(image)
 
-    write_boot_loader_final(storage, payload, ksdata)
+    write_boot_loader_final(storage, payload)
 
 
 def write_sysconfig_kernel(storage, version):
@@ -145,7 +145,7 @@ def write_sysconfig_kernel(storage, version):
     f.close()
 
 
-def write_boot_loader_final(storage, payload, ksdata):
+def write_boot_loader_final(storage, payload):
     """ Do the final write of the bootloader. """
 
     # set up dracut/fips boot args
