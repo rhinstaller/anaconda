@@ -19,6 +19,7 @@
 #
 from blivet import arch
 
+from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
@@ -28,6 +29,8 @@ from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
+from pyanaconda.modules.storage.installation import MountFilesystemsTask, ActivateFilesystemsTask, \
+    WriteConfigurationTask
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
 from pyanaconda.modules.storage.reset import StorageResetTask
@@ -166,3 +169,25 @@ class StorageModule(KickstartModule):
         # Publish the task.
         path = self.publish_task(STORAGE.namespace, task)
         return path
+
+    def install_with_tasks(self):
+        """Returns installation tasks of this module.
+
+        FIXME: This is a simplified version of the storage installation.
+
+        :returns: list of object paths of installation tasks.
+        """
+        storage = self.storage
+        sysroot = util.getSysroot()
+
+        tasks = [
+            ActivateFilesystemsTask(storage),
+            MountFilesystemsTask(storage),
+            WriteConfigurationTask(storage, sysroot)
+        ]
+
+        paths = [
+            self.publish_task(STORAGE.namespace, task) for task in tasks
+        ]
+
+        return paths
