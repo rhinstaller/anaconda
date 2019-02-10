@@ -62,9 +62,6 @@ def turn_on_filesystems(storage, callbacks=None):
 
     storage.turn_on_swap()
 
-    # FIXME:  For livecd, skip_root needs to be True.
-    storage.mount_filesystems()
-
 
 def _write_escrow_packets(storage, sysroot):
     """Write the escrow packets.
