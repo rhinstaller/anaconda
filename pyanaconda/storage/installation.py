@@ -65,14 +65,14 @@ def turn_on_filesystems(storage, callbacks=None):
     # FIXME:  For livecd, skip_root needs to be True.
     storage.mount_filesystems()
 
-    write_escrow_packets(storage)
 
-
-def write_escrow_packets(storage):
+def _write_escrow_packets(storage, sysroot):
     """Write the escrow packets.
 
     :param storage: the storage object
     :type storage: :class:`~.storage.InstallerStorage`
+    :param sysroot: a path to the target OS installation
+    :type sysroot: str
     """
     escrow_devices = [
         d for d in storage.devices
@@ -86,7 +86,7 @@ def write_escrow_packets(storage):
     backup_passphrase = blockdev.crypto.generate_backup_passphrase()
 
     try:
-        escrow_dir = util.getSysroot() + "/root"
+        escrow_dir = sysroot + "/root"
         log.debug("escrow: writing escrow packets to %s", escrow_dir)
         blivet_util.makedirs(escrow_dir)
         for device in escrow_devices:
@@ -113,6 +113,8 @@ def write_storage_configuration(storage, sysroot=None):
 
     if not os.path.isdir("%s/etc" % sysroot):
         os.mkdir("%s/etc" % sysroot)
+
+    _write_escrow_packets(storage, sysroot)
 
     storage.make_mtab()
     storage.fsset.write()
