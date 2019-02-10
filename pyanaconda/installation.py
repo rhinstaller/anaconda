@@ -27,7 +27,7 @@ from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITI
     MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.kickstart import update_storage_ksdata
-from pyanaconda.storage.installation import turn_on_filesystems
+from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
 from pyanaconda.bootloader.installation import write_boot_loader
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
@@ -287,7 +287,11 @@ def doInstall(storage, payload, ksdata):
                                   task_args=(storage,),
                                   task_kwargs={"callbacks": callbacks_reg}))
 
-    early_storage.append(Task("Write early storage", payload.writeStorageEarly))
+    if payload.needs_storage_configuration and not conf.target.is_directory:
+        early_storage.append(Task("Write early storage",
+                                  task=write_storage_configuration,
+                                  task_args=(storage,)))
+
     installation_queue.append(early_storage)
 
     # Run %pre-install scripts with the filesystem mounted and no packages
@@ -343,9 +347,18 @@ def doInstall(storage, payload, ksdata):
     installation_queue.append(payload_install)
 
     # for some payloads storage is configured after the payload is installed
-    late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
-    late_storage.append(Task("Write late storage", payload.writeStorageLate))
-    installation_queue.append(late_storage)
+    if not payload.needs_storage_configuration:
+        late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
+        late_storage.append(Task("Prepare mount targets",
+                                 task=payload.prepareMountTargets,
+                                 task_args=(storage, )))
+
+        if not conf.target.is_directory:
+            late_storage.append(Task("Write late storage",
+                                     task=write_storage_configuration,
+                                     task_args=(storage, )))
+
+        installation_queue.append(late_storage)
 
     # Do bootloader.
     if can_install_bootloader:

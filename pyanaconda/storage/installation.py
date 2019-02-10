@@ -102,12 +102,15 @@ def write_escrow_packets(storage):
     log.debug("escrow: write_escrow_packets done")
 
 
-def write_storage_configuration(storage, sysroot):
+def write_storage_configuration(storage, sysroot=None):
     """Write the storage configuration to sysroot.
 
     :param storage: the storage object
     :param sysroot: a path to the target OS installation
     """
+    if sysroot is None:
+        sysroot = util.getSysroot()
+
     if not os.path.isdir("%s/etc" % sysroot):
         os.mkdir("%s/etc" % sysroot)
 

@@ -454,6 +454,3 @@ class RPMOSTreePayload(ArchivePayload):
             set_kargs_args.extend(self.storage.bootloader.boot_args)
             set_kargs_args.append("root=" + self.storage.root_device.fstab_spec)
             self._safeExecWithRedirect("ostree", set_kargs_args, root=util.getSysroot())
-
-    def writeStorageEarly(self):
-        pass

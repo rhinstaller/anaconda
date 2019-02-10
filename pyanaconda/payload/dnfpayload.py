@@ -1346,6 +1346,11 @@ class DNFPayload(payload.PackagePayload):
             if ks_repo.excludepkgs:
                 f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
 
+    @property
+    def needs_storage_configuration(self):
+        """Should we write the storage before doing the installation?"""
+        return True
+
     def postSetup(self):
         """Perform post-setup tasks.
 
@@ -1382,9 +1387,6 @@ class DNFPayload(payload.PackagePayload):
         # We don't need the mother base anymore. Close it.
         self._base.close()
         super().postInstall()
-
-    def writeStorageLate(self):
-        pass
 
 
 class RepoMDMetaHash(object):
