@@ -277,7 +277,6 @@ def setup_display(anaconda, options, addon_paths=None):
 
     # X on a headless (e.g. s390) system? Nonsense!
     if want_x and anaconda.isHeadless:
-        stdout_log.warning(_("DISPLAY variable not set. Starting text mode."))
         anaconda.display_mode = constants.DisplayModes.TUI
         anaconda.gui_startup_failed = True
         time.sleep(2)
