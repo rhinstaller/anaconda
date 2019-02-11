@@ -100,6 +100,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
             [
                 'autopart',
                 'bootloader',
+                'btrfs',
                 'clearpart',
                 'fcoe',
                 'ignoredisk',
