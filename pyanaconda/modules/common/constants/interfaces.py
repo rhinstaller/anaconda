@@ -18,7 +18,7 @@
 #
 from pyanaconda.dbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, BOSS_NAMESPACE, \
-    MODULES_NAMESPACE, USERS_NAMESPACE
+    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE
@@ -32,6 +32,10 @@ BOSS_ANACONDA = DBusInterfaceIdentifier(
 USER = DBusInterfaceIdentifier(
     namespace=USERS_NAMESPACE,
     basename="User"
+)
+
+PARTITIONING = DBusInterfaceIdentifier(
+    namespace=PARTITIONING_NAMESPACE
 )
 
 TASK = DBusInterfaceIdentifier(

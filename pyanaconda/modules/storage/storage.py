@@ -29,7 +29,8 @@ from pyanaconda.modules.storage.disk_initialization import DiskInitializationMod
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
-from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, ManualPartitioningModule
+from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
+    ManualPartitioningModule
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
@@ -82,6 +83,10 @@ class StorageModule(KickstartModule):
             self._zfcp_module = ZFCPModule()
             self._add_module(self._zfcp_module)
 
+        # Connect signals.
+        self.storage_changed.connect(self._auto_part_module.on_storage_reset)
+        self.storage_changed.connect(self._manual_part_module.on_storage_reset)
+
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
         self._modules.append(storage_module)
@@ -132,14 +137,14 @@ class StorageModule(KickstartModule):
         :return: an instance of Blivet
         """
         if not self._storage:
-            self._storage = create_storage()
+            self.set_storage(create_storage())
 
         return self._storage
 
     def set_storage(self, storage):
         """Set the storage model."""
         self._storage = storage
-        self.storage_changed.emit()
+        self.storage_changed.emit(storage)
         log.debug("The storage model has changed.")
 
     def reset_with_task(self):

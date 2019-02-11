@@ -22,12 +22,12 @@ from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUN
 from pyanaconda.dbus.interface import dbus_interface
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
-from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
+from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
 
 @dbus_interface(MANUAL_PARTITIONING.interface_name)
-class ManualPartitioningInterface(KickstartModuleInterfaceTemplate):
+class ManualPartitioningInterface(PartitioningInterface):
     """DBus interface for the manual partitioning module."""
 
     def connect_signals(self):

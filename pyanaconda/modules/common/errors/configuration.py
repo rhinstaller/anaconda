@@ -31,3 +31,15 @@ class ConfigurationError(AnacondaError):
 class StorageDiscoveryError(ConfigurationError):
     """Exception for storage discovery errors."""
     pass
+
+
+@dbus_error("StorageConfigurationError", namespace=ANACONDA_NAMESPACE)
+class StorageConfigurationError(ConfigurationError):
+    """Exception for storage configuration errors."""
+    pass
+
+
+@dbus_error("BootloaderConfigurationError", namespace=ANACONDA_NAMESPACE)
+class BootloaderConfigurationError(ConfigurationError):
+    """Exception for bootloader configuration errors."""
+    pass

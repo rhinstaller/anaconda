@@ -20,21 +20,23 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.storage.constants import AutoPartitioningType
+from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
+from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.storage.execution import AutomaticPartitioningExecutor
 
 log = get_module_logger(__name__)
 
 
-class AutoPartitioningModule(KickstartBaseModule):
+class AutoPartitioningModule(PartitioningModule):
     """The auto partitioning module."""
 
     def __init__(self):
         """Initialize the module."""
         super().__init__()
-
         self.enabled_changed = Signal()
         self._enabled = False
 
@@ -369,3 +371,15 @@ class AutoPartitioningModule(KickstartBaseModule):
         self._backup_passphrase_enabled = enabled
         self.backup_passphrase_enabled_changed.emit()
         log.debug("Backup passphrase enabled is set to '%s'.", enabled)
+
+    def configure_with_task(self):
+        """Schedule the partitioning actions."""
+        task = StorageConfigureTask(self.storage, AutomaticPartitioningExecutor())
+        path = self.publish_task(AUTO_PARTITIONING.namespace, task)
+        return path
+
+    def validate_with_task(self):
+        """Validate the scheduled partitions."""
+        task = StorageValidateTask(self.storage)
+        path = self.publish_task(AUTO_PARTITIONING.namespace, task)
+        return path

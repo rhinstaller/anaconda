@@ -20,15 +20,18 @@
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
+from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.manual_data import MountPoint
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
+from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
+from pyanaconda.storage.execution import ManualPartitioningExecutor
 
 log = get_module_logger(__name__)
 
 
-class ManualPartitioningModule(KickstartBaseModule):
+class ManualPartitioningModule(PartitioningModule):
     """The manual partitioning module."""
 
     def __init__(self):
@@ -139,3 +142,15 @@ class ManualPartitioningModule(KickstartBaseModule):
         self._mount_points = mount_points
         self.mount_points_changed.emit()
         log.debug("Mount points are set to '%s'.", mount_points)
+
+    def configure_with_task(self):
+        """Schedule the partitioning actions."""
+        task = StorageConfigureTask(self.storage, ManualPartitioningExecutor())
+        path = self.publish_task(MANUAL_PARTITIONING.namespace, task)
+        return path
+
+    def validate_with_task(self):
+        """Validate the scheduled partitions."""
+        task = StorageValidateTask(self.storage)
+        path = self.publish_task(MANUAL_PARTITIONING.namespace, task)
+        return path
