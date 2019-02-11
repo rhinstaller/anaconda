@@ -611,6 +611,9 @@ class NetworkModule(KickstartModule):
         The connection id (and consequently ifcfg file name) is set to device
         name.
         """
+        if not self.nm_available:
+            return []
+
         new_ifcfgs = []
 
         for device in self.nm_client.get_devices():
