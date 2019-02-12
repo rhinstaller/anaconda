@@ -40,3 +40,13 @@ class NVDIMMInterface(KickstartModuleInterfaceTemplate):
         :param namespaces:  a list of namespaces
         """
         self.implementation.set_namespaces_to_use(namespaces)
+
+    def ReconfigureWithTask(self, namespace: Str, mode: Str, sector_size: Int) -> ObjPath:
+        """Reconfigure a namespace.
+
+        :param namespace: a device name of a namespace (e.g. 'namespace0.0')
+        :param mode: a new mode (one of 'sector', 'memory', 'dax')
+        :param sector_size: a sector size for the sector mode
+        :return: a DBus path to a task
+        """
+        return self.implementation.reconfigure_with_task(namespace, mode, sector_size)

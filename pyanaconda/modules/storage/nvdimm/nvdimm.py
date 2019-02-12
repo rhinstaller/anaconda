@@ -30,6 +30,7 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import NVDIMM
 from pyanaconda.modules.storage.nvdimm.nvdimm_interface import NVDIMMInterface
+from pyanaconda.modules.storage.nvdimm.reconfigure import NVDIMMReconfigureTask
 
 log = get_module_logger(__name__)
 
@@ -191,3 +192,16 @@ class NVDIMMModule(KickstartBaseModule):
         # Update the current actions.
         self._actions = reconfigure_actions + use_actions
         return self._actions
+
+    def reconfigure_with_task(self, namespace, mode, sector_size):
+        """Reconfigure a namespace.
+
+        :param namespace: a device name of a namespace (e.g. 'namespace0.0')
+        :param mode: a new mode (one of 'sector', 'memory', 'dax')
+        :param sector_size: a sector size for the sector mode
+        :return: a DBus path to a task
+        """
+        task = NVDIMMReconfigureTask(namespace, mode, sector_size)
+        task.succeeded_signal.connect(lambda: self.update_action(namespace, mode, sector_size))
+        path = self.publish_task(NVDIMM.namespace, task)
+        return path
