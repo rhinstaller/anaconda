@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import NVDIMM
 
@@ -25,4 +26,10 @@ from pyanaconda.modules.common.constants.objects import NVDIMM
 @dbus_interface(NVDIMM.interface_name)
 class NVDIMMInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the NVDIMM module."""
-    pass
+
+    def GetDevicesToIgnore(self) -> List[Str]:
+        """Get devices to be ignored.
+
+        :return: a list of device names
+        """
+        return list(self.implementation.get_devices_to_ignore())

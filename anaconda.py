@@ -689,7 +689,7 @@ if __name__ == "__main__":
 
     # Ignore nvdimm devices.
     from pyanaconda.storage.utils import ignore_nvdimm_blockdevs
-    ignore_nvdimm_blockdevs(ksdata.nvdimm)
+    ignore_nvdimm_blockdevs()
 
     # Specify protected devices.
     protected_devices = anaconda.get_protected_devices(opts)
