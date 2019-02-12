@@ -44,6 +44,7 @@ from pykickstart.errors import KickstartError
 
 from pyanaconda.core import util
 from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
@@ -494,6 +495,9 @@ def ignore_nvdimm_blockdevs(nvdimm_ksdata):
     :param nvdimm_ksdata: nvdimm kickstart data
     :type nvdimm_ksdata: Nvdimm kickstart command
     """
+    if conf.target.is_directory:
+        return
+
     ignored_nvdimm_devs = get_ignored_nvdimm_blockdevs(nvdimm_ksdata)
 
     if not ignored_nvdimm_devs:

@@ -112,6 +112,10 @@ def set_storage_defaults_from_kickstart(storage):
 
 def load_plugin_s390():
     """Load the s390x plugin."""
+    # Don't load the plugin in a dir installation.
+    if conf.target.is_directory:
+        return
+
     # Is the plugin loaded? We are done then.
     if "s390" in blockdev.get_available_plugin_names():
         return
