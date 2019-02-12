@@ -33,3 +33,10 @@ class NVDIMMInterface(KickstartModuleInterfaceTemplate):
         :return: a list of device names
         """
         return list(self.implementation.get_devices_to_ignore())
+
+    def SetNamespacesToUse(self, namespaces: List[Str]):
+        """Set namespaces to use.
+
+        :param namespaces:  a list of namespaces
+        """
+        self.implementation.set_namespaces_to_use(namespaces)

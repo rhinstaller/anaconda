@@ -151,3 +151,43 @@ class NVDIMMModule(KickstartBaseModule):
         action.mode = mode
         action.sectorsize = sector_size
         return action
+
+    def set_namespaces_to_use(self, namespaces):
+        """Set namespaces to use.
+
+        Updates "nvdimm use" commands.  Doesn't add use command for devices which
+        are reconfigured with "nvdimm reconfigure" because reconfigure in kickstart
+        implies use.
+
+        :param namespaces: a list of namespaces
+        :return: a list of actions
+        """
+        log.debug("Setting namespaces to use to: %s", namespaces)
+
+        # Keep the reconfiguration actions.
+        reconfigure_actions = [
+            action for action in self._actions
+            if action.action == NVDIMM_ACTION_RECONFIGURE
+        ]
+
+        namespaces_to_configure = {
+            action.namespace for action in reconfigure_actions
+        }
+
+        # Create new use actions.
+        use_actions = []
+        namespaces_to_use = sorted(namespaces)
+
+        for namespace in namespaces_to_use:
+            # Reconfigured namespaces are used implicitly.
+            if namespace in namespaces_to_configure:
+                continue
+
+            action = self.create_action()
+            action.action = NVDIMM_ACTION_USE
+            action.namespace = namespace
+            use_actions.append(action)
+
+        # Update the current actions.
+        self._actions = reconfigure_actions + use_actions
+        return self._actions
