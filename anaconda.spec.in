@@ -355,6 +355,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 12 2019 Martin Kolman <mkolman@redhat.com> - 30.22-1
+- Don't use the network manager client in a mock environment (vponcova)
+- Don't load storage plugins in dir installations (#1674605) (vponcova)
+- Test the storage configuration and validation in the Storage module
+  (vponcova)
+- Implement configuration and validation in the partitioning modules (vponcova)
+- Create the storage validation task (vponcova)
+- Create the storage configuration task (vponcova)
+- Create base classes for the partitioning modules (vponcova)
+- Check if we can access a DBus service (vponcova)
+
 * Thu Feb 07 2019 Martin Kolman <mkolman@redhat.com> - 30.21-1
 - Drop the temporary anaconda-live dependency (mkolman)
 - network module: update tests for generating dracut arguments (rvykydal)
