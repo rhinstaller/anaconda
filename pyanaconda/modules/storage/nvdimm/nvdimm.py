@@ -105,3 +105,49 @@ class NVDIMMModule(KickstartBaseModule):
                 devices_to_ignore.add(ns_info.blockdev)
 
         return devices_to_ignore
+
+    def create_action(self):
+        """Create a new action.
+
+        FIXME: Don't use kickstart data.
+
+        :return: an instance of an action
+        """
+        from pyanaconda.core.kickstart.commands import NvdimmData
+        action = NvdimmData()
+        return action
+
+    def find_action(self, namespace):
+        """Find an action by the namespace.
+
+        :param namespace: a name of the namespace
+        :return: an instance of an action with the same namespace
+        """
+        if not namespace:
+            return None
+
+        for action in self._actions:
+            if action.namespace == namespace:
+                return action
+
+        return None
+
+    def update_action(self, namespace, mode, sector_size):
+        """Update an action.
+
+        :param namespace: a device name of a namespace
+        :param mode: a mode
+        :param sector_size: a sector size
+        :return: an instance of the updated action
+        """
+        action = self.find_action(namespace)
+
+        if not action:
+            action = self.create_action()
+            self._actions.append(action)
+
+        action.action = NVDIMM_ACTION_RECONFIGURE
+        action.namespace = namespace
+        action.mode = mode
+        action.sectorsize = sector_size
+        return action
