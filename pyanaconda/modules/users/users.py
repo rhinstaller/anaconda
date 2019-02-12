@@ -21,10 +21,12 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.core.kickstart.commands import UserData as UserKickstartData
 from pyanaconda.core.kickstart.commands import GroupData as GroupKickstartData
+from pyanaconda.core.kickstart.commands import SshKeyData as SshKeyKickstartData
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.common.structures.group import GroupData
+from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
 
@@ -112,6 +114,9 @@ class UsersModule(KickstartModule):
         self.groups_changed = Signal()
         self._groups = []
 
+        self.ssh_keys_changed = Signal()
+        self._ssh_keys = []
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(USERS.object_path, UsersInterface(self))
@@ -147,6 +152,14 @@ class UsersModule(KickstartModule):
             group_data_list.append(group_data)
         self.set_groups(group_data_list)
 
+        ssh_key_data_list = []
+        for ssh_key_ksdata in data.sshkey.sshUserList:
+            ssh_key_data = self.create_ssh_key_data()
+            ssh_key_data.key = ssh_key_ksdata.key
+            ssh_key_data.username = ssh_key_ksdata.username
+            ssh_key_data_list.append(ssh_key_data)
+        self.set_ssh_keys(ssh_key_data_list)
+
     # pylint: disable=arguments-differ
     def generate_kickstart(self):
         """Return the kickstart string."""
@@ -168,6 +181,12 @@ class UsersModule(KickstartModule):
             else:
                 group_ksdata.gid = group_data.gid
             data.group.groupList.append(group_ksdata)
+
+        for ssh_key_data in self.ssh_keys:
+            ssh_key_ksdata = SshKeyKickstartData()
+            ssh_key_ksdata.key = ssh_key_data.key
+            ssh_key_ksdata.username = ssh_key_data.username
+            data.sshkey.sshUserList.append(ssh_key_ksdata)
 
         return str(data)
 
@@ -200,6 +219,21 @@ class UsersModule(KickstartModule):
     def create_group_data(self):
         """Create an empty GroupData instance."""
         return GroupData()
+
+    @property
+    def ssh_keys(self):
+        """List of SshKeyData instances, one per ssh key."""
+        return self._ssh_keys
+
+    def set_ssh_keys(self, ssh_keys):
+        """Set the list of SshKeyData instances, one per ssh keys."""
+        self._ssh_keys = ssh_keys
+        self.ssh_keys_changed.emit()
+        log.debug("A new ssh key list has been set: %s", self._ssh_keys)
+
+    def create_ssh_key_data(self):
+        """Create an empty SshKeyData instance."""
+        return SshKeyData()
 
     @property
     def rootpw_seen(self):

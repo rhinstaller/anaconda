@@ -26,10 +26,12 @@ class UsersKickstartSpecification(KickstartSpecification):
     commands = {
         "rootpw": COMMANDS.RootPw,
         "user": COMMANDS.User,
-        "group": COMMANDS.Group
+        "group": COMMANDS.Group,
+        "sshkey": COMMANDS.SshKey
     }
 
     commands_data = {
         "UserData": COMMANDS.UserData,
-        "GroupData": COMMANDS.GroupData
+        "GroupData": COMMANDS.GroupData,
+        "SshKeyData": COMMANDS.SshKeyData
     }

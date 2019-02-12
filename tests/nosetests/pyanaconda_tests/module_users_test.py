@@ -44,7 +44,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
-        self.assertEqual(self.users_interface.KickstartCommands, ["rootpw", "user", "group"])
+        self.assertEqual(self.users_interface.KickstartCommands, ["rootpw", "user", "group", "sshkey"])
         self.assertEqual(self.users_interface.KickstartSections, [])
         self.assertEqual(self.users_interface.KickstartAddons, [])
         self.callback.assert_not_called()
@@ -544,6 +544,129 @@ group --name=group2 --gid=654
 group --name=group3
 # Root password
 rootpw --iscrypted --lock abcdef
+"""
+        self.assertEqual(str(ksdata), expected_kickstart)
+
+    def no_ssh_keys_property_test(self):
+        """Test the SSH keys property with no ssh keys."""
+        self.assertEqual(self.users_interface.SshKeys, [])
+        self.callback.assert_not_called()
+
+    def basic_ssh_keys_test(self):
+        """Test that the SSH key data can be set and read again."""
+        key1 = {
+                "key" : "aaa",
+                "username" : "user1",
+        }
+        key2 = {
+                "key" : "bbb",
+                "username" : "user2",
+        }
+
+        key_list_in = [key1, key2]
+        # set the SSH key list via API
+        self.users_interface.SetSshKeys(key_list_in)
+
+        # retrieve the SSH key list via API and validate the returned data
+        key_list_out = self.users_interface.SshKeys
+
+        # construct the expected result
+        key1_out = {
+                    "key" : get_variant(Str, "aaa"),
+                    "username" : get_variant(Str, "user1"),
+        }
+        key2_out = {
+                    "key" : get_variant(Str, "bbb"),
+                    "username" : get_variant(Str, "user2"),
+        }
+
+        # check the output is the same as the expected result & in correct order
+        self.assertEqual(key_list_out[0], key1_out)
+        self.assertEqual(key_list_out[1], key2_out)
+
+    def ssh_keys_clear_test(self):
+        """Test that we can set SSH key data and then clear it again."""
+        key1 = {
+                "key" : "aaa",
+                "username" : "user1",
+        }
+        key2 = {
+                "key" : "bbb",
+                "username" : "user2",
+        }
+        key_list_in = [key1, key2]
+        # set the SSH key list via API
+        self.users_interface.SetSshKeys(key_list_in)
+
+        # check the list is nonempty
+        self.assertEqual(len(self.users_interface.SshKeys), 2)
+
+        # set an empty SSH key list next
+        self.users_interface.SetSshKeys([])
+
+        # retrieve the groups list via API and validate it is empty
+        self.assertEqual(self.users_interface.Groups, [])
+
+    def ssh_keys_modify_test(self):
+        """Test that SSH key data can be overwritten in place."""
+        key = {
+                "key" : "aaa",
+                "username" : "user1",
+        }
+        key_list_in = [key]
+        # set the SSH key list via API
+        self.users_interface.SetSshKeys(key_list_in)
+        # check content is correct
+        key_out = {
+                    "key" : get_variant(Str, "aaa"),
+                    "username" : get_variant(Str, "user1"),
+        }
+        self.assertEqual(self.users_interface.SshKeys[0], key_out)
+        # replace the SSH key data by changed user data
+        different_key = {
+                "key" : "nanananana",
+                "username" : "batman",
+        }
+        self.users_interface.SetSshKeys([different_key])
+        # check we get the changed data
+        different_key_out = {
+                "key" : get_variant(Str, "nanananana"),
+                "username" : get_variant(Str, "batman"),
+        }
+        self.assertEqual(self.users_interface.SshKeys[0], different_key_out)
+
+    def ssh_keys_kickstart_output_test(self):
+        """Check if SSH key data values set via DBUS API are valid in the output kickstart."""
+        key1 = {
+                "key" : "aaa",
+                "username" : "user1",
+        }
+        key2 = {
+                "key" : "bbb",
+                "username" : "user2",
+        }
+        # lets try a username-less key as well
+        key3 = {
+                "key" : "ccc",
+                "username" : "user3",
+        }
+
+        key_list_in = [key1, key2, key3]
+        # set the SSH key list via API
+        self.users_interface.SetSshKeys(key_list_in)
+        # also set some other atributes of the users module DBUS API
+        self.users_interface.SetCryptedRootPassword("abcdef")
+        self.users_interface.SetRootAccountLocked(True)
+
+        # validate the resulting kickstart
+        ksdata = self.users_interface.GenerateKickstart()
+        self.maxDiff = None
+        expected_kickstart = """\
+# Root password
+rootpw --iscrypted --lock abcdef
+sshkey --username=user1 "aaa"
+sshkey --username=user2 "bbb"
+sshkey --username=user3 "ccc"
 """
         self.assertEqual(str(ksdata), expected_kickstart)
 

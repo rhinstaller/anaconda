@@ -34,6 +34,7 @@ class UsersInterface(KickstartModuleInterface):
         super().connect_signals()
         self.watch_property("Users", self.implementation.users_changed)
         self.watch_property("Groups", self.implementation.groups_changed)
+        self.watch_property("SshKeys", self.implementation.ssh_keys_changed)
         self.watch_property("IsRootPasswordSet", self.implementation.root_password_is_set_changed)
         self.watch_property("IsRootAccountLocked", self.implementation.root_account_locked_changed)
         self.watch_property("IsRootpwKickstarted", self.implementation.rootpw_seen_changed)
@@ -176,3 +177,31 @@ class UsersInterface(KickstartModuleInterface):
             apply_structure(group_struct, group_data)
             group_data_list.append(group_data)
         self.implementation.set_groups(group_data_list)
+
+    @property
+    def SshKeys(self) -> List[Structure]:
+        """List of SSH keys, each describing a single SSH key.
+
+        :return: a list of SSH key describing DBUS Structures
+        """
+        # internally we hold the data about SSH keys as a list of structures,
+        # which we need to turn into a list of dicts before returning it
+        # over DBUS
+        ssh_key_dicts = []
+
+        for ssh_key_struct in self.implementation.ssh_keys:
+            ssh_key_dicts.append(get_structure(ssh_key_struct))
+        return ssh_key_dicts
+
+    @emits_properties_changed
+    def SetSshKeys(self, ssh_keys: List[Structure]):
+        """Set a list of DBUS structures, each corresponding to a single SSH key.
+
+        :param ssh_keys: a list of SSH key describing DBUS structures
+        """
+        ssh_key_data_list = []
+        for ssh_key_struct in ssh_keys:
+            ssh_key_data = self.implementation.create_ssh_key_data()
+            apply_structure(ssh_key_struct, ssh_key_data)
+            ssh_key_data_list.append(ssh_key_data)
+        self.implementation.set_ssh_keys(ssh_key_data_list)
