@@ -167,6 +167,7 @@ class StorageKickstartSpecification(KickstartSpecification):
     commands = {
         "autopart": AutoPart,
         "bootloader": COMMANDS.Bootloader,
+        "btrfs": COMMANDS.BTRFS,
         "clearpart": ClearPart,
         "fcoe": Fcoe,
         "ignoredisk": IgnoreDisk,
@@ -182,6 +183,7 @@ class StorageKickstartSpecification(KickstartSpecification):
     }
 
     commands_data = {
+        "BTRFSData": COMMANDS.BTRFSData,
         "FcoeData": COMMANDS.FcoeData,
         "LogVolData": COMMANDS.LogVolData,
         "MountData": COMMANDS.MountData,

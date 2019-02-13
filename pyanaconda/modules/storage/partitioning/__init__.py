@@ -16,6 +16,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.modules.storage.partitioning.automatic import AutoPartitioningModule
+from pyanaconda.modules.storage.partitioning.custom import CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.manual import ManualPartitioningModule
 
-__all__ = ["AutoPartitioningModule", "ManualPartitioningModule"]
+
+__all__ = ["AutoPartitioningModule", "ManualPartitioningModule", "CustomPartitioningModule"]
