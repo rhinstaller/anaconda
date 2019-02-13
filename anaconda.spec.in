@@ -355,6 +355,22 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 13 2019 Martin Kolman <mkolman@redhat.com> - 30.23-1
+- Reorganize the code for the boot loader installation (vponcova)
+- Remove a useless argument from write_boot_loader (vponcova)
+- Remove useless arguments from methods of the kickstart commands (vponcova)
+- Create installation tasks for the Storage module (vponcova)
+- Add tests for the custom partitioning module (vponcova)
+- Create the custom partitioning module (vponcova)
+- Process the btrfs command in the Storage module (vponcova)
+- Remove the data from the execute method of the partitioning executors
+  (vponcova)
+- Remove unmaintained signal handler (#1676683) (vponcova)
+- Change a confusing message for headless systems (vponcova)
+- Mount the file systems in a different installation task (vponcova)
+- Write the escrow packets later (vponcova)
+- Replace the writeStorageEarly and writeStorageLater methods (vponcova)
+
 * Tue Feb 12 2019 Martin Kolman <mkolman@redhat.com> - 30.22-1
 - Don't use the network manager client in a mock environment (vponcova)
 - Don't load storage plugins in dir installations (#1674605) (vponcova)
