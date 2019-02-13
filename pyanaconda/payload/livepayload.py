@@ -222,8 +222,6 @@ class LiveImagePayload(ImagePayload):
     def kernelVersionList(self):
         return self._kernelVersionList
 
-    def writeStorageEarly(self):
-        pass
 
 class DownloadProgress(object):
     """ Provide methods for download progress reporting."""

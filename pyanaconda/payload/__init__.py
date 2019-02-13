@@ -49,7 +49,6 @@ from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_installtree
 from pyanaconda.core.util import ProxyString, ProxyStringError
-from pyanaconda.storage.installation import write_storage_configuration
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
@@ -800,6 +799,15 @@ class Payload(object):
                 #           prevent boot on some systems
 
     @property
+    def needs_storage_configuration(self):
+        """Should we write the storage before doing the installation?
+
+        Some payloads require that the storage configuration will be written out
+        before doing installation. Right now, this is basically just the dnfpayload.
+        """
+        return False
+
+    @property
     def handlesBootloaderConfiguration(self):
         """Whether this payload backend writes the bootloader configuration itself; if
         False (the default), the generic bootloader configuration code will be used.
@@ -897,27 +905,6 @@ class Payload(object):
         log.info("Installation requirements: %s", self.requirements)
         if not self.requirements.applied:
             log.info("Some of the requirements were not applied.")
-
-    def writeStorageEarly(self):
-        """Some payloads require that the storage configuration be written out
-        before doing installation.  Right now, this is basically just the
-        dnfpayload.  Payloads should only implement one of these methods
-        by overriding the unneeded one with a pass.
-        """
-        if not conf.target.is_directory:
-            write_storage_configuration(self.storage, util.getSysroot())
-
-    def writeStorageLate(self):
-        """Some payloads require that the storage configuration be written out
-        after doing installation.  Right now, this is basically every payload
-        except for dnf.  Payloads should only implement one of these methods
-        by overriding the unneeded one with a pass.
-        """
-        if util.getSysroot() != util.getTargetPhysicalRoot():
-            self.prepareMountTargets(self.storage)
-        if not conf.target.is_directory:
-            write_storage_configuration(self.storage, util.getSysroot())
-
 
 
 # Inherit abstract methods from Payload
