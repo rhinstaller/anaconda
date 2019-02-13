@@ -31,36 +31,41 @@ log = get_module_logger(__name__)
 __all__ = ["write_boot_loader"]
 
 
-def write_boot_loader(storage, payload, ksdata):
+def write_boot_loader(storage, payload):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
         image. We only have to add images for the non-default kernels and
         adjust the default to reflect whatever the default variant is.
     """
-    if not storage.bootloader.skip_bootloader:
-        stage1_device = storage.bootloader.stage1_device
-        log.info("boot loader stage1 target device is %s", stage1_device.name)
-        stage2_device = storage.bootloader.stage2_device
-        log.info("boot loader stage2 target device is %s", stage2_device.name)
-
+    # Set up the boot loader.
     storage.bootloader.menu_auto_hide = conf.bootloader.menu_auto_hide
 
     # Bridge storage EFI configuration to bootloader
     if hasattr(storage.bootloader, 'efi_dir'):
         storage.bootloader.efi_dir = conf.bootloader.efi_dir
 
-    # Currently just rpmostreepayload shortcuts the rest of everything below
-    if payload.handlesBootloaderConfiguration:
-        if storage.bootloader.skip_bootloader:
-            log.info("skipping boot loader install per user request")
-            return
-        write_boot_loader_final(storage, payload, ksdata)
+    # Configure the boot loader.
+    if not payload.handlesBootloaderConfiguration:
+        _configure_boot_loader(storage, payload.kernelVersionList)
+
+    # Should we skip the installation?
+    if storage.bootloader.skip_bootloader:
+        log.info("skipping boot loader install per user request")
         return
+
+    # Install the bootloader.
+    _set_boot_arguments(storage)
+    _install_boot_loader(storage)
+
+
+def _configure_boot_loader(storage, kernel_versions):
+    """Configure the bootloader."""
+    log.debug("Configuring the boot loader.")
 
     # get a list of installed kernel packages
     # add whatever rescue kernels we can find to the end
-    kernel_versions = list(payload.kernelVersionList)
+    kernel_versions = list(kernel_versions)
 
     rescue_versions = glob(util.getSysroot() + "/boot/vmlinuz-*-rescue-*")
     rescue_versions += glob(
@@ -86,11 +91,7 @@ def write_boot_loader(storage, payload, ksdata):
     storage.bootloader.default = default_image
 
     # write out /etc/sysconfig/kernel
-    write_sysconfig_kernel(storage, version)
-
-    if storage.bootloader.skip_bootloader:
-        log.info("skipping boot loader install per user request")
-        return
+    _write_sysconfig_kernel(storage, version)
 
     # now add an image for each of the other kernels
     for version in kernel_versions:
@@ -101,10 +102,11 @@ def write_boot_loader(storage, payload, ksdata):
                                      label=label, short=short)
         storage.bootloader.add_image(image)
 
-    write_boot_loader_final(storage, payload, ksdata)
 
+def _write_sysconfig_kernel(storage, version):
+    """Write to /etc/sysconfig/kernel."""
+    log.debug("Writing to /etc/sysconfig/kernel.")
 
-def write_sysconfig_kernel(storage, version):
     # get the name of the default kernel package based on the version
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
@@ -145,13 +147,22 @@ def write_sysconfig_kernel(storage, version):
     f.close()
 
 
-def write_boot_loader_final(storage, payload, ksdata):
-    """ Do the final write of the bootloader. """
+def _set_boot_arguments(storage):
+    """Set up the final boot arguments."""
+    # FIXME: do this from elsewhere?
+    storage.bootloader.set_boot_args(storage)
 
-    # set up dracut/fips boot args
-    # XXX FIXME: do this from elsewhere?
-    storage.bootloader.set_boot_args(storage=storage,
-                                     payload=payload)
+
+def _install_boot_loader(storage):
+    """Do the final write of the boot loader."""
+    log.debug("Installing the boot loader.")
+
+    stage1_device = storage.bootloader.stage1_device
+    log.info("boot loader stage1 target device is %s", stage1_device.name)
+
+    stage2_device = storage.bootloader.stage2_device
+    log.info("boot loader stage2 target device is %s", stage2_device.name)
+
     try:
         storage.bootloader.write()
     except BootLoaderError as e:

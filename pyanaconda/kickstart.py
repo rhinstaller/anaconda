@@ -259,7 +259,7 @@ class Authselect(RemovedCommand):
         if security_proxy.Authconfig:
             self.packages += ["authselect-compat"]
 
-    def execute(self, *args):
+    def execute(self):
         security_proxy = SECURITY.get_proxy()
 
         # Enable fingerprint option by default (#481273).
@@ -382,7 +382,7 @@ class Realm(RemovedCommand):
         realm_log.info("Realm %s needs packages %s",
                        self.discovered, ", ".join(self.packages))
 
-    def execute(self, *args):
+    def execute(self):
         if not self.discovered:
             return
 
@@ -426,7 +426,7 @@ class Firewall(RemovedCommand):
         if firewall_proxy.FirewallKickstarted:
             self.packages = ["firewalld"]
 
-    def execute(self, storage, ksdata):
+    def execute(self):
         args = []
 
         firewall_proxy = NETWORK.get_proxy(FIREWALL)
@@ -480,7 +480,7 @@ class Firstboot(RemovedCommand):
         # by Services module in the Services class.
         return ""
 
-    def execute(self, *args):
+    def execute(self):
         unit_name = "initial-setup.service"
         services_proxy = SERVICES.get_proxy()
         setup_on_boot = services_proxy.SetupOnBoot
@@ -560,7 +560,7 @@ class Lang(RemovedCommand):
         localization_proxy = LOCALIZATION.get_proxy()
         return localization_proxy.GenerateKickstart()
 
-    def execute(self, *args, **kwargs):
+    def execute(self):
         localization_proxy = LOCALIZATION.get_proxy()
         task_path = localization_proxy.InstallLanguageWithTask(util.getSysroot())
         task_proxy = LOCALIZATION.get_proxy(task_path)
@@ -573,7 +573,7 @@ class LogVol(COMMANDS.LogVol):
     pass
 
 class Logging(COMMANDS.Logging):
-    def execute(self, *args):
+    def execute(self):
         if anaconda_logging.logger.loglevel == anaconda_logging.DEFAULT_LEVEL:
             # not set from the command line
             level = anaconda_logging.logLevelMap[self.level]
@@ -622,7 +622,7 @@ class Network(COMMANDS.Network):
         if network.is_using_team_device():
             self.packages = ["teamd"]
 
-    def execute(self, storage, payload, ksdata):
+    def execute(self, storage, payload):
         fcoe_ifaces = network.devices_used_by_fcoe(storage)
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
@@ -775,7 +775,7 @@ class SELinux(RemovedCommand):
         security_proxy = SECURITY.get_proxy()
         return security_proxy.GenerateKickstart()
 
-    def execute(self, *args):
+    def execute(self):
         security_proxy = SECURITY.get_proxy()
         selinux = security_proxy.SELinux
 
@@ -801,7 +801,7 @@ class Services(RemovedCommand):
         services_proxy = SERVICES.get_proxy()
         return services_proxy.GenerateKickstart()
 
-    def execute(self, storage, ksdata):
+    def execute(self):
         services_proxy = SERVICES.get_proxy()
 
         for svc in services_proxy.DisabledServices:
@@ -858,7 +858,7 @@ class Timezone(RemovedCommand):
                 enabled_services.append(NTP_SERVICE)
                 services_proxy.SetEnabledServices(enabled_services)
 
-    def execute(self, *args):
+    def execute(self):
         # get the DBus proxies
         timezone_proxy = TIMEZONE.get_proxy()
 
@@ -907,7 +907,7 @@ class User(COMMANDS.User):
             # If the user password came from a kickstart and it is blank we
             # need to make sure the account is locked, not created with an
             # empty password.
-            if ksdata.user.seen and kwargs.get("password", "") == "":
+            if self.seen and kwargs.get("password", "") == "":
                 kwargs["password"] = None
             try:
                 users.createUser(usr.name, **kwargs)
@@ -924,7 +924,7 @@ class XConfig(RemovedCommand):
         # by Services module in the Services class.
         return ""
 
-    def execute(self, *args):
+    def execute(self):
         desktop = Desktop()
         services_proxy = SERVICES.get_proxy()
         default_target = services_proxy.DefaultTarget
@@ -957,15 +957,15 @@ class Snapshot(COMMANDS.Snapshot):
         """
         return any(snap.when == when for snap in self.dataList())
 
-    def setup(self, storage, ksdata):
+    def setup(self, storage):
         """ Prepare post installation snapshots.
 
             This will also do the checking of snapshot validity.
         """
         for snap_data in self._post_snapshots():
-            snap_data.setup(storage, ksdata)
+            snap_data.setup(storage)
 
-    def execute(self, storage, ksdata):
+    def execute(self, storage):
         """ Create ThinLV snapshot after post section stops.
 
             Blivet must be reset before creation of the snapshot. This is
@@ -977,9 +977,9 @@ class Snapshot(COMMANDS.Snapshot):
             try_populate_devicetree(storage.devicetree)
             for snap_data in post_snapshots:
                 log.debug("Snapshot: creating post-install snapshot %s", snap_data.name)
-                snap_data.execute(storage, ksdata)
+                snap_data.execute(storage)
 
-    def pre_setup(self, storage, ksdata):
+    def pre_setup(self, storage):
         """ Prepare pre installation snapshots.
 
             This will also do the checking of snapshot validity.
@@ -991,9 +991,9 @@ class Snapshot(COMMANDS.Snapshot):
             threadMgr.wait(THREAD_STORAGE)
 
         for snap_data in pre_snapshots:
-            snap_data.setup(storage, ksdata)
+            snap_data.setup(storage)
 
-    def pre_execute(self, storage, ksdata):
+    def pre_execute(self, storage):
         """ Create ThinLV snapshot before installation starts.
 
             This must be done before user can change anything
@@ -1014,7 +1014,7 @@ class Snapshot(COMMANDS.Snapshot):
 
             for snap_data in pre_snapshots:
                 log.debug("Snapshot: creating pre-install snapshot %s", snap_data.name)
-                snap_data.execute(storage, ksdata)
+                snap_data.execute(storage)
 
             try_populate_devicetree(storage.devicetree)
 
@@ -1023,7 +1023,7 @@ class SnapshotData(COMMANDS.SnapshotData):
         super().__init__(*args, **kwargs)
         self.thin_snapshot = None
 
-    def setup(self, storage, ksdata):
+    def setup(self, storage):
         """ Add ThinLV snapshot to Blivet model but do not create it.
 
             This will plan snapshot creation on the end of the installation. This way
@@ -1062,7 +1062,7 @@ class SnapshotData(COMMANDS.SnapshotData):
         except ValueError as e:
             raise KickstartParseError(lineno=self.lineno, msg=e)
 
-    def execute(self, storage, ksdata):
+    def execute(self, storage):
         """ Execute an action for snapshot creation. """
         self.thin_snapshot.create()
         if isinstance(self.thin_snapshot.format, XFS):
@@ -1076,7 +1076,7 @@ class Keyboard(RemovedCommand):
         # by Localization module in the Lang class.
         return ""
 
-    def execute(self, *args):
+    def execute(self):
         localization_proxy = LOCALIZATION.get_proxy()
         keyboard.write_keyboard_config(localization_proxy, util.getSysroot())
 

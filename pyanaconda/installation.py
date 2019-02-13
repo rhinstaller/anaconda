@@ -93,22 +93,22 @@ def doConfiguration(storage, payload, ksdata):
 
     # schedule the execute methods of ksdata that require an installed system to be present
     os_config = TaskQueue("Installed system configuration", N_("Configuring installed system"))
-    os_config.append(Task("Configure authselect", ksdata.authselect.execute, (storage, ksdata)))
-    os_config.append(Task("Configure SELinux", ksdata.selinux.execute, (storage, ksdata)))
-    os_config.append(Task("Configure first boot tasks", ksdata.firstboot.execute, (storage, ksdata)))
-    os_config.append(Task("Configure services", ksdata.services.execute, (storage, ksdata)))
-    os_config.append(Task("Configure keyboard", ksdata.keyboard.execute, (storage, ksdata)))
-    os_config.append(Task("Configure timezone", ksdata.timezone.execute, (storage, ksdata)))
-    os_config.append(Task("Configure language", ksdata.lang.execute, (storage, ksdata)))
-    os_config.append(Task("Configure firewall", ksdata.firewall.execute, (storage, ksdata)))
-    os_config.append(Task("Configure X", ksdata.xconfig.execute, (storage, ksdata)))
+    os_config.append(Task("Configure authselect", ksdata.authselect.execute))
+    os_config.append(Task("Configure SELinux", ksdata.selinux.execute))
+    os_config.append(Task("Configure first boot tasks", ksdata.firstboot.execute))
+    os_config.append(Task("Configure services", ksdata.services.execute))
+    os_config.append(Task("Configure keyboard", ksdata.keyboard.execute))
+    os_config.append(Task("Configure timezone", ksdata.timezone.execute))
+    os_config.append(Task("Configure language", ksdata.lang.execute))
+    os_config.append(Task("Configure firewall", ksdata.firewall.execute))
+    os_config.append(Task("Configure X", ksdata.xconfig.execute))
     configuration_queue.append(os_config)
 
     # schedule network configuration (if required)
     if conf.system.provides_network_config:
         network_config = TaskQueue("Network configuration", N_("Writing network configuration"))
         network_config.append(Task("Network configuration",
-                                   ksdata.network.execute, (storage, payload, ksdata)))
+                                   ksdata.network.execute, (storage, payload)))
         configuration_queue.append(network_config)
 
     # creating users and groups requires some pre-configuration.
@@ -138,7 +138,7 @@ def doConfiguration(storage, payload, ksdata):
     bootloader_enabled = bootloader_proxy.BootloaderMode != BOOTLOADER_DISABLED
 
     if isinstance(payload, LiveImagePayload) and boot_on_btrfs and bootloader_enabled:
-        generate_initramfs.append(Task("Write BTRFS bootloader fix", write_boot_loader, (storage, payload, ksdata)))
+        generate_initramfs.append(Task("Write BTRFS bootloader fix", write_boot_loader, (storage, payload)))
 
     # Invoking zipl should be the last thing done on a s390x installation (see #1652727).
     if arch.is_s390() and not conf.target.is_directory and bootloader_enabled:
@@ -149,7 +149,7 @@ def doConfiguration(storage, payload, ksdata):
     # join a realm (if required)
     if ksdata.realm.discovered:
         join_realm = TaskQueue("Realm join", N_("Joining realm: %s") % ksdata.realm.discovered)
-        join_realm.append(Task("Join a realm", ksdata.realm.execute, (storage, ksdata)))
+        join_realm.append(Task("Join a realm", ksdata.realm.execute))
         configuration_queue.append(join_realm)
 
     post_scripts = TaskQueue("Post installation scripts", N_("Running post-installation scripts"))
@@ -350,7 +350,7 @@ def doInstall(storage, payload, ksdata):
     # Do bootloader.
     if can_install_bootloader:
         bootloader_install = TaskQueue("Bootloader installation", N_("Installing boot loader"))
-        bootloader_install.append(Task("Install bootloader", write_boot_loader, (storage, payload, ksdata)))
+        bootloader_install.append(Task("Install bootloader", write_boot_loader, (storage, payload)))
         installation_queue.append(bootloader_install)
 
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
@@ -360,7 +360,7 @@ def doInstall(storage, payload, ksdata):
     # Create snapshot
     if ksdata.snapshot and ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_POST_INSTALL):
         snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
-        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, ksdata)))
+        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, )))
         installation_queue.append(snapshot_creation)
 
     # notify progress tracking about the number of steps

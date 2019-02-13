@@ -80,7 +80,7 @@ def do_kickstart_storage(storage, data=None, partitioning=None):
 
     # Set up the snapshot here.
     if data is not None:
-        data.snapshot.setup(storage, data)
+        data.snapshot.setup(storage)
 
     # Set up the boot loader.
     storage.set_up_bootloader()
