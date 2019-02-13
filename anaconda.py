@@ -241,11 +241,6 @@ def setup_environment():
     else:
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
 
-# pylint: disable=redefined-outer-name
-def start_debugger(signum, frame):
-    # pylint: disable=import-error
-    import epdb
-    epdb.serve(skip=1)
 
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
@@ -410,9 +405,6 @@ if __name__ == "__main__":
 
         util.ipmi_report(constants.IPMI_FAILED)
         sys.exit(1)
-
-    # add our own additional signal handlers
-    signal.signal(signal.SIGHUP, start_debugger)
 
     # assign the other anaconda variables from options
     anaconda.set_from_opts(opts)
