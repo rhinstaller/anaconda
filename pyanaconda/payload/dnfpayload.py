@@ -1,7 +1,6 @@
-# dnfpayload.py
 # DNF/rpm software payload management.
 #
-# Copyright (C) 2013-2015  Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -18,24 +17,6 @@
 # Red Hat, Inc.
 #
 import os
-
-from blivet.size import Size
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
-from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, N_
-from pyanaconda.progress import progressQ, progress_message
-from pyanaconda.core.util import ProxyString, ProxyStringError
-from pyanaconda.core import constants
-from pyanaconda.core import util
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.modules.common.constants.services import LOCALIZATION
-from pyanaconda.simpleconfig import SimpleConfigFile
-from pyanaconda.kickstart import RepoData
-
-import pyanaconda.errors as errors
-import pyanaconda.localization
-import pyanaconda.payload as payload
-
 import configparser
 import collections
 import multiprocessing
@@ -47,9 +28,21 @@ import time
 import threading
 from requests.exceptions import RequestException
 
+from pyanaconda.flags import flags
+from pyanaconda.core.i18n import _, N_
+from pyanaconda.progress import progressQ, progress_message
+from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core import constants
+from pyanaconda.core import util
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.modules.common.constants.services import LOCALIZATION
+from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.kickstart import RepoData
+from pyanaconda.product import productName, productVersion
 
-from pyanaconda.anaconda_loggers import get_packaging_logger, get_dnf_logger
-log = get_packaging_logger()
+import pyanaconda.errors as errors
+import pyanaconda.localization
+import pyanaconda.payload as payload
 
 import dnf
 import dnf.logging
@@ -60,8 +53,14 @@ import dnf.transaction
 import libdnf.conf
 import dnf.conf.substitutions
 import rpm
-
 from dnf.const import GROUP_PACKAGE_TYPES
+
+from blivet.size import Size
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
+
+from pyanaconda.anaconda_loggers import get_packaging_logger, get_dnf_logger
+log = get_packaging_logger()
+
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
@@ -81,7 +80,6 @@ REPO_DIRS = ['/etc/yum.repos.d',
              '/tmp/product/anaconda.repos.d']
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
 
-from pyanaconda.product import productName, productVersion
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
 
 # Bonus to required free space which depends on block size and rpm database size estimation.
@@ -142,13 +140,15 @@ def _pick_mpoint(df, download_size, install_size, download_only):
 
     # Find sufficient mountpoint to download and install packages.
     sufficients = {key: val for (key, val) in df.items()
-                   if ((key != root_mpoint and val > requested) or val > requested_root) and reasonable_mpoint(key)}
+                   if ((key != root_mpoint and val > requested) or val > requested_root) and
+                   reasonable_mpoint(key)}
 
     # If no sufficient mountpoints for download and install were found and we are looking
     # for download mountpoint only, ignore install size and try to find mountpoint just
     # to download packages. This fallback is required when user skipped space check.
     if not sufficients and download_only:
-        sufficients = {key: val for (key, val) in df.items() if val > requested and reasonable_mpoint(key)}
+        sufficients = {key: val for (key, val) in df.items() if val > requested and
+                       reasonable_mpoint(key)}
         if sufficients:
             log.info('Sufficient mountpoint for download only found: %s', sufficients)
     elif sufficients:
@@ -205,13 +205,13 @@ class PayloadRPMDisplay(dnf.callback.TransactionProgress):
         elif action == dnf.transaction.PKG_SCRIPTLET:
             # Log the exact package nevra, build time and checksum
             nevra = "%s-%s.%s" % (package.name, package.evr, package.arch)
-            log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime, package.returnIdSum()[1])
+            log_msg = "Configuring (running scriptlet for): %s %s %s" % (nevra, package.buildtime,
+                                                                         package.returnIdSum()[1])
             self._queue.put(('log', log_msg))
 
             # only show progress in UI for post-installation scriptlets
             if self._postinst_phase:
                 msg = '%s.%s' % (package.name, package.arch)
-                #self.cnt += 1
                 self._queue.put(('configure', msg))
 
         elif action == dnf.transaction.PKG_VERIFY:
@@ -248,10 +248,10 @@ class DownloadProgress(dnf.callback.DownloadProgress):
                 '%(downloaded)s / %(total_size)s (%(percent)d%%) done.')
         downloaded = Size(sum(self.downloads.values()))
         vals = {
-            'downloaded'  : downloaded,
-            'percent'     : int(100 * downloaded / self.total_size),
-            'total_files' : self.total_files,
-            'total_size'  : self.total_size
+            'downloaded': downloaded,
+            'percent': int(100 * downloaded / self.total_size),
+            'total_files': self.total_files,
+            'total_size': self.total_size
         }
         progressQ.send_message(msg % vals)
 
@@ -269,7 +269,7 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         self._update()
 
     # TODO: Remove pylint disable after DNF-2.5.0 will arrive in Fedora
-    def start(self, total_files, total_size, total_drpms=0): # pylint: disable=arguments-differ
+    def start(self, total_files, total_size, total_drpms=0):  # pylint: disable=arguments-differ
         self.total_files = total_files
         self.total_size = Size(total_size)
 
@@ -288,7 +288,7 @@ def do_transaction(base, queue_instance):
         import traceback
         exit_reason = str(e) + traceback.format_exc()
     finally:
-        base.close() # Always close this base.
+        base.close()  # Always close this base.
         queue_instance.put(('quit', str(exit_reason)))
 
 
@@ -427,7 +427,7 @@ class DNFPayload(payload.PackagePayload):
         except dnf.exceptions.RepoError as e:
             ksrepo.disable()
             log.debug("repo: '%s' - %s failed to load repomd", ksrepo.name,
-                     ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
+                      ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
             raise payload.MetadataError(e)
 
         log.info("enabled repo: '%s' - %s and got repomd", ksrepo.name,
@@ -462,7 +462,8 @@ class DNFPayload(payload.PackagePayload):
             module_base = dnf.module.module_base.ModuleBase(self._base)
             module_base.enable(module_specs)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("ModuleBase.enable(): some packages, groups or modules are missing or broken:\n%s", e)
+            log.debug("ModuleBase.enable(): some packages, groups or modules are "
+                      "missing or broken:\n%s", e)
             self._payload_setup_error(e)
 
     def _apply_selections(self):
@@ -563,11 +564,15 @@ class DNFPayload(payload.PackagePayload):
             # install_specs() returns a list of specs that appear to be missing
             self._base.install_specs(install=include_list, exclude=exclude_list)
         except dnf.exceptions.MarkingErrors as e:
-            log.debug("install_specs(): some packages, groups or modules are missing or broken:\n%s", e)
+            log.debug("install_specs(): some packages, groups or modules "
+                      " are missing or broken:\n%s", e)
             # if no errors were reported and --ignoremissing was used we can continue
-            transaction_too_broken = e.error_group_specs or e.error_pkg_specs or e.module_debsolv_errors
-            if not transaction_too_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.info("ignoring missing package/group/module specs due to --ingoremissing flag in kickstart")
+            transaction_broken = e.error_group_specs or \
+                e.error_pkg_specs or \
+                e.module_debsolv_errors
+            if not transaction_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
+                log.info("ignoring missing package/group/module specs due to --ingoremissing flag "
+                         "in kickstart")
             else:
                 self._payload_setup_error(e)
         except Exception as e:  # pylint: disable=broad-except
@@ -586,12 +591,12 @@ class DNFPayload(payload.PackagePayload):
                 # NOTE: req.strong not handled yet
                 self._req_packages.add(req.id)
             log.debug("selected package: %s, requirement for %s %s",
-                       req.id, req.reasons, ", ".join(ignore_msgs))
+                      req.id, req.reasons, ", ".join(ignore_msgs))
 
         for req in self.requirements.groups:
             # NOTE: req.strong not handled yet
             log.debug("selected group: %s, requirement for %s",
-                       req.id, req.reasons)
+                      req.id, req.reasons)
             self._req_groups.add(req.id)
 
         return True
@@ -789,7 +794,7 @@ class DNFPayload(payload.PackagePayload):
             self.disableRepo(id_)
             self.verbose_errors.append(str(e))
         log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
-                 dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
+                  dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
 
     @property
     def baseRepo(self):
@@ -840,7 +845,8 @@ class DNFPayload(payload.PackagePayload):
             size = size + download_size
             log.debug("Install + download space required %s", size)
         else:
-            log.debug("Download space required %s for mpoint %s (non-chroot)", download_size, m_point)
+            log.debug("Download space required %s for mpoint %s (non-chroot)",
+                      download_size, m_point)
             log.debug("Installation space required %s", size)
         return size
 
@@ -1213,9 +1219,9 @@ class DNFPayload(payload.PackagePayload):
             # one of these must be set to create new repo
             if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.metalink or
                     ksrepo.name in self._base.repos):
-                raise payload.PayloadSetupError("Repository %s has no mirror, baseurl or metalink set "
-                                                "and is not one of the pre-defined repositories"
-                                                % ksrepo.name)
+                raise payload.PayloadSetupError("Repository %s has no mirror, baseurl or metalink "
+                                                "set and is not one of the pre-defined "
+                                                "repositories" % ksrepo.name)
 
             self._add_repo(ksrepo)
 
@@ -1452,9 +1458,11 @@ class RepoMDMetaHash(object):
                     repomd = result.text
                     break
                 else:
-                    log.debug("Server returned %i code when downloading repomd", result.status_code)
+                    log.debug("Server returned %i code when downloading repomd",
+                              result.status_code)
                     continue
             except RequestException as e:
-                log.debug("Can't download new repomd.xml from %s with proxy: %s. Error: %s", url, proxies, e)
+                log.debug("Can't download new repomd.xml from %s with proxy: %s. Error: %s",
+                          url, proxies, e)
 
         return repomd

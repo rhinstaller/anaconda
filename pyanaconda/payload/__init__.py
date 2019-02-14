@@ -1,7 +1,6 @@
-# __init__.py
 # Entry point for anaconda's software management module.
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,13 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
-"""
-    TODO
-        - error handling!!!
-        - document all methods
-
-"""
 import os
 import shutil
 from glob import glob
@@ -32,8 +24,8 @@ import threading
 import re
 import functools
 from collections import OrderedDict, namedtuple
+from distutils.version import LooseVersion
 
-from blivet.size import Size, ROUND_HALF_UP
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
     DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
@@ -52,20 +44,19 @@ from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
+from pyanaconda.product import productName, productVersion
 
 from pykickstart.parser import Group
 
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
-from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
+from blivet.errors import StorageError
+from blivet.size import Size, ROUND_HALF_UP
 
-from pyanaconda.product import productName, productVersion
+from pyanaconda.anaconda_loggers import get_module_logger
+
+log = get_module_logger(__name__)
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
-
-from distutils.version import LooseVersion
 
 
 def versionCmp(v1, v2):
@@ -76,7 +67,7 @@ def versionCmp(v1, v2):
 
 
 ###
-### ERROR HANDLING
+# ERROR HANDLING
 ###
 class PayloadError(Exception):
     pass
@@ -111,7 +102,9 @@ class DependencyError(PayloadError):
 class PayloadInstallError(PayloadError):
     pass
 
+
 PayloadRequirementReason = namedtuple('PayloadRequirementReason', ['reason', 'strong'])
+
 
 class PayloadRequirement(object):
     """An object to store a payload requirement with info about its reasons.
@@ -147,7 +140,9 @@ class PayloadRequirement(object):
         self._reasons.append(PayloadRequirementReason(reason, strong))
 
     def __str__(self):
-        return "PayloadRequirement(id=%s, reasons=%s, strong=%s)" % (self.id, self.reasons, self.strong)
+        return "PayloadRequirement(id=%s, reasons=%s, strong=%s)" % (self.id,
+                                                                     self.reasons,
+                                                                     self.strong)
 
     def __repr__(self):
         return 'PayloadRequirement(id=%s, reasons=%s)' % (self.id, self._reasons)
@@ -155,6 +150,7 @@ class PayloadRequirement(object):
 
 class PayloadRequirementsMissingApply(Exception):
     pass
+
 
 class PayloadRequirements(object):
     """A container for payload requirements imposed by installed functionality.
@@ -285,6 +281,7 @@ class PayloadRequirements(object):
                 r.append((req_type.value, rid, req))
         return str(r)
 
+
 class Payload(object):
     """Payload is an abstract class for OS install delivery methods."""
     def __init__(self, data):
@@ -365,7 +362,7 @@ class Payload(object):
         return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
     ###
-    ### METHODS FOR WORKING WITH REPOSITORIES
+    # METHODS FOR WORKING WITH REPOSITORIES
     ###
     @property
     def addOns(self):
@@ -520,7 +517,7 @@ class Payload(object):
         return False
 
     ###
-    ### METHODS FOR WORKING WITH GROUPS
+    # METHODS FOR WORKING WITH GROUPS
     ###
     def is_language_supported(self, language):
         """Is the given language supported by the payload?
@@ -553,7 +550,6 @@ class Payload(object):
         :return: list of group names in a format specified by a kickstart file.
         """
         return [grp.name for grp in self.data.packages.groupList]
-
 
     def selectedGroupsIDs(self):
         """Return list of IDs for selected groups.
@@ -600,7 +596,7 @@ class Payload(object):
         self.data.packages.excludedGroupList.append(grp)
 
     ###
-    ### METHODS FOR QUERYING STATE
+    # METHODS FOR QUERYING STATE
     ###
     @property
     def spaceRequired(self):
@@ -612,9 +608,9 @@ class Payload(object):
         """An iterable of the kernel versions installed by the payload."""
         raise NotImplementedError()
 
-    ##
-    ## METHODS FOR TREE VERIFICATION
-    ##
+    ###
+    # METHODS FOR TREE VERIFICATION
+    ###
     def _refreshInstallTree(self, url):
         """Refresh installation tree metadata.
 
@@ -683,9 +679,9 @@ class Payload(object):
 
         return version
 
-    ##
-    ## METHODS FOR MEDIA MANAGEMENT (XXX should these go in another module?)
-    ##
+    ###
+    # METHODS FOR MEDIA MANAGEMENT (XXX should these go in another module?)
+    ###
     @staticmethod
     def _setupDevice(device, mountpoint):
         """Prepare an install CD/DVD for use as a package source."""
@@ -749,14 +745,13 @@ class Payload(object):
             raise PayloadSetupError(str(e))
 
     ###
-    ### METHODS FOR INSTALLING THE PAYLOAD
+    # METHODS FOR INSTALLING THE PAYLOAD
     ###
     def preInstall(self):
         """Perform pre-installation tasks."""
         util.mkdirChain(util.getSysroot() + "/root")
 
         self._writeModuleBlacklist()
-
 
     def install(self):
         """Install the payload."""
@@ -785,11 +780,11 @@ class Payload(object):
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
 
-        #copy RPMS
+        # copy RPMS
         for d in glob(DD_RPMS):
             shutil.copytree(d, util.getSysroot() + "/root/" + os.path.basename(d))
 
-        #copy modules and firmware into root's home directory
+        # copy modules and firmware into root's home directory
         if os.path.exists(DD_ALL):
             try:
                 shutil.copytree(DD_ALL, util.getSysroot() + "/root/DD")
@@ -814,7 +809,6 @@ class Payload(object):
         """
         return False
 
-
     def recreateInitrds(self):
         """Recreate the initrds by calling new-kernel-pkg or dracut
 
@@ -826,7 +820,8 @@ class Payload(object):
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             useDracut = False
         else:
-            log.warning("new-kernel-pkg does not exist - grubby wasn't installed?  using dracut instead.")
+            log.warning("new-kernel-pkg does not exist - grubby wasn't installed? "
+                        " using dracut instead.")
             useDracut = True
 
         for kernel in self.kernelVersionList:
@@ -858,10 +853,9 @@ class Payload(object):
                 # using /dev/disk/by-uuid/ is necessary due to disk image naming
                 util.execInSysroot("dracut",
                                    ["-N",
-                                     "--persistent-policy", "by-uuid",
-                                     "-f", "/boot/initramfs-%s.img" % kernel,
+                                    "--persistent-policy", "by-uuid",
+                                    "-f", "/boot/initramfs-%s.img" % kernel,
                                     kernel])
-
 
     def _setDefaultBootTarget(self):
         """Set the default systemd target for the system."""
@@ -1019,8 +1013,8 @@ class PackagePayload(Payload):
             unicode_fnames = (f.decode("utf-8") for f in hdr.filenames)
             # Find all /boot/vmlinuz- files and strip off vmlinuz-
             files.extend((f.split("/")[-1][8:] for f in unicode_fnames
-                if fnmatch(f, "/boot/vmlinuz-*") or
-                   fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
+                         if fnmatch(f, "/boot/vmlinuz-*") or
+                         fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
 
         return sorted(files, key=functools.cmp_to_key(versionCmp))
 
@@ -1059,9 +1053,9 @@ class PackagePayload(Payload):
             # one nfsiso repo to another nfsiso repo.  We need to have a
             # way to detect the stage2 state and work around it.
             # Commenting out the below is a hack for F18.  FIXME
-            #else:
-            #    # NFS
-            #    blivet.util.umount(ISO_DIR)
+            # else:
+            #     # NFS
+            #     blivet.util.umount(ISO_DIR)
 
         self.install_device = None
 
@@ -1203,7 +1197,9 @@ class PackagePayload(Payload):
             devspec = method.partition
             needmount = True
             # See if we used this method for stage2, thus dracut left it
-            if isodev and method.partition and method.partition in isodev and DRACUT_ISODIR in device:
+            if isodev and method.partition and \
+               method.partition in isodev and \
+               DRACUT_ISODIR in device:
                 # Everything should be setup
                 url = "file://" + DRACUT_REPODIR
                 needmount = False
@@ -1389,7 +1385,7 @@ class PackagePayload(Payload):
         return url
 
     ###
-    ### METHODS FOR WORKING WITH REPOSITORIES
+    # METHODS FOR WORKING WITH REPOSITORIES
     ###
     @property
     def repos(self):
@@ -1449,7 +1445,7 @@ class PackagePayload(Payload):
         return None
 
     ###
-    ### METHODS FOR WORKING WITH ENVIRONMENTS
+    # METHODS FOR WORKING WITH ENVIRONMENTS
     ###
     @property
     def environments(self):
@@ -1498,7 +1494,7 @@ class PackagePayload(Payload):
                     self._environmentAddons[environment][1].append(grp)
 
     ###
-    ### METHODS FOR WORKING WITH GROUPS
+    # METHODS FOR WORKING WITH GROUPS
     ###
     @property
     def groups(self):
@@ -1628,7 +1624,7 @@ class PayloadManager(object):
         :param bool fallback: Whether to fall back to the default repo in case of error
         :param bool checkmount: Whether to check for valid mounted media
         :param bool onlyOnChange: Restart thread only if existing repositories changed.
-                                    This won't restart thread even when a new repository was added!!
+                                  This won't restart thread even when a new repository was added!!
         """
         log.debug("Restarting payload thread")
 

@@ -22,31 +22,31 @@ import os
 import sys
 from subprocess import CalledProcessError
 
+import pyanaconda.errors as errors
 from pyanaconda.core import util
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.progress import progressQ
-
-import gi
-gi.require_version("Gio", "2.0")
-
-from gi.repository import Gio
-
-from blivet.size import Size
-from blivet.util import umount
-
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
 from pyanaconda.payload import ArchivePayload, PayloadInstallError
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
-import pyanaconda.errors as errors
+
+from blivet.size import Size
+from blivet.util import umount
+
+import gi
+gi.require_version("Gio", "2.0")
+from gi.repository import Gio
+
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
 
 class RPMOSTreePayload(ArchivePayload):
-    """ A RPMOSTreePayload deploys a tree (possibly with layered packages) onto the target system. """
+    """ A RPMOSTreePayload deploys a tree (possibly with layered packages)
+    onto the target system."""
     def __init__(self, data):
         super().__init__(data)
         self._remoteOptions = None
@@ -188,7 +188,7 @@ class RPMOSTreePayload(ArchivePayload):
         # Initialize the filesystem - this will create the repo as well
         self._safeExecWithRedirect("ostree",
                                    ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
-                                   "init-fs", util.getTargetPhysicalRoot()])
+                                    "init-fs", util.getTargetPhysicalRoot()])
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
@@ -215,7 +215,7 @@ class RPMOSTreePayload(ArchivePayload):
         # Variable substitute the ref: https://pagure.io/atomic-wg/issue/299
         ref = RpmOstree.varsubst_basearch(ostreesetup.ref)
 
-        progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") % \
+        progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") %
                                {"branchName": ref, "source": ostreesetup.remote})
 
         progress = OSTree.AsyncProgress.new()
@@ -257,7 +257,7 @@ class RPMOSTreePayload(ArchivePayload):
 
         self._safeExecWithRedirect("ostree",
                                    ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
-                                   "os-init", ostreesetup.osname])
+                                    "os-init", ostreesetup.osname])
 
         admin_deploy_args = ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
                              "deploy", "--os=" + ostreesetup.osname]

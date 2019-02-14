@@ -1,7 +1,6 @@
-# livepayload.py
 # Live media software payload management.
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -29,33 +28,32 @@
 """
 import os
 import stat
-from time import sleep
-from threading import Lock
 import requests
-
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import ProxyString, ProxyStringError
 import hashlib
 import glob
 import functools
+from time import sleep
+from threading import Lock
 
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core import util
+from pyanaconda.core.i18n import _
 from pyanaconda.payload import ImagePayload, PayloadSetupError, PayloadInstallError
+from pyanaconda.payload import versionCmp
+from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.progress import progressQ
 
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX
 
-from pyanaconda.core import util
+from blivet.size import Size
+import blivet.util
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
 
-from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.progress import progressQ
-from blivet.size import Size
-import blivet.util
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core.i18n import _
-from pyanaconda.payload import versionCmp
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
@@ -78,7 +76,8 @@ class LiveImagePayload(ImagePayload):
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
         if not stat.S_ISBLK(os.stat(osimg.path)[stat.ST_MODE]):
-            exn = PayloadSetupError("%s is not a valid block device" % (self.data.method.partition,))
+            exn = PayloadSetupError("%s is not a valid block device" %
+                                    (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
         rc = blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
@@ -124,7 +123,8 @@ class LiveImagePayload(ImagePayload):
                 with self.pct_lock:
                     self.pct = pct
                 last_pct = pct
-                progressQ.send_message(_("Installing software") + (" %d%%") % (min(100, self.pct),))
+                progressQ.send_message(_("Installing software") + (" %d%%") %
+                                       (min(100, self.pct),))
             sleep(0.777)
 
     def install(self):
@@ -205,7 +205,9 @@ class LiveImagePayload(ImagePayload):
         for kernel in self.kernelVersionList:
             if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
                 log.info("Regenerating BLS info for %s", kernel)
-                util.execInSysroot("kernel-install", ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)])
+                util.execInSysroot("kernel-install", ["add",
+                                                      kernel,
+                                                      "/lib/modules/{0}/vmlinuz".format(kernel)])
 
     @property
     def spaceRequired(self):
@@ -213,10 +215,12 @@ class LiveImagePayload(ImagePayload):
 
     def _updateKernelVersionList(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
-        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir))
+        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" %
+                               conf.bootloader.efi_dir))
 
         self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
-           if os.path.isfile(f) and "-rescue-" not in f), key=functools.cmp_to_key(versionCmp))
+                                         if os.path.isfile(f) and "-rescue-" not in f),
+                                         key=functools.cmp_to_key(versionCmp))
 
     @property
     def kernelVersionList(self):
@@ -251,7 +255,8 @@ class DownloadProgress(object):
         if pct == self._pct:
             return
         self._pct = pct
-        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % {"url": self.url, "pct": pct})
+        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") %
+                               {"url": self.url, "pct": pct})
 
     def end(self, bytes_read):
         """ Download complete
@@ -259,7 +264,9 @@ class DownloadProgress(object):
             :param bytes_read: Bytes read so far
             :type bytes_read:  int
         """
-        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % {"url": self.url, "pct": 100})
+        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") %
+                               {"url": self.url, "pct": 100})
+
 
 class LiveImageKSPayload(LiveImagePayload):
     """ Install using a live filesystem image from the network """
@@ -347,7 +354,8 @@ class LiveImageKSPayload(LiveImagePayload):
             log.info("Starting image download")
             with open(self.image_path, "wb") as f:
                 ssl_verify = not self.data.method.noverifyssl
-                response = self._session.get(self.data.method.url, proxies=self._proxies, verify=ssl_verify, stream=True)
+                response = self._session.get(self.data.method.url, proxies=self._proxies,
+                                             verify=ssl_verify, stream=True)
                 total_length = response.headers.get('content-length')
                 if total_length is None:  # no content length header
                     # just download the file in one go and fake the progress reporting once done
