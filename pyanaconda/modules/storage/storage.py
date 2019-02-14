@@ -23,6 +23,8 @@ from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING, \
+    CUSTOM_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.dasd import DASDModule
@@ -34,6 +36,7 @@ from pyanaconda.modules.storage.installation import MountFilesystemsTask, Activa
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule, CustomPartitioningModule
+from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
@@ -67,15 +70,6 @@ class StorageModule(KickstartModule):
         self._bootloader_module = BootloaderModule()
         self._add_module(self._bootloader_module)
 
-        self._auto_part_module = AutoPartitioningModule()
-        self._add_module(self._auto_part_module)
-
-        self._manual_part_module = ManualPartitioningModule()
-        self._add_module(self._manual_part_module)
-
-        self._custom_part_module = CustomPartitioningModule()
-        self._add_module(self._custom_part_module)
-
         self._fcoe_module = FCOEModule()
         self._add_module(self._fcoe_module)
 
@@ -89,14 +83,30 @@ class StorageModule(KickstartModule):
             self._zfcp_module = ZFCPModule()
             self._add_module(self._zfcp_module)
 
-        # Connect signals.
-        self.storage_changed.connect(self._auto_part_module.on_storage_reset)
-        self.storage_changed.connect(self._manual_part_module.on_storage_reset)
-        self.storage_changed.connect(self._custom_part_module.on_storage_reset)
+        # Initialize the partitioning modules.
+        self._partitioning_modules = {}
+
+        self._auto_part_module = AutoPartitioningModule()
+        self._add_partitioning_module(AUTO_PARTITIONING.object_path, self._auto_part_module)
+
+        self._manual_part_module = ManualPartitioningModule()
+        self._add_partitioning_module(MANUAL_PARTITIONING.object_path, self._manual_part_module)
+
+        self._custom_part_module = CustomPartitioningModule()
+        self._add_partitioning_module(CUSTOM_PARTITIONING.object_path, self._custom_part_module)
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
         self._modules.append(storage_module)
+
+    def _add_partitioning_module(self, object_path, partitioning_module):
+        """Add a partitioning module."""
+        # Add the module.
+        self._modules.append(partitioning_module)
+        self._partitioning_modules[object_path] = partitioning_module
+
+        # Connect the callbacks.
+        self.storage_changed.connect(partitioning_module.on_storage_reset)
 
     def publish(self):
         """Publish the module."""
@@ -178,6 +188,27 @@ class StorageModule(KickstartModule):
         # Publish the task.
         path = self.publish_task(STORAGE.namespace, task)
         return path
+
+    def apply_partitioning(self, object_path):
+        """Apply a partitioning.
+
+        :param object_path: an object path of a partitioning module
+        :raise: InvalidStorageError of the partitioning is not valid
+        """
+        # Get the partitioning module.
+        module = self._partitioning_modules.get(object_path)
+
+        if not module:
+            raise ValueError("Unknown partitioning {}.".format(object_path))
+
+        # Validate the partitioning.
+        storage = module.storage
+        task = StorageValidateTask(storage)
+        task.run()
+
+        # Apply the partitioning.
+        self.set_storage(storage.copy())
+        log.debug("Applied the partitioning from %s.", object_path)
 
     def install_with_tasks(self):
         """Returns installation tasks of this module.
