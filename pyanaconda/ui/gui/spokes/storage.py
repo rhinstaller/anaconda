@@ -74,6 +74,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UN
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, AUTOPART_TYPE_DEFAULT
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
+from pyanaconda.storage.osinstall import select_all_disks_by_default
 from pyanaconda.storage_utils import on_disk_storage, nvdimm_update_ksdata_for_used_devices
 from pyanaconda.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
@@ -808,6 +809,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Automatically format DASDs if allowed.
         DasdFormatting.run_automatically(self.storage, self.data, self._show_dasdfmt_report)
+
+        # Update the selected disks.
+        if flags.automatedInstall:
+            self.selected_disks = select_all_disks_by_default(self.storage)
 
         # Continue with initializing.
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
