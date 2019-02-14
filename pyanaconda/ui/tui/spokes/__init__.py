@@ -19,8 +19,8 @@
 
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
 from pyanaconda.ui.tui.tuiobject import TUIObject
+from pyanaconda.ui.lib.help import get_help_path
 from pyanaconda.core.i18n import N_, _
-from pyanaconda import ihelp
 
 from simpleline.render.adv_widgets import HelpScreen
 from simpleline.render.screen import InputState
@@ -101,7 +101,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
         # TRANSLATORS: 'h' to help
         if key.lower() == Prompt.HELP:
             if self.has_help:
-                help_path = ihelp.get_help_path(self.helpFile, True)
+                help_path = get_help_path(self.helpFile, True)
                 ScreenHandler.push_screen_modal(HelpScreen(help_path))
                 return InputState.PROCESSED_AND_REDRAW
 

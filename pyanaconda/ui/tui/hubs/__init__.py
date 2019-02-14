@@ -16,9 +16,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda import ihelp
 from pyanaconda import lifecycle
 from pyanaconda.ui.tui.tuiobject import TUIObject
+from pyanaconda.ui.lib.help import get_help_path
 from pyanaconda.ui import common
 
 from simpleline.render.adv_widgets import HelpScreen
@@ -139,7 +139,7 @@ class TUIHub(TUIObject, common.Hub):
             # TRANSLATORS: 'h' to help
             elif key == Prompt.HELP:
                 if self.has_help:
-                    help_path = ihelp.get_help_path(self.helpFile, True)
+                    help_path = get_help_path(self.helpFile, True)
                     ScreenHandler.push_screen_modal(HelpScreen(help_path))
                     return InputState.PROCESSED_AND_REDRAW
             return key
