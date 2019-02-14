@@ -27,7 +27,6 @@ from blivet.iscsi import iscsi
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
     DISK_INITIALIZATION, FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -150,16 +149,26 @@ def initialize_storage(storage):
     if not conf.system._is_live_os and not any(d.protected for d in storage.devices):
         raise UnknownSourceDeviceError()
 
-    # kickstart uses all the disks
-    if flags.automatedInstall:
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        ignored_disks = disk_select_proxy.IgnoredDisks
 
-        if not selected_disks:
-            selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
-            disk_select_proxy.SetSelectedDisks(selected_disks)
-            log.debug("onlyuse is now: %s", ",".join(selected_disks))
+def select_all_disks_by_default(storage):
+    """Select all disks for the partitioning by default.
+
+    It will select all disks for the partitioning if there are
+    no disks selected. Kickstart uses all the disks by default.
+
+    :param storage: an instance of the Blivet's storage object
+    :return: a list of selected disks
+    """
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    selected_disks = disk_select_proxy.SelectedDisks
+    ignored_disks = disk_select_proxy.IgnoredDisks
+
+    if not selected_disks:
+        selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
+        disk_select_proxy.SetSelectedDisks(selected_disks)
+        log.debug("Selecting all disks by default: %s", ",".join(selected_disks))
+
+    return selected_disks
 
 
 def reset_storage(storage):
