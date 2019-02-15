@@ -1473,9 +1473,6 @@ class PackagePayload(Payload):
     def _isGroupVisible(self, grpid):
         raise NotImplementedError()
 
-    def _groupHasInstallableMembers(self, grpid):
-        raise NotImplementedError()
-
     def _refreshEnvironmentAddons(self):
         log.info("Refreshing environmentAddons")
         self._environmentAddons = {}
@@ -1486,9 +1483,7 @@ class PackagePayload(Payload):
             # Determine which groups are specific to this environment and which other groups
             # are available in this environment.
             for grp in self.groups:
-                if not self._groupHasInstallableMembers(grp):
-                    continue
-                elif self.environmentHasOption(environment, grp):
+                if self.environmentHasOption(environment, grp):
                     self._environmentAddons[environment][0].append(grp)
                 elif self._isGroupVisible(grp):
                     self._environmentAddons[environment][1].append(grp)

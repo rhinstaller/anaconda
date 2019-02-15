@@ -879,9 +879,6 @@ class DNFPayload(payload.PackagePayload):
             raise payload.NoSuchGroup(grpid)
         return grp.visible
 
-    def _groupHasInstallableMembers(self, grpid):
-        return True
-
     def checkSoftwareSelection(self):
         log.info("checking software selection")
         self._bump_tx_id()
