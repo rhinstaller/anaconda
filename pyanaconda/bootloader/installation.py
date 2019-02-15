@@ -38,9 +38,6 @@ def write_boot_loader(storage, payload):
         image. We only have to add images for the non-default kernels and
         adjust the default to reflect whatever the default variant is.
     """
-    # Set up the boot loader.
-    storage.bootloader.menu_auto_hide = conf.bootloader.menu_auto_hide
-
     # Configure the boot loader.
     if not payload.handlesBootloaderConfiguration:
         _configure_boot_loader(storage, payload.kernelVersionList)
