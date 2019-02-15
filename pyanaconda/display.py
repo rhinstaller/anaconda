@@ -195,13 +195,25 @@ def do_extra_x11_actions(runres, gui_mode):
     start_spice_vd_agent()
 
 
+def write_xdriver(driver, root=None):
+    """Write the X driver."""
+    if root is None:
+        root = util.getSysroot()
+
+    if not os.path.isdir("%s/etc/X11" % (root,)):
+        os.makedirs("%s/etc/X11" % (root,), mode=0o755)
+
+    f = open("%s/etc/X11/xorg.conf" % (root,), 'w')
+    f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % driver)
+    f.close()
+
+
 # general display startup
-def setup_display(anaconda, options, addon_paths=None):
+def setup_display(anaconda, options):
     """Setup the display for the installation environment.
 
     :param anaconda: instance of the Anaconda class
     :param options: command line/boot options
-    :param addon_paths: Anaconda addon paths
     """
 
     try:
@@ -216,7 +228,6 @@ def setup_display(anaconda, options, addon_paths=None):
 
     anaconda.display_mode = options.display_mode
     anaconda.interactive_mode = not options.noninteractive
-    anaconda.isHeadless = blivet.arch.is_s390()
 
     if options.vnc:
         flags.usevnc = True
@@ -234,8 +245,7 @@ def setup_display(anaconda, options, addon_paths=None):
                     vnc_server.vncconnectport = cargs[1]
 
     if options.xdriver:
-        anaconda.xdriver = options.xdriver
-        anaconda.writeXdriver(root="/")
+        write_xdriver(options.xdriver, root="/")
 
     if flags.rescue_mode:
         return
@@ -276,7 +286,7 @@ def setup_display(anaconda, options, addon_paths=None):
     want_x = anaconda.gui_mode and not (flags.preexisting_x11 or flags.usevnc)
 
     # X on a headless (e.g. s390) system? Nonsense!
-    if want_x and anaconda.isHeadless:
+    if want_x and blivet.arch.is_s390():
         stdout_log.warning(_("Running on a headless system. Starting text mode."))
         anaconda.display_mode = constants.DisplayModes.TUI
         anaconda.gui_startup_failed = True
@@ -333,4 +343,4 @@ def setup_display(anaconda, options, addon_paths=None):
         do_startup_x11_actions()
 
     # with X running we can initialize the UI interface
-    anaconda.initInterface(addon_paths=addon_paths)
+    anaconda.initInterface()

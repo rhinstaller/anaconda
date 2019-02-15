@@ -627,7 +627,7 @@ if __name__ == "__main__":
     screen_access.sam.open_config_file()
 
     # now start the interface
-    display.setup_display(anaconda, opts, addon_paths=addon_paths)
+    display.setup_display(anaconda, opts)
     if anaconda.gui_startup_failed:
         # we need to reinitialize the locale if GUI startup failed,
         # as we might now be in text mode, which might not be able to display
@@ -780,7 +780,7 @@ if __name__ == "__main__":
             ksdata.snapshot.pre_setup(anaconda.storage)
             ksdata.snapshot.pre_execute(anaconda.storage)
 
-    anaconda._intf.setup(ksdata)
-    anaconda._intf.run()
+    anaconda.intf.setup(ksdata)
+    anaconda.intf.run()
 
 # vim:tw=78:ts=4:et:sw=4

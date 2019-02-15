@@ -26,7 +26,7 @@ import threading
 
 from pyanaconda import addons
 from pyanaconda.core.constants import DisplayModes
-from pyanaconda.core import util, constants
+from pyanaconda.core import constants
 from pyanaconda.dbus.launcher import AnacondaDBusLauncher
 from pyanaconda.payload.source import SourceFactory, PayloadSourceTypeUnrecognized
 
@@ -39,16 +39,10 @@ log = get_module_logger(__name__)
 
 class Anaconda(object):
     def __init__(self):
-        from pyanaconda import desktop
-
-        self.desktop = desktop.Desktop()
-        self.dir = None
         self._display_mode = None
         self._interactive_mode = True
         self.gui_startup_failed = False
-        self.id = None
         self._intf = None
-        self.isHeadless = False
         self.ksdata = None
         self.methodstr = None
         self.additional_repos = None
@@ -56,14 +50,8 @@ class Anaconda(object):
         self._payload = None
         self.proxy = None
         self.decorated = False
-
-        self.stage2 = None
         self._storage = None
-        self.updateSrc = None
         self.mehConfig = None
-
-        # *sigh* we still need to be able to write this out
-        self.xdriver = None
 
         # Data for inhibiting the screensaver
         self.dbus_session_connection = None
@@ -82,9 +70,7 @@ class Anaconda(object):
         self.opts = opts
         self.decorated = opts.decorated
         self.proxy = opts.proxy
-        self.updateSrc = opts.updateSrc
         self.methodstr = opts.method
-        self.stage2 = opts.stage2
         self.additional_repos = opts.addRepo
 
     @property
@@ -93,18 +79,6 @@ class Anaconda(object):
             self._dbus_launcher = AnacondaDBusLauncher()
 
         return self._dbus_launcher
-
-    def _getInterface(self):
-        return self._intf
-
-    def _setInterface(self, v):
-        # "lambda cannot contain assignment"
-        self._intf = v
-
-    def _delInterface(self):
-        del self._intf
-
-    intf = property(_getInterface, _setInterface, _delInterface)
 
     @property
     def payload(self):
@@ -292,7 +266,12 @@ class Anaconda(object):
             f.write("--- traceback: %s ---\n" % filename)
             f.write(dump_text + "\n")
 
-    def initInterface(self, addon_paths=None):
+    @property
+    def intf(self):
+        """The user interface."""
+        return self._intf
+
+    def initInterface(self):
         if self._intf:
             raise RuntimeError("Second attempt to initialize the InstallInterface")
 
@@ -325,16 +304,3 @@ class Anaconda(object):
 
         if addon_paths:
             self._intf.update_paths(addon_paths)
-
-    def writeXdriver(self, root=None):
-        # this should go away at some point, but until it does, we
-        # need to keep it around.
-        if self.xdriver is None:
-            return
-        if root is None:
-            root = util.getSysroot()
-        if not os.path.isdir("%s/etc/X11" %(root,)):
-            os.makedirs("%s/etc/X11" %(root,), mode=0o755)
-        f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
-        f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
-        f.close()
