@@ -973,7 +973,7 @@ class CustomPartitioningExecutor(PartitioningExecutor):
 
         if len(pvs) == 0 and not volgroup_data.preexist:
             raise KickstartParseError(
-                _("Volume group \"%s\" defined without any physical volumes.  Either specify"
+                _("Volume group \"%s\" defined without any physical volumes.  Either specify "
                   "physical volumes or use --useexisting.") % volgroup_data.vgname,
                 lineno=volgroup_data.lineno
             )
