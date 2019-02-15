@@ -41,10 +41,6 @@ def write_boot_loader(storage, payload):
     # Set up the boot loader.
     storage.bootloader.menu_auto_hide = conf.bootloader.menu_auto_hide
 
-    # Bridge storage EFI configuration to bootloader
-    if hasattr(storage.bootloader, 'efi_dir'):
-        storage.bootloader.efi_dir = conf.bootloader.efi_dir
-
     # Configure the boot loader.
     if not payload.handlesBootloaderConfiguration:
         _configure_boot_loader(storage, payload.kernelVersionList)

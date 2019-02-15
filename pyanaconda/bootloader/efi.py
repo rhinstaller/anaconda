@@ -34,13 +34,9 @@ __all__ = ["EFIBase", "EFIGRUB", "Aarch64EFIGRUB", "ArmEFIGRUB", "MacEFIGRUB"]
 class EFIBase(object):
     """A base class for EFI-based boot loaders."""
 
-    def __init__(self):
-        super().__init__()
-        self.efi_dir = None
-
     @property
     def _config_dir(self):
-        return "efi/EFI/{}".format(self.efi_dir)
+        return "efi/EFI/{}".format(conf.bootloader.efi_dir)
 
     def efibootmgr(self, *args, **kwargs):
         if not conf.target.is_hardware:
@@ -146,7 +142,6 @@ class EFIGRUB(EFIBase, GRUB2):
 
     def __init__(self):
         super().__init__()
-        self.efi_dir = 'BOOT'
         self._packages64 = [ "grub2-efi-x64", "shim-x64" ]
 
         try:
