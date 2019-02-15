@@ -28,46 +28,73 @@ from pyanaconda.product import productName
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["write_boot_loader"]
+__all__ = ["write_boot_loader", "configure_boot_loader", "install_boot_loader"]
 
 
 def write_boot_loader(storage, payload):
-    """ Write bootloader configuration to disk.
+    """Write bootloader configuration to disk.
 
-        When we get here, the bootloader will already have a default linux
-        image. We only have to add images for the non-default kernels and
-        adjust the default to reflect whatever the default variant is.
+    FIXME: A temporary workaround for UI.
+
+    When we get here, the bootloader will already have a default linux
+    image. We only have to add images for the non-default kernels and
+    adjust the default to reflect whatever the default variant is.
     """
     # Configure the boot loader.
     if not payload.handlesBootloaderConfiguration:
-        _configure_boot_loader(storage, payload.kernelVersionList)
+        configure_boot_loader(
+            sysroot=util.getSysroot(),
+            storage=storage,
+            kernel_versions=payload.kernelVersionList
+        )
 
-    # Should we skip the installation?
-    if storage.bootloader.skip_bootloader:
-        log.info("skipping boot loader install per user request")
-        return
-
-    # Install the bootloader.
-    _set_boot_arguments(storage)
-    _install_boot_loader(storage)
+    # Install the boot loader.
+    if not storage.bootloader.skip_bootloader:
+        install_boot_loader(storage)
 
 
-def _configure_boot_loader(storage, kernel_versions):
-    """Configure the bootloader."""
+def configure_boot_loader(sysroot, storage, kernel_versions):
+    """Configure the boot loader.
+
+    :param sysroot: a path to the root of the installed system
+    :param storage: an instance of the storage
+    :param kernel_versions: a list of kernel versions
+    """
     log.debug("Configuring the boot loader.")
 
-    # get a list of installed kernel packages
-    # add whatever rescue kernels we can find to the end
-    kernel_versions = list(kernel_versions)
-
-    rescue_versions = glob(util.getSysroot() + "/boot/vmlinuz-*-rescue-*")
-    rescue_versions += glob(
-        util.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
-    kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
+    # Get a list of installed kernel packages.
+    # Add whatever rescue kernels we can find to the end.
+    kernel_versions = kernel_versions + _get_rescue_kernel_versions(sysroot)
 
     if not kernel_versions:
-        log.warning("no kernel was installed -- boot loader config unchanged")
+        log.warning("No kernel was installed. The boot loader configuration unchanged.")
         return
+
+    # Collect the boot loader images.
+    _collect_os_images(storage, kernel_versions)
+
+    # Write out /etc/sysconfig/kernel.
+    _write_sysconfig_kernel(sysroot, storage)
+
+
+def _get_rescue_kernel_versions(sysroot):
+    """Get a list of rescue kernel versions.
+
+    :param sysroot: a path to the root of the installed system
+    :return: a list of rescue kernel versions
+    """
+    rescue_versions = glob(sysroot + "/boot/vmlinuz-*-rescue-*")
+    rescue_versions += glob(sysroot + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % conf.bootloader.efi_dir)
+    return [f.split("/")[-1][8:] for f in rescue_versions]
+
+
+def _collect_os_images(storage, kernel_versions):
+    """Collect the OS images for the boot loader.
+
+    :param storage: an instance of the storage
+    :param kernel_versions: a list of kernel versions
+    """
+    log.debug("Collecting the OS images for: %s", ", ".join(kernel_versions))
 
     # all the linux images' labels are based on the default image's
     base_label = productName
@@ -83,9 +110,6 @@ def _configure_boot_loader(storage, kernel_versions):
     storage.bootloader.add_image(default_image)
     storage.bootloader.default = default_image
 
-    # write out /etc/sysconfig/kernel
-    _write_sysconfig_kernel(storage, version)
-
     # now add an image for each of the other kernels
     for version in kernel_versions:
         label = "%s-%s" % (base_label, version)
@@ -96,17 +120,21 @@ def _configure_boot_loader(storage, kernel_versions):
         storage.bootloader.add_image(image)
 
 
-def _write_sysconfig_kernel(storage, version):
-    """Write to /etc/sysconfig/kernel."""
+def _write_sysconfig_kernel(sysroot, storage):
+    """Write to /etc/sysconfig/kernel.
+
+    :param sysroot: a path to the root of the installed system
+    :param storage: an instance of the storage
+    """
     log.debug("Writing to /etc/sysconfig/kernel.")
 
     # get the name of the default kernel package based on the version
-    kernel_basename = "vmlinuz-" + version
+    kernel_basename = "vmlinuz-" + storage.bootloader.default.version
     kernel_file = "/boot/%s" % kernel_basename
-    if not os.path.isfile(util.getSysroot() + kernel_file):
+    if not os.path.isfile(sysroot + kernel_file):
         efi_dir = conf.bootloader.efi_dir
         kernel_file = "/boot/efi/EFI/%s/%s" % (efi_dir, kernel_basename)
-        if not os.path.isfile(util.getSysroot() + kernel_file):
+        if not os.path.isfile(sysroot + kernel_file):
             log.error("failed to recreate path to default kernel image")
             return
 
@@ -116,7 +144,7 @@ def _write_sysconfig_kernel(storage, version):
         log.error("failed to import rpm python module")
         return
 
-    ts = rpm.TransactionSet(util.getSysroot())
+    ts = rpm.TransactionSet(sysroot)
     mi = ts.dbMatch('basenames', kernel_file)
     try:
         h = next(mi)
@@ -126,7 +154,7 @@ def _write_sysconfig_kernel(storage, version):
 
     kernel = h.name.decode()
 
-    f = open(util.getSysroot() + "/etc/sysconfig/kernel", "w+")
+    f = open(sysroot + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
@@ -140,14 +168,11 @@ def _write_sysconfig_kernel(storage, version):
     f.close()
 
 
-def _set_boot_arguments(storage):
-    """Set up the final boot arguments."""
-    # FIXME: do this from elsewhere?
-    storage.bootloader.set_boot_args(storage)
+def install_boot_loader(storage):
+    """Do the final write of the boot loader.
 
-
-def _install_boot_loader(storage):
-    """Do the final write of the boot loader."""
+    :param storage: an instance of the storage
+    """
     log.debug("Installing the boot loader.")
 
     stage1_device = storage.bootloader.stage1_device
@@ -155,6 +180,9 @@ def _install_boot_loader(storage):
 
     stage2_device = storage.bootloader.stage2_device
     log.info("boot loader stage2 target device is %s", stage2_device.name)
+
+    # FIXME: do this from elsewhere?
+    storage.bootloader.set_boot_args(storage)
 
     try:
         storage.bootloader.write()
