@@ -17,7 +17,12 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import pickle
+
+from blivetgui.communication.server import BlivetUtilsServer
+
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
@@ -25,3 +30,59 @@ from pyanaconda.modules.storage.partitioning.base_interface import PartitioningI
 @dbus_interface(BLIVET_PARTITIONING.interface_name)
 class BlivetPartitioningInterface(PartitioningInterface):
     """DBus interface for the Blivet partitioning module."""
+
+    def __init__(self, implementation):
+        """Initialize the interface."""
+        super().__init__(implementation)
+        self._request_handler = BlivetRequestHandler()
+
+    def SendRequest(self, data: List[Byte]) -> List[Byte]:
+        """Send a request to the storage handler.
+
+        :param data: a request data in bytes
+        :return: a reply data in bytes
+        """
+        return self._request_handler.get_reply(bytes(data), self.implementation.storage_handler)
+
+
+class BlivetRequestHandler(BlivetUtilsServer):
+    """The request handler for the Blivet."""
+
+    def __init__(self):  # pylint: disable=super-init-not-called
+        self._data = None
+        self._result = None
+
+    def get_reply(self, request, utils):
+        """Get a reply to a request."""
+        self.blivet_utils = utils
+        self._data = request
+
+        # Handle the request.
+        self.handle()
+
+        # Return the reply.
+        return self._result
+
+    def handle(self):
+        """Handle a message."""
+        msg = self._recv_msg()
+        unpickled_msg = pickle.loads(msg)
+
+        if unpickled_msg[0] == "call":
+            self._call_utils_method(unpickled_msg)
+        elif unpickled_msg[0] == "param":
+            self._get_param(unpickled_msg)
+        elif unpickled_msg[0] == "method":
+            self._call_method(unpickled_msg)
+        elif unpickled_msg[0] == "next":
+            self._get_next(unpickled_msg)
+        elif unpickled_msg[0] == "key":
+            self._get_key(unpickled_msg)
+
+    def _recv_msg(self):
+        """Receive a message from a client."""
+        return self._data
+
+    def _send(self, data):
+        """Send a message to a client."""
+        self._result = data
