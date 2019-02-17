@@ -17,13 +17,17 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import tempfile
 import unittest
+from unittest.mock import Mock
 
+from pyanaconda.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_TYPE_EXTLINUX, \
     BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
+from pyanaconda.modules.storage.installation import ConfigureBootloaderTask, InstallBootloaderTask
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
@@ -114,3 +118,37 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             setter=self.bootloader_interface.SetEncryptedPassword,
             changed={'IsPasswordSet': True}
         )
+
+
+class BootloaderTasksTestCase(unittest.TestCase):
+    """Test tasks for the boot loader."""
+
+    def configure_test(self):
+        """Test the final configuration of the boot loader."""
+        storage = Mock()
+        version = "4.17.7-200.fc28.x86_64"
+
+        with tempfile.TemporaryDirectory() as root:
+            ConfigureBootloaderTask(storage, [version], root).run()
+
+        bootloader = storage.bootloader
+        bootloader.add_image.called_once()
+
+        image = bootloader.add_image.call_args[0][0]
+
+        self.assertIsInstance(image, LinuxBootLoaderImage)
+        self.assertEqual(image, bootloader.default)
+        self.assertEqual(image.version, version)
+        self.assertEqual(image.label, "anaconda")
+        self.assertEqual(image.short_label, "linux")
+        self.assertEqual(image.device, storage.root_device)
+
+    def install_test(self):
+        """Test the installation task for the boot loader."""
+        storage = Mock()
+
+        InstallBootloaderTask(storage).run()
+
+        bootloader = storage.bootloader
+        bootloader.set_boot_args.called_once()
+        bootloader.write.called_once()
