@@ -135,6 +135,14 @@ class PartitioningExecutor(ABC):
         pass
 
 
+class InteractivePartitioningExecutor(PartitioningExecutor):
+    """The executor of the interactive partitioning."""
+
+    def execute(self, storage):
+        """The partitioning is already set up, do nothing here."""
+        log.debug("Skip the partitioning execution.")
+
+
 class AutomaticPartitioningExecutor(PartitioningExecutor):
     """The executor of the automatic partitioning."""
 

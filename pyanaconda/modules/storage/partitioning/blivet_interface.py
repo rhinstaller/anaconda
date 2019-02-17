@@ -1,5 +1,7 @@
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# DBus interface for the Blivet partitioning module.
+#
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,10 +17,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.storage.partitioning.automatic import AutoPartitioningModule
-from pyanaconda.modules.storage.partitioning.blivet import BlivetPartitioningModule
-from pyanaconda.modules.storage.partitioning.custom import CustomPartitioningModule
-from pyanaconda.modules.storage.partitioning.manual import ManualPartitioningModule
+from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
+from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 
-__all__ = ["AutoPartitioningModule", "ManualPartitioningModule", "CustomPartitioningModule",
-           "BlivetPartitioningModule"]
+
+@dbus_interface(BLIVET_PARTITIONING.interface_name)
+class BlivetPartitioningInterface(PartitioningInterface):
+    """DBus interface for the Blivet partitioning module."""
