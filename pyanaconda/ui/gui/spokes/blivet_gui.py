@@ -20,6 +20,7 @@
 #
 
 """Module with the BlivetGuiSpoke class."""
+from threading import Lock
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -32,11 +33,14 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.i18n import _, CN_, C_
 from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
-from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, BLIVET_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
+from pyanaconda.modules.common.errors.storage import InvalidStorageError
+from pyanaconda.modules.common.task import sync_run_task
 
 from blivetgui import osinstall
+from blivetgui.communication.client import BlivetGUIClient
 from blivetgui.config import config
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -44,6 +48,66 @@ log = get_module_logger(__name__)
 
 # export only the spoke, no helper functions, classes or constants
 __all__ = ["BlivetGuiSpoke"]
+
+
+class BlivetGUIAnacondaClient(BlivetGUIClient):
+    """"The request handler for the Blivet-GUI."""
+
+    def __init__(self):  # pylint: disable=super-init-not-called
+        self.mutex = Lock()
+        self._proxy = None
+        self._result = None
+
+    def initialize(self):
+        """Initialize the client."""
+        self._proxy = STORAGE.get_proxy(BLIVET_PARTITIONING)
+
+    def _send(self, data):
+        """Send a message to a server."""
+        self._result = bytes(self._proxy.SendRequest(data))
+
+    def _recv_msg(self):
+        """Receive a message from a server."""
+        return self._result
+
+    def configure_storage(self):
+        """Configure the storage."""
+        task_path = self._proxy.ConfigureWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+    def validate_storage(self):
+        """Validate the storage."""
+        task_path = self._proxy.ValidateWithTask()
+        task_proxy = STORAGE.get_proxy(task_path)
+        sync_run_task(task_proxy)
+
+    def apply_storage(self):
+        """Apply the changes."""
+        storage_proxy = STORAGE.get_proxy()
+        storage_proxy.ApplyPartitioning(BLIVET_PARTITIONING.object_path)
+
+    def get_actions(self):
+        """Get the current actions."""
+        # FIXME: Add DBus support for this.
+        # return self._storage_playground.devicetree.actions.find()
+        return []
+
+    def sort_actions(self):
+        """Prune and sort the actions."""
+        # FIXME: Shouldn't we always do this?
+        # self._storage_playground.devicetree.actions.prune()
+        # self._storage_playground.devicetree.actions.sort()
+        pass
+
+    def set_new_swaps(self):
+        """Set new swaps."""
+        # FIXME: Add DBus support for this.
+        # new_swaps = [d for d in self._storage_playground.devices if d.direct and
+        #              not d.format.exists and not d.partitioned and d.format.type == "swap"]
+        # self.storage.set_fstab_swaps(new_swaps)
+        pass
+
 
 class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     ### class attributes defined by API ###
@@ -82,7 +146,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         self._error = None
         self._back_already_clicked = False
-        self._storage_playground = None
         self.label_actions = None
         self.button_reset = None
         self.button_undo = None
@@ -106,15 +169,14 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         NormalSpoke.initialize(self)
         self.initialize_start()
 
-        self._storage_playground = None
-
         config.log_dir = "/tmp"
-        self.client = osinstall.BlivetGUIAnacondaClient()
+        self.client = BlivetGUIAnacondaClient()
         box = self.builder.get_object("BlivetGuiViewport")
         self.label_actions = self.builder.get_object("summary_label")
         self.button_reset = self.builder.get_object("resetAllButton")
         self.button_undo = self.builder.get_object("undoLastActionButton")
 
+        # FIXME: Implement DBus support for this.
         config.default_fstype = self._storage.default_fstype
 
         self.blivetgui = osinstall.BlivetGUIAnaconda(self.client, self, box)
@@ -141,15 +203,12 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         self._back_already_clicked = False
 
-        self._storage_playground = self.storage.copy()
-        self.client.initialize(self._storage_playground)
+        self.client.initialize()
         self.blivetgui.initialize()
 
         # if we re-enter blivet-gui spoke, actions from previous visit were
         # not removed, we need to update number of blivet-gui actions
-        current_actions = self._storage_playground.devicetree.actions.find()
-        if current_actions:
-            self.blivetgui.set_actions(current_actions)
+        self.blivetgui.set_actions(self.client.get_actions())
 
     def apply(self):
         """
@@ -157,8 +216,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         update the contents of self.data with values set in the GUI elements.
 
         """
-
-        self._set_new_swaps()
+        self.client.set_new_swaps()
 
     @property
     def indirect(self):
@@ -178,24 +236,21 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         StorageCheckHandler.errors = []
         StorageCheckHandler.warnings = []
 
-        # We can't overwrite the main Storage instance because all the other
-        # spokes have references to it that would get invalidated, but we can
-        # achieve the same effect by updating/replacing a few key attributes.
-        self.storage.devicetree._devices = self._storage_playground.devicetree._devices
-        self.storage.devicetree._actions = self._storage_playground.devicetree._actions
-        self.storage.devicetree._hidden = self._storage_playground.devicetree._hidden
-        self.storage.devicetree.names = self._storage_playground.devicetree.names
-        self.storage.roots = self._storage_playground.roots
-
         # set up bootloader and check the configuration
         try:
-            self.storage.set_up_bootloader()
-        except BootLoaderError as e:
+            self.client.configure_storage()
+        except BootloaderConfigurationError as e:
             log.error("storage configuration failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
             self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
 
-        StorageCheckHandler.checkStorage(self)
+        try:
+            self.client.validate_storage()
+        except InvalidStorageError as e:
+            # FIXME: Handle also the warnings.
+            StorageCheckHandler.errors.append(str(e))
+        else:
+            self.client.apply_storage()
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
@@ -211,12 +266,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
     def activate_action_buttons(self, activate):
         self.button_undo.set_sensitive(activate)
         self.button_reset.set_sensitive(activate)
-
-    def _set_new_swaps(self):
-        new_swaps = [d for d in self._storage_playground.devices if d.direct and
-                     not d.format.exists and not d.partitioned and d.format.type == "swap"]
-
-        self.storage.set_fstab_swaps(new_swaps)
 
     ### handlers ###
     def on_info_bar_clicked(self, *args):
@@ -251,9 +300,11 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
-        if len(self._storage_playground.devicetree.actions.find()) > 0:
+        actions = self.client.get_actions()
+
+        if actions:
             dialog = ActionSummaryDialog(self.data)
-            dialog.refresh(self._storage_playground.devicetree.actions.find())
+            dialog.refresh(actions)
             with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
@@ -261,9 +312,7 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
                 # Cancel.  Stay on the blivet-gui screen.
                 return
             else:
-                # remove redundant actions and sort them now
-                self._storage_playground.devicetree.actions.prune()
-                self._storage_playground.devicetree.actions.sort()
+                self.client.sort_actions()
 
         NormalSpoke.on_back_clicked(self, button)
 
@@ -298,6 +347,4 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
             # XXX: Reset currently preserves actions set in previous runs
             # of the spoke, so we need to 're-add' these to the ui
-            current_actions = self._storage_playground.devicetree.actions.find()
-            if current_actions:
-                self.blivetgui.set_actions(current_actions)
+            self.blivetgui.set_actions(self.client.get_actions())
