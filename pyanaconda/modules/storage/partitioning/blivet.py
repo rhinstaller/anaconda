@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivetgui.osinstall import BlivetUtilsAnaconda
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
@@ -33,9 +35,26 @@ log = get_module_logger(__name__)
 class BlivetPartitioningModule(PartitioningModule):
     """The partitioning module for Blivet-GUI."""
 
+    def __init__(self):
+        super().__init__()
+        self._handler = None
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(BLIVET_PARTITIONING.object_path, BlivetPartitioningInterface(self))
+
+    @property
+    def storage_handler(self):
+        """The handler of the storage.
+
+        :return: an instance of BlivetUtils
+        """
+        if not self._handler:
+            self._handler = BlivetUtilsAnaconda()
+
+        # Make sure that the handler always uses the current storage.
+        self._handler.storage = self.storage
+        return self._handler
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
