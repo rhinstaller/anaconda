@@ -20,31 +20,63 @@
 #
 
 """Module with the BlivetGuiSpoke class."""
+from threading import Lock
 
-import gi
-gi.require_version("Gtk", "3.0")
+from blivetgui.osinstall import BlivetGUIAnaconda
+from blivetgui.communication.client import BlivetGUIClient
+from blivetgui.config import config
 
-from gi.repository import Gtk
+from dasbus.client.proxy import get_object_path
+from dasbus.typing import unwrap_variant
 
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.modules.common.structures.validation import ValidationReport
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE
+from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
+    PARTITIONING_METHOD_BLIVET
 from pyanaconda.core.i18n import _, CN_, C_
-from pyanaconda.ui.lib.storage import reset_bootloader
-from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
-from pyanaconda.storage.execution import configure_storage
+from pyanaconda.ui.lib.storage import reset_bootloader, create_partitioning
 from pyanaconda.threading import threadMgr
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
+from pyanaconda.modules.common.task import sync_run_task
 
-from blivetgui import osinstall
-from blivetgui.config import config
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 # export only the spoke, no helper functions, classes or constants
 __all__ = ["BlivetGuiSpoke"]
+
+
+class BlivetGUIAnacondaClient(BlivetGUIClient):
+    """"The request handler for the Blivet-GUI."""
+
+    def __init__(self):  # pylint: disable=super-init-not-called
+        self.mutex = Lock()
+        self._callback = None
+        self._result = None
+
+    def initialize(self, callback):
+        """Initialize the client."""
+        self._callback = callback
+
+    def _send(self, data):
+        """Send a message to a server."""
+        self._result = bytes(self._callback(data))
+
+    def _recv_msg(self):
+        """Receive a message from a server."""
+        return self._result
+
+    def get_actions(self):
+        """Get the current actions."""
+        return self.remote_call("get_actions")
 
 
 class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
@@ -81,16 +113,29 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         :param payload: object storing payload-related information
         :type payload: pyanaconda.payload.Payload
         """
-
         self._error = None
         self._back_already_clicked = False
-        self._storage_playground = None
-        self.label_actions = None
-        self.button_reset = None
-        self.button_undo = None
+        self._label_actions = None
+        self._button_reset = None
+        self._button_undo = None
+
+        self._client = None
+        self._blivetgui = None
+        self._partitioning = None
+        self._device_tree = None
+
+        self._storage_module = STORAGE.get_proxy()
 
         StorageCheckHandler.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload)
+
+    @property
+    def label_actions(self):
+        """The summary label.
+
+        This property is required by Blivet-GUI.
+        """
+        return self._label_actions
 
     def initialize(self):
         """
@@ -99,30 +144,27 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         a long time and thus could be called in a separated thread.
 
         :see: pyanaconda.ui.common.UIObject.initialize
-
         """
-
         NormalSpoke.initialize(self)
         self.initialize_start()
 
-        self._storage_playground = None
-
         config.log_dir = "/tmp"
-        self.client = osinstall.BlivetGUIAnacondaClient()
-        box = self.builder.get_object("BlivetGuiViewport")
-        self.label_actions = self.builder.get_object("summary_label")
-        self.button_reset = self.builder.get_object("resetAllButton")
-        self.button_undo = self.builder.get_object("undoLastActionButton")
 
-        self.blivetgui = osinstall.BlivetGUIAnaconda(self.client, self, box)
+        box = self.builder.get_object("BlivetGuiViewport")
+        self._label_actions = self.builder.get_object("summary_label")
+        self._button_reset = self.builder.get_object("resetAllButton")
+        self._button_undo = self.builder.get_object("undoLastActionButton")
+
+        self._client = BlivetGUIAnacondaClient()
+        self._blivetgui = BlivetGUIAnaconda(self._client, self, box)
 
         # this needs to be done when the spoke is already "realized"
-        self.entered.connect(self.blivetgui.ui_refresh)
+        self.entered.connect(self._blivetgui.ui_refresh)
 
         # set up keyboard shurtcuts for blivet-gui (and unset them after
         # user lefts the spoke)
-        self.entered.connect(self.blivetgui.set_keyboard_shortcuts)
-        self.exited.connect(self.blivetgui.unset_keyboard_shortcuts)
+        self.entered.connect(self._blivetgui.set_keyboard_shortcuts)
+        self.exited.connect(self._blivetgui.unset_keyboard_shortcuts)
 
         self.initialize_done()
 
@@ -133,22 +175,23 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         self.data.
 
         :see: pyanaconda.ui.common.UIObject.refresh
-
         """
         for thread_name in [THREAD_EXECUTE_STORAGE, THREAD_STORAGE]:
             threadMgr.wait(thread_name)
 
-        self._back_already_clicked = False
+        if not self._partitioning:
+            # Create the partitioning now. It cannot by done earlier, because
+            # the storage spoke would use it as a default partitioning.
+            self._partitioning = create_partitioning(PARTITIONING_METHOD_BLIVET)
+            self._device_tree = STORAGE.get_proxy(self._partitioning.GetDeviceTree())
 
-        self._storage_playground = self.storage.copy()
-        self.client.initialize(self._storage_playground)
-        self.blivetgui.initialize()
+        self._back_already_clicked = False
+        self._client.initialize(self._partitioning.SendRequest)
+        self._blivetgui.initialize()
 
         # if we re-enter blivet-gui spoke, actions from previous visit were
         # not removed, we need to update number of blivet-gui actions
-        current_actions = self._storage_playground.devicetree.actions.find()
-        if current_actions:
-            self.blivetgui.set_actions(current_actions)
+        self._blivetgui.set_actions(self._client.get_actions())
 
     def apply(self):
         """
@@ -175,22 +218,32 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         StorageCheckHandler.errors = []
         StorageCheckHandler.warnings = []
 
-        # We can't overwrite the main Storage instance because all the other
-        # spokes have references to it that would get invalidated, but we can
-        # achieve the same effect by updating/replacing a few key attributes.
-        self.storage.devicetree._devices = self._storage_playground.devicetree._devices
-        self.storage.devicetree._actions = self._storage_playground.devicetree._actions
-        self.storage.devicetree._hidden = self._storage_playground.devicetree._hidden
-        self.storage.roots = self._storage_playground.roots
-
-        # set up bootloader and check the configuration
         try:
-            configure_storage(self.storage, interactive=True)
+            log.debug("Generating updated storage configuration")
+            task_path = self._partitioning.ConfigureWithTask()
+            task_proxy = STORAGE.get_proxy(task_path)
+            sync_run_task(task_proxy)
         except BootloaderConfigurationError as e:
-            StorageCheckHandler.errors = str(e).split("\n")
+            log.error("Storage configuration failed: %s", e)
+            StorageCheckHandler.errors = [str(e)]
             reset_bootloader()
+        else:
+            log.debug("Checking storage configuration...")
+            task_path = self._partitioning.ValidateWithTask()
+            task_proxy = STORAGE.get_proxy(task_path)
+            sync_run_task(task_proxy)
 
-        StorageCheckHandler.check_storage(self)
+            result = unwrap_variant(task_proxy.GetResult())
+            report = ValidationReport.from_structure(result)
+
+            log.error("\n".join(report.get_messages()))
+            StorageCheckHandler.errors = report.error_messages
+            StorageCheckHandler.warnings = report.warning_messages
+
+            if report.is_valid():
+                self._storage_module.ApplyPartitioning(
+                    get_object_path(self._partitioning)
+                )
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
@@ -204,8 +257,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         return self._error == ""
 
     def activate_action_buttons(self, activate):
-        self.button_undo.set_sensitive(activate)
-        self.button_reset.set_sensitive(activate)
+        self._button_undo.set_sensitive(activate)
+        self._button_reset.set_sensitive(activate)
 
     ### handlers ###
     def on_info_bar_clicked(self, *args):
@@ -254,10 +307,10 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_summary_button_clicked(self, _button):
-        self.blivetgui.show_actions()
+        self._blivetgui.show_actions()
 
     def on_undo_action_button_clicked(self, _button):
-        self.blivetgui.actions_undo()
+        self._blivetgui.actions_undo()
 
     # This callback is for the button that just resets the UI to anaconda's
     # current understanding of the disk layout.
@@ -280,10 +333,8 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         if rc == 0:
             self.refresh()
-            self.blivetgui.reload()
+            self._blivetgui.reload()
 
             # XXX: Reset currently preserves actions set in previous runs
             # of the spoke, so we need to 're-add' these to the ui
-            current_actions = self._storage_playground.devicetree.actions.find()
-            if current_actions:
-                self.blivetgui.set_actions(current_actions)
+            self._blivetgui.set_actions(self._client.get_actions())
