@@ -31,7 +31,7 @@ from pyanaconda.storage.installation import turn_on_filesystems, write_storage_c
 from pyanaconda.bootloader.installation import write_boot_loader
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
-from pyanaconda.users import Users
+from pyanaconda.core.users import Users
 from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda import timezone

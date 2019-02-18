@@ -19,7 +19,7 @@
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
-from pyanaconda.users import cryptPassword
+from pyanaconda.core.users import cryptPassword
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS, SERVICES

@@ -26,7 +26,7 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog, report_if_failed, report_check_func
-from pyanaconda.users import guess_username, check_username, check_grouplist
+from pyanaconda.core.users import guess_username, check_username, check_grouplist
 
 from simpleline.render.screen import InputState
 from simpleline.render.containers import ListColumnContainer

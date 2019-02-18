@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 
-from pyanaconda import users
+from pyanaconda.core import users
 import unittest
 import tempfile
 import shutil

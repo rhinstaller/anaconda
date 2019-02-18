@@ -21,7 +21,7 @@ import os
 import copy
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
-from pyanaconda.users import cryptPassword, guess_username, check_groupname
+from pyanaconda.core.users import cryptPassword, guess_username, check_groupname
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS
