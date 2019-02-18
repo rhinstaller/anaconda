@@ -62,6 +62,11 @@ CUSTOM_PARTITIONING = DBusObjectIdentifier(
     basename="Custom"
 )
 
+INTERACTIVE_PARTITIONING = DBusObjectIdentifier(
+    namespace=PARTITIONING_NAMESPACE,
+    basename="Interactive"
+)
+
 BLIVET_PARTITIONING = DBusObjectIdentifier(
     namespace=PARTITIONING_NAMESPACE,
     basename="Blivet"
