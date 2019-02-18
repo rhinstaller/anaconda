@@ -33,3 +33,10 @@ class StorageInterface(KickstartModuleInterface):
         :return: a path to a task
         """
         return self.implementation.reset_with_task()
+
+    def ApplyPartitioning(self, partitioning: ObjPath):
+        """Apply the partitioning.
+
+        :param partitioning: a path to a partitioning
+        """
+        self.implementation.apply_partitioning(partitioning)

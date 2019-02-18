@@ -29,7 +29,7 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED
     BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION, AUTOPART_TYPE_DEFAULT, \
     MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
     MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
-from pyanaconda.dbus.typing import get_variant, Str, Bool
+from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
     DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
@@ -51,6 +51,8 @@ from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSe
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
+from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, MountFilesystemsTask, \
+    WriteConfigurationTask
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule, CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
@@ -78,6 +80,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def reset_with_task_test(self, publisher):
+        """Test ResetWithTask."""
         task_path = self.storage_interface.ResetWithTask()
 
         # Check the task.
@@ -95,6 +98,50 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         obj.implementation.stopped_signal.emit()
         storage_changed_callback.called_once()
+
+    @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
+    def apply_partitioning_test(self, storage_checker):
+        """Test ApplyPartitioning."""
+        storage_1 = Mock()
+        storage_2 = storage_1.copy.return_value
+        storage_3 = storage_2.copy.return_value
+
+        report = StorageCheckerReport()
+        storage_checker.check.return_value = report
+
+        self.storage_module.set_storage(storage_1)
+        self.assertEqual(self.storage_module.storage, storage_1)
+        self.assertEqual(self.storage_module._auto_part_module.storage, storage_2)
+
+        self.storage_interface.ApplyPartitioning(AUTO_PARTITIONING.object_path)
+        self.assertEqual(self.storage_module.storage, storage_3)
+
+        with self.assertRaises(ValueError):
+            self.storage_interface.ApplyPartitioning(ObjPath("invalid"))
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def install_with_tasks_test(self, publisher):
+        """Test InstallWithTask."""
+        task_classes = [
+            ActivateFilesystemsTask,
+            MountFilesystemsTask,
+            WriteConfigurationTask
+        ]
+
+        # Get the installation tasks.
+        task_paths = self.storage_interface.InstallWithTasks()
+
+        # Check the number of installation tasks.
+        task_number = len(task_classes)
+        self.assertEqual(task_number, len(task_paths))
+        self.assertEqual(task_number, publisher.call_count)
+
+        # Check the tasks.
+        for i in range(task_number):
+            object_path, obj = publisher.call_args_list[i][0]
+            self.assertEqual(object_path, task_paths[i])
+            self.assertIsInstance(obj, TaskInterface)
+            self.assertIsInstance(obj.implementation, task_classes[i])
 
     def kickstart_properties_test(self):
         """Test kickstart properties."""
