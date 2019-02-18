@@ -45,7 +45,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, unbusyCursor
 from pyanaconda.core.async_utils import async_action_wait
 from pyanaconda.ui.gui.utils import watch_children, unwatch_children
 from pyanaconda.ui.gui.helpers import autoinstall_stopped
-from pyanaconda import ihelp
+from pyanaconda.ui.lib.help import start_yelp, get_help_path
 import os.path
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -1019,7 +1019,7 @@ class GraphicalUserInterface(UserInterface):
     def _on_help_clicked(self, window, obj):
         # the help button has been clicked, start the yelp viewer with
         # content for the current screen
-        ihelp.start_yelp(ihelp.get_help_path(obj.helpFile))
+        start_yelp(get_help_path(obj.helpFile))
 
     def _on_quit_clicked(self, win, userData=None):
         if not win.get_quit_button():
