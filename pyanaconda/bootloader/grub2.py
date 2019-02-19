@@ -342,7 +342,7 @@ class GRUB2(BootLoader):
 
         # set menu_auto_hide grubenv variable if we should enable menu_auto_hide
         # set boot_success so that the menu is hidden on the boot after install
-        if self.menu_auto_hide:
+        if conf.bootloader.menu_auto_hide:
             rc = util.execInSysroot("grub2-editenv",
                                     ["-", "set", "menu_auto_hide=1",
                                      "boot_success=1"])

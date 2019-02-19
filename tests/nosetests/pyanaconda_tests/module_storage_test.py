@@ -25,20 +25,17 @@ from blivet.errors import StorageError
 from pyanaconda.bootloader import BootLoaderError
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
-from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, BOOTLOADER_SKIPPED, \
-    BOOTLOADER_TYPE_EXTLINUX, BOOTLOADER_LOCATION_PARTITION, AUTOPART_TYPE_DEFAULT, \
+from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, AUTOPART_TYPE_DEFAULT, \
     MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
     MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
-    DISK_SELECTION, BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
+    DISK_SELECTION, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
     StorageConfigurationError, BootloaderConfigurationError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError, \
     UnavailableDataError
 from pyanaconda.modules.common.task import TaskInterface
-from pyanaconda.modules.storage.bootloader import BootloaderModule
-from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
 from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
@@ -843,95 +840,6 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
         self._test_dbus_property(
             "ProtectedDevices",
             ["sda", "sdb"]
-        )
-
-
-class BootloaderInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface of the bootloader module."""
-
-    def setUp(self):
-        """Set up the module."""
-        self.bootloader_module = BootloaderModule()
-        self.bootloader_interface = BootloaderInterface(self.bootloader_module)
-
-    def _test_dbus_property(self, *args, **kwargs):
-        check_dbus_property(
-            self,
-            BOOTLOADER,
-            self.bootloader_interface,
-            *args, **kwargs
-        )
-
-    def bootloader_mode_property_test(self):
-        """Test the bootloader mode property."""
-        self._test_dbus_property(
-            "BootloaderMode",
-            BOOTLOADER_SKIPPED
-        )
-
-    def bootloader_type_property_test(self):
-        """Test the bootloader type property."""
-        self._test_dbus_property(
-            "BootloaderType",
-            BOOTLOADER_TYPE_EXTLINUX
-        )
-
-    def preferred_location_property_test(self):
-        """Test the preferred location property."""
-        self._test_dbus_property(
-            "PreferredLocation",
-            BOOTLOADER_LOCATION_PARTITION
-        )
-
-    def drive_property_test(self):
-        """Test the drive property."""
-        self._test_dbus_property(
-            "Drive",
-            "sda"
-        )
-
-    def drive_order_property_test(self):
-        """Test the drive order property."""
-        self._test_dbus_property(
-            "DriveOrder",
-            ["sda", "sdb"]
-        )
-
-    def keep_mbr_property_test(self):
-        """Test the keep MBR property."""
-        self._test_dbus_property(
-            "KeepMBR",
-            True
-        )
-
-    def keep_boot_order_test(self):
-        """Test the keep boot order property."""
-        self._test_dbus_property(
-            "KeepBootOrder",
-            True
-        )
-
-    def extra_arguments_property_test(self):
-        """Test the extra arguments property."""
-        self._test_dbus_property(
-            "ExtraArguments",
-            ["hdd=ide-scsi", "ide=nodma"]
-        )
-
-    def timeout_property_test(self):
-        """Test the timeout property."""
-        self._test_dbus_property(
-            "Timeout",
-            25
-        )
-
-    def password_property_test(self):
-        """Test the password property."""
-        self._test_dbus_property(
-            "Password",
-            "12345",
-            setter=self.bootloader_interface.SetEncryptedPassword,
-            changed={'IsPasswordSet': True}
         )
 
 

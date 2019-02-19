@@ -115,7 +115,6 @@ class BootLoader(object):
     config_file_mode = 0o600
     can_dual_boot = False
     can_update = False
-    menu_auto_hide = False
     keep_boot_order = False
     keep_mbr = False
     image_label_attr = "label"
