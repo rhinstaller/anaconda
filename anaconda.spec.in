@@ -355,6 +355,20 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 19 2019 Martin Kolman <mkolman@redhat.com> - 30.24-1
+- Add tests for the bootloader installation tasks (vponcova)
+- Move the bootloader tests to a new file (vponcova)
+- Create the DBus installation tasks for the bootloader (vponcova)
+- Check for dirinstall target on s390 (bcl)
+- Remove the menu_auto_hide attribute from Bootloader (vponcova)
+- Remove the efi_dir attribute from EFIBase (vponcova)
+- Clean up the Anaconda class (vponcova)
+- Move pyanaconda.ihelp (vponcova)
+- Update the stylesheet data (vponcova)
+- Add tests for new methods of the Storage module (vponcova)
+- Apply the partitioning in the Storage module (vponcova)
+- Fix missing space in translatable string (mail)
+
 * Wed Feb 13 2019 Martin Kolman <mkolman@redhat.com> - 30.23-1
 - Reorganize the code for the boot loader installation (vponcova)
 - Remove a useless argument from write_boot_loader (vponcova)
