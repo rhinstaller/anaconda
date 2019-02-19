@@ -23,6 +23,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
 from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
 
@@ -104,6 +105,28 @@ class SnapshotModule(KickstartBaseModule):
         :return: a DBus path to a task
         """
         task = SnapshotValidateTask(
+            storage=self.storage,
+            requests=self.get_requests(when),
+            when=when
+        )
+
+        path = self.publish_task(SNAPSHOT.namespace, task)
+        return path
+
+    def create_with_task(self, when):
+        """Create ThinLV snapshots.
+
+        PRE-INSTALL: Create a snapshot before installation starts.
+        This must be done before user can change anything.
+
+        POST-INSTALL: Create a snapshot after post section stops.
+        Blivet must be reset before creation of the snapshot. This is
+        required because the storage could be changed in post section.
+
+        :param when: a type of the requests to use
+        :return: a DBus path to a task
+        """
+        task = SnapshotCreateTask(
             storage=self.storage,
             requests=self.get_requests(when),
             when=when

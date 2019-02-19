@@ -50,3 +50,15 @@ class SnapshotInterface(KickstartModuleInterfaceTemplate):
         :return: a DBus path to a task
         """
         return self.implementation.validate_with_task(when)
+
+    def CreateWithTask(self, when: Int) -> ObjPath:
+        """Create ThinLV snapshots.
+
+        Types of the snapshots:
+            0  Post-installation snapshots.
+            1  Pre-installation snapshots.
+
+        :param when: a type of the requests
+        :return: a DBus path to a task
+        """
+        return self.implementation.create_with_task(when)
