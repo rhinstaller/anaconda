@@ -94,7 +94,7 @@ def check_ip_address(address, version=None):
     except ValueError:
         return False
 
-def sanityCheckHostname(hostname):
+def is_valid_hostname(hostname):
     """
     Check if the given string is (syntactically) a valid hostname.
 

@@ -25,36 +25,36 @@ class NetworkTests(unittest.TestCase):
         self.assertEqual(network.default_ks_vlan_interface_name("em1", "171"),
                          "em1.171")
 
-    def sanityCheckHostname_test(self):
+    def is_valid_hostname_test(self):
 
-        self.assertFalse(network.sanityCheckHostname("")[0])
-        self.assertFalse(network.sanityCheckHostname(None)[0])
+        self.assertFalse(network.is_valid_hostname("")[0])
+        self.assertFalse(network.is_valid_hostname(None)[0])
 
         # section length < 64
-        self.assertTrue(network.sanityCheckHostname("h"*63)[0])
-        self.assertFalse(network.sanityCheckHostname("h"*64)[0])
+        self.assertTrue(network.is_valid_hostname("h"*63)[0])
+        self.assertFalse(network.is_valid_hostname("h"*64)[0])
 
         # length < 256
-        self.assertTrue(network.sanityCheckHostname("section." * 31+"section")[0])
-        self.assertFalse(network.sanityCheckHostname("section." * 31+"sectionx")[0])
+        self.assertTrue(network.is_valid_hostname("section." * 31+"section")[0])
+        self.assertFalse(network.is_valid_hostname("section." * 31+"sectionx")[0])
 
-        self.assertFalse(network.sanityCheckHostname(
+        self.assertFalse(network.is_valid_hostname(
             "section.must.be..nonempty.")[0])
-        self.assertFalse(network.sanityCheckHostname(
+        self.assertFalse(network.is_valid_hostname(
             ".section.must.be.nonempty.")[0])
-        self.assertTrue(network.sanityCheckHostname(
+        self.assertTrue(network.is_valid_hostname(
             "section.can.contain.only.alphanums.012.or.hyp-hens")[0])
-        self.assertFalse(network.sanityCheckHostname(
+        self.assertFalse(network.is_valid_hostname(
             "section.can.contain.only.alphanums.012.or.hyp-hens!!!")[0])
-        self.assertFalse(network.sanityCheckHostname(
+        self.assertFalse(network.is_valid_hostname(
             "section.may.not.start.with.-hyphen")[0])
-        self.assertFalse(network.sanityCheckHostname(
+        self.assertFalse(network.is_valid_hostname(
             "section.may.not.end.with.hyphen-")[0])
 
-        self.assertTrue(network.sanityCheckHostname("0-0.")[0])
-        self.assertTrue(network.sanityCheckHostname("0.")[0])
+        self.assertTrue(network.is_valid_hostname("0-0.")[0])
+        self.assertTrue(network.is_valid_hostname("0.")[0])
 
-        self.assertFalse(network.sanityCheckHostname("Lennart's Laptop")[0])
+        self.assertFalse(network.is_valid_hostname("Lennart's Laptop")[0])
 
     def prefix2netmask2prefix_test(self):
         lore = [
