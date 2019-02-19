@@ -470,7 +470,7 @@ class Group(COMMANDS.Group):
             kwargs = grp.__dict__
             kwargs.update({"root": util.getSysroot()})
             try:
-                users.createGroup(grp.name, **kwargs)
+                users.create_group(grp.name, **kwargs)
             except ValueError as e:
                 group_log.warning(str(e))
 
@@ -688,7 +688,7 @@ class RootPw(RemovedCommand):
             # Also lock the root password if it was not set during interactive installation.
             users_proxy.SetRootAccountLocked(True)
 
-        users.setRootPassword(users_proxy.RootPassword,
+        users.set_root_password(users_proxy.RootPassword,
                               users_proxy.IsRootPasswordCrypted,
                               users_proxy.IsRootAccountLocked,
                               None,
@@ -746,7 +746,7 @@ class Services(RemovedCommand):
 class SshKey(COMMANDS.SshKey):
     def execute(self, storage, ksdata, users):
         for usr in self.sshUserList:
-            users.setUserSshKey(usr.username, usr.key)
+            users.set_user_ssh_key(usr.username, usr.key)
 
 class Timezone(RemovedCommand):
 
@@ -841,7 +841,7 @@ class User(COMMANDS.User):
             if self.seen and kwargs.get("password", "") == "":
                 kwargs["password"] = None
             try:
-                users.createUser(usr.name, **kwargs)
+                users.create_user(usr.name, **kwargs)
             except ValueError as e:
                 user_log.warning(str(e))
 

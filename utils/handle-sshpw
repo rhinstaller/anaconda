@@ -43,16 +43,16 @@ u = users.Users()
 
 userdata = ksparser.handler.sshpw.dataList()
 for ud in userdata:
-    if u.checkUserExists(ud.username, root="/"):
+    if u.check_user_exists(ud.username, root="/"):
         if not ud.sshkey:
-            u.setUserPassword(username=ud.username, password=ud.password,
+            u.set_user_password(username=ud.username, password=ud.password,
                               isCrypted=ud.isCrypted, lock=ud.lock)
     else:
         kwargs = ud.__dict__
         kwargs.update({"root": "/"})
-        u.createUser(ud.username, **kwargs)
+        u.create_user(ud.username, **kwargs)
 
     if ud.sshkey:
         # Setup the account so that only the sshkey can be used
-        u.setUserPassword(username=ud.username, password="*", isCrypted=True, lock=False)
+        u.set_user_password(username=ud.username, password="*", isCrypted=True, lock=False)
         u.setUserSshKey(username=ud.username, key=ud.password, root="/")
