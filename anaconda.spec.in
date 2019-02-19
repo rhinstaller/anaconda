@@ -354,6 +354,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 19 2019 Martin Kolman <mkolman@redhat.com> - 30.25-1
+- Remove one more obsolete group tag (mkolman)
+
 * Tue Feb 19 2019 Martin Kolman <mkolman@redhat.com> - 30.24-1
 - Add tests for the bootloader installation tasks (vponcova)
 - Move the bootloader tests to a new file (vponcova)
