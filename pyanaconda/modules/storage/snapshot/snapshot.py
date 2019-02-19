@@ -22,7 +22,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
+from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
 
 log = get_module_logger(__name__)
 
@@ -33,6 +35,22 @@ class SnapshotModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
         self._requests = []
+        self._storage = None
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if self._storage is None:
+            raise UnavailableStorageError()
+
+        return self._storage
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._storage = storage
 
     def publish(self):
         """Publish the module."""
@@ -78,3 +96,18 @@ class SnapshotModule(KickstartBaseModule):
         :returns: a list of requests
         """
         return [request for request in self._requests if request.when == when]
+
+    def validate_with_task(self, when):
+        """Validate snapshot requests.
+
+        :param when: a type of the requests to validate
+        :return: a DBus path to a task
+        """
+        task = SnapshotValidateTask(
+            storage=self.storage,
+            requests=self.get_requests(when),
+            when=when
+        )
+
+        path = self.publish_task(SNAPSHOT.namespace, task)
+        return path

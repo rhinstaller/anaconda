@@ -38,3 +38,15 @@ class SnapshotInterface(KickstartModuleInterfaceTemplate):
         :return: True or False
         """
         return self.implementation.is_requested(when)
+
+    def ValidateWithTask(self, when: Int) -> ObjPath:
+        """Validate the snapshot requests.
+
+        Types of the requests:
+            0  Post-installation snapshots.
+            1  Pre-installation snapshots.
+
+        :param when: a type of the requests
+        :return: a DBus path to a task
+        """
+        return self.implementation.validate_with_task(when)
