@@ -17,6 +17,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -29,14 +30,51 @@ log = get_module_logger(__name__)
 class SnapshotModule(KickstartBaseModule):
     """The snapshot module."""
 
+    def __init__(self):
+        super().__init__()
+        self._requests = []
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(SNAPSHOT.object_path, SnapshotInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        pass
+        # Keep the list of snapshot data.
+        self._requests = data.snapshot.snapshotList
+
+        # Cannot check the post-install snapshot data yet.
+        if not self.is_requested(SNAPSHOT_WHEN_PRE_INSTALL):
+            return
+
+        # Check the pre-install snapshot data.
+        if data.clearpart.devices \
+                or data.clearpart.drives \
+                or data.clearpart.type == CLEARPART_TYPE_ALL:
+            log.warning("Snapshot: \"clearpart\" command "
+                        "could erase pre-install snapshots!")
+
+        if data.zerombr.zerombr:
+            log.warning("Snapshot: \"zerombr\" command could "
+                        "erase pre-install snapshots!")
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
+        data.snapshot.snapshotList = self._requests
         return data
+
+    def is_requested(self, when):
+        """Is there a snapshot request of the given type?
+
+        :param when: a type of the requests
+        :return: True or False
+        """
+        return bool(self.get_requests(when))
+
+    def get_requests(self, when):
+        """Get a list of snapshot requests of the given type.
+
+        :param when: a type of the requests
+        :returns: a list of requests
+        """
+        return [request for request in self._requests if request.when == when]

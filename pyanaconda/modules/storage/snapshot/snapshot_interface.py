@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
 
@@ -25,4 +26,15 @@ from pyanaconda.modules.common.constants.objects import SNAPSHOT
 @dbus_interface(SNAPSHOT.interface_name)
 class SnapshotInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for the snapshot module."""
-    pass
+
+    def IsRequested(self, when: Int) -> Bool:
+        """Are there requests for snapshots of the given type?
+
+        Types of the requests:
+            0  Post-installation snapshots.
+            1  Pre-installation snapshots.
+
+        :param when: a type of the requests
+        :return: True or False
+        """
+        return self.implementation.is_requested(when)

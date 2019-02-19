@@ -171,6 +171,19 @@ class Nvdimm(COMMANDS.Nvdimm):
         return action
 
 
+class Snapshot(COMMANDS.Snapshot):
+    """The snapshot kickstart command."""
+
+    def parse(self, args):
+        request = super().parse(args)
+
+        if not request.origin.count('/') == 1:
+            raise KickstartParseError(_("Incorrectly specified origin of the snapshot. Use "
+                                        "format \"VolGroup/LV-name\""), lineno=request.lineno)
+
+        return request
+
+
 class ZFCP(COMMANDS.ZFCP):
     """The zfcp kickstart command."""
 
@@ -206,6 +219,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "partition": COMMANDS.Partition,
         "raid": COMMANDS.Raid,
         "reqpart": COMMANDS.ReqPart,
+        "snapshot": Snapshot,
         "volgroup": COMMANDS.VolGroup,
         "zerombr": COMMANDS.ZeroMbr,
         "zfcp": ZFCP,
@@ -219,6 +233,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "NvdimmData": COMMANDS.NvdimmData,
         "PartData": COMMANDS.PartData,
         "RaidData": COMMANDS.RaidData,
+        "SnapshotData": COMMANDS.SnapshotData,
         "VolGroupData": COMMANDS.VolGroupData,
         "ZFCPData": COMMANDS.ZFCPData,
     }
