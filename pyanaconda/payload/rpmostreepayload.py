@@ -28,7 +28,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.progress import progressQ
-from pyanaconda.payload import ArchivePayload
+from pyanaconda.payload import Payload
 from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
@@ -45,7 +45,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class RPMOSTreePayload(ArchivePayload):
+class RPMOSTreePayload(Payload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages)
     onto the target system."""
     def __init__(self, data):

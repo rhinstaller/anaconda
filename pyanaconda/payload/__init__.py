@@ -23,13 +23,12 @@ from fnmatch import fnmatch
 import threading
 import re
 import functools
-from collections import OrderedDict, namedtuple
 from distutils.version import LooseVersion
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
     DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
-    THREAD_WAIT_FOR_CONNECTING_NM, PayloadRequirementType, GRAPHICAL_TARGET, TEXT_ONLY_TARGET
+    THREAD_WAIT_FOR_CONNECTING_NM, GRAPHICAL_TARGET, TEXT_ONLY_TARGET
 from pyanaconda.modules.common.constants.services import SERVICES
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
@@ -43,9 +42,9 @@ from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_inst
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup, \
-    PayloadRequirementsMissingApply
+from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
+from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
 
 from pykickstart.parser import Group
@@ -66,181 +65,6 @@ def versionCmp(v1, v2):
     firstVersion = LooseVersion(v1)
     secondVersion = LooseVersion(v2)
     return (firstVersion > secondVersion) - (firstVersion < secondVersion)
-
-
-PayloadRequirementReason = namedtuple('PayloadRequirementReason', ['reason', 'strong'])
-
-
-class PayloadRequirement(object):
-    """An object to store a payload requirement with info about its reasons.
-
-    For each requirement multiple reasons together with their strength
-    can be stored in this object using the add_reason method.
-    A reason should be just a string with description (ie for tracking purposes).
-    Strength is a boolean flag that can be used to indicate whether missing the
-    requirement should be considered fatal. Strength of the requirement is
-    given by strength of all its reasons.
-    """
-    def __init__(self, req_id, reasons=None):
-        self._id = req_id
-        self._reasons = reasons or []
-
-    @property
-    def id(self):
-        """Identifier of the requirement (eg a package name)"""
-        return self._id
-
-    @property
-    def reasons(self):
-        """List of reasons for the requirement"""
-        return [reason for reason, strong in self._reasons]
-
-    @property
-    def strong(self):
-        """Strength of the requirement (ie should it be considered fatal?)"""
-        return any(strong for reason, strong in self._reasons)
-
-    def add_reason(self, reason, strong=False):
-        """Adds a reason to the requirement with optional strength of the reason"""
-        self._reasons.append(PayloadRequirementReason(reason, strong))
-
-    def __str__(self):
-        return "PayloadRequirement(id=%s, reasons=%s, strong=%s)" % (self.id,
-                                                                     self.reasons,
-                                                                     self.strong)
-
-    def __repr__(self):
-        return 'PayloadRequirement(id=%s, reasons=%s)' % (self.id, self._reasons)
-
-
-class PayloadRequirements(object):
-    """A container for payload requirements imposed by installed functionality.
-
-    Stores names of packages and groups required by used installer features,
-    together with descriptions of reasons why the object is required and if the
-    requirement is strong. Not satisfying strong requirement would be fatal for
-    installation.
-    """
-
-    def __init__(self):
-        self._apply_called_for_all_requirements = True
-        self._apply_cb = None
-        self._reqs = {}
-        for req_type in PayloadRequirementType:
-            self._reqs[req_type] = OrderedDict()
-
-    def add_packages(self, package_names, reason, strong=True):
-        """Add packages required for the reason.
-
-        If a package is already required, the new reason will be
-        added and the strength of the requirement will be updated.
-
-        :param package_names: names of packages to be added
-        :type package_names: list of str
-        :param reason: description of reason for adding the packages
-        :type reason: str
-        :param strong: is the requirement strong (ie is not satisfying it fatal?)
-        :type strong: bool
-        """
-        self._add(PayloadRequirementType.package, package_names, reason, strong)
-
-    def add_groups(self, group_ids, reason, strong=True):
-        """Add groups required for the reason.
-
-        If a group is already required, the new reason will be
-        added and the strength of the requirement will be updated.
-
-        :param group_ids: ids of groups to be added
-        :type group_ids: list of str
-        :param reason: descripiton of reason for adding the groups
-        :type reason: str
-        :param strong: is the requirement strong
-        :type strong: bool
-        """
-        self._add(PayloadRequirementType.group, group_ids, reason, strong)
-
-    def _add(self, req_type, ids, reason, strong):
-        if not ids:
-            log.debug("no %s requirement added for %s", req_type.value, reason)
-        reqs = self._reqs[req_type]
-        for r_id in ids:
-            if r_id not in reqs:
-                reqs[r_id] = PayloadRequirement(r_id)
-            reqs[r_id].add_reason(reason, strong)
-            self._apply_called_for_all_requirements = False
-            log.debug("added %s requirement '%s' for %s, strong=%s",
-                      req_type.value, r_id, reason, strong)
-
-    @property
-    def packages(self):
-        """List of package requirements.
-
-        return: list of package requirements
-        rtype: list of PayloadRequirement
-        """
-        return list(self._reqs[PayloadRequirementType.package].values())
-
-    @property
-    def groups(self):
-        """List of group requirements.
-
-        return: list of group requirements
-        rtype: list of PayloadRequirement
-        """
-        return list(self._reqs[PayloadRequirementType.group].values())
-
-    def set_apply_callback(self, callback):
-        """Set the callback for applying requirements.
-
-        The callback will be called by apply() method.
-        param callback: callback function to be called by apply() method
-        type callback: a function taking one argument (requirements object)
-        """
-        self._apply_cb = callback
-
-    def apply(self):
-        """Apply requirements using callback function.
-
-        Calls the callback supplied via set_apply_callback() method. If no
-        callback was set, an axception is raised.
-
-        return: return value of the callback
-        rtype: type of the callback return value
-        raise PayloadRequirementsMissingApply: if there is no callback set
-
-        """
-        if self._apply_cb:
-            self._apply_called_for_all_requirements = True
-            rv = self._apply_cb(self)
-            log.debug("apply with result %s called on requirements %s", rv, self)
-            return rv
-        else:
-            raise PayloadRequirementsMissingApply
-
-    @property
-    def applied(self):
-        """Was all requirements applied?
-
-        return: Was apply called for all current requirements?
-        rtype: bool
-        """
-        return self.empty or self._apply_called_for_all_requirements
-
-    @property
-    def empty(self):
-        """Are requirements empty?
-
-        return: True if there are no requirements, else False
-        rtype: bool
-        """
-        return not any(self._reqs.values())
-
-    def __str__(self):
-        r = []
-        for req_type in PayloadRequirementType:
-            for rid, req in self._reqs[req_type].items():
-                r.append((req_type.value, rid, req))
-        return str(r)
 
 
 class Payload(object):
@@ -870,18 +694,6 @@ class ImagePayload(Payload):
     def __init__(self, data):
         if self.__class__ is ImagePayload:
             raise TypeError("ImagePayload is an abstract class")
-
-        super().__init__(data)
-
-
-# Inherit abstract methods from ImagePayload
-# pylint: disable=abstract-method
-class ArchivePayload(ImagePayload):
-    """An ArchivePayload unpacks source archives onto the target system."""
-
-    def __init__(self, data):
-        if self.__class__ is ArchivePayload:
-            raise TypeError("ArchivePayload is an abstract class")
 
         super().__init__(data)
 

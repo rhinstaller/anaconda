@@ -27,7 +27,7 @@ import hashlib
 import shutil
 
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
-from pyanaconda.payload import PayloadRequirements
+from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.payload.errors import PayloadRequirementsMissingApply
 
 
