@@ -47,7 +47,8 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK

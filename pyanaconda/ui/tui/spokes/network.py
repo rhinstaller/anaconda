@@ -408,7 +408,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         if self._apply:
             self._apply = False
             if ANACONDA_ENVIRON in flags.environs:
-                from pyanaconda.payload import payloadMgr
+                from pyanaconda.payload.manager import payloadMgr
                 payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
 
 

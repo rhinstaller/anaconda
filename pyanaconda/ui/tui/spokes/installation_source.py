@@ -22,7 +22,8 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 

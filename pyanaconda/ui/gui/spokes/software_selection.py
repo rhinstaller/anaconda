@@ -26,7 +26,8 @@ from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.payload.errors import NoSuchGroup, PayloadError, DependencyError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants

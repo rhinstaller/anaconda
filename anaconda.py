@@ -700,7 +700,7 @@ if __name__ == "__main__":
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     disk_select_proxy.SetProtectedDevices(protected_devices)
 
-    from pyanaconda.payload import payloadMgr
+    from pyanaconda.payload.manager import payloadMgr
     from pyanaconda.timezone import time_initialize
 
     if not conf.target.is_directory:
