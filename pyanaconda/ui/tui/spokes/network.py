@@ -47,7 +47,7 @@ from simpleline.render.widgets import TextWidget, CheckboxWidget, EntryWidget
 
 log = get_module_logger(__name__)
 
-# This will be used in decorators in ConfigureNetworkSpoke.
+# This will be used in decorators in ConfigureDeviceSpoke.
 # The decorators are processed before the class is created so you can have this as a variable there.
 IP_ERROR_MSG = N_("Bad format of the IP address")
 NETMASK_ERROR_MSG = N_("Bad format of the netmask")
@@ -68,8 +68,6 @@ class WiredTUIConfigurationData():
         self.ipv6gateway = ""
         self.nameserver = ""
         self.onboot = False
-        self.apply_configuration = False
-        self.iface = ""
 
     def set_from_connection(self, connection):
         """Set the object from NM RemoteConnection.
@@ -186,11 +184,9 @@ class WiredTUIConfigurationData():
                     log.error("IP address %s is not valid", ns)
 
     def __str__(self):
-        return "WiredTUIConfigurationData iface:{} ip:{} netmask:{} gateway:{} ipv6:{} ipv6gateway:{} " \
-            "nameserver:{} onboot:{} apply_configuration:{}".format(self.iface, self.ip, self.netmask,
-                                                                    self.gateway, self.ipv6,
-                                                                    self.ipv6gateway, self.nameserver,
-                                                                    self.onboot, self.apply_configuration)
+        return "WiredTUIConfigurationData ip:{} netmask:{} gateway:{} ipv6:{} ipv6gateway:{} " \
+            "nameserver:{} onboot:{}".format(self.ip, self.netmask, self.gateway, self.ipv6,
+                                             self.ipv6gateway, self.nameserver, self.onboot)
 
 
 class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
@@ -355,59 +351,25 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         log.debug("added default connection %s for %s", connection_uuid, iface)
         self._configure_connection(iface, connection_uuid)
 
-    # TODO store the value in network module instead of ifcfg file?
-    # SetConnectionOnboot(uuid, value)
-    # GetConnectionOnboot(uuid)
-    def _get_onboot(self, connection_uuid):
-        return get_onboot_from_ifcfg(connection_uuid)
-
-    def _set_onboot(self, connection_uuid, onboot):
-        return set_onboot_in_ifcfg(connection_uuid, onboot)
-
     def _configure_connection(self, iface, connection_uuid):
         connection = nm_client.get_connection_by_uuid(connection_uuid)
-        ui_data = WiredTUIConfigurationData()
-        ui_data.set_from_connection(connection)
 
-        # ONBOOT workaround - changing autoconnect connection value would
-        # activate the device
-        ui_data.onboot = self._get_onboot(connection_uuid)
-
-        ui_data.iface = iface
-        log.debug("%s -> %s", connection_uuid, ui_data)
-
-        new_spoke = ConfigureNetworkSpoke(self.data, self.storage, self.payload, ui_data)
+        new_spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, iface, connection)
         ScreenHandler.push_screen_modal(new_spoke)
-        self.redraw()
 
-        if ui_data.ip != "dhcp" and not ui_data.netmask:
-            self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
+        if new_spoke.errors:
+            self.errors.extend(new_spoke.errors)
+            self.redraw()
             return
 
-        log.debug("updating connection %s:\n%s", connection_uuid,
-                  connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
-        ui_data.update_connection(connection)
-
-        # ONBOOT workaround
-        s_con = connection.get_setting_connection()
-        s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, False)
-
-        connection.commit_changes(True, None)
-        log.debug("updated connection %s:\n%s", connection_uuid,
-                  connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
-
-        # ONBOOT workaround
-        self._set_onboot(connection_uuid, ui_data.onboot)
-
-        network.logIfcfgFiles("settings of %s updated" % iface)
-
-        if ui_data.apply_configuration:
+        if new_spoke.apply_configuration:
             self._apply = True
             device = nm_client.get_device_by_iface(iface)
             log.debug("activating connection %s with device %s",
                       connection_uuid, iface)
             nm_client.activate_connection_async(connection, device, None, None)
 
+        self.redraw()
         self.apply()
 
     def input(self, args, key):
@@ -438,16 +400,38 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
 
 
-class ConfigureNetworkSpoke(NormalTUISpoke):
+class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     category = "network"
 
-    def __init__(self, data, storage, payload, ui_data):
+    def __init__(self, data, storage, payload, iface, connection):
         super().__init__(data, storage, payload)
         self.title = N_("Device configuration")
 
-        self.ui_data = ui_data
         self._container = None
+        self._connection = connection
+        self._iface = iface
+        self._connection_uuid = connection.get_uuid()
+        self.errors = []
+        self.apply_configuration = False
+
+        self._data = WiredTUIConfigurationData()
+        self._data.set_from_connection(self._connection)
+        # ONBOOT workaround - changing autoconnect connection value would
+        # activate the device
+        self._data.onboot = self._get_onboot(self._connection_uuid)
+
+        log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
+                  self._data)
+
+    # TODO store the value in network module instead of ifcfg file?
+    # SetConnectionOnboot(uuid, value)
+    # GetConnectionOnboot(uuid)
+    def _get_onboot(self, connection_uuid):
+        return get_onboot_from_ifcfg(connection_uuid)
+
+    def _set_onboot(self, connection_uuid, onboot):
+        return set_onboot_in_ifcfg(connection_uuid, onboot)
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -457,37 +441,37 @@ class ConfigureNetworkSpoke(NormalTUISpoke):
 
         dialog = Dialog(title=(_('IPv4 address or %s for DHCP') % '"dhcp"'),
                         conditions=[self._check_ipv4_or_dhcp])
-        self._container.add(EntryWidget(dialog.title, self.ui_data.ip), self._set_ipv4_or_dhcp, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.ip), self._set_ipv4_or_dhcp, dialog)
 
         dialog = Dialog(title=_("IPv4 netmask"), conditions=[self._check_netmask])
-        self._container.add(EntryWidget(dialog.title, self.ui_data.netmask), self._set_netmask, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.netmask), self._set_netmask, dialog)
 
         dialog = Dialog(title=_("IPv4 gateway"), conditions=[self._check_ipv4])
-        self._container.add(EntryWidget(dialog.title, self.ui_data.gateway), self._set_ipv4_gateway, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.gateway), self._set_ipv4_gateway, dialog)
 
         msg = (_('IPv6 address[/prefix] or %(auto)s for automatic, %(dhcp)s for DHCP, '
                  '%(ignore)s to turn off')
                % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'})
         dialog = Dialog(title=msg, conditions=[self._check_ipv6_config])
-        self._container.add(EntryWidget(dialog.title, self.ui_data.ipv6), self._set_ipv6, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.ipv6), self._set_ipv6, dialog)
 
         dialog = Dialog(title=_("IPv6 default gateway"), conditions=[self._check_ipv6])
-        self._container.add(EntryWidget(dialog.title, self.ui_data.ipv6gateway), self._set_ipv6_gateway, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.ipv6gateway), self._set_ipv6_gateway, dialog)
 
         dialog = Dialog(title=_("Nameservers (comma separated)"), conditions=[self._check_nameservers])
-        self._container.add(EntryWidget(dialog.title, self.ui_data.nameserver), self._set_nameservers, dialog)
+        self._container.add(EntryWidget(dialog.title, self._data.nameserver), self._set_nameservers, dialog)
 
         msg = _("Connect automatically after reboot")
-        w = CheckboxWidget(title=msg, completed=self.ui_data.onboot)
+        w = CheckboxWidget(title=msg, completed=self._data.onboot)
         self._container.add(w, self._set_onboot_handler)
 
         msg = _("Apply configuration in installer")
-        w = CheckboxWidget(title=msg, completed=self.ui_data.apply_configuration)
+        w = CheckboxWidget(title=msg, completed=self.apply_configuration)
         self._container.add(w, self._set_apply_handler)
 
         self.window.add_with_separator(self._container)
 
-        message = _("Configuring device %s.") % self.ui_data.iface
+        message = _("Configuring device %s.") % self._iface
         self.window.add_with_separator(TextWidget(message))
 
     @report_if_failed(message=IP_ERROR_MSG)
@@ -529,28 +513,28 @@ class ConfigureNetworkSpoke(NormalTUISpoke):
         return True
 
     def _set_ipv4_or_dhcp(self, dialog):
-        self.ui_data.ip = dialog.run()
+        self._data.ip = dialog.run()
 
     def _set_netmask(self, dialog):
-        self.ui_data.netmask = dialog.run()
+        self._data.netmask = dialog.run()
 
     def _set_ipv4_gateway(self, dialog):
-        self.ui_data.gateway = dialog.run()
+        self._data.gateway = dialog.run()
 
     def _set_ipv6(self, dialog):
-        self.ui_data.ipv6 = dialog.run()
+        self._data.ipv6 = dialog.run()
 
     def _set_ipv6_gateway(self, dialog):
-        self.ui_data.ipv6gateway = dialog.run()
+        self._data.ipv6gateway = dialog.run()
 
     def _set_nameservers(self, dialog):
-        self.ui_data.nameserver = dialog.run()
+        self._data.nameserver = dialog.run()
 
     def _set_apply_handler(self, args):
-        self.ui_data.apply_configuration = not self.ui_data.apply_configuration
+        self.apply_configuration = not self.apply_configuration
 
     def _set_onboot_handler(self, args):
-        self.ui_data.onboot = not self.ui_data.onboot
+        self._data.onboot = not self._data.onboot
 
     def input(self, args, key):
         if self._container.process_user_input(key):
@@ -564,9 +548,27 @@ class ConfigureNetworkSpoke(NormalTUISpoke):
         return True
 
     def apply(self):
-        """ Apply our changes. """
-        # save this back to network data, this will be applied in upper layer
-        pass
+        """Apply changes to NM connection."""
+        if self._data.ip != "dhcp" and not self._data.netmask:
+            self.errors.append(_("Configuration not saved: netmask missing in static configuration"))
+            return
+
+        log.debug("updating connection %s:\n%s", self._connection_uuid,
+                  self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+        self._data.update_connection(self._connection)
+
+        # ONBOOT workaround
+        s_con = self._connection.get_setting_connection()
+        s_con.set_property(NM.SETTING_CONNECTION_AUTOCONNECT, False)
+
+        self._connection.commit_changes(True, None)
+        log.debug("updated connection %s:\n%s", self._connection_uuid,
+                  self._connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+
+        # ONBOOT workaround
+        self._set_onboot(self._connection_uuid, self._data.onboot)
+
+        network.logIfcfgFiles("settings of %s updated" % self._iface)
 
 
 def get_default_connection(iface, device_type, autoconnect=False):
