@@ -26,7 +26,8 @@ from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.payload import PackagePayload, payloadMgr, NoSuchGroup, PayloadError
+from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.payload.errors import NoSuchGroup, PayloadError, DependencyError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
 
@@ -218,7 +219,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._apply()
 
     def checkSoftwareSelection(self):
-        from pyanaconda.payload import DependencyError
         hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
         try:
             self.payload.checkSoftwareSelection()

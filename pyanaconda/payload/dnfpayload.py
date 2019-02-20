@@ -428,7 +428,7 @@ class DNFPayload(payload.PackagePayload):
             ksrepo.disable()
             log.debug("repo: '%s' - %s failed to load repomd", ksrepo.name,
                       ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
-            raise payload.MetadataError(e)
+            raise payload.errors.MetadataError(e)
 
         log.info("enabled repo: '%s' - %s and got repomd", ksrepo.name,
                  ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
@@ -739,7 +739,7 @@ class DNFPayload(payload.PackagePayload):
         mpoint = _pick_mpoint(df_map, download_size, install_size, download_only=True)
         if mpoint is None:
             msg = ("Not enough disk space to download the packages; size %s." % download_size)
-            raise payload.PayloadError(msg)
+            raise payload.errors.PayloadError(msg)
 
         log.info("Mountpoint %s picked as download location", mpoint)
         pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
@@ -876,7 +876,7 @@ class DNFPayload(payload.PackagePayload):
     def _isGroupVisible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
-            raise payload.NoSuchGroup(grpid)
+            raise payload.errors.NoSuchGroup(grpid)
         return grp.visible
 
     def checkSoftwareSelection(self):
@@ -894,7 +894,7 @@ class DNFPayload(payload.PackagePayload):
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
-            raise payload.DependencyError(msg)
+            raise payload.errors.DependencyError(msg)
 
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.spaceRequired)
@@ -934,7 +934,7 @@ class DNFPayload(payload.PackagePayload):
     def environmentDescription(self, environmentid):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise payload.NoSuchGroup(environmentid)
+            raise payload.errors.NoSuchGroup(environmentid)
         return (env.ui_name, env.ui_description)
 
     def environmentId(self, environment):
@@ -944,19 +944,19 @@ class DNFPayload(payload.PackagePayload):
             log.warning("environmentId() called with non-string argument: %s", environment)
         env = self._base.comps.environment_by_pattern(environment)
         if env is None:
-            raise payload.NoSuchGroup(environment)
+            raise payload.errors.NoSuchGroup(environment)
         return env.id
 
     def environmentHasOption(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise payload.NoSuchGroup(environmentid)
+            raise payload.errors.NoSuchGroup(environmentid)
         return grpid in (id_.name for id_ in env.option_ids)
 
     def environmentOptionIsDefault(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
-            raise payload.NoSuchGroup(environmentid)
+            raise payload.errors.NoSuchGroup(environmentid)
 
         # Look for a group in the optionlist that matches the group_id and has
         # default set
@@ -966,7 +966,7 @@ class DNFPayload(payload.PackagePayload):
         """Return name/description tuple for the group specified by id."""
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
-            raise payload.NoSuchGroup(grpid)
+            raise payload.errors.NoSuchGroup(grpid)
         return (grp.ui_name, grp.ui_description)
 
     def groupId(self, group_name):
@@ -979,7 +979,7 @@ class DNFPayload(payload.PackagePayload):
         """
         grp = self._base.comps.group_by_pattern(group_name)
         if grp is None:
-            raise payload.NoSuchGroup(group_name)
+            raise payload.errors.NoSuchGroup(group_name)
         return grp.id
 
     def gatherRepoMetadata(self):
@@ -1002,7 +1002,7 @@ class DNFPayload(payload.PackagePayload):
         try:
             self.checkSoftwareSelection()
             self._download_location = self._pick_download_location()
-        except payload.PayloadError as e:
+        except payload.errors.PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 log.error("Installation failed: %r", e)
                 _failure_limbo()
@@ -1018,7 +1018,7 @@ class DNFPayload(payload.PackagePayload):
             self._base.download_packages(pkgs_to_download, progress)
         except dnf.exceptions.DownloadError as e:
             msg = 'Failed to download the following packages: %s' % str(e)
-            exc = payload.PayloadInstallError(msg)
+            exc = payload.errors.PayloadInstallError(msg)
             if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                 log.error("Installation failed: %r", exc)
                 _failure_limbo()
@@ -1055,9 +1055,9 @@ class DNFPayload(payload.PackagePayload):
                 break  # Installation finished successfully
             elif token == 'quit':
                 msg = ("Payload error - DNF installation has ended up abruptly: %s" % msg)
-                raise payload.PayloadError(msg)
+                raise payload.errors.PayloadError(msg)
             elif token == 'error':
-                exc = payload.PayloadInstallError("DNF error: %s" % msg)
+                exc = payload.errors.PayloadInstallError("DNF error: %s" % msg)
                 if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
                     log.error("Installation failed: %r", exc)
                     _failure_limbo()
@@ -1176,7 +1176,7 @@ class DNFPayload(payload.PackagePayload):
                     sslclientkey=getattr(method, 'sslclientkey', None))
                 self._add_repo(base_ksrepo)
                 self._fetch_md(base_ksrepo.name)
-            except (payload.MetadataError, payload.PayloadError) as e:
+            except (payload.errors.MetadataError, payload.errors.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           method.method, base_repo_url)
                 log.error("reason for repo removal: %s", e)
@@ -1216,9 +1216,10 @@ class DNFPayload(payload.PackagePayload):
             # one of these must be set to create new repo
             if not (ksrepo.mirrorlist or ksrepo.baseurl or ksrepo.metalink or
                     ksrepo.name in self._base.repos):
-                raise payload.PayloadSetupError("Repository %s has no mirror, baseurl or metalink "
-                                                "set and is not one of the pre-defined "
-                                                "repositories" % ksrepo.name)
+                raise payload.errors.PayloadSetupError("Repository %s has no mirror, baseurl or "
+                                                       "metalink set and is not one of "
+                                                       "the pre-defined repositories" %
+                                                       ksrepo.name)
 
             self._add_repo(ksrepo)
 
@@ -1321,8 +1322,8 @@ class DNFPayload(payload.PackagePayload):
             else:
                 f.close()
                 os.unlink(repo_path)
-                raise payload.PayloadSetupError("The repo {} has no baseurl, mirrorlist or "
-                                                "metalink".format(repo.id))
+                raise payload.errors.PayloadSetupError("The repo {} has no baseurl, mirrorlist or "
+                                                       "metalink".format(repo.id))
 
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)
@@ -1384,7 +1385,7 @@ class DNFPayload(payload.PackagePayload):
             try:
                 log.info("Writing %s.repo to target system.", repo.id)
                 self._writeDNFRepo(repo, repo_path)
-            except payload.PayloadSetupError as e:
+            except payload.errors.PayloadSetupError as e:
                 log.error(e)
 
         # We don't need the mother base anymore. Close it.

@@ -43,6 +43,7 @@ from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_inst
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
+from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 
@@ -64,43 +65,6 @@ def versionCmp(v1, v2):
     firstVersion = LooseVersion(v1)
     secondVersion = LooseVersion(v2)
     return (firstVersion > secondVersion) - (firstVersion < secondVersion)
-
-
-###
-# ERROR HANDLING
-###
-class PayloadError(Exception):
-    pass
-
-
-class MetadataError(PayloadError):
-    pass
-
-
-# setup
-class PayloadSetupError(PayloadError):
-    pass
-
-
-# software selection
-class NoSuchGroup(PayloadError):
-    def __init__(self, group, adding=True, required=False):
-        super().__init__(group)
-        self.group = group
-        self.adding = adding
-        self.required = required
-
-    def __str__(self):
-        return "The group '{}' does not exist".format(self.group)
-
-
-class DependencyError(PayloadError):
-    pass
-
-
-# installation
-class PayloadInstallError(PayloadError):
-    pass
 
 
 PayloadRequirementReason = namedtuple('PayloadRequirementReason', ['reason', 'strong'])

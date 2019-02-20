@@ -28,7 +28,8 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.progress import progressQ
-from pyanaconda.payload import ArchivePayload, PayloadInstallError
+from pyanaconda.payload import ArchivePayload
+from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
