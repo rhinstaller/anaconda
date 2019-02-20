@@ -153,6 +153,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'ignoredisk',
                 'logvol',
                 'mount',
+                'nvdimm',
                 'part',
                 'partition',
                 'raid',
@@ -726,6 +727,43 @@ class StorageInterfaceTestCase(unittest.TestCase):
         zfcp --devnum=0.0.fc00 --wwpn=0x401040a000000000 --fcplun=0x5105074308c212e9
         """
         self._test_kickstart(ks_in, ks_out)
+
+    @patch("pyanaconda.modules.storage.kickstart.nvdimm")
+    def nvdimm_kickstart_test(self, nvdimm):
+        """Test the nvdimm command."""
+        ks_in = """
+        nvdimm use --namespace=namespace0.0
+        nvdimm reconfigure --namespace=namespace1.0 --mode=sector --sectorsize=512
+        """
+        ks_out = """
+        # NVDIMM devices setup
+        nvdimm use --namespace=namespace0.0
+        nvdimm reconfigure --namespace=namespace1.0 --mode=sector --sectorsize=512
+        """
+        nvdimm.namespaces = ["namespace0.0", "namespace1.0"]
+        self._test_kickstart(ks_in, ks_out)
+
+        nvdimm.namespaces = ["namespace0.0"]
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+        nvdimm.namespaces = ["namespace1.0"]
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch("pyanaconda.modules.storage.kickstart.device_matches")
+    def nvdimm_blockdevs_kickstart_test(self, device_matches):
+        """Test the nvdimm command with blockdevs."""
+        ks_in = """
+        nvdimm use --blockdevs=pmem0
+        """
+        ks_out = """
+        # NVDIMM devices setup
+        nvdimm use --blockdevs=pmem0
+        """
+        device_matches.return_value = ["pmem0"]
+        self._test_kickstart(ks_in, ks_out)
+
+        device_matches.return_value = []
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
 
 class StorageTasksTestCase(unittest.TestCase):

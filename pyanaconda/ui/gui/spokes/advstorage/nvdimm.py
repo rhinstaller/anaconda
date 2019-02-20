@@ -16,29 +16,27 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from blivet.static_data import nvdimm
-
-from pyanaconda.core.constants import THREAD_NVDIMM_RECONFIGURE, THREAD_NVDIMM_REPOPULATE
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.ui.gui import GUIObject
-from pyanaconda.core.async_utils import async_action_nowait
-from pyanaconda.storage.utils import try_populate_devicetree, \
-    nvdimm_update_ksdata_after_reconfiguration
 from pykickstart.constants import NVDIMM_MODE_SECTOR
-
 from pyanaconda.core.i18n import _, CN_
+from pyanaconda.modules.common.task import async_run_task
+from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.constants.objects import NVDIMM
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError
+from pyanaconda.modules.storage.reset import StorageResetTask
+from pyanaconda.ui.gui import GUIObject
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-DEFAULT_SECTOR_SIZE = 512
-
 __all__ = ["NVDIMMDialog"]
+
+DEFAULT_SECTOR_SIZE = 512
 
 PAGE_ACTION = 1
 PAGE_RESULT_ERROR = 2
 PAGE_RESULT_SUCCESS = 3
+
 
 class NVDIMMDialog(GUIObject):
     """
@@ -51,12 +49,9 @@ class NVDIMMDialog(GUIObject):
 
     def __init__(self, data, storage, namespaces):
         GUIObject.__init__(self, data)
-
-        self.namespaces = namespaces
-        self.storage = storage
-
-        self._error = None
-        self._update_devicetree = False
+        self._storage = storage
+        self._namespaces = namespaces
+        self._nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
 
         self._startButton = self.builder.get_object("startButton")
         self._infoLabel = self.builder.get_object("infoLabel")
@@ -69,17 +64,21 @@ class NVDIMMDialog(GUIObject):
         self._sectorSizeLabel = self.builder.get_object("sectorSizeLabel")
         self._sectorSizeSpinButton = self.builder.get_object("sectorSizeSpinButton")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
+        self._deviceErrorLabel = self.builder.get_object("deviceErrorLabel")
 
     def refresh(self):
         self._sectorSizeSpinButton.set_value(DEFAULT_SECTOR_SIZE)
-        if self.namespaces:
-            self._devicesLabel.set_text("%s" % ", ".join(self.namespaces))
+
+        if self._namespaces:
+            self._devicesLabel.set_text("%s" % ", ".join(self._namespaces))
         else:
-            msg = CN_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
-            self._infoLabel.set_text(msg)
-            for widget in [self._sectorSizeSpinButton, self._okButton, self._startButton,
-                           self._sectorSizeLabel]:
-                widget.set_sensitive(False)
+            self._sectorSizeSpinButton.set_sensitive(False)
+            self._okButton.set_sensitive(False)
+            self._startButton.set_sensitive(False)
+            self._sectorSizeLabel.set_sensitive(False)
+            self._infoLabel.set_text(
+                CN_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
+            )
 
     def run(self):
         rc = self.window.run()
@@ -88,67 +87,90 @@ class NVDIMMDialog(GUIObject):
 
     @property
     def sector_size(self):
+        """Size of the sector."""
         return self._sectorSizeSpinButton.get_value_as_int()
 
     def on_start_clicked(self, *args):
-        self._conditionNotebook.set_current_page(PAGE_ACTION)
+        """Start to reconfigure the namespaces."""
+        if not self._namespaces:
+            return
 
-        for widget in [self._startButton, self._cancelButton, self._sectorSizeSpinButton,
-                       self._okButton]:
-            widget.set_sensitive(False)
+        namespace = self._namespaces.pop(0)
+        self.reconfigure_namespace(namespace)
+
+    def reconfigure_namespace(self, namespace):
+        """Start the reconfiguration task."""
+        # Update the widgets.
+        self._conditionNotebook.set_current_page(PAGE_ACTION)
+        self._startButton.set_sensitive(False)
+        self._cancelButton.set_sensitive(False)
+        self._sectorSizeSpinButton.set_sensitive(False)
+        self._okButton.set_sensitive(False)
+
+        # Get the data.
+        mode = NVDIMM_MODE_SECTOR
+        sector_size = self.sector_size
+
+        # Get the task.
+        task_path = self._nvdimm_proxy.ReconfigureWithTask(namespace, mode, sector_size)
+        task_proxy = STORAGE.get_proxy(task_path)
+
+        # Start the reconfiguration.
+        async_run_task(task_proxy, self.reconfigure_finished)
 
         self._reconfigureSpinner.start()
 
-        threadMgr.add(AnacondaThread(name=THREAD_NVDIMM_RECONFIGURE, target=self._reconfigure,
-                                     args=(self.namespaces, NVDIMM_MODE_SECTOR, self.sector_size)))
-
-    def _reconfigure(self, namespaces, mode, sector_size):
-        for namespace in namespaces:
-            if namespace in nvdimm.namespaces:
-                log.info("nvdimm: reconfiguring %s to %s mode", namespace, mode)
-                try:
-                    nvdimm.reconfigure_namespace(namespace, mode, sector_size=sector_size)
-                    self._update_devicetree = True
-                except Exception as e:  # pylint: disable=broad-except
-                    self._error = "%s: %s" % (namespace, str(e))
-                    log.error("nvdimm: reconfiguring %s to %s mode error: %s",
-                              namespace, mode, e)
-                    break
-                # Update kickstart data for generated ks
-                nvdimm_update_ksdata_after_reconfiguration(self.data,
-                                                           namespace,
-                                                           mode=mode,
-                                                           sectorsize=sector_size)
-            else:
-                log.error("nvdimm: namespace %s to be reconfigured not found", namespace)
-        self._after_reconfigure()
-
-    @async_action_nowait
-    def _after_reconfigure(self):
-        # When reconfiguration is done, update the UI.  We don't need to worry
-        # about the user escaping from the dialog because all the buttons are
-        # marked insensitive.
+    def reconfigure_finished(self, task_proxy):
+        """Callback for reconfigure_namespaces."""
+        # Stop the spinner.
         self._reconfigureSpinner.stop()
 
-        if self._error:
-            self.builder.get_object("deviceErrorLabel").set_text(self._error)
-            self._error = None
+        try:
+            # Finish the task.
+            task_proxy.Finish()
+        except StorageConfigurationError as e:
+            # Configuration has failed, show the error.
+            self._deviceErrorLabel.set_text(str(e))
             self._conditionNotebook.set_current_page(PAGE_RESULT_ERROR)
             self._okButton.set_sensitive(True)
         else:
-            self._conditionNotebook.set_current_page(PAGE_RESULT_SUCCESS)
-            if self._update_devicetree:
-                self._repopulateSpinner.start()
-                threadMgr.add(AnacondaThread(name=THREAD_NVDIMM_REPOPULATE, target=self._repopulate))
+            # More namespaces to configure? Continue.
+            if self._namespaces:
+                namespace = self._namespaces.pop(0)
+                self.reconfigure_namespace(namespace)
+                return
 
-    def _repopulate(self):
-        log.info("nvdimm: repopulating device tree")
-        self.storage.devicetree.reset()
-        try_populate_devicetree(self.storage.devicetree)
-        self._after_repopulate()
+            # Otherwise, repopulate the device tree.
+            self.repopulate_storage()
 
-    @async_action_nowait
-    def _after_repopulate(self):
+    def repopulate_storage(self):
+        """Repopulate the storage."""
+        # Update the widgets.
+        self._conditionNotebook.set_current_page(PAGE_RESULT_SUCCESS)
+
+        # Update the namespaces info.
+        nvdimm.update_namespaces_info()
+
+        # Get the task.
+        task = StorageResetTask(self._storage)
+        task.stopped_signal.connect(lambda: self.repopulate_finished(task))
+
+        # Start the task.
+        task.start()
+
+        self._repopulateSpinner.start()
+
+    def repopulate_finished(self, task):
+        """Callback for repopulate_storage.
+
+        :param task: an instance of the task
+        """
+        # Stop the spinner.
         self._repopulateSpinner.stop()
+
+        # Finish the task. The failures are fatal.
+        task.finish()
+
+        # Set up the UI.
         self._repopulateLabel.set_text(_("Rescanning disks finished."))
         self._okButton.set_sensitive(True)

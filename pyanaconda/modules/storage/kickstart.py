@@ -18,10 +18,11 @@
 # Red Hat, Inc.
 #
 from blivet.fcoe import fcoe
+from blivet.static_data import nvdimm
 from blivet.zfcp import zfcp
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
-from pykickstart.constants import CLEARPART_TYPE_NONE
+from pykickstart.constants import CLEARPART_TYPE_NONE, NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda import nm
@@ -143,6 +144,33 @@ class Fcoe(COMMANDS.Fcoe):
         return fc
 
 
+class Nvdimm(COMMANDS.Nvdimm):
+    """The nvdimm kickstart command."""
+
+    def parse(self, args):
+        action = super().parse(args)
+
+        if action.action == NVDIMM_ACTION_RECONFIGURE:
+            if action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(_("Namespace \"{}\" given in nvdimm command was not "
+                                            "found.").format(action.namespace), lineno=self.lineno)
+
+            log.info("Reconfiguring the namespace %s to %s mode", action.namespace, action.mode)
+            nvdimm.reconfigure_namespace(action.namespace, action.mode, sector_size=action.sectorsize)
+
+        elif action.action == NVDIMM_ACTION_USE:
+            if action.namespace and action.namespace not in nvdimm.namespaces:
+                raise KickstartParseError(_("Namespace \"{}\" given in nvdimm command was not "
+                                            "found.").format(action.namespace), lineno=self.lineno)
+
+            devs = action.blockdevs
+            action.blockdevs = get_device_names(devs, disks_only=True, lineno=self.lineno,
+                                                msg=_("Disk \"{}\" given in nvdimm command does "
+                                                      "not exist."))
+
+        return action
+
+
 class ZFCP(COMMANDS.ZFCP):
     """The zfcp kickstart command."""
 
@@ -173,6 +201,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "ignoredisk": IgnoreDisk,
         "logvol": COMMANDS.LogVol,
         "mount": COMMANDS.Mount,
+        "nvdimm": Nvdimm,
         "part": COMMANDS.Partition,
         "partition": COMMANDS.Partition,
         "raid": COMMANDS.Raid,
@@ -187,6 +216,7 @@ class StorageKickstartSpecification(KickstartSpecification):
         "FcoeData": COMMANDS.FcoeData,
         "LogVolData": COMMANDS.LogVolData,
         "MountData": COMMANDS.MountData,
+        "NvdimmData": COMMANDS.NvdimmData,
         "PartData": COMMANDS.PartData,
         "RaidData": COMMANDS.RaidData,
         "VolGroupData": COMMANDS.VolGroupData,
