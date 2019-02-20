@@ -24,8 +24,9 @@ from blivet.devices import BTRFSDevice
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
-    MANUAL_PARTITIONING
+    MANUAL_PARTITIONING, SNAPSHOT
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
 from pyanaconda.bootloader.installation import write_boot_loader
@@ -370,9 +371,13 @@ def doInstall(storage, payload, ksdata):
     installation_queue.append(post_install)
 
     # Create snapshot
-    if ksdata.snapshot and ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_POST_INSTALL):
+    snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
+
+    if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
         snapshot_creation = TaskQueue("Creating post installation snapshots", N_("Creating snapshots"))
-        snapshot_creation.append(Task("Create post-install snapshots", ksdata.snapshot.execute, (storage, )))
+        snapshot_requests = ksdata.snapshot.get_requests(SNAPSHOT_WHEN_POST_INSTALL)
+        snapshot_task = SnapshotCreateTask(storage, snapshot_requests, SNAPSHOT_WHEN_POST_INSTALL)
+        snapshot_creation.append(Task("Create post-install snapshots", snapshot_task.run))
         installation_queue.append(snapshot_creation)
 
     # notify progress tracking about the number of steps

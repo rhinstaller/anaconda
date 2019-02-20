@@ -775,10 +775,25 @@ if __name__ == "__main__":
     # Create pre-install snapshots
     from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL
     from pyanaconda.kickstart import check_kickstart_error
-    if ksdata.snapshot.has_snapshot(SNAPSHOT_WHEN_PRE_INSTALL):
+    from pyanaconda.modules.common.constants.objects import SNAPSHOT
+    snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
+
+    if snapshot_proxy.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL):
+        # What for the storage to load devices.
+        # FIXME: Don't block the main thread!
+        threadMgr.wait(constants.THREAD_STORAGE)
+
+        # Prepare the requests.
+        requests = ksdata.snapshot.get_requests(SNAPSHOT_WHEN_PRE_INSTALL)
+
+        # Run the tasks.
         with check_kickstart_error():
-            ksdata.snapshot.pre_setup(anaconda.storage)
-            ksdata.snapshot.pre_execute(anaconda.storage)
+
+            from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
+            SnapshotValidateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
+
+            from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
+            SnapshotCreateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
 
     anaconda.intf.setup(ksdata)
     anaconda.intf.run()
