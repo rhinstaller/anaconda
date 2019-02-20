@@ -39,6 +39,7 @@ from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule, CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
+from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.storage.initialization import enable_installer_mode, create_storage
@@ -67,6 +68,9 @@ class StorageModule(KickstartModule):
 
         self._disk_selection_module = DiskSelectionModule()
         self._add_module(self._disk_selection_module)
+
+        self._snapshot_module = SnapshotModule()
+        self._add_module(self._snapshot_module)
 
         self._bootloader_module = BootloaderModule()
         self._add_module(self._bootloader_module)
@@ -98,6 +102,9 @@ class StorageModule(KickstartModule):
 
         self._custom_part_module = CustomPartitioningModule()
         self._add_partitioning_module(CUSTOM_PARTITIONING.object_path, self._custom_part_module)
+
+        # Connect modules to signals.
+        self.storage_changed.connect(self._snapshot_module.on_storage_reset)
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
