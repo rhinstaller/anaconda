@@ -36,6 +36,7 @@ from contextlib import contextmanager
 
 from pyanaconda import keyboard, network, ntp, screen_access, timezone
 from pyanaconda.core import util
+from pyanaconda.core import users
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
@@ -465,7 +466,7 @@ class Firstboot(RemovedCommand):
         util.enable_service(unit_name)
 
 class Group(COMMANDS.Group):
-    def execute(self, storage, ksdata, users):
+    def execute(self, storage, ksdata):
         for grp in self.groupList:
             kwargs = grp.__dict__
             kwargs.update({"root": util.getSysroot()})
@@ -673,7 +674,7 @@ class RootPw(RemovedCommand):
         users_proxy = USERS.get_proxy()
         return users_proxy.GenerateTemporaryKickstart()
 
-    def execute(self, storage, ksdata, users):
+    def execute(self, storage, ksdata):
 
         users_proxy = USERS.get_proxy()
 
@@ -744,7 +745,7 @@ class Services(RemovedCommand):
             util.enable_service(svc)
 
 class SshKey(COMMANDS.SshKey):
-    def execute(self, storage, ksdata, users):
+    def execute(self, storage, ksdata):
         for usr in self.sshUserList:
             users.set_user_ssh_key(usr.username, usr.key)
 
@@ -829,7 +830,7 @@ class Timezone(RemovedCommand):
                     timezone_log.warning("Failed to save NTP configuration without chrony package: %s", ntperr)
 
 class User(COMMANDS.User):
-    def execute(self, storage, ksdata, users):
+    def execute(self, storage, ksdata):
 
         for usr in self.userList:
             kwargs = usr.__dict__

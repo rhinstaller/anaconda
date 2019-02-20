@@ -39,20 +39,18 @@ ksparser.registerSection(NullSection(handler, sectionOpen="%addon"))
 ksparser.registerSection(NullSection(handler, sectionOpen="%anaconda"))
 ksparser.readKickstart(ksfile)
 
-u = users.Users()
-
 userdata = ksparser.handler.sshpw.dataList()
 for ud in userdata:
-    if u.check_user_exists(ud.username, root="/"):
+    if users.check_user_exists(ud.username, root="/"):
         if not ud.sshkey:
-            u.set_user_password(username=ud.username, password=ud.password,
+            users.set_user_password(username=ud.username, password=ud.password,
                               isCrypted=ud.isCrypted, lock=ud.lock)
     else:
         kwargs = ud.__dict__
         kwargs.update({"root": "/"})
-        u.create_user(ud.username, **kwargs)
+        users.create_user(ud.username, **kwargs)
 
     if ud.sshkey:
         # Setup the account so that only the sshkey can be used
-        u.set_user_password(username=ud.username, password="*", isCrypted=True, lock=False)
-        u.setUserSshKey(username=ud.username, key=ud.password, root="/")
+        users.set_user_password(username=ud.username, password="*", isCrypted=True, lock=False)
+        users.setUserSshKey(username=ud.username, key=ud.password, root="/")

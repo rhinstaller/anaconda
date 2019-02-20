@@ -31,7 +31,6 @@ from pyanaconda.storage.installation import turn_on_filesystems, write_storage_c
 from pyanaconda.bootloader.installation import write_boot_loader
 from pyanaconda.payload.livepayload import LiveImagePayload
 from pyanaconda.progress import progress_message, progress_step, progress_complete, progress_init
-from pyanaconda.core.users import Users
 from pyanaconda import flags
 from pyanaconda.core import util
 from pyanaconda import timezone
@@ -112,12 +111,11 @@ def doConfiguration(storage, payload, ksdata):
         configuration_queue.append(network_config)
 
     # creating users and groups requires some pre-configuration.
-    u = Users()
     user_config = TaskQueue("User creation", N_("Creating users"))
-    user_config.append(Task("Configure root", ksdata.rootpw.execute, (storage, ksdata, u)))
-    user_config.append(Task("Configure user groups", ksdata.group.execute, (storage, ksdata, u)))
-    user_config.append(Task("Configure user", ksdata.user.execute, (storage, ksdata, u)))
-    user_config.append(Task("Configure SSH key", ksdata.sshkey.execute, (storage, ksdata, u)))
+    user_config.append(Task("Configure root", ksdata.rootpw.execute, (storage, ksdata)))
+    user_config.append(Task("Configure user groups", ksdata.group.execute, (storage, ksdata)))
+    user_config.append(Task("Configure user", ksdata.user.execute, (storage, ksdata)))
+    user_config.append(Task("Configure SSH key", ksdata.sshkey.execute, (storage, ksdata)))
     configuration_queue.append(user_config)
 
     # Anaconda addon configuration

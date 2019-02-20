@@ -128,317 +128,316 @@ def guess_username(fullname):
     username = strip_accents(username)
     return username
 
-class Users(object):
-    def _getpwnam(self, user_name, root):
-        """Like pwd.getpwnam, but is able to use a different root.
-
-        Also just returns the pwd structure as a list, because of laziness.
-
-        :param str user_name: user name
-        :param str root: filesystem root for the operation
-        """
-        with open(root + "/etc/passwd", "r") as f:
-            for line in f:
-                fields = line.split(":")
-                if fields[0] == user_name:
-                    return fields
-
-        return None
-
-    def _getgrnam(self, group_name, root):
-        """Like grp.getgrnam, but able to use a different root.
-
-        Just returns the grp structure as a list, same reason as above.
-
-        :param str group_name: group name
-        :param str root: filesystem root for the operation
-        """
-        with open(root + "/etc/group", "r") as f:
-            for line in f:
-                fields = line.split(":")
-                if fields[0] == group_name:
-                    return fields
-
-        return None
-
-    def _getgrgid(self, gid, root):
-        """Like grp.getgrgid, but able to use a different root.
-
-        Just returns the fields as a list of strings.
-
-        :param int git: group id
-        :param str root: filesystem root for the operation
-        """
-        # Convert the probably-int GID to a string
-        gid = str(gid)
-
-        with open(root + "/etc/group", "r") as f:
-            for line in f:
-                fields = line.split(":")
-                if fields[2] == gid:
-                    return fields
-
-        return None
-
-    @contextmanager
-    def _ensure_login_defs(self, root):
-        """Runs a command after creating /etc/login.defs, if necessary.
-
-        The groupadd and useradd utilities need login.defs to exist in the chroot,
-        and if someone is doing a cloud image install or some kind of --nocore thing
-        it may not. An empty one is ok, though. If it's missing, create it,
-        run the command, then clean it up.
-
-        :param str root: filesystem root for the operation
-        """
-        login_defs_path = root + '/etc/login.defs'
-        if not os.path.exists(login_defs_path):
-            open(login_defs_path, "w").close()
-            login_defs_created = True
-        else:
-            login_defs_created = False
-
-        yield
-
-        if login_defs_created:
-            os.unlink(login_defs_path)
-
-    def create_group(self, group_name, **kwargs):
-        """Create a new user on the system with the given name.  Optional kwargs:
-
-           :keyword int gid: The GID for the new user. If none is given, the next available one is used.
-           :keyword str root: The directory of the system to create the new user in.
-                          homedir will be interpreted relative to this. Defaults
-                          to util.getSysroot().
-        """
-        root = kwargs.get("root", util.getSysroot())
-
-        if self._getgrnam(group_name, root):
-            raise ValueError("Group %s already exists" % group_name)
-
-        args = ["-R", root]
-        if kwargs.get("gid") is not None:
-            args.extend(["-g", str(kwargs["gid"])])
-
-        args.append(group_name)
-        with self._ensure_login_defs(root):
-            status = util.execWithRedirect("groupadd", args)
-
-        if status == 4:
-            raise ValueError("GID %s already exists" % kwargs.get("gid"))
-        elif status == 9:
-            raise ValueError("Group %s already exists" % group_name)
-        elif status != 0:
-            raise OSError("Unable to create group %s: status=%s" % (group_name, status))
-
-    def create_user(self, user_name, *args, **kwargs):
-        """Create a new user on the system with the given name.  Optional kwargs:
-
-           :keyword str algo: The password algorithm to use in case isCrypted=True.
-                              If none is given, the cryptPassword default is used.
-           :keyword str gecos: The GECOS information (full name, office, phone, etc.).
-                               Defaults to "".
-           :keyword groups: A list of group names the user should be added to.
-                            Each group name can contain an optional GID in parenthesis,
-                            such as "groupName(5000)". Defaults to [].
-           :type groups: list of str
-           :keyword str homedir: The home directory for the new user.  Defaults to
-                                 /home/<name>.
-           :keyword bool isCrypted: Is the password kwargs already encrypted?  Defaults
-                                    to False.
-           :keyword bool lock: Is the new account locked by default?  Defaults to
-                               False.
-           :keyword str password: The password.  See isCrypted for how this is interpreted.
-                                  If the password is "" then the account is created
-                                  with a blank password. If None or False the account will
-                                  be left in its initial state (locked)
-           :keyword str root: The directory of the system to create the new user
-                              in.  homedir will be interpreted relative to this.
-                              Defaults to util.getSysroot().
-           :keyword str shell: The shell for the new user.  If none is given, the
-                               login.defs default is used.
-           :keyword int uid: The UID for the new user.  If none is given, the next
-                             available one is used.
-           :keyword int gid: The GID for the new user.  If none is given, the next
-                             available one is used.
-        """
-
-        root = kwargs.get("root", util.getSysroot())
-
-        if self.check_user_exists(user_name, root):
-            raise ValueError("User %s already exists" % user_name)
-
-        args = ["-R", root]
-
-        # Split the groups argument into a list of (username, gid or None) tuples
-        # the gid, if any, is a string since that makes things simpler
-        group_gids = [GROUPLIST_FANCY_PARSE.match(group).groups()
-                      for group in kwargs.get("groups", [])]
-
-        # If a specific gid is requested:
-        #   - check if a group already exists with that GID. i.e., the user's
-        #     GID should refer to a system group, such as users. If so, just set
-        #     the GID.
-        #   - check if a new group is requested with that GID. If so, set the GID
-        #     and let the block below create the actual group.
-        #   - if neither of those are true, create a new user group with the requested
-        #     GID
-        # otherwise use -U to create a new user group with the next available GID.
-        if kwargs.get("gid", None):
-            if not self._getgrgid(kwargs['gid'], root) and \
-                    not any(gid[1] == str(kwargs['gid']) for gid in group_gids):
-                self.create_group(user_name, gid=kwargs['gid'], root=root)
-
-            args.extend(['-g', str(kwargs['gid'])])
-        else:
-            args.append('-U')
-
-        # If any requested groups do not exist, create them.
-        group_list = []
-        for group_name, gid in group_gids:
-            existing_group = self._getgrnam(group_name, root)
-
-            # Check for a bad GID request
-            if gid and existing_group and gid != existing_group[2]:
-                raise ValueError("Group %s already exists with GID %s" % (group_name, gid))
-
-            # Otherwise, create the group if it does not already exist
-            if not existing_group:
-                self.create_group(group_name, gid=gid, root=root)
-            group_list.append(group_name)
-
-        if group_list:
-            args.extend(['-G', ",".join(group_list)])
-
-        if kwargs.get("homedir"):
-            homedir = kwargs["homedir"]
-        else:
-            homedir = "/home/" + user_name
-
-        # useradd expects the parent directory tree to exist.
-        parent_dir = util.parent_dir(root + homedir)
-
-        # If root + homedir came out to "/", such as if we're creating the sshpw user,
-        # parent_dir will be empty. Don't create that.
-        if parent_dir:
-            util.mkdirChain(parent_dir)
-
-        args.extend(["-d", homedir])
-
-        # Check whether the directory exists or if useradd should create it
-        mk_homedir = not os.path.exists(root + homedir)
-        if mk_homedir:
-            args.append("-m")
-        else:
-            args.append("-M")
-
-        if kwargs.get("shell"):
-            args.extend(["-s", kwargs["shell"]])
-
-        if kwargs.get("uid"):
-            args.extend(["-u", str(kwargs["uid"])])
-
-        if kwargs.get("gecos"):
-            args.extend(["-c", kwargs["gecos"]])
-
-        args.append(user_name)
-        with self._ensure_login_defs(root):
-            status = util.execWithRedirect("useradd", args)
-
-        if status == 4:
-            raise ValueError("UID %s already exists" % kwargs.get("uid"))
-        elif status == 6:
-            raise ValueError("Invalid groups %s" % kwargs.get("groups", []))
-        elif status == 9:
-            raise ValueError("User %s already exists" % user_name)
-        elif status != 0:
-            raise OSError("Unable to create user %s: status=%s" % (user_name, status))
-
-        if not mk_homedir:
-            try:
-                stats = os.stat(root + homedir)
-                orig_uid = stats.st_uid
-                orig_gid = stats.st_gid
-
-                # Gett the UID and GID of the created user
-                pwent = self._getpwnam(user_name, root)
-
-                log.info("Home directory for the user %s already existed, "
-                         "fixing the owner and SELinux context.", user_name)
-                # home directory already existed, change owner of it properly
-                util.chown_dir_tree(root + homedir,
-                                    int(pwent[2]), int(pwent[3]),
-                                    orig_uid, orig_gid)
-                util.execWithRedirect("restorecon", ["-r", root + homedir])
-            except OSError as e:
-                log.critical("Unable to change owner of existing home directory: %s", e.strerror)
-                raise
-
-        pw = kwargs.get("password", False)
-        crypted = kwargs.get("isCrypted", False)
-        algo = kwargs.get("algo", None)
-        lock = kwargs.get("lock", False)
-
-        self.set_user_password(user_name, pw, crypted, lock, algo, root)
-
-    def check_user_exists(self, username, root=None):
-        if self._getpwnam(username, root):
-            return True
-
-        return False
-
-    def set_user_password(self, username, password, isCrypted, lock, algo=None, root="/"):
-        # Only set the password if it is a string, including the empty string.
-        # Otherwise leave it alone (defaults to locked for new users) and reset sp_lstchg
-        if password or password == "":
-            if password == "":
-                log.info("user account %s setup with no password", username)
-            elif not isCrypted:
-                password = cryptPassword(password, algo)
-
-            if lock:
-                password = "!" + password
-                log.info("user account %s locked", username)
-
-            proc = util.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
-            proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
-            if proc.returncode != 0:
-                raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
-
-        # Reset sp_lstchg to an empty string. On systems with no rtc, this
-        # field can be set to 0, which has a special meaning that the password
-        # must be reset on the next login.
-        util.execWithRedirect("chage", ["-R", root, "-d", "", username])
-
-    def set_root_password(self, password, isCrypted=False, isLocked=False, algo=None, root="/"):
-        return self.set_user_password("root", password, isCrypted, isLocked, algo, root)
-
-    def set_user_ssh_key(self, username, key, **kwargs):
-        root = kwargs.get("root", util.getSysroot())
-
-        pwent = self._getpwnam(username, root)
-        if not pwent:
-            raise ValueError("set_user_ssh_key: user %s does not exist" % username)
-
-        homedir = root + pwent[5]
-        if not os.path.exists(homedir):
-            log.error("set_user_ssh_key: home directory for %s does not exist", username)
-            raise ValueError("set_user_ssh_key: home directory for %s does not exist" % username)
-
-        uid = pwent[2]
-        gid = pwent[3]
-
-        sshdir = os.path.join(homedir, ".ssh")
-        if not os.path.isdir(sshdir):
-            os.mkdir(sshdir, 0o700)
-            os.chown(sshdir, int(uid), int(gid))
-
-        authfile = os.path.join(sshdir, "authorized_keys")
-        authfile_existed = os.path.exists(authfile)
-        with util.open_with_perm(authfile, "a", 0o600) as f:
-            f.write(key + "\n")
-
-        # Only change ownership if we created it
-        if not authfile_existed:
-            os.chown(authfile, int(uid), int(gid))
-            util.execWithRedirect("restorecon", ["-r", sshdir])
+def _getpwnam(user_name, root):
+    """Like pwd.getpwnam, but is able to use a different root.
+
+    Also just returns the pwd structure as a list, because of laziness.
+
+    :param str user_name: user name
+    :param str root: filesystem root for the operation
+    """
+    with open(root + "/etc/passwd", "r") as f:
+        for line in f:
+            fields = line.split(":")
+            if fields[0] == user_name:
+                return fields
+
+    return None
+
+def _getgrnam(group_name, root):
+    """Like grp.getgrnam, but able to use a different root.
+
+    Just returns the grp structure as a list, same reason as above.
+
+    :param str group_name: group name
+    :param str root: filesystem root for the operation
+    """
+    with open(root + "/etc/group", "r") as f:
+        for line in f:
+            fields = line.split(":")
+            if fields[0] == group_name:
+                return fields
+
+    return None
+
+def _getgrgid(gid, root):
+    """Like grp.getgrgid, but able to use a different root.
+
+    Just returns the fields as a list of strings.
+
+    :param int git: group id
+    :param str root: filesystem root for the operation
+    """
+    # Convert the probably-int GID to a string
+    gid = str(gid)
+
+    with open(root + "/etc/group", "r") as f:
+        for line in f:
+            fields = line.split(":")
+            if fields[2] == gid:
+                return fields
+
+    return None
+
+@contextmanager
+def _ensure_login_defs(root):
+    """Runs a command after creating /etc/login.defs, if necessary.
+
+    The groupadd and useradd utilities need login.defs to exist in the chroot,
+    and if someone is doing a cloud image install or some kind of --nocore thing
+    it may not. An empty one is ok, though. If it's missing, create it,
+    run the command, then clean it up.
+
+    :param str root: filesystem root for the operation
+    """
+    login_defs_path = root + '/etc/login.defs'
+    if not os.path.exists(login_defs_path):
+        open(login_defs_path, "w").close()
+        login_defs_created = True
+    else:
+        login_defs_created = False
+
+    yield
+
+    if login_defs_created:
+        os.unlink(login_defs_path)
+
+def create_group(group_name, **kwargs):
+    """Create a new user on the system with the given name.  Optional kwargs:
+
+       :keyword int gid: The GID for the new user. If none is given, the next available one is used.
+       :keyword str root: The directory of the system to create the new user in.
+                      homedir will be interpreted relative to this. Defaults
+                      to util.getSysroot().
+    """
+    root = kwargs.get("root", util.getSysroot())
+
+    if _getgrnam(group_name, root):
+        raise ValueError("Group %s already exists" % group_name)
+
+    args = ["-R", root]
+    if kwargs.get("gid") is not None:
+        args.extend(["-g", str(kwargs["gid"])])
+
+    args.append(group_name)
+    with _ensure_login_defs(root):
+        status = util.execWithRedirect("groupadd", args)
+
+    if status == 4:
+        raise ValueError("GID %s already exists" % kwargs.get("gid"))
+    elif status == 9:
+        raise ValueError("Group %s already exists" % group_name)
+    elif status != 0:
+        raise OSError("Unable to create group %s: status=%s" % (group_name, status))
+
+def create_user(user_name, *args, **kwargs):
+    """Create a new user on the system with the given name.  Optional kwargs:
+
+       :keyword str algo: The password algorithm to use in case isCrypted=True.
+                          If none is given, the cryptPassword default is used.
+       :keyword str gecos: The GECOS information (full name, office, phone, etc.).
+                           Defaults to "".
+       :keyword groups: A list of group names the user should be added to.
+                        Each group name can contain an optional GID in parenthesis,
+                        such as "groupName(5000)". Defaults to [].
+       :type groups: list of str
+       :keyword str homedir: The home directory for the new user.  Defaults to
+                             /home/<name>.
+       :keyword bool isCrypted: Is the password kwargs already encrypted?  Defaults
+                                to False.
+       :keyword bool lock: Is the new account locked by default?  Defaults to
+                           False.
+       :keyword str password: The password.  See isCrypted for how this is interpreted.
+                              If the password is "" then the account is created
+                              with a blank password. If None or False the account will
+                              be left in its initial state (locked)
+       :keyword str root: The directory of the system to create the new user
+                          in.  homedir will be interpreted relative to this.
+                          Defaults to util.getSysroot().
+       :keyword str shell: The shell for the new user.  If none is given, the
+                           login.defs default is used.
+       :keyword int uid: The UID for the new user.  If none is given, the next
+                         available one is used.
+       :keyword int gid: The GID for the new user.  If none is given, the next
+                         available one is used.
+    """
+
+    root = kwargs.get("root", util.getSysroot())
+
+    if check_user_exists(user_name, root):
+        raise ValueError("User %s already exists" % user_name)
+
+    args = ["-R", root]
+
+    # Split the groups argument into a list of (username, gid or None) tuples
+    # the gid, if any, is a string since that makes things simpler
+    group_gids = [GROUPLIST_FANCY_PARSE.match(group).groups()
+                  for group in kwargs.get("groups", [])]
+
+    # If a specific gid is requested:
+    #   - check if a group already exists with that GID. i.e., the user's
+    #     GID should refer to a system group, such as users. If so, just set
+    #     the GID.
+    #   - check if a new group is requested with that GID. If so, set the GID
+    #     and let the block below create the actual group.
+    #   - if neither of those are true, create a new user group with the requested
+    #     GID
+    # otherwise use -U to create a new user group with the next available GID.
+    if kwargs.get("gid", None):
+        if not _getgrgid(kwargs['gid'], root) and \
+                not any(gid[1] == str(kwargs['gid']) for gid in group_gids):
+            create_group(user_name, gid=kwargs['gid'], root=root)
+
+        args.extend(['-g', str(kwargs['gid'])])
+    else:
+        args.append('-U')
+
+    # If any requested groups do not exist, create them.
+    group_list = []
+    for group_name, gid in group_gids:
+        existing_group = _getgrnam(group_name, root)
+
+        # Check for a bad GID request
+        if gid and existing_group and gid != existing_group[2]:
+            raise ValueError("Group %s already exists with GID %s" % (group_name, gid))
+
+        # Otherwise, create the group if it does not already exist
+        if not existing_group:
+            create_group(group_name, gid=gid, root=root)
+        group_list.append(group_name)
+
+    if group_list:
+        args.extend(['-G', ",".join(group_list)])
+
+    if kwargs.get("homedir"):
+        homedir = kwargs["homedir"]
+    else:
+        homedir = "/home/" + user_name
+
+    # useradd expects the parent directory tree to exist.
+    parent_dir = util.parent_dir(root + homedir)
+
+    # If root + homedir came out to "/", such as if we're creating the sshpw user,
+    # parent_dir will be empty. Don't create that.
+    if parent_dir:
+        util.mkdirChain(parent_dir)
+
+    args.extend(["-d", homedir])
+
+    # Check whether the directory exists or if useradd should create it
+    mk_homedir = not os.path.exists(root + homedir)
+    if mk_homedir:
+        args.append("-m")
+    else:
+        args.append("-M")
+
+    if kwargs.get("shell"):
+        args.extend(["-s", kwargs["shell"]])
+
+    if kwargs.get("uid"):
+        args.extend(["-u", str(kwargs["uid"])])
+
+    if kwargs.get("gecos"):
+        args.extend(["-c", kwargs["gecos"]])
+
+    args.append(user_name)
+    with _ensure_login_defs(root):
+        status = util.execWithRedirect("useradd", args)
+
+    if status == 4:
+        raise ValueError("UID %s already exists" % kwargs.get("uid"))
+    elif status == 6:
+        raise ValueError("Invalid groups %s" % kwargs.get("groups", []))
+    elif status == 9:
+        raise ValueError("User %s already exists" % user_name)
+    elif status != 0:
+        raise OSError("Unable to create user %s: status=%s" % (user_name, status))
+
+    if not mk_homedir:
+        try:
+            stats = os.stat(root + homedir)
+            orig_uid = stats.st_uid
+            orig_gid = stats.st_gid
+
+            # Gett the UID and GID of the created user
+            pwent = _getpwnam(user_name, root)
+
+            log.info("Home directory for the user %s already existed, "
+                     "fixing the owner and SELinux context.", user_name)
+            # home directory already existed, change owner of it properly
+            util.chown_dir_tree(root + homedir,
+                                int(pwent[2]), int(pwent[3]),
+                                orig_uid, orig_gid)
+            util.execWithRedirect("restorecon", ["-r", root + homedir])
+        except OSError as e:
+            log.critical("Unable to change owner of existing home directory: %s", e.strerror)
+            raise
+
+    pw = kwargs.get("password", False)
+    crypted = kwargs.get("isCrypted", False)
+    algo = kwargs.get("algo", None)
+    lock = kwargs.get("lock", False)
+
+    set_user_password(user_name, pw, crypted, lock, algo, root)
+
+def check_user_exists(username, root=None):
+    if _getpwnam(username, root):
+        return True
+
+    return False
+
+def set_user_password(username, password, isCrypted, lock, algo=None, root="/"):
+    # Only set the password if it is a string, including the empty string.
+    # Otherwise leave it alone (defaults to locked for new users) and reset sp_lstchg
+    if password or password == "":
+        if password == "":
+            log.info("user account %s setup with no password", username)
+        elif not isCrypted:
+            password = cryptPassword(password, algo)
+
+        if lock:
+            password = "!" + password
+            log.info("user account %s locked", username)
+
+        proc = util.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
+        proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
+        if proc.returncode != 0:
+            raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
+
+    # Reset sp_lstchg to an empty string. On systems with no rtc, this
+    # field can be set to 0, which has a special meaning that the password
+    # must be reset on the next login.
+    util.execWithRedirect("chage", ["-R", root, "-d", "", username])
+
+def set_root_password(password, isCrypted=False, isLocked=False, algo=None, root="/"):
+    return set_user_password("root", password, isCrypted, isLocked, algo, root)
+
+def set_user_ssh_key(username, key, **kwargs):
+    root = kwargs.get("root", util.getSysroot())
+
+    pwent = _getpwnam(username, root)
+    if not pwent:
+        raise ValueError("set_user_ssh_key: user %s does not exist" % username)
+
+    homedir = root + pwent[5]
+    if not os.path.exists(homedir):
+        log.error("set_user_ssh_key: home directory for %s does not exist", username)
+        raise ValueError("set_user_ssh_key: home directory for %s does not exist" % username)
+
+    uid = pwent[2]
+    gid = pwent[3]
+
+    sshdir = os.path.join(homedir, ".ssh")
+    if not os.path.isdir(sshdir):
+        os.mkdir(sshdir, 0o700)
+        os.chown(sshdir, int(uid), int(gid))
+
+    authfile = os.path.join(sshdir, "authorized_keys")
+    authfile_existed = os.path.exists(authfile)
+    with util.open_with_perm(authfile, "a", 0o600) as f:
+        f.write(key + "\n")
+
+    # Only change ownership if we created it
+    if not authfile_existed:
+        os.chown(authfile, int(uid), int(gid))
+        util.execWithRedirect("restorecon", ["-r", sshdir])
