@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import logging
 import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
@@ -158,6 +159,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
                 'partition',
                 'raid',
                 'reqpart',
+                'snapshot',
                 'volgroup',
                 'zerombr',
                 'zfcp'
@@ -764,6 +766,45 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         device_matches.return_value = []
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    def snapshot_kickstart_test(self):
+        """Test the snapshot command."""
+        ks_in = """
+        snapshot fedora/root --name=pre-snapshot --when=pre-install
+        snapshot fedora/root --name=post-snapshot --when=post-install
+        """
+        ks_out = """
+        snapshot fedora/root --name=pre-snapshot --when=pre-install
+        snapshot fedora/root --name=post-snapshot --when=post-install
+        """
+        self._test_kickstart(ks_in, ks_out)
+
+    def snapshot_invalid_kickstart_test(self):
+        """Test the snapshot command with invalid origin."""
+        ks_in = """
+        snapshot invalid --name=pre-snapshot --when=pre-install
+        """
+        ks_out = """
+        snapshot invalid --name=pre-snapshot --when=pre-install
+        """
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    def snapshot_warning_kickstart_test(self):
+        """Test the snapshot command with warnings."""
+        ks_in = """
+        zerombr
+        clearpart --all
+        snapshot fedora/root --name=pre-snapshot --when=pre-install
+        """
+        ks_out = """
+        # Clear the Master Boot Record
+        zerombr
+        # Partition clearing information
+        clearpart --all
+        snapshot fedora/root --name=pre-snapshot --when=pre-install
+        """
+        with self.assertLogs(level=logging.WARN):
+            self._test_kickstart(ks_in, ks_out)
 
 
 class StorageTasksTestCase(unittest.TestCase):
