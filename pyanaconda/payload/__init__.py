@@ -43,7 +43,8 @@ from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_inst
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.regexes import VERSION_DIGITS
-from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
+from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup, \
+    PayloadRequirementsMissingApply
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.product import productName, productVersion
 
@@ -110,10 +111,6 @@ class PayloadRequirement(object):
 
     def __repr__(self):
         return 'PayloadRequirement(id=%s, reasons=%s)' % (self.id, self._reasons)
-
-
-class PayloadRequirementsMissingApply(Exception):
-    pass
 
 
 class PayloadRequirements(object):

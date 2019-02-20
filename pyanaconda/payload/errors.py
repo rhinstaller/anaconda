@@ -49,3 +49,7 @@ class DependencyError(PayloadError):
 # installation
 class PayloadInstallError(PayloadError):
     pass
+
+
+class PayloadRequirementsMissingApply(Exception):
+    pass
