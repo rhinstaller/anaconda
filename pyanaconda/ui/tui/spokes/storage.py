@@ -465,7 +465,7 @@ class StorageSpoke(NormalTUISpoke):
             self.storage.autopart_type = self._auto_part_observer.proxy.Type
 
             # The reset also calls self.storage.config.update().
-            reset_storage(self.storage.reset)
+            reset_storage(self.storage)
 
             # Now set data back to the user's specified config.
             applyDiskSelection(self.storage, self.data, self.selected_disks)
