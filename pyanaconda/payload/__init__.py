@@ -18,11 +18,12 @@
 #
 import os
 import shutil
-from glob import glob
-from fnmatch import fnmatch
 import re
 import functools
 from distutils.version import LooseVersion
+from glob import glob
+from fnmatch import fnmatch
+from abc import ABCMeta
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, \
@@ -63,16 +64,13 @@ def versionCmp(v1, v2):
     return (firstVersion > secondVersion) - (firstVersion < secondVersion)
 
 
-class Payload(object):
+class Payload(metaclass=ABCMeta):
     """Payload is an abstract class for OS install delivery methods."""
     def __init__(self, data):
         """Initialize Payload class
 
         :param data: This param is a kickstart.AnacondaKSHandler class.
         """
-        if self.__class__ is Payload:
-            raise TypeError("Payload is an abstract class")
-
         self.data = data
         self.storage = None
         self.txID = None
@@ -682,13 +680,10 @@ class Payload(object):
             log.info("Some of the requirements were not applied.")
 
 
-class PackagePayload(Payload):
+class PackagePayload(Payload, metaclass=ABCMeta):
     """A PackagePayload installs a set of packages onto the target system."""
 
     def __init__(self, data):
-        if self.__class__ is PackagePayload:
-            raise TypeError("PackagePayload is an abstract class")
-
         super().__init__(data)
         self.install_device = None
         self._rpm_macros = []
