@@ -54,8 +54,6 @@ NETMASK_ERROR_MSG = N_("Bad format of the netmask")
 
 __all__ = ["NetworkSpoke"]
 
-nm_client = NM.Client.new()
-
 
 # TODO: use our own datastore?
 class WiredTUIConfigurationData():
@@ -207,11 +205,20 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self.title = N_("Network configuration")
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
+
+        self.nm_client = None
+        if conf.system.provides_system_bus:
+            self.nm_client = NM.Client.new(None)
+
         self._container = None
         self.hostname = self._network_module.proxy.Hostname
         self.editable_configurations = []
         self.errors = []
         self._apply = False
+
+    @classmethod
+    def should_run(cls, environment, data):
+        return conf.system.can_configure_network
 
     def initialize(self):
         self.initialize_start()
@@ -235,7 +242,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Check whether this spoke is complete or not."""
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or network.get_activated_ifaces(nm_client))
+                or network.get_activated_ifaces(self.nm_client))
 
     @property
     def mandatory(self):
@@ -246,12 +253,12 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def status(self):
         """ Short msg telling what devices are active. """
-        return network.status_message(nm_client)
+        return network.status_message(self.nm_client)
 
     def _summary_text(self):
         """Devices cofiguration shown to user."""
         msg = ""
-        activated_devs = network.get_activated_ifaces(nm_client)
+        activated_devs = network.get_activated_ifaces(self.nm_client)
         for device_configuration in self.editable_configurations:
             name = device_configuration.device_name
             if name in activated_devs:
@@ -265,7 +272,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         msg = _("Wired (%(interface_name)s) connected\n") \
               % {"interface_name": devname}
 
-        device = nm_client.get_device_by_iface(devname)
+        device = self.nm_client.get_device_by_iface(devname)
         if device:
             ipv4config = device.get_ip4_config()
             if ipv4config:
@@ -300,8 +307,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self._container = ListColumnContainer(1, columns_width=78, spacing=1)
 
+        if not self.nm_client:
+            self.window.add_with_separator(TextWidget(_("Network configuration is not available.")))
+            return
+
         summary = self._summary_text()
         self.window.add_with_separator(TextWidget(summary))
+
         hostname = _("Host Name: %s\n") % self._network_module.proxy.Hostname
         self.window.add_with_separator(TextWidget(hostname))
         current_hostname = _("Current host name: %s\n") % self._network_module.proxy.GetCurrentHostname()
@@ -334,13 +346,13 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 if connection_uuid:
                     self._configure_connection(iface, connection_uuid)
                 else:
-                    device_type = nm_client.get_device_by_iface(iface).get_device_type()
+                    device_type = self.nm_client.get_device_by_iface(iface).get_device_type()
                     connection = get_default_connection(iface, device_type)
                     connection_uuid = connection.get_uuid()
                     log.debug("adding default connection %s for %s", connection_uuid, iface)
                     persistent = False
                     data = (iface, connection_uuid)
-                    nm_client.add_connection_async(connection, persistent, None,
+                    self.nm_client.add_connection_async(connection, persistent, None,
                                                    self._default_connection_added_cb, data)
                 return
         log.error("device configuration for %s not found", iface)
@@ -352,7 +364,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._configure_connection(iface, connection_uuid)
 
     def _configure_connection(self, iface, connection_uuid):
-        connection = nm_client.get_connection_by_uuid(connection_uuid)
+        connection = self.nm_client.get_connection_by_uuid(connection_uuid)
 
         new_spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, iface, connection)
         ScreenHandler.push_screen_modal(new_spoke)
@@ -364,10 +376,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         if new_spoke.apply_configuration:
             self._apply = True
-            device = nm_client.get_device_by_iface(iface)
+            device = self.nm_client.get_device_by_iface(iface)
             log.debug("activating connection %s with device %s",
                       connection_uuid, iface)
-            nm_client.activate_connection_async(connection, device, None, None)
+            self.nm_client.activate_connection_async(connection, device, None, None)
 
         self.redraw()
         self.apply()

@@ -534,6 +534,10 @@ def status_message(nm_client):
 
     msg = _("Unknown")
 
+    if not nm_client:
+        msg = _("Status not available")
+        return msg
+
     state = nm_client.get_state()
     if state == NM.State.CONNECTING:
         msg = _("Connecting...")
