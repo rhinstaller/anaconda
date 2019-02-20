@@ -686,18 +686,6 @@ class Payload(object):
             log.info("Some of the requirements were not applied.")
 
 
-# Inherit abstract methods from Payload
-# pylint: disable=abstract-method
-class ImagePayload(Payload):
-    """An ImagePayload installs an OS image to the target system."""
-
-    def __init__(self, data):
-        if self.__class__ is ImagePayload:
-            raise TypeError("ImagePayload is an abstract class")
-
-        super().__init__(data)
-
-
 class PackagePayload(Payload):
     """A PackagePayload installs a set of packages onto the target system."""
 

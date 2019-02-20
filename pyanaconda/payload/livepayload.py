@@ -39,7 +39,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
-from pyanaconda.payload import ImagePayload, versionCmp
+from pyanaconda.payload import Payload, versionCmp
 from pyanaconda.payload.errors import PayloadSetupError, PayloadInstallError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.errors import errorHandler, ERROR_RAISE
@@ -55,7 +55,7 @@ from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
 
 
-class LiveImagePayload(ImagePayload):
+class LiveImagePayload(Payload):
     """ A LivePayload copies the source image onto the target system. """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -327,7 +327,7 @@ class LiveImageKSPayload(LiveImagePayload):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        ImagePayload.setup(self, storage)
+        super().setup(self, storage)
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()
@@ -343,7 +343,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
     def unsetup(self):
         # Skip LiveImagePayload's unsetup method
-        ImagePayload.unsetup(self)
+        super().unsetup(self)
 
     def _preInstall_url_image(self):
         """ Download the image using Requests with progress reporting"""
