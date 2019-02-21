@@ -20,7 +20,7 @@ gi.require_version("BlockDev", "2.0")
 from gi.repository import BlockDev as blockdev
 
 from blivet import util as blivet_util, udev, arch
-from blivet.errors import StorageError, UnknownSourceDeviceError
+from blivet.errors import StorageError
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
 
@@ -143,11 +143,6 @@ def initialize_storage(storage):
                 continue
         else:
             break
-
-    # FIXME: This is a temporary workaround for live OS.
-    # TODO: Shouldn't we move this somewhere else?
-    if not conf.system._is_live_os and not any(d.protected for d in storage.devices):
-        raise UnknownSourceDeviceError()
 
 
 def select_all_disks_by_default(storage):
