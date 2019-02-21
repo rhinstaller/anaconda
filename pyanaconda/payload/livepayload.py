@@ -39,7 +39,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
-from pyanaconda.payload import Payload, versionCmp
+from pyanaconda.payload import Payload
+from pyanaconda.payload.utils import version_cmp
 from pyanaconda.payload.errors import PayloadSetupError, PayloadInstallError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.errors import errorHandler, ERROR_RAISE
@@ -220,7 +221,7 @@ class LiveImagePayload(Payload):
 
         self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
                                          if os.path.isfile(f) and "-rescue-" not in f),
-                                         key=functools.cmp_to_key(versionCmp))
+                                         key=functools.cmp_to_key(version_cmp))
 
     @property
     def kernelVersionList(self):
@@ -566,4 +567,4 @@ class LiveImageKSPayload(LiveImagePayload):
 
             # Strip out vmlinuz- from the names
             return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                          key=functools.cmp_to_key(versionCmp))
+                          key=functools.cmp_to_key(version_cmp))

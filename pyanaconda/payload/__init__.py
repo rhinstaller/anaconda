@@ -20,7 +20,6 @@ import os
 import shutil
 import re
 import functools
-from distutils.version import LooseVersion
 from glob import glob
 from fnmatch import fnmatch
 from abc import ABCMeta
@@ -40,6 +39,7 @@ from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_inst
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
+from pyanaconda.payload.utils import version_cmp
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
@@ -55,13 +55,6 @@ from pyanaconda.anaconda_loggers import get_module_logger
 
 log = get_module_logger(__name__)
 USER_AGENT = "%s (anaconda)/%s" % (productName, productVersion)
-
-
-def versionCmp(v1, v2):
-    """Compare two version number strings."""
-    firstVersion = LooseVersion(v1)
-    secondVersion = LooseVersion(v2)
-    return (firstVersion > secondVersion) - (firstVersion < secondVersion)
 
 
 class Payload(metaclass=ABCMeta):
@@ -768,7 +761,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                          if fnmatch(f, "/boot/vmlinuz-*") or
                          fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
 
-        return sorted(files, key=functools.cmp_to_key(versionCmp))
+        return sorted(files, key=functools.cmp_to_key(version_cmp))
 
     @property
     def rpmMacros(self):
