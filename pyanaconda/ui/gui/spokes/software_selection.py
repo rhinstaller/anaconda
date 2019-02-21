@@ -27,7 +27,7 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.payload import PackagePayload
-from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.payload.errors import NoSuchGroup, PayloadError, DependencyError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core import util, constants
@@ -105,10 +105,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._error = False
 
         # Register event listeners to update our status on payload events
-        payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
-        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
-        payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
-        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+        payloadMgr.addListener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
+        payloadMgr.addListener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.addListener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
 
         # Add an invisible radio button so that we can show the environment
         # list with no radio buttons ticked

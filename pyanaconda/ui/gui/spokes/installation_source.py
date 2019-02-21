@@ -48,7 +48,7 @@ from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
-from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
@@ -767,12 +767,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             really_hide(self._updatesBox)
 
         # Register listeners for payload events
-        payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
-        payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)
-        payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
-        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
-        payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
-        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+        payloadMgr.addListener(PayloadState.STARTED, self._payload_refresh)
+        payloadMgr.addListener(PayloadState.WAITING_STORAGE, self._probing_storage)
+        payloadMgr.addListener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
+        payloadMgr.addListener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.addListener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.

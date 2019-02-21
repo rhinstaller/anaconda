@@ -18,6 +18,7 @@
 #
 
 import threading
+from enum import IntEnum
 
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_PAYLOAD, THREAD_PAYLOAD_RESTART, \
     THREAD_WAIT_FOR_CONNECTING_NM
@@ -31,48 +32,45 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-__all__ = ["payloadMgr"]
+__all__ = ["payloadMgr", "PayloadState"]
+
+
+class PayloadState(IntEnum):
+    """Enum for payload state after payload was restarted."""
+    STARTED = 0
+    WAITING_STORAGE = 1
+    WAITING_NETWORK = 2
+    VERIFYING_AVAILABILITY = 3
+    DOWNLOADING_PKG_METADATA = 4
+    DOWNLOADING_GROUP_METADATA = 5
+    FINISHED = 6
+
+    # Error
+    ERROR = -1
 
 
 class PayloadManager(object):
     """Framework for starting and watching the payload thread.
 
-    This class defines several states, and events can be triggered upon
-    reaching a state. Depending on whether a state has already been reached
-    when a listener is added, the event code may be run in either the
-    calling thread or the payload thread. The event code will block the
-    payload thread regardless, so try not to run anything that takes a long
-    time.
+    This class defines several states (PayloadState enum), and events can
+    be triggered upon reaching a state. Depending on whether a state has
+    already been reached when a listener is added, the event code may be
+    run in either the calling thread or the payload thread. The event code
+    will block the payload thread regardless, so try not to run anything
+    that takes a long time.
 
-    All states except STATE_ERROR are expected to happen linearly, and adding
+    All states except ERROR are expected to happen linearly, and adding
     a listener for a state that has already been reached or passed will
     immediately trigger that listener. For example, if the payload thread is
-    currently in STATE_GROUP_MD, adding a listener for STATE_NETWORK will
-    immediately run the code being added for STATE_NETWORK.
+    currently in DOWNLOADING_GROUP_METADATA, adding a listener for
+    WAITING_NETWORK will immediately run the code being added
+    for WAITING_NETWORK.
 
     The payload thread data should be accessed using the payloadMgr object,
     and the running thread can be accessed using threadMgr with the
     THREAD_PAYLOAD constant, if you need to wait for it or something. The
     thread should be started using payloadMgr.restartThread.
     """
-
-    STATE_START = 0
-    # Waiting on storage
-    STATE_STORAGE = 1
-    # Waiting on network
-    STATE_NETWORK = 2
-    # Verify repository availability
-    STATE_TEST_AVAILABILITY = 3
-    # Downloading package metadata
-    STATE_PACKAGE_MD = 4
-    # Downloading group metadata
-    STATE_GROUP_MD = 5
-    # All done
-    STATE_FINISHED = 6
-
-    # Error
-    STATE_ERROR = -1
-
     # Error strings
     ERROR_SETUP = N_("Failed to set up installation source")
     ERROR_MD = N_("Error downloading package metadata")
@@ -80,12 +78,12 @@ class PayloadManager(object):
     def __init__(self):
         self._event_lock = threading.Lock()
         self._event_listeners = {}
-        self._thread_state = self.STATE_START
+        self._thread_state = PayloadState.STARTED
         self._error = None
 
         # Initialize a list for each event state
-        for event_id in range(self.STATE_ERROR, self.STATE_FINISHED + 1):
-            self._event_listeners[event_id] = []
+        for _name, value in PayloadState.__members__.items():
+            self._event_listeners[PayloadState(value)] = []
 
     @property
     def error(self):
@@ -99,9 +97,7 @@ class PayloadManager(object):
         """
 
         # Check that the event_id is valid
-        assert isinstance(event_id, int)
-        assert event_id <= self.STATE_FINISHED
-        assert event_id >= self.STATE_ERROR
+        assert isinstance(event_id, PayloadState)
 
         # Add the listener inside the lock in case we need to run immediately,
         # to make sure the listener isn't triggered twice
@@ -109,7 +105,7 @@ class PayloadManager(object):
             self._event_listeners[event_id].append(func)
 
             # If an error event was requested, run it if currently in an error state
-            if event_id == self.STATE_ERROR:
+            if event_id == PayloadState.ERROR:
                 if event_id == self._thread_state:
                     func()
             # Otherwise, run if the requested event has already occurred
@@ -160,7 +156,7 @@ class PayloadManager(object):
 
     def _setState(self, event_id):
         # Update the current state
-        log.debug("Updating payload thread state: %d", event_id)
+        log.debug("Updating payload thread state: %s", event_id.name)
         with self._event_lock:
             # Update the state within the lock to avoid a race with listeners
             # currently being added
@@ -174,14 +170,14 @@ class PayloadManager(object):
         # This is the thread entry
         # Set the initial state
         self._error = None
-        self._setState(self.STATE_START)
+        self._setState(PayloadState.STARTED)
 
         # Wait for storage
-        self._setState(self.STATE_STORAGE)
+        self._setState(PayloadState.WAITING_STORAGE)
         threadMgr.wait(THREAD_STORAGE)
 
         # Wait for network
-        self._setState(self.STATE_NETWORK)
+        self._setState(PayloadState.WAITING_NETWORK)
         # FIXME: condition for cases where we don't want network
         # (set and use payload.needsNetwork ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -190,33 +186,33 @@ class PayloadManager(object):
 
         # If this is a non-package Payload, we're done
         if not isinstance(payload, PackagePayload):
-            self._setState(self.STATE_FINISHED)
+            self._setState(PayloadState.FINISHED)
             return
 
         # Test if any repository changed from the last update
         if onlyOnChange:
             log.debug("Testing repositories availability")
-            self._setState(self.STATE_TEST_AVAILABILITY)
+            self._setState(PayloadState.VERIFYING_AVAILABILITY)
             if payload.verifyAvailableRepositories():
                 log.debug("Payload isn't restarted, repositories are still available.")
-                self._setState(self.STATE_FINISHED)
+                self._setState(PayloadState.FINISHED)
                 return
 
         # Keep setting up package-based repositories
         # Download package metadata
-        self._setState(self.STATE_PACKAGE_MD)
+        self._setState(PayloadState.DOWNLOADING_PKG_METADATA)
         try:
             payload.updateBaseRepo(fallback=fallback, checkmount=checkmount)
             payload.addDriverRepos()
         except (OSError, PayloadError) as e:
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP
-            self._setState(self.STATE_ERROR)
+            self._setState(PayloadState.ERROR)
             payload.unsetup()
             return
 
         # Gather the group data
-        self._setState(self.STATE_GROUP_MD)
+        self._setState(PayloadState.DOWNLOADING_GROUP_METADATA)
         payload.gatherRepoMetadata()
         payload.release()
 
@@ -224,14 +220,14 @@ class PayloadManager(object):
         if not payload.baseRepo:
             log.error("No base repo configured")
             self._error = self.ERROR_MD
-            self._setState(self.STATE_ERROR)
+            self._setState(PayloadState.ERROR)
             payload.unsetup()
             return
 
         # run payload specific post configuration tasks
         payload.postSetup()
 
-        self._setState(self.STATE_FINISHED)
+        self._setState(PayloadState.FINISHED)
 
 
 # Initialize the PayloadManager instance

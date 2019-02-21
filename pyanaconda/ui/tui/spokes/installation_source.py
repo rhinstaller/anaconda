@@ -23,7 +23,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.payload import PackagePayload
-from pyanaconda.payload.manager import payloadMgr
+from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 
@@ -77,7 +77,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
-        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
 
     def _initialize(self):
         """ Private initialize. """
