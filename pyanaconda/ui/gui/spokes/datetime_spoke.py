@@ -250,7 +250,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         if not server:
             return InputCheck.CHECK_SILENT
 
-        (valid, error) = network.sanityCheckHostname(server)
+        (valid, error) = network.is_valid_hostname(server)
         if not valid:
             return "'%s' is not a valid hostname: %s" % (server, error)
         else:
@@ -380,7 +380,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         if not path:
             return
 
-        (valid, error) = network.sanityCheckHostname(new_text)
+        (valid, error) = network.is_valid_hostname(new_text)
         if not valid:
             log.error("'%s' is not a valid hostname: %s", new_text, error)
             return
