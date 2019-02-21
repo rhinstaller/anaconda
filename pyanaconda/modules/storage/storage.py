@@ -19,7 +19,6 @@
 #
 from blivet import arch
 
-from pyanaconda.core import util
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
@@ -214,15 +213,15 @@ class StorageModule(KickstartModule):
         self.set_storage(storage.copy())
         log.debug("Applied the partitioning from %s.", object_path)
 
-    def install_with_tasks(self):
+    def install_with_tasks(self, sysroot):
         """Returns installation tasks of this module.
 
         FIXME: This is a simplified version of the storage installation.
 
+        :param sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks.
         """
         storage = self.storage
-        sysroot = util.getSysroot()
 
         tasks = [
             ActivateFilesystemsTask(storage),

@@ -126,7 +126,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ]
 
         # Get the installation tasks.
-        task_paths = self.storage_interface.InstallWithTasks()
+        with tempfile.TemporaryDirectory() as sysroot:
+            task_paths = self.storage_interface.InstallWithTasks(sysroot)
 
         # Check the number of installation tasks.
         task_number = len(task_classes)
