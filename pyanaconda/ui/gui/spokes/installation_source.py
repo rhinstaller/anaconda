@@ -415,7 +415,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if flags.askmethod:
             flags.askmethod = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
+        payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -767,12 +767,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             really_hide(self._updatesBox)
 
         # Register listeners for payload events
-        payloadMgr.addListener(PayloadState.STARTED, self._payload_refresh)
-        payloadMgr.addListener(PayloadState.WAITING_STORAGE, self._probing_storage)
-        payloadMgr.addListener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
-        payloadMgr.addListener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
-        payloadMgr.addListener(PayloadState.FINISHED, self._payload_finished)
-        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.STARTED, self._payload_refresh)
+        payloadMgr.add_listener(PayloadState.WAITING_STORAGE, self._probing_storage)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.

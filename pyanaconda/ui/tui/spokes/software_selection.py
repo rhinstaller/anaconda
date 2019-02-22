@@ -68,9 +68,9 @@ class SoftwareSpoke(NormalTUISpoke):
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
 
         # Register event listeners to update our status on payload events
-        payloadMgr.addListener(PayloadState.STARTED, self._payload_start)
-        payloadMgr.addListener(PayloadState.FINISHED, self._payload_finished)
-        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
+        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
     def initialize(self):
         # Start a thread to wait for the payload and run the first, automatic

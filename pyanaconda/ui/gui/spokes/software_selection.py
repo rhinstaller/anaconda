@@ -105,10 +105,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._error = False
 
         # Register event listeners to update our status on payload events
-        payloadMgr.addListener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
-        payloadMgr.addListener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
-        payloadMgr.addListener(PayloadState.FINISHED, self._payload_finished)
-        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
         # Add an invisible radio button so that we can show the environment
         # list with no radio buttons ticked

@@ -69,7 +69,7 @@ class PayloadManager(object):
     The payload thread data should be accessed using the payloadMgr object,
     and the running thread can be accessed using threadMgr with the
     THREAD_PAYLOAD constant, if you need to wait for it or something. The
-    thread should be started using payloadMgr.restartThread.
+    thread should be started using payloadMgr.restart_thread.
     """
     # Error strings
     ERROR_SETUP = N_("Failed to set up installation source")
@@ -89,7 +89,7 @@ class PayloadManager(object):
     def error(self):
         return _(self._error)
 
-    def addListener(self, event_id, func):
+    def add_listener(self, event_id, func):
         """Add a listener for an event.
 
         :param int event_id: The event to listen for, one of the EVENT_* constants
@@ -112,8 +112,8 @@ class PayloadManager(object):
             elif event_id <= self._thread_state:
                 func()
 
-    def restartThread(self, storage, ksdata, payload,
-                      fallback=False, checkmount=True, onlyOnChange=False):
+    def restart_thread(self, storage, ksdata, payload,
+                       fallback=False, checkmount=True, onlyOnChange=False):
         """Start or restart the payload thread.
 
         This method starts a new thread to restart the payload thread, so
@@ -137,7 +137,7 @@ class PayloadManager(object):
 
         thread_args = (storage, ksdata, payload, fallback, checkmount, onlyOnChange)
         # Launch a new thread so that this method can return immediately
-        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
+        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restart_thread,
                                      args=thread_args))
 
     @property
@@ -145,16 +145,16 @@ class PayloadManager(object):
         """Is the payload thread running right now?"""
         return threadMgr.exists(THREAD_PAYLOAD_RESTART) or threadMgr.exists(THREAD_PAYLOAD)
 
-    def _restartThread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
+    def _restart_thread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
         # Wait for the old thread to finish
         threadMgr.wait(THREAD_PAYLOAD)
 
         thread_args = (storage, ksdata, payload, fallback, checkmount, onlyOnChange)
         # Start a new payload thread
-        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._runThread,
+        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._run_thread,
                                      args=thread_args))
 
-    def _setState(self, event_id):
+    def _set_state(self, event_id):
         # Update the current state
         log.debug("Updating payload thread state: %s", event_id.name)
         with self._event_lock:
@@ -166,18 +166,18 @@ class PayloadManager(object):
             for func in self._event_listeners[event_id]:
                 func()
 
-    def _runThread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
+    def _run_thread(self, storage, ksdata, payload, fallback, checkmount, onlyOnChange):
         # This is the thread entry
         # Set the initial state
         self._error = None
-        self._setState(PayloadState.STARTED)
+        self._set_state(PayloadState.STARTED)
 
         # Wait for storage
-        self._setState(PayloadState.WAITING_STORAGE)
+        self._set_state(PayloadState.WAITING_STORAGE)
         threadMgr.wait(THREAD_STORAGE)
 
         # Wait for network
-        self._setState(PayloadState.WAITING_NETWORK)
+        self._set_state(PayloadState.WAITING_NETWORK)
         # FIXME: condition for cases where we don't want network
         # (set and use payload.needs_network ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
@@ -186,33 +186,33 @@ class PayloadManager(object):
 
         # If this is a non-package Payload, we're done
         if not isinstance(payload, PackagePayload):
-            self._setState(PayloadState.FINISHED)
+            self._set_state(PayloadState.FINISHED)
             return
 
         # Test if any repository changed from the last update
         if onlyOnChange:
             log.debug("Testing repositories availability")
-            self._setState(PayloadState.VERIFYING_AVAILABILITY)
+            self._set_state(PayloadState.VERIFYING_AVAILABILITY)
             if payload.verify_available_repositories():
                 log.debug("Payload isn't restarted, repositories are still available.")
-                self._setState(PayloadState.FINISHED)
+                self._set_state(PayloadState.FINISHED)
                 return
 
         # Keep setting up package-based repositories
         # Download package metadata
-        self._setState(PayloadState.DOWNLOADING_PKG_METADATA)
+        self._set_state(PayloadState.DOWNLOADING_PKG_METADATA)
         try:
             payload.update_base_repo(fallback=fallback, checkmount=checkmount)
             payload.add_driver_repos()
         except (OSError, PayloadError) as e:
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP
-            self._setState(PayloadState.ERROR)
+            self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
 
         # Gather the group data
-        self._setState(PayloadState.DOWNLOADING_GROUP_METADATA)
+        self._set_state(PayloadState.DOWNLOADING_GROUP_METADATA)
         payload.gather_repo_metadata()
         payload.release()
 
@@ -220,14 +220,14 @@ class PayloadManager(object):
         if not payload.base_repo:
             log.error("No base repo configured")
             self._error = self.ERROR_MD
-            self._setState(PayloadState.ERROR)
+            self._set_state(PayloadState.ERROR)
             payload.unsetup()
             return
 
         # run payload specific post configuration tasks
         payload.post_setup()
 
-        self._setState(PayloadState.FINISHED)
+        self._set_state(PayloadState.FINISHED)
 
 
 # Initialize the PayloadManager instance

@@ -96,7 +96,7 @@ class Payload(metaclass=ABCMeta):
 
     def post_setup(self):
         """Run specific payload post-configuration tasks on the end of
-        the restartThread call.
+        the restart_thread call.
 
         This method could be overriden.
         """

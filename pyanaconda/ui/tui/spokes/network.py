@@ -409,7 +409,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             self._apply = False
             if ANACONDA_ENVIRON in flags.environs:
                 from pyanaconda.payload.manager import payloadMgr
-                payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
+                payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
 
 
 class ConfigureDeviceSpoke(NormalTUISpoke):

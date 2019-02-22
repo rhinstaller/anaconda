@@ -77,7 +77,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
-        payloadMgr.addListener(PayloadState.ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
     def _initialize(self):
         """ Private initialize. """
@@ -241,7 +241,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # clear them at this point
         self._error = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
+        payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
