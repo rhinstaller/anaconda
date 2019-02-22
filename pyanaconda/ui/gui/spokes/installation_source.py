@@ -1612,9 +1612,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             Before final release this will also toggle the updates-testing repo
         """
         if self._noUpdatesCheckbox.get_active():
-            self.payload.setUpdatesEnabled(False)
+            self.payload.set_updates_enabled(False)
         else:
-            self.payload.setUpdatesEnabled(True)
+            self.payload.set_updates_enabled(True)
 
         # Refresh the metadata using the new set of repos
         self._updatesChange = True

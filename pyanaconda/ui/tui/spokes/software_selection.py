@@ -128,7 +128,7 @@ class SoftwareSpoke(NormalTUISpoke):
             # None means environment is not set, no need to try translate that to an id
             return None
         try:
-            return self.payload.environmentId(environment)
+            return self.payload.environment_id(environment)
         except NoSuchGroup:
             return None
 
@@ -336,7 +336,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def checkSoftwareSelection(self):
         """ Depsolving """
         try:
-            self.payload.checkSoftwareSelection()
+            self.payload.check_software_selection()
         except DependencyError as e:
             self.errors = [str(e)]
             self._tx_id = None

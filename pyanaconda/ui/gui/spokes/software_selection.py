@@ -155,7 +155,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # False means environment is not valid and must be set manually
             return False
         try:
-            return self.payload.environmentId(self.environment)
+            return self.payload.environment_id(self.environment)
         except NoSuchGroup:
             return None
 
@@ -222,7 +222,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def checkSoftwareSelection(self):
         hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
         try:
-            self.payload.checkSoftwareSelection()
+            self.payload.check_software_selection()
         except DependencyError as e:
             self._errorMsgs = str(e)
             hubQ.send_message(self.__class__.__name__, _("Error checking software dependencies"))

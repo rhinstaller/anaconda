@@ -881,7 +881,7 @@ class DNFPayload(payload.PackagePayload):
             raise NoSuchGroup(grpid)
         return grp.visible
 
-    def checkSoftwareSelection(self):
+    def check_software_selection(self):
         log.info("checking software selection")
         self._bump_tx_id()
         self._base.reset(goal=True)
@@ -901,7 +901,7 @@ class DNFPayload(payload.PackagePayload):
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.space_required)
 
-    def setUpdatesEnabled(self, state):
+    def set_updates_enabled(self, state):
         """Enable or Disable the repos used to update closest mirror.
 
         :param bool state: True to enable updates, False to disable.
@@ -939,11 +939,11 @@ class DNFPayload(payload.PackagePayload):
             raise NoSuchGroup(environment_id)
         return (env.ui_name, env.ui_description)
 
-    def environmentId(self, environment):
+    def environment_id(self, environment):
         """Return environment id for the environment specified by id or name."""
         # the enviroment must be string or else DNF >=3 throws an assert error
         if not isinstance(environment, str):
-            log.warning("environmentId() called with non-string argument: %s", environment)
+            log.warning("environment_id() called with non-string argument: %s", environment)
         env = self._base.comps.environment_by_pattern(environment)
         if env is None:
             raise NoSuchGroup(environment)
@@ -1002,7 +1002,7 @@ class DNFPayload(payload.PackagePayload):
         if self.install_device:
             self._setup_media(self.install_device)
         try:
-            self.checkSoftwareSelection()
+            self.check_software_selection()
             self._download_location = self._pick_download_location()
         except PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
@@ -1077,7 +1077,7 @@ class DNFPayload(payload.PackagePayload):
             # we don't have to care about clearing the download location ourselves.
             log.warning("Can't delete nonexistent download location: %s", self._download_location)
 
-    def getRepo(self, repo_id):
+    def get_repo(self, repo_id):
         """Return the yum repo object."""
         return self._base.repos[repo_id]
 
@@ -1122,7 +1122,8 @@ class DNFPayload(payload.PackagePayload):
     def update_base_repo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
-        install_tree_url, mirrorlist, metalink = self._setup_install_device(self.storage, checkmount)
+        install_tree_url, mirrorlist, metalink = self._setup_install_device(self.storage,
+                                                                            checkmount)
 
         # Fallback to installation root
         base_repo_url = install_tree_url
@@ -1138,7 +1139,7 @@ class DNFPayload(payload.PackagePayload):
         self._base.read_all_repos()
 
         # If setup updates/updates-testing
-        self.setUpdatesEnabled(self._updates_enabled)
+        self.set_updates_enabled(self._updates_enabled)
 
         # Repos on disk are always enabled. When reloaded their state needs to
         # be synchronized with the user selection.
@@ -1157,7 +1158,7 @@ class DNFPayload(payload.PackagePayload):
             try:
                 self._refresh_install_tree(install_tree_url)
                 self._base.conf.releasever = self._get_release_version(install_tree_url)
-                base_repo_url = self._getBaseRepoLocation(install_tree_url)
+                base_repo_url = self._get_base_repo_location(install_tree_url)
 
                 if self.first_payload_reset:
                     self._add_treeinfo_repositories(install_tree_url, base_repo_url)
@@ -1241,7 +1242,7 @@ class DNFPayload(payload.PackagePayload):
                 if repo in enabled_repos:
                     self._fetch_md(repo)
 
-    def _getBaseRepoLocation(self, install_tree_url):
+    def _get_base_repo_location(self, install_tree_url):
         """Try to find base repository from the treeinfo file.
 
         The URL can be installation tree root or a subfolder in the installation root.
@@ -1300,7 +1301,7 @@ class DNFPayload(payload.PackagePayload):
 
         return install_tree_url
 
-    def _writeDNFRepo(self, repo, repo_path):
+    def _write_dnf_repo(self, repo, repo_path):
         """Write a repo object to a DNF repo.conf file.
 
         :param repo: DNF repository object
@@ -1378,7 +1379,7 @@ class DNFPayload(payload.PackagePayload):
                 continue
 
             try:
-                repo = self.getRepo(ks_repo.name)
+                repo = self.get_repo(ks_repo.name)
                 if not repo:
                     continue
             except (dnf.exceptions.RepoError, KeyError):
@@ -1386,7 +1387,7 @@ class DNFPayload(payload.PackagePayload):
             repo_path = util.getSysroot() + YUM_REPOS_DIR + "%s.repo" % repo.id
             try:
                 log.info("Writing %s.repo to target system.", repo.id)
-                self._writeDNFRepo(repo, repo_path)
+                self._write_dnf_repo(repo, repo_path)
             except PayloadSetupError as e:
                 log.error(e)
 
