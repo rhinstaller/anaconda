@@ -115,12 +115,13 @@ class KickstartModuleInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.generate_temporary_kickstart()
 
-    def InstallWithTasks(self) -> List[ObjPath]:
+    def InstallWithTasks(self, sysroot: Str) -> List[ObjPath]:
         """Returns installation tasks of this module.
 
+        :param sysroot: a path to the root of the installed system
         :returns: list of object paths of installation tasks.
         """
-        return self.implementation.install_with_tasks()
+        return self.implementation.install_with_tasks(sysroot)
 
     def Quit(self):
         """Shut the module down."""
