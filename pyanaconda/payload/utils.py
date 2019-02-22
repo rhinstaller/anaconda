@@ -22,6 +22,6 @@ from distutils.version import LooseVersion
 
 def version_cmp(v1, v2):
     """Compare two version number strings."""
-    firstVersion = LooseVersion(v1)
-    secondVersion = LooseVersion(v2)
-    return (firstVersion > secondVersion) - (firstVersion < secondVersion)
+    first_version = LooseVersion(v1)
+    second_version = LooseVersion(v2)
+    return (first_version > second_version) - (first_version < second_version)
