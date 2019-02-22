@@ -1,0 +1,138 @@
+#
+# Copyright (C) 2019  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
+#
+import unittest
+from unittest.mock import patch, Mock
+
+from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
+from pykickstart.errors import KickstartParseError
+
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.common.task import TaskInterface
+from pyanaconda.modules.storage.snapshot import SnapshotModule
+from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
+from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
+from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
+from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
+
+
+class SnapshotInterfaceTestCase(unittest.TestCase):
+    """Test DBus interface of the Snapshot module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.module = SnapshotModule()
+        self.interface = SnapshotInterface(self.module)
+
+    def is_requested_test(self):
+        """Test IsRequested."""
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), False)
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), False)
+
+        self.module._requests = [Mock(when=SNAPSHOT_WHEN_PRE_INSTALL)]
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), True)
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), False)
+
+        self.module._requests = [Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), False)
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
+
+        self.module._requests = [Mock(when=SNAPSHOT_WHEN_PRE_INSTALL),
+                                 Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_PRE_INSTALL), True)
+        self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def validate_with_task_test(self, publisher):
+        """Test ValidateWithTask."""
+        with self.assertRaises(UnavailableStorageError):
+            self.interface.ValidateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
+
+        self.module.on_storage_reset(Mock())
+        task_path = self.interface.ValidateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, SnapshotValidateTask)
+        self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertEqual(obj.implementation._requests, [])
+        self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_POST_INSTALL)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def create_with_task_test(self, publisher):
+        """Test CreateWithTask."""
+        with self.assertRaises(UnavailableStorageError):
+            self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
+
+        self.module.on_storage_reset(Mock())
+        task_path = self.interface.CreateWithTask(SNAPSHOT_WHEN_PRE_INSTALL)
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, SnapshotCreateTask)
+        self.assertEqual(obj.implementation._storage, self.module.storage)
+        self.assertEqual(obj.implementation._requests, [])
+        self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_PRE_INSTALL)
+
+
+class SnapshotTasksTestCase(unittest.TestCase):
+    """Test snapshot tasks."""
+
+    def get_snapshot_device_fail_test(self):
+        """Test the snapshot device."""
+        with self.assertRaises(KickstartParseError):
+            get_snapshot_device(Mock(name="post-snapshot", origin="fedora/root"), Mock())
+
+    @patch('pyanaconda.modules.storage.snapshot.device.LVMLogicalVolumeDevice')
+    def get_snapshot_device_test(self, device_class):
+        """Test the snapshot device."""
+        device = Mock()
+        device_class.return_value = device
+
+        devicetree = Mock()
+        devicetree.get_device_by_name.side_effect = [Mock(), None]
+
+        request = Mock(name="post-snapshot", origin="fedora/root")
+        self.assertEqual(get_snapshot_device(request, devicetree), device)
+
+    @patch('pyanaconda.modules.storage.snapshot.validate.get_snapshot_device')
+    def validation_test(self, device_getter):
+        """Test the validation task."""
+        SnapshotValidateTask(Mock(), [], SNAPSHOT_WHEN_PRE_INSTALL).run()
+        device_getter.assert_not_called()
+
+        SnapshotValidateTask(Mock(), [Mock()], SNAPSHOT_WHEN_POST_INSTALL).run()
+        device_getter.called_once()
+
+    @patch('pyanaconda.modules.storage.snapshot.create.get_snapshot_device')
+    def creation_test(self, device_getter):
+        """Test the creation task."""
+        SnapshotCreateTask(Mock(), [], SNAPSHOT_WHEN_PRE_INSTALL).run()
+        device_getter.assert_not_called()
+
+        SnapshotCreateTask(Mock(), [Mock()], SNAPSHOT_WHEN_POST_INSTALL).run()
+        device_getter.called_once()

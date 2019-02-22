@@ -61,9 +61,16 @@ FCOE = DBusObjectIdentifier(
     basename="FCoE"
 )
 
+
 NVDIMM = DBusObjectIdentifier(
     namespace=STORAGE_NAMESPACE,
     basename="NVDIMM"
+)
+
+SNAPSHOT = DBusObjectIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="Snapshot"
+
 )
 
 ZFCP = DBusObjectIdentifier(
