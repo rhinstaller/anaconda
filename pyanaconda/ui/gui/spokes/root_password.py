@@ -19,7 +19,7 @@
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.users import cryptPassword
+from pyanaconda.core.users import crypt_password
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS, SERVICES
@@ -188,7 +188,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
         # we have a password - set it to kickstart data
 
-        self._users_module.proxy.SetCryptedRootPassword(cryptPassword(pw))
+        self._users_module.proxy.SetCryptedRootPassword(crypt_password(pw))
 
         # clear any placeholders
         self.remove_placeholder_texts()

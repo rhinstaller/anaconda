@@ -34,7 +34,16 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-def cryptPassword(password, algo=None):
+def crypt_password(password, algo=None):
+    """Crypt a password.
+
+    Process a password with appropriate salted one-way algorithms.
+
+    :param str password: password to be crypted
+    :param str algo: algorithm to be used
+    :returns: crypted representation of the original password
+    :rtype: str
+    """
     salts = {'md5': crypt.METHOD_MD5,
              'sha256': crypt.METHOD_SHA256,
              'sha512': crypt.METHOD_SHA512}
@@ -51,6 +60,13 @@ def cryptPassword(password, algo=None):
     return cryptpw
 
 def check_username(name):
+    """Check if given username is valid.
+
+    :param: user or group name to check
+    :returns: a (success, translated-error-message) tuple
+    :rtype: (bool, str or None)
+    """
+
     # Check reserved names.
     if name in os.listdir("/") + ["root", "home", "daemon", "system"]:
         return False, _("User name is reserved for system: %s") % name
@@ -58,6 +74,12 @@ def check_username(name):
     return is_valid_name(name)
 
 def check_grouplist(group_list):
+    """Check a group list for validity.
+
+    :param str group_list: a string representation of a group list to be checked
+    :returns: a (success, translated-error-message) tuple
+    :rtype: (bool, str or None)
+    """
     # Check empty list.
     if group_list == "":
         return True, None
@@ -76,9 +98,28 @@ def check_grouplist(group_list):
     return True, None
 
 def check_groupname(name):
+    """Check if group name is valid.
+
+    :param: group name to check
+    :returns: a (success, translated-error-message) tuple
+    :rtype: (bool, str or None)
+    """
     return is_valid_name(name)
 
 def is_valid_name(name):
+    """Check if given name is valid for either a group or user.
+
+    This method basically checks all the rules that are the same
+    for both user and group names.
+
+    There is a separate check_username() method, that adds some
+    username specific checks on top of this.
+
+    :param: user or group name to check
+    :returns: a (success, translated-error-message) tuple
+    :rtype: (bool, str or None)
+    """
+
     # Check shadow-utils rules.
     if name.startswith("-"):
         return False, _("Name cannot start with '-' character.")
@@ -113,6 +154,12 @@ def is_valid_name(name):
     return True, None
 
 def guess_username(fullname):
+    """Guess username from full user name.
+
+    :param str fullname: full user name
+    :returns: guessed, hopefully suitable, username
+    :rtype: str
+    """
     fullname = fullname.split()
 
     # use last name word (at the end in most of the western countries..)
@@ -234,7 +281,7 @@ def create_user(user_name, *args, **kwargs):
     """Create a new user on the system with the given name.  Optional kwargs:
 
        :keyword str algo: The password algorithm to use in case isCrypted=True.
-                          If none is given, the cryptPassword default is used.
+                          If none is given, the crypt_password default is used.
        :keyword str gecos: The GECOS information (full name, office, phone, etc.).
                            Defaults to "".
        :keyword groups: A list of group names the user should be added to.
@@ -381,19 +428,38 @@ def create_user(user_name, *args, **kwargs):
     set_user_password(user_name, pw, crypted, lock, algo, root)
 
 def check_user_exists(username, root=None):
+    """Check a user exists.
+
+    :param str username: username to check
+    :param str root: target system sysroot path
+    """
+    if root is None:
+        root = util.getSysroot()
+
     if _getpwnam(username, root):
         return True
 
     return False
 
-def set_user_password(username, password, isCrypted, lock, algo=None, root="/"):
+def set_user_password(username, password, is_crypted, lock, algo=None, root="/"):
+    """Set user password.
+
+    :param str username: username of the user
+    :param str password: user password
+    :param bool is_crypted: is the password already crypted ?
+    :param bool lock: should the password for this username be locked ?
+    :param algo: password encryption algorithm
+    :type algo: str or None
+    :param str root: target system sysroot path
+    """
+
     # Only set the password if it is a string, including the empty string.
     # Otherwise leave it alone (defaults to locked for new users) and reset sp_lstchg
     if password or password == "":
         if password == "":
             log.info("user account %s setup with no password", username)
         elif not isCrypted:
-            password = cryptPassword(password, algo)
+            password = crypt_password(password, algo)
 
         if lock:
             password = "!" + password
@@ -409,11 +475,27 @@ def set_user_password(username, password, isCrypted, lock, algo=None, root="/"):
     # must be reset on the next login.
     util.execWithRedirect("chage", ["-R", root, "-d", "", username])
 
-def set_root_password(password, isCrypted=False, isLocked=False, algo=None, root="/"):
-    return set_user_password("root", password, isCrypted, isLocked, algo, root)
+def set_root_password(password, is_crypted=False, lock=False, algo=None, root="/"):
+    """Set root password.
 
-def set_user_ssh_key(username, key, **kwargs):
-    root = kwargs.get("root", util.getSysroot())
+    :param str password: root password
+    :param bool is_crypted: is the password already crypted ?
+    :param bool lock: should the root password be locked ?
+    :param algo: password encryption algorithm
+    :type algo: str or None
+    :param str root: target system sysroot path
+    """
+    return set_user_password("root", password, is_crypted, lock, algo, root)
+
+def set_user_ssh_key(username, key, root=None):
+    """Set an SSH key for a given username.
+
+    :param str username: a username
+    :param str key: the SSH key to set
+    :param str root: target system sysroot path
+    """
+    if root is None:
+        root = util.getSysroot()
 
     pwent = _getpwnam(username, root)
     if not pwent:

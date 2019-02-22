@@ -21,7 +21,7 @@ import os
 import copy
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
-from pyanaconda.core.users import cryptPassword, guess_username, check_groupname
+from pyanaconda.core.users import crypt_password, guess_username, check_groupname
 from pyanaconda import input_checking
 from pyanaconda.core import constants
 from pyanaconda.modules.common.constants.services import USERS
@@ -427,7 +427,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         if self.password_required:
             if self.password:
                 self.password_kickstarted = False
-                self._user.password = cryptPassword(self.password)
+                self._user.password = crypt_password(self.password)
                 self._user.isCrypted = True
                 self.remove_placeholder_texts()
 

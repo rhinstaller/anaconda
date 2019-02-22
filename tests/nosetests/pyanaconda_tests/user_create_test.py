@@ -289,7 +289,7 @@ class UserCreateTest(unittest.TestCase):
         keydata = "THIS IS TOTALLY A SSH KEY"
 
         users.create_user("test_user", homedir="/home/test_user", root=self.tmpdir)
-        users.setUserSshKey("test_user", keydata, root=self.tmpdir)
+        users.set_user_ssh_key("test_user", keydata, root=self.tmpdir)
 
         keyfile = self.tmpdir + "/home/test_user/.ssh/authorized_keys"
         self.assertTrue(os.path.isfile(keyfile))

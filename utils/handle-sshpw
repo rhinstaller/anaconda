@@ -44,7 +44,7 @@ for ud in userdata:
     if users.check_user_exists(ud.username, root="/"):
         if not ud.sshkey:
             users.set_user_password(username=ud.username, password=ud.password,
-                              isCrypted=ud.isCrypted, lock=ud.lock)
+                                    is_crypted=ud.isCrypted, lock=ud.lock)
     else:
         kwargs = ud.__dict__
         kwargs.update({"root": "/"})
@@ -52,5 +52,5 @@ for ud in userdata:
 
     if ud.sshkey:
         # Setup the account so that only the sshkey can be used
-        users.set_user_password(username=ud.username, password="*", isCrypted=True, lock=False)
-        users.setUserSshKey(username=ud.username, key=ud.password, root="/")
+        users.set_user_password(username=ud.username, password="*", is_crypted=True, lock=False)
+        users.set_user_ssh_key(username=ud.username, key=ud.password, root="/")
