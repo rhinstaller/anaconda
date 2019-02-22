@@ -832,15 +832,21 @@ class User(COMMANDS.User):
 
         for usr in self.userList:
             kwargs = usr.__dict__
-            kwargs.update({"root": util.getSysroot()})
+            kwargs.update({"root": })
 
             # If the user password came from a kickstart and it is blank we
             # need to make sure the account is locked, not created with an
             # empty password.
-            if self.seen and kwargs.get("password", "") == "":
-                kwargs["password"] = None
+            user_password = usr.password
+            if user_password is None:
+                user_password = ""
+            if self.seen and user_password == "":
+                password = None
+            else:
+                password = user_password
             try:
-                users.create_user(usr.name, **kwargs)
+                users.create_user(username=usr.name, password=password, is_crypted=usr.isCrypted, lock=usr.lock,
+                                  homedir=usr.homedir, shell=usr.shell, gecos=usr.gecos, root=util.getSysroot())
             except ValueError as e:
                 user_log.warning(str(e))
 

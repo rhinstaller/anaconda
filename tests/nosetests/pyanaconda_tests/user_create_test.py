@@ -197,9 +197,9 @@ class UserCreateTest(unittest.TestCase):
         # Make sure the password works
         self.assertEqual(crypt.crypt("password", shadow_fields[1]), shadow_fields[1])
 
-        # Set the encrypted password for another user with isCrypted
+        # Set the encrypted password for another user with is_crypted
         cryptpw = shadow_fields[1]
-        users.create_user("test_user2", password=cryptpw, isCrypted=True, root=self.tmpdir)
+        users.create_user("test_user2", password=cryptpw, is_crypted=True, root=self.tmpdir)
         shadow_fields = self._readFields("/etc/shadow", "test_user2")
         self.assertIsNotNone(shadow_fields)
         self.assertEqual(cryptpw, shadow_fields[1])

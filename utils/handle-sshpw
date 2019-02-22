@@ -46,9 +46,8 @@ for ud in userdata:
             users.set_user_password(username=ud.username, password=ud.password,
                                     is_crypted=ud.isCrypted, lock=ud.lock)
     else:
-        kwargs = ud.__dict__
-        kwargs.update({"root": "/"})
-        users.create_user(ud.username, **kwargs)
+        users.create_user(username=ud.username, password=ud.password, is_crypted=ud.isCrypted, lock=ud.lock,
+                          homedir=ud.homedir, shell=ud.shell, gecos=ud.gecos, root="/")
 
     if ud.sshkey:
         # Setup the account so that only the sshkey can be used

@@ -278,49 +278,62 @@ def create_group(group_name, gid=None, root=None):
     elif status != 0:
         raise OSError("Unable to create group %s: status=%s" % (group_name, status))
 
-def create_user(user_name, *args, **kwargs):
+def create_user(username, password=False, is_crypted=False, lock=False, algo=None,
+                homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
+                root=None):
     """Create a new user on the system with the given name.  Optional kwargs:
 
-       :keyword str algo: The password algorithm to use in case isCrypted=True.
-                          If none is given, the crypt_password default is used.
-       :keyword str gecos: The GECOS information (full name, office, phone, etc.).
-                           Defaults to "".
-       :keyword groups: A list of group names the user should be added to.
-                        Each group name can contain an optional GID in parenthesis,
-                        such as "groupName(5000)". Defaults to [].
+       :param str username: The username for the new user to be created.
+       :param str password: The password. See is_crypted for how this is interpreted.
+                            If the password is "" then the account is created
+                            with a blank password. If None or False the account will
+                            be left in its initial state (locked)
+       :param bool is_crypted: Is the password already encrypted? Defaults to False.
+       :param bool lock: Is the new account locked by default?
+                         Defaults to False.
+       :param str algo: The password algorithm to use in case is_crypted=True.
+                        If none is given, the crypt_password default is used.
+       :param str homedir: The home directory for the new user.
+                           Defaults to /home/<name>.
+       :param int uid: The UID for the new user.
+                       If none is given, the next available one is used.
+       :param int gid: The GID for the new user.
+                       If none is given, the next available one is used.
+       :param groups: A list of group names the user should be added to.
+                      Each group name can contain an optional GID in parenthesis,
+                      such as "groupName(5000)".
+                      Defaults to [].
        :type groups: list of str
-       :keyword str homedir: The home directory for the new user.  Defaults to
-                             /home/<name>.
-       :keyword bool isCrypted: Is the password kwargs already encrypted?  Defaults
-                                to False.
-       :keyword bool lock: Is the new account locked by default?  Defaults to
-                           False.
-       :keyword str password: The password.  See isCrypted for how this is interpreted.
-                              If the password is "" then the account is created
-                              with a blank password. If None or False the account will
-                              be left in its initial state (locked)
-       :keyword str root: The directory of the system to create the new user
-                          in.  homedir will be interpreted relative to this.
-                          Defaults to util.getSysroot().
-       :keyword str shell: The shell for the new user.  If none is given, the
-                           login.defs default is used.
-       :keyword int uid: The UID for the new user.  If none is given, the next
-                         available one is used.
-       :keyword int gid: The GID for the new user.  If none is given, the next
-                         available one is used.
+       :param str shell: The shell for the new user.
+                         If none is given, the login.defs default is used.
+       :param str gecos: The GECOS information (full name, office, phone, etc.).
+                         Defaults to "".
+       :param str root: The directory of the system to create the new user in.
+                        The homedir option will be interpreted relative to this.
+                        Defaults to util.getSysroot().
     """
 
-    root = kwargs.get("root", util.getSysroot())
+    # resolve the optional arguments that need a default that can't be
+    # reasonably set in the function signature
+    if homedir:
+        homedir = homedir
+    else:
+        homedir = "/home/" + username
 
-    if check_user_exists(user_name, root):
-        raise ValueError("User %s already exists" % user_name)
+    if groups is None:
+        groups = []
+
+    if root is None:
+        root = util.getSysroot()
+
+    if check_user_exists(username, root):
+        raise ValueError("User %s already exists" % username)
 
     args = ["-R", root]
 
     # Split the groups argument into a list of (username, gid or None) tuples
     # the gid, if any, is a string since that makes things simpler
-    group_gids = [GROUPLIST_FANCY_PARSE.match(group).groups()
-                  for group in kwargs.get("groups", [])]
+    group_gids = [GROUPLIST_FANCY_PARSE.match(group).groups() for group in groups]
 
     # If a specific gid is requested:
     #   - check if a group already exists with that GID. i.e., the user's
@@ -331,12 +344,11 @@ def create_user(user_name, *args, **kwargs):
     #   - if neither of those are true, create a new user group with the requested
     #     GID
     # otherwise use -U to create a new user group with the next available GID.
-    if kwargs.get("gid", None):
-        if not _getgrgid(kwargs['gid'], root) and \
-                not any(gid[1] == str(kwargs['gid']) for gid in group_gids):
-            create_group(user_name, gid=kwargs['gid'], root=root)
+    if gid:
+        if not _getgrgid(gid, root) and not any(one_gid[1] == str(gid) for one_gid in group_gids):
+            create_group(username, gid=gid, root=root)
 
-        args.extend(['-g', str(kwargs['gid'])])
+        args.extend(['-g', str(gid)])
     else:
         args.append('-U')
 
@@ -357,11 +369,6 @@ def create_user(user_name, *args, **kwargs):
     if group_list:
         args.extend(['-G', ",".join(group_list)])
 
-    if kwargs.get("homedir"):
-        homedir = kwargs["homedir"]
-    else:
-        homedir = "/home/" + user_name
-
     # useradd expects the parent directory tree to exist.
     parent_dir = util.parent_dir(root + homedir)
 
@@ -379,27 +386,27 @@ def create_user(user_name, *args, **kwargs):
     else:
         args.append("-M")
 
-    if kwargs.get("shell"):
-        args.extend(["-s", kwargs["shell"]])
+    if shell:
+        args.extend(["-s", shell])
 
-    if kwargs.get("uid"):
-        args.extend(["-u", str(kwargs["uid"])])
+    if uid:
+        args.extend(["-u", str(uid)])
 
-    if kwargs.get("gecos"):
-        args.extend(["-c", kwargs["gecos"]])
+    if gecos:
+        args.extend(["-c", gecos])
 
-    args.append(user_name)
+    args.append(username)
     with _ensure_login_defs(root):
         status = util.execWithRedirect("useradd", args)
 
     if status == 4:
-        raise ValueError("UID %s already exists" % kwargs.get("uid"))
+        raise ValueError("UID %s already exists" % uid)
     elif status == 6:
-        raise ValueError("Invalid groups %s" % kwargs.get("groups", []))
+        raise ValueError("Invalid groups %s" % groups)
     elif status == 9:
-        raise ValueError("User %s already exists" % user_name)
+        raise ValueError("User %s already exists" % username)
     elif status != 0:
-        raise OSError("Unable to create user %s: status=%s" % (user_name, status))
+        raise OSError("Unable to create user %s: status=%s" % (username, status))
 
     if not mk_homedir:
         try:
@@ -407,11 +414,11 @@ def create_user(user_name, *args, **kwargs):
             orig_uid = stats.st_uid
             orig_gid = stats.st_gid
 
-            # Gett the UID and GID of the created user
-            pwent = _getpwnam(user_name, root)
+            # Get the UID and GID of the created user
+            pwent = _getpwnam(username, root)
 
             log.info("Home directory for the user %s already existed, "
-                     "fixing the owner and SELinux context.", user_name)
+                     "fixing the owner and SELinux context.", username)
             # home directory already existed, change owner of it properly
             util.chown_dir_tree(root + homedir,
                                 int(pwent[2]), int(pwent[3]),
@@ -421,12 +428,7 @@ def create_user(user_name, *args, **kwargs):
             log.critical("Unable to change owner of existing home directory: %s", e.strerror)
             raise
 
-    pw = kwargs.get("password", False)
-    crypted = kwargs.get("isCrypted", False)
-    algo = kwargs.get("algo", None)
-    lock = kwargs.get("lock", False)
-
-    set_user_password(user_name, pw, crypted, lock, algo, root)
+    set_user_password(username, password, is_crypted, lock, algo, root)
 
 def check_user_exists(username, root=None):
     """Check a user exists.
@@ -459,7 +461,7 @@ def set_user_password(username, password, is_crypted, lock, algo=None, root="/")
     if password or password == "":
         if password == "":
             log.info("user account %s setup with no password", username)
-        elif not isCrypted:
+        elif not is_crypted:
             password = crypt_password(password, algo)
 
         if lock:
