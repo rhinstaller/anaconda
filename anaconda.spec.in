@@ -344,6 +344,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 22 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.35-1
+- Check for dirinstall target on s390 (bcl)
+  Resolves: rhbz#1677417
+
+* Thu Feb 14 2019 Martin Kolman <mkolman@redhat.com> - 29.19.0.34-3
+- Change the overflow color (vponcova)
+  Related: rhbz#1637686
+
+* Mon Feb 11 2019 Martin Kolman <mkolman@redhat.com> - 29.19.0.34-2
+- Remove a confusing message for headless systems (#1638791) (vponcova)
+  Resolves: rhbz#1638791
+
 * Wed Jan 30 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.34-1
 - Restore RHEL-specific stylesheet data (vponcova)
   Resolves: rhbz#1638383
