@@ -103,7 +103,7 @@ class UsersModule(KickstartModule):
         self._root_password_is_crypted = False
 
         self.root_account_locked_changed = Signal()
-        self._root_account_locked = False
+        self._root_account_locked = True
 
         self.users_changed = Signal()
         self._users = []
@@ -258,18 +258,25 @@ class UsersModule(KickstartModule):
     def set_root_password(self, root_password, crypted):
         """Set the crypted root password.
 
+        NOTE: Setting password == "" is equivalent to
+              calling clear_root_password().
+
         :param str root_password: root password
         :param bool crypted: if the root password is crypted
         """
-        self._root_password = root_password
-        self._root_password_is_crypted = crypted
-        self.root_password_is_set_changed.emit()
-        log.debug("Root password set.")
+        if root_password == "":
+            self.clear_root_password()
+        else:
+            self._root_password = root_password
+            self._root_password_is_crypted = crypted
+            self.root_password_is_set_changed.emit()
+            log.debug("Root password set.")
 
     def clear_root_password(self):
         """Clear any set root password."""
         self._root_password = ""
         self._root_password_is_crypted = False
+        self.set_root_account_locked(True)
         self.root_password_is_set_changed.emit()
         log.debug("Root password cleared.")
 
