@@ -249,29 +249,30 @@ def _ensure_login_defs(root):
     if login_defs_created:
         os.unlink(login_defs_path)
 
-def create_group(group_name, **kwargs):
-    """Create a new user on the system with the given name.  Optional kwargs:
+def create_group(group_name, gid=None, root=None):
+    """Create a new user on the system with the given name.
 
-       :keyword int gid: The GID for the new user. If none is given, the next available one is used.
-       :keyword str root: The directory of the system to create the new user in.
-                      homedir will be interpreted relative to this. Defaults
-                      to util.getSysroot().
+    :param int gid: The GID for the new user. If none is given, the next available one is used.
+    :param str root: The directory of the system to create the new user in.
+                     homedir will be interpreted relative to this. Defaults
+                     to util.getSysroot().
     """
-    root = kwargs.get("root", util.getSysroot())
+    if root is None:
+        root = util.getSysroot()
 
     if _getgrnam(group_name, root):
         raise ValueError("Group %s already exists" % group_name)
 
     args = ["-R", root]
-    if kwargs.get("gid") is not None:
-        args.extend(["-g", str(kwargs["gid"])])
+    if gid is not None:
+        args.extend(["-g", str(gid)])
 
     args.append(group_name)
     with _ensure_login_defs(root):
         status = util.execWithRedirect("groupadd", args)
 
     if status == 4:
-        raise ValueError("GID %s already exists" % kwargs.get("gid"))
+        raise ValueError("GID %s already exists" % gid)
     elif status == 9:
         raise ValueError("Group %s already exists" % group_name)
     elif status != 0:

@@ -468,10 +468,8 @@ class Firstboot(RemovedCommand):
 class Group(COMMANDS.Group):
     def execute(self, storage, ksdata):
         for grp in self.groupList:
-            kwargs = grp.__dict__
-            kwargs.update({"root": util.getSysroot()})
             try:
-                users.create_group(grp.name, **kwargs)
+                users.create_group(group_name=grp.name, gid=grp.gid, root=utils.getSysroot())
             except ValueError as e:
                 group_log.warning(str(e))
 
