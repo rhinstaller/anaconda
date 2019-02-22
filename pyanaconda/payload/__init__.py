@@ -66,7 +66,7 @@ class Payload(metaclass=ABCMeta):
         """
         self.data = data
         self.storage = None
-        self.txID = None
+        self.tx_id = None
 
         self._install_tree_metadata = None
 
@@ -94,7 +94,7 @@ class Payload(metaclass=ABCMeta):
         self.storage = None
         self._install_tree_metadata = None
 
-    def postSetup(self):
+    def post_setup(self):
         """Run specific payload post-configuration tasks on the end of
         the restartThread call.
 
@@ -113,13 +113,13 @@ class Payload(metaclass=ABCMeta):
         """Reset the instance, not including ksdata."""
         pass
 
-    def prepareMountTargets(self, storage):
+    def prepare_mount_targets(self, storage):
         """Run when physical storage is mounted, but other mount points may
         not exist.  Used by the RPMOSTreePayload subclass.
         """
         pass
 
-    def requiredDeviceSize(self, format_class):
+    def required_device_size(self, format_class):
         """We need to provide information how big device is required to have successful
         installation. ``format_class`` should be filesystem format
         class for the **root** filesystem this class carry information about
@@ -130,19 +130,19 @@ class Payload(metaclass=ABCMeta):
         :returns: Size of the device with given filesystem format.
         :rtype: :class:`blivet.size.Size`
         """
-        device_size = format_class.get_required_size(self.spaceRequired)
+        device_size = format_class.get_required_size(self.space_required)
         return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
     ###
     # METHODS FOR WORKING WITH REPOSITORIES
     ###
     @property
-    def addOns(self):
+    def addons(self):
         """A list of addon repo identifiers."""
         return [r.name for r in self.data.repo.dataList()]
 
     @property
-    def baseRepo(self):
+    def base_repo(self):
         """Get the identifier of the current base repo or None."""
         return None
 
@@ -154,34 +154,34 @@ class Payload(metaclass=ABCMeta):
         return conf.payload.enable_closest_mirror
 
     @property
-    def disabledRepos(self):
+    def disabled_repos(self):
         """A list of disabled repos."""
         disabled = []
-        for repo in self.addOns:
-            if not self.isRepoEnabled(repo):
+        for repo in self.addons:
+            if not self.is_repo_enabled(repo):
                 disabled.append(repo)
 
         return disabled
 
     @property
-    def enabledRepos(self):
+    def enabled_repos(self):
         """A list of enabled repos."""
         enabled = []
-        for repo in self.addOns:
-            if self.isRepoEnabled(repo):
+        for repo in self.addons:
+            if self.is_repo_enabled(repo):
                 enabled.append(repo)
 
         return enabled
 
-    def isRepoEnabled(self, repo_id):
+    def is_repo_enabled(self, repo_id):
         """Return True if repo is enabled."""
-        repo = self.getAddOnRepo(repo_id)
+        repo = self.get_addon_repo(repo_id)
         if repo:
             return repo.enabled
         else:
             return False
 
-    def getAddOnRepo(self, repo_id):
+    def get_addon_repo(self, repo_id):
         """Return a ksdata Repo instance matching the specified repo id."""
         repo = None
         for r in self.data.repo.dataList():
@@ -191,16 +191,16 @@ class Payload(metaclass=ABCMeta):
 
         return repo
 
-    def _repoNeedsNetwork(self, repo):
+    def _repo_needs_network(self, repo):
         """Returns True if the ksdata repo requires networking."""
         urls = [repo.baseurl]
         if repo.mirrorlist:
             urls.extend(repo.mirrorlist)
         elif repo.metalink:
             urls.extend(repo.metalink)
-        return self._sourceNeedsNetwork(urls)
+        return self._source_needs_network(urls)
 
-    def _sourceNeedsNetwork(self, sources):
+    def _source_needs_network(self, sources):
         """Return True if the source requires network.
 
         :param sources: Source paths for testing
@@ -217,7 +217,7 @@ class Payload(metaclass=ABCMeta):
         return False
 
     @property
-    def needsNetwork(self):
+    def needs_network(self):
         """Test base and additional repositories if they require network."""
         url = ""
         if self.data.method.method is None:
@@ -234,17 +234,17 @@ class Payload(metaclass=ABCMeta):
             elif self.data.url.metalink:
                 url = self.data.url.metalink
 
-        return (self._sourceNeedsNetwork([url]) or
-                any(self._repoNeedsNetwork(repo) for repo in self.data.repo.dataList()))
+        return (self._source_needs_network([url]) or
+                any(self._repo_needs_network(repo) for repo in self.data.repo.dataList()))
 
-    def updateBaseRepo(self, fallback=True, checkmount=True):
+    def update_base_repo(self, fallback=True, checkmount=True):
         """Update the base repository from ksdata.method."""
         pass
 
-    def gatherRepoMetadata(self):
+    def gather_repo_metadata(self):
         pass
 
-    def addRepo(self, ksrepo):
+    def add_repo(self, ksrepo):
         """Add the repo given by the pykickstart Repo object ksrepo to the
         system.  The repo will be automatically enabled and its metadata
         fetched.
@@ -256,7 +256,7 @@ class Payload(metaclass=ABCMeta):
         ksrepo.enabled = True
         self.data.repo.dataList().append(ksrepo)
 
-    def removeRepo(self, repo_id):
+    def remove_repo(self, repo_id):
         repos = self.data.repo.dataList()
         try:
             idx = [repo.name for repo in repos].index(repo_id)
@@ -265,17 +265,17 @@ class Payload(metaclass=ABCMeta):
         else:
             repos.pop(idx)
 
-    def enableRepo(self, repo_id):
-        repo = self.getAddOnRepo(repo_id)
+    def enable_repo(self, repo_id):
+        repo = self.get_addon_repo(repo_id)
         if repo:
             repo.enabled = True
 
-    def disableRepo(self, repo_id):
-        repo = self.getAddOnRepo(repo_id)
+    def disable_repo(self, repo_id):
+        repo = self.get_addon_repo(repo_id)
         if repo:
             repo.enabled = False
 
-    def verifyAvailableRepositories(self):
+    def verify_available_repositories(self):
         """Verify availability of existing repositories.
 
         This method tests if URL links from active repositories can be reached.
@@ -306,34 +306,34 @@ class Payload(metaclass=ABCMeta):
         """
         return True
 
-    def languageGroups(self):
+    def language_groups(self):
         return []
 
     def langpacks(self):
         return []
 
-    def selectedGroups(self):
+    def selected_groups(self):
         """Return list of selected group names from kickstart.
 
         NOTE:
         This group names can be mix of group IDs and other valid identifiers.
-        If you want group IDs use `selectedGroupsIDs` instead.
+        If you want group IDs use `selected_groups_IDs` instead.
 
         :return: list of group names in a format specified by a kickstart file.
         """
         return [grp.name for grp in self.data.packages.groupList]
 
-    def selectedGroupsIDs(self):
+    def selected_groups_IDs(self):
         """Return list of IDs for selected groups.
 
         Implementation depends on a specific payload class.
         """
-        return self.selectedGroups()
+        return self.selected_groups()
 
-    def groupSelected(self, groupid):
+    def group_selected(self, groupid):
         return Group(groupid) in self.data.packages.groupList
 
-    def selectGroup(self, groupid, default=True, optional=False):
+    def select_group(self, groupid, default=True, optional=False):
         if optional:
             include = GROUP_ALL
         elif default:
@@ -356,7 +356,7 @@ class Payload(metaclass=ABCMeta):
 
         self.data.packages.groupList.append(grp)
 
-    def deselectGroup(self, groupid):
+    def deselect_group(self, groupid):
         grp = Group(groupid)
 
         if grp in self.data.packages.excludedGroupList:
@@ -371,19 +371,19 @@ class Payload(metaclass=ABCMeta):
     # METHODS FOR QUERYING STATE
     ###
     @property
-    def spaceRequired(self):
+    def space_required(self):
         """The total disk space (Size) required for the current selection."""
         raise NotImplementedError()
 
     @property
-    def kernelVersionList(self):
+    def kernel_version_list(self):
         """An iterable of the kernel versions installed by the payload."""
         raise NotImplementedError()
 
     ###
     # METHODS FOR TREE VERIFICATION
     ###
-    def _refreshInstallTree(self, url):
+    def _refresh_install_tree(self, url):
         """Refresh installation tree metadata.
 
         :param url: url of the repo
@@ -397,18 +397,18 @@ class Payload(metaclass=ABCMeta):
         else:
             proxy_url = None
 
-        # sslverify can be:
+        # ssl_verify can be:
         #   - the path to a cert file
         #   - True, to use the system's certificates
         #   - False, to not verify
-        sslverify = getattr(self.data.method, "sslcacert", not flags.noverifyssl)
+        ssl_verify = getattr(self.data.method, "sslcacert", not flags.noverifyssl)
 
-        sslclientcert = getattr(self.data.method, "sslclientcert", None)
-        sslclientkey = getattr(self.data.method, "sslclientkey", None)
-        sslcert = (sslclientcert, sslclientkey) if sslclientcert else None
+        ssl_client_cert = getattr(self.data.method, "ssl_client_cert", None)
+        ssl_client_key = getattr(self.data.method, "ssl_client_key", None)
+        ssl_cert = (ssl_client_cert, ssl_client_key) if ssl_client_cert else None
 
-        log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)",
-                  url, proxy_url, sslverify)
+        log.debug("retrieving treeinfo from %s (proxy: %s ; ssl_verify: %s)",
+                  url, proxy_url, ssl_verify)
 
         proxies = {}
         if proxy_url:
@@ -423,7 +423,7 @@ class Payload(metaclass=ABCMeta):
         headers = {"user-agent": USER_AGENT}
         self._install_tree_metadata = InstallTreeMetadata()
         try:
-            ret = self._install_tree_metadata.load_url(url, proxies, sslverify, sslcert, headers)
+            ret = self._install_tree_metadata.load_url(url, proxies, ssl_verify, ssl_cert, headers)
         except IOError as e:
             self._install_tree_metadata = None
             self.verbose_errors.append(str(e))
@@ -434,7 +434,7 @@ class Payload(metaclass=ABCMeta):
             log.warning("Install tree metadata can't be loaded!")
             self._install_tree_metadata = None
 
-    def _getReleaseVersion(self, url):
+    def _get_release_version(self, url):
         """Return the release version of the tree at the specified URL."""
         try:
             version = re.match(VERSION_DIGITS, productVersion).group(1)
@@ -455,16 +455,16 @@ class Payload(metaclass=ABCMeta):
     # METHODS FOR MEDIA MANAGEMENT (XXX should these go in another module?)
     ###
     @staticmethod
-    def _setupDevice(device, mountpoint):
+    def _setup_device(device, mountpoint):
         """Prepare an install CD/DVD for use as a package source."""
         log.info("setting up device %s and mounting on %s", device.name, mountpoint)
         # Is there a symlink involved?  If so, let's get the actual path.
         # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
         # instance.
-        realMountpoint = os.path.realpath(mountpoint)
+        real_mountpoint = os.path.realpath(mountpoint)
 
-        if os.path.ismount(realMountpoint):
-            mdev = blivet.util.get_mount_device(realMountpoint)
+        if os.path.ismount(real_mountpoint):
+            mdev = blivet.util.get_mount_device(real_mountpoint)
             if mdev:
                 log.warning("%s is already mounted on %s", mdev, mountpoint)
 
@@ -472,7 +472,7 @@ class Payload(metaclass=ABCMeta):
                 return
             else:
                 try:
-                    blivet.util.umount(realMountpoint)
+                    blivet.util.umount(real_mountpoint)
                 except OSError as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
@@ -486,7 +486,7 @@ class Payload(metaclass=ABCMeta):
             raise PayloadSetupError(str(e))
 
     @staticmethod
-    def _setupNFS(mountpoint, server, path, options):
+    def _setup_NFS(mountpoint, server, path, options):
         """Prepare an NFS directory for use as a package source."""
         log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
         if os.path.ismount(mountpoint):
@@ -519,17 +519,17 @@ class Payload(metaclass=ABCMeta):
     ###
     # METHODS FOR INSTALLING THE PAYLOAD
     ###
-    def preInstall(self):
+    def pre_install(self):
         """Perform pre-installation tasks."""
         util.mkdirChain(util.getSysroot() + "/root")
 
-        self._writeModuleBlacklist()
+        self._write_module_blacklist()
 
     def install(self):
         """Install the payload."""
         raise NotImplementedError()
 
-    def _writeModuleBlacklist(self):
+    def _write_module_blacklist(self):
         """Copy modules from modprobe.blacklist=<module> on cmdline to
         /etc/modprobe.d/anaconda-blacklist.conf so that modules will
         continue to be blacklisted when the system boots.
@@ -543,7 +543,7 @@ class Payload(metaclass=ABCMeta):
             for module in flags.cmdline["modprobe.blacklist"].split():
                 f.write("blacklist %s\n" % module)
 
-    def _copyDriverDiskFiles(self):
+    def _copy_driver_disk_files(self):
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
         for f in glob(DD_FIRMWARE + "/*"):
@@ -575,13 +575,13 @@ class Payload(metaclass=ABCMeta):
         return False
 
     @property
-    def handlesBootloaderConfiguration(self):
+    def handles_bootloader_configuration(self):
         """Whether this payload backend writes the bootloader configuration itself; if
         False (the default), the generic bootloader configuration code will be used.
         """
         return False
 
-    def recreateInitrds(self):
+    def recreate_initrds(self):
         """Recreate the initrds by calling new-kernel-pkg or dracut
 
         This needs to be done after all configuration files have been
@@ -590,16 +590,16 @@ class Payload(metaclass=ABCMeta):
         :returns: None
         """
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-            useDracut = False
+            use_dracut = False
         else:
             log.warning("new-kernel-pkg does not exist - grubby wasn't installed? "
                         " using dracut instead.")
-            useDracut = True
+            use_dracut = True
 
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             log.info("recreating initrd for %s", kernel)
             if not conf.target.is_image:
-                if useDracut:
+                if use_dracut:
                     util.execInSysroot("depmod", ["-a", kernel])
                     util.execInSysroot("dracut",
                                        ["-H", "--persistent-policy", "by-uuid",
@@ -629,7 +629,7 @@ class Payload(metaclass=ABCMeta):
                                     "-f", "/boot/initramfs-%s.img" % kernel,
                                     kernel])
 
-    def _setDefaultBootTarget(self):
+    def _set_default_boot_target(self):
         """Set the default systemd target for the system."""
         if not os.path.exists(util.getSysroot() + "/etc/systemd/system"):
             log.error("systemd is not installed -- can't set default target")
@@ -657,16 +657,16 @@ class Payload(metaclass=ABCMeta):
             else:
                 services_proxy.SetDefaultTarget(TEXT_ONLY_TARGET)
 
-    def postInstall(self):
+    def post_install(self):
         """Perform post-installation tasks."""
 
         # set default systemd target
-        self._setDefaultBootTarget()
+        self._set_default_boot_target()
 
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here
 
-        self._copyDriverDiskFiles()
+        self._copy_driver_disk_files()
 
         log.info("Installation requirements: %s", self.requirements)
         if not self.requirements.applied:
@@ -686,23 +686,23 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # consisting of lists of add-on group IDs. The first list is the add-ons specific
         # to the environment, and the second list is the other add-ons possible for the
         # environment.
-        self._environmentAddons = {}
+        self._environment_addons = {}
 
-    def preInstall(self):
-        super().preInstall()
+    def pre_install(self):
+        super().pre_install()
 
         # Set rpm-specific options
 
         # nofsync speeds things up at the risk of rpmdb data loss in a crash.
         # But if we crash mid-install you're boned anyway, so who cares?
-        self.rpmMacros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
+        self.rpm_macros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
 
         if self.data.packages.excludeDocs:
-            self.rpmMacros.append(('_excludedocs', '1'))
+            self.rpm_macros.append(('_excludedocs', '1'))
 
         if self.data.packages.instLangs is not None:
             # Use nil if instLangs is empty
-            self.rpmMacros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
+            self.rpm_macros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
 
         if conf.security.selinux:
             for d in ["/tmp/updates",
@@ -711,10 +711,10 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                       "/etc/security/selinux"]:
                 f = d + "/file_contexts"
                 if os.access(f, os.R_OK):
-                    self.rpmMacros.append(('__file_context_path', f))
+                    self.rpm_macros.append(('__file_context_path', f))
                     break
         else:
-            self.rpmMacros.append(('__file_context_path', '%{nil}'))
+            self.rpm_macros.append(('__file_context_path', '%{nil}'))
 
         # Add platform specific group
         groupid = util.get_platform_groupid()
@@ -724,7 +724,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             log.warning("Platform group %s not available.", groupid)
 
     @property
-    def kernelPackages(self):
+    def kernel_packages(self):
         if "kernel" in self.data.packages.excludedList:
             return []
 
@@ -741,7 +741,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return kernels
 
     @property
-    def kernelVersionList(self):
+    def kernel_version_list(self):
         # Find all installed rpms that provide 'kernel'
 
         # If a PackagePayload is in use, rpm needs to be available
@@ -764,12 +764,12 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return sorted(files, key=functools.cmp_to_key(version_cmp))
 
     @property
-    def rpmMacros(self):
+    def rpm_macros(self):
         """A list of (name, value) pairs to define as macros in the rpm transaction."""
         return self._rpm_macros
 
-    @rpmMacros.setter
-    def rpmMacros(self, value):
+    @rpm_macros.setter
+    def rpm_macros(self, value):
         self._rpm_macros = value
 
     def reset(self):
@@ -831,7 +831,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             else:
                 blivet.util.umount(mount_point)
 
-    def _setupMedia(self, device):
+    def _setup_media(self, device):
         method = self.data.method
         if method.method == "harddrive":
             try:
@@ -857,7 +857,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         Return changed path to the iso to save looking for iso in the future call.
         """
-        self._setupDevice(device, mountpoint=device_mount_dir)
+        self._setup_device(device, mountpoint=device_mount_dir)
 
         # check for ISO images in the newly mounted dir
         path = device_mount_dir
@@ -894,14 +894,14 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return iso_path
 
     def _setup_install_tree(self, device, install_tree_path, device_mount_dir):
-        self._setupDevice(device, mountpoint=device_mount_dir)
+        self._setup_device(device, mountpoint=device_mount_dir)
         path = os.path.normpath("%s/%s" % (device_mount_dir, install_tree_path))
 
         if not verify_valid_installtree(path):
             device.teardown(recursive=True)
             raise PayloadSetupError("failed to find valid installation tree")
 
-    def _setupInstallDevice(self, storage, checkmount):
+    def _setup_install_device(self, storage, checkmount):
         # XXX FIXME: does this need to handle whatever was set up by dracut?
         method = self.data.method
         url = None
@@ -933,32 +933,32 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
     def _setup_harddrive_device(self, storage, method, isodev, device):
         url = None
-        needmount = False
+        need_mount = False
 
         if method.biospart:
             log.warning("biospart support is not implemented")
-            devspec = method.biospart
+            dev_spec = method.biospart
         else:
-            devspec = method.partition
-            needmount = True
+            dev_spec = method.partition
+            need_mount = True
             # See if we used this method for stage2, thus dracut left it
             if isodev and method.partition and \
                method.partition in isodev and \
                DRACUT_ISODIR in device:
                 # Everything should be setup
                 url = "file://" + DRACUT_REPODIR
-                needmount = False
+                need_mount = False
                 # We don't setup an install_device here
                 # because we can't tear it down
 
-        isodevice = storage.devicetree.resolve_device(devspec)
-        if needmount:
-            if not isodevice:
-                raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
+        iso_device = storage.devicetree.resolve_device(dev_spec)
+        if need_mount:
+            if not iso_device:
+                raise PayloadSetupError("device for HDISO install %s does not exist" % dev_spec)
 
-            self._setupMedia(isodevice)
+            self._setup_media(iso_device)
             url = "file://" + INSTALL_TREE
-            self.install_device = isodevice
+            self.install_device = iso_device
 
         return url
 
@@ -985,32 +985,32 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 url = "file://" + DRACUT_REPODIR
         else:
             # see if the nfs dir is mounted
-            needmount = True
+            need_mount = True
             if device:
                 _options, host, path = util.parseNfsUrl('nfs:%s' % device)
                 if method.server and method.server == host and \
                    method.dir and method.dir == path:
-                    needmount = False
+                    need_mount = False
                     path = DRACUT_REPODIR
             elif isodev:
                 # isodev with no device can happen when options on an existing
                 # nfs mount have changed. It is already mounted, but on INSTALL_TREE
-                # which is the same as DRACUT_ISODIR, making it hard for _setupNFS
+                # which is the same as DRACUT_ISODIR, making it hard for _setup_NFS
                 # to detect that it is already mounted.
                 _options, host, path = util.parseNfsUrl('nfs:%s' % isodev)
                 if path and path in isodev:
-                    needmount = False
+                    need_mount = False
                     path = DRACUT_ISODIR
 
-            if needmount:
+            if need_mount:
                 # Mount the NFS share on INSTALL_TREE. If it ends up
                 # being nfsiso we will move the mountpoint to ISO_DIR.
                 if method.dir.endswith(".iso"):
-                    nfsdir = os.path.dirname(method.dir)
+                    nfs_dir = os.path.dirname(method.dir)
                 else:
-                    nfsdir = method.dir
-                self._setupNFS(INSTALL_TREE, method.server, nfsdir,
-                               method.opts)
+                    nfs_dir = method.dir
+                self._setup_NFS(INSTALL_TREE, method.server, nfs_dir,
+                                method.opts)
                 path = INSTALL_TREE
 
             # check for ISO images in the newly mounted dir
@@ -1106,7 +1106,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             if self.install_device:
                 if not method.method:
                     method.method = "cdrom"
-                self._setupMedia(self.install_device)
+                self._setup_media(self.install_device)
                 url = "file://" + INSTALL_TREE
             elif method.method == "cdrom":
                 raise PayloadSetupError("no usable optical media found")
@@ -1114,8 +1114,8 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         return url
 
     def _setup_harddrive_addon_repo(self, storage, ksrepo):
-        isodevice = storage.devicetree.resolve_device(ksrepo.partition)
-        if not isodevice:
+        iso_device = storage.devicetree.resolve_device(ksrepo.partition)
+        if not iso_device:
             raise PayloadSetupError("device for HDISO addon repo install %s does not exist" %
                                     ksrepo.partition)
 
@@ -1124,7 +1124,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         device_mount_dir = ISO_DIR + "-" + ksrepo.mount_dir_suffix
         install_root_dir = INSTALL_TREE + "-" + ksrepo.mount_dir_suffix
 
-        self._find_and_mount_iso(isodevice, device_mount_dir, ksrepo.iso_path, install_root_dir)
+        self._find_and_mount_iso(iso_device, device_mount_dir, ksrepo.iso_path, install_root_dir)
         url = "file://" + install_root_dir
 
         return url
@@ -1137,7 +1137,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         """A list of repo identifiers, not objects themselves."""
         raise NotImplementedError()
 
-    def addDriverRepos(self):
+    def add_driver_repos(self):
         """Add driver repositories and packages."""
         # Drivers are loaded by anaconda-dracut, their repos are copied
         # into /run/install/DD-X where X is a number starting at 1. The list of
@@ -1160,11 +1160,11 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 util.execWithRedirect("createrepo_c", [repo])
 
             repo_name = "DD-%d" % dir_num
-            if repo_name not in self.addOns:
+            if repo_name not in self.addons:
                 ks_repo = self.data.RepoData(name=repo_name,
                                              baseurl="file://" + repo,
                                              enabled=True)
-                self.addRepo(ks_repo)
+                self.add_repo(ks_repo)
 
         # Add packages
         if not os.path.exists("/run/install/dd_packages"):
@@ -1175,7 +1175,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                 self.requirements.add_packages([package], reason="driver disk")
 
     @property
-    def ISOImage(self):
+    def ISO_image(self):
         """The location of a mounted ISO repo, or None."""
         if not self.data.method.method == "harddrive":
             return None
@@ -1196,42 +1196,42 @@ class PackagePayload(Payload, metaclass=ABCMeta):
     def environments(self):
         raise NotImplementedError()
 
-    def environmentHasOption(self, environmentid, grpid):
+    def environment_has_option(self, environment_id, grpid):
         raise NotImplementedError()
 
-    def environmentOptionIsDefault(self, environmentid, grpid):
+    def environment_option_is_default(self, environment_id, grpid):
         raise NotImplementedError()
 
-    def environmentDescription(self, environmentid):
+    def environment_description(self, environment_id):
         raise NotImplementedError()
 
-    def selectEnvironment(self, environmentid):
-        if environmentid not in self.environments:
-            raise NoSuchGroup(environmentid)
+    def select_environment(self, environment_id):
+        if environment_id not in self.environments:
+            raise NoSuchGroup(environment_id)
 
-        self.data.packages.environment = environmentid
+        self.data.packages.environment = environment_id
 
     @property
-    def environmentAddons(self):
-        return self._environmentAddons
+    def environment_addons(self):
+        return self._environment_addons
 
-    def _isGroupVisible(self, grpid):
+    def _is_group_visible(self, grpid):
         raise NotImplementedError()
 
-    def _refreshEnvironmentAddons(self):
-        log.info("Refreshing environmentAddons")
-        self._environmentAddons = {}
+    def _refresh_environment_addons(self):
+        log.info("Refreshing environment_addons")
+        self._environment_addons = {}
 
         for environment in self.environments:
-            self._environmentAddons[environment] = ([], [])
+            self._environment_addons[environment] = ([], [])
 
             # Determine which groups are specific to this environment and which other groups
             # are available in this environment.
             for grp in self.groups:
-                if self.environmentHasOption(environment, grp):
-                    self._environmentAddons[environment][0].append(grp)
-                elif self._isGroupVisible(grp):
-                    self._environmentAddons[environment][1].append(grp)
+                if self.environment_has_option(environment, grp):
+                    self._environment_addons[environment][0].append(grp)
+                elif self._is_group_visible(grp):
+                    self._environment_addons[environment][1].append(grp)
 
     ###
     # METHODS FOR WORKING WITH GROUPS
@@ -1240,7 +1240,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
     def groups(self):
         raise NotImplementedError()
 
-    def selectedGroupsIDs(self):
+    def selected_groups_IDs(self):
         """ Return list of selected group IDs.
 
         :return: List of selected group IDs.
@@ -1249,8 +1249,8 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # pylint: disable=try-except-raise
         try:
             ret = []
-            for grp in self.selectedGroups():
-                ret.append(self.groupId(grp))
+            for grp in self.selected_groups():
+                ret.append(self.group_id(grp))
             return ret
         # Translation feature is not implemented for this payload.
         except NotImplementedError:
@@ -1259,9 +1259,9 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         except PayloadError as ex:
             raise PayloadError("Can't translate group names to group ID - {}".format(ex))
 
-    def groupDescription(self, grpid):
+    def group_description(self, grpid):
         raise NotImplementedError()
 
-    def groupId(self, group_name):
+    def group_id(self, group_name):
         """Return group id for translation of groups from a kickstart file."""
         raise NotImplementedError()

@@ -179,7 +179,7 @@ class PayloadManager(object):
         # Wait for network
         self._setState(PayloadState.WAITING_NETWORK)
         # FIXME: condition for cases where we don't want network
-        # (set and use payload.needsNetwork ?)
+        # (set and use payload.needs_network ?)
         threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
         payload.setup(storage)
@@ -193,7 +193,7 @@ class PayloadManager(object):
         if onlyOnChange:
             log.debug("Testing repositories availability")
             self._setState(PayloadState.VERIFYING_AVAILABILITY)
-            if payload.verifyAvailableRepositories():
+            if payload.verify_available_repositories():
                 log.debug("Payload isn't restarted, repositories are still available.")
                 self._setState(PayloadState.FINISHED)
                 return
@@ -202,8 +202,8 @@ class PayloadManager(object):
         # Download package metadata
         self._setState(PayloadState.DOWNLOADING_PKG_METADATA)
         try:
-            payload.updateBaseRepo(fallback=fallback, checkmount=checkmount)
-            payload.addDriverRepos()
+            payload.update_base_repo(fallback=fallback, checkmount=checkmount)
+            payload.add_driver_repos()
         except (OSError, PayloadError) as e:
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP
@@ -213,11 +213,11 @@ class PayloadManager(object):
 
         # Gather the group data
         self._setState(PayloadState.DOWNLOADING_GROUP_METADATA)
-        payload.gatherRepoMetadata()
+        payload.gather_repo_metadata()
         payload.release()
 
         # Check if that failed
-        if not payload.baseRepo:
+        if not payload.base_repo:
             log.error("No base repo configured")
             self._error = self.ERROR_MD
             self._setState(PayloadState.ERROR)
@@ -225,7 +225,7 @@ class PayloadManager(object):
             return
 
         # run payload specific post configuration tasks
-        payload.postSetup()
+        payload.post_setup()
 
         self._setState(PayloadState.FINISHED)
 

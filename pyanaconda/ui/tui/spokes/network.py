@@ -248,7 +248,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def mandatory(self):
         # the network spoke should be mandatory only if it is running
         # during the installation and if the installation source requires network
-        return ANACONDA_ENVIRON in flags.environs and self.payload.needsNetwork
+        return ANACONDA_ENVIRON in flags.environs and self.payload.needs_network
 
     @property
     def status(self):

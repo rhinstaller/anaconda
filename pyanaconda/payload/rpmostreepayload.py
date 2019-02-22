@@ -55,21 +55,21 @@ class RPMOSTreePayload(Payload):
         self._locale_map = None
 
     @property
-    def handlesBootloaderConfiguration(self):
+    def handles_bootloader_configuration(self):
         return True
 
     @property
-    def kernelVersionList(self):
+    def kernel_version_list(self):
         # OSTree handles bootloader configuration
         return []
 
     @property
-    def spaceRequired(self):
+    def space_required(self):
         # We don't have this data with OSTree at the moment
         return Size("500 MB")
 
     @property
-    def needsNetwork(self):
+    def needs_network(self):
         """Test ostree repository if it requires network."""
         return not (self.data.ostreesetup.url and self.data.ostreesetup.url.startswith("file://"))
 
@@ -331,7 +331,7 @@ class RPMOSTreePayload(Payload):
                                        [bindopt, src, dest])
         self._internal_mounts.append(src if bind_ro else dest)
 
-    def prepareMountTargets(self, storage):
+    def prepare_mount_targets(self, storage):
         """ Prepare the ostree root """
         ostreesetup = self.data.ostreesetup
 
@@ -401,14 +401,14 @@ class RPMOSTreePayload(Payload):
             except CalledProcessError as e:
                 log.debug("unmounting %s failed: %s", mount, str(e))
 
-    def recreateInitrds(self):
+    def recreate_initrds(self):
         # For rpmostree payloads, we're replicating an initramfs from
         # a compose server, and should never be regenerating them
         # per-machine.
         pass
 
-    def postInstall(self):
-        super().postInstall()
+    def post_install(self):
+        super().post_install()
 
         gi.require_version("OSTree", "1.0")
         from gi.repository import OSTree

@@ -81,7 +81,7 @@ class ResizeDialog(GUIObject):
 
         self._required_label = self.builder.get_object("requiredSpaceLabel")
         markup = _("Installation requires a total of <b>%s</b> for system data.")
-        required_dev_size = self.payload.requiredDeviceSize(FS.biggest_overhead_FS())
+        required_dev_size = self.payload.required_device_size(FS.biggest_overhead_FS())
         self._required_label.set_markup(markup % escape_markup(str(required_dev_size)))
 
         self._reclaimDescLabel = self.builder.get_object("reclaimDescLabel")
@@ -312,7 +312,7 @@ class ResizeDialog(GUIObject):
             self._deleteButton.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
-        required_dev_size = self.payload.requiredDeviceSize(FS.biggest_overhead_FS())
+        required_dev_size = self.payload.required_device_size(FS.biggest_overhead_FS())
         self._resizeButton.set_sensitive(got+self._initialFreeSpace >= required_dev_size)
 
     # pylint: disable=arguments-differ

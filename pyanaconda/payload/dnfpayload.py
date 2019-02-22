@@ -354,7 +354,7 @@ class DNFPayload(payload.PackagePayload):
             # DNF is dynamically creating properties which seems confusing for Pylint here
             # pylint: disable=no-member
             mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, repo.name)
-            self._setupNFS(mountpoint, server, path, None)
+            self._setup_NFS(mountpoint, server, path, None)
 
             url = "file://" + mountpoint
 
@@ -410,7 +410,7 @@ class DNFPayload(payload.PackagePayload):
                 self._base.repos.add(repo)
 
         if not ksrepo.enabled:
-            self.disableRepo(repo.id)
+            self.disable_repo(repo.id)
 
         log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist or metalink)
 
@@ -435,7 +435,7 @@ class DNFPayload(payload.PackagePayload):
         log.info("enabled repo: '%s' - %s and got repomd", ksrepo.name,
                  ksrepo.baseurl or ksrepo.mirrorlist or ksrepo.metalink)
 
-    def addRepo(self, ksrepo):
+    def add_repo(self, ksrepo):
         """Add an enabled repo to dnf and kickstart repo lists.
 
         :param ksrepo: Kickstart Repository to add
@@ -444,7 +444,7 @@ class DNFPayload(payload.PackagePayload):
         """
         self._add_repo(ksrepo)
         self._fetch_md(ksrepo.name)
-        super().addRepo(ksrepo)
+        super().add_repo(ksrepo)
 
     def _enable_modules(self):
         """Enable modules (if any)."""
@@ -604,11 +604,11 @@ class DNFPayload(payload.PackagePayload):
         return True
 
     def _bump_tx_id(self):
-        if self.txID is None:
-            self.txID = 1
+        if self.tx_id is None:
+            self.tx_id = 1
         else:
-            self.txID += 1
-        return self.txID
+            self.tx_id += 1
+        return self.tx_id
 
     def _configure_proxy(self):
         """Configure the proxy on the dnf.Base object."""
@@ -671,7 +671,7 @@ class DNFPayload(payload.PackagePayload):
             log.info("setting DNF platform id to: %s", platform_id)
             self._base.conf.module_platform_id = platform_id
 
-        config.releasever = self._getReleaseVersion(None)
+        config.releasever = self._get_release_version(None)
         config.installroot = util.getSysroot()
         config.prepend_installroot('persistdir')
 
@@ -736,7 +736,7 @@ class DNFPayload(payload.PackagePayload):
 
     def _pick_download_location(self):
         download_size = self._download_space
-        install_size = self._spaceRequired()
+        install_size = self._space_required()
         df_map = _df_map()
         mpoint = _pick_mpoint(df_map, download_size, install_size, download_only=True)
         if mpoint is None:
@@ -757,7 +757,7 @@ class DNFPayload(payload.PackagePayload):
         return bool(subj.get_best_query(self._base.sack))
 
     def _get_kernel_package(self):
-        kernels = self.kernelPackages
+        kernels = self.kernel_packages
         selected_kernel_package = None
         for kernel_package in kernels:
             if self._package_name_installable(kernel_package):
@@ -793,13 +793,13 @@ class DNFPayload(payload.PackagePayload):
         except dnf.exceptions.RepoError as e:
             id_ = dnf_repo.id
             log.info('_sync_metadata: addon repo error: %s', e)
-            self.disableRepo(id_)
+            self.disable_repo(id_)
             self.verbose_errors.append(str(e))
         log.debug('repo %s: _sync_metadata success from %s', dnf_repo.id,
                   dnf_repo.baseurl or dnf_repo.mirrorlist or dnf_repo.metalink)
 
     @property
-    def baseRepo(self):
+    def base_repo(self):
         # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS
         with self._repos_lock:
@@ -824,8 +824,8 @@ class DNFPayload(payload.PackagePayload):
             return [r.id for r in self._base.repos.values()]
 
     @property
-    def spaceRequired(self):
-        size = self._spaceRequired()
+    def space_required(self):
+        size = self._space_required()
         if not self.storage:
             log.warning("Payload doesn't have storage")
             return size
@@ -852,7 +852,7 @@ class DNFPayload(payload.PackagePayload):
             log.debug("Installation space required %s", size)
         return size
 
-    def _spaceRequired(self):
+    def _space_required(self):
         transaction = self._base.transaction
         if transaction is None:
             return Size("3000 MB")
@@ -875,7 +875,7 @@ class DNFPayload(payload.PackagePayload):
         log.debug("Total size required %s", total_space)
         return total_space
 
-    def _isGroupVisible(self, grpid):
+    def _is_group_visible(self, grpid):
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
             raise NoSuchGroup(grpid)
@@ -899,7 +899,7 @@ class DNFPayload(payload.PackagePayload):
             raise DependencyError(msg)
 
         log.info("%d packages selected totalling %s",
-                 len(self._base.transaction), self.spaceRequired)
+                 len(self._base.transaction), self.space_required)
 
     def setUpdatesEnabled(self, state):
         """Enable or Disable the repos used to update closest mirror.
@@ -909,34 +909,34 @@ class DNFPayload(payload.PackagePayload):
         self._updates_enabled = state
 
         if self._updates_enabled:
-            self.enableRepo("updates")
+            self.enable_repo("updates")
             if not constants.isFinal:
-                self.enableRepo("updates-testing")
+                self.enable_repo("updates-testing")
         else:
-            self.disableRepo("updates")
+            self.disable_repo("updates")
             if not constants.isFinal:
-                self.disableRepo("updates-testing")
+                self.disable_repo("updates-testing")
 
-    def disableRepo(self, repo_id):
+    def disable_repo(self, repo_id):
         try:
             self._base.repos[repo_id].disable()
             log.info("Disabled '%s'", repo_id)
         except KeyError:
             pass
-        super().disableRepo(repo_id)
+        super().disable_repo(repo_id)
 
-    def enableRepo(self, repo_id):
+    def enable_repo(self, repo_id):
         try:
             self._base.repos[repo_id].enable()
             log.info("Enabled '%s'", repo_id)
         except KeyError:
             pass
-        super().enableRepo(repo_id)
+        super().enable_repo(repo_id)
 
-    def environmentDescription(self, environmentid):
-        env = self._base.comps.environment_by_pattern(environmentid)
+    def environment_description(self, environment_id):
+        env = self._base.comps.environment_by_pattern(environment_id)
         if env is None:
-            raise NoSuchGroup(environmentid)
+            raise NoSuchGroup(environment_id)
         return (env.ui_name, env.ui_description)
 
     def environmentId(self, environment):
@@ -949,29 +949,29 @@ class DNFPayload(payload.PackagePayload):
             raise NoSuchGroup(environment)
         return env.id
 
-    def environmentHasOption(self, environmentid, grpid):
-        env = self._base.comps.environment_by_pattern(environmentid)
+    def environment_has_option(self, environment_id, grpid):
+        env = self._base.comps.environment_by_pattern(environment_id)
         if env is None:
-            raise NoSuchGroup(environmentid)
+            raise NoSuchGroup(environment_id)
         return grpid in (id_.name for id_ in env.option_ids)
 
-    def environmentOptionIsDefault(self, environmentid, grpid):
-        env = self._base.comps.environment_by_pattern(environmentid)
+    def environment_option_is_default(self, environment_id, grpid):
+        env = self._base.comps.environment_by_pattern(environment_id)
         if env is None:
-            raise NoSuchGroup(environmentid)
+            raise NoSuchGroup(environment_id)
 
         # Look for a group in the optionlist that matches the group_id and has
         # default set
         return any(grp for grp in env.option_ids if grp.name == grpid and grp.default)
 
-    def groupDescription(self, grpid):
+    def group_description(self, grpid):
         """Return name/description tuple for the group specified by id."""
         grp = self._base.comps.group_by_pattern(grpid)
         if grp is None:
             raise NoSuchGroup(grpid)
         return (grp.ui_name, grp.ui_description)
 
-    def groupId(self, group_name):
+    def group_id(self, group_name):
         """Translate group name to group ID.
 
         :param group_name: Valid identifier for group specification.
@@ -984,23 +984,23 @@ class DNFPayload(payload.PackagePayload):
             raise NoSuchGroup(group_name)
         return grp.id
 
-    def gatherRepoMetadata(self):
+    def gather_repo_metadata(self):
         with self._repos_lock:
             for repo in self._base.repos.iter_enabled():
                 self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps()
-        self._refreshEnvironmentAddons()
+        self._refresh_environment_addons()
 
     def install(self):
         progress_message(N_('Starting package installation process'))
 
         # Add the rpm macros to the global transaction environment
-        for macro in self.rpmMacros:
+        for macro in self.rpm_macros:
             rpm.addMacro(macro[0], macro[1])
 
         if self.install_device:
-            self._setupMedia(self.install_device)
+            self._setup_media(self.install_device)
         try:
             self.checkSoftwareSelection()
             self._download_location = self._pick_download_location()
@@ -1081,13 +1081,13 @@ class DNFPayload(payload.PackagePayload):
         """Return the yum repo object."""
         return self._base.repos[repo_id]
 
-    def isRepoEnabled(self, repo_id):
+    def is_repo_enabled(self, repo_id):
         try:
             return self._base.repos[repo_id].enabled
         except (dnf.exceptions.RepoError, KeyError):
-            return super().isRepoEnabled(repo_id)
+            return super().is_repo_enabled(repo_id)
 
-    def verifyAvailableRepositories(self):
+    def verify_available_repositories(self):
         """Verify availability of repositories."""
         if not self._repoMD_list:
             return False
@@ -1098,7 +1098,7 @@ class DNFPayload(payload.PackagePayload):
                 return False
         return True
 
-    def languageGroups(self):
+    def language_groups(self):
         localization_proxy = LOCALIZATION.get_proxy()
         locales = [localization_proxy.Language] + localization_proxy.LanguageSupport
         match_fn = pyanaconda.localization.langcode_matches_locale
@@ -1114,15 +1114,15 @@ class DNFPayload(payload.PackagePayload):
         super().reset()
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
-        self.txID = None
+        self.tx_id = None
         self._base.reset(sack=True, repos=True)
         self._configure_proxy()
         self._repoMD_list = []
 
-    def updateBaseRepo(self, fallback=True, checkmount=True):
+    def update_base_repo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
-        install_tree_url, mirrorlist, metalink = self._setupInstallDevice(self.storage, checkmount)
+        install_tree_url, mirrorlist, metalink = self._setup_install_device(self.storage, checkmount)
 
         # Fallback to installation root
         base_repo_url = install_tree_url
@@ -1155,8 +1155,8 @@ class DNFPayload(payload.PackagePayload):
 
         if method.method:
             try:
-                self._refreshInstallTree(install_tree_url)
-                self._base.conf.releasever = self._getReleaseVersion(install_tree_url)
+                self._refresh_install_tree(install_tree_url)
+                self._base.conf.releasever = self._get_release_version(install_tree_url)
                 base_repo_url = self._getBaseRepoLocation(install_tree_url)
 
                 if self.first_payload_reset:
@@ -1187,7 +1187,7 @@ class DNFPayload(payload.PackagePayload):
                 if not fallback:
                     with self._repos_lock:
                         for repo in self._base.repos.iter_enabled():
-                            self.disableRepo(repo.id)
+                            self.disable_repo(repo.id)
                     return
 
                 # this preserves the method details while disabling it
@@ -1207,8 +1207,8 @@ class DNFPayload(payload.PackagePayload):
                         log.debug("repo %s: fall back enabled from default repos", id_)
                         repo.enable()
 
-        for repo in self.addOns:
-            ksrepo = self.getAddOnRepo(repo)
+        for repo in self.addons:
+            ksrepo = self.get_addon_repo(repo)
 
             if ksrepo.is_harddrive_based():
                 ksrepo.baseurl = self._setup_harddrive_addon_repo(self.storage, ksrepo)
@@ -1231,13 +1231,13 @@ class DNFPayload(payload.PackagePayload):
             for repo in self._base.repos.iter_enabled():
                 id_ = repo.id
                 if 'source' in id_ or 'debuginfo' in id_:
-                    self.disableRepo(id_)
+                    self.disable_repo(id_)
                 elif constants.isFinal and 'rawhide' in id_:
-                    self.disableRepo(id_)
+                    self.disable_repo(id_)
 
             # fetch md for enabled repos
-            enabled_repos = self.enabledRepos
-            for repo in self.addOns:
+            enabled_repos = self.enabled_repos
+            for repo in self.addons:
                 if repo in enabled_repos:
                     self._fetch_md(repo)
 
@@ -1310,7 +1310,7 @@ class DNFPayload(payload.PackagePayload):
         with open(repo_path, "w") as f:
             f.write("[%s]\n" % repo.id)
             f.write("name=%s\n" % repo.id)
-            if self.isRepoEnabled(repo.id):
+            if self.is_repo_enabled(repo.id):
                 f.write("enabled=1\n")
             else:
                 f.write("enabled=0\n")
@@ -1328,7 +1328,7 @@ class DNFPayload(payload.PackagePayload):
                                         "metalink".format(repo.id))
 
             # kickstart repo modifiers
-            ks_repo = self.getAddOnRepo(repo.id)
+            ks_repo = self.get_addon_repo(repo.id)
             if not ks_repo:
                 return
 
@@ -1357,22 +1357,22 @@ class DNFPayload(payload.PackagePayload):
         """Should we write the storage before doing the installation?"""
         return True
 
-    def postSetup(self):
+    def post_setup(self):
         """Perform post-setup tasks.
 
         Save repomd hash to test if the repositories can be reached.
         """
-        super().postSetup()
+        super().post_setup()
         self._repoMD_list = []
         for repo in self._base.repos.iter_enabled():
             repoMD = RepoMDMetaHash(self, repo)
             repoMD.store_repoMD_hash()
             self._repoMD_list.append(repoMD)
 
-    def postInstall(self):
+    def post_install(self):
         """Perform post-installation tasks."""
         # Write selected kickstart repos to target system
-        for ks_repo in (ks for ks in (self.getAddOnRepo(r) for r in self.addOns) if ks.install):
+        for ks_repo in (ks for ks in (self.get_addon_repo(r) for r in self.addons) if ks.install):
             if ks_repo.baseurl.startswith("nfs://"):
                 log.info("Skip writing nfs repo %s to target system.", ks_repo.name)
                 continue
@@ -1392,7 +1392,7 @@ class DNFPayload(payload.PackagePayload):
 
         # We don't need the mother base anymore. Close it.
         self._base.close()
-        super().postInstall()
+        super().post_install()
 
 
 class RepoMDMetaHash(object):

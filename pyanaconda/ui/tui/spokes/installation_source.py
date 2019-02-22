@@ -118,7 +118,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             if not method.dir:
                 return _("Error setting up software source")
             return os.path.basename(method.dir)
-        elif self.payload.baseRepo:
+        elif self.payload.base_repo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
@@ -138,10 +138,10 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     @property
     def completed(self):
-        if flags.automatedInstall and self.ready and not self.payload.baseRepo:
+        if flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
         else:
-            return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
+            return not self._error and self.ready and (self.data.method.method or self.payload.base_repo)
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)

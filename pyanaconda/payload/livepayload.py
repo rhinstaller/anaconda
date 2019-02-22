@@ -66,7 +66,7 @@ class LiveImagePayload(Payload):
         self.pct_lock = None
         self.source_size = 1
 
-        self._kernelVersionList = []
+        self._kernel_version_list = []
 
     def setup(self, storage):
         super().setup(storage)
@@ -100,9 +100,9 @@ class LiveImagePayload(Payload):
         except OSError:
             pass
 
-    def preInstall(self):
+    def pre_install(self):
         """ Perform pre-installation tasks. """
-        super().preInstall()
+        super().pre_install()
         progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
 
     def progress(self):
@@ -176,7 +176,7 @@ class LiveImagePayload(Payload):
             log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
             useNKP = False
 
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             log.info("Generating rescue image for %s", kernel)
             if useNKP:
                 util.execInSysroot("new-kernel-pkg",
@@ -190,12 +190,12 @@ class LiveImagePayload(Payload):
                     util.execInSysroot(file,
                                        [kernel, "/boot/vmlinuz-%s" % kernel])
 
-    def postInstall(self):
+    def post_install(self):
         """ Perform post-installation tasks. """
         progressQ.send_message(_("Performing post-installation setup tasks"))
         blivet.util.umount(INSTALL_TREE)
 
-        super().postInstall()
+        super().post_install()
 
         # Make sure the new system has a machine-id, it won't boot without it
         # (and nor will some of the subsequent commands)
@@ -203,7 +203,7 @@ class LiveImagePayload(Payload):
             log.info("Generating machine ID")
             util.execInSysroot("systemd-machine-id-setup", [])
 
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
                 log.info("Regenerating BLS info for %s", kernel)
                 util.execInSysroot("kernel-install", ["add",
@@ -211,7 +211,7 @@ class LiveImagePayload(Payload):
                                                       "/lib/modules/{0}/vmlinuz".format(kernel)])
 
     @property
-    def spaceRequired(self):
+    def space_required(self):
         return Size(util.getDirSize("/") * 1024)
 
     def _updateKernelVersionList(self):
@@ -219,13 +219,13 @@ class LiveImagePayload(Payload):
         files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" %
                                conf.bootloader.efi_dir))
 
-        self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
+        self._kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
                                          if os.path.isfile(f) and "-rescue-" not in f),
                                          key=functools.cmp_to_key(version_cmp))
 
     @property
-    def kernelVersionList(self):
-        return self._kernelVersionList
+    def kernel_version_list(self):
+        return self._kernel_version_list
 
 
 class DownloadProgress(object):
@@ -388,7 +388,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         return error
 
-    def preInstall(self):
+    def pre_install(self):
         """ Get image and loopback mount it.
 
             This is called after partitioning is setup, we now have space to
@@ -525,17 +525,17 @@ class LiveImageKSPayload(LiveImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             log.info("Generating rescue image for %s", kernel)
             util.execInSysroot("new-kernel-pkg",
                                ["--rpmposttrans", kernel])
 
-    def postInstall(self):
+    def post_install(self):
         """ Unmount and remove image
 
             If file:// was used, just unmount it.
         """
-        super().postInstall()
+        super().post_install()
 
         if os.path.exists(IMAGE_DIR + "/LiveOS"):
             blivet.util.umount(IMAGE_DIR)
@@ -544,7 +544,7 @@ class LiveImageKSPayload(LiveImagePayload):
             os.unlink(self.image_path)
 
     @property
-    def spaceRequired(self):
+    def space_required(self):
         """ We don't know the filesystem size until it is downloaded.
 
             Default to 1G which should be enough for a minimal image download
@@ -556,10 +556,10 @@ class LiveImageKSPayload(LiveImagePayload):
             return Size(1024 * 1024 * 1024)
 
     @property
-    def kernelVersionList(self):
-        # If it doesn't look like a tarfile use the super's kernelVersionList
+    def kernel_version_list(self):
+        # If it doesn't look like a tarfile use the super's kernel_version_list
         if not self.is_tarfile:
-            return super().kernelVersionList
+            return super().kernel_version_list
 
         import tarfile
         with tarfile.open(self.image_path) as archive:

@@ -171,7 +171,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         self.data.method.method = "harddrive"
         self.data.method.partition = partition
-        # the / gets stripped off by payload.ISOImage
+        # the / gets stripped off by payload.ISO_image
         self.data.method.dir = "/" + iso_path
 
         # as we already made the device protected when
