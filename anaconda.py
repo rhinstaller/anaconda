@@ -322,7 +322,7 @@ if __name__ == "__main__":
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
     if uname[4] == 's390x':
-        if 'TMUX' not in os.environ and 'ks' not in flags.cmdline and not flags.imageInstall:
+        if 'TMUX' not in os.environ and 'ks' not in flags.cmdline and not flags.imageInstall and not flags.dirInstall:
             startup_utils.prompt_for_ssh()
             sys.exit(0)
 
