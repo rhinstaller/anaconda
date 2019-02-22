@@ -86,7 +86,7 @@ class LiveImagePayload(Payload):
             raise PayloadInstallError("Failed to mount the install tree")
 
         # Grab the kernel version list now so it's available after umount
-        self._updateKernelVersionList()
+        self._update_kernel_version_list()
 
         source = os.statvfs(INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -171,14 +171,14 @@ class LiveImagePayload(Payload):
 
         # Live needs to create the rescue image before bootloader is written
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-            useNKP = True
+            use_nkp = True
         else:
             log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
-            useNKP = False
+            use_nkp = False
 
         for kernel in self.kernel_version_list:
             log.info("Generating rescue image for %s", kernel)
-            if useNKP:
+            if use_nkp:
                 util.execInSysroot("new-kernel-pkg",
                                    ["--rpmposttrans", kernel])
             else:
@@ -214,7 +214,7 @@ class LiveImagePayload(Payload):
     def space_required(self):
         return Size(util.getDirSize("/") * 1024)
 
-    def _updateKernelVersionList(self):
+    def _update_kernel_version_list(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
         files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" %
                                conf.bootloader.efi_dir))
@@ -346,7 +346,7 @@ class LiveImageKSPayload(LiveImagePayload):
         # Skip LiveImagePayload's unsetup method
         super().unsetup(self)
 
-    def _preInstall_url_image(self):
+    def _pre_install_url_image(self):
         """ Download the image using Requests with progress reporting"""
 
         error = None
@@ -402,7 +402,7 @@ class LiveImageKSPayload(LiveImagePayload):
         if self.data.method.url.startswith("file://"):
             self.image_path = self.data.method.url[7:]
         else:
-            error = self._preInstall_url_image()
+            error = self._pre_install_url_image()
 
         if error:
             exn = PayloadInstallError(str(error))
@@ -446,7 +446,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         # Nothing more to mount
         if not os.path.exists(INSTALL_TREE + "/LiveOS"):
-            self._updateKernelVersionList()
+            self._update_kernel_version_list()
             return
 
         # Mount the first .img in the directory on INSTALL_TREE
@@ -474,7 +474,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
-            self._updateKernelVersionList()
+            self._update_kernel_version_list()
 
             source = os.statvfs(INSTALL_TREE)
             self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
