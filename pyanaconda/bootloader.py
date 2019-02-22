@@ -262,7 +262,7 @@ class BootLoader(object):
                             "noht", "acpi", "video", "pci", "nodmraid",
                             "nompath", "nomodeset", "noiswmd", "fips",
                             "selinux", "biosdevname", "ipv6.disable",
-                            "net.ifnames"]
+                            "net.ifnames", "nosmt"]
     preserve_args = []
 
     _trusted_boot = False
