@@ -99,7 +99,7 @@ class RPMOSTreePayload(Payload):
         locale = strip_codeset_and_modifier(locale)
         return locale in locale_map.get(language, [])
 
-    def _safeExecWithRedirect(self, cmd, argv, **kwargs):
+    def _safe_exec_with_redirect(self, cmd, argv, **kwargs):
         """Like util.execWithRedirect, but treat errors as fatal"""
         rc = util.execWithRedirect(cmd, argv, **kwargs)
         if rc != 0:
@@ -107,7 +107,7 @@ class RPMOSTreePayload(Payload):
             if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
                 raise exn
 
-    def _pullProgressCb(self, asyncProgress):
+    def _pull_progress_cb(self, asyncProgress):
         status = asyncProgress.get_status()
         outstanding_fetches = asyncProgress.get_uint('outstanding-fetches')
         if status:
@@ -131,7 +131,7 @@ class RPMOSTreePayload(Payload):
         else:
             progressQ.send_message(_("Writing objects"))
 
-    def _copyBootloaderData(self):
+    def _copy_bootloader_data(self):
         # Copy bootloader data files from the deployment
         # checkout to the target root.  See
         # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
@@ -165,10 +165,11 @@ class RPMOSTreePayload(Payload):
                     for subname in os.listdir(srcpath):
                         sub_srcpath = os.path.join(srcpath, subname)
                         sub_destpath = os.path.join(destpath, subname)
-                        self._safeExecWithRedirect('cp', ['-r', '-p', sub_srcpath, sub_destpath])
+                        self._safe_exec_with_redirect('cp',
+                                                      ['-r', '-p', sub_srcpath, sub_destpath])
             else:
                 log.info("Copying bootloader data: %s", fname)
-                self._safeExecWithRedirect('cp', ['-r', '-p', srcpath, destpath])
+                self._safe_exec_with_redirect('cp', ['-r', '-p', srcpath, destpath])
 
             # Unfortunate hack, see https://github.com/rhinstaller/anaconda/issues/1188
             efi_grubenv_link = physboot + '/grub2/grubenv'
@@ -187,9 +188,9 @@ class RPMOSTreePayload(Payload):
         log.info("executing ostreesetup=%r", ostreesetup)
 
         # Initialize the filesystem - this will create the repo as well
-        self._safeExecWithRedirect("ostree",
-                                   ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
-                                    "init-fs", util.getTargetPhysicalRoot()])
+        self._safe_exec_with_redirect("ostree",
+                                      ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
+                                       "init-fs", util.getTargetPhysicalRoot()])
 
         # Here, we use the physical root as sysroot, because we haven't
         # yet made a deployment.
@@ -220,7 +221,7 @@ class RPMOSTreePayload(Payload):
                                {"branchName": ref, "source": ostreesetup.remote})
 
         progress = OSTree.AsyncProgress.new()
-        progress.connect('changed', self._pullProgressCb)
+        progress.connect('changed', self._pull_progress_cb)
 
         pull_opts = {'refs': Variant('as', [ref])}
         # If we're doing a kickstart, we can at least use the content as a reference:
@@ -256,9 +257,9 @@ class RPMOSTreePayload(Payload):
         # complex.
         repo.remote_delete(self.data.ostreesetup.remote, None)
 
-        self._safeExecWithRedirect("ostree",
-                                   ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
-                                    "os-init", ostreesetup.osname])
+        self._safe_exec_with_redirect("ostree",
+                                      ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
+                                       "os-init", ostreesetup.osname])
 
         admin_deploy_args = ["admin", "--sysroot=" + util.getTargetPhysicalRoot(),
                              "deploy", "--os=" + ostreesetup.osname]
@@ -267,7 +268,7 @@ class RPMOSTreePayload(Payload):
 
         log.info("ostree admin deploy starting")
         progressQ.send_message(_("Deployment starting: %s") % (ref, ))
-        self._safeExecWithRedirect("ostree", admin_deploy_args)
+        self._safe_exec_with_redirect("ostree", admin_deploy_args)
         log.info("ostree admin deploy complete")
         progressQ.send_message(_("Deployment complete: %s") % (ref, ))
 
@@ -280,7 +281,7 @@ class RPMOSTreePayload(Payload):
         util.setSysroot(deployment_path.get_path())
 
         try:
-            self._copyBootloaderData()
+            self._copy_bootloader_data()
         except (OSError, RuntimeError) as e:
             exn = PayloadInstallError("Failed to copy bootloader data: %s" % e)
             log.error(str(exn))
@@ -291,10 +292,10 @@ class RPMOSTreePayload(Payload):
 
         mainctx.pop_thread_default()
 
-    def _setupInternalBindmount(self, src, dest=None,
-                                src_physical=True,
-                                bind_ro=False,
-                                recurse=True):
+    def _setup_internal_bindmount(self, src, dest=None,
+                                  src_physical=True,
+                                  bind_ro=False,
+                                  recurse=True):
         """Internal API for setting up bind mounts between the physical root and
            sysroot, also ensures we track them in self._internal_mounts so we can
            cleanly unmount them.
@@ -316,10 +317,10 @@ class RPMOSTreePayload(Payload):
         # Canonicalize dest to the full path
         dest = util.getSysroot() + dest
         if bind_ro:
-            self._safeExecWithRedirect("mount",
-                                       ["--bind", src, src])
-            self._safeExecWithRedirect("mount",
-                                       ["--bind", "-o", "remount,ro", src, src])
+            self._safe_exec_with_redirect("mount",
+                                          ["--bind", src, src])
+            self._safe_exec_with_redirect("mount",
+                                          ["--bind", "-o", "remount,ro", src, src])
         else:
             # Recurse for non-ro binds so we pick up sub-mounts
             # like /sys/firmware/efi/efivars.
@@ -327,8 +328,8 @@ class RPMOSTreePayload(Payload):
                 bindopt = '--rbind'
             else:
                 bindopt = '--bind'
-            self._safeExecWithRedirect("mount",
-                                       [bindopt, src, dest])
+            self._safe_exec_with_redirect("mount",
+                                          [bindopt, src, dest])
         self._internal_mounts.append(src if bind_ro else dest)
 
     def prepare_mount_targets(self, storage):
@@ -341,23 +342,23 @@ class RPMOSTreePayload(Payload):
         # bind mounts.
 
         # Make /usr readonly like ostree does at runtime normally
-        self._setupInternalBindmount('/usr', bind_ro=True, src_physical=False)
+        self._setup_internal_bindmount('/usr', bind_ro=True, src_physical=False)
 
         # Explicitly do API mounts; some of these may be tracked by blivet, but
         # we'll skip them below.
         api_mounts = ["/dev", "/proc", "/run", "/sys"]
         for path in api_mounts:
-            self._setupInternalBindmount(path)
+            self._setup_internal_bindmount(path)
 
         # Handle /var; if the admin didn't specify a mount for /var, we need
         # to do the default ostree one.
         # https://github.com/ostreedev/ostree/issues/855
-        varroot = '/ostree/deploy/' + ostreesetup.osname + '/var'
+        var_root = '/ostree/deploy/' + ostreesetup.osname + '/var'
         if storage.mountpoints.get("/var") is None:
-            self._setupInternalBindmount(varroot, dest='/var', recurse=False)
+            self._setup_internal_bindmount(var_root, dest='/var', recurse=False)
         else:
             # Otherwise, bind it
-            self._setupInternalBindmount('/var', recurse=False)
+            self._setup_internal_bindmount('/var', recurse=False)
 
         # Now that we have /var, start filling in any directories that may be
         # required later there. We explicitly make /var/lib, since
@@ -374,9 +375,9 @@ class RPMOSTreePayload(Payload):
         # target.
         for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
                           'usrlocal', 'mnt', 'media', 'spool', 'spool/mail'):
-            self._safeExecWithRedirect("systemd-tmpfiles",
-                                       ["--create", "--boot", "--root=" + util.getSysroot(),
-                                        "--prefix=/var/" + varsubdir])
+            self._safe_exec_with_redirect("systemd-tmpfiles",
+                                          ["--create", "--boot", "--root=" + util.getSysroot(),
+                                           "--prefix=/var/" + varsubdir])
 
         # Handle mounts like /boot (except avoid /boot/efi; we just need the
         # toplevel), and any admin-specified points like /home (really
@@ -387,10 +388,10 @@ class RPMOSTreePayload(Payload):
         for mount in sorted(storage.mountpoints, key=len):
             if mount in ('/', '/var') or mount in api_mounts:
                 continue
-            self._setupInternalBindmount(mount, recurse=False)
+            self._setup_internal_bindmount(mount, recurse=False)
 
         # And finally, do a nonrecursive bind for the sysroot
-        self._setupInternalBindmount("/", dest="/sysroot", recurse=False)
+        self._setup_internal_bindmount("/", dest="/sysroot", recurse=False)
 
     def unsetup(self):
         super().unsetup()
@@ -454,4 +455,4 @@ class RPMOSTreePayload(Payload):
             set_kargs_args = ["admin", "instutil", "set-kargs"]
             set_kargs_args.extend(self.storage.bootloader.boot_args)
             set_kargs_args.append("root=" + self.storage.root_device.fstab_spec)
-            self._safeExecWithRedirect("ostree", set_kargs_args, root=util.getSysroot())
+            self._safe_exec_with_redirect("ostree", set_kargs_args, root=util.getSysroot())
