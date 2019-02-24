@@ -24,12 +24,11 @@ from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection, \
-    getDisksByNames
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
-from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices
+from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices, \
+    get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.format_dasd import DasdFormatting
 
@@ -300,7 +299,7 @@ class StorageSpoke(NormalTUISpoke):
                         threadMgr.wait(THREAD_STORAGE)
 
                         # Get selected disks.
-                        disks = getDisksByNames(self.disks, self.selected_disks)
+                        disks = filter_disks_by_names(self.disks, self.selected_disks)
 
                         # Check if some of the disks should be formatted.
                         dasd_formatting = DasdFormatting()
@@ -309,7 +308,7 @@ class StorageSpoke(NormalTUISpoke):
                         if dasd_formatting.should_run():
                             # We want to apply current selection before running dasdfmt to
                             # prevent this information from being lost afterward
-                            applyDiskSelection(self.storage, self.data, self.selected_disks)
+                            apply_disk_selection(self.storage, self.selected_disks)
 
                             # Run the dialog.
                             self.run_dasdfmt_dialog(dasd_formatting)
@@ -317,8 +316,8 @@ class StorageSpoke(NormalTUISpoke):
 
                     # make sure no containers were split up by the user's disk
                     # selection
-                    self.errors.extend(checkDiskSelection(self.storage,
-                                                          self.selected_disks))
+                    self.errors.extend(check_disk_selection(self.storage,
+                                                            self.selected_disks))
                     if self.errors:
                         # The disk selection has to make sense before we can
                         # proceed.
@@ -468,7 +467,7 @@ class StorageSpoke(NormalTUISpoke):
             reset_storage(self.storage)
 
             # Now set data back to the user's specified config.
-            applyDiskSelection(self.storage, self.data, self.selected_disks)
+            apply_disk_selection(self.storage, self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
@@ -525,9 +524,8 @@ class StorageSpoke(NormalTUISpoke):
 
     def update_disks(self):
         threadMgr.wait(THREAD_STORAGE)
+        self.disks = get_available_disks(self.storage.devicetree)
 
-        self.disks = sorted(getDisks(self.storage.devicetree),
-                            key=lambda d: d.name)
         # if only one disk is available, go ahead and mark it as selected
         if len(self.disks) == 1:
             self._update_disk_list(self.disks[0])
