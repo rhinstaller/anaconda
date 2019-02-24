@@ -544,18 +544,29 @@ def is_local_disk(disk):
         and disk.type not in ("zfcp", "nvdimm")
 
 
-def apply_disk_selection(storage, use_names):
-    onlyuse = use_names[:]
-    for disk in (d for d in storage.disks if d.name in onlyuse):
-        onlyuse.extend(d.name for d in disk.ancestors
-                       if d.name not in onlyuse
-                       and d.is_disk)
+def apply_disk_selection(storage, selected_names):
+    """Apply the disks selection.
 
+    :param storage: blivet.Blivet instance
+    :param selected_names: a list of selected disk names
+    """
+    # Get the selected disks.
+    selected_disks = filter_disks_by_names(storage.disks, selected_names)
+
+    # Get names of their ancestors.
+    ancestor_names = [
+        ancestor.name
+        for disk in selected_disks for ancestor in disk.ancestors
+        if ancestor.is_disk and ancestor.name not in selected_names
+    ]
+
+    # Set the disks to select.
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    disk_select_proxy.SetSelectedDisks(onlyuse)
+    disk_select_proxy.SetSelectedDisks(selected_names + ancestor_names)
 
+    # Set the drives to clear.
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-    disk_init_proxy.SetDrivesToClear(use_names)
+    disk_init_proxy.SetDrivesToClear(selected_names)
 
 
 def check_disk_selection(storage, selected_disks):

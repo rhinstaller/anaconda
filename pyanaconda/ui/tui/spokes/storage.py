@@ -419,9 +419,6 @@ class StorageSpoke(NormalTUISpoke):
     def apply(self):
         self.autopart = self._auto_part_observer.proxy.Enabled
 
-        self._disk_select_observer.proxy.SetSelectedDisks(self.selected_disks)
-        self._disk_init_observer.proxy.SetDrivesToClear(self.selected_disks)
-
         if self.autopart and self._auto_part_observer.proxy.Type == AUTOPART_TYPE_DEFAULT:
             self._auto_part_observer.proxy.SetType(AUTOPART_TYPE_LVM)
 
@@ -440,6 +437,7 @@ class StorageSpoke(NormalTUISpoke):
             self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self.storage.bootloader.reset()
 
+        apply_disk_selection(self.storage, self.selected_disks)
         update_storage_config(self.storage.config)
 
         # If autopart is selected we want to remove whatever has been
