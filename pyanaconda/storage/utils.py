@@ -520,9 +520,22 @@ def filter_disks_by_names(disks, names):
 
 
 def is_local_disk(disk):
-    return (not isinstance(disk, MultipathDevice)
-            and not isinstance(disk, iScsiDiskDevice)
-            and not isinstance(disk, FcoeDiskDevice))
+    """Is the disk local?
+
+    A local disk doesn't require any additional setup unlike
+    the advanced storage.
+
+    While technically local disks, zFCP and NVDIMM devices are
+    specialized storage and should not be considered local.
+
+    :param disk: a disk
+    :type disk: an instance of blivet.devices.Device
+    :return: True or False
+    """
+    return not isinstance(disk, MultipathDevice) \
+        and not isinstance(disk, iScsiDiskDevice) \
+        and not isinstance(disk, FcoeDiskDevice) \
+        and disk.type not in ("zfcp", "nvdimm")
 
 
 def apply_disk_selection(storage, use_names):

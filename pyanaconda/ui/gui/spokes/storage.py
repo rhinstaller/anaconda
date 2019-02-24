@@ -686,10 +686,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # handled here instead of refresh to take into account the user pressing
         # the rescan button on custom partitioning.
         for disk in filter(is_local_disk, self.disks):
-            # While technically local disks, zFCP devices are specialized
-            # storage and should not be shown here.
-            if disk.type not in ("zfcp", "nvdimm"):
-                self._add_disk_overview(disk, self.local_disks_box)
+            self._add_disk_overview(disk, self.local_disks_box)
 
         # Advanced disks are different.  Because there can potentially be a lot
         # of them, we do not display them in the box by default.  Instead, only
@@ -699,11 +696,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             if name not in disk_names:
                 continue
             obj = self.storage.devicetree.get_device_by_name(name, hidden=True)
-            # since zfcp devices may be detected as local disks when added
-            # manually, specifically check the disk type here to make sure
-            # we won't accidentally bypass adding zfcp devices to the disk
-            # overview
-            if is_local_disk(obj) and obj.type not in ("zfcp", "nvdimm"):
+
+            if is_local_disk(obj):
                 continue
 
             self._add_disk_overview(obj, self.specialized_disks_box)
