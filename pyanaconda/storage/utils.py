@@ -516,6 +516,12 @@ def get_available_disks(devicetree):
 
 
 def filter_disks_by_names(disks, names):
+    """Filter disks by the given names.
+
+    :param disks: a list of disks
+    :param names: a list of disk names
+    :return: a list of filtered disks
+    """
     return [d for d in disks if d.name in names]
 
 

@@ -175,7 +175,7 @@ class StorageSpoke(NormalTUISpoke):
 
         # pass in our disk list so hidden disks' free space is available
         free_space = self.storage.get_free_space(disks=self.disks)
-        selected = [d for d in self.disks if d.name in self.selected_disks]
+        selected = filter_disks_by_names(self.disks, self.selected_disks)
 
         for disk in selected:
             capacity += disk.size

@@ -890,8 +890,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # pass in our disk list so hidden disks' free space is available
         free_space = self.storage.get_free_space(disks=self.disks)
         dialog = SelectedDisksDialog(self.data,)
-        dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
-                       free_space)
+        dialog.refresh(filter_disks_by_names(self.disks, self.selected_disks), free_space)
         self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
@@ -1149,7 +1148,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # 3) we are just asked to do autopart => check free space and see if we need
         #                                        user to do anything more
         self.autopart = self._get_selected_partitioning_method() == PartitioningMethod.AUTO
-        disks = [d for d in self.disks if d.name in self.selected_disks]
+        disks = filter_disks_by_names(self.disks, self.selected_disks)
         dialog = None
         if not self.autopart:
             if self._get_selected_partitioning_method() == PartitioningMethod.CUSTOM:
