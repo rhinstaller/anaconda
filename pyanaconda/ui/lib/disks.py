@@ -24,57 +24,30 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INI
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.core.configuration.anaconda import conf
 
-__all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk"]
+__all__ = ["getDisks", "isLocalDisk"]
 
-class FakeDiskLabel(object):
-    def __init__(self, free=0):
-        self.free = free
 
-class FakeDisk(object):
-    def __init__(self, name, size=0, free=0, partitioned=True, vendor=None,
-                 model=None, serial=None, removable=False):
-        self.name = name
-        self.size = size
-        self.format = FakeDiskLabel(free=free)
-        self.partitioned = partitioned
-        self.vendor = vendor
-        self.model = model
-        self.serial = serial
-        self.removable = removable
+def getDisks(devicetree):
+    devices = devicetree.devices
 
-    @property
-    def description(self):
-        return "%s %s" % (self.vendor, self.model)
-
-def getDisks(devicetree, fake=False):
-    if not fake:
-        devices = devicetree.devices
-        if conf.target.is_image:
-            hidden_images = [d for d in devicetree._hidden \
-                             if d.name in devicetree.disk_images]
-            devices += hidden_images
-        else:
-            devices += devicetree._hidden
-
-        disks = []
-        for d in devices:
-            if d.is_disk and not d.format.hidden and not d.protected:
-                # unformatted DASDs are detected with a size of 0, but they should
-                # still show up as valid disks if this function is called, since we
-                # can still use them; anaconda will know how to handle them, so they
-                # don't need to be ignored anymore
-                if d.type == "dasd":
-                    disks.append(d)
-                elif d.size > 0 and d.media_present:
-                    disks.append(d)
+    if conf.target.is_image:
+        hidden_images = [d for d in devicetree._hidden \
+                         if d.name in devicetree.disk_images]
+        devices += hidden_images
     else:
-        disks = []
-        disks.append(FakeDisk("sda", size=300000, free=10000, serial="00001",
-                              vendor="Seagate", model="Monster"))
-        disks.append(FakeDisk("sdb", size=300000, free=300000, serial="00002",
-                              vendor="Seagate", model="Monster"))
-        disks.append(FakeDisk("sdc", size=8000, free=2100, removable=True,
-                              vendor="SanDisk", model="Cruzer", serial="00003"))
+        devices += devicetree._hidden
+
+    disks = []
+    for d in devices:
+        if d.is_disk and not d.format.hidden and not d.protected:
+            # unformatted DASDs are detected with a size of 0, but they should
+            # still show up as valid disks if this function is called, since we
+            # can still use them; anaconda will know how to handle them, so they
+            # don't need to be ignored anymore
+            if d.type == "dasd":
+                disks.append(d)
+            elif d.size > 0 and d.media_present:
+                disks.append(d)
 
     # Remove duplicate names from the list.
     return sorted(set(disks), key=lambda d: d.name)
