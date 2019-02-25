@@ -74,7 +74,7 @@ from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
-    BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, AUTOPART_TYPE_DEFAULT
+    BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage.initialization import update_storage_config, reset_storage, \
@@ -86,7 +86,6 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INI
     BOOTLOADER, AUTO_PARTITIONING, NVDIMM
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.livepayload import LiveImagePayload
-from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 import sys
@@ -276,7 +275,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
         self._ready = False
-        self.autoPartType = None
         self.encrypted = False
         self.passphrase = ""
         self._last_selected_disks = []
@@ -308,7 +306,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._auto_part_observer.proxy.SetEnabled(True)
 
         self.autopart = self._auto_part_observer.proxy.Enabled
-        self.autoPartType = constants.AUTOPART_TYPE_DEFAULT
         self.clearPartType = constants.CLEAR_PARTITIONS_NONE
         self._previous_autopart = False
 
@@ -398,7 +395,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def apply(self):
         apply_disk_selection(self.storage, self.selected_disks)
         self._auto_part_observer.proxy.SetEnabled(self.autopart)
-        self._auto_part_observer.proxy.SetType(self.autoPartType)
+        self._auto_part_observer.proxy.SetType(DEFAULT_AUTOPART_TYPE)
         self._auto_part_observer.proxy.SetEncrypted(self.encrypted)
         self._auto_part_observer.proxy.SetPassphrase(self.passphrase)
 
@@ -668,11 +665,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._unhide_disks()
 
         self.autopart = self._auto_part_observer.proxy.Enabled
-
-        self.autoPartType = self._auto_part_observer.proxy.Type
-        if self.autoPartType == AUTOPART_TYPE_DEFAULT:
-            self.autoPartType = AUTOPART_TYPE_LVM
-
         self.encrypted = self._auto_part_observer.proxy.Encrypted
         self.passphrase = self._auto_part_observer.proxy.Passphrase
 

@@ -26,7 +26,7 @@ from blivet.errors import StorageError
 from pyanaconda.bootloader import BootLoaderError
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
-from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, AUTOPART_TYPE_DEFAULT, \
+from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, \
     MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
     MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
@@ -951,11 +951,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self._test_dbus_property(
             "Type",
             AUTOPART_TYPE_LVM_THINP
-        )
-
-        self._test_dbus_property(
-            "Type",
-            AUTOPART_TYPE_DEFAULT
         )
 
         self._test_dbus_property(

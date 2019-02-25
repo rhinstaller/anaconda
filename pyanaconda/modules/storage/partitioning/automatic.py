@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
@@ -41,7 +42,7 @@ class AutoPartitioningModule(PartitioningModule):
         self._enabled = False
 
         self.type_changed = Signal()
-        self._type = AutoPartitioningType.DEFAULT
+        self._type = None
 
         self.fstype_changed = Signal()
         self._fstype = ""
@@ -122,7 +123,7 @@ class AutoPartitioningModule(PartitioningModule):
         data.autopart.autopart = self.enabled
         data.autopart.fstype = self.fstype
 
-        if self.type != AutoPartitioningType.DEFAULT:
+        if not self.is_type_default:
             data.autopart.type = self.type.value
 
         data.autopart.nohome = self.nohome
@@ -155,8 +156,16 @@ class AutoPartitioningModule(PartitioningModule):
         log.debug("Enabled is set to '%s'.", enabled)
 
     @property
+    def is_type_default(self):
+        """Is the type of a filesystem set to a default value?"""
+        return self._type is None
+
+    @property
     def type(self):
         """Type of a filesystem used on the partitions."""
+        if self.is_type_default:
+            return AutoPartitioningType(DEFAULT_AUTOPART_TYPE)
+
         return self._type
 
     def set_type(self, scheme):

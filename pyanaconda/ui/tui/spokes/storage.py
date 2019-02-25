@@ -43,9 +43,9 @@ from pyanaconda.storage.execution import do_kickstart_storage
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
-    DEFAULT_AUTOPART_TYPE, PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
+    PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT, SecretType, \
+    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, SecretType, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
@@ -53,7 +53,6 @@ from pyanaconda.storage.initialization import initialize_storage, update_storage
     reset_storage, select_all_disks_by_default
 
 from pykickstart.base import BaseData
-from pykickstart.constants import AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartParseError
 
 from simpleline.render.containers import ListColumnContainer
@@ -419,9 +418,6 @@ class StorageSpoke(NormalTUISpoke):
     def apply(self):
         self.autopart = self._auto_part_observer.proxy.Enabled
 
-        if self.autopart and self._auto_part_observer.proxy.Type == AUTOPART_TYPE_DEFAULT:
-            self._auto_part_observer.proxy.SetType(AUTOPART_TYPE_LVM)
-
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
                disk in self.storage.devices:
@@ -671,14 +667,12 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
         self._auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
         pre_select = self._auto_part_proxy.Type
-
-        if pre_select == AUTOPART_TYPE_DEFAULT:
-            pre_select = DEFAULT_AUTOPART_TYPE
-
         supported_choices = get_supported_autopart_choices()
+
         if supported_choices:
             # Fallback value (eg when default is not supported)
             self._selected_scheme_value = supported_choices[0][1]
+
         for item in supported_choices:
             self.part_schemes[item[0]] = item[1]
             if item[1] == pre_select:
