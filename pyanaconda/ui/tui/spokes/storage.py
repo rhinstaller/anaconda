@@ -47,7 +47,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.osinstall import storage_initialize
+from pyanaconda.storage.osinstall import storage_initialize, select_all_disks_by_default
 
 from pykickstart.base import BaseData
 from pykickstart.constants import AUTOPART_TYPE_LVM
@@ -506,6 +506,10 @@ class StorageSpoke(NormalTUISpoke):
 
         # Automatically format DASDs if allowed.
         DasdFormatting.run_automatically(self.storage, self.data)
+
+        # Update the selected disks.
+        if flags.automatedInstall:
+            self.selected_disks = select_all_disks_by_default(self.storage)
 
         # Update disk list.
         self.update_disks()

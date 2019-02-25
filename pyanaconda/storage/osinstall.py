@@ -2314,16 +2314,26 @@ def storage_initialize(storage, ksdata, protected):
        not any(d.protected for d in storage.devices):
         raise UnknownSourceDeviceError(protected)
 
-    # kickstart uses all the disks
-    if flags.automatedInstall:
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        ignored_disks = disk_select_proxy.IgnoredDisks
 
-        if not selected_disks:
-            selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
-            disk_select_proxy.SetSelectedDisks(selected_disks)
-            log.debug("onlyuse is now: %s", ",".join(selected_disks))
+def select_all_disks_by_default(storage):
+    """Select all disks for the partitioning by default.
+
+    It will select all disks for the partitioning if there are
+    no disks selected. Kickstart uses all the disks by default.
+
+    :param storage: the Blivet's storage object
+    :return: a list of selected disks
+    """
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    selected_disks = disk_select_proxy.SelectedDisks
+    ignored_disks = disk_select_proxy.IgnoredDisks
+
+    if not selected_disks:
+        selected_disks = [d.name for d in storage.disks if d.name not in ignored_disks]
+        disk_select_proxy.SetSelectedDisks(selected_disks)
+        log.debug("onlyuse is now: %s", ",".join(selected_disks))
+
+    return selected_disks
 
 
 def mount_existing_system(fsset, root_device, read_only=None):
