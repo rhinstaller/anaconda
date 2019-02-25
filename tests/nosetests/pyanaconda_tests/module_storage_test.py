@@ -23,6 +23,8 @@ import unittest
 from unittest.mock import patch, call, Mock
 
 from blivet.errors import StorageError
+from blivet.size import Size
+
 from pyanaconda.bootloader import BootLoaderError
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
@@ -96,6 +98,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         obj.implementation.stopped_signal.emit()
         storage_changed_callback.called_once()
+
+    def get_required_device_size_test(self):
+        """Test GetRequiredDeviceSize."""
+        required_size = self.storage_interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
+        self.assertEqual(Size("1280 MiB").get_bytes(), required_size, Size(required_size))
 
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
     def apply_partitioning_test(self, storage_checker):

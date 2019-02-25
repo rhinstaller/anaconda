@@ -19,8 +19,8 @@
 import os
 from blivet.size import Size
 from pyanaconda.core import util
-
 from pyanaconda.core.i18n import _
+from pyanaconda.modules.common.constants.services import STORAGE
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -54,6 +54,23 @@ class FileSystemSpaceChecker(object):
         """Calculate the needed space."""
         return self.payload.space_required
 
+    def _calculate_deficit(self, needed):
+        """Calculate the deficit.
+
+        Return None if the deficit cannot be calculated.
+
+        :param needed: a needed space
+        :return: a deficit size or None
+        """
+        storage_proxy = STORAGE.get_proxy()
+
+        if not self.storage.root_device:
+            return None
+
+        current = self.storage.root_device.size.get_bytes()
+        required = storage_proxy.GetRequiredDeviceSize(needed.get_bytes())
+        return Size(required - current)
+
     def check(self):
         """Check configured storage against software selections.  When this
            method is complete (which should be pretty quickly), the following
@@ -72,15 +89,15 @@ class FileSystemSpaceChecker(object):
         if free > needed:
             result = True
             message = ""
-        elif not self.storage.root_device:
-            result = False
-            message = _("Not enough space in file systems for the current software selection.")
         else:
             result = False
-            required = self.payload.required_device_size(self.storage.root_device.format)
-            deficit = required - self.storage.root_device.size
-            message = _("Not enough space in file systems for the current software selection. "
-                        "An additional {} is needed.").format(deficit)
+            deficit = self._calculate_deficit(needed)
+
+            if deficit:
+                message = _("Not enough space in file systems for the current software selection. "
+                            "An additional {} is needed.").format(deficit)
+            else:
+                message = _("Not enough space in file systems for the current software selection.")
 
         self.success = result
         self.error_message = message
@@ -93,7 +110,12 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
     This is used for the --dirinstall option where no storage is mounted and it
     is using space from the host's filesystem.
     """
+
     def _calculate_free_space(self):
         """Calculate the available space."""
         stat = os.statvfs(util.getSysroot())
         return Size(stat.f_bsize * stat.f_bfree)
+
+    def _calculate_deficit(self, needed):
+        """Calculate the deficit."""
+        return None
