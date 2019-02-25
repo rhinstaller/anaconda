@@ -59,7 +59,7 @@ from pyanaconda.core import constants
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.i18n import _
-from pyanaconda.payload import payloadMgr
+from pyanaconda.payload.manager import payloadMgr
 from pyanaconda.anaconda_loggers import get_module_logger
 
 import copy
@@ -130,7 +130,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         """
         self._clean_hdd_iso()
         self.data.method.method = None
-        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)   # pylint: disable=no-member
+        payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)   # pylint: disable=no-member
         threadMgr.wait(constants.THREAD_PAYLOAD_RESTART)
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
@@ -171,7 +171,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
 
         self.data.method.method = "harddrive"
         self.data.method.partition = partition
-        # the / gets stripped off by payload.ISOImage
+        # the / gets stripped off by payload.ISO_image
         self.data.method.dir = "/" + iso_path
 
         # as we already made the device protected when

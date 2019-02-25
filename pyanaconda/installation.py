@@ -128,7 +128,7 @@ def doConfiguration(storage, payload, ksdata):
 
     # Initramfs generation
     generate_initramfs = TaskQueue("Initramfs generation", N_("Generating initramfs"))
-    generate_initramfs.append(Task("Generate initramfs", payload.recreateInitrds))
+    generate_initramfs.append(Task("Generate initramfs", payload.recreate_initrds))
 
     # This works around 2 problems, /boot on BTRFS and BTRFS installations where the initrd is
     # recreated after the first writeBootLoader call. This reruns it after the new initrd has
@@ -322,7 +322,7 @@ def doInstall(storage, payload, ksdata):
         pre_install.append(WriteResolvConfTask("Copy /resolv.conf to sysroot"))
 
     def run_pre_install():
-        """This means to gather what additional packages (if any) are needed & executing payload.preInstall()."""
+        """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
         # anaconda requires storage packages in order to make sure the target
         # system is bootable and configurable, and some other packages in order
         # to finish setting up the system.
@@ -335,11 +335,11 @@ def doInstall(storage, payload, ksdata):
 
         if can_install_bootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
-        payload.requirements.add_groups(payload.languageGroups(), reason="language groups")
+        payload.requirements.add_groups(payload.language_groups(), reason="language groups")
         payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
-        payload.preInstall()
+        payload.pre_install()
 
-    pre_install.append(Task("Find additional packages & run preInstall()", run_pre_install))
+    pre_install.append(Task("Find additional packages & run pre_install()", run_pre_install))
     installation_queue.append(pre_install)
 
     payload_install = TaskQueue("Payload installation", N_("Installing."))
@@ -350,7 +350,7 @@ def doInstall(storage, payload, ksdata):
     if not payload.needs_storage_configuration:
         late_storage = TaskQueue("Late storage configuration", N_("Configuring storage"))
         late_storage.append(Task("Prepare mount targets",
-                                 task=payload.prepareMountTargets,
+                                 task=payload.prepare_mount_targets,
                                  task_args=(storage, )))
 
         if not conf.target.is_directory:
@@ -367,7 +367,7 @@ def doInstall(storage, payload, ksdata):
         installation_queue.append(bootloader_install)
 
     post_install = TaskQueue("Post-installation setup tasks", (N_("Performing post-installation setup tasks")))
-    post_install.append(Task("Run post-installation setup tasks", payload.postInstall))
+    post_install.append(Task("Run post-installation setup tasks", payload.post_install))
     installation_queue.append(post_install)
 
     # Create snapshot

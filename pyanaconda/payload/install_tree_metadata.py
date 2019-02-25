@@ -87,13 +87,15 @@ class InstallTreeMetadata(object):
             # Downloading .treeinfo
             log.info("Trying to download '.treeinfo'")
             (response, ret_code[0]) = self._download_treeinfo_file(session, url, ".treeinfo",
-                                                                   headers, proxies, sslverify, sslcert)
+                                                                   headers, proxies,
+                                                                   sslverify, sslcert)
             if response:
                 break
             # Downloading treeinfo
             log.info("Trying to download 'treeinfo'")
             (response, ret_code[1]) = self._download_treeinfo_file(session, url, "treeinfo",
-                                                                   headers, proxies, sslverify, sslcert)
+                                                                   headers, proxies,
+                                                                   sslverify, sslcert)
             if response:
                 break
 

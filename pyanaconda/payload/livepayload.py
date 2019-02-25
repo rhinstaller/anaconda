@@ -1,7 +1,6 @@
-# livepayload.py
 # Live media software payload management.
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -29,35 +28,35 @@
 """
 import os
 import stat
-from time import sleep
-from threading import Lock
 import requests
-
-from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.util import ProxyString, ProxyStringError
 import hashlib
 import glob
 import functools
+from time import sleep
+from threading import Lock
 
-from pyanaconda.payload import ImagePayload, PayloadSetupError, PayloadInstallError
+from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.util import ProxyString, ProxyStringError
+from pyanaconda.core import util
+from pyanaconda.core.i18n import _
+from pyanaconda.payload import Payload
+from pyanaconda.payload.utils import version_cmp
+from pyanaconda.payload.errors import PayloadSetupError, PayloadInstallError
+from pyanaconda.threading import threadMgr, AnacondaThread
+from pyanaconda.errors import errorHandler, ERROR_RAISE
+from pyanaconda.progress import progressQ
 
 from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX
 
-from pyanaconda.core import util
+from blivet.size import Size
+import blivet.util
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
 
-from pyanaconda.errors import errorHandler, ERROR_RAISE
-from pyanaconda.progress import progressQ
-from blivet.size import Size
-import blivet.util
-from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.core.i18n import _
-from pyanaconda.payload import versionCmp
 
-class LiveImagePayload(ImagePayload):
+class LiveImagePayload(Payload):
     """ A LivePayload copies the source image onto the target system. """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -67,7 +66,7 @@ class LiveImagePayload(ImagePayload):
         self.pct_lock = None
         self.source_size = 1
 
-        self._kernelVersionList = []
+        self._kernel_version_list = []
 
     def setup(self, storage):
         super().setup(storage)
@@ -78,7 +77,8 @@ class LiveImagePayload(ImagePayload):
             raise PayloadInstallError("Unable to find osimg for %s" % self.data.method.partition)
 
         if not stat.S_ISBLK(os.stat(osimg.path)[stat.ST_MODE]):
-            exn = PayloadSetupError("%s is not a valid block device" % (self.data.method.partition,))
+            exn = PayloadSetupError("%s is not a valid block device" %
+                                    (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
         rc = blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
@@ -86,7 +86,7 @@ class LiveImagePayload(ImagePayload):
             raise PayloadInstallError("Failed to mount the install tree")
 
         # Grab the kernel version list now so it's available after umount
-        self._updateKernelVersionList()
+        self._update_kernel_version_list()
 
         source = os.statvfs(INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -100,9 +100,9 @@ class LiveImagePayload(ImagePayload):
         except OSError:
             pass
 
-    def preInstall(self):
+    def pre_install(self):
         """ Perform pre-installation tasks. """
-        super().preInstall()
+        super().pre_install()
         progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
 
     def progress(self):
@@ -124,7 +124,8 @@ class LiveImagePayload(ImagePayload):
                 with self.pct_lock:
                     self.pct = pct
                 last_pct = pct
-                progressQ.send_message(_("Installing software") + (" %d%%") % (min(100, self.pct),))
+                progressQ.send_message(_("Installing software") + (" %d%%") %
+                                       (min(100, self.pct),))
             sleep(0.777)
 
     def install(self):
@@ -170,14 +171,14 @@ class LiveImagePayload(ImagePayload):
 
         # Live needs to create the rescue image before bootloader is written
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-            useNKP = True
+            use_nkp = True
         else:
             log.warning("new-kernel-pkg does not exist - grubby wasn't installed?")
-            useNKP = False
+            use_nkp = False
 
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             log.info("Generating rescue image for %s", kernel)
-            if useNKP:
+            if use_nkp:
                 util.execInSysroot("new-kernel-pkg",
                                    ["--rpmposttrans", kernel])
             else:
@@ -189,12 +190,12 @@ class LiveImagePayload(ImagePayload):
                     util.execInSysroot(file,
                                        [kernel, "/boot/vmlinuz-%s" % kernel])
 
-    def postInstall(self):
+    def post_install(self):
         """ Perform post-installation tasks. """
         progressQ.send_message(_("Performing post-installation setup tasks"))
         blivet.util.umount(INSTALL_TREE)
 
-        super().postInstall()
+        super().post_install()
 
         # Make sure the new system has a machine-id, it won't boot without it
         # (and nor will some of the subsequent commands)
@@ -202,25 +203,29 @@ class LiveImagePayload(ImagePayload):
             log.info("Generating machine ID")
             util.execInSysroot("systemd-machine-id-setup", [])
 
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
                 log.info("Regenerating BLS info for %s", kernel)
-                util.execInSysroot("kernel-install", ["add", kernel, "/lib/modules/{0}/vmlinuz".format(kernel)])
+                util.execInSysroot("kernel-install", ["add",
+                                                      kernel,
+                                                      "/lib/modules/{0}/vmlinuz".format(kernel)])
 
     @property
-    def spaceRequired(self):
+    def space_required(self):
         return Size(util.getDirSize("/") * 1024)
 
-    def _updateKernelVersionList(self):
+    def _update_kernel_version_list(self):
         files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
-        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir))
+        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" %
+                               conf.bootloader.efi_dir))
 
-        self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
-           if os.path.isfile(f) and "-rescue-" not in f), key=functools.cmp_to_key(versionCmp))
+        self._kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
+                                         if os.path.isfile(f) and "-rescue-" not in f),
+                                         key=functools.cmp_to_key(version_cmp))
 
     @property
-    def kernelVersionList(self):
-        return self._kernelVersionList
+    def kernel_version_list(self):
+        return self._kernel_version_list
 
 
 class DownloadProgress(object):
@@ -251,7 +256,8 @@ class DownloadProgress(object):
         if pct == self._pct:
             return
         self._pct = pct
-        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % {"url": self.url, "pct": pct})
+        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") %
+                               {"url": self.url, "pct": pct})
 
     def end(self, bytes_read):
         """ Download complete
@@ -259,7 +265,9 @@ class DownloadProgress(object):
             :param bytes_read: Bytes read so far
             :type bytes_read:  int
         """
-        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % {"url": self.url, "pct": 100})
+        progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") %
+                               {"url": self.url, "pct": 100})
+
 
 class LiveImageKSPayload(LiveImagePayload):
     """ Install using a live filesystem image from the network """
@@ -320,7 +328,7 @@ class LiveImageKSPayload(LiveImagePayload):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        ImagePayload.setup(self, storage)
+        super().setup(self, storage)
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()
@@ -336,9 +344,9 @@ class LiveImageKSPayload(LiveImagePayload):
 
     def unsetup(self):
         # Skip LiveImagePayload's unsetup method
-        ImagePayload.unsetup(self)
+        super().unsetup(self)
 
-    def _preInstall_url_image(self):
+    def _pre_install_url_image(self):
         """ Download the image using Requests with progress reporting"""
 
         error = None
@@ -347,7 +355,8 @@ class LiveImageKSPayload(LiveImagePayload):
             log.info("Starting image download")
             with open(self.image_path, "wb") as f:
                 ssl_verify = not self.data.method.noverifyssl
-                response = self._session.get(self.data.method.url, proxies=self._proxies, verify=ssl_verify, stream=True)
+                response = self._session.get(self.data.method.url, proxies=self._proxies,
+                                             verify=ssl_verify, stream=True)
                 total_length = response.headers.get('content-length')
                 if total_length is None:  # no content length header
                     # just download the file in one go and fake the progress reporting once done
@@ -379,7 +388,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         return error
 
-    def preInstall(self):
+    def pre_install(self):
         """ Get image and loopback mount it.
 
             This is called after partitioning is setup, we now have space to
@@ -393,7 +402,7 @@ class LiveImageKSPayload(LiveImagePayload):
         if self.data.method.url.startswith("file://"):
             self.image_path = self.data.method.url[7:]
         else:
-            error = self._preInstall_url_image()
+            error = self._pre_install_url_image()
 
         if error:
             exn = PayloadInstallError(str(error))
@@ -437,7 +446,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         # Nothing more to mount
         if not os.path.exists(INSTALL_TREE + "/LiveOS"):
-            self._updateKernelVersionList()
+            self._update_kernel_version_list()
             return
 
         # Mount the first .img in the directory on INSTALL_TREE
@@ -465,7 +474,7 @@ class LiveImageKSPayload(LiveImagePayload):
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
-            self._updateKernelVersionList()
+            self._update_kernel_version_list()
 
             source = os.statvfs(INSTALL_TREE)
             self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -516,17 +525,17 @@ class LiveImageKSPayload(LiveImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
-        for kernel in self.kernelVersionList:
+        for kernel in self.kernel_version_list:
             log.info("Generating rescue image for %s", kernel)
             util.execInSysroot("new-kernel-pkg",
                                ["--rpmposttrans", kernel])
 
-    def postInstall(self):
+    def post_install(self):
         """ Unmount and remove image
 
             If file:// was used, just unmount it.
         """
-        super().postInstall()
+        super().post_install()
 
         if os.path.exists(IMAGE_DIR + "/LiveOS"):
             blivet.util.umount(IMAGE_DIR)
@@ -535,7 +544,7 @@ class LiveImageKSPayload(LiveImagePayload):
             os.unlink(self.image_path)
 
     @property
-    def spaceRequired(self):
+    def space_required(self):
         """ We don't know the filesystem size until it is downloaded.
 
             Default to 1G which should be enough for a minimal image download
@@ -547,10 +556,10 @@ class LiveImageKSPayload(LiveImagePayload):
             return Size(1024 * 1024 * 1024)
 
     @property
-    def kernelVersionList(self):
-        # If it doesn't look like a tarfile use the super's kernelVersionList
+    def kernel_version_list(self):
+        # If it doesn't look like a tarfile use the super's kernel_version_list
         if not self.is_tarfile:
-            return super().kernelVersionList
+            return super().kernel_version_list
 
         import tarfile
         with tarfile.open(self.image_path) as archive:
@@ -558,4 +567,4 @@ class LiveImageKSPayload(LiveImagePayload):
 
             # Strip out vmlinuz- from the names
             return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                          key=functools.cmp_to_key(versionCmp))
+                          key=functools.cmp_to_key(version_cmp))

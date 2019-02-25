@@ -20,7 +20,9 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import DependencyError, PackagePayload, payloadMgr, NoSuchGroup
+from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.manager import payloadMgr, PayloadState
+from pyanaconda.payload.errors import DependencyError, NoSuchGroup
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.core.configuration.anaconda import conf
 
@@ -66,9 +68,9 @@ class SoftwareSpoke(NormalTUISpoke):
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
 
         # Register event listeners to update our status on payload events
-        payloadMgr.addListener(payloadMgr.STATE_START, self._payload_start)
-        payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
-        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.STARTED, self._payload_start)
+        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
     def initialize(self):
         # Start a thread to wait for the payload and run the first, automatic
@@ -126,7 +128,7 @@ class SoftwareSpoke(NormalTUISpoke):
             # None means environment is not set, no need to try translate that to an id
             return None
         try:
-            return self.payload.environmentId(environment)
+            return self.payload.environment_id(environment)
         except NoSuchGroup:
             return None
 
@@ -134,8 +136,8 @@ class SoftwareSpoke(NormalTUISpoke):
         """ Return all add-ons of the specific environment. """
         addons = []
 
-        if environment_id in self.payload.environmentAddons:
-            for addons_list in self.payload.environmentAddons[environment_id]:
+        if environment_id in self.payload.environment_addons:
+            for addons_list in self.payload.environment_addons[environment_id]:
                 addons.extend(addons_list)
 
         return addons
@@ -155,7 +157,7 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Error checking software selection")
         if not self.ready:
             return _("Processing...")
-        if not self.payload.baseRepo:
+        if not self.payload.base_repo:
             return _("Installation source not set up")
         if not self.txid_valid:
             return _("Source changed - please verify")
@@ -168,7 +170,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 return _("Custom software selected")
             return _("Nothing selected")
 
-        return self.payload.environmentDescription(self.environment)[0]
+        return self.payload.environment_description(self.environment)[0]
 
     @property
     def completed(self):
@@ -181,9 +183,9 @@ class SoftwareSpoke(NormalTUISpoke):
         processing_done = self.ready and not self.errors and self.txid_valid
 
         if flags.automatedInstall or self._kickstarted:
-            return processing_done and self.payload.baseRepo and self.data.packages.seen
+            return processing_done and self.payload.base_repo and self.data.packages.seen
         else:
-            return processing_done and self.payload.baseRepo and self.environment is not None
+            return processing_done and self.payload.base_repo and self.environment is not None
 
     def refresh(self, args=None):
         """ Refresh screen. """
@@ -192,7 +194,7 @@ class SoftwareSpoke(NormalTUISpoke):
         threadMgr.wait(THREAD_PAYLOAD)
         self._container = None
 
-        if not self.payload.baseRepo:
+        if not self.payload.base_repo:
             message = TextWidget(_("Installation source needs to be set up first."))
             self.window.add_with_separator(message)
             return
@@ -212,7 +214,7 @@ class SoftwareSpoke(NormalTUISpoke):
         environments = self.payload.environments
 
         for env in environments:
-            name = self.payload.environmentDescription(env)[0]
+            name = self.payload.environment_description(env)[0]
             selected = (env == self._selected_environment)
             widget = CheckboxWidget(title="%s" % name, completed=selected)
             self._container.add(widget, callback=self._set_environment_callback, data=env)
@@ -221,7 +223,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _refresh_addons(self, available_addons):
         for addon_id in available_addons:
-            name = self.payload.groupDescription(addon_id)[0]
+            name = self.payload.group_description(addon_id)[0]
             selected = addon_id in self._addons_selection
             widget = CheckboxWidget(title="%s" % name, completed=selected)
             self._container.add(widget, callback=self._set_addons_callback, data=addon_id)
@@ -312,14 +314,14 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 self.payload.data.packages.packageList = []
                 self.data.packages.groupList = []
-                self.payload.selectEnvironment(self.environment)
+                self.payload.select_environment(self.environment)
 
                 environment_id = self._translate_env_name_to_id(self.environment)
                 available_addons = self._get_available_addons(environment_id)
 
                 for addon_id in available_addons:
                     if addon_id in self.addons:
-                        self.payload.selectGroup(addon_id)
+                        self.payload.select_group(addon_id)
 
                 changed = True
 
@@ -334,15 +336,15 @@ class SoftwareSpoke(NormalTUISpoke):
     def checkSoftwareSelection(self):
         """ Depsolving """
         try:
-            self.payload.checkSoftwareSelection()
+            self.payload.check_software_selection()
         except DependencyError as e:
             self.errors = [str(e)]
             self._tx_id = None
             log.warning("Transaction error %s", str(e))
         else:
-            self._tx_id = self.payload.txID
+            self._tx_id = self.payload.tx_id
 
     @property
     def txid_valid(self):
         """ Whether we have a valid dnf tx id. """
-        return self._tx_id == self.payload.txID
+        return self._tx_id == self.payload.tx_id

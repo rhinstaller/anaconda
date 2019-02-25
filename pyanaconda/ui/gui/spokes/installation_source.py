@@ -47,7 +47,8 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
@@ -414,7 +415,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if flags.askmethod:
             flags.askmethod = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
+        payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -457,7 +458,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self.data.method.method = "harddrive"
             self.data.method.partition = part.name
-            # The / gets stripped off by payload.ISOImage
+            # The / gets stripped off by payload.ISO_image
             self.data.method.dir = "/" + self._currentIsoFile
             if (old_method == "harddrive" and
                 self.storage.devicetree.resolve_device(old_partition) == part and
@@ -471,7 +472,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # this preserves the url for later editing
             self.data.method.method = None
             self.data.method.proxy = self._proxyUrl
-            if not old_method and self.payload.baseRepo and \
+            if not old_method and self.payload.base_repo and \
                not self._proxyChange and not self._updatesChange:
                 return False
         elif self._ftp_active():
@@ -623,10 +624,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         """ WARNING: This can be called before _initialize is done, make sure that it
             doesn't access things that are not setup (eg. payload.*) until it is ready
         """
-        if flags.automatedInstall and self.ready and not self.payload.baseRepo:
+        if flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
         else:
-            return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
+            return not self._error and self.ready and (self.data.method.method or self.payload.base_repo)
 
     @property
     def mandatory(self):
@@ -645,7 +646,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _(BASEREPO_SETUP_MESSAGE)
-        elif not self.payload.baseRepo:
+        elif not self.payload.base_repo:
             return _("Error setting up base repository")
         elif self._error:
             return _("Error setting up software source")
@@ -659,12 +660,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return _("Local media via SE/HMC")
         elif self.data.method.method == "harddrive":
             if not self._currentIsoFile:
-                if self.payload.baseRepo:
+                if self.payload.base_repo:
                     return "{}:{}".format(self._get_harddrive_partition_name(),
                                           self.data.method.dir)
                 return _("Error setting up installation from HDD")
             return os.path.basename(self._currentIsoFile)
-        elif self.payload.baseRepo:
+        elif self.payload.base_repo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
@@ -766,12 +767,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             really_hide(self._updatesBox)
 
         # Register listeners for payload events
-        payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
-        payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)
-        payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
-        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
-        payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
-        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.STARTED, self._payload_refresh)
+        payloadMgr.add_listener(PayloadState.WAITING_STORAGE, self._probing_storage)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
@@ -845,8 +846,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._show_autodetect_box_with_device(self._cdrom)
 
         if self.data.method.method == "harddrive":
-            if self.payload.ISOImage:
-                self._currentIsoFile = self.payload.ISOImage
+            if self.payload.ISO_image:
+                self._currentIsoFile = self.payload.ISO_image
             else:  # Installation from an expanded install tree
                 device_name = self._get_harddrive_partition_name()
                 self._show_autodetect_box(device_name, self.data.method.partition)
@@ -1056,7 +1057,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             uncheck it.
         """
         self._updatesBox.set_sensitive(self._mirror_active())
-        active = not self._mirror_active() or not self.payload.isRepoEnabled("updates")
+        active = not self._mirror_active() or not self.payload.is_repo_enabled("updates")
         self._noUpdatesCheckbox.set_active(active)
 
     @property
@@ -1193,7 +1194,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return _("Invalid repository name")
 
         cnames = [constants.BASE_REPO_NAME] + constants.DEFAULT_REPOS + \
-                 [r for r in self.payload.repos if r not in self.payload.addOns]
+                 [r for r in self.payload.repos if r not in self.payload.addons]
         if repo_name in cnames:
             return _("Repository name conflicts with internal repository name.")
 
@@ -1384,16 +1385,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repoStore]
 
             # Remove repos from payload that were removed in the UI
-            for repo_name in [r for r in self.payload.addOns if r not in ui_orig_names]:
-                repo = self.payload.getAddOnRepo(repo_name)
-                # TODO: Need an API to do this w/o touching dnf (not addRepo)
+            for repo_name in [r for r in self.payload.addons if r not in ui_orig_names]:
+                repo = self.payload.get_addon_repo(repo_name)
+                # TODO: Need an API to do this w/o touching dnf (not add_repo)
                 # FIXME: Is this still needed for dnf?
                 self.payload.data.repo.dataList().remove(repo)
                 changed = True
 
-            for repo, orig_repo in [(r[REPO_OBJ], self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
+            for repo, orig_repo in [(r[REPO_OBJ], self.payload.get_addon_repo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
                 if not orig_repo:
-                    # TODO: Need an API to do this w/o touching dnf (not addRepo)
+                    # TODO: Need an API to do this w/o touching dnf (not add_repo)
                     # FIXME: Is this still needed for dnf?
                     self.payload.data.repo.dataList().append(repo)
                     changed = True
@@ -1407,7 +1408,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _reset_repoStore(self):
         """ Reset the list of repos.
 
-            Populate the list with all the addon repos from payload.addOns.
+            Populate the list with all the addon repos from payload.addons.
 
             If the list has no element, clear the repo entry fields.
         """
@@ -1423,16 +1424,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         with self._repoStore_lock:
             self._repoStore.clear()
-            repos = self.payload.addOns
+            repos = self.payload.addons
             log.debug("Setting up repos: %s", repos)
             for name in repos:
-                repo = self.payload.getAddOnRepo(name)
+                repo = self.payload.get_addon_repo(name)
                 ks_repo = self.data.RepoData.create_copy(repo)
                 # Track the original name, user may change .name
                 ks_repo.orig_name = name
                 # Add addon repository id for identification
                 ks_repo.repo_id = next(self._repo_counter)
-                self._repoStore.append([self.payload.isRepoEnabled(name),
+                self._repoStore.append([self.payload.is_repo_enabled(name),
                                         ks_repo.name,
                                         ks_repo])
 
@@ -1611,9 +1612,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             Before final release this will also toggle the updates-testing repo
         """
         if self._noUpdatesCheckbox.get_active():
-            self.payload.setUpdatesEnabled(False)
+            self.payload.set_updates_enabled(False)
         else:
-            self.payload.setUpdatesEnabled(True)
+            self.payload.set_updates_enabled(True)
 
         # Refresh the metadata using the new set of repos
         self._updatesChange = True

@@ -30,7 +30,6 @@ class SourceType(Enum):
     FILE = "file"
     LIVECD = "livecd"
     HMC = "hmc"
-    UNKNOWN = "unknown"
 
 
 class BasePayloadSource(object):

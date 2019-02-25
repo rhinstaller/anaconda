@@ -52,7 +52,7 @@ class FileSystemSpaceChecker(object):
 
     def _calculate_needed_space(self):
         """Calculate the needed space."""
-        return self.payload.spaceRequired
+        return self.payload.space_required
 
     def check(self):
         """Check configured storage against software selections.  When this
@@ -77,7 +77,7 @@ class FileSystemSpaceChecker(object):
             message = _("Not enough space in file systems for the current software selection.")
         else:
             result = False
-            required = self.payload.requiredDeviceSize(self.storage.root_device.format)
+            required = self.payload.required_device_size(self.storage.root_device.format)
             deficit = required - self.storage.root_device.size
             message = _("Not enough space in file systems for the current software selection. "
                         "An additional {} is needed.").format(deficit)

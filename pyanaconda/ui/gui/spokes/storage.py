@@ -164,7 +164,7 @@ class InstallOptionsDialogBase(GUIObject):
         return (not threadMgr.get(constants.THREAD_PAYLOAD) and
                 not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                self.payload.baseRepo is not None)
+                self.payload.base_repo is not None)
 
     def _check_for_storage_thread(self, button):
         if self._software_is_ready():
@@ -998,7 +998,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             fs_free = sum(f[1] for f in free_space.values())
 
         disks_size = sum((d.size for d in disks), Size(0))
-        sw_space = self.payload.spaceRequired
+        sw_space = self.payload.space_required
         auto_swap = sum((r.size for r in self.storage.autopart_requests
                                 if r.fstype == "swap"), Size(0))
         if self.autopart and auto_swap == Size(0):

@@ -700,7 +700,7 @@ if __name__ == "__main__":
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     disk_select_proxy.SetProtectedDevices(protected_devices)
 
-    from pyanaconda.payload import payloadMgr
+    from pyanaconda.payload.manager import payloadMgr
     from pyanaconda.timezone import time_initialize
 
     if not conf.target.is_directory:
@@ -741,7 +741,7 @@ if __name__ == "__main__":
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
-    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, fallback=fallback)
+    payloadMgr.restart_thread(anaconda.storage, ksdata, anaconda.payload, fallback=fallback)
 
     # initialize the geolocation singleton
     geoloc.init_geolocation(geoloc_option=opts.geoloc, options_override=opts.geoloc_use_with_ks)

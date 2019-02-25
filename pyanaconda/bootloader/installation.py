@@ -41,11 +41,11 @@ def write_boot_loader(storage, payload):
     adjust the default to reflect whatever the default variant is.
     """
     # Configure the boot loader.
-    if not payload.handlesBootloaderConfiguration:
+    if not payload.handles_bootloader_configuration:
         configure_boot_loader(
             sysroot=util.getSysroot(),
             storage=storage,
-            kernel_versions=payload.kernelVersionList
+            kernel_versions=payload.kernel_version_list
         )
 
     # Install the boot loader.

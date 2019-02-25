@@ -22,7 +22,8 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog
 from pyanaconda.threading import threadMgr, AnacondaThread
-from pyanaconda.payload import PackagePayload, payloadMgr
+from pyanaconda.payload import PackagePayload
+from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 
@@ -76,7 +77,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
-        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+        payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
     def _initialize(self):
         """ Private initialize. """
@@ -117,7 +118,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
             if not method.dir:
                 return _("Error setting up software source")
             return os.path.basename(method.dir)
-        elif self.payload.baseRepo:
+        elif self.payload.base_repo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
@@ -137,10 +138,10 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     @property
     def completed(self):
-        if flags.automatedInstall and self.ready and not self.payload.baseRepo:
+        if flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
         else:
-            return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
+            return not self._error and self.ready and (self.data.method.method or self.payload.base_repo)
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
@@ -240,7 +241,7 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         # clear them at this point
         self._error = False
 
-        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
+        payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
 
 
 class SpecifyRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
