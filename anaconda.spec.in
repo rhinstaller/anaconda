@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Feb 25 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.36-1
+- Pass nosmt boot option to installed system. (rvykydal)
+  Resolves: rhbz#1677411
+- Use unformatted DASDs for the partitioning (vponcova)
+  Resolves: rhbz#1676630
+
 * Fri Feb 22 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.35-1
 - Check for dirinstall target on s390 (bcl)
   Resolves: rhbz#1677417
