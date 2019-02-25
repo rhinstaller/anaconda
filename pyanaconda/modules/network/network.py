@@ -514,7 +514,8 @@ class NetworkModule(KickstartModule):
             else:
                 log.debug("pre kickstart - adding connection for %s", device_name)
                 add_connection_from_ksdata(self.nm_client, network_data, device_name,
-                                           activate=network_data.activate)
+                                           activate=network_data.activate,
+                                           ifname_option_values=self.ifname_option_values)
 
         return applied_devices
 
@@ -632,7 +633,8 @@ class NetworkModule(KickstartModule):
                 data = self.get_kickstart_handler()
                 default_data = data.NetworkData(onboot=False, ipv6="auto")
                 log.debug("dump missing ifcfgs: creating default connection for %s", iface)
-                add_connection_from_ksdata(self.nm_client, default_data, iface)
+                add_connection_from_ksdata(self.nm_client, default_data, iface, activate=False,
+                                           ifname_option_values=self.ifname_option_values)
             elif n_cons == 1:
                 if device_is_slave:
                     log.debug("dump missing ifcfgs: not creating default connection for slave device %s",
