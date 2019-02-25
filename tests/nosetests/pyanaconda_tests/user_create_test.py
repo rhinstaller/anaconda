@@ -247,19 +247,6 @@ class UserCreateTest(unittest.TestCase):
         self.assertIsNotNone(grp_fields)
         self.assertEqual(grp_fields[2], "1047")
 
-    def create_user_algo_test(self):
-        """Create a user with a specific password algorithm."""
-
-        users.create_user("test_user1", password="password", algo="md5", root=self.tmpdir)
-        shadow_fields = self._readFields("/etc/shadow", "test_user1")
-        self.assertIsNotNone(shadow_fields)
-        self.assertTrue(shadow_fields[1].startswith("$1$"))
-
-        users.create_user("test_user2", password="password", algo="sha512", root=self.tmpdir)
-        shadow_fields = self._readFields("/etc/shadow", "test_user2")
-        self.assertIsNotNone(shadow_fields)
-        self.assertTrue(shadow_fields[1].startswith("$6$"))
-
     def create_user_exists_test(self):
         """Create a user that already exists."""
         with open(self.tmpdir + "/etc/passwd", "w") as f:

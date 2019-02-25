@@ -690,7 +690,6 @@ class RootPw(RemovedCommand):
         users.set_root_password(users_proxy.RootPassword,
                               users_proxy.IsRootPasswordCrypted,
                               users_proxy.IsRootAccountLocked,
-                              None,
                               util.getSysroot())
 
 class SELinux(RemovedCommand):

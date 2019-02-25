@@ -34,26 +34,18 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-def crypt_password(password, algo=None):
+def crypt_password(password):
     """Crypt a password.
 
-    Process a password with appropriate salted one-way algorithms.
+    Process a password with appropriate salted one-way algorithm.
 
     :param str password: password to be crypted
-    :param str algo: algorithm to be used
     :returns: crypted representation of the original password
     :rtype: str
     """
-    salts = {'md5': crypt.METHOD_MD5,
-             'sha256': crypt.METHOD_SHA256,
-             'sha512': crypt.METHOD_SHA512}
-
-    if algo not in salts:
-        algo = 'sha512'
-
-    cryptpw = crypt.crypt(password, salts[algo])
+    cryptpw = crypt.crypt(password, crypt.METHOD_SHA512)
     if cryptpw is None:
-        exn = PasswordCryptError(algo=algo)
+        exn = PasswordCryptError(algo=crypt.METHOD_SHA512)
         if errorHandler.cb(exn) == ERROR_RAISE:
             raise exn
 
@@ -278,7 +270,7 @@ def create_group(group_name, gid=None, root=None):
     elif status != 0:
         raise OSError("Unable to create group %s: status=%s" % (group_name, status))
 
-def create_user(username, password=False, is_crypted=False, lock=False, algo=None,
+def create_user(username, password=False, is_crypted=False, lock=False,
                 homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
                 root=None):
     """Create a new user on the system with the given name.  Optional kwargs:
@@ -291,8 +283,6 @@ def create_user(username, password=False, is_crypted=False, lock=False, algo=Non
        :param bool is_crypted: Is the password already encrypted? Defaults to False.
        :param bool lock: Is the new account locked by default?
                          Defaults to False.
-       :param str algo: The password algorithm to use in case is_crypted=True.
-                        If none is given, the crypt_password default is used.
        :param str homedir: The home directory for the new user.
                            Defaults to /home/<name>.
        :param int uid: The UID for the new user.
@@ -428,7 +418,7 @@ def create_user(username, password=False, is_crypted=False, lock=False, algo=Non
             log.critical("Unable to change owner of existing home directory: %s", e.strerror)
             raise
 
-    set_user_password(username, password, is_crypted, lock, algo, root)
+    set_user_password(username, password, is_crypted, lock, root)
 
 def check_user_exists(username, root=None):
     """Check a user exists.
@@ -444,15 +434,13 @@ def check_user_exists(username, root=None):
 
     return False
 
-def set_user_password(username, password, is_crypted, lock, algo=None, root="/"):
+def set_user_password(username, password, is_crypted, lock, root="/"):
     """Set user password.
 
     :param str username: username of the user
     :param str password: user password
     :param bool is_crypted: is the password already crypted ?
     :param bool lock: should the password for this username be locked ?
-    :param algo: password encryption algorithm
-    :type algo: str or None
     :param str root: target system sysroot path
     """
 
@@ -462,7 +450,7 @@ def set_user_password(username, password, is_crypted, lock, algo=None, root="/")
         if password == "":
             log.info("user account %s setup with no password", username)
         elif not is_crypted:
-            password = crypt_password(password, algo)
+            password = crypt_password(password)
 
         if lock:
             password = "!" + password
@@ -478,17 +466,15 @@ def set_user_password(username, password, is_crypted, lock, algo=None, root="/")
     # must be reset on the next login.
     util.execWithRedirect("chage", ["-R", root, "-d", "", username])
 
-def set_root_password(password, is_crypted=False, lock=False, algo=None, root="/"):
+def set_root_password(password, is_crypted=False, lock=False, root="/"):
     """Set root password.
 
     :param str password: root password
     :param bool is_crypted: is the password already crypted ?
     :param bool lock: should the root password be locked ?
-    :param algo: password encryption algorithm
-    :type algo: str or None
     :param str root: target system sysroot path
     """
-    return set_user_password("root", password, is_crypted, lock, algo, root)
+    return set_user_password("root", password, is_crypted, lock, root)
 
 def set_user_ssh_key(username, key, root=None):
     """Set an SSH key for a given username.
