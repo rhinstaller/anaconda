@@ -193,7 +193,7 @@ class StorageModule(KickstartModule):
 
         # Set up the storage.
         storage.ignored_disks = self._disk_selection_module.ignored_disks
-        storage.exclusive_disks = self._disk_selection_module.selected_disks
+        storage.exclusive_disks = self._disk_selection_module.exclusive_disks
         storage.protected_devices = self._disk_selection_module.protected_devices
 
         # Create the task.

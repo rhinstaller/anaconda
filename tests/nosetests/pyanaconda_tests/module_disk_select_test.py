@@ -48,6 +48,13 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             ["sda", "sdb"]
         )
 
+    def exclusive_disks_property_test(self):
+        """Test the exclusive disks property."""
+        self._test_dbus_property(
+            "ExclusiveDisks",
+            ["sda", "sdb"]
+        )
+
     def ignored_disks_property_test(self):
         """Test the ignored disks property."""
         self._test_dbus_property(
