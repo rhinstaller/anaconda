@@ -18,15 +18,14 @@
 # Red Hat Author(s): Martin Kolman <mkolman@redhat.com>
 #
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
-from pyanaconda.modules.common.constants.interfaces import USER
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
 from pyanaconda.modules.users.users import UsersModule
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
-from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
+from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
 class UsersInterfaceTestCase(unittest.TestCase):
@@ -52,14 +51,28 @@ class UsersInterfaceTestCase(unittest.TestCase):
     def default_property_values_test(self):
         """Test the default user module values are as expected."""
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
 
     def set_crypted_roopw_test(self):
-        """Test if setting crypted root password from kickstart works correctly."""
+        """Test if setting crypted root password works correctly."""
         self.users_interface.SetCryptedRootPassword("abcef")
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+        # root password is locked by default
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+
+    def set_crypted_roopw_and_unlock_test(self):
+        """Test if setting crypted root password & unlocking it from kickstart works correctly."""
+        self.users_interface.SetCryptedRootPassword("abcef")
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        # root password is locked by default and remains locked even after a password is set
+        # and needs to be unlocked via another DBUS API call
+        self.users_interface.SetRootAccountLocked(False)
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+        self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
 
     def lock_root_account_test(self):
         """Test if root account can be locked via DBUS correctly."""
@@ -102,14 +115,31 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # set the password to something
         self.users_interface.SetCryptedRootPassword("abcef")
         self.assertEqual(self.users_interface.IsRootPasswordSet, True)
-        self.assertEqual(self.users_interface.IsRootAccountLocked, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
         self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
         # clear it
         self.users_interface.ClearRootPassword()
         # check if it looks cleared
         self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
+        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False,
+                                                                'IsRootAccountLocked': True}, [])
+
+    def clear_unlocked_rootpw_test(self):
+        """Test clearing of unlocked root password."""
+        # set the password to something
+        self.users_interface.SetCryptedRootPassword("abcef")
+        self.callback.assert_called_once_with(USERS.interface_name, {'IsRootPasswordSet': True}, [])
+        self.users_interface.SetRootAccountLocked(False)
+        self.callback.assert_called_with(USERS.interface_name, {'IsRootAccountLocked': False}, [])
+        self.assertEqual(self.users_interface.IsRootPasswordSet, True)
         self.assertEqual(self.users_interface.IsRootAccountLocked, False)
-        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False}, [])
+        # clear it
+        self.users_interface.ClearRootPassword()
+        # check if it looks cleared
+        self.assertEqual(self.users_interface.IsRootPasswordSet, False)
+        self.callback.assert_called_with(USERS.interface_name, {'IsRootPasswordSet': False, 'IsRootAccountLocked' : True}, [])
+        self.assertEqual(self.users_interface.IsRootAccountLocked, True)
 
     def rootpw_not_kickstarted_test(self):
         """Test rootpw is not marked as kickstarted without kickstart."""
@@ -144,7 +174,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 321,
                 "homedir" : "user1_home",
                 "password" : "swordfish",
-                "is_crypted" : False,
+                "is-crypted" : False,
                 "lock" : False,
                 "shell" : "zsh",
                 "gecos" : "some stuff",
@@ -156,7 +186,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 654,
                 "homedir" : "user2_home",
                 "password" : "laksdjaskldjhasjhd",
-                "is_crypted" : True,
+                "is-crypted" : True,
                 "lock" : False,
                 "shell" : "csh",
                 "gecos" : "some other stuff",
@@ -177,7 +207,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                     "gid" : get_variant(Int, 321),
                     "homedir" : get_variant(Str, "user1_home"),
                     "password" : get_variant(Str, "swordfish"),
-                    "is_crypted" : get_variant(Bool, False),
+                    "is-crypted" : get_variant(Bool, False),
                     "lock" : get_variant(Bool, False),
                     "shell" : get_variant(Str, "zsh"),
                     "gecos" : get_variant(Str, "some stuff"),
@@ -189,7 +219,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                     "gid" : get_variant(Int, 654),
                     "homedir" : get_variant(Str, "user2_home"),
                     "password" : get_variant(Str, "laksdjaskldjhasjhd"),
-                    "is_crypted" : get_variant(Bool, True),
+                    "is-crypted" : get_variant(Bool, True),
                     "lock" : get_variant(Bool, False),
                     "shell" : get_variant(Str, "csh"),
                     "gecos" : get_variant(Str, "some other stuff"),
@@ -208,7 +238,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 321,
                 "homedir" : "user1_home",
                 "password" : "swordfish",
-                "is_crypted" : False,
+                "is-crypted" : False,
                 "lock" : False,
                 "shell" : "zsh",
                 "gecos" : "some stuff",
@@ -220,7 +250,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 654,
                 "homedir" : "user2_home",
                 "password" : "laksdjaskldjhasjhd",
-                "is_crypted" : True,
+                "is-crypted" : True,
                 "lock" : False,
                 "shell" : "csh",
                 "gecos" : "some other stuff",
@@ -247,7 +277,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 321,
                 "homedir" : "user1_home",
                 "password" : "swordfish",
-                "is_crypted" : False,
+                "is-crypted" : False,
                 "lock" : False,
                 "shell" : "zsh",
                 "gecos" : "some stuff",
@@ -263,7 +293,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                     "gid" : get_variant(Int, 321),
                     "homedir" : get_variant(Str, "user1_home"),
                     "password" : get_variant(Str, "swordfish"),
-                    "is_crypted" : get_variant(Bool, False),
+                    "is-crypted" : get_variant(Bool, False),
                     "lock" : get_variant(Bool, False),
                     "shell" : get_variant(Str, "zsh"),
                     "gecos" : get_variant(Str, "some stuff"),
@@ -277,7 +307,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 1,
                 "homedir" : "behind_the_sea",
                 "password" : "mellon",
-                "is_crypted" : False,
+                "is-crypted" : False,
                 "lock" : False,
                 "shell" : "gsh",
                 "gecos" : "Run you fools!",
@@ -291,7 +321,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : get_variant(Int, 1),
                 "homedir" : get_variant(Str, "behind_the_sea"),
                 "password" : get_variant(Str, "mellon"),
-                "is_crypted" : get_variant(Bool, False),
+                "is-crypted" : get_variant(Bool, False),
                 "lock" : get_variant(Bool, False),
                 "shell" : get_variant(Str, "gsh"),
                 "gecos" : get_variant(Str, "Run you fools!"),
@@ -459,10 +489,10 @@ class UsersInterfaceTestCase(unittest.TestCase):
         # TODO: looks like Bool also accepts almost anything,
         #       but converts it into a True/False value on output
         #       - None is still rejected though
-        user = {"is_crypted" : "yes"}
+        user = {"is-crypted" : "yes"}
         self.users_interface.SetUsers([user])
         output = self.users_interface.Users[0]
-        self.assertEqual(get_variant(Bool, True), output["is_crypted"])
+        self.assertEqual(get_variant(Bool, True), output["is-crypted"])
 
         user = {"lock" : "secure"}
         self.users_interface.SetUsers([user])
@@ -506,7 +536,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 321,
                 "homedir" : "user1_home",
                 "password" : "swordfish",
-                "is_crypted" : False,
+                "is-crypted" : False,
                 "lock" : False,
                 "shell" : "zsh",
                 "gecos" : "some stuff",
@@ -518,7 +548,7 @@ class UsersInterfaceTestCase(unittest.TestCase):
                 "gid" : 654,
                 "homedir" : "user2_home",
                 "password" : "laksdjaskldjhasjhd",
-                "is_crypted" : True,
+                "is-crypted" : True,
                 "lock" : False,
                 "shell" : "csh",
                 "gecos" : "some other stuff",
@@ -841,6 +871,8 @@ sshkey --username=user3 "ccc"
         user --name=user3 --lock
         """
         ks_out = """
+        #Root password
+        rootpw --lock
         user --groups=a,b,c,d --homedir=user1_home --name=user1 --password=foo --shell=ksh --uid=123 --gecos="baz" --gid=345
         user --groups=wheel,mockuser --homedir=user2_home --name=user2 --password=asasas --iscrypted --shell=csh --uid=321 --gecos="bar" --gid=543
         user --name=user3 --lock

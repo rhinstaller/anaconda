@@ -56,6 +56,12 @@ def apply_ksdata_to_user_data(user_data, user_ksdata):
     user_data.password = user_ksdata.password
     user_data.is_crypted = user_ksdata.isCrypted
     user_data.lock = user_ksdata.lock
+    # make sure the user account is locked by default unless a password
+    # is set in kickstart
+    if not user_ksdata.password:
+        log.debug("user (%s) specified in kickstart without password, locking account",
+                  user_ksdata.name)
+        user_data.lock = True
     user_data.shell = user_ksdata.shell
     user_data.gecos = user_ksdata.gecos
     return user_data
@@ -129,6 +135,10 @@ class UsersModule(KickstartModule):
         log.debug("Processing kickstart data...")
         self.set_root_password(data.rootpw.password, crypted=data.rootpw.isCrypted)
         self.set_root_account_locked(data.rootpw.lock)
+        # make sure the root account is locked unless a password is set in kickstart
+        if not data.rootpw.password:
+            log.debug("root specified in kickstart without password, locking account")
+            self.set_root_account_locked(True)
         self.set_rootpw_seen(data.rootpw.seen)
 
         user_data_list = []
