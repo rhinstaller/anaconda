@@ -19,18 +19,12 @@
 
 import time
 import threading
+import os
+import signal
+import re
 
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
-import os, signal, re
 from collections import namedtuple
 from urllib.parse import urlsplit
-
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
 
 from pyanaconda.core import glib, constants
 from pyanaconda.core.process_watchers import PidWatcher
@@ -56,11 +50,19 @@ from pyanaconda.storage.utils import device_matches
 
 from blivet.util import get_mount_device, get_mount_paths
 
+from pyanaconda.anaconda_loggers import get_module_logger
+log = get_module_logger(__name__)
+
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
+
 __all__ = ["SourceSpoke"]
 
 BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
 
-# These need to match the IDs in protocolComboBox and repoProtocolComboBox in installation_source.glade.
+# These need to match the IDs in protocolComboBox and repoProtocolComboBox in
+# installation_source.glade.
 PROTOCOL_HTTP = 'http'
 PROTOCOL_HTTPS = 'https'
 PROTOCOL_FTP = 'ftp'
@@ -90,6 +92,7 @@ REPO_PROTO = {PROTOCOL_HTTP:  "http://",
 
 CLICK_FOR_DETAILS = N_(' <a href="">Click for details.</a>')
 
+
 def _validateProxy(proxy_string, username_set, password_set):
     """Validate a proxy string and return an input code usable by InputCheck
 
@@ -113,12 +116,15 @@ def _validateProxy(proxy_string, username_set, password_set):
         return _("Extra characters in proxy URL")
 
     # Check if if authentication data is both in the URL and specified externally
-    if (proxy_match.group("username") or proxy_match.group("password")) and (username_set or password_set):
+    if (proxy_match.group("username") or proxy_match.group("password")) \
+       and (username_set or password_set):
         return _("Proxy authentication data duplicated")
 
     return InputCheck.CHECK_OK
 
+
 RepoChecks = namedtuple("RepoChecks", ["name_check", "url_check", "proxy_check"])
+
 
 class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["proxyDialog"]
@@ -151,10 +157,13 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         if not proxy_string:
             return InputCheck.CHECK_SILENT
 
-        username_set = self._proxyUsernameEntry.is_sensitive() and self._proxyUsernameEntry.get_text()
-        password_set = self._proxyPasswordEntry.is_sensitive() and self._proxyPasswordEntry.get_text()
+        return _validateProxy(proxy_string, self._is_username_set(), self._is_password_set())
 
-        return _validateProxy(proxy_string, username_set, password_set)
+    def _is_username_set(self):
+        return self._proxyUsernameEntry.is_sensitive() and self._proxyUsernameEntry.get_text()
+
+    def _is_password_set(self):
+        return self._proxyPasswordEntry.is_sensitive() and self._proxyPasswordEntry.get_text()
 
     # Update the proxy validation check on username and password changes to catch
     # changes in duplicated authentication data
@@ -233,6 +242,7 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self.window.destroy()
 
+
 class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
@@ -279,7 +289,8 @@ class MediaCheckDialog(GUIObject):
     def run(self, devicePath):
         (retval, self._pid, _stdin, stdout, _stderr) = \
             glib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
-                                        glib.SpawnFlags.DO_NOT_REAP_CHILD|glib.SpawnFlags.SEARCH_PATH,
+                                        glib.SpawnFlags.DO_NOT_REAP_CHILD |
+                                        glib.SpawnFlags.SEARCH_PATH,
                                         None, None)
         if not retval:
             return
@@ -288,7 +299,9 @@ class MediaCheckDialog(GUIObject):
         PidWatcher().watch_process(self._pid, self._checkisoEndsCB)
 
         # This function watches the process's stdout.
-        glib.io_add_watch(stdout, glib.IOCondition.IN|glib.IOCondition.HUP, self._checkisoStdoutWatcher)
+        glib.io_add_watch(stdout,
+                          glib.IOCondition.IN | glib.IOCondition.HUP,
+                          self._checkisoStdoutWatcher)
 
         self.window.run()
 
@@ -300,6 +313,7 @@ class MediaCheckDialog(GUIObject):
 
     def on_done_clicked(self, *args):
         self.window.destroy()
+
 
 # This class is responsible for popping up the dialog that allows the user to
 # choose the ISO image they want to use.  We can get away with this instead of
@@ -324,7 +338,8 @@ class IsoChooser(GUIObject):
         # Hide the places sidebar, since it makes no sense in this context
         # This is discouraged, but the alternative suggested is to reinvent the
         # wheel. See also https://bugzilla.gnome.org/show_bug.cgi?id=751730
-        places_sidebar = find_first_child(self._chooser, lambda x: isinstance(x, Gtk.PlacesSidebar))
+        places_sidebar = find_first_child(self._chooser,
+                                          lambda x: isinstance(x, Gtk.PlacesSidebar))
         if places_sidebar:
             really_hide(places_sidebar)
 
@@ -373,12 +388,14 @@ class IsoChooser(GUIObject):
         if not d.startswith(constants.ISO_DIR):
             chooser.set_current_folder(constants.ISO_DIR)
 
+
 class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     """
        .. inheritance-diagram:: SourceSpoke
           :parts: 3
     """
-    builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
+    builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow",
+                      "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/installation_source.glade"
     helpFile = "SourceSpoke.xml"
@@ -460,9 +477,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self.data.method.partition = part.name
             # The / gets stripped off by payload.ISO_image
             self.data.method.dir = "/" + self._currentIsoFile
-            if (old_method == "harddrive" and
-                self.storage.devicetree.resolve_device(old_partition) == part and
-                old_dir in [self._currentIsoFile, "/" + self._currentIsoFile]):
+            if old_method == "harddrive" \
+               and self.storage.devicetree.resolve_device(old_partition) == part \
+               and old_dir in [self._currentIsoFile, "/" + self._currentIsoFile]:
                 return False
 
             # Make sure anaconda doesn't touch this device.
@@ -507,14 +524,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # to know how to fetch, and the refresh method needs that to know
             # which element of the combo to default to should this spoke be
             # revisited.
-            elif self._protocolComboBox.get_active_id() == PROTOCOL_HTTP and not url.startswith("http://"):
+            elif (self._protocolComboBox.get_active_id() == PROTOCOL_HTTP
+                  and not url.startswith("http://")):
                 url = "http://" + url
-            elif self._protocolComboBox.get_active_id() == PROTOCOL_HTTPS and not url.startswith("https://"):
+            elif (self._protocolComboBox.get_active_id() == PROTOCOL_HTTPS
+                  and not url.startswith("https://")):
                 url = "https://" + url
 
             url_type = self._urlTypeComboBox.get_active_id()
-            if old_method == "url" and not self._proxyChange and \
-                not self._url_changed(url, url_type, old_url, old_mirrorlist, old_metalink):
+            url_changed = self._url_changed(url, url_type, old_url, old_mirrorlist, old_metalink)
+            if old_method == "url" and not self._proxyChange and not url_changed:
                 return False
 
             self.data.method.method = "url"
@@ -543,10 +562,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
 
-            if (old_method == "nfs" and
-                old_server == self.data.method.server and
-                old_dir == self.data.method.dir and
-                old_opts == self.data.method.opts):
+            if old_method == "nfs" \
+               and old_server == self.data.method.server \
+               and old_dir == self.data.method.dir \
+               and old_opts == self.data.method.opts:
                 return False
 
         # If the user moved from an HDISO method to some other, we need to
@@ -627,7 +646,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
         else:
-            return not self._error and self.ready and (self.data.method.method or self.payload.base_repo)
+            return not self._error and self.ready and \
+                (self.data.method.method or self.payload.base_repo)
 
     @property
     def mandatory(self):
@@ -769,14 +789,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Register listeners for payload events
         payloadMgr.add_listener(PayloadState.STARTED, self._payload_refresh)
         payloadMgr.add_listener(PayloadState.WAITING_STORAGE, self._probing_storage)
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA,
+                                self._downloading_package_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA,
+                                self._downloading_group_md)
         payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
         # Start the thread last so that we are sure initialize_done() is really called only
         # after all initialization has been done.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER,
+                                     target=self._initialize))
 
     def _payload_refresh(self):
         hubQ.send_not_ready("SoftwareSelectionSpoke")
@@ -813,7 +836,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
             self._error_msg = _("Failed to set up installation source; check the repo url.")
         else:
-            self._error_msg = _("Failed to set up installation source; check the repo url and proxy settings.")
+            self._error_msg = _("Failed to set up installation source; check the repo url"
+                                " and proxy settings.")
         if self.payload.verbose_errors:
             self._error_msg += _(CLICK_FOR_DETAILS)
 
@@ -903,15 +927,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
-            dev_info = {"model" : self._sanitize_model(dev.disk.model or ""),
-                        "path"  : dev.path,
-                        "size"  : dev.size,
+            dev_info = {"model": self._sanitize_model(dev.disk.model or ""),
+                        "path": dev.path,
+                        "size": dev.size,
                         "format": dev.format.name or "",
-                        "label" : dev.format.label or dev.format.uuid or ""
-                       }
+                        "label": dev.format.label or dev.format.uuid or ""
+                        }
 
-            # With the label in here, the combo box can appear really long thus pushing the "pick an image"
-            # and the "verify" buttons off the screen.
+            # With the label in here, the combo box can appear really long thus pushing
+            # the "pick an image" and the "verify" buttons off the screen.
             if dev_info["label"] != "":
                 dev_info["label"] = "\n" + dev_info["label"]
 
@@ -938,21 +962,23 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if self.data.method.method == "url":
             self._networkButton.set_active(True)
 
-            proto = self.data.method.url or self.data.method.mirrorlist or self.data.method.metalink
+            proto = self.data.method.url or \
+                self.data.method.mirrorlist or \
+                self.data.method.metalink
             if proto.startswith("http:"):
                 self._protocolComboBox.set_active_id(PROTOCOL_HTTP)
-                l = 7
+                length = 7
             elif proto.startswith("https:"):
                 self._protocolComboBox.set_active_id(PROTOCOL_HTTPS)
-                l = 8
+                length = 8
             elif proto.startswith("ftp:"):
                 self._protocolComboBox.set_active_id(PROTOCOL_FTP)
-                l = 6
+                length = 6
             else:
                 self._protocolComboBox.set_active_id(PROTOCOL_HTTP)
-                l = 0
+                length = 0
 
-            self._urlEntry.set_text(proto[l:])
+            self._urlEntry.set_text(proto[length:])
             self._updateURLEntryCheck()
             self._updateUrlTypeComboBox()
             self._proxyUrl = self.data.method.proxy
@@ -1022,14 +1048,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             for widget in [self._autodetectButton, self._autodetectBox, self._isoButton,
                            self._isoBox, self._networkButton, self._networkBox, self._hmcButton]:
                 widget.set_sensitive(False)
-                widget.set_tooltip_text(_("The installation source is in use by the installer and cannot be changed."))
+                widget.set_tooltip_text(_("The installation source is in use by the installer "
+                                          "and cannot be changed."))
 
         if not self._network_module.proxy.Connected:
             self._networkButton.set_sensitive(False)
             self._networkBox.set_sensitive(False)
 
             self.clear_info()
-            self.set_warning(_("You need to configure the network to use a network installation source."))
+            self.set_warning(_("You need to configure the network to use a network "
+                               "installation source."))
         else:
             if self._error:
                 self.clear_info()
@@ -1351,7 +1379,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _on_protocol_changed(self):
         # Only allow the URL entry to be used if we're using an HTTP/FTP
         # method that's not the mirror list, or an NFS method.
-        self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or self._nfs_active())
+        self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or
+                                     self._nfs_active())
 
         # Only allow thse widgets to be shown if it makes sense for the
         # the currently selected protocol.
@@ -1392,7 +1421,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self.payload.data.repo.dataList().remove(repo)
                 changed = True
 
-            for repo, orig_repo in [(r[REPO_OBJ], self.payload.get_addon_repo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
+            addon_repos = [(r[REPO_OBJ], self.payload.get_addon_repo(r[REPO_OBJ].orig_name))
+                           for r in self._repoStore]
+            for repo, orig_repo in addon_repos:
                 if not orig_repo:
                     # TODO: Need an API to do this w/o touching dnf (not add_repo)
                     # FIXME: Is this still needed for dnf?
@@ -1764,18 +1795,19 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # to this method is different from the iter used everywhere else, and is useless
         # once this method returns. Instead, create a TreeRowReference and work backwards
         # from that using paths any time we need to reference the store.
-        self._repoChecks[repo.repo_id] = RepoChecks(InputCheckHandler.add_check(self,
-                                                                             repo.repo_id,
-                                                                             self._checkRepoName,
-                                                                             Gtk.TreeRowReference.new(model, path)),
-                                                 InputCheckHandler.add_check(self,
-                                                                             repo.repo_id,
-                                                                             self._checkRepoURL,
-                                                                             Gtk.TreeRowReference.new(model, path)),
-                                                 InputCheckHandler.add_check(self,
-                                                                             repo.repo_id,
-                                                                             self._checkRepoProxy,
-                                                                             Gtk.TreeRowReference.new(model, path)))
+        self._repoChecks[repo.repo_id] = \
+            RepoChecks(InputCheckHandler.add_check(self,
+                                                   repo.repo_id,
+                                                   self._checkRepoName,
+                                                   Gtk.TreeRowReference.new(model, path)),
+                       InputCheckHandler.add_check(self,
+                                                   repo.repo_id,
+                                                   self._checkRepoURL,
+                                                   Gtk.TreeRowReference.new(model, path)),
+                       InputCheckHandler.add_check(self,
+                                                   repo.repo_id,
+                                                   self._checkRepoProxy,
+                                                   Gtk.TreeRowReference.new(model, path)))
 
     def on_repoProtocolComboBox_changed(self, combobox, user_data=None):
         # Set the url type and proxy fields sensitivity depending on whether NFS was selected
