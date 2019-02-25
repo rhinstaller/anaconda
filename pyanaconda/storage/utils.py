@@ -23,6 +23,7 @@ import os
 import requests
 
 from blivet import udev
+from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.formats import device_formats
@@ -38,11 +39,11 @@ from blivet.devicefactory import is_supported_device_type
 from pykickstart.errors import KickstartError
 
 from pyanaconda.core import util
-from pyanaconda.core.i18n import N_, _
+from pyanaconda.core.i18n import N_, _, P_
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler, ERROR_RAISE
 from pyanaconda.modules.common.constants.services import NETWORK, STORAGE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, NVDIMM, DISK_INITIALIZATION
 
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
@@ -477,3 +478,128 @@ def find_live_backing_device():
         return live_device_name or None
 
     return None
+
+
+def get_available_disks(devicetree):
+    """Get disks that can be used for the installation.
+
+    :param devicetree: a device tree to look up devices
+    :return: a list of devices
+    """
+    # Get all devices.
+    devices = devicetree.devices
+
+    # Add the hidden devices.
+    if conf.target.is_image:
+        devices += [
+            d for d in devicetree._hidden
+            if d.name in devicetree.disk_images
+        ]
+    else:
+        devices += devicetree._hidden
+
+    # Filter out the usable disks.
+    disks = []
+    for d in devices:
+        if d.is_disk and not d.format.hidden and not d.protected:
+            # Unformatted DASDs are detected with a size of 0, but they should
+            # still show up as valid disks if this function is called, since we
+            # can still use them; anaconda will know how to handle them, so they
+            # don't need to be ignored anymore.
+            if d.type == "dasd":
+                disks.append(d)
+            elif d.size > 0 and d.media_present:
+                disks.append(d)
+
+    # Remove duplicate names from the list.
+    return sorted(set(disks), key=lambda d: d.name)
+
+
+def filter_disks_by_names(disks, names):
+    """Filter disks by the given names.
+
+    :param disks: a list of disks
+    :param names: a list of disk names
+    :return: a list of filtered disks
+    """
+    return [d for d in disks if d.name in names]
+
+
+def is_local_disk(disk):
+    """Is the disk local?
+
+    A local disk doesn't require any additional setup unlike
+    the advanced storage.
+
+    While technically local disks, zFCP and NVDIMM devices are
+    specialized storage and should not be considered local.
+
+    :param disk: a disk
+    :type disk: an instance of blivet.devices.Device
+    :return: True or False
+    """
+    return not isinstance(disk, MultipathDevice) \
+        and not isinstance(disk, iScsiDiskDevice) \
+        and not isinstance(disk, FcoeDiskDevice) \
+        and disk.type not in ("zfcp", "nvdimm")
+
+
+def apply_disk_selection(storage, selected_names):
+    """Apply the disks selection.
+
+    :param storage: blivet.Blivet instance
+    :param selected_names: a list of selected disk names
+    """
+    # Get the selected disks.
+    selected_disks = filter_disks_by_names(storage.disks, selected_names)
+
+    # Get names of their ancestors.
+    ancestor_names = [
+        ancestor.name
+        for disk in selected_disks for ancestor in disk.ancestors
+        if ancestor.is_disk and ancestor.name not in selected_names
+    ]
+
+    # Set the disks to select.
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    disk_select_proxy.SetSelectedDisks(selected_names + ancestor_names)
+
+    # Set the drives to clear.
+    disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+    disk_init_proxy.SetDrivesToClear(selected_names)
+
+
+def check_disk_selection(storage, selected_disks):
+    """Return a list of errors related to a proposed disk selection.
+
+    :param storage: blivet.Blivet instance
+    :param selected_disks: names of selected disks
+    :type selected_disks: list of str
+    :returns: a list of error messages
+    :rtype: list of str
+    """
+    errors = []
+
+    for name in selected_disks:
+        selected = storage.devicetree.get_device_by_name(name, hidden=True)
+        related = sorted(storage.devicetree.get_related_disks(selected), key=lambda d: d.name)
+        missing = [r.name for r in related if r.name not in selected_disks]
+
+        if not missing:
+            continue
+
+        errors.append(P_(
+            "You selected disk %(selected)s, which contains "
+            "devices that also use unselected disk "
+            "%(unselected)s. You must select or de-select "
+            "these disks as a set.",
+            "You selected disk %(selected)s, which contains "
+            "devices that also use unselected disks "
+            "%(unselected)s. You must select or de-select "
+            "these disks as a set.",
+            len(missing)) % {
+            "selected": selected.name,
+            "unselected": ",".join(missing)
+        })
+
+    return errors

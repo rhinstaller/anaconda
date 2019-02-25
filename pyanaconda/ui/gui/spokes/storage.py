@@ -44,7 +44,8 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection, getDisksByNames
+from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, apply_disk_selection, \
+    check_disk_selection
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -395,7 +396,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 self._check_problems()
 
     def apply(self):
-        applyDiskSelection(self.storage, self.data, self.selected_disks)
+        apply_disk_selection(self.storage, self.selected_disks)
         self._auto_part_observer.proxy.SetEnabled(self.autopart)
         self._auto_part_observer.proxy.SetType(self.autoPartType)
         self._auto_part_observer.proxy.SetEncrypted(self.encrypted)
@@ -434,7 +435,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Register iSCSI to kickstart data
         iscsi_devices = []
         # Find all selected disks and add all iscsi disks to iscsi_devices list
-        for d in [d for d in getDisks(self.storage.devicetree) if d.name in self.selected_disks]:
+        for d in [d for d in get_available_disks(self.storage.devicetree) if d.name in self.selected_disks]:
             # Get parents of a multipath devices
             if isinstance(d, MultipathDevice):
                 for parent_dev in d.parents:
@@ -462,7 +463,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                     self.data.iscsi.iscsi.append(iscsi_data)
 
         # Update kickstart data for NVDIMM devices used in GUI.
-        selected_nvdimm_namespaces = [d.devname for d in getDisks(self.storage.devicetree)
+        selected_nvdimm_namespaces = [d.devname for d in get_available_disks(self.storage.devicetree)
                                       if d.name in self.selected_disks
                                       and isinstance(d, NVDIMMNamespaceDevice)]
 
@@ -506,8 +507,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             reset_storage(self.storage)
 
             # Now set data back to the user's specified config.
-            self.disks = getDisks(self.storage.devicetree)
-            applyDiskSelection(self.storage, self.data, self.selected_disks)
+            self.disks = get_available_disks(self.storage.devicetree)
+            apply_disk_selection(self.storage, self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
@@ -655,7 +656,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def refresh(self):
         self._back_clicked = False
 
-        self.disks = getDisks(self.storage.devicetree)
+        self.disks = get_available_disks(self.storage.devicetree)
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self.disks]
@@ -684,11 +685,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Then deal with local disks, which are really easy.  They need to be
         # handled here instead of refresh to take into account the user pressing
         # the rescan button on custom partitioning.
-        for disk in filter(isLocalDisk, self.disks):
-            # While technically local disks, zFCP devices are specialized
-            # storage and should not be shown here.
-            if disk.type not in ("zfcp", "nvdimm"):
-                self._add_disk_overview(disk, self.local_disks_box)
+        for disk in filter(is_local_disk, self.disks):
+            self._add_disk_overview(disk, self.local_disks_box)
 
         # Advanced disks are different.  Because there can potentially be a lot
         # of them, we do not display them in the box by default.  Instead, only
@@ -698,11 +696,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             if name not in disk_names:
                 continue
             obj = self.storage.devicetree.get_device_by_name(name, hidden=True)
-            # since zfcp devices may be detected as local disks when added
-            # manually, specifically check the disk type here to make sure
-            # we won't accidentally bypass adding zfcp devices to the disk
-            # overview
-            if isLocalDisk(obj) and obj.type not in ("zfcp", "nvdimm"):
+
+            if is_local_disk(obj):
                 continue
 
             self._add_disk_overview(obj, self.specialized_disks_box)
@@ -816,11 +811,11 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Continue with initializing.
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-        self.disks = getDisks(self.storage.devicetree)
+        self.disks = get_available_disks(self.storage.devicetree)
 
         # if there's only one disk, select it by default
         if len(self.disks) == 1 and not self.selected_disks:
-            applyDiskSelection(self.storage, self.data, [self.disks[0].name])
+            apply_disk_selection(self.storage, [self.disks[0].name])
 
         # do not set ready in automated install before execute is run
         if flags.automatedInstall:
@@ -895,8 +890,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # pass in our disk list so hidden disks' free space is available
         free_space = self.storage.get_free_space(disks=self.disks)
         dialog = SelectedDisksDialog(self.data,)
-        dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
-                       free_space)
+        dialog.refresh(filter_disks_by_names(self.disks, self.selected_disks), free_space)
         self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
@@ -961,7 +955,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         rc = DASD_FORMAT_NO_CHANGE
 
         # Get selected disks.
-        disks = getDisksByNames(self.disks, self.selected_disks)
+        disks = filter_disks_by_names(self.disks, self.selected_disks)
 
         # Check if some of the disks should be formatted.
         dasd_formatting = DasdFormatting()
@@ -970,7 +964,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if dasd_formatting.should_run():
             # We want to apply current selection before running dasdfmt to
             # prevent this information from being lost afterward
-            applyDiskSelection(self.storage, self.data, self.selected_disks)
+            apply_disk_selection(self.storage, self.selected_disks)
 
             # Run the dialog.
             dialog = DasdFormatDialog(self.data, self.storage, dasd_formatting)
@@ -1096,7 +1090,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # Same thing for switching between different storage configuration
             # methods (auto/custom/blivet-gui), at least for now.
             on_disk_storage.reset_to_snapshot(self.storage)
-            self.disks = getDisks(self.storage.devicetree)
+            self.disks = get_available_disks(self.storage.devicetree)
         else:
             # Remove all non-existing devices if autopart was active when we last
             # refreshed.
@@ -1112,7 +1106,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # if there are some disk selection errors we don't let user to leave the
         # spoke, so these errors don't have to go to self.errors
-        self.disks_errors = checkDiskSelection(self.storage, self.selected_disks)
+        self.disks_errors = check_disk_selection(self.storage, self.selected_disks)
         if self.disks_errors:
             # The disk selection has to make sense before we can proceed.
             self.set_error(_("There was a problem with your disk selection. "
@@ -1154,7 +1148,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # 3) we are just asked to do autopart => check free space and see if we need
         #                                        user to do anything more
         self.autopart = self._get_selected_partitioning_method() == PartitioningMethod.AUTO
-        disks = [d for d in self.disks if d.name in self.selected_disks]
+        disks = filter_disks_by_names(self.disks, self.selected_disks)
         dialog = None
         if not self.autopart:
             if self._get_selected_partitioning_method() == PartitioningMethod.CUSTOM:
@@ -1223,7 +1217,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # However, we do want to apply current selections so the disk cart off
         # the filter spoke will display the correct information.
-        applyDiskSelection(self.storage, self.data, self.selected_disks)
+        apply_disk_selection(self.storage, self.selected_disks)
 
         self.skipTo = "FilterSpoke"
         NormalSpoke.on_back_clicked(self, button)
