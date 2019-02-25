@@ -566,7 +566,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if net.teamslaves:
 
         ifcfg.pop('HWADDR', None)
-        ifcfg['TYPE'] = "Team"
+        ifcfg['DEVICETYPE'] = "Team"
         ifcfg['NAME'] = "Team connection %s" % dev
         ifcfg['TEAM_CONFIG'] = net.teamconfig
 
