@@ -19,7 +19,6 @@
 
 import os
 import sys
-import stat
 from glob import glob
 from tempfile import mkstemp
 import threading
@@ -105,9 +104,6 @@ class Anaconda(object):
     @staticmethod
     def get_protected_devices(opts):
         specs = []
-        if os.path.exists("/run/initramfs/livedev") and \
-           stat.S_ISBLK(os.stat("/run/initramfs/livedev")[stat.ST_MODE]):
-            specs.append(os.readlink("/run/initramfs/livedev"))
 
         # methodstr and stage2 become strings in ways that pylint can't figure out
         # pylint: disable=unsubscriptable-object
