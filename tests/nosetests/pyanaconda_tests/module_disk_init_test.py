@@ -18,12 +18,15 @@
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
 import unittest
+from unittest.mock import Mock
 
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.storage.constants import InitializationMode
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
     DiskInitializationInterface
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
@@ -34,6 +37,22 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
         """Set up the module."""
         self.disk_init_module = DiskInitializationModule()
         self.disk_init_interface = DiskInitializationInterface(self.disk_init_module)
+
+    def on_partitioning_changed_test(self):
+        """Smoke test for on_partitioning_changed callback."""
+        mode_changed_callback = Mock()
+        devices_changed_callback = Mock()
+        drives_changed_callback = Mock()
+
+        self.disk_init_module.set_initialization_mode(InitializationMode.CLEAR_NONE)
+        self.disk_init_module.initialization_mode_changed.connect(mode_changed_callback)
+        self.disk_init_module.devices_to_clear_changed.connect(devices_changed_callback)
+        self.disk_init_module.drives_to_clear_changed.connect(drives_changed_callback)
+        self.disk_init_module.on_partitioning_changed(create_storage())
+
+        mode_changed_callback.called_once_with(InitializationMode.CLEAR_NONE)
+        drives_changed_callback.called_once_with([])
+        devices_changed_callback.called_once_with([])
 
     def _test_dbus_property(self, *args, **kwargs):
         check_dbus_property(
