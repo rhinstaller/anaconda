@@ -21,6 +21,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
@@ -90,6 +91,7 @@ class NetworkModule(KickstartModule):
         self._default_device_specification = DEFAULT_DEVICE_SPECIFICATION
         self._bootif = None
         self._ifname_option_values = []
+        self._apply_boot_options(flags.cmdline)
 
     def publish(self):
         """Publish the module."""
@@ -354,7 +356,7 @@ class NetworkModule(KickstartModule):
         for nd in network_data:
             supported_devices = self.get_supported_devices()
             device_name = get_device_name_from_network_data(self.nm_client,
-                                                            nd, supported_devices, self._bootif)
+                                                            nd, supported_devices, self.bootif)
             if device_name in ifaces:
                 log.debug("Updating network data onboot value: %s -> %s", nd.onboot, True)
                 nd.onboot = True
@@ -432,14 +434,14 @@ class NetworkModule(KickstartModule):
 
     @property
     def bootif(self):
-        """Get the value of kickstart --bootif option."""
+        """Get the value of kickstart --device bootif option."""
         return self._bootif
 
     @bootif.setter
     def bootif(self, specification):
-        """Set the value of kickstart --bootif option.
+        """Set the value of kickstart --device bootif option.
 
-        :param specifiacation: mac address specified in kickstart --bootif option
+        :param specifiacation: mac address specified by kickstart --device bootif option
         :type specification: str
         """
         self._bootif = specification
@@ -484,7 +486,7 @@ class NetworkModule(KickstartModule):
             device_name = get_device_name_from_network_data(self.nm_client,
                                                             network_data,
                                                             supported_devices,
-                                                            self._bootif)
+                                                            self.bootif)
             if not device_name:
                 log.warning("apply kickstart: --device %s not found", network_data.device)
                 continue
@@ -543,7 +545,7 @@ class NetworkModule(KickstartModule):
             device_name = get_device_name_from_network_data(self.nm_client,
                                                             network_data,
                                                             supported_devices,
-                                                            self._bootif)
+                                                            self.bootif)
             if not device_name:
                 log.warning("set ONBOOT: --device %s does not exist", network_data.device)
 
@@ -691,3 +693,17 @@ class NetworkModule(KickstartModule):
 
         dracut_args = list(get_dracut_arguments_from_ifcfg(self.nm_client, ifcfg, iface, target_ip, hostname))
         return dracut_args
+
+    def _apply_boot_options(self, kernel_arguments):
+        """Apply boot options to the module.
+
+        :param kernel_arguments: structure holding installer boot options
+        :type kernel_arguments: KernelArguments
+        """
+        log.debug("Applying boot options %s", kernel_arguments)
+        if 'ksdevice' in kernel_arguments:
+            self.default_device_specification = kernel_arguments.get('ksdevice')
+        if 'BOOTIF' in kernel_arguments:
+            self.bootif = kernel_arguments['BOOTIF'][3:].replace("-", ":").upper()
+        if 'ifname' in kernel_arguments:
+            self.ifname_option_values = kernel_arguments.get("ifname", "").split()

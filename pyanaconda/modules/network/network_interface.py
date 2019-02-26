@@ -158,13 +158,6 @@ class NetworkInterface(KickstartModuleInterface):
         """Signal change of network devices configurations."""
         pass
 
-    def SetDefaultKickstartDeviceSpecification(self, specification: Str):
-        """Sets device specification for missing --device kickstart option.
-
-        :param specification: kickstart network --device option specification
-        """
-        self.implementation.default_device_specification = specification
-
     def ConsolidateInitramfsConnections(self) -> List[Str]:
         """Ensure devices configured in initramfs have no more than one NM connection.
 
@@ -173,20 +166,6 @@ class NetworkInterface(KickstartModuleInterface):
         :returns: list of device names which have been cosolidated
         """
         return self.implementation.consolidate_initramfs_connections()
-
-    def SetBootifKickstartDeviceSpecification(self, specification: Str):
-        """Sets value of network --bootif kickstart option.
-
-        :param specification: kickstart network --bootif option specification
-        """
-        self.implementation.bootif = specification
-
-    def SetIfnameOptionValues(self, values: List[Str]):
-        """Sets values of ifname boot option.
-
-        :param values: list of values of ifname boot option
-        """
-        self.implementation.ifname_option_values = values
 
     def ApplyKickstart(self) -> List[Str]:
         """Apply kickstart configuration which has not already been applied.
