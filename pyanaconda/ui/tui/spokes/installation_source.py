@@ -141,7 +141,8 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
         if flags.automatedInstall and self.ready and not self.payload.base_repo:
             return False
         else:
-            return not self._error and self.ready and (self.data.method.method or self.payload.base_repo)
+            return not self._error and self.ready \
+                and (self.data.method.method or self.payload.base_repo)
 
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
@@ -152,15 +153,19 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         if self.data.method.method == "harddrive" and \
            get_mount_device(DRACUT_ISODIR) == get_mount_device(DRACUT_REPODIR):
-            message = _("The installation source is in use by the installer and cannot be changed.")
+            message = _("The installation source is in use by the installer and "
+                        "cannot be changed.")
             self.window.add_with_separator(TextWidget(message))
             return
 
         if args == self.SET_NETWORK_INSTALL_MODE:
             if self.payload.mirrors_available:
-                self._container.add(TextWidget(_("Closest mirror")), self._set_network_close_mirror)
-            self._container.add(TextWidget("http://"), self._set_network_url, SpecifyRepoSpoke.HTTP)
-            self._container.add(TextWidget("https://"), self._set_network_url, SpecifyRepoSpoke.HTTPS)
+                self._container.add(TextWidget(_("Closest mirror")),
+                                    self._set_network_close_mirror)
+            self._container.add(TextWidget("http://"), self._set_network_url,
+                                SpecifyRepoSpoke.HTTP)
+            self._container.add(TextWidget("https://"), self._set_network_url,
+                                SpecifyRepoSpoke.HTTPS)
             self._container.add(TextWidget("ftp://"), self._set_network_url, SpecifyRepoSpoke.FTP)
             self._container.add(TextWidget("nfs"), self._set_network_nfs)
         else:
@@ -328,7 +333,8 @@ class SpecifyNFSRepoSpoke(NormalTUISpoke, SourceSwitchHandler):
         self._container = ListColumnContainer(1)
 
         dialog = Dialog(title=_("SERVER:/PATH"), conditions=[self._check_nfs_server])
-        self._container.add(EntryWidget(dialog.title, self._nfs_server), self._set_nfs_server, dialog)
+        self._container.add(EntryWidget(dialog.title, self._nfs_server),
+                            self._set_nfs_server, dialog)
 
         dialog = Dialog(title=_("NFS mount options"))
         self._container.add(EntryWidget(dialog.title, self._nfs_opts), self._set_nfs_opts, dialog)
@@ -426,7 +432,8 @@ class SelectDeviceSpoke(NormalTUISpoke):
         # check if there are any mountable devices
         if self._mountable_devices:
             for d in self._mountable_devices:
-                self._container.add(TextWidget(d[1]), callback=self._select_mountable_device, data=d[0])
+                self._container.add(TextWidget(d[1]), callback=self._select_mountable_device,
+                                    data=d[0])
 
             self.window.add_with_separator(self._container)
 
