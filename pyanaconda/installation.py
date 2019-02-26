@@ -24,7 +24,8 @@ from blivet.devices import BTRFSDevice
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
 from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT
-from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.constants.services import STORAGE, USERS
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
@@ -112,15 +113,20 @@ def doConfiguration(storage, payload, ksdata):
 
     # creating users and groups requires some pre-configuration.
     user_config = TaskQueue("User creation", N_("Creating users"))
-    user_config.append(Task("Configure root", ksdata.rootpw.execute, (storage, ksdata)))
-    user_config.append(Task("Configure user groups", ksdata.group.execute, (storage, ksdata)))
-    user_config.append(Task("Configure user", ksdata.user.execute, (storage, ksdata)))
-    user_config.append(Task("Configure SSH key", ksdata.sshkey.execute, (storage, ksdata)))
+
+    users_proxy = USERS.get_proxy()
+    users_dbus_tasks = users_proxy.InstallWithTasks(util.getSysroot())
+    # add one Task instance per DBUS task
+    for dbus_task in users_dbus_tasks:
+        task_proxy = USERS.get_proxy(dbus_task)
+        user_config.append(Task(task_proxy.Name, sync_run_task, (task_proxy,)))
     configuration_queue.append(user_config)
 
     # Anaconda addon configuration
     addon_config = TaskQueue("Anaconda addon configuration", N_("Configuring addons"))
-    addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, u, payload)))
+    # there is no longer a User class & addons should no longer need it
+    # FIXME: drop user class parameter from the API & all known addons
+    addon_config.append(Task("Configure Anaconda addons", ksdata.addons.execute, (storage, ksdata, None, payload)))
     configuration_queue.append(addon_config)
 
     # Initramfs generation
