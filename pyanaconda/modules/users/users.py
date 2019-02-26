@@ -26,6 +26,8 @@ from pyanaconda.modules.common.structures.group import GroupData
 from pyanaconda.modules.common.structures.sshkey import SshKeyData
 from pyanaconda.modules.users.kickstart import UsersKickstartSpecification
 from pyanaconda.modules.users.users_interface import UsersInterface
+from pyanaconda.modules.users.installation import SetRootPasswordTask, CreateUsersTask, \
+                                                  CreateGroupsTask, SetSshKeysTask
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -192,6 +194,27 @@ class UsersModule(KickstartModule):
             data.sshkey.sshUserList.append(ssh_key_ksdata)
 
         return str(data)
+
+    def install_with_tasks(self, sysroot):
+        """Return the installation tasks of this module.
+
+        :param str sysroot: a path to the root of the installed system
+        :returns: list of object paths of installation tasks
+        """
+        tasks = [
+            SetRootPasswordTask(sysroot=sysroot, password=self.root_password,
+                crypted=self.root_password_is_crypted,
+                locked=self.root_account_locked),
+            CreateGroupsTask(sysroot=sysroot, group_data_list=self.groups),
+            CreateUsersTask(sysroot=sysroot, user_data_list=self.users),
+            SetSshKeysTask(sysroot=sysroot, ssh_key_data_list=self.ssh_keys)
+        ]
+
+        paths = [
+            self.publish_task(USERS.namespace, task) for task in tasks
+        ]
+
+        return paths
 
     @property
     def users(self):
