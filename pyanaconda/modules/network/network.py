@@ -650,7 +650,8 @@ class NetworkModule(KickstartModule):
                     s_wired = con.get_setting_wired()
                     s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
                 else:
-                    log.debug("dump missing ifcfgs: iface %s bound to mac address by ifname boot option")
+                    log.debug("dump missing ifcfgs: iface %s bound to mac address by ifname boot option",
+                              iface)
                 con.commit_changes(True, None)
             elif n_cons > 1:
                 if not device_is_slave:
