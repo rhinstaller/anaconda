@@ -284,7 +284,7 @@ def do_transaction(base, queue_instance):
         display = PayloadRPMDisplay(queue_instance)
         base.do_transaction(display=display)
         exit_reason = "DNF quit"
-    except BaseException as e:
+    except BaseException as e:  # pylint: disable=broad-except
         log.error('The transaction process has ended abruptly')
         log.info(e)
         import traceback
