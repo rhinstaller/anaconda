@@ -26,6 +26,7 @@ from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog, report_if_failed, report_check_func
+from pyanaconda.ui.lib.users import get_user_list, set_user_list
 from pyanaconda.core.users import guess_username, check_username, check_grouplist
 
 from simpleline.render.screen import InputState
@@ -36,7 +37,6 @@ __all__ = ["UserSpoke"]
 
 
 FULLNAME_ERROR_MSG = N_("Full name can't contain the ':' character")
-
 
 class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
@@ -53,7 +53,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         # the user spoke should run always in the anaconda and in firstboot only
         # when doing reconfig or if no user has been created in the installation
-        if environment == FIRSTBOOT_ENVIRON and data and not data.user.userList:
+        users_module = USERS.get_proxy()
+        user_list = get_user_list(users_module)
+        if environment == FIRSTBOOT_ENVIRON and data and not user_list:
             return True
 
         return False
@@ -64,32 +66,60 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         self.initialize_start()
 
+        # connect to the Users DBUS module
+        self._users_module = USERS.get_proxy()
+
         self.title = N_("User creation")
         self._container = None
 
-        if self.data.user.userList:
-            self._user_data = self.data.user.userList[0]
-            self._create_user = True
-        else:
-            self._user_data = self.data.UserData()
-            self._create_user = False
+        # was user creation requested by the Users DBUS module
+        # - at the moment this basically means user creation was
+        #   requested via kickstart
+        # - note that this does not currently update when user
+        #   list is changed via DBUS
+        self._user_requested = False
+        self._user_cleared = False
 
-        self._use_password = self._user_data.isCrypted or self._user_data.password
+        # should a user be created ?
+        self._create_user = False
+
+        self._user_list = get_user_list(self._users_module, add_default=True)
+        # if user has a name, it's an actual user that has been requested,
+        # rather than a default user added by us
+        if self.user.name:
+            self._user_requested = True
+            self._create_user = True
+
+        self._use_password = self.user.is_crypted or self.user.password
         self._groups = ""
         self._is_admin = False
         self._policy = self.data.anaconda.pwpolicy.get_policy("user", fallback_to_default=True)
 
         self.errors = []
 
-        self._users_module = USERS.get_observer()
-        self._users_module.connect()
+        self._users_module = USERS.get_proxy()
 
         self.initialize_done()
 
+    @property
+    def user(self):
+        """The user that is manipulated by the User spoke.
+
+        This user is always the first one in the user list.
+
+        :return: a UserData instance
+        """
+        return self._user_list[0]
+
+
     def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
-        self._is_admin = "wheel" in self._user_data.groups
-        self._groups = ", ".join(self._user_data.groups)
+
+        # refresh the user list
+        self._user_list = get_user_list(self._users_module, add_default=True, add_if_not_empty=self._user_cleared)
+
+        self._is_admin = self.user.has_admin_priviledges()
+        self._groups = ", ".join(self.user.groups)
 
         self._container = ListColumnContainer(1)
 
@@ -98,17 +128,17 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         if self._create_user:
             dialog = Dialog(title=_("Full name"), conditions=[self._check_fullname])
-            self._container.add(EntryWidget(dialog.title, self._user_data.gecos), self._set_fullname, dialog)
+            self._container.add(EntryWidget(dialog.title, self.user.gecos), self._set_fullname, dialog)
 
             dialog = Dialog(title=_("User name"), conditions=[self._check_username])
-            self._container.add(EntryWidget(dialog.title, self._user_data.name), self._set_username, dialog)
+            self._container.add(EntryWidget(dialog.title, self.user.name), self._set_username, dialog)
 
             w = CheckboxWidget(title=_("Use password"), completed=self._use_password)
             self._container.add(w, self._set_use_password)
 
             if self._use_password:
                 password_dialog = PasswordDialog(title=_("Password"), policy=self._policy)
-                if self._user_data.password:
+                if self.user.password:
                     entry = EntryWidget(password_dialog.title, _(PASSWORD_SET))
                 else:
                     entry = EntryWidget(password_dialog.title)
@@ -140,10 +170,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._create_user = not self._create_user
 
     def _set_fullname(self, dialog):
-        self._user_data.gecos = dialog.run()
+        self.user.gecos = dialog.run()
 
     def _set_username(self, dialog):
-        self._user_data.name = dialog.run()
+        self.user.name = dialog.run()
 
     def _set_use_password(self, args):
         self._use_password = not self._use_password
@@ -154,7 +184,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         while password is None:
             password = password_dialog.run()
 
-        self._user_data.password = password
+        self.user.password = password
 
     def _set_administrator(self, args):
         self._is_admin = not self._is_admin
@@ -171,8 +201,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def completed(self):
         """ Verify a user is created; verify pw is set if option checked. """
-        if len(self.data.user.userList) > 0:
-            if self._use_password and not bool(self._user_data.password or self._user_data.isCrypted):
+        user_list = get_user_list(self._users_module)
+        if user_list:
+            if self._use_password and not bool(self.user.password or self.user.is_crypted):
                 return False
             else:
                 return True
@@ -182,25 +213,24 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     @property
     def showable(self):
         return not (self.completed and flags.automatedInstall
-                    and self.data.user.seen and not self._policy.changesok)
+                    and self._user_requested and not self._policy.changesok)
 
     @property
     def mandatory(self):
-        """ Only mandatory if the root pw hasn't been set in the UI
-            eg. not mandatory if the root account was locked in a kickstart
-        """
-        return not self._users_module.proxy.IsRootPasswordSet and not self._users_module.proxy.IsRootAccountLocked
+        """Only mandatory if no admin user has been requested."""
+        return not self._users_module.CheckAdminUserExists()
 
     @property
     def status(self):
-        if len(self.data.user.userList) == 0:
+        user_list = get_user_list(self._users_module)
+        if not user_list:
             return _("No user will be created")
-        elif self._use_password and not bool(self._user_data.password or self._user_data.isCrypted):
+        elif self._use_password and not bool(self.user.password or self.user.is_crypted):
             return _("You must set a password")
-        elif "wheel" in self.data.user.userList[0].groups:
-            return _("Administrator %s will be created") % self.data.user.userList[0].name
+        elif user_list[0].has_admin_priviledges():
+            return _("Administrator %s will be created") % user_list[0].name
         else:
-            return _("User %s will be created") % self.data.user.userList[0].name
+            return _("User %s will be created") % user_list[0].name
 
     def input(self, args, key):
         if self._container.process_user_input(key):
@@ -210,35 +240,39 @@ class UserSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         return super().input(args, key)
 
     def apply(self):
-        if self._user_data.gecos and not self._user_data.name:
-            username = guess_username(self._user_data.gecos)
+        if self.user.gecos and not self.user.name:
+            username = guess_username(self.user.gecos)
             valid, msg = check_username(username)
             if not valid:
                 self.errors.append(_("Invalid user name: %(name)s.\n%(error_message)s")
                                    % {"name": username, "error_message": msg})
             else:
-                self._user_data.name = guess_username(self._user_data.gecos)
+                self.user.name = guess_username(self.user.gecos)
 
-        self._user_data.groups = [g.strip() for g in self._groups.split(",") if g]
+        self.user.groups = [g.strip() for g in self._groups.split(",") if g]
 
-        # Add or remove the user from wheel group
-        if self._is_admin and "wheel" not in self._user_data.groups:
-            self._user_data.groups.append("wheel")
-        elif not self._is_admin and "wheel" in self._user_data.groups:
-            self._user_data.groups.remove("wheel")
-
-        # Add or remove the user from userlist as needed
-        if self._create_user and (self._user_data not in self.data.user.userList and self._user_data.name):
-            self.data.user.userList.append(self._user_data)
-        elif (not self._create_user) and (self._user_data in self.data.user.userList):
-            self.data.user.userList.remove(self._user_data)
+        # Add or remove user admin status
+        self.user.set_admin_priviledges(self._is_admin)
 
         # encrypt and store password only if user entered anything; this should
         # preserve passwords set via kickstart
-        if self._use_password and self._user_data.password and len(self._user_data.password) > 0:
-            self._user_data.password = self._user_data.password
-            self._user_data.isCrypted = True
+        if self._use_password and self.user.password and len(self.user.password) > 0:
+            self.user.password = self.user.password
+            self.user.is_crypted = True
         # clear pw when user unselects to use pw
         else:
-            self._user_data.password = ""
-            self._user_data.isCrypted = False
+            self.user.password = ""
+            self.user.is_crypted = False
+
+        # Turning user creation off clears any already configured user,
+        # regardless of origin (kickstart, user, DBUS).
+        if not self._create_user and self.user.name:
+            self.user.name = ""
+            self._user_cleared = True
+        # An the other hand, if we have a user with name set,
+        # it is valid and should be used if the spoke is re-visited.
+        if self.user.name:
+            self._user_cleared = False
+        # Set the user list while removing any unset users, where unset
+        # means the user has nema == "".
+        set_user_list(self._users_module, self._user_list, remove_unset=True)
