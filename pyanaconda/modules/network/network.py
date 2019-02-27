@@ -59,9 +59,6 @@ class NetworkModule(KickstartModule):
         self.hostname_changed = Signal()
         self._hostname = "localhost.localdomain"
 
-        self.disable_ipv6_changed = Signal()
-        self._disable_ipv6 = False
-
         self.current_hostname_changed = Signal()
         self._hostname_service_proxy = None
 
@@ -91,6 +88,7 @@ class NetworkModule(KickstartModule):
         self._default_device_specification = DEFAULT_DEVICE_SPECIFICATION
         self._bootif = None
         self._ifname_option_values = []
+        self._disable_ipv6 = False
         self._apply_boot_options(flags.cmdline)
 
     def publish(self):
@@ -266,11 +264,15 @@ class NetworkModule(KickstartModule):
         """Disable IPv6 on target system."""
         return self._disable_ipv6
 
-    def set_disable_ipv6(self, disable_ipv6):
-        """Set disable IPv6 on target system."""
+    @disable_ipv6.setter
+    def disable_ipv6(self, disable_ipv6):
+        """Set disable IPv6 on target system.
+
+        :param disable_ipv6: should ipv6 be disabled on target system
+        :type disable_ipv6: bool
+        """
         self._disable_ipv6 = disable_ipv6
-        self.disable_ipv6_changed.emit()
-        log.debug("Disable IPv6 is set to %s", disable_ipv6)
+        log.debug("disable IPv6 is set to %s", disable_ipv6)
 
     def install_network_with_task(self, sysroot, onboot_ifaces, overwrite):
         """Install network with an installation task.
@@ -707,3 +709,5 @@ class NetworkModule(KickstartModule):
             self.bootif = kernel_arguments['BOOTIF'][3:].replace("-", ":").upper()
         if 'ifname' in kernel_arguments:
             self.ifname_option_values = kernel_arguments.get("ifname", "").split()
+        if 'noipv6' in kernel_arguments:
+            self.disable_ipv6 = True
