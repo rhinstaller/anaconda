@@ -683,7 +683,8 @@ def update_virtual_slave_ifcfg(slave, setting):
             # pylint: disable=redefined-outer-name
             for line in f:
                 key, _sep, val = line.strip().partition("=")
-                if key == "TYPE" and val.strip('"') in ("Bond", "Team"):
+                value = val.strip('"')
+                if (key == "TYPE" and value == "Bond") or (key == "DEVICETYPE" and value == "Team"):
                     update = True
             if update:
                 f.write("%s\n" % setting)
