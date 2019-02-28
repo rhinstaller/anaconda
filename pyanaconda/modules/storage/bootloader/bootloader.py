@@ -130,10 +130,10 @@ class BootloaderModule(KickstartBaseModule):
             data.bootloader.disabled = False
             data.bootloader.location = "mbr"
         elif self.preferred_location == BOOTLOADER_LOCATION_PARTITION:
-            data.bootloader.location = False
+            data.bootloader.disabled = False
             data.bootloader.location = "partition"
         else:
-            data.bootloader.location = False
+            data.bootloader.disabled = False
             data.bootloader.location = None
 
         data.bootloader.bootDrive = self.drive
