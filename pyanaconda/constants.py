@@ -136,6 +136,23 @@ FIRSTBOOT_ENVIRON = "firstboot"
 # Tainted hardware
 UNSUPPORTED_HW = 1 << 28
 
+# SMT warnings
+WARNING_SMT_ENABLED_GUI = N_(
+    "Simultaneous Multithreading (SMT) technology can provide performance improvements for "
+    "certain workloads, but introduces several publicly disclosed security issues. You have "
+    "the option of disabling SMT, which may impact performance. If you choose to leave SMT "
+    "enabled, please read https://red.ht/rhel-smt to understand your potential risks and learn "
+    "about other ways to mitigate these risks."
+)
+
+# This message has to be shorter for serial console.
+WARNING_SMT_ENABLED_TUI = N_(
+    "Simultaneous Multithreading (SMT) may improve performance for certain workloads, but "
+    "introduces several publicly disclosed security issues. You can disable SMT, which may "
+    "impact performance. Please read https://red.ht/rhel-smt to understand potential risks "
+    "and learn about ways to mitigate these risks."
+)
+
 # Password validation
 PASSWORD_MIN_LEN = 6
 PASSWORD_EMPTY_ERROR = N_("The %(password)s is empty.")  # singular
