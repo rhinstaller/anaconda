@@ -16,8 +16,11 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pyanaconda.core.constants import WARNING_SMT_ENABLED
+from pyanaconda.core.i18n import _, C_
+from pyanaconda.core.util import is_smt_enabled
 from pyanaconda.ui.gui.hubs import Hub
+from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
 from pyanaconda.flags import flags
 
@@ -56,6 +59,7 @@ class SummaryHub(Hub):
                            selections and default partitioning.
         """
         super().__init__(data, storage, payload, instclass)
+        self._show_details_callback = None
 
         if not flags.dirInstall:
             self._checker = FileSystemSpaceChecker(storage, payload)
@@ -65,8 +69,50 @@ class SummaryHub(Hub):
         # Add a continue-clicked handler
         self.window.connect("continue-clicked", self._on_continue_clicked)
 
+        # Add an info-bar-clicked handler
+        self.window.connect("info-bar-clicked", self._on_info_bar_clicked)
+
     def _on_continue_clicked(self, window, user_data=None):
         """Call finished method of spokes when leaving the hub.
         """
         for spoke in sorted(self._spokes.values(), key=lambda x: x.__class__.__name__):
             spoke.finished()
+
+    def _on_info_bar_clicked(self, *args):
+        """Call the callback to show a detailed message."""
+        if self._show_details_callback:
+            self._show_details_callback()
+
+    def _get_warning(self):
+        """Get the warning message for the hub."""
+        warning = super()._get_warning()
+        callback = None
+
+        if not warning and is_smt_enabled():
+            warning = _("Warning: Processor has Simultaneous Multithreading (SMT) enabled.  "
+                        "<a href=\"\">Click for details.</a>")
+
+            callback = self._show_detailed_smt_warning
+
+        self._show_details_callback = callback
+        return warning
+
+    def _show_detailed_smt_warning(self):
+        """Show details for the SMT warning."""
+        label = _("The following warnings were encountered when checking your kernel "
+                  "configuration. These are not fatal, but you may wish to make changes "
+                  "to your kernel config.")
+
+        warning = _(WARNING_SMT_ENABLED)
+
+        dialog = DetailedErrorDialog(
+            self.data,
+            buttons=[C_("GUI|Summary|Warning Dialog", "_OK")],
+            label=label
+        )
+
+        with self.main_window.enlightbox(dialog.window):
+            dialog.refresh(warning)
+            dialog.run()
+
+        dialog.window.destroy()

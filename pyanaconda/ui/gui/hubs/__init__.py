@@ -257,7 +257,8 @@ class Hub(GUIObject, common.Hub):
         if update_continue:
             self._updateContinue()
 
-    def _updateContinue(self):
+    def _get_warning(self):
+        """Get the warning message for the hub."""
         warning = None
         if len(self._incompleteSpokes) == 0:
             if self._checker and not self._checker.check():
@@ -272,8 +273,13 @@ class Hub(GUIObject, common.Hub):
         else:
             warning = _("Please complete items marked with this icon before continuing to the next step.")
 
+        return warning
+
+    def _updateContinue(self):
         # Check that this warning isn't already set to avoid spamming the
         # info bar with incomplete spoke messages when the hub starts
+        warning = self._get_warning()
+
         if warning != self._warningMsg:
             self.clear_info()
             self._warningMsg = warning
