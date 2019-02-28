@@ -18,7 +18,6 @@
 #
 
 import os
-import copy
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, CN_
 from pyanaconda.core.users import crypt_password, guess_username, check_groupname
@@ -34,6 +33,7 @@ from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import blockedHandler, set_password_visibility
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.lib.users import get_user_list, set_user_list
 
 from pyanaconda.core.regexes import GROUPLIST_FANCY_PARSE
 
@@ -67,13 +67,13 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         return InputCheck.CHECK_OK
 
-    def __init__(self, user, data):
-        GUIObject.__init__(self, data)
+    def __init__(self, user_spoke):
+        GUIObject.__init__(self, user_spoke)
 
         saveButton = self.builder.get_object("save_button")
         GUIDialogInputCheckHandler.__init__(self, saveButton)
 
-        self._user = user
+        self._user_spoke = user_spoke
 
         # Track whether the user has requested a home directory other
         # than the default. This way, if the home directory is left as
@@ -101,37 +101,43 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__, False)
 
+    @property
+    def user(self):
+        """Shortcut to user data from the user spoke."""
+        return self._user_spoke.user
+
     def refresh(self):
-        if self._user.homedir:
-            homedir = self._user.homedir
-        elif self._user.name:
-            homedir = "/home/" + self._user.name
+        # start be reloading the user data from the user spoke
+        if self.user.homedir:
+            homedir = self.user.homedir
+        elif self.user.name:
+            homedir = "/home/" + self.user.name
 
         self._tHome.set_text(homedir)
         self._origHome = homedir
 
-        self._cUid.set_active(bool(self._user.uid))
-        self._cGid.set_active(bool(self._user.gid))
+        self._cUid.set_active(bool(self.user.uid))
+        self._cGid.set_active(bool(self.user.gid))
 
         self._spinUid.update()
         self._spinGid.update()
 
-        self._tGroups.set_text(", ".join(self._user.groups))
+        self._tGroups.set_text(", ".join(self.user.groups))
 
     def apply(self):
-        # Copy data from the UI back to the kickstart object
+        # Copy data from the UI back to the user data object
         homedir = self._tHome.get_text()
 
         # If the user cleared the home directory, revert back to the
         # default
         if not homedir:
-            self._user.homedir = None
+            self.user.homedir = None
         # If the user modified the home directory input, save that the
         # home directory has been modified and use the value.
         elif self._origHome != homedir:
             if not os.path.isabs(homedir):
                 homedir = "/" + homedir
-            self._user.homedir = homedir
+            self.user.homedir = homedir
 
         # Otherwise leave the home directory alone. If the home
         # directory is currently the default value, the next call
@@ -139,17 +145,17 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # changes in the username.
 
         if self._cUid.get_active():
-            self._user.uid = int(self._uid.get_value())
+            self.user.uid = int(self._uid.get_value())
         else:
-            self._user.uid = None
+            self.user.uid = None
 
         if self._cGid.get_active():
-            self._user.gid = int(self._gid.get_value())
+            self.user.gid = int(self._gid.get_value())
         else:
-            self._user.gid = None
+            self.user.gid = None
 
         # ''.split(',') returns [''] instead of [], which is not what we want
-        self._user.groups = [g.strip() for g in self._tGroups.get_text().split(",") if g]
+        self.user.groups = [g.strip() for g in self._tGroups.get_text().split(",") if g]
 
         # Send ready signal to main event loop
         hubQ.send_ready(self.__class__.__name__, False)
@@ -226,13 +232,17 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def should_run(cls, environment, data):
         # the user spoke should run always in the anaconda and in firstboot only
         # when doing reconfig or if no user has been created in the installation
+
+        users_module = USERS.get_proxy()
+        user_list = get_user_list(users_module)
+
         if environment == constants.ANACONDA_ENVIRON:
             return True
         elif environment == constants.FIRSTBOOT_ENVIRON and data is None:
             # cannot decide, stay in the game and let another call with data
             # available (will come) decide
             return True
-        elif environment == constants.FIRSTBOOT_ENVIRON and data and len(data.user.userList) == 0:
+        elif environment == constants.FIRSTBOOT_ENVIRON and data and user_list:
             return True
         else:
             return False
@@ -241,19 +251,24 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         NormalSpoke.__init__(self, *args)
         GUISpokeInputCheckHandler.__init__(self)
 
-        self._users_module = USERS.get_observer()
-        self._users_module.connect()
+        self._users_module = USERS.get_proxy()
 
     def initialize(self):
         NormalSpoke.initialize(self)
         self.initialize_start()
 
-        # Create a new UserData object to store this spoke's state
-        # as well as the state of the advanced user dialog.
-        if self.data.user.userList:
-            self._user = copy.copy(self.data.user.userList[0])
-        else:
-            self._user = self.data.UserData()
+        # We consider user creation requested if there was at least one user
+        # in the DBUS module user list at startup.
+        # We also remember how the user was called so that we can clear it
+        # in a reasonably safe way & if it was cleared.
+        self._user_list = get_user_list(self._users_module, add_default=True)
+        self._user_requested = False
+        self._requested_user_cleared = False
+        # if user has a name, it's an actual user that has been requested,
+        # rather than a default user added by us
+        if self.user.name:
+            self._user_requested = True
+            self._requested_user_name = self.user.name
 
         # gather references to relevant GUI objects
 
@@ -332,9 +347,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.password_bar.add_offset_value("medium", 3)
         self.password_bar.add_offset_value("high", 4)
 
-        # indicate when the password was set by kickstart
-        self.password_kickstarted = self.data.user.seen
-
         # Modify the GUI based on the kickstart and policy information
         # This needs to happen after the input checks have been created, since
         # the Gtk signal handlers use the input check variables.
@@ -351,7 +363,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             # User isn't allowed to change whether password is required or not
             self.password_required_checkbox.set_sensitive(False)
 
-        self._advanced_user_dialog = AdvancedUserDialog(self._user, self.data)
+        self._advanced_user_dialog = AdvancedUserDialog(self)
         self._advanced_user_dialog.initialize()
 
         # set the visibility of the password entries
@@ -397,29 +409,47 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     def password_required(self, value):
         self.password_required_checkbox.set_active(value)
 
+    @property
+    def user(self):
+        """The user that is manipulated by the User spoke.
+
+        This user is always the first one in the user list.
+
+        :return: a UserData instance
+        """
+        return self._user_list[0]
+
     def refresh(self):
-        self.username = self._user.name
-        self.fullname = self._user.gecos
-        self._admin_checkbox.set_active("wheel" in self._user.groups)
+        # user data could have changed in the Users DBUS module
+        # since the last visit, so reload it from DBUS
+        #
+        # In the case that the user list is empty or
+        # a requested user has been cleared from the list in previous
+        # spoke visit we need to have an empty user instance prepended
+        # to the list.
+        self._user_list = get_user_list(self._users_module, add_default=True, add_if_not_empty=self._requested_user_cleared)
+
+        self.username = self.user.name
+        self.fullname = self.user.gecos
+        self._admin_checkbox.set_active(self.user.has_admin_priviledges())
 
         # rerun checks so that we have a correct status message, if any
         self.checker.run_checks()
 
     @property
     def status(self):
-        if len(self.data.user.userList) == 0:
+        user_list = get_user_list(self._users_module)
+        if not user_list:
             return _("No user will be created")
-        elif "wheel" in self.data.user.userList[0].groups:
-            return _("Administrator %s will be created") % self.data.user.userList[0].name
+        elif user_list[0].has_admin_priviledges():
+            return _("Administrator %s will be created") % user_list[0].name
         else:
-            return _("User %s will be created") % self.data.user.userList[0].name
+            return _("User %s will be created") % user_list[0].name
 
     @property
     def mandatory(self):
-        """ Only mandatory if the root pw hasn't been set in the UI
-            eg. not mandatory if the root account was locked in a kickstart
-        """
-        return not self._users_module.proxy.IsRootPasswordSet and not self._users_module.proxy.IsRootAccountLocked
+        """Only mandatory if no admin user has been requested."""
+        return not self._users_module.CheckAdminUserExists()
 
     def apply(self):
         # set the password only if the user enters anything to the text entry
@@ -427,41 +457,42 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         if self.password_required:
             if self.password:
                 self.password_kickstarted = False
-                self._user.password = crypt_password(self.password)
-                self._user.isCrypted = True
+                self.user.password = crypt_password(self.password)
+                self.user.is_crypted = True
                 self.remove_placeholder_texts()
 
         # reset the password when the user unselects it
         else:
             self.remove_placeholder_texts()
-            self._user.password = ""
-            self._user.isCrypted = False
+            self.user.password = ""
+            self.user.is_crypted = False
             self.password_kickstarted = False
 
-        self._user.name = self.username
-        self._user.gecos = self.fullname
+        self.user.name = self.username
+        self.user.gecos = self.fullname
 
-        # Copy the spoke data back to kickstart
-        # If the user name is not set, no user will be created.
-        if self._user.name:
-            ksuser = copy.copy(self._user)
-            if not self.data.user.userList:
-                self.data.user.userList.append(ksuser)
-            else:
-                self.data.user.userList[0] = ksuser
-        elif self.data.user.userList:
-            self.data.user.userList.pop(0)
+        # We make it possible to clear users requested from kickstart (or DBUS API)
+        # during an interactive installation. This is done by setting their name
+        # to "". Then during apply() we will check the user name and if it is
+        # equal to "", we will remember that locally and not forward the user which
+        # has been cleared to the DBUS module, by using the remove_uset flag
+        # for the set_user_list function.
+
+        # record if the requested user has been explicitely unset
+        self._requested_user_cleared = not self.user.name
+        # clear the unset user (if any)
+        set_user_list(self._users_module, self._user_list, remove_unset=True)
 
     @property
     def sensitive(self):
         # Spoke cannot be entered if a user was set in the kickstart and the user
         # policy doesn't allow changes.
         return not (self.completed and flags.automatedInstall
-                    and self.data.user.seen and not self.checker.policy.changesok)
+                    and self._user_requested and not self.checker.policy.changesok)
 
     @property
     def completed(self):
-        return len(self.data.user.userList) > 0
+        return bool(get_user_list(self._users_module))
 
     def password_required_toggled(self, togglebutton=None, data=None):
         """Called by Gtk callback when the "Use password" check
@@ -532,25 +563,21 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.checker.run_checks()
 
     def on_admin_toggled(self, togglebutton, data=None):
-        # Add or remove "wheel" from the grouplist on changes to the admin checkbox
-        if togglebutton.get_active():
-            if "wheel" not in self._user.groups:
-                self._user.groups.append("wheel")
-        elif "wheel" in self._user.groups:
-            self._user.groups.remove("wheel")
+        # Add or remove user admin status based on changes to the admin checkbox
+        self.user.set_admin_priviledges(togglebutton.get_active())
 
     def on_advanced_clicked(self, _button, data=None):
         """Handler for the Advanced.. button. It starts the Advanced dialog
         for setting homedir, uid, gid and groups.
         """
 
-        self._user.name = self.username
+        self.user.name = self.username
 
         self._advanced_user_dialog.refresh()
         with self.main_window.enlightbox(self._advanced_user_dialog.window):
             self._advanced_user_dialog.run()
 
-        self._admin_checkbox.set_active("wheel" in self._user.groups)
+        self._admin_checkbox.set_active(self.user.has_admin_priviledges())
 
     def _checks_done(self, error_message):
         """Update the warning with the input validation error from the first

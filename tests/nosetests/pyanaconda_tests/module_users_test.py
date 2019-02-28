@@ -1056,25 +1056,25 @@ class UsersDataTestCase(unittest.TestCase):
         self.assertNotIn(user_data_x, list5)
         self.assertNotIn(user_data_z, list5)
 
-    def is_admin_test(self):
-        """Check the check_is_admin() method works correctly."""
+    def has_admin_priviledges_test(self):
+        """Test the has_admin_priviledges() method works correctly."""
 
         user_data = UserData()
         user_data.groups = ["wheel"]
-        self.assertTrue(user_data.check_is_admin())
+        self.assertTrue(user_data.has_admin_priviledges())
 
         user_data = UserData()
         user_data.groups = ["foo"]
-        self.assertFalse(user_data.check_is_admin())
+        self.assertFalse(user_data.has_admin_priviledges())
 
         user_data = UserData()
         user_data.groups = ["foo", "wheel", "bar"]
-        self.assertTrue(user_data.check_is_admin())
+        self.assertTrue(user_data.has_admin_priviledges())
 
         # multiple wheels
         user_data = UserData()
         user_data.groups = ["foo", "wheel", "bar", "wheel", "baz"]
-        self.assertTrue(user_data.check_is_admin())
+        self.assertTrue(user_data.has_admin_priviledges())
 
         # group name is case sensitive
         user_data = UserData()
