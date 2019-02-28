@@ -83,6 +83,7 @@ class SimpleUITestCase(unittest.TestCase):
         # Check the actions classes.
         self.assertEqual(self._get_action_class_names(), [
             "UnsupportedHardwareSpoke",
+            "KernelWarningSpoke",
             "SummaryHub",
             "ProgressSpoke"
         ])
