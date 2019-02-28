@@ -21,6 +21,7 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.configuration.network import NetworkOnBoot
 from pyanaconda.dbus import DBus, SystemBus
 from pyanaconda.core.signal import Signal
+from pyanaconda.flags import flags
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import NETWORK, HOSTNAME
 from pyanaconda.modules.network.network_interface import NetworkInterface
@@ -58,9 +59,6 @@ class NetworkModule(KickstartModule):
         self.hostname_changed = Signal()
         self._hostname = "localhost.localdomain"
 
-        self.disable_ipv6_changed = Signal()
-        self._disable_ipv6 = False
-
         self.current_hostname_changed = Signal()
         self._hostname_service_proxy = None
 
@@ -90,6 +88,8 @@ class NetworkModule(KickstartModule):
         self._default_device_specification = DEFAULT_DEVICE_SPECIFICATION
         self._bootif = None
         self._ifname_option_values = []
+        self._disable_ipv6 = False
+        self._apply_boot_options(flags.cmdline)
 
     def publish(self):
         """Publish the module."""
@@ -264,11 +264,15 @@ class NetworkModule(KickstartModule):
         """Disable IPv6 on target system."""
         return self._disable_ipv6
 
-    def set_disable_ipv6(self, disable_ipv6):
-        """Set disable IPv6 on target system."""
+    @disable_ipv6.setter
+    def disable_ipv6(self, disable_ipv6):
+        """Set disable IPv6 on target system.
+
+        :param disable_ipv6: should ipv6 be disabled on target system
+        :type disable_ipv6: bool
+        """
         self._disable_ipv6 = disable_ipv6
-        self.disable_ipv6_changed.emit()
-        log.debug("Disable IPv6 is set to %s", disable_ipv6)
+        log.debug("disable IPv6 is set to %s", disable_ipv6)
 
     def install_network_with_task(self, sysroot, onboot_ifaces, overwrite):
         """Install network with an installation task.
@@ -354,7 +358,7 @@ class NetworkModule(KickstartModule):
         for nd in network_data:
             supported_devices = self.get_supported_devices()
             device_name = get_device_name_from_network_data(self.nm_client,
-                                                            nd, supported_devices, self._bootif)
+                                                            nd, supported_devices, self.bootif)
             if device_name in ifaces:
                 log.debug("Updating network data onboot value: %s -> %s", nd.onboot, True)
                 nd.onboot = True
@@ -432,14 +436,14 @@ class NetworkModule(KickstartModule):
 
     @property
     def bootif(self):
-        """Get the value of kickstart --bootif option."""
+        """Get the value of kickstart --device bootif option."""
         return self._bootif
 
     @bootif.setter
     def bootif(self, specification):
-        """Set the value of kickstart --bootif option.
+        """Set the value of kickstart --device bootif option.
 
-        :param specifiacation: mac address specified in kickstart --bootif option
+        :param specifiacation: mac address specified by kickstart --device bootif option
         :type specification: str
         """
         self._bootif = specification
@@ -484,7 +488,7 @@ class NetworkModule(KickstartModule):
             device_name = get_device_name_from_network_data(self.nm_client,
                                                             network_data,
                                                             supported_devices,
-                                                            self._bootif)
+                                                            self.bootif)
             if not device_name:
                 log.warning("apply kickstart: --device %s not found", network_data.device)
                 continue
@@ -514,7 +518,8 @@ class NetworkModule(KickstartModule):
             else:
                 log.debug("pre kickstart - adding connection for %s", device_name)
                 add_connection_from_ksdata(self.nm_client, network_data, device_name,
-                                           activate=network_data.activate)
+                                           activate=network_data.activate,
+                                           ifname_option_values=self.ifname_option_values)
 
         return applied_devices
 
@@ -542,7 +547,7 @@ class NetworkModule(KickstartModule):
             device_name = get_device_name_from_network_data(self.nm_client,
                                                             network_data,
                                                             supported_devices,
-                                                            self._bootif)
+                                                            self.bootif)
             if not device_name:
                 log.warning("set ONBOOT: --device %s does not exist", network_data.device)
 
@@ -632,7 +637,8 @@ class NetworkModule(KickstartModule):
                 data = self.get_kickstart_handler()
                 default_data = data.NetworkData(onboot=False, ipv6="auto")
                 log.debug("dump missing ifcfgs: creating default connection for %s", iface)
-                add_connection_from_ksdata(self.nm_client, default_data, iface)
+                add_connection_from_ksdata(self.nm_client, default_data, iface, activate=False,
+                                           ifname_option_values=self.ifname_option_values)
             elif n_cons == 1:
                 if device_is_slave:
                     log.debug("dump missing ifcfgs: not creating default connection for slave device %s",
@@ -648,7 +654,8 @@ class NetworkModule(KickstartModule):
                     s_wired = con.get_setting_wired()
                     s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
                 else:
-                    log.debug("dump missing ifcfgs: iface %s bound to mac address by ifname boot option")
+                    log.debug("dump missing ifcfgs: iface %s bound to mac address by ifname boot option",
+                              iface)
                 con.commit_changes(True, None)
             elif n_cons > 1:
                 if not device_is_slave:
@@ -688,3 +695,19 @@ class NetworkModule(KickstartModule):
 
         dracut_args = list(get_dracut_arguments_from_ifcfg(self.nm_client, ifcfg, iface, target_ip, hostname))
         return dracut_args
+
+    def _apply_boot_options(self, kernel_arguments):
+        """Apply boot options to the module.
+
+        :param kernel_arguments: structure holding installer boot options
+        :type kernel_arguments: KernelArguments
+        """
+        log.debug("Applying boot options %s", kernel_arguments)
+        if 'ksdevice' in kernel_arguments:
+            self.default_device_specification = kernel_arguments.get('ksdevice')
+        if 'BOOTIF' in kernel_arguments:
+            self.bootif = kernel_arguments['BOOTIF'][3:].replace("-", ":").upper()
+        if 'ifname' in kernel_arguments:
+            self.ifname_option_values = kernel_arguments.get("ifname", "").split()
+        if 'noipv6' in kernel_arguments:
+            self.disable_ipv6 = True
