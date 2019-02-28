@@ -38,6 +38,9 @@ PAGE_ACTION = 1
 PAGE_RESULT_ERROR = 2
 PAGE_RESULT_SUCCESS = 3
 
+NVDIMM_SECTOR_SIZE_OPTIONS = ['512', '4096']
+
+
 class NVDIMMDialog(GUIObject):
     """
        .. inheritance-diagram:: NVDIMMDialog
@@ -66,17 +69,22 @@ class NVDIMMDialog(GUIObject):
         self._repopulateSpinner = self.builder.get_object("repopulateSpinner")
         self._repopulateLabel = self.builder.get_object("repopulateLabel")
         self._sectorSizeLabel = self.builder.get_object("sectorSizeLabel")
-        self._sectorSizeSpinButton = self.builder.get_object("sectorSizeSpinButton")
+        self._sectorSizeCombo = self.builder.get_object("sectorSizeCombo")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
+        self._setup_size_combo()
+
+    def _setup_size_combo(self):
+        for size in NVDIMM_SECTOR_SIZE_OPTIONS:
+            self._sectorSizeCombo.append_text(size)
 
     def refresh(self):
-        self._sectorSizeSpinButton.set_value(DEFAULT_SECTOR_SIZE)
+        self._sectorSizeCombo.set_active(0)
         if self.namespaces:
             self._devicesLabel.set_text("%s" % ", ".join(self.namespaces))
         else:
             msg = CN_("GUI|Advanced Storage|NVDIM", "No device to be reconfigured selected.")
             self._infoLabel.set_text(msg)
-            for widget in [self._sectorSizeSpinButton, self._okButton, self._startButton,
+            for widget in [self._sectorSizeCombo, self._okButton, self._startButton,
                            self._sectorSizeLabel]:
                 widget.set_sensitive(False)
 
@@ -87,12 +95,12 @@ class NVDIMMDialog(GUIObject):
 
     @property
     def sector_size(self):
-        return self._sectorSizeSpinButton.get_value_as_int()
+        return int(self._sectorSizeCombo.get_active_text())
 
     def on_start_clicked(self, *args):
         self._conditionNotebook.set_current_page(PAGE_ACTION)
 
-        for widget in [self._startButton, self._cancelButton, self._sectorSizeSpinButton,
+        for widget in [self._startButton, self._cancelButton, self._sectorSizeCombo,
                        self._okButton]:
             widget.set_sensitive(False)
 
