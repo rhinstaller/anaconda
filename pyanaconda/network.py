@@ -384,7 +384,10 @@ def networkInitialize(ksdata):
         logIfcfgFiles(msg)
 
     log.debug("create missing ifcfg files")
-    devnames = network_proxy.DumpMissingIfcfgFiles()
+    task_path = network_proxy.DumpMissingIfcfgFilesWithTask()
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+    devnames = task_proxy.GetResult()
     if devnames:
         msg = "missing ifcfgs created for devices %s" % devnames
         log.debug("%s", msg)

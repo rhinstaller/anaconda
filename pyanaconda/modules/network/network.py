@@ -31,13 +31,13 @@ from pyanaconda.modules.network.kickstart import NetworkKickstartSpecification, 
 from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
     supported_wired_device_types
-from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
-    add_connection_from_ksdata, bound_hwaddr_of_device, devices_ignore_ipv6
+from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, devices_ignore_ipv6
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     get_dracut_arguments_from_ifcfg, get_kickstart_network_data, get_ifcfg_file
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
-    ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask
+    ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
+    DumpMissingIfcfgFilesTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 
 import gi
@@ -469,7 +469,7 @@ class NetworkModule(KickstartModule):
                                                     self.ifname_option_values)
         return self.publish_task(NETWORK.namespace, task, InitializeTaskInterface)
 
-    def dump_missing_ifcfg_files(self):
+    def dump_missing_ifcfg_files_with_task(self):
         """Dump missing default ifcfg file for wired devices.
 
         Make sure each supported wired device has ifcfg file.
@@ -485,57 +485,15 @@ class NetworkModule(KickstartModule):
 
         The connection id (and consequently ifcfg file name) is set to device
         name.
+
+        :returns: DBus path of the task dumping the files
         """
-        if not self.nm_available:
-            return []
-
-        new_ifcfgs = []
-
-        for device in self.nm_client.get_devices():
-            if device.get_device_type() not in supported_wired_device_types:
-                continue
-
-            iface = device.get_iface()
-            if get_ifcfg_file_of_device(self.nm_client, iface):
-                continue
-
-            cons = device.get_available_connections()
-            n_cons = len(cons)
-            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
-
-            if n_cons == 0:
-                data = self.get_kickstart_handler()
-                default_data = data.NetworkData(onboot=False, ipv6="auto")
-                log.debug("dump missing ifcfgs: creating default connection for %s", iface)
-                add_connection_from_ksdata(self.nm_client, default_data, iface, activate=False,
-                                           ifname_option_values=self.ifname_option_values)
-            elif n_cons == 1:
-                if device_is_slave:
-                    log.debug("dump missing ifcfgs: not creating default connection for slave device %s",
-                              iface)
-                    continue
-                con = cons[0]
-                log.debug("dump missing ifcfgs: dumping default autoconnection %s for %s",
-                          con.get_uuid(), iface)
-                s_con = con.get_setting_connection()
-                s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
-                s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
-                if not bound_hwaddr_of_device(self.nm_client, iface, self.ifname_option_values):
-                    s_wired = con.get_setting_wired()
-                    s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
-                else:
-                    log.debug("dump missing ifcfgs: iface %s bound to mac address by ifname boot option",
-                              iface)
-                con.commit_changes(True, None)
-            elif n_cons > 1:
-                if not device_is_slave:
-                    log.warning("dump missing ifcfgs: %d non-slave connections found for device %s",
-                                n_cons, iface)
-                continue
-
-            new_ifcfgs.append(iface)
-
-        return new_ifcfgs
+        data = self.get_kickstart_handler()
+        default_network_data = data.NetworkData(onboot=False, ipv6="auto")
+        task = DumpMissingIfcfgFilesTask(self.nm_client,
+                                         default_network_data,
+                                         self.ifname_option_values)
+        return self.publish_task(NETWORK.namespace, task, InitializeTaskInterface)
 
     def network_device_configuration_changed(self):
         if not self._device_configurations:

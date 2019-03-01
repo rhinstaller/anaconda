@@ -20,9 +20,10 @@ from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
     ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
-    update_iface_setting_values
+    update_iface_setting_values, bound_hwaddr_of_device
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
     update_onboot_value, update_slaves_onboot_value
+from pyanaconda.modules.network.device_configuration import supported_wired_device_types
 
 log = get_module_logger(__name__)
 
@@ -40,7 +41,7 @@ class ApplyKickstartTask(Task):
         :param nm_client: NetworkManager client used as configuration backend
         :type nm_client: NM.Client
         :param network_data: kickstart network data to be applied
-        :type: pykickstart NetworkData
+        :type: list(NetworkData)
         :param supported_devices: list of names of supported network devices
         :type supported_devices: list(str)
         :param bootif: MAC addres of device to be used for --device=bootif specification
@@ -194,7 +195,7 @@ class SetRealOnbootValuesFromKickstartTask(Task):
         :param nm_client: NetworkManager client used as configuration backend
         :type nm_client: NM.Client
         :param network_data: kickstart network data to be applied
-        :type: pykickstart NetworkData
+        :type: list(NetworkData)
         :param supported_devices: list of names of supported network devices
         :type supported_devices: list(str)
         :param bootif: MAC addres of device to be used for --device=bootif specification
@@ -284,3 +285,82 @@ class SetRealOnbootValuesFromKickstartTask(Task):
                 updated_devices.extend(updated_slaves)
 
         return updated_devices
+
+
+class DumpMissingIfcfgFilesTask(Task):
+    """Task for dumping of missing ifcfg files."""
+
+    def __init__(self, nm_client, default_network_data, ifname_option_values):
+        """Create a new task.
+
+        :param nm_client: NetworkManager client used as configuration backend
+        :type nm_client: NM.Client
+        :param default_network_data: kickstart network data of default device configuration
+        :type default_network_data: NetworkData
+        :param ifname_option_values: list of ifname boot option values
+        :type ifname_option_values: list(str)
+        """
+        super().__init__()
+        self._nm_client = nm_client
+        self._default_network_data = default_network_data
+        self._ifname_option_values = ifname_option_values
+
+    @property
+    def name(self):
+        return "Dump missing ifcfg files"
+
+    def run(self):
+        """Run dumping of missing ifcfg files.
+
+        :returns: names of devices for which ifcfg file was created
+        :rtype: list(str)
+        """
+        new_ifcfgs = []
+
+        if not self._nm_client:
+            log.debug("%s: No NetworkManager available.", self.name)
+            return new_ifcfgs
+
+        for device in self._nm_client.get_devices():
+            if device.get_device_type() not in supported_wired_device_types:
+                continue
+
+            iface = device.get_iface()
+            if get_ifcfg_file_of_device(self._nm_client, iface):
+                continue
+
+            cons = device.get_available_connections()
+            n_cons = len(cons)
+            device_is_slave = any(con.get_setting_connection().get_master() for con in cons)
+
+            if n_cons == 0:
+                log.debug("%s: creating default connection for %s", self.name, iface)
+                add_connection_from_ksdata(self._nm_client, self._default_network_data, iface, activate=False,
+                                           ifname_option_values=self._ifname_option_values)
+            elif n_cons == 1:
+                if device_is_slave:
+                    log.debug("%s: not creating default connection for slave device %s",
+                              self.name, iface)
+                    continue
+                con = cons[0]
+                log.debug("%s: dumping default autoconnection %s for %s",
+                          self.name, con.get_uuid(), iface)
+                s_con = con.get_setting_connection()
+                s_con.set_property(NM.SETTING_CONNECTION_ID, iface)
+                s_con.set_property(NM.SETTING_CONNECTION_INTERFACE_NAME, iface)
+                if not bound_hwaddr_of_device(self._nm_client, iface, self._ifname_option_values):
+                    s_wired = con.get_setting_wired()
+                    s_wired.set_property(NM.SETTING_WIRED_MAC_ADDRESS, None)
+                else:
+                    log.debug("%s: iface %s bound to mac address by ifname boot option",
+                              self.name, iface)
+                con.commit_changes(True, None)
+            elif n_cons > 1:
+                if not device_is_slave:
+                    log.warning("%s: %d non-slave connections found for device %s",
+                                self.name, n_cons, iface)
+                continue
+
+            new_ifcfgs.append(iface)
+
+        return new_ifcfgs
