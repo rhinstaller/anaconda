@@ -361,9 +361,13 @@ def networkInitialize(ksdata):
     log.debug("devices found %s", nm.nm_devices())
     logIfcfgFiles("network initialization")
 
-    log.debug("ensure single initramfs connections")
     network_proxy = NETWORK.get_proxy()
-    devnames = network_proxy.ConsolidateInitramfsConnections()
+
+    log.debug("ensure single initramfs connections")
+    task_path = network_proxy.ConsolidateInitramfsConnectionsWithTask()
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+    devnames = task_proxy.GetResult()
     if devnames:
         msg = "single connection ensured for devices %s" % devnames
         log.debug("%s", msg)

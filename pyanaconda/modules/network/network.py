@@ -32,13 +32,12 @@ from pyanaconda.modules.network.firewall import FirewallModule
 from pyanaconda.modules.network.device_configuration import DeviceConfigurations, supported_device_types, \
     supported_wired_device_types
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
-    add_connection_from_ksdata, ensure_active_connection_for_device, \
-    update_iface_setting_values, bound_hwaddr_of_device, devices_ignore_ipv6
+    add_connection_from_ksdata, update_iface_setting_values, bound_hwaddr_of_device, devices_ignore_ipv6
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, update_onboot_value, \
     update_slaves_onboot_value, find_ifcfg_uuid_of_device, get_dracut_arguments_from_ifcfg, \
     get_kickstart_network_data, get_ifcfg_file
 from pyanaconda.modules.network.installation import NetworkInstallationTask
-from pyanaconda.modules.network.initialization import ApplyKickstartTask
+from pyanaconda.modules.network.initialization import ApplyKickstartTask, ConsolidateInitramfsConnectionsTask
 from pyanaconda.modules.network.utils import get_default_route_iface
 
 import gi
@@ -381,7 +380,7 @@ class NetworkModule(KickstartModule):
         log.debug("Device configurations changed: %s", changes)
         self.configurations_changed.emit(changes)
 
-    def consolidate_initramfs_connections(self):
+    def consolidate_initramfs_connections_with_task(self):
         """Ensure devices configured in initramfs have no more than one NM connection.
 
         In case of multiple connections for device having ifcfg configuration from
@@ -393,42 +392,11 @@ class NetworkModule(KickstartModule):
 
         Don't enforce on slave devices for which having multiple connections can be
         valid (slave connection, regular device connection).
+
+        :returns: DBus path of the task consolidating the connections
         """
-        consolidated_devices = []
-
-        for device in self.nm_client.get_devices():
-            cons = device.get_available_connections()
-            number_of_connections = len(cons)
-            iface = device.get_iface()
-
-            if number_of_connections < 2:
-                continue
-
-            # Ignore devices which are slaves
-            if any(con.get_setting_connection().get_master() for con in cons):
-                log.debug("consolidate %d initramfs connections for %s: it is OK, device is a slave",
-                          number_of_connections, iface)
-                continue
-
-            ifcfg_file = get_ifcfg_file_of_device(self.nm_client, iface)
-            if not ifcfg_file:
-                log.error("consolidate %d initramfs connections for %s: no ifcfg file",
-                          number_of_connections, iface)
-                continue
-            else:
-                # Handle only ifcfgs created from boot options in initramfs
-                # (Kickstart based ifcfgs are handled when applying kickstart)
-                if ifcfg_file.is_from_kickstart:
-                    continue
-
-            log.debug("consolidate %d initramfs connections for %s: ensure active ifcfg connection",
-                      number_of_connections, iface)
-
-            ensure_active_connection_for_device(self.nm_client, ifcfg_file.uuid, iface, only_replace=True)
-
-            consolidated_devices.append(iface)
-
-        return consolidated_devices
+        task = ConsolidateInitramfsConnectionsTask(self.nm_client)
+        return self.publish_task(NETWORK.namespace, task, InitializeTaskInterface)
 
     def get_supported_devices(self):
         """Get names of existing supported devices on the system."""

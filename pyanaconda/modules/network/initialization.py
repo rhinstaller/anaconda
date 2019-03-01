@@ -115,3 +115,66 @@ class ApplyKickstartTask(Task):
                                            ifname_option_values=self._ifname_option_values)
 
         return applied_devices
+
+
+class ConsolidateInitramfsConnectionsTask(Task):
+    """Task for consolidation of initramfs connections."""
+
+    def __init__(self, nm_client):
+        """Create a new task.
+
+        :param nm_client: NetworkManager client used as configuration backend
+        :type nm_client: NM.Client
+        """
+        super().__init__()
+        self._nm_client = nm_client
+
+    @property
+    def name(self):
+        return "Consolidate initramfs connections"
+
+    def run(self):
+        """Run the connections consolidation.
+
+        :returns: names of devices of which the connections have been consolidated
+        :rtype: list(str)
+        """
+        consolidated_devices = []
+
+        if not self._nm_client:
+            log.debug("%s: No NetworkManager available.", self.name)
+            return consolidated_devices
+
+        for device in self._nm_client.get_devices():
+            cons = device.get_available_connections()
+            number_of_connections = len(cons)
+            iface = device.get_iface()
+
+            if number_of_connections < 2:
+                continue
+
+            # Ignore devices which are slaves
+            if any(con.get_setting_connection().get_master() for con in cons):
+                log.debug("%s: %d for %s - it is OK, device is a slave",
+                          self.name, number_of_connections, iface)
+                continue
+
+            ifcfg_file = get_ifcfg_file_of_device(self._nm_client, iface)
+            if not ifcfg_file:
+                log.error("%s: %d for %s - no ifcfg file found",
+                          self.name, number_of_connections, iface)
+                continue
+            else:
+                # Handle only ifcfgs created from boot options in initramfs
+                # (Kickstart based ifcfgs are handled when applying kickstart)
+                if ifcfg_file.is_from_kickstart:
+                    continue
+
+            log.debug("%s: %d for %s - ensure active ifcfg connection",
+                      self.name, number_of_connections, iface)
+
+            ensure_active_connection_for_device(self._nm_client, ifcfg_file.uuid, iface, only_replace=True)
+
+            consolidated_devices.append(iface)
+
+        return consolidated_devices
