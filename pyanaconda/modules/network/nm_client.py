@@ -102,8 +102,7 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
     :type network_data: kickstart NetworkData object
     :param supported_devices: list of names of supported devices
     :type supported_devices: list(str)
-    :param bootif: MAC addres of device to be used for
-                    --device=bootif specification
+    :param bootif: MAC addres of device to be used for --device=bootif specification
     :type bootif: str
     :returns: device name the configuration should be used for
     :rtype: str

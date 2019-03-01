@@ -22,8 +22,17 @@ from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface, dbus_signal
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal, dbus_class
 from pyanaconda.dbus.structure import get_structure
+from pyanaconda.modules.common.task import TaskInterface
+
+
+@dbus_class
+class InitializeTaskInterface(TaskInterface):
+
+    @staticmethod
+    def convert_result(value):
+        return get_variant(List[Str], value)
 
 
 @dbus_interface(NETWORK.interface_name)
@@ -150,15 +159,15 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.consolidate_initramfs_connections()
 
-    def ApplyKickstart(self) -> List[Str]:
+    def ApplyKickstartWithTask(self) -> ObjPath:
         """Apply kickstart configuration which has not already been applied.
 
         * activate configurations created in initramfs if --activate is True
         * create configurations for %pre kickstart commands and activate eventually
 
-        :returns: list of devices to which kickstart configuration was applied
+        :returns: DBus path of the task applying the kickstart
         """
-        return self.implementation.apply_kickstart()
+        return self.implementation.apply_kickstart_with_task()
 
     def SetRealOnbootValuesFromKickstart(self) -> List[Str]:
         """Update ifcfg ONBOOT values according to kickstart configuration.

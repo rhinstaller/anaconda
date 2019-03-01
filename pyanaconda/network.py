@@ -43,6 +43,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.livepayload import LiveImagePayload
 
 from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
@@ -367,12 +368,17 @@ def networkInitialize(ksdata):
         msg = "single connection ensured for devices %s" % devnames
         log.debug("%s", msg)
         logIfcfgFiles(msg)
+
     log.debug("apply kickstart")
-    devnames = network_proxy.ApplyKickstart()
+    task_path = network_proxy.ApplyKickstartWithTask()
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+    devnames = task_proxy.GetResult()
     if devnames:
         msg = "kickstart pre section applied for devices %s" % devnames
         log.debug("%s", msg)
         logIfcfgFiles(msg)
+
     log.debug("create missing ifcfg files")
     devnames = network_proxy.DumpMissingIfcfgFiles()
     if devnames:
