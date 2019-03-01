@@ -354,71 +354,49 @@ def devices_used_by_fcoe(storage):
     fcoe_devices = [device for device in nm.nm_devices() if device in fcoe_nics]
     return fcoe_devices
 
-def networkInitialize(ksdata):
+
+def run_network_initialization_task(task_path):
+    task_proxy = NETWORK.get_proxy(task_path)
+    log.debug("Running task %s", task_proxy.Name)
+    sync_run_task(task_proxy)
+    result = task_proxy.GetResult()
+    msg = "%s result: %s" % (task_proxy.Name, result)
+    log.debug(msg)
+    if result:
+        logIfcfgFiles(msg)
+
+
+def initialize_network():
     if not conf.system.can_configure_network:
         return
 
-    log.debug("devices found %s", nm.nm_devices())
-    logIfcfgFiles("network initialization")
+    log.debug("Initialization started.")
+    logIfcfgFiles("Initialization started.")
 
     network_proxy = NETWORK.get_proxy()
 
-    log.debug("ensure single initramfs connections")
-    task_path = network_proxy.ConsolidateInitramfsConnectionsWithTask()
-    task_proxy = NETWORK.get_proxy(task_path)
-    sync_run_task(task_proxy)
-    devnames = task_proxy.GetResult()
-    if devnames:
-        msg = "single connection ensured for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
+    log.debug("Devices found: %s", nm.nm_devices())
 
-    log.debug("apply kickstart")
-    task_path = network_proxy.ApplyKickstartWithTask()
-    task_proxy = NETWORK.get_proxy(task_path)
-    sync_run_task(task_proxy)
-    devnames = task_proxy.GetResult()
-    if devnames:
-        msg = "kickstart pre section applied for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
+    run_network_initialization_task(network_proxy.ConsolidateInitramfsConnectionsWithTask())
+    run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
+    run_network_initialization_task(network_proxy.DumpMissingIfcfgFilesWithTask())
+    run_network_initialization_task(network_proxy.SetRealOnbootValuesFromKickstartWithTask())
 
-    log.debug("create missing ifcfg files")
-    task_path = network_proxy.DumpMissingIfcfgFilesWithTask()
-    task_proxy = NETWORK.get_proxy(task_path)
-    sync_run_task(task_proxy)
-    devnames = task_proxy.GetResult()
-    if devnames:
-        msg = "missing ifcfgs created for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
-
-    # For kickstart network --activate option we set ONBOOT=yes
-    # in dracut to get devices activated by NM. The real network --onboot
-    # value is set here.
-    log.debug("set real ONBOOT value")
-    task_path = network_proxy.SetRealOnbootValuesFromKickstartWithTask()
-    task_proxy = NETWORK.get_proxy(task_path)
-    sync_run_task(task_proxy)
-    devnames = task_proxy.GetResult()
-    if devnames:
-        msg = "real kickstart ONBOOT value set for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
-
-    # initialize ksdata hostname
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
         bootopts_hostname = hostname_from_cmdline(flags.cmdline)
         if bootopts_hostname:
-            log.debug("updating host name from boot options: %s", bootopts_hostname)
+            log.debug("Updating host name from boot options: %s", bootopts_hostname)
             network_proxy.SetHostname(bootopts_hostname)
 
     # Create device configuration tracking in the module.
     # It will be used to generate kickstart from persistent network configuration
     # managed by NM (ifcfgs) and updated by NM signals on device configuration
     # changes.
-    log.debug("create network configurations")
+    log.debug("Creating network configurations.")
     network_proxy.CreateDeviceConfigurations()
+
+    log.debug("Initialization finished.")
+
 
 def _get_ntp_servers_from_dhcp():
     """Check if some NTP servers were returned from DHCP and set them
