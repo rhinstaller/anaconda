@@ -74,7 +74,8 @@ from pyanaconda.core.i18n import _, C_, CN_, P_
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
-    BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE
+    BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE, WARNING_NO_DISKS_SELECTED, \
+    WARNING_NO_DISKS_DETECTED
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage.initialization import update_storage_config, reset_storage, \
@@ -874,13 +875,11 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self.builder.get_object("other_options_grid").set_sensitive(anySelected)
 
         if not self._available_disks:
-            self.set_warning(_("No disks detected.  Please shut down the computer, connect at "
-                               "least one disk, and restart to complete installation."))
+            self.set_warning(_(WARNING_NO_DISKS_DETECTED))
         elif not anySelected:
             # There may be an underlying reason that no disks were selected, give them priority.
             if not self._check_problems():
-                self.set_warning(_("No disks selected; please select at least one disk to "
-                                   "install to."))
+                self.set_warning(_(WARNING_NO_DISKS_SELECTED))
         else:
             self.clear_info()
 

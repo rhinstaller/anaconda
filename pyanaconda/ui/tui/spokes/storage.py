@@ -46,7 +46,8 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, SecretType, \
-    MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT
+    MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
+    WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, P_, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage.initialization import initialize_storage, update_storage_config, \
@@ -184,10 +185,9 @@ class StorageSpoke(NormalTUISpoke):
                       count) % (count, str(Size(capacity)), free))
 
         if not self._available_disks:
-            summary = _("No disks detected.  Please shut down the computer, "
-                        "connect at least one disk, and restart to complete installation.")
+            summary = _(WARNING_NO_DISKS_DETECTED)
         elif count == 0:
-            summary = (_("No disks selected; please select at least one disk to install to."))
+            summary = _(WARNING_NO_DISKS_SELECTED)
 
         # Append storage errors to the summary
         if self.errors:
