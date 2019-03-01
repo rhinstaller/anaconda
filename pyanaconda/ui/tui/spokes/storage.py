@@ -28,7 +28,8 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices, \
-    get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection
+    get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection, \
+    get_disks_summary
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.format_dasd import DasdFormatting
 
@@ -48,7 +49,7 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, SecretType, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
-from pyanaconda.core.i18n import _, P_, N_, C_
+from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage.initialization import initialize_storage, update_storage_config, \
     reset_storage, select_all_disks_by_default
@@ -167,33 +168,18 @@ class StorageSpoke(NormalTUISpoke):
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
-        count = 0
-        capacity = 0
-        free = Size(0)
-
-        # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.get_free_space(disks=self._available_disks)
-        selected = filter_disks_by_names(self._available_disks, self._selected_disks)
-
-        for disk in selected:
-            capacity += disk.size
-            free += free_space[disk.name][0]
-            count += 1
-
-        summary = (P_(("%d disk selected; %s capacity; %s free ..."),
-                      ("%d disks selected; %s capacity; %s free ..."),
-                      count) % (count, str(Size(capacity)), free))
-
+        # Get the summary message.
         if not self._available_disks:
             summary = _(WARNING_NO_DISKS_DETECTED)
-        elif count == 0:
+        elif not self._selected_disks:
             summary = _(WARNING_NO_DISKS_SELECTED)
+        else:
+            disks = filter_disks_by_names(self._available_disks, self._selected_disks)
+            summary = get_disks_summary(self.storage, disks)
 
         # Append storage errors to the summary
-        if self.errors:
-            summary = summary + "\n" + "\n".join(self.errors)
-        elif self.warnings:
-            summary = summary + "\n" + "\n".join(self.warnings)
+        if self.errors or self.warnings:
+            summary = summary + "\n" + "\n".join(self.errors or self.warnings)
 
         return summary
 

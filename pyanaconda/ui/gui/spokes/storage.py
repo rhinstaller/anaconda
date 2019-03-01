@@ -44,8 +44,9 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, apply_disk_selection, \
-    check_disk_selection
+from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, \
+    apply_disk_selection, \
+    check_disk_selection, get_disks_summary
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -70,7 +71,7 @@ from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.core.i18n import _, C_, CN_, P_
+from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
@@ -843,40 +844,25 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
-        count = 0
-        capacity = Size(0)
-        free = Size(0)
+        disks = filter_disks_by_names(self._available_disks, self._selected_disks)
+        summary = get_disks_summary(self.storage, disks)
 
-        # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.get_free_space(disks=self._available_disks)
-        selected = [d for d in self._available_disks if d.name in self._selected_disks]
-
-        for disk in selected:
-            capacity += disk.size
-            free += free_space[disk.name][0]
-            count += 1
-
-        anySelected = count > 0
-
-        summary = (P_("%(count)d disk selected; %(capacity)s capacity; %(free)s free",
-                      "%(count)d disks selected; %(capacity)s capacity; %(free)s free",
-                      count) % {"count" : count,
-                                "capacity" : capacity,
-                                "free" : free})
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
-        summary_label.set_sensitive(anySelected)
+
+        is_selected = bool(self._selected_disks)
+        summary_label.set_sensitive(is_selected)
 
         # only show the "we won't touch your other disks" labels and summary button when
         # some disks are selected
-        self.builder.get_object("summary_button_revealer").set_reveal_child(anySelected)
-        self.builder.get_object("local_untouched_label_revealer").set_reveal_child(anySelected)
-        self.builder.get_object("special_untouched_label_revealer").set_reveal_child(anySelected)
-        self.builder.get_object("other_options_grid").set_sensitive(anySelected)
+        self.builder.get_object("summary_button_revealer").set_reveal_child(is_selected)
+        self.builder.get_object("local_untouched_label_revealer").set_reveal_child(is_selected)
+        self.builder.get_object("special_untouched_label_revealer").set_reveal_child(is_selected)
+        self.builder.get_object("other_options_grid").set_sensitive(is_selected)
 
         if not self._available_disks:
             self.set_warning(_(WARNING_NO_DISKS_DETECTED))
-        elif not anySelected:
+        elif not self._selected_disks:
             # There may be an underlying reason that no disks were selected, give them priority.
             if not self._check_problems():
                 self.set_warning(_(WARNING_NO_DISKS_SELECTED))
