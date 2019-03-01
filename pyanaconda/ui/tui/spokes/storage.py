@@ -86,6 +86,8 @@ class StorageSpoke(NormalTUISpoke):
 
     def __init__(self, data, storage, payload):
         super().__init__(data, storage, payload)
+        self.title = N_("Installation Destination")
+        self._container = None
 
         self._bootloader_observer = STORAGE.get_observer(BOOTLOADER)
         self._bootloader_observer.connect()
@@ -99,30 +101,27 @@ class StorageSpoke(NormalTUISpoke):
         self._auto_part_observer = STORAGE.get_observer(AUTO_PARTITIONING)
         self._auto_part_observer.connect()
 
-        self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
-
-        self.title = N_("Installation Destination")
-        self._ready = False
-        self._container = None
-        self.select_all = False
-        self.autopart = None
+        self._selected_disks = self._disk_select_observer.proxy.SelectedDisks
 
         # This list gets set up once in initialize and should not be modified
         # except perhaps to add advanced devices. It will remain the full list
         # of disks that can be included in the install.
-        self.disks = []
-        self.errors = []
-        self.warnings = []
+        self._available_disks = []
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
             self._auto_part_observer.proxy.SetEnabled(True)
 
+        self._ready = False
+        self._select_all = False
+        self._auto_part_enabled = None
+
+        self.errors = []
+        self.warnings = []
+
     @property
     def completed(self):
-        retval = bool(self.storage.root_device and not self.errors)
-
-        return retval
+        return bool(self.storage.root_device and not self.errors)
 
     @property
     def ready(self):
@@ -156,15 +155,14 @@ class StorageSpoke(NormalTUISpoke):
 
     def _update_disk_list(self, disk):
         """ Update self.selected_disks based on the selection."""
-
         name = disk.name
 
         # if the disk isn't already selected, select it.
-        if name not in self.selected_disks:
-            self.selected_disks.append(name)
+        if name not in self._selected_disks:
+            self._selected_disks.append(name)
         # If the disk is already selected, deselect it.
-        elif name in self.selected_disks:
-            self.selected_disks.remove(name)
+        elif name in self._selected_disks:
+            self._selected_disks.remove(name)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
@@ -173,8 +171,8 @@ class StorageSpoke(NormalTUISpoke):
         free = Size(0)
 
         # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.get_free_space(disks=self.disks)
-        selected = filter_disks_by_names(self.disks, self.selected_disks)
+        free_space = self.storage.get_free_space(disks=self._available_disks)
+        selected = filter_disks_by_names(self._available_disks, self._selected_disks)
 
         for disk in selected:
             capacity += disk.size
@@ -185,7 +183,7 @@ class StorageSpoke(NormalTUISpoke):
                       ("%d disks selected; %s capacity; %s free ..."),
                       count) % (count, str(Size(capacity)), free))
 
-        if len(self.disks) == 0:
+        if not self._available_disks:
             summary = _("No disks detected.  Please shut down the computer, "
                         "connect at least one disk, and restart to complete installation.")
         elif count == 0:
@@ -207,7 +205,7 @@ class StorageSpoke(NormalTUISpoke):
         print(_(PAYLOAD_STATUS_PROBING_STORAGE))
         threadMgr.wait(THREAD_STORAGE_WATCHER)
 
-        if not any(d in self.storage.disks for d in self.disks):
+        if not any(d in self.storage.disks for d in self._available_disks):
             # something happened to self.storage (probably reset), need to
             # reinitialize the list of disks
             self.update_disks()
@@ -216,22 +214,22 @@ class StorageSpoke(NormalTUISpoke):
         # Commment out because there is no way to select a disk right
         # now without putting it in ksdata.  Seems wrong?
         # self.selected_disks = self.data.ignoredisk.onlyuse[:]
-        self.autopart = self._auto_part_observer.proxy.Enabled
+        self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
 
         self._container = ListColumnContainer(1, spacing=1)
 
         message = self._update_summary()
 
         # loop through the disks and present them.
-        for disk in self.disks:
+        for disk in self._available_disks:
             disk_info = self._format_disk_info(disk)
-            c = CheckboxWidget(title=disk_info, completed=(disk.name in self.selected_disks))
+            c = CheckboxWidget(title=disk_info, completed=(disk.name in self._selected_disks))
             self._container.add(c, self._update_disk_list_callback, disk)
 
         # if we have more than one disk, present an option to just
         # select all disks
-        if len(self.disks) > 1:
-            c = CheckboxWidget(title=_("Select all"), completed=self.select_all)
+        if len(self._available_disks) > 1:
+            c = CheckboxWidget(title=_("Select all"), completed=self._select_all)
             self._container.add(c, self._select_all_disks_callback)
 
         self.window.add_with_separator(self._container)
@@ -239,14 +237,14 @@ class StorageSpoke(NormalTUISpoke):
 
     def _select_all_disks_callback(self, data):
         """ Mark all disks as selected for use in partitioning. """
-        self.select_all = True
-        for disk in self.disks:
-            if disk.name not in self.selected_disks:
+        self._select_all = True
+        for disk in self._available_disks:
+            if disk.name not in self._selected_disks:
                 self._update_disk_list(disk)
 
     def _update_disk_list_callback(self, data):
         disk = data
-        self.select_all = False
+        self._select_all = False
         self._update_disk_list(disk)
 
     def _format_disk_info(self, disk):
@@ -291,14 +289,14 @@ class StorageSpoke(NormalTUISpoke):
         else:
             # TRANSLATORS: 'c' to continue
             if key.lower() == C_('TUI|Spoke Navigation', 'c'):
-                if self.selected_disks:
+                if self._selected_disks:
                     # Is DASD formatting supported?
                     if DasdFormatting.is_supported():
                         # Wait for storage.
                         threadMgr.wait(THREAD_STORAGE)
 
                         # Get selected disks.
-                        disks = filter_disks_by_names(self.disks, self.selected_disks)
+                        disks = filter_disks_by_names(self._available_disks, self._selected_disks)
 
                         # Check if some of the disks should be formatted.
                         dasd_formatting = DasdFormatting()
@@ -307,7 +305,7 @@ class StorageSpoke(NormalTUISpoke):
                         if dasd_formatting.should_run():
                             # We want to apply current selection before running dasdfmt to
                             # prevent this information from being lost afterward
-                            apply_disk_selection(self.storage, self.selected_disks)
+                            apply_disk_selection(self.storage, self._selected_disks)
 
                             # Run the dialog.
                             self.run_dasdfmt_dialog(dasd_formatting)
@@ -316,7 +314,7 @@ class StorageSpoke(NormalTUISpoke):
                     # make sure no containers were split up by the user's disk
                     # selection
                     self.errors.extend(check_disk_selection(self.storage,
-                                                            self.selected_disks))
+                                                            self._selected_disks))
                     if self.errors:
                         # The disk selection has to make sense before we can
                         # proceed.
@@ -416,24 +414,24 @@ class StorageSpoke(NormalTUISpoke):
                 data.SetPassphrase(passphrase)
 
     def apply(self):
-        self.autopart = self._auto_part_observer.proxy.Enabled
+        self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
 
-        for disk in self.disks:
-            if disk.name not in self.selected_disks and \
+        for disk in self._available_disks:
+            if disk.name not in self._selected_disks and \
                disk in self.storage.devices:
                 self.storage.devicetree.hide(disk)
-            elif disk.name in self.selected_disks and \
+            elif disk.name in self._selected_disks and \
                  disk not in self.storage.devices:
                 self.storage.devicetree.unhide(disk)
 
         self._bootloader_observer.proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
         boot_drive = self._bootloader_observer.proxy.Drive
 
-        if boot_drive and boot_drive not in self.selected_disks:
+        if boot_drive and boot_drive not in self._selected_disks:
             self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
             self.storage.bootloader.reset()
 
-        apply_disk_selection(self.storage, self.selected_disks)
+        apply_disk_selection(self.storage, self._selected_disks)
         update_storage_config(self.storage.config)
 
         # If autopart is selected we want to remove whatever has been
@@ -461,7 +459,7 @@ class StorageSpoke(NormalTUISpoke):
             reset_storage(self.storage)
 
             # Now set data back to the user's specified config.
-            apply_disk_selection(self.storage, self.selected_disks)
+            apply_disk_selection(self.storage, self._selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
@@ -489,7 +487,7 @@ class StorageSpoke(NormalTUISpoke):
         threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
-        self.selected_disks = self._disk_select_observer.proxy.SelectedDisks
+        self._selected_disks = self._disk_select_observer.proxy.SelectedDisks
         # Probably need something here to track which disks are selected?
 
     def _initialize(self):
@@ -505,7 +503,7 @@ class StorageSpoke(NormalTUISpoke):
 
         # Update the selected disks.
         if flags.automatedInstall:
-            self.selected_disks = select_all_disks_by_default(self.storage)
+            self._selected_disks = select_all_disks_by_default(self.storage)
 
         # Update disk list.
         self.update_disks()
@@ -518,11 +516,11 @@ class StorageSpoke(NormalTUISpoke):
 
     def update_disks(self):
         threadMgr.wait(THREAD_STORAGE)
-        self.disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = get_available_disks(self.storage.devicetree)
 
         # if only one disk is available, go ahead and mark it as selected
-        if len(self.disks) == 1:
-            self._update_disk_list(self.disks[0])
+        if len(self._available_disks) == 1:
+            self._update_disk_list(self._available_disks[0])
 
 
 class PartTypeSpoke(NormalTUISpoke):
@@ -537,11 +535,11 @@ class PartTypeSpoke(NormalTUISpoke):
         super().__init__(data, storage, payload)
         self.title = N_("Partitioning Options")
         self._container = None
-        self.parttypelist = sorted(PARTTYPES.keys())
+        self._part_type_list = sorted(PARTTYPES.keys())
 
         # remember the original values so that we can detect a change
         self._disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-        self._orig_clearpart_type = self._disk_init_proxy.InitializationMode
+        self._orig_init_mode = self._disk_init_proxy.InitializationMode
         self._manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
         self._orig_mount_assign = self._manual_part_proxy.Enabled
 
@@ -552,9 +550,9 @@ class PartTypeSpoke(NormalTUISpoke):
         # configured
         self._do_mount_assign = self._orig_mount_assign
         if not self._do_mount_assign:
-            self.clearPartType = self._disk_init_proxy.InitializationMode
+            self._init_mode = self._disk_init_proxy.InitializationMode
         else:
-            self.clearPartType = CLEAR_PARTITIONS_NONE
+            self._init_mode = CLEAR_PARTITIONS_NONE
 
     @property
     def indirect(self):
@@ -564,14 +562,17 @@ class PartTypeSpoke(NormalTUISpoke):
         super().refresh(args)
         self._container = ListColumnContainer(1)
 
-        for part_type in self.parttypelist:
+        for part_type in self._part_type_list:
             c = CheckboxWidget(title=_(part_type),
-                               completed=(not self._do_mount_assign and PARTTYPES[part_type] == self.clearPartType))
+                               completed=(not self._do_mount_assign
+                                          and PARTTYPES[part_type] == self._init_mode)
+                               )
             self._container.add(c, self._select_partition_type_callback, part_type)
+
         c = CheckboxWidget(title=_("Manually assign mount points"),
                            completed=self._do_mount_assign)
-        self._container.add(c, self._select_mount_assign)
 
+        self._container.add(c, self._select_mount_assign)
         self.window.add_with_separator(self._container)
 
         message = _("Installation requires partitioning of your hard drive. "
@@ -581,13 +582,13 @@ class PartTypeSpoke(NormalTUISpoke):
         self.window.add_with_separator(TextWidget(message))
 
     def _select_mount_assign(self, data=None):
-        self.clearPartType = CLEAR_PARTITIONS_NONE
+        self._init_mode = CLEAR_PARTITIONS_NONE
         self._do_mount_assign = True
         self.apply()
 
     def _select_partition_type_callback(self, data):
         self._do_mount_assign = False
-        self.clearPartType = PARTTYPES[data]
+        self._init_mode = PARTTYPES[data]
         self.apply()
 
     def apply(self):
@@ -599,7 +600,7 @@ class PartTypeSpoke(NormalTUISpoke):
         if not self._do_mount_assign:
             self._auto_part_proxy.SetEnabled(True)
             self._manual_part_proxy.SetEnabled(False)
-            self._disk_init_proxy.SetInitializationMode(self.clearPartType)
+            self._disk_init_proxy.SetInitializationMode(self._init_mode)
             self._disk_init_proxy.SetInitializeLabelsEnabled(True)
         else:
             self._auto_part_proxy.SetEnabled(False)
@@ -616,7 +617,7 @@ class PartTypeSpoke(NormalTUISpoke):
         """
         # the only safe options are:
         # 1) if nothing was set before (self._orig_clearpart_type is None) or
-        if self._orig_clearpart_type == CLEAR_PARTITIONS_DEFAULT:
+        if self._orig_init_mode == CLEAR_PARTITIONS_DEFAULT:
             return
 
         # 2) mount point assignment was done before and user just wants to tweak it
