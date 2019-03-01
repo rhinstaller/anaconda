@@ -169,7 +169,7 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.apply_kickstart_with_task()
 
-    def SetRealOnbootValuesFromKickstart(self) -> List[Str]:
+    def SetRealOnbootValuesFromKickstartWithTask(self) -> ObjPath:
         """Update ifcfg ONBOOT values according to kickstart configuration.
 
         So it reflects the --onboot option.
@@ -179,9 +179,9 @@ class NetworkInterface(KickstartModuleInterface):
         2) For kickstart applied in stage 2 we can't set the autoconnect
            setting of connection because the device would be activated immediately.
 
-        :returns: list of devices for which ONBOOT was updated
+        :returns: DBus path of the task setting the values
         """
-        return self.implementation.set_real_onboot_values_from_kickstart()
+        return self.implementation.set_real_onboot_values_from_kickstart_with_task()
 
     def DumpMissingIfcfgFiles(self) -> List[Str]:
         """Dump missing default ifcfg file for wired devices.

@@ -394,7 +394,10 @@ def networkInitialize(ksdata):
     # in dracut to get devices activated by NM. The real network --onboot
     # value is set here.
     log.debug("set real ONBOOT value")
-    devnames = network_proxy.SetRealOnbootValuesFromKickstart()
+    task_path = network_proxy.SetRealOnbootValuesFromKickstartWithTask()
+    task_proxy = NETWORK.get_proxy(task_path)
+    sync_run_task(task_proxy)
+    devnames = task_proxy.GetResult()
     if devnames:
         msg = "real kickstart ONBOOT value set for devices %s" % devnames
         log.debug("%s", msg)

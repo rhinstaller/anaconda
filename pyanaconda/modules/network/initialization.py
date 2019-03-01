@@ -19,11 +19,16 @@
 from pyanaconda.modules.common.task import Task
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, \
-    ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata
-from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device
+    ensure_active_connection_for_device, update_connection_from_ksdata, add_connection_from_ksdata, \
+    update_iface_setting_values
+from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
+    update_onboot_value, update_slaves_onboot_value
 
 log = get_module_logger(__name__)
 
+import gi
+gi.require_version("NM", "1.0")
+from gi.repository import NM
 
 
 class ApplyKickstartTask(Task):
@@ -178,3 +183,104 @@ class ConsolidateInitramfsConnectionsTask(Task):
             consolidated_devices.append(iface)
 
         return consolidated_devices
+
+
+class SetRealOnbootValuesFromKickstartTask(Task):
+    """Task for setting of real ONBOOT values from kickstart."""
+
+    def __init__(self, nm_client, network_data, supported_devices, bootif, ifname_option_values):
+        """Create a new task.
+
+        :param nm_client: NetworkManager client used as configuration backend
+        :type nm_client: NM.Client
+        :param network_data: kickstart network data to be applied
+        :type: pykickstart NetworkData
+        :param supported_devices: list of names of supported network devices
+        :type supported_devices: list(str)
+        :param bootif: MAC addres of device to be used for --device=bootif specification
+        :type bootif: str
+        :param ifname_option_values: list of ifname boot option values
+        :type ifname_option_values: list(str)
+        """
+        super().__init__()
+        self._nm_client = nm_client
+        self._network_data = network_data
+        self._supported_devices = supported_devices
+        self._bootif = bootif
+        self._ifname_option_values = ifname_option_values
+
+    @property
+    def name(self):
+        return "Set real ONBOOT values from kickstart"
+
+    def run(self):
+        """Run the ONBOOT values updating.
+
+        :return: names of devices for which ONBOOT was updated
+        :rtype: list(str)
+        """
+        updated_devices = []
+
+        if not self._nm_client:
+            log.debug("%s: No NetworkManager available.", self.name)
+            return updated_devices
+
+        if not self._network_data:
+            log.debug("%s: No kickstart data.", self.name)
+            return updated_devices
+
+        for network_data in self._network_data:
+            device_name = get_device_name_from_network_data(self._nm_client,
+                                                            network_data,
+                                                            self._supported_devices,
+                                                            self._bootif)
+            if not device_name:
+                log.warning("%s: --device %s does not exist.", self.name, network_data.device)
+
+            devices_to_update = [device_name]
+            master = device_name
+            # When defining both bond/team and vlan in one command we need more care
+            # network --onboot yes --device bond0 --bootproto static --bondslaves ens9,ens10
+            # --bondopts mode=active-backup,miimon=100,primary=ens9,fail_over_mac=2
+            # --ip 192.168.111.1 --netmask 255.255.255.0 --gateway 192.168.111.222 --noipv6
+            # --vlanid 222 --no-activate
+            if network_data.vlanid and (network_data.bondslaves or network_data.teamslaves):
+                master = network_data.device
+                devices_to_update.append(master)
+
+            for devname in devices_to_update:
+                if network_data.onboot:
+                    # We need to handle "no" -> "yes" change by changing ifcfg file instead of the NM connection
+                    # so the device does not get autoactivated (BZ #1261864)
+                    uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
+                    if not update_onboot_value(uuid, network_data.onboot, root_path=""):
+                        continue
+                else:
+                    n_cons = update_iface_setting_values(self._nm_client, devname,
+                        [("connection", NM.SETTING_CONNECTION_AUTOCONNECT, network_data.onboot)])
+                    if n_cons != 1:
+                        log.debug("%s: %d connections found for %s", self.name, n_cons, devname)
+                        if n_cons > 1:
+                            # In case of multiple connections for a device, update ifcfg directly
+                            uuid = find_ifcfg_uuid_of_device(self._nm_client, devname) or ""
+                            if not update_onboot_value(uuid, network_data.onboot, root_path=""):
+                                continue
+
+                updated_devices.append(devname)
+
+            # Handle slaves if there are any
+            if network_data.bondslaves or network_data.teamslaves or network_data.bridgeslaves:
+                # Master can be identified by devname or uuid, try to find master uuid
+                uuid = None
+                device = self._nm_client.get_device_by_iface(master)
+                if device:
+                    cons = device.get_available_connections()
+                    n_cons = len(cons)
+                    if n_cons == 1:
+                        uuid = cons[0].get_uuid()
+                    else:
+                        log.debug("%s: %d connections found for %s", self.name, n_cons, master)
+                updated_slaves = update_slaves_onboot_value(self._nm_client, master, network_data.onboot, uuid=uuid)
+                updated_devices.extend(updated_slaves)
+
+        return updated_devices
