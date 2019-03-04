@@ -27,10 +27,10 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, Gtk
 
 from pyanaconda.core.i18n import _, C_, N_, P_
+from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
 from blivet.size import Size
-from blivet.formats.fs import FS
 
 __all__ = ["ResizeDialog"]
 
@@ -68,6 +68,13 @@ class ResizeDialog(GUIObject):
         self.storage = storage
         self.payload = payload
 
+        self._storage_proxy = STORAGE.get_proxy()
+
+        # Get the required device size.
+        required_space = self.payload.space_required.get_bytes()
+        required_size = self._storage_proxy.GetRequiredDeviceSize(required_space)
+        self._required_size = Size(required_size)
+
         self._initialFreeSpace = Size(0)
         self._selectedReclaimableSpace = Size(0)
 
@@ -80,9 +87,10 @@ class ResizeDialog(GUIObject):
         self._selected_label = self.builder.get_object("selectedSpaceLabel")
 
         self._required_label = self.builder.get_object("requiredSpaceLabel")
-        markup = _("Installation requires a total of <b>%s</b> for system data.")
-        required_dev_size = self.payload.required_device_size(FS.biggest_overhead_FS())
-        self._required_label.set_markup(markup % escape_markup(str(required_dev_size)))
+        self._required_label.set_markup(
+            _("Installation requires a total of <b>%s</b> for system data.")
+            % escape_markup(str(self._required_size))
+        )
 
         self._reclaimDescLabel = self.builder.get_object("reclaimDescLabel")
 
@@ -312,8 +320,7 @@ class ResizeDialog(GUIObject):
             self._deleteButton.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
-        required_dev_size = self.payload.required_device_size(FS.biggest_overhead_FS())
-        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= required_dev_size)
+        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= self._required_size)
 
     # pylint: disable=arguments-differ
     def refresh(self, disks):
