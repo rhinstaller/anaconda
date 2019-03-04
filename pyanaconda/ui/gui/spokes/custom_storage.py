@@ -41,7 +41,7 @@ from pyanaconda.product import productName, productVersion, translated_new_insta
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE, \
-    BOOTLOADER_DRIVE_UNSET, AUTOPART_TYPE_DEFAULT
+    BOOTLOADER_DRIVE_UNSET, DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
@@ -460,7 +460,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def _get_autopart_type(self, autopartTypeCombo):
         itr = autopartTypeCombo.get_active_iter()
         if not itr:
-            return AUTOPART_TYPE_DEFAULT
+            return DEFAULT_AUTOPART_TYPE
 
         model = autopartTypeCombo.get_model()
         return model[itr][1]
