@@ -16,12 +16,12 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_LIST, \
-    CLEAR_PARTITIONS_ALL
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
     DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
+from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
 
 log = get_module_logger(__name__)
 
@@ -90,42 +90,12 @@ def _update_clearpart(storage):
     disk_init_proxy.SetInitializeLabelsEnabled(storage.config.initialize_disks)
 
     if disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_NONE:
-        # Make a list of initialized disks and of removed partitions. If any
-        # partitions were removed from disks that were not completely
-        # cleared we'll have to use CLEAR_PARTITIONS_LIST and provide a list
-        # of all removed partitions. If no partitions were removed from a
-        # disk that was not cleared/reinitialized we can use
-        # CLEAR_PARTITIONS_ALL.
-        disk_init_proxy.SetDrivesToClear([])
-        disk_init_proxy.SetDevicesToClear([])
+        # FIXME: This is an ugly temporary workaround for UI.
+        mode, drives, devices = DiskInitializationModule._find_cleared_devices(storage)
 
-        fresh_disks = [d.name for d in storage.disks if d.partitioned and
-                       not d.format.exists]
-
-        destroy_actions = storage.devicetree.actions.find(
-            action_type="destroy",
-            object_type="device"
-        )
-
-        cleared_partitions = []
-        partial = False
-        for action in destroy_actions:
-            if action.device.type == "partition":
-                if action.device.disk.name not in fresh_disks:
-                    partial = True
-
-                cleared_partitions.append(action.device.name)
-
-        if not destroy_actions:
-            pass
-        elif partial:
-            # make a list of removed partitions
-            disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_LIST)
-            disk_init_proxy.SetDevicesToClear(cleared_partitions)
-        else:
-            # if they didn't partially clear any disks, use the shorthand
-            disk_init_proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
-            disk_init_proxy.SetDrivesToClear(fresh_disks)
+        disk_init_proxy.SetInitializationMode(mode.value)
+        disk_init_proxy.SetDrivesToClear(drives)
+        disk_init_proxy.SetDevicesToClear(devices)
 
 
 def _update_custom_storage(storage, ksdata):
