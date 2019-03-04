@@ -554,10 +554,19 @@ class LiveImageKSPayload(LiveImagePayload):
         if not self.is_tarfile:
             return super().kernelVersionList
 
+        if self._kernelVersionList:
+            return self._kernelVersionList
+
+        # Cache a list of the kernels (the tar payload may be cleaned up on subsequent calls)
+        if not os.path.exists(self.image_path):
+            raise PayloadInstallError("kernelVersionList: missing tar payload")
+
         import tarfile
         with tarfile.open(self.image_path) as archive:
             names = archive.getnames()
 
             # Strip out vmlinuz- from the names
-            return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                          key=functools.cmp_to_key(versionCmp))
+            self._kernelVersionList = sorted((n.split("/")[-1][8:] for n in names
+                                               if "boot/vmlinuz-" in n),
+                                               key=functools.cmp_to_key(versionCmp))
+        return self._kernelVersionList
