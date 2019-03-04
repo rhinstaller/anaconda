@@ -163,6 +163,16 @@ WARNING_HARDWARE_UNSUPPORTED = N_(
     "on supported hardware, please refer to http://www.redhat.com/hardware."
 )
 
+# Storage messages
+WARNING_NO_DISKS_DETECTED = N_(
+    "No disks detected.  Please shut down the computer, connect at least one disk, and restart "
+    "to complete installation."
+)
+
+WARNING_NO_DISKS_SELECTED = N_(
+    "No disks selected; please select at least one disk to install to."
+)
+
 # Password type
 class SecretType(Enum):
     PASSWORD = "password"

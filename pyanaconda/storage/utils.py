@@ -624,3 +624,20 @@ def get_required_device_size(required_space, format_class=None):
 
     device_size = format_class.get_required_size(required_space)
     return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
+
+
+def get_disks_summary(storage, selected):
+    """Get a summary of the selected disks
+
+    :param storage: an instance of the storage
+    :param selected: a list of selected disks
+    :return: a string with a summary
+    """
+    count = len(selected)
+    capacity = sum((disk.size for disk in selected), Size(0))
+    free_space = storage.get_disk_free_space(selected)
+
+    return P_(
+        "{count} disk selected; {capacity} capacity; {free} free",
+        "{count} disks selected; {capacity} capacity; {free} free",
+        count).format(count=count, capacity=capacity, free=free_space)
