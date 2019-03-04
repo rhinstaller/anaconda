@@ -770,8 +770,8 @@ def devices_ignore_ipv6(nm_client, device_types):
         if device.get_device_type() in device_types:
             cons = device.get_available_connections()
             for con in cons:
-                s_ipv6 = con.get_setting_ipv6_config()
-                if s_ipv6 and s_ipv6.method() != NM.SETTING_IP6_CONFIG_METHOD_IGNORE:
+                s_ipv6 = con.get_setting_ip6_config()
+                if s_ipv6 and s_ipv6.get_method() != NM.SETTING_IP6_CONFIG_METHOD_IGNORE:
                     return False
     return True
 

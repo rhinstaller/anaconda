@@ -49,7 +49,6 @@ from pykickstart.parser import Group
 import blivet.util
 import blivet.arch
 from blivet.errors import StorageError
-from blivet.size import Size, ROUND_HALF_UP
 
 from pyanaconda.anaconda_loggers import get_module_logger
 
@@ -118,20 +117,6 @@ class Payload(metaclass=ABCMeta):
         not exist.  Used by the RPMOSTreePayload subclass.
         """
         pass
-
-    def required_device_size(self, format_class):
-        """We need to provide information how big device is required to have successful
-        installation. ``format_class`` should be filesystem format
-        class for the **root** filesystem this class carry information about
-        metadata size.
-
-        :param format_class: Class of the filesystem format.
-        :type format_class: Class which inherits :class:`blivet.formats.fs.FS`
-        :returns: Size of the device with given filesystem format.
-        :rtype: :class:`blivet.size.Size`
-        """
-        device_size = format_class.get_required_size(self.space_required)
-        return device_size.round_to_nearest(Size("1 MiB"), ROUND_HALF_UP)
 
     ###
     # METHODS FOR WORKING WITH REPOSITORIES

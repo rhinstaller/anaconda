@@ -53,7 +53,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, FIREWALL
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, FIREWALL, FCOE
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -614,8 +614,9 @@ class Network(COMMANDS.Network):
         if network.is_using_team_device():
             self.packages = ["teamd"]
 
-    def execute(self, storage, payload):
-        fcoe_ifaces = network.devices_used_by_fcoe(storage)
+    def execute(self, payload):
+        fcoe_proxy = STORAGE.get_proxy(FCOE)
+        fcoe_ifaces = network.get_devices_by_nics(fcoe_proxy.GetNics())
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
         task_path = network_proxy.InstallNetworkWithTask(util.getSysroot(),

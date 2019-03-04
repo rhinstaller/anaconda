@@ -29,8 +29,6 @@ SELINUX_DEFAULT = -1
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
-from pykickstart.constants import AUTOPART_TYPE_LVM
-
 # common string needs to be easy to change
 from pyanaconda import product
 productName = product.productName
@@ -165,6 +163,16 @@ WARNING_HARDWARE_UNSUPPORTED = N_(
     "on supported hardware, please refer to http://www.redhat.com/hardware."
 )
 
+# Storage messages
+WARNING_NO_DISKS_DETECTED = N_(
+    "No disks detected.  Please shut down the computer, connect at least one disk, and restart "
+    "to complete installation."
+)
+
+WARNING_NO_DISKS_SELECTED = N_(
+    "No disks selected; please select at least one disk to install to."
+)
+
 # Password type
 class SecretType(Enum):
     PASSWORD = "password"
@@ -245,12 +253,9 @@ CMDLINE_FILES = [
 CMDLINE_APPEND = ["modprobe.blacklist", "ifname", "ip"]
 CMDLINE_LIST = ["addrepo"]
 
-# The default autopart type is lvm.
-# FIXME: Move this constant to the storage module.
+# The default autopart type is LVM.
+from pykickstart.constants import AUTOPART_TYPE_LVM
 DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
-
-# Is the default autopart type selected?
-AUTOPART_TYPE_DEFAULT = -1
 
 # Filesystems which are not supported by Anaconda
 UNSUPPORTED_FILESYSTEMS = ("btrfs", "ntfs", "tmpfs")

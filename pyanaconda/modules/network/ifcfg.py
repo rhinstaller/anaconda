@@ -285,7 +285,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class):
     kwargs = {}
 
     # no network command for non-virtual device slaves
-    if ifcfg.get("TYPE") not in ("Bond", "Team"):
+    if ifcfg.get("TYPE") not in ("Bond", "Team") and ifcfg.get("DEVICETYPE") != "Team":
         if ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER") or ifcfg.get("BRIDGE"):
             return None
 

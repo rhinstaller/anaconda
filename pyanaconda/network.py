@@ -25,6 +25,7 @@ from gi.repository import NM
 import shutil
 from pyanaconda.core import util, constants
 import socket
+import itertools
 import os
 import time
 import threading
@@ -34,7 +35,6 @@ import ipaddress
 import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
-from blivet.devices import FcoeDiskDevice
 
 from pyanaconda import nm
 from pyanaconda.flags import flags
@@ -347,10 +347,8 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     shutil.copy(fileName, destfile)
     return True
 
-def devices_used_by_fcoe(storage):
-    fcoe_nics = {d.nic for d in storage.devices if isinstance(d, FcoeDiskDevice)}
-    fcoe_devices = [device for device in nm.nm_devices() if device in fcoe_nics]
-    return fcoe_devices
+def get_devices_by_nics(nics):
+    return [device for device in nm.nm_devices() if device in nics]
 
 def networkInitialize(ksdata):
     if not conf.system.can_configure_network:
@@ -565,8 +563,8 @@ def status_message(nm_client):
                     if ap:
                         ssid = ap.get_ssid().get_data().decode()
                     ssids[iface] = ssid
-                if not device_slaves:
-                    nonslaves.append(device)
+            all_slaves = set(itertools.chain.from_iterable(slaves.values()))
+            nonslaves = [dev for dev in active_devs if dev.get_iface() not in all_slaves]
 
             if len(nonslaves) == 1:
                 device = nonslaves[0]

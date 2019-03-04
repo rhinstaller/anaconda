@@ -36,7 +36,6 @@ class NetworkInterface(KickstartModuleInterface):
         self.implementation.current_hostname_changed.connect(self.CurrentHostnameChanged)
         self.implementation.connected_changed.connect(self.changed("Connected"))
         self.implementation.configurations_changed.connect(self._device_configurations_changed)
-        self.implementation.disable_ipv6_changed.connect(self.changed("DisableIPv6"))
 
     @property
     def Hostname(self) -> Str:
@@ -93,22 +92,6 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.is_connecting()
 
-    @property
-    def DisableIPv6(self) -> Bool:
-        """Disable IPv6 on target system."""
-        return self.implementation.disable_ipv6
-
-    @emits_properties_changed
-    def SetDisableIPv6(self, disable: Bool):
-        """Set disable IPv6 on target system.
-
-        Disables IPv6 on target system if all the network devices have IPv6
-        configuration set to Ignore (kickstart option --noipv6).
-
-        param disable: True if IPv6 on target system should be disabled
-        """
-        self.implementation.set_disable_ipv6(disable)
-
     def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
         """Install network with an installation task.
 
@@ -158,13 +141,6 @@ class NetworkInterface(KickstartModuleInterface):
         """Signal change of network devices configurations."""
         pass
 
-    def SetDefaultKickstartDeviceSpecification(self, specification: Str):
-        """Sets device specification for missing --device kickstart option.
-
-        :param specification: kickstart network --device option specification
-        """
-        self.implementation.default_device_specification = specification
-
     def ConsolidateInitramfsConnections(self) -> List[Str]:
         """Ensure devices configured in initramfs have no more than one NM connection.
 
@@ -173,20 +149,6 @@ class NetworkInterface(KickstartModuleInterface):
         :returns: list of device names which have been cosolidated
         """
         return self.implementation.consolidate_initramfs_connections()
-
-    def SetBootifKickstartDeviceSpecification(self, specification: Str):
-        """Sets value of network --bootif kickstart option.
-
-        :param specification: kickstart network --bootif option specification
-        """
-        self.implementation.bootif = specification
-
-    def SetIfnameOptionValues(self, values: List[Str]):
-        """Sets values of ifname boot option.
-
-        :param values: list of values of ifname boot option
-        """
-        self.implementation.ifname_option_values = values
 
     def ApplyKickstart(self) -> List[Str]:
         """Apply kickstart configuration which has not already been applied.

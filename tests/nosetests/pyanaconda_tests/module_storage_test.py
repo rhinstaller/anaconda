@@ -23,15 +23,15 @@ import unittest
 from unittest.mock import patch, call, Mock
 
 from blivet.errors import StorageError
+from blivet.size import Size
+
 from pyanaconda.bootloader import BootLoaderError
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
-from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX, AUTOPART_TYPE_DEFAULT, \
-    MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, \
-    MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
+from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, \
+    MOUNT_POINT_FORMAT, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, \
-    DISK_SELECTION, AUTO_PARTITIONING, MANUAL_PARTITIONING
+from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
     StorageConfigurationError, BootloaderConfigurationError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError, \
@@ -41,9 +41,6 @@ from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
 from pyanaconda.modules.storage.dasd.format import DASDFormatTask
-from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
-from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
-    DiskInitializationInterface
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 from pyanaconda.modules.storage.fcoe import FCOEModule
@@ -96,6 +93,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
 
         obj.implementation.stopped_signal.emit()
         storage_changed_callback.called_once()
+
+    def get_required_device_size_test(self):
+        """Test GetRequiredDeviceSize."""
+        required_size = self.storage_interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
+        self.assertEqual(Size("1280 MiB").get_bytes(), required_size, Size(required_size))
 
     @patch('pyanaconda.modules.storage.partitioning.validate.storage_checker')
     def apply_partitioning_test(self, storage_checker):
@@ -807,6 +809,18 @@ class StorageInterfaceTestCase(unittest.TestCase):
         with self.assertLogs(level=logging.WARN):
             self._test_kickstart(ks_in, ks_out)
 
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    def custom_partitioning_kickstart_test(self, proxy_getter):
+        """Smoke test for the custom partitioning."""
+        # Make sure that the storage model is created.
+        self.assertTrue(self.storage_module.storage)
+
+        # Make sure that the storage playground is created.
+        self.assertTrue(self.storage_module._custom_part_module.storage)
+
+        # Try to get kickstart data.
+        self._test_kickstart("", "")
+
 
 class StorageTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
@@ -817,72 +831,6 @@ class StorageTasksTestCase(unittest.TestCase):
         task = StorageResetTask(storage)
         task.run()
         storage.reset.called_once()
-
-
-class DiskInitializationInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface of the disk initialization module."""
-
-    def setUp(self):
-        """Set up the module."""
-        self.disk_init_module = DiskInitializationModule()
-        self.disk_init_interface = DiskInitializationInterface(self.disk_init_module)
-
-    def _test_dbus_property(self, *args, **kwargs):
-        check_dbus_property(
-            self,
-            DISK_INITIALIZATION,
-            self.disk_init_interface,
-            *args, **kwargs
-        )
-
-    def default_disk_label_property_test(self):
-        """Test the default disk label property."""
-        self._test_dbus_property(
-            "DefaultDiskLabel",
-            "msdos"
-        )
-
-    def format_unrecognized_enabled_property_test(self):
-        """Test the can format unrecognized property."""
-        self._test_dbus_property(
-            "FormatUnrecognizedEnabled",
-            False
-        )
-
-    def can_initialize_label_property_test(self):
-        """Test the can initialize label property."""
-        self._test_dbus_property(
-            "InitializeLabelsEnabled",
-            False
-        )
-
-    def format_ldl_enabled_property_test(self):
-        """Test the can format LDL property."""
-        self._test_dbus_property(
-            "FormatLDLEnabled",
-            True
-        )
-
-    def initialization_mode_property_test(self):
-        """Test the type to clear property."""
-        self._test_dbus_property(
-            "InitializationMode",
-            CLEAR_PARTITIONS_LINUX
-        )
-
-    def devices_to_clear_property_test(self):
-        """Test the devices to clear property."""
-        self._test_dbus_property(
-            "DevicesToClear",
-            ["sda2", "sda3", "sdb1"]
-        )
-
-    def drives_to_clear_property_test(self):
-        """Test the drives to clear property."""
-        self._test_dbus_property(
-            "DrivesToClear",
-            ["sda", "sdb"]
-        )
 
 
 class DiskSelectionInterfaceTestCase(unittest.TestCase):
@@ -951,11 +899,6 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self._test_dbus_property(
             "Type",
             AUTOPART_TYPE_LVM_THINP
-        )
-
-        self._test_dbus_property(
-            "Type",
-            AUTOPART_TYPE_DEFAULT
         )
 
         self._test_dbus_property(

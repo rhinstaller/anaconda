@@ -84,7 +84,7 @@ levelbar.discrete trough block.filled.high {
 
 /* theme colors/images */
 
-@define-color theme_bg_color @fedora;
+@define-color product_bg_color @fedora;
 
 /* logo and sidebar classes */
 
@@ -94,7 +94,7 @@ levelbar.discrete trough block.filled.high {
  */
 .logo-sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
-    background-color: @theme_bg_color;
+    background-color: @product_bg_color;
     background-repeat: no-repeat;
 }
 
@@ -113,7 +113,7 @@ levelbar.discrete trough block.filled.high {
 }
 
 AnacondaSpokeWindow #nav-box {
-    background-color: @theme_bg_color;
+    background-color: @product_bg_color;
     background-image: url('/usr/share/anaconda/pixmaps/topbar-bg.png');
     background-repeat: repeat;
     color: white;

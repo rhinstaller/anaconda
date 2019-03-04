@@ -207,3 +207,59 @@ class DiskInitializationModule(KickstartBaseModule):
         self._format_ldl_enabled = value
         self.format_ldl_enabled_changed.emit()
         log.debug("Can format LDL is set to '%s'.", value)
+
+    def on_partitioning_changed(self, storage):
+        """Update the configuration from the partitioned storage.
+
+        FIXME: Connect this callback to the storage module.
+        """
+        # Do nothing if the mode is not set to CLEAR_NONE for some reason.
+        if self.initialization_mode != InitializationMode.CLEAR_NONE:
+            return
+
+        # Find the initialized disks and removed partitions.
+        mode, drives, devices = self._find_cleared_devices(storage)
+
+        # Update the current configuration.
+        self.set_initialization_mode(mode)
+        self.set_drives_to_clear(drives)
+        self.set_devices_to_clear(devices)
+
+    @staticmethod
+    def _find_cleared_devices(storage):
+        """Find initialized disks and removed partitions.
+
+        Make a list of initialized disks and of removed partitions. If any
+        partitions were removed from disks that were not completely cleared
+        we'll have to use CLEAR_LIST and provide a list of all removed
+        partitions. If no partitions were removed from a disk that was not
+        cleared/reinitialized we can use CLEAR_ALL.
+
+        :param storage: an instance of the storage
+        :return: a new initialization mode, a list of disks and a list of partitions
+        """
+        destroy_actions = storage.devicetree.actions.find(
+            action_type="destroy",
+            object_type="device"
+        )
+
+        cleared_disks = [
+            disk.name for disk in storage.disks
+            if disk.partitioned and not disk.format.exists
+        ]
+
+        cleared_partitions = [
+            action.device.name for action in destroy_actions
+            if action.device.type == "partition"
+        ]
+
+        cleared_all = all(
+            name for name in cleared_partitions if name in cleared_disks
+        )
+
+        if not destroy_actions:
+            return InitializationMode.CLEAR_NONE, [], []
+        elif cleared_all:
+            return InitializationMode.CLEAR_ALL, cleared_disks, []
+        else:
+            return InitializationMode.CLEAR_LIST, [], cleared_partitions

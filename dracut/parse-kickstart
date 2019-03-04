@@ -566,7 +566,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if net.teamslaves:
 
         ifcfg.pop('HWADDR', None)
-        ifcfg['TYPE'] = "Team"
+        ifcfg['DEVICETYPE'] = "Team"
         ifcfg['NAME'] = "Team connection %s" % dev
         ifcfg['TEAM_CONFIG'] = net.teamconfig
 
@@ -683,7 +683,8 @@ def update_virtual_slave_ifcfg(slave, setting):
             # pylint: disable=redefined-outer-name
             for line in f:
                 key, _sep, val = line.strip().partition("=")
-                if key == "TYPE" and val.strip('"') in ("Bond", "Team"):
+                value = val.strip('"')
+                if (key == "TYPE" and value == "Bond") or (key == "DEVICETYPE" and value == "Team"):
                     update = True
             if update:
                 f.write("%s\n" % setting)
