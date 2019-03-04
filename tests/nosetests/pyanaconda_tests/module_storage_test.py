@@ -807,6 +807,18 @@ class StorageInterfaceTestCase(unittest.TestCase):
         with self.assertLogs(level=logging.WARN):
             self._test_kickstart(ks_in, ks_out)
 
+    @patch("pyanaconda.dbus.DBus.get_proxy")
+    def custom_partitioning_kickstart_test(self, proxy_getter):
+        """Smoke test for the custom partitioning."""
+        # Make sure that the storage model is created.
+        self.assertTrue(self.storage_module.storage)
+
+        # Make sure that the storage playground is created.
+        self.assertTrue(self.storage_module._custom_part_module.storage)
+
+        # Try to get kickstart data.
+        self._test_kickstart("", "")
+
 
 class StorageTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""

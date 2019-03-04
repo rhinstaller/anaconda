@@ -15,15 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
-    LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_LIST, \
     CLEAR_PARTITIONS_ALL
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
     DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 
 log = get_module_logger(__name__)
 
@@ -32,6 +30,8 @@ __all__ = ["update_storage_ksdata"]
 
 def update_storage_ksdata(storage, ksdata):
     """Update kickstart data to reflect the current storage configuration.
+
+    FIXME: This is a temporary workaround for UI.
 
     :param storage: an instance of the storage
     :param ksdata: an instance of kickstart data
@@ -144,56 +144,5 @@ def _update_custom_storage(storage, ksdata):
     if storage.do_autopart:
         return
 
-    # custom storage
-    ks_map = {
-        PartitionDevice: ("PartData", "partition"),
-        TmpFSDevice: ("PartData", "partition"),
-        LVMLogicalVolumeDevice: ("LogVolData", "logvol"),
-        LVMVolumeGroupDevice: ("VolGroupData", "volgroup"),
-        MDRaidArrayDevice: ("RaidData", "raid"),
-        BTRFSDevice: ("BTRFSData", "btrfs")
-    }
-
-    # list comprehension that builds device ancestors should not get None as a member
-    # when searching for bootloader devices
-    bootloader_devices = []
-    if storage.bootloader_device is not None:
-        bootloader_devices.append(storage.bootloader_device)
-
-    # biosboot is a special case
-    for device in storage.devices:
-        if device.format.type == 'biosboot':
-            bootloader_devices.append(device)
-
-    # make a list of ancestors of all used devices
-    used_devices = list(storage.mountpoints.values()) + storage.swaps + bootloader_devices
-
-    devices = list(set(a for d in used_devices for a in d.ancestors))
-    devices.sort(key=lambda d: len(d.ancestors))
-
-    # devices which share information with their distinct raw device
-    complementary_devices = [d for d in devices if d.raw_device is not d]
-
-    for device in devices:
-        cls = next((c for c in ks_map if isinstance(device, c)), None)
-        if cls is None:
-            log.info("omitting ksdata: %s", device)
-            continue
-
-        class_attr, list_attr = ks_map[cls]
-
-        cls = getattr(ksdata, class_attr)
-        data = cls()    # all defaults
-
-        complements = [d for d in complementary_devices if d.raw_device is device]
-
-        if len(complements) > 1:
-            log.warning("omitting ksdata for %s, found too many (%d) complementary devices",
-                        device, len(complements))
-            continue
-
-        device = complements[0] if complements else device
-        device.populate_ksdata(data)
-
-        parent = getattr(ksdata, list_attr)
-        parent.dataList().append(data)
+    # FIXME: This is an ugly temporary workaround for UI.
+    PartitioningModule._setup_kickstart_from_storage(ksdata, storage)

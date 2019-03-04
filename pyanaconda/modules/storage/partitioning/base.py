@@ -19,6 +19,9 @@
 #
 from abc import abstractmethod
 
+from blivet.devices import PartitionDevice, TmpFSDevice, LVMLogicalVolumeDevice, \
+    LVMVolumeGroupDevice, MDRaidArrayDevice, BTRFSDevice
+
 from pyanaconda.modules.common.base.base import KickstartBaseModule
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -76,3 +79,72 @@ class PartitioningModule(KickstartBaseModule):
         :return: a DBus path to a task
         """
         pass
+
+    def setup_kickstart(self, data):
+        """Setup the kickstart data."""
+        if not self._storage_playground:
+            return
+
+        self._setup_kickstart_from_storage(data, self._storage_playground)
+
+    @staticmethod
+    def _setup_kickstart_from_storage(data, storage):
+        """Setup the kickstart data from the given storage.
+
+        :param data: an instance of kickstart data
+        :param storage: an instance of the storage model
+        """
+        # Map devices on kickstart commands and data.
+        ks_map = {
+            PartitionDevice: ("PartData", "partition"),
+            TmpFSDevice: ("PartData", "partition"),
+            LVMLogicalVolumeDevice: ("LogVolData", "logvol"),
+            LVMVolumeGroupDevice: ("VolGroupData", "volgroup"),
+            MDRaidArrayDevice: ("RaidData", "raid"),
+            BTRFSDevice: ("BTRFSData", "btrfs")
+        }
+
+        # List comprehension that builds device ancestors should not get None
+        # as a member when searching for bootloader devices
+        bootloader_devices = []
+
+        if storage.bootloader_device is not None:
+            bootloader_devices.append(storage.bootloader_device)
+
+        for device in storage.devices:
+            if device.format.type == 'biosboot':
+                bootloader_devices.append(device)
+
+        # Make a list of ancestors of all used devices
+        used_devices = list(storage.mountpoints.values()) + storage.swaps + bootloader_devices
+        all_devices = list(set(a for d in used_devices for a in d.ancestors))
+        all_devices.sort(key=lambda d: len(d.ancestors))
+
+        # Devices which share information with their distinct raw device
+        complementary_devices = [d for d in all_devices if d.raw_device is not d]
+
+        # Generate the kickstart commands.
+        for device in all_devices:
+            cls = next((c for c in ks_map if isinstance(device, c)), None)
+
+            if cls is None:
+                log.info("Omitting kickstart data for: %s", device)
+                continue
+
+            class_attr, list_attr = ks_map[cls]
+
+            cls = getattr(data, class_attr)
+            device_data = cls()  # all defaults
+
+            complements = [d for d in complementary_devices if d.raw_device is device]
+
+            if len(complements) > 1:
+                log.warning("Omitting kickstart data for %s, found too many (%d) "
+                            "complementary devices.", device, len(complements))
+                continue
+
+            device = complements[0] if complements else device
+            device.populate_ksdata(device_data)
+
+            parent = getattr(data, list_attr)
+            parent.dataList().append(device_data)

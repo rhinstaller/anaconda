@@ -61,11 +61,6 @@ class CustomPartitioningModule(PartitioningModule):
         # FIXME: Remove this ugly hack.
         self._data.onPart = {}
 
-    def setup_kickstart(self, data):
-        """Setup the kickstart data."""
-        # TODO: Provide the kickstart data.
-        pass
-
     def configure_with_task(self):
         """Schedule the partitioning actions."""
         task = StorageConfigureTask(self.storage, CustomPartitioningExecutor(self.data))
