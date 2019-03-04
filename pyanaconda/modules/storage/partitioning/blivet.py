@@ -1,5 +1,5 @@
 #
-# Custom partitioning module.
+# Blivet partitioning module.
 #
 # Copyright (C) 2019 Red Hat, Inc.
 #
@@ -17,58 +17,53 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivetgui.osinstall import BlivetUtilsAnaconda
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
-from pyanaconda.modules.common.constants.objects import CUSTOM_PARTITIONING
-from pyanaconda.modules.common.errors.storage import UnavailableDataError
+from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
+from pyanaconda.modules.storage.partitioning.blivet_interface import \
+    BlivetPartitioningInterface
 from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.execution import CustomPartitioningExecutor
+from pyanaconda.storage.execution import InteractivePartitioningExecutor
 
 log = get_module_logger(__name__)
 
 
-class CustomPartitioningModule(PartitioningModule):
-    """The custom partitioning module."""
+class BlivetPartitioningModule(PartitioningModule):
+    """The partitioning module for Blivet-GUI."""
 
     def __init__(self):
-        """Initialize the module."""
         super().__init__()
-        self._data = None
-
-    @property
-    def data(self):
-        """The partitioning data.
-
-        :return: an instance of kickstart data
-        """
-        if self._data is None:
-            raise UnavailableDataError()
-
-        return self._data
+        self._handler = None
 
     def publish(self):
         """Publish the module."""
-        DBus.publish_object(CUSTOM_PARTITIONING.object_path, PartitioningInterface(self))
+        DBus.publish_object(BLIVET_PARTITIONING.object_path, BlivetPartitioningInterface(self))
 
-    def process_kickstart(self, data):
-        """Process the kickstart data."""
-        # FIXME: Don't keep everything.
-        self._data = data
+    @property
+    def storage_handler(self):
+        """The handler of the storage.
 
-        # FIXME: Remove this ugly hack.
-        self._data.onPart = {}
+        :return: an instance of BlivetUtils
+        """
+        if not self._handler:
+            self._handler = BlivetUtilsAnaconda()
+
+        # Make sure that the handler always uses the current storage.
+        self._handler.storage = self.storage
+        return self._handler
 
     def configure_with_task(self):
-        """Schedule the partitioning actions."""
-        task = StorageConfigureTask(self.storage, CustomPartitioningExecutor(self.data))
-        path = self.publish_task(CUSTOM_PARTITIONING.namespace, task)
+        """Complete the scheduled partitioning."""
+        task = StorageConfigureTask(self.storage, InteractivePartitioningExecutor())
+        path = self.publish_task(BLIVET_PARTITIONING.namespace, task)
         return path
 
     def validate_with_task(self):
         """Validate the scheduled partitions."""
         task = StorageValidateTask(self.storage)
-        path = self.publish_task(CUSTOM_PARTITIONING.namespace, task)
+        path = self.publish_task(BLIVET_PARTITIONING.namespace, task)
         return path

@@ -34,7 +34,7 @@ from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.bootloader.execution import BootloaderExecutor
-from pyanaconda.core.constants import AUTOPART_TYPE_DEFAULT, MOUNT_POINT_DEVICE, \
+from pyanaconda.core.constants import MOUNT_POINT_DEVICE, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_FORMAT, MOUNT_POINT_PATH, MOUNT_POINT_FORMAT_OPTIONS, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
@@ -157,6 +157,14 @@ class PartitioningExecutor(ABC):
         pass
 
 
+class InteractivePartitioningExecutor(PartitioningExecutor):
+    """The executor of the interactive partitioning."""
+
+    def execute(self, storage):
+        """The partitioning is already set up, do nothing here."""
+        log.debug("The partitioning should already exist, skip the execution.")
+
+
 class AutomaticPartitioningExecutor(PartitioningExecutor):
     """The executor of the automatic partitioning."""
 
@@ -204,8 +212,7 @@ class AutomaticPartitioningExecutor(PartitioningExecutor):
             storage.autopart_luks_version = luks_version
             storage.autopart_pbkdf_args = pbkdf_args
 
-        if auto_part_proxy.Type != AUTOPART_TYPE_DEFAULT:
-            storage.autopart_type = auto_part_proxy.Type
+        storage.autopart_type = auto_part_proxy.Type
 
         autopart.do_autopart(storage, min_luks_entropy=MIN_CREATE_ENTROPY)
 

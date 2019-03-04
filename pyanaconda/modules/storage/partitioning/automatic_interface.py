@@ -76,7 +76,6 @@ class AutoPartitioningInterface(PartitioningInterface):
         """Set the partitioning scheme.
 
         Allowed values:
-            -1 Use the default scheme.
             0  Create regular partitions.
             1  Use the btrfs scheme.
             2  Use the lvm scheme.

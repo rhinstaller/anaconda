@@ -18,12 +18,13 @@
 # Red Hat, Inc.
 #
 from blivet import arch
+from blivet.size import Size
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING, \
-    CUSTOM_PARTITIONING
+    CUSTOM_PARTITIONING, BLIVET_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.dasd import DASDModule
@@ -35,13 +36,14 @@ from pyanaconda.modules.storage.installation import MountFilesystemsTask, Activa
 from pyanaconda.modules.storage.kickstart import StorageKickstartSpecification
 from pyanaconda.modules.storage.nvdimm import NVDIMMModule
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
-    ManualPartitioningModule, CustomPartitioningModule
+    ManualPartitioningModule, CustomPartitioningModule, BlivetPartitioningModule
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.storage.initialization import enable_installer_mode, create_storage
+from pyanaconda.storage.utils import get_required_device_size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -102,6 +104,9 @@ class StorageModule(KickstartModule):
         self._custom_part_module = CustomPartitioningModule()
         self._add_partitioning_module(CUSTOM_PARTITIONING.object_path, self._custom_part_module)
 
+        self._blivet_part_module = BlivetPartitioningModule()
+        self._add_partitioning_module(BLIVET_PARTITIONING.object_path, self._blivet_part_module)
+
         # Connect modules to signals.
         self.storage_changed.connect(self._snapshot_module.on_storage_reset)
 
@@ -142,6 +147,7 @@ class StorageModule(KickstartModule):
         # Set the default filesystem type.
         if data.autopart.autopart and data.autopart.fstype:
             self.storage.set_default_fstype(data.autopart.fstype)
+            self.storage.set_default_boot_fstype(data.autopart.fstype)
 
     def generate_temporary_kickstart(self):
         """Return the temporary kickstart string."""
@@ -198,6 +204,14 @@ class StorageModule(KickstartModule):
         # Publish the task.
         path = self.publish_task(STORAGE.namespace, task)
         return path
+
+    def get_required_device_size(self, required_space):
+        """Get device size we need to get the required space on the device.
+
+        :param int required_space: a required space in bytes
+        :return int: a required device size in bytes
+        """
+        return get_required_device_size(Size(required_space)).get_bytes()
 
     def apply_partitioning(self, object_path):
         """Apply a partitioning.

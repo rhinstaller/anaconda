@@ -23,8 +23,6 @@
 import os
 import parted
 
-from pykickstart.constants import AUTOPART_TYPE_LVM
-
 from blivet.blivet import Blivet
 from blivet.storage_log import log_exception_info
 from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
@@ -36,7 +34,8 @@ from pyanaconda.core import util
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
-    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
+    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT, \
+    DEFAULT_AUTOPART_TYPE
 from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.platform import platform as _platform
 from pyanaconda.storage.fsset import FSSet
@@ -86,7 +85,7 @@ class InstallerStorage(Blivet):
 
         self._bootloader = None
         self.config = StorageDiscoveryConfig()
-        self.autopart_type = AUTOPART_TYPE_LVM
+        self.autopart_type = DEFAULT_AUTOPART_TYPE
 
         self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
@@ -345,6 +344,22 @@ class InstallerStorage(Blivet):
                 free += device.format.free_space_estimate(device.size)
 
         return free
+
+    def get_disk_free_space(self, disks=None):
+        """Get total free space on the given disks.
+
+        :param disks: a list of disks or None
+        :return: a total size
+        """
+        # Use all disks in the device tree by default.
+        if disks is None:
+            disks = self.disks
+
+        # Get the dictionary of free spaces for each disk.
+        snapshot = super().get_free_space(disks)
+
+        # Calculate the total free space.
+        return sum((disk_free for disk_free, fs_free in snapshot.values()), Size(0))
 
     @property
     def free_space_snapshot(self):

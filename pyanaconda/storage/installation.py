@@ -28,9 +28,8 @@ from blivet.iscsi import iscsi
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
-from pyanaconda.modules.common.constants.objects import FCOE
+from pyanaconda.modules.common.constants.objects import FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.storage.kickstart import ZFCP
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
