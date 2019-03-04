@@ -16,12 +16,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+import sys
+import copy
 import gi
-gi.require_version("Gtk", "3.0")
-gi.require_version("Pango", "1.0")
-
-from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
@@ -42,9 +39,14 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-import sys, copy
+
+gi.require_version("Gtk", "3.0")
+gi.require_version("Pango", "1.0")
+from gi.repository import Gtk, Pango
+
 
 __all__ = ["SoftwareSelectionSpoke"]
+
 
 class SoftwareSelectionSpoke(NormalSpoke):
     """
@@ -81,8 +83,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Connect viewport scrolling with listbox focus events
         environmentViewport = self.builder.get_object("environmentViewport")
         addonViewport = self.builder.get_object("addonViewport")
-        self._environmentListBox.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(environmentViewport))
-        self._addonListBox.set_focus_vadjustment(Gtk.Scrollable.get_vadjustment(addonViewport))
+        self._environmentListBox.set_focus_vadjustment(
+            Gtk.Scrollable.get_vadjustment(environmentViewport))
+        self._addonListBox.set_focus_vadjustment(
+            Gtk.Scrollable.get_vadjustment(addonViewport))
 
         # Used to store how the user has interacted with add-ons for the default add-on
         # selection logic. The dictionary keys are group IDs, and the values are selection
@@ -105,8 +109,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._error = False
 
         # Register event listeners to update our status on payload events
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA, self._downloading_package_md)
-        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA, self._downloading_group_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_PKG_METADATA,
+                                self._downloading_package_md)
+        payloadMgr.add_listener(PayloadState.DOWNLOADING_GROUP_METADATA,
+                                self._downloading_group_md)
         payloadMgr.add_listener(PayloadState.FINISHED, self._payload_finished)
         payloadMgr.add_listener(PayloadState.ERROR, self._payload_error)
 
@@ -114,7 +120,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # list with no radio buttons ticked
         self._fakeRadio = Gtk.RadioButton(group=None)
         self._fakeRadio.set_active(True)
-
 
     # Payload event handlers
     def _downloading_package_md(self):
@@ -177,8 +182,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self.environment_valid:
             log.info("using environment from kickstart: %s", self.environment)
         else:
-            log.error("unknown environment has been specified in kickstart and will be ignored: %s",
-                      self.data.packages.environment)
+            log.error("unknown environment has been specified in kickstart "
+                      "and will be ignored: %s", self.data.packages.environment)
             # False means that the environment has been set to an invalid value and needs to
             # be manually set to a valid one.
             self.environment = False
@@ -338,7 +343,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Select groups which should be selected by kickstart
         try:
             for group in self.payload.selected_groups_IDs():
-                if self.environment and self.payload.environment_option_is_default(self.environment, group):
+                if self.environment and \
+                   self.payload.environment_option_is_default(self.environment, group):
                     self._addonStates[group] = self._ADDON_DEFAULT
                 else:
                     self._addonStates[group] = self._ADDON_SELECTED
@@ -428,7 +434,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # and tick the radio button if it does
             radio.set_active(self.environment_valid and self.environmentid == environmentid)
 
-            self._add_row(self._environmentListBox, name, desc, radio, self.on_radio_button_toggled)
+            self._add_row(self._environmentListBox,
+                          name, desc, radio,
+                          self.on_radio_button_toggled)
 
         self.refreshAddons()
         self._environmentListBox.show_all()
@@ -488,7 +496,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._selectFlag = True
 
         if self._errorMsgs:
-            self.set_warning(_("Error checking software dependencies.  <a href=\"\">Click for details.</a>"))
+            self.set_warning(_("Error checking software dependencies. "
+                               " <a href=\"\">Click for details.</a>"))
         else:
             self.clear_info()
 
@@ -606,11 +615,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
                   "This is likely caused by an error with your installation source.  "
                   "You can quit the installer, change your software source, or change "
                   "your software selections.")
-        dialog = DetailedErrorDialog(self.data,
-                buttons=[C_("GUI|Software Selection|Error Dialog", "_Quit"),
-                         C_("GUI|Software Selection|Error Dialog", "_Modify Software Source"),
-                         C_("GUI|Software Selection|Error Dialog", "Modify _Selections")],
-                label=label)
+        dialog = DetailedErrorDialog(
+            self.data,
+            buttons=[C_("GUI|Software Selection|Error Dialog", "_Quit"),
+                     C_("GUI|Software Selection|Error Dialog", "_Modify Software Source"),
+                     C_("GUI|Software Selection|Error Dialog", "Modify _Selections")],
+            label=label)
         with self.main_window.enlightbox(dialog.window):
             dialog.refresh(self._errorMsgs)
             rc = dialog.run()
