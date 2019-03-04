@@ -167,6 +167,11 @@ class LiveImagePayload(ImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
+        self._create_rescue_image()
+
+    def _create_rescue_image(self):
+        """Create the rescue initrd images for each installed kernel. """
+        # Live needs to create the rescue image before bootloader is written
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             useNKP = True
         else:
@@ -516,10 +521,7 @@ class LiveImageKSPayload(LiveImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
-        for kernel in self.kernelVersionList:
-            log.info("Generating rescue image for %s", kernel)
-            util.execInSysroot("new-kernel-pkg",
-                               ["--rpmposttrans", kernel])
+        self._create_rescue_image()
 
     def postInstall(self):
         """ Unmount and remove image
