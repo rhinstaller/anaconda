@@ -93,11 +93,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # state constants. See refreshAddons for how the values are used.
         self._addonStates = {}
 
-        # Create a RadioButton that will never be displayed to use as the group for the
-        # environment radio buttons. This way the environment radio buttons can all appear
-        # unselected in the case of modifying data from kickstart.
-        self._firstRadio = Gtk.RadioButton(group=None)
-
         # Used for detecting whether anything's changed in the spoke.
         self._origAddons = []
         self._origEnvironment = None
