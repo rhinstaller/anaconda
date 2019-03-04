@@ -354,6 +354,40 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 04 2019 Martin Kolman <mkolman@redhat.com> - 30.25.2-1
+- Get the summary about selected disks from a function (vponcova)
+- Replace warnings about disks with constants (vponcova)
+- Rename and reorganize members of the storage spoke in TUI and GUI (vponcova)
+- Add tests for the Blivet partitioning module (vponcova)
+- Add DBus support for Blivet-GUI (vponcova)
+- Create the Blivet partitioning module (vponcova)
+- Don't override bg color of gtk-themes (mate)
+- Fix the import of ZFCP (#1684583) (vponcova)
+- Set up the disk initialization module from the partitioned storage (vponcova)
+- Move the tests for the disk initialization module (vponcova)
+- Set the default filesystem type for /boot in the Storage module (vponcova)
+- Replace the default autopart type in the Storage module (vponcova)
+- Set the correct attribute of the bootloader kickstart data (vponcova)
+- network: Get FCoE nics from the DBus module (vponcova)
+- Set up the kickstart partitioning from the storage by default (vponcova)
+- Get the required device size for the given space from DBus (vponcova)
+- network module: remove DisableIPV6 API (rvykydal)
+- network module: fix disabling of ipv6 (rvykydal)
+- Fixes for pylint-2.3.0 (vponcova)
+- network module: remove API for applying boot options (rvykydal)
+- network: use DEVICETYPE for team when updating virtual slaves ifcfgs
+  (rvykydal)
+- dracut/parse-kickstart: Set DEVICETYPE instead of TYPE in a team master ifcfg
+  file (ptalbert)
+- network module: take DEVICETYPE for team into account (rvykydal)
+- payload: fix pep8 errors in TUI source spoke (jkonecny)
+- network: fix network spoke status message (rvykydal)
+- payload: switch source spoke from CamelCase (jkonecny)
+- payload: solve pep8 errors in GUI source spoke (jkonecny)
+- network module: fix missing argument in a log message (rvykydal)
+- network module: honor ifname boot option for kickstart %%pre and missing
+  ifcfg (rvykydal)
+
 * Mon Feb 25 2019 Martin Kolman <mkolman@redhat.com> - 30.25.1-1
 - Use apply_disk_selection (vponcova)
 - Use filter_disks_by_names (vponcova)
