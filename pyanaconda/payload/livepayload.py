@@ -328,7 +328,8 @@ class LiveImageKSPayload(LiveImagePayload):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        super().setup(self, storage)
+        # FIXME: this should be solved on a inheritance level not like this
+        Payload.setup(self, storage)
 
         if self.data.method.url.startswith("file://"):
             error = self._setup_file_image()
@@ -344,7 +345,8 @@ class LiveImageKSPayload(LiveImagePayload):
 
     def unsetup(self):
         # Skip LiveImagePayload's unsetup method
-        super().unsetup(self)
+        # FIXME: this should be solved on a inheritance level not like this
+        Payload.unsetup(self)
 
     def _pre_install_url_image(self):
         """ Download the image using Requests with progress reporting"""
