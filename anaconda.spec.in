@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 05 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.149-1
+- Offer only supported sector sizes in NVDIMM reconfiguration dialog (rvykydal)
+  Resolves: rhbz#1614049
+
 * Thu Feb 07 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.148-1
 - Change Skylake Spectre_V2 default to Retpolines (vponcova)
   Resolves: rhbz#1659626
