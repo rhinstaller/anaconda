@@ -512,11 +512,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             reset_bootloader(self.storage)
-            # The reset also calls self.storage.config.update().
             reset_storage(self.storage, scan_all=True)
-            # Now set data back to the user's specified config.
-            self._available_disks = get_available_disks(self.storage.devicetree)
-            apply_disk_selection(self.storage, self._selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")

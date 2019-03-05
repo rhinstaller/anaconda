@@ -433,18 +433,8 @@ class StorageSpoke(NormalTUISpoke):
             log.error("storage configuration failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-
-            # Prepare for reset.
             reset_bootloader(self.storage)
-            self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
-            self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
-            self.storage.autopart_type = self._auto_part_observer.proxy.Type
-
-            # The reset also calls self.storage.config.update().
             reset_storage(self.storage, scan_all=True)
-
-            # Now set data back to the user's specified config.
-            apply_disk_selection(self.storage, self._selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
