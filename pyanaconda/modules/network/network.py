@@ -41,6 +41,7 @@ from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
     DumpMissingIfcfgFilesTask
 from pyanaconda.modules.network.utils import get_default_route_iface
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 import gi
 gi.require_version("NM", "1.0")
@@ -359,7 +360,7 @@ class NetworkModule(KickstartModule):
         if not ifaces:
             return
         for nd in network_data:
-            supported_devices = self.get_supported_devices()
+            supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
             device_name = get_device_name_from_network_data(self.nm_client,
                                                             nd, supported_devices, self.bootif)
             if device_name in ifaces:
@@ -404,8 +405,23 @@ class NetworkModule(KickstartModule):
 
     def get_supported_devices(self):
         """Get names of existing supported devices on the system."""
-        return [device.get_iface() for device in self.nm_client.get_devices()
-                if device.get_device_type() in supported_device_types]
+        # TODO guard on system (provides_system_bus)
+        supported_devices = []
+        if not self.nm_available:
+            log.debug("Supported devices can't be determined.")
+            return supported_devices
+
+        for device in self.nm_client.get_devices():
+            dev_type = device.get_device_type()
+            if dev_type not in supported_device_types:
+                continue
+            dev_info = NetworkDeviceInfo()
+            dev_info.device_type = dev_type
+            dev_info.device_name = device.get_iface()
+            dev_info.hw_address = device.get_permanent_hw_address() or device.get_hw_address()
+            supported_devices.append(dev_info)
+
+        return supported_devices
 
     @property
     def bootif(self):
@@ -445,7 +461,7 @@ class NetworkModule(KickstartModule):
 
         :returns: DBus path of the task applying the kickstart
         """
-        supported_devices = self.get_supported_devices()
+        supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = ApplyKickstartTask(self.nm_client,
                                   self._original_network_data,
                                   supported_devices,
@@ -466,7 +482,7 @@ class NetworkModule(KickstartModule):
 
         :returns: DBus path of the task setting the values
         """
-        supported_devices = self.get_supported_devices()
+        supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = SetRealOnbootValuesFromKickstartTask(self.nm_client,
                                                     self._original_network_data,
                                                     supported_devices,
