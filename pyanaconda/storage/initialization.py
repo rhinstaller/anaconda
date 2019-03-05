@@ -27,9 +27,10 @@ from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
-    DISK_INITIALIZATION, FCOE, ZFCP
+    DISK_INITIALIZATION, FCOE, ZFCP, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
@@ -160,6 +161,16 @@ def reset_storage(storage, scan_all=False, teardown=False, retry=True):
         else:
             # No need to retry.
             break
+
+
+def reset_bootloader(storage):
+    """Reset the bootloader.
+
+    :param storage: an instance of the Blivet's storage object
+    """
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+    storage.bootloader.reset()
 
 
 def select_all_disks_by_default(storage):

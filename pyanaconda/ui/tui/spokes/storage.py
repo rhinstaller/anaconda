@@ -46,13 +46,13 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, SecretType, \
+    BOOTLOADER_LOCATION_MBR, SecretType, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage.initialization import reset_storage, update_storage_config, \
-    select_all_disks_by_default
+    select_all_disks_by_default, reset_bootloader
 
 from pykickstart.base import BaseData
 from pykickstart.errors import KickstartParseError
@@ -414,8 +414,7 @@ class StorageSpoke(NormalTUISpoke):
         boot_drive = self._bootloader_observer.proxy.Drive
 
         if boot_drive and boot_drive not in self._selected_disks:
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self.storage.bootloader.reset()
+            reset_bootloader(self.storage)
 
         apply_disk_selection(self.storage, self._selected_disks)
         update_storage_config(self.storage.config)
@@ -436,7 +435,7 @@ class StorageSpoke(NormalTUISpoke):
             self.errors = [str(e)]
 
             # Prepare for reset.
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
             self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
             self.storage.autopart_type = self._auto_part_observer.proxy.Type
@@ -450,7 +449,7 @@ class StorageSpoke(NormalTUISpoke):
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
         else:
             print(_("Checking storage configuration..."))
             report = storage_checker.check(self.storage)
