@@ -515,10 +515,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
             # Prepare for reset.
             self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self._disk_select_observer.proxy.SetSelectedDisks([])
 
             # The reset also calls self.storage.config.update().
-            reset_storage(self.storage)
+            reset_storage(self.storage, scan_all=True)
 
             # Now set data back to the user's specified config.
             self._available_disks = get_available_disks(self.storage.devicetree)

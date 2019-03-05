@@ -442,7 +442,7 @@ class StorageSpoke(NormalTUISpoke):
             self.storage.autopart_type = self._auto_part_observer.proxy.Type
 
             # The reset also calls self.storage.config.update().
-            reset_storage(self.storage)
+            reset_storage(self.storage, scan_all=True)
 
             # Now set data back to the user's specified config.
             apply_disk_selection(self.storage, self._selected_disks)
@@ -612,15 +612,7 @@ class PartTypeSpoke(NormalTUISpoke):
 
         # else
         print(_("Reverting previous configuration. This may take a moment..."))
-        # unset selected disks temporarily so that
-        # initialize_storage() processes all devices
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        disk_select_proxy.SetSelectedDisks([])
-
-        reset_storage(self.storage)
-
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        reset_storage(self.storage, scan_all=True)
         self._manual_part_proxy.SetMountPoints([])
 
     def input(self, args, key):
@@ -857,16 +849,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
         if not question_window.answer:
             return
 
-        # unset selected disks temporarily so that
-        # initialize_storage() processes all devices
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        disk_select_proxy.SetSelectedDisks([])
-
         print(_("Scanning disks. This may take a moment..."))
-        reset_storage(self.storage)
-
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        reset_storage(self.storage, scan_all=True)
         self._manual_part_proxy.SetMountPoints([])
         self._mount_info = self._gather_mount_info()
 

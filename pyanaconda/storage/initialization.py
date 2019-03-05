@@ -123,10 +123,11 @@ def load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def reset_storage(storage, teardown=False, retry=True):
+def reset_storage(storage, scan_all=False, teardown=False, retry=True):
     """Reset the storage model.
 
     :param storage: an instance of the Blivet's storage object
+    :param scan_all: should we scan all devices in the system?
     :param teardown: should we teardown devices in the current device tree?
     :param retry: should we allow to retry the reset?
     """
@@ -136,6 +137,11 @@ def reset_storage(storage, teardown=False, retry=True):
             storage.devicetree.teardown_all()
         except Exception:  # pylint: disable=broad-except
             log_exception_info(log.error, "Failure tearing down device tree.")
+
+    # Clear the exclusive disks to scan all devices in the system.
+    if scan_all:
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        disk_select_proxy.SetExclusiveDisks([])
 
     # Do the reset.
     while True:
@@ -190,7 +196,7 @@ def _reset_storage(storage):
     # Set the ignored and exclusive disks.
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     storage.ignored_disks = disk_select_proxy.IgnoredDisks
-    storage.exclusive_disks = disk_select_proxy.SelectedDisks
+    storage.exclusive_disks = disk_select_proxy.ExclusiveDisks
     storage.protected_devices = disk_select_proxy.ProtectedDevices
 
     # Reload additional modules.
