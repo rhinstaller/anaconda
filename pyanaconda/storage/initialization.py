@@ -123,27 +123,36 @@ def load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def initialize_storage(storage):
-    """Perform installer-specific storage initialization.
+def reset_storage(storage, teardown=False, retry=True):
+    """Reset the storage model.
 
     :param storage: an instance of the Blivet's storage object
+    :param teardown: should we teardown devices in the current device tree?
+    :param retry: should we allow to retry the reset?
     """
     # Deactivate all devices.
-    try:
-        storage.devicetree.teardown_all()
-    except Exception:  # pylint: disable=broad-except
-        log_exception_info(log.error, "Failure tearing down device tree.")
+    if teardown:
+        try:
+            storage.devicetree.teardown_all()
+        except Exception:  # pylint: disable=broad-except
+            log_exception_info(log.error, "Failure tearing down device tree.")
 
     # Do the reset.
     while True:
         try:
-            reset_storage(storage)
+            _reset_storage(storage)
         except StorageError as e:
-            if error_handler.cb(e) == ERROR_RAISE:
+            # Is the retry allowed?
+            if not retry:
                 raise
+            # Does the user want to retry?
+            elif error_handler.cb(e) == ERROR_RAISE:
+                raise
+            # Retry the storage reset.
             else:
                 continue
         else:
+            # No need to retry.
             break
 
 
@@ -168,10 +177,10 @@ def select_all_disks_by_default(storage):
     return selected_disks
 
 
-def reset_storage(storage):
-    """Reset the storage.
+def _reset_storage(storage):
+    """Do reset the storage.
 
-    FIXME: A temporary workaround for UI,
+    FIXME: Call the DBus task instead of this function.
 
     :param storage: an instance of the Blivet's storage object
     """

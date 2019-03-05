@@ -29,7 +29,7 @@ from pyanaconda.storage.utils import get_available_disks
 from pyanaconda.core.signal import Signal
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.core.i18n import _
-from pyanaconda.storage.initialization import initialize_storage
+from pyanaconda.storage.initialization import reset_storage
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, DASD
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.task import sync_run_task
@@ -169,7 +169,7 @@ class DasdFormatting(object):
 
         # Update the storage.
         self.report.emit(_("Probing storage"))
-        initialize_storage(storage)
+        reset_storage(storage)
 
         # Update also the storage snapshot to reflect the changes.
         if on_disk_storage.created:

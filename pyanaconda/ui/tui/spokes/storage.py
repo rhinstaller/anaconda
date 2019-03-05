@@ -51,8 +51,8 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.initialization import initialize_storage, update_storage_config, \
-    reset_storage, select_all_disks_by_default
+from pyanaconda.storage.initialization import reset_storage, update_storage_config, \
+    select_all_disks_by_default
 
 from pykickstart.base import BaseData
 from pykickstart.errors import KickstartParseError
@@ -618,7 +618,7 @@ class PartTypeSpoke(NormalTUISpoke):
         selected_disks = disk_select_proxy.SelectedDisks
         disk_select_proxy.SetSelectedDisks([])
 
-        initialize_storage(self.storage)
+        reset_storage(self.storage)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
         self._manual_part_proxy.SetMountPoints([])
@@ -864,7 +864,7 @@ class MountPointAssignSpoke(NormalTUISpoke):
         disk_select_proxy.SetSelectedDisks([])
 
         print(_("Scanning disks. This may take a moment..."))
-        initialize_storage(self.storage)
+        reset_storage(self.storage)
 
         disk_select_proxy.SetSelectedDisks(selected_disks)
         self._manual_part_proxy.SetMountPoints([])
