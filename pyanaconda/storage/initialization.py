@@ -23,6 +23,7 @@ from blivet import util as blivet_util, udev, arch
 from blivet.errors import StorageError
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
+from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
@@ -127,8 +128,13 @@ def initialize_storage(storage):
 
     :param storage: an instance of the Blivet's storage object
     """
-    storage.shutdown()
+    # Deactivate all devices.
+    try:
+        storage.devicetree.teardown_all()
+    except Exception:  # pylint: disable=broad-except
+        log_exception_info(log.error, "Failure tearing down device tree.")
 
+    # Do the reset.
     while True:
         try:
             reset_storage(storage)
