@@ -392,7 +392,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
     for con, device_name in added_connections:
         log.debug("add connection: %s for %s\n%s", con_uuid, device_name,
-                  con.to_dbus(NM.ConnectionSerializationFlags.ALL))
+                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         device_to_activate = device_name if activate else None
         nm_client.add_connection_async(con, True, None,
                                        _connection_added_cb,
@@ -410,7 +410,7 @@ def _connection_added_cb(client, result, device_to_activate=None):
     """
     con = client.add_connection_finish(result)
     log.debug("connection %s added:\n%s", con.get_uuid(),
-              con.to_dbus(NM.ConnectionSerializationFlags.ALL))
+              con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
     if device_to_activate:
         device = client.get_device_by_iface(device_to_activate)
         if device:
@@ -507,7 +507,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     :type device_name: str
     """
     log.debug("updating connection %s:\n%s", connection.get_uuid(),
-              connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+              connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
     # IP configuration
     update_connection_ip_settings_from_ksdata(connection, network_data)
@@ -521,7 +521,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     connection.commit_changes(True, None)
 
     log.debug("updated connection %s:\n%s", connection.get_uuid(),
-              connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+              connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
 
 def update_connection_ip_settings_from_ksdata(connection, network_data):
