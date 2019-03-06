@@ -141,7 +141,7 @@ class LiveImagePayload(ImagePayload):
         #           symlinks, hardlinks
         # go recursively, include devices and special files, don't cross
         # file system boundaries
-        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
+        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/", "--exclude", "/tmp/*",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
                 "--exclude", "/boot/loader/", "--exclude", "/boot/efi/loader/",
                 "--exclude", "/etc/machine-id", INSTALL_TREE + "/", util.getSysroot()]
@@ -508,8 +508,8 @@ class LiveImageKSPayload(LiveImagePayload):
         cmd = "tar"
         # preserve: ACL's, xattrs, and SELinux context
         args = ["--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
-                "--exclude", "/dev/", "--exclude", "/proc/",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "boot/*rescue*",
+                "--exclude", "dev/*", "--exclude", "proc/*", "--exclude", "tmp/*",
+                "--exclude", "sys/*", "--exclude", "run/*", "--exclude", "boot/*rescue*",
                 "--exclude", "boot/loader", "--exclude", "boot/efi/loader",
                 "--exclude", "etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
         try:
