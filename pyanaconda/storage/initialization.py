@@ -31,7 +31,6 @@ from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PAR
     DISK_INITIALIZATION, FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import InstallerStorage
-from pyanaconda.storage.partitioning import get_default_partitioning
 from pyanaconda.platform import platform
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -104,9 +103,6 @@ def set_storage_defaults_from_kickstart(storage):
     if auto_part_proxy.Enabled and fstype:
         storage.set_default_fstype(fstype)
         storage.set_default_boot_fstype(fstype)
-
-    # Set the default partitioning, depends on a type of a bootloader.
-    storage.set_default_partitioning(get_default_partitioning())
 
 
 def load_plugin_s390():

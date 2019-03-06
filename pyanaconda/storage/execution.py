@@ -46,7 +46,6 @@ from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
-from pyanaconda.storage.partitioning import get_default_partitioning
 from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias, get_available_disk_space
 
 log = get_module_logger(__name__)
@@ -184,9 +183,6 @@ class AutomaticPartitioningExecutor(PartitioningExecutor):
         if fstype:
             storage.set_default_fstype(fstype)
             storage.set_default_boot_fstype(fstype)
-
-        # Set the default partitioning.
-        storage.set_default_partitioning(get_default_partitioning())
 
         # Set the encryption.
         if auto_part_proxy.Encrypted:
