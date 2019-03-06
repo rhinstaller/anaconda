@@ -17,8 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from blivetgui.osinstall import BlivetUtilsAnaconda
-
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
@@ -37,7 +35,8 @@ class BlivetPartitioningModule(PartitioningModule):
 
     def __init__(self):
         super().__init__()
-        self._handler = None
+        self._storage_handler = None
+        self._request_handler = None
 
     def publish(self):
         """Publish the module."""
@@ -47,14 +46,39 @@ class BlivetPartitioningModule(PartitioningModule):
     def storage_handler(self):
         """The handler of the storage.
 
-        :return: an instance of BlivetUtils
+        :return: an instance of BlivetStorageHandler
+        :raises UnsupportedPartitioningError: if the handler cannot be created
         """
-        if not self._handler:
-            self._handler = BlivetUtilsAnaconda()
+        if not self._storage_handler:
+            from pyanaconda.modules.storage.partitioning.blivet_handler import BlivetStorageHandler
+            self._storage_handler = BlivetStorageHandler()
 
         # Make sure that the handler always uses the current storage.
-        self._handler.storage = self.storage
-        return self._handler
+        self._storage_handler.storage = self.storage
+        return self._storage_handler
+
+    @property
+    def request_handler(self):
+        """The handler of the requests.
+
+        :return: an instance of BlivetRequestHandler
+        :raises UnsupportedPartitioningError: if the handler cannot be created
+        """
+        if not self._request_handler:
+            from pyanaconda.modules.storage.partitioning.blivet_handler import BlivetRequestHandler
+            self._request_handler = BlivetRequestHandler()
+
+        # Make sure that the handler always uses the current storage handler.
+        self._request_handler.blivet_utils = self.storage_handler
+        return self._request_handler
+
+    def send_request(self, data):
+        """Send a request to the storage handler.
+
+        :param data: a request data in bytes
+        :return: a reply data in bytes
+        """
+        return self.request_handler.get_reply(data)
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""

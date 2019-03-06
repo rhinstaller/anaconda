@@ -37,3 +37,9 @@ class UnavailableDataError(AnacondaError):
 class InvalidStorageError(AnacondaError):
     """The storage model is not valid."""
     pass
+
+
+@dbus_error("UnsupportedPartitioningError", namespace=STORAGE_NAMESPACE)
+class UnsupportedPartitioningError(AnacondaError):
+    """The partitioning method is not supported."""
+    pass
