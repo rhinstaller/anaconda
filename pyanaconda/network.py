@@ -362,8 +362,6 @@ def run_network_initialization_task(task_path):
     result = task_proxy.GetResult()
     msg = "%s result: %s" % (task_proxy.Name, result)
     log.debug(msg)
-    if result:
-        logIfcfgFiles(msg)
 
 
 def initialize_network():

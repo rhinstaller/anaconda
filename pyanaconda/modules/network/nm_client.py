@@ -782,3 +782,11 @@ def get_first_iface_with_link(nm_client, ifaces):
         if device and device.get_carrier():
             return device.get_iface()
     return None
+
+
+def get_connections_dump(nm_client):
+    """Dumps all connections for logging."""
+    con_dumps = []
+    for con in nm_client.get_connections():
+        con_dumps.append(str(con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS)))
+    return "\n".join(con_dumps)
