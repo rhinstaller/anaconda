@@ -214,7 +214,6 @@ class IfcfgFile(SimpleConfigFile):
 
     def read(self, filename=None):
         self.reset()
-        ifcfglog.debug("IfcfFile.read %s", self.filename)
         SimpleConfigFile.read(self)
         self._dirty = False
 
@@ -222,7 +221,6 @@ class IfcfgFile(SimpleConfigFile):
         if self._dirty or filename:
             # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
             # temporary file for new configuration
-            ifcfglog.debug("IfcfgFile.write %s:\n%s", self.filename, self.__str__())
             SimpleConfigFile.write(self, filename, use_tmp=use_tmp)
             self._dirty = False
 
@@ -232,7 +230,6 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        ifcfglog.debug("IfcfgFile.set %s: %s", self.filename, args)
         SimpleConfigFile.set(self, *args)
         self._dirty = True
 
@@ -243,7 +240,6 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        ifcfglog.debug("IfcfgFile.unset %s: %s", self.filename, args)
         SimpleConfigFile.unset(self, *args)
 
 # get a kernel cmdline string for dracut needed for access to storage host
