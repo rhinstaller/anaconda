@@ -170,7 +170,13 @@ class LiveImagePayload(Payload):
 
     def _create_rescue_image(self):
         """Create the rescue initrd images for each installed kernel. """
-        # Live needs to create the rescue image before bootloader is written
+        # Always make sure the new system has a new machine-id, it won't boot without it
+        # (and nor will some of the subsequent commands like grub2-mkconfig and kernel-install)
+        log.info("Generating machine ID")
+        if os.path.exists(util.getSysroot() + "/etc/machine-id"):
+            os.unlink(util.getSysroot() + "/etc/machine-id")
+        util.execInSysroot("systemd-machine-id-setup", [])
+
         if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
             use_nkp = True
         else:
@@ -198,18 +204,22 @@ class LiveImagePayload(Payload):
 
         super().post_install()
 
-        # Make sure the new system has a machine-id, it won't boot without it
-        # (and nor will some of the subsequent commands)
-        if not os.path.exists(util.getSysroot() + "/etc/machine-id"):
-            log.info("Generating machine ID")
-            util.execInSysroot("systemd-machine-id-setup", [])
+        # Not using BLS configuration, skip it
+        if os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            return
 
+        # Remove any existing BLS entries, they will not match the new system's
+        # machine-id or /boot mountpoint.
+        for file in glob.glob(util.getSysroot() + "/boot/loader/entries/*.conf"):
+            log.info("Removing old BLS entry: %s", file)
+            os.unlink(file)
+
+        # Create new BLS entries for this system
         for kernel in self.kernel_version_list:
-            if not os.path.exists(util.getSysroot() + "/usr/sbin/new-kernel-pkg"):
-                log.info("Regenerating BLS info for %s", kernel)
-                util.execInSysroot("kernel-install", ["add",
-                                                      kernel,
-                                                      "/lib/modules/{0}/vmlinuz".format(kernel)])
+            log.info("Regenerating BLS info for %s", kernel)
+            util.execInSysroot("kernel-install", ["add",
+                                                  kernel,
+                                                  "/lib/modules/{0}/vmlinuz".format(kernel)])
 
     @property
     def space_required(self):
@@ -504,8 +514,9 @@ class LiveImageKSPayload(LiveImagePayload):
         # preserve: ACL's, xattrs, and SELinux context
         args = ["--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
                 "--exclude", "/dev/", "--exclude", "/proc/",
-                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
+                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "boot/*rescue*",
+                "--exclude", "boot/loader", "--exclude", "boot/efi/loader",
+                "--exclude", "etc/machine-id", "-xaf", self.image_path, "-C", util.getSysroot()]
         try:
             rc = util.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
