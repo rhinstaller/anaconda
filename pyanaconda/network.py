@@ -43,6 +43,8 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.livepayload import LiveImagePayload
+from pyanaconda.dbus.structure import apply_structure
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -317,8 +319,10 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     shutil.copy(fileName, destfile)
     return True
 
+
 def get_devices_by_nics(nics):
-    return [device for device in nm.nm_devices() if device in nics]
+    return [dev.device_name for dev in get_supported_devices()
+            if dev.device_name in nics]
 
 
 def run_network_initialization_task(task_path):
@@ -340,7 +344,8 @@ def initialize_network():
     log.debug(msg)
     network_proxy.LogConfigurationState(msg)
 
-    log.debug("Devices found: %s", nm.nm_devices())
+    log.debug("Devices found: %s",
+              [dev.device_name for dev in get_supported_devices()])
 
     run_network_initialization_task(network_proxy.ConsolidateInitramfsConnectionsWithTask())
     run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
@@ -576,7 +581,7 @@ def status_message(nm_client):
         else:
             msg = _("Not connected")
 
-    if not nm.nm_devices():
+    if not get_supported_devices():
         msg = _("No network devices available")
 
     return msg
@@ -584,8 +589,17 @@ def status_message(nm_client):
 def default_ks_vlan_interface_name(parent, vlanid):
     return "%s.%s" % (parent, vlanid)
 
-def is_using_team_device():
-    return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
+
+def get_supported_devices():
+    network_proxy = NETWORK.get_proxy()
+    return [apply_structure(device, NetworkDeviceInfo())
+            for device in network_proxy.GetSupportedDevices()]
+
+
+def get_team_devices():
+    return [dev for dev in get_supported_devices()
+            if dev.device_type == NM.DeviceType.TEAM]
+
 
 def is_libvirt_device(iface):
     return iface and iface.startswith("virbr")

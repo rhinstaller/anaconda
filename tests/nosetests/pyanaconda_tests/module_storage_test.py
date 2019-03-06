@@ -701,8 +701,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self._test_kickstart(ks_in, ks_out)
 
     @patch("pyanaconda.modules.storage.kickstart.fcoe")
-    @patch("pyanaconda.modules.storage.kickstart.nm")
-    def fcoe_kickstart_test(self, nm, fcoe):
+    @patch("pyanaconda.modules.storage.kickstart.get_supported_devices")
+    def fcoe_kickstart_test(self, get_supported_devices, fcoe):
         """Test the fcoe command."""
         ks_in = """
         fcoe --nic=eth0 --dcb --autovlan
@@ -710,10 +710,10 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         fcoe --nic=eth0 --dcb --autovlan
         """
-        nm.nm_devices.return_value = ["eth0"]
+        get_supported_devices.return_value = ["eth0"]
         self._test_kickstart(ks_in, ks_out)
 
-        nm.nm_devices.return_value = ["eth1"]
+        get_supported_devices.return_value = ["eth1"]
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     @patch("pyanaconda.storage.initialization.load_plugin_s390")

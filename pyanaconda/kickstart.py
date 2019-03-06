@@ -611,7 +611,7 @@ class Network(COMMANDS.Network):
         return nd
 
     def setup(self):
-        if network.is_using_team_device():
+        if network.get_team_devices():
             self.packages = ["teamd"]
 
     def execute(self, payload):

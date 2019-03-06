@@ -106,7 +106,10 @@ class NetworkInterface(KickstartModuleInterface):
         return self.implementation.is_connecting()
 
     def GetSupportedDevices(self) -> List[Structure]:
-        """Get list of network devices supported by the module."""
+        """Get info about existing network devices supported by the module.
+
+        :return: list of objects describing supported devices found on the system
+        """
         dev_infos = self.implementation.get_supported_devices()
         return [get_structure(dev_info) for dev_info in dev_infos]
 

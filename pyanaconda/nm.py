@@ -32,15 +32,6 @@ log = get_module_logger(__name__)
 
 from pyanaconda.core.configuration.anaconda import conf
 
-supported_device_types = [
-    NM.DeviceType.ETHERNET,
-    NM.DeviceType.WIFI,
-    NM.DeviceType.INFINIBAND,
-    NM.DeviceType.BOND,
-    NM.DeviceType.VLAN,
-    NM.DeviceType.BRIDGE,
-    NM.DeviceType.TEAM,
-]
 
 DEFAULT_PROXY_FLAGS = \
     Gio.DBusProxyFlags.DO_NOT_CONNECT_SIGNALS | Gio.DBusProxyFlags.DO_NOT_LOAD_PROPERTIES
@@ -121,29 +112,6 @@ def nm_state():
         return NM.State.CONNECTED_GLOBAL
     else:
         return prop
-
-def nm_devices():
-    """Return names of network devices supported in installer.
-
-    :return: names of network devices supported in installer
-    :rtype: list of strings
-    """
-
-    interfaces = []
-
-    proxy = _get_proxy()
-    if not proxy:
-        return []
-
-    devices = proxy.GetDevices()
-    for device in devices:
-        device_type = _get_property(device, "DeviceType", ".Device")
-        if device_type not in supported_device_types:
-            continue
-        iface = _get_property(device, "Interface", ".Device")
-        interfaces.append(iface)
-
-    return interfaces
 
 def nm_activated_devices():
     """Return names of activated network devices.
@@ -231,89 +199,6 @@ def nm_device_property(name, prop):
             raise PropertyNotFoundError(prop)
 
     return retval
-
-def nm_device_type_is_wifi(name):
-    """Is the type of device wifi?
-
-       :param name: name of device
-       :type name: str
-       :return: True if type of device is WIFI, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.WIFI
-
-def nm_device_type_is_ethernet(name):
-    """Is the type of device ethernet?
-
-       :param name: name of device
-       :type name: str
-       :return: True if type of device is ETHERNET, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.ETHERNET
-
-def nm_device_type_is_team(name):
-    """Is the type of device team?
-
-       :param name: name of device
-       :type name: str
-       :return: True if type of device is TEAM, False otherwise
-       :rtype: bool
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    return nm_device_type(name) == NM.DeviceType.TEAM
-
-def nm_device_hwaddress(name):
-    """Return active hardware address of device ('HwAddress' property)
-
-       :param name: name of device
-       :type name: str
-       :return: active hardware address of device ('HwAddress' property)
-       :rtype: str
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if 'HwAddress' property is not found
-    """
-    return nm_device_property(name, "HwAddress")
-
-def nm_device_perm_hwaddress(name):
-    """Return active hardware address of device ('PermHwAddress' property)
-
-       :param name: name of device
-       :type name: str
-       :return: active hardware address of device ('PermHwAddress' property)
-       :rtype: str
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if 'PermHwAddress' property is not found
-    """
-    return nm_device_property(name, "PermHwAddress")
-
-def nm_device_valid_hwaddress(name):
-    """Return valid hardware address of device depending on type of the device
-       ('PermHwAddress' property for wired and wireless or 'HwAddress' property for others)
-
-       :param name: name of device
-       :type name: str
-       :return: active hardware address of device
-                ('HwAddress' or 'PermHwAddress' property)
-       :rtype: str
-       :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if property is not found
-    """
-    if nm_device_type_is_ethernet(name) or nm_device_type_is_wifi(name):
-        try:
-            return nm_device_perm_hwaddress(name)
-        except PropertyNotFoundError:
-            # TODO: Remove this if everything will work well
-            # fallback solution
-            log.warning("Device %s don't have property PermHwAddress", name)
-            return nm_device_hwaddress(name)
-    else:
-        return nm_device_hwaddress(name)
 
 def nm_device_type(name):
     """Return device's type ('DeviceType' property).
@@ -524,55 +409,8 @@ def nm_dbus_int_to_ipv4(address):
 def test():
     print("NM state: %s:" % nm_state())
 
-    print("Devices: %s" % nm_devices())
     print("Activated devices: %s" % nm_activated_devices())
 
-    devs = nm_devices()
-    devs.append("nonexisting")
-    for devname in devs:
-
-        print(devname)
-
-        try:
-            devtype = nm_device_type(devname)
-        except UnknownDeviceError as e:
-            print("     %s" % e)
-            devtype = None
-        if devtype == NM.DeviceType.ETHERNET:
-            print("     type %s" % "ETHERNET")
-        elif devtype == NM.DeviceType.WIFI:
-            print("     type %s" % "WIFI")
-
-        try:
-            print("     Wifi device: %s" % nm_device_type_is_wifi(devname))
-        except UnknownDeviceError as e:
-            print("     %s" % e)
-
-        try:
-            hwaddr = nm_device_hwaddress(devname)
-            print("     HwAaddress: %s" % hwaddr)
-        except ValueError as e:
-            print("     %s" % e)
-            hwaddr = ""
-
-        try:
-            print("     IP4 config: %s" % nm_device_ip_config(devname))
-            print("     IP6 config: %s" % nm_device_ip_config(devname, version=6))
-            print("     IP4 addrs: %s" % nm_device_ip_addresses(devname))
-            print("     IP6 addrs: %s" % nm_device_ip_addresses(devname, version=6))
-            print("     Udi: %s" % nm_device_property(devname, "Udi"))
-        except UnknownDeviceError as e:
-            print("     %s" % e)
-
-        if devname in nm_devices():
-            try:
-                print("     Nonexisting: %s" % nm_device_property(devname, "Nonexisting"))
-            except PropertyNotFoundError as e:
-                print("     %s" % e)
-        try:
-            print("     Nonexisting: %s" % nm_device_property(devname, "Nonexisting"))
-        except ValueError as e:
-            print("     %s" % e)
 
 if __name__ == "__main__":
     test()

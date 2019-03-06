@@ -34,8 +34,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import FCOE
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.nm import nm_device_hwaddress
+from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pyanaconda.dbus.structure import apply_structure
 
 log = get_module_logger(__name__)
 
@@ -775,11 +776,9 @@ class BootLoader(object):
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic in fcoe_proxy.GetNics():
-            try:
-                hwaddr = nm_device_hwaddress(nic)
-            except ValueError:
-                continue
-            self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
+            hwaddr = get_interface_hw_address(nic)
+            if hwaddr:
+                self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         # Add rd.iscsi.firmware to trigger dracut running iscsistart
         # See rhbz#1099603 and rhbz#1185792
@@ -899,3 +898,14 @@ class BootLoader(object):
     def update(self):
         """ Update an existing bootloader configuration. """
         pass
+
+
+def get_interface_hw_address(iface):
+    """Get hardware address of network interface."""
+    network_proxy = NETWORK.get_proxy()
+    device_infos = [apply_structure(device, NetworkDeviceInfo())
+                    for device in network_proxy.GetSupportedDevices()]
+    for info in device_infos:
+        if info.device_name == iface:
+            return info.hw_address
+    return ""

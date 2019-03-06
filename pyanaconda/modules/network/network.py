@@ -404,7 +404,11 @@ class NetworkModule(KickstartModule):
         return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
 
     def get_supported_devices(self):
-        """Get names of existing supported devices on the system."""
+        """Get information about existing supported devices on the system.
+
+        :return: list of objects describing found supported devices
+        :rtype: list(NetworkDeviceInfo)
+        """
         # TODO guard on system (provides_system_bus)
         supported_devices = []
         if not self.nm_available:
