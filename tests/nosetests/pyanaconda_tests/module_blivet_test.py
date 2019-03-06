@@ -17,6 +17,7 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import sys
 import pickle
 import unittest
 from unittest.mock import patch, Mock
@@ -40,11 +41,53 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.module = BlivetPartitioningModule()
         self.interface = BlivetPartitioningInterface(self.module)
 
-    def handler_test(self):
-        """Test the handler property."""
+    @patch.dict('sys.modules')
+    def unsupported_partitioning_test(self):
+        """Test the UnsupportedPartitioningError."""
+        # Forget imported modules from pyanaconda and blivetgui.
+        for name in list(sys.modules):
+            if name.startswith('pyanaconda') or name.startswith('blivetgui'):
+                sys.modules.pop(name)
+
+        # Disable the blivetgui package.
+        sys.modules['blivetgui'] = None
+
+        # Import the StorageModule again.
+        from pyanaconda.modules.storage.storage import StorageModule
+
+        # We should be able to create the Storage module
+        storage_module = StorageModule()
+        self.assertIsNotNone(storage_module.storage)
+
+        # We should be able to access the Blivet module.
+        blivet_module = storage_module._blivet_part_module
+        self.assertIsNotNone(blivet_module.storage)
+
+        # Import the exception again.
+        from pyanaconda.modules.common.errors.storage import UnsupportedPartitioningError
+
+        # Handle the missing support.
+        with self.assertRaises(UnsupportedPartitioningError):
+            self.assertFalse(blivet_module.storage_handler)
+
+        with self.assertRaises(UnsupportedPartitioningError):
+            self.assertFalse(blivet_module.request_handler)
+
+        with self.assertRaises(UnsupportedPartitioningError):
+            request = pickle.dumps(("call", "get_disks", []))
+            blivet_module.send_request(request)
+
+    def storage_handler_test(self):
+        """Test the storage_handler property."""
         self.module.on_storage_reset(Mock())
         self.assertIsNotNone(self.module.storage_handler)
         self.assertEqual(self.module.storage, self.module.storage_handler.storage)
+
+    def request_handler_test(self):
+        """Test the request_handler property."""
+        self.module.on_storage_reset(Mock())
+        self.assertIsNotNone(self.module.request_handler)
+        self.assertEqual(self.module.storage_handler, self.module.request_handler.blivet_utils)
 
     def send_request_test(self):
         """Test SendRequest."""
