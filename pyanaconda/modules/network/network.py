@@ -299,6 +299,7 @@ class NetworkModule(KickstartModule):
 
         task = NetworkInstallationTask(sysroot, self.hostname, disable_ipv6, overwrite,
                                        onboot_yes_uuids, network_ifaces)
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, root_path=sysroot))
         path = self.publish_task(NETWORK.namespace, task)
         return path
 
@@ -398,7 +399,7 @@ class NetworkModule(KickstartModule):
         :returns: DBus path of the task consolidating the connections
         """
         task = ConsolidateInitramfsConnectionsTask(self.nm_client)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task))
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
 
     def get_supported_devices(self):
@@ -450,7 +451,7 @@ class NetworkModule(KickstartModule):
                                   supported_devices,
                                   self.bootif,
                                   self.ifname_option_values)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task))
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
 
     def set_real_onboot_values_from_kickstart_with_task(self):
@@ -471,7 +472,7 @@ class NetworkModule(KickstartModule):
                                                     supported_devices,
                                                     self.bootif,
                                                     self.ifname_option_values)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task))
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
 
     def dump_missing_ifcfg_files_with_task(self):
@@ -498,7 +499,7 @@ class NetworkModule(KickstartModule):
         task = DumpMissingIfcfgFilesTask(self.nm_client,
                                          default_network_data,
                                          self.ifname_option_values)
-        task.succeeded_signal.connect(lambda: self.log_task_result(task))
+        task.succeeded_signal.connect(lambda: self.log_task_result(task, check_result=True))
         return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
 
     def network_device_configuration_changed(self):
@@ -546,19 +547,23 @@ class NetworkModule(KickstartModule):
         if 'noipv6' in kernel_arguments:
             self.disable_ipv6 = True
 
-    def log_task_result(self, task):
-        result = task.get_result()
-        log.debug("%s result: %s", task.name, result)
-        if result:
-            self.log_configuration_state("{} applied to {}".format(task.name, result))
+    def log_task_result(self, task, check_result=False, root_path=""):
+        if not check_result:
+            self.log_configuration_state(task.name, root_path)
+        else:
+            result = task.get_result()
+            log.debug("%s result: %s", task.name, result)
+            if result:
+                self.log_configuration_state(task.name, root_path)
 
-    def log_configuration_state(self, msg_header):
+    def log_configuration_state(self, msg_header, root_path=""):
         """Log the current network configuration state.
 
         Logs ifcfg files and NM connections
         """
         log.debug("Dumping configuration state - %s", msg_header)
-        for line in get_ifcfg_files_content().splitlines():
+        for line in get_ifcfg_files_content(root_path=root_path).splitlines():
             log.debug(line)
-        for line in get_connections_dump(self.nm_client).splitlines():
-            log.debug(line)
+        if self.nm_available:
+            for line in get_connections_dump(self.nm_client).splitlines():
+                log.debug(line)
