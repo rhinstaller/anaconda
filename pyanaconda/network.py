@@ -206,18 +206,6 @@ def _ifcfg_files(directory):
             rv.append(os.path.join(directory, name))
     return rv
 
-def logIfcfgFiles(message=""):
-    """ Log contents of all network ifcfg files.
-
-        :param str message: append message to the log
-    """
-    ifcfglog.debug("content of files (%s):", message)
-    for path in _ifcfg_files(netscriptsDir):
-        ifcfglog.debug("%s:", path)
-        with open(path, "r") as f:
-            for line in f:
-                ifcfglog.debug("  %s", line.strip())
-    ifcfglog.debug("all settings: %s", nm.nm_get_all_settings())
 
 class IfcfgFile(SimpleConfigFile):
     def __init__(self, filename):
@@ -368,10 +356,11 @@ def initialize_network():
     if not conf.system.can_configure_network:
         return
 
-    log.debug("Initialization started.")
-    logIfcfgFiles("Initialization started.")
-
     network_proxy = NETWORK.get_proxy()
+
+    msg = "Initialization started."
+    log.debug(msg)
+    network_proxy.LogConfigurationState(msg)
 
     log.debug("Devices found: %s", nm.nm_devices())
 

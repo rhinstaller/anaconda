@@ -595,7 +595,7 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
-            network.logIfcfgFiles("nm-c-e run")
+            self._network_module.proxy.LogConfigurationState("Connection Editor was run.")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection_async(con, device, None, None)

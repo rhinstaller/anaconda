@@ -227,3 +227,10 @@ class NetworkInterface(KickstartModuleInterface):
         :param hostname: static hostname to be configured
         """
         return self.implementation.get_dracut_arguments(iface, target_ip, hostname)
+
+    def LogConfigurationState(self, msg_header: Str):
+        """Logs the state of network configuration.
+
+        :param msg_header: header of the log messages
+        """
+        return self.implementation.log_configuration_state(msg_header)
