@@ -25,7 +25,7 @@ from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
 from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.execution import CustomPartitioningExecutor
+from pyanaconda.modules.storage.partitioning.custom_execution import CustomPartitioningExecutor
 
 log = get_module_logger(__name__)
 

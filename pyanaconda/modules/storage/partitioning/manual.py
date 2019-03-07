@@ -26,7 +26,7 @@ from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTa
 from pyanaconda.modules.storage.partitioning.manual_data import MountPoint
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.execution import ManualPartitioningExecutor
+from pyanaconda.modules.storage.partitioning.manual_execution import ManualPartitioningExecutor
 
 log = get_module_logger(__name__)
 
