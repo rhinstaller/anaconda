@@ -21,9 +21,7 @@
 """This module provides functions related to automatic partitioning."""
 
 import parted
-from decimal import Decimal
 
-from blivet import util
 from blivet.size import Size
 from blivet.devices.partition import PartitionDevice, FALLBACK_DEFAULT_PART_SIZE
 from blivet.devices.luks import LUKSDevice
@@ -36,75 +34,10 @@ from blivet.static_data import luks_data
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
 from pyanaconda.core.i18n import _
-from pyanaconda.storage.utils import get_available_disk_space
+from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size
 
 import logging
 log = logging.getLogger("anaconda.autopart")
-
-# maximum ratio of swap size to disk size (10 %)
-MAX_SWAP_DISK_RATIO = Decimal('0.1')
-
-
-def swap_suggestion(quiet=False, hibernation=False, disk_space=None):
-    """
-    Suggest the size of the swap partition that will be created.
-
-    :param quiet: whether to log size information or not
-    :type quiet: bool
-    :param hibernation: calculate swap size big enough for hibernation
-    :type hibernation: bool
-    :param disk_space: how much disk space is available
-    :type disk_space: :class:`blivet.size.Size`
-    :return: calculated swap size
-
-    """
-
-    mem = util.total_memory()
-    mem = ((mem / 16) + 1) * 16
-    if not quiet:
-        log.info("Detected %s of memory", mem)
-
-    sixtyfour_GiB = Size("64 GiB")
-
-    # the succeeding if-statement implements the following formula for
-    # suggested swap size.
-    #
-    # swap(mem) = 2 * mem, if mem < 2 GiB
-    #           = mem,     if 2 GiB <= mem < 8 GiB
-    #           = mem / 2, if 8 GIB <= mem < 64 GiB
-    #           = 4 GiB,   if mem >= 64 GiB
-    if mem < Size("2 GiB"):
-        swap = 2 * mem
-
-    elif mem < Size("8 GiB"):
-        swap = mem
-
-    elif mem < sixtyfour_GiB:
-        swap = mem / 2
-
-    else:
-        swap = Size("4 GiB")
-
-    if hibernation:
-        if mem <= sixtyfour_GiB:
-            swap = mem + swap
-        else:
-            log.info("Ignoring --hibernation option on systems with %s of RAM or more", sixtyfour_GiB)
-
-    if disk_space is not None and not hibernation:
-        max_swap = disk_space * MAX_SWAP_DISK_RATIO
-        if swap > max_swap:
-            log.info("Suggested swap size (%(swap)s) exceeds %(percent)d %% of "
-                     "disk space, using %(percent)d %% of disk space (%(size)s) "
-                     "instead.", {"percent": MAX_SWAP_DISK_RATIO * 100,
-                                  "swap": swap,
-                                  "size": max_swap})
-            swap = max_swap
-
-    if not quiet:
-        log.info("Swap attempt of %s", swap)
-
-    return swap
 
 
 def _refresh_auto_swap_size(storage):
@@ -118,7 +51,7 @@ def _refresh_auto_swap_size(storage):
     for request in storage.autopart_requests:
         if request.fstype == "swap":
             disk_space = get_available_disk_space(storage)
-            request.size = swap_suggestion(disk_space=disk_space)
+            request.size = suggest_swap_size(disk_space=disk_space)
             break
 
 

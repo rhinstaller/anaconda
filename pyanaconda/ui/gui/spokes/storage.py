@@ -46,7 +46,7 @@ from gi.repository import Gdk, AnacondaWidgets, Gtk
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, \
     apply_disk_selection, \
-    check_disk_selection, get_disks_summary
+    check_disk_selection, get_disks_summary, suggest_swap_size
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -78,7 +78,6 @@ from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, \
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE, WARNING_NO_DISKS_SELECTED, \
     WARNING_NO_DISKS_DETECTED
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage import autopart
 from pyanaconda.storage.initialization import update_storage_config, reset_storage, \
     select_all_disks_by_default, reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
@@ -985,7 +984,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         if self._auto_part_enabled and auto_swap == Size(0):
             # autopartitioning requested, but not applied yet (=> no auto swap
             # requests), ask user for enough space to fit in the suggested swap
-            auto_swap = autopart.swap_suggestion()
+            auto_swap = suggest_swap_size()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, sw_space, auto_swap)
