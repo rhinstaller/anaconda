@@ -158,6 +158,13 @@ WARNING_HARDWARE_UNSUPPORTED = N_(
     "on supported hardware, please refer to http://www.redhat.com/hardware."
 )
 
+WARNING_SMT_ENABLED = N_(
+    "Simultaneous Multithreading (SMT) technology can provide performance improvements for "
+    "certain workloads, but also has several known security issues. If you choose to leave SMT "
+    "enabled, please read https://red.ht/rhel-smt to ensure you understand the risks."
+)
+
+
 # Password type
 class SecretType(Enum):
     PASSWORD = "password"

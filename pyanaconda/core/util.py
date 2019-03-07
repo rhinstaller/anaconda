@@ -1506,3 +1506,19 @@ def synchronized(wrapped):
         with self._lock:
             return wrapped(self, *args, **kwargs)
     return _wrapper
+
+
+def is_smt_enabled():
+    """Is Simultaneous Multithreading (SMT) enabled?
+
+    :return: True or False
+    """
+    if flags.automatedInstall or flags.dirInstall or flags.imageInstall:
+        log.info("Skipping detection of SMT.")
+        return False
+
+    try:
+        return int(open("/sys/devices/system/cpu/smt/active").read()) == 1
+    except (IOError, ValueError):
+        log.warning("Failed to detect SMT.")
+        return False
