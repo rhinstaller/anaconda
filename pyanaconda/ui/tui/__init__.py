@@ -16,9 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda import ui
-from pyanaconda.core.constants import IPMI_ABORTED
+from pyanaconda.core.constants import IPMI_ABORTED, QUIT_MESSAGE
 from pyanaconda.flags import flags
 from pyanaconda.threading import threadMgr
 from pyanaconda.core.util import ipmi_report
@@ -87,7 +86,7 @@ class TextUserInterface(ui.UserInterface):
 
     def __init__(self, storage, payload,
                  productTitle=u"Anaconda", isFinal=True,
-                 quitMessage=None):
+                 quitMessage=QUIT_MESSAGE):
         """
         For detailed description of the arguments see
         the parent class.
