@@ -60,7 +60,6 @@ class StorageDiscoveryConfig(object):
         self.clear_part_disks = []
         self.clear_part_devices = []
         self.initialize_disks = False
-        self.protected_dev_specs = []
         self.zero_mbr = False
 
         # Whether clear_partitions removes scheduled/non-existent devices and
@@ -73,6 +72,8 @@ class InstallerStorage(Blivet):
 
     def __init__(self):
         super().__init__()
+        self.protected_devices = []
+
         self.do_autopart = False
         self.encrypted_autopart = False
         self.encryption_cipher = None
@@ -491,7 +492,7 @@ class InstallerStorage(Blivet):
         protected = []
 
         # Resolve the protected device specs to devices.
-        for spec in self.config.protected_dev_specs:
+        for spec in self.protected_devices:
             dev = self.devicetree.resolve_device(spec)
 
             if dev is not None:

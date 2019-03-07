@@ -677,12 +677,11 @@ if __name__ == "__main__":
     ignore_nvdimm_blockdevs()
 
     # Specify protected devices.
-    protected_devices = anaconda.get_protected_devices(opts)
-    anaconda.storage.config.protected_dev_specs.extend(protected_devices)
-
     from pyanaconda.modules.common.constants.services import STORAGE
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+
+    protected_devices = anaconda.get_protected_devices(opts)
     disk_select_proxy.SetProtectedDevices(protected_devices)
 
     from pyanaconda.payload.manager import payloadMgr

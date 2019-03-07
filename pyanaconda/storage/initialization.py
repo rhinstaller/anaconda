@@ -176,6 +176,7 @@ def reset_storage(storage):
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     storage.ignored_disks = disk_select_proxy.IgnoredDisks
     storage.exclusive_disks = disk_select_proxy.SelectedDisks
+    storage.protected_devices = disk_select_proxy.ProtectedDevices
 
     # Reload additional modules.
     if not conf.target.is_image:
