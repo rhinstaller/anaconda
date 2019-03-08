@@ -47,6 +47,7 @@ from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
     AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
 from pyanaconda.platform import platform
 from pyanaconda.storage.initialization import reset_bootloader
 
@@ -72,9 +73,10 @@ from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.root import find_existing_installations, Root
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
-    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS,\
+    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
     get_supported_filesystems, try_populate_devicetree, filter_unsupported_disklabel_devices
+from pyanaconda.storage.execution import configure_storage
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -1728,9 +1730,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # set up bootloader and check the configuration
         bootloader_errors = []
         try:
-            self.storage.set_up_bootloader()
-        except BootLoaderError as e:
-            log.error("storage configuration failed: %s", e)
+            configure_storage(self.storage, interactive=True)
+        except BootloaderConfigurationError as e:
             bootloader_errors = str(e).split("\n")
             reset_bootloader(self.storage)
 

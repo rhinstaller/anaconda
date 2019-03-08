@@ -17,24 +17,26 @@
 #
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
+from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+    InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 
-log = get_module_logger(__name__)
-
-__all__ = ["do_kickstart_storage"]
+__all__ = ["configure_storage"]
 
 
-def do_kickstart_storage(storage, data):
+def configure_storage(storage, data=None, interactive=False):
     """Setup storage state from the kickstart data.
 
     :param storage: an instance of the Blivet's storage object
     :param data: an instance of kickstart data or None
+    :param interactive: use a task for the interactive partitioning
     """
-    if STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
+    if interactive:
+        task = InteractivePartitioningTask(storage)
+    elif STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
         task = AutomaticPartitioningTask(storage)
     elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
         task = ManualPartitioningTask(storage)

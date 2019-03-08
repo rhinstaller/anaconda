@@ -24,23 +24,24 @@ from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices, \
     get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection, \
     get_disks_summary
+from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.format_dasd import DasdFormatting
 
 from blivet.size import Size
-from blivet.errors import StorageError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, \
     ZFCPDiskDevice
 from blivet.formats import get_format
 from pyanaconda.flags import flags
 from pyanaconda.storage.kickstart import reset_custom_storage_data
-from pyanaconda.storage.execution import do_kickstart_storage
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
@@ -50,12 +51,10 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
-from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.initialization import reset_storage, update_storage_config, \
-    select_all_disks_by_default, reset_bootloader
+from pyanaconda.storage.initialization import reset_bootloader, update_storage_config, \
+    reset_storage, select_all_disks_by_default
 
 from pykickstart.base import BaseData
-from pykickstart.errors import KickstartParseError
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
@@ -428,15 +427,13 @@ class StorageSpoke(NormalTUISpoke):
     def execute(self):
         print(_("Generating updated storage configuration"))
         try:
-            do_kickstart_storage(self.storage, self.data)
-        except (StorageError, KickstartParseError) as e:
-            log.error("storage configuration failed: %s", e)
+            configure_storage(self.storage, self.data)
+        except StorageConfigurationError as e:
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
             reset_bootloader(self.storage)
             reset_storage(self.storage, scan_all=True)
-        except BootLoaderError as e:
-            log.error("BootLoader setup failed: %s", e)
+        except BootloaderConfigurationError as e:
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
             reset_bootloader(self.storage)

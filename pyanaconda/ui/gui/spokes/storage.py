@@ -47,6 +47,7 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, \
     apply_disk_selection, \
     check_disk_selection, get_disks_summary, suggest_swap_size
+from pyanaconda.storage.execution import configure_storage
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -61,11 +62,9 @@ from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.core.timer import Timer
 from pyanaconda.storage.kickstart import reset_custom_storage_data
-from pyanaconda.storage.execution import do_kickstart_storage
 
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
-from blivet.errors import StorageError
 from blivet.formats.disklabel import DiskLabel
 from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
@@ -77,17 +76,17 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, \
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE, WARNING_NO_DISKS_SELECTED, \
     WARNING_NO_DISKS_DETECTED
-from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage.initialization import update_storage_config, reset_storage, \
     select_all_disks_by_default, reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.storage.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING, NVDIMM
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.livepayload import LiveImagePayload
-from pykickstart.errors import KickstartParseError
 
 import sys
 from enum import Enum
@@ -504,16 +503,14 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             hubQ.send_ready(self.__class__.__name__, True)
             return
         try:
-            do_kickstart_storage(self.storage, self.data)
+            configure_storage(self.storage, self.data)
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py
-        except (StorageError, KickstartParseError, ValueError) as e:
-            log.error("storage configuration failed: %s", e)
+        except StorageConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             reset_bootloader(self.storage)
             reset_storage(self.storage, scan_all=True)
-        except BootLoaderError as e:
-            log.error("BootLoader setup failed: %s", e)
+        except BootloaderConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             reset_bootloader(self.storage)
