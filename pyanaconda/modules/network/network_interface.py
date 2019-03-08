@@ -28,7 +28,11 @@ from pyanaconda.modules.common.task import TaskInterface
 
 
 @dbus_class
-class InitializeTaskInterface(TaskInterface):
+class NetworkInitializationTaskInterface(TaskInterface):
+    """The interface for a network configuration initialization task
+
+    Such a task returns a list of names of the devices the task has affected.
+    """
 
     @staticmethod
     def convert_result(value):
