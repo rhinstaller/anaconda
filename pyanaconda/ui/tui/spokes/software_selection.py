@@ -61,8 +61,8 @@ class SoftwareSpoke(NormalTUISpoke):
         self.addons = set()
 
         # for detecting later whether any changes have been made
-        self._origEnv = None
-        self._origAddons = set()
+        self._orig_env = None
+        self._orig_addons = set()
 
         # are we taking values (package list) from a kickstart file?
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
@@ -115,8 +115,8 @@ class SoftwareSpoke(NormalTUISpoke):
     def _payload_finished(self):
         self.environment = self.data.packages.environment
         self.addons = self._get_selected_addons()
-        self._origEnv = None
-        self._origAddons = None
+        self._orig_env = None
+        self._orig_addons = None
         log.debug("Payload restarted, set new info and clear the old one.")
 
     def _payload_error(self):
@@ -163,7 +163,7 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Source changed - please verify")
 
         if not self.environment:
-            # Ks installs with %packages will have an env selected, unless
+            # KS installs with %packages will have an env selected, unless
             # they did an install without a desktop environment. This should
             # catch that one case.
             if self._kickstarted:
@@ -294,7 +294,8 @@ class SoftwareSpoke(NormalTUISpoke):
         self.environment = self._selected_environment
         self.addons = self._addons_selection if self.environment is not None else set()
 
-        log.debug("Apply called old env %s, new env %s and addons %s", self._origEnv, self.environment, self.addons)
+        log.debug("Apply called old env %s, new env %s and addons %s",
+                  self._orig_env, self.environment, self.addons)
 
         if self.environment is None:
             return
@@ -305,12 +306,12 @@ class SoftwareSpoke(NormalTUISpoke):
         if not self._kickstarted:
 
             # Changed the environment or addons, clear and setup
-            if not self._origEnv \
-                    or self._origEnv != self.environment \
-                    or set(self._origAddons) != set(self.addons):
+            if not self._orig_env \
+                    or self._orig_env != self.environment \
+                    or set(self._orig_addons) != set(self.addons):
 
                 log.debug("Setting new software selection old env %s, new env %s and addons %s",
-                          self._origEnv, self.environment, self.addons)
+                          self._orig_env, self.environment, self.addons)
 
                 self.payload.data.packages.packageList = []
                 self.data.packages.groupList = []
@@ -325,15 +326,15 @@ class SoftwareSpoke(NormalTUISpoke):
 
                 changed = True
 
-            self._origEnv = self.environment
-            self._origAddons = set(self.addons)
+            self._orig_env = self.environment
+            self._orig_addons = set(self.addons)
 
         # Check the software selection
         if changed or self._kickstarted:
             threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
-                                         target=self.checkSoftwareSelection))
+                                         target=self.check_software_selection))
 
-    def checkSoftwareSelection(self):
+    def check_software_selection(self):
         """ Depsolving """
         try:
             self.payload.check_software_selection()
