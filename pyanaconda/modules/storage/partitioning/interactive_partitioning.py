@@ -15,9 +15,13 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.devicefactory import SIZE_POLICY_AUTO
+
+from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
+    AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
 
-__all__ = ["InteractivePartitioningTask"]
+__all__ = ["InteractivePartitioningTask", "InteractiveAutoPartitioningTask"]
 
 
 class InteractivePartitioningTask(PartitioningTask):
@@ -25,4 +29,35 @@ class InteractivePartitioningTask(PartitioningTask):
 
     def _run(self, storage):
         """Only set up the bootloader."""
+        self._prepare_bootloader(storage)
+
+    def _prepare_bootloader(self, storage):
+        """Prepare the bootloader."""
         storage.set_up_bootloader()
+
+
+class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):
+    """A task for the interactive auto partitioning configuration."""
+
+    def _run(self, storage):
+        """Do the partitioning."""
+        self._create_free_space_snapshot(storage)
+        self._prepare_bootloader(storage)
+        self._configure_partitioning(storage)
+        self._update_size_policy(storage)
+
+    def _prepare_bootloader(self, storage):
+        """Prepare the bootloader.
+
+        Autopart needs stage1_disk setup so it will reuse existing partitions.
+        """
+        storage.set_up_bootloader(early=True)
+
+    def _update_size_policy(self, storage):
+        """Update the size policy of new devices.
+
+        Mark all new containers for automatic size management.
+        """
+        for device in storage.devices:
+            if not device.exists and hasattr(device, "size_policy"):
+                device.size_policy = SIZE_POLICY_AUTO
