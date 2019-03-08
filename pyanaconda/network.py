@@ -32,7 +32,6 @@ import threading
 import re
 import dbus
 import ipaddress
-import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice
@@ -46,30 +45,16 @@ from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.livepayload import LiveImagePayload
 
-from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
-ifcfgLogFile = "/tmp/ifcfg.log"
 DEFAULT_HOSTNAME = "localhost.localdomain"
-
-ifcfglog = None
 
 network_connected = None
 network_connected_condition = threading.Condition()
 
-
-def setup_ifcfg_log():
-    # Setup special logging for ifcfg NM interface
-    from pyanaconda import anaconda_logging
-    global ifcfglog
-    logger = get_ifcfg_logger()
-    logger.setLevel(logging.DEBUG)
-    anaconda_logging.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-    anaconda_logging.logger.forwardToJournal(logger)
-
-    ifcfglog = get_ifcfg_logger()
 
 def check_ip_address(address, version=None):
     """

@@ -292,9 +292,6 @@ if __name__ == "__main__":
     conf.set_from_product(opts.product_name, opts.variant_name)
     conf.set_from_opts(opts)
 
-    from pyanaconda import network
-    network.setup_ifcfg_log()
-
     log = anaconda_loggers.get_main_logger()
     stdout_log = anaconda_loggers.get_stdout_logger()
 

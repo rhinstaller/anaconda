@@ -66,8 +66,5 @@ def get_dnf_logger():
 def get_blivet_logger():
     return logging.getLogger(constants.LOGGER_BLIVET)
 
-def get_ifcfg_logger():
-    return logging.getLogger(constants.LOGGER_IFCFG)
-
 def get_sensitive_info_logger():
     return logging.getLogger(constants.LOGGER_SENSITIVE_INFO)

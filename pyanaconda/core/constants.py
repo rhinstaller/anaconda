@@ -326,7 +326,6 @@ LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
 LOGGER_BLIVET = "blivet"
 LOGGER_SIMPLELINE = "simpleline"
-LOGGER_IFCFG = "ifcfg"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 
 class PayloadRequirementType(Enum):
