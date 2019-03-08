@@ -22,18 +22,15 @@ import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
-from blivet.errors import StorageError
 from blivet.size import Size
 
-from pyanaconda.bootloader import BootLoaderError
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
 from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, \
     MOUNT_POINT_FORMAT, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
-from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
-    StorageConfigurationError, BootloaderConfigurationError
+from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError, \
     UnavailableDataError
 from pyanaconda.modules.common.task import TaskInterface
@@ -49,9 +46,12 @@ from pyanaconda.modules.storage.installation import ActivateFilesystemsTask, Mou
 from pyanaconda.modules.storage.partitioning import AutoPartitioningModule, \
     ManualPartitioningModule, CustomPartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
+from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
+    AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
-from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
+from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
+from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.reset import StorageResetTask
 from pyanaconda.modules.storage.storage import StorageModule
@@ -1011,7 +1011,7 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
 
-        self.assertIsInstance(obj.implementation, StorageConfigureTask)
+        self.assertIsInstance(obj.implementation, AutomaticPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.autopart_module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -1379,7 +1379,7 @@ class ManualPartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
 
-        self.assertIsInstance(obj.implementation, StorageConfigureTask)
+        self.assertIsInstance(obj.implementation, ManualPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.manual_part_module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -1429,7 +1429,7 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
 
-        self.assertIsInstance(obj.implementation, StorageConfigureTask)
+        self.assertIsInstance(obj.implementation, CustomPartitioningTask)
         self.assertEqual(obj.implementation._storage, self.custom_part_module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
@@ -1446,37 +1446,6 @@ class CustomPartitioningInterfaceTestCase(unittest.TestCase):
 
         self.assertIsInstance(obj.implementation, StorageValidateTask)
         self.assertEqual(obj.implementation._storage, self.custom_part_module.storage)
-
-
-class StorageConfigurationTasksTestCase(unittest.TestCase):
-    """Test the storage configuration tasks."""
-
-    @patch('pyanaconda.modules.storage.partitioning.configure.do_kickstart_storage')
-    def configuration_test(self, do_kickstart_storage):
-        """Test the configuration task."""
-        storage = Mock()
-        partitioning = Mock()
-
-        StorageConfigureTask(storage, partitioning).run()
-        do_kickstart_storage.called_once_with(storage, partitioning)
-
-    @patch('pyanaconda.modules.storage.partitioning.configure.do_kickstart_storage')
-    def configuration_failed_test(self, do_kickstart_storage):
-        """Test the failing configuration task."""
-        storage = Mock()
-        partitioning = Mock()
-        do_kickstart_storage.side_effect = StorageError("Fake storage error.")
-
-        with self.assertRaises(StorageConfigurationError) as cm:
-            StorageConfigureTask(storage, partitioning).run()
-
-        self.assertEqual(str(cm.exception), "Fake storage error.")
-        do_kickstart_storage.side_effect = BootLoaderError("Fake bootloader error.")
-
-        with self.assertRaises(BootloaderConfigurationError) as cm:
-            StorageConfigureTask(storage, partitioning).run()
-
-        self.assertEqual(str(cm.exception), "Fake bootloader error.")
 
 
 class StorageValidationTasksTestCase(unittest.TestCase):

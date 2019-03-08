@@ -21,20 +21,24 @@ from blivet.static_data import luks_data
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.storage.partitioning.base_execution import PartitioningExecutor
+from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
+    NonInteractivePartitioningTask
 from pyanaconda.storage import autopart
 from pyanaconda.storage.utils import get_pbkdf_args
 
 log = get_module_logger(__name__)
 
-__all__ = ["AutomaticPartitioningExecutor"]
+__all__ = ["AutomaticPartitioningTask"]
 
 
-class AutomaticPartitioningExecutor(PartitioningExecutor):
-    """The executor of the automatic partitioning."""
+class AutomaticPartitioningTask(NonInteractivePartitioningTask):
+    """A task for the automatic partitioning configuration."""
 
-    def execute(self, storage):
-        """Execute the automatic partitioning."""
+    def _configure_partitioning(self, storage):
+        """Configure the partitioning.
+
+        :param storage: an instance of Blivet
+        """
         log.debug("Executing the automatic partitioning.")
 
         # Create the auto partitioning proxy.

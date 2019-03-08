@@ -24,18 +24,22 @@ from pyanaconda.core.constants import MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, 
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.modules.storage.partitioning.base_execution import PartitioningExecutor
+from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
+    NonInteractivePartitioningTask
 
 log = get_module_logger(__name__)
 
-__all__ = ["ManualPartitioningExecutor"]
+__all__ = ["ManualPartitioningTask"]
 
 
-class ManualPartitioningExecutor(PartitioningExecutor):
-    """The executor of the manual partitioning."""
+class ManualPartitioningTask(NonInteractivePartitioningTask):
+    """A task for the manual partitioning configuration."""
 
-    def execute(self, storage):
-        """Execute the manual partitioning."""
+    def _configure_partitioning(self, storage):
+        """Configure the partitioning.
+
+        :param storage: an instance of Blivet
+        """
         log.debug("Setting up the mount points.")
         manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 

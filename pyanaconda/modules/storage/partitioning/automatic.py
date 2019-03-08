@@ -25,10 +25,9 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.storage.constants import AutoPartitioningType
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPartitioningInterface
-from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.modules.storage.partitioning.automatic_execution import \
-    AutomaticPartitioningExecutor
+from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
+    AutomaticPartitioningTask
 
 log = get_module_logger(__name__)
 
@@ -384,7 +383,7 @@ class AutoPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = StorageConfigureTask(self.storage, AutomaticPartitioningExecutor())
+        task = AutomaticPartitioningTask(self.storage)
         path = self.publish_task(AUTO_PARTITIONING.namespace, task)
         return path
 

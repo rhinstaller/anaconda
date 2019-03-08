@@ -15,29 +15,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from abc import ABC, abstractmethod
+from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
 
-from pyanaconda.anaconda_loggers import get_module_logger
-log = get_module_logger(__name__)
-
-__all__ = ["PartitioningExecutor", "InteractivePartitioningExecutor"]
+__all__ = ["InteractivePartitioningTask"]
 
 
-class PartitioningExecutor(ABC):
-    """Base class for partitioning executors."""
+class InteractivePartitioningTask(PartitioningTask):
+    """A task for the interactive partitioning configuration."""
 
-    @abstractmethod
-    def execute(self, storage):
-        """Execute the partitioning.
-
-        :param storage: an instance of Blivet
-        """
-        pass
-
-
-class InteractivePartitioningExecutor(PartitioningExecutor):
-    """The executor of the interactive partitioning."""
-
-    def execute(self, storage):
-        """The partitioning is already set up, do nothing here."""
-        log.debug("The partitioning should already exist, skip the execution.")
+    def _run(self, storage):
+        """Only set up the bootloader."""
+        storage.set_up_bootloader()

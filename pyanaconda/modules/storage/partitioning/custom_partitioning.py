@@ -31,7 +31,8 @@ from pykickstart.errors import KickstartParseError
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
-from pyanaconda.modules.storage.partitioning.base_execution import PartitioningExecutor
+from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
+    NonInteractivePartitioningTask
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size, get_pbkdf_args, \
@@ -39,22 +40,25 @@ from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size
 
 log = get_module_logger(__name__)
 
-__all__ = ["CustomPartitioningExecutor"]
+__all__ = ["CustomPartitioningTask"]
 
 
-class CustomPartitioningExecutor(PartitioningExecutor):
-    """The executor of the custom partitioning."""
+class CustomPartitioningTask(NonInteractivePartitioningTask):
+    """A task for the custom partitioning configuration."""
 
-    def __init__(self, data):
-        """Create a new instance.
+    def __init__(self, storage, data):
+        """Create a task.
 
         :param data: an instance of kickstart data
         """
-        super().__init__()
+        super().__init__(storage)
         self._data = data
 
-    def execute(self, storage):
-        """Execute the custom partitioning."""
+    def _configure_partitioning(self, storage):
+        """Configure the partitioning.
+
+        :param storage: an instance of Blivet
+        """
         log.debug("Executing the custom partitioning.")
         data = self._data
 

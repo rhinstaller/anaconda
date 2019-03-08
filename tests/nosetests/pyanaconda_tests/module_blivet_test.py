@@ -28,9 +28,9 @@ from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.partitioning import BlivetPartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet_interface import \
     BlivetPartitioningInterface
-from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
+from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+    InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.modules.storage.partitioning.base_execution import InteractivePartitioningExecutor
 
 
 class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
@@ -112,8 +112,7 @@ class BlivetPartitioningInterfaceTestCase(unittest.TestCase):
         self.assertEqual(task_path, object_path)
         self.assertIsInstance(obj, TaskInterface)
 
-        self.assertIsInstance(obj.implementation, StorageConfigureTask)
-        self.assertIsInstance(obj.implementation._partitioning, InteractivePartitioningExecutor)
+        self.assertIsInstance(obj.implementation, InteractivePartitioningTask)
         self.assertEqual(obj.implementation._storage, self.module.storage)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
