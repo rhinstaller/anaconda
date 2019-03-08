@@ -160,8 +160,10 @@ WARNING_HARDWARE_UNSUPPORTED = N_(
 
 WARNING_SMT_ENABLED = N_(
     "Simultaneous Multithreading (SMT) technology can provide performance improvements for "
-    "certain workloads, but also has several known security issues. If you choose to leave SMT "
-    "enabled, please read https://red.ht/rhel-smt to ensure you understand the risks."
+    "certain workloads, but introduces several publicly disclosed security issues. You have "
+    "the option of disabling SMT, which may impact performance. If you choose to leave SMT "
+    "enabled, please read https://red.ht/rhel-smt to understand your potential risks and learn "
+    "about other ways to mitigate these risks."
 )
 
 
