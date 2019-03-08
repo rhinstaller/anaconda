@@ -587,8 +587,7 @@ class Payload(metaclass=ABCMeta):
                 if use_dracut:
                     util.execInSysroot("depmod", ["-a", kernel])
                     util.execInSysroot("dracut",
-                                       ["-H", "--persistent-policy", "by-uuid",
-                                        "-f",
+                                       ["-f",
                                         "/boot/initramfs-%s.img" % kernel,
                                         kernel])
                 else:
