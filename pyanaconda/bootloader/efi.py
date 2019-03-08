@@ -133,7 +133,7 @@ class EFIBase(object):
 class EFIGRUB(EFIBase, GRUB2):
     """EFI GRUBv2"""
     _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
-    _packages_common = [ "efibootmgr" ]
+    _packages_common = [ "efibootmgr", "grub2-tools" ]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
     stage2_bootable = False
@@ -163,10 +163,8 @@ class EFIGRUB(EFIBase, GRUB2):
     @property
     def packages(self):
         if self._is_32bit_firmware:
-            return self._packages32 + self._packages_common + \
-                super().packages
-        return self._packages64 + self._packages_common + \
-            super().packages
+            return self._packages32 + self._packages_common
+        return self._packages64 + self._packages_common
 
 
 class Aarch64EFIGRUB(EFIGRUB):
