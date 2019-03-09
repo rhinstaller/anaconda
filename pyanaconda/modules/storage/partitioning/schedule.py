@@ -129,7 +129,7 @@ def schedule_implicit_partitions(storage, disks):
     return devs
 
 
-def schedule_partitions(storage, disks, implicit_devices, scheme, requests=None):
+def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
     """Schedule creation of autopart/reqpart partitions.
 
     This only schedules the requests for actual partitions.
@@ -142,13 +142,9 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests=None)
     :type implicit_devices: list of :class:`blivet.devices.StorageDevice`
     :param scheme: a type of the partitioning scheme
     :type scheme: int
-    :param requests: list of partitioning requests to operate on,
-                     or `~.storage.InstallerStorage.autopart_requests` by default
+    :param requests: list of partitioning requests
     :type requests: list of :class:`~.storage.partspec.PartSpec` instances
     """
-    if not requests:
-        requests = storage.autopart_requests
-
     # basis for requests with required_space is the sum of the sizes of the
     # two largest free regions
     all_free = (Size(reg.getLength(unit="B")) for reg in get_free_regions(disks))
@@ -271,7 +267,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests=None)
     return implicit_devices
 
 
-def schedule_volumes(storage, devices):
+def schedule_volumes(storage, devices, requests):
     """Schedule creation of autopart lvm/btrfs volumes.
 
     Schedules encryption of member devices if requested, schedules creation
@@ -286,6 +282,8 @@ def schedule_volumes(storage, devices):
     :type storage: :class:`pyanaconda.storage.InstallerStorage`
     :param devices: list of member partitions
     :type devices: list of :class:`blivet.devices.PartitionDevice`
+    :param requests: list of partitioning requests
+    :type requests: list of :class:`~.storage.partspec.PartSpec` instances
     """
     if not devices:
         return
@@ -316,12 +314,11 @@ def schedule_volumes(storage, devices):
     storage.create_device(container)
 
     #
-    # Convert storage.autopart_requests into Device instances and
-    # schedule them for creation.
+    # Convert requests into Device instances and schedule them for creation.
     #
     # Second pass, for LVs only.
     pool = None
-    for request in storage.autopart_requests:
+    for request in requests:
         btr = storage.autopart_type == AUTOPART_TYPE_BTRFS and request.btr
         lv = (storage.autopart_type in (AUTOPART_TYPE_LVM,
                                         AUTOPART_TYPE_LVM_THINP) and request.lv)

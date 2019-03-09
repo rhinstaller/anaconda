@@ -976,12 +976,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         disks_size = sum((d.size for d in disks), Size(0))
         sw_space = self.payload.space_required
-        auto_swap = sum((r.size for r in self.storage.autopart_requests
-                                if r.fstype == "swap"), Size(0))
-        if self._auto_part_enabled and auto_swap == Size(0):
-            # autopartitioning requested, but not applied yet (=> no auto swap
-            # requests), ask user for enough space to fit in the suggested swap
-            auto_swap = suggest_swap_size()
+        auto_swap = suggest_swap_size()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, sw_space, auto_swap)

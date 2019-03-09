@@ -28,6 +28,9 @@ from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import 
     NonInteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
     schedule_implicit_partitions, schedule_volumes, schedule_partitions
+from pyanaconda.platform import platform
+from pyanaconda.storage.partitioning import get_full_partitioning_requests, \
+    get_default_partitioning
 from pyanaconda.storage.utils import get_pbkdf_args, get_available_disk_space, suggest_swap_size
 
 log = get_module_logger(__name__)
@@ -81,36 +84,38 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         storage.autopart_type = auto_part_proxy.Type
 
-        self._do_autopart(storage)
+        requests = self._get_autopart_requests(storage)
+        self._do_autopart(storage, requests)
 
-    def _refresh_swap_size(self, storage):
-        """Refresh size of the auto partitioning request for swap device.
-
-        Refresh size of the auto partitioning request for swap device according to
-        the current state of the storage configuration.
+    def _get_autopart_requests(self, storage):
+        """Get the partitioning requests for autopart.
 
         :param storage: blivet.Blivet instance
+        :return: a list of full partitioning specs
         """
-        for request in storage.autopart_requests:
+        requests = get_full_partitioning_requests(storage, platform, get_default_partitioning())
+
+        # Update the size of swap.
+        for request in requests:
             if request.fstype == "swap":
                 disk_space = get_available_disk_space(storage)
                 request.size = suggest_swap_size(disk_space=disk_space)
                 break
 
-    def _do_autopart(self, storage, min_luks_entropy=MIN_CREATE_ENTROPY):
+        return requests
+
+    def _do_autopart(self, storage, requests, min_luks_entropy=MIN_CREATE_ENTROPY):
         """Perform automatic partitioning.
 
         :param storage: an instance of Blivet
+        :param requests: list of partitioning requests
         :param int min_luks_entropy: minimum entropy in bits required for luks format creation
         """
-        # Update the autopart requests.
-        self._refresh_swap_size(storage)
-
         log.debug("encrypted_autopart: %s", storage.encrypted_autopart)
         log.debug("autopart_type: %s", storage.autopart_type)
         log.debug("clear_part_type: %s", storage.config.clear_part_type)
         log.debug("clear_part_disks: %s", storage.config.clear_part_disks)
-        log.debug("autopart_requests:\n%s", "".join([str(p) for p in storage.autopart_requests]))
+        log.debug("requests:\n%s", "".join([str(p) for p in requests]))
         log.debug("storage.disks: %s", [d.name for d in storage.disks])
         log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
         log.debug("all names: %s", [d.name for d in storage.devices])
@@ -131,11 +136,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
                                             "automatic partitioning"))
 
-        devs = schedule_partitions(storage, disks, devs, scheme=storage.autopart_type)
+        devs = schedule_partitions(storage, disks, devs, scheme=storage.autopart_type, requests)
 
         # run the autopart function to allocate and grow partitions
         do_partitioning(storage)
-        schedule_volumes(storage, devs)
+        schedule_volumes(storage, devs, requests)
 
         # grow LVs
         grow_lvm(storage)
