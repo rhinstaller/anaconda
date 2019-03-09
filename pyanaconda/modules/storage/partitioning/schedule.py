@@ -82,7 +82,7 @@ def get_candidate_disks(storage):
     return disks
 
 
-def schedule_implicit_partitions(storage, disks):
+def schedule_implicit_partitions(storage, disks, scheme):
     """Schedule creation of a lvm/btrfs member partitions for autopart.
 
     We create one such partition on each disk. They are not allocated until
@@ -92,6 +92,8 @@ def schedule_implicit_partitions(storage, disks):
     :type storage: :class:`pyanaconda.storage.InstallerStorage`
     :param disks: list of partitioned disks with free space
     :type disks: list of :class:`blivet.devices.StorageDevice`
+    :param scheme: a type of the partitioning scheme
+    :type scheme: int
     :return: list of newly created (unallocated) partitions
     :rtype: list of :class:`blivet.devices.PartitionDevice`
     """
@@ -99,7 +101,7 @@ def schedule_implicit_partitions(storage, disks):
     devs = []
 
     # only schedule the partitions if either lvm or btrfs autopart was chosen
-    if storage.autopart_type == AUTOPART_TYPE_PLAIN:
+    if scheme == AUTOPART_TYPE_PLAIN:
         return devs
 
     for disk in disks:
@@ -114,7 +116,7 @@ def schedule_implicit_partitions(storage, disks):
                         "pbkdf_args": storage.autopart_pbkdf_args
                         }
         else:
-            if storage.autopart_type in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
+            if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
                 fmt_type = "lvmpv"
             else:
                 fmt_type = "btrfs"
@@ -267,7 +269,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
     return implicit_devices
 
 
-def schedule_volumes(storage, devices, requests):
+def schedule_volumes(storage, devices, scheme, requests):
     """Schedule creation of autopart lvm/btrfs volumes.
 
     Schedules encryption of member devices if requested, schedules creation
@@ -282,13 +284,15 @@ def schedule_volumes(storage, devices, requests):
     :type storage: :class:`pyanaconda.storage.InstallerStorage`
     :param devices: list of member partitions
     :type devices: list of :class:`blivet.devices.PartitionDevice`
+    :param scheme: a type of the partitioning scheme
+    :type scheme: int
     :param requests: list of partitioning requests
     :type requests: list of :class:`~.storage.partspec.PartSpec` instances
     """
     if not devices:
         return
 
-    if storage.autopart_type in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
+    if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
         new_container = storage.new_vg
         new_volume = storage.new_lv
         format_name = "lvmpv"
@@ -319,11 +323,10 @@ def schedule_volumes(storage, devices, requests):
     # Second pass, for LVs only.
     pool = None
     for request in requests:
-        btr = storage.autopart_type == AUTOPART_TYPE_BTRFS and request.btr
-        lv = (storage.autopart_type in (AUTOPART_TYPE_LVM,
-                                        AUTOPART_TYPE_LVM_THINP) and request.lv)
-        thinlv = (storage.autopart_type == AUTOPART_TYPE_LVM_THINP and
-                  request.lv and request.thin)
+        btr = bool(scheme == AUTOPART_TYPE_BTRFS and request.btr)
+        lv = bool(scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP) and request.lv)
+        thinlv = bool(scheme == AUTOPART_TYPE_LVM_THINP and request.lv and request.thin)
+
         if thinlv and pool is None:
             # create a single thin pool in the vg
             pool = storage.new_lv(parents=[container], thin_pool=True, grow=True)

@@ -41,6 +41,15 @@ __all__ = ["AutomaticPartitioningTask"]
 class AutomaticPartitioningTask(NonInteractivePartitioningTask):
     """A task for the automatic partitioning configuration."""
 
+    def __init__(self, storage, scheme):
+        """Create a task.
+
+        :param storage: an instance of Blivet
+        :param scheme: a type of the partitioning scheme
+        """
+        super().__init__(storage)
+        self._scheme = scheme
+
     def _configure_partitioning(self, storage):
         """Configure the partitioning.
 
@@ -82,10 +91,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             storage.autopart_luks_version = luks_version
             storage.autopart_pbkdf_args = pbkdf_args
 
-        storage.autopart_type = auto_part_proxy.Type
-
         requests = self._get_autopart_requests(storage)
-        self._do_autopart(storage, requests)
+        self._do_autopart(storage, self._scheme, requests)
 
     def _get_autopart_requests(self, storage):
         """Get the partitioning requests for autopart.
@@ -104,15 +111,16 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         return requests
 
-    def _do_autopart(self, storage, requests, min_luks_entropy=MIN_CREATE_ENTROPY):
+    def _do_autopart(self, storage, scheme, requests, min_luks_entropy=MIN_CREATE_ENTROPY):
         """Perform automatic partitioning.
 
         :param storage: an instance of Blivet
+        :param scheme: a type of the partitioning scheme
         :param requests: list of partitioning requests
         :param int min_luks_entropy: minimum entropy in bits required for luks format creation
         """
         log.debug("encrypted_autopart: %s", storage.encrypted_autopart)
-        log.debug("autopart_type: %s", storage.autopart_type)
+        log.debug("scheme: %s", scheme)
         log.debug("clear_part_type: %s", storage.config.clear_part_type)
         log.debug("clear_part_disks: %s", storage.config.clear_part_disks)
         log.debug("requests:\n%s", "".join([str(p) for p in requests]))
@@ -128,7 +136,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             luks_data.min_entropy = min_luks_entropy
 
         disks = get_candidate_disks(storage)
-        devs = schedule_implicit_partitions(storage, disks)
+        devs = schedule_implicit_partitions(storage, disks, scheme)
         log.debug("candidate disks: %s", disks)
         log.debug("devs: %s", devs)
 
@@ -136,11 +144,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
                                             "automatic partitioning"))
 
-        devs = schedule_partitions(storage, disks, devs, scheme=storage.autopart_type, requests)
+        devs = schedule_partitions(storage, disks, devs, scheme, requests)
 
         # run the autopart function to allocate and grow partitions
         do_partitioning(storage)
-        schedule_volumes(storage, devs, requests)
+        schedule_volumes(storage, devs, scheme, requests)
 
         # grow LVs
         grow_lvm(storage)

@@ -2527,7 +2527,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._removeButton.set_sensitive(True)
 
     @ui_storage_logged
-    def _do_autopart(self):
+    def _do_autopart(self, scheme):
         """Helper function for on_create_clicked.
            Assumes a non-final context in which at least some errors
            discovered by storage checker are not considered fatal because they
@@ -2539,7 +2539,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
 
         try:
-            task = InteractiveAutoPartitioningTask(self._storage_playground)
+            task = InteractiveAutoPartitioningTask(self._storage_playground, scheme)
             task.run()
         except (StorageConfigurationError, BootloaderConfigurationError) as e:
             self._reset_storage()
@@ -2569,8 +2569,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_create_clicked(self, button, autopartTypeCombo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
-        self._storage_playground.autopart_type = self._get_autopart_type(autopartTypeCombo)
-        self._do_autopart()
+        self._do_autopart(self._get_autopart_type(autopartTypeCombo))
 
         # Refresh the spoke to make the new partitions appear.
         log.debug("refreshing ui")

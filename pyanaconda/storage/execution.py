@@ -34,10 +34,12 @@ def configure_storage(storage, data=None, interactive=False):
     :param data: an instance of kickstart data or None
     :param interactive: use a task for the interactive partitioning
     """
+    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+
     if interactive:
         task = InteractivePartitioningTask(storage)
-    elif STORAGE.get_proxy(AUTO_PARTITIONING).Enabled:
-        task = AutomaticPartitioningTask(storage)
+    elif auto_part_proxy.Enabled:
+        task = AutomaticPartitioningTask(storage, auto_part_proxy.Type)
     elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
         task = ManualPartitioningTask(storage)
     else:

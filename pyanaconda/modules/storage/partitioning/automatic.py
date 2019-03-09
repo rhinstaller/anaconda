@@ -383,7 +383,7 @@ class AutoPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = AutomaticPartitioningTask(self.storage)
+        task = AutomaticPartitioningTask(self.storage, self.type.value)
         path = self.publish_task(AUTO_PARTITIONING.namespace, task)
         return path
 
