@@ -39,7 +39,11 @@ def configure_storage(storage, data=None, interactive=False):
     if interactive:
         task = InteractivePartitioningTask(storage)
     elif auto_part_proxy.Enabled:
-        task = AutomaticPartitioningTask(storage, auto_part_proxy.Type)
+        task = AutomaticPartitioningTask(
+            storage,
+            auto_part_proxy.Type,
+            auto_part_proxy.Encrypted
+        )
     elif STORAGE.get_proxy(MANUAL_PARTITIONING).Enabled:
         task = ManualPartitioningTask(storage)
     else:

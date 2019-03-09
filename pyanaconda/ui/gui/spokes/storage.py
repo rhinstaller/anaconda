@@ -419,7 +419,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
         update_storage_config(self.storage.config)
-        self.storage.encrypted_autopart = self._auto_part_observer.proxy.Encrypted
         self.storage.encryption_passphrase = self._auto_part_observer.proxy.Passphrase
 
         # If autopart is selected we want to remove whatever has been

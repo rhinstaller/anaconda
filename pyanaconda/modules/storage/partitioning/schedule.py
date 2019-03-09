@@ -82,7 +82,7 @@ def get_candidate_disks(storage):
     return disks
 
 
-def schedule_implicit_partitions(storage, disks, scheme):
+def schedule_implicit_partitions(storage, disks, scheme, encrypted=False):
     """Schedule creation of a lvm/btrfs member partitions for autopart.
 
     We create one such partition on each disk. They are not allocated until
@@ -94,6 +94,8 @@ def schedule_implicit_partitions(storage, disks, scheme):
     :type disks: list of :class:`blivet.devices.StorageDevice`
     :param scheme: a type of the partitioning scheme
     :type scheme: int
+    :param encrypted: encrypt the scheduled partitions
+    :type encrypted: bool
     :return: list of newly created (unallocated) partitions
     :rtype: list of :class:`blivet.devices.PartitionDevice`
     """
@@ -105,7 +107,7 @@ def schedule_implicit_partitions(storage, disks, scheme):
         return devs
 
     for disk in disks:
-        if storage.encrypted_autopart:
+        if encrypted:
             fmt_type = "luks"
             fmt_args = {"passphrase": luks_data.encryption_passphrase,
                         "cipher": storage.encryption_cipher,
@@ -131,7 +133,7 @@ def schedule_implicit_partitions(storage, disks, scheme):
     return devs
 
 
-def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
+def schedule_partitions(storage, disks, implicit_devices, scheme, requests, encrypted=False):
     """Schedule creation of autopart/reqpart partitions.
 
     This only schedules the requests for actual partitions.
@@ -146,6 +148,8 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
     :type scheme: int
     :param requests: list of partitioning requests
     :type requests: list of :class:`~.storage.partspec.PartSpec` instances
+    :param encrypted: encrypt the scheduled partitions
+    :type encrypted: bool
     """
     # basis for requests with required_space is the sum of the sizes of the
     # two largest free regions
@@ -220,7 +224,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
             raise NotEnoughFreeSpaceError(_("No big enough free space on disks for "
                                             "automatic partitioning"))
 
-        if request.encrypted and storage.encrypted_autopart:
+        if request.encrypted and encrypted:
             fmt_type = "luks"
             fmt_args = {"passphrase": luks_data.encryption_passphrase,
                         "cipher": storage.encryption_cipher,
@@ -245,7 +249,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
         # schedule the device for creation
         storage.create_device(dev)
 
-        if request.encrypted and storage.encrypted_autopart:
+        if request.encrypted and encrypted:
             luks_fmt = get_format(request.fstype,
                                   device=dev.path,
                                   mountpoint=request.mountpoint)
@@ -269,7 +273,7 @@ def schedule_partitions(storage, disks, implicit_devices, scheme, requests):
     return implicit_devices
 
 
-def schedule_volumes(storage, devices, scheme, requests):
+def schedule_volumes(storage, devices, scheme, requests, encrypted=False):
     """Schedule creation of autopart lvm/btrfs volumes.
 
     Schedules encryption of member devices if requested, schedules creation
@@ -288,6 +292,8 @@ def schedule_volumes(storage, devices, scheme, requests):
     :type scheme: int
     :param requests: list of partitioning requests
     :type requests: list of :class:`~.storage.partspec.PartSpec` instances
+    :param encrypted: encrypt the scheduled partitions
+    :type encrypted: bool
     """
     if not devices:
         return
@@ -301,7 +307,7 @@ def schedule_volumes(storage, devices, scheme, requests):
         new_volume = storage.new_btrfs
         format_name = "btrfs"
 
-    if storage.encrypted_autopart:
+    if encrypted:
         pvs = []
         for dev in devices:
             pv = LUKSDevice("luks-%s" % dev.name,
