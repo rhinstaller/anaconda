@@ -390,28 +390,6 @@ def _schedule_volumes(storage, devs):
         storage.create_device(dev)
 
 
-def do_reqpart(storage, requests):
-    """Perform automatic partitioning of just required platform-specific
-       partitions.  This is incompatible with do_autopart.
-
-       :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-       :type storage: :class:`pyanaconda.storage.InstallerStorage`
-       :param requests: list of partitioning requests to operate on,
-                        or `~.storage.InstallerStorage.autopart_requests` by default
-       :type requests: list of :class:`~.storage.partspec.PartSpec` instances
-    """
-    if not any(d.format.supported for d in storage.partitioned):
-        raise NoDisksError(_("No usable disks selected"))
-
-    disks = _get_candidate_disks(storage)
-
-    if disks == []:
-        raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
-                                        "automatic partitioning"))
-
-    _schedule_partitions(storage, disks, [], requests=requests)
-
-
 def do_autopart(storage, min_luks_entropy=None):
     """ Perform automatic partitioning.
 

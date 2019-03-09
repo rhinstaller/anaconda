@@ -21,7 +21,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
-from blivet.errors import StorageError, BTRFSValueError
+from blivet.errors import StorageError, BTRFSValueError, NoDisksError, NotEnoughFreeSpaceError
 from blivet.formats import get_format
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
@@ -34,7 +34,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
 from pyanaconda.platform import platform
-from pyanaconda.storage import autopart
+from pyanaconda.storage.autopart import _get_candidate_disks, _schedule_partitions
 from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size, get_pbkdf_args, \
     lookup_alias
 
@@ -96,9 +96,20 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
 
             reqs += boot_partitions
 
-        if reqs:
-            log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
-            autopart.do_reqpart(storage, reqs)
+        if not reqs:
+            return
+
+        if not any(d.format.supported for d in storage.partitioned):
+            raise NoDisksError(_("No usable disks selected"))
+
+        disks = _get_candidate_disks(storage)
+
+        if not disks:
+            raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
+                                            "automatic partitioning"))
+
+        log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
+        _schedule_partitions(storage, disks, [], requests=reqs)
 
     def _execute_partition(self, storage, data):
         """Execute the partition command.
