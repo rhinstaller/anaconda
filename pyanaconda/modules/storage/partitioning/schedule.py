@@ -129,7 +129,7 @@ def schedule_implicit_partitions(storage, disks):
     return devs
 
 
-def schedule_partitions(storage, disks, implicit_devices, requests=None):
+def schedule_partitions(storage, disks, implicit_devices, scheme, requests=None):
     """Schedule creation of autopart/reqpart partitions.
 
     This only schedules the requests for actual partitions.
@@ -140,6 +140,8 @@ def schedule_partitions(storage, disks, implicit_devices, requests=None):
     :type disks: list of :class:`blivet.devices.StorageDevice`
     :param implicit_devices: list of implicit devices
     :type implicit_devices: list of :class:`blivet.devices.StorageDevice`
+    :param scheme: a type of the partitioning scheme
+    :type scheme: int
     :param requests: list of partitioning requests to operate on,
                      or `~.storage.InstallerStorage.autopart_requests` by default
     :type requests: list of :class:`~.storage.partspec.PartSpec` instances
@@ -176,10 +178,10 @@ def schedule_partitions(storage, disks, implicit_devices, requests=None):
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in requests:
-        if ((request.lv and storage.do_autopart and
-             storage.autopart_type in (AUTOPART_TYPE_LVM,
-                                       AUTOPART_TYPE_LVM_THINP)) or
-                (request.btr and storage.autopart_type == AUTOPART_TYPE_BTRFS)):
+        if request.lv and scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
+            continue
+
+        if request.btr and scheme == AUTOPART_TYPE_BTRFS:
             continue
 
         if request.required_space and request.required_space > free:
@@ -255,9 +257,7 @@ def schedule_partitions(storage, disks, implicit_devices, requests=None):
                                   parents=dev)
             storage.create_device(luks_dev)
 
-        if storage.do_autopart and \
-           storage.autopart_type in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP,
-                                     AUTOPART_TYPE_BTRFS):
+        if scheme in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_BTRFS):
             # doing LVM/BTRFS -- make sure the newly created partition fits in some
             # free space together with one of the implicitly requested partitions
             smallest_implicit = sorted(implicit_devices, key=lambda d: d.size)[0]

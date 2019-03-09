@@ -2536,7 +2536,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
            Note: There are never any non-existent devices around when this runs.
         """
         log.debug("running automatic partitioning")
-        self._storage_playground.do_autopart = True
         self.clear_errors()
 
         try:
@@ -2550,7 +2549,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         else:
             self._devices = self._storage_playground.devices
         finally:
-            self._storage_playground.do_autopart = False
             log.debug("finished automatic partitioning")
 
         if self._error:

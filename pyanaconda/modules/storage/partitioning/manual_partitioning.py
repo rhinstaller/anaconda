@@ -43,9 +43,6 @@ class ManualPartitioningTask(NonInteractivePartitioningTask):
         log.debug("Setting up the mount points.")
         manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
-        # Disable automatic partitioning.
-        storage.do_autopart = False
-
         # Set up mount points.
         for mount_data in manual_part_proxy.MountPoints:
             self._setup_mount_point(storage, mount_data)
