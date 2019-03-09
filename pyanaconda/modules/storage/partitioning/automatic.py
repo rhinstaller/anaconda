@@ -17,6 +17,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.dbus import DBus
@@ -28,6 +30,7 @@ from pyanaconda.modules.storage.partitioning.automatic_interface import AutoPart
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
+from pyanaconda.storage.utils import get_pbkdf_args
 
 log = get_module_logger(__name__)
 
@@ -84,7 +87,7 @@ class AutoPartitioningModule(PartitioningModule):
         self._escrowcert = ""
 
         self.backup_passphrase_enabled_changed = Signal()
-        self._backup_passphrase_enabled = ""
+        self._backup_passphrase_enabled = False
 
     def publish(self):
         """Publish the module."""
@@ -381,12 +384,57 @@ class AutoPartitioningModule(PartitioningModule):
         self.backup_passphrase_enabled_changed.emit()
         log.debug("Backup passphrase enabled is set to '%s'.", enabled)
 
+    @property
+    def pbkdf_args(self):
+        """Arguments for PBKDF.
+
+        :return: a dictionary of arguments.
+        :raise: UnavailableStorageError if the storage is not available
+        """
+        if not self.encrypted:
+            return None
+
+        luks_version = self.luks_version or self.storage.default_luks_version
+
+        return get_pbkdf_args(
+            luks_version=luks_version,
+            pbkdf_type=self.pbkdf or None,
+            max_memory_kb=self.pbkdf_memory,
+            iterations=self.pbkdf_iterations,
+            time_ms=self.pbkdf_time
+        )
+
+    @property
+    def luks_format_args(self):
+        """Arguments for the LUKS format constructor.
+
+        :return: a dictionary of arguments
+        :raise: UnavailableStorageError if the storage is not available
+        """
+        if not self.encrypted:
+            return {}
+
+        luks_version = self.luks_version or self.storage.default_luks_version
+        passphrase = self.passphrase or self.storage.encryption_passphrase
+        escrow_cert = self.storage.get_escrow_certificate(self.escrowcert)
+
+        return {
+            "passphrase": passphrase,
+            "cipher": self.cipher,
+            "luks_version": luks_version,
+            "pbkdf_args": self.pbkdf_args,
+            "escrow_cert": escrow_cert,
+            "add_backup_passphrase": self.backup_passphrase_enabled,
+            "min_luks_entropy": MIN_CREATE_ENTROPY,
+        }
+
     def configure_with_task(self):
         """Schedule the partitioning actions."""
         task = AutomaticPartitioningTask(
             storage=self.storage,
             scheme=self.type.value,
-            encrypted=self.encrypted
+            encrypted=self.encrypted,
+            luks_format_args=self.luks_format_args
         )
 
         path = self.publish_task(AUTO_PARTITIONING.namespace, task)

@@ -22,6 +22,8 @@ import tempfile
 import unittest
 from unittest.mock import patch, call, Mock
 
+from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+from blivet.formats.luks import LUKS2PBKDFArgs
 from blivet.size import Size
 
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
@@ -60,6 +62,7 @@ from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.modules.storage.zfcp.discover import ZFCPDiscoverTask
 from pyanaconda.modules.storage.zfcp.zfcp_interface import ZFCPInterface
 from pyanaconda.storage.checker import StorageCheckerReport
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
 
 
@@ -983,6 +986,70 @@ class AutopartitioningInterfaceTestCase(unittest.TestCase):
             "BackupPassphraseEnabled",
             True
         )
+
+    def pbkdf_args_test(self):
+        """Test the pbkdf_args property."""
+        self.autopart_module.set_encrypted(False)
+        self.assertEqual(self.autopart_module.pbkdf_args, None)
+
+        self.autopart_module.set_encrypted(True)
+        self.autopart_module.set_luks_version("luks1")
+        self.assertEqual(self.autopart_module.pbkdf_args, None)
+
+        self.autopart_module.set_encrypted(True)
+        self.autopart_module.set_luks_version("luks2")
+        self.assertEqual(self.autopart_module.pbkdf_args, None)
+
+        self.autopart_module.set_encrypted(True)
+        self.autopart_module.set_luks_version("luks2")
+        self.autopart_module.set_pbkdf("argon2i")
+        self.autopart_module.set_pbkdf_memory(256)
+        self.autopart_module.set_pbkdf_iterations(1000)
+        self.autopart_module.set_pbkdf_time(100)
+
+        pbkdf_args = self.autopart_module.pbkdf_args
+        self.assertIsInstance(pbkdf_args, LUKS2PBKDFArgs)
+        self.assertEqual(pbkdf_args.type, "argon2i")
+        self.assertEqual(pbkdf_args.max_memory_kb, 256)
+        self.assertEqual(pbkdf_args.iterations, 1000)
+        self.assertEqual(pbkdf_args.time_ms, 100)
+
+    def luks_format_args_test(self):
+        """Test the luks_format_args property."""
+        storage = create_storage()
+        storage.encryption_passphrase = "default"
+        storage._escrow_certificates["file:///tmp/escrow.crt"] = "CERTIFICATE"
+        self.autopart_module.on_storage_reset(storage)
+
+        self.autopart_module.set_encrypted(False)
+        self.assertEqual(self.autopart_module.luks_format_args, {})
+
+        self.autopart_module.set_encrypted(True)
+        self.assertEqual(self.autopart_module.luks_format_args, {
+            "passphrase": "default",
+            "cipher": "",
+            "luks_version": "luks2",
+            "pbkdf_args": None,
+            "escrow_cert": None,
+            "add_backup_passphrase": False,
+            "min_luks_entropy": MIN_CREATE_ENTROPY,
+        })
+
+        self.autopart_module.set_encrypted(True)
+        self.autopart_module.set_luks_version("luks1")
+        self.autopart_module.set_passphrase("passphrase")
+        self.autopart_module.set_cipher("aes-xts-plain64")
+        self.autopart_module.set_escrowcert("file:///tmp/escrow.crt")
+        self.autopart_module.set_backup_passphrase_enabled(True)
+        self.assertEqual(self.autopart_module.luks_format_args, {
+            "passphrase": "passphrase",
+            "cipher": "aes-xts-plain64",
+            "luks_version": "luks1",
+            "pbkdf_args": None,
+            "escrow_cert": "CERTIFICATE",
+            "add_backup_passphrase": True,
+            "min_luks_entropy": MIN_CREATE_ENTROPY,
+        })
 
     def reset_test(self):
         """Test the reset of the storage."""
