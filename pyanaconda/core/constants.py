@@ -91,6 +91,9 @@ HELP_MAIN_PAGE_TUI = "Installation_Guide.txt"
 USEVNC = N_("Start VNC")
 USETEXT = N_("Use text mode")
 
+# Quit message
+QUIT_MESSAGE = N_("Do you really want to quit?")
+
 # Runlevel files
 TEXT_ONLY_TARGET = 'multi-user.target'
 GRAPHICAL_TARGET = 'graphical.target'

@@ -21,7 +21,7 @@ import sys
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
-from pyanaconda.core.constants import USEVNC, USETEXT
+from pyanaconda.core.constants import USEVNC, USETEXT, QUIT_MESSAGE
 from pyanaconda.core.i18n import N_, _, C_
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.core.util import execWithRedirect, ipmi_abort
@@ -100,7 +100,7 @@ class AskVNCSpoke(NormalTUISpoke):
         else:
             # TRANSLATORS: 'q' to quit
             if key.lower() == C_('TUI|Spoke Navigation', 'q'):
-                d = YesNoDialog(_(u"Do you really want to quit?"))
+                d = YesNoDialog(_(QUIT_MESSAGE))
                 ScreenHandler.push_screen_modal(d)
                 if d.answer:
                     ipmi_abort(scripts=self.data.scripts)
