@@ -16,15 +16,19 @@
 # Red Hat, Inc.
 #
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
+from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.static_data import luks_data
+from pyanaconda.storage.autopart import _get_candidate_disks, _schedule_implicit_partitions, \
+    _schedule_volumes, _schedule_partitions
 
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
-from pyanaconda.storage import autopart
-from pyanaconda.storage.utils import get_pbkdf_args
+from pyanaconda.storage.utils import get_pbkdf_args, get_available_disk_space, suggest_swap_size
 
 log = get_module_logger(__name__)
 
@@ -80,4 +84,71 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         storage.autopart_type = auto_part_proxy.Type
 
-        autopart.do_autopart(storage, min_luks_entropy=MIN_CREATE_ENTROPY)
+        self._do_autopart(storage)
+
+    def _refresh_swap_size(self, storage):
+        """Refresh size of the auto partitioning request for swap device.
+
+        Refresh size of the auto partitioning request for swap device according to
+        the current state of the storage configuration.
+
+        :param storage: blivet.Blivet instance
+        """
+        for request in storage.autopart_requests:
+            if request.fstype == "swap":
+                disk_space = get_available_disk_space(storage)
+                request.size = suggest_swap_size(disk_space=disk_space)
+                break
+
+    def _do_autopart(self, storage, min_luks_entropy=MIN_CREATE_ENTROPY):
+        """Perform automatic partitioning.
+
+        :param storage: an instance of Blivet
+        :param int min_luks_entropy: minimum entropy in bits required for luks format creation
+        """
+        # Update the autopart requests.
+        self._refresh_swap_size(storage)
+
+        log.debug("do_autopart: %s", storage.do_autopart)
+        log.debug("encrypted_autopart: %s", storage.encrypted_autopart)
+        log.debug("autopart_type: %s", storage.autopart_type)
+        log.debug("clear_part_type: %s", storage.config.clear_part_type)
+        log.debug("clear_part_disks: %s", storage.config.clear_part_disks)
+        log.debug("autopart_requests:\n%s", "".join([str(p) for p in storage.autopart_requests]))
+        log.debug("storage.disks: %s", [d.name for d in storage.disks])
+        log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
+        log.debug("all names: %s", [d.name for d in storage.devices])
+        log.debug("boot disk: %s", getattr(storage.bootloader.stage1_disk, "name", None))
+
+        if not storage.do_autopart:
+            return
+
+        if not any(d.format.supported for d in storage.partitioned):
+            raise NoDisksError(_("No usable disks selected"))
+
+        if min_luks_entropy is not None:
+            luks_data.min_entropy = min_luks_entropy
+
+        disks = _get_candidate_disks(storage)
+        devs = _schedule_implicit_partitions(storage, disks)
+        log.debug("candidate disks: %s", disks)
+        log.debug("devs: %s", devs)
+
+        if not disks:
+            raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
+                                            "automatic partitioning"))
+
+        devs = _schedule_partitions(storage, disks, devs)
+
+        # run the autopart function to allocate and grow partitions
+        do_partitioning(storage)
+        _schedule_volumes(storage, devs)
+
+        # grow LVs
+        grow_lvm(storage)
+
+        storage.set_up_bootloader()
+
+        # only newly added swaps should appear in the fstab
+        new_swaps = (dev for dev in storage.swaps if not dev.format.exists)
+        storage.set_fstab_swaps(new_swaps)

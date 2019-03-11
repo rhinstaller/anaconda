@@ -26,33 +26,17 @@ from blivet.size import Size
 from blivet.devices.partition import PartitionDevice, FALLBACK_DEFAULT_PART_SIZE
 from blivet.devices.luks import LUKSDevice
 from blivet.devices.lvm import DEFAULT_THPOOL_RESERVE
-from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
+from blivet.errors import NotEnoughFreeSpaceError
 from blivet.formats import get_format
-from blivet.partitioning import do_partitioning, get_free_regions, grow_lvm, get_next_partition_type
+from blivet.partitioning import get_free_regions, get_next_partition_type
 from blivet.static_data import luks_data
 
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
 from pyanaconda.core.i18n import _
-from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size
 
 import logging
 log = logging.getLogger("anaconda.autopart")
-
-
-def _refresh_auto_swap_size(storage):
-    """Refresh size of the auto partitioning request for swap device.
-
-    Refresh size of the auto partitioning request for swap device according to
-    the current state of the storage configuration.
-
-    :param storage: blivet.Blivet instance
-    """
-    for request in storage.autopart_requests:
-        if request.fstype == "swap":
-            disk_space = get_available_disk_space(storage)
-            request.size = suggest_swap_size(disk_space=disk_space)
-            break
 
 
 def _get_candidate_disks(storage):
@@ -388,70 +372,3 @@ def _schedule_volumes(storage, devs):
 
         # schedule the device for creation
         storage.create_device(dev)
-
-
-def do_autopart(storage, min_luks_entropy=None):
-    """ Perform automatic partitioning.
-
-        :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-        :type storage: :class:`pyanaconda.storage.InstallerStorage`
-        :param min_luks_entropy: minimum entropy in bits required for
-                                 luks format creation; uses default when None
-        :type min_luks_entropy: int
-
-        :attr:`Blivet.do_autopart` controls whether this method creates the
-        automatic partitioning layout. :attr:`Blivet.autopart_type` controls
-        which variant of autopart used. It uses one of the pykickstart
-        AUTOPART_TYPE_* constants. The set of eligible disks is defined in
-        :attr:`StorageDiscoveryConfig.clear_part_disks`.
-
-        .. note::
-
-            Clearing of partitions is handled separately, in
-            :meth:`pyanaconda.storage.InstallerStorage.clear_partitions`.
-    """
-    # Update the autopart requests.
-    _refresh_auto_swap_size(storage)
-
-    log.debug("do_autopart: %s", storage.do_autopart)
-    log.debug("encrypted_autopart: %s", storage.encrypted_autopart)
-    log.debug("autopart_type: %s", storage.autopart_type)
-    log.debug("clear_part_type: %s", storage.config.clear_part_type)
-    log.debug("clear_part_disks: %s", storage.config.clear_part_disks)
-    log.debug("autopart_requests:\n%s", "".join([str(p) for p in storage.autopart_requests]))
-    log.debug("storage.disks: %s", [d.name for d in storage.disks])
-    log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
-    log.debug("all names: %s", [d.name for d in storage.devices])
-    log.debug("boot disk: %s", getattr(storage.bootloader.stage1_disk, "name", None))
-
-    if not storage.do_autopart:
-        return
-
-    if not any(d.format.supported for d in storage.partitioned):
-        raise NoDisksError(_("No usable disks selected"))
-
-    if min_luks_entropy is not None:
-        luks_data.min_entropy = min_luks_entropy
-
-    disks = _get_candidate_disks(storage)
-    devs = _schedule_implicit_partitions(storage, disks)
-    log.debug("candidate disks: %s", disks)
-    log.debug("devs: %s", devs)
-
-    if disks == []:
-        raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
-                                        "automatic partitioning"))
-    devs = _schedule_partitions(storage, disks, devs)
-
-    # run the autopart function to allocate and grow partitions
-    do_partitioning(storage)
-    _schedule_volumes(storage, devs)
-
-    # grow LVs
-    grow_lvm(storage)
-
-    storage.set_up_bootloader()
-
-    # only newly added swaps should appear in the fstab
-    new_swaps = (dev for dev in storage.swaps if not dev.format.exists)
-    storage.set_fstab_swaps(new_swaps)
