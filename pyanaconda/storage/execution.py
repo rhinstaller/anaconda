@@ -23,7 +23,7 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devices import LUKSDevice, LVMVolumeGroupDevice
 from blivet.devices.lvm import LVMCacheRequest
-from blivet.errors import PartitioningError, StorageError, BTRFSValueError
+from blivet.errors import StorageError, BTRFSValueError
 from blivet.formats import get_format
 from blivet.formats.disklabel import DiskLabel
 from blivet.partitioning import do_partitioning, grow_lvm
@@ -43,7 +43,6 @@ from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
-from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.utils import get_pbkdf_args, lookup_alias, get_available_disk_space
 
 log = get_module_logger(__name__)
@@ -185,12 +184,6 @@ class AutomaticPartitioningExecutor(PartitioningExecutor):
         storage.autopart_type = auto_part_proxy.Type
 
         autopart.do_autopart(storage, min_luks_entropy=MIN_CREATE_ENTROPY)
-
-        report = storage_checker.check(storage)
-        report.log(log)
-
-        if report.failure:
-            raise PartitioningError("autopart failed: \n" + "\n".join(report.all_errors))
 
 
 class ManualPartitioningExecutor(PartitioningExecutor):
