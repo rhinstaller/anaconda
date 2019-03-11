@@ -98,6 +98,24 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._requests, [])
         self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_PRE_INSTALL)
 
+    @patch('pyanaconda.modules.storage.snapshot.device.get_snapshot_device')
+    def verify_requests_test(self, device_getter):
+        """Test the verify_requests method."""
+        report_error = Mock()
+        report_warning = Mock()
+        self.module._requests = [Mock()]
+
+        # Test passing check.
+        self.module.verify_requests(Mock(), Mock(), report_error, report_warning)
+        report_error.assert_not_called()
+        report_warning.assert_not_called()
+
+        # Test failing check.
+        device_getter.side_effect = KickstartParseError("Fake error")
+        self.module.verify_requests(Mock(), Mock(), report_error, report_warning)
+        report_error.called_once_with("Fake error")
+        report_warning.assert_not_called()
+
 
 class SnapshotTasksTestCase(unittest.TestCase):
     """Test snapshot tasks."""

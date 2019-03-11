@@ -923,6 +923,20 @@ class Snapshot(COMMANDS.Snapshot):
         """
         return [request for request in self.dataList() if request.when == when]
 
+    def verify_requests(self, storage, constraints, report_error, report_warning):
+        """Verify the validity of snapshot requests for the given storage.
+
+        This is a callback for the storage checker.
+
+        :param storage: a storage to check
+        :param constraints: a dictionary of constraints
+        :param report_error: a function for error reporting
+        :param report_warning: a function for warning reporting
+        """
+        # FIXME: This is an ugly temporary workaround for UI.
+        from pyanaconda.modules.storage.snapshot import SnapshotModule
+        SnapshotModule.verify_requests(self, storage, constraints, report_error, report_warning)
+
 
 class Keyboard(RemovedCommand):
 

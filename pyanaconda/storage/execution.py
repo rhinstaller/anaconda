@@ -30,7 +30,6 @@ from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.size import Size
 from blivet.static_data import luks_data
 from bytesize.bytesize import KiB
-from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL
 from pykickstart.errors import KickstartParseError
 
 from pyanaconda.bootloader.execution import BootloaderExecutor
@@ -39,10 +38,9 @@ from pyanaconda.core.constants import MOUNT_POINT_DEVICE, \
     MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING, \
-    MANUAL_PARTITIONING, SNAPSHOT
+    MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.anaconda_loggers import get_module_logger
-from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
 from pyanaconda.platform import platform
 from pyanaconda.storage import autopart
 from pyanaconda.storage.checker import storage_checker
@@ -81,9 +79,6 @@ def do_kickstart_storage(storage, data=None, partitioning=None):
 
     partitioning.execute(storage)
 
-    # Validate the post-install snapshot requests here.
-    validate_snapshot_requests(storage, data)
-
     # Set up the boot loader.
     storage.set_up_bootloader()
 
@@ -121,27 +116,6 @@ def clear_partitions(storage):
                     DiskLabel.get_platform_label_types()[0])
 
     storage.clear_partitions()
-
-
-def validate_snapshot_requests(storage, data):
-    """Validate the post-install snapshot requests.
-
-    :param storage: instance of the Blivet's storage object
-    :param data: an instance of kickstart data
-    """
-    # No kickstart data provided. Do nothing.
-    if data is None:
-        return
-
-    # No post-install snapshots are requested. Do nothing.
-    snapshot_proxy = STORAGE.get_proxy(SNAPSHOT)
-    if not snapshot_proxy.IsRequested(SNAPSHOT_WHEN_POST_INSTALL):
-        return
-
-    # Run the validation task directly.
-    requests = data.snapshot.get_requests(SNAPSHOT_WHEN_POST_INSTALL)
-    task = SnapshotValidateTask(storage, requests, SNAPSHOT_WHEN_POST_INSTALL)
-    task.run()
 
 
 class PartitioningExecutor(ABC):
