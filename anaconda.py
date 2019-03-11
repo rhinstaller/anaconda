@@ -774,10 +774,6 @@ if __name__ == "__main__":
 
         # Run the tasks.
         with check_kickstart_error():
-
-            from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
-            SnapshotValidateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
-
             from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
             SnapshotCreateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
 

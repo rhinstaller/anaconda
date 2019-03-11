@@ -29,7 +29,6 @@ from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
-from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
 from pyanaconda.storage.checker import storage_checker
 
 log = get_module_logger(__name__)
@@ -125,21 +124,6 @@ class SnapshotModule(KickstartBaseModule):
                 get_snapshot_device(request, storage.devicetree)
             except KickstartParseError as e:
                 report_error(str(e))
-
-    def validate_with_task(self, when):
-        """Validate snapshot requests.
-
-        :param when: a type of the requests to validate
-        :return: a DBus path to a task
-        """
-        task = SnapshotValidateTask(
-            storage=self.storage,
-            requests=self.get_requests(when),
-            when=when
-        )
-
-        path = self.publish_task(SNAPSHOT.namespace, task)
-        return path
 
     def create_with_task(self, when):
         """Create ThinLV snapshots.
