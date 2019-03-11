@@ -641,3 +641,39 @@ def get_disks_summary(storage, selected):
         "{count} disk selected; {capacity} capacity; {free} free",
         "{count} disks selected; {capacity} capacity; {free} free",
         count).format(count=count, capacity=capacity, free=free_space)
+
+
+def mark_protected_device(storage, spec):
+    """Mark a device as protected.
+
+    :param storage: an instance of the storage
+    :param spec: a specification of the device
+    """
+    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    protected = disk_selection_proxy.ProtectedDevices
+    device = storage.devicetree.resolve_device(spec)
+
+    if device:
+        device.protected = True
+
+    if spec not in protected:
+        protected.add(spec)
+        disk_selection_proxy.SetProtectedDevices(protected)
+
+
+def unmark_protected_device(storage, spec):
+    """Unmark a device as protected.
+
+    :param storage: an instance of the storage
+    :param spec: a specification of the device
+    """
+    disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    protected = disk_selection_proxy.ProtectedDevices
+    device = storage.devicetree.resolve_device(spec)
+
+    if device:
+        device.protected = False
+
+    if spec in protected:
+        protected.remove(spec)
+        disk_selection_proxy.SetProtectedDevices(protected)
