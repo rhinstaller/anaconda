@@ -39,15 +39,13 @@ from pyanaconda.image import opticalInstallMedia, verifyMedia, verify_valid_inst
 from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core.regexes import VERSION_DIGITS
 from pyanaconda.payload.errors import PayloadError, PayloadSetupError, NoSuchGroup
-from pyanaconda.payload.utils import version_cmp
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.install_tree_metadata import InstallTreeMetadata
 from pyanaconda.payload.requirement import PayloadRequirements
 from pyanaconda.product import productName, productVersion
 
 from pykickstart.parser import Group
 
-import blivet.util
-import blivet.arch
 from blivet.errors import StorageError
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -448,19 +446,15 @@ class Payload(metaclass=ABCMeta):
         # instance.
         real_mountpoint = os.path.realpath(mountpoint)
 
-        if os.path.ismount(real_mountpoint):
-            mdev = blivet.util.get_mount_device(real_mountpoint)
+        mdev = payload_utils.get_mount_device(real_mountpoint)
+        if mdev:
             if mdev:
                 log.warning("%s is already mounted on %s", mdev, mountpoint)
 
             if mdev == device.path:
                 return
             else:
-                try:
-                    blivet.util.umount(real_mountpoint)
-                except OSError as e:
-                    log.error(str(e))
-                    log.info("umount failed -- mounting on top of it")
+                payload_utils.unmount(real_mountpoint)
 
         try:
             device.setup()
@@ -474,19 +468,15 @@ class Payload(metaclass=ABCMeta):
     def _setup_NFS(mountpoint, server, path, options):
         """Prepare an NFS directory for use as a package source."""
         log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
-        if os.path.ismount(mountpoint):
-            dev = blivet.util.get_mount_device(mountpoint)
+        dev = payload_utils.get_mount_device(mountpoint)
+        if dev:
             _server, colon, _path = dev.partition(":")
             if colon == ":" and server == _server and path == _path:
                 log.debug("%s:%s already mounted on %s", server, path, mountpoint)
                 return
             else:
                 log.debug("%s already has something mounted on it", mountpoint)
-                try:
-                    blivet.util.umount(mountpoint)
-                except OSError as e:
-                    log.error(str(e))
-                    log.info("umount failed -- mounting on top of it")
+                payload_utils.unmount(mountpoint)
 
         # mount the specified directory
         url = "%s:%s" % (server, path)
@@ -496,10 +486,7 @@ class Payload(metaclass=ABCMeta):
         elif "nolock" not in options:
             options += ",nolock"
 
-        try:
-            blivet.util.mount(url, mountpoint, fstype="nfs", options=options)
-        except OSError as e:
-            raise PayloadSetupError(str(e))
+        payload_utils.mount(url, mountpoint, fstype="nfs", options=options)
 
     ###
     # METHODS FOR INSTALLING THE PAYLOAD
@@ -714,11 +701,11 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         kernels = ["kernel"]
 
-        if blivet.arch.is_x86(32) and isys.isPaeAvailable():
+        if payload_utils.arch_is_x86() and isys.isPaeAvailable():
             kernels.insert(0, "kernel-PAE")
 
         # ARM systems use either the standard Multiplatform or LPAE platform
-        if blivet.arch.is_arm():
+        if payload_utils.arch_is_arm():
             if isys.isLpaeAvailable():
                 kernels.insert(0, "kernel-lpae")
 
@@ -745,7 +732,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
                          if fnmatch(f, "/boot/vmlinuz-*") or
                          fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % conf.bootloader.efi_dir)))
 
-        return sorted(files, key=functools.cmp_to_key(version_cmp))
+        return sorted(files, key=functools.cmp_to_key(payload_utils.version_cmp))
 
     @property
     def rpm_macros(self):
@@ -768,14 +755,14 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         # nfsiso: umount INSTALL_TREE, umount ISO_DIR
         if os.path.ismount(INSTALL_TREE):
             if self.install_device and \
-               blivet.util.get_mount_device(INSTALL_TREE) == self.install_device.path:
+               payload_utils.get_mount_device(INSTALL_TREE) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
             else:
-                blivet.util.umount(INSTALL_TREE)
+                payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         if os.path.ismount(ISO_DIR):
             if self.install_device and \
-               blivet.util.get_mount_device(ISO_DIR) == self.install_device.path:
+               payload_utils.get_mount_device(ISO_DIR) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
             # The below code will fail when nfsiso is the stage2 source
             # But if we don't do this we may not be able to switch from
@@ -808,12 +795,12 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
     def _unmount_source_directory(self, mount_point):
         if os.path.ismount(mount_point):
-            device_path = blivet.util.get_mount_device(mount_point)
+            device_path = payload_utils.get_mount_device(mount_point)
             device = self.storage.devicetree.get_device_by_path(device_path)
             if device:
                 device.teardown(recursive=True)
             else:
-                blivet.util.umount(mount_point)
+                payload_utils.unmount(mount_point, raise_exc=True)
 
     def _setup_media(self, device):
         method = self.data.method
@@ -831,7 +818,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # Check to see if the device is already mounted, in which case
         # we don't need to mount it again
-        elif method.method == "cdrom" and blivet.util.get_mount_paths(device.path):
+        elif method.method == "cdrom" and payload_utils.get_mount_paths(device.path):
             return
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
@@ -893,8 +880,8 @@ class PackagePayload(Payload, metaclass=ABCMeta):
         metalink = None
 
         # See if we already have stuff mounted due to dracut
-        isodev = blivet.util.get_mount_device(DRACUT_ISODIR)
-        device = blivet.util.get_mount_device(DRACUT_REPODIR)
+        isodev = payload_utils.get_mount_device(DRACUT_ISODIR)
+        device = payload_utils.get_mount_device(DRACUT_REPODIR)
 
         if method.method == "harddrive":
             log.debug("Setting up harddrive install device")
@@ -1064,7 +1051,7 @@ class PackagePayload(Payload, metaclass=ABCMeta):
 
         # FIXME: We really should not talk about NFS here - regression from re-factorization?
         # Did dracut leave the DVD or NFS mounted for us?
-        device = blivet.util.get_mount_device(DRACUT_REPODIR)
+        device = payload_utils.get_mount_device(DRACUT_REPODIR)
 
         # Check for valid optical media if we didn't boot from one
         if not verifyMedia(DRACUT_REPODIR):
@@ -1165,10 +1152,10 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             return None
         # This could either be mounted to INSTALL_TREE or on
         # DRACUT_ISODIR if dracut did the mount.
-        dev = blivet.util.get_mount_device(INSTALL_TREE)
+        dev = payload_utils.get_mount_device(INSTALL_TREE)
         if dev:
             return dev[len(ISO_DIR) + 1:]
-        dev = blivet.util.get_mount_device(DRACUT_ISODIR)
+        dev = payload_utils.get_mount_device(DRACUT_ISODIR)
         if dev:
             return dev[len(DRACUT_ISODIR) + 1:]
         return None
