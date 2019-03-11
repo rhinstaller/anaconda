@@ -33,8 +33,9 @@ from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
+from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
+    schedule_partitions
 from pyanaconda.platform import platform
-from pyanaconda.storage.autopart import _get_candidate_disks, _schedule_partitions
 from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size, get_pbkdf_args, \
     lookup_alias
 
@@ -102,14 +103,14 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         if not any(d.format.supported for d in storage.partitioned):
             raise NoDisksError(_("No usable disks selected"))
 
-        disks = _get_candidate_disks(storage)
+        disks = get_candidate_disks(storage)
 
         if not disks:
             raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
                                             "automatic partitioning"))
 
         log.debug("Applying requirements:\n%s", "".join(map(str, reqs)))
-        _schedule_partitions(storage, disks, [], requests=reqs)
+        schedule_partitions(storage, disks, [], requests=reqs)
 
     def _execute_partition(self, storage, data):
         """Execute the partition command.

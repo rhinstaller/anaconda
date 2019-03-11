@@ -19,8 +19,6 @@ from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
 from blivet.partitioning import do_partitioning, grow_lvm
 from blivet.static_data import luks_data
-from pyanaconda.storage.autopart import _get_candidate_disks, _schedule_implicit_partitions, \
-    _schedule_volumes, _schedule_partitions
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
@@ -28,6 +26,8 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import \
     NonInteractivePartitioningTask
+from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
+    schedule_implicit_partitions, schedule_volumes, schedule_partitions
 from pyanaconda.storage.utils import get_pbkdf_args, get_available_disk_space, suggest_swap_size
 
 log = get_module_logger(__name__)
@@ -129,8 +129,8 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         if min_luks_entropy is not None:
             luks_data.min_entropy = min_luks_entropy
 
-        disks = _get_candidate_disks(storage)
-        devs = _schedule_implicit_partitions(storage, disks)
+        disks = get_candidate_disks(storage)
+        devs = schedule_implicit_partitions(storage, disks)
         log.debug("candidate disks: %s", disks)
         log.debug("devs: %s", devs)
 
@@ -138,11 +138,11 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
             raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
                                             "automatic partitioning"))
 
-        devs = _schedule_partitions(storage, disks, devs)
+        devs = schedule_partitions(storage, disks, devs)
 
         # run the autopart function to allocate and grow partitions
         do_partitioning(storage)
-        _schedule_volumes(storage, devs)
+        schedule_volumes(storage, devs)
 
         # grow LVs
         grow_lvm(storage)

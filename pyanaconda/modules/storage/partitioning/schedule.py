@@ -17,9 +17,6 @@
 #
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
-
-"""This module provides functions related to automatic partitioning."""
-
 import parted
 
 from blivet.size import Size
@@ -31,25 +28,30 @@ from blivet.formats import get_format
 from blivet.partitioning import get_free_regions, get_next_partition_type
 from blivet.static_data import luks_data
 
-from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
+from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, \
+    AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.i18n import _
 
-import logging
-log = logging.getLogger("anaconda.autopart")
+log = get_module_logger(__name__)
 
 
-def _get_candidate_disks(storage):
-    """ Return a list of disks to be used for autopart/reqpart.
+__all__ = ["get_candidate_disks", "schedule_implicit_partitions", "schedule_partitions",
+           "schedule_volumes"]
 
-        Disks must be partitioned and have a single free region large enough
-        for a default-sized (500MiB) partition. They must also be in
-        :attr:`StorageDiscoveryConfig.clear_part_disks` if it is non-empty.
 
-        :param storage: an InstallerStorage instance
-        :type storage: :class:`~.storage.InstallerStorage`
-        :returns: a list of partitioned disks with at least 500MiB of free space
-        :rtype: list of :class:`blivet.devices.StorageDevice`
+def get_candidate_disks(storage):
+    """Return a list of disks to be used for autopart/reqpart.
+
+    Disks must be partitioned and have a single free region large enough
+    for a default-sized (500MiB) partition. They must also be in
+    :attr:`StorageDiscoveryConfig.clear_part_disks` if it is non-empty.
+
+    :param storage: an InstallerStorage instance
+    :type storage: :class:`~.storage.InstallerStorage`
+    :return: a list of partitioned disks with at least 500MiB of free space
+    :rtype: list of :class:`blivet.devices.StorageDevice`
     """
     disks = []
     for disk in storage.partitioned:
@@ -80,18 +82,18 @@ def _get_candidate_disks(storage):
     return disks
 
 
-def _schedule_implicit_partitions(storage, disks):
-    """ Schedule creation of a lvm/btrfs member partitions for autopart.
+def schedule_implicit_partitions(storage, disks):
+    """Schedule creation of a lvm/btrfs member partitions for autopart.
 
-        We create one such partition on each disk. They are not allocated until
-        later (in :func:`doPartitioning`).
+    We create one such partition on each disk. They are not allocated until
+    later (in :func:`doPartitioning`).
 
-        :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-        :type storage: :class:`pyanaconda.storage.InstallerStorage`
-        :param disks: list of partitioned disks with free space
-        :type disks: list of :class:`blivet.devices.StorageDevice`
-        :returns: list of newly created (unallocated) partitions
-        :rtype: list of :class:`blivet.devices.PartitionDevice`
+    :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
+    :type storage: :class:`pyanaconda.storage.InstallerStorage`
+    :param disks: list of partitioned disks with free space
+    :type disks: list of :class:`blivet.devices.StorageDevice`
+    :return: list of newly created (unallocated) partitions
+    :rtype: list of :class:`blivet.devices.PartitionDevice`
     """
     # create a separate pv or btrfs partition for each disk with free space
     devs = []
@@ -127,20 +129,20 @@ def _schedule_implicit_partitions(storage, disks):
     return devs
 
 
-def _schedule_partitions(storage, disks, implicit_devices, requests=None):
-    """ Schedule creation of autopart/reqpart partitions.
+def schedule_partitions(storage, disks, implicit_devices, requests=None):
+    """Schedule creation of autopart/reqpart partitions.
 
-        This only schedules the requests for actual partitions.
+    This only schedules the requests for actual partitions.
 
-        :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-        :type storage: :class:`pyanaconda.storage.InstallerStorage`
-        :param disks: list of partitioned disks with free space
-        :type disks: list of :class:`blivet.devices.StorageDevice`
-        :param requests: list of partitioning requests to operate on,
-                         or `~.storage.InstallerStorage.autopart_requests` by default
-        :type requests: list of :class:`~.storage.partspec.PartSpec` instances
-        :returns: None
-        :rtype: None
+    :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
+    :type storage: :class:`pyanaconda.storage.InstallerStorage`
+    :param disks: list of partitioned disks with free space
+    :type disks: list of :class:`blivet.devices.StorageDevice`
+    :param implicit_devices: list of implicit devices
+    :type implicit_devices: list of :class:`blivet.devices.StorageDevice`
+    :param requests: list of partitioning requests to operate on,
+                     or `~.storage.InstallerStorage.autopart_requests` by default
+    :type requests: list of :class:`~.storage.partspec.PartSpec` instances
     """
     if not requests:
         requests = storage.autopart_requests
@@ -269,25 +271,23 @@ def _schedule_partitions(storage, disks, implicit_devices, requests=None):
     return implicit_devices
 
 
-def _schedule_volumes(storage, devs):
-    """ Schedule creation of autopart lvm/btrfs volumes.
+def schedule_volumes(storage, devices):
+    """Schedule creation of autopart lvm/btrfs volumes.
 
-        Schedules encryption of member devices if requested, schedules creation
-        of the container (:class:`blivet.devices.LVMVolumeGroupDevice` or
-        :class:`blivet.devices.BTRFSVolumeDevice`) then schedules creation of the
-        autopart volume requests.
+    Schedules encryption of member devices if requested, schedules creation
+    of the container (:class:`blivet.devices.LVMVolumeGroupDevice` or
+    :class:`blivet.devices.BTRFSVolumeDevice`) then schedules creation of the
+    autopart volume requests.
 
-        :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
-        :type storage: :class:`pyanaconda.storage.InstallerStorage`
-        :param devs: list of member partitions
-        :type devs: list of :class:`blivet.devices.PartitionDevice`
-        :returns: None
-        :rtype: None
+    If an appropriate bootloader stage1 device exists on the boot drive, any
+    autopart request to create another one will be skipped/discarded.
 
-        If an appropriate bootloader stage1 device exists on the boot drive, any
-        autopart request to create another one will be skipped/discarded.
+    :param storage: a :class:`pyanaconda.storage.InstallerStorage` instance
+    :type storage: :class:`pyanaconda.storage.InstallerStorage`
+    :param devices: list of member partitions
+    :type devices: list of :class:`blivet.devices.PartitionDevice`
     """
-    if not devs:
+    if not devices:
         return
 
     if storage.autopart_type in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP):
@@ -301,7 +301,7 @@ def _schedule_volumes(storage, devs):
 
     if storage.encrypted_autopart:
         pvs = []
-        for dev in devs:
+        for dev in devices:
             pv = LUKSDevice("luks-%s" % dev.name,
                             fmt=get_format(format_name, device=dev.path),
                             size=dev.size,
@@ -309,7 +309,7 @@ def _schedule_volumes(storage, devs):
             pvs.append(pv)
             storage.create_device(pv)
     else:
-        pvs = devs
+        pvs = devices
 
     # create a vg containing all of the autopart pvs
     container = new_container(parents=pvs)
