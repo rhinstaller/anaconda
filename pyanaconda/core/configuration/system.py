@@ -25,6 +25,7 @@ class SystemType(Enum):
     """The type of the installation system."""
     BOOT_ISO = "BOOT_ISO"
     LIVE_OS = "LIVE_OS"
+    BOOTED_OS = "BOOTED_OS"
     UNKNOWN = "UNKNOWN"
 
 
@@ -50,6 +51,14 @@ class SystemSection(Section):
         return self._type is SystemType.LIVE_OS
 
     @property
+    def _is_booted_os(self):
+        """Are we running in the booted OS?
+
+        FIXME: This is a temporary workaround for the initial-setup.
+        """
+        return self._type is SystemType.BOOTED_OS
+
+    @property
     def _is_unknown(self):
         """Are we running in the unknown OS?"""
         return self._type is SystemType.UNKNOWN
@@ -57,7 +66,7 @@ class SystemSection(Section):
     @property
     def can_reboot(self):
         """Can we reboot the system?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_switch_tty(self):
@@ -72,7 +81,7 @@ class SystemSection(Section):
     @property
     def can_set_hardware_clock(self):
         """Can we set the Hardware Clock?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_initialize_system_clock(self):
@@ -80,17 +89,17 @@ class SystemSection(Section):
 
         FIXME: This is a temporary workaround.
         """
-        return self._is_boot_iso or self._is_live_os
+        return self._is_boot_iso or self._is_live_os or self._is_booted_os
 
     @property
     def can_set_system_clock(self):
         """Can we set the System Clock?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_set_time_synchronization(self):
         """Can we run the NTP daemon?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_activate_keyboard(self):
@@ -98,7 +107,7 @@ class SystemSection(Section):
 
         FIXME: This is a temporary workaround.
         """
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_activate_layouts(self):
@@ -106,27 +115,27 @@ class SystemSection(Section):
 
         FIXME: This is a temporary workaround.
         """
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_configure_keyboard(self):
         """Can we configure the keyboard?"""
-        return self._is_boot_iso or self._is_live_os
+        return self._is_boot_iso or self._is_live_os or self._is_booted_os
 
     @property
     def can_modify_syslog(self):
         """Can we modify syslog?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_change_hostname(self):
         """Can we change the hostname?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_configure_network(self):
         """Can we configure the network?"""
-        return self._is_boot_iso
+        return self._is_boot_iso or self._is_booted_os
 
     @property
     def can_detect_unsupported_hardware(self):
@@ -151,7 +160,7 @@ class SystemSection(Section):
     @property
     def provides_system_bus(self):
         """Can we access the system DBus?"""
-        return self._is_boot_iso or self._is_live_os
+        return self._is_boot_iso or self._is_live_os or self._is_booted_os
 
     @property
     def provides_resolver_config(self):
