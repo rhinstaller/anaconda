@@ -344,6 +344,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.39-1
+- Make SMT warning message smaller (jkonecny)
+  Related: rhbz#1684056
+- Remove blank line in the SMT warning (jkonecny)
+  Related: rhbz#1684056
+
 * Mon Mar 11 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.38-1
 - Pull in new translations (rvykydal)
   Related: rhbz#1684056
