@@ -41,13 +41,14 @@ from pyanaconda.product import productName, productVersion, translated_new_insta
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
     THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE, \
-    BOOTLOADER_DRIVE_UNSET, DEFAULT_AUTOPART_TYPE
+    DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
     AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.platform import platform
+from pyanaconda.storage.initialization import reset_bootloader
 
 from blivet import devicefactory
 from blivet.formats import get_format
@@ -1731,7 +1732,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
             bootloader_errors = str(e).split("\n")
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
 
         StorageCheckHandler.checkStorage(self)
 

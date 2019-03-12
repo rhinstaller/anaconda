@@ -126,7 +126,11 @@ class Anaconda(object):
 
     @staticmethod
     def _get_additional_repo_name(repo):
-        name, rest = repo.split(',', maxsplit=1)
+        try:
+            name, rest = repo.split(',', maxsplit=1)
+        except ValueError:
+            raise RuntimeError("addrepo boot option has incorrect format. Correct format is: "
+                               "inst.addrepo=<name>,<url>") from None
         return name, rest
 
     @property

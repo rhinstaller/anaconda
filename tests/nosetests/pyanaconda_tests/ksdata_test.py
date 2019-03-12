@@ -19,6 +19,9 @@ class BlivetTestCase(unittest.TestCase):
     @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
     def test_prepboot_bootloader_in_kickstart(self, mock_mountpoints, mock_bootloader_device, dbus):
         """Test that a prepboot bootloader shows up in the ks data."""
+        # disable other partitioning modules
+        dbus.return_value.Enabled = False
+
         # set up prepboot partition
         bootloader_device_obj = PartitionDevice("test_partition_device")
         bootloader_device_obj.size = Size('5 MiB')
@@ -40,6 +43,9 @@ class BlivetTestCase(unittest.TestCase):
     @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
     def test_biosboot_bootloader_in_kickstart(self, mock_mountpoints, mock_devices, dbus):
         """Test that a biosboot bootloader shows up in the ks data."""
+        # disable other partitioning modules
+        dbus.return_value.Enabled = False
+
         # set up biosboot partition
         biosboot_device_obj = PartitionDevice("biosboot_partition_device")
         biosboot_device_obj.size = Size('1MiB')

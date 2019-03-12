@@ -32,6 +32,7 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         """Connect the signals."""
         super().connect_signals()
         self.watch_property("SelectedDisks", self.implementation.selected_disks_changed)
+        self.watch_property("ExclusiveDisks", self.implementation.exclusive_disks_changed)
         self.watch_property("IgnoredDisks", self.implementation.ignored_disks_changed)
         self.watch_property("ProtectedDevices", self.implementation.protected_devices_changed)
 
@@ -50,6 +51,25 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         :param drives: a list of drives names
         """
         self.implementation.set_selected_disks(drives)
+
+    @property
+    def ExclusiveDisks(self) -> List[Str]:
+        """The list of drives to scan."""
+        return self.implementation.exclusive_disks
+
+    @emits_properties_changed
+    def SetExclusiveDisks(self, drives: List[Str]):
+        """Set the list of drives to scan.
+
+        Specifies those disks that anaconda will scan during
+        the storage reset. If the list is empty, anaconda will
+        scan all drives.
+
+        It can be set from the kickstart with 'ignoredisk --onlyuse'.
+
+        :param drives: a list of drives names
+        """
+        self.implementation.set_exclusive_disks(drives)
 
     @property
     def IgnoredDisks(self) -> List[Str]:

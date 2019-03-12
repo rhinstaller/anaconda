@@ -39,20 +39,20 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
     ZFCPDiskDevice
 from blivet.formats import get_format
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import resetCustomStorageData
+from pyanaconda.storage.kickstart import reset_custom_storage_data
 from pyanaconda.storage.execution import do_kickstart_storage
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, SecretType, \
+    BOOTLOADER_LOCATION_MBR, SecretType, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.initialization import initialize_storage, update_storage_config, \
-    reset_storage, select_all_disks_by_default
+from pyanaconda.storage.initialization import reset_storage, update_storage_config, \
+    select_all_disks_by_default, reset_bootloader
 
 from pykickstart.base import BaseData
 from pykickstart.errors import KickstartParseError
@@ -414,8 +414,7 @@ class StorageSpoke(NormalTUISpoke):
         boot_drive = self._bootloader_observer.proxy.Drive
 
         if boot_drive and boot_drive not in self._selected_disks:
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self.storage.bootloader.reset()
+            reset_bootloader(self.storage)
 
         apply_disk_selection(self.storage, self._selected_disks)
         update_storage_config(self.storage.config)
@@ -434,23 +433,13 @@ class StorageSpoke(NormalTUISpoke):
             log.error("storage configuration failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-
-            # Prepare for reset.
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
-            self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
-            self.storage.autopart_type = self._auto_part_observer.proxy.Type
-
-            # The reset also calls self.storage.config.update().
-            reset_storage(self.storage)
-
-            # Now set data back to the user's specified config.
-            apply_disk_selection(self.storage, self._selected_disks)
+            reset_bootloader(self.storage)
+            reset_storage(self.storage, scan_all=True)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
         else:
             print(_("Checking storage configuration..."))
             report = storage_checker.check(self.storage)
@@ -459,7 +448,7 @@ class StorageSpoke(NormalTUISpoke):
             self.errors = report.errors
             self.warnings = report.warnings
         finally:
-            resetCustomStorageData(self.data)
+            reset_custom_storage_data(self.data)
             self._ready = True
 
     def initialize(self):
@@ -612,15 +601,7 @@ class PartTypeSpoke(NormalTUISpoke):
 
         # else
         print(_("Reverting previous configuration. This may take a moment..."))
-        # unset selected disks temporarily so that
-        # initialize_storage() processes all devices
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        disk_select_proxy.SetSelectedDisks([])
-
-        initialize_storage(self.storage)
-
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        reset_storage(self.storage, scan_all=True)
         self._manual_part_proxy.SetMountPoints([])
 
     def input(self, args, key):
@@ -857,16 +838,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
         if not question_window.answer:
             return
 
-        # unset selected disks temporarily so that
-        # initialize_storage() processes all devices
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        disk_select_proxy.SetSelectedDisks([])
-
         print(_("Scanning disks. This may take a moment..."))
-        initialize_storage(self.storage)
-
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        reset_storage(self.storage, scan_all=True)
         self._manual_part_proxy.SetMountPoints([])
         self._mount_info = self._gather_mount_info()
 

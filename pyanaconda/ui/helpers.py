@@ -56,6 +56,7 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda.core import constants
+from pyanaconda.storage.utils import unmark_protected_device, mark_protected_device
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.core.i18n import _
@@ -140,14 +141,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
         so it can be used for the installation.
         """
         if self.data.method.method == "harddrive" and self.data.method.partition:
-            part = self.data.method.partition
-            dev = self.storage.devicetree.get_device_by_name(part)
-            if dev:
-                dev.protected = False
-            # the hdd iso cleanup function might be run multiple times,
-            # so make sure the partition still is in the list of protected devices
-            if part in self.storage.config.protected_dev_specs:
-                self.storage.config.protected_dev_specs.remove(part)
+            unmark_protected_device(self.storage, self.data.method.partition)
 
     def set_source_hdd_iso(self, device, iso_path):
         """ Switch to the HDD ISO install source
@@ -165,9 +159,7 @@ class SourceSwitchHandler(object, metaclass=ABCMeta):
             self._clean_hdd_iso()
 
         # protect current device
-        if device:
-            device.protected = True
-            self.storage.config.protected_dev_specs.append(device.name)
+        mark_protected_device(self.storage, device.name)
 
         self.data.method.method = "harddrive"
         self.data.method.partition = partition

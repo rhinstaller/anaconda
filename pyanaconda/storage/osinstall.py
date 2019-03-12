@@ -24,7 +24,6 @@ import os
 import parted
 
 from blivet.blivet import Blivet
-from blivet.storage_log import log_exception_info
 from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.size import Size
@@ -60,7 +59,6 @@ class StorageDiscoveryConfig(object):
         self.clear_part_disks = []
         self.clear_part_devices = []
         self.initialize_disks = False
-        self.protected_dev_specs = []
         self.zero_mbr = False
 
         # Whether clear_partitions removes scheduled/non-existent devices and
@@ -73,6 +71,8 @@ class InstallerStorage(Blivet):
 
     def __init__(self):
         super().__init__()
+        self.protected_devices = []
+
         self.do_autopart = False
         self.encrypted_autopart = False
         self.encryption_cipher = None
@@ -440,13 +440,6 @@ class InstallerStorage(Blivet):
 
         return free
 
-    def shutdown(self):
-        """ Deactivate all devices. """
-        try:
-            self.devicetree.teardown_all()
-        except Exception:  # pylint: disable=broad-except
-            log_exception_info(log.error, "failure tearing down device tree")
-
     def reset(self, cleanup_only=False):
         """ Reset storage configuration to reflect actual system state.
 
@@ -491,7 +484,7 @@ class InstallerStorage(Blivet):
         protected = []
 
         # Resolve the protected device specs to devices.
-        for spec in self.config.protected_dev_specs:
+        for spec in self.protected_devices:
             dev = self.devicetree.resolve_device(spec)
 
             if dev is not None:

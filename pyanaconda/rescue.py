@@ -20,7 +20,7 @@ from blivet.errors import StorageError
 
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE
+from pyanaconda.core.constants import ANACONDA_CLEANUP, THREAD_STORAGE, QUIT_MESSAGE
 from pyanaconda.threading import threadMgr
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, N_
@@ -367,7 +367,7 @@ class RescueModeSpoke(NormalTUISpoke):
         self._show_result_and_prompt_for_shell()
 
     def _quit_callback(self, data):
-        d = YesNoDialog(_(u"Do you really want to quit?"))
+        d = YesNoDialog(_(QUIT_MESSAGE))
         ScreenHandler.push_screen_modal(d)
         self.redraw()
         if d.answer:

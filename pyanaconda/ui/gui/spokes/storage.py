@@ -60,9 +60,9 @@ from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
 from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.core.timer import Timer
-
-from pyanaconda.kickstart import resetCustomStorageData
+from pyanaconda.storage.kickstart import reset_custom_storage_data
 from pyanaconda.storage.execution import do_kickstart_storage
+
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
 from blivet.errors import StorageError
@@ -74,13 +74,13 @@ from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, \
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE, WARNING_NO_DISKS_SELECTED, \
     WARNING_NO_DISKS_DETECTED
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.storage import autopart
 from pyanaconda.storage.initialization import update_storage_config, reset_storage, \
-    select_all_disks_by_default
+    select_all_disks_by_default, reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.storage.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
@@ -412,8 +412,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         boot_drive = self._bootloader_observer.proxy.Drive
         if boot_drive and boot_drive not in self._selected_disks:
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self.storage.bootloader.reset()
+            reset_bootloader(self.storage)
 
         self._disk_init_observer.proxy.SetInitializeLabelsEnabled(True)
 
@@ -512,22 +511,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.error("storage configuration failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-
-            # Prepare for reset.
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self._disk_select_observer.proxy.SetSelectedDisks([])
-
-            # The reset also calls self.storage.config.update().
-            reset_storage(self.storage)
-
-            # Now set data back to the user's specified config.
-            self._available_disks = get_available_disks(self.storage.devicetree)
-            apply_disk_selection(self.storage, self._selected_disks)
+            reset_bootloader(self.storage)
+            reset_storage(self.storage, scan_all=True)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
         except Exception as e:
             log.error("unexpected storage error: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
@@ -540,7 +530,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 # run() executes StorageCheckHandler.checkStorage in a seperate thread
                 self.run()
         finally:
-            resetCustomStorageData(self.data)
+            reset_custom_storage_data(self.data)
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
 

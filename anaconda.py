@@ -587,7 +587,7 @@ if __name__ == "__main__":
     # Now that LANG is set, do something with it
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
 
-    from pyanaconda.storage.initialization import enable_installer_mode, initialize_storage
+    from pyanaconda.storage.initialization import enable_installer_mode, reset_storage
     enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
@@ -649,8 +649,10 @@ if __name__ == "__main__":
         min_ram = isys.MIN_RAM
 
     from pyanaconda.storage.checker import storage_checker
-
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
+
+    # Add a check for the snapshot requests.
+    storage_checker.add_check(ksdata.snapshot.verify_requests)
 
     from pyanaconda.argument_parsing import name_path_pairs
 
@@ -677,12 +679,11 @@ if __name__ == "__main__":
     ignore_nvdimm_blockdevs()
 
     # Specify protected devices.
-    protected_devices = anaconda.get_protected_devices(opts)
-    anaconda.storage.config.protected_dev_specs.extend(protected_devices)
-
     from pyanaconda.modules.common.constants.services import STORAGE
     from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+
+    protected_devices = anaconda.get_protected_devices(opts)
     disk_select_proxy.SetProtectedDevices(protected_devices)
 
     from pyanaconda.payload.manager import payloadMgr
@@ -690,7 +691,7 @@ if __name__ == "__main__":
 
     if not conf.target.is_directory:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                     target=initialize_storage,
+                                     target=reset_storage,
                                      args=(anaconda.storage, )))
 
     from pyanaconda.modules.common.constants.services import TIMEZONE
@@ -773,10 +774,6 @@ if __name__ == "__main__":
 
         # Run the tasks.
         with check_kickstart_error():
-
-            from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
-            SnapshotValidateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
-
             from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
             SnapshotCreateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
 

@@ -35,6 +35,9 @@ class DiskSelectionModule(KickstartBaseModule):
         self.selected_disks_changed = Signal()
         self._selected_disks = []
 
+        self.exclusive_disks_changed = Signal()
+        self._exclusive_disks = []
+
         self.ignored_disks_changed = Signal()
         self._ignored_disks = []
 
@@ -48,6 +51,7 @@ class DiskSelectionModule(KickstartBaseModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self.set_selected_disks(data.ignoredisk.onlyuse)
+        self.set_exclusive_disks(data.ignoredisk.onlyuse)
         self.set_ignored_disks(data.ignoredisk.ignoredisk)
 
     def setup_kickstart(self, data):
@@ -72,6 +76,26 @@ class DiskSelectionModule(KickstartBaseModule):
         self._selected_disks = drives
         self.selected_disks_changed.emit()
         log.debug("Selected disks are set to '%s'.", drives)
+
+    @property
+    def exclusive_disks(self):
+        """The list of drives to scan."""
+        return self._exclusive_disks
+
+    def set_exclusive_disks(self, drives):
+        """Set the list of drives to scan.
+
+        Specifies those disks that anaconda will scan during
+        the storage reset. If the list is empty, anaconda will
+        scan all drives.
+
+        It can be set from the kickstart with 'ignoredisk --onlyuse'.
+
+        :param drives: a list of drives names
+        """
+        self._exclusive_disks = drives
+        self.exclusive_disks_changed.emit()
+        log.debug("Exclusive disks are set to '%s'.", drives)
 
     @property
     def ignored_disks(self):
