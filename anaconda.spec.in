@@ -354,6 +354,32 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_d
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 12 2019 Martin Kolman <mkolman@redhat.com> - 31.5-1
+- Don't run the storage checker to check autopart (vponcova)
+- Remove the SnapshotValidateTask class (vponcova)
+- Validate post-installation snapshot requests with the storage checker
+  (vponcova)
+- Add a new type of the installation system for the initial setup (vponcova)
+- Simplify update_storage_ksdata (vponcova)
+- Don't set anything if the partitioning fails (vponcova)
+- Reset the bootloader with reset_bootloader (vponcova)
+- Add support for scanning all devices in the system (vponcova)
+- Add the ExclusiveDisks property (vponcova)
+- Move tests for the disk selection module to a new file (vponcova)
+- Replace initialize_storage with reset_storage (vponcova)
+- Remove the shutdown method (vponcova)
+- payload: don't force host-only mode when executing dracut (javierm)
+- Simplify the code for protected devices (vponcova)
+- Define the quit message in TUI (#1686116) (vponcova)
+- efi: don't include the grub2-pc package on EFI installs (javierm)
+- Small optimization in boot arg parsing method (jkonecny)
+- Fix bad --addrepo command line parsing (jkonecny)
+- Raise correct exception on bad addrepo boot param (jkonecny)
+- payload: migrate TUI software spoke to pep8 (jkonecny)
+- payload: switch from CamelCase in software spoke (jkonecny)
+- payload: remove unused radio button (jkonecny)
+- payload: solve basic pep 8 errors (jkonecny)
+
 * Wed Mar 06 2019 Martin Kolman <mkolman@redhat.com> - 31.4-1
 - Add tests for UnsupportedPartitioningError (vponcova)
 - Handle missing support for Blivet-GUI in the Storage module (#1685645)
