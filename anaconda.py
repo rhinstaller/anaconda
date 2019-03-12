@@ -649,8 +649,10 @@ if __name__ == "__main__":
         min_ram = isys.MIN_RAM
 
     from pyanaconda.storage.checker import storage_checker
-
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
+
+    # Add a check for the snapshot requests.
+    storage_checker.add_check(ksdata.snapshot.verify_requests)
 
     from pyanaconda.argument_parsing import name_path_pairs
 
@@ -772,10 +774,6 @@ if __name__ == "__main__":
 
         # Run the tasks.
         with check_kickstart_error():
-
-            from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
-            SnapshotValidateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
-
             from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
             SnapshotCreateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
 
