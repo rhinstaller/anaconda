@@ -1277,7 +1277,3 @@ def runTracebackScripts(scripts):
     for script in filter(lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/")
     script_log.info("All kickstart %%traceback script(s) have been run")
-
-def resetCustomStorageData(ksdata):
-    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
-        ksdata.resetCommand(command)

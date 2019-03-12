@@ -39,7 +39,7 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
     ZFCPDiskDevice
 from blivet.formats import get_format
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import resetCustomStorageData
+from pyanaconda.storage.kickstart import reset_custom_storage_data
 from pyanaconda.storage.execution import do_kickstart_storage
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
@@ -448,7 +448,7 @@ class StorageSpoke(NormalTUISpoke):
             self.errors = report.errors
             self.warnings = report.warnings
         finally:
-            resetCustomStorageData(self.data)
+            reset_custom_storage_data(self.data)
             self._ready = True
 
     def initialize(self):
