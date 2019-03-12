@@ -17,7 +17,7 @@
 #
 from simpleline.render.widgets import TextWidget
 
-from pyanaconda.core.constants import WARNING_SMT_ENABLED
+from pyanaconda.core.constants import WARNING_SMT_ENABLED_SHORTER
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.core.util import is_smt_enabled
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
@@ -44,7 +44,7 @@ class KernelWarningSpoke(StandaloneTUISpoke):
     def refresh(self, args=None):
         """Refresh the window."""
         super().refresh(args)
-        self.window.add(TextWidget(_(WARNING_SMT_ENABLED)))
+        self.window.add(TextWidget(_(WARNING_SMT_ENABLED_SHORTER)))
 
     def show_all(self):
         """Show the warning and close the screen."""
