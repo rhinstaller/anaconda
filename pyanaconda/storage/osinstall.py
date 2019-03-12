@@ -24,7 +24,6 @@ import os
 import parted
 
 from blivet.blivet import Blivet
-from blivet.storage_log import log_exception_info
 from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.size import Size
@@ -440,13 +439,6 @@ class InstallerStorage(Blivet):
             free[disk.name] = (disk_free, fs_free)
 
         return free
-
-    def shutdown(self):
-        """ Deactivate all devices. """
-        try:
-            self.devicetree.teardown_all()
-        except Exception:  # pylint: disable=broad-except
-            log_exception_info(log.error, "failure tearing down device tree")
 
     def reset(self, cleanup_only=False):
         """ Reset storage configuration to reflect actual system state.

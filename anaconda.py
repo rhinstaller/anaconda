@@ -587,7 +587,7 @@ if __name__ == "__main__":
     # Now that LANG is set, do something with it
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
 
-    from pyanaconda.storage.initialization import enable_installer_mode, initialize_storage
+    from pyanaconda.storage.initialization import enable_installer_mode, reset_storage
     enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
@@ -689,7 +689,7 @@ if __name__ == "__main__":
 
     if not conf.target.is_directory:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                     target=initialize_storage,
+                                     target=reset_storage,
                                      args=(anaconda.storage, )))
 
     from pyanaconda.modules.common.constants.services import TIMEZONE

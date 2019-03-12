@@ -31,7 +31,7 @@ from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, 
 from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, \
     MOUNT_POINT_FORMAT, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, MANUAL_PARTITIONING
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError, \
     StorageConfigurationError, BootloaderConfigurationError
 from pyanaconda.modules.common.errors.storage import InvalidStorageError, UnavailableStorageError, \
@@ -41,8 +41,6 @@ from pyanaconda.modules.storage.dasd import DASDModule
 from pyanaconda.modules.storage.dasd.dasd_interface import DASDInterface
 from pyanaconda.modules.storage.dasd.discover import DASDDiscoverTask
 from pyanaconda.modules.storage.dasd.format import DASDFormatTask
-from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
-from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 from pyanaconda.modules.storage.fcoe import FCOEModule
 from pyanaconda.modules.storage.fcoe.discover import FCOEDiscoverTask
 from pyanaconda.modules.storage.fcoe.fcoe_interface import FCOEInterface
@@ -831,44 +829,6 @@ class StorageTasksTestCase(unittest.TestCase):
         task = StorageResetTask(storage)
         task.run()
         storage.reset.called_once()
-
-
-class DiskSelectionInterfaceTestCase(unittest.TestCase):
-    """Test DBus interface of the disk selection module."""
-
-    def setUp(self):
-        """Set up the module."""
-        self.disk_selection_module = DiskSelectionModule()
-        self.disk_selection_interface = DiskSelectionInterface(self.disk_selection_module)
-
-    def _test_dbus_property(self, *args, **kwargs):
-        check_dbus_property(
-            self,
-            DISK_SELECTION,
-            self.disk_selection_interface,
-            *args, **kwargs
-        )
-
-    def selected_disks_property_test(self):
-        """Test the selected disks property."""
-        self._test_dbus_property(
-            "SelectedDisks",
-            ["sda", "sdb"]
-        )
-
-    def ignored_disks_property_test(self):
-        """Test the ignored disks property."""
-        self._test_dbus_property(
-            "IgnoredDisks",
-            ["sda", "sdb"]
-        )
-
-    def protected_disks_property_test(self):
-        """Test the protected disks property."""
-        self._test_dbus_property(
-            "ProtectedDevices",
-            ["sda", "sdb"]
-        )
 
 
 class AutopartitioningInterfaceTestCase(unittest.TestCase):

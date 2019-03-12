@@ -23,12 +23,14 @@ from blivet import util as blivet_util, udev, arch
 from blivet.errors import StorageError
 from blivet.flags import flags as blivet_flags
 from blivet.iscsi import iscsi
+from blivet.storage_log import log_exception_info
 
 from pyanaconda.anaconda_logging import program_log_lock
 from pyanaconda.core.configuration.anaconda import conf
+from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
-    DISK_INITIALIZATION, FCOE, ZFCP
+    DISK_INITIALIZATION, FCOE, ZFCP, BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.platform import platform
@@ -122,23 +124,53 @@ def load_plugin_s390():
     blockdev.reinit([plugin], reload=False)
 
 
-def initialize_storage(storage):
-    """Perform installer-specific storage initialization.
+def reset_storage(storage, scan_all=False, teardown=False, retry=True):
+    """Reset the storage model.
 
     :param storage: an instance of the Blivet's storage object
+    :param scan_all: should we scan all devices in the system?
+    :param teardown: should we teardown devices in the current device tree?
+    :param retry: should we allow to retry the reset?
     """
-    storage.shutdown()
+    # Deactivate all devices.
+    if teardown:
+        try:
+            storage.devicetree.teardown_all()
+        except Exception:  # pylint: disable=broad-except
+            log_exception_info(log.error, "Failure tearing down device tree.")
 
+    # Clear the exclusive disks to scan all devices in the system.
+    if scan_all:
+        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+        disk_select_proxy.SetExclusiveDisks([])
+
+    # Do the reset.
     while True:
         try:
-            reset_storage(storage)
+            _reset_storage(storage)
         except StorageError as e:
-            if error_handler.cb(e) == ERROR_RAISE:
+            # Is the retry allowed?
+            if not retry:
                 raise
+            # Does the user want to retry?
+            elif error_handler.cb(e) == ERROR_RAISE:
+                raise
+            # Retry the storage reset.
             else:
                 continue
         else:
+            # No need to retry.
             break
+
+
+def reset_bootloader(storage):
+    """Reset the bootloader.
+
+    :param storage: an instance of the Blivet's storage object
+    """
+    bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
+    bootloader_proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+    storage.bootloader.reset()
 
 
 def select_all_disks_by_default(storage):
@@ -162,10 +194,10 @@ def select_all_disks_by_default(storage):
     return selected_disks
 
 
-def reset_storage(storage):
-    """Reset the storage.
+def _reset_storage(storage):
+    """Do reset the storage.
 
-    FIXME: A temporary workaround for UI,
+    FIXME: Call the DBus task instead of this function.
 
     :param storage: an instance of the Blivet's storage object
     """
@@ -175,7 +207,7 @@ def reset_storage(storage):
     # Set the ignored and exclusive disks.
     disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
     storage.ignored_disks = disk_select_proxy.IgnoredDisks
-    storage.exclusive_disks = disk_select_proxy.SelectedDisks
+    storage.exclusive_disks = disk_select_proxy.ExclusiveDisks
     storage.protected_devices = disk_select_proxy.ProtectedDevices
 
     # Reload additional modules.

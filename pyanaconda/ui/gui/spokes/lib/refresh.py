@@ -21,7 +21,7 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.core import constants
-from pyanaconda.storage.initialization import initialize_storage
+from pyanaconda.storage.initialization import reset_storage
 
 __all__ = ["RefreshDialog"]
 
@@ -85,8 +85,10 @@ class RefreshDialog(GUIObject):
         self._notebook.set_current_page(1)
 
         # And now to fire up the storage reinitialization.
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=initialize_storage,
-                                     args=(self.storage, )))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
+                                     target=reset_storage,
+                                     args=(self.storage, ),
+                                     kwargs={"scan_all": True}))
 
         self._elapsed = 0
 
