@@ -166,6 +166,14 @@ WARNING_SMT_ENABLED = N_(
     "about other ways to mitigate these risks."
 )
 
+WARNING_SMT_ENABLED_SHORTER = N_(
+    "Simultaneous Multithreading (SMT) may improve performance for certain "
+    "workloads, but introduces several publicly disclosed security issues. "
+    "You can disable SMT, which may impact performance. Please read "
+    "https://red.ht/rhel-smt to understand potential risks and learn about "
+    "ways to mitigate these risks."
+)
+
 
 # Password type
 class SecretType(Enum):
