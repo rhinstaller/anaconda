@@ -44,7 +44,7 @@ class KernelWarningSpoke(StandaloneTUISpoke):
     def refresh(self, args=None):
         """Refresh the window."""
         super().refresh(args)
-        self.window.add_with_separator(TextWidget(_(WARNING_SMT_ENABLED)))
+        self.window.add(TextWidget(_(WARNING_SMT_ENABLED)))
 
     def show_all(self):
         """Show the warning and close the screen."""
