@@ -46,11 +46,6 @@ class PropertyNotFoundError(ValueError):
     def __str__(self):
         return self.__repr__()
 
-class SettingsNotFoundError(ValueError):
-    """Settings NMRemoteConnection object was not found"""
-    def __str__(self):
-        return self.__repr__()
-
 class UnknownMethodGetError(Exception):
     """Object does not have Get, most probably being invalid"""
     def __str__(self):
@@ -98,20 +93,6 @@ def _get_property(object_path, prop, interface_name_suffix=""):
             raise
 
     return prop
-
-def nm_state():
-    """Return state of NetworkManager
-
-    :return: state of NetworkManager
-    :rtype: integer
-    """
-    prop = _get_property("/org/freedesktop/NetworkManager", "State")
-
-    # If this is an image/dir install assume the network is up
-    if not prop and not conf.target.is_hardware:
-        return NM.State.CONNECTED_GLOBAL
-    else:
-        return prop
 
 def nm_activated_devices():
     """Return names of activated network devices.
@@ -328,43 +309,6 @@ def nm_ntp_servers_from_dhcp():
         # NetworkManager does not request NTP/SNTP options for DHCP6
     return ntp_servers
 
-def _find_settings(value, key1, key2, format_value=lambda x: x):
-    """Return list of object paths of settings having given value of key1, key2 setting
-
-       :param value: required value of setting
-       :type value: corresponds to dbus type of setting
-       :param key1: first-level key of setting (eg "connection")
-       :type key1: str
-       :param key2: second-level key of setting (eg "uuid")
-       :type key2: str
-       :param format_value: function to be called on setting value before
-                            comparing
-       :type format_value: function taking one argument (setting value)
-       :return: list of paths of settings
-       :rtype: list
-    """
-    retval = []
-
-    proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings", interface_name="org.freedesktop.NetworkManager.Settings")
-
-    connections = proxy.ListConnections()
-    for con in connections:
-        proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        try:
-            settings = proxy.GetSettings()
-        except GError as e:
-            log.debug("Exception raised in _find_settings: %s", e)
-            continue
-        try:
-            v = settings[key1][key2]
-        except KeyError:
-            continue
-        if format_value(v) == value:
-            retval.append(con)
-
-    return retval
-
-
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes 'ay' for dbus
 
@@ -407,8 +351,6 @@ def nm_dbus_int_to_ipv4(address):
     return socket.inet_ntop(socket.AF_INET, struct.pack('=L', address))
 
 def test():
-    print("NM state: %s:" % nm_state())
-
     print("Activated devices: %s" % nm_activated_devices())
 
 
