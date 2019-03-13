@@ -24,7 +24,6 @@ from pyanaconda.modules.common.errors.configuration import StorageDiscoveryError
 from pyanaconda.modules.common.task import async_run_task
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.storage.utils import try_populate_devicetree
-from pyanaconda import nm
 
 import gi
 gi.require_version("NM", "1.0")

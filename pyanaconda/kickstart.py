@@ -34,7 +34,7 @@ import blivet.iscsi
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
+from pyanaconda import keyboard, network, ntp, screen_access, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
