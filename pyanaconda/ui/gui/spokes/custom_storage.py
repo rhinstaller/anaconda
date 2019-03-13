@@ -2154,10 +2154,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._do_refresh()
 
     def on_summary_clicked(self, button):
-        dialog = SelectedDisksDialog(self.data)
-        dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
-                       showRemove=False, setBoot=False)
+        disks = self._clearpartDevices
+        dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False, set_boot=False)
+
         with self.main_window.enlightbox(dialog.window):
+            dialog.refresh()
             dialog.run()
 
     def on_configure_clicked(self, button):

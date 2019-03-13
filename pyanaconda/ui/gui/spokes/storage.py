@@ -868,10 +868,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     # signal handlers
     def on_summary_clicked(self, button):
         # show the selected disks dialog
-        # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.get_free_space(disks=self._available_disks)
-        dialog = SelectedDisksDialog(self.data,)
-        dialog.refresh(filter_disks_by_names(self._available_disks, self._selected_disks), free_space)
+        disks = filter_disks_by_names(self._available_disks, self._selected_disks)
+        dialog = SelectedDisksDialog(self.data, self.storage, disks)
+        dialog.refresh()
+
         self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
