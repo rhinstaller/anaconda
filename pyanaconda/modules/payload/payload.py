@@ -30,6 +30,10 @@ log = get_module_logger(__name__)
 class PayloadModule(KickstartModule):
     """The Payload module."""
 
+    def __init__(self):
+        super().__init__()
+        self._payload_handler = None
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(PAYLOAD.object_path, PayloadInterface(self))
@@ -43,9 +47,9 @@ class PayloadModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
+        self._payload_handler = data
 
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
-        data = self.get_kickstart_handler()
-        return str(data)
+        return str(self._payload_handler)
