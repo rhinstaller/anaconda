@@ -590,3 +590,12 @@ def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname
         netargs.add(znet)
 
     return netargs
+
+
+def get_ifcfg_files_content(root_path=""):
+    fragments = []
+    for file_path in _ifcfg_files(os.path.normpath(root_path + IFCFG_DIR)):
+        fragments.append("{}:".format(file_path))
+        with open(file_path, "r") as f:
+            fragments.append(f.read().strip("\n"))
+    return "\n".join(fragments)

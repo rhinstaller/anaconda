@@ -381,6 +381,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                       connection_uuid, iface)
             self.nm_client.activate_connection_async(connection, device, None, None)
 
+        self._network_module.proxy.LogConfigurationState(
+            "Settings of {} updated in TUI.".format(iface)
+        )
+
         self.redraw()
         self.apply()
 
@@ -579,8 +583,6 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
 
         # ONBOOT workaround
         self._set_onboot(self._connection_uuid, self._data.onboot)
-
-        network.logIfcfgFiles("settings of %s updated" % self._iface)
 
 
 def get_default_connection(iface, device_type, autoconnect=False):

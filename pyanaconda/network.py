@@ -32,7 +32,6 @@ import threading
 import re
 import dbus
 import ipaddress
-import logging
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 
@@ -42,32 +41,19 @@ from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.modules.common.constants.services import NETWORK, TIMEZONE
+from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.payload.livepayload import LiveImagePayload
 
-from pyanaconda.anaconda_loggers import get_module_logger, get_ifcfg_logger
+from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
-ifcfgLogFile = "/tmp/ifcfg.log"
 DEFAULT_HOSTNAME = "localhost.localdomain"
-
-ifcfglog = None
 
 network_connected = None
 network_connected_condition = threading.Condition()
 
-
-def setup_ifcfg_log():
-    # Setup special logging for ifcfg NM interface
-    from pyanaconda import anaconda_logging
-    global ifcfglog
-    logger = get_ifcfg_logger()
-    logger.setLevel(logging.DEBUG)
-    anaconda_logging.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-    anaconda_logging.logger.forwardToJournal(logger)
-
-    ifcfglog = get_ifcfg_logger()
 
 def check_ip_address(address, version=None):
     """
@@ -204,18 +190,6 @@ def _ifcfg_files(directory):
             rv.append(os.path.join(directory, name))
     return rv
 
-def logIfcfgFiles(message=""):
-    """ Log contents of all network ifcfg files.
-
-        :param str message: append message to the log
-    """
-    ifcfglog.debug("content of files (%s):", message)
-    for path in _ifcfg_files(netscriptsDir):
-        ifcfglog.debug("%s:", path)
-        with open(path, "r") as f:
-            for line in f:
-                ifcfglog.debug("  %s", line.strip())
-    ifcfglog.debug("all settings: %s", nm.nm_get_all_settings())
 
 class IfcfgFile(SimpleConfigFile):
     def __init__(self, filename):
@@ -224,7 +198,6 @@ class IfcfgFile(SimpleConfigFile):
 
     def read(self, filename=None):
         self.reset()
-        ifcfglog.debug("IfcfFile.read %s", self.filename)
         SimpleConfigFile.read(self)
         self._dirty = False
 
@@ -232,7 +205,6 @@ class IfcfgFile(SimpleConfigFile):
         if self._dirty or filename:
             # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
             # temporary file for new configuration
-            ifcfglog.debug("IfcfgFile.write %s:\n%s", self.filename, self.__str__())
             SimpleConfigFile.write(self, filename, use_tmp=use_tmp)
             self._dirty = False
 
@@ -242,7 +214,6 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        ifcfglog.debug("IfcfgFile.set %s: %s", self.filename, args)
         SimpleConfigFile.set(self, *args)
         self._dirty = True
 
@@ -253,7 +224,6 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        ifcfglog.debug("IfcfgFile.unset %s: %s", self.filename, args)
         SimpleConfigFile.unset(self, *args)
 
 # get a kernel cmdline string for dracut needed for access to storage host
@@ -350,56 +320,48 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
 def get_devices_by_nics(nics):
     return [device for device in nm.nm_devices() if device in nics]
 
-def networkInitialize(ksdata):
+
+def run_network_initialization_task(task_path):
+    task_proxy = NETWORK.get_proxy(task_path)
+    log.debug("Running task %s", task_proxy.Name)
+    sync_run_task(task_proxy)
+    result = task_proxy.GetResult()
+    msg = "%s result: %s" % (task_proxy.Name, result)
+    log.debug(msg)
+
+
+def initialize_network():
     if not conf.system.can_configure_network:
         return
 
-    log.debug("devices found %s", nm.nm_devices())
-    logIfcfgFiles("network initialization")
-
-    log.debug("ensure single initramfs connections")
     network_proxy = NETWORK.get_proxy()
-    devnames = network_proxy.ConsolidateInitramfsConnections()
-    if devnames:
-        msg = "single connection ensured for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
-    log.debug("apply kickstart")
-    devnames = network_proxy.ApplyKickstart()
-    if devnames:
-        msg = "kickstart pre section applied for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
-    log.debug("create missing ifcfg files")
-    devnames = network_proxy.DumpMissingIfcfgFiles()
-    if devnames:
-        msg = "missing ifcfgs created for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
 
-    # For kickstart network --activate option we set ONBOOT=yes
-    # in dracut to get devices activated by NM. The real network --onboot
-    # value is set here.
-    log.debug("set real ONBOOT value")
-    devnames = network_proxy.SetRealOnbootValuesFromKickstart()
-    if devnames:
-        msg = "real kickstart ONBOOT value set for devices %s" % devnames
-        log.debug("%s", msg)
-        logIfcfgFiles(msg)
+    msg = "Initialization started."
+    log.debug(msg)
+    network_proxy.LogConfigurationState(msg)
 
-    # initialize ksdata hostname
+    log.debug("Devices found: %s", nm.nm_devices())
+
+    run_network_initialization_task(network_proxy.ConsolidateInitramfsConnectionsWithTask())
+    run_network_initialization_task(network_proxy.ApplyKickstartWithTask())
+    run_network_initialization_task(network_proxy.DumpMissingIfcfgFilesWithTask())
+    run_network_initialization_task(network_proxy.SetRealOnbootValuesFromKickstartWithTask())
+
     if network_proxy.Hostname == DEFAULT_HOSTNAME:
         bootopts_hostname = hostname_from_cmdline(flags.cmdline)
         if bootopts_hostname:
-            log.debug("updating host name from boot options: %s", bootopts_hostname)
+            log.debug("Updating host name from boot options: %s", bootopts_hostname)
             network_proxy.SetHostname(bootopts_hostname)
 
     # Create device configuration tracking in the module.
     # It will be used to generate kickstart from persistent network configuration
     # managed by NM (ifcfgs) and updated by NM signals on device configuration
     # changes.
-    log.debug("create network configurations")
+    log.debug("Creating network configurations.")
     network_proxy.CreateDeviceConfigurations()
+
+    log.debug("Initialization finished.")
+
 
 def _get_ntp_servers_from_dhcp():
     """Check if some NTP servers were returned from DHCP and set them

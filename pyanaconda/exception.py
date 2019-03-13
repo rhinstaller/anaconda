@@ -259,7 +259,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
 def initExceptionHandling(anaconda):
     file_list = ["/tmp/anaconda.log", "/tmp/packaging.log",
-                 "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
+                 "/tmp/program.log", "/tmp/storage.log",
                  "/tmp/dnf.librepo.log", "/tmp/hawkey.log",
                  "/tmp/lvm.log", util.getSysroot() + "/root/install.log",
                  "/proc/cmdline", "/root/lorax-packages.log",

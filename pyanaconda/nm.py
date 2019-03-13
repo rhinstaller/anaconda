@@ -479,24 +479,6 @@ def _find_settings(value, key1, key2, format_value=lambda x: x):
 
     return retval
 
-def nm_get_all_settings():
-    """Return all settings for logging."""
-    retval = []
-
-    proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings", interface_name="org.freedesktop.NetworkManager.Settings")
-
-    connections = proxy.ListConnections()
-    for con in connections:
-        proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        try:
-            settings = proxy.GetSettings()
-        except GError as e:
-            # The connection may be deleted asynchronously by NM
-            log.debug("Exception raised in nm_get_all_settings: %s", e)
-            continue
-        retval.append(settings)
-
-    return retval
 
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes 'ay' for dbus
