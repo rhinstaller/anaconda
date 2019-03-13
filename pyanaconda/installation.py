@@ -58,13 +58,13 @@ class WriteResolvConfTask(Task):
     """
 
     def run_task(self):
-        """Resolve the sysroot path only right before doing the copy operatio.
+        """Resolve the sysroot path only right before doing the copy operation.
 
         If we just added the sysroot path as an argument, it would be resolved when the
         task queue was created, not when the task is actually executed, which could
         theoretically result in an incorrect path.
         """
-        network.copyFileToPath("/etc/resolv.conf", util.getSysroot())
+        network.copy_resolv_conf_to_root(util.getSysroot())
 
 
 def _writeKS(ksdata):
@@ -315,7 +315,7 @@ def doInstall(storage, payload, ksdata):
     if conf.system.provides_resolver_config:
         # we use a custom Task subclass as the sysroot path has to be resolved
         # only when the task is actually started, not at task creation time
-        pre_install.append(WriteResolvConfTask("Copy /resolv.conf to sysroot"))
+        pre_install.append(WriteResolvConfTask("Copy resolv.conf to sysroot"))
 
     def run_pre_install():
         """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""

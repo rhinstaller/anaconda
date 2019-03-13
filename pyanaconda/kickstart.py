@@ -618,7 +618,9 @@ class Network(COMMANDS.Network):
 
     def execute(self, payload):
         fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_ifaces = network.get_devices_by_nics(fcoe_proxy.GetNics())
+        fcoe_nics = fcoe_proxy.GetNics()
+        fcoe_ifaces = [dev.device_name for dev in network.get_supported_devices()
+                       if dev.device_name in fcoe_nics]
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
         task_path = network_proxy.InstallNetworkWithTask(util.getSysroot(),

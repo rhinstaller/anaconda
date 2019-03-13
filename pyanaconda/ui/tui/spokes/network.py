@@ -83,7 +83,7 @@ class WiredTUIConfigurationData():
             if ip4_config.get_num_addresses() > 0:
                 addr = ip4_config.get_address(0)
                 self.ip = addr.get_address()
-                self.netmask = network.prefix2netmask(addr.get_prefix())
+                self.netmask = network.prefix_to_netmask(addr.get_prefix())
             else:
                 log.error("No ip4 address found for manual method in %s", connection_uuid)
         elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_DISABLED:
@@ -139,7 +139,7 @@ class WiredTUIConfigurationData():
         s_ip4 = NM.SettingIP4Config.new()
         s_ip4.set_property(NM.SETTING_IP_CONFIG_METHOD, method4)
         if method4 == NM.SETTING_IP4_CONFIG_METHOD_MANUAL:
-            prefix4 = network.netmask2prefix(self.netmask)
+            prefix4 = network.netmask_to_prefix(self.netmask)
             addr4 = NM.IPAddress.new(socket.AF_INET, self.ip, prefix4)
             s_ip4.add_address(addr4)
             if self.gateway:
@@ -281,7 +281,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     a0 = addresses[0]
                     addr_str = a0.get_address()
                     prefix = a0.get_prefix()
-                    netmask_str = network.prefix2netmask(prefix)
+                    netmask_str = network.prefix_to_netmask(prefix)
                 gateway_str = ipv4config.get_gateway() or ''
                 dnss_str = ",".join(ipv4config.get_nameservers())
             else:

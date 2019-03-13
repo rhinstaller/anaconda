@@ -764,7 +764,7 @@ class BootLoader(object):
                 # network storage
                 # XXX this is nothing to be proud of
                 if isinstance(dep, NetworkStorageDevice):
-                    setup_args = pyanaconda.network.dracutSetupArgs(dep)
+                    setup_args = pyanaconda.network.dracut_setup_args(dep)
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
@@ -772,7 +772,7 @@ class BootLoader(object):
         # We discover LUN on an iface which is part of multipath setup.
         # If the iface is disconnected after discovery anaconda doesn't
         # write dracut ifname argument for the disconnected iface path
-        # (in Network.dracutSetupArgs).
+        # (in network.dracut_setup_args).
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic in fcoe_proxy.GetNics():

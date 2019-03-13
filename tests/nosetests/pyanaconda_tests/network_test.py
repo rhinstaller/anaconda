@@ -21,10 +21,6 @@ import unittest
 
 class NetworkTests(unittest.TestCase):
 
-    def default_ks_vlan_interface_name_test(self):
-        self.assertEqual(network.default_ks_vlan_interface_name("em1", "171"),
-                         "em1.171")
-
     def is_valid_hostname_test(self):
 
         self.assertFalse(network.is_valid_hostname("")[0])
@@ -93,10 +89,10 @@ class NetworkTests(unittest.TestCase):
                 (32, "255.255.255.255"),
                ]
         for prefix, netmask in lore:
-            self.assertEqual(network.prefix2netmask(prefix), netmask)
-            self.assertEqual(network.netmask2prefix(netmask), prefix)
+            self.assertEqual(network.prefix_to_netmask(prefix), netmask)
+            self.assertEqual(network.netmask_to_prefix(netmask), prefix)
 
-        self.assertEqual(network.prefix2netmask(33), "255.255.255.255")
+        self.assertEqual(network.prefix_to_netmask(33), "255.255.255.255")
 
     def nm_check_ip_address_test(self,):
         good_IPv4_tests = [

@@ -33,7 +33,6 @@ import re
 import ipaddress
 
 from pyanaconda.simpleconfig import SimpleConfigFile
-
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -47,14 +46,20 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-sysconfigDir = "/etc/sysconfig"
-netscriptsDir = "%s/network-scripts" % (sysconfigDir)
+IFCFG_FILES_DIR = "/etc/sysconfig/network-scripts"
 DEFAULT_HOSTNAME = "localhost.localdomain"
 
 network_connected = None
 network_connected_condition = threading.Condition()
 
 nm_client = None
+
+__all__ = ["can_overwrite_configuration", "get_team_devices", "get_supported_devices",
+           "status_message", "wait_for_connectivity", "wait_for_connecting_NM_thread",
+           "wait_for_network_devices", "wait_for_connected_NM", "initialize_network",
+           "copy_resolv_conf_to_root", "get_hostname", "prefix_to_netmask", "netmask_to_prefix",
+           "get_first_ip_address", "is_valid_hostname", "check_ip_address", "get_nm_client",
+           "dracut_setup_args"]
 
 
 def init_nm_client():
@@ -68,15 +73,13 @@ def init_nm_client():
 
 
 def check_ip_address(address, version=None):
-    """
-    Check if the given IP address is valid in given version if set.
+    """Check if the given IP address is valid in given version if set.
 
     :param str address: IP address for testing
     :param int version: ``4`` for IPv4, ``6`` for IPv6 or
                         ``None`` to allow either format
     :returns: ``True`` if IP address is valid or ``False`` if not
     :rtype: bool
-
     """
     try:
         if version == 4:
@@ -92,24 +95,22 @@ def check_ip_address(address, version=None):
     except ValueError:
         return False
 
+
 def is_valid_hostname(hostname):
-    """
-    Check if the given string is (syntactically) a valid hostname.
+    """Check if the given string is (syntactically) a valid hostname.
 
     :param hostname: a string to check
     :returns: a pair containing boolean value (valid or invalid) and
               an error message (if applicable)
     :rtype: (bool, str)
-
     """
-
     if not hostname:
         return (False, _("Host name cannot be None or an empty string."))
 
     if len(hostname) > 255:
         return (False, _("Host name must be 255 or fewer characters in length."))
 
-    if not (re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', hostname)):
+    if not re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', hostname):
         return (False, _("Host names can only contain the characters 'a-z', "
                          "'A-Z', '0-9', '-', or '.', parts between periods "
                          "must contain something and cannot start or end with "
@@ -117,8 +118,9 @@ def is_valid_hostname(hostname):
 
     return (True, "")
 
-def getIPs():
-    """ Return a list of IP addresses for all active devices. """
+
+def get_ip_addresses():
+    """Return a list of IP addresses for all active devices."""
     ipv4_addresses = []
     ipv6_addresses = []
     for device in get_activated_devices(nm_client):
@@ -127,30 +129,33 @@ def getIPs():
     # prefer IPv4 addresses to IPv6 addresses
     return ipv4_addresses + ipv6_addresses
 
-def getFirstRealIP():
-    """ Return the first real non-local IP we find from the list of
-        all active devices.
 
-        :rtype: str or ``None``
+def get_first_ip_address():
+    """Return the first non-local IP of active devices.
+
+    :return: IP address assigned to an active device
+    :rtype: str or None
     """
-    for ip in getIPs():
+    for ip in get_ip_addresses():
         if ip not in ("127.0.0.1", "::1"):
             return ip
     return None
 
-def netmask2prefix(netmask):
+
+def netmask_to_prefix(netmask):
     """ Convert netmask to prefix (CIDR bits) """
     prefix = 0
 
     while prefix < 33:
-        if (prefix2netmask(prefix) == netmask):
+        if prefix_to_netmask(prefix) == netmask:
             return prefix
 
         prefix += 1
 
     return prefix
 
-def prefix2netmask(prefix):
+
+def prefix_to_netmask(prefix):
     """ Convert prefix (CIDR bits) to netmask """
     _bytes = []
     for _i in range(4):
@@ -163,9 +168,10 @@ def prefix2netmask(prefix):
     netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
-def getHostname():
-    """ Try to determine what the hostname should be for this system """
-    hn = None
+
+def get_hostname():
+    """Try to determine what the hostname should be for this system."""
+    hostname = None
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
     for device in get_activated_devices(nm_client):
@@ -178,18 +184,20 @@ def getHostname():
                 log.debug("Exception caught trying to get host name of %s: %s", ipaddr, e)
             else:
                 if len(hinfo) == 3:
-                    hn = hinfo[0]
+                    hostname = hinfo[0]
                     break
 
-    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
-        hn = socket.gethostname()
+    if not hostname or hostname in ('(none)', 'localhost', 'localhost.localdomain'):
+        hostname = socket.gethostname()
 
-    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
-        hn = DEFAULT_HOSTNAME
+    if not hostname or hostname in ('(none)', 'localhost', 'localhost.localdomain'):
+        hostname = DEFAULT_HOSTNAME
 
-    return hn
+    return hostname
+
 
 def _ifcfg_files(directory):
+    """Get list of paths of ifcfg files in given directory."""
     rv = []
     for name in os.listdir(directory):
         if name.startswith("ifcfg-"):
@@ -234,28 +242,31 @@ class IfcfgFile(SimpleConfigFile):
             return
         SimpleConfigFile.unset(self, *args)
 
-# get a kernel cmdline string for dracut needed for access to storage host
-def dracutSetupArgs(networkStorageDevice):
 
-    target_ip = networkStorageDevice.host_address
+def dracut_setup_args(network_storage_device):
+    """Dracut cmdline arguments needed to access network storage device."""
 
-    if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
-        if getattr(networkStorageDevice, 'ibft', False):
-            nic = ibftIface()
+    target_ip = network_storage_device.host_address
+
+    if network_storage_device.nic == "default" or ":" in network_storage_device.nic:
+        if getattr(network_storage_device, 'ibft', False):
+            nic = ibft_iface()
         else:
-            nic = ifaceForHostIP(target_ip)
+            nic = iface_for_host_ip(target_ip)
         if not nic:
             return ""
     else:
-        nic = networkStorageDevice.nic
+        nic = network_storage_device.nic
 
     network_proxy = NETWORK.get_proxy()
     netargs = network_proxy.GetDracutArguments(nic, target_ip, "")
 
     return netargs
 
+
 def find_ifcfg_file(values, root_path=""):
-    for filepath in _ifcfg_files(os.path.normpath(root_path + netscriptsDir)):
+    """Find ifcfg file specified by given values."""
+    for filepath in _ifcfg_files(os.path.normpath(root_path + IFCFG_FILES_DIR)):
         ifcfg = IfcfgFile(filepath)
         ifcfg.read()
         for key, value in values:
@@ -270,7 +281,8 @@ def find_ifcfg_file(values, root_path=""):
     return None
 
 
-def ibftIface():
+def ibft_iface():
+    """Find interface configured via iBFt."""
     iface = ""
     ipopts = flags.cmdline.get('ip')
     # Examples (dhcp, static):
@@ -284,11 +296,17 @@ def ibftIface():
                     break
     return iface
 
-def hostname_from_cmdline(cmdline):
+
+def hostname_from_cmdline(kernel_arguments):
+    """Get hostname defined by boot options.
+
+    :param kernel_arguments: structure holding installer boot options
+    :type kernel_arguments: KernelArguments
+    """
     # legacy hostname= option
-    hostname = flags.cmdline.get('hostname', "")
+    hostname = kernel_arguments.get('hostname', "")
     # ip= option
-    ipopts = flags.cmdline.get('ip')
+    ipopts = kernel_arguments.get('ip')
     # Example (2 options):
     # ens3:dhcp 10.34.102.244::10.34.102.54:255.255.255.0:myhostname:ens9:none
     if ipopts:
@@ -299,39 +317,38 @@ def hostname_from_cmdline(cmdline):
                 pass
     return hostname
 
-def ifaceForHostIP(host):
-    route = util.execWithCapture("ip", ["route", "get", "to", host])
+
+def iface_for_host_ip(host_ip):
+    """Get interface used to access given host IP."""
+    route = util.execWithCapture("ip", ["route", "get", "to", host_ip])
     if not route:
-        log.error("Could not get interface for route to %s", host)
+        log.error("Could not get interface for route to %s", host_ip)
         return ""
 
-    routeInfo = route.split()
-    if routeInfo[0] != host or len(routeInfo) < 5 or \
-       "dev" not in routeInfo or routeInfo.index("dev") > 3:
-        log.error('Unexpected "ip route get to %s" reply: %s', host, routeInfo)
+    route_info = route.split()
+    if route_info[0] != host_ip or len(route_info) < 5 or \
+       "dev" not in route_info or route_info.index("dev") > 3:
+        log.error('Unexpected "ip route get to %s" reply: %s', host_ip, route_info)
         return ""
 
-    return routeInfo[routeInfo.index("dev") + 1]
-
-# TODO remove
-def copyFileToPath(fileName, destPath='', overwrite=False):
-    if not os.path.isfile(fileName):
-        return False
-    destfile = os.path.join(destPath, fileName.lstrip('/'))
-    if (os.path.isfile(destfile) and not overwrite):
-        return False
-    if not os.path.isdir(os.path.dirname(destfile)):
-        util.mkdirChain(os.path.dirname(destfile))
-    shutil.copy(fileName, destfile)
-    return True
+    return route_info[route_info.index("dev") + 1]
 
 
-def get_devices_by_nics(nics):
-    return [dev.device_name for dev in get_supported_devices()
-            if dev.device_name in nics]
+def copy_resolv_conf_to_root(root=""):
+    """Copy resolv.conf to a system root."""
+    src = "/etc/resolv.conf"
+    dst = os.path.join(root, src.lstrip('/'))
+    if not os.path.isfile(src):
+        log.debug("%s does not exist", src)
+        return
+    if os.path.isfile(dst):
+        log.debug("%s already exists", dst)
+        return
+    shutil.copyfile(src, dst)
 
 
 def run_network_initialization_task(task_path):
+    """Run network initialization task and log the result."""
     task_proxy = NETWORK.get_proxy(task_path)
     log.debug("Running task %s", task_proxy.Name)
     sync_run_task(task_proxy)
@@ -341,6 +358,7 @@ def run_network_initialization_task(task_path):
 
 
 def initialize_network():
+    """Initialize networking."""
     if not conf.system.can_configure_network:
         return
 
@@ -375,7 +393,7 @@ def initialize_network():
 
 
 def _set_ntp_servers_from_dhcp():
-    """Set NTP servers to timezone module if not set by kickstart."""
+    """Set NTP servers of timezone module from dhcp if not set by kickstart."""
     timezone_proxy = TIMEZONE.get_proxy()
     ntp_servers = get_ntp_servers_from_dhcp(nm_client)
     log.info("got %d NTP servers from DHCP", len(ntp_servers))
@@ -394,6 +412,7 @@ def _set_ntp_servers_from_dhcp():
     if not timezone_proxy.NTPServers and conf.target.is_hardware:
         # no NTP servers were specified, add those from DHCP
         timezone_proxy.SetNTPServers(hostnames)
+
 
 def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_connecting=False):
     """Wait for NM being connected.
@@ -436,7 +455,9 @@ def wait_for_connected_NM(timeout=constants.NETWORK_CONNECTION_TIMEOUT, only_con
     log.debug("NM not connected, waited %d seconds", i)
     return False
 
+
 def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEOUT):
+    """Wait for network devices to be activated with a connection."""
     devices = set(devices)
     i = 0
     log.debug("waiting for connection of devices %s for iscsi", devices)
@@ -448,6 +469,7 @@ def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEO
         i += 1
         time.sleep(1)
     return False
+
 
 def wait_for_connecting_NM_thread():
     """Wait for connecting NM in thread, do some work and signal connectivity.
@@ -486,6 +508,7 @@ def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
 
 
 def get_activated_devices(nm_client):
+    """Get activated NetworkManager devices."""
     activated_devices = []
     for ac in nm_client.get_active_connections():
         if ac.get_state() != NM.ActiveConnectionState.ACTIVATED:
@@ -496,7 +519,7 @@ def get_activated_devices(nm_client):
 
 
 def status_message(nm_client):
-    """ A short string describing which devices are connected. """
+    """A short string describing which devices are connected."""
 
     msg = _("Unknown")
 
@@ -587,17 +610,24 @@ def status_message(nm_client):
 
     return msg
 
-def default_ks_vlan_interface_name(parent, vlanid):
-    return "%s.%s" % (parent, vlanid)
-
 
 def get_supported_devices():
+    """Get existing network devices supported by the installer.
+
+    :return: basic information about the devices
+    :rtype: list(NetworkDeviceInfo)
+    """
     network_proxy = NETWORK.get_proxy()
     return [apply_structure(device, NetworkDeviceInfo())
             for device in network_proxy.GetSupportedDevices()]
 
 
 def get_team_devices():
+    """Get existing team network devices.
+
+    :return: basic information about existing team devices
+    :rtype: list(NetworkDeviceInfo)
+    """
     return [dev for dev in get_supported_devices()
             if dev.device_type == NM.DeviceType.TEAM]
 
@@ -651,11 +681,14 @@ def get_device_ip_addresses(device, version=4):
                          if not addr.startswith("fe80:")]
     return addresses
 
+
 def is_libvirt_device(iface):
     return iface and iface.startswith("virbr")
 
+
 def device_type_is_supported_wired(device_type):
     return device_type in [NM.DeviceType.ETHERNET, NM.DeviceType.INFINIBAND]
+
 
 def can_overwrite_configuration(payload):
     return isinstance(payload, LiveImagePayload)

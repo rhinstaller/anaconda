@@ -107,7 +107,7 @@ class VncServer(object):
         # Network may be slow. Try for 5 seconds
         tries = 5
         while tries:
-            self.ip = network.getFirstRealIP()
+            self.ip = network.get_first_ip_address()
             if self.ip:
                 break
             time.sleep(1)
