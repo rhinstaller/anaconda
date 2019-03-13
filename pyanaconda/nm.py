@@ -283,32 +283,6 @@ def nm_device_ip_config(name, version=4):
 
     return [addr_list, ns_list]
 
-def nm_ntp_servers_from_dhcp():
-    """Return NTP servers obtained by DHCP.
-
-       return: NTP servers obtained by DHCP
-       rtype: list of str
-    """
-    ntp_servers = []
-    # get paths for all actively connected interfaces
-    active_devices = nm_activated_devices()
-    for device in active_devices:
-        # harvest NTP server addresses from DHCPv4
-        dhcp4_path = nm_device_property(device, "Dhcp4Config")
-        try:
-            options = _get_property(dhcp4_path, "Options", ".DHCP4Config")
-        # object is valid only if device is in ACTIVATED state (racy)
-        except UnknownMethodGetError:
-            options = None
-        if options and 'ntp_servers' in options:
-            # NTP server addresses returned by DHCP are whitespace delimited
-            ntp_servers_string = options["ntp_servers"]
-            for ip in ntp_servers_string.split(" "):
-                ntp_servers.append(ip)
-
-        # NetworkManager does not request NTP/SNTP options for DHCP6
-    return ntp_servers
-
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes 'ay' for dbus
 

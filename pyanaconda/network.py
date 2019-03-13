@@ -56,6 +56,18 @@ DEFAULT_HOSTNAME = "localhost.localdomain"
 network_connected = None
 network_connected_condition = threading.Condition()
 
+nm_client = None
+
+
+def init_nm_client():
+    """Instantiate NetworkManager client single instance for the module."""
+    if conf.system.provides_system_bus:
+        global nm_client
+        if not nm_client:
+            nm_client = NM.Client.new(None)
+    else:
+        log.debug("NetworkManager client not available (system does not provide it).")
+
 
 def check_ip_address(address, version=None):
     """
@@ -368,11 +380,10 @@ def initialize_network():
     log.debug("Initialization finished.")
 
 
-def _get_ntp_servers_from_dhcp():
-    """Check if some NTP servers were returned from DHCP and set them
-    to ksdata (if not NTP servers were specified in the kickstart)"""
+def _set_ntp_servers_from_dhcp():
+    """Set NTP servers to timezone module if not set by kickstart."""
     timezone_proxy = TIMEZONE.get_proxy()
-    ntp_servers = nm.nm_ntp_servers_from_dhcp()
+    ntp_servers = get_ntp_servers_from_dhcp(nm_client)
     log.info("got %d NTP servers from DHCP", len(ntp_servers))
     hostnames = []
     for server_address in ntp_servers:
@@ -454,7 +465,7 @@ def wait_for_connecting_NM_thread():
     """
     connected = wait_for_connected_NM(only_connecting=True)
     if connected:
-        _get_ntp_servers_from_dhcp()
+        _set_ntp_servers_from_dhcp()
     with network_connected_condition:
         global network_connected
         network_connected = connected
@@ -595,6 +606,31 @@ def get_supported_devices():
 def get_team_devices():
     return [dev for dev in get_supported_devices()
             if dev.device_type == NM.DeviceType.TEAM]
+
+
+def get_ntp_servers_from_dhcp(nm_client):
+    """Return IPs of NTP servers obtained by DHCP.
+
+    :param nm_client: instance of NetworkManager client
+    :type nm_client: NM.Client
+    :return: IPs of NTP servers obtained by DHCP
+    :rtype: list of str
+    """
+    ntp_servers = []
+
+    if not nm_client:
+        return ntp_servers
+
+    for device in get_activated_devices(nm_client):
+        dhcp4_config = device.get_dhcp4_config()
+        if dhcp4_config:
+            options = dhcp4_config.get_options()
+            ntp_servers_string = options.get("ntp_servers")
+            if ntp_servers_string:
+                ntp_servers.extend(ntp_servers_string.split(" "))
+        # NetworkManager does not request NTP/SNTP options for DHCP6
+
+    return ntp_servers
 
 
 def is_libvirt_device(iface):
