@@ -113,6 +113,16 @@ class NetworkInterface(KickstartModuleInterface):
         dev_infos = self.implementation.get_supported_devices()
         return [get_structure(dev_info) for dev_info in dev_infos]
 
+    def GetActivatedInterfaces(self) -> List[Str]:
+        """Get activated network interfaces.
+
+        Device is considered as activated if it has an active network (NM)
+        connection.
+
+        :return: list of names of devices having active network connection
+        """
+        return self.implementation.get_activated_interfaces()
+
     def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
         """Install network with an installation task.
 

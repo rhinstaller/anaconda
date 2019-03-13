@@ -242,7 +242,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Check whether this spoke is complete or not."""
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or network.get_activated_ifaces(self.nm_client))
+                or self._network_module.proxy.GetActivatedInterfaces())
 
     @property
     def mandatory(self):
@@ -258,7 +258,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def _summary_text(self):
         """Devices cofiguration shown to user."""
         msg = ""
-        activated_devs = network.get_activated_ifaces(self.nm_client)
+        activated_devs = self._network_module.proxy.GetActivatedInterfaces()
         for device_configuration in self.editable_configurations:
             name = device_configuration.device_name
             if name in activated_devs:

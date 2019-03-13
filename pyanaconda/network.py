@@ -436,7 +436,9 @@ def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEO
     i = 0
     log.debug("waiting for connection of devices %s for iscsi", devices)
     while i < timeout:
-        if not devices - set(nm.nm_activated_devices()):
+        network_proxy = NETWORK.get_proxy()
+        activated_devices = network_proxy.GetActivatedInterfaces()
+        if not devices - set(activated_devices):
             return True
         i += 1
         time.sleep(1)
@@ -486,12 +488,6 @@ def get_activated_devices(nm_client):
         for device in ac.get_devices():
             activated_devices.append(device)
     return activated_devices
-
-
-# TODO this will be provided by network module API
-def get_activated_ifaces(nm_client):
-    return [device.get_ip_iface() or device.get_iface()
-            for device in get_activated_devices(nm_client)]
 
 
 def status_message(nm_client):

@@ -26,9 +26,9 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.storage.utils import try_populate_devicetree
 from pyanaconda.core.i18n import _
-from pyanaconda import nm
 from pyanaconda.core.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 from pyanaconda.network import check_ip_address
+from pyanaconda.modules.common.constants.services import NETWORK
 
 from blivet.iscsi import iscsi
 from blivet.safe_dbus import SafeDBusError
@@ -200,7 +200,8 @@ class ISCSIDialog(GUIObject):
             self.iscsi.delete_interfaces()
         elif (self.iscsi.mode == "bind"
               or self.iscsi.mode == "none" and bind):
-            activated = set(nm.nm_activated_devices())
+            network_proxy = NETWORK.get_proxy()
+            activated = set(network_proxy.GetActivatedInterfaces())
             # The only place iscsi.ifaces is modified is create_interfaces(),
             # right below, so iteration is safe.
             created = set(self.iscsi.ifaces.values())

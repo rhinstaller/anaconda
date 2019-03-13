@@ -522,7 +522,9 @@ class Iscsi(COMMANDS.Iscsi):
         mode = blivet.iscsi.iscsi.mode
         if mode == "none":
             if tg.iface:
-                blivet.iscsi.iscsi.create_interfaces(nm.nm_activated_devices())
+                network_proxy = NETWORK.get_proxy()
+                activated_ifaces = network_proxy.GetActivatedInterfaces()
+                blivet.iscsi.iscsi.create_interfaces(activated_ifaces)
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
             raise KickstartParseError(lineno=self.lineno,

@@ -427,6 +427,29 @@ class NetworkModule(KickstartModule):
 
         return supported_devices
 
+    def get_activated_interfaces(self):
+        """Get activated network interfaces.
+
+        Device is considered as activated if it has an active network (NM)
+        connection.
+
+        :return: list of names of devices having active network connection
+        :rtype: list(str)
+        """
+        # TODO guard on system (provides_system_bus)
+        activated_ifaces = []
+        if not self.nm_available:
+            log.debug("Activated interfaces can't be determined.")
+            return activated_ifaces
+
+        for ac in self.nm_client.get_active_connections():
+            if ac.get_state() != NM.ActiveConnectionState.ACTIVATED:
+                continue
+            for device in ac.get_devices():
+                activated_ifaces.append(device.get_ip_iface() or device.get_iface())
+
+        return activated_ifaces
+
     @property
     def bootif(self):
         """Get the value of kickstart --device bootif option."""
