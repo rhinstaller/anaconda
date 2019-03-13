@@ -319,7 +319,7 @@ class InstallerStorage(Blivet):
             disks = self.disks
 
         # Get the dictionary of free spaces for each disk.
-        snapshot = super().get_free_space(disks)
+        snapshot = self.get_free_space(disks)
 
         # Calculate the total free space.
         return sum((disk_free for disk_free, fs_free in snapshot.values()), Size(0))
@@ -335,72 +335,6 @@ class InstallerStorage(Blivet):
         self._free_space_snapshot = self.get_free_space()
 
         return self._free_space_snapshot
-
-    def get_free_space(self, disks=None, clear_part_type=None):  # pylint: disable=arguments-differ
-        """ Return a dict with free space info for each disk.
-
-             The dict values are 2-tuples: (disk_free, fs_free). fs_free is
-             space available by shrinking filesystems. disk_free is space not
-             allocated to any partition.
-
-             disks and clear_part_type allow specifying a set of disks other than
-             self.disks and a clear_part_type value other than
-             self.config.clear_part_type.
-
-             :keyword disks: overrides :attr:`disks`
-             :type disks: list
-             :keyword clear_part_type: overrides :attr:`self.config.clear_part_type`
-             :type clear_part_type: int
-             :returns: dict with disk name keys and tuple (disk, fs) free values
-             :rtype: dict
-
-            .. note::
-
-                The free space values are :class:`blivet.size.Size` instances.
-
-        """
-
-        # FIXME: we should definitely do something with this method -- it takes
-        # different parameters than get_free_space from Blivet and does
-        # different things too
-
-        if disks is None:
-            disks = self.disks
-
-        if clear_part_type is None:
-            clear_part_type = self.config.clear_part_type
-
-        free = {}
-        for disk in disks:
-            should_clear = self.should_clear(disk, clear_part_type=clear_part_type,
-                                             clear_part_disks=[disk.name])
-            if should_clear:
-                free[disk.name] = (disk.size, Size(0))
-                continue
-
-            disk_free = Size(0)
-            fs_free = Size(0)
-            if disk.partitioned:
-                disk_free = disk.format.free
-                for partition in (p for p in self.partitions if p.disk == disk):
-                    # only check actual filesystems since lvm &c require a bunch of
-                    # operations to translate free filesystem space into free disk
-                    # space
-                    should_clear = self.should_clear(partition,
-                                                     clear_part_type=clear_part_type,
-                                                     clear_part_disks=[disk.name])
-                    if should_clear:
-                        disk_free += partition.size
-                    elif hasattr(partition.format, "free"):
-                        fs_free += partition.format.free
-            elif hasattr(disk.format, "free"):
-                fs_free = disk.format.free
-            elif disk.format.type is None:
-                disk_free = disk.size
-
-            free[disk.name] = (disk_free, fs_free)
-
-        return free
 
     def reset(self, cleanup_only=False):
         """ Reset storage configuration to reflect actual system state.

@@ -967,8 +967,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("Need disklabel: %s have: %s", ", ".join(platform_labels),
                                                      ", ".join(disk_labels))
         else:
-            free_space = self.storage.get_free_space(disks=disks,
-                                                     clear_part_type=CLEAR_PARTITIONS_NONE)
+            free_space = self.storage.get_free_space(disks=disks)
             disk_free = sum(f[0] for f in free_space.values())
             fs_free = sum(f[1] for f in free_space.values())
 
