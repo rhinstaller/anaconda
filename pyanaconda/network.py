@@ -30,12 +30,10 @@ import os
 import time
 import threading
 import re
-import dbus
 import ipaddress
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 
-from pyanaconda import nm
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -123,13 +121,9 @@ def getIPs():
     """ Return a list of IP addresses for all active devices. """
     ipv4_addresses = []
     ipv6_addresses = []
-    for devname in nm.nm_activated_devices():
-        try:
-            ipv4_addresses += nm.nm_device_ip_addresses(devname, version=4)
-            ipv6_addresses += nm.nm_device_ip_addresses(devname, version=6)
-        except (dbus.DBusException, ValueError) as e:
-            log.warning("Got an exception trying to get the ip addr "
-                        "of %s: %s", devname, e)
+    for device in get_activated_devices(nm_client):
+        ipv4_addresses += get_device_ip_addresses(device, version=4)
+        ipv6_addresses += get_device_ip_addresses(device, version=6)
     # prefer IPv4 addresses to IPv6 addresses
     return ipv4_addresses + ipv6_addresses
 
@@ -174,9 +168,9 @@ def getHostname():
     hn = None
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
-    for dev in nm.nm_activated_devices():
-        addrs = (nm.nm_device_ip_addresses(dev, version=4) +
-                 nm.nm_device_ip_addresses(dev, version=6))
+    for device in get_activated_devices(nm_client):
+        addrs = (get_device_ip_addresses(device, version=4) +
+                 get_device_ip_addresses(device, version=6))
         for ipaddr in addrs:
             try:
                 hinfo = socket.gethostbyaddr(ipaddr)
@@ -632,6 +626,30 @@ def get_ntp_servers_from_dhcp(nm_client):
 
     return ntp_servers
 
+
+def get_device_ip_addresses(device, version=4):
+    """Get IP addresses of the device.
+
+    Ignores ipv6 link-local addresses.
+
+    :param device: NetworkManager device object
+    :type device: NMDevice
+    :param version: IP version (4 or 6)
+    :type version: int
+    """
+    addresses = []
+
+    if version == 4:
+        ipv4_config = device.get_ip4_config()
+        if ipv4_config:
+            addresses = [addr.get_address() for addr in ipv4_config.get_addresses()]
+    elif version == 6:
+        ipv6_config = device.get_ip6_config()
+        if ipv6_config:
+            all_addresses = [addr.get_address() for addr in ipv6_config.get_addresses()]
+            addresses = [addr for addr in all_addresses
+                         if not addr.startswith("fe80:")]
+    return addresses
 
 def is_libvirt_device(iface):
     return iface and iface.startswith("virbr")
