@@ -205,3 +205,14 @@ class UsersInterface(KickstartModuleInterface):
             apply_structure(ssh_key_struct, ssh_key_data)
             ssh_key_data_list.append(ssh_key_data)
         self.implementation.set_ssh_keys(ssh_key_data_list)
+
+    def CheckAdminUserExists(self) -> Bool:
+        """Reports if at least one admin user exists.
+
+        - an unlocked root account is considered to be an admin user
+        - an unlocked user account that is member of the group "wheel"
+          is considered to be an admin user
+
+        :return: if at least one admin user exists
+        """
+        return self.implementation.check_admin_user_exists

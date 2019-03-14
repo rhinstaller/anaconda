@@ -298,6 +298,121 @@ class UsersInterfaceTestCase(unittest.TestCase):
         }
         self.assertEqual(self.users_interface.Users[0], userG_out)
 
+    def admin_user_detection_1_test(self):
+        """Test that admin user detection works correctly - 3 admins."""
+        # 2 admin users, unlocked root
+        user1 = {
+                "name" : "user1",
+                "groups" : ["foo", "wheel", "bar"],
+                "lock" : False,
+        }
+        user2 = {
+                "name" : "user2",
+                "groups" : ["baz", "bar", "wheel"],
+                "lock" : False,
+        }
+        user_list_in = [user1, user2]
+        self.users_interface.SetUsers(user_list_in)
+        self.users_interface.SetCryptedRootPassword("abc")
+        self.users_interface.SetRootAccountLocked(False)
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_detection_2_test(self):
+        """Test that admin user detection works correctly - 0 admins (case 1)."""
+        # 2 locked admin users, locked root
+        user1 = {
+                "name" : "user1",
+                "groups" : ["foo", "wheel", "bar"],
+                "lock" : True,
+        }
+        user2 = {
+                "name" : "user2",
+                "groups" : ["baz", "bar", "wheel"],
+                "lock" : True,
+        }
+        user_list_in = [user1, user2]
+        self.users_interface.SetUsers(user_list_in)
+        self.users_interface.SetCryptedRootPassword("abc")
+        self.users_interface.SetRootAccountLocked(True)
+        self.assertFalse(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_detection_3_test(self):
+        """Test that admin user detection works correctly - 1 admin (case 2)."""
+        # 2 locked admin users, unlocked root
+        user1 = {
+                "name" : "user1",
+                "groups" : ["foo", "wheel", "bar"],
+                "lock" : True,
+        }
+        user2 = {
+                "name" : "user2",
+                "groups" : ["baz", "bar", "wheel"],
+                "lock" : True,
+        }
+        user_list_in = [user1, user2]
+        self.users_interface.SetUsers(user_list_in)
+        self.users_interface.SetCryptedRootPassword("abc")
+        self.users_interface.SetRootAccountLocked(False)
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_detection_4_test(self):
+        """Test that admin user detection works correctly - 1 admin (case 3)."""
+        # 1 locked admin user, 1 unlocked admin user, locked root
+        user1 = {
+                "name" : "user1",
+                "groups" : ["foo", "wheel", "bar"],
+                "lock" : False,
+        }
+        user2 = {
+                "name" : "user2",
+                "groups" : ["baz", "bar", "wheel"],
+                "lock" : True,
+        }
+        user_list_in = [user1, user2]
+        self.users_interface.SetUsers(user_list_in)
+        self.users_interface.SetCryptedRootPassword("abc")
+        self.users_interface.SetRootAccountLocked(True)
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+
+    def admin_user_detection_5_test(self):
+        """Test that admin user detection works correctly - 1 admin (case 4)."""
+        # 1 user, 1 unlocked admin user, locked root
+        user1 = {
+                "name" : "user1",
+                "groups" : ["foo", "bar"],
+                "lock" : False,
+        }
+        user2 = {
+                "name" : "user2",
+                "groups" : ["baz", "bar", "wheel"],
+                "lock" : False,
+        }
+        user_list_in = [user1, user2]
+        self.users_interface.SetUsers(user_list_in)
+        self.users_interface.SetCryptedRootPassword("abc")
+        self.users_interface.SetRootAccountLocked(True)
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
+    def admin_user_detection_6_test(self):
+        """Test that admin user detection works correctly - 1 admin (case 5)."""
+        # 2 users, unlocked root
+        user1 = {
+                "name" : "user1",
+                "groups" : ["foo", "bar"],
+                "lock" : False,
+        }
+        user2 = {
+                "name" : "user2",
+                "groups" : ["baz", "bar"],
+                "lock" : False,
+        }
+        user_list_in = [user1, user2]
+        self.users_interface.SetUsers(user_list_in)
+        self.users_interface.SetCryptedRootPassword("abc")
+        self.users_interface.SetRootAccountLocked(False)
+        self.assertTrue(self.users_interface.CheckAdminUserExists())
+
     def users_type_test(self):
         """Test that type checking works correctly when setting user data."""
         with self.assertRaises(TypeError):

@@ -301,3 +301,26 @@ class UsersModule(KickstartModule):
     def root_account_locked(self):
         """Is the root account locked ?"""
         return self._root_account_locked
+
+    @property
+    def check_admin_user_exists(self):
+        """Reports if at least one admin user exists.
+
+        - an unlocked root account is considered to be an admin user
+        - an unlocked user account that is member of the group "wheel"
+          is considered to be an admin user
+
+        :return: if at least one admin user exists
+        """
+        # let's check root first
+        if not self.root_account_locked:
+            return True
+
+        # let's check all users
+        for user in self.users:
+            if not user.lock:
+                if "wheel" in user.groups:
+                    return True
+
+        # no admin user found
+        return False
