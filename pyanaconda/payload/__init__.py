@@ -600,7 +600,7 @@ class Payload(metaclass=ABCMeta):
                 if flags.cmdline.get("fips") == "1":
                     # We use the --no-bootcfg option as we don't want fips-mode-setup to
                     # modify the bootloader configuration.
-                    # Anaconda already does everything needed & it would require gruby to
+                    # Anaconda already does everything needed & it would require grubby to
                     # be available on the system.
                     util.execInSysroot("fips-mode-setup", ["--enable", "--no-bootcfg"])
 
