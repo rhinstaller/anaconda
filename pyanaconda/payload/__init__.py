@@ -821,12 +821,12 @@ class PackagePayload(Payload, metaclass=ABCMeta):
             try:
                 method.dir = self._find_and_mount_iso(device, ISO_DIR, method.dir, INSTALL_TREE)
             except PayloadSetupError as ex:
-                log.debug(str(ex))
+                log.warning(str(ex))
 
                 try:
                     self._setup_install_tree(device, method.dir, INSTALL_TREE)
                 except PayloadSetupError as ex:
-                    log.debug(str(ex))
+                    log.error(str(ex))
                     raise PayloadSetupError("failed to setup installation tree or ISO from HDD")
 
         # Check to see if the device is already mounted, in which case
