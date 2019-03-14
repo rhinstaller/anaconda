@@ -22,6 +22,7 @@ from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import PAYLOAD
 from pyanaconda.modules.payload.kickstart import PayloadKickstartSpecification
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
+from pyanaconda.modules.payload.payload_data import PayloadData
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -32,7 +33,7 @@ class PayloadModule(KickstartModule):
 
     def __init__(self):
         super().__init__()
-        self._payload_handler = None
+        self._payload_data = PayloadData()
 
     def publish(self):
         """Publish the module."""
@@ -47,9 +48,13 @@ class PayloadModule(KickstartModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         log.debug("Processing kickstart data...")
-        self._payload_handler = data
+        if data.packages.seen:
+            self._payload_data.load_packages_data(data.packages)
 
     def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
-        return str(self._payload_handler)
+        data = self.get_kickstart_handler()
+
+        self._payload_data.fill_packages_data(data.packages)
+        return str(data)
