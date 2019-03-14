@@ -434,7 +434,7 @@ def update_onboot_value(connection_uuid, onboot, root_path=""):
     :rtype: bool
     """
 
-    ifcfg = get_ifcfg_file([("UUID", connection_uuid)])
+    ifcfg = get_ifcfg_file([("UUID", connection_uuid)], root_path)
     if not ifcfg:
         log.debug("can't find ifcfg file of %s", connection_uuid)
         return False
