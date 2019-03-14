@@ -19,9 +19,6 @@
 #
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
-from pyanaconda.core.kickstart.commands import UserData as UserKickstartData
-from pyanaconda.core.kickstart.commands import GroupData as GroupKickstartData
-from pyanaconda.core.kickstart.commands import SshKeyData as SshKeyKickstartData
 from pyanaconda.modules.common.base import KickstartModule
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
@@ -145,10 +142,8 @@ class UsersModule(KickstartModule):
         for group_ksdata in data.group.groupList:
             group_data = self.create_group_data()
             group_data.name = group_ksdata.name
-            if group_ksdata.gid == None:
-                group_data.gid = -1
-            else:
-                group_data.gid = group_ksdata.gid
+            if group_ksdata.gid is not None:
+               group_data.gid = group_ksdata.gid
             group_data_list.append(group_data)
         self.set_groups(group_data_list)
 
@@ -174,16 +169,14 @@ class UsersModule(KickstartModule):
             data.user.userList.append(user_data_to_ksdata(user_data))
 
         for group_data in self.groups:
-            group_ksdata = GroupKickstartData()
+            group_ksdata = data.GroupData()
             group_ksdata.name = group_data.name
-            if group_data.gid == -1:
-                group_data.gid = None
-            else:
-                group_ksdata.gid = group_data.gid
+            if group_data.gid != -1:
+               group_ksdata.gid = group_data.gid
             data.group.groupList.append(group_ksdata)
 
         for ssh_key_data in self.ssh_keys:
-            ssh_key_ksdata = SshKeyKickstartData()
+            ssh_key_ksdata = data.SshKeyData()
             ssh_key_ksdata.key = ssh_key_data.key
             ssh_key_ksdata.username = ssh_key_data.username
             data.sshkey.sshUserList.append(ssh_key_ksdata)
