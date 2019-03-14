@@ -366,7 +366,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def _configure_connection(self, iface, connection_uuid):
         connection = self.nm_client.get_connection_by_uuid(connection_uuid)
 
-        new_spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, iface, connection)
+        new_spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload,
+                                         self._network_module, iface, connection)
         ScreenHandler.push_screen_modal(new_spoke)
 
         if new_spoke.errors:
@@ -420,10 +421,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     category = "network"
 
-    def __init__(self, data, storage, payload, iface, connection):
+    def __init__(self, data, storage, payload, network_module, iface, connection):
         super().__init__(data, storage, payload)
         self.title = N_("Device configuration")
 
+        self._network_module = network_module
         self._container = None
         self._connection = connection
         self._iface = iface
@@ -440,14 +442,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
                   self._data)
 
-    # TODO store the value in network module instead of ifcfg file?
-    # SetConnectionOnboot(uuid, value)
-    # GetConnectionOnboot(uuid)
     def _get_onboot(self, connection_uuid):
-        return get_onboot_from_ifcfg(connection_uuid)
+        return self._network_module.proxy.GetConnectionOnbootValue(connection_uuid)
 
     def _set_onboot(self, connection_uuid, onboot):
-        return set_onboot_in_ifcfg(connection_uuid, onboot)
+        return self._network_module.proxy.SetConnectionOnbootValue(connection_uuid, onboot)
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -604,24 +603,3 @@ def get_default_connection(iface, device_type, autoconnect=False):
         connection.add_settings(s_ib)
     connection.add_setting(s_con)
     return connection
-
-
-def get_onboot_from_ifcfg(connection_uuid):
-    ifcfg_path = network.find_ifcfg_file([('UUID', connection_uuid)])
-    if not ifcfg_path:
-        log.error("can't find ifcfg file of %s", connection_uuid)
-        return False
-    ifcfg = network.IfcfgFile(ifcfg_path)
-    ifcfg.read()
-    return ifcfg.get('ONBOOT') != "no"
-
-
-def set_onboot_in_ifcfg(connection_uuid, onboot):
-    ifcfg_path = network.find_ifcfg_file([('UUID', connection_uuid)])
-    if not ifcfg_path:
-        log.error("can't find ifcfg file of %s", connection_uuid)
-        return False
-    ifcfg = network.IfcfgFile(ifcfg_path)
-    ifcfg.read()
-    ifcfg.set(('ONBOOT', "yes" if onboot else "no"))
-    ifcfg.write()

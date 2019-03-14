@@ -32,7 +32,6 @@ import threading
 import re
 import ipaddress
 
-from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _
 from pyanaconda.core.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -46,7 +45,6 @@ from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-IFCFG_FILES_DIR = "/etc/sysconfig/network-scripts"
 DEFAULT_HOSTNAME = "localhost.localdomain"
 
 network_connected = None
@@ -196,53 +194,6 @@ def get_hostname():
     return hostname
 
 
-def _ifcfg_files(directory):
-    """Get list of paths of ifcfg files in given directory."""
-    rv = []
-    for name in os.listdir(directory):
-        if name.startswith("ifcfg-"):
-            if name == "ifcfg-lo":
-                continue
-            rv.append(os.path.join(directory, name))
-    return rv
-
-
-class IfcfgFile(SimpleConfigFile):
-    def __init__(self, filename):
-        super().__init__(always_quote=True, filename=filename)
-        self._dirty = False
-
-    def read(self, filename=None):
-        self.reset()
-        SimpleConfigFile.read(self)
-        self._dirty = False
-
-    def write(self, filename=None, use_tmp=False):
-        if self._dirty or filename:
-            # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
-            # temporary file for new configuration
-            SimpleConfigFile.write(self, filename, use_tmp=use_tmp)
-            self._dirty = False
-
-    def set(self, *args):
-        for (key, data) in args:
-            if self.get(key) != data:
-                break
-        else:
-            return
-        SimpleConfigFile.set(self, *args)
-        self._dirty = True
-
-    def unset(self, *args):
-        for key in args:
-            if self.get(key):
-                self._dirty = True
-                break
-        else:
-            return
-        SimpleConfigFile.unset(self, *args)
-
-
 def dracut_setup_args(network_storage_device):
     """Dracut cmdline arguments needed to access network storage device."""
 
@@ -262,23 +213,6 @@ def dracut_setup_args(network_storage_device):
     netargs = network_proxy.GetDracutArguments(nic, target_ip, "")
 
     return netargs
-
-
-def find_ifcfg_file(values, root_path=""):
-    """Find ifcfg file specified by given values."""
-    for filepath in _ifcfg_files(os.path.normpath(root_path + IFCFG_FILES_DIR)):
-        ifcfg = IfcfgFile(filepath)
-        ifcfg.read()
-        for key, value in values:
-            if callable(value):
-                if not value(ifcfg.get(key)):
-                    break
-            else:
-                if ifcfg.get(key) != value:
-                    break
-        else:
-            return filepath
-    return None
 
 
 def ibft_iface():
