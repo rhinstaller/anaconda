@@ -19,6 +19,7 @@
 from pyanaconda.core import users
 
 from pyanaconda.modules.common.task import Task
+from pyanaconda.modules.common.structures.user import USER_GID_NOT_SET, USER_UID_NOT_SET
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -82,10 +83,10 @@ class CreateUsersTask(Task):
         for user_data in self._user_data_list:
             # UserData uses -1 for not-set uid/gid while the function takes None for not-set
             uid = None
-            if user_data.uid >= 0:
+            if user_data.uid != USER_UID_NOT_SET:
                 uid = user_data.uid
             gid = None
-            if user_data.gid >= 0:
+            if user_data.gid != USER_GID_NOT_SET:
                 gid = user_data.gid
 
             try:

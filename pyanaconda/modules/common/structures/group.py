@@ -21,6 +21,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["GroupData"]
 
+GROUP_GID_NOT_SET = -1
 
 @dbus_structure
 class GroupData(object):
@@ -28,7 +29,7 @@ class GroupData(object):
 
     def __init__(self):
         self._name = ""
-        self._gid = -1
+        self._gid = GROUP_GID_NOT_SET
 
     @property
     def name(self) -> Str:

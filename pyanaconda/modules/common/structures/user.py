@@ -21,6 +21,8 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 __all__ = ["UserData"]
 
+USER_GID_NOT_SET = -1
+USER_UID_NOT_SET = -1
 
 @dbus_structure
 class UserData(object):
@@ -28,9 +30,9 @@ class UserData(object):
 
     def __init__(self):
         self._name = ""
-        self._uid = -1
+        self._uid = USER_UID_NOT_SET
         self._groups = list()
-        self._gid = -1
+        self._gid = USER_UID_NOT_SET
         self._homedir = ""
         self._password = ""
         self._is_crypted = True
