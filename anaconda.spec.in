@@ -344,6 +344,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 14 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.40-1
+- Pull in new translations (rvykydal)
+  Related: rhbz#1684056
+
 * Tue Mar 12 2019 Radek Vykydal <rvykydal@redhat.com> - 29.19.0.39-1
 - Make SMT warning message smaller (jkonecny)
   Related: rhbz#1684056
