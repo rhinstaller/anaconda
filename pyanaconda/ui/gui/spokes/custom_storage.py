@@ -379,13 +379,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return devices
 
-    @property
-    def _currentFreeInfo(self):
-        return self._storage_playground.get_free_space()
-
     def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        self._free_space = sum(f[0] for f in self._currentFreeInfo.values())
+        self._free_space = self._storage_playground.get_disk_free_space()
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
@@ -2177,8 +2173,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
 
         dialog = DisksDialog(self.data,
+                             self._storage_playground,
                              disks=self._clearpartDevices,
-                             free=self._currentFreeInfo,
                              selected=self._device_disks)
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
@@ -2226,6 +2222,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 size_policy = SIZE_POLICY_AUTO
 
         dialog = ContainerDialog(self.data,
+                                 self._storage_playground,
                                  device_type=self._get_current_device_type(),
                                  name=container_name,
                                  raid_level=self._device_container_raid_level,
@@ -2233,9 +2230,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                  size_policy=size_policy,
                                  size=size,
                                  disks=self._clearpartDevices,
-                                 free=self._currentFreeInfo,
                                  selected=self._device_disks,
-                                 storage=self._storage_playground,
                                  exists=getattr(container, "exists", False))
 
         with self.main_window.enlightbox(dialog.window):
