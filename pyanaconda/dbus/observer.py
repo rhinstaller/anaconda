@@ -199,6 +199,11 @@ class DBusObjectObserver(DBusObserver):
     result = observer.proxy.ListConnections()
     print(result)
 
+    .. deprecated::
+
+        Use a DBus proxy to access a DBus object or DBusObserver to monitor
+        a DBus service.
+
     """
 
     def __init__(self, message_bus, service_name, object_path):

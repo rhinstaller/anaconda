@@ -148,6 +148,11 @@ class Connection(ABC):
         :param service_name: a DBus name of a service
         :param object_path: a DBus path an object
         :return: an instance of DBusObjectObserver
+
+        .. deprecated::
+
+            Use get_proxy instead.
+
         """
         return DBusObjectObserver(self, service_name, object_path)
 
