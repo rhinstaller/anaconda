@@ -20,7 +20,7 @@
 import unittest
 from mock import Mock
 
-from pyanaconda.dbus.observer import DBusCachedObserver, PropertiesCache, DBusObjectObserver, \
+from pyanaconda.dbus.observer import PropertiesCache, DBusObjectObserver, \
     DBusObserverError, DBusObserver
 
 
@@ -138,87 +138,6 @@ class DBusObserverTestCase(unittest.TestCase):
         self.assertEqual(cache.b, 20)
         self.assertEqual(cache.c, 30)
         self.assertEqual(cache.d, 40)
-
-    def cached_observer_test(self):
-        """Test the cached observer."""
-        dbus = Mock()
-        observer = DBusCachedObserver(dbus, "SERVICE", "OBJECT", ["I"])
-
-        callback = Mock()
-        observer.cached_properties_changed.connect(callback)
-
-        proxy = Mock()
-        proxy.GetAll.return_value = {"A": 1, "B": 2, "C": 3}
-        dbus.get_proxy.return_value = proxy
-
-        # Set up the observer.
-        self._setup_observer(observer)
-
-        # Enable service.
-        self._make_service_available(observer)
-        proxy.PropertiesChanged.connect.assert_called()
-        callback.assert_called_once_with(observer, {"A", "B", "C"}, set())
-        callback.reset_mock()
-
-        self.assertEqual(observer.cache.A, 1)
-        self.assertEqual(observer.cache.B, 2)
-        self.assertEqual(observer.cache.C, 3)
-
-        with self.assertRaises(AttributeError):
-            getattr(observer.cache, "D")
-
-        # Disable service.
-        self._make_service_unavailable(observer)
-
-    def cached_observer_advanced_test(self):
-        """Advanced test for the cached observer."""
-        dbus = Mock()
-        observer = DBusCachedObserver(dbus, "SERVICE", "OBJECT", ["I"])
-
-        callback = Mock()
-        observer.cached_properties_changed.connect(callback)
-
-        proxy = Mock()
-        proxy.GetAll.return_value = {}
-        dbus.get_proxy.return_value = proxy
-
-        # Set up the observer.
-        self._setup_observer(observer)
-
-        # Enable service.
-        self._make_service_available(observer)
-        proxy.PropertiesChanged.connect.assert_called()
-        callback.assert_not_called()
-        callback.reset_mock()
-
-        # Change values.
-        observer._properties_changed_callback("I", {"A": 1}, [])
-        callback.assert_called_once_with(observer, {"A"}, set())
-        callback.reset_mock()
-        self.assertEqual(observer.cache.A, 1)
-
-        with self.assertRaises(AttributeError):
-            getattr(observer.cache, "B")
-
-        observer._properties_changed_callback("I", {"A": 10, "B": 2}, [])
-        callback.assert_called_once_with(observer, {"A", "B"}, set())
-        callback.reset_mock()
-        self.assertEqual(observer.cache.A, 10)
-        self.assertEqual(observer.cache.B, 2)
-
-        observer._properties_changed_callback("I", {"B": 20}, ["A"])
-        callback.assert_called_once_with(observer, {"B"}, {"A"})
-        callback.reset_mock()
-        self.assertEqual(observer.cache.A, 10)
-        self.assertEqual(observer.cache.B, 20)
-
-        observer._properties_changed_callback("I2", {"A": 200, "B": 300}, [])
-        callback.assert_not_called()
-        self.assertEqual(observer.cache.A, 10)
-        self.assertEqual(observer.cache.B, 20)
-
-        # Disable service.
-        self._make_service_unavailable(observer)
 
     def connect_test(self):
         """Test observer connect."""
