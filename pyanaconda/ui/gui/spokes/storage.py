@@ -373,7 +373,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Hide the encryption checkbox for Blivet GUI storage configuration,
         # as Blivet GUI handles encryption per encrypted device, not globally.
-        if self._get_selected_partitioning_method() == PartitioningMethod.BLIVET_GUI:
+        # Hide it also for the interactive partitioning as CustomPartitioningSpoke
+        # provides support for encryption of mount points.
+        if self._get_selected_partitioning_method() != PartitioningMethod.AUTO:
             self._encryption_revealer.set_reveal_child(False)
             self._encrypted_checkbox.set_active(False)
         else:
