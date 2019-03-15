@@ -710,10 +710,12 @@ class StorageInterfaceTestCase(unittest.TestCase):
         ks_out = """
         fcoe --nic=eth0 --dcb --autovlan
         """
-        get_supported_devices.return_value = ["eth0"]
+        dev_info = Mock()
+        dev_info.device_name = "eth0"
+        get_supported_devices.return_value = [dev_info]
         self._test_kickstart(ks_in, ks_out)
 
-        get_supported_devices.return_value = ["eth1"]
+        dev_info.device_name = "eth1"
         self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     @patch("pyanaconda.storage.initialization.load_plugin_s390")
