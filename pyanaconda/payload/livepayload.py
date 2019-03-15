@@ -40,7 +40,7 @@ from pyanaconda.core.util import ProxyString, ProxyStringError
 from pyanaconda.core import util
 from pyanaconda.core.i18n import _
 from pyanaconda.payload import Payload
-from pyanaconda.payload.utils import version_cmp
+from pyanaconda.payload import payload_utils
 from pyanaconda.payload.errors import PayloadSetupError, PayloadInstallError
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.errors import errorHandler, ERROR_RAISE
@@ -50,7 +50,6 @@ from pyanaconda.core.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.core.constants import IMAGE_DIR, TAR_SUFFIX
 
 from blivet.size import Size
-import blivet.util
 
 from pyanaconda.anaconda_loggers import get_packaging_logger
 log = get_packaging_logger()
@@ -81,7 +80,7 @@ class LiveImagePayload(Payload):
                                     (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-        rc = blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
+        rc = payload_utils.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             raise PayloadInstallError("Failed to mount the install tree")
 
@@ -95,10 +94,7 @@ class LiveImagePayload(Payload):
         super().unsetup()
 
         # Unmount a previously mounted live tree
-        try:
-            blivet.util.umount(INSTALL_TREE)
-        except OSError:
-            pass
+        payload_utils.unmount(INSTALL_TREE)
 
     def pre_install(self):
         """ Perform pre-installation tasks. """
@@ -193,7 +189,7 @@ class LiveImagePayload(Payload):
     def post_install(self):
         """ Perform post-installation tasks. """
         progressQ.send_message(_("Performing post-installation setup tasks"))
-        blivet.util.umount(INSTALL_TREE)
+        payload_utils.unmount(INSTALL_TREE, raise_exc=True)
 
         super().post_install()
 
@@ -220,8 +216,8 @@ class LiveImagePayload(Payload):
                                conf.bootloader.efi_dir))
 
         self._kernel_version_list = sorted((f.split("/")[-1][8:] for f in files
-                                         if os.path.isfile(f) and "-rescue-" not in f),
-                                         key=functools.cmp_to_key(version_cmp))
+                                           if os.path.isfile(f) and "-rescue-" not in f),
+                                           key=functools.cmp_to_key(payload_utils.version_cmp))
 
     @property
     def kernel_version_list(self):
@@ -439,7 +435,7 @@ class LiveImageKSPayload(LiveImagePayload):
         # Mount the image and check to see if it is a LiveOS/*.img
         # style squashfs image. If so, move it to IMAGE_DIR and mount the real
         # root image on INSTALL_TREE
-        rc = blivet.util.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
+        rc = payload_utils.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             log.error("mount error (%s) with %s", rc, self.image_path)
             exn = PayloadInstallError("mount error %s" % rc)
@@ -469,7 +465,7 @@ class LiveImageKSPayload(LiveImagePayload):
                     raise exn
 
             img_file = IMAGE_DIR+"/LiveOS/" + os.path.basename(sorted(img_files)[0])
-            rc = blivet.util.mount(img_file, INSTALL_TREE, fstype="auto", options="ro")
+            rc = payload_utils.mount(img_file, INSTALL_TREE, fstype="auto", options="ro")
             if rc != 0:
                 log.error("mount error (%s) with %s", rc, img_file)
                 exn = PayloadInstallError("mount error %s with %s" % (rc, img_file))
@@ -540,7 +536,7 @@ class LiveImageKSPayload(LiveImagePayload):
         super().post_install()
 
         if os.path.exists(IMAGE_DIR + "/LiveOS"):
-            blivet.util.umount(IMAGE_DIR)
+            payload_utils.unmount(IMAGE_DIR, raise_exc=True)
 
         if os.path.exists(self.image_path) and not self.data.method.url.startswith("file://"):
             os.unlink(self.image_path)
@@ -569,4 +565,4 @@ class LiveImageKSPayload(LiveImagePayload):
 
             # Strip out vmlinuz- from the names
             return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                          key=functools.cmp_to_key(version_cmp))
+                          key=functools.cmp_to_key(payload_utils.version_cmp))

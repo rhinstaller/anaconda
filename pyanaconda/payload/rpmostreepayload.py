@@ -29,13 +29,13 @@ from pyanaconda.core.i18n import _
 from pyanaconda.localization import get_locale_map_from_ostree, strip_codeset_and_modifier
 from pyanaconda.progress import progressQ
 from pyanaconda.payload import Payload
+from pyanaconda.payload import utils as payload_utils
 from pyanaconda.payload.errors import PayloadInstallError
 from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.glib import format_size_full, create_new_context, Variant, GError
 
 from blivet.size import Size
-from blivet.util import umount
 
 import gi
 gi.require_version("Gio", "2.0")
@@ -398,7 +398,7 @@ class RPMOSTreePayload(Payload):
 
         for mount in reversed(self._internal_mounts):
             try:
-                umount(mount)
+                payload_utils.unmount(mount)
             except CalledProcessError as e:
                 log.debug("unmounting %s failed: %s", mount, str(e))
 
