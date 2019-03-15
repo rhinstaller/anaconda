@@ -37,8 +37,7 @@ from pyanaconda.modules.storage.partitioning.noninteractive_partitioning import 
 from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks, \
     schedule_partitions
 from pyanaconda.platform import platform
-from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size, get_pbkdf_args, \
-    lookup_alias
+from pyanaconda.storage.utils import suggest_swap_size, get_pbkdf_args, lookup_alias
 
 log = get_module_logger(__name__)
 
@@ -55,6 +54,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         """
         super().__init__(storage)
         self._data = data
+        self._disk_free_space = Size(0)
 
     def _configure_partitioning(self, storage):
         """Configure the partitioning.
@@ -64,6 +64,10 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
         log.debug("Executing the custom partitioning.")
         data = self._data
 
+        # Get the available disk space.
+        self._disk_free_space = storage.get_disk_free_space()
+
+        # Start the partitioning.
         self._execute_reqpart(storage, data)
         self._execute_partition(storage, data)
         self._execute_raid(storage, data)
@@ -153,7 +157,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             ty = "swap"
             partition_data.mountpoint = ""
             if partition_data.recommended or partition_data.hibernation:
-                disk_space = get_available_disk_space(storage)
+                disk_space = self._disk_free_space
                 size = suggest_swap_size(
                     hibernation=partition_data.hibernation,
                     disk_space=disk_space
@@ -876,7 +880,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
             ty = "swap"
             logvol_data.mountpoint = ""
             if logvol_data.recommended or logvol_data.hibernation:
-                disk_space = get_available_disk_space(storage)
+                disk_space = self._disk_free_space
                 size = suggest_swap_size(
                     hibernation=logvol_data.hibernation,
                     disk_space=disk_space
