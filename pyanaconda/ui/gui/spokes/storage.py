@@ -767,7 +767,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         else:
             description = disk.description
 
-        free = self.storage.get_free_space(disks=[disk])[disk.name][0]
+        free = self.storage.get_disk_free_space([disk])
 
         overview = AnacondaWidgets.DiskOverview(description,
                                                 kind,
@@ -967,9 +967,8 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("Need disklabel: %s have: %s", ", ".join(platform_labels),
                                                      ", ".join(disk_labels))
         else:
-            free_space = self.storage.get_free_space(disks=disks)
-            disk_free = sum(f[0] for f in free_space.values())
-            fs_free = sum(f[1] for f in free_space.values())
+            disk_free = self.storage.get_disk_free_space(disks)
+            fs_free = self.storage.get_disk_reclaimable_space(disks)
 
         disks_size = sum((d.size for d in disks), Size(0))
         sw_space = self.payload.space_required

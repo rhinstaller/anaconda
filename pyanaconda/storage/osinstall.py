@@ -311,6 +311,8 @@ class InstallerStorage(Blivet):
     def get_disk_free_space(self, disks=None):
         """Get total free space on the given disks.
 
+        Calculates free space available for use.
+
         :param disks: a list of disks or None
         :return: a total size
         """
@@ -323,6 +325,25 @@ class InstallerStorage(Blivet):
 
         # Calculate the total free space.
         return sum((disk_free for disk_free, fs_free in snapshot.values()), Size(0))
+
+    def get_disk_reclaimable_space(self, disks=None):
+        """Get total reclaimable space on the given disks.
+
+        Calculates free space unavailable but reclaimable
+        from existing partitions.
+
+        :param disks: a list of disks or None
+        :return: a total size
+        """
+        # Use all disks in the device tree by default.
+        if disks is None:
+            disks = self.disks
+
+        # Get the dictionary of free spaces for each disk.
+        snapshot = self.get_free_space(disks)
+
+        # Calculate the total reclaimable free space.
+        return sum((fs_free for disk_free, fs_free in snapshot.values()), Size(0))
 
     @property
     def free_space_snapshot(self):
