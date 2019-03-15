@@ -28,10 +28,11 @@ blivet_log.info(sys.argv[0])
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.storage.kickstart import update_storage_ksdata
 from pyanaconda import platform as _platform
-from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser
-from pyanaconda.storage.execution import do_kickstart_storage
-from pykickstart.errors import KickstartError
+from pyanaconda.storage.execution import configure_storage
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
+
 
 class FailedTest(Exception):
     def __init__(self, got, expected):
@@ -191,8 +192,6 @@ class TestCaseComponent(object):
         return None
 
     def _run(self):
-        from blivet.errors import StorageError
-
         # Set up disks/blivet.
         try:
             # Parse the kickstart using anaconda's parser, since it has more
@@ -203,11 +202,11 @@ class TestCaseComponent(object):
 
             self.setupDisks(parser.handler)
 
-            do_kickstart_storage(self._storage, parser.handler)
+            configure_storage(self._storage, parser.handler)
             update_storage_ksdata(self._storage, parser.handler)
             self._storage.devicetree.teardown_all()
             self._storage.do_it()
-        except (BootLoaderError, KickstartError, StorageError) as e:
+        except (StorageConfigurationError, BootloaderConfigurationError) as e:
             # anaconda handles expected kickstart errors (like parsing busted
             # input files) by printing the error and quitting.  For testing, an
             # error might be expected so we should compare the result here with
