@@ -402,7 +402,7 @@ class Realm(RemovedCommand):
 class ClearPart(RemovedCommand):
     def __str__(self):
         storage_module_proxy = STORAGE.get_proxy()
-        return storage_module_proxy.GenerateTemporaryKickstart()
+        return storage_module_proxy.GenerateKickstart()
 
 class Firewall(RemovedCommand):
     def __init__(self, *args, **kwargs):
