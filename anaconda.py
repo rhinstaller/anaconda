@@ -588,9 +588,8 @@ if __name__ == "__main__":
     enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
-    from pyanaconda.network import init_nm_client, initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
+    from pyanaconda.network import initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
 
-    init_nm_client()
     initialize_network()
     # If required by user, wait for connection before starting the installation.
     if opts.waitfornet:

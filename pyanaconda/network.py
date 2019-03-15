@@ -50,7 +50,7 @@ DEFAULT_HOSTNAME = "localhost.localdomain"
 network_connected = None
 network_connected_condition = threading.Condition()
 
-nm_client = None
+_nm_client = None
 
 __all__ = ["can_overwrite_configuration", "get_team_devices", "get_supported_devices",
            "status_message", "wait_for_connectivity", "wait_for_connecting_NM_thread",
@@ -60,15 +60,16 @@ __all__ = ["can_overwrite_configuration", "get_team_devices", "get_supported_dev
            "dracut_setup_args"]
 
 
-def init_nm_client():
-    """Instantiate NetworkManager client single instance for the module."""
+def get_nm_client():
+    """Get NetworkManager Client."""
     if conf.system.provides_system_bus:
-        global nm_client
-        if not nm_client:
-            nm_client = NM.Client.new(None)
+        global _nm_client
+        if not _nm_client:
+            _nm_client = NM.Client.new(None)
+        return _nm_client
     else:
         log.debug("NetworkManager client not available (system does not provide it).")
-
+        return None
 
 def check_ip_address(address, version=None):
     """Check if the given IP address is valid in given version if set.
@@ -121,7 +122,7 @@ def get_ip_addresses():
     """Return a list of IP addresses for all active devices."""
     ipv4_addresses = []
     ipv6_addresses = []
-    for device in get_activated_devices(nm_client):
+    for device in get_activated_devices(get_nm_client()):
         ipv4_addresses += get_device_ip_addresses(device, version=4)
         ipv6_addresses += get_device_ip_addresses(device, version=6)
     # prefer IPv4 addresses to IPv6 addresses
@@ -172,7 +173,7 @@ def get_hostname():
     hostname = None
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
-    for device in get_activated_devices(nm_client):
+    for device in get_activated_devices(get_nm_client()):
         addrs = (get_device_ip_addresses(device, version=4) +
                  get_device_ip_addresses(device, version=6))
         for ipaddr in addrs:
@@ -329,7 +330,7 @@ def initialize_network():
 def _set_ntp_servers_from_dhcp():
     """Set NTP servers of timezone module from dhcp if not set by kickstart."""
     timezone_proxy = TIMEZONE.get_proxy()
-    ntp_servers = get_ntp_servers_from_dhcp(nm_client)
+    ntp_servers = get_ntp_servers_from_dhcp(get_nm_client())
     log.info("got %d NTP servers from DHCP", len(ntp_servers))
     hostnames = []
     for server_address in ntp_servers:

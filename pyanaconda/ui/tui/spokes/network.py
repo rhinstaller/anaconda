@@ -206,8 +206,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
 
-        self.nm_client = None
-        if conf.system.provides_system_bus:
+        self.nm_client = network.get_nm_client()
+        if not self.nm_client and conf.system.provides_system_bus:
             self.nm_client = NM.Client.new(None)
 
         self._container = None
