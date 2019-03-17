@@ -18,7 +18,7 @@
 #
 from pyanaconda.dbus.identifier import DBusInterfaceIdentifier
 from pyanaconda.modules.common.constants.namespaces import ANACONDA_NAMESPACE, BOSS_NAMESPACE, \
-    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE
+    MODULES_NAMESPACE, USERS_NAMESPACE, PARTITIONING_NAMESPACE, STORAGE_NAMESPACE
 
 KICKSTART_MODULE = DBusInterfaceIdentifier(
     namespace=MODULES_NAMESPACE
@@ -41,4 +41,9 @@ PARTITIONING = DBusInterfaceIdentifier(
 TASK = DBusInterfaceIdentifier(
     namespace=ANACONDA_NAMESPACE,
     basename="Task"
+)
+
+DEVICE_TREE = DBusInterfaceIdentifier(
+    namespace=STORAGE_NAMESPACE,
+    basename="DeviceTree"
 )
