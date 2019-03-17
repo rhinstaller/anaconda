@@ -1786,9 +1786,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
-        if len(self._storage_playground.devicetree.actions.find()) > 0:
-            dialog = ActionSummaryDialog(self.data)
-            dialog.refresh(self._storage_playground.devicetree.actions.find())
+        actions = self._storage_playground.devicetree.actions.find()
+
+        if actions:
+            dialog = ActionSummaryDialog(self.data, actions)
+            dialog.refresh()
+
             with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
