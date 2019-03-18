@@ -189,39 +189,3 @@ class DBusServiceIdentifierTestCase(unittest.TestCase):
         service.get_observer(obj.object_path)
         bus.get_observer.assert_called_with("a.b.c", "/a/b/c/d")
         bus.reset_mock()
-
-    def get_cached_observer_test(self):
-        """Test getting a cached observer."""
-        bus = Mock()
-        namespace = ("a", "b", "c")
-
-        service = DBusServiceIdentifier(
-            namespace=namespace,
-            message_bus=bus
-        )
-
-        obj = DBusObjectIdentifier(
-            basename="object",
-            namespace=namespace
-        )
-
-        interface = DBusInterfaceIdentifier(
-            basename="interface",
-            namespace=namespace
-        )
-
-        service.get_cached_observer()
-        bus.get_cached_observer.assert_called_with("a.b.c", "/a/b/c", ["a.b.c"])
-        bus.reset_mock()
-
-        service.get_cached_observer(obj.object_path)
-        bus.get_cached_observer.assert_called_with("a.b.c", "/a/b/c/object", None)
-        bus.reset_mock()
-
-        service.get_cached_observer(interface_names=[interface.interface_name])
-        bus.get_cached_observer.assert_called_with("a.b.c", "/a/b/c", ["a.b.c.interface"])
-        bus.reset_mock()
-
-        service.get_cached_observer(obj.object_path, interface_names=[interface.interface_name])
-        bus.get_cached_observer.assert_called_with("a.b.c", "/a/b/c/object", ["a.b.c.interface"])
-        bus.reset_mock()
