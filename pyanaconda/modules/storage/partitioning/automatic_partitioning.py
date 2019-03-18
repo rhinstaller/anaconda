@@ -30,7 +30,7 @@ from pyanaconda.modules.storage.partitioning.schedule import get_candidate_disks
 from pyanaconda.platform import platform
 from pyanaconda.storage.partitioning import get_full_partitioning_requests, \
     get_default_partitioning
-from pyanaconda.storage.utils import get_available_disk_space, suggest_swap_size
+from pyanaconda.storage.utils import suggest_swap_size
 
 log = get_module_logger(__name__)
 
@@ -99,7 +99,7 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # Update the size of swap.
         for request in requests:
             if request.fstype == "swap":
-                disk_space = get_available_disk_space(storage)
+                disk_space = storage.get_disk_free_space()
                 request.size = suggest_swap_size(disk_space=disk_space)
                 break
 

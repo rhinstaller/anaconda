@@ -40,7 +40,7 @@ from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE, \
+    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, \
     DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.util import lowerASCII
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
@@ -379,13 +379,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return devices
 
-    @property
-    def _currentFreeInfo(self):
-        return self._storage_playground.get_free_space(clear_part_type=CLEAR_PARTITIONS_NONE)
-
     def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        self._free_space = sum(f[0] for f in self._currentFreeInfo.values())
+        self._free_space = self._storage_playground.get_disk_free_space()
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
@@ -2154,10 +2150,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._do_refresh()
 
     def on_summary_clicked(self, button):
-        dialog = SelectedDisksDialog(self.data)
-        dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
-                       showRemove=False, setBoot=False)
+        disks = self._clearpartDevices
+        dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False, set_boot=False)
+
         with self.main_window.enlightbox(dialog.window):
+            dialog.refresh()
             dialog.run()
 
     def on_configure_clicked(self, button):
@@ -2176,8 +2173,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
 
         dialog = DisksDialog(self.data,
+                             self._storage_playground,
                              disks=self._clearpartDevices,
-                             free=self._currentFreeInfo,
                              selected=self._device_disks)
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
@@ -2225,6 +2222,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 size_policy = SIZE_POLICY_AUTO
 
         dialog = ContainerDialog(self.data,
+                                 self._storage_playground,
                                  device_type=self._get_current_device_type(),
                                  name=container_name,
                                  raid_level=self._device_container_raid_level,
@@ -2232,9 +2230,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                  size_policy=size_policy,
                                  size=size,
                                  disks=self._clearpartDevices,
-                                 free=self._currentFreeInfo,
                                  selected=self._device_disks,
-                                 storage=self._storage_playground,
                                  exists=getattr(container, "exists", False))
 
         with self.main_window.enlightbox(dialog.window):

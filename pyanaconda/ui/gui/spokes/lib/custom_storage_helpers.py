@@ -414,17 +414,16 @@ class DisksDialog(GUIObject):
     mainWidgetName = "disks_dialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
-    def __init__(self, *args, **kwargs):
-        self._disks = kwargs.pop("disks")
-        free = kwargs.pop("free")
-        self.selected = kwargs.pop("selected")[:]
-        super().__init__(*args, **kwargs)
+    def __init__(self, data, storage, disks, selected):
+        super().__init__(data)
+        self._disks = disks
+        self.selected = selected
         self._store = self.builder.get_object("disk_store")
         # populate the store
         for disk in self._disks:
             self._store.append(["%s (%s)" % (disk.description, disk.serial),
                                 str(disk.size),
-                                str(free[disk.name][0]),
+                                str(storage.get_disk_free_space([disk])),
                                 disk.name,
                                 disk.id])
 
@@ -474,14 +473,14 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
     # If the user enters a smaller size, the GUI changes it to this value
     MIN_SIZE_ENTRY = Size("1 MiB")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, data, storage, **kwargs):
+        GUIObject.__init__(self, data)
         # these are all absolutely required. not getting them is fatal.
+        self.storage = storage
         self._disks = kwargs.pop("disks")
-        free = kwargs.pop("free")
         self.selected = kwargs.pop("selected")[:]
         self.name = kwargs.pop("name") or "" # make sure it's a string
         self.device_type = kwargs.pop("device_type")
-        self.storage = kwargs.pop("storage")
 
         # these are less critical
         self.raid_level = kwargs.pop("raid_level", None) or None # not ""
@@ -492,7 +491,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self.size = kwargs.pop("size", Size(0))
 
         self._error = None
-        GUIObject.__init__(self, *args, **kwargs)
 
         self._grabObjects()
         GUIDialogInputCheckHandler.__init__(self, self._save_button)
@@ -512,7 +510,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         for disk in self._disks:
             self._store.append([disk.description,
                                 str(disk.size),
-                                str(free[disk.name][0]),
+                                str(storage.get_disk_free_space([disk])),
                                 disk.name,
                                 disk.id])
 

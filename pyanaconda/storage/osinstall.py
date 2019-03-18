@@ -77,7 +77,6 @@ class InstallerStorage(Blivet):
 
         self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
-        self._free_space_snapshot = None
 
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
@@ -282,14 +281,19 @@ class InstallerStorage(Blivet):
     def root_device(self):
         return self.fsset.root_device
 
-    @property
-    def file_system_free_space(self):
-        """ Combined free space in / and /usr as :class:`blivet.size.Size`. """
-        mountpoints = ["/", "/usr"]
+    def get_file_system_free_space(self, mount_points=("/", "/usr")):
+        """Get total file system free space on the given mount points.
+
+        Calculates total free space in / and /usr, by default.
+
+        :param mount_points: a list of mount points
+        :return: a total size
+        """
         free = Size(0)
         btrfs_volumes = []
-        for mountpoint in mountpoints:
-            device = self.mountpoints.get(mountpoint)
+
+        for mount_point in mount_points:
+            device = self.mountpoints.get(mount_point)
             if not device:
                 continue
 
@@ -311,6 +315,8 @@ class InstallerStorage(Blivet):
     def get_disk_free_space(self, disks=None):
         """Get total free space on the given disks.
 
+        Calculates free space available for use.
+
         :param disks: a list of disks or None
         :return: a total size
         """
@@ -319,88 +325,29 @@ class InstallerStorage(Blivet):
             disks = self.disks
 
         # Get the dictionary of free spaces for each disk.
-        snapshot = super().get_free_space(disks)
+        snapshot = self.get_free_space(disks)
 
         # Calculate the total free space.
         return sum((disk_free for disk_free, fs_free in snapshot.values()), Size(0))
 
-    @property
-    def free_space_snapshot(self):
-        # if no snapshot is available, do it now and return it
-        self._free_space_snapshot = self._free_space_snapshot or self.get_free_space()
+    def get_disk_reclaimable_space(self, disks=None):
+        """Get total reclaimable space on the given disks.
 
-        return self._free_space_snapshot
+        Calculates free space unavailable but reclaimable
+        from existing partitions.
 
-    def create_free_space_snapshot(self):
-        self._free_space_snapshot = self.get_free_space()
-
-        return self._free_space_snapshot
-
-    def get_free_space(self, disks=None, clear_part_type=None):  # pylint: disable=arguments-differ
-        """ Return a dict with free space info for each disk.
-
-             The dict values are 2-tuples: (disk_free, fs_free). fs_free is
-             space available by shrinking filesystems. disk_free is space not
-             allocated to any partition.
-
-             disks and clear_part_type allow specifying a set of disks other than
-             self.disks and a clear_part_type value other than
-             self.config.clear_part_type.
-
-             :keyword disks: overrides :attr:`disks`
-             :type disks: list
-             :keyword clear_part_type: overrides :attr:`self.config.clear_part_type`
-             :type clear_part_type: int
-             :returns: dict with disk name keys and tuple (disk, fs) free values
-             :rtype: dict
-
-            .. note::
-
-                The free space values are :class:`blivet.size.Size` instances.
-
+        :param disks: a list of disks or None
+        :return: a total size
         """
-
-        # FIXME: we should definitely do something with this method -- it takes
-        # different parameters than get_free_space from Blivet and does
-        # different things too
-
+        # Use all disks in the device tree by default.
         if disks is None:
             disks = self.disks
 
-        if clear_part_type is None:
-            clear_part_type = self.config.clear_part_type
+        # Get the dictionary of free spaces for each disk.
+        snapshot = self.get_free_space(disks)
 
-        free = {}
-        for disk in disks:
-            should_clear = self.should_clear(disk, clear_part_type=clear_part_type,
-                                             clear_part_disks=[disk.name])
-            if should_clear:
-                free[disk.name] = (disk.size, Size(0))
-                continue
-
-            disk_free = Size(0)
-            fs_free = Size(0)
-            if disk.partitioned:
-                disk_free = disk.format.free
-                for partition in (p for p in self.partitions if p.disk == disk):
-                    # only check actual filesystems since lvm &c require a bunch of
-                    # operations to translate free filesystem space into free disk
-                    # space
-                    should_clear = self.should_clear(partition,
-                                                     clear_part_type=clear_part_type,
-                                                     clear_part_disks=[disk.name])
-                    if should_clear:
-                        disk_free += partition.size
-                    elif hasattr(partition.format, "free"):
-                        fs_free += partition.format.free
-            elif hasattr(disk.format, "free"):
-                fs_free = disk.format.free
-            elif disk.format.type is None:
-                disk_free = disk.size
-
-            free[disk.name] = (disk_free, fs_free)
-
-        return free
+        # Calculate the total reclaimable free space.
+        return sum((fs_free for disk_free, fs_free in snapshot.values()), Size(0))
 
     def reset(self, cleanup_only=False):
         """ Reset storage configuration to reflect actual system state.

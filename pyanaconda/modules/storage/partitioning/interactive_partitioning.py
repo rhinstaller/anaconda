@@ -41,7 +41,6 @@ class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):
 
     def _run(self, storage):
         """Do the partitioning."""
-        self._create_free_space_snapshot(storage)
         self._prepare_bootloader(storage)
         self._configure_partitioning(storage)
         self._update_size_policy(storage)

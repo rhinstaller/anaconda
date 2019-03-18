@@ -37,7 +37,6 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
     def _run(self, storage):
         """Do the partitioning."""
         self._clear_partitions(storage)
-        self._create_free_space_snapshot(storage)
         self._prepare_bootloader(storage)
         self._configure_partitioning(storage)
         self._setup_bootloader(storage)
@@ -65,15 +64,6 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         # Check the usable disks.
         if not any(d for d in storage.disks if not d.format.hidden and not d.protected):
             raise NoDisksError("No usable disks.")
-
-    def _create_free_space_snapshot(self, storage):
-        """Clear partitions.
-
-        Snapshot free space now, so that we know how much we had available.
-
-        :param storage: an instance of Blivet
-        """
-        storage.create_free_space_snapshot()
 
     def _prepare_bootloader(self, storage):
         """Prepare the bootloader.
