@@ -1878,6 +1878,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # TODO: use instance of a class with properly named attributes
         dev_info = {"min_luks_entropy": crypto.MIN_CREATE_ENTROPY}
 
+        # set the default luks version
+        dev_info["luks_version"] = self.storage.default_luks_version
+
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
         dev_info["mountpoint"] = dialog.mountpoint
