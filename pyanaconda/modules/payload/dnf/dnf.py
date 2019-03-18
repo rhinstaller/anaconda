@@ -21,7 +21,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import PAYLOAD_DEFAULT
 from pyanaconda.modules.payload.dnf.dnf_interface import DNFHandlerInterface
-from pyanaconda.modules.payload.payload_data import PayloadData
+from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -32,24 +32,18 @@ class DNFHandlerModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
-        self._payload_data = PayloadData()
+        self._packages_handler = PackagesHandlerModule()
 
     def publish(self):
         """Publish the module."""
+        self._packages_handler.publish()
+
         DBus.publish_object(PAYLOAD_DEFAULT.object_path, DNFHandlerInterface(self))
-
-    def packages_list(self):
-        return self._packages_data.package_list
-
-    def set_package_list(self, package_list):
-        self._packages_data.package_list = package_list
-        self.package_list_changed.emit()
-        log.debug("Package list is set to '%s'.", package_list)
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
-        pass
+        self._packages_handler.process_kickstart(data)
 
-    def setup_kickstart(self):
+    def setup_kickstart(self, data):
         """Setup the kickstart data."""
-        pass
+        self._packages_handler.setup_kickstart(data)
