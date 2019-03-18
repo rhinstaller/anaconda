@@ -106,3 +106,17 @@ class NetworkDeviceInfo(object):
     @device_type.setter
     def device_type(self, device_type: Int):
         self._device_type = device_type
+
+    def set_from_nm_device(self, device):
+        """Set the object from NetworkManager Device object.
+
+        :param device: NetworkManager device object
+        :type device: NMDevice
+        """
+        self._device_name = device.get_iface()
+        self._device_type = device.get_device_type()
+        try:
+            hw_address = device.get_permanent_hw_address()
+        except AttributeError:
+            hw_address = device.get_hw_address()
+        self.hw_address = hw_address

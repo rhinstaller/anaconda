@@ -417,13 +417,10 @@ class NetworkModule(KickstartModule):
             return supported_devices
 
         for device in self.nm_client.get_devices():
-            dev_type = device.get_device_type()
-            if dev_type not in supported_device_types:
+            if device.get_device_type() not in supported_device_types:
                 continue
             dev_info = NetworkDeviceInfo()
-            dev_info.device_type = dev_type
-            dev_info.device_name = device.get_iface()
-            dev_info.hw_address = device.get_permanent_hw_address() or device.get_hw_address()
+            dev_info.set_from_nm_device(device)
             supported_devices.append(dev_info)
 
         return supported_devices
