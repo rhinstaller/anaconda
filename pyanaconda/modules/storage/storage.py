@@ -149,11 +149,7 @@ class StorageModule(KickstartModule):
             self.storage.set_default_fstype(data.autopart.fstype)
             self.storage.set_default_boot_fstype(data.autopart.fstype)
 
-    def generate_temporary_kickstart(self):
-        """Return the temporary kickstart string."""
-        return self.generate_kickstart(skip_unsupported=True)
-
-    def generate_kickstart(self, skip_unsupported=False):  # pylint: disable=arguments-differ
+    def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
