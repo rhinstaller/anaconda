@@ -64,9 +64,8 @@ from pyanaconda.core.timer import Timer
 from pyanaconda.storage.kickstart import reset_custom_storage_data
 
 from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
+from blivet.devices import MultipathDevice, ZFCPDiskDevice, NVDIMMNamespaceDevice
 from blivet.formats.disklabel import DiskLabel
-from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -84,7 +83,7 @@ from pyanaconda.screen_access import sam
 from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
     BootloaderConfigurationError
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER, AUTO_PARTITIONING, NVDIMM
+    BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.livepayload import LiveImagePayload
 
@@ -435,50 +434,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         threadMgr.add(AnacondaThread(name=constants.THREAD_EXECUTE_STORAGE,
                                      target=self._do_execute))
 
-        # Get the selected disks.
-        selected_disks = filter_disks_by_names(
-            disks=get_available_disks(self.storage.devicetree),
-            names=self._selected_disks
-        )
-
-        # Register iSCSI to kickstart data
-        iscsi_devices = []
-
-        # Find all selected disks and add all iscsi disks to iscsi_devices list
-        for d in selected_disks:
-            # Get parents of a multipath devices
-            if isinstance(d, MultipathDevice):
-                for parent_dev in d.parents:
-                    if (isinstance(parent_dev, iScsiDiskDevice)
-                        and not parent_dev.ibft
-                        and not parent_dev.offload):
-                        iscsi_devices.append(parent_dev)
-            # Add no-ibft iScsiDiskDevice. IBFT disks are added automatically so there is
-            # no need to have them in KS.
-            elif isinstance(d, iScsiDiskDevice) and not d.ibft and not d.offload:
-                iscsi_devices.append(d)
-
-        if iscsi_devices:
-            self.data.iscsiname.iscsiname = iscsi.initiator
-            # Remove the old iscsi data information and generate new one
-            self.data.iscsi.iscsi = []
-            for device in iscsi_devices:
-                iscsi_data = self._create_iscsi_data(device)
-                for saved_iscsi in self.data.iscsi.iscsi:
-                    if (iscsi_data.ipaddr == saved_iscsi.ipaddr and
-                        iscsi_data.target == saved_iscsi.target and
-                        iscsi_data.port == saved_iscsi.port):
-                        break
-                else:
-                    self.data.iscsi.iscsi.append(iscsi_data)
-
-        # Update kickstart data for NVDIMM devices used in GUI.
-        selected_nvdimm_namespaces = [d.devname for d in selected_disks
-                                      if isinstance(d, NVDIMMNamespaceDevice)]
-
-        nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
-        nvdimm_proxy.SetNamespacesToUse(selected_nvdimm_namespaces)
-
     def _do_execute(self):
         self._ready = False
         hubQ.send_not_ready(self.__class__.__name__)
@@ -527,27 +482,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             reset_custom_storage_data(self.data)
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
-
-    def _create_iscsi_data(self, device):
-        from pyanaconda.kickstart import AnacondaKSHandler
-        handler = AnacondaKSHandler()
-        # pylint: disable=E1101
-        iscsi_data = handler.IscsiData()
-        dev_node = device.node
-        iscsi_data.ipaddr = dev_node.address
-        iscsi_data.target = dev_node.name
-        iscsi_data.port = dev_node.port
-        # Bind interface to target
-        if iscsi.ifaces:
-            iscsi_data.iface = iscsi.ifaces[dev_node.iface]
-
-        if dev_node.username and dev_node.password:
-            iscsi_data.user = dev_node.username
-            iscsi_data.password = dev_node.password
-        if dev_node.r_username and dev_node.r_password:
-            iscsi_data.user_in = dev_node.r_username
-            iscsi_data.password_in = dev_node.r_password
-        return iscsi_data
 
     @property
     def completed(self):
