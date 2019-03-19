@@ -35,12 +35,14 @@ from pyanaconda.modules.network.device_configuration import DeviceConfigurations
 from pyanaconda.modules.network.nm_client import get_device_name_from_network_data, devices_ignore_ipv6, \
     get_connections_dump
 from pyanaconda.modules.network.ifcfg import get_ifcfg_file_of_device, find_ifcfg_uuid_of_device, \
-    get_dracut_arguments_from_ifcfg, get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content
+    get_dracut_arguments_from_ifcfg, get_kickstart_network_data, get_ifcfg_file, get_ifcfg_files_content, \
+    update_onboot_value
 from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
     ConsolidateInitramfsConnectionsTask, SetRealOnbootValuesFromKickstartTask, \
     DumpMissingIfcfgFilesTask
 from pyanaconda.modules.network.utils import get_default_route_iface
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
 
 import gi
 gi.require_version("NM", "1.0")
@@ -359,7 +361,7 @@ class NetworkModule(KickstartModule):
         if not ifaces:
             return
         for nd in network_data:
-            supported_devices = self.get_supported_devices()
+            supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
             device_name = get_device_name_from_network_data(self.nm_client,
                                                             nd, supported_devices, self.bootif)
             if device_name in ifaces:
@@ -403,9 +405,48 @@ class NetworkModule(KickstartModule):
         return self.publish_task(NETWORK.namespace, task, NetworkInitializationTaskInterface)
 
     def get_supported_devices(self):
-        """Get names of existing supported devices on the system."""
-        return [device.get_iface() for device in self.nm_client.get_devices()
-                if device.get_device_type() in supported_device_types]
+        """Get information about existing supported devices on the system.
+
+        :return: list of objects describing found supported devices
+        :rtype: list(NetworkDeviceInfo)
+        """
+        # TODO guard on system (provides_system_bus)
+        supported_devices = []
+        if not self.nm_available:
+            log.debug("Supported devices can't be determined.")
+            return supported_devices
+
+        for device in self.nm_client.get_devices():
+            if device.get_device_type() not in supported_device_types:
+                continue
+            dev_info = NetworkDeviceInfo()
+            dev_info.set_from_nm_device(device)
+            supported_devices.append(dev_info)
+
+        return supported_devices
+
+    def get_activated_interfaces(self):
+        """Get activated network interfaces.
+
+        Device is considered as activated if it has an active network (NM)
+        connection.
+
+        :return: list of names of devices having active network connection
+        :rtype: list(str)
+        """
+        # TODO guard on system (provides_system_bus)
+        activated_ifaces = []
+        if not self.nm_available:
+            log.debug("Activated interfaces can't be determined.")
+            return activated_ifaces
+
+        for ac in self.nm_client.get_active_connections():
+            if ac.get_state() != NM.ActiveConnectionState.ACTIVATED:
+                continue
+            for device in ac.get_devices():
+                activated_ifaces.append(device.get_ip_iface() or device.get_iface())
+
+        return activated_ifaces
 
     @property
     def bootif(self):
@@ -445,7 +486,7 @@ class NetworkModule(KickstartModule):
 
         :returns: DBus path of the task applying the kickstart
         """
-        supported_devices = self.get_supported_devices()
+        supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = ApplyKickstartTask(self.nm_client,
                                   self._original_network_data,
                                   supported_devices,
@@ -466,7 +507,7 @@ class NetworkModule(KickstartModule):
 
         :returns: DBus path of the task setting the values
         """
-        supported_devices = self.get_supported_devices()
+        supported_devices = [dev_info.device_name for dev_info in self.get_supported_devices()]
         task = SetRealOnbootValuesFromKickstartTask(self.nm_client,
                                                     self._original_network_data,
                                                     supported_devices,
@@ -567,3 +608,32 @@ class NetworkModule(KickstartModule):
         if self.nm_available:
             for line in get_connections_dump(self.nm_client).splitlines():
                 log.debug(line)
+
+    def set_connection_onboot_value(self, uuid, onboot):
+        """Sets ONBOOT value of connection given by uuid.
+
+        The value is stored in ifcfg file because setting the value in
+        NetworkManager connection ('autoconnect') to True could cause
+        activating of the connection.
+
+        :param uuid: UUID of the connection to be set
+        :param onboot: value of ONBOOT for the connection
+        """
+        return update_onboot_value(uuid, onboot)
+
+    def get_connection_onboot_value(self, uuid):
+        """Gets ONBOOT value of connection given by uuid.
+
+        The value is stored in ifcfg file because setting the value in
+        NetworkManager connection ('autoconnect') to True could cause
+        activating of the connection.
+
+        :param uuid: UUID of the connection
+        :return: ONBOOT value
+        """
+        ifcfg = get_ifcfg_file([('UUID', uuid)])
+        if not ifcfg:
+            log.error("Can't get ONBOOT value for connection %s", uuid)
+            return False
+        ifcfg.read()
+        return ifcfg.get('ONBOOT') != "no"

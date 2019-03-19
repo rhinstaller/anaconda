@@ -67,3 +67,56 @@ class NetworkDeviceConfiguration(object):
 
     def __eq__(self, other):
         return (self._device_name, self._connection_uuid) == (other.device_name, other.connection_uuid)
+
+
+@dbus_structure
+class NetworkDeviceInfo(object):
+    """Holds information about network device."""
+
+    DEVICE_TYPE_UNKNOWN = 0
+
+    def __init__(self):
+        self._device_name = ""
+        self._hw_address = ""
+        self._device_type = self.DEVICE_TYPE_UNKNOWN
+
+    @property
+    def device_name(self) -> Str:
+        """Name of the network device."""
+        return self._device_name
+
+    @device_name.setter
+    def device_name(self, device_name: Str):
+        self._device_name = device_name
+
+    @property
+    def hw_address(self) -> Str:
+        """Hardware address of the network device."""
+        return self._hw_address
+
+    @hw_address.setter
+    def hw_address(self, hw_address: Str):
+        self._hw_address = hw_address
+
+    @property
+    def device_type(self) -> Int:
+        """Device type specification (NM_DEVICE_TYPE)."""
+        return self._device_type
+
+    @device_type.setter
+    def device_type(self, device_type: Int):
+        self._device_type = device_type
+
+    def set_from_nm_device(self, device):
+        """Set the object from NetworkManager Device object.
+
+        :param device: NetworkManager device object
+        :type device: NMDevice
+        """
+        self._device_name = device.get_iface()
+        self._device_type = device.get_device_type()
+        try:
+            hw_address = device.get_permanent_hw_address()
+        except AttributeError:
+            hw_address = device.get_hw_address()
+        self.hw_address = hw_address

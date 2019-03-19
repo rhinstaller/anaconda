@@ -105,6 +105,24 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.is_connecting()
 
+    def GetSupportedDevices(self) -> List[Structure]:
+        """Get info about existing network devices supported by the module.
+
+        :return: list of objects describing supported devices found on the system
+        """
+        dev_infos = self.implementation.get_supported_devices()
+        return [get_structure(dev_info) for dev_info in dev_infos]
+
+    def GetActivatedInterfaces(self) -> List[Str]:
+        """Get activated network interfaces.
+
+        Device is considered as activated if it has an active network (NM)
+        connection.
+
+        :return: list of names of devices having active network connection
+        """
+        return self.implementation.get_activated_interfaces()
+
     def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
         """Install network with an installation task.
 
@@ -234,3 +252,27 @@ class NetworkInterface(KickstartModuleInterface):
         :param msg_header: header of the log messages
         """
         return self.implementation.log_configuration_state(msg_header)
+
+    def SetConnectionOnbootValue(self, uuid: Str, onboot: Bool):
+        """Sets ONBOOT value of connection given by uuid.
+
+        The value is stored in ifcfg file because setting the value in
+        NetworkManager connection ('autoconnect') to True could cause
+        activating of the connection.
+
+        :param uuid: UUID of the connection to be set
+        :param onboot: value of ONBOOT for the connection
+        """
+        return self.implementation.set_connection_onboot_value(uuid, onboot)
+
+    def GetConnectionOnbootValue(self, uuid: Str) -> Bool:
+        """Gets ONBOOT value of connection given by uuid.
+
+        The value is stored in ifcfg file because setting the value in
+        NetworkManager connection ('autoconnect') to True could cause
+        activating of the connection.
+
+        :param uuid: UUID of the connection
+        :return: ONBOOT value
+        """
+        return self.implementation.get_connection_onboot_value(uuid)

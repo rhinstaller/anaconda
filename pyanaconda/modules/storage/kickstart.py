@@ -25,7 +25,7 @@ from blivet.formats.disklabel import DiskLabel
 from pykickstart.constants import CLEARPART_TYPE_NONE, NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE
 from pykickstart.errors import KickstartParseError
 
-from pyanaconda import nm
+from pyanaconda.network import get_supported_devices
 from pyanaconda.core.i18n import _
 from pyanaconda.core.kickstart import VERSION, KickstartSpecification, commands as COMMANDS
 from pyanaconda.storage.utils import device_matches
@@ -126,7 +126,7 @@ class Fcoe(COMMANDS.Fcoe):
     def parse(self, args):
         fc = super().parse(args)
 
-        if fc.nic not in nm.nm_devices():
+        if fc.nic not in [dev.device_name for dev in get_supported_devices()]:
             raise KickstartParseError(_("NIC \"{}\" given in fcoe command does not "
                                         "exist.").format(fc.nic), lineno=self.lineno)
 
