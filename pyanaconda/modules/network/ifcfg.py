@@ -104,7 +104,7 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        super.unset(*args)
+        super().unset(*args)
 
     @property
     def is_from_kickstart(self):
