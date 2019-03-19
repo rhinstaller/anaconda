@@ -233,6 +233,13 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """Is the GRUB boot loader password encrypted?"""
         return self.implementation.password_is_encrypted
 
+    def IsEFI(self) -> Bool:
+        """Is the bootloader based on EFI?
+
+        :return: True or False
+        """
+        return self.implementation.is_efi()
+
     def ConfigureWithTask(self, sysroot: Str, kernel_versions: List[Str]):
         """Configure the bootloader.
 

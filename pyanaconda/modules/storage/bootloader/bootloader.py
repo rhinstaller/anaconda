@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.bootloader.efi import EFIBase
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.dbus import DBus
@@ -325,6 +326,13 @@ class BootloaderModule(KickstartBaseModule):
         self._password_is_encrypted = encrypted
         self.password_is_set_changed.emit()
         log.debug("Password is set.")
+
+    def is_efi(self):
+        """Is the bootloader based on EFI?
+
+        :return: True or False
+        """
+        return isinstance(self.storage.bootloader, EFIBase)
 
     def configure_with_task(self, sysroot, kernel_versions):
         """Configure the bootloader.

@@ -21,6 +21,8 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
+from pyanaconda.bootloader import EFIGRUB, GRUB2
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
@@ -122,6 +124,20 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             setter=self.bootloader_interface.SetEncryptedPassword,
             changed={'IsPasswordSet': True}
         )
+
+    def is_efi_test(self):
+        """Test IsEFI."""
+        with self.assertRaises(UnavailableStorageError):
+            self.bootloader_interface.IsEFI()
+
+        storage = Mock()
+        self.bootloader_module.on_storage_reset(storage)
+
+        storage.bootloader = GRUB2()
+        self.assertEqual(self.bootloader_interface.IsEFI(), False)
+
+        storage.bootloader = EFIGRUB()
+        self.assertEqual(self.bootloader_interface.IsEFI(), True)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def configure_with_task_test(self, publisher):
