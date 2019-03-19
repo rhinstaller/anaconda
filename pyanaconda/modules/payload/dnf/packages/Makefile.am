@@ -14,10 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = packages
-
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-dnf_moduledir = $(pkgpyexecdir)/modules/payload/dnf
-dnf_module_PYTHON = $(srcdir)/*.py
+packages_moduledir = $(pkgpyexecdir)/modules/payload/dnf/packages
+packages_module_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in
