@@ -24,7 +24,10 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
+from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
+    InstallBootloaderTask
 from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
 
 log = get_module_logger(__name__)
@@ -36,6 +39,7 @@ class BootloaderModule(KickstartBaseModule):
     def __init__(self):
         """Initialize the module."""
         super().__init__()
+        self._current_storage = None
 
         self.bootloader_mode_changed = Signal()
         self._bootloader_mode = BootloaderMode.ENABLED
@@ -67,6 +71,21 @@ class BootloaderModule(KickstartBaseModule):
         self.password_is_set_changed = Signal()
         self._password = ""
         self._password_is_encrypted = False
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if self._current_storage is None:
+            raise UnavailableStorageError()
+
+        return self._current_storage
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._current_storage = storage
 
     def publish(self):
         """Publish the module."""
@@ -306,3 +325,37 @@ class BootloaderModule(KickstartBaseModule):
         self._password_is_encrypted = encrypted
         self.password_is_set_changed.emit()
         log.debug("Password is set.")
+
+    def configure_with_task(self, sysroot, kernel_versions):
+        """Configure the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :param kernel_versions: a list of kernel versions
+        :return: a path to a DBus task
+        """
+        task = ConfigureBootloaderTask(
+            storage=self.storage,
+            mode=self.bootloader_mode,
+            kernel_versions=kernel_versions,
+            sysroot=sysroot
+        )
+        path = self.publish_task(BOOTLOADER.namespace, task)
+        return path
+
+    def install_with_task(self, sysroot):
+        """Install the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a path to a DBus task
+        """
+        task = InstallBootloaderTask(
+            storage=self.storage,
+            mode=self.bootloader_mode,
+            sysroot=sysroot
+        )
+        path = self.publish_task(BOOTLOADER.namespace, task)
+        return path
