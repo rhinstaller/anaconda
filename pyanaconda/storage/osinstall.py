@@ -129,10 +129,6 @@ class InstallerStorage(Blivet):
     def _check_valid_luks_version(self, version):
         get_format("luks", luks_version=version)
 
-    @property
-    def bootloader_device(self):
-        return self.bootloader.stage1_device
-
     def get_fstype(self, mountpoint=None):
         """ Return the default filesystem type based on mountpoint. """
         fstype = super().get_fstype(mountpoint=mountpoint)

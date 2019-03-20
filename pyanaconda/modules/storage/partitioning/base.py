@@ -114,8 +114,8 @@ class PartitioningModule(KickstartBaseModule):
         # as a member when searching for bootloader devices
         bootloader_devices = []
 
-        if storage.bootloader_device is not None:
-            bootloader_devices.append(storage.bootloader_device)
+        if storage.bootloader.stage1_device is not None:
+            bootloader_devices.append(storage.bootloader.stage1_device)
 
         for device in storage.devices:
             if device.format.type == 'biosboot':

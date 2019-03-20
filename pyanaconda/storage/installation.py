@@ -71,7 +71,7 @@ def _setup_bootable_devices(storage):
     if storage.bootloader.stage2_bootable:
         boot = storage.boot_device
     else:
-        boot = storage.bootloader_device
+        boot = storage.bootloader.stage1_device
 
     if boot.type == "mdarray":
         boot_devs = boot.parents

@@ -15,9 +15,8 @@ class BlivetTestCase(unittest.TestCase):
     '''
 
     @patch('pyanaconda.dbus.DBus.get_proxy')
-    @patch('pyanaconda.storage.osinstall.InstallerStorage.bootloader_device', new_callable=PropertyMock)
     @patch('pyanaconda.storage.osinstall.InstallerStorage.mountpoints', new_callable=PropertyMock)
-    def test_prepboot_bootloader_in_kickstart(self, mock_mountpoints, mock_bootloader_device, dbus):
+    def test_prepboot_bootloader_in_kickstart(self, mock_mountpoints, dbus):
         """Test that a prepboot bootloader shows up in the ks data."""
         # disable other partitioning modules
         dbus.return_value.Enabled = False
@@ -28,12 +27,14 @@ class BlivetTestCase(unittest.TestCase):
         bootloader_device_obj.format = formats.get_format("prepboot")
 
         # mountpoints must exist for update_ksdata to run
-        mock_bootloader_device.return_value = bootloader_device_obj
         mock_mountpoints.values.return_value = []
+
+        # set up the storage
+        prepboot_blivet_obj = InstallerStorage()
+        prepboot_blivet_obj.bootloader.stage1_device = bootloader_device_obj
 
         # initialize ksdata
         ksdata = makeVersion()
-        prepboot_blivet_obj = InstallerStorage()
         update_storage_ksdata(prepboot_blivet_obj, ksdata)
 
         self.assertIn("part prepboot", str(ksdata))
