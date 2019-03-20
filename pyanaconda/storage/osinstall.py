@@ -87,11 +87,6 @@ class InstallerStorage(Blivet):
 
         return self._bootloader
 
-    def update_bootloader_disk_list(self):
-        boot_disks = [d for d in self.disks if d.partitioned]
-        boot_disks.sort(key=self.compare_disks_key)
-        self.bootloader.set_disk_list(boot_disks)
-
     @property
     def boot_device(self):
         root_device = self.mountpoints.get("/")
@@ -268,7 +263,6 @@ class InstallerStorage(Blivet):
 
         # Clear out attributes that refer to devices that are no longer in the tree.
         self.bootloader.reset()
-        self.update_bootloader_disk_list()
 
         self._mark_protected_devices()
 
@@ -521,8 +515,6 @@ class InstallerStorage(Blivet):
                 else:
                     log.debug("clearpart: initializing %s", disk.name)
                     self.initialize_disk(disk)
-
-        self.update_bootloader_disk_list()
 
     def _get_hostname(self):
         """Return a hostname."""

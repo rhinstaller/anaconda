@@ -191,6 +191,7 @@ class BootLoader(object):
         self.stage1_disk = None
         self.stage2_device = None
         self.stage2_is_preferred_stage1 = False
+        self.disks = []
 
         self.errors = []
         self.warnings = []
@@ -224,6 +225,7 @@ class BootLoader(object):
     def set_disk_list(self, disks):
         self.disks = disks[:]
         self._sort_disks()
+        log.debug("new disk list: %s", self.disks)
 
     #
     # image list access

@@ -63,6 +63,9 @@ class BootloaderExecutor(object):
             log.debug("Bootloader is not enabled, skipping.")
             return
 
+        # Update the disk list. Disks are already sorted by Blivet.
+        storage.bootloader.set_disk_list([d for d in storage.disks if d.partitioned])
+
         # Apply the settings.
         self._update_flags(storage, bootloader_proxy)
         self._apply_args(storage, bootloader_proxy)
