@@ -34,7 +34,6 @@ from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
-from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
@@ -134,29 +133,6 @@ class InstallerStorage(Blivet):
 
     def _check_valid_luks_version(self, version):
         get_format("luks", luks_version=version)
-
-    def set_up_bootloader(self, early=False):
-        """ Set up the boot loader.
-
-            :keyword bool early: Set to True to skip stage1_device setup
-
-            :raises BootloaderError: if stage1 setup fails
-
-            If this needs to be run early, eg. to setup stage1_disk but
-            not stage1_device 'early' should be set True to prevent
-            it from raising BootloaderError
-        """
-        if self.bootloader.skip_bootloader:
-            log.info("user specified that bootloader install be skipped")
-            return
-
-        # Need to make sure that boot drive has been setup from the latest information.
-        # This will also set self.bootloader.stage1_disk.
-        BootloaderExecutor().execute(self, dry_run=False)
-
-        self.bootloader.stage2_device = self.boot_device
-        if not early:
-            self.bootloader.set_stage1_device(self.devices)
 
     @property
     def bootloader_device(self):

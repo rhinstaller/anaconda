@@ -145,8 +145,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         # grow LVs
         grow_lvm(storage)
 
-        storage.set_up_bootloader()
-
         # only newly added swaps should appear in the fstab
         new_swaps = (dev for dev in storage.swaps if not dev.format.exists)
         storage.set_fstab_swaps(new_swaps)

@@ -21,7 +21,7 @@ from blivet.errors import NoDisksError
 from blivet.formats.disklabel import DiskLabel
 from pyanaconda.anaconda_loggers import get_module_logger
 
-from pyanaconda.bootloader.execution import BootloaderExecutor
+from pyanaconda.bootloader.execution import setup_bootloader
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
@@ -70,7 +70,7 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
 
         :param storage: an instance of Blivet
         """
-        BootloaderExecutor().execute(storage, dry_run=True)
+        setup_bootloader(storage, dry_run=True)
 
     @abstractmethod
     def _configure_partitioning(self, storage):
@@ -85,4 +85,4 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
 
         :param storage: an instance of Blivet
         """
-        storage.set_up_bootloader()
+        setup_bootloader(storage)
