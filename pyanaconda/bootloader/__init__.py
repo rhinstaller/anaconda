@@ -28,7 +28,7 @@ from pyanaconda import platform
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["get_bootloader", "BootLoaderError"]
+__all__ = ["get_bootloader", "get_bootloader_class", "BootLoaderError"]
 
 
 # every platform that wants a bootloader needs to be in this dict
@@ -45,6 +45,14 @@ bootloader_by_platform = {
 }
 
 
+def get_bootloader_class():
+    # Get the type of the platform.
+    platform_class = platform.platform.__class__
+
+    # Get the type of the bootloader.
+    return bootloader_by_platform.get(platform_class, BootLoader)
+
+
 def get_bootloader():
     bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
     platform_name = platform.platform.__class__.__name__
@@ -52,7 +60,7 @@ def get_bootloader():
     if bootloader_proxy.BootloaderType == BOOTLOADER_TYPE_EXTLINUX:
         cls = EXTLINUX
     else:
-        cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
+        cls = get_bootloader_class()
 
     log.info("bootloader %s on %s platform", cls.__name__, platform_name)
     return cls()

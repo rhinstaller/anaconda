@@ -17,10 +17,15 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.bootloader import get_bootloader_class
 from pyanaconda.bootloader.efi import EFIBase
+from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
+from pyanaconda.core.i18n import _
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
@@ -94,7 +99,11 @@ class BootloaderModule(KickstartBaseModule):
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        self._set_module_from_kickstart(data)
+        self._validate_grub2_configuration(data)
 
+    def _set_module_from_kickstart(self, data):
+        """Set the module from the kickstart data."""
         if not data.bootloader.seen:
             self.set_bootloader_mode(BootloaderMode.ENABLED)
             self.set_preferred_location(BOOTLOADER_LOCATION_DEFAULT)
@@ -133,6 +142,30 @@ class BootloaderModule(KickstartBaseModule):
 
         if data.bootloader.password:
             self.set_password(data.bootloader.password, data.bootloader.isCrypted)
+
+    def _validate_grub2_configuration(self, data):
+        """Validate the GRUB2 configuration.
+
+        :raise: KickstartParseError if not valid
+        """
+        # Skip other types of the bootloader.
+        if self.bootloader_type is not BootloaderType.DEFAULT:
+            return
+
+        if not issubclass(get_bootloader_class(), GRUB2):
+            return
+
+        # Check the location support.
+        if self.preferred_location == BOOTLOADER_LOCATION_PARTITION:
+            raise KickstartParseError(_("GRUB2 does not support installation to a partition."),
+                                      lineno=data.bootloader.lineno)
+
+        # Check the password format.
+        if self.password_is_set \
+                and self.password_is_encrypted \
+                and not self.password.startswith("grub.pbkdf2."):
+            raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
+                                      lineno=data.bootloader.lineno)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""

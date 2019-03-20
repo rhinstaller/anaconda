@@ -39,11 +39,8 @@ from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
-from pyanaconda.bootloader import get_bootloader
-from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT, \
-    SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
-    BOOTLOADER_LOCATION_PARTITION, FIREWALL_ENABLED, FIREWALL_DISABLED, \
+    SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, FIREWALL_ENABLED, FIREWALL_DISABLED, \
     FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
@@ -53,7 +50,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, FIREWALL, FCOE
+from pyanaconda.modules.common.constants.objects import FIREWALL, FCOE
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -293,37 +290,6 @@ class AutoPart(RemovedCommand):
 
     def __str__(self):
         return ""
-
-
-class Bootloader(RemovedCommand):
-    def __str__(self):
-        return ""
-
-    def parse(self, args):
-        """Do not parse anything.
-
-        Only validate the bootloader module.
-        """
-        super().parse(args)
-
-        # Validate the attributes of the bootloader module.
-        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-
-        # Skip the check if the bootloader instance is not GRUB2:
-        if not isinstance(get_bootloader(), GRUB2):
-            return
-
-        # Check the location support.
-        if bootloader_proxy.PreferredLocation == BOOTLOADER_LOCATION_PARTITION:
-            raise KickstartParseError(_("GRUB2 does not support installation to a partition."),
-                                      lineno=self.lineno)
-
-        # Check the password format.
-        if bootloader_proxy.IsPasswordSet \
-                and bootloader_proxy.IsPasswordEncrypted \
-                and not bootloader_proxy.Password.startswith("grub.pbkdf2."):
-            raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
-                                      lineno=self.lineno)
 
 
 class BTRFS(COMMANDS.BTRFS):
@@ -1022,7 +988,7 @@ commandMap = {
     "authselect": Authselect,
     "autopart": AutoPart,
     "btrfs": BTRFS,
-    "bootloader": Bootloader,
+    "bootloader": UselessCommand,
     "clearpart": ClearPart,
     "eula": Eula,
     "fcoe": UselessCommand,
