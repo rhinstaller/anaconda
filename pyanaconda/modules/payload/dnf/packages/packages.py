@@ -21,6 +21,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
+from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -32,22 +33,21 @@ class PackagesHandlerModule(KickstartBaseModule):
     def __init__(self):
         super().__init__()
 
-        self._add_base = True
-        self._no_core = False
-        self._default = False
+        self._core_group_enabled = True
+        self._default_environment = False
 
         self._environment = None
-        self._group_list = []
-        self._package_list = []
+        self._groups = []
+        self._packages = []
 
-        self._excluded_list = []
-        self._excluded_group_list = []
+        self._excluded_packages = []
+        self._excluded_groups = []
 
-        self._exclude_docs = False
-        self._exclude_weakdeps = False
-        self._handle_missing = None
-        self._inst_langs = None
-        self._multi_lib = None
+        self._docs_excluded = False
+        self._weakdeps_excluded = False
+        self._missing_ignored = False
+        self._languages = None
+        self._multilib_policy = None
         self._timeout = None
         self._retries = None
 
@@ -59,22 +59,26 @@ class PackagesHandlerModule(KickstartBaseModule):
         """Process the kickstart data."""
         packages = data.packages
 
-        self._add_base = packages.addBase
-        self._no_core = packages.nocore
-        self._default = packages.default
+        self._core_group_enabled = not packages.nocore
+        self._default_environment = packages.default
 
         self._environment = packages.environment
-        self._group_list = packages.groupList
-        self._package_list = packages.packageList
+        self._groups = packages.groupList
+        self._packages = packages.packageList
 
-        self._excluded_list = packages.excludedList
-        self._excluded_group_list = packages.excludedGroupList
+        self._excluded_packages = packages.excludedList
+        self._excluded_groups = packages.excludedGroupList
 
-        self._exclude_docs = packages.excludeDocs
-        self._exclude_weakdeps = packages.excludeWeakdeps
-        self._handle_missing = packages.handleMissing
-        self._inst_langs = packages.instLangs
-        self._multi_lib = packages.multiLib
+        self._docs_excluded = packages.excludeDocs
+        self._weakdeps_excluded = packages.excludeWeakdeps
+
+        if packages.handleMissing == KS_MISSING_IGNORE:
+            self._missing_ignored = True
+        else:
+            self._missing_ignored = False
+
+        self._languages = packages.instLangs
+        self._multilib_policy = packages.multiLib
         self._timeout = packages.timeout
         self._retries = packages.retries
 
@@ -82,22 +86,21 @@ class PackagesHandlerModule(KickstartBaseModule):
         """Setup the kickstart data."""
         packages = data.packages
 
-        packages.addBase = self._add_base
-        packages.nocore = self._no_core
-        packages.default = self._default
+        packages.nocore = not self._core_group_enabled
+        packages.default = self._default_environment
 
         packages.environment = self._environment
-        packages.groupList = self._group_list
-        packages.packageList = self._package_list
+        packages.groupList = self._groups
+        packages.packageList = self._packages
 
-        packages.excludedList = self._excluded_list
-        packages.excludedGroupList = self._excluded_group_list
+        packages.excludedList = self._excluded_packages
+        packages.excludedGroupList = self._excluded_groups
 
-        packages.excludeDocs = self._exclude_docs
-        packages.excludeWeakdeps = self._exclude_weakdeps
-        packages.handleMissing = self._handle_missing
-        packages.instLangs = self._inst_langs
-        packages.multiLib = self._multi_lib
+        packages.excludeDocs = self._docs_excluded
+        packages.excludeWeakdeps = self._weakdeps_excluded
+        packages.handleMissing = KS_MISSING_IGNORE if self._missing_ignored else KS_MISSING_PROMPT
+        packages.instLangs = self._languages
+        packages.multiLib = self._multilib_policy
         packages.timeout = self._timeout
         packages.retries = self._retries
 
