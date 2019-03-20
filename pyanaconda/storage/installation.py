@@ -26,7 +26,6 @@ from blivet.errors import FSResizeError, FormatResizeError
 from blivet.iscsi import iscsi
 
 from pyanaconda.core import util
-from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.errors import errorHandler as error_handler, ERROR_RAISE
 from pyanaconda.modules.common.constants.objects import FCOE, ZFCP
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -45,12 +44,6 @@ def turn_on_filesystems(storage, callbacks=None):
     :param callbacks: callbacks to be invoked when actions are executed
     :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_register`
     """
-    # FIXME: This is a temporary workaround for live OS.
-    if conf.system._is_live_os and conf.target.is_hardware and not storage.fsset.active:
-        # turn off any swaps that we didn't turn on
-        # needed for live installs
-        blivet_util.run_program(["swapoff", "-a"])
-
     storage.devicetree.teardown_all()
 
     try:
