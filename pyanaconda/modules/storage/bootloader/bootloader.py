@@ -334,6 +334,18 @@ class BootloaderModule(KickstartBaseModule):
         """
         return isinstance(self.storage.bootloader, EFIBase)
 
+    def get_arguments(self):
+        """Get the bootloader arguments.
+
+        Get kernel parameters that are currently set up for the bootloader.
+        The list is complete and final after the bootloader installation.
+
+        FIXME: Collect the bootloader arguments on demand if possible.
+
+        :return: list of arguments
+        """
+        return list(self.storage.bootloader.boot_args)
+
     def detect_windows(self):
         """Are Windows OS installed on the system?
 

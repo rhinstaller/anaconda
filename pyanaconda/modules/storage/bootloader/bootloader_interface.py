@@ -240,6 +240,16 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.is_efi()
 
+    def GetArguments(self) -> List[Str]:
+        """Get the bootloader arguments.
+
+        Get kernel parameters that are currently set up for the bootloader.
+        The list is complete and final after the bootloader installation.
+
+        :return: list of arguments
+        """
+        return self.implementation.get_arguments()
+
     def DetectWindows(self) -> Bool:
         """Are Windows OS installed on the system?
 

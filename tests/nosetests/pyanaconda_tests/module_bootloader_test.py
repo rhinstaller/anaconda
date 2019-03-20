@@ -139,6 +139,18 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage.bootloader = EFIGRUB()
         self.assertEqual(self.bootloader_interface.IsEFI(), True)
 
+    def get_arguments_test(self):
+        """Test GetArguments."""
+        with self.assertRaises(UnavailableStorageError):
+            self.bootloader_interface.GetArguments()
+
+        storage = Mock()
+        self.bootloader_module.on_storage_reset(storage)
+
+        storage.bootloader = GRUB2()
+        storage.bootloader.boot_args.update(["x=1", "y=2"])
+        self.assertEqual(self.bootloader_interface.GetArguments(), ["x=1", "y=2"])
+
     def detect_windows_test(self):
         """Test DetectWindows."""
         with self.assertRaises(UnavailableStorageError):
