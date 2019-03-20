@@ -89,18 +89,13 @@ class InstallerStorage(Blivet):
         return self._bootloader
 
     def update_bootloader_disk_list(self):
-        if not self.bootloader:
-            return
-
         boot_disks = [d for d in self.disks if d.partitioned]
         boot_disks.sort(key=self.compare_disks_key)
         self.bootloader.set_disk_list(boot_disks)
 
     @property
     def boot_device(self):
-        dev = None
         root_device = self.mountpoints.get("/")
-
         dev = self.mountpoints.get("/boot", root_device)
         return dev
 
@@ -110,10 +105,7 @@ class InstallerStorage(Blivet):
         if self._default_boot_fstype:
             return self._default_boot_fstype
 
-        fstype = None
-        if self.bootloader:
-            fstype = self.boot_fstypes[0]
-        return fstype
+        return self.boot_fstypes[0]
 
     def set_default_boot_fstype(self, newtype):
         """ Set the default /boot fstype for this instance.
@@ -154,10 +146,6 @@ class InstallerStorage(Blivet):
             not stage1_device 'early' should be set True to prevent
             it from raising BootloaderError
         """
-        if not self.bootloader:
-            log.warning("bootloader data missing")
-            return
-
         if self.bootloader.skip_bootloader:
             log.info("user specified that bootloader install be skipped")
             return
@@ -177,10 +165,7 @@ class InstallerStorage(Blivet):
     @property
     def boot_fstypes(self):
         """A list of all valid filesystem types for the boot partition."""
-        fstypes = []
-        if self.bootloader:
-            fstypes = self.bootloader.stage2_format_types
-        return fstypes
+        return self.bootloader.stage2_format_types
 
     def get_fstype(self, mountpoint=None):
         """ Return the default filesystem type based on mountpoint. """
@@ -310,12 +295,10 @@ class InstallerStorage(Blivet):
 
         self.fsset = FSSet(self.devicetree)
 
-        if self.bootloader:
-            # clear out bootloader attributes that refer to devices that are
-            # no longer in the tree
-            self.bootloader.reset()
-
+        # Clear out attributes that refer to devices that are no longer in the tree.
+        self.bootloader.reset()
         self.update_bootloader_disk_list()
+
         self._mark_protected_devices()
 
         self.roots = []
