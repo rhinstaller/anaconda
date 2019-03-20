@@ -139,6 +139,25 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
         storage.bootloader = EFIGRUB()
         self.assertEqual(self.bootloader_interface.IsEFI(), True)
 
+    def detect_windows_test(self):
+        """Test DetectWindows."""
+        with self.assertRaises(UnavailableStorageError):
+            self.bootloader_interface.DetectWindows()
+
+        device = Mock()
+        device.format.name = "ntfs"
+
+        storage = Mock()
+        storage.devices = [device]
+
+        self.bootloader_module.on_storage_reset(storage)
+
+        storage.bootloader.has_windows.return_value = False
+        self.assertEqual(self.bootloader_interface.DetectWindows(), False)
+
+        storage.bootloader.has_windows.return_value = True
+        self.assertEqual(self.bootloader_interface.DetectWindows(), True)
+
     @patch('pyanaconda.dbus.DBus.publish_object')
     def configure_with_task_test(self, publisher):
         """Test ConfigureWithTask."""

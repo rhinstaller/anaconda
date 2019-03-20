@@ -240,6 +240,16 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
         """
         return self.implementation.is_efi()
 
+    def DetectWindows(self) -> Bool:
+        """Are Windows OS installed on the system?
+
+        Guess by searching for bootable partitions of other operating
+        systems whether there are Windows OS installed on the system.
+
+        :return: True or False
+        """
+        return self.implementation.detect_windows()
+
     def ConfigureWithTask(self, sysroot: Str, kernel_versions: List[Str]):
         """Configure the bootloader.
 

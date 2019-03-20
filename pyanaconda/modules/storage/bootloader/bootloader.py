@@ -334,6 +334,17 @@ class BootloaderModule(KickstartBaseModule):
         """
         return isinstance(self.storage.bootloader, EFIBase)
 
+    def detect_windows(self):
+        """Are Windows OS installed on the system?
+
+        Guess by searching for bootable partitions of other operating
+        systems whether there are Windows OS installed on the system.
+
+        :return: True or False
+        """
+        devices = filter(lambda d: d.format.name == "ntfs", self.storage.devices)
+        return self.storage.bootloader.has_windows(devices)
+
     def configure_with_task(self, sysroot, kernel_versions):
         """Configure the bootloader.
 
