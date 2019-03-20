@@ -151,6 +151,13 @@ class BootLoader(object):
         self.boot_args = Arguments()
         self.dracut_args = Arguments()
 
+        # the device the bootloader will be installed on
+        self.stage1_device = None
+
+        # the "boot disk", meaning the disk stage1 _will_ go on
+        self.stage1_disk = None
+        self.stage2_is_preferred_stage1 = False
+
         self.disks = []
         self._disk_order = []
 
@@ -178,16 +185,10 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
 
-        self.reset()
-
     def reset(self):
         """ Reset stage1 and stage2 values """
-        # the device the bootloader will be installed on
         self.stage1_device = None
-
-        # the "boot disk", meaning the disk stage1 _will_ go on
         self.stage1_disk = None
-
         self.stage2_device = None
         self.stage2_is_preferred_stage1 = False
 

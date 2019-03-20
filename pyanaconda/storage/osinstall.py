@@ -160,7 +160,7 @@ class InstallerStorage(Blivet):
 
     @property
     def bootloader_device(self):
-        return getattr(self.bootloader, "stage1_device", None)
+        return self.bootloader.stage1_device
 
     @property
     def boot_fstypes(self):
