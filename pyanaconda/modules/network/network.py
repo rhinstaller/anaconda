@@ -370,6 +370,9 @@ class NetworkModule(KickstartModule):
 
     def create_device_configurations(self):
         """Create and populate the state of network devices configuration."""
+        if not self.nm_available:
+            log.debug("Device configurations can't be created, no NetworkManager available.")
+            return
         self._device_configurations = DeviceConfigurations(self.nm_client)
         self._device_configurations.configurations_changed.connect(self.device_configurations_changed_cb)
         self._device_configurations.reload()
@@ -559,6 +562,9 @@ class NetworkModule(KickstartModule):
         :param hostname: static hostname to be configured
         """
         dracut_args = []
+        if not self.nm_available:
+            log.debug("Dracut arguments can't be obtained, no NetworkManager available.")
+            return dracut_args
 
         if iface not in (device.get_iface() for device in self.nm_client.get_devices()):
             log.error("get dracut arguments for %s: device not found", iface)
