@@ -21,7 +21,13 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from pyanaconda.bootloader import EFIGRUB, GRUB2
+from pyanaconda import platform
+from pyanaconda.bootloader import get_bootloader_class
+from pyanaconda.bootloader.base import BootLoader
+from pyanaconda.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
+from pyanaconda.bootloader.extlinux import EXTLINUX
+from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2
+from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import BootloaderMode
 
@@ -259,3 +265,32 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
+
+
+class BootloaderClassTestCase(unittest.TestCase):
+    """Test the bootloader classes."""
+
+    def get_bootloader_class_test(self):
+        """Test get_bootloader_class."""
+
+        bootloader_by_platform = {
+            platform.X86: GRUB2,
+            platform.EFI: EFIGRUB,
+            platform.MacEFI: MacEFIGRUB,
+            platform.PPC: GRUB2,
+            platform.IPSeriesPPC: IPSeriesGRUB2,
+            platform.S390: ZIPL,
+            platform.Aarch64EFI: Aarch64EFIGRUB,
+            platform.ARM: EXTLINUX,
+            platform.ArmEFI: ArmEFIGRUB,
+            Mock(): BootLoader
+        }
+
+        for platform_type, bootloader_type in bootloader_by_platform.items():
+            # Get the bootloader class.
+            cls = get_bootloader_class(platform_type)
+            self.assertEqual(cls, bootloader_type)
+
+            # Get the bootloader instance.
+            obj = cls()
+            self.assertIsInstance(obj, BootLoader)
