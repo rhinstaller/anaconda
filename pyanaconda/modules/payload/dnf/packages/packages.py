@@ -39,11 +39,16 @@ class PackagesHandlerModule(KickstartBaseModule):
         self._default_environment = False
 
         self._environment = None
+        self.environment_changed = Signal()
         self._groups = []
+        self.groups_changed = Signal()
         self._packages = []
+        self.packages_changed = Signal()
 
         self._excluded_packages = []
+        self.excluded_packages_changed = Signal()
         self._excluded_groups = []
+        self.excluded_groups_changed = Signal()
 
         self._docs_excluded = False
         self._weakdeps_excluded = False
@@ -64,12 +69,12 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.set_core_group_enabled(not packages.nocore)
         self.set_default_environment(packages.default)
 
-        self._environment = packages.environment
-        self._groups = packages.groupList
-        self._packages = packages.packageList
+        self.set_environment(packages.environment)
+        self.set_groups(packages.groupList)
+        self.set_packages(packages.packageList)
 
-        self._excluded_packages = packages.excludedList
-        self._excluded_groups = packages.excludedGroupList
+        self.set_excluded_packages(packages.excludedList)
+        self.set_excluded_groups(packages.excludedGroupList)
 
         self._docs_excluded = packages.excludeDocs
         self._weakdeps_excluded = packages.excludeWeakdeps
@@ -91,12 +96,12 @@ class PackagesHandlerModule(KickstartBaseModule):
         packages.nocore = not self.core_group_enabled
         packages.default = self.default_environment
 
-        packages.environment = self._environment
-        packages.groupList = self._groups
-        packages.packageList = self._packages
+        packages.environment = self.environment
+        packages.groupList = self.groups
+        packages.packageList = self.packages
 
-        packages.excludedList = self._excluded_packages
-        packages.excludedGroupList = self._excluded_groups
+        packages.excludedList = self.excluded_packages
+        packages.excludedGroupList = self.excluded_groups
 
         packages.excludeDocs = self._docs_excluded
         packages.excludeWeakdeps = self._weakdeps_excluded
@@ -143,3 +148,93 @@ class PackagesHandlerModule(KickstartBaseModule):
         """
         self._default_environment = default_environment
         log.debug("Default package set is set to %s.", default_environment)
+
+    @property
+    def environment(self):
+        """Get chosen packages environment.
+
+        :rtype: str
+        """
+        return self._environment
+
+    def set_environment(self, environment):
+        """Set packages environment.
+
+        :param environment: environment id
+        :type environment: str
+        """
+        self._environment = environment
+        self.environment_changed.emit()
+        log.debug("Environment is set to %s.", environment)
+
+    @property
+    def groups(self):
+        """Get list of package groups marked for installation.
+
+        :rtype: [str]
+        """
+        return self._groups
+
+    def set_groups(self, groups):
+        """Set package groups marked for installation.
+
+        :param groups: list of package groups
+        :type groups: [str]
+        """
+        self._groups = groups
+        self.groups_changed.emit()
+        log.debug("Groups is set to %s.", groups)
+
+    @property
+    def packages(self):
+        """Get list of packages marked for installation.
+
+        :rtype: [str]
+        """
+        return self._packages
+
+    def set_packages(self, packages):
+        """Set list of packages marked for installation.
+
+        :param packages: list of packages
+        :type packages: [str]
+        """
+        self._packages = packages
+        self.packages_changed.emit()
+        log.debug("Packages is set to %s.", packages)
+
+    @property
+    def excluded_groups(self):
+        """Get list of excluded groups from the installation.
+
+        :rtype: [str]
+        """
+        return self._excluded_groups
+
+    def set_excluded_groups(self, excluded_groups):
+        """Set list of excluded groups to the installation.
+
+        :param excluded_groups: list of excluded group
+        :type excluded_groups: [str]
+        """
+        self._excluded_groups = excluded_groups
+        self.excluded_groups_changed.emit()
+        log.debug("Excluded groups is set to %s.", excluded_groups)
+
+    @property
+    def excluded_packages(self):
+        """Get list of excluded packages from the installation.
+
+        :rtype: [str]
+        """
+        return self._excluded_packages
+
+    def set_excluded_packages(self, excluded_packages):
+        """Set list of excluded packages from the installation.
+
+        :param excluded_packages: list of excluded packages
+        :type excluded_packages: [str]
+        """
+        self._excluded_packages = excluded_packages
+        self.excluded_packages_changed.emit()
+        log.debug("Excluded packages is set to %s.", excluded_packages)

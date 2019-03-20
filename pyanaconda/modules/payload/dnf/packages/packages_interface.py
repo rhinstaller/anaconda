@@ -33,6 +33,11 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
         super().connect_signals()
 
         self.implementation.core_group_enabled_changed.connect(self.changed("CoreGroupEnabled"))
+        self.implementation.environment_changed.connect(self.changed("Environment"))
+        self.implementation.groups_changed.connect(self.changed("Groups"))
+        self.implementation.packages_changed.connect(self.changed("Packages"))
+        self.implementation.excluded_groups_changed.connect(self.changed("ExcludedGroups"))
+        self.implementation.excluded_packages_changed.connect(self.changed("ExcludedPackages"))
 
     @property
     def CoreGroupEnabled(self) -> Bool:
@@ -48,3 +53,53 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
     def DefaultEnvironment(self) -> Bool:
         """Should the default environment be pre-selected for installation?"""
         return self.implementation.default_environment
+
+    @property
+    def Environment(self) -> Str:
+        """Get environment used for installation."""
+        return self.implementation.environment
+
+    @emits_properties_changed
+    def SetEnvironment(self, environment: Str):
+        """Set environment used for installation."""
+        self.implementation.set_environment(environment)
+
+    @property
+    def Groups(self) -> List[Str]:
+        """Get list of groups marked for installation."""
+        return self.implementation.groups
+
+    @emits_properties_changed
+    def SetGroups(self, groups: List[Str]):
+        """Set list of groups which will be used for installation."""
+        self.implementation.set_groups(groups)
+
+    @property
+    def Packages(self) -> List[Str]:
+        """Get list of packages marked for installation."""
+        return self.implementation.packages
+
+    @emits_properties_changed
+    def SetPackages(self, packages: List[Str]):
+        """Set list of packages which will be used for installation."""
+        self.implementation.set_packages(packages)
+
+    @property
+    def ExcludedGroups(self) -> List[Str]:
+        """Get list of excluded groups from the installation."""
+        return self.implementation.excluded_groups
+
+    @emits_properties_changed
+    def SetExcludedGroups(self, excluded_groups: List[Str]):
+        """Set list of the excluded groups for the installation."""
+        self.implementation.set_excluded_groups(excluded_groups)
+
+    @property
+    def ExcludedPackages(self) -> List[Str]:
+        """Get list of packages excluded from the installation."""
+        return self.implementation.excluded_packages
+
+    @emits_properties_changed
+    def SetExcludedPackages(self, excluded_packages: List[Str]):
+        """Set list of packages which will be excluded from the installation."""
+        self.implementation.set_excluded_packages(excluded_packages)

@@ -201,3 +201,33 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.package_interface.CoreGroupEnabled, True)
         self.callback.assert_called_once_with(
             DNF_PACKAGES.interface_name, {"CoreGroupEnabled": True}, [])
+
+    def environment_properties_test(self):
+        self.package_interface.SetEnvironment("TestEnv")
+        self.assertEqual(self.package_interface.Environment, "TestEnv")
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"Environment": "TestEnv"}, [])
+
+    def groups_properties_test(self):
+        self.package_interface.SetGroups(["group1", "group2"])
+        self.assertEqual(self.package_interface.Groups, ["group1", "group2"])
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"Groups": ["group1", "group2"]}, [])
+
+    def packages_properties_test(self):
+        self.package_interface.SetPackages(["package1", "package2"])
+        self.assertEqual(self.package_interface.Packages, ["package1", "package2"])
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"Packages": ["package1", "package2"]}, [])
+
+    def excluded_groups_properties_test(self):
+        self.package_interface.SetExcludedGroups(["group1", "group2"])
+        self.assertEqual(self.package_interface.ExcludedGroups, ["group1", "group2"])
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"ExcludedGroups": ["group1", "group2"]}, [])
+
+    def excluded_packages_properties_test(self):
+        self.package_interface.SetExcludedPackages(["package1", "package2"])
+        self.assertEqual(self.package_interface.ExcludedPackages, ["package1", "package2"])
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"ExcludedPackages": ["package1", "package2"]}, [])
