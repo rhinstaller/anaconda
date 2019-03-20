@@ -19,8 +19,13 @@
 #
 import unittest
 
+from mock import Mock
+
+from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
+from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
+from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -31,6 +36,12 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         # Set up the security module.
         self.payload_module = PayloadModule()
         self.payload_interface = PayloadInterface(self.payload_module)
+
+        self.package_module = PackagesHandlerModule()
+        self.package_interface = PackagesHandlerInterface(self.package_module)
+
+        self.callback = Mock()
+        self.package_interface.PropertiesChanged.connect(self.callback)
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.payload_interface, ks_in, ks_out)
@@ -184,3 +195,9 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         %end
         """
         self._test_kickstart(ks_in, ks_out)
+
+    def core_group_enabled_properties_test(self):
+        self.package_interface.SetCoreGroupEnabled(True)
+        self.assertEqual(self.package_interface.CoreGroupEnabled, True)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"CoreGroupEnabled": True}, [])

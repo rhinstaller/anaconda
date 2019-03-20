@@ -18,6 +18,8 @@
 # Red Hat, Inc.
 #
 from pyanaconda.dbus.interface import dbus_interface
+from pyanaconda.dbus.property import emits_properties_changed
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
@@ -26,3 +28,23 @@ from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
 @dbus_interface(DNF_PACKAGES.interface_name)
 class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
     """DBus interface for DNF packages sub-module."""
+
+    def connect_signals(self):
+        super().connect_signals()
+
+        self.implementation.core_group_enabled_changed.connect(self.changed("CoreGroupEnabled"))
+
+    @property
+    def CoreGroupEnabled(self) -> Bool:
+        """Should the core package group be installed?"""
+        return self.implementation.core_group_enabled
+
+    @emits_properties_changed
+    def SetCoreGroupEnabled(self, core_group_enabled: Bool):
+        """Set if the core package group should be installed."""
+        self.implementation.set_core_group_enabled(core_group_enabled)
+
+    @property
+    def DefaultEnvironment(self) -> Bool:
+        """Should the default environment be pre-selected for installation?"""
+        return self.implementation.default_environment
