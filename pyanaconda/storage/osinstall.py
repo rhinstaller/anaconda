@@ -104,7 +104,7 @@ class InstallerStorage(Blivet):
         if self._default_boot_fstype:
             return self._default_boot_fstype
 
-        return self.boot_fstypes[0]
+        return self.bootloader.stage2_format_types[0]
 
     def set_default_boot_fstype(self, newtype):
         """ Set the default /boot fstype for this instance.
@@ -137,11 +137,6 @@ class InstallerStorage(Blivet):
     @property
     def bootloader_device(self):
         return self.bootloader.stage1_device
-
-    @property
-    def boot_fstypes(self):
-        """A list of all valid filesystem types for the boot partition."""
-        return self.bootloader.stage2_format_types
 
     def get_fstype(self, mountpoint=None):
         """ Return the default filesystem type based on mountpoint. """
