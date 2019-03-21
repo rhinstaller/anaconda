@@ -271,13 +271,17 @@ def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path="")
     return slaves
 
 
-def get_kickstart_network_data(ifcfg, nm_client, network_data_class):
+def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path=""):
     """Get kickstart data from ifcfg object.
 
     :param ifcfg: ifcfg file object
     :type ifcfg: IfcfgFile
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
+    :param network_data_class: pykickstart network command data class
+    :type: pykickstart BaseData
+    :param root_path: optional root path for ifcfg files to be updated
+    :type root_path: str
     :returns: network_data object corresponding to the ifcfg object
     :rtype: network_data_class object instance
     """
@@ -372,7 +376,9 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class):
     # bonding
     # FIXME: dracut has only BOND_OPTS
     if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
-        slaves = get_slaves_from_ifcfgs(nm_client, "MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")])
+        slaves = get_slaves_from_ifcfgs(nm_client,
+                                        "MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
+                                        root_path=root_path)
         if slaves:
             kwargs["bondslaves"] = ",".join(iface for iface, uuid in slaves)
         bondopts = ifcfg.get("BONDING_OPTS")
@@ -395,7 +401,9 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class):
 
     # bridging
     if ifcfg.get("TYPE") == "Bridge":
-        slaves = get_slaves_from_ifcfgs(nm_client, "BRIDGE", [ifcfg.get("DEVICE"), ifcfg.get("UUID")])
+        slaves = get_slaves_from_ifcfgs(nm_client,
+                                        "BRIDGE", [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
+                                        root_path=root_path)
         if slaves:
             kwargs["bridgeslaves"] = ",".join(iface for iface, uuid in slaves)
 
@@ -411,7 +419,9 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class):
 
     # teaming
     if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
-        slaves = get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")])
+        slaves = get_slaves_from_ifcfgs(nm_client,
+                                        "TEAM_MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
+                                        root_path=root_path)
         for iface, uuid in slaves:
             team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
             nd.teamslaves.append((iface, team_port_cfg))
