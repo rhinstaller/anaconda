@@ -243,11 +243,6 @@ class SourceSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def apply(self):
         """ Execute the selections made. """
-        # If askmethod was provided on the command line, entering the source
-        # spoke wipes that out.
-        if flags.askmethod:
-            flags.askmethod = False
-
         # if we had any errors, e.g. from a previous attempt to set the source,
         # clear them at this point
         self._error = False

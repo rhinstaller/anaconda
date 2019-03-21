@@ -1149,11 +1149,6 @@ class DNFPayload(payload.PackagePayload):
                 enabled.append(repo.id)
                 repo.disable()
 
-        # If askmethod was specified on the command-line, leave all the repos
-        # disabled and return
-        if flags.askmethod:
-            return
-
         if method.method:
             try:
                 self._refresh_install_tree(install_tree_url)

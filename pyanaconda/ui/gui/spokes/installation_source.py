@@ -427,11 +427,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._treeinfo_repos_already_disabled = False
 
     def apply(self):
-        # If askmethod was provided on the command line, entering the source
-        # spoke wipes that out.
-        if flags.askmethod:
-            flags.askmethod = False
-
         payloadMgr.restart_thread(self.storage, self.data, self.payload, checkmount=False)
         self.clear_info()
 

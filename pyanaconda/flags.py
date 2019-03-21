@@ -41,7 +41,6 @@ class Flags(object):
         self.preexisting_x11 = False
         self.noverifyssl = False
         self.automatedInstall = False
-        self.askmethod = False
         self.eject = True
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True

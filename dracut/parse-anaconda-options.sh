@@ -86,6 +86,7 @@ check_removed_arg ethtool
 
 # interactive junk in initramfs
 # (maybe we'll bring it back someday?)
+check_removed_arg askmethod "Use an appropriate 'inst.repo=' argument instead."
 check_removed_arg asknetwork "Use an appropriate 'ip=' argument instead."
 
 # lang & keymap
