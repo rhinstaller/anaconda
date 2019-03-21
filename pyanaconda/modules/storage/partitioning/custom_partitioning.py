@@ -324,8 +324,7 @@ class CustomPartitioningTask(NonInteractivePartitioningTask):
                     lineno=partition_data.lineno
                 )
 
-            cleared = storage.config.can_remove(storage, disk)
-            if disk and (disk.partitioned or cleared):
+            if disk and disk.partitioned:
                 kwargs["parents"] = [disk]
             elif disk:
                 raise KickstartParseError(

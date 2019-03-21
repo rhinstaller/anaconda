@@ -117,8 +117,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         log.debug("scheme: %s", scheme)
         log.debug("requests:\n%s", "".join([str(p) for p in requests]))
         log.debug("encrypted: %s", encrypted)
-        log.debug("initialization_mode: %s", storage.config.initialization_mode)
-        log.debug("drives_to_clear: %s", storage.config.drives_to_clear)
         log.debug("storage.disks: %s", [d.name for d in storage.disks])
         log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
         log.debug("all names: %s", [d.name for d in storage.devices])

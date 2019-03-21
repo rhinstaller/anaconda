@@ -32,7 +32,6 @@ from pyanaconda.core import util
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName
-from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
@@ -48,16 +47,11 @@ class InstallerStorage(Blivet):
     def __init__(self):
         super().__init__()
         self.protected_devices = []
-
         self._escrow_certificates = {}
         self._default_boot_fstype = None
-
         self._bootloader = None
-        self.config = DiskInitializationConfig()
-
         self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
-
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
 

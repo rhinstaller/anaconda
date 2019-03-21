@@ -2,6 +2,8 @@ import unittest
 import mock
 
 import blivet
+
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.storage.osinstall import InstallerStorage
 from pyanaconda.core.constants import CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE
 from parted import PARTITION_NORMAL
@@ -19,7 +21,7 @@ class ClearPartTestCase(unittest.TestCase):
     def setUp(self):
         flags.testing = True
         self._storage = InstallerStorage()
-        self._config = self._storage.config
+        self._config = DiskInitializationConfig()
 
     def _can_remove(self, device):
         return self._config.can_remove(self._storage, device)

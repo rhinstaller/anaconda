@@ -48,6 +48,7 @@ from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOO
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.platform import platform
@@ -1973,9 +1974,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # If we've just removed the last partition and the disklabel is pre-
         # existing, reinitialize the disk.
-        if device.type == "partition" and device.exists and \
-           device.disk.format.exists:
-            if self._storage_playground.config.can_remove(self._storage_playground, device.disk):
+        if device.type == "partition" and device.exists and device.disk.format.exists:
+            config = DiskInitializationConfig()
+            if config.can_initialize(self._storage_playground, device.disk):
                 self._storage_playground.initialize_disk(device.disk)
 
         self._devices = self._storage_playground.devices
