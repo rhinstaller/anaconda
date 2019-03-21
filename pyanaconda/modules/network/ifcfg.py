@@ -265,7 +265,7 @@ def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path="")
             iface = ifcfg.get("DEVICE")
             if not iface:
                 hwaddr = ifcfg.get("HWADDR")
-                iface = nm_client.get_iface_from_hwaddr(nm_client, hwaddr)
+                iface = get_iface_from_hwaddr(nm_client, hwaddr)
             if iface:
                 slaves.append((iface, ifcfg.get("UUID")))
     return slaves
