@@ -18,13 +18,14 @@
 # Authors: Jiri Konecny <jkonecny@redhat.com>
 #
 
-from pyanaconda.payload import dnfpayload
-from blivet.size import Size
 import unittest
 import tempfile
 import os
 import hashlib
 import shutil
+
+from pyanaconda.payload import dnfpayload
+from blivet.size import Size
 
 from pyanaconda.payload.dnfpayload import RepoMDMetaHash
 from pyanaconda.payload.requirement import PayloadRequirements
@@ -89,6 +90,7 @@ class DummyRepo(object):
     def __init__(self):
         self.id = "anaconda"
         self.baseurl = []
+        self.sslverify = True
 
 
 class DummyPayload(object):
