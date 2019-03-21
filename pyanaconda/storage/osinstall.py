@@ -458,43 +458,6 @@ class InstallerStorage(Blivet):
 
         return True
 
-    def clear_partitions(self):
-        """ Clear partitions and dependent devices from disks.
-
-            This is also where zerombr is handled.
-        """
-        # Sort partitions by descending partition number to minimize confusing
-        # things like multiple "destroy sda5" actions due to parted renumbering
-        # partitions. This can still happen through the UI but it makes sense to
-        # avoid it where possible.
-        partitions = sorted(self.partitions,
-                            key=lambda p: getattr(p.parted_partition, "number", 1),
-                            reverse=True)
-        for part in partitions:
-            log.debug("clearpart: looking at %s", part.name)
-            if not self.should_clear(part):
-                continue
-
-            self.recursive_remove(part)
-            log.debug("partitions: %s", [p.name for p in part.disk.children])
-
-        # now remove any empty extended partitions
-        self.remove_empty_extended_partitions()
-
-        # ensure all disks have appropriate disklabels
-        for disk in self.disks:
-            should_format = (self.config.format_unrecognized and disk.format.type is None)
-            should_clear = self.should_clear(disk)
-            if should_clear:
-                self.recursive_remove(disk)
-
-            if should_format or should_clear:
-                if disk.protected:
-                    log.warning("cannot clear '%s': disk is protected or read only", disk.name)
-                else:
-                    log.debug("clearpart: initializing %s", disk.name)
-                    self.initialize_disk(disk)
-
     def _get_hostname(self):
         """Return a hostname."""
         ignored_hostnames = {None, "", 'localhost', 'localhost.localdomain'}

@@ -59,7 +59,37 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
                         "Using default disklabel %s instead.", disk_label,
                         DiskLabel.get_platform_label_types()[0])
 
-        storage.clear_partitions()
+        # Sort partitions by descending partition number to minimize confusing
+        # things like multiple "destroy sda5" actions due to parted renumbering
+        # partitions. This can still happen through the UI but it makes sense to
+        # avoid it where possible.
+        partitions = sorted(storage.partitions,
+                            key=lambda p: getattr(p.parted_partition, "number", 1),
+                            reverse=True)
+        for part in partitions:
+            log.debug("clearpart: looking at %s", part.name)
+            if not storage.should_clear(part):
+                continue
+
+            storage.recursive_remove(part)
+            log.debug("partitions: %s", [p.name for p in part.disk.children])
+
+        # Now remove any empty extended partitions.
+        storage.remove_empty_extended_partitions()
+
+        # Ensure all disks have appropriate disk labels.
+        for disk in storage.disks:
+            should_format = (storage.config.format_unrecognized and disk.format.type is None)
+            should_clear = storage.should_clear(disk)
+            if should_clear:
+                storage.recursive_remove(disk)
+
+            if should_format or should_clear:
+                if disk.protected:
+                    log.warning("cannot clear '%s': disk is protected or read only", disk.name)
+                else:
+                    log.debug("clearpart: initializing %s", disk.name)
+                    storage.initialize_disk(disk)
 
         # Check the usable disks.
         if not any(d for d in storage.disks if not d.format.hidden and not d.protected):
