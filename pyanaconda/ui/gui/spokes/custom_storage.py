@@ -1975,7 +1975,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # existing, reinitialize the disk.
         if device.type == "partition" and device.exists and \
            device.disk.format.exists:
-            if self._storage_playground.should_clear(device.disk):
+            if self._storage_playground.config.can_remove(self._storage_playground, device.disk):
                 self._storage_playground.initialize_disk(device.disk)
 
         self._devices = self._storage_playground.devices

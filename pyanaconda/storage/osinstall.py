@@ -21,10 +21,9 @@
 """This module provides storage functions related to OS installation."""
 
 import os
-import parted
 
 from blivet.blivet import Blivet
-from blivet.devices import PartitionDevice, BTRFSSubVolumeDevice
+from blivet.devices import BTRFSSubVolumeDevice
 from blivet.formats import get_format
 from blivet.size import Size
 from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
@@ -32,8 +31,7 @@ from blivet.devicelibs.crypto import DEFAULT_LUKS_VERSION
 from pyanaconda.core import util
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
-    CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
+from pyanaconda.core.constants import shortProductName
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
@@ -363,100 +361,6 @@ class InstallerStorage(Blivet):
         used = set(used_devices)
         _all = set(self.devices)
         return list(_all.difference(used))
-
-    def should_clear(self, device, **kwargs):
-        """ Return True if a clearpart settings say a device should be cleared.
-
-            :param device: the device (required)
-            :type device: :class:`blivet.devices.StorageDevice`
-            :keyword initialization_mode: overrides :attr:`self.config.initialization_mode`
-            :type initialization_mode: int
-            :keyword drives_to_clear: overrides
-                                     :attr:`self.config.drives_to_clear`
-            :type drives_to_clear: list
-            :keyword devices_to_clear: overrides
-                                       :attr:`self.config.devices_to_clear`
-            :type devices_to_clear: list
-            :returns: whether or not clear_partitions should remove this device
-            :rtype: bool
-        """
-        initialization_mode = kwargs.get("initialization_mode", self.config.initialization_mode)
-        drives_to_clear = kwargs.get("drives_to_clear",
-                                      self.config.drives_to_clear)
-        devices_to_clear = kwargs.get("devices_to_clear",
-                                        self.config.devices_to_clear)
-
-        for disk in device.disks:
-            # this will not include disks with hidden formats like multipath
-            # and firmware raid member disks
-            if drives_to_clear and disk.name not in drives_to_clear:
-                return False
-
-        if not self.config.clear_non_existent:
-            if (device.is_disk and not device.format.exists) or \
-               (not device.is_disk and not device.exists):
-                return False
-
-        # the only devices we want to clear when initialization_mode is
-        # CLEAR_PARTITIONS_NONE are uninitialized disks, or disks with no
-        # partitions, in drives_to_clear, and then only when we have been asked
-        # to initialize disks as needed
-        if initialization_mode in [CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT]:
-            if not self.config.initialize_labels or not device.is_disk:
-                return False
-
-            if not self.empty_device(device):
-                return False
-
-        if isinstance(device, PartitionDevice):
-            # Never clear the special first partition on a Mac disk label, as
-            # that holds the partition table itself.
-            # Something similar for the third partition on a Sun disklabel.
-            if device.is_magic:
-                return False
-
-            # We don't want to fool with extended partitions, freespace, &c
-            if not device.is_primary and not device.is_logical:
-                return False
-
-            if initialization_mode == CLEAR_PARTITIONS_LINUX and \
-               not device.format.linux_native and \
-               not device.get_flag(parted.PARTITION_LVM) and \
-               not device.get_flag(parted.PARTITION_RAID) and \
-               not device.get_flag(parted.PARTITION_SWAP):
-                return False
-        elif device.is_disk:
-            if device.partitioned and initialization_mode != CLEAR_PARTITIONS_ALL:
-                # if initialization_mode is not CLEAR_PARTITIONS_ALL but we'll still be
-                # removing every partition from the disk, return True since we
-                # will want to be able to create a new disklabel on this disk
-                if not self.empty_device(device):
-                    return False
-
-            # Never clear disks with hidden formats
-            if device.format.hidden:
-                return False
-
-            # When initialization_mode is CLEAR_PARTITIONS_LINUX and a disk has non-
-            # linux whole-disk formatting, do not clear it. The exception is
-            # the case of an uninitialized disk when we've been asked to
-            # initialize disks as needed
-            if (initialization_mode == CLEAR_PARTITIONS_LINUX and
-                not ((self.config.initialize_labels and
-                      self.empty_device(device)) or
-                     (not device.partitioned and device.format.linux_native))):
-                return False
-
-        # Don't clear devices holding install media.
-        descendants = self.devicetree.get_dependent_devices(device)
-        if device.protected or any(d.protected for d in descendants):
-            return False
-
-        if initialization_mode == CLEAR_PARTITIONS_LIST and \
-           device.name not in devices_to_clear:
-            return False
-
-        return True
 
     def _get_hostname(self):
         """Return a hostname."""

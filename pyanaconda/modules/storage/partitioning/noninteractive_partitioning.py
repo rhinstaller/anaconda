@@ -68,7 +68,7 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
                             reverse=True)
         for part in partitions:
             log.debug("clearpart: looking at %s", part.name)
-            if not storage.should_clear(part):
+            if not storage.config.can_remove(storage, part):
                 continue
 
             storage.recursive_remove(part)
@@ -80,11 +80,11 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         # Ensure all disks have appropriate disk labels.
         for disk in storage.disks:
             should_format = (storage.config.format_unrecognized and disk.format.type is None)
-            should_clear = storage.should_clear(disk)
-            if should_clear:
+            should_remove = storage.config.can_remove(storage, disk)
+            if should_remove:
                 storage.recursive_remove(disk)
 
-            if should_format or should_clear:
+            if should_format or should_remove:
                 if disk.protected:
                     log.warning("cannot clear '%s': disk is protected or read only", disk.name)
                 else:
