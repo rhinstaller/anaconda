@@ -231,3 +231,45 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.package_interface.ExcludedPackages, ["package1", "package2"])
         self.callback.assert_called_once_with(
             DNF_PACKAGES.interface_name, {"ExcludedPackages": ["package1", "package2"]}, [])
+
+    def docs_excluded_properties_test(self):
+        self.package_interface.SetDocsExcluded(True)
+        self.assertEqual(self.package_interface.DocsExcluded, True)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"DocsExcluded": True}, [])
+
+    def weakdeps_excluded_properties_test(self):
+        self.package_interface.SetWeakdepsExcluded(True)
+        self.assertEqual(self.package_interface.WeakdepsExcluded, True)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"WeakdepsExcluded": True}, [])
+
+    def missing_ignored_properties_test(self):
+        self.package_interface.SetMissingIgnored(True)
+        self.assertEqual(self.package_interface.MissingIgnored, True)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"MissingIgnored": True}, [])
+
+    def languages_properties_test(self):
+        self.package_interface.SetLanguages(["TestLang1", "Esperanto"])
+        self.assertEqual(self.package_interface.Languages, ["TestLang1", "Esperanto"])
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"Languages": ["TestLang1", "Esperanto"]}, [])
+
+    def multilib_policy_properties_test(self):
+        self.package_interface.SetMultilibPolicy(True)
+        self.assertEqual(self.package_interface.MultilibPolicy, True)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"MultilibPolicy": True}, [])
+
+    def timeout_properties_test(self):
+        self.package_interface.SetTimeout(60)
+        self.assertEqual(self.package_interface.Timeout, 60)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"Timeout": 60}, [])
+
+    def retries_properties_test(self):
+        self.package_interface.SetRetries(30)
+        self.assertEqual(self.package_interface.Retries, 30)
+        self.callback.assert_called_once_with(
+            DNF_PACKAGES.interface_name, {"Retries": 30}, [])

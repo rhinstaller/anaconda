@@ -39,6 +39,14 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
         self.implementation.excluded_groups_changed.connect(self.changed("ExcludedGroups"))
         self.implementation.excluded_packages_changed.connect(self.changed("ExcludedPackages"))
 
+        self.implementation.docs_excluded_changed.connect(self.changed("DocsExcluded"))
+        self.implementation.weakdeps_excluded_changed.connect(self.changed("WeakdepsExcluded"))
+        self.implementation.missing_ignored_changed.connect(self.changed("MissingIgnored"))
+        self.implementation.languages_changed.connect(self.changed("Languages"))
+        self.implementation.multilib_policy_changed.connect(self.changed("MultilibPolicy"))
+        self.implementation.timeout_changed.connect(self.changed("Timeout"))
+        self.implementation.retries_changed.connect(self.changed("Retries"))
+
     @property
     def CoreGroupEnabled(self) -> Bool:
         """Should the core package group be installed?"""
@@ -103,3 +111,83 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
     def SetExcludedPackages(self, excluded_packages: List[Str]):
         """Set list of packages which will be excluded from the installation."""
         self.implementation.set_excluded_packages(excluded_packages)
+
+    @property
+    def DocsExcluded(self) -> Bool:
+        """Should the package documentation be excluded?"""
+        return self.implementation.docs_excluded
+
+    @emits_properties_changed
+    def SetDocsExcluded(self, docs_excluded: Bool):
+        """Set if the package documentation should be excluded."""
+        self.implementation.set_docs_excluded(docs_excluded)
+
+    @property
+    def WeakdepsExcluded(self) -> Bool:
+        """Should the package weak dependencies be excluded?"""
+        return self.implementation.weakdeps_excluded
+
+    @emits_properties_changed
+    def SetWeakdepsExcluded(self, weakdeps_excluded: Bool):
+        """Set if the package weak dependencies should be excluded."""
+        self.implementation.set_weakdeps_excluded(weakdeps_excluded)
+
+    @property
+    def MissingIgnored(self) -> Bool:
+        """Should the missing packages be ignored?"""
+        return self.implementation.missing_ignored
+
+    @emits_properties_changed
+    def SetMissingIgnored(self, missing_ignored: Bool):
+        """Set if the missing packages should be ignored."""
+        self.implementation.set_missing_ignored(missing_ignored)
+
+    @property
+    def Languages(self) -> Str:
+        """Languages marked for installation.
+
+        This is different from the package group level selections. This setting will change rpm
+        macros to avoid installation of these languages.
+
+        Multiple languages can be specified, in that case the ',' is used in the string as
+        separator.
+        """
+        return self.implementation.languages
+
+    @emits_properties_changed
+    def SetLanguages(self, languages: Str):
+        """Set languages marked for installation.
+
+        In case you want to specify multiple languages use ',' in the string as separator.
+        """
+        self.implementation.set_languages(languages)
+
+    @property
+    def MultilibPolicy(self) -> Bool:
+        """Is the multilib policy set to 'all' instead of 'best'."""
+        return self.implementation.multilib_policy
+
+    @emits_properties_changed
+    def SetMultilibPolicy(self, multilib_policy: Bool):
+        """Set the multilib policy to 'all' instead of 'best'self."""
+        self.implementation.set_multilib_policy(multilib_policy)
+
+    @property
+    def Timeout(self) -> Int:
+        """Number of seconds before we failed the package installation."""
+        return self.implementation.timeout
+
+    @emits_properties_changed
+    def SetTimeout(self, timeout: Int):
+        """Set the number of seconds before we failed the package installation."""
+        self.implementation.set_timeout(timeout)
+
+    @property
+    def Retries(self) -> Int:
+        """Get how many times the installer should try before failing the installation."""
+        return self.implementation.retries
+
+    @emits_properties_changed
+    def SetRetries(self, retries: Int):
+        """Set how many times the installer should try before failing the installation."""
+        self.implementation.set_retries(retries)

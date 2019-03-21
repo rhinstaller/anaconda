@@ -51,12 +51,19 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.excluded_groups_changed = Signal()
 
         self._docs_excluded = False
+        self.docs_excluded_changed = Signal()
         self._weakdeps_excluded = False
+        self.weakdeps_excluded_changed = Signal()
         self._missing_ignored = False
+        self.missing_ignored_changed = Signal()
         self._languages = None
+        self.languages_changed = Signal()
         self._multilib_policy = None
+        self.multilib_policy_changed = Signal()
         self._timeout = None
+        self.timeout_changed = Signal()
         self._retries = None
+        self.retries_changed = Signal()
 
     def publish(self):
         """Publish the module."""
@@ -76,18 +83,18 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.set_excluded_packages(packages.excludedList)
         self.set_excluded_groups(packages.excludedGroupList)
 
-        self._docs_excluded = packages.excludeDocs
-        self._weakdeps_excluded = packages.excludeWeakdeps
+        self.set_docs_excluded(packages.excludeDocs)
+        self.set_weakdeps_excluded(packages.excludeWeakdeps)
 
         if packages.handleMissing == KS_MISSING_IGNORE:
-            self._missing_ignored = True
+            self.set_missing_ignored(True)
         else:
-            self._missing_ignored = False
+            self.set_missing_ignored(False)
 
-        self._languages = packages.instLangs
-        self._multilib_policy = packages.multiLib
-        self._timeout = packages.timeout
-        self._retries = packages.retries
+        self.set_languages(packages.instLangs)
+        self.set_multilib_policy(packages.multiLib)
+        self.set_timeout(packages.timeout)
+        self.set_retries(packages.retries)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -103,13 +110,13 @@ class PackagesHandlerModule(KickstartBaseModule):
         packages.excludedList = self.excluded_packages
         packages.excludedGroupList = self.excluded_groups
 
-        packages.excludeDocs = self._docs_excluded
-        packages.excludeWeakdeps = self._weakdeps_excluded
-        packages.handleMissing = KS_MISSING_IGNORE if self._missing_ignored else KS_MISSING_PROMPT
-        packages.instLangs = self._languages
-        packages.multiLib = self._multilib_policy
-        packages.timeout = self._timeout
-        packages.retries = self._retries
+        packages.excludeDocs = self.docs_excluded
+        packages.excludeWeakdeps = self.weakdeps_excluded
+        packages.handleMissing = KS_MISSING_IGNORE if self.missing_ignored else KS_MISSING_PROMPT
+        packages.instLangs = self.languages
+        packages.multiLib = self.multilib_policy
+        packages.timeout = self.timeout
+        packages.retries = self.retries
 
         # The empty packages section won't be printed without seen set to True
         packages.seen = True
@@ -238,3 +245,131 @@ class PackagesHandlerModule(KickstartBaseModule):
         self._excluded_packages = excluded_packages
         self.excluded_packages_changed.emit()
         log.debug("Excluded packages is set to %s.", excluded_packages)
+
+    @property
+    def docs_excluded(self):
+        """Should the documentation be excluded during the installation.
+
+        :rtype: bool
+        """
+        return self._docs_excluded
+
+    def set_docs_excluded(self, docs_excluded):
+        """Set if the documentation should be installed with the packages.
+
+        :param docs_excluded: True if packages documentation should be installed
+        :type docs_excluded: bool
+        """
+        self._docs_excluded = docs_excluded
+        self.docs_excluded_changed.emit()
+        log.debug("Exclude docs is set to %s.", docs_excluded)
+
+    @property
+    def weakdeps_excluded(self):
+        """Should the packages weak dependencies be excluded from the installation.
+
+        :rtype: bool
+        """
+        return self._weakdeps_excluded
+
+    def set_weakdeps_excluded(self, weakdeps_excluded):
+        """Set if the weak dependencies should be excluded during the installation.
+
+        :param weakdeps_excluded: True if the weak dependencies should be excluded
+        :type weakdeps_excluded: bool
+        """
+        self._weakdeps_excluded = weakdeps_excluded
+        self.weakdeps_excluded_changed.emit()
+        log.debug("Exclude weakdeps is set to %s.", weakdeps_excluded)
+
+    @property
+    def missing_ignored(self):
+        """Ignore packages that are missing from the repositories.
+
+        :rtype: bool
+        """
+        return self._missing_ignored
+
+    def set_missing_ignored(self, missing_ignored):
+        """Set if the packages missing during the installation should be ignored.
+
+        :param missing_ignored: True if missing packages should be ignored.
+        :type missing_ignored: bool
+        """
+        self._missing_ignored = missing_ignored
+        self.missing_ignored_changed.emit()
+        log.debug("Ignore missing is set to %s.", missing_ignored)
+
+    @property
+    def languages(self):
+        """Languages marked for installation.
+
+        In case multiple languages are specified they are split by ',' in the string returned.
+
+        :rtype: str
+        """
+        return self._languages
+
+    def set_languages(self, languages):
+        """Languages marked for installation.
+
+        :param languages: list of languages split by ','
+        :type languages: str
+        """
+        self._languages = languages
+        self.languages_changed.emit()
+        log.debug("Install languages is set to %s.", languages)
+
+    @property
+    def multilib_policy(self):
+        """Enable 'all' multilib policy as opposed to the default of “best”.
+
+        :rtype: bool
+        """
+        return self._multilib_policy
+
+    def set_multilib_policy(self, multilib_policy):
+        """Set the multilib 'all' policy.
+
+        :param multilib_policy: True if we want to set 'all' multilib policy.
+        :type multilib_policy: bool
+        """
+        self._multilib_policy = multilib_policy
+        self.multilib_policy_changed.emit()
+        log.debug("Multilib policy is set to %s.", multilib_policy)
+
+    @property
+    def timeout(self):
+        """Timeout how long to try before failing during the package installation.
+
+        :rtype: int
+        """
+        return self._timeout
+
+    def set_timeout(self, timeout):
+        """Set timeout how long to try before failing during the package installation.
+
+        :param timeout: number of seconds to wait
+        :type timeout: int
+        """
+        self._timeout = timeout
+        self.timeout_changed.emit()
+        log.debug("Timeout is set to %s.", timeout)
+
+    @property
+    def retries(self):
+        """How many times to try before failing during the package installation.
+
+        :rtype: int
+        """
+        return self._retries
+
+    def set_retries(self, retries):
+        """Set how many times to try before failing during the package installation.
+
+        :param retries: number of how many times to try
+        :type retries: int
+        """
+        self._retries = retries
+        self.retries_changed.emit()
+        log.debug("Retries is set to %s.", retries)
