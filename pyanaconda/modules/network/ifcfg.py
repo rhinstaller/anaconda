@@ -293,6 +293,10 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
         if ifcfg.get("MASTER") or ifcfg.get("TEAM_MASTER") or ifcfg.get("BRIDGE"):
             return None
 
+    # no support for wireless
+    if ifcfg.get("TYPE") == "Wireless":
+        return None
+
     # ipv4 and ipv6
     if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT") == "no":
         kwargs["onboot"] = False
