@@ -79,7 +79,7 @@ def get_team_port_config_from_connection(nm_client, uuid):
     return config
 
 
-def get_team_config_form_connection(nm_client, uuid):
+def get_team_config_from_connection(nm_client, uuid):
     connection = nm_client.get_connection_by_uuid(uuid)
     if not connection:
         return None

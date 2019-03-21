@@ -27,7 +27,7 @@ from pyanaconda.modules.network.constants import NM_CONNECTION_UUID_LENGTH
 from pyanaconda.modules.network.kickstart import default_ks_vlan_interface_name
 from pyanaconda.modules.network.utils import is_s390, prefix2netmask
 from pyanaconda.modules.network.nm_client import get_iface_from_hwaddr, get_iface_from_connection, \
-    get_team_port_config_from_connection, get_team_config_form_connection
+    get_team_port_config_from_connection, get_team_config_from_connection
 
 
 from pyanaconda.anaconda_loggers import get_module_logger
@@ -425,7 +425,7 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
         for iface, uuid in slaves:
             team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
             nd.teamslaves.append((iface, team_port_cfg))
-        teamconfig = get_team_config_form_connection(nm_client, ifcfg.get("UUID"))
+        teamconfig = get_team_config_from_connection(nm_client, ifcfg.get("UUID"))
         if teamconfig:
             nd.teamconfig = teamconfig
     return nd
