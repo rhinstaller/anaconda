@@ -69,3 +69,14 @@ class PayloadSection(Section):
         are supported by the payload?
         """
         return self._get_option("check_supported_locales", bool)
+
+    @property
+    def verify_ssl(self):
+        """Global option if the ssl verification is enabled.
+
+        If disabled it prevents Anaconda from verifying the ssl certificate for all HTTPS
+        connections with an exception of the additional repositories added by kickstart (where
+        --noverifyssl can be set per repo). Newly created additional repositories will honor
+        this option.
+        """
+        return self._get_option("verify_ssl", bool)
