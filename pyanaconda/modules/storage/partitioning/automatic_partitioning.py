@@ -53,6 +53,18 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         self._encrypted = encrypted
         self._luks_format_args = luks_format_args or {}
 
+    def _get_initialization_config(self):
+        """Get the initialization config.
+
+        FIXME: This is a temporary method.
+        """
+        config = super()._get_initialization_config()
+        # If autopart is selected we want to remove whatever has been created/scheduled
+        # to make room for autopart. If custom is selected, we want to leave alone any
+        # storage layout the user may have set up before now.
+        config.clear_non_existent = True
+        return config
+
     def _configure_partitioning(self, storage):
         """Configure the partitioning.
 

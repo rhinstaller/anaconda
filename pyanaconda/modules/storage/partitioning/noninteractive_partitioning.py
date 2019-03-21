@@ -22,7 +22,7 @@ from blivet.formats.disklabel import DiskLabel
 from pyanaconda.anaconda_loggers import get_module_logger
 
 from pyanaconda.bootloader.execution import setup_bootloader
-from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, AUTO_PARTITIONING
+from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
@@ -42,10 +42,10 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         self._configure_partitioning(storage)
         self._setup_bootloader(storage)
 
-    def _clear_partitions(self, storage):
-        """Clear partitions.
+    def _get_initialization_config(self):
+        """Get the initialization config.
 
-        :param storage: an instance of Blivet
+        FIXME: This is a temporary method.
         """
         config = DiskInitializationConfig()
 
@@ -56,12 +56,7 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         config.devices_to_clear = disk_init_proxy.DevicesToClear
         config.initialize_labels = disk_init_proxy.InitializeLabelsEnabled
         config.format_unrecognized = disk_init_proxy.FormatUnrecognizedEnabled
-
-        # If autopart is selected we want to remove whatever has been created/scheduled
-        # to make room for autopart. If custom is selected, we want to leave alone any
-        # storage layout the user may have set up before now.
-        auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-        config.clear_non_existent = auto_part_proxy.Enabled
+        config.clear_non_existent = False
 
         # Update the disk label.
         disk_label = disk_init_proxy.DefaultDiskLabel
@@ -70,6 +65,16 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
             log.warning("%s is not a supported disklabel type on this platform. "
                         "Using default disklabel %s instead.", disk_label,
                         DiskLabel.get_platform_label_types()[0])
+
+        return config
+
+    def _clear_partitions(self, storage):
+        """Clear partitions.
+
+        :param storage: an instance of Blivet
+        """
+        # Set up the initialization config.
+        config = self._get_initialization_config()
 
         # Sort partitions by descending partition number to minimize confusing
         # things like multiple "destroy sda5" actions due to parted renumbering
