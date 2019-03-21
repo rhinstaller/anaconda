@@ -45,7 +45,7 @@ def get_candidate_disks(storage):
 
     Disks must be partitioned and have a single free region large enough
     for a default-sized (500MiB) partition. They must also be in
-    :attr:`StorageDiscoveryConfig.clear_part_disks` if it is non-empty.
+    :attr:`DiskInitializationConfig.drives_to_clear` if it is non-empty.
 
     :param storage: an InstallerStorage instance
     :type storage: :class:`~.storage.InstallerStorage`
@@ -57,8 +57,8 @@ def get_candidate_disks(storage):
         if not disk.format.supported or disk.protected:
             continue
 
-        if storage.config.clear_part_disks and \
-           (disk.name not in storage.config.clear_part_disks):
+        if storage.config.drives_to_clear and \
+           (disk.name not in storage.config.drives_to_clear):
             continue
 
         if get_next_partition_type(disk.format.parted_disk) is None:

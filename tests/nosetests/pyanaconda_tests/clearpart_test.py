@@ -76,13 +76,13 @@ class ClearPartTestCase(unittest.TestCase):
         #
         # clearpart type none
         #
-        b.config.clear_part_type = CLEAR_PARTITIONS_NONE
+        b.config.initialization_mode = CLEAR_PARTITIONS_NONE
         self.assertFalse(b.should_clear(sda1),
                          msg="type none should not clear any partitions")
         self.assertFalse(b.should_clear(sda2),
                          msg="type none should not clear any partitions")
 
-        b.config.initialize_disks = False
+        b.config.initialize_labels = False
         self.assertFalse(b.should_clear(sda),
                          msg="type none should not clear non-empty disks")
         self.assertFalse(b.should_clear(sdb),
@@ -96,7 +96,7 @@ class ClearPartTestCase(unittest.TestCase):
                          msg="type none should not clear empty partition table "
                              "without initlabel")
 
-        b.config.initialize_disks = True
+        b.config.initialize_labels = True
         self.assertFalse(b.should_clear(sda),
                          msg="type none should not clear non-empty disks even "
                              "with initlabel")
@@ -113,7 +113,7 @@ class ClearPartTestCase(unittest.TestCase):
         #
         # clearpart type linux
         #
-        b.config.clear_part_type = CLEAR_PARTITIONS_LINUX
+        b.config.initialization_mode = CLEAR_PARTITIONS_LINUX
         self.assertTrue(b.should_clear(sda1),
                         msg="type linux should clear partitions containing "
                             "ext4 filesystems")
@@ -121,7 +121,7 @@ class ClearPartTestCase(unittest.TestCase):
                          msg="type linux should not clear partitions "
                              "containing vfat filesystems")
 
-        b.config.initialize_disks = False
+        b.config.initialize_labels = False
         self.assertFalse(b.should_clear(sda),
                          msg="type linux should not clear non-empty disklabels")
         self.assertTrue(b.should_clear(sdb),
@@ -134,7 +134,7 @@ class ClearPartTestCase(unittest.TestCase):
                          msg="type linux should not clear disks with empty "
                              "partition tables unless initlabel is set")
 
-        b.config.initialize_disks = True
+        b.config.initialize_labels = True
         self.assertFalse(b.should_clear(sda),
                          msg="type linux should not clear non-empty disklabels")
         self.assertTrue(b.should_clear(sdb),
@@ -158,13 +158,13 @@ class ClearPartTestCase(unittest.TestCase):
         #
         # clearpart type all
         #
-        b.config.clear_part_type = CLEAR_PARTITIONS_ALL
+        b.config.initialization_mode = CLEAR_PARTITIONS_ALL
         self.assertTrue(b.should_clear(sda1),
                         msg="type all should clear all partitions")
         self.assertTrue(b.should_clear(sda2),
                         msg="type all should clear all partitions")
 
-        b.config.initialize_disks = False
+        b.config.initialize_labels = False
         self.assertTrue(b.should_clear(sda),
                         msg="type all should initialize all disks")
         self.assertTrue(b.should_clear(sdb),
@@ -174,7 +174,7 @@ class ClearPartTestCase(unittest.TestCase):
         self.assertTrue(b.should_clear(sdd),
                         msg="type all should initialize all disks")
 
-        b.config.initialize_disks = True
+        b.config.initialize_labels = True
         self.assertTrue(b.should_clear(sda),
                         msg="type all should initialize all disks")
         self.assertTrue(b.should_clear(sdb),

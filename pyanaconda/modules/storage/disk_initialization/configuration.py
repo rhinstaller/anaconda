@@ -1,5 +1,7 @@
 #
-# Copyright (C) 2018 Red Hat, Inc.
+# Configuration of the disk initialization.
+#
+# Copyright (C) 2019 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -15,7 +17,18 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.modules.storage.disk_initialization.configuration import DiskInitializationConfig
-from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
+from pyanaconda.core.constants import CLEAR_PARTITIONS_DEFAULT
 
-__all__ = ["DiskInitializationModule", "DiskInitializationConfig"]
+_all__ = ["DiskInitializationConfig"]
+
+
+class DiskInitializationConfig(object):
+    """Configuration of the disk initialization."""
+
+    def __init__(self):
+        self.initialization_mode = CLEAR_PARTITIONS_DEFAULT
+        self.drives_to_clear = []
+        self.devices_to_clear = []
+        self.initialize_labels = False
+        self.format_unrecognized = False
+        self.clear_non_existent = False

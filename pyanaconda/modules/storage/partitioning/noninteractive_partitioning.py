@@ -47,10 +47,10 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         :param storage: an instance of Blivet
         """
         disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-        storage.config.clear_part_type = disk_init_proxy.InitializationMode
-        storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
-        storage.config.clear_part_devices = disk_init_proxy.DevicesToClear
-        storage.config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
+        storage.config.initialization_mode = disk_init_proxy.InitializationMode
+        storage.config.drives_to_clear = disk_init_proxy.DrivesToClear
+        storage.config.devices_to_clear = disk_init_proxy.DevicesToClear
+        storage.config.initialize_labels = disk_init_proxy.InitializeLabelsEnabled
 
         disk_label = disk_init_proxy.DefaultDiskLabel
 

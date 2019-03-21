@@ -34,6 +34,7 @@ from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
@@ -41,24 +42,6 @@ from pyanaconda.modules.common.constants.services import NETWORK
 
 import logging
 log = logging.getLogger("anaconda.storage")
-
-
-class StorageDiscoveryConfig(object):
-
-    """ Class to encapsulate various detection/initialization parameters. """
-
-    def __init__(self):
-
-        # storage configuration variables
-        self.clear_part_type = CLEAR_PARTITIONS_DEFAULT
-        self.clear_part_disks = []
-        self.clear_part_devices = []
-        self.initialize_disks = False
-        self.zero_mbr = False
-
-        # Whether clear_partitions removes scheduled/non-existent devices and
-        # disklabels depends on this flag.
-        self.clear_non_existent = False
 
 
 class InstallerStorage(Blivet):
@@ -72,7 +55,7 @@ class InstallerStorage(Blivet):
         self._default_boot_fstype = None
 
         self._bootloader = None
-        self.config = StorageDiscoveryConfig()
+        self.config = DiskInitializationConfig()
 
         self.__luks_devs = {}
         self.fsset = FSSet(self.devicetree)
@@ -386,27 +369,27 @@ class InstallerStorage(Blivet):
 
             :param device: the device (required)
             :type device: :class:`blivet.devices.StorageDevice`
-            :keyword clear_part_type: overrides :attr:`self.config.clear_part_type`
-            :type clear_part_type: int
-            :keyword clear_part_disks: overrides
-                                     :attr:`self.config.clear_part_disks`
-            :type clear_part_disks: list
-            :keyword clear_part_devices: overrides
-                                       :attr:`self.config.clear_part_devices`
-            :type clear_part_devices: list
+            :keyword initialization_mode: overrides :attr:`self.config.initialization_mode`
+            :type initialization_mode: int
+            :keyword drives_to_clear: overrides
+                                     :attr:`self.config.drives_to_clear`
+            :type drives_to_clear: list
+            :keyword devices_to_clear: overrides
+                                       :attr:`self.config.devices_to_clear`
+            :type devices_to_clear: list
             :returns: whether or not clear_partitions should remove this device
             :rtype: bool
         """
-        clear_part_type = kwargs.get("clear_part_type", self.config.clear_part_type)
-        clear_part_disks = kwargs.get("clear_part_disks",
-                                      self.config.clear_part_disks)
-        clear_part_devices = kwargs.get("clear_part_devices",
-                                        self.config.clear_part_devices)
+        initialization_mode = kwargs.get("initialization_mode", self.config.initialization_mode)
+        drives_to_clear = kwargs.get("drives_to_clear",
+                                      self.config.drives_to_clear)
+        devices_to_clear = kwargs.get("devices_to_clear",
+                                        self.config.devices_to_clear)
 
         for disk in device.disks:
             # this will not include disks with hidden formats like multipath
             # and firmware raid member disks
-            if clear_part_disks and disk.name not in clear_part_disks:
+            if drives_to_clear and disk.name not in drives_to_clear:
                 return False
 
         if not self.config.clear_non_existent:
@@ -414,12 +397,12 @@ class InstallerStorage(Blivet):
                (not device.is_disk and not device.exists):
                 return False
 
-        # the only devices we want to clear when clear_part_type is
+        # the only devices we want to clear when initialization_mode is
         # CLEAR_PARTITIONS_NONE are uninitialized disks, or disks with no
-        # partitions, in clear_part_disks, and then only when we have been asked
+        # partitions, in drives_to_clear, and then only when we have been asked
         # to initialize disks as needed
-        if clear_part_type in [CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT]:
-            if not self.config.initialize_disks or not device.is_disk:
+        if initialization_mode in [CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT]:
+            if not self.config.initialize_labels or not device.is_disk:
                 return False
 
             if not self.empty_device(device):
@@ -436,15 +419,15 @@ class InstallerStorage(Blivet):
             if not device.is_primary and not device.is_logical:
                 return False
 
-            if clear_part_type == CLEAR_PARTITIONS_LINUX and \
+            if initialization_mode == CLEAR_PARTITIONS_LINUX and \
                not device.format.linux_native and \
                not device.get_flag(parted.PARTITION_LVM) and \
                not device.get_flag(parted.PARTITION_RAID) and \
                not device.get_flag(parted.PARTITION_SWAP):
                 return False
         elif device.is_disk:
-            if device.partitioned and clear_part_type != CLEAR_PARTITIONS_ALL:
-                # if clear_part_type is not CLEAR_PARTITIONS_ALL but we'll still be
+            if device.partitioned and initialization_mode != CLEAR_PARTITIONS_ALL:
+                # if initialization_mode is not CLEAR_PARTITIONS_ALL but we'll still be
                 # removing every partition from the disk, return True since we
                 # will want to be able to create a new disklabel on this disk
                 if not self.empty_device(device):
@@ -454,12 +437,12 @@ class InstallerStorage(Blivet):
             if device.format.hidden:
                 return False
 
-            # When clear_part_type is CLEAR_PARTITIONS_LINUX and a disk has non-
+            # When initialization_mode is CLEAR_PARTITIONS_LINUX and a disk has non-
             # linux whole-disk formatting, do not clear it. The exception is
             # the case of an uninitialized disk when we've been asked to
             # initialize disks as needed
-            if (clear_part_type == CLEAR_PARTITIONS_LINUX and
-                not ((self.config.initialize_disks and
+            if (initialization_mode == CLEAR_PARTITIONS_LINUX and
+                not ((self.config.initialize_labels and
                       self.empty_device(device)) or
                      (not device.partitioned and device.format.linux_native))):
                 return False
@@ -469,8 +452,8 @@ class InstallerStorage(Blivet):
         if device.protected or any(d.protected for d in descendants):
             return False
 
-        if clear_part_type == CLEAR_PARTITIONS_LIST and \
-           device.name not in clear_part_devices:
+        if initialization_mode == CLEAR_PARTITIONS_LIST and \
+           device.name not in devices_to_clear:
             return False
 
         return True
@@ -500,12 +483,12 @@ class InstallerStorage(Blivet):
 
         # ensure all disks have appropriate disklabels
         for disk in self.disks:
-            zerombr = (self.config.zero_mbr and disk.format.type is None)
+            should_format = (self.config.format_unrecognized and disk.format.type is None)
             should_clear = self.should_clear(disk)
             if should_clear:
                 self.recursive_remove(disk)
 
-            if zerombr or should_clear:
+            if should_format or should_clear:
                 if disk.protected:
                     log.warning("cannot clear '%s': disk is protected or read only", disk.name)
                 else:

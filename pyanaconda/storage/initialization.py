@@ -229,11 +229,11 @@ def _reset_storage(storage):
 def update_storage_config(config):
     """Update the storage configuration.
 
-    :param config: an instance of StorageDiscoveryConfig
+    :param config: an instance of DiskInitializationConfig
     """
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-    config.clear_part_type = disk_init_proxy.InitializationMode
-    config.clear_part_disks = disk_init_proxy.DrivesToClear
-    config.clear_part_devices = disk_init_proxy.DevicesToClear
-    config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
-    config.zero_mbr = disk_init_proxy.FormatUnrecognizedEnabled
+    config.initialization_mode = disk_init_proxy.InitializationMode
+    config.drives_to_clear = disk_init_proxy.DrivesToClear
+    config.devices_to_clear = disk_init_proxy.DevicesToClear
+    config.initialize_labels = disk_init_proxy.InitializeLabelsEnabled
+    config.format_unrecognized = disk_init_proxy.FormatUnrecognizedEnabled

@@ -303,7 +303,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
         self._previous_auto_part = False
 
-        self._clear_part_type = constants.CLEAR_PARTITIONS_NONE
+        self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
         self._auto_part_encrypted = False
         self._auto_part_passphrase = ""
         self._auto_part_missing_passphrase = False
@@ -415,7 +415,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._disk_init_observer.proxy.SetInitializeLabelsEnabled(True)
 
         if not self._auto_part_missing_passphrase:
-            self._clear_part_type = CLEAR_PARTITIONS_NONE
+            self._initialization_mode = CLEAR_PARTITIONS_NONE
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
         update_storage_config(self.storage.config)
