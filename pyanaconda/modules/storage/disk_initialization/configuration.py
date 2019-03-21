@@ -115,3 +115,24 @@ class DiskInitializationConfig(object):
             return False
 
         return True
+
+    def can_initialize(self, storage, disk):
+        """Can the given disk be initialized based on the config?
+
+        :param storage: an instance of the Blivet's storage
+        :param disk: an instance of the disk we want to format
+        :return: True or False
+        """
+        # Skip protected and readonly disks.
+        if disk.protected:
+            return False
+
+        # Initialize disks with unrecognized formatting.
+        if self.format_unrecognized and disk.format.type is None:
+            return True
+
+        # Initialize disks that were removed.
+        if self.can_remove(storage, disk):
+            return True
+
+        return False

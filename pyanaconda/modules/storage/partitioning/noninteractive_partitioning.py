@@ -67,29 +67,26 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
                             key=lambda p: getattr(p.parted_partition, "number", 1),
                             reverse=True)
         for part in partitions:
-            log.debug("clearpart: looking at %s", part.name)
+            log.debug("Looking at partition: %s", part.name)
             if not storage.config.can_remove(storage, part):
                 continue
 
             storage.recursive_remove(part)
-            log.debug("partitions: %s", [p.name for p in part.disk.children])
+            log.debug("Partitions: %s", [p.name for p in part.disk.children])
 
         # Now remove any empty extended partitions.
         storage.remove_empty_extended_partitions()
 
         # Ensure all disks have appropriate disk labels.
         for disk in storage.disks:
-            should_format = (storage.config.format_unrecognized and disk.format.type is None)
-            should_remove = storage.config.can_remove(storage, disk)
-            if should_remove:
+            log.debug("Looking at disk: %s", disk.name)
+            if storage.config.can_remove(storage, disk):
+                log.debug("Removing %s.", disk.name)
                 storage.recursive_remove(disk)
 
-            if should_format or should_remove:
-                if disk.protected:
-                    log.warning("cannot clear '%s': disk is protected or read only", disk.name)
-                else:
-                    log.debug("clearpart: initializing %s", disk.name)
-                    storage.initialize_disk(disk)
+            if storage.config.can_initialize(storage, disk):
+                log.debug("Initializing %s.", disk.name)
+                storage.initialize_disk(disk)
 
         # Check the usable disks.
         if not any(d for d in storage.disks if not d.format.hidden and not d.protected):
