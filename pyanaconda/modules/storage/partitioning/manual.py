@@ -22,11 +22,10 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.constants.objects import MANUAL_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
-from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
 from pyanaconda.modules.storage.partitioning.manual_data import MountPoint
 from pyanaconda.modules.storage.partitioning.manual_interface import ManualPartitioningInterface
+from pyanaconda.modules.storage.partitioning.manual_partitioning import ManualPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.execution import ManualPartitioningExecutor
 
 log = get_module_logger(__name__)
 
@@ -145,7 +144,7 @@ class ManualPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = StorageConfigureTask(self.storage, ManualPartitioningExecutor())
+        task = ManualPartitioningTask(self.storage)
         path = self.publish_task(MANUAL_PARTITIONING.namespace, task)
         return path
 

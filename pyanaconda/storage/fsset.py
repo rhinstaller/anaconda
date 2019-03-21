@@ -485,6 +485,8 @@ class FSSet(object):
                     device.parents = [parent]
 
             while True:
+                if device.status and device.format.status:
+                    break
                 try:
                     device.setup()
                     device.format.setup()

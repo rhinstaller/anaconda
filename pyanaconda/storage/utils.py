@@ -22,6 +22,8 @@ import locale
 import os
 import requests
 
+from decimal import Decimal
+
 from blivet import udev
 from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 from blivet.size import Size
@@ -36,6 +38,7 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import is_supported_device_type
+from blivet.util import total_memory
 from bytesize.bytesize import ROUND_HALF_UP
 
 from pykickstart.errors import KickstartError
@@ -98,6 +101,9 @@ AUTOPART_DEVICE_TYPES = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
 
 NAMED_DEVICE_TYPES = (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_LVM_THINP)
 CONTAINER_DEVICE_TYPES = (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP)
+
+# maximum ratio of swap size to disk size (10 %)
+MAX_SWAP_DISK_RATIO = Decimal('0.1')
 
 udev_device_dict_cache = None
 
@@ -444,19 +450,6 @@ def lookup_alias(devicetree, alias):
     return None
 
 
-def get_available_disk_space(storage):
-    """Get overall disk space available on disks we may use.
-
-    :param storage: blivet.Blivet instance
-    :return: overall disk space available
-    :rtype: :class:`blivet.size.Size`
-    """
-    free_space = storage.free_space_snapshot
-    # Blivet creates a new free space dict to instead of modifying the old one,
-    # so there is no worry about the dictionary changing during iteration.
-    return sum(disk_free for disk_free, fs_free in free_space.values())
-
-
 def find_live_backing_device():
     """Find the backing device for the live image.
 
@@ -677,3 +670,61 @@ def unmark_protected_device(storage, spec):
     if spec in protected:
         protected.remove(spec)
         disk_selection_proxy.SetProtectedDevices(protected)
+
+
+def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):
+    """Suggest the size of the swap partition that will be created.
+
+    :param bool quiet: whether to log size information or not
+    :param bool hibernation: calculate swap size big enough for hibernation
+    :param disk_space: how much disk space is available
+    :return: calculated swap size
+    """
+    mem = total_memory()
+    mem = ((mem / 16) + 1) * 16
+
+    if not quiet:
+        log.info("Detected %s of memory", mem)
+
+    sixty_four_gib = Size("64 GiB")
+
+    # the succeeding if-statement implements the following formula for
+    # suggested swap size.
+    #
+    # swap(mem) = 2 * mem, if mem < 2 GiB
+    #           = mem,     if 2 GiB <= mem < 8 GiB
+    #           = mem / 2, if 8 GIB <= mem < 64 GiB
+    #           = 4 GiB,   if mem >= 64 GiB
+    if mem < Size("2 GiB"):
+        swap = 2 * mem
+
+    elif mem < Size("8 GiB"):
+        swap = mem
+
+    elif mem < sixty_four_gib:
+        swap = mem / 2
+
+    else:
+        swap = Size("4 GiB")
+
+    if hibernation:
+        if mem <= sixty_four_gib:
+            swap = mem + swap
+        else:
+            log.info("Ignoring --hibernation option on systems with %s of RAM or more",
+                     sixty_four_gib)
+
+    if disk_space is not None and not hibernation:
+        max_swap = disk_space * MAX_SWAP_DISK_RATIO
+        if swap > max_swap:
+            log.info("Suggested swap size (%(swap)s) exceeds %(percent)d %% of "
+                     "disk space, using %(percent)d %% of disk space (%(size)s) "
+                     "instead.", {"percent": MAX_SWAP_DISK_RATIO * 100,
+                                  "swap": swap,
+                                  "size": max_swap})
+            swap = max_swap
+
+    if not quiet:
+        log.info("Swap attempt of %s", swap)
+
+    return swap

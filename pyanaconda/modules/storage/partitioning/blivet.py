@@ -23,9 +23,9 @@ from pyanaconda.modules.common.constants.objects import BLIVET_PARTITIONING
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.blivet_interface import \
     BlivetPartitioningInterface
-from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
+from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+    InteractivePartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.execution import InteractivePartitioningExecutor
 
 log = get_module_logger(__name__)
 
@@ -82,7 +82,7 @@ class BlivetPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Complete the scheduled partitioning."""
-        task = StorageConfigureTask(self.storage, InteractivePartitioningExecutor())
+        task = InteractivePartitioningTask(self.storage)
         path = self.publish_task(BLIVET_PARTITIONING.namespace, task)
         return path
 

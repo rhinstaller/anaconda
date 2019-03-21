@@ -27,10 +27,10 @@ from pyanaconda.simpleconfig import unquote
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
+
 class GrubbyInfoError(Exception):
     pass
 
-_BootInfo = namedtuple("BootInfo", ["kernel", "initrd", "root", "args"])
 
 def run_grubby(args=None):
     """ Run grubby and retrieve the kernel, initrd and boot arguments
@@ -43,8 +43,9 @@ def run_grubby(args=None):
         The returned namedtuple contains the following attributes:
             kernel, initrd, root, args
     """
-    boot_info = _BootInfo()
-    attrs = list(_BootInfo._fields)
+    boot_info_fields = ["kernel", "initrd", "root", "args"]
+    boot_info_class = namedtuple("BootInfo", boot_info_fields)
+    boot_info_args = {}
 
     if not args:
         args = ["--info", "DEFAULT"]
@@ -56,18 +57,21 @@ def run_grubby(args=None):
         for line in execReadlines("grubby", args, root=getSysroot()):
             key, _sep, value = line.partition("=")
             value = unquote(value)
-            if key in attrs:
-                setattr(boot_info, key, value)
-                attrs.remove(key)
-            if not attrs:
+
+            if key in boot_info_fields:
+                boot_info_args[key] = value
+                boot_info_fields.remove(key)
+
+            if not boot_info_fields:
                 break
     except OSError as e:
         log.error("run_grubby failed: %s", e)
         raise GrubbyInfoError(e)
 
-    if len(attrs) > 0:
-        raise GrubbyInfoError("Missing values: %s" % ", ".join(attrs))
+    if boot_info_fields:
+        raise GrubbyInfoError("Missing values: %s" % ", ".join(boot_info_fields))
 
+    boot_info = boot_info_class(**boot_info_args)
     log.info("grubby boot info for (%s): %s", args, boot_info)
     return boot_info
 

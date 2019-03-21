@@ -24,7 +24,7 @@ import pydbus
 
 from pyanaconda.core.constants import ANACONDA_BUS_ADDR_FILE
 from pyanaconda.dbus.constants import DBUS_ANACONDA_SESSION_ADDRESS, DBUS_STARTER_ADDRESS
-from pyanaconda.dbus.observer import DBusObjectObserver, DBusCachedObserver
+from pyanaconda.dbus.observer import DBusObjectObserver
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -148,18 +148,13 @@ class Connection(ABC):
         :param service_name: a DBus name of a service
         :param object_path: a DBus path an object
         :return: an instance of DBusObjectObserver
+
+        .. deprecated::
+
+            Use get_proxy instead.
+
         """
         return DBusObjectObserver(self, service_name, object_path)
-
-    def get_cached_observer(self, service_name, object_path, interface_names):
-        """Returns a cached observer of a remote DBus object.
-
-        :param service_name: a DBus name of a service
-        :param object_path: a DBus path an object
-        :param interface_names: a list of interface names
-        :return: an instance of DBusCachedObserver
-        """
-        return DBusCachedObserver(self, service_name, object_path, interface_names)
 
     def disconnect(self):
         """Disconnect from DBus."""

@@ -292,9 +292,6 @@ if __name__ == "__main__":
     conf.set_from_product(opts.product_name, opts.variant_name)
     conf.set_from_opts(opts)
 
-    from pyanaconda import network
-    network.setup_ifcfg_log()
-
     log = anaconda_loggers.get_main_logger()
     stdout_log = anaconda_loggers.get_stdout_logger()
 
@@ -591,9 +588,9 @@ if __name__ == "__main__":
     enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
-    from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread, wait_for_connected_NM
+    from pyanaconda.network import initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
 
-    networkInitialize(ksdata)
+    initialize_network()
     # If required by user, wait for connection before starting the installation.
     if opts.waitfornet:
         log.info("network: waiting for connectivity requested by inst.waitfornet=%d", opts.waitfornet)

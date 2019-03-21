@@ -22,7 +22,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["DBusObserverError", "DBusObjectObserver", "DBusCachedObserver"]
+__all__ = ["DBusObserverError", "DBusObjectObserver"]
 
 
 class DBusObserverError(Exception):
@@ -199,6 +199,11 @@ class DBusObjectObserver(DBusObserver):
     result = observer.proxy.ListConnections()
     print(result)
 
+    .. deprecated::
+
+        Use a DBus proxy to access a DBus object or DBusObserver to monitor
+        a DBus service.
+
     """
 
     def __init__(self, message_bus, service_name, object_path):
@@ -284,101 +289,3 @@ class PropertiesCache(object):
             return super().__setattr__(name, value)
 
         raise AttributeError("It is not allowed to set {}.".format(name))
-
-
-class DBusCachedObserver(DBusObjectObserver):
-    """Observer of a DBus object with cached properties.
-
-    This is an extension of DBusObjectObserver that allows to cache properties
-    of the remote object. The observer is connected to the PropertiesChanged
-    signal of the remote object and updates its cache every time the signal
-    is emitted. Then it emits its own cached_properties_changed signal.
-
-    Only properties of specified interfaces will be cached.
-
-    Usage:
-    observer = DBusCachedObserver(SystemBus, "org.freedesktop.NetworkManager",
-                                  "org/freedesktop/NetworkManager/Settings",
-                                  ["org.freedesktop.NetworkManager.Settings"])
-    observer.connect()
-    print(observer.cache.Hostname)
-    """
-
-    def __init__(self, message_bus, service_name, object_path, watched_interfaces=None):
-        """Create an observer with cached properties.
-
-        Only properties of specified interfaces will be watched and cached.
-
-        :param message_bus: a message bus
-        :param service_name: a DBus name of a service
-        :param object_path:  a DBus path of an object
-        :param watched_interfaces: a list of interface names
-        """
-        super().__init__(message_bus, service_name, object_path)
-        self._cache = PropertiesCache()
-        self._cached_properties_changed = Signal()
-        self._watched_interfaces = set()
-
-        if watched_interfaces:
-            self._watched_interfaces.update(watched_interfaces)
-
-    @property
-    def cache(self):
-        """Returns a cache with properties of the remote object."""
-        return self._cache
-
-    @property
-    def cached_properties_changed(self):
-        """Signal that emits when cached properties are changed.
-
-        The signal emits this observer with updated cache, a set of
-        properties names that are changed and a set of properties
-        names that are invalid
-
-        Example of a callback:
-
-            def callback(observer, changed, invalid):
-                pass
-
-        """
-        return self._cached_properties_changed
-
-    def force_update(self):
-        """Force the update of the cache."""
-        for interface in self._watched_interfaces:
-            self._cache.update(self.proxy.GetAll(interface))
-
-    def _enable_service(self):
-        """Enable the service."""
-        self._proxy = None
-        self._is_service_available = True
-
-        # Synchronize properties with the remote object.
-        self.proxy.PropertiesChanged.connect(self._properties_changed_callback)
-        self.force_update()
-
-        # Send cached_properties_changed signal.
-        observer = self
-        names_changed = set(self._cache.properties.keys())
-        names_invalid = set()
-
-        self.service_available.emit(self)
-
-        if names_changed or names_invalid:
-            self.cached_properties_changed.emit(observer, names_changed, names_invalid)
-
-    def _properties_changed_callback(self, interface, changed, invalid):
-        """Callback for the DBus signal PropertiesChanged."""
-        if interface not in self._watched_interfaces:
-            return
-
-        # Update the cache
-        self._cache.update(changed)
-
-        # Send a signal.
-        observer = self
-        names_changed = set(changed.keys())
-        names_invalid = set(invalid)
-
-        if names_changed or names_invalid:
-            self.cached_properties_changed.emit(observer, names_changed, names_invalid)

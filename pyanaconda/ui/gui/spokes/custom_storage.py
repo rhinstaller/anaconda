@@ -40,13 +40,16 @@ from pyanaconda.core.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threading import AnacondaThread, threadMgr
 from pyanaconda.core.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, \
-    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, CLEAR_PARTITIONS_NONE, \
+    THREAD_CUSTOM_STORAGE_INIT, SIZE_UNITS_DEFAULT, UNSUPPORTED_FILESYSTEMS, \
     DEFAULT_AUTOPART_TYPE
 from pyanaconda.core.util import lowerASCII
-from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOOTLOADER, \
     AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
+    StorageConfigurationError
+from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
+    InteractiveAutoPartitioningTask
 from pyanaconda.platform import platform
 from pyanaconda.storage.initialization import reset_bootloader
 
@@ -62,19 +65,16 @@ from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import is_supported_device_type
 from blivet.errors import StorageError
-from blivet.errors import NoDisksError
-from blivet.errors import NotEnoughFreeSpaceError
 from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice, MDRaidArrayDevice, LVMVolumeGroupDevice
 
-
-from pyanaconda.storage.autopart import do_autopart
 from pyanaconda.storage.root import find_existing_installations, Root
 from pyanaconda.storage.checker import verify_luks_devices_have_key, storage_checker
 from pyanaconda.storage.utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD, \
-    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS,\
+    DEVICE_TEXT_UNSUPPORTED, PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS, \
     NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES, device_type_from_autopart, bound_size, \
     get_supported_filesystems, try_populate_devicetree, filter_unsupported_disklabel_devices
+from pyanaconda.storage.execution import configure_storage
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -379,13 +379,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         return devices
 
-    @property
-    def _currentFreeInfo(self):
-        return self._storage_playground.get_free_space(clear_part_type=CLEAR_PARTITIONS_NONE)
-
     def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        self._free_space = sum(f[0] for f in self._currentFreeInfo.values())
+        self._free_space = self._storage_playground.get_disk_free_space()
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
@@ -1728,9 +1724,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # set up bootloader and check the configuration
         bootloader_errors = []
         try:
-            self.storage.set_up_bootloader()
-        except BootLoaderError as e:
-            log.error("storage configuration failed: %s", e)
+            configure_storage(self.storage, interactive=True)
+        except BootloaderConfigurationError as e:
             bootloader_errors = str(e).split("\n")
             reset_bootloader(self.storage)
 
@@ -1882,6 +1877,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         # minimum entropy required for LUKS creation is always the same
         # TODO: use instance of a class with properly named attributes
         dev_info = {"min_luks_entropy": crypto.MIN_CREATE_ENTROPY}
+
+        # set the default luks version
+        dev_info["luks_version"] = self.storage.default_luks_version
 
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
@@ -2155,10 +2153,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._do_refresh()
 
     def on_summary_clicked(self, button):
-        dialog = SelectedDisksDialog(self.data)
-        dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
-                       showRemove=False, setBoot=False)
+        disks = self._clearpartDevices
+        dialog = SelectedDisksDialog(self.data, self.storage, disks, show_remove=False, set_boot=False)
+
         with self.main_window.enlightbox(dialog.window):
+            dialog.refresh()
             dialog.run()
 
     def on_configure_clicked(self, button):
@@ -2177,8 +2176,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
         self.clear_errors()
 
         dialog = DisksDialog(self.data,
+                             self._storage_playground,
                              disks=self._clearpartDevices,
-                             free=self._currentFreeInfo,
                              selected=self._device_disks)
         with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
@@ -2226,6 +2225,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                 size_policy = SIZE_POLICY_AUTO
 
         dialog = ContainerDialog(self.data,
+                                 self._storage_playground,
                                  device_type=self._get_current_device_type(),
                                  name=container_name,
                                  raid_level=self._device_container_raid_level,
@@ -2233,9 +2233,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
                                  size_policy=size_policy,
                                  size=size,
                                  disks=self._clearpartDevices,
-                                 free=self._currentFreeInfo,
                                  selected=self._device_disks,
-                                 storage=self._storage_playground,
                                  exists=getattr(container, "exists", False))
 
         with self.main_window.enlightbox(dialog.window):
@@ -2528,7 +2526,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             self._removeButton.set_sensitive(True)
 
     @ui_storage_logged
-    def _do_autopart(self):
+    def _do_autopart(self, scheme):
         """Helper function for on_create_clicked.
            Assumes a non-final context in which at least some errors
            discovered by storage checker are not considered fatal because they
@@ -2537,48 +2535,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
            Note: There are never any non-existent devices around when this runs.
         """
         log.debug("running automatic partitioning")
-        self._storage_playground.do_autopart = True
         self.clear_errors()
-        bootloader_error = ""
+
         try:
-            self._storage_playground.create_free_space_snapshot()
-            # do_autoparts needs stage1_disk setup so it will reuse existing partitions
-            self._storage_playground.set_up_bootloader(early=True)
-            do_autopart(self._storage_playground, min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
-        except NoDisksError as e:
-            # No handling should be required for this.
-            log.error("do_autopart failed: %s", e)
-            self._error = e
-            self.set_error(_("No disks selected."))
-        except NotEnoughFreeSpaceError as e:
-            # No handling should be required for this.
-            log.error("do_autopart failed: %s", e)
-            self._error = e
-            self.set_error(_("Not enough free space on selected disks."))
-        except StorageError as e:
-            log.error("do_autopart failed: %s", e)
+            task = InteractiveAutoPartitioningTask(self._storage_playground, scheme)
+            task.run()
+        except (StorageConfigurationError, BootloaderConfigurationError) as e:
             self._reset_storage()
             self._error = e
-            self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
-                             "for details.</a>"))
-        except BootLoaderError as e:
-            log.error("doAutoPartition failed: %s", e)
-            self._reset_storage()
-            self._error = e
-            self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
-                             "for details.</a>"))
-            bootloader_error = e
+            self.set_error(_("Automatic partitioning failed. "
+                             "<a href=\"\">Click for details.</a>"))
         else:
             self._devices = self._storage_playground.devices
-            # mark all new containers for automatic size management
-            for device in self._devices:
-                if not device.exists and hasattr(device, "size_policy"):
-                    device.size_policy = SIZE_POLICY_AUTO
         finally:
-            self._storage_playground.do_autopart = False
             log.debug("finished automatic partitioning")
 
-        if bootloader_error:
+        if self._error:
             return
 
         report = storage_checker.check(self._storage_playground,
@@ -2596,8 +2568,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
     def on_create_clicked(self, button, autopartTypeCombo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
-        self._storage_playground.autopart_type = self._get_autopart_type(autopartTypeCombo)
-        self._do_autopart()
+        self._do_autopart(self._get_autopart_type(autopartTypeCombo))
 
         # Refresh the spoke to make the new partitions appear.
         log.debug("refreshing ui")

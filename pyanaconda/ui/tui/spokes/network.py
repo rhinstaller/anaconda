@@ -83,7 +83,7 @@ class WiredTUIConfigurationData():
             if ip4_config.get_num_addresses() > 0:
                 addr = ip4_config.get_address(0)
                 self.ip = addr.get_address()
-                self.netmask = network.prefix2netmask(addr.get_prefix())
+                self.netmask = network.prefix_to_netmask(addr.get_prefix())
             else:
                 log.error("No ip4 address found for manual method in %s", connection_uuid)
         elif ip4_method == NM.SETTING_IP4_CONFIG_METHOD_DISABLED:
@@ -139,7 +139,7 @@ class WiredTUIConfigurationData():
         s_ip4 = NM.SettingIP4Config.new()
         s_ip4.set_property(NM.SETTING_IP_CONFIG_METHOD, method4)
         if method4 == NM.SETTING_IP4_CONFIG_METHOD_MANUAL:
-            prefix4 = network.netmask2prefix(self.netmask)
+            prefix4 = network.netmask_to_prefix(self.netmask)
             addr4 = NM.IPAddress.new(socket.AF_INET, self.ip, prefix4)
             s_ip4.add_address(addr4)
             if self.gateway:
@@ -206,8 +206,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
 
-        self.nm_client = None
-        if conf.system.provides_system_bus:
+        self.nm_client = network.get_nm_client()
+        if not self.nm_client and conf.system.provides_system_bus:
             self.nm_client = NM.Client.new(None)
 
         self._container = None
@@ -242,7 +242,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Check whether this spoke is complete or not."""
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or network.get_activated_ifaces(self.nm_client))
+                or self._network_module.proxy.GetActivatedInterfaces())
 
     @property
     def mandatory(self):
@@ -258,7 +258,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def _summary_text(self):
         """Devices cofiguration shown to user."""
         msg = ""
-        activated_devs = network.get_activated_ifaces(self.nm_client)
+        activated_devs = self._network_module.proxy.GetActivatedInterfaces()
         for device_configuration in self.editable_configurations:
             name = device_configuration.device_name
             if name in activated_devs:
@@ -281,7 +281,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     a0 = addresses[0]
                     addr_str = a0.get_address()
                     prefix = a0.get_prefix()
-                    netmask_str = network.prefix2netmask(prefix)
+                    netmask_str = network.prefix_to_netmask(prefix)
                 gateway_str = ipv4config.get_gateway() or ''
                 dnss_str = ",".join(ipv4config.get_nameservers())
             else:
@@ -366,7 +366,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def _configure_connection(self, iface, connection_uuid):
         connection = self.nm_client.get_connection_by_uuid(connection_uuid)
 
-        new_spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload, iface, connection)
+        new_spoke = ConfigureDeviceSpoke(self.data, self.storage, self.payload,
+                                         self._network_module, iface, connection)
         ScreenHandler.push_screen_modal(new_spoke)
 
         if new_spoke.errors:
@@ -380,6 +381,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             log.debug("activating connection %s with device %s",
                       connection_uuid, iface)
             self.nm_client.activate_connection_async(connection, device, None, None)
+
+        self._network_module.proxy.LogConfigurationState(
+            "Settings of {} updated in TUI.".format(iface)
+        )
 
         self.redraw()
         self.apply()
@@ -416,10 +421,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     category = "network"
 
-    def __init__(self, data, storage, payload, iface, connection):
+    def __init__(self, data, storage, payload, network_module, iface, connection):
         super().__init__(data, storage, payload)
         self.title = N_("Device configuration")
 
+        self._network_module = network_module
         self._container = None
         self._connection = connection
         self._iface = iface
@@ -436,14 +442,11 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         log.debug("Configure iface %s: connection %s -> %s", self._iface, self._connection_uuid,
                   self._data)
 
-    # TODO store the value in network module instead of ifcfg file?
-    # SetConnectionOnboot(uuid, value)
-    # GetConnectionOnboot(uuid)
     def _get_onboot(self, connection_uuid):
-        return get_onboot_from_ifcfg(connection_uuid)
+        return self._network_module.proxy.GetConnectionOnbootValue(connection_uuid)
 
     def _set_onboot(self, connection_uuid, onboot):
-        return set_onboot_in_ifcfg(connection_uuid, onboot)
+        return self._network_module.proxy.SetConnectionOnbootValue(connection_uuid, onboot)
 
     def refresh(self, args=None):
         """ Refresh window. """
@@ -580,8 +583,6 @@ class ConfigureDeviceSpoke(NormalTUISpoke):
         # ONBOOT workaround
         self._set_onboot(self._connection_uuid, self._data.onboot)
 
-        network.logIfcfgFiles("settings of %s updated" % self._iface)
-
 
 def get_default_connection(iface, device_type, autoconnect=False):
     """Get default connection to be edited by the UI."""
@@ -602,24 +603,3 @@ def get_default_connection(iface, device_type, autoconnect=False):
         connection.add_settings(s_ib)
     connection.add_setting(s_con)
     return connection
-
-
-def get_onboot_from_ifcfg(connection_uuid):
-    ifcfg_path = network.find_ifcfg_file([('UUID', connection_uuid)])
-    if not ifcfg_path:
-        log.error("can't find ifcfg file of %s", connection_uuid)
-        return False
-    ifcfg = network.IfcfgFile(ifcfg_path)
-    ifcfg.read()
-    return ifcfg.get('ONBOOT') != "no"
-
-
-def set_onboot_in_ifcfg(connection_uuid, onboot):
-    ifcfg_path = network.find_ifcfg_file([('UUID', connection_uuid)])
-    if not ifcfg_path:
-        log.error("can't find ifcfg file of %s", connection_uuid)
-        return False
-    ifcfg = network.IfcfgFile(ifcfg_path)
-    ifcfg.read()
-    ifcfg.set(('ONBOOT', "yes" if onboot else "no"))
-    ifcfg.write()

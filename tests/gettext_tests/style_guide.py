@@ -47,7 +47,7 @@ expected_badness = {
         'mountpoint': 1,  # format string specifier
         'bootloader': 1,  # format string specifier
     },
-    'pyanaconda/storage/execution.py': {
+    'pyanaconda/modules/storage/partitioning/custom_partitioning.py': {
         'btrfs': 1        # quoted filesystem type
     },
     'pyanaconda/network.py': {

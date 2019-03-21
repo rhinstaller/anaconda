@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+import warnings
+
 from pyanaconda.dbus import DBus
 from pyanaconda.dbus.namespace import get_dbus_path, get_dbus_name
 
@@ -167,20 +169,14 @@ class DBusServiceIdentifier(DBusObjectIdentifier):
 
         :param object_path: a DBus path of an object or None
         :return: an observer object
+
+        .. deprecated::
+
+            Use get_proxy instead.
+
         """
+        warnings.warn("The method get_observer is deprecated. Use get_proxy.",
+                      category=DeprecationWarning, stacklevel=2)
+
         object_path = self._choose_object_path(object_path)
         return self._message_bus.get_observer(self.service_name, object_path)
-
-    def get_cached_observer(self, object_path=None, interface_names=None):
-        """Returns a cached observer of the DBus object.
-
-        :param object_path: a DBus path of an object or None
-        :param interface_names: a list of interface names or None
-        :return: an observer object
-        """
-        interface_names = self._choose_interface_names(object_path, interface_names)
-        object_path = self._choose_object_path(object_path)
-
-        return self._message_bus.get_cached_observer(
-            self.service_name, object_path, interface_names
-        )

@@ -23,9 +23,8 @@ from pyanaconda.modules.common.constants.objects import CUSTOM_PARTITIONING
 from pyanaconda.modules.common.errors.storage import UnavailableDataError
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.partitioning.base_interface import PartitioningInterface
-from pyanaconda.modules.storage.partitioning.configure import StorageConfigureTask
+from pyanaconda.modules.storage.partitioning.custom_partitioning import CustomPartitioningTask
 from pyanaconda.modules.storage.partitioning.validate import StorageValidateTask
-from pyanaconda.storage.execution import CustomPartitioningExecutor
 
 log = get_module_logger(__name__)
 
@@ -63,7 +62,7 @@ class CustomPartitioningModule(PartitioningModule):
 
     def configure_with_task(self):
         """Schedule the partitioning actions."""
-        task = StorageConfigureTask(self.storage, CustomPartitioningExecutor(self.data))
+        task = CustomPartitioningTask(self.storage, self.data)
         path = self.publish_task(CUSTOM_PARTITIONING.namespace, task)
         return path
 

@@ -34,7 +34,7 @@ import blivet.iscsi
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
+from pyanaconda import keyboard, network, ntp, screen_access, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
@@ -402,7 +402,7 @@ class Realm(RemovedCommand):
 class ClearPart(RemovedCommand):
     def __str__(self):
         storage_module_proxy = STORAGE.get_proxy()
-        return storage_module_proxy.GenerateTemporaryKickstart()
+        return storage_module_proxy.GenerateKickstart()
 
 class Firewall(RemovedCommand):
     def __init__(self, *args, **kwargs):
@@ -522,7 +522,9 @@ class Iscsi(COMMANDS.Iscsi):
         mode = blivet.iscsi.iscsi.mode
         if mode == "none":
             if tg.iface:
-                blivet.iscsi.iscsi.create_interfaces(nm.nm_activated_devices())
+                network_proxy = NETWORK.get_proxy()
+                activated_ifaces = network_proxy.GetActivatedInterfaces()
+                blivet.iscsi.iscsi.create_interfaces(activated_ifaces)
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
             raise KickstartParseError(lineno=self.lineno,
@@ -611,12 +613,14 @@ class Network(COMMANDS.Network):
         return nd
 
     def setup(self):
-        if network.is_using_team_device():
+        if network.get_team_devices():
             self.packages = ["teamd"]
 
     def execute(self, payload):
         fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_ifaces = network.get_devices_by_nics(fcoe_proxy.GetNics())
+        fcoe_nics = fcoe_proxy.GetNics()
+        fcoe_ifaces = [dev.device_name for dev in network.get_supported_devices()
+                       if dev.device_name in fcoe_nics]
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
         task_path = network_proxy.InstallNetworkWithTask(util.getSysroot(),
