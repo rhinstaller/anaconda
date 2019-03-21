@@ -28,6 +28,7 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUA
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.dasd import DASDModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeHandler
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
@@ -49,7 +50,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class StorageModule(KickstartModule):
+class StorageModule(KickstartModule, DeviceTreeHandler):
     """The Storage module."""
 
     def __init__(self):

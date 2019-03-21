@@ -43,3 +43,9 @@ class InvalidStorageError(AnacondaError):
 class UnsupportedPartitioningError(AnacondaError):
     """The partitioning method is not supported."""
     pass
+
+
+@dbus_error("UnknownDeviceError", namespace=STORAGE_NAMESPACE)
+class UnknownDeviceError(AnacondaError):
+    """The device is not recognized."""
+    pass
