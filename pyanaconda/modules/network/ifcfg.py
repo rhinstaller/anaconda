@@ -136,12 +136,8 @@ def get_ifcfg_file(values, root_path=""):
         ifcfg = IfcfgFile(file_path)
         ifcfg.read()
         for key, value in values:
-            if callable(value):
-                if not value(ifcfg.get(key)):
-                    break
-            else:
-                if ifcfg.get(key) != value:
-                    break
+            if ifcfg.get(key) != value:
+                break
         else:
             return ifcfg
     return None
