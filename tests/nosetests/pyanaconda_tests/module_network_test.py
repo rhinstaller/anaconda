@@ -217,7 +217,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result = Mock()
 
         obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.called_once()
+        self.network_module.log_task_result.assert_called_once()
 
     def _mock_supported_devices(self, devices_attributes):
         ret_val = []
@@ -245,7 +245,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result = Mock()
 
         obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.called_once()
+        self.network_module.log_task_result.assert_called_once()
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def apply_kickstart_with_task_test(self, publisher):
@@ -264,7 +264,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result = Mock()
 
         obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.called_once()
+        self.network_module.log_task_result.assert_called_once()
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def set_real_onboot_values_from_kickstart_with_task_test(self, publisher):
@@ -283,7 +283,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result = Mock()
 
         obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.called_once()
+        self.network_module.log_task_result.assert_called_once()
 
     @patch('pyanaconda.dbus.DBus.publish_object')
     def dump_missing_ifcfg_files_with_task_test(self, publisher):
@@ -301,7 +301,7 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.log_task_result = Mock()
 
         obj.implementation.succeeded_signal.emit()
-        self.network_module.log_task_result.called_once()
+        self.network_module.log_task_result.assert_called_once()
 
     def __mock_nm_client_devices(self, device_specs):
         """Mock NM Client devices obtained by get_devices() method.

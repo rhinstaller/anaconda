@@ -132,7 +132,7 @@ class BootloaderTasksTestCase(unittest.TestCase):
             ConfigureBootloaderTask(storage, [version], root).run()
 
         bootloader = storage.bootloader
-        bootloader.add_image.called_once()
+        bootloader.add_image.assert_called_once()
 
         image = bootloader.add_image.call_args[0][0]
 
@@ -150,5 +150,5 @@ class BootloaderTasksTestCase(unittest.TestCase):
         InstallBootloaderTask(storage).run()
 
         bootloader = storage.bootloader
-        bootloader.set_boot_args.called_once()
-        bootloader.write.called_once()
+        bootloader.set_boot_args.assert_called_once()
+        bootloader.write.assert_called_once()
