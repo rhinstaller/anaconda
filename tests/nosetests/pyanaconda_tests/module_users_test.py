@@ -20,11 +20,17 @@
 import unittest
 from unittest.mock import Mock
 
+import gi
+gi.require_version("GLib", "2.0")
+from gi.repository import GLib
+
 from pyanaconda.modules.common.constants.services import USERS
 from pyanaconda.modules.common.structures.user import UserData
+from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.modules.users.users import UsersModule
 from pyanaconda.modules.users.users_interface import UsersInterface
 from pyanaconda.dbus.typing import get_variant, List, Str, Int, Bool
+from pyanaconda.ui.lib.users import get_user_list, set_user_list
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -1008,4 +1014,404 @@ class UsersDataTestCase(unittest.TestCase):
         # group name is case sensitive
         user_data = UserData()
         user_data.groups = ["WHEEL", "Wheel"]
-        self.assertFalse(user_data.check_is_admin())
+        self.assertFalse(user_data.has_admin_priviledges())
+
+    def set_admin_priviledges_test(self):
+        """Test setting user admin privileges works correctly."""
+        user_data = UserData()
+        self.assertFalse(user_data.has_admin_priviledges())
+        self.assertNotIn("wheel", user_data.groups)
+
+        # turn it on
+        user_data.set_admin_priviledges(True)
+        self.assertTrue(user_data.has_admin_priviledges())
+        self.assertIn("wheel", user_data.groups)
+
+        # turn it off
+        user_data.set_admin_priviledges(False)
+        self.assertFalse(user_data.has_admin_priviledges())
+        self.assertNotIn("wheel", user_data.groups)
+
+        # existing groups - turn in on
+        user_data = UserData()
+        user_data.groups = ["foo", "bar"]
+        user_data.set_admin_priviledges(True)
+        self.assertTrue(user_data.has_admin_priviledges())
+        self.assertIn("wheel", user_data.groups)
+        self.assertIn("foo", user_data.groups)
+        self.assertIn("bar", user_data.groups)
+
+        # existing groups - turn in off
+        user_data.set_admin_priviledges(False)
+        self.assertFalse(user_data.has_admin_priviledges())
+        self.assertNotIn("wheel", user_data.groups)
+        self.assertIn("foo", user_data.groups)
+        self.assertIn("bar", user_data.groups)
+
+        # group wheel added externally
+        user_data = UserData()
+        user_data.groups = ["foo", "bar", "wheel"]
+        self.assertTrue(user_data.has_admin_priviledges())
+        self.assertIn("wheel", user_data.groups)
+        self.assertIn("foo", user_data.groups)
+        self.assertIn("bar", user_data.groups)
+
+        # now remove the wheel group via API
+        user_data.set_admin_priviledges(False)
+        self.assertFalse(user_data.has_admin_priviledges())
+        self.assertNotIn("wheel", user_data.groups)
+        self.assertIn("foo", user_data.groups)
+        self.assertIn("bar", user_data.groups)
+
+
+class SharedUICodeTestCase(unittest.TestCase):
+    """Test shared UI code related to user handling.
+
+    The shared code calls the Users module interface so it makes sense to test it here.
+    """
+
+    def get_user_list_test(self):
+        """Test the shared get_user_list() method."""
+
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is-crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is-crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+
+        user_list_in = [user1, user2]
+
+        users_module_mock = Mock()
+        users_module_mock.Users = user_list_in
+
+        # get user data from the mocked module
+        user_data_list = get_user_list(users_module_mock)
+        # check if the results look correct
+
+        # list length
+        self.assertEqual(len(user_data_list), 2)
+        # equality check of the resulting UserData instances
+        user1_data = apply_structure(user1, UserData())
+        user2_data = apply_structure(user2, UserData())
+        self.assertEqual(user_data_list[0], user1_data)
+        self.assertEqual(user_data_list[1], user2_data)
+        # individual values
+        self.assertEqual(user_data_list[0].name, "user1")
+        self.assertEqual(user_data_list[0].uid, 123)
+        self.assertListEqual(user_data_list[0].groups, ["foo", "bar"])
+        self.assertEqual(user_data_list[0].gid, 321)
+        self.assertEqual(user_data_list[0].homedir, "user1_home")
+        self.assertEqual(user_data_list[0].password, "swordfish")
+        self.assertFalse(user_data_list[0].is_crypted)
+        self.assertFalse(user_data_list[0].lock)
+        self.assertEqual(user_data_list[0].shell, "zsh")
+        self.assertEqual(user_data_list[0].gecos, "some stuff")
+        self.assertEqual(user_data_list[1].name, "user2")
+        self.assertEqual(user_data_list[1].uid, 456)
+        self.assertListEqual(user_data_list[1].groups, ["baz", "bar"])
+        self.assertEqual(user_data_list[1].gid, 654)
+        self.assertEqual(user_data_list[1].homedir, "user2_home")
+        self.assertEqual(user_data_list[1].password, "laksdjaskldjhasjhd")
+        self.assertTrue(user_data_list[1].is_crypted)
+        self.assertFalse(user_data_list[1].lock)
+        self.assertEqual(user_data_list[1].shell, "csh")
+        self.assertEqual(user_data_list[1].gecos, "some other stuff")
+
+    def get_default_user_test(self):
+        """Test that default user is correctly added by get_user_list()."""
+
+        # prepare a mock Users DBUS module
+        users_module_mock = Mock()
+        users_module_mock.Users = []
+
+        # no users should be returned by default
+        user_data_list = get_user_list(users_module_mock)
+        self.assertListEqual(user_data_list, [])
+
+        # the add_default option should add an uninitialized user
+        user_data_list = get_user_list(users_module_mock, add_default=True)
+        self.assertEqual(len(user_data_list), 1)
+        default_user = user_data_list[0]
+        self.assertEqual(default_user.name, "")
+        self.assertEqual(default_user.uid, -1)
+        self.assertListEqual(default_user.groups, [])
+        self.assertEqual(default_user.gid, -1)
+        self.assertEqual(default_user.homedir, "")
+        self.assertEqual(default_user.password, "")
+        self.assertTrue(default_user.is_crypted)
+        self.assertFalse(default_user.lock)
+        self.assertEqual(default_user.shell, "")
+        self.assertEqual(default_user.gecos, "")
+
+    def dont_get_user_list_test(self):
+        """Test that default user is not added if add_if_not_empty is False."""
+
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is-crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is-crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+
+        user_list_in = [user1, user2]
+
+        users_module_mock = Mock()
+        users_module_mock.Users = user_list_in
+
+        # get user data from the mocked module
+        user_data_list = get_user_list(users_module_mock, add_default=True)
+        # check if the results look correct
+
+        # list length
+        self.assertEqual(len(user_data_list), 2)
+        # equality check of the resulting UserData instances
+        user1_data = apply_structure(user1, UserData())
+        user2_data = apply_structure(user2, UserData())
+        self.assertEqual(user_data_list[0], user1_data)
+        self.assertEqual(user_data_list[1], user2_data)
+        # individual values
+        self.assertEqual(user_data_list[0].name, "user1")
+        self.assertEqual(user_data_list[0].uid, 123)
+        self.assertListEqual(user_data_list[0].groups, ["foo", "bar"])
+        self.assertEqual(user_data_list[0].gid, 321)
+        self.assertEqual(user_data_list[0].homedir, "user1_home")
+        self.assertEqual(user_data_list[0].password, "swordfish")
+        self.assertFalse(user_data_list[0].is_crypted)
+        self.assertFalse(user_data_list[0].lock)
+        self.assertEqual(user_data_list[0].shell, "zsh")
+        self.assertEqual(user_data_list[0].gecos, "some stuff")
+        self.assertEqual(user_data_list[1].name, "user2")
+        self.assertEqual(user_data_list[1].uid, 456)
+        self.assertListEqual(user_data_list[1].groups, ["baz", "bar"])
+        self.assertEqual(user_data_list[1].gid, 654)
+        self.assertEqual(user_data_list[1].homedir, "user2_home")
+        self.assertEqual(user_data_list[1].password, "laksdjaskldjhasjhd")
+        self.assertTrue(user_data_list[1].is_crypted)
+        self.assertFalse(user_data_list[1].lock)
+        self.assertEqual(user_data_list[1].shell, "csh")
+        self.assertEqual(user_data_list[1].gecos, "some other stuff")
+
+    def add_default_user_test(self):
+        """Test that default user is correctly added by get_user_list() to populated list."""
+
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is-crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is-crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+
+        user_list_in = [user1, user2]
+
+        users_module_mock = Mock()
+        users_module_mock.Users = user_list_in
+
+        # get user data from the mocked module
+        user_data_list = get_user_list(users_module_mock, add_default=True, add_if_not_empty=True)
+        # check if the results look correct
+
+        # list length
+        self.assertEqual(len(user_data_list), 3)
+        # equality check of the resulting UserData instances
+        user1_data = apply_structure(user1, UserData())
+        user2_data = apply_structure(user2, UserData())
+        self.assertEqual(user_data_list[1], user1_data)
+        self.assertEqual(user_data_list[2], user2_data)
+        # individual values
+        self.assertEqual(user_data_list[1].name, "user1")
+        self.assertEqual(user_data_list[1].uid, 123)
+        self.assertListEqual(user_data_list[1].groups, ["foo", "bar"])
+        self.assertEqual(user_data_list[1].gid, 321)
+        self.assertEqual(user_data_list[1].homedir, "user1_home")
+        self.assertEqual(user_data_list[1].password, "swordfish")
+        self.assertFalse(user_data_list[1].is_crypted)
+        self.assertFalse(user_data_list[1].lock)
+        self.assertEqual(user_data_list[1].shell, "zsh")
+        self.assertEqual(user_data_list[1].gecos, "some stuff")
+        self.assertEqual(user_data_list[2].name, "user2")
+        self.assertEqual(user_data_list[2].uid, 456)
+        self.assertListEqual(user_data_list[2].groups, ["baz", "bar"])
+        self.assertEqual(user_data_list[2].gid, 654)
+        self.assertEqual(user_data_list[2].homedir, "user2_home")
+        self.assertEqual(user_data_list[2].password, "laksdjaskldjhasjhd")
+        self.assertTrue(user_data_list[2].is_crypted)
+        self.assertFalse(user_data_list[2].lock)
+        self.assertEqual(user_data_list[2].shell, "csh")
+        self.assertEqual(user_data_list[2].gecos, "some other stuff")
+
+        # check the default user
+        default_user = user_data_list[0]
+        self.assertEqual(default_user.name, "")
+        self.assertEqual(default_user.uid, -1)
+        self.assertListEqual(default_user.groups, [])
+        self.assertEqual(default_user.gid, -1)
+        self.assertEqual(default_user.homedir, "")
+        self.assertEqual(default_user.password, "")
+        self.assertTrue(default_user.is_crypted)
+        self.assertFalse(default_user.lock)
+        self.assertEqual(default_user.shell, "")
+        self.assertEqual(default_user.gecos, "")
+
+    def set_user_list_test(self):
+        """Test the shared set_user_list() method."""
+
+        user1 = {
+                "name" : "user1",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is-crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is-crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+
+        user_list_in = [user1, user2]
+
+        user_data_list_in = [apply_structure(user_struct, UserData()) for user_struct in user_list_in]
+        # create the mock Users DBUS module
+        users_module_mock = Mock()
+
+        # set the user data list on it
+        set_user_list(users_module_mock, user_data_list_in)
+
+        # check content of the resulting list
+        user_data_list = users_module_mock.SetUsers.call_args[0][0]
+        self.assertEqual(len(user_data_list), 2)
+        self.assertEqual(user_data_list[0]["name"], GLib.Variant('s', 'user1'))
+        self.assertEqual(user_data_list[0]["uid"], GLib.Variant('i', 123))
+        self.assertEqual(user_data_list[0]["homedir"], GLib.Variant('s', "user1_home"))
+        self.assertEqual(user_data_list[0]["password"], GLib.Variant('s', "swordfish"))
+        self.assertEqual(user_data_list[0]["is-crypted"], GLib.Variant('b', False))
+        self.assertEqual(user_data_list[0]["lock"], GLib.Variant('b', False))
+        self.assertEqual(user_data_list[0]["shell"], GLib.Variant('s', "zsh"))
+        self.assertEqual(user_data_list[0]["gecos"], GLib.Variant('s', "some stuff"))
+        self.assertEqual(user_data_list[1]["name"], GLib.Variant('s', 'user2'))
+        self.assertEqual(user_data_list[1]["uid"], GLib.Variant('i', 456))
+        self.assertEqual(user_data_list[1]["homedir"], GLib.Variant('s', "user2_home"))
+        self.assertEqual(user_data_list[1]["password"], GLib.Variant('s', "laksdjaskldjhasjhd"))
+        self.assertEqual(user_data_list[1]["is-crypted"], GLib.Variant('b', True))
+        self.assertEqual(user_data_list[1]["lock"], GLib.Variant('b', False))
+        self.assertEqual(user_data_list[1]["shell"], GLib.Variant('s', "csh"))
+        self.assertEqual(user_data_list[1]["gecos"], GLib.Variant('s', "some other stuff"))
+
+    def remove_unset_user_test(self):
+        """Test set_user_list() correctly removes unset users when requested."""
+
+        # the first user has name unset, used as an indication the user
+        # should be removed from the list
+        user1 = {
+                "name" : "",
+                "uid" : 123,
+                "groups" : ["foo", "bar"],
+                "gid" : 321,
+                "homedir" : "user1_home",
+                "password" : "swordfish",
+                "is-crypted" : False,
+                "lock" : False,
+                "shell" : "zsh",
+                "gecos" : "some stuff",
+        }
+        user2 = {
+                "name" : "user2",
+                "uid" : 456,
+                "groups" : ["baz", "bar"],
+                "gid" : 654,
+                "homedir" : "user2_home",
+                "password" : "laksdjaskldjhasjhd",
+                "is-crypted" : True,
+                "lock" : False,
+                "shell" : "csh",
+                "gecos" : "some other stuff",
+        }
+
+        user_list_in = [user1, user2]
+
+        user_data_list_in = [apply_structure(user_struct, UserData()) for user_struct in user_list_in]
+        # create the mock Users DBUS module
+        users_module_mock = Mock()
+
+        # set the user data list on it & specify that unset users should be removed
+        set_user_list(users_module_mock, user_data_list_in, remove_unset=True)
+
+        # check content of the resulting list
+        # - the first user user should be dropped
+        user_data_list = users_module_mock.SetUsers.call_args[0][0]
+        self.assertEqual(len(user_data_list), 1)
+        self.assertEqual(user_data_list[0]["name"], GLib.Variant('s', 'user2'))
+        self.assertEqual(user_data_list[0]["uid"], GLib.Variant('i', 456))
+        self.assertEqual(user_data_list[0]["homedir"], GLib.Variant('s', "user2_home"))
+        self.assertEqual(user_data_list[0]["password"], GLib.Variant('s', "laksdjaskldjhasjhd"))
+        self.assertEqual(user_data_list[0]["is-crypted"], GLib.Variant('b', True))
+        self.assertEqual(user_data_list[0]["lock"], GLib.Variant('b', False))
+        self.assertEqual(user_data_list[0]["shell"], GLib.Variant('s', "csh"))
+        self.assertEqual(user_data_list[0]["gecos"], GLib.Variant('s', "some other stuff"))
