@@ -1519,6 +1519,31 @@ class IfcfgFileTestCase(unittest.TestCase):
             ["ifcfg-ens50", "ifcfg-ens50-wannabe"]
         )
 
+    @patch("pyanaconda.modules.network.ifcfg.is_s390")
+    def get_ifcfg_file_of_device_s390_test(self, is_s390):
+        """Test get_ifcfg_file_of_device for s390."""
+
+        nm_client = Mock()
+        root_path = self._root_dir
+
+        ifcfg_files = [
+            ("ifcfg-ens3",
+             """
+             TYPE="Ethernet"
+             NAME="ens3"
+             """,
+             None),
+        ]
+        self._dump_ifcfg_files(ifcfg_files)
+
+        is_s390.return_value = False
+        ifcfg = get_ifcfg_file_of_device(nm_client, "ens3", root_path=root_path)
+        self.assertIsNone(ifcfg)
+
+        is_s390.return_value = True
+        ifcfg = get_ifcfg_file_of_device(nm_client, "ens3", root_path=root_path)
+        self.assertEqual(os.path.basename(ifcfg.path), "ifcfg-ens3")
+
     @patch("pyanaconda.modules.network.ifcfg.get_iface_from_hwaddr",
            lambda client, hwaddr: HWADDR_TO_IFACE[hwaddr])
     def get_slaves_from_ifcfgs_test(self):
