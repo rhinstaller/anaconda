@@ -224,7 +224,7 @@ def get_ifcfg_file_of_device(nm_client, device_name, device_hwaddr=None, root_pa
             elif is_s390():
                 # s390 setting generated in dracut with net.ifnames=0
                 # has neither DEVICE nor HWADDR (#1249750)
-                if device.get("NAME") == device_name:
+                if ifcfg.get("NAME") == device_name:
                     ifcfgs.append(ifcfg)
 
     if len(ifcfgs) > 1:
