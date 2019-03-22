@@ -237,7 +237,7 @@ def get_ifcfg_file_of_device(nm_client, device_name, device_hwaddr=None, root_pa
 
 
 def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path=""):
-    """List of slaves of master specified by master_specs in master_option.
+    """Get slaves of master specified by master_specs in master_option.
 
     :param nm_client: instance of NetworkManager client
     :type nm_client: NM.Client
@@ -249,9 +249,9 @@ def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path="")
     :param root_path: search in the filesystem specified by root path
     :type root_path: str
     :returns: slaves specified by interface and ifcfg uuid
-    :rtype: list((str,str))
+    :rtype: set((str,str))
     """
-    slaves = []
+    slaves = set()
 
     for file_path in get_ifcfg_files_paths(os.path.normpath(root_path + IFCFG_DIR)):
         ifcfg = IfcfgFile(file_path)
@@ -263,7 +263,7 @@ def get_slaves_from_ifcfgs(nm_client, master_option, master_specs, root_path="")
                 hwaddr = ifcfg.get("HWADDR")
                 iface = get_iface_from_hwaddr(nm_client, hwaddr)
             if iface:
-                slaves.append((iface, ifcfg.get("UUID")))
+                slaves.add((iface, ifcfg.get("UUID")))
     return slaves
 
 
@@ -376,9 +376,10 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
     # bonding
     # FIXME: dracut has only BOND_OPTS
     if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
-        slaves = get_slaves_from_ifcfgs(nm_client,
-                                        "MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
-                                        root_path=root_path)
+        slaves = sorted(get_slaves_from_ifcfgs(nm_client,
+                                               "MASTER",
+                                               [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
+                                               root_path=root_path))
         if slaves:
             kwargs["bondslaves"] = ",".join(iface for iface, uuid in slaves)
         bondopts = ifcfg.get("BONDING_OPTS")
@@ -401,9 +402,10 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
 
     # bridging
     if ifcfg.get("TYPE") == "Bridge":
-        slaves = get_slaves_from_ifcfgs(nm_client,
-                                        "BRIDGE", [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
-                                        root_path=root_path)
+        slaves = sorted(get_slaves_from_ifcfgs(nm_client,
+                                               "BRIDGE",
+                                               [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
+                                               root_path=root_path))
         if slaves:
             kwargs["bridgeslaves"] = ",".join(iface for iface, uuid in slaves)
 
@@ -419,9 +421,10 @@ def get_kickstart_network_data(ifcfg, nm_client, network_data_class, root_path="
 
     # teaming
     if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
-        slaves = get_slaves_from_ifcfgs(nm_client,
-                                        "TEAM_MASTER", [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
-                                        root_path=root_path)
+        slaves = sorted(get_slaves_from_ifcfgs(nm_client,
+                                               "TEAM_MASTER",
+                                               [ifcfg.get("DEVICE"), ifcfg.get("UUID")],
+                                               root_path=root_path))
         for iface, uuid in slaves:
             team_port_cfg = get_team_port_config_from_connection(nm_client, uuid)
             nd.teamslaves.append((iface, team_port_cfg))
@@ -564,7 +567,7 @@ def get_dracut_arguments_from_ifcfg(nm_client, ifcfg, iface, target_ip, hostname
             netargs.add("ifname=%s:%s" % (iface, hwaddr.lower()))
 
         if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
-            slaves = get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [iface, ifcfg.get("UUID")])
+            slaves = sorted(get_slaves_from_ifcfgs(nm_client, "TEAM_MASTER", [iface, ifcfg.get("UUID")]))
             netargs.add("team=%s:%s" % (iface,
                                         ",".join(s_iface for s_iface, _uuid in slaves)))
 

@@ -229,7 +229,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      """,
      # FIXME generating --bindto
      """
-     network  --bootproto=dhcp --device=bond2 --ipv6=auto --bondslaves=ens13,ens12 --bondopts=mode=active-backup,primary=ens12
+     network  --bootproto=dhcp --device=bond2 --ipv6=auto --bondslaves=ens12,ens13 --bondopts=mode=active-backup,primary=ens12
      """),
     # ens12
     ("ifcfg-bond2_slave_1",
@@ -277,7 +277,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      ONBOOT=no
      """,
      """
-     network  --bootproto=dhcp --device=bond3 --onboot=off --ipv6=auto --bondslaves=ens15,ens14 --bondopts=mode=active-backup,primary=ens14
+     network  --bootproto=dhcp --device=bond3 --onboot=off --ipv6=auto --bondslaves=ens14,ens15 --bondopts=mode=active-backup,primary=ens14
      """),
     ("ifcfg-bond3_slave_1",
      """
@@ -324,7 +324,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      """,
      # FIXME generating --bindto
      """
-     network  --bootproto=dhcp --device=bond4 --onboot=off --ipv6=auto --bondslaves=ens17,ens16 --bondopts=mode=active-backup,primary=ens16
+     network  --bootproto=dhcp --device=bond4 --onboot=off --ipv6=auto --bondslaves=ens16,ens17 --bondopts=mode=active-backup,primary=ens16
      """),
     # ens16
     ("ifcfg-bond4_slave_1",
@@ -372,7 +372,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      IPV6_FAILURE_FATAL=no
      """,
      """
-     network  --bootproto=dhcp --device=team0 --onboot=off --ipv6=auto --teamslaves="ens19'{\\"prio\\": 100}',ens18'{\\"prio\\": -10, \\"sticky\\": true}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
+     network  --bootproto=dhcp --device=team0 --onboot=off --ipv6=auto --teamslaves="ens18'{\\"prio\\": -10, \\"sticky\\": true}',ens19'{\\"prio\\": 100}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
      """),
     ("ifcfg-team0_slave_1",
      """
@@ -411,7 +411,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      TEAM_CONFIG="{\"runner\": {\"name\": \"roundrobin\"}}"
      """,
      """
-     network  --bootproto=dhcp --device=team1 --onboot=off --ipv6=auto --teamslaves="ens21,ens20" --teamconfig="{\\"runner\\": {\\"name\\": \\"roundrobin\\"}}"
+     network  --bootproto=dhcp --device=team1 --onboot=off --ipv6=auto --teamslaves="ens20,ens21" --teamconfig="{\\"runner\\": {\\"name\\": \\"roundrobin\\"}}"
      """),
     ("ifcfg-team1_slave_1",
      """
@@ -450,7 +450,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      """,
      # FIXME generating --bindto
      """
-     network  --bootproto=dhcp --device=team2 --ipv6=auto --teamslaves="ens24'{\\"prio\\": 100}',ens23'{\\"prio\\": -10, \\"sticky\\": true}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
+     network  --bootproto=dhcp --device=team2 --ipv6=auto --teamslaves="ens23'{\\"prio\\": -10, \\"sticky\\": true}',ens24'{\\"prio\\": 100}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
      """),
     # ens23
     ("ifcfg-team2_slave_1",
@@ -499,7 +499,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      DEVICETYPE=Team
      """,
      """
-     network  --bootproto=dhcp --device=team3 --onboot=off --ipv6=auto --teamslaves="ens26'{\\"prio\\": 100}',ens25'{\\"prio\\": -10, \\"sticky\\": true}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
+     network  --bootproto=dhcp --device=team3 --onboot=off --ipv6=auto --teamslaves="ens25'{\\"prio\\": -10, \\"sticky\\": true}',ens26'{\\"prio\\": 100}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
      """),
     ("ifcfg-team3_slave_1",
      """
@@ -545,7 +545,7 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      """,
      # FIXME generating --bindto
      """
-     network  --bootproto=dhcp --device=team4 --onboot=off --ipv6=auto --teamslaves="ens28'{\\"prio\\": 100}',ens27'{\\"prio\\": -10, \\"sticky\\": true}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
+     network  --bootproto=dhcp --device=team4 --onboot=off --ipv6=auto --teamslaves="ens27'{\\"prio\\": -10, \\"sticky\\": true}',ens28'{\\"prio\\": 100}'" --teamconfig="{\\"runner\\": {\\"name\\": \\"activebackup\\"}}"
      """),
     # ens27
     ("ifcfg-team4_slave_1",
@@ -911,9 +911,9 @@ IFCFG_FILES_REAL_ALL_TYPES = [
      DEVICE="bond5"
      """,
      # FIXME
-     #network --device=bond5 --noipv4 --noipv6 --bondslaves=ens40,ens39 --bondopts=mode=active-backup,miimon-100,primary=ens39
+     #network  --device=bond5 --noipv4 --noipv6 --bondslaves=ens39,ens40 --bondopts=mode=active-backup,miimon-100,primary=ens39
      """
-     network  --bootproto=dhcp --device=bond5 --noipv4 --noipv6 --bondslaves=ens40,ens39 --bondopts=mode=active-backup,miimon-100,primary=ens39
+     network  --bootproto=dhcp --device=bond5 --noipv4 --noipv6 --bondslaves=ens39,ens40 --bondopts=mode=active-backup,miimon-100,primary=ens39
      """),
     ("ifcfg-bond5_slave_1",
      """
@@ -1557,164 +1557,134 @@ class IfcfgFileTestCase(unittest.TestCase):
             get_slaves_from_ifcfgs(nm_client,
                                    "MASTER", ["ens5"],
                                    root_path=root_path),
-            []
+            set()
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "MASTER", ["bond0", "88596748-226e-4665-9260-f9fc1ca3e11d"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "MASTER", ["bond0", "88596748-226e-4665-9260-f9fc1ca3e11d"],
+                                   root_path=root_path),
             {
                 ("ens8", "544b8596-2eeb-4be5-908c-8ce416d7d4d3"),
                 ("ens9", "ca7df81b-2882-4827-954e-64b59f615164")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "MASTER", ["bond2", "e5c2704c-1b61-41ea-838e-fb4669857749"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "MASTER", ["bond2", "e5c2704c-1b61-41ea-838e-fb4669857749"],
+                                   root_path=root_path),
             {
                 ("ens12", "6ff22c13-cbe9-4d89-91b2-879f7d11a950"),
                 ("ens13", "5c66ad69-e4d2-4a12-af44-304b45eed629")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "MASTER", ["bond3", "9d51ce5e-88b9-45da-ba7b-a9435771458d"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "MASTER", ["bond3", "9d51ce5e-88b9-45da-ba7b-a9435771458d"],
+                                   root_path=root_path),
             {
                 ("ens14", "324a8072-cb2f-4ad4-93af-2a3a943b7ed8"),
                 ("ens15", "980e64a4-69e9-4032-881c-90bee33946ae")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "MASTER", ["bond4", "aea559a2-fdb8-40da-915e-3bf42568c416"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "MASTER", ["bond4", "aea559a2-fdb8-40da-915e-3bf42568c416"],
+                                   root_path=root_path),
             {
                 ("ens16", "30d2979e-1d4b-46bd-89bf-0f9a725a4b5d"),
                 ("ens17", "5ead6a44-604c-4229-8034-acccc64a6f01")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "TEAM_MASTER", ["team0", "ffe9e996-fc2f-41d0-9e46-cc91ad5236c2"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "TEAM_MASTER", ["team0", "ffe9e996-fc2f-41d0-9e46-cc91ad5236c2"],
+                                   root_path=root_path),
             {
                 ("ens18", "1d41bcf0-b190-4915-8a74-45b6848c03a4"),
                 ("ens19", "b45d9605-d206-4977-84e5-460cbd87e116")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "TEAM_MASTER", ["team1", "d1b392aa-54a6-4007-85e9-0bbf35419c2d"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "TEAM_MASTER", ["team1", "d1b392aa-54a6-4007-85e9-0bbf35419c2d"],
+                                   root_path=root_path),
             {
                 ("ens20", "ca692742-bdb5-41c9-a267-bbbe5c7d17e3"),
                 ("ens21", "75ebd3e5-64c2-4fe0-b1f4-a2e20d4b3801")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "TEAM_MASTER", ["team2", "9b2b1a7d-204e-464c-bfb5-94b755564d6e"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "TEAM_MASTER", ["team2", "9b2b1a7d-204e-464c-bfb5-94b755564d6e"],
+                                   root_path=root_path),
             {
                 ("ens23", "67e3b437-466d-4484-ad86-f580802b2849"),
                 ("ens24", "7dc1094f-f07b-43e1-b700-26cafffd6eb9")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "TEAM_MASTER", ["team3", "b3a3655c-86cf-4ce3-9968-b7df242ce705"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "TEAM_MASTER", ["team3", "b3a3655c-86cf-4ce3-9968-b7df242ce705"],
+                                   root_path=root_path),
             {
                 ("ens25", "41f1df54-48b5-41b3-b88c-255d7a0b7339"),
                 ("ens26", "2e736df9-ebfc-4edc-8cf9-a13ef65274ee")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "TEAM_MASTER", ["team4", "3949fb93-bddb-4159-a2ef-2b84819e0d41"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "TEAM_MASTER", ["team4", "3949fb93-bddb-4159-a2ef-2b84819e0d41"],
+                                   root_path=root_path),
             {
                 ("ens27", "dbefddc1-f463-4a4c-bf4b-d951283ec490"),
                 ("ens28", "a074b1f8-65ff-4a97-80b1-d40ef461baab")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "BRIDGE", ["bridge0", "8d1a0dcc-5c21-4820-9d18-a54c405e2f62"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "BRIDGE", ["bridge0", "8d1a0dcc-5c21-4820-9d18-a54c405e2f62"],
+                                   root_path=root_path),
             {
                 ("ens30", "96960118-f862-467c-92f8-6b5e34f53d1b"),
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "BRIDGE", ["bridge1", "6bbd88e3-5136-475c-b660-c30eb040f8d6"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "BRIDGE", ["bridge1", "6bbd88e3-5136-475c-b660-c30eb040f8d6"],
+                                   root_path=root_path),
             {
                 ("ens31", "72c35405-80e8-43a8-9cbf-afd520bdba51"),
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "BRIDGE", ["bridge2", "927685cf-8203-4d2e-82ae-c45f44117b6f"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "BRIDGE", ["bridge2", "927685cf-8203-4d2e-82ae-c45f44117b6f"],
+                                   root_path=root_path),
             {
                 ("ens32", "9ce980bb-ff60-4e61-9a43-e72d5ba297c3"),
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "BRIDGE", ["bridge3", "ac34f70b-b41b-49ac-a940-7c3bdb4b878f"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "BRIDGE", ["bridge3", "ac34f70b-b41b-49ac-a940-7c3bdb4b878f"],
+                                   root_path=root_path),
             {
                 ("ens33", "4cffe475-81ce-4989-861d-9cd9e08b575f"),
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "BRIDGE", ["bridge4", "37792ba4-bd6c-45f9-84dc-3ec7ef995783"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "BRIDGE", ["bridge4", "37792ba4-bd6c-45f9-84dc-3ec7ef995783"],
+                                   root_path=root_path),
             {
                 ("ens34", "a8b68194-b45c-4ee8-9907-3361be553ac2"),
             }
         )
         # Vlan over bond created in parse-kickstart
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "MASTER", ["bond5", "e90295f3-bd63-4a21-b92d-78dd2923fe2d"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "MASTER", ["bond5", "e90295f3-bd63-4a21-b92d-78dd2923fe2d"],
+                                   root_path=root_path),
             {
                 ("ens39", "5e04989f-f97f-471e-8416-59bbea746e5e"),
                 ("ens40", "e1d28630-2f6f-4e94-98a9-83facc8d4644")
@@ -1722,22 +1692,18 @@ class IfcfgFileTestCase(unittest.TestCase):
         )
         # Bridged bond created in parse-kickstart
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "MASTER", ["bond6", "d94466b9-0fcf-43e8-b1d6-51130b6d1c3b"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "MASTER", ["bond6", "d94466b9-0fcf-43e8-b1d6-51130b6d1c3b"],
+                                   root_path=root_path),
             {
                 ("ens41", "ec6a4359-8aa2-432b-89a9-ef7707480810"),
                 ("ens42", "262214c6-479f-4f2a-8e2f-4a97016834ab")
             }
         )
         self.assertEqual(
-            set(
-                get_slaves_from_ifcfgs(nm_client,
-                                       "BRIDGE", ["bridge5", "2f879653-20a3-421d-81ac-7c0c8f192850"],
-                                       root_path=root_path)
-            ),
+            get_slaves_from_ifcfgs(nm_client,
+                                   "BRIDGE", ["bridge5", "2f879653-20a3-421d-81ac-7c0c8f192850"],
+                                   root_path=root_path),
             {
                 ("bond6", "d94466b9-0fcf-43e8-b1d6-51130b6d1c3b"),
             }
