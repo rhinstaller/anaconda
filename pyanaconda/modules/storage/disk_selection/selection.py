@@ -77,7 +77,7 @@ class DiskSelectionModule(KickstartBaseModule):
         :param drives: a list of drives names
         """
         self._selected_disks = drives
-        self.selected_disks_changed.emit()
+        self.selected_disks_changed.emit(list(drives))
         log.debug("Selected disks are set to '%s'.", drives)
 
     @property

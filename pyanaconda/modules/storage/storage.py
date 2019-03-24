@@ -122,8 +122,21 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         self._modules.append(partitioning_module)
         self._partitioning_modules[object_path] = partitioning_module
 
-        # Connect the callbacks.
-        self.storage_changed.connect(partitioning_module.on_storage_reset)
+        # Update the module.
+        partitioning_module.on_storage_reset(
+            self._storage
+        )
+        partitioning_module.on_selected_disks_changed(
+            self._disk_selection_module.selected_disks
+        )
+
+        # Connect the callbacks to signals.
+        self.storage_changed.connect(
+            partitioning_module.on_storage_reset
+        )
+        self._disk_selection_module.selected_disks_changed.connect(
+            partitioning_module.on_selected_disks_changed
+        )
 
     def publish(self):
         """Publish the module."""
