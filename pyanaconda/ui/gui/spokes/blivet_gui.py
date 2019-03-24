@@ -263,10 +263,6 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
             if rc != 1:
                 # Cancel.  Stay on the blivet-gui screen.
                 return
-            else:
-                # remove redundant actions and sort them now
-                self._storage_playground.devicetree.actions.prune()
-                self._storage_playground.devicetree.actions.sort()
 
         NormalSpoke.on_back_clicked(self, button)
 
