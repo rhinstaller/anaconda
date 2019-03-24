@@ -651,21 +651,22 @@ if __name__ == "__main__":
     # Add a check for the snapshot requests.
     storage_checker.add_check(ksdata.snapshot.verify_requests)
 
+    # Set the disk images.
+    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
     from pyanaconda.argument_parsing import name_path_pairs
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    disk_images = {}
 
-    image_count = 0
     try:
         for (name, path) in name_path_pairs(opts.images):
             log.info("naming disk image '%s' '%s'", path, name)
-            anaconda.storage.disk_images[name] = path
-            image_count += 1
+            disk_images[name] = path
     except ValueError as e:
         stdout_log.error("error specifying image file: %s", e)
         util.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
-    if image_count:
-        anaconda.storage.setup_disk_images()
+    disk_select_proxy.SetDiskImages(disk_images)
 
     # Ignore disks labeled OEMDRV
     from pyanaconda.storage.utils import ignore_oemdrv_disks
@@ -677,8 +678,6 @@ if __name__ == "__main__":
 
     # Specify protected devices.
     from pyanaconda.modules.common.constants.services import STORAGE
-    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
 
     protected_devices = anaconda.get_protected_devices(opts)
     disk_select_proxy.SetProtectedDevices(protected_devices)
