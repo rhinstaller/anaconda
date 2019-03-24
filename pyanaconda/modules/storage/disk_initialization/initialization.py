@@ -24,6 +24,7 @@ from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import InitializationMode
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
     DiskInitializationInterface
@@ -37,6 +38,7 @@ class DiskInitializationModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
+        self._storage = None
 
         self.format_unrecognized_enabled_changed = Signal()
         self._format_unrecognized_enabled = False
@@ -59,6 +61,21 @@ class DiskInitializationModule(KickstartBaseModule):
         self.drives_to_clear_changed = Signal()
         self._drives_to_clear = []
 
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if self._storage is None:
+            raise UnavailableStorageError()
+
+        return self._storage
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._storage = storage
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(DISK_INITIALIZATION.object_path,
@@ -79,16 +96,44 @@ class DiskInitializationModule(KickstartBaseModule):
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
+        self._setup_kickstart_from_module(data)
+        self._setup_kickstart_from_storage(data)
+        return data
+
+    def _setup_kickstart_from_module(self, data):
+        """Update the configuration from the module.
+
+        :param data: an instance of kickstart data
+        """
         data.zerombr.zerombr = self.format_unrecognized_enabled
         data.clearpart.disklabel = self.default_disk_label
         data.clearpart.initAll = self.initialize_labels_enabled
         data.clearpart.cdl = self.format_ldl_enabled
 
-        clearpart_type = self._map_clearpart_type(self.initialization_mode, reverse=True)
-        data.clearpart.type = clearpart_type
+        data.clearpart.type = self._map_clearpart_type(self.initialization_mode, reverse=True)
         data.clearpart.devices = self.devices_to_clear
         data.clearpart.drives = self.drives_to_clear
-        return data
+
+    def _setup_kickstart_from_storage(self, data):
+        """Update the configuration from the partitioned storage.
+
+        :param data: an instance of kickstart data
+        """
+        # Do nothing without the storage model.
+        if not self._storage:
+            return
+
+        # Do nothing if the mode is not set to CLEAR_NONE for some reason.
+        if self.initialization_mode != InitializationMode.CLEAR_NONE:
+            return
+
+        # Find the initialized disks and removed partitions.
+        mode, drives, devices = self._find_cleared_devices(self.storage)
+
+        # Update the kickstart data.
+        data.clearpart.type = self._map_clearpart_type(mode, reverse=True)
+        data.clearpart.devices = devices
+        data.clearpart.drives = drives
 
     def _map_clearpart_type(self, value, reverse=False):
         """Convert the clearpart type to the initialization mode.
@@ -207,23 +252,6 @@ class DiskInitializationModule(KickstartBaseModule):
         self._format_ldl_enabled = value
         self.format_ldl_enabled_changed.emit()
         log.debug("Can format LDL is set to '%s'.", value)
-
-    def on_partitioning_changed(self, storage):
-        """Update the configuration from the partitioned storage.
-
-        FIXME: Connect this callback to the storage module.
-        """
-        # Do nothing if the mode is not set to CLEAR_NONE for some reason.
-        if self.initialization_mode != InitializationMode.CLEAR_NONE:
-            return
-
-        # Find the initialized disks and removed partitions.
-        mode, drives, devices = self._find_cleared_devices(storage)
-
-        # Update the current configuration.
-        self.set_initialization_mode(mode)
-        self.set_drives_to_clear(drives)
-        self.set_devices_to_clear(devices)
 
     @staticmethod
     def _find_cleared_devices(storage):
