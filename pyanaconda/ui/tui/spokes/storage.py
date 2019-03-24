@@ -30,7 +30,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices, \
-    get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection, \
+    filter_disks_by_names, apply_disk_selection, check_disk_selection, \
     get_disks_summary
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.checker import storage_checker
@@ -401,13 +401,7 @@ class StorageSpoke(NormalTUISpoke):
     def apply(self):
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
 
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk in self.storage.devices:
-                self.storage.devicetree.hide(disk)
-            elif disk.name in self._selected_disks and \
-                 disk not in self.storage.devices:
-                self.storage.devicetree.unhide(disk)
+        self.storage.select_disks(self._selected_disks)
 
         self._bootloader_observer.proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
         boot_drive = self._bootloader_observer.proxy.Drive
@@ -488,7 +482,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def update_disks(self):
         threadMgr.wait(THREAD_STORAGE)
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # if only one disk is available, go ahead and mark it as selected
         if len(self._available_disks) == 1:

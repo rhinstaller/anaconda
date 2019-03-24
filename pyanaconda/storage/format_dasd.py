@@ -25,7 +25,6 @@ from gi.repository import BlockDev as blockdev
 from blivet import arch
 
 from pyanaconda.flags import flags
-from pyanaconda.storage.utils import get_available_disks
 from pyanaconda.core.signal import Signal
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.core.i18n import _
@@ -188,7 +187,7 @@ class DasdFormatting(object):
         if not DasdFormatting.is_supported():
             return
 
-        disks = get_available_disks(storage.devicetree)
+        disks = storage.usable_disks
 
         formatting = DasdFormatting()
         formatting.update_restrictions()

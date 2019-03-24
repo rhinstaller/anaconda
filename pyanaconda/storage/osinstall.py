@@ -429,6 +429,55 @@ class InstallerStorage(Blivet):
         return empty
 
     @property
+    def usable_disks(self):
+        """Disks that can be used for the installation.
+
+        :return: a list of disks
+        """
+        # Get all devices.
+        devices = self.devicetree.devices
+
+        # Add the hidden devices.
+        if conf.target.is_image:
+            devices += [
+                d for d in self.devicetree._hidden
+                if d.name in self.devicetree.disk_images
+            ]
+        else:
+            devices += self.devicetree._hidden
+
+        # Filter out the usable disks.
+        disks = []
+        for d in devices:
+            if d.is_disk and not d.format.hidden and not d.protected:
+                # Unformatted DASDs are detected with a size of 0, but they should
+                # still show up as valid disks if this function is called, since we
+                # can still use them; anaconda will know how to handle them, so they
+                # don't need to be ignored anymore.
+                if d.type == "dasd":
+                    disks.append(d)
+                elif d.size > 0 and d.media_present:
+                    disks.append(d)
+
+        # Remove duplicate names from the list.
+        return sorted(set(disks), key=lambda d: d.name)
+
+    def select_disks(self, selected_names):
+        """Select disks that should be used for the installation.
+
+        Hide usable disks that are not selected.
+
+        :param selected_names: a list of disk names
+        """
+        for disk in self.usable_disks:
+            if disk.name not in selected_names:
+                if disk in self.devices:
+                    self.devicetree.hide(disk)
+            else:
+                if disk not in self.devices:
+                    self.devicetree.unhide(disk)
+
+    @property
     def unused_devices(self):
         used_devices = []
         for root in self.roots:
