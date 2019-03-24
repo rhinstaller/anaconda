@@ -20,8 +20,10 @@
 import unittest
 
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
+from pyanaconda.storage.initialization import create_storage
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
@@ -78,3 +80,11 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
                 "image_2": "/path/2"
              }
         )
+
+    def get_usable_disks_test(self):
+        """Test the GetUsableDisks method."""
+        with self.assertRaises(UnavailableStorageError):
+            self.disk_selection_interface.GetUsableDisks()
+
+        self.disk_selection_module.on_storage_reset(create_storage())
+        self.assertEqual(self.disk_selection_interface.GetUsableDisks(), [])

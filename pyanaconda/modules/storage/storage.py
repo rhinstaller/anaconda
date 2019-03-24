@@ -109,8 +109,15 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         self._add_partitioning_module(BLIVET_PARTITIONING.object_path, self._blivet_part_module)
 
         # Connect modules to signals.
-        self.storage_changed.connect(self._snapshot_module.on_storage_reset)
-        self.storage_changed.connect(self._disk_init_module.on_storage_reset)
+        self.storage_changed.connect(
+            self._disk_init_module.on_storage_reset
+        )
+        self.storage_changed.connect(
+            self._disk_selection_module.on_storage_reset
+        )
+        self.storage_changed.connect(
+            self._snapshot_module.on_storage_reset
+        )
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""

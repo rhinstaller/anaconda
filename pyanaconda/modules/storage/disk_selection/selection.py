@@ -17,13 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
@@ -32,6 +33,8 @@ class DiskSelectionModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
+        self._storage = None
+
         self.selected_disks_changed = Signal()
         self._selected_disks = []
 
@@ -46,6 +49,21 @@ class DiskSelectionModule(KickstartBaseModule):
 
         self.disk_images_changed = Signal()
         self._disk_images = {}
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if self._storage is None:
+            raise UnavailableStorageError()
+
+        return self._storage
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._storage = storage
 
     def publish(self):
         """Publish the module."""
@@ -146,3 +164,10 @@ class DiskSelectionModule(KickstartBaseModule):
         self._disk_images = disk_images
         self.disk_images_changed.emit()
         log.debug("Disk images are set to '%s'.", disk_images)
+
+    def get_usable_disks(self):
+        """Get a list of disks that can be used for the installation.
+
+        :return: a list of disk names
+        """
+        return [disk.name for disk in self.storage.usable_disks]
