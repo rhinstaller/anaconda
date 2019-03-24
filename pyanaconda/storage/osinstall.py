@@ -297,6 +297,35 @@ class InstallerStorage(Blivet):
             log.debug("Marking device %s as protected.", dev.name)
             dev.protected = True
 
+    def protect_devices(self, protected_names):
+        """Protect given devices.
+
+        :param protected_names: a list of device names
+        """
+        protected = set(protected_names)
+        unprotected = set(self.protected_devices)
+
+        # Mark unprotected devices.
+        # Skip devices that should stay protected.
+        for spec in unprotected - protected:
+            device = self.devicetree.resolve_device(spec)
+
+            if device:
+                log.debug("Marking device %s as unprotected.", device.name)
+                device.protected = False
+
+        # Mark protected devices.
+        # Skip devices that are already protected.
+        for spec in protected - unprotected:
+            device = self.devicetree.resolve_device(spec)
+
+            if device:
+                log.debug("Marking device %s as protected.", device.name)
+                device.protected = True
+
+        # Update the list.
+        self.protected_devices = protected_names
+
     def empty_device(self, device):
         empty = True
         if device.partitioned:

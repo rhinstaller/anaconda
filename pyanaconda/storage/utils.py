@@ -608,15 +608,13 @@ def mark_protected_device(storage, spec):
     :param spec: a specification of the device
     """
     disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    protected = disk_selection_proxy.ProtectedDevices
-    device = storage.devicetree.resolve_device(spec)
+    protected_devices = disk_selection_proxy.ProtectedDevices
 
-    if device:
-        device.protected = True
+    if spec not in protected_devices:
+        protected_devices.add(spec)
 
-    if spec not in protected:
-        protected.add(spec)
-        disk_selection_proxy.SetProtectedDevices(protected)
+    storage.protect_devices(protected_devices)
+    disk_selection_proxy.SetProtectedDevices(protected_devices)
 
 
 def unmark_protected_device(storage, spec):
@@ -626,15 +624,13 @@ def unmark_protected_device(storage, spec):
     :param spec: a specification of the device
     """
     disk_selection_proxy = STORAGE.get_proxy(DISK_SELECTION)
-    protected = disk_selection_proxy.ProtectedDevices
-    device = storage.devicetree.resolve_device(spec)
+    protected_devices = disk_selection_proxy.ProtectedDevices
 
-    if device:
-        device.protected = False
+    if spec in protected_devices:
+        protected_devices.remove(spec)
 
-    if spec in protected:
-        protected.remove(spec)
-        disk_selection_proxy.SetProtectedDevices(protected)
+    storage.protect_devices(protected_devices)
+    disk_selection_proxy.SetProtectedDevices(protected_devices)
 
 
 def suggest_swap_size(quiet=False, hibernation=False, disk_space=None):

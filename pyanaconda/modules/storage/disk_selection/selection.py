@@ -148,7 +148,7 @@ class DiskSelectionModule(KickstartBaseModule):
         :param devices: a list of device names
         """
         self._protected_devices = devices
-        self.protected_devices_changed.emit()
+        self.protected_devices_changed.emit(list(devices))
         log.debug("Protected devices are set to '%s'.", devices)
 
     @property

@@ -850,6 +850,30 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self._test_kickstart("", "")
 
 
+class StorageModuleTestCase(unittest.TestCase):
+    """Test the storage module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.storage_module = StorageModule()
+
+    def on_protected_devices_test(self):
+        """Test on_protected_devices_changed."""
+        # Don't fail without the storage.
+        self.assertIsNone(self.storage_module._storage)
+        self.storage_module._disk_selection_module.set_protected_devices(["a"])
+
+        # Create the storage.
+        self.assertIsNotNone(self.storage_module.storage)
+
+        # Protect the devices.
+        self.storage_module._disk_selection_module.set_protected_devices(["a", "b"])
+        self.assertEqual(self.storage_module.storage.protected_devices, ["a", "b"])
+
+        self.storage_module._disk_selection_module.set_protected_devices(["b", "c"])
+        self.assertEqual(self.storage_module.storage.protected_devices, ["b", "c"])
+
+
 class StorageTasksTestCase(unittest.TestCase):
     """Test the storage tasks."""
 
