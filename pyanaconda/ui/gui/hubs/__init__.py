@@ -239,11 +239,12 @@ class Hub(GUIObject, common.Hub):
         if update_continue:
             self._updateContinue()
 
-    def _updateContinue(self):
-        self.clear_info()
+    def _get_warning(self):
+        """Get the warning message for the hub."""
+        warning = None
         if len(self._incompleteSpokes) == 0:
             if self._checker and not self._checker.check():
-                self.set_warning(self._checker.error_message)
+                warning = self._checker.error_message
                 log.error(self._checker.error_message)
 
                 # If this is a kickstart, consider the user to be warned and
@@ -252,9 +253,17 @@ class Hub(GUIObject, common.Hub):
                     self._autoContinue = False
                     self._checker_ignore = True
         else:
-            msg = _("Please complete items marked with this icon before continuing to the next step.")
+            warning = _("Please complete items marked with this icon before continuing to the next step.")
 
-            self.set_warning(msg)
+        return warning
+
+    def _updateContinue(self):
+        warning = self._get_warning()
+
+        self.clear_info()
+
+        if warning:
+            self.set_warning(warning)
 
         self._updateContinueButton()
 
