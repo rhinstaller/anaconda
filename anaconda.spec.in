@@ -321,6 +321,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 25 2019 Martin Kolman <mkolman@redhat.com> - 21.48.22.150-1
+- Detect and warn if SMT is enabled (vponcova)
+  Resolves: rhbz#1678353
+
 * Tue Mar 05 2019 Radek Vykydal <rvykydal@redhat.com> - 21.48.22.149-1
 - Offer only supported sector sizes in NVDIMM reconfiguration dialog (rvykydal)
   Resolves: rhbz#1614049

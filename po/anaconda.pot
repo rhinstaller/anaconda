@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Red Hat, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the anaconda package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.148\n"
+"Project-Id-Version: anaconda 21.48.22.149\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2019-03-05 11:33+0100\n"
+"POT-Creation-Date: 2019-03-25 19:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,92 +138,111 @@ msgid "Use text mode"
 msgstr ""
 
 #: pyanaconda/constants.py:141
+msgid ""
+"Simultaneous Multithreading (SMT) technology can provide performance "
+"improvements for certain workloads, but introduces several publicly "
+"disclosed security issues. You have the option of disabling SMT, which may "
+"impact performance. If you choose to leave SMT enabled, please read https://"
+"red.ht/rhel-smt to understand your potential risks and learn about other "
+"ways to mitigate these risks."
+msgstr ""
+
+#: pyanaconda/constants.py:150
+msgid ""
+"Simultaneous Multithreading (SMT) may improve performance for certain "
+"workloads, but introduces several publicly disclosed security issues. You "
+"can disable SMT, which may impact performance. Please read https://red.ht/"
+"rhel-smt to understand potential risks and learn about ways to mitigate "
+"these risks."
+msgstr ""
+
+#: pyanaconda/constants.py:158
 #, python-format
 msgid "The %(password)s is empty."
 msgstr ""
 
-#: pyanaconda/constants.py:142
+#: pyanaconda/constants.py:159
 #, python-format
 msgid "The %(passwords)s do not match."
 msgstr ""
 
-#: pyanaconda/constants.py:143
+#: pyanaconda/constants.py:160
 #, python-format
 msgid "The %(passwords)s you entered were different.  Please try again."
 msgstr ""
 
-#: pyanaconda/constants.py:146
+#: pyanaconda/constants.py:163
 #, python-format
 msgid "The %(password)s is too short"
 msgstr ""
 
-#: pyanaconda/constants.py:147
+#: pyanaconda/constants.py:164
 #, python-format
 msgid "The %(password)s you have provided is weak."
 msgstr ""
 
-#: pyanaconda/constants.py:148
+#: pyanaconda/constants.py:165
 #, python-format
 msgid "The %(password)s you have provided is weak: %(error_message)s."
 msgstr ""
 
-#: pyanaconda/constants.py:149
+#: pyanaconda/constants.py:166
 msgid "Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:150
+#: pyanaconda/constants.py:167
 #, python-format
 msgid ""
 "The %(password)s you have provided contains non-ASCII characters. You may "
 "not be able to switch between keyboard layouts when typing it."
 msgstr ""
 
-#: pyanaconda/constants.py:152
+#: pyanaconda/constants.py:169
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:153
+#: pyanaconda/constants.py:170
 msgid "Press Done to continue."
 msgstr ""
 
-#: pyanaconda/constants.py:156
+#: pyanaconda/constants.py:173
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:157
+#: pyanaconda/constants.py:174
 msgid "Too short"
 msgstr ""
 
-#: pyanaconda/constants.py:158
+#: pyanaconda/constants.py:175
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:7
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:159
+#: pyanaconda/constants.py:176
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:160
+#: pyanaconda/constants.py:177
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:161
+#: pyanaconda/constants.py:178
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/constants.py:164
+#: pyanaconda/constants.py:181
 msgid "password"
 msgstr ""
 
-#: pyanaconda/constants.py:165
+#: pyanaconda/constants.py:182
 msgid "passwords"
 msgstr ""
 
-#: pyanaconda/constants.py:168
+#: pyanaconda/constants.py:185
 msgid "passphrase"
 msgstr ""
 
-#: pyanaconda/constants.py:169
+#: pyanaconda/constants.py:186
 msgid "passphrases"
 msgstr ""
 
@@ -1120,8 +1139,7 @@ msgstr ""
 msgid "Btrfs"
 msgstr ""
 
-#: pyanaconda/storage_utils.py:61
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
+#: pyanaconda/storage_utils.py:61 pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
 msgid "Disk"
 msgstr ""
 
@@ -1571,8 +1589,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/hubs/summary.py:120
-#: pyanaconda/ui/tui/hubs/__init__.py:147
+#: pyanaconda/ui/tui/hubs/summary.py:120 pyanaconda/ui/tui/hubs/__init__.py:147
 #: pyanaconda/ui/tui/simpleline/base.py:468
 #: pyanaconda/ui/tui/simpleline/base.py:670
 msgctxt "TUI|Spoke Navigation"
@@ -1583,16 +1600,14 @@ msgstr ""
 #. TRANSLATORS:'r' to refresh
 #. TRANSLATORS: 'r' to refresh
 #. TRANSLATORS:'r' to refresh
-#: pyanaconda/ui/tui/hubs/summary.py:124
-#: pyanaconda/ui/tui/hubs/__init__.py:151
+#: pyanaconda/ui/tui/hubs/summary.py:124 pyanaconda/ui/tui/hubs/__init__.py:151
 #: pyanaconda/ui/tui/simpleline/base.py:456
 #: pyanaconda/ui/tui/simpleline/base.py:674
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:142
-#: pyanaconda/ui/tui/hubs/__init__.py:126
+#: pyanaconda/ui/tui/hubs/summary.py:142 pyanaconda/ui/tui/hubs/__init__.py:126
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
@@ -1707,6 +1722,10 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:161
 msgid "The password cannot be more than eight characters long."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/kernel_warning.py:36
+msgid "Warning: Processor has Simultaneous Multithreading (SMT) enabled"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/langsupport.py:39
@@ -2159,8 +2178,7 @@ msgstr ""
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:57
-#: pyanaconda/ui/tui/spokes/source.py:128
+#: pyanaconda/ui/tui/spokes/source.py:57 pyanaconda/ui/tui/spokes/source.py:128
 #: pyanaconda/ui/gui/spokes/source.py:581
 #: pyanaconda/ui/gui/spokes/source.glade.h:25
 msgid "Closest mirror"
@@ -2418,7 +2436,7 @@ msgstr ""
 msgid "_Yes"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:255
+#: pyanaconda/ui/gui/hubs/__init__.py:256
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
@@ -2458,6 +2476,24 @@ msgstr ""
 msgid ""
 "%s is now successfully installed and ready for you to use!\n"
 "Go ahead and reboot to start using it!"
+msgstr ""
+
+#: pyanaconda/ui/gui/hubs/summary.py:81
+msgid ""
+"Warning: Processor has Simultaneous Multithreading (SMT) enabled.  <a href="
+"\"\">Click for details.</a>"
+msgstr ""
+
+#: pyanaconda/ui/gui/hubs/summary.py:91
+msgid ""
+"The following warnings were encountered when checking your kernel "
+"configuration. These are not fatal, but you may wish to make changes to your "
+"kernel config."
+msgstr ""
+
+#: pyanaconda/ui/gui/hubs/summary.py:99
+msgctxt "GUI|Summary|Warning Dialog"
+msgid "_OK"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:114
@@ -5895,7 +5931,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: /home/rvykydal/build/git/rvykydal/anaconda/data/liveinst/console.apps/liveinst:5
+#: /home/mkolman/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 
