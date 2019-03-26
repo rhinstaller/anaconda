@@ -21,6 +21,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
 from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT
 
@@ -58,7 +59,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.missing_ignored_changed = Signal()
         self._languages = None
         self.languages_changed = Signal()
-        self._multilib_policy = None
+        self._multilib_policy = MultilibPolicy.BEST
         self.multilib_policy_changed = Signal()
         self._timeout = None
         self.timeout_changed = Signal()
@@ -92,7 +93,12 @@ class PackagesHandlerModule(KickstartBaseModule):
             self.set_missing_ignored(False)
 
         self.set_languages(packages.instLangs)
-        self.set_multilib_policy(packages.multiLib)
+
+        if packages.multiLib:
+            self.set_multilib_policy(MultilibPolicy.ALL)
+        else:
+            self.set_multilib_policy(MultilibPolicy.BEST)
+
         self.set_timeout(packages.timeout)
         self.set_retries(packages.retries)
 
@@ -114,7 +120,12 @@ class PackagesHandlerModule(KickstartBaseModule):
         packages.excludeWeakdeps = self.weakdeps_excluded
         packages.handleMissing = KS_MISSING_IGNORE if self.missing_ignored else KS_MISSING_PROMPT
         packages.instLangs = self.languages
-        packages.multiLib = self.multilib_policy
+
+        if self.multilib_policy == MultilibPolicy.ALL:
+            packages.multiLib = True
+        else:
+            packages.multiLib = False
+
         packages.timeout = self.timeout
         packages.retries = self.retries
 
@@ -322,9 +333,9 @@ class PackagesHandlerModule(KickstartBaseModule):
 
     @property
     def multilib_policy(self):
-        """Enable 'all' multilib policy as opposed to the default of “best”.
+        """Get multilib policy set.
 
-        :rtype: bool
+        :rtype: enum :class:`~.constants.MultilibPolicy`
         """
         return self._multilib_policy
 
@@ -332,7 +343,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         """Set the multilib 'all' policy.
 
         :param multilib_policy: True if we want to set 'all' multilib policy.
-        :type multilib_policy: bool
+        :type multilib_policy: enum :class:`~.constants.MultilibPolicy`
         """
         self._multilib_policy = multilib_policy
         self.multilib_policy_changed.emit()

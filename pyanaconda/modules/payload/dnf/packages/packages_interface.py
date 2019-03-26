@@ -23,6 +23,7 @@ from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.common.base import KickstartModuleInterfaceTemplate
+from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy
 
 
 @dbus_interface(DNF_PACKAGES.interface_name)
@@ -163,14 +164,26 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
         self.implementation.set_languages(languages)
 
     @property
-    def MultilibPolicy(self) -> Bool:
-        """Is the multilib policy set to 'all' instead of 'best'."""
-        return self.implementation.multilib_policy
+    def MultilibPolicy(self) -> Str:
+        """Get multilib policy value.
+
+        Possible values are:
+        'all' - to install all available packages with compatible architectures
+        'best' - for the depsolver to prefer packages which best match the system’s architecture
+        """
+        return self.implementation.multilib_policy.value
 
     @emits_properties_changed
-    def SetMultilibPolicy(self, multilib_policy: Bool):
-        """Set the multilib policy to 'all' instead of 'best'self."""
-        self.implementation.set_multilib_policy(multilib_policy)
+    def SetMultilibPolicy(self, multilib_policy: Str):
+        """Set the multilib policy settings.
+
+        Possible values are:
+        'all' - to install all available packages with compatible architectures
+        'best' - for the depsolver to prefer packages which best match the system’s architecture
+
+        Default is 'best'.
+        """
+        self.implementation.set_multilib_policy(MultilibPolicy(multilib_policy))
 
     @property
     def Timeout(self) -> Int:

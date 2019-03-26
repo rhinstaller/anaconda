@@ -257,10 +257,10 @@ class PayloadInterfaceTestCase(unittest.TestCase):
             DNF_PACKAGES.interface_name, {"Languages": ["TestLang1", "Esperanto"]}, [])
 
     def multilib_policy_properties_test(self):
-        self.package_interface.SetMultilibPolicy(True)
-        self.assertEqual(self.package_interface.MultilibPolicy, True)
+        self.package_interface.SetMultilibPolicy('all')
+        self.assertEqual(self.package_interface.MultilibPolicy, 'all')
         self.callback.assert_called_once_with(
-            DNF_PACKAGES.interface_name, {"MultilibPolicy": True}, [])
+            DNF_PACKAGES.interface_name, {"MultilibPolicy": 'all'}, [])
 
     def timeout_properties_test(self):
         self.package_interface.SetTimeout(60)
