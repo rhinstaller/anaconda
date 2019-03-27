@@ -20,12 +20,12 @@
 import unittest
 
 from mock import Mock
+from textwrap import dedent
 
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
-from pyanaconda.modules.payload.dnf.packages.packages import PackagesHandlerModule
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -37,7 +37,7 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         self.payload_module = PayloadModule()
         self.payload_interface = PayloadInterface(self.payload_module)
 
-        self.package_module = PackagesHandlerModule()
+        self.package_module = self.payload_module._payload_handler._packages_handler
         self.package_interface = PackagesHandlerInterface(self.package_module)
 
         self.callback = Mock()
@@ -214,6 +214,39 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         self.callback.assert_called_once_with(
             DNF_PACKAGES.interface_name, {"Groups": ["group1", "group2"]}, [])
 
+    def groups_properties_from_kickstart_test(self):
+        ks_in = """
+        %packages
+        @^environment
+        @module:14
+        @group1
+        -@group1
+        -@group2
+        @group3
+        @group4
+        @module2:3/client
+        %end
+        """
+        self.payload_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.package_interface.Groups, ["module:14",
+                                                         "group3", "group4",
+                                                         "module2:3/client"])
+
+    def groups_properties_to_kickstart_test(self):
+        ks_out = """
+        %packages
+        @group1
+        @group2
+        @module1:2.4/server
+        @module2:33
+
+        %end
+        """
+        self.package_interface.SetGroups(["group2", "group1",
+                                          "module1:2.4/server", "module2:33"])
+        self.assertEqual(self.payload_interface.GenerateKickstart().strip(),
+                         dedent(ks_out).strip())
+
     def packages_properties_test(self):
         self.package_interface.SetPackages(["package1", "package2"])
         self.assertEqual(self.package_interface.Packages, ["package1", "package2"])
@@ -225,6 +258,31 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.package_interface.ExcludedGroups, ["group1", "group2"])
         self.callback.assert_called_once_with(
             DNF_PACKAGES.interface_name, {"ExcludedGroups": ["group1", "group2"]}, [])
+
+    def excluded_groups_properties_from_kickstart_test(self):
+        ks_in = """
+        %packages
+        @^environment1
+        @group1
+        -@group2
+        @group3
+        -@group3
+        %end
+        """
+        self.payload_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.package_interface.ExcludedGroups, ["group2", "group3"])
+
+    def excluded_groups_properties_to_kickstart_test(self):
+        ks_out = """
+        %packages
+        -@group1
+        -@group2
+
+        %end
+        """
+        self.package_interface.SetExcludedGroups(["group2", "group1"])
+        self.assertEqual(self.payload_interface.GenerateKickstart().strip(),
+                         dedent(ks_out).strip())
 
     def excluded_packages_properties_test(self):
         self.package_interface.SetExcludedPackages(["package1", "package2"])

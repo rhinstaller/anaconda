@@ -23,7 +23,9 @@ from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
 from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
-from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT
+
+from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT
+from pykickstart.parser import Group
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -43,6 +45,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.environment_changed = Signal()
         self._groups = []
         self.groups_changed = Signal()
+        self._groups_flags = {}
         self._packages = []
         self.packages_changed = Signal()
 
@@ -78,11 +81,12 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.set_default_environment(packages.default)
 
         self.set_environment(packages.environment)
-        self.set_groups(packages.groupList)
+        self.set_groups(self._convert_from_kickstart_groups(packages.groupList))
         self.set_packages(packages.packageList)
 
         self.set_excluded_packages(packages.excludedList)
-        self.set_excluded_groups(packages.excludedGroupList)
+        groups = self._convert_from_excluded_kickstart_groups(packages.excludedGroupList)
+        self.set_excluded_groups(groups)
 
         self.set_docs_excluded(packages.excludeDocs)
         self.set_weakdeps_excluded(packages.excludeWeakdeps)
@@ -110,11 +114,11 @@ class PackagesHandlerModule(KickstartBaseModule):
         packages.default = self.default_environment
 
         packages.environment = self.environment
-        packages.groupList = self.groups
+        packages.groupList = self._convert_to_kickstart_groups()
         packages.packageList = self.packages
 
         packages.excludedList = self.excluded_packages
-        packages.excludedGroupList = self.excluded_groups
+        packages.excludedGroupList = self._convert_to_excluded_kickstart_groups()
 
         packages.excludeDocs = self.docs_excluded
         packages.excludeWeakdeps = self.weakdeps_excluded
@@ -131,6 +135,32 @@ class PackagesHandlerModule(KickstartBaseModule):
 
         # The empty packages section won't be printed without seen set to True
         packages.seen = True
+
+    def _convert_from_kickstart_groups(self, kickstart_groups):
+        groups = []
+        for group in kickstart_groups:
+            groups.append(group.name)
+            self._groups_flags[group.name] = group.include
+
+        log.debug("Storing groups flags: %s", self._groups_flags)
+        return groups
+
+    def _convert_to_kickstart_groups(self):
+        ks_groups = []
+        for group_name in self.groups:
+            ks_groups.append(
+                Group(name=group_name,
+                      include=self._groups_flags.get(group_name, GROUP_DEFAULT)))
+
+        return ks_groups
+
+    def _convert_from_excluded_kickstart_groups(self, kickstart_groups):
+        """Get group name from the KS excluded groups"""
+        return [group.name for group in kickstart_groups]
+
+    def _convert_to_excluded_kickstart_groups(self):
+        """Create KS excluded groups from an excluded_groups"""
+        return [Group(name=group, include=GROUP_DEFAULT) for group in self.excluded_groups]
 
     @property
     def core_group_enabled(self):
