@@ -126,17 +126,17 @@ class TaskInterfaceTestCase(unittest.TestCase):
 
         object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
         self.assertEqual("/A/B/C/Tasks/1", object_path)
-        message_bus.publish_object.called_once()
+        message_bus.publish_object.assert_called_once()
         message_bus.reset_mock()
 
         object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
         self.assertEqual("/A/B/C/Tasks/2", object_path)
-        message_bus.publish_object.called_once()
+        message_bus.publish_object.assert_called_once()
         message_bus.reset_mock()
 
         object_path = publish_task(message_bus, ("A", "B", "C"), self.SimpleTask())
         self.assertEqual("/A/B/C/Tasks/3", object_path)
-        message_bus.publish_object.called_once()
+        message_bus.publish_object.assert_called_once()
         message_bus.reset_mock()
 
     @dbus_class
@@ -156,7 +156,7 @@ class TaskInterfaceTestCase(unittest.TestCase):
         )
 
         self.assertEqual("/A/B/C/Tasks/1", object_path)
-        message_bus.publish_object.called_once()
+        message_bus.publish_object.assert_called_once()
 
         publishable = message_bus.publish_object.call_args[0][1]
         self.assertIsInstance(publishable, self.SimpleTaskInterface)

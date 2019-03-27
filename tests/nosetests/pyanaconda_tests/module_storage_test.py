@@ -93,7 +93,7 @@ class StorageInterfaceTestCase(unittest.TestCase):
         self.storage_module.storage_changed.connect(storage_changed_callback)
 
         obj.implementation.stopped_signal.emit()
-        storage_changed_callback.called_once()
+        storage_changed_callback.assert_called_once()
 
     def get_required_device_size_test(self):
         """Test GetRequiredDeviceSize."""
@@ -833,7 +833,7 @@ class StorageTasksTestCase(unittest.TestCase):
         storage = Mock()
         task = StorageResetTask(storage)
         task.run()
-        storage.reset.called_once()
+        storage.reset.assert_called_once()
 
 
 class AutopartitioningInterfaceTestCase(unittest.TestCase):

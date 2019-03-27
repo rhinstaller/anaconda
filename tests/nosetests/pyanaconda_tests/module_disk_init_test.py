@@ -40,19 +40,30 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
 
     def on_partitioning_changed_test(self):
         """Smoke test for on_partitioning_changed callback."""
-        mode_changed_callback = Mock()
-        devices_changed_callback = Mock()
-        drives_changed_callback = Mock()
-
+        # Set up the module.
         self.disk_init_module.set_initialization_mode(InitializationMode.CLEAR_NONE)
+
+        mode_changed_callback = Mock()
         self.disk_init_module.initialization_mode_changed.connect(mode_changed_callback)
+
+        devices_changed_callback = Mock()
         self.disk_init_module.devices_to_clear_changed.connect(devices_changed_callback)
+
+        drives_changed_callback = Mock()
         self.disk_init_module.drives_to_clear_changed.connect(drives_changed_callback)
+
+        # Change the partitioning.
         self.disk_init_module.on_partitioning_changed(create_storage())
 
-        mode_changed_callback.called_once_with(InitializationMode.CLEAR_NONE)
-        drives_changed_callback.called_once_with([])
-        devices_changed_callback.called_once_with([])
+        # Check the module.
+        mode_changed_callback.assert_called_once()
+        self.assertEqual(self.disk_init_module.initialization_mode, InitializationMode.CLEAR_NONE)
+
+        devices_changed_callback.assert_called_once()
+        self.assertEqual(self.disk_init_module.devices_to_clear, [])
+
+        drives_changed_callback.assert_called_once()
+        self.assertEqual(self.disk_init_module.drives_to_clear, [])
 
     def _test_dbus_property(self, *args, **kwargs):
         check_dbus_property(
