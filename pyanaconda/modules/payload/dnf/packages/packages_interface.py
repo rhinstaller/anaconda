@@ -60,7 +60,11 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
 
     @property
     def DefaultEnvironment(self) -> Bool:
-        """Should the default environment be pre-selected for installation?"""
+        """Should the default environment be pre-selected for installation?
+
+        FIXME: This API will be removed later and the behavior will slightly change. The
+        current implementation does not work as expected. See commit comment for more info.
+        """
         return self.implementation.default_environment
 
     @property
