@@ -28,7 +28,7 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUA
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.dasd import DASDModule
-from pyanaconda.modules.storage.devicetree import DeviceTreeHandler
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
@@ -50,7 +50,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class StorageModule(KickstartModule, DeviceTreeHandler):
+class StorageModule(KickstartModule):
     """The Storage module."""
 
     def __init__(self):
@@ -64,6 +64,9 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
 
         # Initialize modules.
         self._modules = []
+
+        self._device_tree_module = DeviceTreeModule()
+        self._add_module(self._device_tree_module)
 
         self._disk_init_module = DiskInitializationModule()
         self._add_module(self._disk_init_module)
@@ -109,6 +112,9 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         self._add_partitioning_module(BLIVET_PARTITIONING.object_path, self._blivet_part_module)
 
         # Connect modules to signals.
+        self.storage_changed.connect(
+            self._device_tree_module.on_storage_reset
+        )
         self.storage_changed.connect(
             self._disk_init_module.on_storage_reset
         )

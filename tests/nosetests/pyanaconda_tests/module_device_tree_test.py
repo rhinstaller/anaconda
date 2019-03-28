@@ -25,16 +25,20 @@ from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
-from pyanaconda.modules.storage.devicetree import DeviceTreeInterface
-from pyanaconda.modules.storage.storage import StorageModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeModule
+from pyanaconda.modules.storage.devicetree.devicetree_interface import DeviceTreeInterface
+from pyanaconda.storage.initialization import create_storage
 
 
 class DeviceTreeInterfaceTestCase(unittest.TestCase):
     """Test DBus interface of the device tree handler."""
 
     def setUp(self):
-        self.module = StorageModule()
+        self.module = DeviceTreeModule()
         self.interface = DeviceTreeInterface(self.module)
+
+        # Set the storage.
+        self.module.on_storage_reset(create_storage())
 
     @property
     def storage(self):

@@ -76,6 +76,11 @@ STORAGE_NAMESPACE = (
     "Storage"
 )
 
+DEVICE_TREE_NAMESPACE = (
+    *STORAGE_NAMESPACE,
+    "DeviceTree"
+)
+
 PARTITIONING_NAMESPACE = (
     *STORAGE_NAMESPACE,
     "Partitioning"
