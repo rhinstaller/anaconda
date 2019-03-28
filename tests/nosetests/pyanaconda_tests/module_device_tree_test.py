@@ -179,3 +179,8 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'device-name': get_variant(Str, 'dev1'),
             'description': get_variant(Str, 'destroy device'),
         }])
+
+    def get_required_device_size_test(self):
+        """Test GetRequiredDeviceSize."""
+        required_size = self.interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
+        self.assertEqual(Size("1280 MiB").get_bytes(), required_size, Size(required_size))

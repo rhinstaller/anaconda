@@ -19,9 +19,12 @@
 #
 from abc import abstractmethod, ABC
 
+from blivet.size import Size
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
 from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData
+from pyanaconda.storage.utils import get_required_device_size
 
 log = get_module_logger(__name__)
 
@@ -161,3 +164,11 @@ class DeviceTreeViewer(ABC):
         data.device_name = action.device.name
         data.description = action.type_desc
         return data
+
+    def get_required_device_size(self, required_space):
+        """Get device size we need to get the required space on the device.
+
+        :param int required_space: a required space in bytes
+        :return int: a required device size in bytes
+        """
+        return get_required_device_size(Size(required_space)).get_bytes()

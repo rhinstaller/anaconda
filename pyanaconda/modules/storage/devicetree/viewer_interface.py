@@ -75,3 +75,11 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :return: a list of structures with device action data
         """
         return list(map(get_structure, self.implementation.get_actions()))
+
+    def GetRequiredDeviceSize(self, required_space: UInt64) -> UInt64:
+        """Get device size we need to get the required space on the device.
+
+        :param required_space: a required space in bytes
+        :return: a required device size in bytes
+        """
+        return self.implementation.get_required_device_size(required_space)

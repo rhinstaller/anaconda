@@ -34,14 +34,6 @@ class StorageInterface(KickstartModuleInterface):
         """
         return self.implementation.reset_with_task()
 
-    def GetRequiredDeviceSize(self, required_space: UInt64) -> UInt64:
-        """Get device size we need to get the required space on the device.
-
-        :param required_space: a required space in bytes
-        :return: a required device size in bytes
-        """
-        return self.implementation.get_required_device_size(required_space)
-
     def ApplyPartitioning(self, partitioning: ObjPath):
         """Apply the partitioning.
 

@@ -18,7 +18,6 @@
 # Red Hat, Inc.
 #
 from blivet import arch
-from blivet.size import Size
 
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
@@ -44,7 +43,6 @@ from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.storage_interface import StorageInterface
 from pyanaconda.modules.storage.zfcp import ZFCPModule
 from pyanaconda.storage.initialization import enable_installer_mode, create_storage
-from pyanaconda.storage.utils import get_required_device_size
 
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
@@ -242,14 +240,6 @@ class StorageModule(KickstartModule):
         # Publish the task.
         path = self.publish_task(STORAGE.namespace, task)
         return path
-
-    def get_required_device_size(self, required_space):
-        """Get device size we need to get the required space on the device.
-
-        :param int required_space: a required space in bytes
-        :return int: a required device size in bytes
-        """
-        return get_required_device_size(Size(required_space)).get_bytes()
 
     def apply_partitioning(self, object_path):
         """Apply a partitioning.
