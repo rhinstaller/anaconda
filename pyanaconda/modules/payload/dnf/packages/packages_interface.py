@@ -65,12 +65,18 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
 
     @property
     def Environment(self) -> Str:
-        """Get environment used for installation."""
+        """Get environment used for installation.
+
+        If nothing set the empty string will be returned.
+        """
         return self.implementation.environment
 
     @emits_properties_changed
     def SetEnvironment(self, environment: Str):
-        """Set environment used for installation."""
+        """Set environment used for installation.
+
+        To unset the value please set the empty string.
+        """
         self.implementation.set_environment(environment)
 
     @property
@@ -152,6 +158,11 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
 
         Multiple languages can be specified, in that case the ',' is used in the string as
         separator.
+
+        Possible special values are 'none' or 'all'.
+
+        'none' - Use nil in the rpm macro.
+        'all'  - Default behavior.
         """
         return self.implementation.languages
 
@@ -160,6 +171,10 @@ class PackagesHandlerInterface(KickstartModuleInterfaceTemplate):
         """Set languages marked for installation.
 
         In case you want to specify multiple languages use ',' in the string as separator.
+
+        Possible special values are 'none' or 'all'.
+        'none' - Use nil in the rpm macro.
+        'all'  - Default behavior.
         """
         self.implementation.set_languages(languages)
 

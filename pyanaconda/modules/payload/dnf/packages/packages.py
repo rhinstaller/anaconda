@@ -21,7 +21,8 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
-from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy
+from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy, TIMEOUT_UNSET, \
+    RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
 
 from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, GROUP_DEFAULT
@@ -41,7 +42,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.core_group_enabled_changed = Signal()
         self._default_environment = False
 
-        self._environment = None
+        self._environment = ""
         self.environment_changed = Signal()
         self._groups = []
         self.groups_changed = Signal()
@@ -60,13 +61,13 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.weakdeps_excluded_changed = Signal()
         self._missing_ignored = False
         self.missing_ignored_changed = Signal()
-        self._languages = None
+        self._languages = LANGUAGES_DEFAULT
         self.languages_changed = Signal()
         self._multilib_policy = MultilibPolicy.BEST
         self.multilib_policy_changed = Signal()
-        self._timeout = None
+        self._timeout = TIMEOUT_UNSET
         self.timeout_changed = Signal()
-        self._retries = None
+        self._retries = RETRIES_UNSET
         self.retries_changed = Signal()
 
     def publish(self):
@@ -80,7 +81,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         self.set_core_group_enabled(not packages.nocore)
         self.set_default_environment(packages.default)
 
-        self.set_environment(packages.environment)
+        self.set_environment("" if packages.environment is None else packages.environment)
         self.set_groups(self._convert_from_kickstart_groups(packages.groupList))
         self.set_packages(packages.packageList)
 
@@ -96,15 +97,20 @@ class PackagesHandlerModule(KickstartBaseModule):
         else:
             self.set_missing_ignored(False)
 
-        self.set_languages(packages.instLangs)
+        if packages.instLangs is None:
+            self.set_languages(LANGUAGES_DEFAULT)
+        elif packages.instLangs == "":
+            self.set_languages(LANGUAGES_NONE)
+        else:
+            self.set_languages(packages.instLangs)
 
         if packages.multiLib:
             self.set_multilib_policy(MultilibPolicy.ALL)
         else:
             self.set_multilib_policy(MultilibPolicy.BEST)
 
-        self.set_timeout(packages.timeout)
-        self.set_retries(packages.retries)
+        self.set_timeout(TIMEOUT_UNSET if packages.timeout is None else packages.timeout)
+        self.set_retries(RETRIES_UNSET if packages.retries is None else packages.retries)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -113,7 +119,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         packages.nocore = not self.core_group_enabled
         packages.default = self.default_environment
 
-        packages.environment = self.environment
+        packages.environment = None if self.environment == "" else self.environment
         packages.groupList = self._convert_to_kickstart_groups()
         packages.packageList = self.packages
 
@@ -123,15 +129,21 @@ class PackagesHandlerModule(KickstartBaseModule):
         packages.excludeDocs = self.docs_excluded
         packages.excludeWeakdeps = self.weakdeps_excluded
         packages.handleMissing = KS_MISSING_IGNORE if self.missing_ignored else KS_MISSING_PROMPT
-        packages.instLangs = self.languages
+
+        if self.languages == LANGUAGES_DEFAULT:
+            packages.instLangs = None
+        elif self.languages == LANGUAGES_NONE:
+            packages.instLangs = ""
+        else:
+            packages.instLangs = self.languages
 
         if self.multilib_policy == MultilibPolicy.ALL:
             packages.multiLib = True
         else:
             packages.multiLib = False
 
-        packages.timeout = self.timeout
-        packages.retries = self.retries
+        packages.timeout = self.timeout if self.timeout >= 0 else None
+        packages.retries = self.retries if self.retries >= 0 else None
 
         # The empty packages section won't be printed without seen set to True
         packages.seen = True
@@ -213,7 +225,7 @@ class PackagesHandlerModule(KickstartBaseModule):
         """
         self._environment = environment
         self.environment_changed.emit()
-        log.debug("Environment is set to %s.", environment)
+        log.debug("Environment is set to '%s'.", environment)
 
     @property
     def groups(self):
@@ -347,6 +359,10 @@ class PackagesHandlerModule(KickstartBaseModule):
 
         In case multiple languages are specified they are split by ',' in the string returned.
 
+        There are special values for this property supported:
+            none  - Use nil in the rpm macro.
+            all   - Do not change the default settings.
+
         :rtype: str
         """
         return self._languages
@@ -354,7 +370,12 @@ class PackagesHandlerModule(KickstartBaseModule):
     def set_languages(self, languages):
         """Languages marked for installation.
 
-        :param languages: list of languages split by ','
+        Possible values are list of languages split by ',' or 'none' or 'all'.
+
+        'none' - Use nil in the rpm macro.
+        'all'  - Default behavior.
+
+        :param languages: list of languages split by ',' or 'none' or 'all'
         :type languages: str
         """
         self._languages = languages

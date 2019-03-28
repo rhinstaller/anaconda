@@ -20,6 +20,19 @@
 from enum import Enum, unique
 
 
+# default value when Packages module property timeout is not set
+TIMEOUT_UNSET = -1
+
+# default value when Packages module property retries is not set
+RETRIES_UNSET = -1
+
+# special values for languages property of the Packages module
+# the RPM macro _install_langs will be set to 'nil'
+LANGUAGES_NONE = "none"
+# the RPM macro _install_langs will have default value which is 'all'
+LANGUAGES_DEFAULT = "all"
+
+
 @unique
 class MultilibPolicy(Enum):
     """Multilib policy enum."""
