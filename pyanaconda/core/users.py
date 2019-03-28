@@ -273,34 +273,34 @@ def create_group(group_name, gid=None, root=None):
 def create_user(username, password=False, is_crypted=False, lock=False,
                 homedir=None, uid=None, gid=None, groups=None, shell=None, gecos="",
                 root=None):
-    """Create a new user on the system with the given name.  Optional kwargs:
+    """Create a new user on the system with the given name.
 
-       :param str username: The username for the new user to be created.
-       :param str password: The password. See is_crypted for how this is interpreted.
-                            If the password is "" then the account is created
-                            with a blank password. If None or False the account will
-                            be left in its initial state (locked)
-       :param bool is_crypted: Is the password already encrypted? Defaults to False.
-       :param bool lock: Is the new account locked by default?
-                         Defaults to False.
-       :param str homedir: The home directory for the new user.
-                           Defaults to /home/<name>.
-       :param int uid: The UID for the new user.
-                       If none is given, the next available one is used.
-       :param int gid: The GID for the new user.
-                       If none is given, the next available one is used.
-       :param groups: A list of group names the user should be added to.
-                      Each group name can contain an optional GID in parenthesis,
-                      such as "groupName(5000)".
-                      Defaults to [].
-       :type groups: list of str
-       :param str shell: The shell for the new user.
-                         If none is given, the login.defs default is used.
-       :param str gecos: The GECOS information (full name, office, phone, etc.).
-                         Defaults to "".
-       :param str root: The directory of the system to create the new user in.
-                        The homedir option will be interpreted relative to this.
-                        Defaults to util.getSysroot().
+    :param str username: The username for the new user to be created.
+    :param str password: The password. See is_crypted for how this is interpreted.
+                         If the password is "" then the account is created
+                         with a blank password. If None or False the account will
+                         be left in its initial state (locked)
+    :param bool is_crypted: Is the password already encrypted? Defaults to False.
+    :param bool lock: Is the new account locked by default?
+                      Defaults to False.
+    :param str homedir: The home directory for the new user.
+                        Defaults to /home/<name>.
+    :param int uid: The UID for the new user.
+                    If none is given, the next available one is used.
+    :param int gid: The GID for the new user.
+                    If none is given, the next available one is used.
+    :param groups: A list of group names the user should be added to.
+                   Each group name can contain an optional GID in parenthesis,
+                   such as "groupName(5000)".
+                   Defaults to [].
+    :type groups: list of str
+    :param str shell: The shell for the new user.
+                      If none is given, the login.defs default is used.
+    :param str gecos: The GECOS information (full name, office, phone, etc.).
+                      Defaults to "".
+    :param str root: The directory of the system to create the new user in.
+                     The homedir option will be interpreted relative to this.
+                     Defaults to util.getSysroot().
     """
 
     # resolve the optional arguments that need a default that can't be
