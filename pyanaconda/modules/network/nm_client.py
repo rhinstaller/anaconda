@@ -207,9 +207,8 @@ def _update_vlan_connection_from_ksdata(connection, network_data):
     if network_data.interfacename:
         s_con.props.id = network_data.interfacename
         s_con.props.interface_name = network_data.interfacename
-    # FIXME: fix also the test
-    # else:
-    #    s_con.props.interface_name = None
+    else:
+        s_con.props.interface_name = None
 
     s_vlan = NM.SettingVlan.new()
     s_vlan.props.id = int(network_data.vlanid)
