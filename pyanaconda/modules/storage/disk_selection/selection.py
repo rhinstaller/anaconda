@@ -44,6 +44,9 @@ class DiskSelectionModule(KickstartBaseModule):
         self.protected_devices_changed = Signal()
         self._protected_devices = []
 
+        self.disk_images_changed = Signal()
+        self._disk_images = {}
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(DISK_SELECTION.object_path, DiskSelectionInterface(self))
@@ -129,3 +132,17 @@ class DiskSelectionModule(KickstartBaseModule):
         self._protected_devices = devices
         self.protected_devices_changed.emit()
         log.debug("Protected devices are set to '%s'.", devices)
+
+    @property
+    def disk_images(self):
+        """The dictionary of disk images."""
+        return self._disk_images
+
+    def set_disk_images(self, disk_images):
+        """Set the dictionary of disk images.
+
+        :param disk_images: a dictionary of image names and file names
+        """
+        self._disk_images = disk_images
+        self.disk_images_changed.emit()
+        log.debug("Disk images are set to '%s'.", disk_images)

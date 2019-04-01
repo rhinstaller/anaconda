@@ -209,6 +209,7 @@ def _reset_storage(storage):
     storage.ignored_disks = disk_select_proxy.IgnoredDisks
     storage.exclusive_disks = disk_select_proxy.ExclusiveDisks
     storage.protected_devices = disk_select_proxy.ProtectedDevices
+    storage.disk_images = disk_select_proxy.DiskImages
 
     # Reload additional modules.
     if not conf.target.is_image:

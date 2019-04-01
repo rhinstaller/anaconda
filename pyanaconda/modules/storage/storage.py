@@ -192,6 +192,7 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         storage.ignored_disks = self._disk_selection_module.ignored_disks
         storage.exclusive_disks = self._disk_selection_module.exclusive_disks
         storage.protected_devices = self._disk_selection_module.protected_devices
+        storage.disk_images = self._disk_selection_module.disk_images
 
         # Create the task.
         task = StorageResetTask(storage)

@@ -361,6 +361,10 @@ class InstallerStorage(Blivet):
             See :meth:`devicetree.Devicetree.populate` for more information
             about the cleanup_only keyword argument.
         """
+        # set up the disk images
+        if conf.target.is_image:
+            self.setup_disk_images()
+
         # save passphrases for luks devices so we don't have to reprompt
         self.encryption_passphrase = None
         for device in self.devices:

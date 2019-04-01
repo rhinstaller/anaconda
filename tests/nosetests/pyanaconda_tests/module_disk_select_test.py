@@ -68,3 +68,13 @@ class DiskSelectionInterfaceTestCase(unittest.TestCase):
             "ProtectedDevices",
             ["sda", "sdb"]
         )
+
+    def disk_images_property_test(self):
+        """Test the protected disks property."""
+        self._test_dbus_property(
+            "DiskImages",
+            {
+                "image_1": "/path/1",
+                "image_2": "/path/2"
+             }
+        )
