@@ -1633,10 +1633,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._remove_url_prefix(editable, self._protocol_combo_box, self.on_urlEntry_changed)
 
     def on_noUpdatesCheckbox_toggled(self, *args):
-        """ Toggle the enable state of the updates repo
-
-            Before final release this will also toggle the updates-testing repo
-        """
+        """Toggle the enable state of the updates repo."""
         if self._no_updates_checkbox.get_active():
             self.payload.set_updates_enabled(False)
         else:
