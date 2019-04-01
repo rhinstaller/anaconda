@@ -76,6 +76,20 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         """
         return list(map(get_structure, self.implementation.get_actions()))
 
+    def ResolveDevice(self, dev_spec: Str) -> Str:
+        """Get the device matching the provided device specification.
+
+        The spec can be anything from a device name (eg: 'sda3') to a
+        device node path (eg: '/dev/mapper/fedora-root') to something
+        like 'UUID=xyz-tuv-qrs' or 'LABEL=rootfs'.
+
+        If no device is found, return an empty string.
+
+        :param dev_spec: a string describing a block device
+        :return: a device name or an empty string
+        """
+        return self.implementation.resolve_device(dev_spec)
+
     def GetRequiredDeviceSize(self, required_space: UInt64) -> UInt64:
         """Get device size we need to get the required space on the device.
 

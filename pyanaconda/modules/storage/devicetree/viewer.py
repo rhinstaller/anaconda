@@ -173,6 +173,25 @@ class DeviceTreeViewer(ABC):
         data.description = action.type_desc
         return data
 
+    def resolve_device(self, dev_spec):
+        """Get the device matching the provided device specification.
+
+        The spec can be anything from a device name (eg: 'sda3') to a
+        device node path (eg: '/dev/mapper/fedora-root') to something
+        like 'UUID=xyz-tuv-qrs' or 'LABEL=rootfs'.
+
+        If no device is found, return an empty string.
+
+        :param dev_spec: a string describing a block device
+        :return: a device name or an empty string
+        """
+        device = self.storage.devicetree.resolve_device(dev_spec)
+
+        if not device:
+            return ""
+
+        return device.name
+
     def get_required_device_size(self, required_space):
         """Get device size we need to get the required space on the device.
 

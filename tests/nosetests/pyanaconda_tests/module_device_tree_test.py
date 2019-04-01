@@ -242,3 +242,11 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         # FIXME: Test on devices with a reclaimable space.
         total_size = self.interface.GetDiskReclaimableSpace(["dev1", "dev2"])
         self.assertEqual(total_size, 0)
+
+    def resolve_device_test(self):
+        """Test ResolveDevice."""
+        self._add_device(DiskDevice("dev1"))
+
+        self.assertEqual(self.interface.ResolveDevice("dev0"), "")
+        self.assertEqual(self.interface.ResolveDevice("dev1"), "dev1")
+        self.assertEqual(self.interface.ResolveDevice("/dev/dev1"), "dev1")
