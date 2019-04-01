@@ -21,6 +21,7 @@ from abc import abstractmethod, ABC
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
+from pyanaconda.storage.utils import find_optical_media
 
 log = get_module_logger(__name__)
 
@@ -82,3 +83,11 @@ class DeviceTreeHandler(ABC):
         """
         device = self._get_device(device_name)
         device.format.unmount(mountpoint=mount_point)
+
+    def find_optical_media(self):
+        """Find all devices with mountable optical media.
+
+        :return: a list of device names
+        """
+        devices = find_optical_media(self.storage.devicetree)
+        return [d.name for d in devices]

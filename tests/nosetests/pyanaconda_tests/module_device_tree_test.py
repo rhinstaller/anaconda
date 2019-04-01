@@ -293,3 +293,7 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             self.interface.UnmountDevice("dev1", d)
             unmount.assert_called_once_with(mountpoint=d)
+
+    def find_install_media_test(self):
+        """Test FindInstallMedia."""
+        self.assertEqual(self.interface.FindOpticalMedia(), [])

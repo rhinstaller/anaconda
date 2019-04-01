@@ -58,3 +58,10 @@ class DeviceTreeHandlerInterface(InterfaceTemplate):
         :param mount_point: a path to the mount point
         """
         self.implementation.unmount_device(device_name, mount_point)
+
+    def FindOpticalMedia(self) -> List[Str]:
+        """Find all devices with mountable optical media.
+
+        :return: a list of device names
+        """
+        return self.implementation.find_optical_media()
