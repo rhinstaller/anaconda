@@ -44,8 +44,7 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, \
-    apply_disk_selection, \
+from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, apply_disk_selection, \
     check_disk_selection, get_disks_summary, suggest_swap_size
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.ui.gui import GUIObject
@@ -594,7 +593,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def refresh(self):
         self._back_clicked = False
 
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self._available_disks]
@@ -603,7 +602,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # unhide previously hidden disks so that they don't look like being
         # empty (because of all child devices hidden)
-        self._unhide_disks()
+        self.storage.select_disks(disk_names)
 
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
         self._auto_part_encrypted = self._auto_part_observer.proxy.Encrypted
@@ -743,7 +742,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Continue with initializing.
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # if there's only one disk, select it by default
         if len(self._available_disks) == 1 and not self._selected_disks:
@@ -854,18 +853,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             if not partition.exists and \
                partition in self.storage.partitions:
                 self.storage.recursive_remove(partition)
-
-    def _hide_disks(self):
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk in self.storage.devices:
-                self.storage.devicetree.hide(disk)
-
-    def _unhide_disks(self):
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk.name not in self._last_selected_disks:
-                self.storage.devicetree.unhide(disk)
 
     def _check_dasd_formats(self):
         # No change by default.
@@ -1000,16 +987,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # Same thing for switching between different storage configuration
             # methods (auto/custom/blivet-gui), at least for now.
             on_disk_storage.reset_to_snapshot(self.storage)
-            self._available_disks = get_available_disks(self.storage.devicetree)
+            self._available_disks = self.storage.usable_disks
         else:
             # Remove all non-existing devices if autopart was active when we last
             # refreshed.
             if self._previous_auto_part:
                 self._previous_auto_part = False
                 self._remove_nonexistant_partitions()
-
-        # hide disks as requested
-        self._hide_disks()
 
         # make sure no containers were split up by the user's disk selection
         self.clear_info()
@@ -1021,7 +1005,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # The disk selection has to make sense before we can proceed.
             self.set_error(_("There was a problem with your disk selection. "
                              "Click here for details."))
-            self._unhide_disks()
             self._back_clicked = False
             return
 
@@ -1042,6 +1025,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 # there was no formatting done.
                 self._back_clicked = False
                 return
+
+        # Select the chosen disks.
+        self.storage.select_disks(self._selected_disks)
 
         # even if they're not doing autopart, setting autopart.encrypted
         # establishes a default of encrypting new devices

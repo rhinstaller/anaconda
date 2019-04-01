@@ -115,3 +115,10 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         :param disk_images: a dictionary of image names and file names
         """
         self.implementation.set_disk_images(disk_images)
+
+    def GetUsableDisks(self):
+        """Get a list of disks that can be used for the installation.
+
+        :return: a list of disk names
+        """
+        return self.implementation.get_usable_disks()

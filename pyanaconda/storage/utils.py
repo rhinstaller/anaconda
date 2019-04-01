@@ -475,41 +475,6 @@ def find_live_backing_device():
     return None
 
 
-def get_available_disks(devicetree):
-    """Get disks that can be used for the installation.
-
-    :param devicetree: a device tree to look up devices
-    :return: a list of devices
-    """
-    # Get all devices.
-    devices = devicetree.devices
-
-    # Add the hidden devices.
-    if conf.target.is_image:
-        devices += [
-            d for d in devicetree._hidden
-            if d.name in devicetree.disk_images
-        ]
-    else:
-        devices += devicetree._hidden
-
-    # Filter out the usable disks.
-    disks = []
-    for d in devices:
-        if d.is_disk and not d.format.hidden and not d.protected:
-            # Unformatted DASDs are detected with a size of 0, but they should
-            # still show up as valid disks if this function is called, since we
-            # can still use them; anaconda will know how to handle them, so they
-            # don't need to be ignored anymore.
-            if d.type == "dasd":
-                disks.append(d)
-            elif d.size > 0 and d.media_present:
-                disks.append(d)
-
-    # Remove duplicate names from the list.
-    return sorted(set(disks), key=lambda d: d.name)
-
-
 def filter_disks_by_names(disks, names):
     """Filter disks by the given names.
 
