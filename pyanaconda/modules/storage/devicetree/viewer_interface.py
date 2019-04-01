@@ -83,3 +83,32 @@ class DeviceTreeViewerInterface(InterfaceTemplate):
         :return: a required device size in bytes
         """
         return self.implementation.get_required_device_size(required_space)
+
+    def GetFileSystemFreeSpace(self,  mount_points: List[Str]) -> UInt64:
+        """Get total file system free space on the given mount points.
+
+        :param mount_points: a list of mount points
+        :return: a total size in bytes
+        """
+        return self.implementation.get_file_system_free_space(mount_points)
+
+    def GetDiskFreeSpace(self, disk_names: List[Str]) -> UInt64:
+        """Get total free space on the given disks.
+
+        Calculates free space available for use.
+
+        :param disk_names: a list of disk names
+        :return: a total size in bytes
+        """
+        return self.implementation.get_disk_free_space(disk_names)
+
+    def GetDiskReclaimableSpace(self, disk_names: List[Str]) -> UInt64:
+        """Get total reclaimable space on the given disks.
+
+        Calculates free space unavailable but reclaimable
+        from existing partitions.
+
+        :param disk_names: a list of disk names
+        :return: a total size in bytes
+        """
+        return self.implementation.get_disk_reclaimable_space(disk_names)

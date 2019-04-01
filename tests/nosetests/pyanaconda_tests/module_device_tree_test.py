@@ -184,3 +184,61 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         """Test GetRequiredDeviceSize."""
         required_size = self.interface.GetRequiredDeviceSize(Size("1 GiB").get_bytes())
         self.assertEqual(Size("1280 MiB").get_bytes(), required_size, Size(required_size))
+
+    def get_file_system_free_space_test(self):
+        """Test GetFileSystemFreeSpace."""
+        self._add_device(StorageDevice(
+            "dev1",
+            fmt=get_format("ext4", mountpoint="/"),
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(StorageDevice(
+            "dev2",
+            fmt=get_format("ext4", mountpoint="/usr"),
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetFileSystemFreeSpace([])
+        self.assertEqual(total_size, 0)
+
+        total_size = self.interface.GetFileSystemFreeSpace(["/", "/usr"])
+        self.assertLess(total_size, Size("10 GiB").get_bytes())
+        self.assertGreater(total_size, Size("8 GiB").get_bytes())
+
+    def get_disk_free_space_test(self):
+        """Test GetDiskFreeSpace."""
+        self._add_device(DiskDevice(
+            "dev1",
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(DiskDevice(
+            "dev2",
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetDiskFreeSpace([])
+        self.assertEqual(total_size, 0)
+
+        total_size = self.interface.GetDiskFreeSpace(["dev1", "dev2"])
+        self.assertEqual(total_size, Size("10 GiB").get_bytes())
+
+    def get_disk_reclaimable_space_test(self):
+        """Test GetDiskReclaimableSpace."""
+        self._add_device(DiskDevice(
+            "dev1",
+            size=Size("5 GiB"))
+        )
+
+        self._add_device(DiskDevice(
+            "dev2",
+            size=Size("5 GiB"))
+        )
+
+        total_size = self.interface.GetDiskReclaimableSpace([])
+        self.assertEqual(total_size, 0)
+
+        # FIXME: Test on devices with a reclaimable space.
+        total_size = self.interface.GetDiskReclaimableSpace(["dev1", "dev2"])
+        self.assertEqual(total_size, 0)

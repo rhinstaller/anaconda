@@ -117,6 +117,14 @@ class DeviceTreeViewer(ABC):
         """
         return self.storage.devicetree.get_device_by_name(name, hidden=True)
 
+    def _get_devices(self, names):
+        """Find devices by their names.
+
+        :param names: names of the devices
+        :return: a list of instances of the Blivet's device
+        """
+        return list(map(self._get_device, names))
+
     def _get_device_attrs(self, device):
         """Get the device attributes.
 
@@ -172,3 +180,34 @@ class DeviceTreeViewer(ABC):
         :return int: a required device size in bytes
         """
         return get_required_device_size(Size(required_space)).get_bytes()
+
+    def get_file_system_free_space(self, mount_points):
+        """Get total file system free space on the given mount points.
+
+        :param mount_points: a list of mount points
+        :return: a total size in bytes
+        """
+        return self.storage.get_file_system_free_space(mount_points).get_bytes()
+
+    def get_disk_free_space(self, disk_names):
+        """Get total free space on the given disks.
+
+        Calculates free space available for use.
+
+        :param disk_names: a list of disk names
+        :return: a total size in bytes
+        """
+        disks = self._get_devices(disk_names)
+        return self.storage.get_disk_free_space(disks).get_bytes()
+
+    def get_disk_reclaimable_space(self, disk_names):
+        """Get total reclaimable space on the given disks.
+
+        Calculates free space unavailable but reclaimable
+        from existing partitions.
+
+        :param disk_names: a list of disk names
+        :return: a total size in bytes
+        """
+        disks = self._get_devices(disk_names)
+        return self.storage.get_disk_reclaimable_space(disks).get_bytes()
