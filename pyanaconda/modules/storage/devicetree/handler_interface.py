@@ -28,3 +28,33 @@ __all__ = ["DeviceTreeHandlerInterface"]
 @dbus_interface(DEVICE_TREE_HANDLER.interface_name)
 class DeviceTreeHandlerInterface(InterfaceTemplate):
     """DBus interface for the device tree handler."""
+
+    def SetupDevice(self, device_name: Str):
+        """Open, or set up, a device.
+
+        :param device_name: a name of the device
+        """
+        self.implementation.setup_device(device_name)
+
+    def TeardownDevice(self, device_name: Str):
+        """Close, or tear down, a device.
+
+        :param device_name: a name of the device
+        """
+        self.implementation.teardown_device(device_name)
+
+    def MountDevice(self, device_name: Str, mount_point: Str):
+        """Mount a filesystem on the device.
+
+        :param device_name: a name of the device
+        :param mount_point: a path to the mount point
+        """
+        self.implementation.mount_device(device_name, mount_point)
+
+    def UnmountDevice(self, device_name: Str, mount_point: Str):
+        """Unmount a filesystem on the device.
+
+        :param device_name: a name of the device
+        :param mount_point: a path to the mount point
+        """
+        self.implementation.unmount_device(device_name, mount_point)

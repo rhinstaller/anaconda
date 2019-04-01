@@ -17,10 +17,13 @@
 #
 # Red Hat Author(s): Vendula Poncova <vponcova@redhat.com>
 #
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from blivet.devices import StorageDevice, DiskDevice, DASDDevice, ZFCPDiskDevice
 from blivet.formats import get_format
+from blivet.formats.fs import FS
 from blivet.size import Size
 
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
@@ -256,3 +259,37 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.ResolveDevice("dev0"), "")
         self.assertEqual(self.interface.ResolveDevice("dev1"), "dev1")
         self.assertEqual(self.interface.ResolveDevice("/dev/dev1"), "dev1")
+
+    @patch.object(StorageDevice, "setup")
+    def setup_device_test(self, setup):
+        """Test SetupDevice."""
+        self._add_device(StorageDevice("dev1"))
+
+        self.interface.SetupDevice("dev1")
+        setup.assert_called_once()
+
+    @patch.object(StorageDevice, "teardown")
+    def teardown_device_test(self, teardown):
+        """Test TeardownDevice."""
+        self._add_device(StorageDevice("dev1"))
+
+        self.interface.TeardownDevice("dev1")
+        teardown.assert_called_once()
+
+    @patch.object(FS, "mount")
+    def mount_device_test(self, mount):
+        """Test MountDevice."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+
+        with tempfile.TemporaryDirectory() as d:
+            self.interface.MountDevice("dev1", d)
+            mount.assert_called_once_with(mountpoint=d)
+
+    @patch.object(FS, "unmount")
+    def unmount_device_test(self, unmount):
+        """Test UnmountDevice."""
+        self._add_device(StorageDevice("dev1", fmt=get_format("ext4")))
+
+        with tempfile.TemporaryDirectory() as d:
+            self.interface.UnmountDevice("dev1", d)
+            unmount.assert_called_once_with(mountpoint=d)
