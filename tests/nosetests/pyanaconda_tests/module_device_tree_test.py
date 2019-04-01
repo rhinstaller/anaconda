@@ -224,6 +224,9 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         total_size = self.interface.GetDiskFreeSpace(["dev1", "dev2"])
         self.assertEqual(total_size, Size("10 GiB").get_bytes())
 
+        with self.assertRaises(UnknownDeviceError):
+            self.interface.GetDiskFreeSpace(["dev1", "dev2", "dev3"])
+
     def get_disk_reclaimable_space_test(self):
         """Test GetDiskReclaimableSpace."""
         self._add_device(DiskDevice(
@@ -242,6 +245,9 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         # FIXME: Test on devices with a reclaimable space.
         total_size = self.interface.GetDiskReclaimableSpace(["dev1", "dev2"])
         self.assertEqual(total_size, 0)
+
+        with self.assertRaises(UnknownDeviceError):
+            self.interface.GetDiskReclaimableSpace(["dev1", "dev2", "dev3"])
 
     def resolve_device_test(self):
         """Test ResolveDevice."""

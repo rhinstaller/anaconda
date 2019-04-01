@@ -87,9 +87,6 @@ class DeviceTreeViewer(ABC):
         # Find the device.
         device = self._get_device(name)
 
-        if not device:
-            raise UnknownDeviceError(name)
-
         # Collect the device data.
         data = DeviceData()
         data.type = device.type
@@ -114,8 +111,14 @@ class DeviceTreeViewer(ABC):
 
         :param name: a name of the device
         :return: an instance of the Blivet's device
+        :raise: UnknownDeviceError if no device is found
         """
-        return self.storage.devicetree.get_device_by_name(name, hidden=True)
+        device = self.storage.devicetree.get_device_by_name(name, hidden=True)
+
+        if not device:
+            raise UnknownDeviceError(name)
+
+        return device
 
     def _get_devices(self, names):
         """Find devices by their names.
