@@ -21,6 +21,7 @@ from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.dnf.packages.constants import MultilibPolicy, TIMEOUT_UNSET, \
     RETRIES_UNSET, LANGUAGES_DEFAULT, LANGUAGES_NONE
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
@@ -378,6 +379,10 @@ class PackagesHandlerModule(KickstartBaseModule):
         :param languages: list of languages split by ',' or 'none' or 'all'
         :type languages: str
         """
+        # raise exception if languages is None or ""
+        if not languages:
+            raise InvalidValueError("Languages value have to be 'none', "
+                                    "'all' or list of languages")
         self._languages = languages
         self.languages_changed.emit()
         log.debug("Install languages is set to %s.", languages)

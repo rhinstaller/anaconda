@@ -33,5 +33,11 @@ class AnacondaError(Exception):
     pass
 
 
+@dbus_error("InvalidValueError", namespace=ANACONDA_NAMESPACE)
+class InvalidValueError(AnacondaError):
+    """Invalid value passed."""
+    pass
+
+
 # Define mapping for existing exceptions.
 dbus_error("KickstartError", namespace=ANACONDA_NAMESPACE)(KickstartError)

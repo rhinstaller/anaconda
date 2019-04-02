@@ -23,11 +23,12 @@ from mock import Mock
 from textwrap import dedent
 
 from pyanaconda.modules.common.constants.objects import DNF_PACKAGES
+from pyanaconda.modules.common.errors import InvalidValueError
 from pyanaconda.modules.payload.payload_interface import PayloadInterface
 from pyanaconda.modules.payload.payload import PayloadModule
 from pyanaconda.modules.payload.dnf.packages.packages_interface import PackagesHandlerInterface
 from pyanaconda.modules.payload.dnf.packages.constants import TIMEOUT_UNSET, RETRIES_UNSET, \
-    LANGUAGES_DEFAULT
+    LANGUAGES_DEFAULT, LANGUAGES_NONE
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface
 
 
@@ -174,7 +175,7 @@ class PayloadInterfaceTestCase(unittest.TestCase):
     def packages_section_complex_exclude_kickstart_test(self):
         """Test the packages section with complex exclude example."""
         ks_in = """
-        %packages --nocore --ignoremissing
+        %packages --nocore --ignoremissing --instLangs=
         @^environment1
         @group1
         package1
@@ -185,7 +186,7 @@ class PayloadInterfaceTestCase(unittest.TestCase):
         %end
         """
         ks_out = """
-        %packages --nocore --ignoremissing
+        %packages --nocore --ignoremissing --instLangs=
         @^environment1
         @group1
         @group3
@@ -347,6 +348,26 @@ class PayloadInterfaceTestCase(unittest.TestCase):
             DNF_PACKAGES.interface_name, {"Languages": "en, es"}, [])
 
     def languages_not_set_properties_test(self):
+        self.assertEqual(self.package_interface.Languages, LANGUAGES_DEFAULT)
+
+    def languages_incorrect_value_properties_test(self):
+        with self.assertRaises(InvalidValueError):
+            self.package_interface.SetLanguages("")
+
+    def languages_none_properties_from_kickstart_test(self):
+        ks_in = """
+        %packages --instLangs=
+        %end
+        """
+        self.payload_interface.ReadKickstart(ks_in)
+        self.assertEqual(self.package_interface.Languages, LANGUAGES_NONE)
+
+    def languages_all_properties_from_kickstart_test(self):
+        ks_in = """
+        %packages
+        %end
+        """
+        self.payload_interface.ReadKickstart(ks_in)
         self.assertEqual(self.package_interface.Languages, LANGUAGES_DEFAULT)
 
     def multilib_policy_properties_test(self):
