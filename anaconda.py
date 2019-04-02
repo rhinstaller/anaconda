@@ -416,7 +416,6 @@ if __name__ == "__main__":
     flags.rescue_mode = opts.rescue
     flags.noverifyssl = opts.noverifyssl
     flags.debug = opts.debug
-    flags.askmethod = opts.askmethod
     flags.mpath = opts.mpath
     flags.eject = opts.eject
     flags.kexec = opts.kexec
