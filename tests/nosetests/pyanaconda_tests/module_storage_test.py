@@ -28,6 +28,8 @@ from blivet.size import Size
 
 from pykickstart.constants import AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM
 
+from pyanaconda.bootloader.grub2 import IPSeriesGRUB2, GRUB2
+from pyanaconda.bootloader.zipl import ZIPL
 from pyanaconda.core.constants import MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_REFORMAT, \
     MOUNT_POINT_FORMAT, MOUNT_POINT_FORMAT_OPTIONS, MOUNT_POINT_MOUNT_OPTIONS
 from pyanaconda.dbus.typing import get_variant, Str, Bool, ObjPath
@@ -364,7 +366,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def bootloader_partition_kickstart_test(self):
+    @patch("pyanaconda.modules.storage.bootloader.bootloader.get_bootloader_class")
+    def bootloader_partition_kickstart_test(self, getter):
         """Test the bootloader command with the partition option."""
         ks_in = """
         bootloader --location=partition
@@ -373,7 +376,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # System bootloader configuration
         bootloader --location=partition
         """
+        getter.return_value = ZIPL
         self._test_kickstart(ks_in, ks_out)
+
+        getter.return_value = IPSeriesGRUB2
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
 
     def bootloader_append_kickstart_test(self):
         """Test the bootloader command with the append option."""
@@ -397,7 +404,8 @@ class StorageInterfaceTestCase(unittest.TestCase):
         """
         self._test_kickstart(ks_in, ks_out)
 
-    def bootloader_encrypted_password_kickstart_test(self):
+    @patch("pyanaconda.modules.storage.bootloader.bootloader.get_bootloader_class")
+    def bootloader_encrypted_password_kickstart_test(self, getter):
         """Test the bootloader command with the encrypted password option."""
         ks_in = """
         bootloader --password="12345" --iscrypted
@@ -406,6 +414,23 @@ class StorageInterfaceTestCase(unittest.TestCase):
         # System bootloader configuration
         bootloader --location=mbr --password="12345" --iscrypted
         """
+        getter.return_value = ZIPL
+        self._test_kickstart(ks_in, ks_out)
+
+        getter.return_value = GRUB2
+        self._test_kickstart(ks_in, ks_out, ks_valid=False)
+
+    @patch("pyanaconda.modules.storage.bootloader.bootloader.get_bootloader_class")
+    def bootloader_encrypted_grub2_kickstart_test(self, getter):
+        """Test the bootloader command with encrypted GRUB2."""
+        ks_in = """
+        bootloader --password="grub.pbkdf2.12345" --iscrypted
+        """
+        ks_out = """
+        # System bootloader configuration
+        bootloader --location=mbr --password="grub.pbkdf2.12345" --iscrypted
+        """
+        getter.return_value = GRUB2
         self._test_kickstart(ks_in, ks_out)
 
     def bootloader_driveorder_kickstart_test(self):
@@ -433,11 +458,11 @@ class StorageInterfaceTestCase(unittest.TestCase):
     def bootloader_md5pass_kickstart_test(self):
         """Test the bootloader command with the md5pass option."""
         ks_in = """
-        bootloader --md5pass="12345"
+        bootloader --md5pass="12345" --extlinux
         """
         ks_out = """
         # System bootloader configuration
-        bootloader --location=mbr --password="12345" --iscrypted
+        bootloader --location=mbr --password="12345" --iscrypted --extlinux
         """
         self._test_kickstart(ks_in, ks_out)
 

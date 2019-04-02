@@ -30,20 +30,24 @@ from pyanaconda.storage.utils import device_matches
 from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
-__all__ = ["BootloaderExecutor"]
+__all__ = ["setup_bootloader"]
+
+
+def setup_bootloader(storage, dry_run=False):
+    """Resolve and setup the bootloader configuration.
+
+    :param Blivet storage: an instance of the storage
+    :param bool dry_run: don't set devices if True
+    """
+    executor = BootloaderExecutor()
+    executor.execute(storage=storage, dry_run=dry_run)
 
 
 class BootloaderExecutor(object):
     """The executor of the bootloader command."""
 
     def execute(self, storage, dry_run=False):
-        """Resolve and execute the bootloader installation.
-
-        :param storage: object storing storage-related information
-                        (disks, partitioning, bootloader, etc.)
-        :param dry_run: flag if this is only dry run before the partitioning
-                        will be resolved
-        """
+        """Execute the bootloader."""
         log.debug("Execute the bootloader with dry run %s.", dry_run)
         bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
@@ -59,6 +63,9 @@ class BootloaderExecutor(object):
             log.debug("Bootloader is not enabled, skipping.")
             return
 
+        # Update the disk list. Disks are already sorted by Blivet.
+        storage.bootloader.set_disk_list([d for d in storage.disks if d.partitioned])
+
         # Apply the settings.
         self._update_flags(storage, bootloader_proxy)
         self._apply_args(storage, bootloader_proxy)
@@ -67,6 +74,11 @@ class BootloaderExecutor(object):
         self._apply_timeout(storage, bootloader_proxy)
         self._apply_drive_order(storage, bootloader_proxy, dry_run=dry_run)
         self._apply_boot_drive(storage, bootloader_proxy, dry_run=dry_run)
+
+        # Set the stage2 and stage1 devices.
+        if not dry_run:
+            storage.bootloader.stage2_device = storage.boot_device
+            storage.bootloader.set_stage1_device(storage.devices)
 
     def _update_flags(self, storage, bootloader_proxy):
         """Update flags."""

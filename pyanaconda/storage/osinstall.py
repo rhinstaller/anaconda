@@ -34,7 +34,6 @@ from pyanaconda.bootloader import get_bootloader
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import shortProductName, CLEAR_PARTITIONS_NONE, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_ALL, CLEAR_PARTITIONS_LIST, CLEAR_PARTITIONS_DEFAULT
-from pyanaconda.bootloader.execution import BootloaderExecutor
 from pyanaconda.storage.fsset import FSSet
 from pyanaconda.storage.utils import download_escrow_certificate, find_live_backing_device
 from pyanaconda.storage.root import find_existing_installations
@@ -81,71 +80,6 @@ class InstallerStorage(Blivet):
         self._short_product_name = shortProductName
         self._default_luks_version = DEFAULT_LUKS_VERSION
 
-    def do_it(self, callbacks=None):
-        """
-        Commit queued changes to disk.
-
-        :param callbacks: callbacks to be invoked when actions are executed
-        :type callbacks: return value of the :func:`blivet.callbacks.create_new_callbacks_
-
-        """
-        super().do_it(callbacks=callbacks)
-
-        # now set the boot partition's flag
-        if self.bootloader and not self.bootloader.skip_bootloader:
-            if self.bootloader.stage2_bootable:
-                boot = self.boot_device
-            else:
-                boot = self.bootloader_device
-
-            if boot.type == "mdarray":
-                boot_devs = boot.parents
-            else:
-                boot_devs = [boot]
-
-            for dev in boot_devs:
-                if not hasattr(dev, "bootable"):
-                    log.info("Skipping %s, not bootable", dev)
-                    continue
-
-                # Dos labels can only have one partition marked as active
-                # and unmarking ie the windows partition is not a good idea
-                skip = False
-                if dev.disk.format.parted_disk.type == "msdos":
-                    for p in dev.disk.format.parted_disk.partitions:
-                        if p.type == parted.PARTITION_NORMAL and \
-                           p.getFlag(parted.PARTITION_BOOT):
-                            skip = True
-                            break
-
-                # GPT labeled disks should only have bootable set on the
-                # EFI system partition (parted sets the EFI System GUID on
-                # GPT partitions with the boot flag)
-                if dev.disk.format.label_type == "gpt" and \
-                   dev.format.type not in ["efi", "macefi"]:
-                    skip = True
-
-                if skip:
-                    log.info("Skipping %s", dev.name)
-                    continue
-
-                # hfs+ partitions on gpt can't be marked bootable via parted
-                if dev.disk.format.parted_disk.type != "gpt" or \
-                        dev.format.type not in ["hfs+", "macefi"]:
-                    log.info("setting boot flag on %s", dev.name)
-                    dev.bootable = True
-
-                # Set the boot partition's name on disk labels that support it
-                if dev.parted_partition.disk.supportsFeature(parted.DISK_TYPE_PARTITION_NAME):
-                    ped_partition = dev.parted_partition.getPedPartition()
-                    ped_partition.set_name(dev.format.name)
-                    log.info("Setting label on %s to '%s'", dev, dev.format.name)
-
-                dev.disk.setup()
-                dev.disk.format.commit_to_disk()
-
-        self.dump_state("final")
-
     @property
     def bootloader(self):
         if self._bootloader is None:
@@ -153,19 +87,9 @@ class InstallerStorage(Blivet):
 
         return self._bootloader
 
-    def update_bootloader_disk_list(self):
-        if not self.bootloader:
-            return
-
-        boot_disks = [d for d in self.disks if d.partitioned]
-        boot_disks.sort(key=self.compare_disks_key)
-        self.bootloader.set_disk_list(boot_disks)
-
     @property
     def boot_device(self):
-        dev = None
         root_device = self.mountpoints.get("/")
-
         dev = self.mountpoints.get("/boot", root_device)
         return dev
 
@@ -175,10 +99,7 @@ class InstallerStorage(Blivet):
         if self._default_boot_fstype:
             return self._default_boot_fstype
 
-        fstype = None
-        if self.bootloader:
-            fstype = self.boot_fstypes[0]
-        return fstype
+        return self.bootloader.stage2_format_types[0]
 
     def set_default_boot_fstype(self, newtype):
         """ Set the default /boot fstype for this instance.
@@ -207,45 +128,6 @@ class InstallerStorage(Blivet):
 
     def _check_valid_luks_version(self, version):
         get_format("luks", luks_version=version)
-
-    def set_up_bootloader(self, early=False):
-        """ Set up the boot loader.
-
-            :keyword bool early: Set to True to skip stage1_device setup
-
-            :raises BootloaderError: if stage1 setup fails
-
-            If this needs to be run early, eg. to setup stage1_disk but
-            not stage1_device 'early' should be set True to prevent
-            it from raising BootloaderError
-        """
-        if not self.bootloader:
-            log.warning("bootloader data missing")
-            return
-
-        if self.bootloader.skip_bootloader:
-            log.info("user specified that bootloader install be skipped")
-            return
-
-        # Need to make sure that boot drive has been setup from the latest information.
-        # This will also set self.bootloader.stage1_disk.
-        BootloaderExecutor().execute(self, dry_run=False)
-
-        self.bootloader.stage2_device = self.boot_device
-        if not early:
-            self.bootloader.set_stage1_device(self.devices)
-
-    @property
-    def bootloader_device(self):
-        return getattr(self.bootloader, "stage1_device", None)
-
-    @property
-    def boot_fstypes(self):
-        """A list of all valid filesystem types for the boot partition."""
-        fstypes = []
-        if self.bootloader:
-            fstypes = self.bootloader.stage2_format_types
-        return fstypes
 
     def get_fstype(self, mountpoint=None):
         """ Return the default filesystem type based on mountpoint. """
@@ -375,12 +257,9 @@ class InstallerStorage(Blivet):
 
         self.fsset = FSSet(self.devicetree)
 
-        if self.bootloader:
-            # clear out bootloader attributes that refer to devices that are
-            # no longer in the tree
-            self.bootloader.reset()
+        # Clear out attributes that refer to devices that are no longer in the tree.
+        self.bootloader.reset()
 
-        self.update_bootloader_disk_list()
         self._mark_protected_devices()
 
         self.roots = []
@@ -632,8 +511,6 @@ class InstallerStorage(Blivet):
                 else:
                     log.debug("clearpart: initializing %s", disk.name)
                     self.initialize_disk(disk)
-
-        self.update_bootloader_disk_list()
 
     def _get_hostname(self):
         """Return a hostname."""

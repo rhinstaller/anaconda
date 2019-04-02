@@ -16,6 +16,7 @@
 # Red Hat, Inc.
 #
 import os
+import parted
 
 import gi
 gi.require_version("BlockDev", "2.0")
@@ -48,11 +49,75 @@ def turn_on_filesystems(storage, callbacks=None):
 
     try:
         storage.do_it(callbacks)
+        _setup_bootable_devices(storage)
+        storage.dump_state("final")
     except (FSResizeError, FormatResizeError) as e:
         if error_handler.cb(e) == ERROR_RAISE:
             raise
 
     storage.turn_on_swap()
+
+
+def _setup_bootable_devices(storage):
+    """Set up the bootable devices.
+
+    Mark the boot devices as bootable.
+
+    :param storage: an instance of the storage
+    """
+    if storage.bootloader.skip_bootloader:
+        return
+
+    if storage.bootloader.stage2_bootable:
+        boot = storage.boot_device
+    else:
+        boot = storage.bootloader.stage1_device
+
+    if boot.type == "mdarray":
+        boot_devs = boot.parents
+    else:
+        boot_devs = [boot]
+
+    for dev in boot_devs:
+        if not hasattr(dev, "bootable"):
+            log.info("Skipping %s, not bootable", dev)
+            continue
+
+        # Dos labels can only have one partition marked as active
+        # and unmarking ie the windows partition is not a good idea
+        skip = False
+        if dev.disk.format.parted_disk.type == "msdos":
+            for p in dev.disk.format.parted_disk.partitions:
+                if p.type == parted.PARTITION_NORMAL and \
+                        p.getFlag(parted.PARTITION_BOOT):
+                    skip = True
+                    break
+
+        # GPT labeled disks should only have bootable set on the
+        # EFI system partition (parted sets the EFI System GUID on
+        # GPT partitions with the boot flag)
+        if dev.disk.format.label_type == "gpt" and \
+                dev.format.type not in ["efi", "macefi"]:
+            skip = True
+
+        if skip:
+            log.info("Skipping %s", dev.name)
+            continue
+
+        # hfs+ partitions on gpt can't be marked bootable via parted
+        if dev.disk.format.parted_disk.type != "gpt" or \
+                dev.format.type not in ["hfs+", "macefi"]:
+            log.info("setting boot flag on %s", dev.name)
+            dev.bootable = True
+
+        # Set the boot partition's name on disk labels that support it
+        if dev.parted_partition.disk.supportsFeature(parted.DISK_TYPE_PARTITION_NAME):
+            ped_partition = dev.parted_partition.getPedPartition()
+            ped_partition.set_name(dev.format.name)
+            log.info("Setting label on %s to '%s'", dev, dev.format.name)
+
+        dev.disk.setup()
+        dev.disk.format.commit_to_disk()
 
 
 def _write_escrow_packets(storage, sysroot):

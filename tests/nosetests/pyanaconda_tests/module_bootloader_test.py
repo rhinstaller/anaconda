@@ -19,15 +19,27 @@
 #
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
+
+from pyanaconda import platform
+from pyanaconda.bootloader import get_bootloader_class
+from pyanaconda.bootloader.base import BootLoader
+from pyanaconda.bootloader.efi import EFIGRUB, MacEFIGRUB, Aarch64EFIGRUB, ArmEFIGRUB
+from pyanaconda.bootloader.extlinux import EXTLINUX
+from pyanaconda.bootloader.grub2 import GRUB2, IPSeriesGRUB2
+from pyanaconda.bootloader.zipl import ZIPL
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
+from pyanaconda.modules.storage.constants import BootloaderMode
 
 from pyanaconda.bootloader.image import LinuxBootLoaderImage
 from pyanaconda.core.constants import BOOTLOADER_SKIPPED, BOOTLOADER_TYPE_EXTLINUX, \
     BOOTLOADER_LOCATION_PARTITION
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
-from pyanaconda.modules.storage.installation import ConfigureBootloaderTask, InstallBootloaderTask
+from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
+    InstallBootloaderTask
 from tests.nosetests.pyanaconda_tests import check_dbus_property
 
 
@@ -119,21 +131,111 @@ class BootloaderInterfaceTestCase(unittest.TestCase):
             changed={'IsPasswordSet': True}
         )
 
+    def is_efi_test(self):
+        """Test IsEFI."""
+        with self.assertRaises(UnavailableStorageError):
+            self.bootloader_interface.IsEFI()
+
+        storage = Mock()
+        self.bootloader_module.on_storage_reset(storage)
+
+        storage.bootloader = GRUB2()
+        self.assertEqual(self.bootloader_interface.IsEFI(), False)
+
+        storage.bootloader = EFIGRUB()
+        self.assertEqual(self.bootloader_interface.IsEFI(), True)
+
+    def get_arguments_test(self):
+        """Test GetArguments."""
+        with self.assertRaises(UnavailableStorageError):
+            self.bootloader_interface.GetArguments()
+
+        storage = Mock()
+        self.bootloader_module.on_storage_reset(storage)
+
+        storage.bootloader = GRUB2()
+        storage.bootloader.boot_args.update(["x=1", "y=2"])
+        self.assertEqual(self.bootloader_interface.GetArguments(), ["x=1", "y=2"])
+
+    def detect_windows_test(self):
+        """Test DetectWindows."""
+        with self.assertRaises(UnavailableStorageError):
+            self.bootloader_interface.DetectWindows()
+
+        device = Mock()
+        device.format.name = "ntfs"
+
+        storage = Mock()
+        storage.devices = [device]
+
+        self.bootloader_module.on_storage_reset(storage)
+
+        storage.bootloader.has_windows.return_value = False
+        self.assertEqual(self.bootloader_interface.DetectWindows(), False)
+
+        storage.bootloader.has_windows.return_value = True
+        self.assertEqual(self.bootloader_interface.DetectWindows(), True)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def configure_with_task_test(self, publisher):
+        """Test ConfigureWithTask."""
+        storage = Mock()
+        sysroot = "/mnt/sysroot"
+        version = "4.17.7-200.fc28.x86_64"
+
+        self.bootloader_module.on_storage_reset(storage)
+        task_path = self.bootloader_interface.ConfigureWithTask(sysroot, [version])
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, ConfigureBootloaderTask)
+        self.assertEqual(obj.implementation._storage, storage)
+        self.assertEqual(obj.implementation._sysroot, sysroot)
+        self.assertEqual(obj.implementation._versions, [version])
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def install_with_task_test(self, publisher):
+        """Test InstallWithTask."""
+        storage = Mock()
+        sysroot = "/mnt/sysroot"
+
+        self.bootloader_module.on_storage_reset(storage)
+        task_path = self.bootloader_interface.InstallWithTask(sysroot)
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, InstallBootloaderTask)
+        self.assertEqual(obj.implementation._storage, storage)
+        self.assertEqual(obj.implementation._sysroot, sysroot)
+
 
 class BootloaderTasksTestCase(unittest.TestCase):
     """Test tasks for the boot loader."""
 
     def configure_test(self):
         """Test the final configuration of the boot loader."""
-        storage = Mock()
+        bootloader = Mock()
+        storage = Mock(bootloader=bootloader)
+
         version = "4.17.7-200.fc28.x86_64"
 
         with tempfile.TemporaryDirectory() as root:
-            ConfigureBootloaderTask(storage, [version], root).run()
+            ConfigureBootloaderTask(storage, BootloaderMode.DISABLED, [version], root).run()
 
-        bootloader = storage.bootloader
+        bootloader.add_image.assert_not_called()
+
+        with tempfile.TemporaryDirectory() as root:
+            ConfigureBootloaderTask(storage, BootloaderMode.ENABLED, [version], root).run()
+
         bootloader.add_image.assert_called_once()
-
         image = bootloader.add_image.call_args[0][0]
 
         self.assertIsInstance(image, LinuxBootLoaderImage)
@@ -145,10 +247,50 @@ class BootloaderTasksTestCase(unittest.TestCase):
 
     def install_test(self):
         """Test the installation task for the boot loader."""
-        storage = Mock()
+        bootloader = Mock()
+        storage = Mock(bootloader=bootloader)
 
-        InstallBootloaderTask(storage).run()
+        with tempfile.TemporaryDirectory() as root:
+            InstallBootloaderTask(storage, BootloaderMode.DISABLED, root).run()
 
-        bootloader = storage.bootloader
+        bootloader.write.assert_not_called()
+
+        with tempfile.TemporaryDirectory() as root:
+            InstallBootloaderTask(storage, BootloaderMode.SKIPPED, root).run()
+
+        bootloader.write.assert_not_called()
+
+        with tempfile.TemporaryDirectory() as root:
+            InstallBootloaderTask(storage, BootloaderMode.ENABLED, root).run()
+
         bootloader.set_boot_args.assert_called_once()
         bootloader.write.assert_called_once()
+
+
+class BootloaderClassTestCase(unittest.TestCase):
+    """Test the bootloader classes."""
+
+    def get_bootloader_class_test(self):
+        """Test get_bootloader_class."""
+
+        bootloader_by_platform = {
+            platform.X86: GRUB2,
+            platform.EFI: EFIGRUB,
+            platform.MacEFI: MacEFIGRUB,
+            platform.PPC: GRUB2,
+            platform.IPSeriesPPC: IPSeriesGRUB2,
+            platform.S390: ZIPL,
+            platform.Aarch64EFI: Aarch64EFIGRUB,
+            platform.ARM: EXTLINUX,
+            platform.ArmEFI: ArmEFIGRUB,
+            Mock(): BootLoader
+        }
+
+        for platform_type, bootloader_type in bootloader_by_platform.items():
+            # Get the bootloader class.
+            cls = get_bootloader_class(platform_type)
+            self.assertEqual(cls, bootloader_type)
+
+            # Get the bootloader instance.
+            obj = cls()
+            self.assertIsInstance(obj, BootLoader)

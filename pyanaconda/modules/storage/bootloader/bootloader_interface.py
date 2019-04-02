@@ -232,3 +232,51 @@ class BootloaderInterface(KickstartModuleInterfaceTemplate):
     def IsPasswordEncrypted(self) -> Bool:
         """Is the GRUB boot loader password encrypted?"""
         return self.implementation.password_is_encrypted
+
+    def IsEFI(self) -> Bool:
+        """Is the bootloader based on EFI?
+
+        :return: True or False
+        """
+        return self.implementation.is_efi()
+
+    def GetArguments(self) -> List[Str]:
+        """Get the bootloader arguments.
+
+        Get kernel parameters that are currently set up for the bootloader.
+        The list is complete and final after the bootloader installation.
+
+        :return: list of arguments
+        """
+        return self.implementation.get_arguments()
+
+    def DetectWindows(self) -> Bool:
+        """Are Windows OS installed on the system?
+
+        Guess by searching for bootable partitions of other operating
+        systems whether there are Windows OS installed on the system.
+
+        :return: True or False
+        """
+        return self.implementation.detect_windows()
+
+    def ConfigureWithTask(self, sysroot: Str, kernel_versions: List[Str]):
+        """Configure the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :param kernel_versions: a list of kernel versions
+        :return: a path to a DBus task
+        """
+        return self.implementation.configure_with_task(sysroot, kernel_versions)
+
+    def InstallWithTask(self, sysroot: Str):
+        """Install the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a path to a DBus task
+        """
+        return self.implementation.install_with_task(sysroot)

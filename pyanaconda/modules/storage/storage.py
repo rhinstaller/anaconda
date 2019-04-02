@@ -118,6 +118,9 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         self.storage_changed.connect(
             self._snapshot_module.on_storage_reset
         )
+        self.storage_changed.connect(
+            self._bootloader_module.on_storage_reset
+        )
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
