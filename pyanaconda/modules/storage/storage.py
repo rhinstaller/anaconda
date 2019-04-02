@@ -121,6 +121,9 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         self.storage_changed.connect(
             self._bootloader_module.on_storage_reset
         )
+        self._disk_selection_module.protected_devices_changed.connect(
+            self.on_protected_devices_changed
+        )
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
@@ -200,6 +203,13 @@ class StorageModule(KickstartModule, DeviceTreeHandler):
         self._storage = storage
         self.storage_changed.emit(storage)
         log.debug("The storage model has changed.")
+
+    def on_protected_devices_changed(self, protected_devices):
+        """Update the protected devices in the storage model."""
+        if not self._storage:
+            return
+
+        self.storage.protect_devices(protected_devices)
 
     def reset_with_task(self):
         """Reset the storage model.
