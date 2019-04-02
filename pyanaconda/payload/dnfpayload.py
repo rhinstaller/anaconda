@@ -573,7 +573,7 @@ class DNFPayload(payload.PackagePayload):
                 e.error_pkg_specs or \
                 e.module_debsolv_errors
             if not transaction_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.info("ignoring missing package/group/module specs due to --ingoremissing flag "
+                log.info("ignoring missing package/group/module specs due to --ignoremissing flag "
                          "in kickstart")
             else:
                 self._payload_setup_error(e)
