@@ -21,7 +21,7 @@ from abc import abstractmethod, ABC
 
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.modules.common.errors.storage import UnknownDeviceError
-from pyanaconda.modules.common.structures.storage import DeviceData
+from pyanaconda.modules.common.structures.storage import DeviceData, DeviceActionData
 
 log = get_module_logger(__name__)
 
@@ -93,7 +93,12 @@ class DeviceTreeHandler(ABC):
         data.name = device.name
         data.path = device.path
         data.size = device.size.get_bytes()
+        data.parents = [d.name for d in device.parents]
         data.is_disk = device.is_disk
+
+        # Get the device description.
+        # FIXME: We should generate the description from the device data.
+        data.description = getattr(device, "description", "")
 
         # Collect the additional attributes.
         attrs = self._get_device_attrs(device)
@@ -131,3 +136,28 @@ class DeviceTreeHandler(ABC):
             attrs[name] = str(value)
 
         return attrs
+
+    def get_actions(self):
+        """Get the device actions.
+
+        :return: a list of DeviceActionData
+        """
+        actions = []
+
+        for action in self.storage.devicetree.actions.find():
+            actions.append(self._get_action_data(action))
+
+        return actions
+
+    def _get_action_data(self, action):
+        """Get the action data.
+
+        :param action: an instance of DeviceAction
+        :return: an instance of DeviceActionData
+        """
+        data = DeviceActionData()
+        data.action_type = action.type_string.lower()
+        data.action_object = action.object_string.lower()
+        data.device_name = action.device.name
+        data.description = action.type_desc
+        return data

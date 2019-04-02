@@ -19,7 +19,7 @@
 from pyanaconda.dbus.structure import dbus_structure
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 
-__all__ = ["DeviceData"]
+__all__ = ["DeviceData", "DeviceActionData"]
 
 
 @dbus_structure
@@ -47,8 +47,10 @@ class DeviceData(object):
         self._name = ""
         self._path = ""
         self._size = 0
+        self._parents = []
         self._is_disk = False
         self._attrs = {}
+        self._description = ""
 
     @property
     def type(self) -> Str:
@@ -111,6 +113,18 @@ class DeviceData(object):
         self._is_disk = is_disk
 
     @property
+    def parents(self) -> List[Str]:
+        """Parents of the device.
+
+        :return: a list of device names
+        """
+        return self._parents
+
+    @parents.setter
+    def parents(self, names):
+        self._parents = names
+
+    @property
     def attrs(self) -> Dict[Str, Str]:
         """Additional attributes.
 
@@ -124,3 +138,85 @@ class DeviceData(object):
     @attrs.setter
     def attrs(self, attrs: Dict[Str, Str]):
         self._attrs = attrs
+
+    @property
+    def description(self) -> Str:
+        """Description of the device.
+
+        FIXME: This is a temporary property.
+
+        :return: a string with description
+        """
+        return self._description
+
+    @description.setter
+    def description(self, text):
+        self._description = text
+
+
+@dbus_structure
+class DeviceActionData(object):
+    """Device action data."""
+
+    def __init__(self):
+        self._action_type = ""
+        self._action_object = ""
+        self._device_name = ""
+        self._description = ""
+
+    @property
+    def action_type(self) -> Str:
+        """A type of the action.
+
+        For example:
+            destroy, resize, create,
+            add, remove, configure
+
+        :return: a string with the type
+        """
+        return self._action_type
+
+    @action_type.setter
+    def action_type(self, name: Str):
+        self._action_type = name
+
+    @property
+    def action_object(self) -> Str:
+        """A type of the action object.
+
+        For example:
+            format, device, container
+
+        :return: a string with the type
+        """
+        return self._action_object
+
+    @action_object.setter
+    def action_object(self, name: Str):
+        self._action_object = name
+
+    @property
+    def device_name(self) -> Str:
+        """A name of the device.
+
+        :return: a device name
+        """
+        return self._device_name
+
+    @device_name.setter
+    def device_name(self, name: Str):
+        self._device_name = name
+
+    @property
+    def description(self) -> Str:
+        """Description of the action.
+
+        FIXME: This is a temporary property.
+
+        :return: a string with description
+        """
+        return self._description
+
+    @description.setter
+    def description(self, text):
+        self._description = text

@@ -31,10 +31,16 @@ class InteractivePartitioningTask(PartitioningTask):
     def _run(self, storage):
         """Only set up the bootloader."""
         self._prepare_bootloader(storage)
+        self._organize_actions(storage)
 
     def _prepare_bootloader(self, storage):
         """Prepare the bootloader."""
         setup_bootloader(storage)
+
+    def _organize_actions(self, storage):
+        """Prune and sort the scheduled actions."""
+        storage.devicetree.actions.prune()
+        storage.devicetree.actions.sort()
 
 
 class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):

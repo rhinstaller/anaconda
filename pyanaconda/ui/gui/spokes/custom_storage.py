@@ -1752,10 +1752,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # And then display the summary screen.  From there, the user will either
         # head back to the hub, or stay on the custom screen.
-        self._storage_playground.devicetree.actions.prune()
-        self._storage_playground.devicetree.actions.sort()
-
-
         # If back has been clicked on once already and no other changes made on the screen,
         # run the storage check now.  This handles displaying any errors in the info bar.
         if not self._back_already_clicked:
@@ -1786,9 +1782,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
-        if len(self._storage_playground.devicetree.actions.find()) > 0:
-            dialog = ActionSummaryDialog(self.data)
-            dialog.refresh(self._storage_playground.devicetree.actions.find())
+        actions = self._storage_playground.devicetree.actions.find()
+
+        if actions:
+            dialog = ActionSummaryDialog(self.data, actions)
+            dialog.refresh()
+
             with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
