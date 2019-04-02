@@ -28,6 +28,7 @@ from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, MANUA
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.bootloader import BootloaderModule
 from pyanaconda.modules.storage.dasd import DASDModule
+from pyanaconda.modules.storage.devicetree import DeviceTreeHandler
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_selection import DiskSelectionModule
 from pyanaconda.modules.storage.fcoe import FCOEModule
@@ -49,7 +50,7 @@ from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
-class StorageModule(KickstartModule):
+class StorageModule(KickstartModule, DeviceTreeHandler):
     """The Storage module."""
 
     def __init__(self):
@@ -108,7 +109,21 @@ class StorageModule(KickstartModule):
         self._add_partitioning_module(BLIVET_PARTITIONING.object_path, self._blivet_part_module)
 
         # Connect modules to signals.
-        self.storage_changed.connect(self._snapshot_module.on_storage_reset)
+        self.storage_changed.connect(
+            self._disk_init_module.on_storage_reset
+        )
+        self.storage_changed.connect(
+            self._disk_selection_module.on_storage_reset
+        )
+        self.storage_changed.connect(
+            self._snapshot_module.on_storage_reset
+        )
+        self.storage_changed.connect(
+            self._bootloader_module.on_storage_reset
+        )
+        self._disk_selection_module.protected_devices_changed.connect(
+            self.on_protected_devices_changed
+        )
 
     def _add_module(self, storage_module):
         """Add a base kickstart module."""
@@ -120,8 +135,21 @@ class StorageModule(KickstartModule):
         self._modules.append(partitioning_module)
         self._partitioning_modules[object_path] = partitioning_module
 
-        # Connect the callbacks.
-        self.storage_changed.connect(partitioning_module.on_storage_reset)
+        # Update the module.
+        partitioning_module.on_storage_reset(
+            self._storage
+        )
+        partitioning_module.on_selected_disks_changed(
+            self._disk_selection_module.selected_disks
+        )
+
+        # Connect the callbacks to signals.
+        self.storage_changed.connect(
+            partitioning_module.on_storage_reset
+        )
+        self._disk_selection_module.selected_disks_changed.connect(
+            partitioning_module.on_selected_disks_changed
+        )
 
     def publish(self):
         """Publish the module."""
@@ -149,11 +177,7 @@ class StorageModule(KickstartModule):
             self.storage.set_default_fstype(data.autopart.fstype)
             self.storage.set_default_boot_fstype(data.autopart.fstype)
 
-    def generate_temporary_kickstart(self):
-        """Return the temporary kickstart string."""
-        return self.generate_kickstart(skip_unsupported=True)
-
-    def generate_kickstart(self, skip_unsupported=False):  # pylint: disable=arguments-differ
+    def generate_kickstart(self):
         """Return the kickstart string."""
         log.debug("Generating kickstart data...")
         data = self.get_kickstart_handler()
@@ -180,6 +204,13 @@ class StorageModule(KickstartModule):
         self.storage_changed.emit(storage)
         log.debug("The storage model has changed.")
 
+    def on_protected_devices_changed(self, protected_devices):
+        """Update the protected devices in the storage model."""
+        if not self._storage:
+            return
+
+        self.storage.protect_devices(protected_devices)
+
     def reset_with_task(self):
         """Reset the storage model.
 
@@ -193,8 +224,9 @@ class StorageModule(KickstartModule):
 
         # Set up the storage.
         storage.ignored_disks = self._disk_selection_module.ignored_disks
-        storage.exclusive_disks = self._disk_selection_module.selected_disks
-        storage.config.protected_dev_specs = self._disk_selection_module.protected_devices
+        storage.exclusive_disks = self._disk_selection_module.exclusive_disks
+        storage.protected_devices = self._disk_selection_module.protected_devices
+        storage.disk_images = self._disk_selection_module.disk_images
 
         # Create the task.
         task = StorageResetTask(storage)

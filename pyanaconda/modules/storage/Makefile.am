@@ -14,7 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-SUBDIRS = disk_initialization disk_selection bootloader partitioning dasd zfcp fcoe nvdimm snapshot
+SUBDIRS = disk_initialization disk_selection bootloader partitioning dasd zfcp fcoe nvdimm \
+    snapshot devicetree
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 storage_moduledir = $(pkgpyexecdir)/modules/storage

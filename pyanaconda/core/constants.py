@@ -91,6 +91,9 @@ HELP_MAIN_PAGE_TUI = "Installation_Guide.txt"
 USEVNC = N_("Start VNC")
 USETEXT = N_("Use text mode")
 
+# Quit message
+QUIT_MESSAGE = N_("Do you really want to quit?")
+
 # Runlevel files
 TEXT_ONLY_TARGET = 'multi-user.target'
 GRAPHICAL_TARGET = 'graphical.target'
@@ -331,7 +334,6 @@ LOGGER_PACKAGING = "packaging"
 LOGGER_DNF = "dnf"
 LOGGER_BLIVET = "blivet"
 LOGGER_SIMPLELINE = "simpleline"
-LOGGER_IFCFG = "ifcfg"
 LOGGER_SENSITIVE_INFO = "sensitive_info"
 
 class PayloadRequirementType(Enum):

@@ -44,9 +44,9 @@ gi.require_version("AnacondaWidgets", "3.3")
 from gi.repository import Gdk, AnacondaWidgets, Gtk
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.storage.utils import get_available_disks, filter_disks_by_names, is_local_disk, \
-    apply_disk_selection, \
-    check_disk_selection, get_disks_summary
+from pyanaconda.storage.utils import filter_disks_by_names, is_local_disk, apply_disk_selection, \
+    check_disk_selection, get_disks_summary, suggest_swap_size
+from pyanaconda.storage.execution import configure_storage
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -60,35 +60,31 @@ from pyanaconda.ui.gui.utils import escape_markup, ignoreEscape
 from pyanaconda.core.async_utils import async_action_nowait
 from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.core.timer import Timer
+from pyanaconda.storage.kickstart import reset_custom_storage_data
 
-from pyanaconda.kickstart import resetCustomStorageData
-from pyanaconda.storage.execution import do_kickstart_storage
 from blivet.size import Size
-from blivet.devices import MultipathDevice, ZFCPDiskDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
-from blivet.errors import StorageError
+from blivet.devices import MultipathDevice, ZFCPDiskDevice, NVDIMMNamespaceDevice
 from blivet.formats.disklabel import DiskLabel
-from blivet.iscsi import iscsi
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import _, C_, CN_
 from pyanaconda.core import util, constants
 from pyanaconda.core.configuration.anaconda import conf
-from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, BOOTLOADER_DRIVE_UNSET, \
+from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE, \
     BOOTLOADER_ENABLED, STORAGE_METADATA_RATIO, DEFAULT_AUTOPART_TYPE, WARNING_NO_DISKS_SELECTED, \
     WARNING_NO_DISKS_DETECTED
-from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage import autopart
-from pyanaconda.storage.initialization import update_storage_config, reset_storage, \
-    select_all_disks_by_default
+from pyanaconda.storage.initialization import reset_storage, select_all_disks_by_default, \
+    reset_bootloader
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.storage.format_dasd import DasdFormatting
 from pyanaconda.screen_access import sam
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
-    BOOTLOADER, AUTO_PARTITIONING, NVDIMM
+    BOOTLOADER, AUTO_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.payload.livepayload import LiveImagePayload
-from pykickstart.errors import KickstartParseError
 
 import sys
 from enum import Enum
@@ -307,7 +303,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
         self._previous_auto_part = False
 
-        self._clear_part_type = constants.CLEAR_PARTITIONS_NONE
+        self._initialization_mode = constants.CLEAR_PARTITIONS_NONE
         self._auto_part_encrypted = False
         self._auto_part_passphrase = ""
         self._auto_part_missing_passphrase = False
@@ -375,7 +371,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Hide the encryption checkbox for Blivet GUI storage configuration,
         # as Blivet GUI handles encryption per encrypted device, not globally.
-        if self._get_selected_partitioning_method() == PartitioningMethod.BLIVET_GUI:
+        # Hide it also for the interactive partitioning as CustomPartitioningSpoke
+        # provides support for encryption of mount points.
+        if self._get_selected_partitioning_method() != PartitioningMethod.AUTO:
             self._encryption_revealer.set_reveal_child(False)
             self._encrypted_checkbox.set_active(False)
         else:
@@ -412,25 +410,15 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         boot_drive = self._bootloader_observer.proxy.Drive
         if boot_drive and boot_drive not in self._selected_disks:
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self.storage.bootloader.reset()
+            reset_bootloader(self.storage)
 
         self._disk_init_observer.proxy.SetInitializeLabelsEnabled(True)
 
         if not self._auto_part_missing_passphrase:
-            self._clear_part_type = CLEAR_PARTITIONS_NONE
+            self._initialization_mode = CLEAR_PARTITIONS_NONE
             self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_NONE)
 
-        update_storage_config(self.storage.config)
-        self.storage.autopart_type = self._auto_part_observer.proxy.Type
-        self.storage.encrypted_autopart = self._auto_part_observer.proxy.Encrypted
         self.storage.encryption_passphrase = self._auto_part_observer.proxy.Passphrase
-
-        # If autopart is selected we want to remove whatever has been
-        # created/scheduled to make room for autopart.
-        # If custom is selected, we want to leave alone any storage layout the
-        # user may have set up before now.
-        self.storage.config.clear_non_existent = self._auto_part_observer.proxy.Enabled
 
     @async_action_nowait
     def execute(self):
@@ -439,50 +427,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         # Yes, this means there's a thread spawning another thread.  Sorry.
         threadMgr.add(AnacondaThread(name=constants.THREAD_EXECUTE_STORAGE,
                                      target=self._do_execute))
-
-        # Get the selected disks.
-        selected_disks = filter_disks_by_names(
-            disks=get_available_disks(self.storage.devicetree),
-            names=self._selected_disks
-        )
-
-        # Register iSCSI to kickstart data
-        iscsi_devices = []
-
-        # Find all selected disks and add all iscsi disks to iscsi_devices list
-        for d in selected_disks:
-            # Get parents of a multipath devices
-            if isinstance(d, MultipathDevice):
-                for parent_dev in d.parents:
-                    if (isinstance(parent_dev, iScsiDiskDevice)
-                        and not parent_dev.ibft
-                        and not parent_dev.offload):
-                        iscsi_devices.append(parent_dev)
-            # Add no-ibft iScsiDiskDevice. IBFT disks are added automatically so there is
-            # no need to have them in KS.
-            elif isinstance(d, iScsiDiskDevice) and not d.ibft and not d.offload:
-                iscsi_devices.append(d)
-
-        if iscsi_devices:
-            self.data.iscsiname.iscsiname = iscsi.initiator
-            # Remove the old iscsi data information and generate new one
-            self.data.iscsi.iscsi = []
-            for device in iscsi_devices:
-                iscsi_data = self._create_iscsi_data(device)
-                for saved_iscsi in self.data.iscsi.iscsi:
-                    if (iscsi_data.ipaddr == saved_iscsi.ipaddr and
-                        iscsi_data.target == saved_iscsi.target and
-                        iscsi_data.port == saved_iscsi.port):
-                        break
-                else:
-                    self.data.iscsi.iscsi.append(iscsi_data)
-
-        # Update kickstart data for NVDIMM devices used in GUI.
-        selected_nvdimm_namespaces = [d.devname for d in selected_disks
-                                      if isinstance(d, NVDIMMNamespaceDevice)]
-
-        nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
-        nvdimm_proxy.SetNamespacesToUse(selected_nvdimm_namespaces)
 
     def _do_execute(self):
         self._ready = False
@@ -506,28 +450,17 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             hubQ.send_ready(self.__class__.__name__, True)
             return
         try:
-            do_kickstart_storage(self.storage, self.data)
+            configure_storage(self.storage, self.data)
         # ValueError is here because Blivet is returning ValueError from devices/lvm.py
-        except (StorageError, KickstartParseError, ValueError) as e:
-            log.error("storage configuration failed: %s", e)
+        except StorageConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-
-            # Prepare for reset.
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self._disk_select_observer.proxy.SetSelectedDisks([])
-
-            # The reset also calls self.storage.config.update().
-            reset_storage(self.storage)
-
-            # Now set data back to the user's specified config.
-            self._available_disks = get_available_disks(self.storage.devicetree)
-            apply_disk_selection(self.storage, self._selected_disks)
-        except BootLoaderError as e:
-            log.error("BootLoader setup failed: %s", e)
+            reset_bootloader(self.storage)
+            reset_storage(self.storage, scan_all=True)
+        except BootloaderConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
         except Exception as e:
             log.error("unexpected storage error: %s", e)
             StorageCheckHandler.errors = str(e).split("\n")
@@ -540,30 +473,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 # run() executes StorageCheckHandler.checkStorage in a seperate thread
                 self.run()
         finally:
-            resetCustomStorageData(self.data)
+            reset_custom_storage_data(self.data)
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
-
-    def _create_iscsi_data(self, device):
-        from pyanaconda.kickstart import AnacondaKSHandler
-        handler = AnacondaKSHandler()
-        # pylint: disable=E1101
-        iscsi_data = handler.IscsiData()
-        dev_node = device.node
-        iscsi_data.ipaddr = dev_node.address
-        iscsi_data.target = dev_node.name
-        iscsi_data.port = dev_node.port
-        # Bind interface to target
-        if iscsi.ifaces:
-            iscsi_data.iface = iscsi.ifaces[dev_node.iface]
-
-        if dev_node.username and dev_node.password:
-            iscsi_data.user = dev_node.username
-            iscsi_data.password = dev_node.password
-        if dev_node.r_username and dev_node.r_password:
-            iscsi_data.user_in = dev_node.r_username
-            iscsi_data.password_in = dev_node.r_password
-        return iscsi_data
 
     @property
     def completed(self):
@@ -674,7 +586,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     def refresh(self):
         self._back_clicked = False
 
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self._available_disks]
@@ -683,7 +595,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # unhide previously hidden disks so that they don't look like being
         # empty (because of all child devices hidden)
-        self._unhide_disks()
+        self.storage.select_disks(disk_names)
 
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
         self._auto_part_encrypted = self._auto_part_observer.proxy.Encrypted
@@ -783,7 +695,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
         else:
             description = disk.description
 
-        free = self.storage.get_free_space(disks=[disk])[disk.name][0]
+        free = self.storage.get_disk_free_space([disk])
 
         overview = AnacondaWidgets.DiskOverview(description,
                                                 kind,
@@ -823,7 +735,7 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
 
         # Continue with initializing.
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # if there's only one disk, select it by default
         if len(self._available_disks) == 1 and not self._selected_disks:
@@ -884,10 +796,10 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
     # signal handlers
     def on_summary_clicked(self, button):
         # show the selected disks dialog
-        # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.get_free_space(disks=self._available_disks)
-        dialog = SelectedDisksDialog(self.data,)
-        dialog.refresh(filter_disks_by_names(self._available_disks, self._selected_disks), free_space)
+        disks = filter_disks_by_names(self._available_disks, self._selected_disks)
+        dialog = SelectedDisksDialog(self.data, self.storage, disks)
+        dialog.refresh()
+
         self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
@@ -935,18 +847,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                partition in self.storage.partitions:
                 self.storage.recursive_remove(partition)
 
-    def _hide_disks(self):
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk in self.storage.devices:
-                self.storage.devicetree.hide(disk)
-
-    def _unhide_disks(self):
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk.name not in self._last_selected_disks:
-                self.storage.devicetree.unhide(disk)
-
     def _check_dasd_formats(self):
         # No change by default.
         rc = DASD_FORMAT_NO_CHANGE
@@ -983,19 +883,12 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             log.debug("Need disklabel: %s have: %s", ", ".join(platform_labels),
                                                      ", ".join(disk_labels))
         else:
-            free_space = self.storage.get_free_space(disks=disks,
-                                                     clear_part_type=CLEAR_PARTITIONS_NONE)
-            disk_free = sum(f[0] for f in free_space.values())
-            fs_free = sum(f[1] for f in free_space.values())
+            disk_free = self.storage.get_disk_free_space(disks)
+            fs_free = self.storage.get_disk_reclaimable_space(disks)
 
         disks_size = sum((d.size for d in disks), Size(0))
         sw_space = self.payload.space_required
-        auto_swap = sum((r.size for r in self.storage.autopart_requests
-                                if r.fstype == "swap"), Size(0))
-        if self._auto_part_enabled and auto_swap == Size(0):
-            # autopartitioning requested, but not applied yet (=> no auto swap
-            # requests), ask user for enough space to fit in the suggested swap
-            auto_swap = autopart.swap_suggestion()
+        auto_swap = suggest_swap_size()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, sw_space, auto_swap)
@@ -1087,16 +980,13 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # Same thing for switching between different storage configuration
             # methods (auto/custom/blivet-gui), at least for now.
             on_disk_storage.reset_to_snapshot(self.storage)
-            self._available_disks = get_available_disks(self.storage.devicetree)
+            self._available_disks = self.storage.usable_disks
         else:
             # Remove all non-existing devices if autopart was active when we last
             # refreshed.
             if self._previous_auto_part:
                 self._previous_auto_part = False
                 self._remove_nonexistant_partitions()
-
-        # hide disks as requested
-        self._hide_disks()
 
         # make sure no containers were split up by the user's disk selection
         self.clear_info()
@@ -1108,7 +998,6 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
             # The disk selection has to make sense before we can proceed.
             self.set_error(_("There was a problem with your disk selection. "
                              "Click here for details."))
-            self._unhide_disks()
             self._back_clicked = False
             return
 
@@ -1129,6 +1018,9 @@ class StorageSpoke(NormalSpoke, StorageCheckHandler):
                 # there was no formatting done.
                 self._back_clicked = False
                 return
+
+        # Select the chosen disks.
+        self.storage.select_disks(self._selected_disks)
 
         # even if they're not doing autopart, setting autopart.encrypted
         # establishes a default of encrypting new devices

@@ -485,6 +485,8 @@ class FSSet(object):
                     device.parents = [parent]
 
             while True:
+                if device.status and device.format.status:
+                    break
                 try:
                     device.setup()
                     device.format.setup()
@@ -750,7 +752,7 @@ class FSSet(object):
 
             fstype = getattr(device.format, "mount_type", device.format.type)
             if fstype == "swap":
-                mountpoint = "swap"
+                mountpoint = "none"
                 options = device.format.options
             else:
                 mountpoint = device.format.mountpoint

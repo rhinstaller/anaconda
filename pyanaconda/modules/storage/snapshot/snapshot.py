@@ -17,15 +17,19 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL
+from pykickstart.constants import SNAPSHOT_WHEN_PRE_INSTALL, CLEARPART_TYPE_ALL, \
+    SNAPSHOT_WHEN_POST_INSTALL
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import SNAPSHOT
 from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
+from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
-from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
+from pyanaconda.storage.checker import storage_checker
 
 log = get_module_logger(__name__)
 
@@ -37,6 +41,9 @@ class SnapshotModule(KickstartBaseModule):
         super().__init__()
         self._requests = []
         self._storage = None
+
+        # Register a check for the storage checker.
+        storage_checker.add_check(self.verify_requests)
 
     @property
     def storage(self):
@@ -98,20 +105,25 @@ class SnapshotModule(KickstartBaseModule):
         """
         return [request for request in self._requests if request.when == when]
 
-    def validate_with_task(self, when):
-        """Validate snapshot requests.
+    def verify_requests(self, storage, constraints, report_error, report_warning):
+        """Verify the validity of snapshot requests for the given storage.
 
-        :param when: a type of the requests to validate
-        :return: a DBus path to a task
+        This is a callback for the storage checker.
+
+        :param storage: a storage to check
+        :param constraints: a dictionary of constraints
+        :param report_error: a function for error reporting
+        :param report_warning: a function for warning reporting
         """
-        task = SnapshotValidateTask(
-            storage=self.storage,
-            requests=self.get_requests(when),
-            when=when
-        )
+        # We can verify only the post-install snapshot requests.
+        requests = self.get_requests(SNAPSHOT_WHEN_POST_INSTALL)
 
-        path = self.publish_task(SNAPSHOT.namespace, task)
-        return path
+        for request in requests:
+            log.debug("Validating the snapshot request for: %s", request.name)
+            try:
+                get_snapshot_device(request, storage.devicetree)
+            except KickstartParseError as e:
+                report_error(str(e))
 
     def create_with_task(self, when):
         """Create ThinLV snapshots.

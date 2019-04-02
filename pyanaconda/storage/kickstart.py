@@ -15,17 +15,20 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from blivet.devices import MultipathDevice, iScsiDiskDevice, NVDIMMNamespaceDevice
+from blivet.iscsi import iscsi
+
 from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.constants import CLEAR_PARTITIONS_NONE
-from pyanaconda.modules.common.constants.objects import DISK_SELECTION, AUTO_PARTITIONING, \
-    DISK_INITIALIZATION
+from pyanaconda.modules.common.constants.objects import AUTO_PARTITIONING, \
+    DISK_INITIALIZATION, MANUAL_PARTITIONING, NVDIMM
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.partitioning.base import PartitioningModule
 from pyanaconda.modules.storage.disk_initialization.initialization import DiskInitializationModule
 
 log = get_module_logger(__name__)
 
-__all__ = ["update_storage_ksdata"]
+__all__ = ["update_storage_ksdata", "reset_custom_storage_data"]
 
 
 def update_storage_ksdata(storage, ksdata):
@@ -39,43 +42,10 @@ def update_storage_ksdata(storage, ksdata):
     if not ksdata or not storage.mountpoints:
         return
 
-    _update_disk_selection(storage)
-    _update_autopart(storage)
     _update_clearpart(storage)
     _update_custom_storage(storage, ksdata)
-
-
-def _update_disk_selection(storage):
-    """Update data for disk selection.
-
-    :param storage: an instance of the storage
-    """
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-
-    if storage.ignored_disks:
-        disk_select_proxy.SetIgnoredDisks(storage.ignored_disks)
-    elif storage.exclusive_disks:
-        disk_select_proxy.SetSelectedDisks(storage.exclusive_disks)
-
-
-def _update_autopart(storage):
-    """Update data for automatic partitioning.
-
-    :param storage: an instance of the storage
-    """
-    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
-    auto_part_proxy.SetEnabled(storage.do_autopart)
-    auto_part_proxy.SetType(storage.autopart_type)
-    auto_part_proxy.SetEncrypted(storage.encrypted_autopart)
-
-    if storage.encrypted_autopart:
-        auto_part_proxy.SetLUKSVersion(storage.autopart_luks_version)
-
-        if storage.autopart_pbkdf_args:
-            auto_part_proxy.SetPBKDF(storage.autopart_pbkdf_args.type or "")
-            auto_part_proxy.SetPBKDFMemory(storage.autopart_pbkdf_args.max_memory_kb)
-            auto_part_proxy.SetPBKDFIterations(storage.autopart_pbkdf_args.iterations)
-            auto_part_proxy.SetPBKDFTime(storage.autopart_pbkdf_args.time_ms)
+    _update_iscsi_data(storage, ksdata)
+    _update_nvdimm_data(storage)
 
 
 def _update_clearpart(storage):
@@ -84,10 +54,6 @@ def _update_clearpart(storage):
     :param storage: an instance of the storage
     """
     disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-    disk_init_proxy.SetInitializationMode(storage.config.clear_part_type)
-    disk_init_proxy.SetDrivesToClear(storage.config.clear_part_disks)
-    disk_init_proxy.SetDevicesToClear(storage.config.clear_part_devices)
-    disk_init_proxy.SetInitializeLabelsEnabled(storage.config.initialize_disks)
 
     if disk_init_proxy.InitializationMode == CLEAR_PARTITIONS_NONE:
         # FIXME: This is an ugly temporary workaround for UI.
@@ -104,15 +70,112 @@ def _update_custom_storage(storage, ksdata):
     :param storage: an instance of the storage
     :param ksdata: an instance of kickstart data
     """
-    # clear out whatever was there before
-    ksdata.partition.partitions = []
-    ksdata.logvol.lvList = []
-    ksdata.raid.raidList = []
-    ksdata.volgroup.vgList = []
-    ksdata.btrfs.btrfsList = []
+    auto_part_proxy = STORAGE.get_proxy(AUTO_PARTITIONING)
+    manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
 
-    if storage.do_autopart:
+    # Clear out whatever was there before.
+    reset_custom_storage_data(ksdata)
+
+    # Check if the custom partitioning was used.
+    if auto_part_proxy.Enabled or manual_part_proxy.Enabled:
+        log.debug("Custom partitioning is disabled.")
         return
 
     # FIXME: This is an ugly temporary workaround for UI.
     PartitioningModule._setup_kickstart_from_storage(ksdata, storage)
+
+
+def reset_custom_storage_data(ksdata):
+    """Reset the custom storage data.
+
+    :param ksdata: an instance of kickstart data
+    """
+    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
+        ksdata.resetCommand(command)
+
+
+def _update_iscsi_data(storage, ksdata):
+    """Update kickstart data for iSCSI.
+
+    FIXME: Move the logic to the iSCSI DBus module.
+
+    :param storage: an instance of the storage
+    :param ksdata: an instance of kickstart data
+    """
+    # Find all iSCSI devices.
+    iscsi_devices = []
+
+    for d in storage.disks:
+        # Get parents of a multipath devices.
+        if isinstance(d, MultipathDevice):
+            for parent_dev in d.parents:
+                if (isinstance(parent_dev, iScsiDiskDevice)
+                        and not parent_dev.ibft
+                        and not parent_dev.offload):
+                    iscsi_devices.append(parent_dev)
+        # Add no-ibft iScsiDiskDevice. IBFT disks are added automatically
+        # so there is no need to have them in the kickstart.
+        elif isinstance(d, iScsiDiskDevice) and not d.ibft and not d.offload:
+            iscsi_devices.append(d)
+
+    if not iscsi_devices:
+        return
+
+    # Set the initiator name.
+    ksdata.iscsiname.iscsiname = iscsi.initiator
+
+    # Generate the iSCSI data.
+    ksdata.iscsi.iscsi = []
+
+    for device in iscsi_devices:
+        iscsi_data = ksdata.IscsiData()
+
+        _setup_iscsi_data_from_node(iscsi_data, device.node)
+
+        for saved_iscsi in ksdata.iscsi.iscsi:
+            if (iscsi_data.ipaddr == saved_iscsi.ipaddr and
+                    iscsi_data.target == saved_iscsi.target and
+                    iscsi_data.port == saved_iscsi.port):
+                break
+        else:
+            ksdata.iscsi.iscsi.append(iscsi_data)
+
+
+def _setup_iscsi_data_from_node(iscsi_data, dev_node):
+    """Set up iSCSI data from a device node.
+
+    FIXME: Move the logic to the iSCSI DBus module.
+
+    :param iscsi_data: an instance of iSCSI data
+    :param dev_node: a device node
+    """
+    iscsi_data.ipaddr = dev_node.address
+    iscsi_data.target = dev_node.name
+    iscsi_data.port = dev_node.port
+
+    if iscsi.ifaces:
+        iscsi_data.iface = iscsi.ifaces[dev_node.iface]
+
+    if dev_node.username and dev_node.password:
+        iscsi_data.user = dev_node.username
+        iscsi_data.password = dev_node.password
+
+    if dev_node.r_username and dev_node.r_password:
+        iscsi_data.user_in = dev_node.r_username
+        iscsi_data.password_in = dev_node.r_password
+
+    return iscsi_data
+
+
+def _update_nvdimm_data(storage):
+    """Update kickstart data for NVDIMM.
+
+    FIXME: Move the logic to the iSCSI DBus module.
+
+    :param storage: an instance of the storage
+    """
+    nvdimm_proxy = STORAGE.get_proxy(NVDIMM)
+    nvdimm_proxy.SetNamespacesToUse([
+        d.devname for d in storage.disks
+        if isinstance(d, NVDIMMNamespaceDevice)
+    ])

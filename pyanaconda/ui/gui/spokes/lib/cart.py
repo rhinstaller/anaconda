@@ -34,13 +34,16 @@ FREE_SPACE_COL = 3
 NAME_COL = 4
 ID_COL = 5
 
+
 class SelectedDisksDialog(GUIObject):
     builderObjects = ["selected_disks_dialog", "disk_store", "disk_tree_view"]
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/lib/cart.glade"
 
-    def __init__(self, data):
+    def __init__(self, data, storage, disks, show_remove=True, set_boot=True):
         super().__init__(data)
+        self._storage = storage
+        self.disks = []
 
         self._view = self.builder.get_object("disk_tree_view")
         self._store = self.builder.get_object("disk_store")
@@ -52,24 +55,22 @@ class SelectedDisksDialog(GUIObject):
 
         self._bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
 
-    # pylint: disable=arguments-differ
-    def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
 
         for disk in disks:
             self._store.append([False,
                                 "%s (%s)" % (disk.description, disk.serial),
                                 str(disk.size),
-                                str(free[disk.name][0]),
+                                str(self._storage.get_disk_free_space([disk])),
                                 disk.name,
                                 disk.id])
         self.disks = disks[:]
         self._update_summary()
 
-        if not showRemove:
+        if not show_remove:
             self.builder.get_object("remove_button").hide()
 
-        if not setBoot:
+        if not set_boot:
             self._set_button.hide()
 
         if not disks:
@@ -98,14 +99,6 @@ class SelectedDisksDialog(GUIObject):
                 self._previousID = row[ID_COL]
                 row[IS_BOOT_COL] = True
                 break
-
-    # pylint: disable=arguments-differ
-    def refresh(self, disks, free, showRemove=True, setBoot=True):
-        super().refresh()
-
-        # clear out the store and repopulate it from the devicetree
-        self._store.clear()
-        self.initialize(disks, free, showRemove=showRemove, setBoot=setBoot)
 
     def run(self):
         rc = self.window.run()

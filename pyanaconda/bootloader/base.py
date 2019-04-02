@@ -34,8 +34,9 @@ from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.i18n import N_, _
 from pyanaconda.flags import flags
 from pyanaconda.modules.common.constants.objects import FCOE
-from pyanaconda.modules.common.constants.services import STORAGE
-from pyanaconda.nm import nm_device_hwaddress
+from pyanaconda.modules.common.constants.services import STORAGE, NETWORK
+from pyanaconda.modules.common.structures.network import NetworkDeviceInfo
+from pyanaconda.dbus.structure import apply_structure
 
 log = get_module_logger(__name__)
 
@@ -150,6 +151,13 @@ class BootLoader(object):
         self.boot_args = Arguments()
         self.dracut_args = Arguments()
 
+        # the device the bootloader will be installed on
+        self.stage1_device = None
+
+        # the "boot disk", meaning the disk stage1 _will_ go on
+        self.stage1_disk = None
+        self.stage2_is_preferred_stage1 = False
+
         self.disks = []
         self._disk_order = []
 
@@ -177,18 +185,13 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
 
-        self.reset()
-
     def reset(self):
         """ Reset stage1 and stage2 values """
-        # the device the bootloader will be installed on
         self.stage1_device = None
-
-        # the "boot disk", meaning the disk stage1 _will_ go on
         self.stage1_disk = None
-
         self.stage2_device = None
         self.stage2_is_preferred_stage1 = False
+        self.disks = []
 
         self.errors = []
         self.warnings = []
@@ -222,6 +225,7 @@ class BootLoader(object):
     def set_disk_list(self, disks):
         self.disks = disks[:]
         self._sort_disks()
+        log.debug("new disk list: %s", self.disks)
 
     #
     # image list access
@@ -763,7 +767,7 @@ class BootLoader(object):
                 # network storage
                 # XXX this is nothing to be proud of
                 if isinstance(dep, NetworkStorageDevice):
-                    setup_args = pyanaconda.network.dracutSetupArgs(dep)
+                    setup_args = pyanaconda.network.dracut_setup_args(dep)
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
@@ -771,15 +775,13 @@ class BootLoader(object):
         # We discover LUN on an iface which is part of multipath setup.
         # If the iface is disconnected after discovery anaconda doesn't
         # write dracut ifname argument for the disconnected iface path
-        # (in Network.dracutSetupArgs).
+        # (in network.dracut_setup_args).
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic in fcoe_proxy.GetNics():
-            try:
-                hwaddr = nm_device_hwaddress(nic)
-            except ValueError:
-                continue
-            self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
+            hwaddr = get_interface_hw_address(nic)
+            if hwaddr:
+                self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         # Add rd.iscsi.firmware to trigger dracut running iscsistart
         # See rhbz#1099603 and rhbz#1185792
@@ -899,3 +901,14 @@ class BootLoader(object):
     def update(self):
         """ Update an existing bootloader configuration. """
         pass
+
+
+def get_interface_hw_address(iface):
+    """Get hardware address of network interface."""
+    network_proxy = NETWORK.get_proxy()
+    device_infos = [apply_structure(device, NetworkDeviceInfo())
+                    for device in network_proxy.GetSupportedDevices()]
+    for info in device_infos:
+        if info.device_name == iface:
+            return info.hw_address
+    return ""

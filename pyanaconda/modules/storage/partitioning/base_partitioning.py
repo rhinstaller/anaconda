@@ -1,7 +1,5 @@
 #
-# Validation tasks
-#
-# Copyright (C) 2019 Red Hat, Inc.
+# Copyright (C) 2019  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,46 +15,49 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from abc import abstractmethod, ABCMeta
+from blivet.errors import StorageError
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
 from pyanaconda.modules.common.task.task import Task
-from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 
 log = get_module_logger(__name__)
 
-__all__ = ["SnapshotValidateTask"]
+__all__ = ["PartitioningTask"]
 
 
-class SnapshotValidateTask(Task):
-    """A task for validating snapshot requests."""
+class PartitioningTask(Task, metaclass=ABCMeta):
+    """A task for the partitioning configuration."""
 
-    def __init__(self, storage, requests, when):
-        """Create a new task.
+    def __init__(self, storage):
+        """Create a task.
 
         :param storage: an instance of Blivet
-        :param requests: a list of the snapshot requests
-        :param when: when the snapshots will be created
         """
         super().__init__()
         self._storage = storage
-        self._requests = requests
-        self._when = when
 
     @property
     def name(self):
-        return "Validate snapshot requests"
+        """Name of this task."""
+        return "Configure the partitioning"
 
     def run(self):
-        """Run the validation."""
-        for request in self._requests:
-            log.debug("Snapshot: validating the request for %s", request.name)
-            self._validate_request(self._storage, request)
+        """Do the partitioning and handle the errors."""
+        try:
+            self._run(self._storage)
+        except (StorageError, KickstartParseError, ValueError) as e:
+            log.error("Storage configuration has failed: %s", e)
+            raise StorageConfigurationError(str(e)) from e
+        except BootLoaderError as e:
+            log.error("Bootloader configuration has failed: %s", e)
+            raise BootloaderConfigurationError(str(e)) from e
 
-    def _validate_request(self, storage, request):
-        """Validate a snapshot request.
-
-        :param storage: an instance of Blivet
-        :param request: a snapshot request
-        :raise: KickstartParseError if not valid
-        """
-        # Try to create the model of the device.
-        get_snapshot_device(request, storage.devicetree)
+    @abstractmethod
+    def _run(self, storage):
+        """Do the partitioning."""
+        pass

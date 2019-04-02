@@ -46,7 +46,7 @@ from pyanaconda.payload.manager import payloadMgr, PayloadState
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.modules.common.constants.services import NETWORK
-from pyanaconda.storage.utils import device_matches
+from pyanaconda.storage.utils import device_matches, mark_protected_device, unmark_protected_device
 
 from blivet.util import get_mount_device, get_mount_paths
 
@@ -483,8 +483,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 return False
 
             # Make sure anaconda doesn't touch this device.
-            part.protected = True
-            self.storage.config.protected_dev_specs.append(part.name)
+            mark_protected_device(self.storage, part.name)
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -577,12 +576,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._iso_chooser_button.set_label(self._orig_iso_chooser_button)
                 self._iso_chooser_button.set_use_underline(True)
 
-            if old_partition in self.storage.config.protected_dev_specs:
-                self.storage.config.protected_dev_specs.remove(old_partition)
-
-            dev = self.storage.devicetree.get_device_by_name(old_partition)
-            if dev:
-                dev.protected = False
+            unmark_protected_device(self.storage, old_partition)
 
         self._proxy_change = False
         self._updates_change = False
@@ -1639,10 +1633,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._remove_url_prefix(editable, self._protocol_combo_box, self.on_urlEntry_changed)
 
     def on_noUpdatesCheckbox_toggled(self, *args):
-        """ Toggle the enable state of the updates repo
-
-            Before final release this will also toggle the updates-testing repo
-        """
+        """Toggle the enable state of the updates repo."""
         if self._no_updates_checkbox.get_active():
             self.payload.set_updates_enabled(False)
         else:

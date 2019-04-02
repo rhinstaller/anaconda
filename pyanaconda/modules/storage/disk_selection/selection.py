@@ -17,13 +17,14 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pyanaconda.anaconda_loggers import get_module_logger
 from pyanaconda.core.signal import Signal
 from pyanaconda.dbus import DBus
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.disk_selection.selection_interface import DiskSelectionInterface
 
-from pyanaconda.anaconda_loggers import get_module_logger
 log = get_module_logger(__name__)
 
 
@@ -32,14 +33,37 @@ class DiskSelectionModule(KickstartBaseModule):
 
     def __init__(self):
         super().__init__()
+        self._storage = None
+
         self.selected_disks_changed = Signal()
         self._selected_disks = []
+
+        self.exclusive_disks_changed = Signal()
+        self._exclusive_disks = []
 
         self.ignored_disks_changed = Signal()
         self._ignored_disks = []
 
         self.protected_devices_changed = Signal()
         self._protected_devices = []
+
+        self.disk_images_changed = Signal()
+        self._disk_images = {}
+
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if self._storage is None:
+            raise UnavailableStorageError()
+
+        return self._storage
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._storage = storage
 
     def publish(self):
         """Publish the module."""
@@ -48,6 +72,7 @@ class DiskSelectionModule(KickstartBaseModule):
     def process_kickstart(self, data):
         """Process the kickstart data."""
         self.set_selected_disks(data.ignoredisk.onlyuse)
+        self.set_exclusive_disks(data.ignoredisk.onlyuse)
         self.set_ignored_disks(data.ignoredisk.ignoredisk)
 
     def setup_kickstart(self, data):
@@ -70,8 +95,28 @@ class DiskSelectionModule(KickstartBaseModule):
         :param drives: a list of drives names
         """
         self._selected_disks = drives
-        self.selected_disks_changed.emit()
+        self.selected_disks_changed.emit(list(drives))
         log.debug("Selected disks are set to '%s'.", drives)
+
+    @property
+    def exclusive_disks(self):
+        """The list of drives to scan."""
+        return self._exclusive_disks
+
+    def set_exclusive_disks(self, drives):
+        """Set the list of drives to scan.
+
+        Specifies those disks that anaconda will scan during
+        the storage reset. If the list is empty, anaconda will
+        scan all drives.
+
+        It can be set from the kickstart with 'ignoredisk --onlyuse'.
+
+        :param drives: a list of drives names
+        """
+        self._exclusive_disks = drives
+        self.exclusive_disks_changed.emit()
+        log.debug("Exclusive disks are set to '%s'.", drives)
 
     @property
     def ignored_disks(self):
@@ -103,5 +148,26 @@ class DiskSelectionModule(KickstartBaseModule):
         :param devices: a list of device names
         """
         self._protected_devices = devices
-        self.protected_devices_changed.emit()
+        self.protected_devices_changed.emit(list(devices))
         log.debug("Protected devices are set to '%s'.", devices)
+
+    @property
+    def disk_images(self):
+        """The dictionary of disk images."""
+        return self._disk_images
+
+    def set_disk_images(self, disk_images):
+        """Set the dictionary of disk images.
+
+        :param disk_images: a dictionary of image names and file names
+        """
+        self._disk_images = disk_images
+        self.disk_images_changed.emit()
+        log.debug("Disk images are set to '%s'.", disk_images)
+
+    def get_usable_disks(self):
+        """Get a list of disks that can be used for the installation.
+
+        :return: a list of disk names
+        """
+        return [disk.name for disk in self.storage.usable_disks]

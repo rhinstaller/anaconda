@@ -17,14 +17,23 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseError
+
 from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.bootloader import get_bootloader_class
+from pyanaconda.bootloader.efi import EFIBase
+from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import BOOTLOADER_LOCATION_DEFAULT, BOOTLOADER_TIMEOUT_UNSET, \
     BOOTLOADER_LOCATION_MBR, BOOTLOADER_LOCATION_PARTITION
+from pyanaconda.core.i18n import _
 from pyanaconda.dbus import DBus
 from pyanaconda.core.signal import Signal
 from pyanaconda.modules.common.base import KickstartBaseModule
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.bootloader.bootloader_interface import BootloaderInterface
+from pyanaconda.modules.storage.bootloader.installation import ConfigureBootloaderTask, \
+    InstallBootloaderTask
 from pyanaconda.modules.storage.constants import BootloaderMode, BootloaderType
 
 log = get_module_logger(__name__)
@@ -36,6 +45,7 @@ class BootloaderModule(KickstartBaseModule):
     def __init__(self):
         """Initialize the module."""
         super().__init__()
+        self._current_storage = None
 
         self.bootloader_mode_changed = Signal()
         self._bootloader_mode = BootloaderMode.ENABLED
@@ -68,13 +78,32 @@ class BootloaderModule(KickstartBaseModule):
         self._password = ""
         self._password_is_encrypted = False
 
+    @property
+    def storage(self):
+        """The storage model.
+
+        :return: an instance of Blivet
+        """
+        if self._current_storage is None:
+            raise UnavailableStorageError()
+
+        return self._current_storage
+
+    def on_storage_reset(self, storage):
+        """Keep the instance of the current storage."""
+        self._current_storage = storage
+
     def publish(self):
         """Publish the module."""
         DBus.publish_object(BOOTLOADER.object_path, BootloaderInterface(self))
 
     def process_kickstart(self, data):
         """Process the kickstart data."""
+        self._set_module_from_kickstart(data)
+        self._validate_grub2_configuration(data)
 
+    def _set_module_from_kickstart(self, data):
+        """Set the module from the kickstart data."""
         if not data.bootloader.seen:
             self.set_bootloader_mode(BootloaderMode.ENABLED)
             self.set_preferred_location(BOOTLOADER_LOCATION_DEFAULT)
@@ -113,6 +142,30 @@ class BootloaderModule(KickstartBaseModule):
 
         if data.bootloader.password:
             self.set_password(data.bootloader.password, data.bootloader.isCrypted)
+
+    def _validate_grub2_configuration(self, data):
+        """Validate the GRUB2 configuration.
+
+        :raise: KickstartParseError if not valid
+        """
+        # Skip other types of the bootloader.
+        if self.bootloader_type is not BootloaderType.DEFAULT:
+            return
+
+        if not issubclass(get_bootloader_class(), GRUB2):
+            return
+
+        # Check the location support.
+        if self.preferred_location == BOOTLOADER_LOCATION_PARTITION:
+            raise KickstartParseError(_("GRUB2 does not support installation to a partition."),
+                                      lineno=data.bootloader.lineno)
+
+        # Check the password format.
+        if self.password_is_set \
+                and self.password_is_encrypted \
+                and not self.password.startswith("grub.pbkdf2."):
+            raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
+                                      lineno=data.bootloader.lineno)
 
     def setup_kickstart(self, data):
         """Setup the kickstart data."""
@@ -306,3 +359,67 @@ class BootloaderModule(KickstartBaseModule):
         self._password_is_encrypted = encrypted
         self.password_is_set_changed.emit()
         log.debug("Password is set.")
+
+    def is_efi(self):
+        """Is the bootloader based on EFI?
+
+        :return: True or False
+        """
+        return isinstance(self.storage.bootloader, EFIBase)
+
+    def get_arguments(self):
+        """Get the bootloader arguments.
+
+        Get kernel parameters that are currently set up for the bootloader.
+        The list is complete and final after the bootloader installation.
+
+        FIXME: Collect the bootloader arguments on demand if possible.
+
+        :return: list of arguments
+        """
+        return list(self.storage.bootloader.boot_args)
+
+    def detect_windows(self):
+        """Are Windows OS installed on the system?
+
+        Guess by searching for bootable partitions of other operating
+        systems whether there are Windows OS installed on the system.
+
+        :return: True or False
+        """
+        devices = filter(lambda d: d.format.name == "ntfs", self.storage.devices)
+        return self.storage.bootloader.has_windows(devices)
+
+    def configure_with_task(self, sysroot, kernel_versions):
+        """Configure the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :param kernel_versions: a list of kernel versions
+        :return: a path to a DBus task
+        """
+        task = ConfigureBootloaderTask(
+            storage=self.storage,
+            mode=self.bootloader_mode,
+            kernel_versions=kernel_versions,
+            sysroot=sysroot
+        )
+        path = self.publish_task(BOOTLOADER.namespace, task)
+        return path
+
+    def install_with_task(self, sysroot):
+        """Install the bootloader.
+
+        FIXME: This is just a temporary method.
+
+        :param sysroot: a path to the root of the installed system
+        :return: a path to a DBus task
+        """
+        task = InstallBootloaderTask(
+            storage=self.storage,
+            mode=self.bootloader_mode,
+            sysroot=sysroot
+        )
+        path = self.publish_task(BOOTLOADER.namespace, task)
+        return path

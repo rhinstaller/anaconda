@@ -77,7 +77,6 @@ DEVICES_COLUMN_SORT = 1
 DEVICES_COLUMN_TITLE = 2
 DEVICES_COLUMN_OBJECT = 3
 
-nmclient = NM.Client.new()
 
 def localized_string_of_device_state(device, state):
     s = _("Status unknown (missing)")
@@ -595,7 +594,7 @@ class NetworkControlBox(GObject.GObject):
                 con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, con, device)
-            network.logIfcfgFiles("nm-c-e run")
+            self._network_module.proxy.LogConfigurationState("Connection Editor was run.")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection_async(con, device, None, None)
@@ -1427,7 +1426,8 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.networking_changed = False
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
-        self.network_control_box = NetworkControlBox(self.builder, nmclient, self._network_module, spoke=self)
+        self._nm_client = network.get_nm_client()
+        self.network_control_box = NetworkControlBox(self.builder, self._nm_client, self._network_module, spoke=self)
         self.network_control_box.hostname = self._network_module.proxy.Hostname
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
         self._network_module.proxy.CurrentHostnameChanged.connect(self._hostname_changed)
@@ -1473,7 +1473,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # TODO: check also if source requires updates when implemented
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or network.get_activated_ifaces(nmclient))
+                or self._network_module.proxy.GetActivatedInterfaces())
 
     @property
     def mandatory(self):
@@ -1484,7 +1484,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def status(self):
         """ A short string describing which devices are connected. """
-        return network.status_message(nmclient)
+        return network.status_message(self._nm_client)
 
     def initialize(self):
         register_secret_agent(self)
@@ -1573,7 +1573,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         super().__init__(*args, **kwargs)
         self._network_module = NETWORK.get_observer()
         self._network_module.connect()
-        self.network_control_box = NetworkControlBox(self.builder, nmclient, self._network_module, spoke=self)
+        self._nm_client = network.get_nm_client()
+        self.network_control_box = NetworkControlBox(self.builder, self._nm_client, self._network_module, spoke=self)
 
         self.network_control_box.hostname = self._network_module.proxy.Hostname
         self.network_control_box.current_hostname = self._network_module.proxy.GetCurrentHostname()
@@ -1619,7 +1620,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def completed(self):
         # If we can't configure network, don't require it
         return (not conf.system.can_configure_network
-                or network.get_activated_ifaces(nmclient)
+                or self._network_module.proxy.GetActivatedInterfaces()
                 or self.data.method.method not in ("url", "nfs"))
 
     def initialize(self):
@@ -1679,6 +1680,7 @@ def test():
     network_module = NETWORK.get_observer()
     network_module.connect()
 
+    nmclient = NM.Client.new(None)
     n = NetworkControlBox(builder, nmclient, network_module)
     n.initialize()
     n.refresh()

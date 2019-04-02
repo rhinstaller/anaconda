@@ -16,8 +16,50 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
+import os
+import blivet.util
+import blivet.arch
 
 from distutils.version import LooseVersion
+
+from pyanaconda.anaconda_loggers import get_module_logger
+from pyanaconda.payload.errors import PayloadSetupError
+
+log = get_module_logger(__name__)
+
+
+def get_mount_device(mountpoint):
+    if os.path.ismount(mountpoint):
+        return blivet.util.get_mount_device(mountpoint)
+
+
+def get_mount_paths(device_path):
+    return blivet.util.get_mount_paths(device_path)
+
+
+def unmount(mountpoint, raise_exc=False):
+    try:
+        blivet.util.umount(mountpoint)
+    except OSError as e:
+        log.error(str(e))
+        log.info("umount failed -- mounting on top of it")
+        if raise_exc:
+            raise
+
+
+def mount(url, mountpoint, fstype, options):
+    try:
+        return blivet.util.mount(url, mountpoint, fstype=fstype, options=options)
+    except OSError as e:
+        raise PayloadSetupError(str(e))
+
+
+def arch_is_x86():
+    return blivet.arch.is_x86(32)
+
+
+def arch_is_arm():
+    return blivet.arch.is_arm()
 
 
 def version_cmp(v1, v2):

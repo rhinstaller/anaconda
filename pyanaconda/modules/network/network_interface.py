@@ -22,8 +22,21 @@ from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.dbus.property import emits_properties_changed
 from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
 from pyanaconda.modules.common.base import KickstartModuleInterface
-from pyanaconda.dbus.interface import dbus_interface, dbus_signal
+from pyanaconda.dbus.interface import dbus_interface, dbus_signal, dbus_class
 from pyanaconda.dbus.structure import get_structure
+from pyanaconda.modules.common.task import TaskInterface
+
+
+@dbus_class
+class NetworkInitializationTaskInterface(TaskInterface):
+    """The interface for a network configuration initialization task
+
+    Such a task returns a list of names of the devices the task has affected.
+    """
+
+    @staticmethod
+    def convert_result(value):
+        return get_variant(List[Str], value)
 
 
 @dbus_interface(NETWORK.interface_name)
@@ -92,6 +105,24 @@ class NetworkInterface(KickstartModuleInterface):
         """
         return self.implementation.is_connecting()
 
+    def GetSupportedDevices(self) -> List[Structure]:
+        """Get info about existing network devices supported by the module.
+
+        :return: list of objects describing supported devices found on the system
+        """
+        dev_infos = self.implementation.get_supported_devices()
+        return [get_structure(dev_info) for dev_info in dev_infos]
+
+    def GetActivatedInterfaces(self) -> List[Str]:
+        """Get activated network interfaces.
+
+        Device is considered as activated if it has an active network (NM)
+        connection.
+
+        :return: list of names of devices having active network connection
+        """
+        return self.implementation.get_activated_interfaces()
+
     def InstallNetworkWithTask(self, sysroot: Str, onboot_ifaces: List[Str], overwrite: Bool) -> ObjPath:
         """Install network with an installation task.
 
@@ -141,26 +172,26 @@ class NetworkInterface(KickstartModuleInterface):
         """Signal change of network devices configurations."""
         pass
 
-    def ConsolidateInitramfsConnections(self) -> List[Str]:
+    def ConsolidateInitramfsConnectionsWithTask(self) -> ObjPath:
         """Ensure devices configured in initramfs have no more than one NM connection.
 
         This should be used only in installer environment.
 
-        :returns: list of device names which have been cosolidated
+        :returns: DBus path of the task consolidating the connections
         """
-        return self.implementation.consolidate_initramfs_connections()
+        return self.implementation.consolidate_initramfs_connections_with_task()
 
-    def ApplyKickstart(self) -> List[Str]:
+    def ApplyKickstartWithTask(self) -> ObjPath:
         """Apply kickstart configuration which has not already been applied.
 
         * activate configurations created in initramfs if --activate is True
         * create configurations for %pre kickstart commands and activate eventually
 
-        :returns: list of devices to which kickstart configuration was applied
+        :returns: DBus path of the task applying the kickstart
         """
-        return self.implementation.apply_kickstart()
+        return self.implementation.apply_kickstart_with_task()
 
-    def SetRealOnbootValuesFromKickstart(self) -> List[Str]:
+    def SetRealOnbootValuesFromKickstartWithTask(self) -> ObjPath:
         """Update ifcfg ONBOOT values according to kickstart configuration.
 
         So it reflects the --onboot option.
@@ -170,11 +201,11 @@ class NetworkInterface(KickstartModuleInterface):
         2) For kickstart applied in stage 2 we can't set the autoconnect
            setting of connection because the device would be activated immediately.
 
-        :returns: list of devices for which ONBOOT was updated
+        :returns: DBus path of the task setting the values
         """
-        return self.implementation.set_real_onboot_values_from_kickstart()
+        return self.implementation.set_real_onboot_values_from_kickstart_with_task()
 
-    def DumpMissingIfcfgFiles(self) -> List[Str]:
+    def DumpMissingIfcfgFilesWithTask(self) -> ObjPath:
         """Dump missing default ifcfg file for wired devices.
 
         Make sure each supported wired device has ifcfg file.
@@ -190,8 +221,10 @@ class NetworkInterface(KickstartModuleInterface):
 
         The connection id (and consequently ifcfg file name) is set to device
         name.
+
+        :returns: DBus path of the task dumping the files
         """
-        return self.implementation.dump_missing_ifcfg_files()
+        return self.implementation.dump_missing_ifcfg_files_with_task()
 
     def NetworkDeviceConfigurationChanged(self):
         """Inform module that network device configuration might have changed.
@@ -212,3 +245,34 @@ class NetworkInterface(KickstartModuleInterface):
         :param hostname: static hostname to be configured
         """
         return self.implementation.get_dracut_arguments(iface, target_ip, hostname)
+
+    def LogConfigurationState(self, msg_header: Str):
+        """Logs the state of network configuration.
+
+        :param msg_header: header of the log messages
+        """
+        return self.implementation.log_configuration_state(msg_header)
+
+    def SetConnectionOnbootValue(self, uuid: Str, onboot: Bool):
+        """Sets ONBOOT value of connection given by uuid.
+
+        The value is stored in ifcfg file because setting the value in
+        NetworkManager connection ('autoconnect') to True could cause
+        activating of the connection.
+
+        :param uuid: UUID of the connection to be set
+        :param onboot: value of ONBOOT for the connection
+        """
+        return self.implementation.set_connection_onboot_value(uuid, onboot)
+
+    def GetConnectionOnbootValue(self, uuid: Str) -> Bool:
+        """Gets ONBOOT value of connection given by uuid.
+
+        The value is stored in ifcfg file because setting the value in
+        NetworkManager connection ('autoconnect') to True could cause
+        activating of the connection.
+
+        :param uuid: UUID of the connection
+        :return: ONBOOT value
+        """
+        return self.implementation.get_connection_onboot_value(uuid)

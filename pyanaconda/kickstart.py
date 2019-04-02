@@ -34,16 +34,13 @@ import blivet.iscsi
 
 from contextlib import contextmanager
 
-from pyanaconda import keyboard, network, nm, ntp, screen_access, timezone
+from pyanaconda import keyboard, network, ntp, screen_access, timezone
 from pyanaconda.core import util
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.kickstart import VERSION, commands as COMMANDS
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
-from pyanaconda.bootloader import get_bootloader
-from pyanaconda.bootloader.grub2 import GRUB2
 from pyanaconda.core.constants import ADDON_PATHS, IPMI_ABORTED, SELINUX_DEFAULT, \
-    SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, \
-    BOOTLOADER_LOCATION_PARTITION, FIREWALL_ENABLED, FIREWALL_DISABLED, \
+    SETUP_ON_BOOT_DISABLED, SETUP_ON_BOOT_RECONFIG, FIREWALL_ENABLED, FIREWALL_DISABLED, \
     FIREWALL_USE_SYSTEM_DEFAULTS
 from pyanaconda.dbus.structure import apply_structure
 from pyanaconda.desktop import Desktop
@@ -53,7 +50,7 @@ from pyanaconda.core.i18n import _
 from pyanaconda.modules.common.errors.kickstart import SplitKickstartError
 from pyanaconda.modules.common.constants.services import BOSS, TIMEZONE, LOCALIZATION, SECURITY, \
     USERS, SERVICES, STORAGE, NETWORK
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, FIREWALL, FCOE
+from pyanaconda.modules.common.constants.objects import FIREWALL, FCOE
 from pyanaconda.modules.common.structures.realm import RealmData
 from pyanaconda.modules.common.task import sync_run_task
 from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
@@ -295,37 +292,6 @@ class AutoPart(RemovedCommand):
         return ""
 
 
-class Bootloader(RemovedCommand):
-    def __str__(self):
-        return ""
-
-    def parse(self, args):
-        """Do not parse anything.
-
-        Only validate the bootloader module.
-        """
-        super().parse(args)
-
-        # Validate the attributes of the bootloader module.
-        bootloader_proxy = STORAGE.get_proxy(BOOTLOADER)
-
-        # Skip the check if the bootloader instance is not GRUB2:
-        if not isinstance(get_bootloader(), GRUB2):
-            return
-
-        # Check the location support.
-        if bootloader_proxy.PreferredLocation == BOOTLOADER_LOCATION_PARTITION:
-            raise KickstartParseError(_("GRUB2 does not support installation to a partition."),
-                                      lineno=self.lineno)
-
-        # Check the password format.
-        if bootloader_proxy.IsPasswordSet \
-                and bootloader_proxy.IsPasswordEncrypted \
-                and not bootloader_proxy.Password.startswith("grub.pbkdf2."):
-            raise KickstartParseError(_("GRUB2 encrypted password must be in grub.pbkdf2 format."),
-                                      lineno=self.lineno)
-
-
 class BTRFS(COMMANDS.BTRFS):
     pass
 
@@ -402,7 +368,7 @@ class Realm(RemovedCommand):
 class ClearPart(RemovedCommand):
     def __str__(self):
         storage_module_proxy = STORAGE.get_proxy()
-        return storage_module_proxy.GenerateTemporaryKickstart()
+        return storage_module_proxy.GenerateKickstart()
 
 class Firewall(RemovedCommand):
     def __init__(self, *args, **kwargs):
@@ -522,7 +488,9 @@ class Iscsi(COMMANDS.Iscsi):
         mode = blivet.iscsi.iscsi.mode
         if mode == "none":
             if tg.iface:
-                blivet.iscsi.iscsi.create_interfaces(nm.nm_activated_devices())
+                network_proxy = NETWORK.get_proxy()
+                activated_ifaces = network_proxy.GetActivatedInterfaces()
+                blivet.iscsi.iscsi.create_interfaces(activated_ifaces)
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
             raise KickstartParseError(lineno=self.lineno,
@@ -611,12 +579,14 @@ class Network(COMMANDS.Network):
         return nd
 
     def setup(self):
-        if network.is_using_team_device():
+        if network.get_team_devices():
             self.packages = ["teamd"]
 
     def execute(self, payload):
         fcoe_proxy = STORAGE.get_proxy(FCOE)
-        fcoe_ifaces = network.get_devices_by_nics(fcoe_proxy.GetNics())
+        fcoe_nics = fcoe_proxy.GetNics()
+        fcoe_ifaces = [dev.device_name for dev in network.get_supported_devices()
+                       if dev.device_name in fcoe_nics]
         overwrite = network.can_overwrite_configuration(payload)
         network_proxy = NETWORK.get_proxy()
         task_path = network_proxy.InstallNetworkWithTask(util.getSysroot(),
@@ -923,6 +893,20 @@ class Snapshot(COMMANDS.Snapshot):
         """
         return [request for request in self.dataList() if request.when == when]
 
+    def verify_requests(self, storage, constraints, report_error, report_warning):
+        """Verify the validity of snapshot requests for the given storage.
+
+        This is a callback for the storage checker.
+
+        :param storage: a storage to check
+        :param constraints: a dictionary of constraints
+        :param report_error: a function for error reporting
+        :param report_warning: a function for warning reporting
+        """
+        # FIXME: This is an ugly temporary workaround for UI.
+        from pyanaconda.modules.storage.snapshot import SnapshotModule
+        SnapshotModule.verify_requests(self, storage, constraints, report_error, report_warning)
+
 
 class Keyboard(RemovedCommand):
 
@@ -1004,7 +988,7 @@ commandMap = {
     "authselect": Authselect,
     "autopart": AutoPart,
     "btrfs": BTRFS,
-    "bootloader": Bootloader,
+    "bootloader": UselessCommand,
     "clearpart": ClearPart,
     "eula": Eula,
     "fcoe": UselessCommand,
@@ -1277,7 +1261,3 @@ def runTracebackScripts(scripts):
     for script in filter(lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/")
     script_log.info("All kickstart %%traceback script(s) have been run")
-
-def resetCustomStorageData(ksdata):
-    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
-        ksdata.resetCommand(command)

@@ -31,10 +31,11 @@ from pyanaconda.ui.helpers import StorageCheckHandler
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.core.i18n import _, CN_, C_
-from pyanaconda.core.constants import BOOTLOADER_DRIVE_UNSET
-from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.storage.initialization import reset_bootloader
 from pyanaconda.modules.common.constants.objects import BOOTLOADER
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError
+from pyanaconda.storage.execution import configure_storage
 
 from blivetgui import osinstall
 from blivetgui.config import config
@@ -189,11 +190,10 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
 
         # set up bootloader and check the configuration
         try:
-            self.storage.set_up_bootloader()
-        except BootLoaderError as e:
-            log.error("storage configuration failed: %s", e)
+            configure_storage(self.storage, interactive=True)
+        except BootloaderConfigurationError as e:
             StorageCheckHandler.errors = str(e).split("\n")
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
 
         StorageCheckHandler.checkStorage(self)
 
@@ -251,19 +251,18 @@ class BlivetGuiSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
-        if len(self._storage_playground.devicetree.actions.find()) > 0:
-            dialog = ActionSummaryDialog(self.data)
-            dialog.refresh(self._storage_playground.devicetree.actions.find())
+        actions = self._storage_playground.devicetree.actions.find()
+
+        if actions:
+            dialog = ActionSummaryDialog(self.data, actions)
+            dialog.refresh()
+
             with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
             if rc != 1:
                 # Cancel.  Stay on the blivet-gui screen.
                 return
-            else:
-                # remove redundant actions and sort them now
-                self._storage_playground.devicetree.actions.prune()
-                self._storage_playground.devicetree.actions.sort()
 
         NormalSpoke.on_back_clicked(self, button)
 

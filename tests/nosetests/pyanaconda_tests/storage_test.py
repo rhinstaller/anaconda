@@ -6,7 +6,7 @@ from blivet import util
 from blivet.size import Size
 
 from pyanaconda.storage.osinstall import InstallerStorage
-from pyanaconda.storage.initialization import initialize_storage
+from pyanaconda.storage.initialization import reset_storage
 
 
 @unittest.skip("not working")
@@ -35,7 +35,7 @@ class SetupDiskImagesNonZeroSizeTestCase(unittest.TestCase):
         # execute setup_disk_images() once more and the DMLinearDevice created
         # in this second execution has size 0
         with patch('blivet.flags'):
-            initialize_storage(self.storage)
+            reset_storage(self.storage)
 
     def tearDown(self):
         self.storage.reset()

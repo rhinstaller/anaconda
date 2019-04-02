@@ -181,6 +181,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/modules/storage/Makefile
                  pyanaconda/modules/storage/bootloader/Makefile
                  pyanaconda/modules/storage/dasd/Makefile
+                 pyanaconda/modules/storage/devicetree/Makefile
                  pyanaconda/modules/storage/disk_initialization/Makefile
                  pyanaconda/modules/storage/disk_selection/Makefile
                  pyanaconda/modules/storage/fcoe/Makefile

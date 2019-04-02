@@ -24,38 +24,37 @@ from pyanaconda.input_checking import get_policy
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION, DISK_INITIALIZATION, \
     BOOTLOADER, AUTO_PARTITIONING, MANUAL_PARTITIONING
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.common.errors.configuration import StorageConfigurationError, \
+    BootloaderConfigurationError
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices, \
-    get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection, \
+    filter_disks_by_names, apply_disk_selection, check_disk_selection, \
     get_disks_summary
+from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.checker import storage_checker
 from pyanaconda.storage.format_dasd import DasdFormatting
 
 from blivet.size import Size
-from blivet.errors import StorageError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, \
     ZFCPDiskDevice
 from blivet.formats import get_format
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import resetCustomStorageData
-from pyanaconda.storage.execution import do_kickstart_storage
+from pyanaconda.storage.kickstart import reset_custom_storage_data
 from pyanaconda.threading import threadMgr, AnacondaThread
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     PAYLOAD_STATUS_PROBING_STORAGE, CLEAR_PARTITIONS_ALL, \
     CLEAR_PARTITIONS_LINUX, CLEAR_PARTITIONS_NONE, CLEAR_PARTITIONS_DEFAULT, \
-    BOOTLOADER_LOCATION_MBR, BOOTLOADER_DRIVE_UNSET, SecretType, \
+    BOOTLOADER_LOCATION_MBR, SecretType, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
-from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.storage.initialization import initialize_storage, update_storage_config, \
-    reset_storage, select_all_disks_by_default
+from pyanaconda.storage.initialization import reset_bootloader, reset_storage, \
+    select_all_disks_by_default
 
 from pykickstart.base import BaseData
-from pykickstart.errors import KickstartParseError
 
 from simpleline.render.containers import ListColumnContainer
 from simpleline.render.screen import InputState
@@ -402,55 +401,29 @@ class StorageSpoke(NormalTUISpoke):
     def apply(self):
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
 
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk in self.storage.devices:
-                self.storage.devicetree.hide(disk)
-            elif disk.name in self._selected_disks and \
-                 disk not in self.storage.devices:
-                self.storage.devicetree.unhide(disk)
+        self.storage.select_disks(self._selected_disks)
 
         self._bootloader_observer.proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
         boot_drive = self._bootloader_observer.proxy.Drive
 
         if boot_drive and boot_drive not in self._selected_disks:
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self.storage.bootloader.reset()
+            reset_bootloader(self.storage)
 
         apply_disk_selection(self.storage, self._selected_disks)
-        update_storage_config(self.storage.config)
-
-        # If autopart is selected we want to remove whatever has been
-        # created/scheduled to make room for autopart.
-        # If custom is selected, we want to leave alone any storage layout the
-        # user may have set up before now.
-        self.storage.config.clear_non_existent = self._auto_part_observer.proxy.Enabled
 
     def execute(self):
         print(_("Generating updated storage configuration"))
         try:
-            do_kickstart_storage(self.storage, self.data)
-        except (StorageError, KickstartParseError) as e:
-            log.error("storage configuration failed: %s", e)
+            configure_storage(self.storage, self.data)
+        except StorageConfigurationError as e:
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-
-            # Prepare for reset.
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
-            self._disk_init_observer.proxy.SetInitializationMode(CLEAR_PARTITIONS_ALL)
-            self._disk_init_observer.proxy.SetInitializeLabelsEnabled(False)
-            self.storage.autopart_type = self._auto_part_observer.proxy.Type
-
-            # The reset also calls self.storage.config.update().
-            reset_storage(self.storage)
-
-            # Now set data back to the user's specified config.
-            apply_disk_selection(self.storage, self._selected_disks)
-        except BootLoaderError as e:
-            log.error("BootLoader setup failed: %s", e)
+            reset_bootloader(self.storage)
+            reset_storage(self.storage, scan_all=True)
+        except BootloaderConfigurationError as e:
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
-            self._bootloader_observer.proxy.SetDrive(BOOTLOADER_DRIVE_UNSET)
+            reset_bootloader(self.storage)
         else:
             print(_("Checking storage configuration..."))
             report = storage_checker.check(self.storage)
@@ -459,7 +432,7 @@ class StorageSpoke(NormalTUISpoke):
             self.errors = report.errors
             self.warnings = report.warnings
         finally:
-            resetCustomStorageData(self.data)
+            reset_custom_storage_data(self.data)
             self._ready = True
 
     def initialize(self):
@@ -502,7 +475,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def update_disks(self):
         threadMgr.wait(THREAD_STORAGE)
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # if only one disk is available, go ahead and mark it as selected
         if len(self._available_disks) == 1:
@@ -612,15 +585,7 @@ class PartTypeSpoke(NormalTUISpoke):
 
         # else
         print(_("Reverting previous configuration. This may take a moment..."))
-        # unset selected disks temporarily so that
-        # initialize_storage() processes all devices
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        disk_select_proxy.SetSelectedDisks([])
-
-        initialize_storage(self.storage)
-
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        reset_storage(self.storage, scan_all=True)
         self._manual_part_proxy.SetMountPoints([])
 
     def input(self, args, key):
@@ -857,16 +822,8 @@ class MountPointAssignSpoke(NormalTUISpoke):
         if not question_window.answer:
             return
 
-        # unset selected disks temporarily so that
-        # initialize_storage() processes all devices
-        disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
-        selected_disks = disk_select_proxy.SelectedDisks
-        disk_select_proxy.SetSelectedDisks([])
-
         print(_("Scanning disks. This may take a moment..."))
-        initialize_storage(self.storage)
-
-        disk_select_proxy.SetSelectedDisks(selected_disks)
+        reset_storage(self.storage, scan_all=True)
         self._manual_part_proxy.SetMountPoints([])
         self._mount_info = self._gather_mount_info()
 

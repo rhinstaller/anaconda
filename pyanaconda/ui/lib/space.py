@@ -48,7 +48,7 @@ class FileSystemSpaceChecker(object):
 
     def _calculate_free_space(self):
         """Calculate the available space."""
-        return Size(self.storage.file_system_free_space)
+        return self.storage.get_file_system_free_space()
 
     def _calculate_needed_space(self):
         """Calculate the needed space."""

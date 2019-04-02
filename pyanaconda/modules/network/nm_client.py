@@ -79,7 +79,7 @@ def get_team_port_config_from_connection(nm_client, uuid):
     return config
 
 
-def get_team_config_form_connection(nm_client, uuid):
+def get_team_config_from_connection(nm_client, uuid):
     connection = nm_client.get_connection_by_uuid(uuid)
     if not connection:
         return None
@@ -102,8 +102,7 @@ def get_device_name_from_network_data(nm_client, network_data, supported_devices
     :type network_data: kickstart NetworkData object
     :param supported_devices: list of names of supported devices
     :type supported_devices: list(str)
-    :param bootif: MAC addres of device to be used for
-                    --device=bootif specification
+    :param bootif: MAC addres of device to be used for --device=bootif specification
     :type bootif: str
     :returns: device name the configuration should be used for
     :rtype: str
@@ -393,7 +392,7 @@ def add_connection_from_ksdata(nm_client, network_data, device_name, activate=Fa
 
     for con, device_name in added_connections:
         log.debug("add connection: %s for %s\n%s", con_uuid, device_name,
-                  con.to_dbus(NM.ConnectionSerializationFlags.ALL))
+                  con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
         device_to_activate = device_name if activate else None
         nm_client.add_connection_async(con, True, None,
                                        _connection_added_cb,
@@ -411,7 +410,7 @@ def _connection_added_cb(client, result, device_to_activate=None):
     """
     con = client.add_connection_finish(result)
     log.debug("connection %s added:\n%s", con.get_uuid(),
-              con.to_dbus(NM.ConnectionSerializationFlags.ALL))
+              con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
     if device_to_activate:
         device = client.get_device_by_iface(device_to_activate)
         if device:
@@ -508,7 +507,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     :type device_name: str
     """
     log.debug("updating connection %s:\n%s", connection.get_uuid(),
-              connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+              connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
     # IP configuration
     update_connection_ip_settings_from_ksdata(connection, network_data)
@@ -522,7 +521,7 @@ def update_connection_from_ksdata(nm_client, connection, network_data, device_na
     connection.commit_changes(True, None)
 
     log.debug("updated connection %s:\n%s", connection.get_uuid(),
-              connection.to_dbus(NM.ConnectionSerializationFlags.ALL))
+              connection.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS))
 
 
 def update_connection_ip_settings_from_ksdata(connection, network_data):
@@ -783,3 +782,11 @@ def get_first_iface_with_link(nm_client, ifaces):
         if device and device.get_carrier():
             return device.get_iface()
     return None
+
+
+def get_connections_dump(nm_client):
+    """Dumps all connections for logging."""
+    con_dumps = []
+    for con in nm_client.get_connections():
+        con_dumps.append(str(con.to_dbus(NM.ConnectionSerializationFlags.NO_SECRETS)))
+    return "\n".join(con_dumps)

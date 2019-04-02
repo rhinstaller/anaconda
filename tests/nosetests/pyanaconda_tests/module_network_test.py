@@ -18,17 +18,23 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 import unittest
-from mock import Mock
+from unittest.mock import patch, Mock
 
 from pyanaconda.core.constants import FIREWALL_DEFAULT, FIREWALL_ENABLED, \
         FIREWALL_DISABLED, FIREWALL_USE_SYSTEM_DEFAULTS
+from pyanaconda.modules.common.task import TaskInterface
 from pyanaconda.modules.common.constants.services import NETWORK
 from pyanaconda.modules.common.constants.objects import FIREWALL
 from pyanaconda.modules.network.network import NetworkModule
 from pyanaconda.modules.network.network_interface import NetworkInterface
+from pyanaconda.modules.network.installation import NetworkInstallationTask
 from pyanaconda.modules.network.firewall.firewall import FirewallModule
 from pyanaconda.modules.network.firewall.firewall_interface import FirewallInterface
 from tests.nosetests.pyanaconda_tests import check_kickstart_interface, check_dbus_property
+from pyanaconda.dbus.typing import *  # pylint: disable=wildcard-import
+from pyanaconda.modules.network.initialization import ApplyKickstartTask, \
+    SetRealOnbootValuesFromKickstartTask, DumpMissingIfcfgFilesTask, \
+    ConsolidateInitramfsConnectionsTask
 
 import gi
 gi.require_version("NM", "1.0")
@@ -47,6 +53,15 @@ class MockedNMClient():
     def get_state(self):
         return self.state
 
+class MockedSimpleIfcfgFileGetter():
+    def __init__(self, values):
+        self.values = {}
+        for key, value in values:
+            self.values[key] = value
+    def get(self, key):
+        return self.values.get(key, "")
+    def read(self):
+        pass
 
 class NetworkInterfaceTestCase(unittest.TestCase):
     """Test DBus interface for the Network module."""
@@ -66,13 +81,21 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.network_interface.KickstartCommands, ["network", "firewall"])
         self.assertEqual(self.network_interface.KickstartSections, [])
         self.assertEqual(self.network_interface.KickstartAddons, [])
-        self.callback.assert_not_called()
+
+    def _test_dbus_property(self, *args, **kwargs):
+        check_dbus_property(
+            self,
+            NETWORK,
+            self.network_interface,
+            *args, **kwargs
+        )
 
     def hostname_property_test(self):
         """Test the hostname property."""
-        self.network_interface.SetHostname("dot.dot")
-        self.assertEqual(self.network_interface.Hostname, "dot.dot")
-        self.callback.assert_called_once_with(NETWORK.interface_name, {'Hostname': "dot.dot"}, [])
+        self._test_dbus_property(
+            "Hostname",
+            "dot.dot",
+        )
 
     def get_current_hostname_test(self):
         """Test getting current hostname does not fail."""
@@ -125,6 +148,313 @@ class NetworkInterfaceTestCase(unittest.TestCase):
         self.network_module.nm_client = None
         self.assertTrue(self.network_interface.Connected)
         self.assertFalse(self.network_interface.IsConnecting())
+
+    def create_device_configurations_test(self):
+        """Test creating device configurations does not fail."""
+        self.network_interface.CreateDeviceConfigurations()
+
+    def get_device_configurations_test(self):
+        """Test GetDeviceConfigurations."""
+        self.assertListEqual(self.network_interface.GetDeviceConfigurations(), [])
+
+    def network_device_configuration_changed_test(self):
+        """Test NetworkDeviceConfigurationChanged."""
+        self.network_interface.NetworkDeviceConfigurationChanged()
+
+    def get_dracut_arguments_test(self):
+        """Test GetDracutArguments."""
+        self.assertListEqual(
+            self.network_interface.GetDracutArguments("ens3", "10.10.10.10", ""), []
+        )
+
+    def log_configuration_state_test(self):
+        """Test LogConfigurationState."""
+        self.network_interface.LogConfigurationState("message")
+
+    @patch('pyanaconda.modules.network.network.find_ifcfg_uuid_of_device',
+           return_value="mocked_uuid")
+    @patch('pyanaconda.modules.network.network.devices_ignore_ipv6', return_value=True)
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def install_network_with_task_test(self, publisher, devices_ignore_ipv6,
+                                       find_ifcfg_uuid_of_device):
+        """Test InstallNetworkWithTask."""
+        self.network_module._hostname = "my_hostname"
+        self.network_module._disable_ipv6 = True
+        self.network_module.nm_client = Mock()
+        self.__mock_nm_client_devices(
+            [
+                ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET),
+                ("ens4", "44:44:44:44:44:44", "44:44:44:44:44:44", NM.DeviceType.ETHERNET),
+                ("ens5", "55:55:55:55:55:55", "55:55:55:55:55:55", NM.DeviceType.ETHERNET)
+            ]
+        )
+        self.network_module._should_apply_onboot_policy = Mock(return_value=True)
+        self.network_module._has_any_onboot_yes_device = Mock(return_value=False)
+        self.network_module._get_onboot_ifaces_by_policy = Mock(return_value=["ens4"])
+
+        task_path = self.network_interface.InstallNetworkWithTask(
+            "/mnt/sysimage",
+            ["ens3"],
+            False,
+        )
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, NetworkInstallationTask)
+        self.assertEqual(obj.implementation._sysroot, "/mnt/sysimage")
+        self.assertEqual(obj.implementation._hostname, "my_hostname")
+        self.assertEqual(obj.implementation._disable_ipv6, True)
+        self.assertEqual(obj.implementation._overwrite, False)
+        self.assertEqual(obj.implementation._onboot_yes_uuids, ["mocked_uuid", "mocked_uuid"])
+        self.assertEqual(obj.implementation._network_ifaces, ["ens3", "ens4", "ens5"])
+
+        self.assertSetEqual(set(self.network_module._onboot_yes_ifaces), set(["ens3", "ens4"]))
+
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    def _mock_supported_devices(self, devices_attributes):
+        ret_val = []
+        for dev_name, dev_hwaddr, dev_type in devices_attributes:
+            dev = Mock()
+            dev.device_name = dev_name
+            dev.device_hwaddress = dev_hwaddr
+            dev.device_type = dev_type
+            ret_val.append(dev)
+        self.network_module.get_supported_devices = Mock(return_value=ret_val)
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def consolidate_initramfs_connections_with_task_test(self, publisher):
+        """Test ConsolidateInitramfsConnectionsWithTask."""
+        task_path = self.network_interface.ConsolidateInitramfsConnectionsWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, ConsolidateInitramfsConnectionsTask)
+
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def apply_kickstart_with_task_test(self, publisher):
+        """Test ApplyKickstartWithTask."""
+        self._mock_supported_devices([("ens3", "", 0)])
+        task_path = self.network_interface.ApplyKickstartWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, ApplyKickstartTask)
+
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def set_real_onboot_values_from_kickstart_with_task_test(self, publisher):
+        """Test SetRealOnbootValuesFromKickstartWithTask."""
+        self._mock_supported_devices([("ens3", "", 0)])
+        task_path = self.network_interface.SetRealOnbootValuesFromKickstartWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, SetRealOnbootValuesFromKickstartTask)
+
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    @patch('pyanaconda.dbus.DBus.publish_object')
+    def dump_missing_ifcfg_files_with_task_test(self, publisher):
+        """Test DumpMissingIfcfgFilesWithTask."""
+        task_path = self.network_interface.DumpMissingIfcfgFilesWithTask()
+
+        publisher.assert_called_once()
+        object_path, obj = publisher.call_args[0]
+
+        self.assertEqual(task_path, object_path)
+        self.assertIsInstance(obj, TaskInterface)
+
+        self.assertIsInstance(obj.implementation, DumpMissingIfcfgFilesTask)
+
+        self.network_module.log_task_result = Mock()
+
+        obj.implementation.succeeded_signal.emit()
+        self.network_module.log_task_result.assert_called_once()
+
+    def __mock_nm_client_devices(self, device_specs):
+        """Mock NM Client devices obtained by get_devices() method.
+        :param device_specs: list of specifications of devices which are tuples
+                             (DEVICE_NAME, PERMANENT_HWADDRESS, HWADDRESS, DEVICE_TYPE)
+                             None value of PERMANENT_HWADDRESS means raising Attribute exception
+        :type device_specs: list(tuple(str, str, str, int))
+        """
+        ret_val = []
+        for name, perm_hw, hw, dtype in device_specs:
+            dev = Mock()
+            dev.get_iface.return_value = name
+            dev.get_device_type.return_value = dtype
+            dev.get_hw_address.return_value = hw
+            if perm_hw:
+                dev.get_permanent_hw_address.return_value = perm_hw
+            else:
+                dev.get_permanent_hw_address = Mock(side_effect=AttributeError('mocking no permanent hw address'))
+            ret_val.append(dev)
+        self.network_module.nm_client.get_devices.return_value = ret_val
+
+    def get_supported_devices_test(self):
+        """Test GetSupportedDevices."""
+        # No NM available
+        self.network_module.nm_client = None
+        self.assertEqual(
+            self.network_interface.GetSupportedDevices(),
+            []
+        )
+
+        # Mocked NM
+        self.network_module.nm_client = Mock()
+        self.__mock_nm_client_devices(
+            [
+                ("ens3", "33:33:33:33:33:33", "33:33:33:33:33:33", NM.DeviceType.ETHERNET),
+                ("ens4", "44:44:44:44:44:44", "44:44:44:44:44:44", NM.DeviceType.ETHERNET),
+                # Permanent address is preferred
+                ("ens5", "55:55:55:55:55:55", "FF:FF:FF:FF:FF:FF", NM.DeviceType.ETHERNET),
+                # Virtual devices don't have permanent hw address
+                ("team0", None, "33:33:33:33:33:33", NM.DeviceType.TEAM)
+            ]
+        )
+
+        devs_infos = self.network_interface.GetSupportedDevices()
+        self.assertDictEqual(
+            devs_infos[0],
+            {
+                'device-name': get_variant(Str, "ens3"),
+                'hw-address': get_variant(Str, "33:33:33:33:33:33"),
+                'device-type': get_variant(Int, NM.DeviceType.ETHERNET)
+            }
+        )
+        self.assertDictEqual(
+            devs_infos[1],
+            {
+                'device-name': get_variant(Str, "ens4"),
+                'hw-address': get_variant(Str, "44:44:44:44:44:44"),
+                'device-type': get_variant(Int, NM.DeviceType.ETHERNET)
+            }
+        )
+        self.assertDictEqual(
+            devs_infos[2],
+            {
+                'device-name': get_variant(Str, "ens5"),
+                'hw-address': get_variant(Str, "55:55:55:55:55:55"),
+                'device-type': get_variant(Int, NM.DeviceType.ETHERNET)
+            }
+        )
+        self.assertDictEqual(
+            devs_infos[3],
+            {
+                'device-name': get_variant(Str, "team0"),
+                'hw-address': get_variant(Str, "33:33:33:33:33:33"),
+                'device-type': get_variant(Int, NM.DeviceType.TEAM)
+            }
+        )
+
+    def set_connection_onboot_value_test(self):
+        """Test SetConnectionOnbootValue."""
+        self.network_interface.SetConnectionOnbootValue(
+            "ddc991d3-a495-4f24-9416-30a6fae01469",
+            False
+        )
+
+    @patch('pyanaconda.modules.network.network.get_ifcfg_file')
+    def get_connection_onboot_value_test(self, get_ifcfg_file):
+        """Test GetConnectionOnbootValue."""
+        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "yes")])
+        self.assertEqual(
+            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
+            True
+        )
+        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([])
+        self.assertEqual(
+            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
+            True
+        )
+        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "no")])
+        self.assertEqual(
+            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
+            False
+        )
+        get_ifcfg_file.return_value = MockedSimpleIfcfgFileGetter([('ONBOOT', "whatever")])
+        self.assertEqual(
+            self.network_interface.GetConnectionOnbootValue("ddc991d3-a495-4f24-9416-30a6fae01469"),
+            True
+        )
+
+    def _mock_nm_active_connections(self, connection_specs):
+        active_connections = []
+        for activated, ifaces in connection_specs:
+            con = Mock()
+            if activated:
+                con.get_state.return_value = NM.ActiveConnectionState.ACTIVATED
+            devs = []
+            for iface in ifaces:
+                dev = Mock()
+                dev.get_ip_iface.return_value = iface
+                dev.get_iface.return_value = iface
+                devs.append(dev)
+            con.get_devices.return_value = devs
+            active_connections.append(con)
+        self.network_module.nm_client.get_active_connections.return_value = active_connections
+
+    def get_activated_interfaces_test(self):
+        """Test GetActivatedInterfaces."""
+        # No NM available
+        self.network_module.nm_client = None
+        self.assertEqual(
+            self.network_interface.GetActivatedInterfaces(),
+            []
+        )
+
+        # Mocked NM
+        self.network_module.nm_client = Mock()
+        self._mock_nm_active_connections(
+            [
+                (True, ["ens3"]),
+                # Slave of bond0
+                (True, ["ens5"]),
+                # Slave of bond0
+                (True, ["ens7"]),
+                (True, ["bond0"]),
+                (False, ["ens11"]),
+                # Not sure if/when this can happen, but we have been supporting it
+                (True, ["devA", "devB"]),
+                (True, [])
+            ]
+        )
+        self.assertListEqual(
+            self.network_interface.GetActivatedInterfaces(),
+            ["ens3", "ens5", "ens7", "bond0", "devA", "devB"]
+        )
 
     def _test_kickstart(self, ks_in, ks_out):
         check_kickstart_interface(self, self.network_interface, ks_in, ks_out)

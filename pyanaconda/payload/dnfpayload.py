@@ -573,7 +573,7 @@ class DNFPayload(payload.PackagePayload):
                 e.error_pkg_specs or \
                 e.module_debsolv_errors
             if not transaction_broken and self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.info("ignoring missing package/group/module specs due to --ingoremissing flag "
+                log.info("ignoring missing package/group/module specs due to --ignoremissing flag "
                          "in kickstart")
             else:
                 self._payload_setup_error(e)
@@ -908,14 +908,17 @@ class DNFPayload(payload.PackagePayload):
         """
         self._updates_enabled = state
 
+        # Enable or disable updates.
         if self._updates_enabled:
             self.enable_repo("updates")
-            if not constants.isFinal:
-                self.enable_repo("updates-testing")
+            self.enable_repo("updates-modular")
         else:
             self.disable_repo("updates")
-            if not constants.isFinal:
-                self.disable_repo("updates-testing")
+            self.disable_repo("updates-modular")
+
+        # Disable updates-testing.
+        self.disable_repo("updates-testing")
+        self.disable_repo("updates-testing-modular")
 
     def disable_repo(self, repo_id):
         try:
@@ -1138,7 +1141,7 @@ class DNFPayload(payload.PackagePayload):
         # to use that instead of the default repos.
         self._base.read_all_repos()
 
-        # If setup updates/updates-testing
+        # Enable or disable updates.
         self.set_updates_enabled(self._updates_enabled)
 
         # Repos on disk are always enabled. When reloaded their state needs to

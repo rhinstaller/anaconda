@@ -292,9 +292,6 @@ if __name__ == "__main__":
     conf.set_from_product(opts.product_name, opts.variant_name)
     conf.set_from_opts(opts)
 
-    from pyanaconda import network
-    network.setup_ifcfg_log()
-
     log = anaconda_loggers.get_main_logger()
     stdout_log = anaconda_loggers.get_stdout_logger()
 
@@ -587,13 +584,13 @@ if __name__ == "__main__":
     # Now that LANG is set, do something with it
     localization.setup_locale(os.environ["LANG"], localization_proxy, text_mode=anaconda.tui_mode)
 
-    from pyanaconda.storage.initialization import enable_installer_mode, initialize_storage
+    from pyanaconda.storage.initialization import enable_installer_mode, reset_storage
     enable_installer_mode()
 
     # Initialize the network now, in case the display needs it
-    from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread, wait_for_connected_NM
+    from pyanaconda.network import initialize_network, wait_for_connecting_NM_thread, wait_for_connected_NM
 
-    networkInitialize(ksdata)
+    initialize_network()
     # If required by user, wait for connection before starting the installation.
     if opts.waitfornet:
         log.info("network: waiting for connectivity requested by inst.waitfornet=%d", opts.waitfornet)
@@ -649,24 +646,27 @@ if __name__ == "__main__":
         min_ram = isys.MIN_RAM
 
     from pyanaconda.storage.checker import storage_checker
-
     storage_checker.add_constraint(constants.STORAGE_MIN_RAM, min_ram)
 
-    from pyanaconda.argument_parsing import name_path_pairs
+    # Add a check for the snapshot requests.
+    storage_checker.add_check(ksdata.snapshot.verify_requests)
 
-    image_count = 0
+    # Set the disk images.
+    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
+    from pyanaconda.argument_parsing import name_path_pairs
+    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+    disk_images = {}
+
     try:
         for (name, path) in name_path_pairs(opts.images):
             log.info("naming disk image '%s' '%s'", path, name)
-            anaconda.storage.disk_images[name] = path
-            image_count += 1
+            disk_images[name] = path
     except ValueError as e:
         stdout_log.error("error specifying image file: %s", e)
         util.ipmi_abort(scripts=ksdata.scripts)
         sys.exit(1)
 
-    if image_count:
-        anaconda.storage.setup_disk_images()
+    disk_select_proxy.SetDiskImages(disk_images)
 
     # Ignore disks labeled OEMDRV
     from pyanaconda.storage.utils import ignore_oemdrv_disks
@@ -677,12 +677,9 @@ if __name__ == "__main__":
     ignore_nvdimm_blockdevs()
 
     # Specify protected devices.
-    protected_devices = anaconda.get_protected_devices(opts)
-    anaconda.storage.config.protected_dev_specs.extend(protected_devices)
-
     from pyanaconda.modules.common.constants.services import STORAGE
-    from pyanaconda.modules.common.constants.objects import DISK_SELECTION
-    disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
+
+    protected_devices = anaconda.get_protected_devices(opts)
     disk_select_proxy.SetProtectedDevices(protected_devices)
 
     from pyanaconda.payload.manager import payloadMgr
@@ -690,7 +687,7 @@ if __name__ == "__main__":
 
     if not conf.target.is_directory:
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE,
-                                     target=initialize_storage,
+                                     target=reset_storage,
                                      args=(anaconda.storage, )))
 
     from pyanaconda.modules.common.constants.services import TIMEZONE
@@ -773,10 +770,6 @@ if __name__ == "__main__":
 
         # Run the tasks.
         with check_kickstart_error():
-
-            from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
-            SnapshotValidateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
-
             from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
             SnapshotCreateTask(anaconda.storage, requests, SNAPSHOT_WHEN_PRE_INSTALL).run()
 

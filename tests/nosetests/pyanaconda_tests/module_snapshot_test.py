@@ -29,7 +29,6 @@ from pyanaconda.modules.storage.snapshot import SnapshotModule
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.modules.storage.snapshot.device import get_snapshot_device
 from pyanaconda.modules.storage.snapshot.snapshot_interface import SnapshotInterface
-from pyanaconda.modules.storage.snapshot.validate import SnapshotValidateTask
 
 
 class SnapshotInterfaceTestCase(unittest.TestCase):
@@ -59,26 +58,6 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.assertEqual(self.interface.IsRequested(SNAPSHOT_WHEN_POST_INSTALL), True)
 
     @patch('pyanaconda.dbus.DBus.publish_object')
-    def validate_with_task_test(self, publisher):
-        """Test ValidateWithTask."""
-        with self.assertRaises(UnavailableStorageError):
-            self.interface.ValidateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
-
-        self.module.on_storage_reset(Mock())
-        task_path = self.interface.ValidateWithTask(SNAPSHOT_WHEN_POST_INSTALL)
-
-        publisher.assert_called_once()
-        object_path, obj = publisher.call_args[0]
-
-        self.assertEqual(task_path, object_path)
-        self.assertIsInstance(obj, TaskInterface)
-
-        self.assertIsInstance(obj.implementation, SnapshotValidateTask)
-        self.assertEqual(obj.implementation._storage, self.module.storage)
-        self.assertEqual(obj.implementation._requests, [])
-        self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_POST_INSTALL)
-
-    @patch('pyanaconda.dbus.DBus.publish_object')
     def create_with_task_test(self, publisher):
         """Test CreateWithTask."""
         with self.assertRaises(UnavailableStorageError):
@@ -97,6 +76,24 @@ class SnapshotInterfaceTestCase(unittest.TestCase):
         self.assertEqual(obj.implementation._storage, self.module.storage)
         self.assertEqual(obj.implementation._requests, [])
         self.assertEqual(obj.implementation._when, SNAPSHOT_WHEN_PRE_INSTALL)
+
+    @patch('pyanaconda.modules.storage.snapshot.snapshot.get_snapshot_device')
+    def verify_requests_test(self, device_getter):
+        """Test the verify_requests method."""
+        report_error = Mock()
+        report_warning = Mock()
+        self.module._requests = [Mock(when=SNAPSHOT_WHEN_POST_INSTALL)]
+
+        # Test passing check.
+        self.module.verify_requests(Mock(), Mock(), report_error, report_warning)
+        report_error.assert_not_called()
+        report_warning.assert_not_called()
+
+        # Test failing check.
+        device_getter.side_effect = KickstartParseError("Fake error")
+        self.module.verify_requests(Mock(), Mock(), report_error, report_warning)
+        report_error.assert_called_once_with("Fake error")
+        report_warning.assert_not_called()
 
 
 class SnapshotTasksTestCase(unittest.TestCase):
@@ -119,15 +116,6 @@ class SnapshotTasksTestCase(unittest.TestCase):
         request = Mock(name="post-snapshot", origin="fedora/root")
         self.assertEqual(get_snapshot_device(request, devicetree), device)
 
-    @patch('pyanaconda.modules.storage.snapshot.validate.get_snapshot_device')
-    def validation_test(self, device_getter):
-        """Test the validation task."""
-        SnapshotValidateTask(Mock(), [], SNAPSHOT_WHEN_PRE_INSTALL).run()
-        device_getter.assert_not_called()
-
-        SnapshotValidateTask(Mock(), [Mock()], SNAPSHOT_WHEN_POST_INSTALL).run()
-        device_getter.called_once()
-
     @patch('pyanaconda.modules.storage.snapshot.create.get_snapshot_device')
     def creation_test(self, device_getter):
         """Test the creation task."""
@@ -135,4 +123,4 @@ class SnapshotTasksTestCase(unittest.TestCase):
         device_getter.assert_not_called()
 
         SnapshotCreateTask(Mock(), [Mock()], SNAPSHOT_WHEN_POST_INSTALL).run()
-        device_getter.called_once()
+        device_getter.assert_called_once()

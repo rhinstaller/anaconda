@@ -16,7 +16,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.core.i18n import _
@@ -25,26 +24,26 @@ from blivet.deviceaction import ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE, ACTION_
 
 __all__ = ["ActionSummaryDialog"]
 
+
 class ActionSummaryDialog(GUIObject):
     builderObjects = ["actionStore", "summaryDialog"]
     mainWidgetName = "summaryDialog"
     uiFile = "spokes/lib/summary.glade"
 
-    def __init__(self, data):
+    def __init__(self, data, actions):
         super().__init__(data)
         self._store = self.builder.get_object("actionStore")
 
-    # pylint: disable=arguments-differ
-    def initialize(self, actions):
         for (i, action) in enumerate(actions, start=1):
             mountpoint = ""
 
             if action.type in [ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE]:
-                typeString = """<span foreground='red'>%s</span>""" % \
+                action_type = """<span foreground='red'>%s</span>""" % \
                         escape_markup(action.type_desc.title())
             else:
-                typeString = """<span foreground='green'>%s</span>""" % \
+                action_type = """<span foreground='green'>%s</span>""" % \
                         escape_markup(action.type_desc.title())
+
                 if action.obj == ACTION_OBJECT_FORMAT:
                     mountpoint = getattr(action.device.format, "mountpoint", "")
 
@@ -61,18 +60,11 @@ class ActionSummaryDialog(GUIObject):
                 serial = action.device.serial
 
             self._store.append([i,
-                                typeString,
+                                action_type,
                                 action.object_type_string,
                                 desc,
                                 mountpoint,
                                 serial])
-
-    # pylint: disable=arguments-differ
-    def refresh(self, actions):
-        super().refresh()
-
-        self._store.clear()
-        self.initialize(actions)
 
     def run(self):
         rc = self.window.run()

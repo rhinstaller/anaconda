@@ -23,8 +23,7 @@ from blivet.devices import BTRFSDevice
 
 from pyanaconda.core.configuration.anaconda import conf
 from pyanaconda.core.constants import BOOTLOADER_DISABLED
-from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, \
-    MANUAL_PARTITIONING, SNAPSHOT
+from pyanaconda.modules.common.constants.objects import BOOTLOADER, AUTO_PARTITIONING, SNAPSHOT
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.storage.snapshot.create import SnapshotCreateTask
 from pyanaconda.storage.kickstart import update_storage_ksdata
@@ -59,13 +58,13 @@ class WriteResolvConfTask(Task):
     """
 
     def run_task(self):
-        """Resolve the sysroot path only right before doing the copy operatio.
+        """Resolve the sysroot path only right before doing the copy operation.
 
         If we just added the sysroot path as an argument, it would be resolved when the
         task queue was created, not when the task is actually executed, which could
         theoretically result in an incorrect path.
         """
-        network.copyFileToPath("/etc/resolv.conf", util.getSysroot())
+        network.copy_resolv_conf_to_root(util.getSysroot())
 
 
 def _writeKS(ksdata):
@@ -264,13 +263,10 @@ def doInstall(storage, payload, ksdata):
     # So let's have two task queues - early storage & late storage.
     early_storage = TaskQueue("Early storage configuration", N_("Configuring storage"))
 
-    # put custom storage info into ksdata, but not if just assigning mount points
-    manual_part_proxy = STORAGE.get_proxy(MANUAL_PARTITIONING)
-
-    if not manual_part_proxy.Enabled:
-        early_storage.append(Task("Insert custom storage to ksdata",
-                                  task=update_storage_ksdata,
-                                  task_args=(storage, ksdata)))
+    # put custom storage info into ksdata
+    early_storage.append(Task("Insert custom storage to ksdata",
+                              task=update_storage_ksdata,
+                              task_args=(storage, ksdata)))
 
     # callbacks for blivet
     message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
@@ -319,7 +315,7 @@ def doInstall(storage, payload, ksdata):
     if conf.system.provides_resolver_config:
         # we use a custom Task subclass as the sysroot path has to be resolved
         # only when the task is actually started, not at task creation time
-        pre_install.append(WriteResolvConfTask("Copy /resolv.conf to sysroot"))
+        pre_install.append(WriteResolvConfTask("Copy resolv.conf to sysroot"))
 
     def run_pre_install():
         """This means to gather what additional packages (if any) are needed & executing payload.pre_install()."""
@@ -335,6 +331,9 @@ def doInstall(storage, payload, ksdata):
 
         if can_install_bootloader:
             payload.requirements.add_packages(storage.bootloader.packages, reason="bootloader")
+        if flags.flags.cmdline.getbool("fips"):
+            payload.requirements.add_packages(['/usr/bin/fips-mode-setup'], reason="bootloader")
+
         payload.requirements.add_groups(payload.language_groups(), reason="language groups")
         payload.requirements.add_packages(payload.langpacks(), reason="langpacks", strong=False)
         payload.pre_install()

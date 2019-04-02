@@ -17,7 +17,6 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pyanaconda.bootloader.installation import configure_boot_loader, install_boot_loader
 from pyanaconda.modules.common.task import Task
 from pyanaconda.storage.installation import turn_on_filesystems, write_storage_configuration
 
@@ -74,43 +73,3 @@ class WriteConfigurationTask(Task):
     def run(self):
         """Mount the filesystems."""
         write_storage_configuration(self._storage, sysroot=self._sysroot)
-
-
-class ConfigureBootloaderTask(Task):
-    """Installation task for the boot loader configuration."""
-
-    def __init__(self, storage, kernel_versions, sysroot):
-        """Create a new task."""
-        super().__init__()
-        self._storage = storage
-        self._versions = kernel_versions
-        self._sysroot = sysroot
-
-    @property
-    def name(self):
-        return "Configure the boot loader"
-
-    def run(self):
-        """Run the task."""
-        configure_boot_loader(
-            sysroot=self._sysroot,
-            storage=self._storage,
-            kernel_versions=self._versions
-        )
-
-
-class InstallBootloaderTask(Task):
-    """Installation task for the boot loader."""
-
-    def __init__(self, storage):
-        """Create a new task."""
-        super().__init__()
-        self._storage = storage
-
-    @property
-    def name(self):
-        return "Install the boot loader"
-
-    def run(self):
-        """Run the task."""
-        install_boot_loader(storage=self._storage)
