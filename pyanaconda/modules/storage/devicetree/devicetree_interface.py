@@ -68,3 +68,10 @@ class DeviceTreeInterface(InterfaceTemplate):
         :raise: UnknownDeviceError if the device is not found
         """
         return get_structure(self.implementation.get_device_data(name))
+
+    def GetActions(self) -> List[Structure]:
+        """Get the device actions.
+
+        :return: a list of structures with device action data
+        """
+        return list(map(get_structure, self.implementation.get_actions()))

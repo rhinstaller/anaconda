@@ -36,9 +36,14 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
         self.module = StorageModule()
         self.interface = DeviceTreeInterface(self.module)
 
+    @property
+    def storage(self):
+        """Get the storage object."""
+        return self.module.storage
+
     def _add_device(self, device):
         """Add a device to the device tree."""
-        self.module.storage.devicetree._add_device(device)
+        self.storage.devicetree._add_device(device)
 
     def get_root_device_test(self):
         """Test GetRootDevice."""
@@ -102,13 +107,17 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             'path': get_variant(Str, '/dev/dev1'),
             'size': get_variant(UInt64, Size("10 MiB").get_bytes()),
             'is-disk': get_variant(Bool, True),
+            'parents': get_variant(List[Str], []),
             'attrs': get_variant(Dict[Str, Str], {
                 "serial": "SERIAL_ID",
                 "vendor": "VENDOR_ID",
                 "model": "MODEL_ID",
                 "bus": "BUS_ID",
                 "wwn": "0x0000000000000000",
-            })
+            }),
+            'description': get_variant(
+                Str, "VENDOR_ID MODEL_ID 0x0000000000000000"
+            )
         })
 
     def get_unknown_device_data_test(self):
@@ -125,16 +134,9 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             opts={}
         ))
 
-        self.assertEqual(self.interface.GetDeviceData("dev1"), {
-            'type': get_variant(Str, 'dasd'),
-            'name': get_variant(Str, 'dev1'),
-            'path': get_variant(Str, '/dev/dev1'),
-            'size': get_variant(UInt64, 0),
-            'is-disk': get_variant(Bool, True),
-            'attrs': get_variant(Dict[Str, Str], {
-                "busid": "0.0.0201"
-            }),
-        })
+        data = self.interface.GetDeviceData("dev1")
+        self.assertEqual(data['type'], get_variant(Str, 'dasd'))
+        self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {"busid": "0.0.0201"}))
 
     def get_zfcp_device_data_test(self):
         """Test GetDeviceData for zFCP."""
@@ -146,15 +148,30 @@ class DeviceTreeInterfaceTestCase(unittest.TestCase):
             hba_id="0.0.010a"
         ))
 
-        self.assertEqual(self.interface.GetDeviceData("dev1"), {
-            'type': get_variant(Str, 'zfcp'),
-            'name': get_variant(Str, 'dev1'),
-            'path': get_variant(Str, '/dev/dev1'),
-            'size': get_variant(UInt64, 0),
-            'is-disk': get_variant(Bool, True),
-            'attrs': get_variant(Dict[Str, Str], {
-                "fcp_lun": "0x5719000000000000",
-                "wwpn": "0x5005076300c18154",
-                "hba_id": "0.0.010a"
-            }),
-        })
+        data = self.interface.GetDeviceData("dev1")
+        self.assertEqual(data['type'], get_variant(Str, 'zfcp'))
+        self.assertEqual(data['attrs'], get_variant(Dict[Str, Str], {
+            "fcp_lun": "0x5719000000000000",
+            "wwpn": "0x5005076300c18154",
+            "hba_id": "0.0.010a"
+        }))
+
+    def get_actions_test(self):
+        """Test GetActions."""
+        self.assertEqual(self.interface.GetActions(), [])
+
+        self._add_device(DiskDevice(
+            "dev1",
+            fmt=get_format("ext4"),
+            size=Size("10 MiB"),
+        ))
+
+        device = self.storage.devicetree.get_device_by_name("dev1")
+        self.storage.destroy_device(device)
+
+        self.assertEqual(self.interface.GetActions(), [{
+            'action-type': get_variant(Str, 'destroy'),
+            'action-object': get_variant(Str, 'device'),
+            'device-name': get_variant(Str, 'dev1'),
+            'description': get_variant(Str, 'destroy device'),
+        }])

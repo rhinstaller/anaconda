@@ -87,8 +87,13 @@ class NVDIMMTasksTestCase(unittest.TestCase):
     @patch("pyanaconda.modules.storage.nvdimm.reconfigure.nvdimm")
     def reconfiguration_test(self, nvdimm):
         """Test the reconfiguration test."""
-        NVDIMMReconfigureTask("namespace0.0", "sector", 512).run()
-        nvdimm.reconfigure_namespace.called_once_with("namespace0.0", "sector", 512)
+        NVDIMMReconfigureTask(
+            "namespace0.0", "sector", sector_size=512
+        ).run()
+
+        nvdimm.reconfigure_namespace.assert_called_once_with(
+            "namespace0.0", "sector", sector_size=512
+        )
 
 
 class NVDIMMKickstartTestCase(unittest.TestCase):

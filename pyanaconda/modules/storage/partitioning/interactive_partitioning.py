@@ -17,6 +17,7 @@
 #
 from blivet.devicefactory import SIZE_POLICY_AUTO
 
+from pyanaconda.bootloader.execution import setup_bootloader
 from pyanaconda.modules.storage.partitioning.automatic_partitioning import \
     AutomaticPartitioningTask
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
@@ -30,10 +31,16 @@ class InteractivePartitioningTask(PartitioningTask):
     def _run(self, storage):
         """Only set up the bootloader."""
         self._prepare_bootloader(storage)
+        self._organize_actions(storage)
 
     def _prepare_bootloader(self, storage):
         """Prepare the bootloader."""
-        storage.set_up_bootloader()
+        setup_bootloader(storage)
+
+    def _organize_actions(self, storage):
+        """Prune and sort the scheduled actions."""
+        storage.devicetree.actions.prune()
+        storage.devicetree.actions.sort()
 
 
 class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):
@@ -41,16 +48,15 @@ class InteractiveAutoPartitioningTask(AutomaticPartitioningTask):
 
     def _run(self, storage):
         """Do the partitioning."""
-        self._prepare_bootloader(storage)
-        self._configure_partitioning(storage)
+        super()._run(storage)
         self._update_size_policy(storage)
 
-    def _prepare_bootloader(self, storage):
-        """Prepare the bootloader.
+    def _clear_partitions(self, storage):
+        """Nothing to clear.
 
-        Autopart needs stage1_disk setup so it will reuse existing partitions.
+        The partitions should be already cleared by the user.
         """
-        storage.set_up_bootloader(early=True)
+        pass
 
     def _update_size_policy(self, storage):
         """Update the size policy of new devices.

@@ -48,6 +48,7 @@ from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION, BOO
 from pyanaconda.modules.common.constants.services import STORAGE
 from pyanaconda.modules.common.errors.configuration import BootloaderConfigurationError, \
     StorageConfigurationError
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.interactive_partitioning import \
     InteractiveAutoPartitioningTask
 from pyanaconda.platform import platform
@@ -1752,10 +1753,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # And then display the summary screen.  From there, the user will either
         # head back to the hub, or stay on the custom screen.
-        self._storage_playground.devicetree.actions.prune()
-        self._storage_playground.devicetree.actions.sort()
-
-
         # If back has been clicked on once already and no other changes made on the screen,
         # run the storage check now.  This handles displaying any errors in the info bar.
         if not self._back_already_clicked:
@@ -1786,9 +1783,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
             if not self._do_check():
                 return
 
-        if len(self._storage_playground.devicetree.actions.find()) > 0:
-            dialog = ActionSummaryDialog(self.data)
-            dialog.refresh(self._storage_playground.devicetree.actions.find())
+        actions = self._storage_playground.devicetree.actions.find()
+
+        if actions:
+            dialog = ActionSummaryDialog(self.data, actions)
+            dialog.refresh()
+
             with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
@@ -1974,9 +1974,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageCheckHandler):
 
         # If we've just removed the last partition and the disklabel is pre-
         # existing, reinitialize the disk.
-        if device.type == "partition" and device.exists and \
-           device.disk.format.exists:
-            if self._storage_playground.should_clear(device.disk):
+        if device.type == "partition" and device.exists and device.disk.format.exists:
+            config = DiskInitializationConfig()
+            if config.can_initialize(self._storage_playground, device.disk):
                 self._storage_playground.initialize_disk(device.disk)
 
         self._devices = self._storage_playground.devices

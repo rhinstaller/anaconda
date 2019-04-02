@@ -30,7 +30,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.tuiobject import Dialog, PasswordDialog
 from pyanaconda.storage.utils import get_supported_filesystems, get_supported_autopart_choices, \
-    get_available_disks, filter_disks_by_names, apply_disk_selection, check_disk_selection, \
+    filter_disks_by_names, apply_disk_selection, check_disk_selection, \
     get_disks_summary
 from pyanaconda.storage.execution import configure_storage
 from pyanaconda.storage.checker import storage_checker
@@ -51,8 +51,8 @@ from pyanaconda.core.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, \
     MOUNT_POINT_REFORMAT, MOUNT_POINT_PATH, MOUNT_POINT_DEVICE, MOUNT_POINT_FORMAT, \
     WARNING_NO_DISKS_DETECTED, WARNING_NO_DISKS_SELECTED
 from pyanaconda.core.i18n import _, N_, C_
-from pyanaconda.storage.initialization import reset_bootloader, update_storage_config, \
-    reset_storage, select_all_disks_by_default
+from pyanaconda.storage.initialization import reset_bootloader, reset_storage, \
+    select_all_disks_by_default
 
 from pykickstart.base import BaseData
 
@@ -401,13 +401,7 @@ class StorageSpoke(NormalTUISpoke):
     def apply(self):
         self._auto_part_enabled = self._auto_part_observer.proxy.Enabled
 
-        for disk in self._available_disks:
-            if disk.name not in self._selected_disks and \
-               disk in self.storage.devices:
-                self.storage.devicetree.hide(disk)
-            elif disk.name in self._selected_disks and \
-                 disk not in self.storage.devices:
-                self.storage.devicetree.unhide(disk)
+        self.storage.select_disks(self._selected_disks)
 
         self._bootloader_observer.proxy.SetPreferredLocation(BOOTLOADER_LOCATION_MBR)
         boot_drive = self._bootloader_observer.proxy.Drive
@@ -416,13 +410,6 @@ class StorageSpoke(NormalTUISpoke):
             reset_bootloader(self.storage)
 
         apply_disk_selection(self.storage, self._selected_disks)
-        update_storage_config(self.storage.config)
-
-        # If autopart is selected we want to remove whatever has been
-        # created/scheduled to make room for autopart.
-        # If custom is selected, we want to leave alone any storage layout the
-        # user may have set up before now.
-        self.storage.config.clear_non_existent = self._auto_part_observer.proxy.Enabled
 
     def execute(self):
         print(_("Generating updated storage configuration"))
@@ -488,7 +475,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def update_disks(self):
         threadMgr.wait(THREAD_STORAGE)
-        self._available_disks = get_available_disks(self.storage.devicetree)
+        self._available_disks = self.storage.usable_disks
 
         # if only one disk is available, go ahead and mark it as selected
         if len(self._available_disks) == 1:

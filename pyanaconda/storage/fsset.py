@@ -752,7 +752,7 @@ class FSSet(object):
 
             fstype = getattr(device.format, "mount_type", device.format.type)
             if fstype == "swap":
-                mountpoint = "swap"
+                mountpoint = "none"
                 options = device.format.options
             else:
                 mountpoint = device.format.mountpoint

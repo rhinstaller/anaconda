@@ -20,8 +20,11 @@
 import unittest
 from unittest.mock import Mock
 
+from pykickstart.constants import CLEARPART_TYPE_NONE
+
 from pyanaconda.core.constants import CLEAR_PARTITIONS_LINUX
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
+from pyanaconda.modules.common.errors.storage import UnavailableStorageError
 from pyanaconda.modules.storage.constants import InitializationMode
 from pyanaconda.modules.storage.disk_initialization import DiskInitializationModule
 from pyanaconda.modules.storage.disk_initialization.initialization_interface import \
@@ -37,22 +40,6 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
         """Set up the module."""
         self.disk_init_module = DiskInitializationModule()
         self.disk_init_interface = DiskInitializationInterface(self.disk_init_module)
-
-    def on_partitioning_changed_test(self):
-        """Smoke test for on_partitioning_changed callback."""
-        mode_changed_callback = Mock()
-        devices_changed_callback = Mock()
-        drives_changed_callback = Mock()
-
-        self.disk_init_module.set_initialization_mode(InitializationMode.CLEAR_NONE)
-        self.disk_init_module.initialization_mode_changed.connect(mode_changed_callback)
-        self.disk_init_module.devices_to_clear_changed.connect(devices_changed_callback)
-        self.disk_init_module.drives_to_clear_changed.connect(drives_changed_callback)
-        self.disk_init_module.on_partitioning_changed(create_storage())
-
-        mode_changed_callback.called_once_with(InitializationMode.CLEAR_NONE)
-        drives_changed_callback.called_once_with([])
-        devices_changed_callback.called_once_with([])
 
     def _test_dbus_property(self, *args, **kwargs):
         check_dbus_property(
@@ -110,3 +97,33 @@ class DiskInitializationInterfaceTestCase(unittest.TestCase):
             "DrivesToClear",
             ["sda", "sdb"]
         )
+
+
+class DiskInitializationModuleTestCase(unittest.TestCase):
+    """Test the disk initialization module."""
+
+    def setUp(self):
+        """Set up the module."""
+        self.disk_init_module = DiskInitializationModule()
+
+    def storage_property_test(self):
+        """Test the storage property."""
+        with self.assertRaises(UnavailableStorageError):
+            self.assertIsNotNone(self.disk_init_module.storage)
+
+        storage = Mock()
+        self.disk_init_module.on_storage_reset(storage)
+        self.assertEqual(self.disk_init_module.storage, storage)
+
+    def setup_kickstart_test(self):
+        """Test setup_kickstart with storage."""
+        storage = create_storage()
+        data = Mock()
+
+        self.disk_init_module.on_storage_reset(storage)
+        self.disk_init_module.set_initialization_mode(InitializationMode.CLEAR_NONE)
+        self.disk_init_module.setup_kickstart(data)
+
+        self.assertEqual(data.clearpart.type, CLEARPART_TYPE_NONE)
+        self.assertEqual(data.clearpart.devices, [])
+        self.assertEqual(data.clearpart.drives, [])

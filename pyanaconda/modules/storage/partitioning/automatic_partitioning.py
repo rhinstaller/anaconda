@@ -53,6 +53,18 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         self._encrypted = encrypted
         self._luks_format_args = luks_format_args or {}
 
+    def _get_initialization_config(self):
+        """Get the initialization config.
+
+        FIXME: This is a temporary method.
+        """
+        config = super()._get_initialization_config()
+        # If autopart is selected we want to remove whatever has been created/scheduled
+        # to make room for autopart. If custom is selected, we want to leave alone any
+        # storage layout the user may have set up before now.
+        config.clear_non_existent = True
+        return config
+
     def _configure_partitioning(self, storage):
         """Configure the partitioning.
 
@@ -117,8 +129,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
         log.debug("scheme: %s", scheme)
         log.debug("requests:\n%s", "".join([str(p) for p in requests]))
         log.debug("encrypted: %s", encrypted)
-        log.debug("clear_part_type: %s", storage.config.clear_part_type)
-        log.debug("clear_part_disks: %s", storage.config.clear_part_disks)
         log.debug("storage.disks: %s", [d.name for d in storage.disks])
         log.debug("storage.partitioned: %s", [d.name for d in storage.partitioned if d.format.supported])
         log.debug("all names: %s", [d.name for d in storage.devices])
@@ -144,8 +154,6 @@ class AutomaticPartitioningTask(NonInteractivePartitioningTask):
 
         # grow LVs
         grow_lvm(storage)
-
-        storage.set_up_bootloader()
 
         # only newly added swaps should appear in the fstab
         new_swaps = (dev for dev in storage.swaps if not dev.format.exists)

@@ -32,8 +32,8 @@ from blivet.iscsi import iscsi
 
 from pyanaconda.flags import flags
 from pyanaconda.core.i18n import CN_, CP_
-from pyanaconda.storage.utils import try_populate_devicetree, get_available_disks, \
-    apply_disk_selection, filter_disks_by_names
+from pyanaconda.storage.utils import try_populate_devicetree, apply_disk_selection, \
+    filter_disks_by_names
 from pyanaconda.storage.snapshot import on_disk_storage
 from pyanaconda.modules.common.constants.objects import DISK_SELECTION
 from pyanaconda.modules.common.constants.services import STORAGE
@@ -646,7 +646,7 @@ class FilterSpoke(NormalSpoke):
     def refresh(self):
         super().refresh()
 
-        self.disks = get_available_disks(self.storage.devicetree)
+        self.disks = self.storage.usable_disks
 
         disk_select_proxy = STORAGE.get_proxy(DISK_SELECTION)
         self.selected_disks = disk_select_proxy.SelectedDisks

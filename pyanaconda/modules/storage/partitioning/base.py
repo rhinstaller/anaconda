@@ -39,6 +39,7 @@ class PartitioningModule(KickstartBaseModule):
         super().__init__()
         self._current_storage = None
         self._storage_playground = None
+        self._selected_disks = []
 
     @property
     def storage(self):
@@ -54,12 +55,17 @@ class PartitioningModule(KickstartBaseModule):
 
         if self._storage_playground is None:
             self._storage_playground = self._current_storage.copy()
+            self._storage_playground.select_disks(self._selected_disks)
 
         return self._storage_playground
 
     def on_storage_reset(self, storage):
         """Keep the instance of the current storage."""
         self._current_storage = storage
+
+    def on_selected_disks_changed(self, selection):
+        """Keep the current disk selection."""
+        self._selected_disks = selection
 
     @abstractmethod
     def configure_with_task(self):
@@ -108,8 +114,8 @@ class PartitioningModule(KickstartBaseModule):
         # as a member when searching for bootloader devices
         bootloader_devices = []
 
-        if storage.bootloader_device is not None:
-            bootloader_devices.append(storage.bootloader_device)
+        if storage.bootloader.stage1_device is not None:
+            bootloader_devices.append(storage.bootloader.stage1_device)
 
         for device in storage.devices:
             if device.format.type == 'biosboot':

@@ -21,9 +21,10 @@ from blivet.errors import NoDisksError
 from blivet.formats.disklabel import DiskLabel
 from pyanaconda.anaconda_loggers import get_module_logger
 
-from pyanaconda.bootloader.execution import BootloaderExecutor
+from pyanaconda.bootloader.execution import setup_bootloader
 from pyanaconda.modules.common.constants.objects import DISK_INITIALIZATION
 from pyanaconda.modules.common.constants.services import STORAGE
+from pyanaconda.modules.storage.disk_initialization import DiskInitializationConfig
 from pyanaconda.modules.storage.partitioning.base_partitioning import PartitioningTask
 
 log = get_module_logger(__name__)
@@ -41,17 +42,23 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
         self._configure_partitioning(storage)
         self._setup_bootloader(storage)
 
-    def _clear_partitions(self, storage):
-        """Clear partitions.
+    def _get_initialization_config(self):
+        """Get the initialization config.
 
-        :param storage: an instance of Blivet
+        FIXME: This is a temporary method.
         """
-        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
-        storage.config.clear_part_type = disk_init_proxy.InitializationMode
-        storage.config.clear_part_disks = disk_init_proxy.DrivesToClear
-        storage.config.clear_part_devices = disk_init_proxy.DevicesToClear
-        storage.config.initialize_disks = disk_init_proxy.InitializeLabelsEnabled
+        config = DiskInitializationConfig()
 
+        # Update the config.
+        disk_init_proxy = STORAGE.get_proxy(DISK_INITIALIZATION)
+        config.initialization_mode = disk_init_proxy.InitializationMode
+        config.drives_to_clear = disk_init_proxy.DrivesToClear
+        config.devices_to_clear = disk_init_proxy.DevicesToClear
+        config.initialize_labels = disk_init_proxy.InitializeLabelsEnabled
+        config.format_unrecognized = disk_init_proxy.FormatUnrecognizedEnabled
+        config.clear_non_existent = False
+
+        # Update the disk label.
         disk_label = disk_init_proxy.DefaultDiskLabel
 
         if disk_label and not DiskLabel.set_default_label_type(disk_label):
@@ -59,7 +66,44 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
                         "Using default disklabel %s instead.", disk_label,
                         DiskLabel.get_platform_label_types()[0])
 
-        storage.clear_partitions()
+        return config
+
+    def _clear_partitions(self, storage):
+        """Clear partitions.
+
+        :param storage: an instance of Blivet
+        """
+        # Set up the initialization config.
+        config = self._get_initialization_config()
+
+        # Sort partitions by descending partition number to minimize confusing
+        # things like multiple "destroy sda5" actions due to parted renumbering
+        # partitions. This can still happen through the UI but it makes sense to
+        # avoid it where possible.
+        partitions = sorted(storage.partitions,
+                            key=lambda p: getattr(p.parted_partition, "number", 1),
+                            reverse=True)
+        for part in partitions:
+            log.debug("Looking at partition: %s", part.name)
+            if not config.can_remove(storage, part):
+                continue
+
+            storage.recursive_remove(part)
+            log.debug("Partitions: %s", [p.name for p in part.disk.children])
+
+        # Now remove any empty extended partitions.
+        storage.remove_empty_extended_partitions()
+
+        # Ensure all disks have appropriate disk labels.
+        for disk in storage.disks:
+            log.debug("Looking at disk: %s", disk.name)
+            if config.can_remove(storage, disk):
+                log.debug("Removing %s.", disk.name)
+                storage.recursive_remove(disk)
+
+            if config.can_initialize(storage, disk):
+                log.debug("Initializing %s.", disk.name)
+                storage.initialize_disk(disk)
 
         # Check the usable disks.
         if not any(d for d in storage.disks if not d.format.hidden and not d.protected):
@@ -70,7 +114,7 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
 
         :param storage: an instance of Blivet
         """
-        BootloaderExecutor().execute(storage, dry_run=True)
+        setup_bootloader(storage, dry_run=True)
 
     @abstractmethod
     def _configure_partitioning(self, storage):
@@ -85,4 +129,4 @@ class NonInteractivePartitioningTask(PartitioningTask, metaclass=ABCMeta):
 
         :param storage: an instance of Blivet
         """
-        storage.set_up_bootloader()
+        setup_bootloader(storage)

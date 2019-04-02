@@ -35,6 +35,7 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         self.watch_property("ExclusiveDisks", self.implementation.exclusive_disks_changed)
         self.watch_property("IgnoredDisks", self.implementation.ignored_disks_changed)
         self.watch_property("ProtectedDevices", self.implementation.protected_devices_changed)
+        self.watch_property("DiskImages", self.implementation.disk_images_changed)
 
     @property
     def SelectedDisks(self) -> List[Str]:
@@ -101,3 +102,23 @@ class DiskSelectionInterface(KickstartModuleInterfaceTemplate):
         :param devices: a list of device names
         """
         self.implementation.set_protected_devices(devices)
+
+    @property
+    def DiskImages(self) -> Dict[Str, Str]:
+        """The dictionary of disk images."""
+        return self.implementation.disk_images
+
+    @emits_properties_changed
+    def SetDiskImages(self, disk_images: Dict[Str, Str]):
+        """Set the dictionary of disk images.
+
+        :param disk_images: a dictionary of image names and file names
+        """
+        self.implementation.set_disk_images(disk_images)
+
+    def GetUsableDisks(self):
+        """Get a list of disks that can be used for the installation.
+
+        :return: a list of disk names
+        """
+        return self.implementation.get_usable_disks()
